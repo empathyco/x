@@ -39,6 +39,26 @@ export function getDisplayTaggingInfoFromUrl(displayTaggingUrl: string): Tagging
 }
 
 /**
+ * Generates the displayClick tagging info.
+ *
+ * @param taggingUrl - The url containing the displayClick tagging info.
+ * @param toolingType - The url containing the displayClick tagging info.
+ * @returns The object with the tagging info.
+ *
+ * @public
+ */
+export function getToolingDisplayClickTaggingInfoFromUrl(
+  taggingUrl: string,
+  toolingType: string
+): TaggingRequest {
+  const displayClickTagging = getTaggingInfoFromUrl(taggingUrl);
+
+  displayClickTagging.url = displayClickTagging.url.replace('toolingDisplay', toolingType);
+
+  return displayClickTagging;
+}
+
+/**
  * Returns the base url path and an object with the query parameters.
  *
  * @param url - The url string to manipulate.

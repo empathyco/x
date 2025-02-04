@@ -1,4 +1,4 @@
-import { SemanticQuery, Taggable, Tagging, TaggingRequest } from '@empathyco/x-types';
+import { Result, SemanticQuery, Taggable, Tagging, TaggingRequest } from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
@@ -175,6 +175,20 @@ export const trackAddToCartWire = createTrackWire('add2cart');
 export const trackDisplayClickedWire = createTrackDisplayWire('displayClick');
 
 /**
+ * Performs a track of a display result being clicked.
+ *
+ * @public
+ */
+export const trackToolingDisplayClickedWire = createTrackToolingDisplayWire();
+
+/**
+ * Performs a track of a display result being clicked.
+ *
+ * @public
+ */
+export const trackToolingAdd2CartWire = createTrackToolingAdd2CartWire();
+
+/**
  * Performs a track of a display element appearing.
  *
  * @public
@@ -259,6 +273,52 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
 }
 
 /**
+ * Factory helper to create a wire for the track of the tooling display click.
+ *
+ * @returns A new wire for the tooling display click of the taggable element.
+ *
+ * @public
+ */
+export function createTrackToolingDisplayWire(): Wire<Taggable> {
+  return filter(
+    wireDispatch('track', ({ eventPayload, metadata }) => {
+      const taggingInfo: TaggingRequest = metadata.toolingTagging as TaggingRequest;
+      const resultInfo = eventPayload as Result;
+
+      taggingInfo.params.productId = resultInfo.id;
+      taggingInfo.params.title = resultInfo.name!;
+      taggingInfo.params.url = resultInfo.url!;
+
+      return taggingInfo;
+    }),
+    ({ metadata }) => !!metadata?.toolingTagging
+  );
+}
+
+/**
+ * Factory helper to create a wire for the track of the tooling display click.
+ *
+ * @returns A new wire for the tooling display click of the taggable element.
+ *
+ * @public
+ */
+export function createTrackToolingAdd2CartWire(): Wire<Taggable> {
+  return filter(
+    wireDispatch('track', ({ eventPayload, metadata }) => {
+      const taggingInfo: TaggingRequest = metadata.toolingAdd2CartTagging as TaggingRequest;
+      const resultInfo = eventPayload as Result;
+
+      taggingInfo.params.productId = resultInfo.id;
+      taggingInfo.params.title = resultInfo.name!;
+      taggingInfo.params.url = resultInfo.url!;
+
+      return taggingInfo;
+    }),
+    ({ metadata }) => !!metadata?.toolingAdd2CartTagging
+  );
+}
+
+/**
  * Factory helper to create a wire to set the queryTagging.
  *
  * @returns A new wire for the query of a result of a queryPreview.
@@ -328,5 +388,11 @@ export const taggingWiring = createWiring({
   },
   ModuleRegistered: {
     setNoResultsTaggingEnabledWire
+  },
+  UserClickedARelatedPromptResult: {
+    trackToolingDisplayClickedWire
+  },
+  UserClickedARelatedPromptAdd2Cart: {
+    trackToolingAdd2CartWire
   }
 });

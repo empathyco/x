@@ -393,34 +393,53 @@
                               :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
                               class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
                             />
-                            <QueryPreviewList
-                              v-if="selectedPrompt !== ''"
-                              :queries-preview-info="relatedPromptsQueriesPreviewInfo"
-                              v-slot="{ queryPreviewInfo, totalResults, results }"
-                              queryFeature="related-prompts"
-                            >
-                              <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                                <QueryPreviewButton
-                                  :query-preview-info="queryPreviewInfo"
-                                  class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:x-px-16"
-                                >
-                                  {{ queryPreviewInfo.query }}
-                                  ({{ totalResults }})
-                                  <ArrowRightIcon class="x-icon-lg" />
-                                </QueryPreviewButton>
-                                <SlidingPanel :resetOnContentChange="false">
-                                  <div class="x-flex x-gap-8">
-                                    <Result
-                                      v-for="result in results"
-                                      :key="result.id"
-                                      :result="result"
-                                      style="max-width: 180px"
-                                      data-test="semantic-query-result"
-                                    />
-                                  </div>
-                                </SlidingPanel>
-                              </div>
-                            </QueryPreviewList>
+                            <LocationProvider location="related-prompts">
+                              <QueryPreviewList
+                                v-if="selectedPrompt !== -1"
+                                :queries-preview-info="relatedPromptsQueriesPreviewInfo"
+                                v-slot="{ queryPreviewInfo, totalResults, results }"
+                                queryFeature="related-prompts"
+                              >
+                                <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                                  <QueryPreviewButton
+                                    :query-preview-info="queryPreviewInfo"
+                                    class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:x-px-16"
+                                  >
+                                    {{ queryPreviewInfo.query }}
+                                    ({{ totalResults }})
+                                    <ArrowRightIcon class="x-icon-lg" />
+                                  </QueryPreviewButton>
+                                  <DisplayEmitter
+                                    :payload="getToolingDisplayTagging(queryPreviewInfo)"
+                                    :eventMetadata="{
+                                      feature: 'related-prompts',
+                                      displayOriginalQuery: x.query.searchBox
+                                    }"
+                                  >
+                                    <SlidingPanel :resetOnContentChange="false">
+                                      <DisplayClickProvider
+                                        :tooling-display-tagging="
+                                          getToolingDisplayClickTagging(queryPreviewInfo)
+                                        "
+                                        :tooling-add2-cart-tagging="
+                                          getToolingAdd2CartTagging(queryPreviewInfo)
+                                        "
+                                      >
+                                        <div class="x-flex x-gap-8">
+                                          <Result
+                                            v-for="result in results"
+                                            :key="result.id"
+                                            :result="result"
+                                            style="max-width: 180px"
+                                            data-test="semantic-query-result"
+                                          />
+                                        </div>
+                                      </DisplayClickProvider>
+                                    </SlidingPanel>
+                                  </DisplayEmitter>
+                                </div>
+                              </QueryPreviewList>
+                            </LocationProvider>
                           </template>
                         </BaseVariableColumnGrid>
                       </RelatedPromptsList>
@@ -519,7 +538,7 @@
 <script lang="ts">
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide, ref } from 'vue';
-  import { RelatedPrompt } from '@empathyco/x-types';
+  import { RelatedPromptNextQuery, TaggingRequest } from '@empathyco/x-types';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -590,12 +609,14 @@
   import Result from './result.vue';
   import { HomeControls } from './types';
   import DisplayResultProvider from './display-result-provider.vue';
+  import DisplayClickProvider from './display-click-provider.vue';
 
   export default defineComponent({
     directives: {
       infiniteScroll
     },
     components: {
+      DisplayClickProvider,
       Aside,
       AutoProgressBar,
       ArrowRightIcon,
@@ -712,24 +733,51 @@
 
       provide('controls', controls);
 
-      const { relatedPrompts } = useState('relatedPrompts', ['relatedPrompts']);
-
-      const relatedPromptsProducts = computed(
-        (): RelatedPrompt[] => relatedPrompts.value[x.query.search]?.relatedPromptsProducts
-      );
-
-      const selectedPrompt = computed(() => relatedPrompts.value[x.query.search]?.selectedPrompt);
+      const { relatedPrompts, selectedPrompt } = useState('relatedPrompts', [
+        'relatedPrompts',
+        'selectedPrompt'
+      ]);
 
       const relatedPromptsQueriesPreviewInfo = computed(() => {
-        if (relatedPromptsProducts.value) {
-          const relatedPromptQueries = relatedPromptsProducts.value.find(
-            (relatedPrompt: RelatedPrompt) => relatedPrompt.id === selectedPrompt.value
+        if (relatedPrompts.value) {
+          const queries = [] as string[];
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.forEach(
+            (nextQuery: RelatedPromptNextQuery) => queries.push(nextQuery.query)
           );
-          const queries = relatedPromptQueries?.nextQueries as string[];
           return queries.map(query => ({ query }));
         }
         return [];
       });
+
+      const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
+        const query = computed(() => queryPreviewInfo.query);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
+          nextQuery => nextQuery.query === query.value
+        );
+        return nextQuery.toolingDisplayTagging;
+      };
+
+      const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
+        const query = computed(() => queryPreviewInfo.query);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
+          nextQuery => nextQuery.query === query.value
+        );
+        return nextQuery.toolingDisplayAdd2CartTagging;
+      };
+
+      const getToolingDisplayClickTagging = (
+        queryPreviewInfo: QueryPreviewInfo
+      ): TaggingRequest => {
+        const query = computed(() => queryPreviewInfo.query);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
+          nextQuery => nextQuery.query === query.value
+        );
+        return nextQuery.toolingDisplayClickTagging;
+      };
 
       const queriesPreviewInfo: QueryPreviewInfo[] = [
         {
@@ -774,8 +822,12 @@
         x,
         mainScrollDirection,
         relatedPromptsQueriesPreviewInfo,
+        relatedPrompts,
         selectedPrompt,
-        referenceSelector
+        referenceSelector,
+        getToolingDisplayTagging,
+        getToolingDisplayClickTagging,
+        getToolingAdd2CartTagging
       };
     }
   });

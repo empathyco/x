@@ -38,12 +38,21 @@
               name="related-prompt-button"
               v-bind="{ suggestion, index, arePromptsVisible, isSelected }"
             >
-              <RelatedPrompt
-                :related-prompt="suggestion"
-                :index="index"
-                :is-prompt-visible="arePromptsVisible"
-                :is-selected="isSelected(index)"
-              />
+              <DisplayEmitter
+                :payload="suggestion.toolingDisplayTagging"
+                :eventMetadata="{
+                  feature: 'related-prompts',
+                  displayOriginalQuery: x.query.searchBox,
+                  replaceable: false
+                }"
+              >
+                <RelatedPrompt
+                  :related-prompt="suggestion"
+                  :index="index"
+                  :is-prompt-visible="arePromptsVisible"
+                  :is-selected="isSelected(index)"
+                />
+              </DisplayEmitter>
             </slot>
           </div>
         </div>
@@ -59,13 +68,14 @@
   import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
-  import { useState } from '../../../composables/index';
+  import { use$x, useState } from '../../../composables/index';
+  import DisplayEmitter from '../../../components/display-emitter.vue';
   import RelatedPrompt from './related-prompt.vue';
 
   export default defineComponent({
     name: 'RelatedPromptsTagList',
     xModule: relatedPromptsXModule.name,
-    components: { RelatedPrompt, SlidingPanel },
+    components: { DisplayEmitter, RelatedPrompt, SlidingPanel },
     props: {
       buttonClass: String
     },
@@ -101,7 +111,8 @@
         isSelected,
         relatedPrompts,
         selectedPrompt,
-        slidingPanelContent
+        slidingPanelContent,
+        x: use$x()
       };
     }
   });

@@ -1,4 +1,4 @@
-import { RelatedPromptsRequest } from '@empathyco/x-types';
+import { RelatedPromptsRequest, Result } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of RelatedPrompts XModule, where each key is the event name,
@@ -23,4 +23,14 @@ export interface RelatedPromptsXEvents {
    * Payload: The index of the next query in the NextQueries list or -1 to remove selection.
    */
   UserSelectedARelatedPromptQuery: number;
+  /**
+   * The user has clicked one prompt.
+   * Payload: The result that the user clicked.
+   */
+  UserClickedARelatedPromptResult: Result;
+  /**
+   * The user has clicked one add to cart from a prompt.
+   * Payload: The result that the user clicked.
+   */
+  UserClickedARelatedPromptAdd2Cart: Result;
 }
