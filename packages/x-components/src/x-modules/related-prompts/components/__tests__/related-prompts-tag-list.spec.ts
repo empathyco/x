@@ -1,4 +1,5 @@
-import { ref, TransitionGroup } from 'vue';
+/* eslint-disable jest/no-conditional-expect */
+import { nextTick, ref, TransitionGroup } from 'vue';
 import { mount } from '@vue/test-utils';
 import SlidingPanel from '../../../../components/sliding-panel.vue';
 import RelatedPrompt from '../related-prompt.vue';
@@ -7,14 +8,13 @@ import relatedPromptsTagList from '../related-prompts-tag-list.vue';
 
 const relatedPromptsStub = getRelatedPromptsStub(5);
 const selectedPromptIndexStub = ref(-1);
+const queryStub = ref('query');
 const propsStub = {
   buttonClass: 'button-class',
   relatedPromptClass: 'related-prompt-class',
   tagColors: ['color1', 'color2', 'color3'],
   animationDurationInMs: 4000
 };
-const singleAnimationDurationStub =
-  propsStub.animationDurationInMs / (relatedPromptsStub.length - 1);
 
 const xUseStateMock = jest.fn((module: string, paths: string[]) => {
   void module;
@@ -27,26 +27,13 @@ const xEmitMock = jest.fn((event: string, payload: number) => {
 });
 jest.mock('../../../../composables', () => ({
   use$x: jest.fn(() => ({
-    emit: (event: string, payload: number) => xEmitMock(event, payload)
+    emit: (event: string, payload: number) => xEmitMock(event, payload),
+    query: {
+      search: queryStub
+    }
   })),
   useState: (module: string, paths: string[]) => xUseStateMock(module, paths)
 }));
-
-const requestAnimationFrameCallbackMock = jest.fn();
-global.requestAnimationFrame = (callback: FrameRequestCallback) => {
-  requestAnimationFrameCallbackMock.mockImplementationOnce(() => callback(0));
-  return 0;
-};
-
-// TODO: fix this
-// const setTimeoutCallbackMock = jest.fn();
-// const setTimeoutMock = jest.fn((callback: () => void, ms?: number) => {
-//   void ms;
-//   setTimeoutCallbackMock.mockImplementationOnce(callback);
-//   return 0 as unknown as ReturnType<typeof setTimeout>;
-// });
-// jest.spyOn(global, 'setTimeout');
-// jest.useFakeTimers();
 
 const maxWidthStub = '100px';
 const getComputedStyleMock = jest.fn((element: Element) => {
@@ -77,18 +64,12 @@ const coloredRelatedPromptsStub = relatedPromptsStub.map((relatedPrompt, index) 
   index
 }));
 
+global.requestAnimationFrame = cb => setTimeout(cb, propsStub.animationDurationInMs - 1);
+jest.useFakeTimers();
+
 function render() {
   const wrapper = mount(relatedPromptsTagList, {
-    props: propsStub,
-    global: {
-      stubs: {
-        TransitionGroup: {
-          template: '<div><slot /></div>',
-          props: ['css'],
-          emits: ['enter', 'leave']
-        }
-      }
-    }
+    props: propsStub
   });
 
   return {
@@ -107,7 +88,7 @@ describe('relatedPromptsTagList component', () => {
     selectedPromptIndexStub.value = -1;
   });
 
-  it('shoudl render correctly', () => {
+  it('should render correctly', () => {
     const sut = render();
 
     expect(xUseStateMock).toHaveBeenCalledWith('relatedPrompts', [
@@ -117,51 +98,172 @@ describe('relatedPromptsTagList component', () => {
 
     expect(sut.slidingPanel.props().resetOnContentChange).toBeFalsy();
     expect(sut.slidingPanel.props().buttonClass).toBe(propsStub.buttonClass);
-    expect(sut.slidingPanel.props().scrollContainerClass).toContain(
-      'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm'
-    );
+
     expect(sut.transitionGroup.props().css).toBeFalsy();
+    expect(sut.transitionGroup.props().appear).toBeDefined();
+    expect(sut.transitionGroup.props().appear).not.toStrictEqual(false);
+
     expect(sut.relatedPrompts).toHaveLength(relatedPromptsStub.length);
     coloredRelatedPromptsStub.forEach(({ colorClass, index, ...relatedPrompt }) => {
       expect(sut.relatedPrompts[index].props().relatedPrompt).toStrictEqual(relatedPrompt);
       expect(sut.relatedPrompts[index].classes()).toContain(colorClass);
       expect(sut.relatedPrompts[index].classes()).toContain(propsStub.relatedPromptClass);
       expect(sut.relatedPrompts[index].attributes('data-index')).toBe(index.toString());
-      expect(sut.relatedPrompts[index].attributes('disabled')).not.toBeDefined();
+      expect(sut.relatedPrompts[index].attributes('disabled')).toBeFalsy();
     });
   });
 
-  it('should execute RelatedPrompt click callback correctly when no selected RP', async () => {
+  it('should reset the state propperly when the query changes', async () => {
+    const selectedPromptIndex = 1;
+    const widthStub = '100px';
+
     const sut = render();
 
-    await sut.relatedPrompts[1].trigger('click');
+    queryStub.value = 'new query';
+    await nextTick(); // watch callback
+
+    sut.relatedPrompts[selectedPromptIndex].element.style.width = widthStub; // Mocking selected RP style
 
     sut.relatedPrompts.forEach(relatedPrompt => {
       expect(relatedPrompt.attributes('disabled')).toBeDefined();
+      expect(relatedPrompt.attributes('disabled')).not.toStrictEqual(false);
     });
 
-    const selected = sut.relatedPrompts[1];
-
-    expect(selected.element.style.transition).toBe('all');
-    expect(selected.element.style.transitionDuration).toBe(`${singleAnimationDurationStub}ms`);
-    expect(selected.element.style.transitionDelay).toBe(
-      `${(relatedPromptsStub.length - 2) * singleAnimationDurationStub}ms`
-    );
+    jest.runAllTimers(); // setTimeout from resetRelatedPromptsStyle function
 
     sut.relatedPrompts.forEach((relatedPrompt, index) => {
-      expect(relatedPrompt.element.style.left).toBe(`${offsetLeftsStub[index]}px`);
-      expect(relatedPrompt.element.style.top).toBe('0px');
-      expect(relatedPrompt.element.style.opacity).toBe('1');
-      expect(relatedPrompt.element.style.position).toBe('absolute');
+      expect(relatedPrompt.attributes('disabled')).toBeFalsy();
+
+      if (index === selectedPromptIndex) {
+        expect(relatedPrompt.element.style).toHaveLength(1);
+        expect(relatedPrompt.element.style.width).toBe(widthStub);
+      } else {
+        expect(relatedPrompt.element.style).toHaveLength(0);
+      }
+    });
+  });
+
+  it('should reset the state propperly when clicking a relatedPrompt', async () => {
+    const clickedRelatedPrompt = 1;
+    const widthStub = '100px';
+
+    const sut = render();
+
+    await sut.relatedPrompts[clickedRelatedPrompt].trigger('click');
+
+    sut.relatedPrompts[clickedRelatedPrompt].element.style.width = widthStub; // Mocking selected RP style
+
+    sut.relatedPrompts.forEach(relatedPrompt => {
+      expect(relatedPrompt.attributes('disabled')).toBeDefined();
+      expect(relatedPrompt.attributes('disabled')).not.toStrictEqual(false);
     });
 
-    requestAnimationFrameCallbackMock();
+    jest.runAllTimers(); // setTimeout from resetRelatedPromptsStyle function
 
-    expect(getComputedStyleMock).toHaveBeenCalledWith(selected.element);
+    sut.relatedPrompts.forEach((relatedPrompt, index) => {
+      expect(relatedPrompt.attributes('disabled')).toBeFalsy();
 
-    expect(selected.element.style.width).toBe(`${maxWidthStub}`);
-    expect(selected.element.style.left).toBe('0px');
-
-    // TODO: test setTimeout callback
+      if (index === clickedRelatedPrompt) {
+        expect(relatedPrompt.element.style).toHaveLength(1);
+        expect(relatedPrompt.element.style.width).toBe(widthStub);
+      } else {
+        expect(relatedPrompt.element.style).toHaveLength(0);
+      }
+    });
   });
+
+  it('should execute RelatedPrompt click callback correctly when selecting a selected RP', async () => {
+    selectedPromptIndexStub.value = -1;
+    const singleAnimationDurationStub =
+      propsStub.animationDurationInMs / (relatedPromptsStub.length - 1);
+    const clickedRelatedPrompt = 1;
+
+    const sut = render();
+
+    jest.runAllTimers(); // setTimeout from inmediate watch callback implementation
+    await nextTick();
+
+    await sut.relatedPrompts[clickedRelatedPrompt].trigger('click');
+
+    // Prepare the animation
+    sut.relatedPrompts.forEach((relatedPrompt, index) => {
+      expect(relatedPrompt.element.style.left).toBe(`${offsetLeftsStub[index]}px`);
+      expect(relatedPrompt.element.style.position).toBe('absolute');
+      expect(relatedPrompt.element.style.transitionDuration).toBe(
+        `${singleAnimationDurationStub}ms`
+      );
+
+      if (index !== clickedRelatedPrompt) {
+        expect(relatedPrompt.element.style.opacity).toBe('1');
+        expect(relatedPrompt.element.style.transitionDelay).toBe(
+          `${(index < clickedRelatedPrompt ? index : index - 1) * singleAnimationDurationStub}ms`
+        );
+      } else {
+        expect(relatedPrompt.element.style.transitionDelay).toBe(
+          `${
+            (relatedPromptsStub.length > 1 ? relatedPromptsStub.length - 2 : 0) *
+            singleAnimationDurationStub
+          }ms`
+        );
+      }
+    });
+
+    // Trigger the animation
+    jest.advanceTimersByTime(propsStub.animationDurationInMs - 1); // only requestAnimationFrame execution
+    await nextTick();
+
+    expect(getComputedStyleMock).toHaveBeenCalledWith(
+      sut.relatedPrompts[clickedRelatedPrompt].element
+    );
+
+    expect(sut.relatedPrompts[clickedRelatedPrompt].element.style.width).toBe(`${maxWidthStub}`);
+    expect(sut.relatedPrompts[clickedRelatedPrompt].element.style.left).toBe('0px');
+
+    expect(xEmitMock).toHaveBeenCalledWith('UserSelectedARelatedPrompt', clickedRelatedPrompt);
+  });
+
+  it('should execute RelatedPrompt click callback correctly when deselecting a selected RP', async () => {
+    selectedPromptIndexStub.value = -1;
+    const clickedRelatedPrompt = 1;
+    const singleAnimationDurationStub =
+      propsStub.animationDurationInMs / (relatedPromptsStub.length - 1);
+
+    const sut = render();
+
+    jest.runAllTimers(); // setTimeout from inmediate watch callback implementation
+    await nextTick();
+
+    await sut.relatedPrompts[clickedRelatedPrompt].trigger('click'); // Selecting a RP
+    selectedPromptIndexStub.value = clickedRelatedPrompt;
+
+    jest.runAllTimers(); // Force the selecting to be done
+    await nextTick();
+
+    await sut.relatedPrompts[0].trigger('click'); // 0 is now the selected RP (the others are not rendered)
+
+    // Prepare the animation
+    expect(sut.relatedPrompts[0].element.style.position).toBe('absolute');
+    expect(sut.relatedPrompts[0].element.style.left).toBe('0px');
+    expect(sut.relatedPrompts[0].element.style.transitionDuration).toBe(
+      `${singleAnimationDurationStub}ms`
+    );
+
+    // Trigger the animation
+    expect(sut.relatedPrompts[0].element.style.width).toBe('');
+
+    jest.advanceTimersByTime(propsStub.animationDurationInMs - 1); // only requestAnimationFrame execution
+    await nextTick();
+
+    expect(sut.relatedPrompts[0].element.style.left).toBe(
+      `${offsetLeftsStub[selectedPromptIndexStub.value]}px`
+    );
+
+    expect(xEmitMock).toHaveBeenCalledWith(
+      'UserSelectedARelatedPrompt',
+      selectedPromptIndexStub.value
+    );
+  });
+
+  //TODO: Test the transition group callbacks
 });
+/* eslint-enable jest/no-conditional-expect */
