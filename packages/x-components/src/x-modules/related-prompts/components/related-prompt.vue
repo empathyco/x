@@ -1,5 +1,5 @@
 <template>
-  <button class="x-related-prompt" aria-pressed="true" tabindex="0">
+  <button class="x-related-prompt">
     <slot name="extra-content" />
     <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
     <component
@@ -51,6 +51,7 @@
     text-align: start;
     padding: 8px;
     height: 100%;
+    width: 100%;
   }
   .x-related-prompt-icon {
     align-self: start;

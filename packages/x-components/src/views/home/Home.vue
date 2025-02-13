@@ -391,10 +391,21 @@
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
                               :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
-                              :related-prompt-class="'x-p-20 x-rounded-xl x-w-[300px] x-max-w-[400px] x-gap-8'"
-                              :tag-colors="['x-bg-amber-300', 'x-bg-amber-400', 'x-bg-amber-500']"
                               class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0 x-h-[70px]"
-                            />
+                              tag-class="x-rounded-xl x-gap-8 x-w-[300px]
+                          x-max-w-[400px]"
+                              :tag-colors="['x-bg-amber-300', 'x-bg-amber-400', 'x-bg-amber-500']"
+                            >
+                              <template #default="{ relatedPrompt, isSelected, onSelect }">
+                                <RelatedPrompt
+                                  @click="onSelect"
+                                  :related-prompt="relatedPrompt"
+                                  :selected="isSelected"
+                                  data-wysiwyg="related-prompt"
+                                  :data-wysiwyg-id="relatedPrompt.suggestionText"
+                                />
+                              </template>
+                            </RelatedPromptsTagList>
                             <QueryPreviewList
                               v-if="selectedPrompt !== ''"
                               :queries-preview-info="relatedPromptsQueriesPreviewInfo"
@@ -521,7 +532,7 @@
 <script lang="ts">
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide, ref } from 'vue';
-  import { RelatedPrompt } from '@empathyco/x-types';
+  import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -584,6 +595,7 @@
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
+  import RelatedPrompt from '../../x-modules/related-prompts/components/related-prompt.vue';
   import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
   import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue';
   import ArrowRightIcon from '../../components/icons/arrow-right.vue';
@@ -627,6 +639,7 @@
       NextQueriesList,
       NextQuery,
       NextQueryPreview,
+      RelatedPrompt,
       RelatedPromptsList,
       RelatedPromptsTagList,
       OpenMainModal,
@@ -717,7 +730,7 @@
       const { relatedPrompts } = useState('relatedPrompts', ['relatedPrompts']);
 
       const relatedPromptsProducts = computed(
-        (): RelatedPrompt[] => relatedPrompts.value[x.query.search]?.relatedPromptsProducts
+        (): RelatedPromptModel[] => relatedPrompts.value[x.query.search]?.relatedPromptsProducts
       );
 
       const selectedPrompt = computed(() => relatedPrompts.value[x.query.search]?.selectedPrompt);
@@ -725,7 +738,7 @@
       const relatedPromptsQueriesPreviewInfo = computed(() => {
         if (relatedPromptsProducts.value) {
           const relatedPromptQueries = relatedPromptsProducts.value.find(
-            (relatedPrompt: RelatedPrompt) => relatedPrompt.id === selectedPrompt.value
+            (relatedPrompt: RelatedPromptModel) => relatedPrompt.id === selectedPrompt.value
           );
           const queries = relatedPromptQueries?.nextQueries as string[];
           return queries.map(query => ({ query }));

@@ -14,24 +14,32 @@
       @leave="onLeave"
       class="x-related-prompts-tag-list"
       :css="false"
-      tag="div"
+      tag="ul"
       appear
     >
-      <RelatedPrompt
-        v-for="{ colorClass, index, ...relatedPrompt } in visibleRelatedPrompts"
-        ref="relatedPromptComponents"
+      <li
+        v-for="{ index, ...relatedPrompt } in visibleRelatedPrompts"
+        ref="listItems"
         :key="relatedPrompt.suggestionText"
-        @click="onSelect(index)"
-        :related-prompt="relatedPrompt"
-        :selected="isSelected(index)"
-        :class="[relatedPromptClass, colorClass]"
+        class="x-related-prompts-tag-list-item"
+        :class="[tagClass, tagColors && tagColors[index % tagColors.length]]"
         :data-index="index"
-        :disabled="isAnimating"
+        :style="isAnimating && { pointerEvents: 'none' }"
+        data-test="related-prompts-tag-list-item"
       >
-        <template #extra-content>
-          <slot name="related-prompt-extra-content" v-bind="{ relatedPrompt }" />
-        </template>
-      </RelatedPrompt>
+        <slot
+          :index="index"
+          :relatedPrompt="relatedPrompt"
+          :onSelect="() => onSelect(index)"
+          :isSelected="isSelected(index)"
+        >
+          <RelatedPrompt
+            @click="onSelect(index)"
+            :related-prompt="relatedPrompt"
+            :selected="isSelected(index)"
+          />
+        </slot>
+      </li>
     </transition-group>
     <template #sliding-panel-right-button>
       <slot name="sliding-panel-right-button" />
@@ -53,14 +61,11 @@
     components: { RelatedPrompt, SlidingPanel },
     props: {
       buttonClass: String,
-      relatedPromptClass: String,
-      tagColors: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-bg-amber-100', 'x-bg-amber-200', 'x-bg-amber-300']
-      },
+      tagClass: String,
+      tagColors: Array as PropType<string[]>,
       animationDurationInMs: {
         type: Number,
-        default: 700
+        default: 2000
       }
     },
     setup(props) {
@@ -70,37 +75,34 @@
         'selectedPrompt'
       ]);
 
-      const clickedRelatedPromptIndex = ref<number | null>(null);
+      const clickedListItemIndex = ref<number | null>(null);
       const initialOffsetLefts: Record<number, number> = {};
       const isAnimating = ref(false);
-      const relatedPromptComponents = ref<InstanceType<typeof RelatedPrompt>[]>([]);
+      const listItems = ref<HTMLElement[]>([]);
 
-      const relatedPromptElements = computed<HTMLElement[]>(() =>
-        relatedPromptComponents.value
-          .map(component => component.$el)
-          .sort(
-            (a: HTMLElement, b: HTMLElement) =>
-              Number.parseInt(b.getAttribute('data-index')!) -
-              Number.parseInt(a.getAttribute('data-index')!)
-          )
+      const sortedListItems = computed<HTMLElement[]>(() =>
+        [...listItems.value].sort(
+          (a: HTMLElement, b: HTMLElement) =>
+            Number.parseInt(b.getAttribute('data-index')!) -
+            Number.parseInt(a.getAttribute('data-index')!)
+        )
       );
 
       // The duration of a single animation (enter or leave) in milliseconds
-      // if a related prompt is clicked (clickedRelatedPromptIndex.value !== null), the duration is divided by the number of related
+      // if a related prompt is clicked (clickedListItemIndex.value !== null), the duration is divided by the number of related
       // prompts -1 (the clicked one is synchronized with the last one to leave or the first one to enter)
       const singleAnimationDurationInMs = computed(
         () =>
           props.animationDurationInMs /
-          (clickedRelatedPromptIndex.value !== null
+          (clickedListItemIndex.value !== null
             ? relatedPrompts.value.length - 1
             : relatedPrompts.value.length)
       );
 
-      const coloredRelatedPrompts = computed(() =>
+      const indexRelatedPrompts = computed(() =>
         (relatedPrompts.value as RelatedPromptModel[]).map(
           (relatedPrompt: RelatedPromptModel, index: number) => ({
             ...relatedPrompt,
-            colorClass: props.tagColors[index % props.tagColors.length],
             index
           })
         )
@@ -108,35 +110,39 @@
 
       const visibleRelatedPrompts = computed(() => {
         return selectedPromptIndex.value !== -1
-          ? [coloredRelatedPrompts.value[selectedPromptIndex.value]]
-          : coloredRelatedPrompts.value;
+          ? [indexRelatedPrompts.value[selectedPromptIndex.value]]
+          : indexRelatedPrompts.value;
       });
 
       let timeOutId: number;
-      const resetRelatedPromptsStyle = () => {
+      const resetTransitionStyle = () => {
         if (timeOutId) {
           clearTimeout(timeOutId);
         }
+
         isAnimating.value = true;
         timeOutId = +setTimeout(() => {
           isAnimating.value = false;
-          clickedRelatedPromptIndex.value = null;
+          clickedListItemIndex.value = null;
 
-          relatedPromptElements.value.forEach(element => {
-            Object.keys(element.style).forEach(property => {
-              if (property !== 'width') {
-                element.style.removeProperty(property);
-              }
-            });
+          sortedListItems.value.forEach(element => {
+            element.style.cssText
+              .split(';')
+              .map(rule => rule.split(':')[0]?.trim())
+              .forEach(property => {
+                if (property !== 'width') {
+                  element.style.removeProperty(property);
+                }
+              });
           });
         }, props.animationDurationInMs);
       };
 
       const onSelect = (selectedIndex: number): void => {
-        resetRelatedPromptsStyle();
+        resetTransitionStyle();
 
-        clickedRelatedPromptIndex.value = selectedIndex;
-        const selected: HTMLElement = relatedPromptElements.value.find(
+        clickedListItemIndex.value = selectedIndex;
+        const selected: HTMLElement = sortedListItems.value.find(
           element => Number.parseInt(element.getAttribute('data-index')!) === selectedIndex
         )!;
 
@@ -144,7 +150,7 @@
         if (selectedPromptIndex.value === -1) {
           // Prepare all the elements for the leave animation (~ 'beforeLeave' hook). Remember the elements are
           // sorted in descending order by index.
-          relatedPromptElements.value.forEach(element => {
+          sortedListItems.value.forEach(element => {
             const index = Number.parseInt(element.getAttribute('data-index')!);
 
             initialOffsetLefts[index] = element.offsetLeft;
@@ -179,6 +185,7 @@
             );
           });
         } else {
+          // Prepare the selected element for the deselecting animation
           selected.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
           selected.style.left = '0px';
           selected.style.position = 'absolute';
@@ -201,7 +208,7 @@
         element.style.opacity = '0';
         element.style.transform = 'translateY(5px)';
         element.style.transitionDelay = `${
-          (clickedRelatedPromptIndex.value !== null && index > clickedRelatedPromptIndex.value
+          (clickedListItemIndex.value !== null && index > clickedListItemIndex.value
             ? index - 1
             : index) * singleAnimationDurationInMs.value
         }ms`;
@@ -243,7 +250,7 @@
 
       // Changing the query will trigger the appear animation, so we need to reset the
       // style after it finishes
-      watch(() => x.query.search, resetRelatedPromptsStyle, { immediate: true });
+      watch(() => x.query.search, resetTransitionStyle, { immediate: true });
 
       return {
         isSelected,
@@ -253,7 +260,7 @@
         onLeave,
         selectedPromptIndex,
         visibleRelatedPrompts,
-        relatedPromptComponents,
+        listItems,
         isAnimating,
         x
       };
@@ -269,5 +276,8 @@
     display: flex;
     gap: 16px;
     min-width: 100%;
+  }
+  .x-related-prompts-tag-list-item {
+    height: 100%;
   }
 </style>
