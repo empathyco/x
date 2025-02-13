@@ -9,6 +9,26 @@ export interface PlatformRelatedPrompt {
   nextQueries: string[];
   suggestionText: string;
   type: 'SYNTHETIC' | 'CURATED';
-  taggingUri: string;
-  nextQueriesTaggingUris: Dictionary<string>;
+  tagging: PlatformRelatedPromptTagging;
+}
+
+/**
+ * Related prompt model for the `platform` API.
+ *
+ * @public
+ */
+export interface PlatformRelatedPromptTagging {
+  toolingDisplay: string;
+  nextQueries: Dictionary<PlatformRelatedPromptNextQueriesTagging>;
+}
+
+/**
+ * Related prompt model for the `platform` API.
+ *
+ * @public
+ */
+export interface PlatformRelatedPromptNextQueriesTagging {
+  toolingDisplay: string;
+  toolingDisplayClick: string;
+  toolingDisplayAdd2Cart: string;
 }

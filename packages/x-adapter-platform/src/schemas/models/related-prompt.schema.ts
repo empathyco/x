@@ -1,25 +1,28 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { PlatformRelatedPrompt } from '../../types/models/related-prompt.model';
 import {
-  getTaggingInfoFromUrl,
-  getToolingDisplayClickTaggingInfoFromUrl
-} from '../../mappers/url.utils';
+  PlatformRelatedPrompt,
+  PlatformRelatedPromptNextQueriesTagging
+} from '../../types/models/related-prompt.model';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 
 export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, RelatedPromptNextQuery>({
   query: data => data,
   toolingDisplayTagging: (data, $context) =>
-    getTaggingInfoFromUrl(($context?.nextQueriesTaggingUris as Dictionary<string>)[data]),
+    getTaggingInfoFromUrl(
+      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
+        .toolingDisplay
+    ),
   toolingDisplayClickTagging: (data, $context) =>
-    getToolingDisplayClickTaggingInfoFromUrl(
-      ($context?.nextQueriesTaggingUris as Dictionary<string>)[data],
-      'toolingDisplayClick'
+    getTaggingInfoFromUrl(
+      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
+        .toolingDisplayClick
     ),
   toolingDisplayAdd2CartTagging: (data, $context) =>
-    getToolingDisplayClickTaggingInfoFromUrl(
-      ($context?.nextQueriesTaggingUris as Dictionary<string>)[data],
-      'toolingDisplayAdd2Cart'
+    getTaggingInfoFromUrl(
+      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
+        .toolingDisplayAdd2Cart
     )
 });
 
@@ -34,11 +37,10 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
     $path: 'nextQueries',
     $subSchema: nextQueriesRelatedPromptsSchema,
     $context: {
-      nextQueriesTaggingUris: 'nextQueriesTaggingUris'
+      nextQueriesTagging: 'tagging.nextQueries'
     }
   },
   suggestionText: 'suggestionText',
   type: 'type',
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  toolingDisplayTagging: ({ taggingUri }) => getTaggingInfoFromUrl(taggingUri)
+  toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay)
 });
