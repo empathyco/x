@@ -6,6 +6,9 @@
     scroll-container-class="x-related-prompts-tag-list-scroll-container"
   >
     <template #sliding-panel-left-button>
+      <!-- 
+      @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel. 
+      -->
       <slot name="sliding-panel-left-button" />
     </template>
     <transition-group
@@ -27,8 +30,13 @@
         :style="isAnimating && { pointerEvents: 'none' }"
         data-test="related-prompts-tag-list-item"
       >
+        <!--
+         @slot - The slot to render related prompt information.
+         @prop {Object} relatedPrompt - The related prompt object.
+         @prop {Function} onSelect - The function to select the related prompt.
+         @prop {Boolean} isSelected - Indicates if the related prompt is currently selected.
+         -->
         <slot
-          :index="index"
           :relatedPrompt="relatedPrompt"
           :onSelect="() => onSelect(index)"
           :isSelected="isSelected(index)"
@@ -42,6 +50,9 @@
       </li>
     </transition-group>
     <template #sliding-panel-right-button>
+      <!-- 
+      @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel. 
+      -->
       <slot name="sliding-panel-right-button" />
     </template>
   </SlidingPanel>
@@ -55,17 +66,46 @@
   import { use$x, useState } from '../../../composables';
   import RelatedPrompt from './related-prompt.vue';
 
+  /**
+   * This component shows the list of `RelatedPrompts` components.
+   *
+   * If the default slot is reimplemented in the consumer, `onSelect` function will be
+   * necessary to handle the selection of the related prompt and to trigger the stagger-fade-slide animation.
+   *
+   * @public
+   */
   export default defineComponent({
     name: 'RelatedPromptsTagList',
     xModule: relatedPromptsXModule.name,
     components: { RelatedPrompt, SlidingPanel },
     props: {
+      /**
+       * The CSS class for the left and right button of the sliding panel.
+       *
+       * @public
+       */
       buttonClass: String,
+      /**
+       * The CSS class for all the related prompt wrapper elements.
+       *
+       * @public
+       */
       tagClass: String,
+      /**
+       * Array of colors to apply to the related prompts. It will be applied to tag
+       * elements cyclically according to their index in the nex way: `tagColors[index % tagColors.length]`.
+       *
+       * @public
+       */
       tagColors: Array as PropType<string[]>,
+      /**
+       * The duration of the total animation in milliseconds.
+       *
+       * @public
+       */
       animationDurationInMs: {
         type: Number,
-        default: 2000
+        default: 700
       }
     },
     setup(props) {
