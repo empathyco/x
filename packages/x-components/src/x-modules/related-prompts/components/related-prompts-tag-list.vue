@@ -1,224 +1,323 @@
 <template>
-  <div>
-    <template v-if="$slots.header">
-      <slot name="header" />
+  <SlidingPanel
+    :key="x.query.search"
+    :reset-on-content-change="false"
+    :button-class="buttonClass"
+    scroll-container-class="x-related-prompts-tag-list-scroll-container"
+  >
+    <template #sliding-panel-left-button>
+      <!-- 
+      @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel. 
+      -->
+      <slot name="sliding-panel-left-button" />
     </template>
-    <SlidingPanel
-      :reset-on-content-change="true"
-      :button-class="buttonClass"
-      :scroll-container-class="
-        selectedPrompt === -1 ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm' : ''
-      "
+    <transition-group
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
+      class="x-related-prompts-tag-list"
+      :css="false"
+      tag="ul"
+      appear
     >
-      <template #sliding-panel-left-button>
-        <slot name="sliding-panel-left-button" />
-      </template>
-
-      <slot name="sliding-panel-content">
-        <div
-          ref="slidingPanelContent"
-          class="x-related-prompt__sliding-panel-content"
-          :class="{ 'x-related-prompt__sliding-panel-content-selected': selectedPrompt !== -1 }"
+      <li
+        v-for="{ index, ...relatedPrompt } in visibleRelatedPrompts"
+        ref="listItems"
+        :key="relatedPrompt.suggestionText"
+        class="x-related-prompts-tag-list-item"
+        :class="[tagClass, tagColors && tagColors[index % tagColors.length]]"
+        :data-index="index"
+        :style="isAnimating && { pointerEvents: 'none' }"
+        data-test="related-prompts-tag-list-item"
+      >
+        <!--
+         @slot - The slot to render related prompt information.
+         @prop {Object} relatedPrompt - The related prompt object.
+         @prop {Function} onSelect - The function to select the related prompt.
+         @prop {Boolean} isSelected - Indicates if the related prompt is currently selected.
+         -->
+        <slot
+          :relatedPrompt="relatedPrompt"
+          :onSelect="() => onSelect(index)"
+          :isSelected="isSelected(index)"
         >
-          <div
-            v-for="(suggestion, index) in relatedPrompts"
-            :key="index"
-            :style="{
-              animationDelay: `${index * 0.4 + 0.05}s`
-            }"
-            class="x-related-prompt x-staggered-initial"
-            :class="[
-              { 'x-staggered-animation': arePromptsVisible },
-              { 'x-hidden': hidePrompt(index) },
-              { 'x-related-prompt-selected': isSelected(index) }
-            ]"
-            data-test="related-prompt-item"
-          >
-            <slot
-              name="related-prompt-button"
-              v-bind="{ suggestion, index, arePromptsVisible, isSelected }"
-            >
-              <RelatedPrompt
-                :related-prompt="suggestion"
-                :index="index"
-                :is-prompt-visible="arePromptsVisible"
-                :is-selected="isSelected(index)"
-              />
-            </slot>
-          </div>
-        </div>
-      </slot>
-
-      <template #sliding-panel-right-button>
-        <slot name="sliding-panel-right-button" />
-      </template>
-    </SlidingPanel>
-  </div>
+          <RelatedPrompt
+            @click="onSelect(index)"
+            :related-prompt="relatedPrompt"
+            :selected="isSelected(index)"
+          />
+        </slot>
+      </li>
+    </transition-group>
+    <template #sliding-panel-right-button>
+      <!-- 
+      @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel. 
+      -->
+      <slot name="sliding-panel-right-button" />
+    </template>
+  </SlidingPanel>
 </template>
+
 <script lang="ts">
-  import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
+  import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
+  import { computed, defineComponent, PropType, ref, watch } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
-  import { useState } from '../../../composables/index';
+  import { use$x, useState } from '../../../composables';
   import RelatedPrompt from './related-prompt.vue';
 
+  /**
+   * This component shows the list of `RelatedPrompts` components.
+   *
+   * If the default slot is reimplemented in the consumer, `onSelect` function will be
+   * necessary to handle the selection of the related prompt and to trigger the stagger-fade-slide animation.
+   *
+   * @public
+   */
   export default defineComponent({
     name: 'RelatedPromptsTagList',
     xModule: relatedPromptsXModule.name,
     components: { RelatedPrompt, SlidingPanel },
     props: {
-      buttonClass: String
+      /**
+       * The CSS class for the left and right button of the sliding panel.
+       *
+       * @public
+       */
+      buttonClass: String,
+      /**
+       * The CSS class for all the related prompt wrapper elements.
+       *
+       * @public
+       */
+      tagClass: String,
+      /**
+       * Array of colors to apply to the related prompts. It will be applied to tag
+       * elements cyclically according to their index in the nex way: `tagColors[index % tagColors.length]`.
+       *
+       * @public
+       */
+      tagColors: Array as PropType<string[]>,
+      /**
+       * The duration of the total animation in milliseconds.
+       *
+       * @public
+       */
+      animationDurationInMs: {
+        type: Number,
+        default: 700
+      }
     },
-    setup() {
-      const { relatedPrompts, selectedPrompt } = useState('relatedPrompts', [
+    setup(props) {
+      const x = use$x();
+      const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts', [
         'relatedPrompts',
         'selectedPrompt'
       ]);
 
-      const slidingPanelContent = ref<Element>();
-      const arePromptsVisible = ref(false);
+      const clickedListItemIndex = ref<number | null>(null);
+      const initialOffsetLefts: Record<number, number> = {};
+      const isAnimating = ref(false);
+      const listItems = ref<HTMLElement[]>([]);
 
-      const observer = new IntersectionObserver(([entry]) => {
-        arePromptsVisible.value = entry.isIntersecting;
+      const sortedListItems = computed<HTMLElement[]>(() =>
+        [...listItems.value].sort(
+          (a: HTMLElement, b: HTMLElement) =>
+            Number.parseInt(b.getAttribute('data-index')!) -
+            Number.parseInt(a.getAttribute('data-index')!)
+        )
+      );
+
+      // The duration of a single animation (enter or leave) in milliseconds
+      // if a related prompt is clicked (clickedListItemIndex.value !== null), the duration is divided by the number of related
+      // prompts -1 (the clicked one is synchronized with the last one to leave or the first one to enter)
+      const singleAnimationDurationInMs = computed(
+        () =>
+          props.animationDurationInMs /
+          (clickedListItemIndex.value !== null
+            ? relatedPrompts.value.length - 1
+            : relatedPrompts.value.length)
+      );
+
+      const indexRelatedPrompts = computed(() =>
+        (relatedPrompts.value as RelatedPromptModel[]).map(
+          (relatedPrompt: RelatedPromptModel, index: number) => ({
+            ...relatedPrompt,
+            index
+          })
+        )
+      );
+
+      const visibleRelatedPrompts = computed(() => {
+        return selectedPromptIndex.value !== -1
+          ? [indexRelatedPrompts.value[selectedPromptIndex.value]]
+          : indexRelatedPrompts.value;
       });
 
-      onMounted(() => {
-        observer.observe(slidingPanelContent.value as Element);
-      });
+      let timeOutId: number;
+      const resetTransitionStyle = () => {
+        if (timeOutId) {
+          clearTimeout(timeOutId);
+        }
 
-      onUnmounted(() => {
-        observer.disconnect();
-      });
+        isAnimating.value = true;
+        timeOutId = +setTimeout(() => {
+          isAnimating.value = false;
+          clickedListItemIndex.value = null;
 
-      const isSelected = (index: number): boolean => selectedPrompt.value === index;
+          sortedListItems.value.forEach(element => {
+            element.style.cssText
+              .split(';')
+              .map(rule => rule.split(':')[0]?.trim())
+              .forEach(property => {
+                if (property !== 'width') {
+                  element.style.removeProperty(property);
+                }
+              });
+          });
+        }, props.animationDurationInMs);
+      };
 
-      const hidePrompt = (index: number): boolean =>
-        selectedPrompt.value !== -1 && selectedPrompt.value !== index;
+      const onSelect = (selectedIndex: number): void => {
+        resetTransitionStyle();
+
+        clickedListItemIndex.value = selectedIndex;
+        const selected: HTMLElement = sortedListItems.value.find(
+          element => Number.parseInt(element.getAttribute('data-index')!) === selectedIndex
+        )!;
+
+        // selectedPromptIndex.value === -1 ? 'SELECTING' : 'DESELECTING'
+        if (selectedPromptIndex.value === -1) {
+          // Prepare all the elements for the leave animation (~ 'beforeLeave' hook). Remember the elements are
+          // sorted in descending order by index.
+          sortedListItems.value.forEach(element => {
+            const index = Number.parseInt(element.getAttribute('data-index')!);
+
+            initialOffsetLefts[index] = element.offsetLeft;
+            element.style.left = `${element.offsetLeft}px`;
+            element.style.position = 'absolute';
+            element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+
+            if (index !== selectedIndex) {
+              element.style.opacity = '1';
+              element.style.transitionDelay = `${
+                (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
+              }ms`;
+            }
+          });
+
+          // Synchronize the transition delay of the selected element with the last
+          // element to leave
+          selected.style.transitionDelay = `${
+            (relatedPrompts.value.length > 1 ? relatedPrompts.value.length - 2 : 0) *
+            singleAnimationDurationInMs.value
+          }ms`;
+
+          // Trigger the animation (selecting) for the selected element
+          requestAnimationFrame(() => {
+            const maxWidth = getComputedStyle(selected).maxWidth;
+
+            selected.style.left = '0px';
+            selected.style.setProperty(
+              'width',
+              `${maxWidth !== 'none' ? maxWidth : '100%'}`,
+              'important'
+            );
+          });
+        } else {
+          // Prepare the selected element for the deselecting animation
+          selected.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+          selected.style.left = '0px';
+          selected.style.position = 'absolute';
+
+          // Trigger the animation (deselecting) for the selected element
+          selected.style.removeProperty('width');
+          requestAnimationFrame(() => {
+            selected.style.left = `${initialOffsetLefts[selectedIndex]}px`;
+          });
+        }
+
+        x.emit('UserSelectedARelatedPrompt', selectedIndex);
+      };
+
+      const onBeforeEnter = (el: Element) => {
+        const element = el as HTMLElement;
+        const index = Number.parseInt(element.getAttribute('data-index')!);
+
+        // Prepare the element for the enter animation
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(5px)';
+        element.style.transitionDelay = `${
+          (clickedListItemIndex.value !== null && index > clickedListItemIndex.value
+            ? index - 1
+            : index) * singleAnimationDurationInMs.value
+        }ms`;
+        element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+      };
+
+      const onEnter = (el: Element, done: () => void) => {
+        const element = el as HTMLElement;
+        const index = Number.parseInt(element.getAttribute('data-index')!);
+
+        // Also part of the preparation for the enter animation, but it needs to be done
+        // once the element is inserted in DOM (if not the offsetLeft will be always 0)
+        element.style.left = `${initialOffsetLefts[index] ?? element.offsetLeft}px`;
+
+        // trigger enter animation
+        requestAnimationFrame(() => {
+          element.style.opacity = '1';
+          element.style.position = 'absolute';
+          element.style.transform = 'translateY(0)';
+        });
+
+        done();
+      };
+
+      const onLeave = (el: Element, done: () => void) => {
+        const element = el as HTMLElement;
+
+        // trigger leave animation
+        requestAnimationFrame(() => {
+          element.style.opacity = '0';
+          element.style.transform = 'translateY(5px)';
+        });
+
+        // Wait for the animation to finish (done() exectution extracts the element from the DOM)
+        setTimeout(done, props.animationDurationInMs);
+      };
+
+      const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
+
+      // Changing the query will trigger the appear animation, so we need to reset the
+      // style after it finishes
+      watch(() => x.query.search, resetTransitionStyle, { immediate: true });
 
       return {
-        arePromptsVisible,
-        hidePrompt,
         isSelected,
-        relatedPrompts,
-        selectedPrompt,
-        slidingPanelContent
+        onSelect,
+        onBeforeEnter,
+        onEnter,
+        onLeave,
+        selectedPromptIndex,
+        visibleRelatedPrompts,
+        listItems,
+        isAnimating,
+        x
       };
     }
   });
 </script>
-
 <style lang="css">
-  .x-related-prompt__sliding-panel-content {
-    display: flex;
-    gap: 8px;
-  }
-
-  .x-related-prompt__sliding-panel-content-selected {
-    width: calc(100%);
-  }
-
-  .x-related-prompt {
-    display: flex;
-    flex-direction: column;
-    border-radius: 12px;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
-    min-height: 112px;
+  .x-related-prompts-tag-list-scroll-container {
     height: 100%;
-    width: 303px;
+    position: relative;
   }
-
-  .x-related-prompt-selected {
-    width: 100% !important;
-    min-height: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-
-    &__button {
-      width: 100% !important;
-    }
-  }
-
-  .x-related-prompt__button {
+  .x-related-prompts-tag-list {
     display: flex;
-    flex-direction: row;
-    gap: 12px;
-    justify-content: space-between;
-    align-items: start;
-    text-align: start;
-    padding: 16px;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
-    flex-grow: 1;
-    width: 303px;
+    gap: 16px;
+    min-width: 100%;
   }
-
-  .x-related-prompt__button-info {
-    display: flex;
-    min-height: 32px;
-  }
-
-  @media (max-width: 743px) {
-    .x-related-prompt {
-      width: 204px;
-      &__button {
-        width: 204px;
-      }
-    }
-  }
-
-  .x-no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .x-no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .x-typewritter-initial {
-    color: #0000;
-    background: linear-gradient(-90deg, transparent 5px, #0000 0) 10px 0,
-      linear-gradient(#575757 0 0) 0 0;
-    background-size: 0 200%;
-    -webkit-background-clip: padding-box, text;
-    background-clip: padding-box, text;
-    background-repeat: no-repeat;
-  }
-
-  .x-typewritter-animation {
-    animation: typewritter calc(var(--suggestion-text-length) * 0.05s)
-      steps(var(--suggestion-text-length)) forwards;
-  }
-
-  @keyframes typewritter {
-    from {
-      background-size: 0 200%;
-    }
-    to {
-      background-size: calc(var(--suggestion-text-length) * 1ch) 200%;
-    }
-  }
-
-  .x-staggered-initial {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .x-staggered-animation {
-    animation: fadeInUp 0.6s forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .x-related-prompts-tag-list-item {
+    height: 100%;
   }
 </style>
