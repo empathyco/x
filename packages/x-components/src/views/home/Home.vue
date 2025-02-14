@@ -391,8 +391,29 @@
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
                               :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
-                              class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
-                            />
+                              class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0 x-h-[70px]"
+                              tag-class="x-rounded-xl x-gap-8 x-w-[300px] x-max-w-[400px]"
+                              :tag-colors="['x-bg-amber-300', 'x-bg-amber-400', 'x-bg-amber-500']"
+                            >
+                              <template #default="{ relatedPrompt, isSelected, onSelect }">
+                                <DisplayEmitter
+                                  :payload="relatedPrompt.toolingDisplayTagging"
+                                  :eventMetadata="{
+                                    feature: 'related-prompts',
+                                    displayOriginalQuery: x.query.searchBox,
+                                    replaceable: false
+                                  }"
+                                >
+                                  <RelatedPrompt
+                                    @click="onSelect"
+                                    :related-prompt="relatedPrompt"
+                                    :selected="isSelected"
+                                    data-wysiwyg="related-prompt"
+                                    :data-wysiwyg-id="relatedPrompt.suggestionText"
+                                  />
+                                </DisplayEmitter>
+                              </template>
+                            </RelatedPromptsTagList>
                             <LocationProvider location="related-prompts">
                               <QueryPreviewList
                                 v-if="selectedPrompt !== -1"
@@ -601,6 +622,7 @@
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
+  import RelatedPrompt from '../../x-modules/related-prompts/components/related-prompt.vue';
   import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
   import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue';
   import ArrowRightIcon from '../../components/icons/arrow-right.vue';
@@ -646,6 +668,7 @@
       NextQueriesList,
       NextQuery,
       NextQueryPreview,
+      RelatedPrompt,
       RelatedPromptsList,
       RelatedPromptsTagList,
       OpenMainModal,
@@ -822,7 +845,6 @@
         x,
         mainScrollDirection,
         relatedPromptsQueriesPreviewInfo,
-        relatedPrompts,
         selectedPrompt,
         referenceSelector,
         getToolingDisplayTagging,
