@@ -3,8 +3,8 @@
   import type { PropType } from 'vue';
   // eslint-disable-next-line no-duplicate-imports
   import { computed, defineComponent, provide } from 'vue';
-  import { use$x } from '../../composables/index';
-  import { DisplayWireMetadata } from '../../wiring/index';
+  import { use$x } from '../composables/index';
+  import { DisplayWireMetadata } from '../wiring/index';
 
   export default defineComponent({
     name: 'DisplayClickProvider',
