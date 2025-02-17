@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.37...@empathyco/x-components@6.0.0-alpha.38) (2025-02-17)
+
+
+### Features
+
+* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
+
+
+
 ## [6.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.36...@empathyco/x-components@6.0.0-alpha.37) (2025-02-17)
 
 

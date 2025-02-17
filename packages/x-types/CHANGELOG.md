@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.7...@empathyco/x-types@10.1.0-alpha.8) (2025-02-17)
+
+
+### Features
+
+* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
+
+
+
 ## [10.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.6...@empathyco/x-types@10.1.0-alpha.7) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-types

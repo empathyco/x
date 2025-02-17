@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.10...@empathyco/x-adapter-platform@1.1.0-alpha.11) (2025-02-17)
+
+
+### Features
+
+* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
+
+
+
 ## [1.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.9...@empathyco/x-adapter-platform@1.1.0-alpha.10) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
