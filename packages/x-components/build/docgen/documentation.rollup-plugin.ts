@@ -11,7 +11,7 @@ import {
   IExtractorInvokeOptions
 } from '@microsoft/api-extractor';
 import { Plugin } from 'rollup';
-import { copyFolderSync, ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
+import { ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
 
 const rootDir = path.resolve(__dirname, '../../');
 
@@ -43,7 +43,6 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
       copyReportFile(extractorConfig.reportFilePath);
       try {
         await generateDocumentation();
-        copyStaticDocumentation('static-docs', 'docs');
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
@@ -111,18 +110,6 @@ function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
 function copyReportFile(reportFilePath: string): void {
   const tempReportFile = path.join(rootDir, 'temp/x-components.api.md');
   fs.copyFileSync(tempReportFile, reportFilePath);
-}
-
-/**
- * Copies the configuration and setup documentation folder to the docs folder.
- *
- * @param source - The source folder path.
- * @param target - The target folder path.
- */
-function copyStaticDocumentation(source: string, target: string): void {
-  const sourceFolderPath = path.join(rootDir, source);
-  const targetFolderPath = path.join(rootDir, target);
-  copyFolderSync(sourceFolderPath, targetFolderPath);
 }
 
 /**
