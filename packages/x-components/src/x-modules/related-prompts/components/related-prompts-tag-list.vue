@@ -3,7 +3,8 @@
     :key="x.query.search"
     :reset-on-content-change="false"
     :button-class="buttonClass"
-    scroll-container-class="x-related-prompts-tag-list-scroll-container"
+    :show-buttons="showButtons && selectedPromptIndex === -1"
+    :scroll-container-class="['x-related-prompts-tag-list-scroll-container', scrollContainerClass]"
   >
     <template #sliding-panel-left-button>
       <!--
@@ -95,6 +96,18 @@
        * @public
        */
       buttonClass: String,
+      /**
+       * The boolean prop to handle the visiblity of sliding pannel buttons.
+       *
+       * @public
+       */
+      showButtons: { type: Boolean, default: true },
+      /**
+       * The CSS class for the wrapper of all the related prompt wrapper elements.
+       *
+       * @public
+       */
+      scrollContainerClass: String,
       /**
        * The CSS class for all the related prompt wrapper elements.
        *
