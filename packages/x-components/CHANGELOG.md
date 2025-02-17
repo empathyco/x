@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.36...@empathyco/x-components@6.0.0-alpha.37) (2025-02-17)
+
+
+### Code Refactoring
+
+* **RelatedPrompt:** component logic to be reusable (#1696) ([fede761](https://github.com/empathyco/x/commit/fede7611e14fab550da63a7a2d793479680f5aba))
+
+
+
 ## [6.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.35...@empathyco/x-components@6.0.0-alpha.36) (2025-01-28)
 
 
