@@ -1,7 +1,7 @@
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
 import { RelatedPromptsRequest, RelatedPromptsResponse } from '@empathyco/x-types';
-import { relatedPromptsRequestMapper } from '../mappers/requests/related-prompts-request.mapper';
 import { relatedPromptsResponseMapper } from '../mappers/responses/related-prompts-response.mapper';
+import { relatedPromptsRequestMapper } from '../mappers/index';
 import { getBeaconServiceUrl } from './utils';
 
 /**

@@ -6,8 +6,8 @@
     scroll-container-class="x-related-prompts-tag-list-scroll-container"
   >
     <template #sliding-panel-left-button>
-      <!-- 
-      @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel. 
+      <!--
+      @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel.
       -->
       <slot name="sliding-panel-left-button" />
     </template>
@@ -41,17 +41,26 @@
           :onSelect="() => onSelect(index)"
           :isSelected="isSelected(index)"
         >
-          <RelatedPrompt
-            @click="onSelect(index)"
-            :related-prompt="relatedPrompt"
-            :selected="isSelected(index)"
-          />
+          <DisplayEmitter
+            :payload="relatedPrompt.toolingDisplayTagging"
+            :eventMetadata="{
+              feature: 'related-prompts',
+              displayOriginalQuery: x.query.searchBox,
+              replaceable: false
+            }"
+          >
+            <RelatedPrompt
+              @click="onSelect(index)"
+              :related-prompt="relatedPrompt"
+              :selected="isSelected(index)"
+            />
+          </DisplayEmitter>
         </slot>
       </li>
     </transition-group>
     <template #sliding-panel-right-button>
-      <!-- 
-      @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel. 
+      <!--
+      @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel.
       -->
       <slot name="sliding-panel-right-button" />
     </template>
@@ -64,6 +73,7 @@
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
+  import DisplayEmitter from '../../../components/display-emitter.vue';
   import RelatedPrompt from './related-prompt.vue';
 
   /**
@@ -77,7 +87,7 @@
   export default defineComponent({
     name: 'RelatedPromptsTagList',
     xModule: relatedPromptsXModule.name,
-    components: { RelatedPrompt, SlidingPanel },
+    components: { DisplayEmitter, RelatedPrompt, SlidingPanel },
     props: {
       /**
        * The CSS class for the left and right button of the sliding panel.

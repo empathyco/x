@@ -1,6 +1,7 @@
 <template>
   <BaseEventButton
     :events="events"
+    :metadata="metadata"
     class="x-result-add-to-cart x-button"
     data-test="result-add-to-cart"
   >
@@ -11,9 +12,11 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
+  import { computed, defineComponent, PropType, inject } from 'vue';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
+  import { PropsWithType } from '../../utils/index';
+  import { WireMetadata } from '../../wiring/index';
 
   /**
    * Renders a button with a default slot. It receives the result with the data and emits
@@ -36,18 +39,43 @@
     },
     setup(props) {
       /**
+       * The list of additional events to be emitted by the component when user clicks the add2cart button.
+       *
+       * @internal
+       */
+      const resultAddToCartExtraEvents = inject<PropsWithType<XEventsTypes, Result>[]>(
+        'resultAddToCartExtraEvents',
+        []
+      );
+
+      /**
+       * The metadata to be injected in the events emitted by the component.
+       */
+      const metadata = inject<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>(
+        'resultAddToCartExtraEventsMetadata',
+        {}
+      );
+
+      /**
        * The events to be emitted by the button.
        *
        * @returns Events {@link XEventsTypes} to emit.
        *
        * @public
        */
-      const events = computed<Partial<XEventsTypes>>(() => ({
-        UserClickedResultAddToCart: props.result
-      }));
+      const events = computed(() => {
+        return resultAddToCartExtraEvents.reduce(
+          (acc, event) => {
+            acc[event] = props.result;
+            return acc;
+          },
+          { UserClickedResultAddToCart: props.result } as Partial<XEventsTypes>
+        );
+      });
 
       return {
-        events
+        events,
+        metadata
       };
     }
   });

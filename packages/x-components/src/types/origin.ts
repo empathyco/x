@@ -31,7 +31,8 @@ export type QueryFeature =
   | 'related_tag'
   | 'spellcheck'
   | 'customer'
-  | 'semantics';
+  | 'semantics'
+  | 'related-prompts';
 
 /**
  * The name of the tool that generated the results.
@@ -69,7 +70,8 @@ export type FeatureLocation =
   | 'predictive_layer'
   | 'pdp'
   | 'url_history'
-  | 'url_history_pdp';
+  | 'url_history_pdp'
+  | 'related-prompts';
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.

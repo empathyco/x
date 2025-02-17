@@ -18,7 +18,11 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     },
     consent: null,
     noResultsTaggingEnabled: false,
-    queryTaggingInfo: null
+    queryTaggingInfo: null,
+    toolingTaggingInfo: {
+      toolingDisplayClick: null,
+      toolingDisplayAdd2Cart: null
+    }
   }),
   getters: {},
   mutations: {
