@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.38...@empathyco/x-components@6.0.0-alpha.39) (2025-02-17)
+
+
+### Features
+
+* change display-click-provider component location (#1709) ([132a671](https://github.com/empathyco/x/commit/132a67150fa9d777a65dc780c61f1e1d7f77d97e))
+
+
+
 ## [6.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.37...@empathyco/x-components@6.0.0-alpha.38) (2025-02-17)
 
 
