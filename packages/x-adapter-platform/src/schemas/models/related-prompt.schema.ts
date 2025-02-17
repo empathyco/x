@@ -33,7 +33,7 @@ export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, Relat
  */
 export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, RelatedPrompt>({
   modelName: () => 'RelatedPrompt',
-  nextQueriesRelatedPrompts: {
+  relatedPromptNextQueries: {
     $path: 'nextQueries',
     $subSchema: nextQueriesRelatedPromptsSchema,
     $context: {

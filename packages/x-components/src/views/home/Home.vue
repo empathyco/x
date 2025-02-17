@@ -765,7 +765,7 @@
         if (relatedPrompts.value) {
           const queries = [] as string[];
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.forEach(
+          relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.forEach(
             (nextQuery: RelatedPromptNextQuery) => queries.push(nextQuery.query)
           );
           return queries.map(query => ({ query }));
@@ -774,19 +774,17 @@
       });
 
       const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
-        const query = computed(() => queryPreviewInfo.query);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
-          nextQuery => nextQuery.query === query.value
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+          nextQuery => nextQuery.query === queryPreviewInfo.query
         );
         return nextQuery.toolingDisplayTagging;
       };
 
       const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
-        const query = computed(() => queryPreviewInfo.query);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
-          nextQuery => nextQuery.query === query.value
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+          nextQuery => nextQuery.query === queryPreviewInfo.query
         );
         return nextQuery.toolingDisplayAdd2CartTagging;
       };
@@ -794,10 +792,9 @@
       const getToolingDisplayClickTagging = (
         queryPreviewInfo: QueryPreviewInfo
       ): TaggingRequest => {
-        const query = computed(() => queryPreviewInfo.query);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].nextQueriesRelatedPrompts.find(
-          nextQuery => nextQuery.query === query.value
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+          nextQuery => nextQuery.query === queryPreviewInfo.query
         );
         return nextQuery.toolingDisplayClickTagging;
       };

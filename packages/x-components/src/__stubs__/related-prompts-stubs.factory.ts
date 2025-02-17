@@ -26,7 +26,7 @@ export function getRelatedPromptsStub(amount = 12): RelatedPrompt[] {
 export function createRelatedPromptStub(suggestionText: string): RelatedPrompt {
   return {
     suggestionText,
-    nextQueriesRelatedPrompts: createNextQueriesArrayStub(10),
+    relatedPromptNextQueries: createNextQueriesArrayStub(10),
     modelName: 'RelatedPrompt',
     type: Math.random() < 0.5 ? 'CURATED' : 'SYNTHETIC',
     toolingDisplayTagging: getTaggingResponseStub()

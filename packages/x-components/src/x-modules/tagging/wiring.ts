@@ -273,6 +273,26 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
 }
 
 /**
+ * Update the tooling tagging params with the result information.
+ *
+ * @param taggingRequest - The tooling tagging request to be updated.
+ * @param result - The clicked result.
+ * @returns The tagging request updated.
+ *
+ * @internal
+ */
+function updateToolingTaggingWithResult(
+  taggingRequest: TaggingRequest,
+  result: Result
+): TaggingRequest {
+  taggingRequest.params.productId = result.id;
+  taggingRequest.params.title = result.name!;
+  taggingRequest.params.url = result.url!;
+
+  return taggingRequest;
+}
+
+/**
  * Factory helper to create a wire for the track of the tooling display click.
  *
  * @returns A new wire for the tooling display click of the taggable element.
@@ -285,9 +305,7 @@ export function createTrackToolingDisplayWire(): Wire<Taggable> {
       const taggingInfo: TaggingRequest = metadata.toolingTagging as TaggingRequest;
       const resultInfo = eventPayload as Result;
 
-      taggingInfo.params.productId = resultInfo.id;
-      taggingInfo.params.title = resultInfo.name!;
-      taggingInfo.params.url = resultInfo.url!;
+      updateToolingTaggingWithResult(taggingInfo, resultInfo);
 
       return taggingInfo;
     }),
@@ -298,7 +316,7 @@ export function createTrackToolingDisplayWire(): Wire<Taggable> {
 /**
  * Factory helper to create a wire for the track of the tooling display click.
  *
- * @returns A new wire for the tooling display click of the taggable element.
+ * @returns A new wire for the tooling display add to cart of the taggable element.
  *
  * @public
  */
@@ -308,9 +326,7 @@ export function createTrackToolingAdd2CartWire(): Wire<Taggable> {
       const taggingInfo: TaggingRequest = metadata.toolingAdd2CartTagging as TaggingRequest;
       const resultInfo = eventPayload as Result;
 
-      taggingInfo.params.productId = resultInfo.id;
-      taggingInfo.params.title = resultInfo.name!;
-      taggingInfo.params.url = resultInfo.url!;
+      updateToolingTaggingWithResult(taggingInfo, resultInfo);
 
       return taggingInfo;
     }),
