@@ -626,12 +626,12 @@
   import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
   import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue';
   import ArrowRightIcon from '../../components/icons/arrow-right.vue';
+  import DisplayClickProvider from '../../components/display-click-provider.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
   import DisplayResultProvider from './display-result-provider.vue';
-  import DisplayClickProvider from './display-click-provider.vue';
 
   export default defineComponent({
     directives: {
