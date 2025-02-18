@@ -1,10 +1,10 @@
 /* eslint-disable jest/no-conditional-expect */
 import { nextTick, reactive, ref, TransitionGroup } from 'vue';
-import { mount } from '@vue/test-utils';
+import { ComponentMountingOptions, mount } from '@vue/test-utils';
 import SlidingPanel from '../../../../components/sliding-panel.vue';
 import RelatedPrompt from '../related-prompt.vue';
 import { getRelatedPromptsStub } from '../../../../__stubs__/related-prompts-stubs.factory';
-import relatedPromptsTagList from '../related-prompts-tag-list.vue';
+import RelatedPromptsTagList from '../related-prompts-tag-list.vue';
 
 const relatedPromptsStub = getRelatedPromptsStub(5);
 const selectedPromptIndexStub = ref(-1);
@@ -13,6 +13,7 @@ const propsStub = {
   buttonClass: 'button-class',
   tagClass: 'related-prompt-class',
   tagColors: ['color1', 'color2', 'color3'],
+  scrollContainerClass: 'scroll-container-class',
   animationDurationInMs: 4000
 };
 
@@ -64,9 +65,10 @@ const coloredRelatedPromptsStub = relatedPromptsStub.map((relatedPrompt, index) 
 
 global.requestAnimationFrame = cb => setTimeout(cb, propsStub.animationDurationInMs - 1);
 
-function render() {
-  const wrapper = mount(relatedPromptsTagList, {
-    props: propsStub
+function render(options: ComponentMountingOptions<typeof RelatedPromptsTagList> = {}) {
+  const wrapper = mount(RelatedPromptsTagList, {
+    props: propsStub,
+    ...options
   });
 
   return {
@@ -107,6 +109,8 @@ describe('relatedPromptsTagList component', () => {
 
     expect(sut.slidingPanel.props().resetOnContentChange).toBeFalsy();
     expect(sut.slidingPanel.props().buttonClass).toBe(propsStub.buttonClass);
+    expect(sut.slidingPanel.props().showButtons).toBeTruthy();
+    expect(sut.slidingPanel.props().scrollContainerClass).toContain(propsStub.scrollContainerClass);
 
     expect(sut.transitionGroup.props().css).toBeFalsy();
     expect(sut.transitionGroup.props().appear).toBeDefined();
@@ -123,6 +127,12 @@ describe('relatedPromptsTagList component', () => {
       expect(sut.relatedPrompts[index].props().relatedPrompt).toStrictEqual(relatedPrompt);
       expect(sut.relatedPrompts[index].props().selected).toBeFalsy();
     });
+  });
+
+  it('should not render sliding pannel buttons if the prop is set to false', () => {
+    const sut = render({ props: { ...propsStub, showButtons: false } });
+
+    expect(sut.slidingPanel.props().showButtons).toBeFalsy();
   });
 
   it('should reset the state propperly when the query changes', async () => {
@@ -293,6 +303,7 @@ describe('relatedPromptsTagList component', () => {
     jest.runAllTimers(); // setTimeout from inmediate watch callback implementation
     await nextTick();
 
+    expect(sut.slidingPanel.props().showButtons).toBeFalsy();
     expect(sut.listItems).toHaveLength(1);
     expect(sut.relatedPrompts).toHaveLength(1);
     expect(sut.listItems[0].attributes('data-index')).toBe(`${selectedPromptIndexStub.value}`);
