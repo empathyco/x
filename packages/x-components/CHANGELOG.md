@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.39...@empathyco/x-components@6.0.0-alpha.40) (2025-02-18)
+
+
+### Styling
+
+* **related-prompts-tag-list:** add showButton and scrollContainerClass props (#1708) ([ff78329](https://github.com/empathyco/x/commit/ff783295f33cb20f962ec3d9508194a46047a2ee))
+
+
+
 ## [6.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.38...@empathyco/x-components@6.0.0-alpha.39) (2025-02-17)
 
 
