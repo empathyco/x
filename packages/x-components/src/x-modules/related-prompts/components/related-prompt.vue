@@ -12,7 +12,7 @@
   import { RelatedPrompt } from '@empathyco/x-types';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
-  import vTyping from '../../../directives/typing';
+  import { typing } from '../../../directives/typing';
 
   /**
    * This component shows a suggested related prompt.
@@ -20,7 +20,7 @@
   export default defineComponent({
     name: 'RelatedPrompt',
     directives: {
-      typing: vTyping
+      typing
     },
     components: {
       CrossTinyIcon,
