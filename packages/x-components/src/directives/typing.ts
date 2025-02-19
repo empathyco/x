@@ -28,7 +28,12 @@ interface TypingHTMLElement extends HTMLElement {
   __timeoutId?: number;
 }
 
-const typingDirective: Directive<TypingHTMLElement, TypingOptions> = {
+/**
+ * Typing directive.
+ *
+ * @public
+ */
+export const typing: Directive<TypingHTMLElement, TypingOptions> = {
   mounted(el, binding) {
     execute(el, binding.value);
   },
@@ -55,6 +60,7 @@ function execute(el: TypingHTMLElement, options: TypingOptions) {
   const { text, speed = 1, targetAttr = '' } = options;
 
   if (!text) {
+    // eslint-disable-next-line no-console
     console.error('v-typing: "text" is required.');
     return;
   }
@@ -83,5 +89,3 @@ function execute(el: TypingHTMLElement, options: TypingOptions) {
 
   type();
 }
-
-export default typingDirective;
