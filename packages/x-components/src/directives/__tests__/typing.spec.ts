@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import typingDirective, { TypingOptions } from '../typing';
+import { TypingOptions, typing } from '../typing';
 
 function render(typingOptions: TypingOptions) {
   const wrapper = mount(
@@ -13,7 +13,7 @@ function render(typingOptions: TypingOptions) {
     {
       global: {
         directives: {
-          typing: typingDirective
+          typing
         }
       }
     }
