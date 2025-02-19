@@ -29,7 +29,7 @@ jobs:
           curl --request POST \
           -u empathyco:${GITHUB_TOKEN} \
           --header 'content-type: application/json' \
-          --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/93444504/dispatches \
+          --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs/dispatches \
           --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
