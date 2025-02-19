@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.40...@empathyco/x-components@6.0.0-alpha.41) (2025-02-19)
+
+
+### Code Refactoring
+
+* **typing:** avoiding export default (#1711) ([fe1d67a](https://github.com/empathyco/x/commit/fe1d67ad3ecfef745d9c483bc3fe58b10b312847))
+
+
+
 ## [6.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.39...@empathyco/x-components@6.0.0-alpha.40) (2025-02-18)
 
 
