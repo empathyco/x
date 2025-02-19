@@ -28,6 +28,11 @@ interface TypingHTMLElement extends HTMLElement {
   __timeoutId?: number;
 }
 
+/**
+ * Typing directive.
+ *
+ * @public
+ */
 export const typing: Directive<TypingHTMLElement, TypingOptions> = {
   mounted(el, binding) {
     execute(el, binding.value);
