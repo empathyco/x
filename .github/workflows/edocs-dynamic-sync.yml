@@ -1,5 +1,5 @@
 name: EPDocs - Dynamic Content PR creation
-on: [workflow_dispatch]
+on: [workflow_dispatch, pull_request]
 jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
@@ -27,9 +27,9 @@ jobs:
       - name: Trigger eDocs repository action
         run: |
           curl --request POST \
-          -u empathyco:${GITHUB_TOKEN} \
+          -u empathyco:${{ env.GITHUB_TOKEN }} \
           --header 'content-type: application/json' \
-          --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs/dispatches \
+          --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs.yml/dispatches \
           --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
