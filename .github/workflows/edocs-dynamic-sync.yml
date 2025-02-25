@@ -12,6 +12,8 @@ jobs:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
+          repositories: |
+            docs-framework
 
       - name: Checkout X mono-repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
