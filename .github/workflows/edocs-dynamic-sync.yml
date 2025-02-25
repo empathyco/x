@@ -29,13 +29,11 @@ jobs:
         uses: nelonoel/branch-name@1ea5c86cb559a8c4e623da7f188496208232e49f # v1.0.1
       - name: Trigger eDocs repository action
         run: |
-          curl -L \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ env.GITHUB_TOKEN }}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs.yml/dispatches \
-          -d '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
+          curl --request POST \
+          -u empathyco:${{ env.GITHUB_TOKEN }} \
+          --header 'content-type: application/json' \
+          --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs/dispatches \
+          --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
