@@ -14,6 +14,7 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: |
             docs-framework
+            x
 
       - name: Checkout X mono-repo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
