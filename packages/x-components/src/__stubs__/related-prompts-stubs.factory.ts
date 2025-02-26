@@ -26,21 +26,22 @@ export function getRelatedPromptsStub(amount = 12): RelatedPrompt[] {
 export function createRelatedPromptStub(suggestionText: string): RelatedPrompt {
   return {
     suggestionText,
-    relatedPromptNextQueries: createNextQueriesArrayStub(10),
+    relatedPromptNextQueries: createNextQueriesTaggingArrayStub(10),
     modelName: 'RelatedPrompt',
     type: 'SYNTHETIC',
+    nextQueries: createNextQueriesArrayStub(10),
     toolingDisplayTagging: getTaggingResponseStub()
   };
 }
 
 /**
- * Creates an array of next queries.
+ * Creates an array of next queries tagging.
  *
  * @param amount - Number of next queries to create.
  *
  * @returns Array of next queries.
  */
-function createNextQueriesArrayStub(amount: number): RelatedPromptNextQuery[] {
+function createNextQueriesTaggingArrayStub(amount: number): RelatedPromptNextQuery[] {
   return Array.from(
     { length: amount },
     (_, index) =>
@@ -51,4 +52,15 @@ function createNextQueriesArrayStub(amount: number): RelatedPromptNextQuery[] {
         toolingDisplayClickTagging: getTaggingResponseStub()
       } as RelatedPromptNextQuery)
   );
+}
+
+/**
+ * Creates an array of next queries.
+ *
+ * @param amount - Number of next queries to create.
+ *
+ * @returns Array of next queries.
+ */
+function createNextQueriesArrayStub(amount: number): string[] {
+  return Array.from({ length: amount }, (_, index) => `Next query ${index + 1}`);
 }
