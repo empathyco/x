@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.8...@empathyco/x-types@10.1.0-alpha.9) (2025-02-26)
+
+
+### Code Refactoring
+
+* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
+
+
+
 ## [10.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.7...@empathyco/x-types@10.1.0-alpha.8) (2025-02-17)
 
 

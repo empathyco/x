@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.41...@empathyco/x-components@6.0.0-alpha.42) (2025-02-26)
+
+
+### Code Refactoring
+
+* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
+
+
+
 ## [6.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.40...@empathyco/x-components@6.0.0-alpha.41) (2025-02-19)
 
 
