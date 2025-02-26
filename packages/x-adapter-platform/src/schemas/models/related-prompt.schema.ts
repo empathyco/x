@@ -40,7 +40,18 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
       nextQueriesTagging: 'tagging.nextQueries'
     }
   },
+  nextQueries: 'nextQueries',
   suggestionText: 'suggestionText',
   type: 'type',
-  toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay)
+  toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
+  tagging: {
+    toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
+    nextQueriesTagging: {
+      $path: 'nextQueries',
+      $subSchema: nextQueriesRelatedPromptsSchema,
+      $context: {
+        nextQueriesTagging: 'tagging.nextQueries'
+      }
+    }
+  }
 });
