@@ -8,7 +8,7 @@ import { TaggingRequest } from '../request/index';
  */
 export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   /** The next queries related to the prompt. */
-  relatedPromptNextQueries: RelatedPromptNextQuery[];
+  relatedPromptNextQueries?: RelatedPromptNextQuery[];
   /** The queries of the next queries related to the prompt. */
   nextQueries: string[];
   /** The prompt. */
@@ -20,6 +20,7 @@ export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   /** Related prompt tagging. */
   tagging?: {
     toolingDisplayTagging?: TaggingRequest;
+    toolingDisplayClickTagging?: TaggingRequest;
     nextQueriesTagging?: RelatedPromptNextQuery[];
   };
 }

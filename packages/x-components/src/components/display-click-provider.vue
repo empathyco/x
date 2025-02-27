@@ -5,10 +5,15 @@
   import { computed, defineComponent, provide } from 'vue';
   import { use$x } from '../composables/index';
   import { DisplayWireMetadata } from '../wiring/index';
+  import type { ResultFeature } from '../types/index';
 
   export default defineComponent({
     name: 'DisplayClickProvider',
     props: {
+      resultFeature: {
+        type: String as PropType<ResultFeature>,
+        required: true
+      },
       ignoreResultClickEvent: {
         type: Boolean,
         default: false
@@ -34,6 +39,7 @@
 
       const displayClickMetadata = computed<Partial<DisplayWireMetadata>>(() => ({
         displayOriginalQuery: x.query.search,
+        feature: props.resultFeature,
         queryTagging: props.queryTagging,
         toolingTagging: props.toolingDisplayTagging,
         toolingAdd2CartTagging: props.toolingAdd2CartTagging

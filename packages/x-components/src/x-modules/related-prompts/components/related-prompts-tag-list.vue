@@ -260,7 +260,10 @@
           });
         }
 
-        x.emit('UserSelectedARelatedPrompt', selectedIndex);
+        x.emit('UserSelectedARelatedPrompt', selectedIndex, {
+          relatedPrompt: relatedPrompts.value[selectedIndex],
+          selectedPrompt: selectedPromptIndex.value
+        });
       };
 
       const onBeforeEnter = (el: Element) => {

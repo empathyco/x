@@ -19,6 +19,7 @@ export interface PlatformRelatedPrompt {
  */
 export interface PlatformRelatedPromptTagging {
   toolingDisplay: string;
+  toolingDisplayClick: string;
   nextQueries: Dictionary<PlatformRelatedPromptNextQueriesTagging>;
 }
 
