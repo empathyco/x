@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.42...@empathyco/x-components@6.0.0-alpha.43) (2025-02-27)
+
+
+### Code Refactoring
+
+* **empathize:** use computed for hasContent to improve reactivity (#1712) ([76de6ac](https://github.com/empathyco/x/commit/76de6ac65c345a4add6c9e0eb80c3853c518ed31))
+
+
+
 ## [6.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.41...@empathyco/x-components@6.0.0-alpha.42) (2025-02-26)
 
 
