@@ -28,11 +28,11 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    */
   function expand(element: HTMLElement): void {
     element.style[property] = '0';
-    const originalValue = (element.style as any)['content-visibility'];
-    (element.style as any)['content-visibility'] = 'visible';
+    const originalValue = element.style.contentVisibility;
+    element.style.contentVisibility = 'visible';
     element.getBoundingClientRect();
     element.style[property] = `${element[scrollProperty]}px`;
-    (element.style as any)['content-visibility'] = originalValue;
+    element.style.contentVisibility = originalValue;
   }
 
   /**
