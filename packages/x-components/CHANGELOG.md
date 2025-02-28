@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.43...@empathyco/x-components@6.0.0-alpha.44) (2025-02-28)
+
+
+### Features
+
+* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
+
+
+
 ## [6.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.42...@empathyco/x-components@6.0.0-alpha.43) (2025-02-27)
 
 

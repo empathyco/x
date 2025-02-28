@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.9...@empathyco/x-types@10.1.0-alpha.10) (2025-02-28)
+
+
+### Features
+
+* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
+
+
+
 ## [10.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.8...@empathyco/x-types@10.1.0-alpha.9) (2025-02-26)
 
 
