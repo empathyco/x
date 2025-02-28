@@ -13,6 +13,7 @@ export const RelatedPromptSchema: RelatedPrompt = {
   toolingDisplayTagging: TaggingRequestSchema,
   tagging: {
     toolingDisplayTagging: TaggingRequestSchema,
+    toolingDisplayClickTagging: TaggingRequestSchema,
     nextQueriesTagging: expect.any(Array)
   }
 };

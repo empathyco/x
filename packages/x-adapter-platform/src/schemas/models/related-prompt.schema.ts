@@ -46,6 +46,7 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
   toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
   tagging: {
     toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
+    toolingDisplayClickTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplayClick),
     nextQueriesTagging: {
       $path: 'nextQueries',
       $subSchema: nextQueriesRelatedPromptsSchema,

@@ -1,4 +1,11 @@
-import { Result, SemanticQuery, Taggable, Tagging, TaggingRequest } from '@empathyco/x-types';
+import {
+  RelatedPrompt,
+  Result,
+  SemanticQuery,
+  Taggable,
+  Tagging,
+  TaggingRequest
+} from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
@@ -189,6 +196,14 @@ export const trackToolingDisplayClickedWire = createTrackToolingDisplayWire();
 export const trackToolingAdd2CartWire = createTrackToolingAdd2CartWire();
 
 /**
+ * Performs a track of a clicked related prompt.
+ *
+ * @public
+ */
+export const trackRelatedPromptToolingDisplayClickWire =
+  createTrackRelatedPromptToolingDisplayClickWire();
+
+/**
  * Performs a track of a display element appearing.
  *
  * @public
@@ -314,7 +329,7 @@ export function createTrackToolingDisplayWire(): Wire<Taggable> {
 }
 
 /**
- * Factory helper to create a wire for the track of the tooling display click.
+ * Factory helper to create a wire for the track of the tooling display add to cart.
  *
  * @returns A new wire for the tooling display add to cart of the taggable element.
  *
@@ -331,6 +346,30 @@ export function createTrackToolingAdd2CartWire(): Wire<Taggable> {
       return taggingInfo;
     }),
     ({ metadata }) => !!metadata?.toolingAdd2CartTagging
+  );
+}
+
+/**
+ * Factory helper to create a wire for the track of the tooling display click in a related prompt.
+ *
+ * @returns A new wire for the tooling display click of the taggable element.
+ *
+ * @public
+ */
+export function createTrackRelatedPromptToolingDisplayClickWire() {
+  return filter(
+    wireDispatch('track', ({ metadata }) => {
+      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt;
+      const taggingInfo: TaggingRequest = relatedPrompt.tagging
+        ?.toolingDisplayClickTagging as TaggingRequest;
+
+      taggingInfo.params.productId = 'EXPAND';
+      taggingInfo.params.title = relatedPrompt.suggestionText;
+      taggingInfo.params.url = 'none';
+
+      return taggingInfo;
+    }),
+    ({ metadata }) => metadata?.selectedPrompt === -1
   );
 }
 
@@ -410,5 +449,8 @@ export const taggingWiring = createWiring({
   },
   UserClickedARelatedPromptAdd2Cart: {
     trackToolingAdd2CartWire
+  },
+  UserSelectedARelatedPrompt: {
+    trackRelatedPromptToolingDisplayClickWire
   }
 });
