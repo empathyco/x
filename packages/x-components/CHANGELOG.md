@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.44...@empathyco/x-components@6.0.0-alpha.45) (2025-03-03)
+
+
+### Bug Fixes
+
+* remove selected filters from state when there are no results (#1716) ([1324ce9](https://github.com/empathyco/x/commit/1324ce96bbb6fa753fbe1623fcfd0bc93050dd4f))
+
+
+
 ## [6.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.43...@empathyco/x-components@6.0.0-alpha.44) (2025-02-28)
 
 
