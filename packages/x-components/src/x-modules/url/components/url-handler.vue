@@ -173,7 +173,8 @@
           deleteUrlParameters(newUrl);
           setUrlParameters(newUrl, newUrlParams);
 
-          newUrl.href = newUrl.href.replace(/\+/g, '%20');
+          // Normalize '+' characters into '%20' for spaces in url params.
+          newUrl.search = newUrl.search.replace(/\+/g, '%20');
 
           if (newUrl.href !== window.location.href) {
             historyMethod({ ...window.history.state }, document.title, newUrl.href);
