@@ -140,7 +140,7 @@ describe('testing Tagging component', () => {
     });
   });
 
-  it('emits TaggingConfigProvided when clicked result storage ttl is set using the prop', () => {
+  it('emits TaggingConfigProvided when storage ttl is set using the prop', () => {
     const { onTaggingConfigProvided } = renderTagging({ storageTTLMs: 150 });
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1);
@@ -153,7 +153,7 @@ describe('testing Tagging component', () => {
     });
   });
 
-  it('emits TaggingConfigProvided when clicked result storage key is set using the prop', () => {
+  it('emits TaggingConfigProvided when storage key is set using the prop', () => {
     const { onTaggingConfigProvided } = renderTagging({ storageKey: 'id' });
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1);
@@ -241,7 +241,7 @@ interface RenderTaggingOptions {
   sessionTTLMs?: number;
   /** The template to be rendered. */
   template?: string;
-  /** Time in milliseconds to keep the information for a result clicked by the user. */
+  /** Time in milliseconds to keep the information for a result. */
   storageTTLMs?: number;
   /** The id ot use for storing the information. */
   storageKey?: string;

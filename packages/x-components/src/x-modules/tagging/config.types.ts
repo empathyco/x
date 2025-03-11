@@ -15,7 +15,7 @@ export interface TaggingConfig {
   sessionTTLMs: number;
 
   /**
-   * Time in milliseconds to keep the information for a result clicked by the user.
+   * Time in milliseconds to keep the information for a result.
    */
   storageTTLMs: number | null;
 

@@ -16,15 +16,16 @@
     xModule: taggingXModule.name,
     props: {
       /**
-       * The TTL in milliseconds for storing the clicked result info.
+       * The TTL in milliseconds for storing the result info.
        */
       storageTTLMs: {
         type: Number,
         default: 30000
       },
       /**
-       * The Object key of the {@link @empathyco/x-types#Result} clicked by the user
-       * that will be used as id for the storage. By default, the Result url will be used.
+       * The Object key of the {@link @empathyco/x-types#Result} clicked or added to the cart by the user
+       * that will be used as id for the storage.
+       * By default, the Result url will be used.
        */
       storageKey: {
         type: String,
@@ -146,10 +147,10 @@ In this example, the `Tagging` component will emit `ConsentProvided` with payloa
 if the consent is not provided, the `TaggingConfigProvided` event will be emitted only if the props
 `queryTaggingDebounceMs`, `sessionDurationMs`, `storageTTLMs` or `storageKey`are defined.
 
-Every time the user clicks a result the information for the clicked product will be stored on the
-browser during 30 seconds which is the default value for the prop `storageTTLMs`. To distinguish the
-storage information for the different results the product url will be used since `storageKey`
-default value is 'url'.
+Every time the user clicks a result or adds a result to the cart, the information for the product
+will be stored on the browser during 30 seconds which is the default value for the prop
+`storageTTLMs`. To distinguish the storage information for the different results the product url
+will be used since `storageKey` default value is 'url'.
 
 ```vue
 <template>
@@ -168,8 +169,8 @@ default value is 'url'.
 </script>
 ```
 
-In this example, the clicked result information will be stored on the browser during 60 seconds and
-the product id will be used as storage key.
+In this example, the clicked or added to cart result information will be stored on the browser
+during 60 seconds and the product id will be used as storage key
 
 ```vue
 <template>
