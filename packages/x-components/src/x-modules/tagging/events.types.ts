@@ -24,9 +24,9 @@ export interface TaggingXEvents {
    */
   PDPIsLoaded: string;
   /**
-   * ClickedResultStorageKey has been configured to use the
+   * StorageKey has been configured to use the
    * {@link @empathyco/x-types#Result | result} url.
-   * Payload: The new clickedResultStorageKey.
+   * Payload: The new storageKey.
    */
   ResultURLTrackingEnabled: string;
   /**

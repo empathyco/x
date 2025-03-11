@@ -10,7 +10,7 @@ export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
   ConsentChanged: state => state.consent!,
   SearchTaggingReceived: state => state.queryTaggingInfo!,
   ResultURLTrackingEnabled: {
-    selector: state => state.config.clickedResultStorageKey!,
+    selector: state => state.config.storageKey!,
     filter: newValue => newValue === 'url'
   }
 });

@@ -39,12 +39,12 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     return XPlugin.store;
   }
 
-  protected get clickedResultStorageKey(): string {
-    return this.store.state.x.tagging.config.clickedResultStorageKey as string;
+  protected get storageKey(): string {
+    return this.store.state.x.tagging.config.storageKey as string;
   }
 
-  protected get clickedResultStorageTTLMs(): number {
-    return this.store.state.x.tagging.config.clickedResultStorageTTLMs as number;
+  protected get storageTTLMs(): number {
+    return this.store.state.x.tagging.config.storageTTLMs as number;
   }
 
   /**
@@ -56,10 +56,10 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @public
    */
   storeResultClicked(result: Result): void {
-    const key = result[this.clickedResultStorageKey as keyof Result] as string;
+    const key = result[this.storageKey as keyof Result] as string;
     const storageId = this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, key);
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
     }
   }
 
@@ -72,10 +72,10 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @public
    */
   storeAddToCart(result: Result): void {
-    const key = result[this.clickedResultStorageKey as keyof Result] as string;
+    const key = result[this.storageKey as keyof Result] as string;
     const storageId = this.getStorageId(DefaultPDPAddToCartService.ADD_TO_CART_ID_KEY, key);
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
     }
   }
 
@@ -108,7 +108,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   trackAddToCart(id?: string): void {
     const storageId =
-      this.clickedResultStorageKey === 'url'
+      this.storageKey === 'url'
         ? this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY)
         : this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, id);
     if (storageId) {
@@ -131,7 +131,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @internal
    */
   protected getStorageId(keyPrefix: string, id?: string): string | null {
-    if (this.clickedResultStorageKey === 'url') {
+    if (this.storageKey === 'url') {
       let url = id ?? window.location.href;
       url = url.replace(/\s|\+/g, '%20');
       const pathName = this.getPathName(url);
@@ -150,7 +150,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @internal
    */
   protected showWarningMessage(): void {
-    if (this.clickedResultStorageKey !== 'url') {
+    if (this.storageKey !== 'url') {
       //TODO: add here logger
       //eslint-disable-next-line no-console
       console.warn('No product id was provided but the storage was not configured to use the url');
