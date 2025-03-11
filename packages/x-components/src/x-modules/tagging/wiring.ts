@@ -64,6 +64,13 @@ const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance)
 const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
 
 /**
+ * Stores the result added to cart on the local storage.
+ *
+ * @public
+ */
+const storeAddToCartWire = wirePDPAddToCartService('storeAddToCart');
+
+/**
  * Moves the result information from the local storage to session storage.
  *
  * @public
@@ -121,7 +128,7 @@ export const setTaggingConfig = wireCommit('mergeConfig');
 export const trackQueryWire = filter(
   wireDispatch('track'),
   ({ eventPayload, store }) =>
-    (eventPayload as TaggingRequest).params.totalHits > 0 ||
+    ((eventPayload as TaggingRequest).params.totalHits as number) > 0 ||
     !store.state.x.tagging.noResultsTaggingEnabled
 );
 
@@ -426,7 +433,8 @@ export const taggingWiring = createWiring({
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire,
-    trackResultClickedWire
+    trackResultClickedWire,
+    storeAddToCartWire
   },
   UserClickedPDPAddToCart: {
     trackAddToCartFromSessionStorage

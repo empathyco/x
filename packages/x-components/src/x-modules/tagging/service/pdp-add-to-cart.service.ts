@@ -12,11 +12,18 @@ import { PDPAddToCartService } from './types';
  */
 export class DefaultPDPAddToCartService implements PDPAddToCartService {
   /**
-   * Session id key to use as key in the storage.
+   * Session id key to use as key in the storage for result clicks.
    *
    * @public
    */
   public static readonly RESULT_CLICKED_ID_KEY = 'add-to-cart';
+
+  /**
+   * Session id key to use as key in the storage for add to carts.
+   *
+   * @public
+   */
+  public static readonly ADD_TO_CART_ID_KEY = 'checkout';
 
   /**
    * Global instance of the {@link PDPAddToCartService}.
@@ -42,7 +49,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
 
   /**
    * Stores in the local storage the information from the Result clicked by the user
-   * in order to be able to track later on.
+   * in order to be able to track the add to cart later on.
    *
    * @param result - The result to store.
    *
@@ -50,7 +57,23 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   storeResultClicked(result: Result): void {
     const key = result[this.clickedResultStorageKey as keyof Result] as string;
-    const storageId = this.getStorageId(key);
+    const storageId = this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, key);
+    if (storageId) {
+      this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+    }
+  }
+
+  /**
+   * Stores in the local storage the information from the Result added to the cart
+   * by the user in order to be able to track the checkout later on.
+   *
+   * @param result - The result to store.
+   *
+   * @public
+   */
+  storeAddToCart(result: Result): void {
+    const key = result[this.clickedResultStorageKey as keyof Result] as string;
+    const storageId = this.getStorageId(DefaultPDPAddToCartService.ADD_TO_CART_ID_KEY, key);
     if (storageId) {
       this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
     }
@@ -65,13 +88,14 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @public
    */
   moveToSessionStorage(id?: string): void {
-    const storageId = this.getStorageId(id);
-    if (storageId) {
-      const result = this.localStorageService.removeItem(storageId);
-      if (result) {
-        this.sessionStorageService.setItem(storageId, result);
-      }
-    }
+    const storageResultClickedId = this.getStorageId(
+      DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY,
+      id
+    );
+    this.transferToSessionStorage(storageResultClickedId);
+
+    const storageAddToCartId = this.getStorageId(DefaultPDPAddToCartService.ADD_TO_CART_ID_KEY, id);
+    this.transferToSessionStorage(storageAddToCartId);
   }
 
   /**
@@ -84,7 +108,9 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   trackAddToCart(id?: string): void {
     const storageId =
-      this.clickedResultStorageKey === 'url' ? this.getStorageId() : this.getStorageId(id);
+      this.clickedResultStorageKey === 'url'
+        ? this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY)
+        : this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, id);
     if (storageId) {
       const result = this.sessionStorageService.getItem<Result>(storageId);
       if (result?.tagging?.add2cart) {
@@ -97,20 +123,21 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   /**
    * Calculates the browser storage key for the given id.
    *
+   * @param keyPrefix - The key prefix to use in the storage.
    * @param id - The id to be used for the storage key.
    *
    * @returns The complete key to be used for storage.
    *
    * @internal
    */
-  protected getStorageId(id?: string): string | null {
+  protected getStorageId(keyPrefix: string, id?: string): string | null {
     if (this.clickedResultStorageKey === 'url') {
       let url = id ?? window.location.href;
       url = url.replace(/\s|\+/g, '%20');
       const pathName = this.getPathName(url);
-      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${pathName}`;
+      return `${keyPrefix}-${pathName}`;
     } else if (id) {
-      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+      return `${keyPrefix}-${id}`;
     } else {
       this.showWarningMessage();
       return null;
@@ -154,6 +181,22 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
       //eslint-disable-next-line no-console
       console.warn(`There was a problem with url ${url}`);
       return url;
+    }
+  }
+
+  /**
+   * Moves the result information from the local storage to the session storage.
+   *
+   * @param storageKey - The key of the storage to transfer.
+   *
+   * @internal
+   */
+  protected transferToSessionStorage(storageKey: string | null): void {
+    if (storageKey) {
+      const result = this.localStorageService.removeItem(storageKey);
+      if (result) {
+        this.sessionStorageService.setItem(storageKey, result);
+      }
     }
   }
 }

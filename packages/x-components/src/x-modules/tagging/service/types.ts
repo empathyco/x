@@ -8,11 +8,19 @@ import { Result } from '@empathyco/x-types';
 export interface PDPAddToCartService {
   /**
    * Stores in the local storage the information from the Result clicked by the user
-   * in order to be able to track later on.
+   * in order to be able to track the add to cart later on.
    *
    * @param result - The result to store.
    */
   storeResultClicked(result: Result): void;
+
+  /**
+   * Stores in the local storage the information from the Result added to the cart
+   * by the user in order to be able to track the checkout later on.
+   *
+   * @param result - The result to store.
+   */
+  storeAddToCart(result: Result): void;
 
   /**
    * Checks if the local storage contains a result information for the given id and moves
