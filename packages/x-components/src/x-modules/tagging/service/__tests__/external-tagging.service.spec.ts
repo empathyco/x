@@ -1,7 +1,7 @@
 import { InMemoryStorageService } from '@empathyco/x-storage-service';
 import { Store } from 'vuex';
 import { mount } from '@vue/test-utils';
-import { DefaultPDPAddToCartService } from '../pdp-add-to-cart.service';
+import { DefaultExternalTaggingService } from '../external-tagging.service';
 import { XPlugin } from '../../../../plugins/index';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { taggingXModule } from '../../x-module';
@@ -9,14 +9,14 @@ import { RootXStoreState } from '../../../../store/index';
 import { createResultStub } from '../../../../__stubs__/index';
 import { TaggingConfig } from '../../config.types';
 
-interface PDPAddToCartServiceTestAPI {
-  service: DefaultPDPAddToCartService;
+interface ExternalTaggingServiceTestAPI {
+  service: DefaultExternalTaggingService;
   localStorageService: InMemoryStorageService;
   sessionStorageService: InMemoryStorageService;
   store: Store<RootXStoreState>;
 }
 
-function preparePDPAddToCartService(): PDPAddToCartServiceTestAPI {
+function prepareExternalTaggingService(): ExternalTaggingServiceTestAPI {
   XPlugin.resetInstance();
   XPlugin.registerXModule(taggingXModule);
   const plugin = installNewXPlugin();
@@ -26,7 +26,7 @@ function preparePDPAddToCartService(): PDPAddToCartServiceTestAPI {
   const store = XPlugin.store;
   const localStorageService = new InMemoryStorageService();
   const sessionStorageService = new InMemoryStorageService();
-  const service = new DefaultPDPAddToCartService(localStorageService, sessionStorageService);
+  const service = new DefaultExternalTaggingService(localStorageService, sessionStorageService);
 
   return {
     service,
@@ -45,7 +45,7 @@ function commitTaggingConfig(
 
 describe('testing pdp add to cart', () => {
   const { service, localStorageService, sessionStorageService, store } =
-    preparePDPAddToCartService();
+    prepareExternalTaggingService();
 
   const localSetItemSpy = jest.spyOn(localStorageService, 'setItem');
   const localRemoveItemSpy = jest.spyOn(localStorageService, 'removeItem');

@@ -1,2 +1,2 @@
-export * from './pdp-add-to-cart.service';
+export * from './external-tagging.service';
 export * from './types';

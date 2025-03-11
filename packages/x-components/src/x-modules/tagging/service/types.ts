@@ -5,7 +5,7 @@ import { Result } from '@empathyco/x-types';
  *
  * @public
  */
-export interface PDPAddToCartService {
+export interface ExternalTaggingService {
   /**
    * Stores in the local storage the information from the Result clicked by the user
    * in order to be able to track the add to cart later on.

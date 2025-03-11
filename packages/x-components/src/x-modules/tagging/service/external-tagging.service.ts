@@ -3,14 +3,14 @@ import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { RootXStoreState } from '../../../store/index';
 import { XPlugin } from '../../../plugins/index';
-import { PDPAddToCartService } from './types';
+import { ExternalTaggingService } from './types';
 
 /**
- * Default implementation for the {@link PDPAddToCartService}.
+ * Default implementation for the {@link ExternalTaggingService}.
  *
  * @public
  */
-export class DefaultPDPAddToCartService implements PDPAddToCartService {
+export class DefaultExternalTaggingService implements ExternalTaggingService {
   /**
    * Session id key to use as key in the storage for result clicks.
    *
@@ -26,9 +26,9 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   public static readonly ADD_TO_CART_ID_KEY = 'checkout';
 
   /**
-   * Global instance of the {@link PDPAddToCartService}.
+   * Global instance of the {@link ExternalTaggingService}.
    */
-  public static instance: PDPAddToCartService = new DefaultPDPAddToCartService();
+  public static instance: ExternalTaggingService = new DefaultExternalTaggingService();
 
   public constructor(
     protected localStorageService: StorageService = new BrowserStorageService(localStorage, 'x'),
@@ -57,7 +57,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   storeResultClicked(result: Result): void {
     const key = result[this.storageKey as keyof Result] as string;
-    const storageId = this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, key);
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, key);
     if (storageId) {
       this.localStorageService.setItem(storageId, result, this.storageTTLMs);
     }
@@ -73,7 +73,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   storeAddToCart(result: Result): void {
     const key = result[this.storageKey as keyof Result] as string;
-    const storageId = this.getStorageId(DefaultPDPAddToCartService.ADD_TO_CART_ID_KEY, key);
+    const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key);
     if (storageId) {
       this.localStorageService.setItem(storageId, result, this.storageTTLMs);
     }
@@ -89,12 +89,15 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   moveToSessionStorage(id?: string): void {
     const storageResultClickedId = this.getStorageId(
-      DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY,
+      DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY,
       id
     );
     this.transferToSessionStorage(storageResultClickedId);
 
-    const storageAddToCartId = this.getStorageId(DefaultPDPAddToCartService.ADD_TO_CART_ID_KEY, id);
+    const storageAddToCartId = this.getStorageId(
+      DefaultExternalTaggingService.ADD_TO_CART_ID_KEY,
+      id
+    );
     this.transferToSessionStorage(storageAddToCartId);
   }
 
@@ -109,8 +112,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   trackAddToCart(id?: string): void {
     const storageId =
       this.storageKey === 'url'
-        ? this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY)
-        : this.getStorageId(DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY, id);
+        ? this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY)
+        : this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
     if (storageId) {
       const result = this.sessionStorageService.getItem<Result>(storageId);
       if (result?.tagging?.add2cart) {
