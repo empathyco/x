@@ -75,7 +75,7 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
     const key = result[this.storageKey as keyof Result] as string;
     const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key);
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
+      this.sessionStorageService.setItem(storageId, result, this.storageTTLMs);
     }
   }
 
@@ -88,17 +88,13 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    * @public
    */
   moveToSessionStorage(id?: string): void {
-    const storageResultClickedId = this.getStorageId(
-      DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY,
-      id
-    );
-    this.transferToSessionStorage(storageResultClickedId);
-
-    const storageAddToCartId = this.getStorageId(
-      DefaultExternalTaggingService.ADD_TO_CART_ID_KEY,
-      id
-    );
-    this.transferToSessionStorage(storageAddToCartId);
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
+    if (storageId) {
+      const result = this.localStorageService.removeItem(storageId);
+      if (result) {
+        this.sessionStorageService.setItem(storageId, result);
+      }
+    }
   }
 
   /**
@@ -119,6 +115,7 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
       if (result?.tagging?.add2cart) {
         result.tagging.add2cart.params.location = 'pdp';
         this.store.dispatch('x/tagging/track', result.tagging.add2cart);
+        this.storeAddToCart(result);
       }
     }
   }
@@ -184,22 +181,6 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
       //eslint-disable-next-line no-console
       console.warn(`There was a problem with url ${url}`);
       return url;
-    }
-  }
-
-  /**
-   * Moves the result information from the local storage to the session storage.
-   *
-   * @param storageKey - The key of the storage to transfer.
-   *
-   * @internal
-   */
-  protected transferToSessionStorage(storageKey: string | null): void {
-    if (storageKey) {
-      const result = this.localStorageService.removeItem(storageKey);
-      if (result) {
-        this.sessionStorageService.setItem(storageKey, result);
-      }
     }
   }
 }
