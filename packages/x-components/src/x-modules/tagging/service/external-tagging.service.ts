@@ -118,9 +118,6 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
         result.tagging.add2cart.params.location = 'pdp';
         this.store.dispatch('x/tagging/track', result.tagging.add2cart);
         /**
-         * Store the add to cart information in the session storage to be able to
-         * track the checkout later on.
-         *
          * Done after tracking the add to cart to avoid tracking the checkout without
          * an add to cart, in case the tracking fails.
          */
