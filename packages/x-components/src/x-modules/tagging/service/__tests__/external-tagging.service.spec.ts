@@ -138,6 +138,7 @@ describe('testing pdp add to cart', () => {
       service.trackAddToCart();
 
       expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${productPathName}`);
+      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
       expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
 
       commitTaggingConfig(store, { storageKey: 'id', storageTTLMs });
@@ -147,6 +148,7 @@ describe('testing pdp add to cart', () => {
       service.trackAddToCart(id);
 
       expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${id}`);
+      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${id}`, result);
       expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
     });
 
@@ -156,60 +158,32 @@ describe('testing pdp add to cart', () => {
       service.trackAddToCart();
 
       expect(storeDispatchSpy).not.toHaveBeenCalledWith('x/tagging/track', expect.anything());
+      expect(sessionSetItemSpy).not.toHaveBeenCalled();
     });
   });
 
   describe('testing the add to cart actions', () => {
-    it('stores the add to cart with the id as key and ttl', () => {
+    it('stores the add to cart with the id as key', () => {
       const storageKey = 'id';
       const storageTTLMs = 30000;
       commitTaggingConfig(store, { storageKey, storageTTLMs });
 
       service.storeAddToCart(result);
-      expect(localSetItemSpy).toHaveBeenCalledWith(`checkout-${result.id}`, result, storageTTLMs);
+      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${result.id}`, result);
     });
 
-    it('stores the add to cart using the url as id and ttl', () => {
+    it('stores the add to cart using the url as id', () => {
       const storageKey = 'url';
       const storageTTLMs = 30;
       commitTaggingConfig(store, { storageKey, storageTTLMs });
 
       service.storeAddToCart(result);
-      expect(localSetItemSpy).toHaveBeenCalledWith(
-        `checkout-${productPathName}`,
-        result,
-        storageTTLMs
-      );
+      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
 
       result.url = encodedURL;
 
       service.storeAddToCart(result);
-      expect(localSetItemSpy).toHaveBeenCalledWith(
-        `checkout-${productPathName}`,
-        result,
-        storageTTLMs
-      );
-    });
-
-    it('moves the add to cart to the session service', () => {
-      const storageKey = 'id';
-      const storageTTLMs = 30000;
-      commitTaggingConfig(store, { storageKey, storageTTLMs });
-
-      service.storeAddToCart(result);
-      service.moveToSessionStorage(result.id as string);
-      let id = `checkout-${result.id}`;
-
-      expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
-
-      commitTaggingConfig(store, { storageKey: 'url' });
-      service.storeAddToCart(result);
-      service.moveToSessionStorage();
-      id = `checkout-${productPathName}`;
-
-      expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
+      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
     });
   });
 });
