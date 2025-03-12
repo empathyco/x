@@ -64,7 +64,7 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
   }
 
   /**
-   * Stores in the local storage the information from the Result added to the cart
+   * Stores in the session storage the information from the Result added to the cart
    * by the user in order to be able to track the checkout later on.
    *
    * @param result - The result to store.
@@ -75,7 +75,7 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
     const key = result[this.storageKey as keyof Result] as string;
     const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key);
     if (storageId) {
-      this.sessionStorageService.setItem(storageId, result, this.storageTTLMs);
+      this.sessionStorageService.setItem(storageId, result);
     }
   }
 
@@ -98,8 +98,9 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
   }
 
   /**
-   * Checks if the session storage contains a result information for given id or the current url
-   * and tracks the add to cart if exists.
+   * Checks if the session storage contains a result information for given id or the current url.
+   * If exists, it tracks the add to cart and saves the add to cart information into session
+   * storage.
    *
    * @param id - The id of the result to track.
    *
