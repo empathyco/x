@@ -8,7 +8,7 @@ import { Result } from '@empathyco/x-types';
 export interface ExternalTaggingService {
   /**
    * Stores in the local storage the information from the Result clicked by the user
-   * in order to be able to track the add to cart later on.
+   * in order to be able to track the add to cart later on the result's PDP.
    *
    * @param result - The result to store.
    */
@@ -16,7 +16,8 @@ export interface ExternalTaggingService {
 
   /**
    * Stores in the session storage the information from the Result added to the cart
-   * by the user in order to be able to track the checkout later on.
+   * by the user in order to be able to track the checkout later on when the checkout
+   * process has been completed by shopper.
    *
    * @param result - The result to store.
    */
@@ -31,7 +32,7 @@ export interface ExternalTaggingService {
   moveToSessionStorage(id?: string): void;
 
   /**
-   * Checks if the session storage contains a result information for given id or the current url.
+   * Checks if the session storage contains a result information for a given id or the current url.
    * If exists, it tracks the add to cart and saves the add to cart information into session
    * storage.
    *
