@@ -15,13 +15,13 @@ export interface TaggingConfig {
   sessionTTLMs: number;
 
   /**
-   * Time in milliseconds to keep the information for a result clicked by the user.
+   * Time in milliseconds to keep the information for a result.
    */
-  clickedResultStorageTTLMs: number | null;
+  storageTTLMs: number | null;
 
   /**
    * Field of the {@link @empathyco/x-types#Result | result} to use as id for storing the
    * information.
    */
-  clickedResultStorageKey: string | null;
+  storageKey: string | null;
 }

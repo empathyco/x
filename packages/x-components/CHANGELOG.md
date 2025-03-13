@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.46...@empathyco/x-components@6.0.0-alpha.47) (2025-03-13)
+
+
+### Bug Fixes
+
+* **url-handler:** replace '+' with '%20' in query parameters only ([6fed89f](https://github.com/empathyco/x/commit/6fed89fba25b5ec19e32603c6c43b3e3d3df25e7))
+
+
+
+## [6.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.45...@empathyco/x-components@6.0.0-alpha.46) (2025-03-13)
+
+
+### Features
+
+* store result info on add to cart events to be able to track checkout (#1718) ([3ac62b0](https://github.com/empathyco/x/commit/3ac62b072b5841af29fd450b5c13779f085cea50))
+
+
+
 ## [6.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.44...@empathyco/x-components@6.0.0-alpha.45) (2025-03-03)
 
 

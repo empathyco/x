@@ -13,8 +13,8 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     config: {
       sessionTTLMs: 30 * 60 * 1000,
       queryTaggingDebounceMs: 2000,
-      clickedResultStorageKey: null,
-      clickedResultStorageTTLMs: null
+      storageKey: null,
+      storageTTLMs: null
     },
     consent: null,
     noResultsTaggingEnabled: false,
