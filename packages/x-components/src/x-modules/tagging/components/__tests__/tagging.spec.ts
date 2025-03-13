@@ -14,15 +14,15 @@ function renderTagging({
                 :consent="consent"
                 :sessionTTLMs="sessionTTLMs"
                 :queryTaggingDebounceMs="queryTaggingDebounceMs"
-                :clickedResultStorageTTLMs="clickedResultStorageTTLMs"
-                :clickedResultStorageKey="clickedResultStorageKey"
+                :storageTTLMs="storageTTLMs"
+                :storageKey="storageKey"
               />`,
   consent,
   sessionTTLMs,
   queryTaggingDebounceMs,
   snippetConsent,
-  clickedResultStorageTTLMs,
-  clickedResultStorageKey,
+  storageTTLMs,
+  storageKey,
   productId
 }: RenderTaggingOptions = {}) {
   const snippetConfig = reactive({
@@ -41,8 +41,8 @@ function renderTagging({
         'queryTaggingDebounceMs',
         'sessionTTLMs',
         'snippetConfig',
-        'clickedResultStorageTTLMs',
-        'clickedResultStorageKey'
+        'storageTTLMs',
+        'storageKey'
       ],
       template
     },
@@ -56,8 +56,8 @@ function renderTagging({
         queryTaggingDebounceMs,
         sessionTTLMs,
         snippetConfig,
-        clickedResultStorageTTLMs,
-        clickedResultStorageKey
+        storageTTLMs,
+        storageKey
       }
     }
   );
@@ -86,8 +86,8 @@ function renderTagging({
 }
 
 const defaultTaggingConfig: Partial<TaggingConfig> = {
-  clickedResultStorageTTLMs: 30000,
-  clickedResultStorageKey: 'url',
+  storageTTLMs: 30000,
+  storageKey: 'url',
   queryTaggingDebounceMs: 2000
 };
 
@@ -140,27 +140,27 @@ describe('testing Tagging component', () => {
     });
   });
 
-  it('emits TaggingConfigProvided when clicked result storage ttl is set using the prop', () => {
-    const { onTaggingConfigProvided } = renderTagging({ clickedResultStorageTTLMs: 150 });
+  it('emits TaggingConfigProvided when storage ttl is set using the prop', () => {
+    const { onTaggingConfigProvided } = renderTagging({ storageTTLMs: 150 });
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1);
     expect(onTaggingConfigProvided).toHaveBeenCalledWith({
       eventPayload: {
         ...defaultTaggingConfig,
-        clickedResultStorageTTLMs: 150
+        storageTTLMs: 150
       },
       metadata: stubTagginMetadata
     });
   });
 
-  it('emits TaggingConfigProvided when clicked result storage key is set using the prop', () => {
-    const { onTaggingConfigProvided } = renderTagging({ clickedResultStorageKey: 'id' });
+  it('emits TaggingConfigProvided when storage key is set using the prop', () => {
+    const { onTaggingConfigProvided } = renderTagging({ storageKey: 'id' });
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1);
     expect(onTaggingConfigProvided).toHaveBeenCalledWith({
       eventPayload: {
         ...defaultTaggingConfig,
-        clickedResultStorageKey: 'id'
+        storageKey: 'id'
       },
       metadata: stubTagginMetadata
     });
@@ -169,8 +169,8 @@ describe('testing Tagging component', () => {
   // eslint-disable-next-line max-len
   it('emits TaggingConfigProvided only once when multiple tagging config are set using the props', () => {
     const { onTaggingConfigProvided } = renderTagging({
-      clickedResultStorageKey: 'id',
-      clickedResultStorageTTLMs: 150,
+      storageKey: 'id',
+      storageTTLMs: 150,
       queryTaggingDebounceMs: 150,
       sessionTTLMs: 100
     });
@@ -178,8 +178,8 @@ describe('testing Tagging component', () => {
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1);
     expect(onTaggingConfigProvided).toHaveBeenCalledWith({
       eventPayload: {
-        clickedResultStorageKey: 'id',
-        clickedResultStorageTTLMs: 150,
+        storageKey: 'id',
+        storageTTLMs: 150,
         queryTaggingDebounceMs: 150,
         sessionTTLMs: 100
       },
@@ -241,10 +241,10 @@ interface RenderTaggingOptions {
   sessionTTLMs?: number;
   /** The template to be rendered. */
   template?: string;
-  /** Time in milliseconds to keep the information for a result clicked by the user. */
-  clickedResultStorageTTLMs?: number;
+  /** Time in milliseconds to keep the information for a result. */
+  storageTTLMs?: number;
   /** The id ot use for storing the information. */
-  clickedResultStorageKey?: string;
+  storageKey?: string;
   /** The id for a product. */
   productId?: string;
 }

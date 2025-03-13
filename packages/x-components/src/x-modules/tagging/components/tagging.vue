@@ -16,17 +16,18 @@
     xModule: taggingXModule.name,
     props: {
       /**
-       * The TTL in milliseconds for storing the clicked result info.
+       * The TTL in milliseconds for storing the result info.
        */
-      clickedResultStorageTTLMs: {
+      storageTTLMs: {
         type: Number,
         default: 30000
       },
       /**
-       * The Object key of the {@link @empathyco/x-types#Result} clicked by the user
-       * that will be used as id for the storage. By default, the Result url will be used.
+       * The Object key of the {@link @empathyco/x-types#Result} clicked or added to the cart by the user
+       * that will be used as id for the storage.
+       * By default, the Result url will be used.
        */
-      clickedResultStorageKey: {
+      storageKey: {
         type: String,
         default: 'url'
       },
@@ -75,8 +76,8 @@
         return {
           queryTaggingDebounceMs: props.queryTaggingDebounceMs,
           sessionTTLMs: props.sessionTTLMs as number,
-          clickedResultStorageTTLMs: props.clickedResultStorageTTLMs,
-          clickedResultStorageKey: props.clickedResultStorageKey
+          storageTTLMs: props.storageTTLMs,
+          storageKey: props.storageKey
         };
       });
 
@@ -144,13 +145,12 @@ doesn't render elements to the DOM.
 
 In this example, the `Tagging` component will emit `ConsentProvided` with payload false by default
 if the consent is not provided, the `TaggingConfigProvided` event will be emitted only if the props
-`queryTaggingDebounceMs`, `sessionDurationMs`, `clickedResultStorageTTLMs` or
-`clickedResultStorageKey`are defined.
+`queryTaggingDebounceMs`, `sessionDurationMs`, `storageTTLMs` or `storageKey`are defined.
 
-Every time the user clicks a result the information for the clicked product will be stored on the
-browser during 30 seconds which is the default value for the prop `clickedResultStorageTTLMs`. To
-distinguish the storage information for the different results the product url will be used since
-`clickedResultStorageKey` default value is 'url'.
+Every time the user clicks a result or adds a result to the cart, the information for the product
+will be stored on the browser during 30 seconds which is the default value for the prop
+`storageTTLMs`. To distinguish the storage information for the different results the product url
+will be used since `storageKey` default value is 'url'.
 
 ```vue
 <template>
@@ -169,12 +169,12 @@ distinguish the storage information for the different results the product url wi
 </script>
 ```
 
-In this example, the clicked result information will be stored on the browser during 60 seconds and
-the product id will be used as storage key.
+In this example, the clicked or added to cart result information will be stored on the browser
+during 60 seconds and the product id will be used as storage key
 
 ```vue
 <template>
-  <Tagging :clickedResultStorageTTLMs="60000" :clickedResultStorageKey="'id'" />
+  <Tagging :storageTTLMs="60000" :storageKey="'id'" />
 </template>
 
 <script>

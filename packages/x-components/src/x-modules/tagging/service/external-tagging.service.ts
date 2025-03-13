@@ -3,25 +3,32 @@ import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { RootXStoreState } from '../../../store/index';
 import { XPlugin } from '../../../plugins/index';
-import { PDPAddToCartService } from './types';
+import { ExternalTaggingService } from './types';
 
 /**
- * Default implementation for the {@link PDPAddToCartService}.
+ * Default implementation for the {@link ExternalTaggingService}.
  *
  * @public
  */
-export class DefaultPDPAddToCartService implements PDPAddToCartService {
+export class DefaultExternalTaggingService implements ExternalTaggingService {
   /**
-   * Session id key to use as key in the storage.
+   * Session id key to use as key in the storage for result clicks.
    *
    * @public
    */
   public static readonly RESULT_CLICKED_ID_KEY = 'add-to-cart';
 
   /**
-   * Global instance of the {@link PDPAddToCartService}.
+   * Session id key to use as key in the storage for add to carts.
+   *
+   * @public
    */
-  public static instance: PDPAddToCartService = new DefaultPDPAddToCartService();
+  public static readonly ADD_TO_CART_ID_KEY = 'checkout';
+
+  /**
+   * Global instance of the {@link ExternalTaggingService}.
+   */
+  public static instance: ExternalTaggingService = new DefaultExternalTaggingService();
 
   public constructor(
     protected localStorageService: StorageService = new BrowserStorageService(localStorage, 'x'),
@@ -32,27 +39,44 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     return XPlugin.store;
   }
 
-  protected get clickedResultStorageKey(): string {
-    return this.store.state.x.tagging.config.clickedResultStorageKey as string;
+  protected get storageKey(): string {
+    return this.store.state.x.tagging.config.storageKey as string;
   }
 
-  protected get clickedResultStorageTTLMs(): number {
-    return this.store.state.x.tagging.config.clickedResultStorageTTLMs as number;
+  protected get storageTTLMs(): number {
+    return this.store.state.x.tagging.config.storageTTLMs as number;
   }
 
   /**
    * Stores in the local storage the information from the Result clicked by the user
-   * in order to be able to track later on.
+   * in order to be able to track the add to cart later on the result's PDP.
    *
    * @param result - The result to store.
    *
    * @public
    */
   storeResultClicked(result: Result): void {
-    const key = result[this.clickedResultStorageKey as keyof Result] as string;
-    const storageId = this.getStorageId(key);
+    const key = result[this.storageKey as keyof Result] as string;
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, key);
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
+    }
+  }
+
+  /**
+   * Stores in the session storage the information from the Result added to the cart
+   * by the user in order to be able to track the checkout later on when the checkout
+   * process has been completed by shopper.
+   *
+   * @param result - The result to store.
+   *
+   * @public
+   */
+  storeAddToCart(result: Result): void {
+    const key = result[this.storageKey as keyof Result] as string;
+    const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key);
+    if (storageId) {
+      this.sessionStorageService.setItem(storageId, result);
     }
   }
 
@@ -65,7 +89,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @public
    */
   moveToSessionStorage(id?: string): void {
-    const storageId = this.getStorageId(id);
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
     if (storageId) {
       const result = this.localStorageService.removeItem(storageId);
       if (result) {
@@ -75,8 +99,9 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   }
 
   /**
-   * Checks if the session storage contains a result information for given id or the current url
-   * and tracks the add to cart if exists.
+   * Checks if the session storage contains a result information for a given id or the current url.
+   * If exists, it tracks the add to cart and saves the add to cart information into session
+   * storage.
    *
    * @param id - The id of the result to track.
    *
@@ -84,12 +109,19 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   trackAddToCart(id?: string): void {
     const storageId =
-      this.clickedResultStorageKey === 'url' ? this.getStorageId() : this.getStorageId(id);
+      this.storageKey === 'url'
+        ? this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY)
+        : this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
     if (storageId) {
       const result = this.sessionStorageService.getItem<Result>(storageId);
       if (result?.tagging?.add2cart) {
         result.tagging.add2cart.params.location = 'pdp';
         this.store.dispatch('x/tagging/track', result.tagging.add2cart);
+        /**
+         * Done after tracking the add to cart to avoid tracking the checkout without
+         * an add to cart, in case the tracking fails.
+         */
+        this.storeAddToCart(result);
       }
     }
   }
@@ -97,20 +129,21 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   /**
    * Calculates the browser storage key for the given id.
    *
+   * @param keyPrefix - The key prefix to use in the storage.
    * @param id - The id to be used for the storage key.
    *
    * @returns The complete key to be used for storage.
    *
    * @internal
    */
-  protected getStorageId(id?: string): string | null {
-    if (this.clickedResultStorageKey === 'url') {
+  protected getStorageId(keyPrefix: string, id?: string): string | null {
+    if (this.storageKey === 'url') {
       let url = id ?? window.location.href;
       url = url.replace(/\s|\+/g, '%20');
       const pathName = this.getPathName(url);
-      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${pathName}`;
+      return `${keyPrefix}-${pathName}`;
     } else if (id) {
-      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+      return `${keyPrefix}-${id}`;
     } else {
       this.showWarningMessage();
       return null;
@@ -123,7 +156,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @internal
    */
   protected showWarningMessage(): void {
-    if (this.clickedResultStorageKey !== 'url') {
+    if (this.storageKey !== 'url') {
       //TODO: add here logger
       //eslint-disable-next-line no-console
       console.warn('No product id was provided but the storage was not configured to use the url');
