@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.47...@empathyco/x-components@6.0.0-alpha.48) (2025-03-14)
+
+
+### Features
+
+* add slot for extra content in related prompts component (#1719) ([7247c90](https://github.com/empathyco/x/commit/7247c90b239caa6e928b378a10208ee9ffe09fb5))
+
+
+
 ## [6.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.46...@empathyco/x-components@6.0.0-alpha.47) (2025-03-13)
 
 
