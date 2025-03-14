@@ -1,5 +1,6 @@
 <template>
   <button class="x-related-prompt">
+    <slot name="related-prompt-extra-content" :relatedPrompt="relatedPrompt" />
     <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
     <component
       :is="selected ? 'CrossTinyIcon' : 'PlusIcon'"

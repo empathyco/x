@@ -54,7 +54,11 @@
               @click="onSelect(index)"
               :related-prompt="relatedPrompt"
               :selected="isSelected(index)"
-            />
+            >
+              <template #related-prompt-extra-content>
+                <slot name="related-prompt-extra-content" :relatedPrompt="relatedPrompt" />
+              </template>
+            </RelatedPrompt>
           </DisplayEmitter>
         </slot>
       </li>
