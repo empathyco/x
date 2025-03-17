@@ -346,6 +346,7 @@
     display: flex;
     gap: 16px;
     min-width: 100%;
+    width: 100%;
   }
   .x-related-prompts-tag-list-item {
     height: 100%;
