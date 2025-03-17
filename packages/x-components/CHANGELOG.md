@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.48...@empathyco/x-components@6.0.0-alpha.49) (2025-03-17)
+
+
+### Bug Fixes
+
+* **related-prompt:** expanded related prompt width on mobile ([25a49d6](https://github.com/empathyco/x/commit/25a49d6987039b9391a3d321b83b39ba4caf2f33))
+
+
+
 ## [6.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.47...@empathyco/x-components@6.0.0-alpha.48) (2025-03-14)
 
 
