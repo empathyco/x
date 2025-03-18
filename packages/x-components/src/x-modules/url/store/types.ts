@@ -56,6 +56,12 @@ export interface UrlMutations extends QueryMutations {
    */
   setRelatedTags(relatedTags: RelatedTag[]): void;
   /**
+   * Sets the prompt.
+   *
+   * @param prompt - The new prompt index of the url.
+   */
+  setPrompt(prompt: number): void;
+  /**
    * Sets the new filter ids.
    *
    * @param filters - The new filter ids of the url.

@@ -60,6 +60,13 @@ const setRelatedPromptsQueryFromPayload = wireCommit(
 );
 
 /**
+ * Sets the search state `query`.
+ *
+ * @public
+ */
+export const setUrlParams = wireDispatch('setUrlParams');
+
+/**
  * Sets the related prompts state `params`.
  */
 const setRelatedPromptsExtraParams = wireCommit('setParams');
@@ -93,7 +100,7 @@ const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
  */
 export const relatedPromptsWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setRelatedPromptsQueryFromPayload
+    setUrlParams
   },
   UserAcceptedAQuery: {
     setRelatedPromptsQuery

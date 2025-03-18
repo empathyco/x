@@ -23,6 +23,10 @@ export const urlXStoreModule: UrlXStoreModule = {
     setRelatedTags(state, relatedTags) {
       state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
+    setPrompt(state, prompt) {
+      console.log('setPrompt de la URL', prompt);
+      state.prompt = prompt;
+    },
     setFilters(state, newFilters) {
       state.filter = newFilters.map(filter => filter.id as string);
     },

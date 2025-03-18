@@ -6,6 +6,7 @@ import {
   fetchAndSaveRelatedPrompts
 } from './actions/fetch-and-save-related-prompts.action';
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
+import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
 
 /**
@@ -34,11 +35,13 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsProducts(state, products) {
       state.relatedPrompts = products;
     },
-    setSelectedPrompt(state, selectedPrompt) {
-      if (state.selectedPrompt === selectedPrompt) {
+    setSelectedPrompt(state, selectedPromptIndex) {
+      console.log(state.selectedPrompt, selectedPromptIndex);
+      if (state.selectedPrompt === selectedPromptIndex) {
+        console.log('estoy deseleccionando');
         state.selectedPrompt = -1;
       } else {
-        state.selectedPrompt = selectedPrompt;
+        state.selectedPrompt = selectedPromptIndex;
       }
     },
     setSelectedQuery(state, selectedQuery) {
@@ -56,6 +59,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   actions: {
     fetchRelatedPrompts,
     fetchAndSaveRelatedPrompts,
+    setUrlParams,
     cancelFetchAndSaveRelatedPrompts
   }
 };

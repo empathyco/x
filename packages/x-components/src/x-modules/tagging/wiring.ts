@@ -459,6 +459,6 @@ export const taggingWiring = createWiring({
     trackToolingAdd2CartWire
   },
   UserSelectedARelatedPrompt: {
-    trackRelatedPromptToolingDisplayClickWire
+    // trackRelatedPromptToolingDisplayClickWire
   }
 });
