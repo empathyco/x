@@ -35,14 +35,9 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsProducts(state, products) {
       state.relatedPrompts = products;
     },
-    setSelectedPrompt(state, selectedPromptIndex) {
-      console.log(state.selectedPrompt, selectedPromptIndex);
-      if (state.selectedPrompt === selectedPromptIndex) {
-        console.log('estoy deseleccionando');
-        state.selectedPrompt = -1;
-      } else {
-        state.selectedPrompt = selectedPromptIndex;
-      }
+    setSelectedPrompt(state, selectedPrompt) {
+      console.log(state.selectedPrompt, selectedPrompt);
+      state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt;
     },
     setSelectedQuery(state, selectedQuery) {
       state.selectedQuery = selectedQuery;
