@@ -763,14 +763,14 @@
       ]);
 
       const relatedPromptsQueriesPreviewInfo = computed(() => {
-        /* if (relatedPrompts.value) {
+        if (relatedPrompts.value) {
           const queries = [] as string[];
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.forEach(
             (nextQuery: RelatedPromptNextQuery) => queries.push(nextQuery.query)
           );
           return queries.map(query => ({ query }));
-        }*/
+        }
         return [];
       });
 
