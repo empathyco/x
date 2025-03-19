@@ -4,7 +4,10 @@
     :reset-on-content-change="false"
     :button-class="buttonClass"
     :show-buttons="showButtons && selectedPromptIndex === -1"
-    :scroll-container-class="['x-related-prompts-tag-list-scroll-container', scrollContainerClass]"
+    :scroll-container-class="[
+      'x-related-prompts-tag-list-scroll-container',
+      { scrollContainerClass: !!scrollContainerClass }
+    ]"
   >
     <template #sliding-panel-left-button>
       <!--
@@ -75,6 +78,7 @@
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
   import { computed, defineComponent, PropType, ref, watch } from 'vue';
+  import { VueCSSClasses } from '../../../utils/types';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
@@ -111,13 +115,13 @@
        *
        * @public
        */
-      scrollContainerClass: String,
+      scrollContainerClass: { type: Object as PropType<VueCSSClasses> },
       /**
        * The CSS class for all the related prompt wrapper elements.
        *
        * @public
        */
-      tagClass: String,
+      tagClass: { type: Object as PropType<VueCSSClasses> },
       /**
        * Array of colors to apply to the related prompts. It will be applied to tag
        * elements cyclically according to their index in the nex way: `tagColors[index % tagColors.length]`.
