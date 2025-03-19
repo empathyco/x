@@ -146,7 +146,7 @@ describe('relatedPromptsTagList component', () => {
 
     const sut = render();
 
-    await sut.listItems[clickedRelatedPromptIndex].trigger('click');
+    await sut.relatedPrompts[clickedRelatedPromptIndex].trigger('click');
 
     (sut.listItems[clickedRelatedPromptIndex].element as HTMLElement).style.width = widthStub; // Mocking selected RP style
 
