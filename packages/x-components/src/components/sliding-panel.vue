@@ -36,8 +36,9 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+  import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, watch } from 'vue';
   import { useDebounce } from '../composables/use-debounce';
+  import { VueCSSClasses } from '../utils/types';
 
   /**
    * This component allows for any other component or element inside it to be horizontally
@@ -72,8 +73,8 @@
         type: Boolean,
         default: true
       },
-      buttonClass: String,
-      scrollContainerClass: String
+      buttonClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
+      scrollContainerClass: { type: [String, Object, Array] as PropType<VueCSSClasses> }
     },
     setup(props, { slots }) {
       /** Indicates if the scroll is at the start of the sliding panel. */
