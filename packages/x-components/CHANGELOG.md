@@ -33,6 +33,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [6.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.45...@empathyco/x-components@6.0.0-alpha.46) (2025-03-13)
 
 
+### ⚠ BREAKING CHANGES
+
+Renaming properties in the Tagging module and renaming DefaultPDPAddToCartService to DefaultExternalTaggingService:
+
+- packages/x-components/src/x-modules/tagging/components/tagging.vue: Modified the property names in the Tagging component to use storageTTLMs and storageKey instead of clickedResultStorageTTLMs and clickedResultStorageKey.
+
+- packages/x-components/src/x-modules/tagging/config.types.ts: Modified the TaggingConfig interface to use storageTTLMs and storageKey instead of clickedResultStorageTTLMs and clickedResultStorageKey.
+
+- packages/x-components/src/x-modules/tagging/service/external-tagging.service.ts: Renamed service. Previously known as DefaultPDPAddToCartService
+
 ### Features
 
 * store result info on add to cart events to be able to track checkout (#1718) ([3ac62b0](https://github.com/empathyco/x/commit/3ac62b072b5841af29fd450b5c13779f085cea50))
