@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.50...@empathyco/x-components@6.0.0-alpha.51) (2025-03-19)
+
+
+### Bug Fixes
+
+* related-prompts-tag-list refresh on request change (#1724) ([7f7c7ce](https://github.com/empathyco/x/commit/7f7c7ce0d9c6468b92ada221a2c887f796310aaf))
+
+
+
 ## [6.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.49...@empathyco/x-components@6.0.0-alpha.50) (2025-03-19)
 
 
