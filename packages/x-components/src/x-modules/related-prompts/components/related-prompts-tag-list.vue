@@ -77,7 +77,7 @@
 
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, ref, watch } from 'vue';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import { VueCSSClasses } from '../../../utils/types';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
@@ -322,14 +322,8 @@
 
       const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
 
-      // Changing the query will trigger the appear animation, so we need to reset the
+      // Changing the request will trigger the appear animation, so we need to reset the
       // style after it finishes
-      watch(
-        () => x.query.search,
-        () => resetTransitionStyle(),
-        { immediate: true }
-      );
-
       x.on('SearchRequestChanged', false).subscribe(() => {
         resetTransitionStyle([]);
       });
@@ -362,5 +356,6 @@
   }
   .x-related-prompts-tag-list-item {
     height: 100%;
+    flex-shrink: 0;
   }
 </style>
