@@ -103,7 +103,7 @@
        *
        * @public
        */
-      buttonClass: String,
+      buttonClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
       /**
        * The boolean prop to handle the visiblity of sliding pannel buttons.
        *
@@ -115,13 +115,13 @@
        *
        * @public
        */
-      scrollContainerClass: { type: Object as PropType<VueCSSClasses> },
+      scrollContainerClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
       /**
        * The CSS class for all the related prompt wrapper elements.
        *
        * @public
        */
-      tagClass: { type: Object as PropType<VueCSSClasses> },
+      tagClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
       /**
        * Array of colors to apply to the related prompts. It will be applied to tag
        * elements cyclically according to their index in the nex way: `tagColors[index % tagColors.length]`.
@@ -186,7 +186,7 @@
       });
 
       let timeOutId: number;
-      const resetTransitionStyle = () => {
+      const resetTransitionStyle = (excludedProperties: Array<string> = ['width']) => {
         if (timeOutId) {
           clearTimeout(timeOutId);
         }
@@ -201,7 +201,7 @@
               .split(';')
               .map(rule => rule.split(':')[0]?.trim())
               .forEach(property => {
-                if (property !== 'width') {
+                if (!excludedProperties.includes(property)) {
                   element.style.removeProperty(property);
                 }
               });
@@ -324,7 +324,15 @@
 
       // Changing the query will trigger the appear animation, so we need to reset the
       // style after it finishes
-      watch(() => x.query.search, resetTransitionStyle, { immediate: true });
+      watch(
+        () => x.query.search,
+        () => resetTransitionStyle(),
+        { immediate: true }
+      );
+
+      x.on('SearchRequestChanged', false).subscribe(() => {
+        resetTransitionStyle([]);
+      });
 
       return {
         isSelected,

@@ -392,7 +392,7 @@
                             <RelatedPromptsTagList
                               :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
                               class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0 x-h-[70px]"
-                              tag-class="x-rounded-xl x-gap-8 x-w-[300px] x-max-w-[400px]"
+                              tag-class="x-rounded-xl x-gap-8 x-w-[300px] x-max-w-[400px] x-shrink-0"
                               :tag-colors="['x-bg-amber-300', 'x-bg-amber-400', 'x-bg-amber-500']"
                               scrollContainerClass="desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm"
                             >

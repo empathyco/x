@@ -73,8 +73,8 @@
         type: Boolean,
         default: true
       },
-      buttonClass: { type: Object as PropType<VueCSSClasses> },
-      scrollContainerClass: { type: Object as PropType<VueCSSClasses> }
+      buttonClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
+      scrollContainerClass: { type: [String, Object, Array] as PropType<VueCSSClasses> }
     },
     setup(props, { slots }) {
       /** Indicates if the scroll is at the start of the sliding panel. */
