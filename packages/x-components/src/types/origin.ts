@@ -46,7 +46,8 @@ export type ResultFeature =
   | 'next_query_recommendations'
   | 'semantic_recommendations'
   | 'partial_results'
-  | 'identifier_result';
+  | 'identifier_result'
+  | 'related_prompts';
 
 /**
  * Indicates where the feature is placed.
