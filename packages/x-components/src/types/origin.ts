@@ -32,7 +32,7 @@ export type QueryFeature =
   | 'spellcheck'
   | 'customer'
   | 'semantics'
-  | 'related-prompts';
+  | 'related_prompts';
 
 /**
  * The name of the tool that generated the results.
@@ -46,7 +46,8 @@ export type ResultFeature =
   | 'next_query_recommendations'
   | 'semantic_recommendations'
   | 'partial_results'
-  | 'identifier_result';
+  | 'identifier_result'
+  | 'related_prompts';
 
 /**
  * Indicates where the feature is placed.
@@ -71,7 +72,7 @@ export type FeatureLocation =
   | 'pdp'
   | 'url_history'
   | 'url_history_pdp'
-  | 'related-prompts';
+  | 'related_prompts';
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.
