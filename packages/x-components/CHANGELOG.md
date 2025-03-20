@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.52...@empathyco/x-components@6.0.0-alpha.53) (2025-03-20)
+
+
+### Bug Fixes
+
+* update toolingDisplayTagging to be inside tagging object (#1728) ([96e349e](https://github.com/empathyco/x/commit/96e349ebece45e4dd7bcd45f35afa78cd0880627))
+
+
+
 ## [6.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.51...@empathyco/x-components@6.0.0-alpha.52) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-components
