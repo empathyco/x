@@ -46,7 +46,7 @@
           :isSelected="isSelected(index)"
         >
           <DisplayEmitter
-            :payload="relatedPrompt.toolingDisplayTagging"
+            :payload="relatedPrompt.tagging?.toolingDisplayTagging"
             :eventMetadata="{
               feature: 'related-prompts',
               displayOriginalQuery: x.query.searchBox,
