@@ -29,6 +29,12 @@ const xEmitMock = jest.fn((event: string, payload: number) => {
 jest.mock('../../../../composables', () => ({
   use$x: jest.fn(() => ({
     emit: (event: string, payload: number) => xEmitMock(event, payload),
+    on: jest.fn((event: string, withMetadata: false) => {
+      void event;
+      void withMetadata;
+
+      return { subscribe: jest.fn() };
+    }),
     query: queryStub
   })),
   useState: (module: string, paths: string[]) => xUseStateMock(module, paths)
@@ -89,7 +95,6 @@ describe('relatedPromptsTagList component', () => {
     jest.restoreAllMocks();
     jest.useFakeTimers();
     selectedPromptIndexStub.value = -1;
-    queryStub.search = 'query';
   });
 
   afterEach(() => {
@@ -135,49 +140,13 @@ describe('relatedPromptsTagList component', () => {
     expect(sut.slidingPanel.props().showButtons).toBeFalsy();
   });
 
-  it('should reset the state propperly when the query changes', async () => {
-    const selectedPromptIndex = 1;
-    const widthStub = '100px';
-
-    const sut = render();
-
-    jest.runAllTimers(); // setTimeout from inmediate watch callback implementation
-    await nextTick();
-
-    queryStub.search = 'new query';
-    await nextTick(); // watch callback
-
-    (sut.listItems[selectedPromptIndex].element as HTMLElement).style.width = widthStub; // Mocking selected RP style
-
-    sut.listItems.forEach(listItem => {
-      const listItemElement = listItem.element as HTMLElement;
-
-      expect(listItemElement.style.pointerEvents).toBe('none');
-    });
-
-    jest.runAllTimers(); // setTimeout from resetTransitionStyle function
-
-    sut.listItems.forEach((listItem, index) => {
-      const listItemElement = listItem.element as HTMLElement;
-
-      expect(listItemElement.style.pointerEvents).toBe('');
-
-      if (index === selectedPromptIndex) {
-        expect(listItemElement.style).toHaveLength(1);
-        expect(listItemElement.style.width).toBe(widthStub);
-      } else {
-        expect(listItemElement.style).toHaveLength(0);
-      }
-    });
-  });
-
   it('should reset the state propperly when clicking a list item', async () => {
     const clickedRelatedPromptIndex = 1;
     const widthStub = '100px';
 
     const sut = render();
 
-    await sut.listItems[clickedRelatedPromptIndex].trigger('click');
+    await sut.relatedPrompts[clickedRelatedPromptIndex].trigger('click');
 
     (sut.listItems[clickedRelatedPromptIndex].element as HTMLElement).style.width = widthStub; // Mocking selected RP style
 

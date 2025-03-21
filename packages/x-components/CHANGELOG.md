@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.52...@empathyco/x-components@6.0.0-alpha.53) (2025-03-20)
+
+
+### Bug Fixes
+
+* update toolingDisplayTagging to be inside tagging object (#1728) ([96e349e](https://github.com/empathyco/x/commit/96e349ebece45e4dd7bcd45f35afa78cd0880627))
+
+
+
+## [6.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.51...@empathyco/x-components@6.0.0-alpha.52) (2025-03-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.50...@empathyco/x-components@6.0.0-alpha.51) (2025-03-19)
+
+
+### Bug Fixes
+
+* related-prompts-tag-list refresh on request change (#1724) ([7f7c7ce](https://github.com/empathyco/x/commit/7f7c7ce0d9c6468b92ada221a2c887f796310aaf))
+
+
+
+## [6.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.49...@empathyco/x-components@6.0.0-alpha.50) (2025-03-19)
+
+
+### Documentation
+
+* update x-components CHANGELOG to reflect breaking change (#1725) ([db03940](https://github.com/empathyco/x/commit/db03940b00cc7795a82031d075e79715455bc3e5))
+
+
+
 ## [6.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.48...@empathyco/x-components@6.0.0-alpha.49) (2025-03-17)
 
 
@@ -32,6 +67,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.45...@empathyco/x-components@6.0.0-alpha.46) (2025-03-13)
 
+
+### ⚠ BREAKING CHANGES
+
+Renaming properties in the Tagging module and renaming DefaultPDPAddToCartService to DefaultExternalTaggingService:
+
+- packages/x-components/src/x-modules/tagging/components/tagging.vue: Modified the property names in the Tagging component to use storageTTLMs and storageKey instead of clickedResultStorageTTLMs and clickedResultStorageKey.
+
+- packages/x-components/src/x-modules/tagging/config.types.ts: Modified the TaggingConfig interface to use storageTTLMs and storageKey instead of clickedResultStorageTTLMs and clickedResultStorageKey.
+
+- packages/x-components/src/x-modules/tagging/service/external-tagging.service.ts: Renamed service. Previously known as DefaultPDPAddToCartService
 
 ### Features
 

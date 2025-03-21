@@ -4,7 +4,10 @@
     :reset-on-content-change="false"
     :button-class="buttonClass"
     :show-buttons="showButtons && selectedPromptIndex === -1"
-    :scroll-container-class="['x-related-prompts-tag-list-scroll-container', scrollContainerClass]"
+    :scroll-container-class="[
+      'x-related-prompts-tag-list-scroll-container',
+      scrollContainerClass || ''
+    ]"
   >
     <template #sliding-panel-left-button>
       <!--
@@ -43,7 +46,7 @@
           :isSelected="isSelected(index)"
         >
           <DisplayEmitter
-            :payload="relatedPrompt.toolingDisplayTagging"
+            :payload="relatedPrompt.tagging?.toolingDisplayTagging"
             :eventMetadata="{
               feature: 'related-prompts',
               displayOriginalQuery: x.query.searchBox,
@@ -74,7 +77,7 @@
 
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, ref, watch } from 'vue';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
@@ -182,7 +185,7 @@
       });
 
       let timeOutId: number;
-      const resetTransitionStyle = () => {
+      const resetTransitionStyle = (excludedProperties: Array<string> = ['width']) => {
         if (timeOutId) {
           clearTimeout(timeOutId);
         }
@@ -197,7 +200,7 @@
               .split(';')
               .map(rule => rule.split(':')[0]?.trim())
               .forEach(property => {
-                if (property !== 'width') {
+                if (!excludedProperties.includes(property)) {
                   element.style.removeProperty(property);
                 }
               });
@@ -318,9 +321,11 @@
 
       const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
 
-      // Changing the query will trigger the appear animation, so we need to reset the
+      // Changing the request will trigger the appear animation, so we need to reset the
       // style after it finishes
-      watch(() => x.query.search, resetTransitionStyle, { immediate: true });
+      x.on('SearchRequestChanged', false).subscribe(() => {
+        resetTransitionStyle([]);
+      });
 
       return {
         isSelected,
@@ -350,5 +355,6 @@
   }
   .x-related-prompts-tag-list-item {
     height: 100%;
+    flex-shrink: 0;
   }
 </style>
