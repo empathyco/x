@@ -3,6 +3,7 @@ import { Dictionary } from '@empathyco/x-utils';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { XActionContext, XStoreModule } from '../../../store';
+import { UrlParams } from '../../../types';
 
 /**
  * Related prompts module state.
@@ -91,6 +92,12 @@ export interface RelatedPromptsActions {
    * @param request - The related prompts request.
    */
   fetchAndSaveRelatedPrompts(request: RelatedPromptsRequest | null): void;
+  /**
+   * Checks if the URL has params on it and then updates the state with these values.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setUrlParams(urlParams: UrlParams): void;
   /**
    * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}
    * synchronous promise.

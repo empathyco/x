@@ -17,6 +17,7 @@ describe('testing Url module mutations', () => {
 
       expect(store.state).toEqual<Partial<UrlParams>>({
         page: 3,
+        prompt: -1,
         query: 'sudadera',
         tag: ['capucha', 'disney'],
         filter: [],

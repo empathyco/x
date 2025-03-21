@@ -3,12 +3,11 @@ import { initialUrlState } from '../initial-state';
 import { UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link UrlGetters.urlParams} getter.
+ * Default implementation for the getter.
  *
- * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the url module.
+ * @param state - Current state of the url module.
  *
  * @returns The url params.
- *
  * @public
  */
 export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({

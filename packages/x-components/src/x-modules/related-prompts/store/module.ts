@@ -6,6 +6,7 @@ import {
   fetchAndSaveRelatedPrompts
 } from './actions/fetch-and-save-related-prompts.action';
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
+import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
 
 /**
@@ -35,11 +36,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
       state.relatedPrompts = products;
     },
     setSelectedPrompt(state, selectedPrompt) {
-      if (state.selectedPrompt === selectedPrompt) {
-        state.selectedPrompt = -1;
-      } else {
-        state.selectedPrompt = selectedPrompt;
-      }
+      state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt;
     },
     setSelectedQuery(state, selectedQuery) {
       state.selectedQuery = selectedQuery;
@@ -56,6 +53,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   actions: {
     fetchRelatedPrompts,
     fetchAndSaveRelatedPrompts,
-    cancelFetchAndSaveRelatedPrompts
+    cancelFetchAndSaveRelatedPrompts,
+    setUrlParams
   }
 };
