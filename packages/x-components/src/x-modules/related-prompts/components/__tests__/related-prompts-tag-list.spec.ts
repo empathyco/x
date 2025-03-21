@@ -107,10 +107,8 @@ describe('relatedPromptsTagList component', () => {
     jest.runAllTimers(); // setTimeout from inmediate watch callback implementation
     await nextTick();
 
-    expect(xUseStateMock).toHaveBeenCalledWith('relatedPrompts', [
-      'relatedPrompts',
-      'selectedPrompt'
-    ]);
+    expect(xUseStateMock).toHaveBeenCalledWith('relatedPrompts', ['relatedPrompts']);
+    expect(xUseStateMock).toHaveBeenCalledWith('relatedPrompts', ['selectedPrompt']);
 
     expect(sut.slidingPanel.props().resetOnContentChange).toBeFalsy();
     expect(sut.slidingPanel.props().buttonClass).toBe(propsStub.buttonClass);

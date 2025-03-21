@@ -36,7 +36,6 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
       state.relatedPrompts = products;
     },
     setSelectedPrompt(state, selectedPrompt) {
-      console.log(state.selectedPrompt, selectedPrompt);
       state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt;
     },
     setSelectedQuery(state, selectedQuery) {
@@ -54,7 +53,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   actions: {
     fetchRelatedPrompts,
     fetchAndSaveRelatedPrompts,
-    setUrlParams,
-    cancelFetchAndSaveRelatedPrompts
+    cancelFetchAndSaveRelatedPrompts,
+    setUrlParams
   }
 };

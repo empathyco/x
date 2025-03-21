@@ -72,6 +72,7 @@ describe('testing UrlHandler component', () => {
       eventPayload: {
         query: 'lego',
         page: 2,
+        prompt: -1,
         filter: ['brand:lego'],
         sort: 'price desc',
         scroll: '333',
@@ -100,6 +101,7 @@ describe('testing UrlHandler component', () => {
     expect(listener).toHaveBeenNthCalledWith(2, {
       query: 'lego',
       page: 2,
+      prompt: -1,
       filter: ['brand:lego'],
       sort: 'price desc',
       scroll: '333',
@@ -109,6 +111,7 @@ describe('testing UrlHandler component', () => {
     expect(listener).toHaveBeenNthCalledWith(3, {
       query: 'playmobil',
       page: 3,
+      prompt: -1,
       filter: ['brand:playmobil'],
       sort: 'price asc',
       scroll: '444',
@@ -236,6 +239,7 @@ describe('testing UrlHandler component', () => {
 
     XPlugin.bus.emit('PushableUrlStateUpdated', {
       page: 2,
+      prompt: -1,
       filter: ['dry-aged:2-months'],
       sort: 'price desc',
       tag: ['frisona'],

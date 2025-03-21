@@ -24,8 +24,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
     setPrompt(state, prompt) {
-      console.log('setPrompt de la URL', prompt);
-      state.prompt = state.prompt === prompt ? -1 : prompt;
+      state.prompt = prompt;
     },
     setFilters(state, newFilters) {
       state.filter = newFilters.map(filter => filter.id as string);

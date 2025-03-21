@@ -93,7 +93,7 @@ export interface RelatedPromptsActions {
    */
   fetchAndSaveRelatedPrompts(request: RelatedPromptsRequest | null): void;
   /**
-   * Checks if the url has params on it and then updates the state with these values.
+   * Checks if the URL has params on it and then updates the state with these values.
    *
    * @param urlParams - List of params from the url.
    */

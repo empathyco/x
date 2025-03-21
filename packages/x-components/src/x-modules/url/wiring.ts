@@ -17,7 +17,7 @@ const wireCommit = namespacedWireCommit('url');
 export const setUrlRelatedTags = wireCommit('setRelatedTags');
 
 /**
- * Sets the prompt of the url module.
+ * Sets the related prompt of the URL module.
  *
  * @public
  */
@@ -125,7 +125,7 @@ export const urlWiring = createWiring({
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags
   },
-  UserSelectedARelatedPrompt: {
+  SelectedRelatedPromptChanged: {
     setUrlPrompt
   },
   SelectedFiltersForRequestChanged: {

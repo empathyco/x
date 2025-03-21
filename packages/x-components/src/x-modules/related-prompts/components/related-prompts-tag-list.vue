@@ -43,7 +43,7 @@
         <slot
           :relatedPrompt="relatedPrompt"
           :onSelect="() => onSelect(index)"
-          :isSelected="isSelected(index)"
+          :isSelected="selectedPromptIndex === index"
         >
           <DisplayEmitter
             :payload="relatedPrompt.tagging?.toolingDisplayTagging"
@@ -56,7 +56,7 @@
             <RelatedPrompt
               @click="onSelect(index)"
               :related-prompt="relatedPrompt"
-              :selected="isSelected(index)"
+              :selected="selectedPromptIndex === index"
             >
               <template #related-prompt-extra-content>
                 <slot name="related-prompt-extra-content" :relatedPrompt="relatedPrompt" />
@@ -77,7 +77,7 @@
 
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, ref } from 'vue';
+  import { computed, ComputedRef, defineComponent, PropType, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
@@ -140,10 +140,12 @@
     },
     setup(props) {
       const x = use$x();
-      const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts', [
-        'relatedPrompts',
+      const relatedPrompts: ComputedRef<RelatedPromptModel[]> = useState('relatedPrompts', [
+        'relatedPrompts'
+      ]).relatedPrompts;
+      const selectedPromptIndex: ComputedRef<number> = useState('relatedPrompts', [
         'selectedPrompt'
-      ]);
+      ]).selectedPrompt;
 
       const clickedListItemIndex = ref<number | null>(null);
       const initialOffsetLefts: Record<number, number> = {};
@@ -170,19 +172,14 @@
       );
 
       const indexRelatedPrompts = computed(() =>
-        (relatedPrompts.value as RelatedPromptModel[]).map(
-          (relatedPrompt: RelatedPromptModel, index: number) => ({
-            ...relatedPrompt,
-            index
-          })
-        )
+        relatedPrompts.value.map((relatedPrompt, index) => ({ ...relatedPrompt, index }))
       );
 
-      const visibleRelatedPrompts = computed(() => {
-        return selectedPromptIndex.value !== -1
+      const visibleRelatedPrompts = computed(() =>
+        selectedPromptIndex.value !== -1
           ? [indexRelatedPrompts.value[selectedPromptIndex.value]]
-          : indexRelatedPrompts.value;
-      });
+          : indexRelatedPrompts.value
+      );
 
       let timeOutId: number;
       const resetTransitionStyle = (excludedProperties: Array<string> = ['width']) => {
@@ -319,8 +316,6 @@
         setTimeout(done, props.animationDurationInMs);
       };
 
-      const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
-
       // Changing the request will trigger the appear animation, so we need to reset the
       // style after it finishes
       x.on('SearchRequestChanged', false).subscribe(() => {
@@ -328,7 +323,6 @@
       });
 
       return {
-        isSelected,
         onSelect,
         onBeforeEnter,
         onEnter,
@@ -342,6 +336,7 @@
     }
   });
 </script>
+
 <style lang="css">
   .x-related-prompts-tag-list-scroll-container {
     height: 100%;

@@ -12,7 +12,7 @@ import { RelatedPromptsXStoreModule } from '../types';
  */
 export const setUrlParams: RelatedPromptsXStoreModule['actions']['setUrlParams'] = (
   { commit },
-  { prompt, query }
+  { query, prompt }
 ) => {
   commit('setQuery', query);
   commit('setSelectedPrompt', prompt);

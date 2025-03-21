@@ -14,6 +14,11 @@ export interface RelatedPromptsXEvents {
    */
   RelatedPromptsRequestUpdated: RelatedPromptsRequest | null;
   /**
+   * Selected Related Prompt has been changed.
+   * Payload: Selected Related Prompt index. -1 is deselected.
+   */
+  SelectedRelatedPromptChanged: number;
+  /**
    * The selected prompt has changed.
    * Payload: The index of the prompt in the RelatedPrompts list or -1 to remove selection.
    */
