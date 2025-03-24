@@ -9,20 +9,7 @@ const experienceControlsAdapter = platformAdapter.experienceControls.extends({
   endpoint: 'https://config-service.internal.test.empathy.co/public/configs'
 });
 
-const relatedPromptsAdapter = platformAdapter.relatedPrompts.extends({
-  endpoint: 'https://api.empathy.co/relatedprompts/farmaciasdirect',
-  requestMapper: () => ({
-    internal: true,
-    query: 'crema',
-    instance: 'farmaciasdirect',
-    scope: 'desktop',
-    lang: 'es',
-    store: 'es'
-  })
-});
-
 platformAdapter.experienceControls = experienceControlsAdapter;
-platformAdapter.relatedPrompts = relatedPromptsAdapter;
 
 export const adapter = new Proxy(platformAdapter, {
   get: (obj: PlatformAdapter, prop: keyof PlatformAdapter) =>
