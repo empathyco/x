@@ -10,6 +10,7 @@ import {
   RelatedPromptsState
 } from '../types';
 import { relatedPromptsXStoreModule } from '../module';
+import { UrlParams } from '../../../../types/index';
 import { resetRelatedPromptsStateWith } from './utils';
 
 describe('testing related prompts module actions', () => {
@@ -113,6 +114,15 @@ describe('testing related prompts module actions', () => {
       ]);
       expect(store.state.relatedPrompts).toEqual(previousRelatedPrompts);
       expect(store.state.status).toEqual('success');
+    });
+  });
+
+  describe('setUrlParams', () => {
+    it('should set the params of the related prompts module', async () => {
+      await store.dispatch('setUrlParams', { query: 'lego', prompt: 1 } as UrlParams);
+
+      expect(store.state.query).toEqual('lego');
+      expect(store.state.selectedPrompt).toEqual(1);
     });
   });
 });
