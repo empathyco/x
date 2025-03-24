@@ -249,7 +249,7 @@ describe('relatedPromptsTagList component', () => {
     expect(selectedElement.style.transitionDuration).toBe(`${singleAnimationDurationStub}ms`);
 
     // Trigger the animation
-    expect(selectedElement.style.width).toBe('');
+    expect(selectedElement.style.width).toBe('100%');
 
     jest.advanceTimersByTime(propsStub.animationDurationInMs - 1); // only requestAnimationFrame execution
     await nextTick();
