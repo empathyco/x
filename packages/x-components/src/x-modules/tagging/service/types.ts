@@ -15,7 +15,7 @@ export interface ExternalTaggingService {
   storeResultClicked(result: Result): void;
 
   /**
-   * Stores in the session storage the information from the Result added to the cart
+   * Stores in the local storage the information from the Result added to the cart
    * by the user in order to be able to track the checkout later on when the checkout
    * process has been completed by shopper.
    *
