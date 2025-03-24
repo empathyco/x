@@ -138,7 +138,11 @@ describe('testing pdp add to cart', () => {
       service.trackAddToCart();
 
       expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${productPathName}`);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
+      expect(localSetItemSpy).toHaveBeenCalledWith(
+        `checkout-${productPathName}`,
+        result,
+        storageTTLMs
+      );
       expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
 
       commitTaggingConfig(store, { storageKey: 'id', storageTTLMs });
@@ -148,7 +152,7 @@ describe('testing pdp add to cart', () => {
       service.trackAddToCart(id);
 
       expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${id}`);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${id}`, result);
+      expect(localSetItemSpy).toHaveBeenCalledWith(`checkout-${id}`, result, storageTTLMs);
       expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
     });
 
@@ -169,7 +173,7 @@ describe('testing pdp add to cart', () => {
       commitTaggingConfig(store, { storageKey, storageTTLMs });
 
       service.storeAddToCart(result);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${result.id}`, result);
+      expect(localSetItemSpy).toHaveBeenCalledWith(`checkout-${result.id}`, result, storageTTLMs);
     });
 
     it('stores the add to cart using the url as id', () => {
@@ -178,12 +182,20 @@ describe('testing pdp add to cart', () => {
       commitTaggingConfig(store, { storageKey, storageTTLMs });
 
       service.storeAddToCart(result);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
+      expect(localSetItemSpy).toHaveBeenCalledWith(
+        `checkout-${productPathName}`,
+        result,
+        storageTTLMs
+      );
 
       result.url = encodedURL;
 
       service.storeAddToCart(result);
-      expect(sessionSetItemSpy).toHaveBeenCalledWith(`checkout-${productPathName}`, result);
+      expect(localSetItemSpy).toHaveBeenCalledWith(
+        `checkout-${productPathName}`,
+        result,
+        storageTTLMs
+      );
     });
   });
 });
