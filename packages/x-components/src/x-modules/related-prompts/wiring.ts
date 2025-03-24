@@ -5,6 +5,7 @@ import {
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { filter } from '../../wiring/wires.operators';
 
 /** `relatedPrompts` XModule name. */
 const moduleName = 'relatedPrompts';
@@ -79,5 +80,12 @@ export const relatedPromptsWiring = createWiring({
   },
   UserSelectedARelatedPromptQuery: {
     setRelatedPromptQuery
+  },
+  SearchRequestChanged: {
+    resetRelatedPrompt: filter(
+      resetRelatedPrompt,
+      // Avoid reset selected prompt just after restored from URL with ParamsLoadedFromUrl event
+      ({ store }) => store.state.x.search.origin !== 'url:external'
+    )
   }
 });
