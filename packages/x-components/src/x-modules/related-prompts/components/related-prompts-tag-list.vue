@@ -31,7 +31,10 @@
         class="x-related-prompts-tag-list-item"
         :class="[tagClass, tagColors && tagColors[index % tagColors.length]]"
         :data-index="index"
-        :style="isAnimating && { pointerEvents: 'none' }"
+        :style="{
+          ...(selectedPromptIndex === index && { width: '100%' }),
+          ...(isAnimating && { pointerEvents: 'none' })
+        }"
         data-test="related-prompts-tag-list-item"
       >
         <!--

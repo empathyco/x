@@ -290,7 +290,7 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
 
       return taggingInfo;
     }),
-    ({ eventPayload: { tagging } }) => !!tagging?.[property]
+    ({ eventPayload: { tagging } }) => !!tagging?.[property]?.url
   );
 }
 
@@ -367,8 +367,7 @@ export function createTrackRelatedPromptToolingDisplayClickWire() {
   return filter(
     wireDispatch('track', ({ metadata }) => {
       const relatedPrompt = metadata.relatedPrompt as RelatedPrompt;
-      const taggingInfo: TaggingRequest = relatedPrompt.tagging
-        ?.toolingDisplayClickTagging as TaggingRequest;
+      const taggingInfo = relatedPrompt.tagging!.toolingDisplayClickTagging as TaggingRequest;
 
       taggingInfo.params.productId = 'EXPAND';
       taggingInfo.params.title = relatedPrompt.suggestionText;
@@ -376,7 +375,12 @@ export function createTrackRelatedPromptToolingDisplayClickWire() {
 
       return taggingInfo;
     }),
-    ({ metadata }) => metadata?.selectedPrompt === -1
+    ({ metadata }) => {
+      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt | undefined;
+      const isUnselected = metadata?.selectedPrompt === -1;
+      const taggingInfo = relatedPrompt?.tagging?.toolingDisplayClickTagging;
+      return isUnselected && !!taggingInfo;
+    }
   );
 }
 
