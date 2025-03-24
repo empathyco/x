@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.53...@empathyco/x-components@6.0.0-alpha.54) (2025-03-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* * Checkout info added on add2cart action previously saved into SessionStorage, passes to be saved in LocalStorage with the established ttl.
+
+### Features
+
+* save checkout info in the LocalStorage with a ttl (#1731) ([99249d5](https://github.com/empathyco/x/commit/99249d5fd85db0100883d689b1c013958d961b7b))
+
+
+
 ## [6.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.52...@empathyco/x-components@6.0.0-alpha.53) (2025-03-20)
 
 
