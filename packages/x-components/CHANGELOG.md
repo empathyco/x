@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.55...@empathyco/x-components@6.0.0-alpha.56) (2025-03-26)
+
+
+### Features
+
+* **related-prompt:** persist prompt in URL (#1723) ([63529d8](https://github.com/empathyco/x/commit/63529d899b9a471604ad498c198a3962a5411f87))
+
+
+
 ## [6.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.54...@empathyco/x-components@6.0.0-alpha.55) (2025-03-24)
 
 **Note:** Version bump only for package @empathyco/x-components
