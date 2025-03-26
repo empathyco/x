@@ -23,6 +23,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     setRelatedTags(state, relatedTags) {
       state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
+    setPrompt(state, prompt) {
+      state.prompt = prompt;
+    },
     setFilters(state, newFilters) {
       state.filter = newFilters.map(filter => filter.id as string);
     },

@@ -9,6 +9,7 @@ export interface UrlParams {
   filter: string[];
   sort: string;
   tag: string[];
+  prompt: number;
   scroll: string;
   [extraParamKey: string]: unknown;
 }

@@ -12,5 +12,6 @@ export const initialUrlState: Readonly<UrlParams> = {
   filter: [],
   sort: '',
   scroll: '',
-  tag: []
+  tag: [],
+  prompt: -1
 };

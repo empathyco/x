@@ -35,7 +35,7 @@
       GlobalEvents
     },
     xModule: urlXModule.name,
-    setup: function (props, { attrs }) {
+    setup: function (_, { attrs }) {
       const $x = use$x();
 
       const initialExtraParams = useState('url', ['initialExtraParams']).initialExtraParams;
@@ -77,9 +77,7 @@
        *
        * @internal
        */
-      const managedParamsNames = computed(() => {
-        return Object.keys({ ...initialUrlState, ...attrs });
-      });
+      const managedParamsNames = computed(() => Object.keys({ ...initialUrlState, ...attrs }));
 
       /**
        * Returns the mapping of the param keys used in the URL is configured through $attrs. This way
@@ -90,7 +88,7 @@
        *
        * @internal
        */
-      const getUrlKey = (paramName: string): string => {
+      const getUrlKey = (paramName: string) => {
         const paramValue = attrs[paramName];
         return typeof paramValue === 'string' ? paramValue : paramName;
       };
@@ -101,7 +99,7 @@
        * @param url - The URL to remove parameters from.
        * @internal
        */
-      const deleteUrlParameters = (url: URL): void => {
+      const deleteUrlParameters = (url: URL) => {
         managedParamsNames.value.forEach(paramName =>
           url.searchParams.delete(getUrlKey(paramName))
         );
