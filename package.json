@@ -21,11 +21,11 @@
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cross-env": "7.0.3",
-    "eslint": "8.33.0",
+    "eslint": "8.57.1",
     "husky": "8.0.3",
-    "lerna": "6.6.0",
+    "lerna": "6.6.2",
     "lint-staged": "13.3.0",
-    "prettier": "2.8.3"
+    "prettier": "2.8.8"
   },
   "engines": {
     "node": ">=18",
