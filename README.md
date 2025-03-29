@@ -176,3 +176,4 @@ the future of search experiences, please check our
 ## License
 
 [Apache 2.0](./LICENSE)
+## > ✅ Updated docs with improved formatting or extra info.
