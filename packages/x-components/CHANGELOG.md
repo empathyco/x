@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.56...@empathyco/x-components@6.0.0-alpha.57) (2025-04-02)
+
+
+### Features
+
+* ResultFeature type augmentation (#1727) ([dc02fb8](https://github.com/empathyco/x/commit/dc02fb8bf30a8eab237a1d12d538891b4ba74bbb))
+
+
+
 ## [6.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.55...@empathyco/x-components@6.0.0-alpha.56) (2025-03-26)
 
 
