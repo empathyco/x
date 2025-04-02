@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
   /**
@@ -44,9 +44,9 @@
        * @returns A boolean dictionary with dynamic CSS classes.
        * @internal
        */
-      const cssClasses = ref<VueCSSClasses>({
+      const cssClasses = computed<VueCSSClasses>(() => ({
         'x-switch--is-selected x-selected': props.modelValue
-      });
+      }));
 
       /**
        * Emits an event with the new value of the switch.
@@ -55,11 +55,6 @@
        */
       const toggle = (): void => {
         const newValue = !props.modelValue;
-        cssClasses.value = {
-          'x-switch--is-selected': newValue,
-          'x-selected': newValue
-        };
-
         emit('update:modelValue', newValue);
       };
 
