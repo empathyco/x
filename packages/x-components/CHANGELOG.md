@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.57...@empathyco/x-components@6.0.0-alpha.58) (2025-04-02)
+
+
+### Bug Fixes
+
+* base-switch classes are not reacting to external changes to modelValue (#1735) ([578310a](https://github.com/empathyco/x/commit/578310ad82faf99b3667ce6a1a43995f34b10eca))
+
+
+
 ## [6.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.56...@empathyco/x-components@6.0.0-alpha.57) (2025-04-02)
 
 
