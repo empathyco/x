@@ -1,5 +1,5 @@
+import type { StorageService } from '../storage-service';
 import { BrowserStorageService } from '../browser-storage-service';
-import { StorageService } from '../storage-service';
 
 let storage: StorageService;
 const prefix = 'custom';

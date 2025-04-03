@@ -1,5 +1,6 @@
-import { Logger, logger } from '@empathyco/x-logger';
-import { StorageService } from './storage-service';
+import type { Logger} from '@empathyco/x-logger';
+import type { StorageService } from './storage-service';
+import { logger } from '@empathyco/x-logger';
 
 /**
  * In browser implementation of the storage service.
@@ -115,7 +116,7 @@ export class BrowserStorageService implements StorageService {
           }
         } catch {
           this.logger.warn(
-            // eslint-disable-next-line max-len
+             
             `Item for key ${key} has been removed from storage because it had an invalid JSON value: "${serializedItem}"`
           );
           this.storage.removeItem(key);

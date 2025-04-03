@@ -15,7 +15,7 @@ const storage = new BrowserStorageService();
 You can also customize the storage or prefix to be used in the constructor:
 
 ```typescript
-StorageService(storage?, prefix?)
+StorageService(storage, prefix)
 ```
 
 For instance, if you want to use `sessionStorage` and `test` as prefix instead:

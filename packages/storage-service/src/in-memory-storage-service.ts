@@ -1,4 +1,4 @@
-import { StorageService } from './storage-service';
+import type { StorageService } from './storage-service';
 
 /**
  * In memory implementation of the storage service.

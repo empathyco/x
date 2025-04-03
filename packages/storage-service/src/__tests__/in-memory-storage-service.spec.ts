@@ -1,5 +1,5 @@
+import type { StorageService } from '../storage-service';
 import { InMemoryStorageService } from '../in-memory-storage-service';
-import { StorageService } from '../storage-service';
 
 let storage: StorageService;
 const key = 'key';
