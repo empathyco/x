@@ -1,75 +1,75 @@
-import type { Logger} from './logger.interfaces';
-import { LogLevel } from './logger.interfaces';
+import type { Logger } from './logger.interfaces'
+import { LogLevel } from './logger.interfaces'
 
 export class SimpleLogger implements Logger {
-  private static commonConsoleLevel: LogLevel = LogLevel.warn;
-  private static commonServerLevel: LogLevel = LogLevel.error;
-  private readonly instanceTags: any[] = [];
+  private static commonConsoleLevel: LogLevel = LogLevel.warn
+  private static commonServerLevel: LogLevel = LogLevel.error
+  private readonly instanceTags: any[] = []
 
   public constructor(...args: any[]) {
-    this.instanceTags = args;
+    this.instanceTags = args
   }
 
   public set consoleLevel(level: LogLevel) {
-    SimpleLogger.commonConsoleLevel = level;
+    SimpleLogger.commonConsoleLevel = level
   }
 
   public get consoleLevel(): LogLevel {
-    return SimpleLogger.commonConsoleLevel;
+    return SimpleLogger.commonConsoleLevel
   }
 
   public set serverLevel(level: LogLevel) {
-    SimpleLogger.commonServerLevel = level;
+    SimpleLogger.commonServerLevel = level
   }
 
   public get serverLevel(): LogLevel {
-    return SimpleLogger.commonServerLevel;
+    return SimpleLogger.commonServerLevel
   }
 
   error(...args: any[]): void {
-    this.log(LogLevel.error, args);
+    this.log(LogLevel.error, args)
   }
 
   warn(...args: any[]): void {
-    this.log(LogLevel.warn, args);
+    this.log(LogLevel.warn, args)
   }
 
   info(...args: any[]): void {
-    this.log(LogLevel.info, args);
+    this.log(LogLevel.info, args)
   }
 
   debug(...args: any[]): void {
-    this.log(LogLevel.debug, args);
+    this.log(LogLevel.debug, args)
   }
 
   trace(...args: any[]): void {
-    this.log(LogLevel.trace, args);
+    this.log(LogLevel.trace, args)
   }
 
   child(...args: any[]): Logger {
-    return new SimpleLogger(...this.instanceTags, ...args);
+    return new SimpleLogger(...this.instanceTags, ...args)
   }
 
   private log(level: LogLevel, args: any[]): void {
     if (this.consoleLevel >= level) {
-      this.sendLogToConsole(level, ...this.instanceTags.concat(args));
+      this.sendLogToConsole(level, ...this.instanceTags.concat(args))
     }
     if (this.serverLevel >= level) {
-      this.sendLogToServer(level, ...this.instanceTags.concat(args));
+      this.sendLogToServer(level, ...this.instanceTags.concat(args))
     }
   }
 
   private sendLogToConsole(level: LogLevel, ...args: any[]): void {
-    const consoleFunctionName = LogLevel[level] as Exclude<keyof typeof LogLevel, 'silent'>;
+    const consoleFunctionName = LogLevel[level] as Exclude<keyof typeof LogLevel, 'silent'>
     // To prevent failure on old browsers
     if (console[consoleFunctionName]) {
-      console[consoleFunctionName](...args);
+      console[consoleFunctionName](...args)
     } else {
-      console.log(...args);
+      console.log(...args)
     }
   }
 
   private sendLogToServer(level: LogLevel, ...args: any[]): void {
-    console.log(LogLevel[level], 'sending to server...', ...args);
+    console.log(LogLevel[level], 'sending to server...', ...args)
   }
 }
