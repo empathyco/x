@@ -146,7 +146,6 @@ describe('deep-merge.ts', () => {
     expect(target).toEqual({ children: { e: 5, f: 6 } });
   });
 
-  // eslint-disable-next-line max-len
   it('stops passing replace behaviour to the sources objects if deep-merge behaviour is specified', () => {
     const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
     const firstSource = { children: deepMergeBehaviour({ c: 4, d: 5 }) };

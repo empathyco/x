@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/deep-merge"
+  },
   "keywords": [
     "deep",
     "merge",
@@ -19,11 +24,6 @@
     "dist",
     "types"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/deep-merge"
-  },
   "engines": {
     "node": ">=18"
   },

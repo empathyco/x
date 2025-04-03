@@ -65,7 +65,7 @@ export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T
  */
 function cloneSourcesProperties(target: any, source: any): (source: any) => void {
   if (source) {
-    return Object.entries(source).reduce(cloneObjectProperties, target);
+    return Object.entries(source as Record<any, any>).reduce(cloneObjectProperties, target);
   } else {
     return target || {};
   }
@@ -76,6 +76,8 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
  *
  * @param target - The target object to clone in.
  * @param source - Key-Value to clone into the target object.
+ * @param source.0 - Key to clone into the target object.
+ * @param source.1 - Value to clone into the target object.
  *
  * @returns The target object updated with the entry parameter.
  */
@@ -97,6 +99,8 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  *
  * @param target - The target object to clone in.
  * @param source - Key-Value to clone into the target object.
+ * @param source.0 - Key to clone into the target object.
+ * @param source.1 - Value to clone into the target object.
  *
  */
 function mergeObject(target: any, [key, value]: any): void {
@@ -121,5 +125,5 @@ function mergeObject(target: any, [key, value]: any): void {
  * @returns The correct behaviour.
  */
 function getMergeBehaviour(targetValue: any, sourceValue: any): Behaviour {
-  return behaviourMap.get(sourceValue) || behaviourMap.get(targetValue);
+  return behaviourMap.get(sourceValue as object) || behaviourMap.get(targetValue as object);
 }
