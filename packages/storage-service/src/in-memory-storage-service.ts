@@ -1,4 +1,4 @@
-import type { StorageService } from './storage-service';
+import type { StorageService } from './storage-service'
 
 /**
  * In memory implementation of the storage service.
@@ -6,7 +6,7 @@ import type { StorageService } from './storage-service';
  * @public
  */
 export class InMemoryStorageService implements StorageService {
-  protected storage: Record<string, any> = {};
+  protected storage: Record<string, any> = {}
 
   /**
    * Adds a new item in the storage.
@@ -17,7 +17,7 @@ export class InMemoryStorageService implements StorageService {
    * @public
    */
   setItem(key: string, item: any): void {
-    this.storage[key] = item;
+    this.storage[key] = item
   }
 
   /**
@@ -29,7 +29,7 @@ export class InMemoryStorageService implements StorageService {
    * @public
    */
   getItem<Item = any>(key: string): Item | null {
-    return this.storage[key] ?? null;
+    return this.storage[key] ?? null
   }
 
   /**
@@ -41,9 +41,9 @@ export class InMemoryStorageService implements StorageService {
    * @public
    */
   removeItem<Item = any>(key: string): Item | null {
-    const item = this.storage[key];
-    delete this.storage[key];
-    return item;
+    const item = this.storage[key]
+    delete this.storage[key]
+    return item
   }
 
   /**
@@ -54,8 +54,8 @@ export class InMemoryStorageService implements StorageService {
    * @public
    */
   clear(): number {
-    const numberOfRemovedItems = Object.keys(this.storage).length;
-    this.storage = {};
-    return numberOfRemovedItems;
+    const numberOfRemovedItems = Object.keys(this.storage).length
+    this.storage = {}
+    return numberOfRemovedItems
   }
 }
