@@ -33,13 +33,13 @@ describe('http-client utils tests', () => {
       expect(response).toEqual({})
     })
 
-    it('throws a RequestError if the response is not ok', () => {
+    it('throws a RequestError if the response is not ok', async () => {
       const mockedResponse = {
         ok: false,
         status: 500,
         statusText: 'Unexpected error',
       }
-      expect(async () => toJson(mockedResponse as unknown as Response)).toThrow(RequestError)
+      await expect(toJson(mockedResponse as unknown as Response)).rejects.toThrowError(RequestError)
     })
   })
 
