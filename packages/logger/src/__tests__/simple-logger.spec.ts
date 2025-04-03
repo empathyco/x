@@ -1,4 +1,5 @@
-import { Logger, LogLevel, SimpleLogger } from '../index';
+import type { Logger} from '../index';
+import { LogLevel, SimpleLogger } from '../index';
 
 const defaultLoggerConsoleLevel = LogLevel.warn;
 const defaultLoggerServerLevel = LogLevel.error;
@@ -82,7 +83,7 @@ describe('testing logger', () => {
     expect(console.trace).not.toHaveBeenCalledWith(...defaultLoggerArgs, ...testArgs);
   });
 
-  // eslint-disable-next-line max-len
+   
   it('calls only console.debug, console.info, console.warn and console.error with level debug', () => {
     logger.consoleLevel = LogLevel.debug;
 

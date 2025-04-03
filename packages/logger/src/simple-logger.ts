@@ -1,4 +1,5 @@
-import { Logger, LogLevel } from './logger.interfaces';
+import type { Logger} from './logger.interfaces';
+import { LogLevel } from './logger.interfaces';
 
 export class SimpleLogger implements Logger {
   private static commonConsoleLevel: LogLevel = LogLevel.warn;

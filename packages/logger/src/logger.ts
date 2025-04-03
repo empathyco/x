@@ -1,4 +1,5 @@
-import { Logger, LogLevel } from './logger.interfaces';
+import type { Logger} from './logger.interfaces';
+import { LogLevel } from './logger.interfaces';
 import { SimpleLogger } from './simple-logger';
 
 export const logger: Logger = new SimpleLogger();
