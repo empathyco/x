@@ -1,7 +1,10 @@
+import type {
+  Dictionary,
+  ExtractPath} from '@empathyco/x-utils';
+import type { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types';
+import type { Mapper, MapperContext } from './types';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import {
-  Dictionary,
-  ExtractPath,
   getSafePropertyChain,
   isArray,
   isFunction,
@@ -9,9 +12,7 @@ import {
   isPath,
   reduce
 } from '@empathyco/x-utils';
-import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
-import { Mapper, MapperContext } from './types';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -45,7 +46,7 @@ function mapSchema<Source, Target>(
   context: MapperContext
 ): Target {
   if (!source) {
-    //eslint-disable-next-line no-console
+     
     console.warn('This schema cannot be applied', createMutableSchema(schema));
     return undefined as any;
   }
@@ -87,8 +88,8 @@ function mapSchema<Source, Target>(
  * and $context options.
  * @param subSchemaTransformer.$path
  * @param subSchemaTransformer.$subSchema
- * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
  * @param subSchemaTransformer.$context
+ * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
  * @param schema - The {@link Schema} to apply.
  * @returns The result of calling `mapSchema()` with the source, schema and context arguments.
  * @internal

@@ -1,4 +1,4 @@
-import { Schema } from '../../schemas/types';
+import type { Schema } from '../../schemas/types';
 import { schemaMapperFactory } from '../schema-mapper.factory';
 
 describe('schemaMapperFactory tests', () => {
@@ -105,7 +105,7 @@ describe('schemaMapperFactory tests', () => {
       query: 'q',
       hits: 'rows',
       // TODO: Improve type to handle array of objects properly
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line ts/ban-ts-comment
       // @ts-ignore
       filters: {
         $path: 'facets',

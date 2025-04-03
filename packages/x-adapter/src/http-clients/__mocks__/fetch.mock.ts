@@ -1,9 +1,9 @@
 export const okFetchMock = jest.fn(fetchMock({}));
 
-export const koFetchMock = jest.fn(() =>
+export const koFetchMock = jest.fn(async () =>
   Promise.resolve({
     ok: false,
-    json: () => Promise.resolve({}),
+    json: async () => Promise.resolve({}),
     status: 500,
     statusText: 'Unexpected error'
   })
@@ -19,7 +19,7 @@ export const koFetchMock = jest.fn(() =>
 export function fetchMock(
   response: unknown
 ): (url: string, params: RequestInit) => Promise<Response> {
-  return (_url, { signal }) => {
+  return async (_url, { signal }) => {
     return new Promise<Response>((resolve, reject) => {
       setTimeout(() => {
         if (signal?.aborted) {
@@ -28,8 +28,8 @@ export function fetchMock(
           resolve({
             ok: true,
             status: 200,
-            json: () => Promise.resolve(response),
-            text: () => Promise.resolve(JSON.stringify(response))
+            json: async () => Promise.resolve(response),
+            text: async () => Promise.resolve(JSON.stringify(response))
           } as Response);
         }
       });

@@ -1,4 +1,4 @@
-import { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils';
 
 /**
  * Makes a request to a backend API using the given parameters.

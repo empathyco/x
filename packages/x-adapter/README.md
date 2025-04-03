@@ -126,7 +126,7 @@ export const searchProducts = endpointAdapterFactory({
           price: product.price
         };
       }),
-      total: total
+      total
     };
   }
 });
@@ -161,7 +161,7 @@ must return the URL string.
 
 ```ts
 export const getProductById = endpointAdapterFactory({
-  endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id
+  endpoint: ({ id }: GetProductByIdRequest) => `https://dummyjson.com/products/${  id}`
   // ... rest of options to configure
 });
 ```
@@ -177,7 +177,7 @@ export const getItemById = endpointAdapterFactory({
 });
 
 // You would pass the new endpoint in the function call
-getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
+getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}'});
 ```
 
 <br>
@@ -216,7 +216,7 @@ const customResponseMapper: Mapper<ApiSearchResponse, AppSearchResponse> = ({
         price: product.price
       };
     }),
-    total: total
+    total
   };
 };
 
@@ -360,7 +360,7 @@ interface AppAddress {
 const addressSchema: Schema<ApiAddress, AppUserAddress> = {
   displayName: source => `${source.address}, ${source.postalCode} - ${source.city}`,
   city: 'city',
-  postalCode: source => parseInt(source.postalCode)
+  postalCode: source => Number.parseInt(source.postalCode)
 };
 
 // User Schema definition with a subSchema

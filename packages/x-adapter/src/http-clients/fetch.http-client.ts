@@ -1,5 +1,6 @@
-import { Dictionary, cleanEmpty, flatObject } from '@empathyco/x-utils';
-import { HttpClient } from './types';
+import type { Dictionary} from '@empathyco/x-utils';
+import type { HttpClient } from './types';
+import { cleanEmpty, flatObject } from '@empathyco/x-utils';
 import { buildUrl, toJson } from './utils';
 
 /**
@@ -7,12 +8,18 @@ import { buildUrl, toJson } from './utils';
  *
  * @param endpoint - The endpoint to make the request to.
  * @param options - The request options.
+ * @param options.cancelable - Cancelable option.
+ * @param options.id - ID option.
+ * @param options.parameters - Parameters option.
+ * @param options.properties - Properties option.
+ * @param options.sendEmptyParams - SendEmptyParams option.
+ * @param options.sendParamsInBody - SendParamsInBody option.
  *
  * @returns A `Promise` object.
  *
  * @public
  */
-export const fetchHttpClient: HttpClient = (
+export const fetchHttpClient: HttpClient = async (
   endpoint,
   {
     id = endpoint,

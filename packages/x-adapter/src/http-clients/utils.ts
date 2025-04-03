@@ -1,4 +1,5 @@
-import { Dictionary, forEach } from '@empathyco/x-utils';
+import type { Dictionary} from '@empathyco/x-utils';
+import { forEach } from '@empathyco/x-utils';
 import { RequestError } from './errors/request-error';
 
 /**
@@ -11,7 +12,7 @@ import { RequestError } from './errors/request-error';
  *
  * @public
  */
-export function toJson(response: Response): Promise<any> {
+export async function toJson(response: Response): Promise<any> {
   if (response.ok) {
     return response.text().then(text => (text ? JSON.parse(text) : {}));
   } else {

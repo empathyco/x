@@ -10,7 +10,7 @@ describe('http-client utils tests', () => {
     it('transforms to json format if the response is ok', async () => {
       const mockedResponse = {
         ok: true,
-        text: () => Promise.resolve('{}'),
+        text: async () => Promise.resolve('{}'),
         status: 200,
         statusText: 'Ok'
       };
@@ -23,7 +23,7 @@ describe('http-client utils tests', () => {
     it('returns an empty object if the response is empty', async () => {
       const mockedResponse = {
         ok: true,
-        text: () => Promise.resolve(''),
+        text: async () => Promise.resolve(''),
         status: 200,
         statusText: 'Ok'
       };
@@ -39,7 +39,7 @@ describe('http-client utils tests', () => {
         status: 500,
         statusText: 'Unexpected error'
       };
-      expect(() => toJson(mockedResponse as unknown as Response)).toThrow(RequestError);
+      expect(async () => toJson(mockedResponse as unknown as Response)).toThrow(RequestError);
     });
   });
 

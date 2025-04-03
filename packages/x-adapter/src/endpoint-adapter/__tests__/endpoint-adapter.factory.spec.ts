@@ -1,14 +1,16 @@
-import { endpointAdapterFactory } from '../endpoint-adapter.factory';
-import { EndpointAdapterOptions, ExtendableEndpointAdapter } from '../types';
-import { HttpClient, RequestOptions } from '../../http-clients/types';
+import type { HttpClient, RequestOptions } from '../../http-clients/types';
+import type { Mapper } from '../../mappers/types';
+import type { EndpointAdapterOptions, ExtendableEndpointAdapter } from '../types';
 import { identityMapper } from '../../mappers/identity.mapper';
-import { Mapper } from '../../mappers/types';
+import { endpointAdapterFactory } from '../endpoint-adapter.factory';
 
 /**
  * Creates an {@link ExtendableEndpointAdapter} using the {@link endpointAdapterFactory} with the
  * given {@link EndpointAdapterOptions}, exposing a basic API for testing.
  *
  * @param options - The CreateEndpointAdapterFactoryOptions to create the API with.
+ * @param options.options - Options option.
+ * @param options.rawResponse - RawResponse option.
  *
  * @returns The API for testing the {@link ExtendableEndpointAdapter}.
  */
@@ -19,7 +21,7 @@ function createEndpointAdapterFactoryOptions<Request, Response>({
   Request,
   Response
 > {
-  const mockedHttpClient = jest.fn(() => Promise.resolve(rawResponse));
+  const mockedHttpClient = jest.fn(async () => Promise.resolve(rawResponse));
   const mockedRequestMapper = jest.fn(identityMapper);
   const mockedResponseMapper = jest.fn(identityMapper);
 
@@ -70,7 +72,7 @@ describe('adapterFactory tests', () => {
     expect(response).toEqual(rawResponse);
   });
 
-  // eslint-disable-next-line max-len
+   
   it('should extend the endpointAdapter options with new ones, leaving the extended endpointAdapter untouched', async () => {
     const {
       endpointAdapter,
@@ -82,7 +84,7 @@ describe('adapterFactory tests', () => {
 
     const extendedEndpoint = 'https://api.empathy.co/extended';
     const extendedRawResponse = { extendedQuery: 'patata', extendedHits: 10 };
-    const mockExtendedHttpClient = jest.fn(() => Promise.resolve(extendedRawResponse));
+    const mockExtendedHttpClient = jest.fn(async () => Promise.resolve(extendedRawResponse));
     const mockExtendedRequestMapper = jest.fn(({ q, origin }: ExtendedTestRequest) => ({
       extendedQuery: q,
       extendedOrigin: origin
@@ -209,7 +211,7 @@ describe('adapterFactory tests', () => {
       );
     });
 
-    // eslint-disable-next-line max-len
+     
     it('should map the request to an endpoint when the provided endpoint is a function', async () => {
       const endpoint: Mapper<TestRequest, string> = ({ env }) =>
         env === 'test' ? 'api.internal.test.empathy.co/test' : 'api.empathy.co/test';

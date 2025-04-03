@@ -1,9 +1,9 @@
+import type { Mapper } from '../mappers/types';
+import type { EndpointAdapterFactory, EndpointAdapterOptions, ExtendableEndpointAdapter } from './types';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { fetchHttpClient } from '../http-clients/fetch.http-client';
 import { identityMapper } from '../mappers/identity.mapper';
-import { Mapper } from '../mappers/types';
 import { interpolate } from '../utils/interpolate';
-import { EndpointAdapterFactory, EndpointAdapterOptions, ExtendableEndpointAdapter } from './types';
 
 /**
  * Factory to create {@link ExtendableEndpointAdapter | endpoint adapters} with the given
@@ -18,7 +18,7 @@ import { EndpointAdapterFactory, EndpointAdapterOptions, ExtendableEndpointAdapt
 export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
 ) => {
-  const endpointAdapter: ExtendableEndpointAdapter<Request, Response> = (
+  const endpointAdapter: ExtendableEndpointAdapter<Request, Response> = async (
     request,
     { endpoint: requestEndpoint, ...requestOptions } = {}
   ) => {
@@ -64,7 +64,7 @@ function getEndpoint<Request>(
   request: Request
 ): string {
   if (!endpoint) {
-    throw Error('Tried to make a request without an endpoint');
+    throw new Error('Tried to make a request without an endpoint');
   }
 
   return typeof endpoint === 'function'

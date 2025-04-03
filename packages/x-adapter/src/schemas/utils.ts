@@ -1,6 +1,6 @@
+import type { MutableSchema, Schema } from './types';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, isFunction, isObject } from '@empathyco/x-utils';
-import { MutableSchema, Schema } from './types';
 
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.
@@ -83,8 +83,7 @@ function serialize(
         ++deep
       )}${indentation}},\n`;
     } else if (!isFunction(value) || !isInternalMethod(key) || includeInternalMethods) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      output += `${indentation}${key}: ${value},\n`;
+      output += `${indentation}${key}: ${value as any},\n`;
     }
   });
   return output;

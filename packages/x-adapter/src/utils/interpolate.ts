@@ -14,7 +14,7 @@ import { getSafePropertyChain } from '@empathyco/x-utils';
  * ```
  * @internal
  */
-const STRING_PARAMETERS = /{([^}]+)}/g;
+const STRING_PARAMETERS = /\{([^}]+)\}/g;
 
 /**
  * Shape of the optional head and tail parts of the {@link STRING_PARAMETER_CONTENT} regex.
@@ -39,6 +39,7 @@ const HEAD_OR_TAIL = '(?:\\((.+)\\))?';
  * ```
  * @internal
  */
+// eslint-disable-next-line regexp/no-misleading-capturing-group,regexp/no-super-linear-backtracking
 const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TAIL}$`, 'g');
 
 /**

@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Schema } from '../types';
-import { createMutableSchema } from '../utils';
+import type { DeepPartial } from '@empathyco/x-utils';
+import type { Schema } from '../types';
 import { schemaMapperFactory } from '../../mappers';
+import { createMutableSchema } from '../utils';
 
-describe('MutableSchemas', () => {
+describe('mutableSchemas', () => {
   interface Facet {
     id: string;
     label: string;
@@ -36,7 +36,7 @@ describe('MutableSchemas', () => {
     total: number;
   }
 
-  it('Creates a mutable schema', () => {
+  it('creates a mutable schema', () => {
     const originalSchema: Schema<OriginalSource, OriginalTarget> = {
       query: 'q',
       hits: 'rows'
@@ -155,11 +155,6 @@ describe('MutableSchemas', () => {
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
-    const extendedSource = {
-      ...source,
-      someExtraField: 'extra'
-    };
-
     interface ExtendedSource extends OriginalSource {
       someExtraField: string;
     }
@@ -186,7 +181,7 @@ describe('MutableSchemas', () => {
     const mutableSchema = createMutableSchema(originalSchema);
     const mapperFromOriginal = schemaMapperFactory<OriginalSource, OriginalTarget>(mutableSchema);
 
-    const extendedSchema = mutableSchema.$extends<typeof extendedSource, { extra: string }>({
+    const extendedSchema = mutableSchema.$extends<ExtendedSource, { extra: string }>({
       extra: 'someExtraField'
     });
     const extendedSchemaWithExtendedObjects = mutableSchema.$extends<
@@ -313,7 +308,7 @@ describe('MutableSchemas', () => {
         }
       };
       const mutable = createMutableSchema(a);
-      /* eslint-disable max-len */
+       
       const mutableSerialized = `facet: {
   id: facets.name,
   filters: {
@@ -328,7 +323,7 @@ describe('MutableSchemas', () => {
     },
   },
 },`;
-      /* eslint-enable max-len */
+       
       expect(mutable.toString().trim()).toStrictEqual(mutableSerialized);
       expect(mutable.toString(true).trim()).toContain('$replace: $replace(newSchema) {');
       expect(mutable.toString(true).trim()).toContain('$override: $override(newSchema) {');

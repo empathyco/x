@@ -1,5 +1,5 @@
+import type { HttpClient } from '../types';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
-import { HttpClient } from '../types';
 
 describe('fetch httpClient testing', () => {
   const endpoint = 'https://api.empathy.co/search';
@@ -26,9 +26,9 @@ describe('fetch httpClient testing', () => {
     );
   });
 
-  it('allows to pass headers to the request', () => {
+  it('allows to pass headers to the request', async () => {
     const headers = { instance: 'A1B1' };
-    fetchHttpClient(endpoint, {
+    await fetchHttpClient(endpoint, {
       properties: {
         headers
       }
@@ -92,7 +92,7 @@ describe('fetch httpClient testing', () => {
     ]);
   });
 
-  // eslint-disable-next-line max-len
+   
   it('does not cancel equal endpoint requests if a cancelable=false parameter is passed', async () => {
     expect(
       await Promise.all([
@@ -111,7 +111,7 @@ describe('fetch httpClient testing', () => {
     ).toHaveLength(2);
   });
 
-  // eslint-disable-next-line max-len
+   
   it('does not cancel equal endpoint requests if a different requestId parameter is passed', async () => {
     expect(
       await Promise.all([

@@ -1,6 +1,6 @@
-import { DeepPartial } from '@empathyco/x-utils';
+import type { DeepPartial } from '@empathyco/x-utils';
+import type { Mapper } from '../types';
 import { combineMappers } from '../combine-mappers';
-import { Mapper } from '../types';
 
 describe('combineMappers util', () => {
   const testMapper: Mapper<TestFrom, DeepPartial<TestTo>> = ({ query, count }) => {
