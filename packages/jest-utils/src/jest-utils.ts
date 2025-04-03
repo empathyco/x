@@ -1,4 +1,4 @@
-import {
+import type {
   EmpathyExtendedExpect,
   EmpathyExtendedMatchers,
   FunctionType,
@@ -6,10 +6,10 @@ import {
 } from './jest-utils.types';
 
 declare global {
+  // eslint-disable-next-line ts/no-namespace
   namespace jest {
     export interface Expect extends EmpathyExtendedExpect {}
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line unused-imports/no-unused-vars
     export interface Matchers<R> extends EmpathyExtendedMatchers {}
   }
 }
@@ -36,7 +36,7 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
     toBeAValidURLWithQueryParameters
   };
 
-expect.extend(extendOptions as any);
+expect.extend(extendOptions);
 
 const ok: jest.CustomMatcherResult = { pass: true, message: () => 'OK' };
 const error = (msg: string): jest.CustomMatcherResult => ({
@@ -239,7 +239,7 @@ function toBeAValidURLWithExactQueryParameters(
   urlString: any,
   parameters: Record<string, string | string[]>
 ): any {
-  const entries = Object.fromEntries(new URL(urlString).searchParams);
+  const entries = Object.fromEntries(new URL(urlString as string).searchParams);
   try {
     expect(entries).toEqual(parameters);
   } catch {
@@ -264,7 +264,7 @@ function toBeAValidURLWithQueryParameters(
   urlString: any,
   parameters: Record<string, string | string[]>
 ): any {
-  const url = new URL(urlString);
+  const url = new URL(urlString as string);
   Object.keys(parameters).forEach(key => {
     const expectedValue = parameters[key];
     if (!url.searchParams.has(key)) {
@@ -280,13 +280,11 @@ function toBeAValidURLWithQueryParameters(
         expect(received).toEqual(expectedValue);
       } catch {
         throw new TypeError(
-          // eslint-disable-next-line max-len
           `Expected parameters with key "${key}" to equal array "${expectedValue}",but it has value "${received}"`
         );
       }
     } else if (url.searchParams.get(key) !== expectedValue) {
       throw new TypeError(
-        // eslint-disable-next-line max-len
         `Expected parameter "${key}" to equal value "${expectedValue}",but it has value "${url.searchParams.get(
           key
         )}"`
