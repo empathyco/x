@@ -27,7 +27,10 @@
     "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "",
     "test:unit": ""
   },

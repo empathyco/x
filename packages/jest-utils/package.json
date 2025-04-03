@@ -26,7 +26,10 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

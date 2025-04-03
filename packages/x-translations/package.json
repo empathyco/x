@@ -26,7 +26,10 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest -i",
     "test:unit": "jest -i"
   },

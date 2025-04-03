@@ -35,7 +35,10 @@
     "gen:model-docs": "api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "pnpm run gen:model-docs && pnpm run gen:typescript-docs",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest",
     "test:unit": "jest",
     "prepublishOnly": "pnpm run build"

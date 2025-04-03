@@ -32,7 +32,10 @@
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build",
     "test": "jest",
     "test-unit": "jest"
