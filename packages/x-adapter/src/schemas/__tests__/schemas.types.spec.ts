@@ -1,24 +1,24 @@
-import type { Schema } from '../types';
+import type { Schema } from '../types'
 
 describe('schema tests', () => {
   interface Source {
-    q: string;
-    count: number;
-    list: string[];
+    q: string
+    count: number
+    list: string[]
   }
 
   interface Target {
-    query: string;
-    rows: number;
+    query: string
+    rows: number
   }
 
   interface ComposedSource {
-    response: Source;
+    response: Source
   }
 
   interface ComposedTarget {
-    request: Target;
-    filter: string;
+    request: Target
+    filter: string
   }
 
   describe('using schema with paths', () => {
@@ -26,33 +26,33 @@ describe('schema tests', () => {
       const schema: Schema<Source, Target> = {
         query: 'q',
         // @ts-expect-error Type "q" is not assignable to type SchemaTransformer<Source, Target, "rows">
-        rows: 'q'
-      };
+        rows: 'q',
+      }
 
-      expect(typeof schema.query).toBe('string');
-    });
+      expect(typeof schema.query).toBe('string')
+    })
 
     it('allows to use path to access an array', () => {
       const schema: Schema<Source, Target> = {
         query: 'list.0',
-        rows: 'count'
-      };
+        rows: 'count',
+      }
 
-      expect(typeof schema.rows).toBe('string');
-    });
-  });
+      expect(typeof schema.rows).toBe('string')
+    })
+  })
 
   describe('using schema with functions', () => {
     it('allows to use function returning matching type', () => {
       const schema: Schema<Source, Target> = {
         rows: ({ q }) => Number(q),
         // @ts-expect-error Type () => number is not assignable to type SchemaTransformer<Source, Target, "query">
-        query: () => 5
-      };
+        query: () => 5,
+      }
 
-      expect(typeof schema.rows).toBe('function');
-    });
-  });
+      expect(typeof schema.rows).toBe('function')
+    })
+  })
 
   describe('using schema with composed types', () => {
     it('allows to use paths to inner properties', () => {
@@ -60,52 +60,52 @@ describe('schema tests', () => {
         request: {
           query: 'response.q',
           // @ts-expect-error Type "count" is not assignable to type
-          rows: 'count'
+          rows: 'count',
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
-      expect(typeof schema.request).toBe('object');
-    });
-  });
+      expect(typeof schema.request).toBe('object')
+    })
+  })
 
   describe('using subSchema with composed types', () => {
     it('allows to use paths to inner properties', () => {
       const subSchema: Schema<Source, Target> = {
         query: 'q',
-        rows: 'count'
-      };
+        rows: 'count',
+      }
 
       const schema: Schema<ComposedSource, ComposedTarget> = {
         request: {
           $path: 'response',
-          $subSchema: subSchema
+          $subSchema: subSchema,
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
       interface Pepe {
-        pepe: number;
+        pepe: number
       }
       interface Maria {
-        maria: string;
+        maria: string
       }
       const wrongSubSchema: Schema<Pepe, Maria> = {
-        maria: ({ pepe }) => String(pepe)
-      };
+        maria: ({ pepe }) => String(pepe),
+      }
 
       const otherSchema: Schema<ComposedSource, ComposedTarget> = {
         request: {
           // @ts-expect-error Type "response" is not assignable to type "response.list
           $path: 'response',
           // @ts-expect-error Type Schema<Pepe, Maria> is not assignable to type "$self" | ((source: ComposedSource) => never
-          $subSchema: wrongSubSchema
+          $subSchema: wrongSubSchema,
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
-      expect(typeof schema.request).toBe('object');
-      expect(typeof otherSchema.request).toBe('object');
-    });
-  });
-});
+      expect(typeof schema.request).toBe('object')
+      expect(typeof otherSchema.request).toBe('object')
+    })
+  })
+})

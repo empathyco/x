@@ -7,74 +7,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.0-alpha.0...@empathyco/x-adapter@8.1.0-alpha.1) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.3-alpha.1...@empathyco/x-adapter@8.1.0-alpha.0) (2024-05-03)
-
 
 ### Features
 
-* support empty params on adapter's requests (#1459) ([11a2efc](https://github.com/empathyco/x/commit/11a2efc2d0efe5ef7e34f8feb9e1bcc389bf847a))
-
-
+- support empty params on adapter's requests (#1459) ([11a2efc](https://github.com/empathyco/x/commit/11a2efc2d0efe5ef7e34f8feb9e1bcc389bf847a))
 
 ## [8.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.3-alpha.0...@empathyco/x-adapter@8.0.3-alpha.1) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.2...@empathyco/x-adapter@8.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 ## [8.0.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.2-alpha.0...@empathyco/x-adapter@8.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.1-alpha.0...@empathyco/x-adapter@8.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 ## [8.0.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.1-alpha.0...@empathyco/x-adapter@8.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.34...@empathyco/x-adapter@8.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 # Change Log
 

@@ -1,7 +1,7 @@
-import type { Dictionary} from '@empathyco/x-utils';
-import type { HttpClient } from './types';
-import { cleanEmpty, flatObject } from '@empathyco/x-utils';
-import { buildUrl, toJson } from './utils';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { HttpClient } from './types'
+import { cleanEmpty, flatObject } from '@empathyco/x-utils'
+import { buildUrl, toJson } from './utils'
 
 /**
  * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
@@ -27,28 +27,28 @@ export const fetchHttpClient: HttpClient = async (
     parameters = {},
     properties,
     sendParamsInBody = false,
-    sendEmptyParams = false
-  } = {}
+    sendEmptyParams = false,
+  } = {},
 ) => {
-  const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {};
+  const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {}
   if (!sendEmptyParams) {
-    parameters = cleanEmpty(parameters);
+    parameters = cleanEmpty(parameters)
   }
-  const flatParameters = flatObject(parameters);
-  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters);
-  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {};
+  const flatParameters = flatObject(parameters)
+  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters)
+  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {}
 
   return fetch(url, {
     ...properties,
     ...bodyParameters,
-    ...signal
-  }).then(toJson);
-};
+    ...signal,
+  }).then(toJson)
+}
 
 /**
  * Dictionary with the request id as key and an `AbortController` as value.
  */
-const requestAbortControllers: Dictionary<AbortController> = {};
+const requestAbortControllers: Dictionary<AbortController> = {}
 
 /**
  * Function that cancels previous request with the same `id` and returns a new `AbortSignal` for
@@ -59,7 +59,7 @@ const requestAbortControllers: Dictionary<AbortController> = {};
  * @returns The new `AbortSignal`.
  */
 function abortAndGetNewAbortSignal(id: string): AbortSignal {
-  requestAbortControllers[id]?.abort();
-  requestAbortControllers[id] = new AbortController();
-  return requestAbortControllers[id].signal;
+  requestAbortControllers[id]?.abort()
+  requestAbortControllers[id] = new AbortController()
+  return requestAbortControllers[id].signal
 }

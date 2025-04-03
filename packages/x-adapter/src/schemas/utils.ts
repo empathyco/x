@@ -1,11 +1,11 @@
-import type { MutableSchema, Schema } from './types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { forEach, isFunction, isObject } from '@empathyco/x-utils';
+import type { MutableSchema, Schema } from './types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { forEach, isFunction, isObject } from '@empathyco/x-utils'
 
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.
  */
-const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$extends', 'toString'];
+const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$extends', 'toString']
 
 /**
  * Creates a {@link MutableSchema | mutable schema } version of a given {@link Schema | schema}.
@@ -17,32 +17,32 @@ const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$exte
  * @public
  */
 export function createMutableSchema<Source, Target>(
-  schema: Schema<Source, Target>
+  schema: Schema<Source, Target>,
 ): MutableSchema<Source, Target> {
   return {
     ...schema,
     $replace(newSchema) {
       forEach(this, key => {
         if (isInternalMethod(key as string)) {
-          return;
+          return
         }
-        delete this[key];
-      });
-      Object.assign(this, newSchema);
+        delete this[key]
+      })
+      Object.assign(this, newSchema)
       /* We are replacing the schema with a completely new schema , so it makes sense that TS
        complains that the old schema and the new one are not the same. */
-      return this as any;
+      return this as any
     },
     $override(newSchema) {
-      return deepMerge(this, newSchema);
+      return deepMerge(this, newSchema)
     },
     $extends(newSchema: unknown) {
-      return deepMerge({}, this, newSchema);
+      return deepMerge({}, this, newSchema)
     },
     toString(includeInternalMethods = false) {
-      return serialize(this, !!includeInternalMethods);
-    }
-  };
+      return serialize(this, !!includeInternalMethods)
+    },
+  }
 }
 
 /**
@@ -56,7 +56,7 @@ export function createMutableSchema<Source, Target>(
  * @public
  */
 export function isInternalMethod(name: string): boolean {
-  return mutableSchemasInternalMethods.includes(name);
+  return mutableSchemasInternalMethods.includes(name)
 }
 
 /**
@@ -71,20 +71,20 @@ export function isInternalMethod(name: string): boolean {
 function serialize(
   data: Record<string, unknown>,
   includeInternalMethods: boolean,
-  deep = 0
+  deep = 0,
 ): string {
-  const indentation = '  '.repeat(deep);
-  let output = '';
+  const indentation = '  '.repeat(deep)
+  let output = ''
   forEach(data, (key, value) => {
     if (isObject(value)) {
       output += `${indentation}${key}: {\n${serialize(
         value,
         includeInternalMethods,
-        ++deep
-      )}${indentation}},\n`;
+        ++deep,
+      )}${indentation}},\n`
     } else if (!isFunction(value) || !isInternalMethod(key) || includeInternalMethods) {
-      output += `${indentation}${key}: ${value as any},\n`;
+      output += `${indentation}${key}: ${value as any},\n`
     }
-  });
-  return output;
+  })
+  return output
 }

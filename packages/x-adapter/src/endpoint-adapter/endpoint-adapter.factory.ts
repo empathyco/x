@@ -1,9 +1,13 @@
-import type { Mapper } from '../mappers/types';
-import type { EndpointAdapterFactory, EndpointAdapterOptions, ExtendableEndpointAdapter } from './types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { fetchHttpClient } from '../http-clients/fetch.http-client';
-import { identityMapper } from '../mappers/identity.mapper';
-import { interpolate } from '../utils/interpolate';
+import type { Mapper } from '../mappers/types'
+import type {
+  EndpointAdapterFactory,
+  EndpointAdapterOptions,
+  ExtendableEndpointAdapter,
+} from './types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { fetchHttpClient } from '../http-clients/fetch.http-client'
+import { identityMapper } from '../mappers/identity.mapper'
+import { interpolate } from '../utils/interpolate'
 
 /**
  * Factory to create {@link ExtendableEndpointAdapter | endpoint adapters} with the given
@@ -16,39 +20,39 @@ import { interpolate } from '../utils/interpolate';
  * @public
  */
 export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response>(
-  options: EndpointAdapterOptions<Request, Response>
+  options: EndpointAdapterOptions<Request, Response>,
 ) => {
   const endpointAdapter: ExtendableEndpointAdapter<Request, Response> = async (
     request,
-    { endpoint: requestEndpoint, ...requestOptions } = {}
+    { endpoint: requestEndpoint, ...requestOptions } = {},
   ) => {
     const {
       endpoint: rawEndpoint,
       httpClient = fetchHttpClient,
       requestMapper = identityMapper,
       responseMapper = identityMapper,
-      defaultRequestOptions = {}
-    }: EndpointAdapterOptions<Request, Response> = options;
+      defaultRequestOptions = {},
+    }: EndpointAdapterOptions<Request, Response> = options
 
-    const endpoint = getEndpoint(requestEndpoint ?? rawEndpoint, request);
-    const requestParameters = requestMapper(request, { endpoint });
+    const endpoint = getEndpoint(requestEndpoint ?? rawEndpoint, request)
+    const requestParameters = requestMapper(request, { endpoint })
 
     return httpClient(
       endpoint,
-      deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters })
-    ).then(response => responseMapper(response, { endpoint, requestParameters }));
-  };
+      deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters }),
+    ).then(response => responseMapper(response, { endpoint, requestParameters }))
+  }
 
   endpointAdapter.extends = <NewRequest, NewResponse>(
-    extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
+    extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>,
   ) =>
     endpointAdapterFactory<NewRequest, NewResponse>({
       ...options,
-      ...extendedOptions
-    } as EndpointAdapterOptions<NewRequest, NewResponse>);
+      ...extendedOptions,
+    } as EndpointAdapterOptions<NewRequest, NewResponse>)
 
-  return endpointAdapter;
-};
+  return endpointAdapter
+}
 
 /**
  * Returns an endpoint.
@@ -61,13 +65,13 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
  */
 function getEndpoint<Request>(
   endpoint: string | Mapper<Request, string> | undefined,
-  request: Request
+  request: Request,
 ): string {
   if (!endpoint) {
-    throw new Error('Tried to make a request without an endpoint');
+    throw new Error('Tried to make a request without an endpoint')
   }
 
   return typeof endpoint === 'function'
     ? endpoint(request, {})
-    : interpolate(endpoint, request as Record<string, unknown>);
+    : interpolate(endpoint, request as Record<string, unknown>)
 }

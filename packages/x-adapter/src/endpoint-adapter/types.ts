@@ -1,5 +1,5 @@
-import type { HttpClient, RequestOptions } from '../http-clients/types';
-import type { Mapper } from '../mappers/types';
+import type { HttpClient, RequestOptions } from '../http-clients/types'
+import type { Mapper } from '../mappers/types'
 
 /**
  * Connects with a given API endpoint. Transforms the request object into something the API
@@ -15,7 +15,7 @@ export interface EndpointAdapter<Request, Response> {
    * @param options - Additional options to make the request with.
    * @returns A response promise.
    */
-  (request: Request, options?: RequestOptions): Promise<Response>;
+  (request: Request, options?: RequestOptions): Promise<Response>
 }
 
 /**
@@ -33,8 +33,8 @@ export interface ExtendableEndpointAdapter<Request, Response>
    * @returns A new adapter created by merging the new and old options.
    */
   extends: <NewRequest = Request, NewResponse = Response>(
-    options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => ExtendableEndpointAdapter<NewRequest, NewResponse>;
+    options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>,
+  ) => ExtendableEndpointAdapter<NewRequest, NewResponse>
 }
 
 /**
@@ -45,8 +45,8 @@ export interface ExtendableEndpointAdapter<Request, Response>
  * @public
  */
 export type EndpointAdapterFactory = <Request, Response>(
-  options: EndpointAdapterOptions<Request, Response>
-) => ExtendableEndpointAdapter<Request, Response>;
+  options: EndpointAdapterOptions<Request, Response>,
+) => ExtendableEndpointAdapter<Request, Response>
 
 /**
  * Options to create an adapter with.
@@ -58,23 +58,23 @@ export interface EndpointAdapterOptions<Request, Response> {
    * The endpoint to request the information to. If the endpoint can only be decided at run-time you
    * can ignore this property and use {@link RequestOptions.endpoint} parameter.
    */
-  endpoint?: string | Mapper<Request, string>;
+  endpoint?: string | Mapper<Request, string>
   /**
    * The {@link HttpClient} to use for the requests.
    */
-  httpClient?: HttpClient;
+  httpClient?: HttpClient
   /**
    * The default {@link RequestOptions} to use every request.
    */
-  defaultRequestOptions?: Omit<RequestOptions, 'endpoint'>;
+  defaultRequestOptions?: Omit<RequestOptions, 'endpoint'>
   /**
    * The {@link Mapper} in charge of adapting the request object so the backend API can
    * understand it.
    */
-  requestMapper?: Mapper<Request, Record<string, any>>;
+  requestMapper?: Mapper<Request, Record<string, any>>
   /**
    * The {@link Mapper} in charge of adapting the response object to whatever format or
    * shape it is needed.
    */
-  responseMapper?: Mapper<any, Response>;
+  responseMapper?: Mapper<any, Response>
 }
