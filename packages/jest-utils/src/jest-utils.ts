@@ -2,8 +2,8 @@ import type {
   EmpathyExtendedExpect,
   EmpathyExtendedMatchers,
   FunctionType,
-  Newable
-} from './jest-utils.types';
+  Newable,
+} from './jest-utils.types'
 
 declare global {
   // eslint-disable-next-line ts/no-namespace
@@ -33,16 +33,16 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
     everyItemToBe: arrayOf,
     everyItemToMatch,
     toBeAValidURLWithExactQueryParameters,
-    toBeAValidURLWithQueryParameters
-  };
+    toBeAValidURLWithQueryParameters,
+  }
 
-expect.extend(extendOptions);
+expect.extend(extendOptions)
 
-const ok: jest.CustomMatcherResult = { pass: true, message: () => 'OK' };
+const ok: jest.CustomMatcherResult = { pass: true, message: () => 'OK' }
 const error = (msg: string): jest.CustomMatcherResult => ({
   pass: false,
-  message: () => msg
-});
+  message: () => msg,
+})
 
 /**
  * Checks if the value received is null or any of the types sent.
@@ -55,16 +55,16 @@ const error = (msg: string): jest.CustomMatcherResult => ({
 function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
   if (received !== null) {
     try {
-      anyOf(received, classTypeUnion);
+      anyOf(received, classTypeUnion)
     } catch {
       return error(
         `Expected "${received}" to be "${classTypeUnion
           .map(classType => classType.name)
-          .join(' | ')}" or null`
-      );
+          .join(' | ')}" or null`,
+      )
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -78,20 +78,20 @@ function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatch
 function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
   const isValid = classTypeUnion.some(classType => {
     try {
-      expect(received).toEqual(expect.any(classType));
-      return true;
+      expect(received).toEqual(expect.any(classType))
+      return true
     } catch {
-      return false;
+      return false
     }
-  });
+  })
   if (isValid) {
-    return ok;
+    return ok
   } else {
     return error(
       `Expected "${received}" to be "${classTypeUnion
         .map(classType => classType.name)
-        .join(' | ')}"`
-    );
+        .join(' | ')}"`,
+    )
   }
 }
 
@@ -106,12 +106,12 @@ function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResu
 function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received !== null) {
     try {
-      expect(received).toEqual(expect.any(classType));
+      expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "null"`);
+      return error(`Expected "${received}" to be "${classType}" or "null"`)
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -125,12 +125,12 @@ function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
 function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
   if (received !== null) {
     try {
-      expect(received).toMatchObject(schema);
+      expect(received).toMatchObject(schema)
     } catch {
-      return error(`Expected "${received}" to match "${schema}" or "null"`);
+      return error(`Expected "${received}" to match "${schema}" or "null"`)
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -144,12 +144,12 @@ function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMat
 function undefinedOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
   if (received !== undefined) {
     try {
-      expect(received).toMatchObject(schema);
+      expect(received).toMatchObject(schema)
     } catch {
-      return error(`Expected "${received}" to match "${schema}" or "null"`);
+      return error(`Expected "${received}" to match "${schema}" or "null"`)
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -163,12 +163,12 @@ function undefinedOrMatch(received: any, schema: Record<string, any>): jest.Cust
 function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received !== undefined) {
     try {
-      expect(received).toEqual(expect.any(classType));
+      expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "undefined"`);
+      return error(`Expected "${received}" to be "${classType}" or "undefined"`)
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -182,12 +182,12 @@ function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResul
 function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received != null) {
     try {
-      expect(received).toEqual(expect.any(classType));
+      expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "null" or "undefined"`);
+      return error(`Expected "${received}" to be "${classType}" or "null" or "undefined"`)
     }
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -200,11 +200,11 @@ function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatche
  */
 function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult {
   try {
-    received.every(object => expect(object).toEqual(expect.any(classType)));
+    received.every(object => expect(object).toEqual(expect.any(classType)))
   } catch {
-    return error(`Expected "${received}" to be an array of "${classType}"`);
+    return error(`Expected "${received}" to be an array of "${classType}"`)
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -217,11 +217,11 @@ function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult 
  */
 function everyItemToMatch(received: any[], schema: Record<string, any>): jest.CustomMatcherResult {
   try {
-    received.every(object => expect(object).toMatchObject(schema));
+    received.every(object => expect(object).toMatchObject(schema))
   } catch {
-    return error(`Expected every item of "${received}" to match "${schema}"`);
+    return error(`Expected every item of "${received}" to match "${schema}"`)
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -237,18 +237,18 @@ function everyItemToMatch(received: any[], schema: Record<string, any>): jest.Cu
  */
 function toBeAValidURLWithExactQueryParameters(
   urlString: any,
-  parameters: Record<string, string | string[]>
+  parameters: Record<string, string | string[]>,
 ): any {
-  const entries = Object.fromEntries(new URL(urlString as string).searchParams);
+  const entries = Object.fromEntries(new URL(urlString as string).searchParams)
   try {
-    expect(entries).toEqual(parameters);
+    expect(entries).toEqual(parameters)
   } catch {
     return error(
       `Expected URL parameters "${JSON.stringify(parameters)}" to be "${JSON.stringify(entries)}",
-         but it is not present"`
-    );
+         but it is not present"`,
+    )
   }
-  return ok;
+  return ok
 }
 
 /**
@@ -262,34 +262,34 @@ function toBeAValidURLWithExactQueryParameters(
  */
 function toBeAValidURLWithQueryParameters(
   urlString: any,
-  parameters: Record<string, string | string[]>
+  parameters: Record<string, string | string[]>,
 ): any {
-  const url = new URL(urlString as string);
+  const url = new URL(urlString as string)
   Object.keys(parameters).forEach(key => {
-    const expectedValue = parameters[key];
+    const expectedValue = parameters[key]
     if (!url.searchParams.has(key)) {
       throw new TypeError(
         `Expected URL to include parameter "${key}" with value "${parameters[key]}",
-         but it is not present"`
-      );
+         but it is not present"`,
+      )
     }
 
     if (Array.isArray(expectedValue)) {
-      const received = url.searchParams.getAll(key);
+      const received = url.searchParams.getAll(key)
       try {
-        expect(received).toEqual(expectedValue);
+        expect(received).toEqual(expectedValue)
       } catch {
         throw new TypeError(
-          `Expected parameters with key "${key}" to equal array "${expectedValue}",but it has value "${received}"`
-        );
+          `Expected parameters with key "${key}" to equal array "${expectedValue}",but it has value "${received}"`,
+        )
       }
     } else if (url.searchParams.get(key) !== expectedValue) {
       throw new TypeError(
         `Expected parameter "${key}" to equal value "${expectedValue}",but it has value "${url.searchParams.get(
-          key
-        )}"`
-      );
+          key,
+        )}"`,
+      )
     }
-  });
-  return ok;
+  })
+  return ok
 }
