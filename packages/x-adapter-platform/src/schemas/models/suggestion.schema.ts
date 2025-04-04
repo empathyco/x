@@ -1,6 +1,6 @@
-import type { Suggestion } from '@empathyco/x-types';
-import type { PlatformSuggestion } from '../../types/models/suggestion.model';
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { Suggestion } from '@empathyco/x-types'
+import type { PlatformSuggestion } from '../../types/models/suggestion.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the SuggestionSchema.
@@ -13,5 +13,5 @@ export const suggestionSchema = createMutableSchema<PlatformSuggestion, Suggesti
   modelName: (_, $context) =>
     $context?.requestParameters?.query ? 'QuerySuggestion' : 'PopularSearch',
   facets: () => [],
-  isCurated: () => false
-});
+  isCurated: () => false,
+})

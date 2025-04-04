@@ -1,30 +1,30 @@
-import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types';
-import type { Dictionary } from '@empathyco/x-utils';
+import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
 import type {
   PlatformRelatedPrompt,
-  PlatformRelatedPromptNextQueriesTagging
-} from '../../types/models/related-prompt.model';
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
+  PlatformRelatedPromptNextQueriesTagging,
+} from '../../types/models/related-prompt.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 
 export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, RelatedPromptNextQuery>({
   query: data => data,
   toolingDisplayTagging: (data, $context) =>
     getTaggingInfoFromUrl(
       ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplay
+        .toolingDisplay,
     ),
   toolingDisplayClickTagging: (data, $context) =>
     getTaggingInfoFromUrl(
       ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplayClick
+        .toolingDisplayClick,
     ),
   toolingDisplayAdd2CartTagging: (data, $context) =>
     getTaggingInfoFromUrl(
       ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplayAdd2Cart
-    )
-});
+        .toolingDisplayAdd2Cart,
+    ),
+})
 
 /**
  * Default implementation for the RelatedPromptSchema.
@@ -37,8 +37,8 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
     $path: 'nextQueries',
     $subSchema: nextQueriesRelatedPromptsSchema,
     $context: {
-      nextQueriesTagging: 'tagging.nextQueries'
-    }
+      nextQueriesTagging: 'tagging.nextQueries',
+    },
   },
   nextQueries: 'nextQueries',
   suggestionText: 'suggestionText',
@@ -51,8 +51,8 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
       $path: 'nextQueries',
       $subSchema: nextQueriesRelatedPromptsSchema,
       $context: {
-        nextQueriesTagging: 'tagging.nextQueries'
-      }
-    }
-  }
-});
+        nextQueriesTagging: 'tagging.nextQueries',
+      },
+    },
+  },
+})

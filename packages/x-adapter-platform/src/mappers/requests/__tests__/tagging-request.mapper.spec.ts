@@ -1,5 +1,5 @@
-import type { TaggingRequest } from '@empathyco/x-types';
-import { taggingRequestMapper } from '../tagging-request.mapper';
+import type { TaggingRequest } from '@empathyco/x-types'
+import { taggingRequestMapper } from '../tagging-request.mapper'
 
 describe('taggingRequestMapper tests', () => {
   it('should map the request', () => {
@@ -16,9 +16,9 @@ describe('taggingRequestMapper tests', () => {
         q: '12345',
         scope: 'desktop',
         spellcheck: 'false',
-        title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
-      }
-    };
+        title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
+      },
+    }
 
     expect(taggingRequestMapper(internalRequest, {})).toStrictEqual({
       filtered: 'false',
@@ -31,7 +31,7 @@ describe('taggingRequestMapper tests', () => {
       q: '12345',
       scope: 'desktop',
       spellcheck: 'false',
-      title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
-    });
-  });
-});
+      title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
+    })
+  })
+})

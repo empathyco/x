@@ -1,10 +1,10 @@
-import type { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
-import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
- 
-import { identifierResultsRequestMapper } from '../mappers/requests/identifier-results-request.mapper';
- 
-import { identifierResultsResponseMapper } from '../mappers/responses/identifier-results-response.mapper';
-import { getSearchServiceUrl } from './utils';
+import type { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types'
+import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
+
+import { identifierResultsRequestMapper } from '../mappers/requests/identifier-results-request.mapper'
+
+import { identifierResultsResponseMapper } from '../mappers/responses/identifier-results-response.mapper'
+import { getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the identifier results endpoint.
@@ -22,7 +22,7 @@ export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   defaultRequestOptions: {
     id: 'identifier-results',
     parameters: {
-      internal: true
-    }
-  }
-});
+      internal: true,
+    },
+  },
+})

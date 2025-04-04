@@ -1,6 +1,6 @@
-import type { SemanticQueriesRequest } from '@empathyco/x-types';
-import type { PlatformSemanticQueriesRequest } from '../../types';
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { SemanticQueriesRequest } from '@empathyco/x-types'
+import type { PlatformSemanticQueriesRequest } from '../../types'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the SemanticQueriesRequestSchema.
@@ -12,5 +12,5 @@ export const semanticQueriesRequestSchema = createMutableSchema<
   PlatformSemanticQueriesRequest
 >({
   q: 'query',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

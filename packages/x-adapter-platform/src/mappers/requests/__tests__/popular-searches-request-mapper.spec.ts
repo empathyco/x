@@ -1,5 +1,5 @@
-import type { PopularSearchesRequest } from '@empathyco/x-types';
-import { popularSearchesRequestMapper } from '../popular-searches-request.mapper';
+import type { PopularSearchesRequest } from '@empathyco/x-types'
+import { popularSearchesRequestMapper } from '../popular-searches-request.mapper'
 
 describe('popularSearchesRequestMapper tests', () => {
   it('should map the request', () => {
@@ -11,9 +11,9 @@ describe('popularSearchesRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(popularSearchesRequestMapper(internalRequest, {})).toStrictEqual({
       rows: 2,
@@ -23,8 +23,8 @@ describe('popularSearchesRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

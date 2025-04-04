@@ -1,6 +1,6 @@
-import type { SemanticQuery } from '@empathyco/x-types';
-import type { PlatformSemanticQuery } from '../../types';
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { SemanticQuery } from '@empathyco/x-types'
+import type { PlatformSemanticQuery } from '../../types'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the SemanticQuery schema.
@@ -10,5 +10,5 @@ import { createMutableSchema } from '@empathyco/x-adapter';
 export const semanticQuerySchema = createMutableSchema<PlatformSemanticQuery, SemanticQuery>({
   query: 'query',
   modelName: () => 'SemanticQuery',
-  distance: 'distance'
-});
+  distance: 'distance',
+})

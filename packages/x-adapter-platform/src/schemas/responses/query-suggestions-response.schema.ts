@@ -1,8 +1,8 @@
-import type { QuerySuggestionsResponse } from '@empathyco/x-types';
-import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model';
- 
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { suggestionSchema } from '../models/suggestion.schema';
+import type { QuerySuggestionsResponse } from '@empathyco/x-types'
+import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { suggestionSchema } from '../models/suggestion.schema'
 
 /**
  * Default implementation for the QuerySuggestionsResponseSchema.
@@ -15,6 +15,6 @@ export const querySuggestionsResponseSchema = createMutableSchema<
 >({
   suggestions: {
     $path: 'topTrends.content',
-    $subSchema: suggestionSchema
-  }
-});
+    $subSchema: suggestionSchema,
+  },
+})

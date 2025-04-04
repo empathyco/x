@@ -1,7 +1,7 @@
-import type { QuerySuggestionsRequest } from '@empathyco/x-types';
-import type { PlatformQuerySuggestionsRequest } from '../../types/requests/query-suggestions-request.model';
- 
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { QuerySuggestionsRequest } from '@empathyco/x-types'
+import type { PlatformQuerySuggestionsRequest } from '../../types/requests/query-suggestions-request.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the QuerySuggestionsRequestSchema.
@@ -15,5 +15,5 @@ export const querySuggestionsRequestSchema = createMutableSchema<
   query: 'query',
   start: 'start',
   rows: 'rows',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

@@ -1,14 +1,13 @@
- 
-import type { PlatformPopularSearchesResponse } from '../../../types/responses/popular-searches-response.model';
-import { popularSearchesResponseMapper } from '../popular-searches-response.mapper';
+import type { PlatformPopularSearchesResponse } from '../../../types/responses/popular-searches-response.model'
+import { popularSearchesResponseMapper } from '../popular-searches-response.mapper'
 
 describe('popularSearchesResponseMapper tests', () => {
   it('should map the response', () => {
     const platformPopularSearchesResponse: PlatformPopularSearchesResponse = {
       topTrends: {
-        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }]
-      }
-    };
+        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }],
+      },
+    }
 
     expect(popularSearchesResponseMapper(platformPopularSearchesResponse, {})).toStrictEqual({
       suggestions: [
@@ -17,23 +16,23 @@ describe('popularSearchesResponseMapper tests', () => {
           isCurated: false,
           facets: [],
           modelName: 'PopularSearch',
-          key: 'sandal'
+          key: 'sandal',
         },
         {
           query: 'sock',
           isCurated: false,
           facets: [],
           modelName: 'PopularSearch',
-          key: 'sock'
+          key: 'sock',
         },
         {
           query: 'saree',
           isCurated: false,
           facets: [],
           modelName: 'PopularSearch',
-          key: 'saree'
-        }
-      ]
-    });
-  });
-});
+          key: 'saree',
+        },
+      ],
+    })
+  })
+})

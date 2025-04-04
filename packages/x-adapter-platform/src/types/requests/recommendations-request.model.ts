@@ -1,8 +1,8 @@
 import type {
   PlatformExtraParamsRequest,
   PlatformPageableRequest,
-  PlatformTrackableRequest
-} from './request.types';
+  PlatformTrackableRequest,
+} from './request.types'
 
 /**
  * Request for `recommendations` endpoint with `extra params`.

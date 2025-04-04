@@ -4,8 +4,8 @@ import type {
   PlatformPageableRequest,
   PlatformQueryableRequest,
   PlatformSortableRequest,
-  PlatformTrackableRequest
-} from './request.types';
+  PlatformTrackableRequest,
+} from './request.types'
 
 /**
  * Request for the `search` endpoint.

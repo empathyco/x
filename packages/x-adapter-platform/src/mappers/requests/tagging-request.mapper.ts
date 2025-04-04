@@ -1,5 +1,5 @@
-import type { Mapper } from '@empathyco/x-adapter';
-import type { TaggingRequest } from '@empathyco/x-types';
+import type { Mapper } from '@empathyco/x-adapter'
+import type { TaggingRequest } from '@empathyco/x-types'
 
 /**
  * Default implementation for the TaggingRequestMapper.
@@ -11,4 +11,4 @@ import type { TaggingRequest } from '@empathyco/x-types';
  * @public
  */
 export const taggingRequestMapper: Mapper<TaggingRequest, any> = ({ params }: TaggingRequest) =>
-  params;
+  params

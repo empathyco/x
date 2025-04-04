@@ -1,4 +1,4 @@
-import type { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types';
+import type { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types'
 
 /**
  * Request for the `next queries` endpoint with `extra params`.

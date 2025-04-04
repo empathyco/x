@@ -4,9 +4,9 @@
  * @public
  */
 export interface PlatformRedirection {
-  id: string;
-  url: string;
+  id: string
+  url: string
   tagging?: {
-    click: string;
-  };
+    click: string
+  }
 }

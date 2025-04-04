@@ -1,4 +1,4 @@
-import type { PlatformResult } from './result.model';
+import type { PlatformResult } from './result.model'
 
 /**
  * Partial results model in platform.
@@ -6,7 +6,7 @@ import type { PlatformResult } from './result.model';
  * @public
  */
 export interface PlatformPartialResult {
-  term: string;
-  numFound: number;
-  content: PlatformResult[];
+  term: string
+  numFound: number
+  content: PlatformResult[]
 }

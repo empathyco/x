@@ -1,9 +1,9 @@
-import type { PopularSearchesRequest } from '@empathyco/x-types';
-import type { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model';
- 
-import { schemaMapperFactory } from '@empathyco/x-adapter';
- 
-import { popularSearchesRequestSchema } from '../../schemas/requests/popular-searches-request.schema';
+import type { PopularSearchesRequest } from '@empathyco/x-types'
+import type { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model'
+
+import { schemaMapperFactory } from '@empathyco/x-adapter'
+
+import { popularSearchesRequestSchema } from '../../schemas/requests/popular-searches-request.schema'
 
 /**
  * Default implementation for the PopularSearchesRequestMapper.
@@ -13,4 +13,4 @@ import { popularSearchesRequestSchema } from '../../schemas/requests/popular-sea
 export const popularSearchesRequestMapper = schemaMapperFactory<
   PopularSearchesRequest,
   PlatformPopularSearchesRequest
->(popularSearchesRequestSchema);
+>(popularSearchesRequestSchema)

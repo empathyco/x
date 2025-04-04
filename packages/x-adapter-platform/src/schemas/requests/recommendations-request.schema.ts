@@ -1,7 +1,7 @@
-import type { RecommendationsRequest } from '@empathyco/x-types';
-import type { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model';
- 
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { RecommendationsRequest } from '@empathyco/x-types'
+import type { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the RecommendationsRequestSchema.
@@ -15,5 +15,5 @@ export const recommendationsRequestSchema = createMutableSchema<
   start: 'start',
   rows: 'rows',
   origin: 'origin',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

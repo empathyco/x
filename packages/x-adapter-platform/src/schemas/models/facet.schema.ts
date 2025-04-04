@@ -2,11 +2,11 @@ import type {
   EditableNumberRangeFacet,
   HierarchicalFacet,
   NumberRangeFacet,
-  SimpleFacet
-} from '@empathyco/x-types';
-import type { PlatformFacet } from '../../types/models/facet.model';
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { getFacetConfig } from '../facets/utils';
+  SimpleFacet,
+} from '@empathyco/x-types'
+import type { PlatformFacet } from '../../types/models/facet.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { getFacetConfig } from '../facets/utils'
 
 /**
  * Default implementation for the FacetSchema.
@@ -25,7 +25,7 @@ export const facetSchema = createMutableSchema<
     $path: 'values',
     $subSchema: ({ type }) => getFacetConfig(type).schema,
     $context: {
-      facetId: 'facet'
-    }
-  }
-});
+      facetId: 'facet',
+    },
+  },
+})

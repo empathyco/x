@@ -1,5 +1,5 @@
-import type { QuerySuggestionsRequest } from '@empathyco/x-types';
-import { querySuggestionsRequestMapper } from '../query-suggestions-request.mapper';
+import type { QuerySuggestionsRequest } from '@empathyco/x-types'
+import { querySuggestionsRequestMapper } from '../query-suggestions-request.mapper'
 
 describe('querySuggestionsRequestMapper tests', () => {
   it('should map the request', () => {
@@ -12,9 +12,9 @@ describe('querySuggestionsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(querySuggestionsRequestMapper(internalRequest, {})).toStrictEqual({
       query: 'chips',
@@ -25,8 +25,8 @@ describe('querySuggestionsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

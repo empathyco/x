@@ -44,8 +44,8 @@ export const platformAdapter: PlatformAdapter = {
   querySuggestions: querySuggestionsEndpointAdapter,
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
-  tagging: taggingEndpointAdapter
-};
+  tagging: taggingEndpointAdapter,
+}
 ```
 
 <br>
@@ -80,16 +80,16 @@ The search endpoint will include an
 in its response.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { results } = await platformAdapter.search({
   query: 'trousers',
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -105,15 +105,15 @@ const { results } = await platformAdapter.search({
 The `PopularSearches` endpoint will return top searched queries.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { suggestions } = await platformAdapter.popularSearches({
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -130,15 +130,15 @@ These **recommendations** are top clicked products based on user click interacti
 personal user data is collected).
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { results } = await platformAdapter.recommendations({
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -157,16 +157,16 @@ specific item. The aim is to suggest a new term that the user may be interested 
 The `NextQueriesRequest` is usually done after a `SearchRequest` has been made.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { nextQueries } = await platformAdapter.nextQueries({
   query: 'trousers',
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -184,16 +184,16 @@ The `QuerySuggestions` endpoint returns suggestions based on a query. For exampl
 suggestions.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { suggestions } = await platformAdapter.querySuggestions({
   query: 'trousers',
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -210,16 +210,16 @@ The `RelatedTags` endpoint will return terms used to help refining a search quer
 **specificity** (e.g, adjectives: long, short, gluten-free; categories: kids, summer...).
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { relatedTags } = await platformAdapter.relatedTags({
   query: 'trousers',
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -237,16 +237,16 @@ The `IdentifierResults` endpoint will return the results whose
 matches a given `query`.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const { results } = await platformAdapter.identifierResults({
   query: '1234',
   extraParams: {
     lang: 'en',
     instance: 'empathy',
-    env: 'staging'
-  }
-});
+    env: 'staging',
+  },
+})
 ```
 
 <br>
@@ -266,7 +266,7 @@ You can configure your `tagging` object following the
 interface, which contains several user actions and the capability to include your own.
 
 ```ts
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 const tagging = await platformAdapter.tagging({
   // The tagging request will be sent to this URL
@@ -280,9 +280,9 @@ const tagging = await platformAdapter.tagging({
     q: 'trousers',
     scope: 'desktop',
     spellcheck: 'false',
-    totalHits: 700
-  }
-});
+    totalHits: 700,
+  },
+})
 ```
 
 <br>
@@ -297,22 +297,22 @@ documentation for further details.
 ###### Example of overriding a response by adding a new parameter
 
 ```ts
-import { PlatformResult, resultSchema } from '@empathyco/x-adapter-platform';
-import { Result } from '@empathyco/x-types';
+import { PlatformResult, resultSchema } from '@empathyco/x-adapter-platform'
+import { Result } from '@empathyco/x-types'
 
 interface EmpathyDemoPlatformResult extends PlatformResult {
-  season: string;
+  season: string
 }
 
 declare module '@empathyco/x-types' {
   export interface Result {
-    season: string;
+    season: string
   }
 }
 
 resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
-  season: 'season'
-});
+  season: 'season',
+})
 ```
 
 <br>

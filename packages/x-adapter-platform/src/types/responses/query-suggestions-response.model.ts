@@ -1,4 +1,4 @@
-import type { PlatformSuggestion } from '../models/suggestion.model';
+import type { PlatformSuggestion } from '../models/suggestion.model'
 
 /**
  * Response for the `query suggestions` endpoint.
@@ -7,6 +7,6 @@ import type { PlatformSuggestion } from '../models/suggestion.model';
  */
 export interface PlatformQuerySuggestionsResponse {
   topTrends: {
-    content: PlatformSuggestion[];
-  };
+    content: PlatformSuggestion[]
+  }
 }

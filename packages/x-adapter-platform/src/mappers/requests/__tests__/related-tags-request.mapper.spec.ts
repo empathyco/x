@@ -1,5 +1,5 @@
-import type { RelatedTagsRequest } from '@empathyco/x-types';
-import { relatedTagsRequestMapper } from '../related-tags-request.mapper';
+import type { RelatedTagsRequest } from '@empathyco/x-types'
+import { relatedTagsRequestMapper } from '../related-tags-request.mapper'
 
 describe('relatedTagsRequestMapper tests', () => {
   it('should map the request', () => {
@@ -10,9 +10,9 @@ describe('relatedTagsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(relatedTagsRequestMapper(internalRequest, {})).toStrictEqual({
       query: 'chips',
@@ -21,8 +21,8 @@ describe('relatedTagsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

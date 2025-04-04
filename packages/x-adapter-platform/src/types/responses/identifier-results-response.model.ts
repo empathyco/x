@@ -1,4 +1,4 @@
-import type { PlatformResult } from '../models/result.model';
+import type { PlatformResult } from '../models/result.model'
 
 /**
  * Response for the `identifier results` endpoint.
@@ -7,9 +7,9 @@ import type { PlatformResult } from '../models/result.model';
  */
 export interface PlatformIdentifierResultsResponse {
   catalog: {
-    content: PlatformResult[];
+    content: PlatformResult[]
     tagging: {
-      query: string;
-    };
-  };
+      query: string
+    }
+  }
 }

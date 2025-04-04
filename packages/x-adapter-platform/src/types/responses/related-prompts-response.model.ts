@@ -1,4 +1,4 @@
-import type { PlatformRelatedPrompt } from '../models/related-prompt.model';
+import type { PlatformRelatedPrompt } from '../models/related-prompt.model'
 
 /**
  * Response for the `related prompts` endpoint.
@@ -7,7 +7,7 @@ import type { PlatformRelatedPrompt } from '../models/related-prompt.model';
  */
 export interface PlatformRelatedPromptsResponse {
   data: {
-    relatedprompts: PlatformRelatedPrompt[];
-  };
-  status: number;
+    relatedprompts: PlatformRelatedPrompt[]
+  }
+  status: number
 }

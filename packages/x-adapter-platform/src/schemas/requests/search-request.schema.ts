@@ -1,8 +1,8 @@
-import type { SearchRequest } from '@empathyco/x-types';
-import type { PlatformSearchRequest } from '../../types/requests/search-request.model';
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { isHierarchicalFilter } from '@empathyco/x-types';
-import { reduce } from '@empathyco/x-utils';
+import type { SearchRequest } from '@empathyco/x-types'
+import type { PlatformSearchRequest } from '../../types/requests/search-request.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { isHierarchicalFilter } from '@empathyco/x-types'
+import { reduce } from '@empathyco/x-utils'
 
 /**
  * Default implementation for the SearchRequestSchema.
@@ -16,8 +16,8 @@ export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSe
   rows: 'rows',
   sort: 'sort',
   filter: mapFilters,
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})
 
 /**
  * Converts the filters to the shape the Platform's API is expecting.
@@ -86,10 +86,10 @@ function mapFilters({ filters }: SearchRequest): string[] {
         .filter(
           filter =>
             !isHierarchicalFilter(filter) ||
-            !filters.some(child => isHierarchicalFilter(child) && child.parentId === filter.id)
+            !filters.some(child => isHierarchicalFilter(child) && child.parentId === filter.id),
         )
-        .map(filter => filter.id.toString())
+        .map(filter => filter.id.toString()),
     ],
-    [] as string[]
-  );
+    [] as string[],
+  )
 }

@@ -2,9 +2,9 @@ import type {
   HierarchicalFilter,
   NumberRangeFilter,
   SearchRequest,
-  SimpleFilter
-} from '@empathyco/x-types';
-import { searchRequestMapper } from '../../requests/search-request.mapper';
+  SimpleFilter,
+} from '@empathyco/x-types'
+import { searchRequestMapper } from '../../requests/search-request.mapper'
 
 describe('searchRequestMapper tests', () => {
   it('should map the request', () => {
@@ -21,8 +21,8 @@ describe('searchRequestMapper tests', () => {
             modelName: 'SimpleFilter',
             id: 'price:[0 TO 10]',
             selected: true,
-            label: 'In Offer'
-          }
+            label: 'In Offer',
+          },
         ] as SimpleFilter[],
         brand_facet: [
           {
@@ -31,8 +31,8 @@ describe('searchRequestMapper tests', () => {
             label: 'Lego',
             selected: true,
             totalResults: 6,
-            modelName: 'SimpleFilter'
-          }
+            modelName: 'SimpleFilter',
+          },
         ] as SimpleFilter[],
         price: [
           {
@@ -44,9 +44,9 @@ describe('searchRequestMapper tests', () => {
             modelName: 'NumberRangeFilter',
             range: {
               min: null,
-              max: 10
-            }
-          }
+              max: 10,
+            },
+          },
         ] as NumberRangeFilter[],
         categoryPaths: [
           {
@@ -56,7 +56,7 @@ describe('searchRequestMapper tests', () => {
             modelName: 'HierarchicalFilter',
             parentId: 'categoryIds:ffc61e1e9',
             selected: true,
-            totalResults: 1
+            totalResults: 1,
           },
           {
             facetId: 'categoryPaths',
@@ -65,7 +65,7 @@ describe('searchRequestMapper tests', () => {
             modelName: 'HierarchicalFilter',
             parentId: 'categoryIds:ffc61e1e9',
             selected: true,
-            totalResults: 1
+            totalResults: 1,
           },
           {
             children: ['categoryIds:ffc61e1e9__be257cb26', 'categoryIds:ffc61e1e9__fa5ef54f2'],
@@ -75,18 +75,18 @@ describe('searchRequestMapper tests', () => {
             modelName: 'HierarchicalFilter',
             parentId: null,
             selected: true,
-            totalResults: 1
-          }
-        ] as HierarchicalFilter[]
+            totalResults: 1,
+          },
+        ] as HierarchicalFilter[],
       },
       extraParams: {
         instance: 'empathy',
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(searchRequestMapper(internalRequest, {})).toStrictEqual({
       query: 'chips',
@@ -99,15 +99,15 @@ describe('searchRequestMapper tests', () => {
         '{!tag=brand_facet}brand_facet:"Lego"',
         '{!tag=price}price:[0 TO 10]',
         'categoryIds:ffc61e1e9__be257cb26',
-        'categoryIds:ffc61e1e9__fa5ef54f2'
+        'categoryIds:ffc61e1e9__fa5ef54f2',
       ],
       extraParams: {
         instance: 'empathy',
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

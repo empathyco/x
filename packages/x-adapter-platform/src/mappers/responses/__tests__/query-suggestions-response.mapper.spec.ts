@@ -1,19 +1,18 @@
- 
-import type { PlatformQuerySuggestionsResponse } from '../../../types/responses/query-suggestions-response.model';
-import { querySuggestionsResponseMapper } from '../query-suggestions-response.mapper';
+import type { PlatformQuerySuggestionsResponse } from '../../../types/responses/query-suggestions-response.model'
+import { querySuggestionsResponseMapper } from '../query-suggestions-response.mapper'
 
 describe('querySuggestionsResponseMapper tests', () => {
   it('should map the response', () => {
     const platformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
       topTrends: {
-        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }]
-      }
-    };
+        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }],
+      },
+    }
 
     expect(
       querySuggestionsResponseMapper(platformQuerySuggestionsResponse, {
-        requestParameters: { query: 'shoes' }
-      })
+        requestParameters: { query: 'shoes' },
+      }),
     ).toStrictEqual({
       suggestions: [
         {
@@ -21,23 +20,23 @@ describe('querySuggestionsResponseMapper tests', () => {
           isCurated: false,
           facets: [],
           modelName: 'QuerySuggestion',
-          key: 'sandal'
+          key: 'sandal',
         },
         {
           query: 'sock',
           isCurated: false,
           facets: [],
           modelName: 'QuerySuggestion',
-          key: 'sock'
+          key: 'sock',
         },
         {
           query: 'saree',
           isCurated: false,
           facets: [],
           modelName: 'QuerySuggestion',
-          key: 'saree'
-        }
-      ]
-    });
-  });
-});
+          key: 'saree',
+        },
+      ],
+    })
+  })
+})

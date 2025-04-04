@@ -1,7 +1,7 @@
-import type { IdentifierResultsRequest } from '@empathyco/x-types';
-import type { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
- 
-import { createMutableSchema } from '@empathyco/x-adapter';
+import type { IdentifierResultsRequest } from '@empathyco/x-types'
+import type { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the IdentifierResultsRequestSchema.
@@ -16,5 +16,5 @@ export const identifierResultsRequestSchema = createMutableSchema<
   origin: 'origin',
   start: 'start',
   rows: 'rows',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})
