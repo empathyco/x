@@ -7,125 +7,74 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.3...@empathyco/x-archetype-utils@2.0.0-alpha.4) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.3) (2025-01-13)
-
 
 ### Features
 
-* **i18n:** do not use legacy api (#1669) ([99b1004](https://github.com/empathyco/x/commit/99b10049fba2cd2cfc32038deef6823d4afac9dd))
-
-
+- **i18n:** do not use legacy api (#1669) ([99b1004](https://github.com/empathyco/x/commit/99b10049fba2cd2cfc32038deef6823d4afac9dd))
 
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.2) (2024-10-24)
 
-
 ### Features
 
-* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
-
-
+- update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
 
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.1) (2024-09-05)
 
-
 ### ⚠ BREAKING CHANGES
 
-* @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
-* @empathyco/x-archetype-utils is only compatible with vue 3
+- @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
+- @empathyco/x-archetype-utils is only compatible with vue 3
 
 ### Features
 
-* bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
-* bump vue18n version (#1604) ([9320c57](https://github.com/empathyco/x/commit/9320c57bd1aa2ff01fea8133238dc8fb809484c0))
-* **rollup:** update replace config to align CSS injector with Vue 3 (#1607) ([b98a31e](https://github.com/empathyco/x/commit/b98a31e488b788bab0a2fede87739e4cc9d1df57))
-
-
+- bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
+- bump vue18n version (#1604) ([9320c57](https://github.com/empathyco/x/commit/9320c57bd1aa2ff01fea8133238dc8fb809484c0))
+- **rollup:** update replace config to align CSS injector with Vue 3 (#1607) ([b98a31e](https://github.com/empathyco/x/commit/b98a31e488b788bab0a2fede87739e4cc9d1df57))
 
 ## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.1...@empathyco/x-archetype-utils@1.1.0-alpha.2) (2024-02-08)
 
-
 ### Bug Fixes
 
-* set home search input font size to 16px (#1406) ([b9349b8](https://github.com/empathyco/x/commit/b9349b8c544283f9df1f4bad5756e5666d748e41))
-
-
+- set home search input font size to 16px (#1406) ([b9349b8](https://github.com/empathyco/x/commit/b9349b8c544283f9df1f4bad5756e5666d748e41))
 
 ## [1.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.0...@empathyco/x-archetype-utils@1.1.0-alpha.1) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.3-alpha.1...@empathyco/x-archetype-utils@1.1.0-alpha.0) (2024-01-11)
-
 
 ### Features
 
-* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
-
-
+- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
 
 ## [1.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.3-alpha.0...@empathyco/x-archetype-utils@1.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.2...@empathyco/x-archetype-utils@1.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 ## [1.0.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.2-alpha.0...@empathyco/x-archetype-utils@1.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.1-alpha.0...@empathyco/x-archetype-utils@1.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 ## [1.0.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.1-alpha.0...@empathyco/x-archetype-utils@1.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.0-alpha.4...@empathyco/x-archetype-utils@1.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 # Change Log
 

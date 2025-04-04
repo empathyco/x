@@ -1,12 +1,12 @@
 export interface XCSSInjector {
   /** Function that will add the styles to the host. */
-  addStyle: (styles: { source: string }) => void;
+  addStyle: (styles: { source: string }) => void
   /** Function setting the host for the injector. */
-  setHost: (el: Element | ShadowRoot) => void;
+  setHost: (el: Element | ShadowRoot) => void
   /** Set injector instance in the window object. */
-  setInWindow: () => void;
+  setInWindow: () => void
   /** Check if the instance is set in the window object. */
-  isInWindow: () => boolean;
+  isInWindow: () => boolean
 }
 
-export type WindowWithInjector = Window & { xCSSInjector?: XCSSInjector };
+export type WindowWithInjector = Window & { xCSSInjector?: XCSSInjector }

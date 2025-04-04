@@ -1,9 +1,9 @@
-import type { WindowWithInjector, XCSSInjector } from './css-injector.types';
+import type { WindowWithInjector, XCSSInjector } from './css-injector.types'
 
 /**
  * Instance of the injector that will be used across all the initializations.
  */
-let instance: CssInjector | null = null;
+let instance: CssInjector | null = null
 
 /**
  * Custom CSS injector that allows to inject styles into a host element.
@@ -11,8 +11,8 @@ let instance: CssInjector | null = null;
  * @public
  */
 export class CssInjector implements XCSSInjector {
-  protected host!: Element | ShadowRoot;
-  protected stylesQueue: string[] = [];
+  protected host!: Element | ShadowRoot
+  protected stylesQueue: string[] = []
 
   /**
    * Initializes the instance of the injector if it's not already initialized and sets it in the
@@ -23,14 +23,14 @@ export class CssInjector implements XCSSInjector {
   public constructor(setInWindow = true) {
     if (!(instance instanceof CssInjector)) {
       // eslint-disable-next-line ts/no-this-alias
-      instance = this;
+      instance = this
     }
 
     if (setInWindow) {
-      this.setInWindow();
+      this.setInWindow()
     }
 
-    return instance;
+    return instance
   }
 
   /**
@@ -40,14 +40,14 @@ export class CssInjector implements XCSSInjector {
    * @param styles.source - Styles source.
    */
   addStyle(styles: { source: string }): void {
-    this.stylesQueue.push(styles.source);
+    this.stylesQueue.push(styles.source)
     if (this.host) {
       this.stylesQueue.forEach(styles => {
-        const styleTag = document.createElement('style');
-        styleTag.textContent = styles;
-        this.host.appendChild(styleTag);
-      });
-      this.stylesQueue = [];
+        const styleTag = document.createElement('style')
+        styleTag.textContent = styles
+        this.host.appendChild(styleTag)
+      })
+      this.stylesQueue = []
     }
   }
 
@@ -57,7 +57,7 @@ export class CssInjector implements XCSSInjector {
    * @param host - The host element.
    */
   setHost(host: Element | ShadowRoot): void {
-    this.host = host;
+    this.host = host
   }
 
   /**
@@ -65,7 +65,7 @@ export class CssInjector implements XCSSInjector {
    */
   setInWindow(): void {
     if (typeof window !== 'undefined' && instance) {
-      (window as WindowWithInjector).xCSSInjector = instance;
+      ;(window as WindowWithInjector).xCSSInjector = instance
     }
   }
 
@@ -77,7 +77,7 @@ export class CssInjector implements XCSSInjector {
   isInWindow(): boolean {
     return typeof window === 'undefined'
       ? false
-      : (window as WindowWithInjector).xCSSInjector === instance;
+      : (window as WindowWithInjector).xCSSInjector === instance
   }
 }
 
@@ -86,4 +86,4 @@ export class CssInjector implements XCSSInjector {
  *
  * @public
  */
-export const cssInjector = new CssInjector(typeof window !== 'undefined');
+export const cssInjector = new CssInjector(typeof window !== 'undefined')

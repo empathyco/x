@@ -5,16 +5,16 @@
  * @internal
  */
 interface webpackFilenameTemplateInfo {
-  identifier: string;
-  shortIdentifier: string;
-  resource: string;
-  resourcePath: string;
-  absoluteResourcePath: string;
-  allLoaders: string;
-  query: string;
-  moduleId: string;
-  hash: string;
-  namespace: string;
+  identifier: string
+  shortIdentifier: string
+  resource: string
+  resourcePath: string
+  absoluteResourcePath: string
+  allLoaders: string
+  query: string
+  moduleId: string
+  hash: string
+  namespace: string
 }
 
 export const webpackConfig = {
@@ -25,18 +25,22 @@ export const webpackConfig = {
         {
           test: /\.ts|js|vue$/,
           enforce: 'pre',
-          use: ['source-map-loader']
-        }
-      ]
+          use: ['source-map-loader'],
+        },
+      ],
     },
     output: {
-      devtoolModuleFilenameTemplate: ({ resourcePath, hash, query }: webpackFilenameTemplateInfo) =>
+      devtoolModuleFilenameTemplate: ({
+        resourcePath,
+        hash,
+        query,
+      }: webpackFilenameTemplateInfo) =>
         resourcePath.match(/\.vue$/) &&
         !query.match(/type=script/) &&
         !query.match(/\?rollup-plugin-vue=script.ts/)
           ? `webpack-generated:///${resourcePath}?${hash}`
           : `sources://${resourcePath}`,
-      devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]'
-    }
-  }
-};
+      devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+    },
+  },
+}

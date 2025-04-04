@@ -1,9 +1,15 @@
-import type { App } from 'vue';
-import type { LocaleMessageObject, I18n as VueI18n } from 'vue-i18n';
-import type { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } from './i18n.types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { isObject } from '@empathyco/x-utils';
-import { createI18n } from 'vue-i18n';
+import type { App } from 'vue'
+import type { LocaleMessageObject, I18n as VueI18n } from 'vue-i18n'
+import type {
+  AnyMessages,
+  Device,
+  I18nOptions,
+  LoadLazyMessagesByDevice,
+  Locale,
+} from './i18n.types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { isObject } from '@empathyco/x-utils'
+import { createI18n } from 'vue-i18n'
 
 /**
  * I18n settings manager.
@@ -17,12 +23,12 @@ export class I18n<SomeMessages> {
     Record<string, unknown>,
     Locale,
     false
-  >;
-  protected locale!: Locale;
-  protected device!: Device;
-  protected messages!: Record<Locale, AnyMessages<SomeMessages>>;
-  protected currentMessages!: LocaleMessageObject;
-  protected fallbackLocale!: Locale;
+  >
+  protected locale!: Locale
+  protected device!: Device
+  protected messages!: Record<Locale, AnyMessages<SomeMessages>>
+  protected currentMessages!: LocaleMessageObject
+  protected fallbackLocale!: Locale
 
   /**
    * Constructs a new {@link I18n} instance with the passed {@link I18nOptions | i18n options}.
@@ -34,10 +40,10 @@ export class I18n<SomeMessages> {
    * @param options.fallbackLocale - i18n fallbackLocale.
    */
   public constructor({ locale, messages, device, fallbackLocale }: I18nOptions<SomeMessages>) {
-    this.locale = locale;
-    this.device = device;
-    this.messages = messages;
-    this.fallbackLocale = fallbackLocale;
+    this.locale = locale
+    this.device = device
+    this.messages = messages
+    this.fallbackLocale = fallbackLocale
   }
 
   /**
@@ -48,11 +54,11 @@ export class I18n<SomeMessages> {
    * @returns The new instance.
    */
   static async create<SomeMessages>(
-    options: I18nOptions<SomeMessages>
+    options: I18nOptions<SomeMessages>,
   ): Promise<I18n<SomeMessages>> {
-    const instance = new I18n(options);
-    instance.currentMessages = await instance.getCurrentMessages();
-    return instance;
+    const instance = new I18n(options)
+    instance.currentMessages = await instance.getCurrentMessages()
+    return instance
   }
 
   /**
@@ -71,10 +77,10 @@ export class I18n<SomeMessages> {
         return (
           this.getMessageWithDotsInKey(key) ??
           `[i18n] Key '${key}' is missing for locale: '${this.locale}'`
-        );
-      }
-    });
-    vue.use(this.vueI18n);
+        )
+      },
+    })
+    vue.use(this.vueI18n)
   }
 
   /**
@@ -88,17 +94,15 @@ export class I18n<SomeMessages> {
   protected getMessageWithDotsInKey(path: string): string | null {
     // TO-DO Support function or array messages
     // eslint-disable-next-line ts/no-unsafe-assignment
-    const message = path
-      .split('.')
-      .reduce<any>(
-        (messages, key, index, pathParts) =>
-          // eslint-disable-next-line ts/no-unsafe-return
-          isObject(messages)
-            ? messages[key] ?? messages[pathParts.slice(index).join('.')]
-            : messages,
-        this.currentMessages
-      );
-    return typeof message === 'string' ? message : null;
+    const message = path.split('.').reduce<any>(
+      (messages, key, index, pathParts) =>
+        // eslint-disable-next-line ts/no-unsafe-return
+        isObject(messages)
+          ? (messages[key] ?? messages[pathParts.slice(index).join('.')])
+          : messages,
+      this.currentMessages,
+    )
+    return typeof message === 'string' ? message : null
   }
 
   /**
@@ -110,10 +114,10 @@ export class I18n<SomeMessages> {
    */
   async setLocale(newLocale: Locale): Promise<void> {
     if (this.locale !== newLocale) {
-      this.locale = newLocale;
+      this.locale = newLocale
 
-      await this.changeMessages();
-      this.vueI18n.global.locale.value = this.locale;
+      await this.changeMessages()
+      this.vueI18n.global.locale.value = this.locale
     }
   }
 
@@ -126,9 +130,9 @@ export class I18n<SomeMessages> {
    */
   async setDevice(newDevice: Device): Promise<void> {
     if (this.device !== newDevice) {
-      this.device = newDevice;
+      this.device = newDevice
 
-      await this.changeMessages();
+      await this.changeMessages()
     }
   }
 
@@ -136,9 +140,9 @@ export class I18n<SomeMessages> {
    * Updates the current messages based on the new locale and/or device.
    */
   protected async changeMessages(): Promise<void> {
-    this.currentMessages = await this.getCurrentMessages();
+    this.currentMessages = await this.getCurrentMessages()
 
-    this.vueI18n.global.setLocaleMessage(this.locale, this.currentMessages);
+    this.vueI18n.global.setLocaleMessage(this.locale, this.currentMessages)
   }
 
   /**
@@ -151,13 +155,11 @@ export class I18n<SomeMessages> {
    */
   protected async getCurrentMessages(): Promise<LocaleMessageObject> {
     const rawMessages =
-      this.locale in this.messages
-        ? this.messages[this.locale]
-        : this.messages[this.fallbackLocale];
+      this.locale in this.messages ? this.messages[this.locale] : this.messages[this.fallbackLocale]
 
-    const messages = areLazyMessages(rawMessages) ? (await rawMessages()).default : rawMessages;
+    const messages = areLazyMessages(rawMessages) ? (await rawMessages()).default : rawMessages
     // eslint-disable-next-line ts/no-unsafe-return
-    return deepMerge({}, messages.base, messages[this.device]);
+    return deepMerge({}, messages.base, messages[this.device])
   }
 }
 
@@ -169,7 +171,7 @@ export class I18n<SomeMessages> {
  * @returns True if the messages are lazy or false otherwise.
  */
 function areLazyMessages<SomeMessages>(
-  messages: AnyMessages<SomeMessages>
+  messages: AnyMessages<SomeMessages>,
 ): messages is LoadLazyMessagesByDevice<SomeMessages> {
-  return typeof messages === 'function';
+  return typeof messages === 'function'
 }
