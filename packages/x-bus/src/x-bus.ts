@@ -1,6 +1,6 @@
-import type { XPriorityQueue } from '@empathyco/x-priority-queue';
-import type { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import type { Observable} from 'rxjs';
+import type { XPriorityQueue } from '@empathyco/x-priority-queue'
+import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
+import type { Observable } from 'rxjs'
 import type {
   EmittedData,
   Emitter,
@@ -9,11 +9,11 @@ import type {
   Priority,
   SubjectPayload,
   XBus,
-  XPriorityQueueNodeData
-} from './x-bus.types';
-import { BaseXPriorityQueue } from '@empathyco/x-priority-queue';
-import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+  XPriorityQueueNodeData,
+} from './x-bus.types'
+import { BaseXPriorityQueue } from '@empathyco/x-priority-queue'
+import { ReplaySubject } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 /**
  * A default {@link XBus} implementation using a
@@ -31,10 +31,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    *
    * @internal
    */
-  protected queue: XPriorityQueue<
-    SomeEvents,
-    XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>
-  >;
+  protected queue: XPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>
 
   /**
    * A dictionary associating a priority to a key.
@@ -50,7 +47,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    *
    * @internal
    */
-  protected priorities: Dictionary<Priority>;
+  protected priorities: Dictionary<Priority>
 
   /**
    * The default value to use as priority for an event that doesn't have defined neither a custom
@@ -58,35 +55,35 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    *
    * @internal
    */
-  protected defaultEventPriority: number;
+  protected defaultEventPriority: number
 
   /**
    * A list of functions to execute when an event is emitted.
    *
    * @internal
    */
-  protected emitCallbacks: AnyFunction[];
+  protected emitCallbacks: AnyFunction[]
 
   /**
    * A dictionary to store the created event emitters.
    *
    * @internal
    */
-  protected emitters: Emitters<SomeEvents, SomeEventMetadata> = {};
+  protected emitters: Emitters<SomeEvents, SomeEventMetadata> = {}
 
   /**
    * A pending flush operation timeout identifier or undefined if there's none pending.
    *
    * @internal
    */
-  protected pendingFlushId?: number;
+  protected pendingFlushId?: number
 
   /**
    * A list of pending pop operations timeout identifiers.
    *
    * @internal
    */
-  protected pendingPopsIds: number[] = [];
+  protected pendingPopsIds: number[] = []
 
   /**
    * Creates a new instance of a {@link XPriorityBus}.
@@ -101,18 +98,18 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    */
   public constructor(
     config: {
-      queue?: XPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>;
-      priorities?: Dictionary<number>;
-      emitCallbacks?: AnyFunction[];
-      defaultEventPriority?: number;
-    } = {}
+      queue?: XPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>
+      priorities?: Dictionary<number>
+      emitCallbacks?: AnyFunction[]
+      defaultEventPriority?: number
+    } = {},
   ) {
     this.queue =
       config.queue ??
-      new BaseXPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>();
-    this.priorities = config.priorities ?? {};
-    this.emitCallbacks = config.emitCallbacks ?? [];
-    this.defaultEventPriority = config.defaultEventPriority ?? Number.MIN_SAFE_INTEGER;
+      new BaseXPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>()
+    this.priorities = config.priorities ?? {}
+    this.emitCallbacks = config.emitCallbacks ?? []
+    this.defaultEventPriority = config.defaultEventPriority ?? Number.MIN_SAFE_INTEGER
   }
 
   /**
@@ -129,7 +126,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     event: SomeEvent,
     // TODO: Fix optional argument.
     payload?: EventPayload<SomeEvents, SomeEvent>,
-    metadata = {} as SomeEventMetadata
+    metadata = {} as SomeEventMetadata,
   ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>> {
     return new Promise(resolve => {
       this.queue.push(event, this.getEventPriority(event, metadata), {
@@ -138,11 +135,11 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
         eventMetadata: metadata,
         replaceable: metadata.replaceable || false,
         // TODO: Fix type.
-        resolve: resolve as any
-      });
+        resolve: resolve as any,
+      })
 
-      this.flushQueue();
-    });
+      this.flushQueue()
+    })
   }
 
   /**.
@@ -160,15 +157,15 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    */
   protected getEventPriority(event: keyof SomeEvents, metadata: SomeEventMetadata): Priority {
     if (metadata.priority != null) {
-      return metadata.priority;
+      return metadata.priority
     }
 
-    const matchingKey = Object.keys(this.priorities).find(key => String(event).includes(key));
+    const matchingKey = Object.keys(this.priorities).find(key => String(event).includes(key))
     if (matchingKey) {
-      return this.priorities[matchingKey];
+      return this.priorities[matchingKey]
     }
 
-    return this.defaultEventPriority;
+    return this.defaultEventPriority
   }
 
   /**
@@ -182,33 +179,33 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * @internal
    */
   protected flushQueue(): void {
-    clearTimeout(this.pendingFlushId);
-    this.clearPendingPopsIds();
+    clearTimeout(this.pendingFlushId)
+    this.clearPendingPopsIds()
 
     this.pendingFlushId = window.setTimeout(() => {
       for (let i = 0; i < this.queue.size(); ++i) {
         const popTimeoutId = window.setTimeout(() => {
           const {
             key,
-            data: { eventPayload, eventMetadata, resolve }
-          } = this.queue.pop()!;
-          const emitter = this.getEmitter(key);
+            data: { eventPayload, eventMetadata, resolve },
+          } = this.queue.pop()!
+          const emitter = this.getEmitter(key)
           const payloadObj = {
             eventPayload,
-            metadata: eventMetadata
-          };
+            metadata: eventMetadata,
+          }
 
-          emitter.next(payloadObj);
+          emitter.next(payloadObj)
 
-          this.emitCallbacks.forEach(callback => callback(key, payloadObj));
-          resolve({ event: key, ...payloadObj });
+          this.emitCallbacks.forEach(callback => callback(key, payloadObj))
+          resolve({ event: key, ...payloadObj })
 
-          this.pendingPopsIds = this.pendingPopsIds.filter(timeoutId => timeoutId !== popTimeoutId);
-        });
+          this.pendingPopsIds = this.pendingPopsIds.filter(timeoutId => timeoutId !== popTimeoutId)
+        })
 
-        this.pendingPopsIds.push(popTimeoutId);
+        this.pendingPopsIds.push(popTimeoutId)
       }
-    });
+    })
   }
 
   /**
@@ -217,8 +214,8 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * @internal
    */
   private clearPendingPopsIds(): void {
-    this.pendingPopsIds.forEach(clearTimeout);
-    this.pendingPopsIds.length = 0;
+    this.pendingPopsIds.forEach(clearTimeout)
+    this.pendingPopsIds.length = 0
   }
 
   /**
@@ -231,7 +228,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    */
   on<SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
-    withMetadata = false
+    withMetadata = false,
   ): typeof withMetadata extends true
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
@@ -243,8 +240,8 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
           map<
             SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,
             EventPayload<SomeEvents, SomeEvent>
-          >(value => value.eventPayload)
-        );
+          >(value => value.eventPayload),
+        )
   }
 
   /**
@@ -257,13 +254,13 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * @internal
    */
   protected getEmitter<SomeEvent extends keyof SomeEvents>(
-    event: SomeEvent
+    event: SomeEvent,
   ): Emitter<SomeEvents, SomeEvent, SomeEventMetadata> {
     if (!this.emitters[event]) {
-      this.createEmitter(event);
+      this.createEmitter(event)
     }
 
-    return this.emitters[event]!;
+    return this.emitters[event]!
   }
 
   /**
@@ -280,6 +277,6 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   protected createEmitter<SomeEvent extends keyof SomeEvents>(event: SomeEvent): void {
     this.emitters[event] = new ReplaySubject<
       SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>
-    >(1);
+    >(1)
   }
 }
