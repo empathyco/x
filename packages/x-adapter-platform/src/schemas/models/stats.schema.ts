@@ -1,6 +1,6 @@
+import type { Stats } from '@empathyco/x-types';
+import type { PlatformStats } from '../../types/models/stats.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Stats } from '@empathyco/x-types';
-import { PlatformStats } from '../../types/models/stats.model';
 
 /**
  * Default implementation for the Stats schema.

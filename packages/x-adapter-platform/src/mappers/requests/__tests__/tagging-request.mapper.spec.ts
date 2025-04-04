@@ -1,4 +1,4 @@
-import { TaggingRequest } from '@empathyco/x-types';
+import type { TaggingRequest } from '@empathyco/x-types';
 import { taggingRequestMapper } from '../tagging-request.mapper';
 
 describe('taggingRequestMapper tests', () => {

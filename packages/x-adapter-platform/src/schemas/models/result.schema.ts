@@ -1,7 +1,7 @@
+import type { Result } from '@empathyco/x-types';
+import type { PlatformResult } from '../../types/models/result.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Result } from '@empathyco/x-types';
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformResult } from '../../types/models/result.model';
 
 /**
  * Default implementation for the ResultSchema.

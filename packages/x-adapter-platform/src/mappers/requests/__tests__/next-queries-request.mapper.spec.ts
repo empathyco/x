@@ -1,4 +1,4 @@
-import { NextQueriesRequest } from '@empathyco/x-types';
+import type { NextQueriesRequest } from '@empathyco/x-types';
 import { nextQueriesRequestMapper } from '../next-queries-request.mapper';
 
 describe('nextQueriesRequestMapper tests', () => {

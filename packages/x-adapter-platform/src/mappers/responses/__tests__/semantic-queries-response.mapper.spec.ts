@@ -1,5 +1,5 @@
-// eslint-disable-next-line max-len
-import { PlatformSemanticQueriesResponse } from '../../../types/responses/semantic-queries-response.model';
+ 
+import type { PlatformSemanticQueriesResponse } from '../../../types/responses/semantic-queries-response.model';
 import { semanticQueriesResponseMapper } from '../semantic-queries-response.mapper';
 
 describe('semanticQueriesResponseMapper tests', () => {

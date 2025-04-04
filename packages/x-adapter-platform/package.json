@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter-platform#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-adapter-platform"
+  },
   "keywords": [
     "search",
     "adapter",
@@ -18,11 +23,6 @@
     "dist",
     "report"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-adapter-platform"
-  },
   "engines": {
     "node": ">=18"
   },

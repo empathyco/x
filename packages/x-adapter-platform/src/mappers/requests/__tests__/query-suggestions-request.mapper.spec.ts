@@ -1,4 +1,4 @@
-import { QuerySuggestionsRequest } from '@empathyco/x-types';
+import type { QuerySuggestionsRequest } from '@empathyco/x-types';
 import { querySuggestionsRequestMapper } from '../query-suggestions-request.mapper';
 
 describe('querySuggestionsRequestMapper tests', () => {

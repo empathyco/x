@@ -1,5 +1,5 @@
+import type { SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
-import { SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { searchRequestMapper } from '../mappers/requests/search-request.mapper';
 import { searchResponseMapper } from '../mappers/responses/search-response.mapper';
 import { getSearchServiceUrl } from './utils';

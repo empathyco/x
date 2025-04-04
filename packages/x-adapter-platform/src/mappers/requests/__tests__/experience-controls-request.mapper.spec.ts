@@ -1,4 +1,4 @@
-import { ExperienceControlsRequest } from '@empathyco/x-types';
+import type { ExperienceControlsRequest } from '@empathyco/x-types';
 import { experienceControlsRequestMapper } from '../experience-controls-request.mapper';
 
 describe('experienceControlsRequestMapper tests', () => {

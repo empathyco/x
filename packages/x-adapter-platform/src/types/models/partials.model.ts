@@ -1,4 +1,4 @@
-import { PlatformResult } from './result.model';
+import type { PlatformResult } from './result.model';
 
 /**
  * Partial results model in platform.

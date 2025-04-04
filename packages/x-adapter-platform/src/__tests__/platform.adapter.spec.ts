@@ -1,18 +1,18 @@
-/* eslint-disable max-len */
-import { DeepPartial } from '@empathyco/x-utils';
-import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
+ 
+import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
+import type { DeepPartial } from '@empathyco/x-utils';
+import type { PlatformExperienceControlsResponse } from '../types';
+import type { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
+import type { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
+import type { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
+import type { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
+import type { PlatformSearchResponse } from '../types/responses/search-response.model';
+import type { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
 import { platformAdapter } from '../platform.adapter';
-import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
-import { PlatformSearchResponse } from '../types/responses/search-response.model';
-import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
-import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
-import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
-import { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
-import { PlatformExperienceControlsResponse } from '../types';
-import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
-/* eslint-enable max-len */
+import { getFetchMock } from './__mocks__/fetch.mock';
+ 
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
@@ -116,7 +116,7 @@ describe('platformAdapter tests', () => {
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://search.internal.test.empathy.co/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
@@ -183,7 +183,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
@@ -230,7 +230,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
@@ -248,7 +248,7 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  // eslint-disable-next-line max-len
+   
   it('should call the query suggestions endpoint and prioritize for title_raw over keywords', async () => {
     const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
       topTrends: {
@@ -279,7 +279,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
@@ -328,7 +328,7 @@ describe('platformAdapter tests', () => {
     const response = await platformAdapter.nextQueries(nextQueriesRequest);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/nextqueries/empathy?internal=true&query=makeup&scope=mobile&instance=empathy&device=mobile&env=staging&lang=en',
       { signal: expect.anything() }
     );
@@ -378,7 +378,7 @@ describe('platformAdapter tests', () => {
     const response = await platformAdapter.relatedTags(relatedTagsRequest);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/relatedtags/empathy?internal=true&query=jeans&device=mobile&env=staging&lang=en&scope=mobile&instance=empathy',
       { signal: expect.anything() }
     );
@@ -414,7 +414,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?internal=true&query=jeans&origin=search_box%3Anone&start=0&rows=24&instance=empathy&env=staging&lang=en&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
@@ -530,7 +530,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://search.internal.test.empathy.co/query/empathy/topclicked?internal=true&start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
       { signal: expect.anything() }
     );
@@ -582,7 +582,7 @@ describe('platformAdapter tests', () => {
       }
     });
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
       { keepalive: true }
     );
@@ -617,7 +617,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&instance=empathy&env=staging',
       { signal: expect.anything() }
     );
@@ -657,7 +657,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      // eslint-disable-next-line max-len
+       
       'https://api.staging.empathy.co/config/v1/public/configs?service=xcontrols&instance=empathy&env=staging',
       { signal: expect.anything() }
     );

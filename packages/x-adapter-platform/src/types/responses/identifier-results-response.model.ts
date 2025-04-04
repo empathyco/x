@@ -1,4 +1,4 @@
-import { PlatformResult } from '../models/result.model';
+import type { PlatformResult } from '../models/result.model';
 
 /**
  * Response for the `identifier results` endpoint.

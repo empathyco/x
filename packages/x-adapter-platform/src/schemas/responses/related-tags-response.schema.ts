@@ -1,6 +1,7 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
-import { RelatedTagsResponse } from '@empathyco/x-types';
-import { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model';
+import type { Schema } from '@empathyco/x-adapter';
+import type { RelatedTagsResponse } from '@empathyco/x-types';
+import type { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { relatedTagSchema } from '../models/related-tag.schema';
 
 /**

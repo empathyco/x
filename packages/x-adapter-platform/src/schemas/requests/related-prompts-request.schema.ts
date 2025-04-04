@@ -1,6 +1,6 @@
+import type { RelatedPromptsRequest } from '@empathyco/x-types';
+import type { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { RelatedPromptsRequest } from '@empathyco/x-types';
-import { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model';
 
 /**
  * Default implementation for the RelatedPromptsRequestSchema.

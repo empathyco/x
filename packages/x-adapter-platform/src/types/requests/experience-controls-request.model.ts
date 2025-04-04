@@ -1,4 +1,4 @@
-import { PlatformExtraParamsRequest } from './request.types';
+import type { PlatformExtraParamsRequest } from './request.types';
 
 /**
  * Request for the `experience controls` endpoint.

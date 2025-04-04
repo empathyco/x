@@ -1,7 +1,8 @@
+import type { SearchRequest } from '@empathyco/x-types';
+import type { PlatformSearchRequest } from '../../types/requests/search-request.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { isHierarchicalFilter, SearchRequest } from '@empathyco/x-types';
+import { isHierarchicalFilter } from '@empathyco/x-types';
 import { reduce } from '@empathyco/x-utils';
-import { PlatformSearchRequest } from '../../types/requests/search-request.model';
 
 /**
  * Default implementation for the SearchRequestSchema.
@@ -22,6 +23,7 @@ export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSe
  * Converts the filters to the shape the Platform's API is expecting.
  *
  * @param filters - The filters from our internal request.
+ * @param filters.filters - The filters from our internal request.
  * @example
  * ```ts
  * const filters = {

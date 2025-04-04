@@ -1,4 +1,4 @@
-import { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types';
+import type { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types';
 
 /**
  * Request for the `related tags` endpoint with `extra params`.

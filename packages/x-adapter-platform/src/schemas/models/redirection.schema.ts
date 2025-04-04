@@ -1,7 +1,7 @@
+import type { Redirection } from '@empathyco/x-types';
+import type { PlatformRedirection } from '../../types/models/redirection.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Redirection } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformRedirection } from '../../types/models/redirection.model';
 
 /**
  * Default implementation for the RedirectionSchema.

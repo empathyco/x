@@ -1,4 +1,4 @@
-import { PlatformRelatedPrompt } from '../models/related-prompt.model';
+import type { PlatformRelatedPrompt } from '../models/related-prompt.model';
 
 /**
  * Response for the `related prompts` endpoint.

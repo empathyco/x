@@ -1,8 +1,8 @@
+import type { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathyco/x-types';
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
-import { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
+ 
 import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggestions-request.mapper';
-// eslint-disable-next-line max-len
+ 
 import { querySuggestionsResponseMapper } from '../mappers/responses/query-suggestions-response.mapper';
 import { getSearchServiceUrl } from './utils';
 

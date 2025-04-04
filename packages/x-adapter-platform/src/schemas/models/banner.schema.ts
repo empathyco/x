@@ -1,7 +1,7 @@
+import type { Banner } from '@empathyco/x-types';
+import type { PlatformBanner } from '../../types/models/banner.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Banner } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformBanner } from '../../types/models/banner.model';
 
 /**
  * Default implementation for the BannerSchema.

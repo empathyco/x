@@ -1,4 +1,4 @@
-import { ExtraParamsRequest } from '@empathyco/x-types';
+import type { ExtraParamsRequest } from '@empathyco/x-types';
 
 /**
  * Gets the Search service URL for the given request.

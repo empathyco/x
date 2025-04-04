@@ -1,7 +1,7 @@
+import type { QuerySuggestionsResponse } from '@empathyco/x-types';
+import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model';
+ 
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { QuerySuggestionsResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model';
 import { suggestionSchema } from '../models/suggestion.schema';
 
 /**

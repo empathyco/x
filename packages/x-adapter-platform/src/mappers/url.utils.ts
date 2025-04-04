@@ -1,4 +1,4 @@
-import { TaggingRequest } from '@empathyco/x-types';
+import type { TaggingRequest } from '@empathyco/x-types';
 
 /**
  * Extracts the tagging info from a URL.
@@ -68,8 +68,8 @@ export function extractUrlParameters(url: string): {
       url: `${urlObject.origin}${urlObject.pathname}`,
       params: Object.fromEntries(searchParams)
     };
-  } catch (e) {
-    //eslint-disable-next-line no-console
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  } catch (_error) {
     console.warn('Invalid url', url); // TODO Use Empathy's logger
     return {
       url

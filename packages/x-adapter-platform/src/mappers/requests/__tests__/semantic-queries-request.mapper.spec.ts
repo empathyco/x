@@ -1,4 +1,4 @@
-import { SemanticQueriesRequest } from '@empathyco/x-types';
+import type { SemanticQueriesRequest } from '@empathyco/x-types';
 import { semanticQueriesRequestMapper } from '../semantic-queries-request.mapper';
 
 describe('semanticQueriesRequestMapper tests', () => {

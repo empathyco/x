@@ -1,7 +1,7 @@
+import type { Promoted } from '@empathyco/x-types';
+import type { PlatformPromoted } from '../../types/models/promoted.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Promoted } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformPromoted } from '../../types/models/promoted.model';
 
 /**
  * Default implementation for the PromotedSchema.

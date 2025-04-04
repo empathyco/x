@@ -1,9 +1,9 @@
+import type { IdentifierResultsRequest } from '@empathyco/x-types';
+import type { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
+ 
 import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { IdentifierResultsRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
+ 
 import { identifierResultsRequestSchema } from '../../schemas/requests/identifier-results-request.schema';
-// eslint-disable-next-line max-len
-import { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
 
 /**
  * Default mapper for IdentifierResultsRequest.

@@ -1,6 +1,6 @@
+import type { NextQueriesRequest } from '@empathyco/x-types';
+import type { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { NextQueriesRequest } from '@empathyco/x-types';
-import { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model';
 
 /**
  * Default implementation for the NextQueriesRequestSchema.

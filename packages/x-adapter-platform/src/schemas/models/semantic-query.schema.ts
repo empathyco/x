@@ -1,6 +1,6 @@
+import type { SemanticQuery } from '@empathyco/x-types';
+import type { PlatformSemanticQuery } from '../../types';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { SemanticQuery } from '@empathyco/x-types';
-import { PlatformSemanticQuery } from '../../types';
 
 /**
  * Default implementation for the SemanticQuery schema.

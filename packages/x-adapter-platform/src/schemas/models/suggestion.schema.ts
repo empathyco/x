@@ -1,6 +1,6 @@
+import type { Suggestion } from '@empathyco/x-types';
+import type { PlatformSuggestion } from '../../types/models/suggestion.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { Suggestion } from '@empathyco/x-types';
-import { PlatformSuggestion } from '../../types/models/suggestion.model';
 
 /**
  * Default implementation for the SuggestionSchema.

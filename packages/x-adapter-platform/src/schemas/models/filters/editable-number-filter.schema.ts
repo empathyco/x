@@ -1,6 +1,6 @@
+import type { EditableNumberRangeFilter } from '@empathyco/x-types';
+import type { PlatformFilter } from '../../../types/models/facet.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { EditableNumberRangeFilter } from '@empathyco/x-types';
-import { PlatformFilter } from '../../../types/models/facet.model';
 
 /**
  * Default implementation for the NumberFilterSchema.

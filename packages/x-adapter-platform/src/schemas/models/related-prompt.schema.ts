@@ -1,10 +1,10 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import {
+import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types';
+import type { Dictionary } from '@empathyco/x-utils';
+import type {
   PlatformRelatedPrompt,
   PlatformRelatedPromptNextQueriesTagging
 } from '../../types/models/related-prompt.model';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 
 export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, RelatedPromptNextQuery>({

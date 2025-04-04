@@ -1,7 +1,7 @@
+import type { SemanticQueriesResponse } from '@empathyco/x-types';
+import type { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model';
+ 
 import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { SemanticQueriesResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model';
 import { semanticQueriesResponseSchema } from '../../schemas';
 
 /**

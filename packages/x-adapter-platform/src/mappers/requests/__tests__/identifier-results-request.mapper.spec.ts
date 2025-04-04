@@ -1,4 +1,4 @@
-import { IdentifierResultsRequest } from '@empathyco/x-types';
+import type { IdentifierResultsRequest } from '@empathyco/x-types';
 import { identifierResultsRequestMapper } from '../identifier-results-request.mapper';
 
 describe('identifierResultsRequestMapper tests', () => {

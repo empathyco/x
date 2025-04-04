@@ -1,5 +1,5 @@
+import type { TaggingRequest } from '@empathyco/x-types';
 import { endpointAdapterFactory } from '@empathyco/x-adapter';
-import { TaggingRequest } from '@empathyco/x-types';
 import { taggingRequestMapper } from '../mappers/requests/tagging-request.mapper';
 
 /**

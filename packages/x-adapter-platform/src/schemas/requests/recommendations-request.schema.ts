@@ -1,7 +1,7 @@
+import type { RecommendationsRequest } from '@empathyco/x-types';
+import type { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model';
+ 
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { RecommendationsRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model';
 
 /**
  * Default implementation for the RecommendationsRequestSchema.

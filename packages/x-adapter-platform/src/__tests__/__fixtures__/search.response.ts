@@ -1,6 +1,6 @@
-import { PlatformSearchResponse } from '../../types/responses/search-response.model';
+import type { PlatformSearchResponse } from '../../types/responses/search-response.model';
 
-/* eslint-disable max-len */
+ 
 export const platformSearchResponse = {
   catalog: {
     content: [

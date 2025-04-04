@@ -1,5 +1,5 @@
+import type { RelatedTagsRequest, RelatedTagsResponse } from '@empathyco/x-types';
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
-import { RelatedTagsRequest, RelatedTagsResponse } from '@empathyco/x-types';
 import { relatedTagsRequestMapper } from '../mappers/requests/related-tags-request.mapper';
 import { relatedTagsResponseMapper } from '../mappers/responses/related-tags-response.mapper';
 import { getBeaconServiceUrl } from './utils';

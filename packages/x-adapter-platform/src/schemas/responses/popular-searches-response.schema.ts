@@ -1,7 +1,7 @@
+import type { PopularSearchesResponse } from '@empathyco/x-types';
+import type { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model';
+ 
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { PopularSearchesResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model';
 import { suggestionSchema } from '../models/suggestion.schema';
 
 /**

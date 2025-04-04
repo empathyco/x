@@ -1,6 +1,6 @@
+import type { NextQuery } from '@empathyco/x-types';
+import type { PlatformNextQuery } from '../../types/models/next-query.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { NextQuery } from '@empathyco/x-types';
-import { PlatformNextQuery } from '../../types/models/next-query.model';
 
 /**
  * Default implementation for the NextQuerySchema.

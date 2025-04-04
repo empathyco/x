@@ -1,6 +1,6 @@
+import type { HierarchicalFilter } from '@empathyco/x-types';
+import type { PlatformHierarchicalFilter } from '../../../types/models/facet.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { HierarchicalFilter } from '@empathyco/x-types';
-import { PlatformHierarchicalFilter } from '../../../types/models/facet.model';
 
 /**
  * Default implementation for the HierarchicalFilterSchema.

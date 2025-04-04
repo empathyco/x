@@ -1,8 +1,8 @@
+import type { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
-import { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
+ 
 import { identifierResultsRequestMapper } from '../mappers/requests/identifier-results-request.mapper';
-// eslint-disable-next-line max-len
+ 
 import { identifierResultsResponseMapper } from '../mappers/responses/identifier-results-response.mapper';
 import { getSearchServiceUrl } from './utils';
 

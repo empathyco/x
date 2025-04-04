@@ -1,4 +1,4 @@
-import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
+import type { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
 
 /**
  * Facet model for the `platform` API.

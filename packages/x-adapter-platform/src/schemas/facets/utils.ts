@@ -1,9 +1,9 @@
-import { PlatformFacetType } from '../../types/models/facet.model';
+import type { PlatformFacetType } from '../../types/models/facet.model';
+import type { FacetConfig } from './types';
+import { editableNumberFilterSchema } from '../models/filters/editable-number-filter.schema';
 import { hierarchicalFilterSchema } from '../models/filters/hierarchical-filter.schema';
 import { numberFilterSchema } from '../models/filters/number-filter.schema';
 import { simpleFilterSchema } from '../models/filters/simple-filter.schema';
-import { editableNumberFilterSchema } from '../models/filters/editable-number-filter.schema';
-import { FacetConfig } from './types';
 
 /**
  * Returns the facet's config.

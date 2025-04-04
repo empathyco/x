@@ -1,4 +1,4 @@
-import { PlatformTagging } from './tagging.model';
+import type { PlatformTagging } from './tagging.model';
 
 /**
  * Result model for the `platform` API.

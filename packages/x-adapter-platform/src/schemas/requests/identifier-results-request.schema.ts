@@ -1,7 +1,7 @@
+import type { IdentifierResultsRequest } from '@empathyco/x-types';
+import type { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
+ 
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { IdentifierResultsRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
 
 /**
  * Default implementation for the IdentifierResultsRequestSchema.

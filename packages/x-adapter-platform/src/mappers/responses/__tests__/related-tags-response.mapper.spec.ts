@@ -1,4 +1,4 @@
-import { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model';
+import type { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model';
 import { relatedTagsResponseMapper } from '../related-tags-response.mapper';
 
 describe('relatedTagsResponseMapper tests', () => {

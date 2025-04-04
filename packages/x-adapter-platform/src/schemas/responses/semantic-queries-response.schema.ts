@@ -1,8 +1,9 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
-import { SemanticQueriesResponse } from '@empathyco/x-types';
+import type { Schema } from '@empathyco/x-adapter';
+import type { SemanticQueriesResponse } from '@empathyco/x-types';
+import type { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model';
+ 
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { semanticQuerySchema } from '../models/semantic-query.schema';
-// eslint-disable-next-line max-len
-import { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model';
 
 /**
  * Default implementation for the SemanticQueriesResponseSchema.

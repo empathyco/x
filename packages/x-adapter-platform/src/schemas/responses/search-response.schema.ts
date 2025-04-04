@@ -1,7 +1,7 @@
+import type { SearchResponse } from '@empathyco/x-types';
+import type { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { SearchResponse } from '@empathyco/x-types';
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { bannerSchema } from '../models/banner.schema';
 import { facetSchema } from '../models/facet.schema';
 import { partialResultsSchema } from '../models/partial-results.schema';

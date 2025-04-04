@@ -1,7 +1,7 @@
-import { NumberRangeFilter } from '@empathyco/x-types';
+import type { NumberRangeFilter } from '@empathyco/x-types';
+import type { PlatformFilter } from '../../../../types';
 import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { numberFilterSchema } from '../number-filter.schema';
-import { PlatformFilter } from '../../../../types';
 
 const createFilter = (value: string): PlatformFilter => {
   return {

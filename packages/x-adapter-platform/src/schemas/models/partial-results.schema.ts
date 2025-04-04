@@ -1,6 +1,6 @@
+import type { PartialResult } from '@empathyco/x-types';
+import type { PlatformPartialResult } from '../../types/models/partials.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { PartialResult } from '@empathyco/x-types';
-import { PlatformPartialResult } from '../../types/models/partials.model';
 import { resultSchema } from './result.schema';
 
 /**

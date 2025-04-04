@@ -7,7 +7,7 @@
 export function getFetchMock(
   response: unknown
 ): (url: string, params: RequestInit) => Promise<Response> {
-  return (_url, { signal }) => {
+  return async (_url, { signal }) => {
     return new Promise<Response>((resolve, reject) => {
       setTimeout(() => {
         if (signal?.aborted) {
@@ -16,8 +16,8 @@ export function getFetchMock(
           resolve({
             ok: true,
             status: 200,
-            json: () => Promise.resolve(response),
-            text: () => Promise.resolve(JSON.stringify(response))
+            json: async () => Promise.resolve(response),
+            text: async () => Promise.resolve(JSON.stringify(response))
           } as Response);
         }
       });

@@ -1,4 +1,4 @@
-import { RelatedTagsRequest } from '@empathyco/x-types';
+import type { RelatedTagsRequest } from '@empathyco/x-types';
 import { relatedTagsRequestMapper } from '../related-tags-request.mapper';
 
 describe('relatedTagsRequestMapper tests', () => {

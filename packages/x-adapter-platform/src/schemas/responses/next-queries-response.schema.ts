@@ -1,6 +1,6 @@
+import type { NextQueriesResponse } from '@empathyco/x-types';
+import type { PlatformNextQueriesResponse } from '../../types/responses/next-queries-response.model';
 import { createMutableSchema } from '@empathyco/x-adapter';
-import { NextQueriesResponse } from '@empathyco/x-types';
-import { PlatformNextQueriesResponse } from '../../types/responses/next-queries-response.model';
 import { nextQuerySchema } from '../models/next-query.schema';
 
 /**

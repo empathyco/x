@@ -1,7 +1,7 @@
-// eslint-disable-next-line max-len
+ 
+import type { PlatformRecommendationsResponse } from '../../../types/responses/recommendations-response.model';
+ 
 import { platformRecommendationsResponse } from '../../../__tests__/__fixtures__/recommendations.response';
-// eslint-disable-next-line max-len
-import { PlatformRecommendationsResponse } from '../../../types/responses/recommendations-response.model';
 import { recommendationsResponseMapper } from '../recommendations-response.mapper';
 
 describe('recommendationsResponseMapper tests', () => {

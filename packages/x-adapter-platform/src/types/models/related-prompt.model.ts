@@ -1,4 +1,4 @@
-import { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils';
 
 /**
  * Related prompt model for the `platform` API.

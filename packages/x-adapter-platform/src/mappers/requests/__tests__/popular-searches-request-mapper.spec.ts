@@ -1,4 +1,4 @@
-import { PopularSearchesRequest } from '@empathyco/x-types';
+import type { PopularSearchesRequest } from '@empathyco/x-types';
 import { popularSearchesRequestMapper } from '../popular-searches-request.mapper';
 
 describe('popularSearchesRequestMapper tests', () => {

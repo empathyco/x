@@ -1,4 +1,4 @@
-import { PlatformRelatedTag } from '../models/related-tag.model';
+import type { PlatformRelatedTag } from '../models/related-tag.model';
 
 /**
  * Response for the `related tags` endpoint.

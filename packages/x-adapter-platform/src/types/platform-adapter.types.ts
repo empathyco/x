@@ -1,4 +1,7 @@
-import {
+import type { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
+import type {
+  ExperienceControlsRequest,
+  ExperienceControlsResponse,
   IdentifierResultsRequest,
   IdentifierResultsResponse,
   NextQueriesRequest,
@@ -9,6 +12,8 @@ import {
   QuerySuggestionsResponse,
   RecommendationsRequest,
   RecommendationsResponse,
+  RelatedPromptsRequest,
+  RelatedPromptsResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
   SearchRequest,
@@ -16,13 +21,8 @@ import {
   SemanticQueriesRequest,
   SemanticQueriesResponse,
   TaggingRequest,
-  ExperienceControlsRequest,
-  ExperienceControlsResponse,
-  XComponentsAdapter,
-  RelatedPromptsRequest,
-  RelatedPromptsResponse
+  XComponentsAdapter
 } from '@empathyco/x-types';
-import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
 
 /**
  * Platform adapter interface.
