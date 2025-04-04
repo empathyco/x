@@ -1,8 +1,9 @@
-import { isObject } from '@empathyco/x-utils';
-import { App } from 'vue';
-import { createI18n, LocaleMessageObject, I18n as VueI18n } from 'vue-i18n';
+import type { App } from 'vue';
+import type { LocaleMessageObject, I18n as VueI18n } from 'vue-i18n';
+import type { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } from './i18n.types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } from './i18n.types';
+import { isObject } from '@empathyco/x-utils';
+import { createI18n } from 'vue-i18n';
 
 /**
  * I18n settings manager.
@@ -27,6 +28,10 @@ export class I18n<SomeMessages> {
    * Constructs a new {@link I18n} instance with the passed {@link I18nOptions | i18n options}.
    *
    * @param options - The new {@link I18nOptions | i18n options}.
+   * @param options.locale - i18n locale.
+   * @param options.messages - i18n messages.
+   * @param options.device - i18n device.
+   * @param options.fallbackLocale - i18n fallbackLocale.
    */
   public constructor({ locale, messages, device, fallbackLocale }: I18nOptions<SomeMessages>) {
     this.locale = locale;
@@ -60,6 +65,7 @@ export class I18n<SomeMessages> {
       legacy: false,
       locale: this.locale,
       silentFallbackWarn: true,
+      // eslint-disable-next-line ts/no-unsafe-assignment
       messages: this.currentMessages ? ({ [this.locale]: this.currentMessages } as any) : {},
       missing: (_, key: string) => {
         return (
@@ -68,7 +74,6 @@ export class I18n<SomeMessages> {
         );
       }
     });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     vue.use(this.vueI18n);
   }
 
@@ -82,10 +87,12 @@ export class I18n<SomeMessages> {
    */
   protected getMessageWithDotsInKey(path: string): string | null {
     // TO-DO Support function or array messages
+    // eslint-disable-next-line ts/no-unsafe-assignment
     const message = path
       .split('.')
       .reduce<any>(
         (messages, key, index, pathParts) =>
+          // eslint-disable-next-line ts/no-unsafe-return
           isObject(messages)
             ? messages[key] ?? messages[pathParts.slice(index).join('.')]
             : messages,
@@ -131,7 +138,6 @@ export class I18n<SomeMessages> {
   protected async changeMessages(): Promise<void> {
     this.currentMessages = await this.getCurrentMessages();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     this.vueI18n.global.setLocaleMessage(this.locale, this.currentMessages);
   }
 
@@ -150,7 +156,7 @@ export class I18n<SomeMessages> {
         : this.messages[this.fallbackLocale];
 
     const messages = areLazyMessages(rawMessages) ? (await rawMessages()).default : rawMessages;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    // eslint-disable-next-line ts/no-unsafe-return
     return deepMerge({}, messages.base, messages[this.device]);
   }
 }

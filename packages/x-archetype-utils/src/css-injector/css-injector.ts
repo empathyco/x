@@ -1,4 +1,4 @@
-import { WindowWithInjector, XCSSInjector } from './css-injector.types';
+import type { WindowWithInjector, XCSSInjector } from './css-injector.types';
 
 /**
  * Instance of the injector that will be used across all the initializations.
@@ -22,7 +22,7 @@ export class CssInjector implements XCSSInjector {
    */
   public constructor(setInWindow = true) {
     if (!(instance instanceof CssInjector)) {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      // eslint-disable-next-line ts/no-this-alias
       instance = this;
     }
 
@@ -37,6 +37,7 @@ export class CssInjector implements XCSSInjector {
    * Adds the styles to the host element.
    *
    * @param styles - The styles to be added.
+   * @param styles.source - Styles source.
    */
   addStyle(styles: { source: string }): void {
     this.stylesQueue.push(styles.source);

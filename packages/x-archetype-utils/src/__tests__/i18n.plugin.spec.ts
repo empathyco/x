@@ -1,7 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { mount, VueWrapper } from '@vue/test-utils';
+import type { DeepPartial } from '@empathyco/x-utils';
+import type { VueWrapper } from '@vue/test-utils';
+import type { Device, I18nOptions, Locale } from '../i18n/i18n.types';
+import { mount } from '@vue/test-utils';
 import { I18n } from '../i18n/i18n.plugin';
-import { Device, I18nOptions, Locale } from '../i18n/i18n.types';
 
 interface Messages {
   testComponent: {
@@ -11,7 +12,7 @@ interface Messages {
   };
 }
 
-describe('Test custom i18n plugin for several use cases', () => {
+describe('test custom i18n plugin for several use cases', () => {
   /**
    * Renders a component to test i18n plugin use cases.
    *

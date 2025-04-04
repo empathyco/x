@@ -1,7 +1,7 @@
+import type { WindowWithInjector } from '../css-injector/css-injector.types';
 import { CssInjector } from '../css-injector/css-injector';
-import { WindowWithInjector } from '../css-injector/css-injector.types';
 
-describe('Test custom css injector', () => {
+describe('test custom css injector', () => {
   beforeEach(() => {
     delete (window as WindowWithInjector).xCSSInjector;
   });
@@ -24,14 +24,12 @@ describe('Test custom css injector', () => {
     const injector = new CssInjector();
     const domElement = document.createElement('div');
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore,
+    // @ts-expect-error Property host is protected and only accessible within class CssInjector and its subclasses.
     expect(injector.host).toBe(undefined);
 
     injector.setHost(domElement);
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error Property host is protected and only accessible within class CssInjector and its subclasses.
     expect(injector.host).toBe(domElement);
   });
 
