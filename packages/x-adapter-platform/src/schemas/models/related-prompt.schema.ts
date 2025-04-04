@@ -7,6 +7,11 @@ import type {
 import { createMutableSchema } from '@empathyco/x-adapter'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 
+/**
+ * Default implementation for the NextQueriesRelatedPromptsSchema.
+ *
+ * @public
+ */
 export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, RelatedPromptNextQuery>({
   query: data => data,
   toolingDisplayTagging: (data, $context) =>
