@@ -1,17 +1,19 @@
-import { BaseXPriorityQueue, XPriorityQueue } from '@empathyco/x-priority-queue';
-import { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import { Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import {
+import type { XPriorityQueue } from '@empathyco/x-priority-queue';
+import type { AnyFunction, Dictionary } from '@empathyco/x-utils';
+import type { Observable} from 'rxjs';
+import type {
   EmittedData,
   Emitter,
   Emitters,
+  EventPayload,
   Priority,
   SubjectPayload,
-  EventPayload,
   XBus,
   XPriorityQueueNodeData
 } from './x-bus.types';
+import { BaseXPriorityQueue } from '@empathyco/x-priority-queue';
+import { ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * A default {@link XBus} implementation using a
@@ -122,6 +124,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    *
    * @returns A promise that is resolved the moment the event is emitted.
    */
+  // eslint-disable-next-line ts/promise-function-async
   emit<SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
     // TODO: Fix optional argument.
@@ -233,8 +236,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
     return withMetadata
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(

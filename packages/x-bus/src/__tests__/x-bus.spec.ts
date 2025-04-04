@@ -1,6 +1,6 @@
+import type { AnyFunction, Dictionary } from '@empathyco/x-utils';
+import type { XBus, XPriorityQueueNodeData } from '../x-bus.types';
 import { BaseXPriorityQueue } from '@empathyco/x-priority-queue';
-import { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import { XBus, XPriorityQueueNodeData } from '../x-bus.types';
 import { XPriorityBus } from '../x-bus';
 
 describe('x-priority-bus scenarios', () => {
@@ -15,13 +15,15 @@ describe('x-priority-bus scenarios', () => {
     jest.useFakeTimers();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   afterAll(() => {
     jest.useRealTimers();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+
 
   describe('emit', () => {
     it('emits events in the right order', async () => {
@@ -191,6 +193,7 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
   const pushEmittedEvent: AnyFunction = ({ event }: { event: keyof SomeRecord }) =>
     emittedEvents.push(event);
   const emittedEventsPromise = Promise.all([
+    // eslint-disable-next-line array-callback-return
     eventsToEmit.map(([event, payload, metadata]) => {
       bus.emit(event, payload, metadata).then(pushEmittedEvent);
     })
@@ -198,5 +201,5 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
 
   jest.runAllTimers();
 
-  return await emittedEventsPromise;
+  return emittedEventsPromise;
 }

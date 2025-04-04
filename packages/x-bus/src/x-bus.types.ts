@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { Observable, Subject } from 'rxjs';
+import type { Dictionary } from '@empathyco/x-utils';
+import type { Observable, Subject } from 'rxjs';
 
 /**
  * Alias representing a positive number to represent the priority of an event in an
@@ -128,23 +128,13 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
    *
    * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit<SomeEvent extends keyof SomeEvents>(
+  emit: (<SomeEvent extends keyof SomeEvents>(
     event: SomeEvent
-  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
-  /**
-   * Emits an event with a non-void payload.
-   *
-   * @param event - The event name.
-   * @param payload - The payload of the event.
-   * @param metadata - The extra data of the event.
-   *
-   * @returns A promise that is resolved whenever the event is emitted.
-   */
-  emit<SomeEvent extends keyof SomeEvents>(
+  ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>) & (<SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
     payload: EventPayload<SomeEvents, SomeEvent>,
     metadata?: SomeEventMetadata
-  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
+  ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>);
 
   /**
    * Retrieves an observable for an event.
@@ -157,10 +147,10 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
    * @returns If `withMetadata` is `true`, an Observable of type {@link SubjectPayload}. Otherwise,
    * an observable of type {@link EventPayload}.
    */
-  on<SomeEvent extends keyof SomeEvents>(
+  on: <SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
     withMetadata?: boolean
-  ): typeof withMetadata extends true
+  ) => typeof withMetadata extends true
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>>;
 }

@@ -3,24 +3,27 @@
   "version": "1.0.3-alpha.2",
   "description": "Event bus to help with events orchestration",
   "author": "Empathy Systems Corporation S.L.",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",
   "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "keywords": [
-    "bus",
-    "events",
-    "orchestration"
-  ],
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-bus"
   },
+  "bugs": {
+    "url": "https://github.com/empathyco/x/issues"
+  },
+  "keywords": [
+    "bus",
+    "events",
+    "orchestration"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
   },
@@ -37,9 +40,6 @@
     "test": "jest",
     "test:unit": "jest",
     "prepublishOnly": "pnpm run build"
-  },
-  "bugs": {
-    "url": "https://github.com/empathyco/x/issues"
   },
   "dependencies": {
     "@empathyco/x-priority-queue": "^1.0.3-alpha.2",
