@@ -1,10 +1,10 @@
 <template>
-  <button class="x-related-prompt">
+  <button class="x-related-prompt x-gap-8">
     <slot name="related-prompt-extra-content" :relatedPrompt="relatedPrompt" />
-    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
+    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" class="x-text-left x-grow" />
     <component
       :is="selected ? 'CrossTinyIcon' : 'PlusIcon'"
-      class="x-icon-lg x-related-prompt-icon"
+      class="x-icon-lg x-related-prompt-icon x-shrink-0"
     />
   </button>
 </template>
@@ -49,6 +49,7 @@
     height: 100%;
     width: 100%;
   }
+
   .x-related-prompt-icon {
     align-self: start;
   }
