@@ -1,4 +1,9 @@
-import { SemanticQueriesRequest, SemanticQueriesResponse, SemanticQuery } from '@empathyco/x-types';
+import {
+  RelatedTag,
+  SemanticQueriesRequest,
+  SemanticQueriesResponse,
+  SemanticQuery
+} from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
@@ -20,6 +25,8 @@ export interface SemanticQueriesState extends QueryState {
   config: SemanticQueriesConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** The list of the related tags, related to the `query` property of the state. */
+  relatedTags: RelatedTag[];
 }
 
 /**
@@ -37,6 +44,11 @@ export interface SemanticQueriesGetters {
    * The normalized module's query.
    */
   normalizedQuery: string;
+
+  /**
+   * The combination of the query and the selected related tags.
+   */
+  query: string;
 }
 
 /**
@@ -61,6 +73,12 @@ export interface SemanticQueriesMutations
    * Sets the {@link SemanticQueriesState.semanticQueries} property.
    */
   setSemanticQueries(semanticQueries: SemanticQuery[]): void;
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param relatedTags - The new related tags to save to the state.
+   */
+  setSemanticQueriesRelatedTags(relatedTags: RelatedTag[]): void;
 }
 
 /**

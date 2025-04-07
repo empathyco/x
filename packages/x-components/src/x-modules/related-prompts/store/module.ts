@@ -8,6 +8,7 @@ import {
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
+import { query } from './getters/related-prompts-query.getter';
 
 /**
  * {@link XStoreModule} For the related prompt module.
@@ -21,10 +22,12 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     selectedPrompt: -1,
     selectedQuery: -1,
     status: 'initial',
-    params: {}
+    params: {},
+    relatedTags: []
   }),
   getters: {
-    request
+    request,
+    query
   },
   mutations: {
     setStatus,
@@ -48,6 +51,9 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     },
     resetSelectedPrompt(state) {
       state.selectedPrompt = -1;
+    },
+    setRelatedPromptsRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags;
     }
   },
   actions: {

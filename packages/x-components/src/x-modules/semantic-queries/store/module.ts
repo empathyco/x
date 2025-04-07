@@ -5,6 +5,7 @@ import { fetchSemanticQuery } from './actions/fetch-semantic-query.action';
 import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-query.action';
 import { request } from './getters/request.getter';
 import { normalizedQuery } from './getters/normalized-query.getter';
+import { query } from './getters/semanti-queries-query.getter';
 
 /**
  * {@link XStoreModule} For the `semantic-queries` module.
@@ -20,11 +21,13 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     semanticQueries: [],
     params: {},
     query: '',
-    totalResults: 0
+    totalResults: 0,
+    relatedTags: []
   }),
   getters: {
     request,
-    normalizedQuery
+    normalizedQuery,
+    query
   },
   mutations: {
     setParams(state, params) {
@@ -36,6 +39,9 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     setQuery,
     setTotalResults(state, totalResults) {
       state.totalResults = totalResults;
+    },
+    setSemanticQueriesRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags;
     },
     setConfig,
     mergeConfig
