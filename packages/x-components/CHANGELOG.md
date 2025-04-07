@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.58...@empathyco/x-components@6.0.0-alpha.59) (2025-04-07)
+
+
+### Styling
+
+* **related-prompt:** align text left (#1736) ([c0d8544](https://github.com/empathyco/x/commit/c0d85447ee74dd27e66d42e3f023d42609468495))
+
+
+
 ## [6.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.57...@empathyco/x-components@6.0.0-alpha.58) (2025-04-02)
 
 
