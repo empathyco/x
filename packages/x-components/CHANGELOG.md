@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.59...@empathyco/x-components@6.0.0-alpha.60) (2025-04-08)
+
+
+### Bug Fixes
+
+* send the query + tag as query param if a related tag is selected (#1739) ([0061d2b](https://github.com/empathyco/x/commit/0061d2b3426fc053c793ca9861e2942b2309a4d7))
+
+
+
 ## [6.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.58...@empathyco/x-components@6.0.0-alpha.59) (2025-04-07)
 
 
