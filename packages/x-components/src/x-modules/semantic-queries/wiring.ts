@@ -66,12 +66,8 @@ export const clearQueryWire = wireCommit('setQuery', '');
  */
 export const setTotalResultsWire = wireCommit('setTotalResults');
 
-/**
- * Sets the related prompts state `relatedTags`.
- *
- * @public
- */
-export const setSemanticQueriesRelatedTags = wireCommit('setSemanticQueriesRelatedTags');
+/** Sets the related prompts state `relatedTags`. */
+const setSemanticQueriesRelatedTags = wireCommit('setSemanticQueriesRelatedTags');
 
 /**
  * Sets the total results taking the {@link SearchXEvents.SearchResponseChanged} payload.

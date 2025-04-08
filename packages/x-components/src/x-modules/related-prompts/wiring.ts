@@ -34,12 +34,8 @@ const setRelatedPromptsQueryFromPreview = wireCommit(
 const setRelatedPromptQuery = wireCommit('setSelectedQuery');
 /** Sets the related prompts state `selectedPrompt`. */
 const setRelatedPrompt = wireCommit('setSelectedPrompt');
-/**
- * Sets the related prompts state `relatedTags`.
- *
- * @public
- */
-export const setRelatedPromptsRelatedTags = wireCommit('setRelatedPromptsRelatedTags');
+/** Sets the related prompts state `relatedTags`.*/
+const setRelatedPromptsRelatedTags = wireCommit('setRelatedPromptsRelatedTags');
 /** Fetches and saves the related prompts response. */
 const fetchAndSaveRelatedPrompts = wireDispatch('fetchAndSaveRelatedPrompts');
 /** Cancels the fetch and save related prompts response. */
