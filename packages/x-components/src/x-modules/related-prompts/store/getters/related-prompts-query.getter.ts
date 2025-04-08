@@ -2,10 +2,10 @@ import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.util
 import { RelatedPromptsXStoreModule } from '../types';
 
 /**
- * Default implementation for the search query getter.
+ * Default implementation for the related prompts query getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
- * tags' module.
+ * prompts' module.
  *
  * @returns The query with the selected related tags concatenated.
  *

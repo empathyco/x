@@ -6,7 +6,7 @@ import { RelatedPromptsXStoreModule } from '../types';
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
  * prompts module.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
- * search module.
+ * related prompts' module.
  * @returns The related prompts request to fetch data from the API.
  *
  * @public
