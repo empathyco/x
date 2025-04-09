@@ -1,6 +1,6 @@
-import type { Identifiable } from './identifiable.model';
-import type { NamedModel } from './named-model.model';
-import type { Taggable } from './tagging.model';
+import type { Identifiable } from './identifiable.model'
+import type { NamedModel } from './named-model.model'
+import type { Taggable } from './tagging.model'
 
 /**
  * A promoted is an image with a title, that when clicked redirect the user to an URL.
@@ -10,11 +10,11 @@ import type { Taggable } from './tagging.model';
  */
 export interface Promoted extends NamedModel<'Promoted'>, Identifiable, Taggable {
   /** Promoted title. */
-  title: string;
+  title: string
   /** URL to redirect. */
-  url: string;
+  url: string
   /** Promoted image. */
-  image: string;
+  image: string
   /** Promoted position inside the grid. */
-  position?: number;
+  position?: number
 }

@@ -1,4 +1,4 @@
-import type { NextQuery } from '../query-signals/next-query.model';
+import type { NextQuery } from '../query-signals/next-query.model'
 
 /**
  * Response for the next queries endpoint.
@@ -6,5 +6,5 @@ import type { NextQuery } from '../query-signals/next-query.model';
  * @public
  */
 export interface NextQueriesResponse {
-  nextQueries: NextQuery[];
+  nextQueries: NextQuery[]
 }

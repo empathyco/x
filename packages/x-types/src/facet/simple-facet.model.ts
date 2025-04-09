@@ -1,5 +1,5 @@
-import type { Facet } from './facet.model';
-import type { SimpleFilter } from './filter/simple-filter.model';
+import type { Facet } from './facet.model'
+import type { SimpleFilter } from './filter/simple-filter.model'
 
 /**
  * Simple facet is a trait for filtering results. It extends from {@link Facet}, changes the
@@ -9,9 +9,9 @@ import type { SimpleFilter } from './filter/simple-filter.model';
  */
 export interface SimpleFacet extends Facet {
   /** Model name to indicate the facet type. */
-  modelName: 'SimpleFacet';
+  modelName: 'SimpleFacet'
   /** Filters available for the facet. */
-  filters: SimpleFilter[];
+  filters: SimpleFilter[]
 }
 
 /**
@@ -24,5 +24,5 @@ export interface SimpleFacet extends Facet {
  * @public
  */
 export function isSimpleFacet(facet: Facet): facet is SimpleFacet {
-  return facet.modelName === 'SimpleFacet';
+  return facet.modelName === 'SimpleFacet'
 }

@@ -7,152 +7,87 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.9...@empathyco/x-types@10.1.0-alpha.10) (2025-02-28)
-
 
 ### Features
 
-* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
-
-
+- refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
 
 ## [10.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.8...@empathyco/x-types@10.1.0-alpha.9) (2025-02-26)
 
-
 ### Code Refactoring
 
-* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
-
-
+- related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
 
 ## [10.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.7...@empathyco/x-types@10.1.0-alpha.8) (2025-02-17)
 
-
 ### Features
 
-* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
-
-
+- related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
 
 ## [10.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.6...@empathyco/x-types@10.1.0-alpha.7) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.5...@empathyco/x-types@10.1.0-alpha.6) (2024-11-25)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.4...@empathyco/x-types@10.1.0-alpha.5) (2024-10-31)
-
 
 ### Features
 
-* add stats to search response (#1648) ([0fdf5b4](https://github.com/empathyco/x/commit/0fdf5b4030a90da6ec7b4d30d667c08afeb5a80d))
-
-
+- add stats to search response (#1648) ([0fdf5b4](https://github.com/empathyco/x/commit/0fdf5b4030a90da6ec7b4d30d667c08afeb5a80d))
 
 ## [10.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.3...@empathyco/x-types@10.1.0-alpha.4) (2024-10-28)
 
-
 ### Features
 
-* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
-
-
+- add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
 
 ## [10.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.2...@empathyco/x-types@10.1.0-alpha.3) (2024-05-03)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.1...@empathyco/x-types@10.1.0-alpha.2) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.0...@empathyco/x-types@10.1.0-alpha.1) (2024-01-12)
-
 
 ### Features
 
-* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
-
-
+- **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
 
 ## [10.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.1...@empathyco/x-types@10.1.0-alpha.0) (2024-01-11)
 
-
 ### Features
 
-* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
-
-
+- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
 
 ## [10.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.0...@empathyco/x-types@10.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.2...@empathyco/x-types@10.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 ## [10.0.2](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.2-alpha.0...@empathyco/x-types@10.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.1-alpha.0...@empathyco/x-types@10.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 ## [10.0.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.1-alpha.0...@empathyco/x-types@10.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.75...@empathyco/x-types@10.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 # Change Log
 

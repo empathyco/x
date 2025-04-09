@@ -1,4 +1,4 @@
-import type { Identifiable } from '../identifiable.model';
+import type { Identifiable } from '../identifiable.model'
 
 /**
  * Jest schema for validating Identifiable entities.
@@ -6,5 +6,5 @@ import type { Identifiable } from '../identifiable.model';
  * @public
  */
 export const IdentifiableSchema: Identifiable = {
-  id: expect.anything()
-};
+  id: expect.anything(),
+}

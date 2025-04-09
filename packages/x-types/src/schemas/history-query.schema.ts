@@ -1,4 +1,4 @@
-import type { HistoryQuery } from '../history-query.model';
+import type { HistoryQuery } from '../history-query.model'
 
 /**
  * Jest schema for validating Next query entities.
@@ -8,5 +8,5 @@ import type { HistoryQuery } from '../history-query.model';
 export const HistoryQuerySchema: HistoryQuery = {
   modelName: expect.any(String),
   query: expect.any(String),
-  timestamp: expect.any(Number)
-};
+  timestamp: expect.any(Number),
+}

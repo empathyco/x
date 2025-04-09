@@ -1,5 +1,5 @@
-import type { NamedModel } from '../named-model.model';
-import type { TaggingRequest } from '../request/index';
+import type { NamedModel } from '../named-model.model'
+import type { TaggingRequest } from '../request/index'
 
 /**
  * Represents a related prompt.
@@ -8,21 +8,21 @@ import type { TaggingRequest } from '../request/index';
  */
 export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   /** The next queries related to the prompt. */
-  relatedPromptNextQueries?: RelatedPromptNextQuery[];
+  relatedPromptNextQueries?: RelatedPromptNextQuery[]
   /** The queries of the next queries related to the prompt. */
-  nextQueries: string[];
+  nextQueries: string[]
   /** The prompt. */
-  suggestionText: string;
+  suggestionText: string
   /** The type of the prompt. */
-  type: string;
+  type: string
   /** The tooling display tagging of the prompt. */
-  toolingDisplayTagging?: TaggingRequest;
+  toolingDisplayTagging?: TaggingRequest
   /** Related prompt tagging. */
   tagging?: {
-    toolingDisplayTagging?: TaggingRequest;
-    toolingDisplayClickTagging?: TaggingRequest;
-    nextQueriesTagging?: RelatedPromptNextQuery[];
-  };
+    toolingDisplayTagging?: TaggingRequest
+    toolingDisplayClickTagging?: TaggingRequest
+    nextQueriesTagging?: RelatedPromptNextQuery[]
+  }
 }
 
 /**
@@ -32,11 +32,11 @@ export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
  */
 export interface RelatedPromptNextQuery {
   /** The query of the next query. */
-  query: string;
+  query: string
   /** The tooling display tagging of the next query. */
-  toolingDisplayTagging: TaggingRequest;
+  toolingDisplayTagging: TaggingRequest
   /** The tooling display click tagging of the next query. */
-  toolingDisplayClickTagging: TaggingRequest;
+  toolingDisplayClickTagging: TaggingRequest
   /** The tooling display add2cart tagging of the next query. */
-  toolingDisplayAdd2CartTagging: TaggingRequest;
+  toolingDisplayAdd2CartTagging: TaggingRequest
 }

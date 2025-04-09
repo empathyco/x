@@ -4,8 +4,8 @@ import type {
   PageableRequest,
   QueryableRequest,
   SortableRequest,
-  TrackableRequest
-} from './request.model';
+  TrackableRequest,
+} from './request.model'
 
 /**
  * The Request for the Search endpoint.

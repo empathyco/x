@@ -1,5 +1,5 @@
-import type { Filter } from '../facet/filter/filter.model';
-import type { Sort } from '../sort.model';
+import type { Filter } from '../facet/filter/filter.model'
+import type { Sort } from '../sort.model'
 
 /**
  * Interface for any Request with a `query` parameter.
@@ -7,7 +7,7 @@ import type { Sort } from '../sort.model';
  * @public
  */
 export interface QueryableRequest {
-  query: string;
+  query: string
 }
 
 /**
@@ -16,7 +16,7 @@ export interface QueryableRequest {
  * @public
  */
 export interface FilterableRequest {
-  filters?: Record<string, Filter[]>;
+  filters?: Record<string, Filter[]>
 }
 
 /**
@@ -25,8 +25,8 @@ export interface FilterableRequest {
  * @public
  */
 export interface PageableRequest {
-  rows?: number;
-  start?: number;
+  rows?: number
+  start?: number
 }
 
 /**
@@ -35,7 +35,7 @@ export interface PageableRequest {
  * @public
  */
 export interface SortableRequest {
-  sort?: Sort;
+  sort?: Sort
 }
 
 /**
@@ -44,7 +44,7 @@ export interface SortableRequest {
  * @public
  */
 export interface TrackableRequest {
-  origin?: string;
+  origin?: string
 }
 /**
  * Interface to support extra params in any request.
@@ -53,6 +53,6 @@ export interface TrackableRequest {
  */
 export interface ExtraParamsRequest {
   extraParams?: {
-    [key: string]: unknown;
-  };
+    [key: string]: unknown
+  }
 }

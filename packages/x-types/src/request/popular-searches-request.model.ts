@@ -1,4 +1,4 @@
-import type { ExtraParamsRequest, PageableRequest } from './request.model';
+import type { ExtraParamsRequest, PageableRequest } from './request.model'
 
 /**
  * Request for Popular Searches endpoint.

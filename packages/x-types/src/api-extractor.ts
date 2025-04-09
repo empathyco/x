@@ -7,5 +7,5 @@
  *
  * @packageDocumentation
  */
-export * from '.';
-export * from './schemas';
+export * from '.'
+export * from './schemas'

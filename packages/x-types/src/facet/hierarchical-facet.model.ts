@@ -1,5 +1,5 @@
-import type { Facet } from './facet.model';
-import type { HierarchicalFilter } from './filter/hierarchical-filter.model';
+import type { Facet } from './facet.model'
+import type { HierarchicalFilter } from './filter/hierarchical-filter.model'
 
 /**
  * Hierarchical facet is a trait for filtering results. It extends from {@link Facet} changes the
@@ -9,9 +9,9 @@ import type { HierarchicalFilter } from './filter/hierarchical-filter.model';
  */
 export interface HierarchicalFacet extends Facet {
   /** Model name to indicate the facet type. */
-  modelName: 'HierarchicalFacet';
+  modelName: 'HierarchicalFacet'
   /** Filters available for the facet. */
-  filters: HierarchicalFilter[];
+  filters: HierarchicalFilter[]
 }
 
 /**
@@ -24,5 +24,5 @@ export interface HierarchicalFacet extends Facet {
  * @public
  */
 export function isHierarchicalFacet(facet: Facet): facet is HierarchicalFacet {
-  return facet.modelName === 'HierarchicalFacet';
+  return facet.modelName === 'HierarchicalFacet'
 }

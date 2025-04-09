@@ -1,4 +1,4 @@
-import type { SemanticQuery } from '../query-signals/semantic-query.model';
+import type { SemanticQuery } from '../query-signals/semantic-query.model'
 
 /**
  * Jest schema for validating SemanticQuery entities.
@@ -8,5 +8,5 @@ import type { SemanticQuery } from '../query-signals/semantic-query.model';
 export const SemanticQuerySchema: SemanticQuery = {
   modelName: expect.any(String),
   query: expect.any(String),
-  distance: expect.any(Number)
-};
+  distance: expect.any(Number),
+}

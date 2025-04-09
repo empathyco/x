@@ -1,4 +1,4 @@
-import type { SemanticQuery } from '../query-signals/semantic-query.model';
+import type { SemanticQuery } from '../query-signals/semantic-query.model'
 
 /**
  * Response for the semantic queries endpoint.
@@ -6,5 +6,5 @@ import type { SemanticQuery } from '../query-signals/semantic-query.model';
  * @public
  */
 export interface SemanticQueriesResponse {
-  semanticQueries: SemanticQuery[];
+  semanticQueries: SemanticQuery[]
 }

@@ -2,8 +2,8 @@ import type {
   ExtraParamsRequest,
   PageableRequest,
   QueryableRequest,
-  TrackableRequest
-} from './request.model';
+  TrackableRequest,
+} from './request.model'
 
 /**
  * Request for Identifier Results endpoint.

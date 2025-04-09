@@ -1,5 +1,5 @@
-import type { Previewable } from './previewable.model';
-import type { Result } from './result/result.model';
+import type { Previewable } from './previewable.model'
+import type { Result } from './result/result.model'
 
 /**
  * A partial result represents a sub-query of a user search term which normally has not enough
@@ -10,10 +10,9 @@ import type { Result } from './result/result.model';
  * @public
  */
 export interface PartialResult extends Previewable {
-   
   /** {@inheritDoc Previewable.results} */
-  results: Result[] | null;
-   
+  results: Result[] | null
+
   /** {@inheritDoc Previewable.totalResults} */
-  totalResults: number | null;
+  totalResults: number | null
 }

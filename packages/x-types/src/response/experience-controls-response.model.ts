@@ -1,4 +1,4 @@
-import type { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils'
 
 /**
  * Response for the experience controls endpoint.
@@ -6,6 +6,6 @@ import type { Dictionary } from '@empathyco/x-utils';
  * @public
  */
 export interface ExperienceControlsResponse {
-  controls: Dictionary<unknown>;
-  events: Dictionary<unknown>;
+  controls: Dictionary<unknown>
+  events: Dictionary<unknown>
 }

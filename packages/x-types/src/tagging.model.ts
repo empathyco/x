@@ -1,4 +1,4 @@
-import type { TaggingRequest } from './request/tagging-request.model';
+import type { TaggingRequest } from './request/tagging-request.model'
 
 /**
  * A taggable entity.
@@ -7,7 +7,7 @@ import type { TaggingRequest } from './request/tagging-request.model';
  */
 export interface Taggable {
   /** Tagging object containing the different taggable events. */
-  tagging?: Tagging;
+  tagging?: Tagging
 }
 
 /**
@@ -17,15 +17,15 @@ export interface Taggable {
  */
 export interface Tagging {
   /** {@link TaggingRequest | add to cart tagging}. */
-  add2cart?: TaggingRequest;
+  add2cart?: TaggingRequest
   /** {@link TaggingRequest | checkout tagging}. */
-  checkout?: TaggingRequest;
+  checkout?: TaggingRequest
   /** {@link TaggingRequest | click tagging}. */
-  click?: TaggingRequest;
+  click?: TaggingRequest
   /** {@link TaggingRequest | query tagging}. */
-  query?: TaggingRequest;
+  query?: TaggingRequest
   /** {@link TaggingRequest | wishlist tagging}. */
-  wishlist?: TaggingRequest;
+  wishlist?: TaggingRequest
   /** Any other {@link TaggingRequest | tagging } key-value. */
-  [key: string]: TaggingRequest | undefined;
+  [key: string]: TaggingRequest | undefined
 }

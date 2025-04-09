@@ -1,11 +1,11 @@
-import type { EditableNumberRangeFilter, FacetFilter } from '../facet/filter';
-import type { BooleanFilter } from '../facet/filter/boolean-filter.model';
-import type { Filter } from '../facet/filter/filter.model';
-import type { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model';
-import type { NumberRangeFilter } from '../facet/filter/number-range-filter.model';
-import type { RawFilter } from '../facet/filter/raw-filter.model';
-import type { SimpleFilter } from '../facet/filter/simple-filter.model';
-import { IdentifiableSchema } from './identifiable.schema';
+import type { EditableNumberRangeFilter, FacetFilter } from '../facet/filter'
+import type { BooleanFilter } from '../facet/filter/boolean-filter.model'
+import type { Filter } from '../facet/filter/filter.model'
+import type { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model'
+import type { NumberRangeFilter } from '../facet/filter/number-range-filter.model'
+import type { RawFilter } from '../facet/filter/raw-filter.model'
+import type { SimpleFilter } from '../facet/filter/simple-filter.model'
+import { IdentifiableSchema } from './identifiable.schema'
 
 /**
  * Jest schema for validating Filter entities.
@@ -15,8 +15,8 @@ import { IdentifiableSchema } from './identifiable.schema';
 export const FilterSchema: Filter = {
   ...IdentifiableSchema,
   modelName: expect.any(String),
-  selected: expect.any(Boolean)
-};
+  selected: expect.any(Boolean),
+}
 
 /**
  * Jest schema for validating FacetFilter entities.
@@ -26,8 +26,8 @@ export const FilterSchema: Filter = {
 export const FacetFilterSchema: FacetFilter = {
   ...FilterSchema,
   facetId: expect.anyOf([Number, String]),
-  modelName: expect.any(String)
-};
+  modelName: expect.any(String),
+}
 
 /**
  * Jest schema for validating RawFilter entities.
@@ -38,8 +38,8 @@ export const RawFilterSchema: RawFilter = {
   ...FilterSchema,
   modelName: 'RawFilter',
   id: expect.any(String),
-  selected: true
-};
+  selected: true,
+}
 
 /**
  * Jest schema for validating BooleanFilter entities.
@@ -50,8 +50,8 @@ export const BooleanFilterSchema: BooleanFilter = {
   ...FacetFilterSchema,
   modelName: expect.any(String),
   label: expect.any(String),
-  totalResults: expect.undefinedOr(Number)
-};
+  totalResults: expect.undefinedOr(Number),
+}
 
 /**
  * Jest schema for validating SimpleFilter entity.
@@ -60,8 +60,8 @@ export const BooleanFilterSchema: BooleanFilter = {
  */
 export const SimpleFilterSchema: SimpleFilter = {
   ...BooleanFilterSchema,
-  modelName: 'SimpleFilter'
-};
+  modelName: 'SimpleFilter',
+}
 
 /**
  * Jest schema for validating HierarchicalFilter entity.
@@ -72,8 +72,8 @@ export const HierarchicalFilterSchema: HierarchicalFilter = {
   ...BooleanFilterSchema,
   parentId: expect.nullOrAnyOf([Number, String]),
   children: expect.undefinedOr(Array),
-  modelName: 'HierarchicalFilter'
-};
+  modelName: 'HierarchicalFilter',
+}
 
 /**
  * Jest schema for validating NumberRangeFilter entity.
@@ -83,8 +83,8 @@ export const HierarchicalFilterSchema: HierarchicalFilter = {
 export const NumberRangeFilterSchema: NumberRangeFilter = {
   ...BooleanFilterSchema,
   range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
-  modelName: 'NumberRangeFilter'
-};
+  modelName: 'NumberRangeFilter',
+}
 
 /**
  * Jest schema for validating EditableNumberRangeFilterSchema entity.
@@ -94,5 +94,5 @@ export const NumberRangeFilterSchema: NumberRangeFilter = {
 export const EditableNumberRangeFilterSchema: EditableNumberRangeFilter = {
   ...FacetFilterSchema,
   range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
-  modelName: 'EditableNumberRangeFilter'
-};
+  modelName: 'EditableNumberRangeFilter',
+}

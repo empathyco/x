@@ -1,6 +1,6 @@
-import type { FilterModelName } from '../../named-model.model';
-import type { Facet } from '../facet.model';
-import type { Filter } from './filter.model';
+import type { FilterModelName } from '../../named-model.model'
+import type { Facet } from '../facet.model'
+import type { Filter } from './filter.model'
 
 /**
  * A filter which is associated with a {@link Facet}.
@@ -15,9 +15,9 @@ export interface FacetFilter extends Filter {
    * The filter {@link ModelNameType | model name} excluding {@link RawFilter | RawFilter}
    * model name.
    */
-  modelName: Exclude<FilterModelName, 'RawFilter'>;
+  modelName: Exclude<FilterModelName, 'RawFilter'>
   /** An unique ID that identifies the facet that uses this filter. */
-  facetId: Facet['id'];
+  facetId: Facet['id']
 }
 
 /**
@@ -30,5 +30,5 @@ export interface FacetFilter extends Filter {
  * @public
  */
 export function isFacetFilter(filter: Filter): filter is FacetFilter {
-  return 'facetId' in filter;
+  return 'facetId' in filter
 }

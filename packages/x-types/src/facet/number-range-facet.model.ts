@@ -1,5 +1,5 @@
-import type { Facet } from './facet.model';
-import type { NumberRangeFilter } from './filter/number-range-filter.model';
+import type { Facet } from './facet.model'
+import type { NumberRangeFilter } from './filter/number-range-filter.model'
 
 /**
  * Number Range Facet is a trait for filtering results. It extends from {@link Facet}, changes the
@@ -9,9 +9,9 @@ import type { NumberRangeFilter } from './filter/number-range-filter.model';
  */
 export interface NumberRangeFacet extends Facet {
   /** Model name to indicate the facet type. */
-  modelName: 'NumberRangeFacet';
+  modelName: 'NumberRangeFacet'
   /** Filters available for the facet. */
-  filters: NumberRangeFilter[];
+  filters: NumberRangeFilter[]
 }
 
 /**
@@ -24,5 +24,5 @@ export interface NumberRangeFacet extends Facet {
  * @public
  */
 export function isNumberRangeFacet(facet: Facet): facet is NumberRangeFacet {
-  return facet.modelName === 'NumberRangeFacet';
+  return facet.modelName === 'NumberRangeFacet'
 }

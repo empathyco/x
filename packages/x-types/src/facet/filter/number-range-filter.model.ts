@@ -1,6 +1,6 @@
-import type { BooleanFilter } from './boolean-filter.model';
-import type { Filter } from './filter.model';
-import type { RangeValue } from './range-value.model';
+import type { BooleanFilter } from './boolean-filter.model'
+import type { Filter } from './filter.model'
+import type { RangeValue } from './range-value.model'
 
 /**
  * A type of filter used in {@link NumberRangeFacet} and extends from {@link BooleanFilter}.
@@ -13,9 +13,9 @@ import type { RangeValue } from './range-value.model';
  */
 export interface NumberRangeFilter extends BooleanFilter {
   /** Model name to indicate the filter type. */
-  modelName: 'NumberRangeFilter';
+  modelName: 'NumberRangeFilter'
   /** Filter range to use in the frontend. */
-  range: RangeValue;
+  range: RangeValue
 }
 
 /**
@@ -28,5 +28,5 @@ export interface NumberRangeFilter extends BooleanFilter {
  * @public
  */
 export function isNumberRangeFilter(filter: Filter): filter is NumberRangeFilter {
-  return filter.modelName === 'NumberRangeFilter';
+  return filter.modelName === 'NumberRangeFilter'
 }

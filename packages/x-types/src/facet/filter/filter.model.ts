@@ -1,5 +1,5 @@
-import type { Identifiable } from '../../identifiable.model';
-import type { FilterModelName, NamedModel } from '../../named-model.model';
+import type { Identifiable } from '../../identifiable.model'
+import type { FilterModelName, NamedModel } from '../../named-model.model'
 
 /**
  * A basic filter.
@@ -11,5 +11,5 @@ import type { FilterModelName, NamedModel } from '../../named-model.model';
  */
 export interface Filter extends NamedModel<FilterModelName>, Identifiable {
   /** Flag if the filter is selected or not. */
-  selected: boolean;
+  selected: boolean
 }
