@@ -109,7 +109,7 @@
     "@vue/vue3-jest": "27.0.0",
     "autoprefixer": "10.4.4",
     "convert-source-map": "2.0.0",
-    "cypress": "13.6.0",
+    "cypress": "14.3.0",
     "esbuild": "0.20.0",
     "glob": "10.3.0",
     "jest": "27.5.0",

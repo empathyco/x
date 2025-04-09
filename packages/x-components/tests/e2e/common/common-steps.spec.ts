@@ -98,7 +98,8 @@ Then(
 
 Then(
   'filter number {int} in facet {string} is selected',
-  (this: any, simpleFilterIndex: number, facetName: string) => {
+  // eslint-disable-next-line prefer-arrow-callback
+  function (this: any, simpleFilterIndex: number, facetName: string) {
     cy.getByDataTest(`${facetName}-filter`)
       .eq(simpleFilterIndex)
       .should('to.have.class', 'x-selected')
@@ -107,7 +108,8 @@ Then(
 
 Then(
   'filter number {int} in facet {string} is not selected',
-  (this: any, simpleFilterIndex: number, facetName: string) => {
+  // eslint-disable-next-line prefer-arrow-callback
+  function (this: any, simpleFilterIndex: number, facetName: string) {
     cy.getByDataTest(`${facetName}-filter`)
       .eq(simpleFilterIndex)
       .should('not.to.have.class', 'x-selected')

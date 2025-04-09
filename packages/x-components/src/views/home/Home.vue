@@ -482,13 +482,16 @@
                       data-test="semantic-query-preview"
                       :data-query="query"
                     >
+                      <!-- eslint-disable vue/no-template-shadow -->
+                      <!-- TODO: review why suggestion query renaming breaks e2e -->
                       <SemanticQuery
-                        v-slot="{ suggestion: { query: semanticQuery } }"
+                        v-slot="{ suggestion: { query } }"
                         class="x-suggestion x-title2 x-title2-md"
-                        :suggestion="findSemanticQuery(semanticQuery)"
+                        :suggestion="findSemanticQuery(query)"
                       >
-                        <span data-test="semantic-queries-query">{{ semanticQuery }}</span>
+                        <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>
+                      <!-- eslint-enable vue/no-template-shadow -->
                       <DisplayResultProvider :query-tagging="queryTagging">
                         <SlidingPanel :reset-on-content-change="false">
                           <div class="x-flex x-gap-8">
