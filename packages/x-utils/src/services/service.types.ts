@@ -12,9 +12,9 @@ export interface SessionService {
    *
    * @returns The session id.
    */
-  getSessionId(): string;
+  getSessionId: () => string;
   /**
    * Remove the session id.
    */
-  clearSessionId(): void;
+  clearSessionId: () => void;
 }

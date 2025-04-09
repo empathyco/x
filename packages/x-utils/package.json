@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-utils"
+  },
   "keywords": [
     "search",
     "utils"
@@ -16,11 +21,6 @@
     "dist",
     "types"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-utils"
-  },
   "engines": {
     "node": ">=18"
   },

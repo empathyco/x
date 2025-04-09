@@ -1,3 +1,4 @@
+import type { Dictionary } from '../types/utils.types';
 import {
   cleanEmpty,
   cleanUndefined,
@@ -10,7 +11,6 @@ import {
   reduce,
   rename
 } from '../object';
-import { Dictionary } from '../types/utils.types';
 
 class Person {
   public constructor(public name: string) {}
@@ -32,7 +32,7 @@ describe('testing object utils', () => {
         d: [],
         e: {},
         f: () => {
-          return;
+          
         }
       };
 
@@ -103,10 +103,10 @@ describe('testing object utils', () => {
      */
     function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
       callback.mock.calls
-        .map(function selectIndexParameter(call) {
+        .map((call) => {
           return call[2];
         }) // 3rd parameter of the forEach call is the index
-        .sort(function sortIndexAscending(i1, i2) {
+        .sort((i1, i2) => {
           return i1 - i2;
         }) // Sort them from lower to higher index
         .forEach((forEachIndex, index) => {
@@ -127,7 +127,7 @@ describe('testing object utils', () => {
         d: [],
         e: {},
         f: () => {
-          return;
+          
         }
       };
 
@@ -203,10 +203,10 @@ describe('testing object utils', () => {
      */
     function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
       callback.mock.calls
-        .map(function selectIndexParameter(call) {
+        .map((call) => {
           return call[3];
         }) // 4th parameter of the reduce call is the index
-        .sort(function sortIndexAscending(i1, i2) {
+        .sort((i1, i2) => {
           return i1 - i2;
         }) // Sort them from lower to higher index
         .forEach((forEachIndex, index) => {
@@ -227,7 +227,7 @@ describe('testing object utils', () => {
         d: [],
         e: {},
         f: () => {
-          return;
+          
         }
       };
 
@@ -310,10 +310,10 @@ describe('testing object utils', () => {
      */
     function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
       callback.mock.calls
-        .map(function selectIndexParameter(call) {
+        .map((call) => {
           return call[2];
         }) // 3rd parameter of the forEach call is the index
-        .sort(function sortIndexAscending(i1, i2) {
+        .sort((i1, i2) => {
           return i1 - i2;
         }) // Sort them from lower to higher index
         .forEach((forEachIndex, index) => {
@@ -545,7 +545,7 @@ describe('testing object utils', () => {
               i: 6,
               j: {},
               k: null,
-              l: function () {
+              l () {
                 return 'm';
               }
             }
@@ -560,6 +560,7 @@ describe('testing object utils', () => {
         g: 5,
         i: 6,
         k: null,
+        // eslint-disable-next-line ts/unbound-method
         l: obj.c.f.h.l
       });
     });

@@ -6,6 +6,7 @@ describe('testing session id service', () => {
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
   const storageKey = DefaultSessionService.SESSION_ID_KEY;
 
+  // eslint-disable-next-line no-restricted-globals
   const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
     crypto: { randomUUID: () => string };
   }>;
@@ -31,7 +32,7 @@ describe('testing session id service', () => {
     expect(getItemSpy).toHaveBeenCalledTimes(1);
     expect(setItemSpy).toHaveBeenCalledTimes(1);
     expect(setItemSpy).toHaveBeenCalledWith(storageKey, expect.any(String), expect.any(Number));
-    expect(session).toMatch(/^[A-Za-z0-9_-]+$/);
+    expect(session).toMatch(/^[\w-]+$/);
   });
 
   it('removes an existing session id', () => {

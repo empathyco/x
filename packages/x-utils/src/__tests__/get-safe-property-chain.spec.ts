@@ -18,31 +18,31 @@ describe('testing getSafePropertyChain function', () => {
 
   it('returns "undefined" if the property chain is not found at level 1', () => {
     const obj: any = { nestedObject: { anotherNestedObject: { message: 'Fuck yeah!' } } };
-    const result: string | undefined = getSafePropertyChain(
+    const result = getSafePropertyChain(
       obj,
       'thisDoesNotExist.anotherNestedObject.message'
-    );
+    ) as string | undefined;
     expect(result).toBeUndefined();
   });
 
   it('returns "undefined" if the property chain is not found at any deepness level', () => {
     const obj: any = { nestedObject: { anotherNestedObject: { message: 'Hell yeah!' } } };
-    const result: string | undefined = getSafePropertyChain(
+    const result = getSafePropertyChain(
       obj,
       'nestedObject.anotherNestedObject.thisDoesNotExist'
-    );
+    ) as string | undefined;
     expect(result).toBeUndefined();
   });
 
-  // eslint-disable-next-line max-len
+   
   it('returns a default value if the property chain is not found and a default value has been provided', () => {
     const defaultReturn = 'TypeScript rules!';
     const obj: any = { nestedObject: { anotherNestedObject: { message: 'Fuck yeah!' } } };
-    const result: string | undefined = getSafePropertyChain(
+    const result = getSafePropertyChain(
       obj,
       'nestedObject.anotherNestedObject.thisDoesNotExist',
       defaultReturn
-    );
+    ) as string | undefined;
     expect(result).toBe(defaultReturn);
   });
 
@@ -53,16 +53,16 @@ describe('testing getSafePropertyChain function', () => {
   });
 
   it('works with falsy values', () => {
-    const values = [false, 0, null, '', NaN];
+    const values = [false, 0, null, '', Number.NaN];
     values.forEach(value => {
-      const result = getSafePropertyChain({ value: value }, 'value');
+      const result = getSafePropertyChain({ value }, 'value');
       expect(result).toEqual(value);
     });
   });
 
   it('returns undefined if a middle result is null', () => {
     const obj: any = { grandpa: { parent: null } };
-    const result = getSafePropertyChain(obj, 'grandpa.parent.child');
+    const result = getSafePropertyChain(obj, 'grandpa.parent.child') as string | undefined;
     expect(result).toBeUndefined();
   });
 
@@ -106,9 +106,7 @@ describe('testing getSafePropertyChain function', () => {
     const aString: string | undefined = getSafePropertyChain(obj, 'aString');
     const aBool: boolean | undefined = getSafePropertyChain(obj, 'aBool');
     const anObject: { child: string } | undefined = getSafePropertyChain(obj, 'anObject');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const anTypeError: string | undefined = getSafePropertyChain(obj, 'aNumber');
+    const anTypeError = getSafePropertyChain(obj, 'aNumber');
 
     expect(anArray).toEqual(['value']);
     expect(aNumber).toBe(1);

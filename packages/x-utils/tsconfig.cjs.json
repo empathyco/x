@@ -2,8 +2,8 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "module": "commonjs",
-    "outDir": "./dist/cjs",
     "declaration": true,
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "outDir": "./dist/cjs"
   }
 }

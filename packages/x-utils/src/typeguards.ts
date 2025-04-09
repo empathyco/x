@@ -1,5 +1,5 @@
-import { AnyFunction } from './types/utils.types';
-import { ExtractPath } from './types/paths.types';
+import type { ExtractPath } from './types/paths.types';
+import type { AnyFunction } from './types/utils.types';
 import { getSafePropertyChain } from './get-safe-property-chain';
 
 /**

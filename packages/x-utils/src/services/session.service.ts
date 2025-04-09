@@ -1,9 +1,11 @@
-import {
-  BrowserStorageService,
-  InMemoryStorageService,
+import type {
   StorageService
 } from '@empathyco/x-storage-service';
-import { SessionService } from './service.types';
+import type { SessionService } from './service.types';
+import {
+  BrowserStorageService,
+  InMemoryStorageService
+} from '@empathyco/x-storage-service';
 
 /**
  * Default implementation for the {@link SessionService}.
@@ -38,9 +40,12 @@ export class DefaultSessionService implements SessionService {
    * @public
    */
   getSessionId(): string {
+    // eslint-disable-next-line ts/no-unsafe-assignment
     const sessionId =
+      // eslint-disable-next-line no-restricted-globals
       this.storageService.getItem(DefaultSessionService.SESSION_ID_KEY) ?? self.crypto.randomUUID();
     this.storageService.setItem(DefaultSessionService.SESSION_ID_KEY, sessionId, this.ttlMs);
+    // eslint-disable-next-line ts/no-unsafe-return
     return sessionId;
   }
 

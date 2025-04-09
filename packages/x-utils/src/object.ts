@@ -1,5 +1,5 @@
+import type { Dictionary } from './types';
 import { isArray, isObject } from './typeguards';
-import { Dictionary } from './types';
 
 /**
  * Iterates over every non-undefined property of the object calling the callback passed as
@@ -192,6 +192,7 @@ export function every<ObjectType extends Dictionary>(
 ): boolean {
   return Object.entries(object)
     .filter(([, value]) => value !== undefined)
+    // eslint-disable-next-line ts/no-unsafe-argument
     .every(([key, value], index) => condition(key, value, index));
 }
 
@@ -208,6 +209,7 @@ export function flatObject(object: Dictionary): Dictionary {
     if (isObject(value)) {
       Object.assign(flattenedObject, flatObject(value));
     } else {
+      // eslint-disable-next-line ts/no-unsafe-assignment
       flattenedObject[key] = value;
     }
   });

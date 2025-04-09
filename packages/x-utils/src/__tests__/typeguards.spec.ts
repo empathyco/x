@@ -5,7 +5,6 @@ describe('typeguards test', () => {
   const num = 0;
   const bool = false;
   // TODO: Migrate noOp function from x-components to x-utils
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const func = (): any => {};
   const arr = [1, 2, 3];
   const obj = {
@@ -58,13 +57,13 @@ describe('typeguards test', () => {
   });
 
   describe('isPath', () => {
-    // eslint-disable-next-line max-len
+     
     it('should return true when the passed path is a valid property path of the passed object', () => {
       expect(isPath(obj, 'a')).toBe(true);
       expect(isPath(obj, 'b.c')).toBe(true);
       expect(isPath(obj, 'b.c.d')).toBe(false);
     });
-    // eslint-disable-next-line max-len
+     
     it('should return true when the passed path is a valid property path of the passed array', () => {
       expect(isPath(arrayOfObj, '0.a')).toBe(true);
       expect(isPath(arrayOfObj, '0.b.c')).toBe(true);

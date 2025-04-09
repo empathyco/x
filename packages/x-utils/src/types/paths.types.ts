@@ -1,4 +1,4 @@
-import { Keys, Primitive } from './utils.types';
+import type { Keys, Primitive } from './utils.types';
 
 /**
  * Extracts all the possible string paths to properties for a given object.
@@ -40,14 +40,14 @@ export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  * @internal
  */
 type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ? // eslint-disable-next-line max-len
+  ?  
     SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
-    : // eslint-disable-next-line max-len
+    :  
     SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
-    : // eslint-disable-next-line @typescript-eslint/ban-types
-      `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+    // eslint-disable-next-line ts/no-unsafe-function-type
+    : `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never;
 
 /**
