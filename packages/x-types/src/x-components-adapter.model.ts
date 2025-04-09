@@ -25,6 +25,10 @@ import type {
   SemanticQueriesResponse,
 } from './response'
 
+/**
+ * XComponentsAdapter.
+ * @public
+ */
 export interface XComponentsAdapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>
   popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>

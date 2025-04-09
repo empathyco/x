@@ -2,6 +2,7 @@ import type { NamedModel } from '../named-model.model'
 
 /**
  * A semantic query is a term related to another in a semantic way.
+ * @public
  */
 export interface SemanticQuery extends NamedModel<'SemanticQuery'> {
   /* A query related to another previously searched. */

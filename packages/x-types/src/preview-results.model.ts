@@ -2,6 +2,7 @@ import type { Result } from './result/result.model'
 
 /**
  * Interface to type the query preview objects.
+ * @public
  */
 export interface PreviewResults {
   /** The searched query. */
