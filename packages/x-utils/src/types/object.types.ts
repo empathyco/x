@@ -9,4 +9,4 @@
  * @public
  */
 export type RequiredProperties<Something, Keys extends keyof Something> = Something &
-  Required<Pick<Something, Keys>>;
+  Required<Pick<Something, Keys>>

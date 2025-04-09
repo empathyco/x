@@ -7,58 +7,31 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-utils
 
-
-
-
-
 ## [1.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.3-alpha.0...@empathyco/x-utils@1.0.3-alpha.1) (2024-02-05)
-
 
 ### Code Refactoring
 
-* **tagging:** change sessionId creation logic from nanoId to UUID (#1398) ([be06367](https://github.com/empathyco/x/commit/be063673bb74559efab5be9bf6f7ec56688c71f9))
-
-
+- **tagging:** change sessionId creation logic from nanoId to UUID (#1398) ([be06367](https://github.com/empathyco/x/commit/be063673bb74559efab5be9bf6f7ec56688c71f9))
 
 ## [1.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.2...@empathyco/x-utils@1.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-utils
 
-
-
-
-
 ## [1.0.2](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.2-alpha.0...@empathyco/x-utils@1.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-utils
-
-
-
-
 
 ## [1.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.1-alpha.0...@empathyco/x-utils@1.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-utils
 
-
-
-
-
 ## [1.0.1](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.1-alpha.0...@empathyco/x-utils@1.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-utils
 
-
-
-
-
 ## [1.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.23...@empathyco/x-utils@1.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-utils
-
-
-
-
 
 # Change Log
 

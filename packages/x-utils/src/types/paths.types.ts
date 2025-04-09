@@ -1,4 +1,4 @@
-import type { Keys, Primitive } from './utils.types';
+import type { Keys, Primitive } from './utils.types'
 
 /**
  * Extracts all the possible string paths to properties for a given object.
@@ -29,7 +29,7 @@ import type { Keys, Primitive } from './utils.types';
  */
 export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
   ? `${number}` | `${number}.${ExtractPath<ArrayType>}`
-  : Keys<SomeObject, string> | ExtractNestedPath<SomeObject, Keys<SomeObject, string>>;
+  : Keys<SomeObject, string> | ExtractNestedPath<SomeObject, Keys<SomeObject, string>>
 
 /**
  * String path for child properties from a given object.
@@ -40,15 +40,13 @@ export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  * @internal
  */
 type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ?  
-    SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
+  ? SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
-    :  
-    SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
-    ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
-    // eslint-disable-next-line ts/no-unsafe-function-type
-    : `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
-  : never;
+    : SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
+      ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
+      : // eslint-disable-next-line ts/no-unsafe-function-type
+        `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+  : never
 
 /**
  * Extracts the property type for the given path from the provided object.
@@ -74,17 +72,17 @@ type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends k
  */
 export type ExtractType<
   SomeObject,
-  Path extends ExtractPath<SomeObject>
+  Path extends ExtractPath<SomeObject>,
 > = Path extends keyof SomeObject
   ? SomeObject[Path]
   : Path extends `${infer Property}.${infer RemainingPath}`
-  ? ExtractType<
-      SomeObject[keyof SomeObject & Property],
-      ExtractPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
-    >
-  : SomeObject extends any[]
-  ? SomeObject[number]
-  : never;
+    ? ExtractType<
+        SomeObject[keyof SomeObject & Property],
+        ExtractPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
+      >
+    : SomeObject extends any[]
+      ? SomeObject[number]
+      : never
 
 /**
  * Extracts the property paths of the provided object that match the given type.
@@ -116,11 +114,11 @@ export type ExtractPathByType<SomeObject, Type> = keyof {
     ? ArrayType extends Type
       ? `${Path}.${number}`
       : Type extends (infer TargetArrayType)[]
-      ? TargetArrayType extends ArrayType
-        ? Path
+        ? TargetArrayType extends ArrayType
+          ? Path
+          : never
         : never
-      : never
     : ExtractType<SomeObject, Path> extends Type
-    ? Path
-    : never]: any;
-};
+      ? Path
+      : never]: any
+}

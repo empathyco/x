@@ -1,5 +1,5 @@
-import type { Dictionary } from './types';
-import { isArray, isObject } from './typeguards';
+import type { Dictionary } from './types'
+import { isArray, isObject } from './typeguards'
 
 /**
  * Iterates over every non-undefined property of the object calling the callback passed as
@@ -11,16 +11,16 @@ import { isArray, isObject } from './typeguards';
  */
 export function forEach<T extends Dictionary>(
   obj: T | undefined | null,
-  callbackFn: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => void
+  callbackFn: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => void,
 ): void {
   if (obj == null) {
-    return;
+    return
   }
 
-  let index = 0;
+  let index = 0
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] !== undefined) {
-      callbackFn(key, obj[key], index++);
+      callbackFn(key, obj[key], index++)
     }
   }
 }
@@ -41,15 +41,15 @@ export function reduce<T extends Dictionary, V>(
     accumulator: V,
     key: keyof T,
     value: Exclude<T[keyof T], undefined>,
-    index: number
+    index: number,
   ) => V,
-  initialValue: V
+  initialValue: V,
 ): V {
-  let accumulator = initialValue;
+  let accumulator = initialValue
   forEach(obj, (key, value, index) => {
-    accumulator = reducer(accumulator, key, value, index);
-  });
-  return accumulator;
+    accumulator = reducer(accumulator, key, value, index)
+  })
+  return accumulator
 }
 
 /**
@@ -62,16 +62,16 @@ export function reduce<T extends Dictionary, V>(
  */
 export function map<T extends Dictionary, W>(
   obj: T | undefined | null,
-  mapper: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => W
+  mapper: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => W,
 ): Record<keyof T, W> {
   return reduce(
     obj,
     (accumulator, key, value, index) => {
-      accumulator[key] = mapper(key, value, index);
-      return accumulator;
+      accumulator[key] = mapper(key, value, index)
+      return accumulator
     },
-    {} as Record<keyof T, W>
-  );
+    {} as Record<keyof T, W>,
+  )
 }
 
 /**
@@ -87,11 +87,11 @@ export function cleanUndefined<T>(obj: T): T {
     : reduce(
         obj,
         (pickedObject, key, value) => {
-          pickedObject[key] = cleanUndefined(value);
-          return pickedObject;
+          pickedObject[key] = cleanUndefined(value)
+          return pickedObject
         },
-        {} as T
-      );
+        {} as T,
+      )
 }
 
 /**
@@ -107,24 +107,24 @@ export function cleanUndefined<T>(obj: T): T {
  * @public
  */
 export function cleanEmpty<SomeObject extends Record<string, unknown>>(
-  obj: SomeObject
+  obj: SomeObject,
 ): SomeObject {
   return reduce(
     obj,
     (pickedObject, key, value) => {
       // FIXME: Clean nested empty arrays too
       if (isObject(value)) {
-        pickedObject[key] = cleanEmpty(value);
+        pickedObject[key] = cleanEmpty(value)
         if (Object.keys(pickedObject[key] as typeof value).length === 0) {
-          delete pickedObject[key];
+          delete pickedObject[key]
         }
       } else if (value !== null && value !== '' && !(isArray(value) && value.length === 0)) {
-        pickedObject[key] = value;
+        pickedObject[key] = value
       }
-      return pickedObject;
+      return pickedObject
     },
-    {} as SomeObject
-  );
+    {} as SomeObject,
+  )
 }
 
 /**
@@ -138,18 +138,18 @@ export function cleanEmpty<SomeObject extends Record<string, unknown>>(
  */
 export function objectFilter<T extends Dictionary>(
   obj: T | undefined | null,
-  isIncluded: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => boolean
+  isIncluded: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => boolean,
 ): T {
   return reduce(
     obj,
     (accumulator, key, value, index) => {
       if (isIncluded(key, value, index)) {
-        accumulator[key] = value;
+        accumulator[key] = value
       }
-      return accumulator;
+      return accumulator
     },
-    {} as T
-  );
+    {} as T,
+  )
 }
 
 /**
@@ -164,13 +164,13 @@ export function objectFilter<T extends Dictionary>(
  */
 export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
   newValue: ObjectType | undefined,
-  oldValue: ObjectType | undefined
+  oldValue: ObjectType | undefined,
 ): (keyof ObjectType)[] {
   if (newValue === oldValue || !newValue || !oldValue) {
-    return [];
+    return []
   }
 
-  return Object.keys(newValue).filter(key => !(key in oldValue) || newValue[key] !== oldValue[key]);
+  return Object.keys(newValue).filter(key => !(key in oldValue) || newValue[key] !== oldValue[key])
 }
 
 /**
@@ -187,13 +187,15 @@ export function every<ObjectType extends Dictionary>(
   condition: (
     key: keyof ObjectType,
     value: Exclude<ObjectType[keyof ObjectType], undefined>,
-    index: number
-  ) => boolean
+    index: number,
+  ) => boolean,
 ): boolean {
-  return Object.entries(object)
-    .filter(([, value]) => value !== undefined)
-    // eslint-disable-next-line ts/no-unsafe-argument
-    .every(([key, value], index) => condition(key, value, index));
+  return (
+    Object.entries(object)
+      .filter(([, value]) => value !== undefined)
+      // eslint-disable-next-line ts/no-unsafe-argument
+      .every(([key, value], index) => condition(key, value, index))
+  )
 }
 
 /**
@@ -204,16 +206,16 @@ export function every<ObjectType extends Dictionary>(
  * @public
  */
 export function flatObject(object: Dictionary): Dictionary {
-  const flattenedObject: Dictionary = {};
+  const flattenedObject: Dictionary = {}
   forEach(object, (key, value) => {
     if (isObject(value)) {
-      Object.assign(flattenedObject, flatObject(value));
+      Object.assign(flattenedObject, flatObject(value))
     } else {
       // eslint-disable-next-line ts/no-unsafe-assignment
-      flattenedObject[key] = value;
+      flattenedObject[key] = value
     }
-  });
-  return flattenedObject;
+  })
+  return flattenedObject
 }
 
 /**
@@ -227,21 +229,21 @@ export function flatObject(object: Dictionary): Dictionary {
 export function rename<
   SomeObject extends Dictionary,
   Prefix extends string = '',
-  Suffix extends string = ''
+  Suffix extends string = '',
 >(
   object: SomeObject,
-  { prefix, suffix }: RenameOptions<Prefix, Suffix>
+  { prefix, suffix }: RenameOptions<Prefix, Suffix>,
 ): Rename<SomeObject, Prefix, Suffix> {
   return reduce(
     object,
     (renamed, key, value) => {
       renamed[
         `${prefix ?? ''}${key as string}${suffix ?? ''}` as keyof Rename<SomeObject, Prefix, Suffix>
-      ] = value;
-      return renamed;
+      ] = value
+      return renamed
     },
-    {} as Rename<SomeObject, Prefix, Suffix>
-  );
+    {} as Rename<SomeObject, Prefix, Suffix>,
+  )
 }
 
 /**
@@ -250,8 +252,8 @@ export function rename<
  * @public
  */
 export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
-  [Key in keyof SomeObject as `${Prefix}${Key & string}${Suffix}`]: SomeObject[Key];
-};
+  [Key in keyof SomeObject as `${Prefix}${Key & string}${Suffix}`]: SomeObject[Key]
+}
 
 /**
  * An optional prefix and suffix.
@@ -259,8 +261,8 @@ export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
  * @public
  */
 interface RenameOptions<Prefix, Suffix> {
-  prefix?: Prefix;
-  suffix?: Suffix;
+  prefix?: Prefix
+  suffix?: Suffix
 }
 
 /**
@@ -274,26 +276,26 @@ interface RenameOptions<Prefix, Suffix> {
  */
 export function deepEqual<ObjectType extends Dictionary>(
   object1: ObjectType | undefined,
-  object2: ObjectType | undefined
+  object2: ObjectType | undefined,
 ): boolean {
   if (object1 === object2) {
-    return true;
+    return true
   }
 
   if (!object1 || !object2 || typeof object1 !== 'object' || typeof object2 !== 'object') {
-    return false;
+    return false
   }
 
-  const keys1 = Object.keys(object1);
-  const keys2 = Object.keys(object2);
+  const keys1 = Object.keys(object1)
+  const keys2 = Object.keys(object2)
 
   if (keys1.length !== keys2.length) {
-    return false;
+    return false
   }
 
   return keys1.length !== keys2.length
     ? false
     : keys1.every(key => {
-        return keys2.includes(key) && deepEqual(object1[key], object2[key]);
-      });
+        return keys2.includes(key) && deepEqual(object1[key], object2[key])
+      })
 }

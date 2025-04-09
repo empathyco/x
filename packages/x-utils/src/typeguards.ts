@@ -1,6 +1,6 @@
-import type { ExtractPath } from './types/paths.types';
-import type { AnyFunction } from './types/utils.types';
-import { getSafePropertyChain } from './get-safe-property-chain';
+import type { ExtractPath } from './types/paths.types'
+import type { AnyFunction } from './types/utils.types'
+import { getSafePropertyChain } from './get-safe-property-chain'
 
 /**
  * Determines whether the passed value is an Array.
@@ -14,7 +14,7 @@ import { getSafePropertyChain } from './get-safe-property-chain';
  * @public
  */
 export function isArray<Type>(value: Type | Type[]): value is Type[] {
-  return Array.isArray(value);
+  return Array.isArray(value)
 }
 
 /**
@@ -27,7 +27,7 @@ export function isArray<Type>(value: Type | Type[]): value is Type[] {
  * @public
  */
 export function isFunction(value: any): value is AnyFunction {
-  return Boolean(value) && typeof value === 'function';
+  return Boolean(value) && typeof value === 'function'
 }
 
 /**
@@ -40,7 +40,7 @@ export function isFunction(value: any): value is AnyFunction {
  * @public
  */
 export function isObject(value: any): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
 }
 
 /**
@@ -55,7 +55,7 @@ export function isObject(value: any): value is Record<string, unknown> {
  */
 export function isPath<SomeObject, Path extends ExtractPath<SomeObject>>(
   obj: SomeObject,
-  path: string
+  path: string,
 ): path is Path {
-  return getSafePropertyChain(obj, path as Path) !== undefined;
+  return getSafePropertyChain(obj, path as Path) !== undefined
 }
