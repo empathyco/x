@@ -5,9 +5,15 @@ import type { RelatedPromptsXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
  * prompts module.
+ * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
+ * related prompts' module.
  * @returns The related prompts request to fetch data from the API.
+ *
  * @public
  */
-export const request: RelatedPromptsXStoreModule['getters']['request'] = ({ params, query }) => {
+export const request: RelatedPromptsXStoreModule['getters']['request'] = (
+  { params },
+  { query },
+) => {
   return query ? { query, extraParams: params } : null
 }

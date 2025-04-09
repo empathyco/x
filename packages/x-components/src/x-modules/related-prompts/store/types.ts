@@ -1,4 +1,4 @@
-import type { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types'
+import type { RelatedPrompt, RelatedPromptsRequest, RelatedTag } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { XActionContext, XStoreModule } from '../../../store'
 import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
@@ -19,6 +19,8 @@ export interface RelatedPromptsState extends StatusState, QueryState {
   selectedQuery: number
   /** The extra params property of the state. */
   params: Dictionary<unknown>
+  /** The list of the related tags, related to the `query` property of the state. */
+  relatedTags: RelatedTag[]
 }
 
 /**
@@ -32,6 +34,8 @@ export interface RelatedPromptsGetters {
    * no valid data to conform a valid request.
    */
   request: RelatedPromptsRequest | null
+  /** The combination of the query and the selected related tags. */
+  query: string
 }
 
 /**
@@ -64,6 +68,12 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * @param index - The new selected next query.
    */
   setSelectedQuery: (index: number) => void
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param relatedTags - The new related tags to save to the state.
+   */
+  setRelatedPromptsRelatedTags: (relatedTags: RelatedTag[]) => void
   /**
    * Resets the related prompts state.
    */

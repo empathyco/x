@@ -7,6 +7,7 @@ import {
 } from './actions/fetch-and-save-related-prompts.action'
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action'
 import { setUrlParams } from './actions/set-url-params.action'
+import { query } from './getters/related-prompts-query.getter'
 import { request } from './getters/request.getter'
 
 /**
@@ -22,9 +23,11 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     selectedQuery: -1,
     status: 'initial',
     params: {},
+    relatedTags: [],
   }),
   getters: {
     request,
+    query,
   },
   mutations: {
     setStatus,
@@ -48,6 +51,9 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     },
     resetSelectedPrompt(state) {
       state.selectedPrompt = -1
+    },
+    setRelatedPromptsRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags
     },
   },
   actions: {

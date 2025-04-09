@@ -34,9 +34,9 @@
   "prettier": "@empathyco/eslint-config/prettier",
   "lint-staged": {
     "*.{ts,tsx,vue}": [
-      "prettier --write",
-      "cross-env NODE_ENV=production eslint --fix"
+      "prettier --check",
+      "npm run lint:check"
     ],
-    "*.{md,js,json}": "prettier --write"
+    "*.{md,js,json}": "prettier --check"
   }
 }
