@@ -1,10 +1,10 @@
-import type { CommandParameters, SVGInfo } from './types';
-import { exec } from 'node:child_process';
-import fs from 'node:fs';
-import { applyXDSFormat } from './regex-utils';
+import type { CommandParameters, SVGInfo } from './types'
+import { exec } from 'node:child_process'
+import fs from 'node:fs'
+import { applyXDSFormat } from './regex-utils'
 
 if (require.main === module) {
-  svgToVue();
+  svgToVue()
 }
 
 /**
@@ -14,13 +14,13 @@ if (require.main === module) {
  *
  */
 export function svgToVue(): void {
-  const svgList = loadSVGsFromFolder();
-  svgList.forEach(writeVueFromSVG);
+  const svgList = loadSVGsFromFolder()
+  svgList.forEach(writeVueFromSVG)
 
-  runPrettier();
+  runPrettier()
 
   if (!getParams().keepSVGs) {
-    svgList.forEach(removeSourceSVG);
+    svgList.forEach(removeSourceSVG)
   }
 }
 
@@ -30,9 +30,9 @@ export function svgToVue(): void {
  * @returns A list of objects with the info of the SVGs found.
  */
 function loadSVGsFromFolder(): SVGInfo[] {
-  const { sourcePath } = getParams();
+  const { sourcePath } = getParams()
   if (!fs.existsSync(sourcePath)) {
-    throw new Error(`loadSVGsFromFolder, folder not found ${sourcePath}`);
+    throw new Error(`loadSVGsFromFolder, folder not found ${sourcePath}`)
   }
 
   return fs
@@ -40,8 +40,8 @@ function loadSVGsFromFolder(): SVGInfo[] {
     .filter(fileName => fileName.endsWith('.svg'))
     .map(fileFullName => ({
       fileName: fileFullName.replace(/.svg$/, ''),
-      svgData: fs.readFileSync(`${sourcePath}/${fileFullName}`, { encoding: 'utf8' })
-    }));
+      svgData: fs.readFileSync(`${sourcePath}/${fileFullName}`, { encoding: 'utf8' }),
+    }))
 }
 
 /**
@@ -51,11 +51,11 @@ function loadSVGsFromFolder(): SVGInfo[] {
  * @param svgInfo - The object containing the info of the SVG to generate the Vue component from.
  */
 function writeVueFromSVG(svgInfo: SVGInfo): void {
-  const { sourcePath } = getParams();
-  const processedSvg = applyXDSFormat(svgInfo.svgData);
+  const { sourcePath } = getParams()
+  const processedSvg = applyXDSFormat(svgInfo.svgData)
 
   if (fs.existsSync(sourcePath)) {
-    fs.writeFileSync(`${sourcePath}/${svgInfo.fileName}.vue`, wrapAsVueComponent(processedSvg));
+    fs.writeFileSync(`${sourcePath}/${svgInfo.fileName}.vue`, wrapAsVueComponent(processedSvg))
   }
 }
 
@@ -73,7 +73,7 @@ function wrapAsVueComponent(svg: SVGInfo['svgData']): string {
 
 <script lang="ts">
   export default {};
-</script>`;
+</script>`
 }
 
 /**
@@ -83,25 +83,25 @@ function wrapAsVueComponent(svg: SVGInfo['svgData']): string {
  */
 function getParams(): CommandParameters {
   // eslint-disable-next-line node/prefer-global/process
-  const [sourcePath, keepSVGs] = process.argv.slice(2);
+  const [sourcePath, keepSVGs] = process.argv.slice(2)
   if (sourcePath === undefined) {
-    throw new Error('getParams, sourcePath not found');
+    throw new Error('getParams, sourcePath not found')
   }
 
-  return { sourcePath, keepSVGs: keepSVGs === '--keep-svgs' };
+  return { sourcePath, keepSVGs: keepSVGs === '--keep-svgs' }
 }
 
 /**
  * Runs the prettier command to format the .vue files inside the sourcePath.
  */
 function runPrettier(): void {
-  const { sourcePath } = getParams();
+  const { sourcePath } = getParams()
 
   exec(`prettier --write ${sourcePath}/*.vue`, error => {
     if (error) {
-      throw new Error(`runPrettier, ${error.message}`);
+      throw new Error(`runPrettier, ${error.message}`)
     }
-  });
+  })
 }
 
 /**
@@ -110,13 +110,13 @@ function runPrettier(): void {
  * @param svgInfo - The info of the SVG that will be removed.
  */
 function removeSourceSVG(svgInfo: SVGInfo): void {
-  const { sourcePath } = getParams();
-  const filePath = `${sourcePath}/${svgInfo.fileName}.svg`;
+  const { sourcePath } = getParams()
+  const filePath = `${sourcePath}/${svgInfo.fileName}.svg`
   if (fs.existsSync(filePath)) {
     fs.unlink(filePath, error => {
       if (error) {
-        throw new Error(`removeSourceSVG, ${error.message}`);
+        throw new Error(`removeSourceSVG, ${error.message}`)
       }
-    });
+    })
   }
 }

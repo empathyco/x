@@ -6,12 +6,12 @@
  * @returns The processed SVG.
  */
 export function applyXDSFormat(svg: string): string {
-  let processedSvg = removeDimensions(svg);
-  processedSvg = addFillNoneInRoot(processedSvg);
-  processedSvg = addXClass(processedSvg);
-  processedSvg = replaceColorWithCurrentColor(processedSvg);
+  let processedSvg = removeDimensions(svg)
+  processedSvg = addFillNoneInRoot(processedSvg)
+  processedSvg = addXClass(processedSvg)
+  processedSvg = replaceColorWithCurrentColor(processedSvg)
 
-  return processedSvg.replace(/ {2,}/g, ' ');
+  return processedSvg.replace(/ {2,}/g, ' ')
 }
 
 /**
@@ -23,8 +23,8 @@ export function applyXDSFormat(svg: string): string {
  */
 export function removeDimensions(svg: string): string {
   // eslint-disable-next-line regexp/no-unused-capturing-group
-  const matchDimensions = /(?<=<svg.*?)((width|height)="\d*")(?=.*?>)/g;
-  return svg.replace(matchDimensions, '');
+  const matchDimensions = /(?<=<svg.*?)((width|height)="\d*")(?=.*?>)/g
+  return svg.replace(matchDimensions, '')
 }
 
 /**
@@ -35,8 +35,8 @@ export function removeDimensions(svg: string): string {
  * @returns The processed SVG.
  */
 export function addFillNoneInRoot(svg: string): string {
-  const matchRootWithoutFillNone = /svg (?!.*?fill="none")(?=.*?>)/g;
-  return svg.replace(matchRootWithoutFillNone, 'svg fill="none" ');
+  const matchRootWithoutFillNone = /svg (?!.*?fill="none")(?=.*?>)/g
+  return svg.replace(matchRootWithoutFillNone, 'svg fill="none" ')
 }
 
 /**
@@ -47,8 +47,8 @@ export function addFillNoneInRoot(svg: string): string {
  * @returns The processed SVG.
  */
 export function addXClass(svg: string): string {
-  const matchRoot = /svg /g;
-  return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)" ');
+  const matchRoot = /svg /g
+  return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)" ')
 }
 
 /**
@@ -60,6 +60,6 @@ export function addXClass(svg: string): string {
  */
 export function replaceColorWithCurrentColor(svg: string): string {
   // eslint-disable-next-line regexp/no-unused-capturing-group
-  const matchColoredFillOrStroke = /(?<=(fill|stroke)=")(?!#f{3,}"|white|none).*?(?=")/gi;
-  return svg.replace(matchColoredFillOrStroke, 'currentColor');
+  const matchColoredFillOrStroke = /(?<=(fill|stroke)=")(?!#f{3,}"|white|none).*?(?=")/gi
+  return svg.replace(matchColoredFillOrStroke, 'currentColor')
 }
