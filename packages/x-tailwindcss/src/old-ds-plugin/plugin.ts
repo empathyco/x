@@ -1,6 +1,7 @@
-import { Dictionary, reduce } from '@empathyco/x-utils';
+import type { Dictionary} from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../types';
+import { reduce } from '@empathyco/x-utils';
 import plugin from 'tailwindcss/plugin';
-import { TailwindHelpers } from '../types';
 
 /**
  * Maps a `Dictionary` to another with the same properties but adding a prefix the keys.
@@ -33,7 +34,8 @@ type PrefixObject<SomeObject extends Dictionary, Prefix extends string> = {
 /**
  * Integrates tailwind theme with the old design system tokens.
  */
-export default plugin(function ({ addBase, theme }: TailwindHelpers) {
+// eslint-disable-next-line ts/unbound-method
+export default plugin(({ addBase, theme }: TailwindHelpers) => {
   addBase({
     ':root': {
       // COLOR

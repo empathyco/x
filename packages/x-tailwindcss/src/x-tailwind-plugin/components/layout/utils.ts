@@ -1,13 +1,12 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 
 /**
  * Returns the component `layout` utils CSS.
  *
- * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @param _helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function utils(helpers: TailwindHelpers) {
+export function utils(_helpers: TailwindHelpers) {
   return {
     '.x-layout-stack': {
       display: 'grid',

@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { noBackground } from './utils/no-background';
 import { noHorizontalPadding } from './utils/no-horizontal-padding';
 

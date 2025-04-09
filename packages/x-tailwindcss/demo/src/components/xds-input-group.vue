@@ -1,16 +1,16 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Input Group"
     :sections="sections"
   >
     <div
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
     >
       <CuratedIcon class="x-icon" />
       <input
@@ -23,27 +23,27 @@
         "
       />
       <button
-        @click.stop="copyCssClassesToClipboard"
         :disabled="section === 'Disabled'"
         class="x-button x-input-group-button"
+        @click.stop="copyCssClassesToClipboard"
       >
         <CrossIcon class="x-icon" />
       </button>
       <button
-        @click.stop="copyCssClassesToClipboard"
         :disabled="section === 'Disabled'"
         class="x-button x-input-group-button x-input-group-button-rectangle"
+        @click.stop="copyCssClassesToClipboard"
       >
         clear
       </button>
       <button
-        @click.stop="copyCssClassesToClipboard"
         :disabled="section === 'Disabled'"
         class="x-button x-input-group-button-primary"
         :class="{
           'x-input-group-button-outlined': section.includes('Outlined'),
           'x-input-group-button-ghost': section.includes('Ghost')
         }"
+        @click.stop="copyCssClassesToClipboard"
       >
         <CheckIcon class="x-icon" />
       </button>
@@ -52,13 +52,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import CrossIcon from './icons/cross.vue';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
   import CheckIcon from './icons/check.vue';
+  import CrossIcon from './icons/cross.vue';
   import CuratedIcon from './icons/curated.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({
     components: {

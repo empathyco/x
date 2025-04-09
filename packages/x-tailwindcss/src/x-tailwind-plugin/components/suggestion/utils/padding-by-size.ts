@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types';
 
 /**
  * Util to return paddings for each size for variants with horizontal padding.

@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 import { noBackground } from './utils/no-background';
 import { noHorizontalPadding } from './utils/no-horizontal-padding';
 

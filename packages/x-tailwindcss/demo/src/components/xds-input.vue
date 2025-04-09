@@ -1,23 +1,24 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Input"
     :sections="sections"
   >
     <input
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
       :placeholder="removeClassPrefix(cssClass, base).trim() || 'input'"
+      @click="copyCssClassesToClipboard"
     />
   </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

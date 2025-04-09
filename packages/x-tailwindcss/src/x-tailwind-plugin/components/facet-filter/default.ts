@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
 import { facetFilterSizes } from './sizes';
 

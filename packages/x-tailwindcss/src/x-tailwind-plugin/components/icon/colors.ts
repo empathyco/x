@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { map, rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
 import { mapColors } from '../../utils/map-colors';
 
 /**

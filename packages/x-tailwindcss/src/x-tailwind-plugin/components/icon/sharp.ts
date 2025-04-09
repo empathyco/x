@@ -1,14 +1,12 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 
-/* eslint-disable  @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Returns the `sharp` variants for component `icon`.
  *
- * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @param _helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function iconSharp(helpers: TailwindHelpers) {
+export function iconSharp(_helpers: TailwindHelpers) {
   return {
     sharp: {
       '*': {

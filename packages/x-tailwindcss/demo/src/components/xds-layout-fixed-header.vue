@@ -1,10 +1,10 @@
 <template>
-  <XdsBaseShowcase #default="{ cssClass }" title="Layout fixed header" :sections="sections">
+  <XdsBaseShowcase v-slot="{ cssClass }" title="Layout fixed header" :sections="sections">
     <label for="layout-fixed-header-modal" class="x-button">Open layout example</label>
     <input id="layout-fixed-header-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-white">
-      <div :class="[cssClass, 'x-layout-min-margin-48 bg-gray-100']">
+      <div class="x-layout-min-margin-48 bg-gray-100" :class="[cssClass]">
         <div class="x-scroll flex flex-col">
           <div class="x-layout-item border-b-1 sticky top-0 border-gray-300 bg-white">
             <div class="flex items-center justify-between py-2">
@@ -50,8 +50,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({

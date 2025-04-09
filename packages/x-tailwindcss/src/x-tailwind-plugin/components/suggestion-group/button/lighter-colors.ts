@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
 import { mapColors } from '../../../utils/map-colors';
 /**
  * Returns the `color` variants for component `suggestion group button lighter`.

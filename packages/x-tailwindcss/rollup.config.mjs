@@ -1,7 +1,7 @@
-import { resolve } from 'path';
-import typescript from 'rollup-plugin-typescript2';
+import { resolve } from 'node:path';
+import * as url from 'node:url';
 import commonjs from '@rollup/plugin-commonjs';
-import * as url from 'url';
+import typescript from 'rollup-plugin-typescript2';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export default {

@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, copyCssClassesToClipboard }"
     title="Scroll"
     :sections="sections"
   >
     <div
-      @keydown="copyCssClassesToClipboard"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       class="h-[200px] w-[200px] bg-amber-400"
+      @keydown="copyCssClassesToClipboard"
+      @click="copyCssClassesToClipboard"
     >
       <div :key="cssClass" class="h-[1000px]"></div>
     </div>
@@ -16,8 +16,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({

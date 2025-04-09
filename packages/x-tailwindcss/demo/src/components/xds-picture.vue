@@ -1,17 +1,17 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, copyCssClassesToClipboard }"
     title="Picture"
     :sections="sections"
   >
     <div
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       style="width: 200px"
       class="bg-white/60"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
     >
       <img
         src="https://assets.empathy.co/images-demo/2885.jpg"
@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

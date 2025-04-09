@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { inputDefault } from '../input/default';
 
 /**
@@ -10,6 +10,7 @@ import { inputDefault } from '../input/default';
  */
 export function inputGroupDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
+  // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(inputDefault(helpers), {
     display: 'flex',
     flexFlow: 'row nowrap',

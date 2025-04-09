@@ -1,15 +1,15 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Tag"
     :sections="sections"
   >
     <button
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
+      @click="copyCssClassesToClipboard"
     >
       {{ removeClassPrefix(cssClass, base) }} tag
       <PlusIcon class="x-icon" />
@@ -18,11 +18,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { computed, defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
   import PlusIcon from './icons/plus.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({
     components: {
@@ -88,21 +89,21 @@
         Default: [props.base],
         Sizes: props.sizes.map(addParentClasses(props.base)),
         Colors: props.colors.map(addParentClasses(props.base)),
-        ['Default Selected']: props.colors.map(addParentClasses(props.base, props.selected)),
+        'Default Selected': props.colors.map(addParentClasses(props.base, props.selected)),
         Outlined: props.colors.map(addParentClasses(props.base, props.outlined)),
-        ['Outlined Selected']: props.colors.map(
+        'Outlined Selected': props.colors.map(
           addParentClasses(props.base, props.selected, props.outlined)
         ),
         Solid: props.colors.map(addParentClasses(props.base, props.solid)),
-        ['Solid Selected']: props.colors.map(
+        'Solid Selected': props.colors.map(
           addParentClasses(props.base, props.selected, props.solid)
         ),
         Ghost: props.colors.map(addParentClasses(props.base, props.ghost)),
-        ['Ghost Selected']: props.colors.map(
+        'Ghost Selected': props.colors.map(
           addParentClasses(props.base, props.selected, props.ghost)
         ),
         Tight: props.colors.map(addParentClasses(props.base, props.tight)),
-        ['Tight Selected']: props.colors.map(
+        'Tight Selected': props.colors.map(
           addParentClasses(props.base, props.selected, props.tight)
         ),
         Disabled: [

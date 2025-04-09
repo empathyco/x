@@ -1,7 +1,7 @@
-import { ExtractPath } from '@empathyco/x-utils';
-import { PluginAPI } from 'tailwindcss/types/config';
-import { Config } from 'tailwindcss';
-import Theme from './x-tailwind-plugin/theme';
+import type { ExtractPath } from '@empathyco/x-utils';
+import type { Config } from 'tailwindcss';
+import type { PluginAPI } from 'tailwindcss/types/config';
+import type Theme from './x-tailwind-plugin/theme';
 
 /**
  * Represents a `CSS` variable name.
@@ -67,12 +67,12 @@ type CssPseudoSelector = `:${string}`;
  *
  * @public
  */
-export type CssStyleOptions = {
+export interface CssStyleOptions {
   [Key: CssClassSelector | CssNestedSelector | CssPseudoSelector]:
     | CssStyleOptions
     | Partial<CSSStyleDeclaration>;
   [Key: CssVariable]: string & Partial<TailwindHelpers>;
-};
+}
 
 /**
  * All the tailwind helpers provided by the plugin.

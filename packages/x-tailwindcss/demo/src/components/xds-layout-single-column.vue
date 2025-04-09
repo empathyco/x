@@ -1,10 +1,10 @@
 <template>
-  <XdsBaseShowcase #default="{ cssClass }" title="Layout single column" :sections="sections">
+  <XdsBaseShowcase v-slot="{ cssClass }" title="Layout single column" :sections="sections">
     <label for="layout-single-column-modal" class="x-button">Open layout example</label>
     <input id="layout-single-column-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-white">
-      <div :class="[cssClass, 'x-layout-min-margin-48']">
+      <div class="x-layout-min-margin-48" :class="[cssClass]">
         <div class="x-layout-item border-b border-gray-400 bg-white">
           <div class="flex items-center justify-between py-2">
             <span class="x-title3">SINGLE COLUMN LAYOUT</span>
@@ -48,8 +48,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({

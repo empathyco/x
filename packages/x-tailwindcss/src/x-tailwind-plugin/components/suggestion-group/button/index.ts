@@ -1,10 +1,10 @@
+import type { TailwindHelpers } from '../../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
 import { suggestionGroupButtonDefault } from './default';
 import { suggestionGroupButtonGhost } from './ghost';
-import { suggestionGroupButtonRectangle } from './rectangle';
-import { suggestionGroupLighterColors } from './lighter-colors';
 import { suggestionGroupButtonLighter } from './lighter';
+import { suggestionGroupLighterColors } from './lighter-colors';
+import { suggestionGroupButtonRectangle } from './rectangle';
 
 /**
  * Returns the component `suggestion group button` CSS.

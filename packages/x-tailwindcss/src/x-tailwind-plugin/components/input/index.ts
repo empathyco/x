@@ -1,10 +1,10 @@
-import { rename } from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
-import { inputDefault } from './default';
+import { rename } from '@empathyco/x-utils';
 import { inputColors } from './colors';
-import { inputSizes } from './sizes';
+import { inputDefault } from './default';
 import { inputLine } from './line';
+import { inputSizes } from './sizes';
 
 /**
  * Returns the component `input` CSS.

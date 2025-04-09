@@ -1,5 +1,5 @@
 <template>
-  <XdsBaseShowcase #default="{ copyCssClassesToClipboard }" title="Layout" :sections="sections">
+  <XdsBaseShowcase v-slot="{ copyCssClassesToClipboard }" title="Layout" :sections="sections">
     <label for="layout-modal" class="x-button">See layouts</label>
     <input id="layout-modal" type="checkbox" class="modal-toggle" />
 
@@ -21,11 +21,11 @@
           </div>
           <code class="px-4 py-2">{{ cssClass }}</code>
           <div
-            @click="copyCssClassesToClipboard"
-            @keydown="copyCssClassesToClipboard"
             :class="cssClass"
             title="Click me to copy CSS classes"
             class="w-full bg-gray-300"
+            @click="copyCssClassesToClipboard"
+            @keydown="copyCssClassesToClipboard"
           >
             <div class="x-layout-item"><span class="bg-gray-400 p-2">item</span></div>
           </div>
@@ -36,8 +36,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

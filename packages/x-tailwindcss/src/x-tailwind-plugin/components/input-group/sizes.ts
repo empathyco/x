@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { inputSizes } from '../input/sizes';
 
 /**
@@ -10,6 +10,7 @@ import { inputSizes } from '../input/sizes';
  */
 export function inputGroupSizes(helpers: TailwindHelpers) {
   const { theme } = helpers;
+  // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(inputSizes(helpers), {
     sm: {
       '--input-group-button-font-size': theme('x.fontSize.xs'),

@@ -1,16 +1,16 @@
 <template>
   <XdsBaseShowcase
+    v-slot="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
     title="Progress Bar"
     :sections="sections"
-    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
   >
     <div class="lex-col flex gap-4">
       <h3 class="text-sm">{{ removeClassPrefix(cssClass, base).trim() || 'default' }}</h3>
       <div
-        @click="copyCssClassesToClipboard"
-        @keyup="copyCssClassesToClipboard"
         class="w-[320px]"
         :class="cssClass"
+        @click="copyCssClassesToClipboard"
+        @keyup="copyCssClassesToClipboard"
       >
         <div class="x-progress-bar-fill w-[30%]" />
       </div>
@@ -19,8 +19,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { computed, defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

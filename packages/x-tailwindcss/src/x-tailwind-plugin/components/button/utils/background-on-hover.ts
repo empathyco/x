@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types';
 
 /**
  * Util to add background on hover for component `button`.

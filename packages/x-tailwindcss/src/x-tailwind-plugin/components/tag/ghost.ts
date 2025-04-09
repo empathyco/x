@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 
 /**
  * Returns the `ghost` styles for component `tag`.

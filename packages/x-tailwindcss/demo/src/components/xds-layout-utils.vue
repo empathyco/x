@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase
-    #default="{ copyCssClassesToClipboard }"
+    v-slot="{ copyCssClassesToClipboard }"
     title="Layout utilities"
     :sections="sections"
   >
@@ -30,10 +30,10 @@
 
               <div
                 :key="cssClass"
-                @click="copyCssClassesToClipboard"
-                @keydown="copyCssClassesToClipboard"
                 :class="cssClass"
                 title="Click me to copy CSS classes"
+                @click="copyCssClassesToClipboard"
+                @keydown="copyCssClassesToClipboard"
               >
                 <span class="w-[80%] justify-self-center bg-gray-400 p-2">This is overlapping</span>
               </div>
@@ -50,10 +50,10 @@
                 </div>
                 <div
                   :key="cssClass"
-                  @click="copyCssClassesToClipboard"
-                  @keydown="copyCssClassesToClipboard"
                   :class="cssClass"
                   title="Click me to copy CSS classes"
+                  @click="copyCssClassesToClipboard"
+                  @keydown="copyCssClassesToClipboard"
                 >
                   <div class="bg-gray-400 p-2">
                     {{ cssClass }}
@@ -68,10 +68,10 @@
             <div
               v-else
               :key="cssClass"
-              @click="copyCssClassesToClipboard"
-              @keydown="copyCssClassesToClipboard"
               :class="cssClass"
               title="Click me to copy CSS classes"
+              @click="copyCssClassesToClipboard"
+              @keydown="copyCssClassesToClipboard"
             >
               <span class="self-stretch bg-gray-300 p-2">item</span>
             </div>
@@ -83,8 +83,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

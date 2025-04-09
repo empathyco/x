@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 
 /**
  * Returns the `outlined` variant for component `suggestion group`.
@@ -12,7 +12,6 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
     outlined: {
       backgroundColor: theme('x.colors.neutral.0'),
       borderWidth: theme('x.borderWidth.1'),
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       borderColor: `var(--suggestion-group-color-75, ${theme('x.colors.neutral.90')})`,
       gap: theme('x.spacing.4'),
       '&:hover': {

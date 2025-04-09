@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { inputSizes } from './sizes';
 
 /**
@@ -10,6 +10,7 @@ import { inputSizes } from './sizes';
  */
 export function inputDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
+  // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(
     {
       paddingInlineStart: theme('x.x.spacing.16'),

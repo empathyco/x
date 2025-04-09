@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard }"
     title="Sliding panel"
     :sections="sections"
   >
     <div
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
     >
       <button class="x-button x-sliding-panel-button-left">ᐸ</button>
       <div
@@ -35,8 +35,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
@@ -88,9 +89,9 @@
         combinations: [
           'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
           'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
-          // eslint-disable-next-line max-len
+           
           'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-          // eslint-disable-next-line max-len
+           
           'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
         ]
       };

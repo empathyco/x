@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
 import { paddingBySize } from './padding-by-size';
 
 /**

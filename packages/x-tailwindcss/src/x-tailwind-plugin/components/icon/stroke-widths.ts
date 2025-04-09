@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { map, rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
 
 /**
  * Returns the `stroke-width` variants for component `icon`.

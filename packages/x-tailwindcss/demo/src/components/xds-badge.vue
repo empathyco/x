@@ -1,25 +1,25 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, removeClassPrefix, copyCssClassesToClipboard, section }"
+    v-slot="{ cssClass, removeClassPrefix, copyCssClassesToClipboard, section }"
     title="Badge"
     :sections="sections"
-    :sectionsClasses="sectionClasses"
+    :sections-classes="sectionClasses"
   >
     <button v-if="cssClass.includes('attach')" class="x-button x-attach-container">
       {{ removeClassPrefix(cssClass, base) }}
       <span
+        :class="cssClass"
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
-        :class="cssClass"
       >
         10
       </span>
     </button>
     <span
       v-else
+      :class="cssClass"
       @click="copyCssClassesToClipboard"
       @keydown="copyCssClassesToClipboard"
-      :class="cssClass"
     >
       <CuratedIcon v-if="section === 'WithIcon'" class="x-icon" />
       <template v-else>
@@ -30,11 +30,12 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { ShowcaseSectionsClasses } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSectionsClasses } from '../types/types';
+  import { computed, defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
   import CuratedIcon from './icons/curated.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   type Sections =
     | 'Default'

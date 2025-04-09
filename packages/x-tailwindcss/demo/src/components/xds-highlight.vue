@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard }"
     title="Highlight"
     :sections="sections"
   >
     <button
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
+      @click="copyCssClassesToClipboard"
     >
       <span>{{ section.substring(0, 3) }}</span>
       <span class="x-highlight-text-match">{{ section.substring(3) }}</span>
@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({

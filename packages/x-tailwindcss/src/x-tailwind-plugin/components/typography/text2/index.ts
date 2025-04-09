@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
 import { textDefault } from './default';
 import { textSizes } from './sizes';
 

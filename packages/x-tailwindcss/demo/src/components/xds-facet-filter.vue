@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard, section }"
+    v-slot="{ cssClass, copyCssClassesToClipboard, section }"
     title="Facet Filter"
     :sections="sections"
   >
     <button
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       :style="section === 'Default' ? { width: '200px' } : ''"
       :disabled="section === 'Disabled'"
+      @click="copyCssClassesToClipboard"
     >
       <CheckIcon
         v-if="cssClass.includes('x-selected')"
@@ -26,7 +26,7 @@
 
       <span
         v-if="section === 'Combinations'"
-        :class="{ 'x-badge x-badge-circle x-badge-light x-badge-lead': true }"
+        class="x-badge x-badge-circle x-badge-light x-badge-lead"
       >
         1
       </span>
@@ -36,12 +36,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
   import CheckIcon from './icons/check.vue';
   import UncheckIcon from './icons/uncheck.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({
     components: { CheckIcon, XdsBaseShowcase, UncheckIcon },
@@ -89,7 +90,7 @@
         default: () => [
           'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
           'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
-          // eslint-disable-next-line max-len
+           
           'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected'
         ]
       }

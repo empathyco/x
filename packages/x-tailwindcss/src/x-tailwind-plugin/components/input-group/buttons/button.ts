@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types';
 
 /**
  * Returns the styles for component `input-group-button`.

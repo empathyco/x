@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { backgroundOnHover } from './utils/background-on-hover';
 import { noBackground } from './utils/no-background';
 

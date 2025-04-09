@@ -1,6 +1,6 @@
+import type { CssStyleOptions, TailwindHelpers } from '../../types';
+import type pluginTheme from '../theme';
 import { reduce } from '@empathyco/x-utils';
-import { CssStyleOptions, TailwindHelpers } from '../../types';
-import pluginTheme from '../theme';
 
 /**
  * Type of the colors from Theme.

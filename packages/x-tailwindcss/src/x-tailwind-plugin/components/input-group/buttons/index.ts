@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types';
 import { inputGroupButton } from './button';
 import { inputGroupButtonGhost } from './button-ghost';
 import { inputGroupButtonOutlined } from './button-outlined';

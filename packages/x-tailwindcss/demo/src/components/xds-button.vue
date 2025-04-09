@@ -1,15 +1,15 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Button"
     :sections="sections"
   >
     <button
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
+      @click="copyCssClassesToClipboard"
     >
       <CuratedIcon class="x-icon" />
       <span v-if="!cssClass.includes('circle') && !cssClass.includes('square')">
@@ -20,11 +20,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
   import CuratedIcon from './icons/curated.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({
     components: {
@@ -96,21 +97,21 @@
           Sizes: this.sizes.map(addParentClasses(this.base)),
           Layout: this.layouts.map(addParentClasses(this.base)),
           Colors: this.colors.map(addParentClasses(this.base)),
-          ['Default Selected']: this.colors.map(addParentClasses(this.base, this.selected)),
+          'Default Selected': this.colors.map(addParentClasses(this.base, this.selected)),
           Outline: this.colors.map(addParentClasses(this.base, this.outline)),
-          ['Outline Selected']: this.colors.map(
+          'Outline Selected': this.colors.map(
             addParentClasses(this.base, this.selected, this.outline)
           ),
           Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
-          ['Ghost Selected']: this.colors.map(
+          'Ghost Selected': this.colors.map(
             addParentClasses(this.base, this.selected, this.ghost)
           ),
           Tight: this.colors.map(addParentClasses(this.base, this.tight)),
-          ['Tight Selected']: this.colors.map(
+          'Tight Selected': this.colors.map(
             addParentClasses(this.base, this.selected, this.tight)
           ),
           Link: this.colors.map(addParentClasses(this.base, this.link)),
-          ['Link Selected']: this.colors.map(addParentClasses(this.base, this.selected, this.link)),
+          'Link Selected': this.colors.map(addParentClasses(this.base, this.selected, this.link)),
           Disabled: [
             this.base,
             addParentClasses(this.base)(this.selected),

@@ -1,7 +1,7 @@
+import type { TailwindHelpers } from '../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { suggestionDefault } from './default';
 import { suggestionColors } from './colors';
+import { suggestionDefault } from './default';
 import { suggestionGhost } from './ghost';
 import { suggestionOutlined } from './outlined';
 import { suggestionSizes } from './sizes';

@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 import { mapColors } from '../../utils/map-colors';
 
 /**

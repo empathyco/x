@@ -3,17 +3,17 @@
     <XdsBaseShowcase
       v-for="(type, key) in typography"
       :key="key"
-      #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
+      v-slot="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
       :title="key"
       :sections="sections(type)"
     >
       <h1>{{ removeClassPrefix(cssClass, type.base) }}</h1>
       <p
         :key="cssClass"
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         title="Click me to copy CSS classes"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce gravida posuere nisi, sed
         porttitor sem semper ac. Aliquam erat volutpat
@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
+  import type { ShowcaseSections } from '../types/types';
   import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 

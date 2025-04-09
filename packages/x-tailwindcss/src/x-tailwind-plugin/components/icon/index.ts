@@ -1,8 +1,8 @@
+import type { TailwindHelpers } from '../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
+import { iconBackgroundColors } from './background-colors';
 import { iconColors } from './colors';
 import { iconDefault } from './default';
-import { iconBackgroundColors } from './background-colors';
 import { iconSharp } from './sharp';
 import { iconSizes } from './sizes';
 import { iconStrokeWidths } from './stroke-widths';

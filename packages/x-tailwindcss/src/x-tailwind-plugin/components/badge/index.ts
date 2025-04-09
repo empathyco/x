@@ -1,12 +1,12 @@
+import type { TailwindHelpers } from '../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { badgeDefault } from './default';
-import { badgeSizes } from './sizes';
+import { badgeBright } from './bright';
+import { badgeCircle } from './circle';
 import { badgeColors } from './colors';
+import { badgeDefault } from './default';
 import { badgeLight } from './light';
 import { badgeOutlined } from './outlined';
-import { badgeCircle } from './circle';
-import { badgeBright } from './bright';
+import { badgeSizes } from './sizes';
 
 /**
  * Returns the component `badge` CSS.

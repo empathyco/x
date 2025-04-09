@@ -1,15 +1,15 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Suggestion"
     :sections="sections"
   >
     <button
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       :style="section === 'Default' ? { width: '120px' } : ''"
       title="Click me to copy CSS classes"
+      @click="copyCssClassesToClipboard"
     >
       <CuratedIcon class="x-icon" />
       <template v-if="section === 'Default'">
@@ -21,8 +21,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
   import CuratedIcon from './icons/curated.vue';
   import XdsBaseShowcase from './xds-base-showcase.vue';

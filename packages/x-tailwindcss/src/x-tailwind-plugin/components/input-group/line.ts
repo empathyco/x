@@ -1,5 +1,5 @@
+import type { TailwindHelpers } from '../../../types';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
 import { inputLine } from '../input/line';
 
 /**
@@ -10,6 +10,7 @@ import { inputLine } from '../input/line';
  */
 export function inputGroupLine(helpers: TailwindHelpers) {
   const { theme } = helpers;
+  // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(inputLine(helpers), {
     line: {
       // fixed size buttons in this line variant

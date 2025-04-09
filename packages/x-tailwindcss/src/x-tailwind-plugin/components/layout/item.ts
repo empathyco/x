@@ -1,13 +1,12 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types';
 
 /**
  * Returns the component `layout item` CSS.
  *
- * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @param _helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function item(helpers: TailwindHelpers) {
+export function item(_helpers: TailwindHelpers) {
   return {
     item: {
       '--x-max-width-margin': 'calc((100vw - var(--x-layout-max-width, 100vw)) / 2)',

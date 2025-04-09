@@ -1,6 +1,6 @@
+import type { TailwindHelpers } from '../types';
 import { forEach } from '@empathyco/x-utils';
 import plugin from 'tailwindcss/plugin';
-import { TailwindHelpers } from '../types';
 import components from './components';
 import dynamicComponents from './dynamic-components';
 import dynamicUtilities from './dynamic-utilities';
@@ -15,7 +15,7 @@ import utilities from './utilities';
  * @public
  */
 export default plugin.withOptions(
-  function () {
+  () => {
     /**
      * Registers the generated CSS for the components and utilities of the plugin to the
      * respective Tailwind layer. It depends on the plugin's theme, affecting

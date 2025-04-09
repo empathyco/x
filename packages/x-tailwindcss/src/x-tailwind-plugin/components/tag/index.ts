@@ -1,11 +1,11 @@
+import type { TailwindHelpers } from '../../../types';
 import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { tagDefault } from './default';
-import { tagSizes } from './sizes';
 import { tagColors } from './colors';
-import { tagOutlined } from './outlined';
-import { tagSolid } from './solid';
+import { tagDefault } from './default';
 import { tagGhost } from './ghost';
+import { tagOutlined } from './outlined';
+import { tagSizes } from './sizes';
+import { tagSolid } from './solid';
 import { tagTight } from './tight';
 
 /**

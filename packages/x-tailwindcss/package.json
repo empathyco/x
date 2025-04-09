@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-tailwindcss#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-tailwindcss"
+  },
   "keywords": [
     "tailwind",
     "design",
@@ -18,11 +23,6 @@
     "dist",
     "showcase"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-tailwindcss"
-  },
   "engines": {
     "node": ">=18"
   },
@@ -32,7 +32,7 @@
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "rollup -c && vite build demo",
     "postbuild": "pnpm pack",
-    "lint": "eslint",
+    "lint": "eslint --fix",
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

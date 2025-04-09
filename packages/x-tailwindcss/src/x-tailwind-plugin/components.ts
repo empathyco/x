@@ -1,25 +1,25 @@
-import { CSSRuleObject } from 'tailwindcss/types/config';
-import { TailwindHelpers } from '../types';
-import { inputGroup } from './components/input-group';
-import { variables } from './components/variables';
+import type { CSSRuleObject } from 'tailwindcss/types/config';
+import type { TailwindHelpers } from '../types';
+import { attach } from './components/attach';
+import { badge } from './components/badge';
 import { button } from './components/button';
 import { buttonGroup } from './components/button-group';
-import { icon } from './components/icon';
-import { suggestion } from './components/suggestion';
+import { facetFilter } from './components/facet-filter';
 import { highlight } from './components/highlight';
-import { typography } from './components/typography';
+import { icon } from './components/icon';
 import { input } from './components/input';
+import { inputGroup } from './components/input-group';
+import { layout } from './components/layout';
+import { picture } from './components/picture';
+import { progressBar } from './components/progress-bar';
+import { scroll } from './components/scroll';
+import { slidingPanel } from './components/sliding-panel';
+import { suggestion } from './components/suggestion';
 import { suggestionGroup } from './components/suggestion-group';
 import { suggestionGroupButton } from './components/suggestion-group/button';
-import { slidingPanel } from './components/sliding-panel';
-import { picture } from './components/picture';
-import { layout } from './components/layout';
-import { scroll } from './components/scroll';
 import { tag } from './components/tag';
-import { badge } from './components/badge';
-import { attach } from './components/attach';
-import { facetFilter } from './components/facet-filter';
-import { progressBar } from './components/progress-bar';
+import { typography } from './components/typography';
+import { variables } from './components/variables';
 
 /**
  * Default component styles.

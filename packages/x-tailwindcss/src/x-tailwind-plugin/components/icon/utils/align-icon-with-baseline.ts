@@ -3,8 +3,6 @@
  *
  * @returns The {@link CssStyleOptions} for the util.
  */
-// eslint-disable-next-line max-len
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function alignIconWithBaseline() {
   return {
     /**

@@ -1,6 +1,6 @@
 import { slidingPanelButtonsDefault } from './default';
-import { slidingPanelButtonsPositions } from './positions';
 import { slidingPanelButtonsHover } from './hover';
+import { slidingPanelButtonsPositions } from './positions';
 
 /**
  * Returns the buttons for the component `sliding panel`.

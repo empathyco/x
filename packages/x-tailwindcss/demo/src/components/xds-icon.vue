@@ -1,34 +1,35 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    v-slot="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Icon"
     :sections="sections"
   >
     <h3 class="text-xs">{{ removeClassPrefix(cssClass, base) }}</h3>
     <slot v-bind="{ cssClass, section, copyCssClassesToClipboard }">
       <div class="flex">
-        <CheckIcon @click="copyCssClassesToClipboard" :class="cssClass" />
-        <CheckFillIcon @click="copyCssClassesToClipboard" :class="cssClass" />
-        <CuratedIcon @click="copyCssClassesToClipboard" :class="cssClass" />
-        <CuratedFillIcon @click="copyCssClassesToClipboard" :class="cssClass" />
-        <OptionIcon @click="copyCssClassesToClipboard" :class="cssClass" />
-        <CheckAltIcon @click="copyCssClassesToClipboard" :class="cssClass" />
+        <CheckIcon :class="cssClass" @click="copyCssClassesToClipboard" />
+        <CheckFillIcon :class="cssClass" @click="copyCssClassesToClipboard" />
+        <CuratedIcon :class="cssClass" @click="copyCssClassesToClipboard" />
+        <CuratedFillIcon :class="cssClass" @click="copyCssClassesToClipboard" />
+        <OptionIcon :class="cssClass" @click="copyCssClassesToClipboard" />
+        <CheckAltIcon :class="cssClass" @click="copyCssClassesToClipboard" />
       </div>
     </slot>
   </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
+  import type { PropType } from 'vue';
+import type { ShowcaseSections } from '../types/types';
+  import { defineComponent } from 'vue';
   import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
-  import CheckIcon from './icons/check.vue';
-  import CheckFillIcon from './icons/check-fill.vue';
-  import CuratedIcon from './icons/curated.vue';
-  import CuratedFillIcon from './icons/curated-fill.vue';
-  import OptionIcon from './icons/option.vue';
   import CheckAltIcon from './icons/check-alt.vue';
+  import CheckFillIcon from './icons/check-fill.vue';
+  import CheckIcon from './icons/check.vue';
+  import CuratedFillIcon from './icons/curated-fill.vue';
+  import CuratedIcon from './icons/curated.vue';
+  import OptionIcon from './icons/option.vue';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
   export default defineComponent({
     components: {
