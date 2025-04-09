@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-import fs from 'fs';
-import { exec } from 'child_process';
-import { CommandParameters, SVGInfo } from './types';
+import type { CommandParameters, SVGInfo } from './types';
+import { exec } from 'node:child_process';
+import fs from 'node:fs';
 import { applyXDSFormat } from './regex-utils';
 
 if (require.main === module) {
@@ -33,7 +32,7 @@ export function svgToVue(): void {
 function loadSVGsFromFolder(): SVGInfo[] {
   const { sourcePath } = getParams();
   if (!fs.existsSync(sourcePath)) {
-    throw Error(`loadSVGsFromFolder, folder not found ${sourcePath}`);
+    throw new Error(`loadSVGsFromFolder, folder not found ${sourcePath}`);
   }
 
   return fs
@@ -83,9 +82,10 @@ function wrapAsVueComponent(svg: SVGInfo['svgData']): string {
  * @returns SourcePath as string and keepSVGs as boolean.
  */
 function getParams(): CommandParameters {
+  // eslint-disable-next-line node/prefer-global/process
   const [sourcePath, keepSVGs] = process.argv.slice(2);
   if (sourcePath === undefined) {
-    throw Error('getParams, sourcePath not found');
+    throw new Error('getParams, sourcePath not found');
   }
 
   return { sourcePath, keepSVGs: keepSVGs === '--keep-svgs' };
@@ -99,7 +99,7 @@ function runPrettier(): void {
 
   exec(`prettier --write ${sourcePath}/*.vue`, error => {
     if (error) {
-      throw Error(`runPrettier, ${error.message}`);
+      throw new Error(`runPrettier, ${error.message}`);
     }
   });
 }
@@ -115,7 +115,7 @@ function removeSourceSVG(svgInfo: SVGInfo): void {
   if (fs.existsSync(filePath)) {
     fs.unlink(filePath, error => {
       if (error) {
-        throw Error(`removeSourceSVG, ${error.message}`);
+        throw new Error(`removeSourceSVG, ${error.message}`);
       }
     });
   }

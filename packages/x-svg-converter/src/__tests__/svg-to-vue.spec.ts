@@ -1,11 +1,12 @@
-import path from 'path';
-import fs from 'fs';
-import { exec } from 'child_process';
+import { exec } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
 import { svgToVue } from '../svg-to-vue';
 import svgStub from './svg-stub';
 
 // Mock to prevent the prettier from running in test env.
 jest.mock('child_process', () => {
+  // eslint-disable-next-line ts/no-unsafe-assignment
   const originalModule = jest.requireActual('child_process');
 
   return {
@@ -47,7 +48,7 @@ describe('test SVG to Vue script', () => {
       encoding: 'utf8'
     });
 
-    /* eslint-disable max-len */
+     
     expect(vueComponentContent).toBe(`<template functional>
   <svg :class="['x-icon'].concat(data.staticClass, data.class)" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path stroke="currentColor" stroke-width=".4" d="M1.2 1.2h5.6v5.6H1.2z"/>
@@ -59,7 +60,7 @@ describe('test SVG to Vue script', () => {
 <script lang="ts">
   export default {};
 </script>`);
-    /* eslint-enable max-len */
+     
   });
 
   it('unlinks the source svg files', () => {
