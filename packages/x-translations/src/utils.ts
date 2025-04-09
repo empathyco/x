@@ -1,6 +1,6 @@
-import type { CommandParameters, JSON } from './types';
-import fs from 'node:fs';
-import path from 'node:path';
+import type { CommandParameters, JSON } from './types'
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
  * Gets the parameters used to call the script.
@@ -9,11 +9,11 @@ import path from 'node:path';
  */
 export function getParams(): CommandParameters {
   // eslint-disable-next-line node/prefer-global/process
-  const [sourcePath, targetPath] = process.argv.slice(2);
+  const [sourcePath, targetPath] = process.argv.slice(2)
   if (sourcePath === undefined) {
-    throw new Error('getParams, sourcePath not found');
+    throw new Error('getParams, sourcePath not found')
   }
-  return { sourcePath, targetPath };
+  return { sourcePath, targetPath }
 }
 
 /**
@@ -25,13 +25,13 @@ export function getParams(): CommandParameters {
  */
 export function loadFile(sourcePath: string): JSON | string {
   if (!fs.existsSync(sourcePath)) {
-    throw new Error(`loadFile, file not found ${sourcePath}`);
+    throw new Error(`loadFile, file not found ${sourcePath}`)
   }
   if (path.extname(sourcePath) === '.json') {
     // eslint-disable-next-line ts/no-require-imports,ts/no-unsafe-return
-    return require(sourcePath);
+    return require(sourcePath)
   } else {
-    return fs.readFileSync(sourcePath, { encoding: 'utf8' });
+    return fs.readFileSync(sourcePath, { encoding: 'utf8' })
   }
 }
 
@@ -46,11 +46,13 @@ export function loadFile(sourcePath: string): JSON | string {
 export function getSourcePaths(source: string, extension: string): string[] {
   const filePaths = fs.lstatSync(source).isDirectory()
     ? fs.readdirSync(source).map(fileName => path.join(source, fileName))
-    : [source];
-  return filePaths
-    .filter(filePath => filePath.endsWith(extension))
-    // eslint-disable-next-line node/prefer-global/process
-    .map(filePath => path.resolve(process.cwd(), filePath));
+    : [source]
+  return (
+    filePaths
+      .filter(filePath => filePath.endsWith(extension))
+      // eslint-disable-next-line node/prefer-global/process
+      .map(filePath => path.resolve(process.cwd(), filePath))
+  )
 }
 /**
  * Exports the CSV or the JSON to a file.
@@ -59,11 +61,11 @@ export function getSourcePaths(source: string, extension: string): string[] {
  * @param data - The JSON or the CSV to be exported.
  */
 export function exportToFile(fileName: string, data: string): void {
-  const { targetPath = 'output' } = getParams();
-  const outputPath = path.join(targetPath, fileName);
+  const { targetPath = 'output' } = getParams()
+  const outputPath = path.join(targetPath, fileName)
   if (!fs.existsSync(targetPath)) {
-    fs.mkdirSync(targetPath, { recursive: true });
+    fs.mkdirSync(targetPath, { recursive: true })
   }
 
-  fs.writeFileSync(outputPath, data);
+  fs.writeFileSync(outputPath, data)
 }

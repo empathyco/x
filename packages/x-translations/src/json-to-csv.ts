@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import type { JSON } from './types';
-import path from 'node:path';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
+import type { JSON } from './types'
+import path from 'node:path'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { exportToFile, getParams, getSourcePaths, loadFile } from './utils'
 
 if (require.main === module) {
-  getCSVTranslations();
+  getCSVTranslations()
 }
 
 /**
@@ -17,7 +17,7 @@ if (require.main === module) {
  * @returns Column names.
  */
 function getColumnNames(json: JSON): string[] {
-  return Object.keys(json);
+  return Object.keys(json)
 }
 
 /**
@@ -28,11 +28,11 @@ function getColumnNames(json: JSON): string[] {
  * @returns A string that represents the CSV.
  */
 function generateCSVFile(sourcePath: string): string {
-  const json = loadFile(sourcePath) as JSON;
-  const csv = transformToCSV(json);
-  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.csv');
-  exportToFile(outputFile, csv);
-  return csv;
+  const json = loadFile(sourcePath) as JSON
+  const csv = transformToCSV(json)
+  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.csv')
+  exportToFile(outputFile, csv)
+  return csv
 }
 /**
  * Reduces the initial source into a flatten object indexed by column name.
@@ -47,8 +47,8 @@ function getTranslations(columnNames: string[], source: JSON): JSON {
     (translations, column) =>
       // eslint-disable-next-line ts/no-unsafe-return
       deepMerge(translations, getTranslation(source[column] as JSON, column)),
-    {}
-  );
+    {},
+  )
 }
 
 /**
@@ -85,18 +85,18 @@ function getTranslations(columnNames: string[], source: JSON): JSON {
 function getTranslation(source: JSON, column: string): JSON {
   return Object.entries(source).reduce((translation: JSON, [key, value]) => {
     if (typeof value === 'object') {
-      const flatObject = getTranslation(value as JSON, column);
+      const flatObject = getTranslation(value as JSON, column)
       Object.entries(flatObject).forEach(([subKey, subValue]) => {
-        translation[`${key  }.${  subKey}`] = subValue;
-      });
+        translation[`${key}.${subKey}`] = subValue
+      })
     } else {
       if (!(key in translation)) {
-        translation[key] = {};
+        translation[key] = {}
       }
-      (translation[key] as JSON)[column] = value;
+      ;(translation[key] as JSON)[column] = value
     }
-    return translation;
-  }, {});
+    return translation
+  }, {})
 }
 
 /**
@@ -107,22 +107,22 @@ function getTranslation(source: JSON, column: string): JSON {
  * @returns A string that represents a CSV.
  */
 function transformToCSV(sourceJson: JSON): string {
-  const columnNames = getColumnNames(sourceJson);
-  const translations = getTranslations(columnNames, sourceJson);
+  const columnNames = getColumnNames(sourceJson)
+  const translations = getTranslations(columnNames, sourceJson)
 
-  const delimiter = ';';
-  let csv = `${['key', ...columnNames].join(delimiter)  }\n`;
+  const delimiter = ';'
+  let csv = `${['key', ...columnNames].join(delimiter)}\n`
 
   Object.entries(translations).forEach(([key, value]) => {
-    const line = [key];
+    const line = [key]
 
     columnNames.forEach(columnName => {
-      line.push(`${((value as JSON)[columnName] as string) ?? ''}`);
-    });
+      line.push(`${((value as JSON)[columnName] as string) ?? ''}`)
+    })
 
-    csv += `${line.join(delimiter)  }\n`;
-  });
-  return csv;
+    csv += `${line.join(delimiter)}\n`
+  })
+  return csv
 }
 
 /**
@@ -131,6 +131,6 @@ function transformToCSV(sourceJson: JSON): string {
  * @returns The CSV.
  */
 export function getCSVTranslations(): string[] {
-  const { sourcePath } = getParams();
-  return getSourcePaths(sourcePath, 'json').map(generateCSVFile);
+  const { sourcePath } = getParams()
+  return getSourcePaths(sourcePath, 'json').map(generateCSVFile)
 }
