@@ -37,7 +37,7 @@
        *
        * @public
        */
-      const { spellcheckedQuery } = useState('search', ['spellcheckedQuery']);
+      const { spellcheckedQuery } = useState('search');
 
       /**
        * Generates the {@link WireMetadata} object omitting the moduleName.

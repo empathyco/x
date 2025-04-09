@@ -42,25 +42,25 @@
        * concatenated with list items from components such as `BannersList`, `PromotedsList`,
        * `BaseGrid` or any component that injects the list.
        */
-      const items: ComputedRef<Result[]> = useState('search', ['results']).results;
-      provide<ComputedRef<Result[]>>(LIST_ITEMS_KEY as string, items);
+      const items = useState('search').results;
+      provide(LIST_ITEMS_KEY as string, items);
 
       /** The total number of results, taken from the state. */
-      const totalResults: ComputedRef<number> = useState('search', ['totalResults']).totalResults;
+      const totalResults = useState('search').totalResults;
 
       /** This query is updated only when the search request has succeeded. */
       let providedQuery = ref('');
-      provide<Ref<string>>(QUERY_KEY as string, providedQuery);
+      provide(QUERY_KEY as string, providedQuery);
 
       /** Indicates if there are more available results that have not been injected. */
       const hasMoreItems = computed(() => items.value.length < totalResults.value);
-      provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems);
+      provide(HAS_MORE_ITEMS_KEY as string, hasMoreItems);
 
       /** The status of the search request, taken from the state. */
-      const searchStatus: ComputedRef<RequestStatus> = useState('search', ['status']).status;
+      const searchStatus = useState('search').status;
 
       /** The query of the search request, taken from the state. */
-      const searchQuery: ComputedRef<string> = useState('search', ['query']).query;
+      const searchQuery = useState('search').query;
 
       /**
        * Updates the query to be provided to the child components

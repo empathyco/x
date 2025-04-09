@@ -33,7 +33,7 @@
     components: { BaseEventButton },
     xModule: searchBoxXModule.name,
     setup: function () {
-      const { query } = useState('searchBox', ['query']);
+      const { query } = useState('searchBox');
 
       /**
        * The events dictionary that are going to be emitted when the button is pressed.

@@ -54,9 +54,7 @@
     },
     setup(props, { slots }) {
       /** The module's list of recommendations. */
-      const storedRecommendations: ComputedRef<Result[]> = useState('recommendations', [
-        'recommendations'
-      ]).recommendations;
+      const storedRecommendations = useState('recommendations').recommendations;
 
       /** The additional events to be emitted by the mandatory {@link BaseResultLink} component. */
       provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [

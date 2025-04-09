@@ -57,7 +57,7 @@
       /**
        * We use the module extra params to combine them with the query preview's extra params.
        */
-      const { params } = useState('queriesPreview', ['params']);
+      const { params } = useState('queriesPreview');
 
       /**
        * The provided query preview with the base extra params from the module merged in.

@@ -71,7 +71,7 @@
        *
        * @internal
        */
-      const { query } = useState('searchBox', ['query']);
+      const { query } = useState('searchBox');
 
       /**.
        * The search box hover status

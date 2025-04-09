@@ -34,7 +34,7 @@
       const $x = use$x();
 
       /** The promoteds to render from the state. */
-      const stateItems: ComputedRef<Promoted[]> = useState('search', ['promoteds']).promoteds;
+      const stateItems = useState('search').promoteds;
 
       /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
       const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);

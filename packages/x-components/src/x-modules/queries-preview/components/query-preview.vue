@@ -91,30 +91,17 @@
     setup(props, { emit, slots }) {
       const xBus = useXBus();
 
-      const queriesPreviewState = useState('queriesPreview', [
-        'queriesPreview',
-        'params',
-        'config'
-      ]);
-
       /**
-       * The results preview of the queries preview cacheable mounted.
+       * previewResults: The results preview of the queries preview cacheable mounted.
        * It is a dictionary, indexed by the query preview query.
-       */
-      const previewResults: ComputedRef<Dictionary<QueryPreviewItem>> =
-        queriesPreviewState.queriesPreview;
-
-      /**
-       * As the request is handled in this component, we need
+       * 
+       * params: As the request is handled in this component, we need
        * the extra params that will be used in the request.
-       */
-      const params: ComputedRef<Dictionary<unknown>> = queriesPreviewState.params;
-
-      /**
-       * As the request is handled in this component, we need
+       * 
+       * config: As the request is handled in this component, we need
        * the config that will be used in the request.
        */
-      const config: ComputedRef<QueriesPreviewConfig> = queriesPreviewState.config;
+      const { queriesPreview: previewResults, params, config } = useState('queriesPreview');
 
       /**
        * Query Preview key converted into a unique id.

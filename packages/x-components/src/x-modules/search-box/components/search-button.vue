@@ -37,7 +37,7 @@
 
       const buttonRef = ref<HTMLElement | null>(null);
 
-      const query: ComputedRef<string> = useState('searchBox', ['query']).query;
+      const { query } = useState('searchBox');
 
       const isQueryEmpty = computed(() => query.value.length === 0);
 

@@ -101,7 +101,7 @@
       }
     },
     setup(props) {
-      const { params } = useState('queriesPreview', ['params']);
+      const { params } = useState('queriesPreview');
 
       /**
        * Contains the status of the preview requests, indexed by query.

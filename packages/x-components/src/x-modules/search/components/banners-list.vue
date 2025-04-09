@@ -35,7 +35,7 @@
       const $x = use$x();
 
       /** The banners to render from the state. */
-      const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners;
+      const stateItems = useState('search').banners;
 
       /** The provided {@link FeatureLocation} for the component. */
       const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location');
