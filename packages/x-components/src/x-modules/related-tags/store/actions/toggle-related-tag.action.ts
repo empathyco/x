@@ -6,11 +6,7 @@ import type { RelatedTagsXStoreModule } from '../types'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.commit - commit context.
- * @param context.state - state context.
- * @param context.state.selectedRelatedTags - selectedRelatedTags context state.
  * @param relatedTag - The selected related tag.
- *
  * @public
  */
 export const toggleRelatedTag: RelatedTagsXStoreModule['actions']['toggleRelatedTag'] = (

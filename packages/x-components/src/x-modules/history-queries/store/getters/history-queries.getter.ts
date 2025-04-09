@@ -14,9 +14,6 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
    *
    * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the history
    * queries module.
-   * @param state.query - query state.
-   * @param state.historyQueries - historyQueries state.
-   * @param state.config - config state.
    * @returns The filtered subset of queries, matching with the current query.
    */
   historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {

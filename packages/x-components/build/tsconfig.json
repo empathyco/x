@@ -19,6 +19,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts", "docgen/templates/*.js"],
+  "include": ["**/*.ts", "**/*.js"],
   "exclude": ["node_modules"]
 }

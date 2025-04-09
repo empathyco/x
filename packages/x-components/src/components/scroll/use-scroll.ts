@@ -10,13 +10,7 @@ import { throttle } from '../../utils/throttle'
  * Composable to share Scroll logic.
  *
  * @param props - Composable props.
- * @param props.distanceToBottom - distanceToBottom prop.
- * @param props.firstElementThresholdPx - firstElementThresholdPx prop.
- * @param props.throttleMs - throttleMs prop.
- * @param props.resetOnChange - resetOnChange prop.
- * @param props.resetOn - resetOn prop.
  * @param context - Component setup context.
- * @param context.emit - Emit context.
  * @param scrollEl - The scrolling container reference.
  * @returns A throttled version of the function to store the scroll data.
  * @public

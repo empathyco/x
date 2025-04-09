@@ -5,9 +5,6 @@ import type { RecommendationsXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the query
  * suggestions module.
- * @param state.origin - origin state.
- * @param state.config - config state.
- * @param state.params - params state.
  * @returns The recommendations request to fetch data from the API.
  *
  * @public

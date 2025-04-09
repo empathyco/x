@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators'
  * Creates the observable for the events that will be racing the wire's execution.
  *
  * @param events - The events to merge its observables.
- * @param on - The on function of the {@link @empathyco/x-bus#XBus} where the events will run.
+ * @param on - The on function of the XBus where the events will run.
  * @returns The observable for the racing events.
  * @internal
  */

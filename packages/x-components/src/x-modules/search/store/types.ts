@@ -106,7 +106,7 @@ export interface SearchMutations
   appendResults: (results: Result[]) => void
   /**
    * Resets the "resettable" part of the Search state to the initial state. See the
-   * {@link searchXStoreModule} for details.
+   * {@link SearchXStoreModule} for details.
    */
   resetState: () => void
   /**

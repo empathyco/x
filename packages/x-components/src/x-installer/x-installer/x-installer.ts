@@ -156,7 +156,7 @@ export class XInstaller {
    * @param snippetConfig - The {@link SnippetConfig} that receives from snippet integration.
    *
    * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
-   * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link XPlugin}
+   * returns an object with the {@link XAPI}, the XBus, the {@link XPlugin}
    * and the Vue application instance. Else, a rejected promise is returned.
    *
    * @public
@@ -223,7 +223,7 @@ export class XInstaller {
    *
    * @param pluginOptions - The {@link XPluginOptions} to passed as parameter to the install method
    * of the plugin.
-   * @param bus - The {@link @empathyco/x-bus#XBus} to be used to create the XPlugin.
+   * @param bus - The XBus to be used to create the XPlugin.
    *
    * @returns Plugin<XPluginOption> - The plugin instance.
    * @internal

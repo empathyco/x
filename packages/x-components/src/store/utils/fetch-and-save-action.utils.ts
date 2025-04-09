@@ -8,11 +8,6 @@ import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promis
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
  * @param hooks - The {@link FetchAndSaveHooks} hooks to create the action.
- * @param hooks.fetch - fetch hook.
- * @param hooks.onSuccess - onSuccess hook.
- * @param hooks.onError - onError hook.
- * @param hooks.onCancel - onCancel hook.
- *
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */

@@ -7,9 +7,7 @@ import { normalizeString } from '../../../../utils/normalize'
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the semantic
  * queries module.
  * @param state.query - query state.
- *
  * @returns The normalized query.
- *
  * @public
  */
 export const normalizedQuery: SemanticQueriesXStoreModule['getters']['normalizedQuery'] = ({

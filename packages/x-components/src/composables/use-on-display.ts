@@ -12,12 +12,7 @@ import { useXBus } from './use-x-bus'
  * @param options - The options to customize the behavior of the composable. The element that
  * will be watched, the callback to trigger and if the callback should be triggered only once
  * or every time the element appears in the viewport, true by default.
- * @param options.element - element option.
- * @param options.callback - callback option.
- * @param options.triggerOnce - triggerOnce option.
- *
  * @returns If the element is currently visible in the viewport or not and the watcher stop handle.
- *
  * @public
  */
 export function useOnDisplay({
@@ -48,12 +43,7 @@ export function useOnDisplay({
  *
  * @param options - The options to customize the behavior of the composable. The element that
  * will be watched and the tagging request to emit.
- * @param options.element - Element option.
- * @param options.taggingRequest - taggingRequest option.
- * @param options.eventMetadata - eventMetadata option.
- *
  * @returns If the element is currently visible in the viewport or not and the watcher stop handle.
- *
  * @public
  */
 export function useEmitDisplayEvent({

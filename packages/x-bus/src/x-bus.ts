@@ -91,7 +91,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * @param config - A configuration object to initialise the bus.
    * @param config.queue - A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to
    * store the events.
-   * @param config.priorities - A {@link @empathyco/x-utils#Dictionary} defining the priorities
+   * @param config.priorities - A Dictionary defining the priorities
    * associated to a given string.
    @param config.emitCallbacks - A list of functions to execute when an event is emitted.
    * @param config.defaultEventPriority -  A default priority to assigned to an event.

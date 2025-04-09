@@ -69,7 +69,7 @@ export interface XPluginOptions {
 export type DocumentDirection = 'ltr' | 'rtl'
 
 /**
- * The XComponentAPI exposes access to the {@link @empathyco/x-bus#XBus}, and store aliases to the
+ * The XComponentAPI exposes access to the XBus, and store aliases to the
  * components.
  *
  * @public
@@ -77,7 +77,7 @@ export type DocumentDirection = 'ltr' | 'rtl'
 export interface XComponentAPI extends XComponentBusAPI, XComponentAliasAPI {}
 
 /**
- * API for emitting and subscribing to events of the {@link @empathyco/x-bus#XBus}.
+ * API for emitting and subscribing to events of the XBus.
  *
  * @public
  */

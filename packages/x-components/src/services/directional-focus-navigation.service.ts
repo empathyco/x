@@ -280,10 +280,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * returns them.
    *
    * @param points - Current values for the candidate and origin's points.
-   * @param points.0 - 0 point.
-   * @param points.1 - 1 point.
    * @param candidateRect - The DOMRect of the candidate.
-   *
    * @returns Candidate and origin points with parallel values set.
    * @internal
    */
@@ -318,10 +315,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * returns them.
    *
    * @param points - Current values for the candidate and origin's points.
-   * @param points.0 - 0 point.
-   * @param points.1 - 1 point.
    * @param candidateRect - The DOMRect of the candidate.
-   *
    * @returns Candidate and origin points with orthogonal values set.
    * @internal
    */

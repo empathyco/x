@@ -6,12 +6,8 @@ import type { PopularSearchesXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the
  * popular searches module.
- * @param state.popularSearches - popularSearches state.
- * @param state.searchedQueries - searchedQueries state.
- * @param state.config - config state.
  * @returns The popular searches, filtered by the searched queries or not, depending of the
  * `hideSessionQueries` config.
- *
  * @public
  */
 export const popularSearches: PopularSearchesXStoreModule['getters']['popularSearches'] = ({

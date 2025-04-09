@@ -7,8 +7,6 @@ import { SESSION_TIME_STAMP_STORAGE_KEY } from '../constants'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.state - state context.
- * @param context.commit - commit context.
  * @public
  */
 export const refreshSession: HistoryQueriesXStoreModule['actions']['refreshSession'] = ({

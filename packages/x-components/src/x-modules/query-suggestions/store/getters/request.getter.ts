@@ -5,12 +5,7 @@ import type { QuerySuggestionsXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the query
  * suggestions module.
- * @param state.query - query state.
- * @param state.config - config state.
- * @param state.params - params state.
- *
  * @returns The query suggestions request to fetch data from the API.
- *
  * @public
  */
 export const request: QuerySuggestionsXStoreModule['getters']['request'] = ({

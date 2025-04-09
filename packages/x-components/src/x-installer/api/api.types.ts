@@ -32,8 +32,7 @@ export interface XAPI {
   getSnippetConfig: () => SnippetConfig
 
   /**
-   * To set the {@link @empathyco/x-bus#XBus | bus} to the API. This bus will be used to emit
-   * the necessary events.
+   * To set the XBus to the API. This bus will be used to emit the necessary events.
    *
    * @internal
    */

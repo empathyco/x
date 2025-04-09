@@ -4,7 +4,7 @@ import { XPriorityBus } from '@empathyco/x-bus'
 import { logDevtoolsXEvent } from './devtools/timeline.devtools'
 
 /**
- * Default {@link @empathyco/x-bus#XBus} implementation.
+ * Default XBus implementation.
  *
  * @public
  */

@@ -4,14 +4,9 @@ import type { RelatedTagsXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
  * tags module.
- * @param state.config - config state.
- * @param state.params - params state.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * related tags module.
- * @param getters.query - query getter.
- *
  * @returns The related tags request to fetch data from the API.
- *
  * @public
  */
 export const request: RelatedTagsXStoreModule['getters']['request'] = (

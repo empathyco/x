@@ -6,8 +6,6 @@ import { objectFilter } from '@empathyco/x-utils'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of
  * the queries preview module.
- * @param state.queriesPreview - queriesPreview state.
- *
  * @returns The loaded previews from the state.
  */
 export const loadedQueriesPreview: QueriesPreviewXStoreModule['getters']['loadedQueriesPreview'] =

@@ -7,10 +7,6 @@ import type { DebouncedFunction, DebounceOptions } from './types'
  * of the debounce time.
  *
  * @param fn - Function to be debounced.
- * @param debounceTimeInMs - The time of debounce in ms.
- * @param debounceOptions - The options for the debounce strategy.
- * @param debounceOptions.leading - Leading option strategy.
- * @param debounceOptions.trailing - trailing option strategy.
  * @returns A new function with the debounce.
  *
  * @example Debounce options:

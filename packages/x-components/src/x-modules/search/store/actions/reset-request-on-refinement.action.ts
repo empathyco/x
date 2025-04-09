@@ -7,11 +7,7 @@ import { isArrayEmpty } from '../../../../utils/array'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.commit - commit context.
- * @param context.state - state context.
  * @param watchedRequest - The {@link WatchedInternalSearchRequest} object.
- * @param watchedRequest.newRequest - New request parameters.
- * @param watchedRequest.oldRequest  - Old request parameters.
  * @public
  */
 export const resetRequestOnRefinement: SearchXStoreModule['actions']['resetRequestOnRefinement'] = (

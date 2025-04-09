@@ -5,13 +5,7 @@ import type { SearchXStoreModule } from '../types'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.commit - commit context.
- * @param context.state - state context.
  * @param urlParams - List of params from the url.
- * @param urlParams.query - query URL params.
- * @param urlParams.page - page URL params.
- * @param urlParams.sort - sort URL params.
- *
  * @public
  */
 export const setUrlParams: SearchXStoreModule['actions']['setUrlParams'] = (

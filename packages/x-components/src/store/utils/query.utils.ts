@@ -55,7 +55,6 @@ export function setQuery(state: QueryState, query: string): void {
  * Creates a getter that combines the current selected related tags and the query of the module.
  *
  * @param options - Options on how the getter should behave.
- * @param options.getRelatedTags - getRelatedTags option.
  * @returns A getter that combines the selected related tags with the query.
  * @public
  */
@@ -76,8 +75,6 @@ export function createRelatedTagsQueryGetter<State extends QueryState, Getters>(
  *
  * @param partialQuery - The query to concatenate the related tag with.
  * @param relatedTag - The related tag to concatenate.
- * @param relatedTag.tag - RelatedTag tag.
- * @param relatedTag.query - RelatedTag query.
  * @returns The query and the related tag joined.
  * @internal
  */

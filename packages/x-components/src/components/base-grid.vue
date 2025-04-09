@@ -87,7 +87,8 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    interface ElementRef {
+    // eslint-disable-next-line ts/consistent-type-definitions
+    type ElementRef = {
       $el: HTMLElement
     }
 
@@ -118,7 +119,6 @@ export default defineComponent({
         props.items ??
         injectedListItems?.value ??
         //TODO: add here logger
-
         console.warn('It is necessary to pass a prop or inject the list of filters')
       )
     })

@@ -8,9 +8,7 @@ import { XPlugin } from '../../../../plugins/x-plugin'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.state - state context.
  * @param taggingInfo - The information of the event to track.
- *
  * @public
  */
 export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggingInfo) => {

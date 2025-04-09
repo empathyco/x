@@ -57,9 +57,9 @@ export class BaseXAPI implements XAPI {
   }
 
   /**
-   * Setter for the {@link @empathyco/x-bus#XBus}.
+   * Setter for the XBus.
    *
-   * @param bus - The {@link @empathyco/x-bus#XBus} received to emit events.
+   * @param bus - The XBus received to emit events.
    *
    * @internal
    */

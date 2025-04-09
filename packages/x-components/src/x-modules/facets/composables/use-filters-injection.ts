@@ -8,10 +8,7 @@ import { isArrayEmpty } from '../../../utils/array'
  * Composable to share filters injection logic.
  *
  * @param props - Composable props.
- * @param props.filters - filters prop.
- * @param props.parentId - parentId prop.
  * @returns An array of filters.
- *
  * @public
  */
 export function useFiltersInjection(props: {

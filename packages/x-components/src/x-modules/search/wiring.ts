@@ -184,7 +184,7 @@ export const resetRequestOnRefinementWire = wireDispatch(
 
 /**
  * Resets the search state when the request is changed to null. See the
- * {@link searchXStoreModule} for details.
+ * {@link SearchXStoreModule} for details.
  *
  * @public
  */

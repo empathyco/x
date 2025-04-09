@@ -6,11 +6,7 @@ import type { NextQueriesXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the next
  * queries module.
- * @param state.nextQueries - nextQueries state.
- * @param state.searchedQueries - searchedQueries state.
- * @param state.config - config state.
  * @returns The next queries filtered by the searched queries or not.
- *
  * @public
  */
 export const nextQueries: NextQueriesXStoreModule['getters']['nextQueries'] = ({

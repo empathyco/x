@@ -5,12 +5,9 @@ import type { HistoryQueriesXStoreModule } from '../types'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the history
  * queries module.
- *
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * history queries module.
- *
  * @returns The history queries that have results at the moment they were requested.
- *
  * @public
  */
 

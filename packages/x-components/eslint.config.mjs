@@ -20,4 +20,10 @@ export default empathyco(
       'ts/no-unsafe-argument': 'off',
     },
   },
+  {
+    rules: {
+      // Sync doc interface with API Extractor
+      'jsdoc/check-param-names': 'off',
+    },
+  },
 )

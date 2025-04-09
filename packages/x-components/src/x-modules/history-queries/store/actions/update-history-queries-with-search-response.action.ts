@@ -14,11 +14,8 @@ import { UNKNOWN_FACET_KEY } from '../../../facets/store/constants'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- *
  * @param searchResponse - The search response to update history queries with.
- *
  * @returns A `void` promise that resolves when the history query finishes updating.
- *
  * @public
  */
 

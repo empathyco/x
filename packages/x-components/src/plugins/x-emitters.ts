@@ -13,12 +13,8 @@ import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils'
  * changes.
  *
  * @param xModule - The {@link XModule} to register its Store Emitters.
- * @param xModule.name - name XModule.
- * @param xModule.storeEmitters - storeEmitters XModule.
- * @param xModule.storeModule - storeModule XModule.
- * @param bus - The {@link @empathyco/x-bus#XBus} to emit the events by the Emitters.
+ * @param bus - The XBus to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
- *
  * @internal
  */
 export function registerStoreEmitters(

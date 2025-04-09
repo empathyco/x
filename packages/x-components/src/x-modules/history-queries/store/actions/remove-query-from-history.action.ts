@@ -5,8 +5,6 @@ import type { HistoryQueriesXStoreModule } from '../types'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.state - state context.
- * @param context.dispatch - dispatch context.
  * @param historyQueryToRemove - The `HistoryQuery` to remove from the history.
  * @returns A `void` promise that resolves when the history queries finishes updating.
  * @public

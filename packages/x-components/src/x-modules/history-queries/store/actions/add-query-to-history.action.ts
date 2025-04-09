@@ -19,8 +19,6 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
-   * @param context.state - state context.
-   * @param context.dispatch - dispatch context.
    * @param query - The query to try to add to the history.
    * @returns A `void` promise that resolves when the history queries finishes updating.
    */
@@ -117,11 +115,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    * Calculates if the new query should be added to the history.
    *
    * @param wordsTuple - A tuple containing the old, and the new words arrays.
-   * @param wordsTuple.0 - 0 wordsTuple.
-   * @param wordsTuple.1 - 1 wordsTuple
    * @param queriesTuple - A tuple containing the old and the new queries.
-   * @param queriesTuple.0 - 0 queriesTuple.
-   * @param queriesTuple.1 - 0 queriesTuple.
    * @returns `true` when the new query should be added. `false` otherwise.
    * @internal
    */
@@ -136,11 +130,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    * Calculates if the new query should replace the last query in the history.
    *
    * @param wordsTuple - A tuple containing the old, and the new words arrays.
-   * @param wordsTuple.0 - 0 wordsTuple.
-   * @param wordsTuple.1 - 1 wordsTuple
    * @param queriesTuple - A tuple containing the old and the new queries.
-   * @param queriesTuple.0 - 0 queriesTuple.
-   * @param queriesTuple.1 - 0 queriesTuple.
    * @returns `true` when the new query should replace the last one. `false` otherwise.
    * @internal
    */

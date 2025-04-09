@@ -6,8 +6,6 @@ import { initialUrlState } from '../initial-state'
  * Default implementation for the getter.
  *
  * @param state - Current state of the url module.
- * @param state.initialExtraParams - initialExtraParams state.
- *
  * @returns The url params.
  * @public
  */

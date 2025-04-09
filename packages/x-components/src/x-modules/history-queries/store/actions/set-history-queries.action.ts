@@ -6,9 +6,6 @@ import { localStorageService } from '../../../../utils/storage'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.state - state context.
- * @param context.commit - commit context.
- * @param context.getters - getters context.
  * @param historyQueries - The new history queries to save to the store and browser storage.
  * @public
  */

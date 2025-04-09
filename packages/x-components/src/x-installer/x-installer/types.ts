@@ -22,8 +22,8 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    */
   api?: API | false
   /**
-   * The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. If not passed an instance of
-   * The {@link @empathyco/x-bus#XPriorityBus} will be used.
+   * The XBus used in the {@link XPlugin}. If not passed an instance of
+   * The XPriorityBus will be used.
    */
   bus?: XBus<XEventsTypes, WireMetadata>
   /**
@@ -48,7 +48,7 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
   onCreateApp?: (app: App) => void
   /**
    * Adds the option to install more Vue plugins, giving access to the {@link SnippetConfig} and
-   * the {@link @empathyco/x-bus#XBus}.
+   * the XBus.
    *
    * @param options - An object that contains utilities that might be helpful for installing Vue
    * plugins.
@@ -83,7 +83,7 @@ export interface InitWrapper {
   app?: App
   /** The {@link XAPI} to expose globally. */
   api?: XAPI
-  /** The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. */
+  /** The XBus used in the {@link XPlugin}. */
   bus: XBus<XEventsTypes, WireMetadata>
   /** The installed {@link XPlugin} instance. */
   plugin: Plugin<XPluginOptions>

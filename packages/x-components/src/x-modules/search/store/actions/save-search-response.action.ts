@@ -6,22 +6,7 @@ import type { SearchXStoreModule } from '../types'
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param context.commit - commit context.
- * @param context.state - state context.
- * @param context.getters - getters context.
  * @param response - The {@link @empathyco/x-types#SearchResponse} to save.
- * @param response.results - results response.
- * @param response.partialResults - partialResults response.
- * @param response.facets - facets response.
- * @param response.banners - banners response.
- * @param response.promoteds - promoteds response.
- * @param response.totalResults - totalResults response.
- * @param response.spellcheck - spellcheck response.
- * @param response.redirections - redirections response.
- * @param response.queryTagging - queryTagging response.
- * @param response.displayTagging - displayTagging response.
- * @param response.stats - stats response.
- *
  * @public
  */
 export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchResponse'] = (

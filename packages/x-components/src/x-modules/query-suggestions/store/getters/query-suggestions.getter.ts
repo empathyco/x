@@ -14,10 +14,6 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    *
    * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the query
    * suggestions module.
-   * @param state.query - query state.
-   * @param state.suggestions - suggestions state.
-   * @param state.config - config state.
-   * @param state.searchedQueries - searchedQueries state.
    * @returns The filtered subset of queries, matching with the current query.
    */
   querySuggestions({

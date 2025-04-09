@@ -9,10 +9,7 @@ import { isArrayEmpty } from '../../../utils/array'
  * Composable to share Facets logic.
  *
  * @param props - Composable props.
- * @param props.facetsIds - facetsIds prop.
- * @param props.alwaysVisible - alwaysVisible prop.
  * @returns Composable.
- *
  * @public
  */
 export function useFacets(props: {

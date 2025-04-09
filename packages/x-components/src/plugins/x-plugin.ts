@@ -27,8 +27,8 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils'
  */
 export class XPlugin {
   /**
-   * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
-   * between the components and our API where data can be mapped to client needs.
+   * XComponentsAdapter Is the middleware between the components and our API where data can be
+   * mapped to client needs.
    * This property is only available after installing the plugin.
    *
    * @returns The installed adapter.
@@ -40,7 +40,7 @@ export class XPlugin {
   }
 
   /**
-   * Exposed {@link @empathyco/x-bus#XBus}, so any kind of application can subscribe to
+   * Exposed XBus, so any kind of application can subscribe to
    * {@link XEventsTypes} without having to pass through a component.
    * This property is only available after installing the plugin.
    *
@@ -150,7 +150,7 @@ export class XPlugin {
   /**
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
-   * @param bus - The {@link @empathyco/x-bus#XBus} implementation to use for the plugin.
+   * @param bus - The XBus implementation to use for the plugin.
    *
    * @public
    */
@@ -246,12 +246,7 @@ export class XPlugin {
    * Performs a customization of a {@link XModule} using the XPlugin public and private options.
    *
    * @param xModule - The module to customize.
-   * @param xModule.name - name XModule.
-   * @param xModule.wiring - wiring XModule.
-   * @param xModule.storeModule - storeModule XModule.
-   * @param xModule.storeEmitters - storeEmitters XModule.
    * @returns The customized xModule.
-   *
    * @internal
    */
   protected customizeXModule({
@@ -285,9 +280,6 @@ export class XPlugin {
    * executing each wire.
    *
    * @param xModule - The {@link XModule} to register its wiring.
-   * @param xModule.wiring - wiring XModule.
-   * @param xModule.name - name XModule.
-   *
    * @internal
    */
   protected registerWiring({ wiring, name }: AnyXModule): void {
@@ -308,9 +300,6 @@ export class XPlugin {
    * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
    * @param xModule - The {@link XModule} to register its Store Module.
-   * @param xModule.name - name XModule.
-   * @param xModule.storeModule - storeModule XModule.
-   *
    * @internal
    */
   protected registerStoreModule({ name, storeModule }: AnyXModule): void {
@@ -327,12 +316,9 @@ export class XPlugin {
    * 3rd {@link XStoreModule.state | Default state of the xModule}.
    *
    * @param defaultModule - The default store module to override.
-   * @param defaultModule.state - The default store module to override.
    * @param moduleOptions - The state, actions, mutations and getters to override the defaultModule.
-   * @param moduleOptions.state - The state, actions, mutations and getters to override the defaultModule.
    * @param configOptions - The state config to override the moduleOptions.
    * @returns The {@link XStoreModule} customized.
-   *
    * @internal
    */
   protected customizeStoreModule(
@@ -354,7 +340,6 @@ export class XPlugin {
    * changes.
    *
    * @param xModule - The {@link XModule} to register its Store Emitters.
-   *
    * @internal
    */
   protected registerStoreEmitters(xModule: AnyXModule): void {
