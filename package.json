@@ -34,9 +34,9 @@
   "prettier": "@empathyco/eslint-config/prettier",
   "lint-staged": {
     "*.{ts,tsx,vue}": [
-      "prettier --check",
+      "prettier",
       "npm run lint:check"
     ],
-    "*.{md,js,json}": "prettier --check"
+    "*.{md,js,json}": "prettier"
   }
 }
