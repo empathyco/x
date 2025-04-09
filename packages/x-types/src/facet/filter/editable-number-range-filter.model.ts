@@ -1,6 +1,6 @@
-import { FacetFilter } from './facet-filter.model';
-import { Filter } from './filter.model';
-import { RangeValue } from './range-value.model';
+import type { FacetFilter } from './facet-filter.model';
+import type { Filter } from './filter.model';
+import type { RangeValue } from './range-value.model';
 
 /**
  * A type of filter used in {@link EditableNumberRangeFacet} and extends from {@link FacetFilter}.

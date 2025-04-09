@@ -1,4 +1,4 @@
-import { NamedModel } from '../named-model.model';
+import type { NamedModel } from '../named-model.model';
 
 /**
  * A semantic query is a term related to another in a semantic way.

@@ -1,4 +1,4 @@
-import { Redirection } from '../redirection.model';
+import type { Redirection } from '../redirection.model';
 import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingRequestSchema } from './tagging.schema';
 

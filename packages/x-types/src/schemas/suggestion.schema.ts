@@ -1,4 +1,4 @@
-import { Suggestion } from '../suggestion.model';
+import type { Suggestion } from '../suggestion.model';
 
 /**
  * Jest schema for validating Suggestion entities.

@@ -1,5 +1,5 @@
-import { Previewable } from './previewable.model';
-import { Result } from './result/result.model';
+import type { Previewable } from './previewable.model';
+import type { Result } from './result/result.model';
 
 /**
  * A partial result represents a sub-query of a user search term which normally has not enough
@@ -10,10 +10,10 @@ import { Result } from './result/result.model';
  * @public
  */
 export interface PartialResult extends Previewable {
-  // eslint-disable-next-line jsdoc/require-description-complete-sentence
+   
   /** {@inheritDoc Previewable.results} */
   results: Result[] | null;
-  // eslint-disable-next-line jsdoc/require-description-complete-sentence
+   
   /** {@inheritDoc Previewable.totalResults} */
   totalResults: number | null;
 }

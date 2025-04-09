@@ -1,4 +1,4 @@
-import { RelatedPrompt } from '../query-signals';
+import type { RelatedPrompt } from '../query-signals';
 import { TaggingRequestSchema } from './tagging.schema';
 
 /**

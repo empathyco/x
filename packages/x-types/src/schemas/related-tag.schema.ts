@@ -1,4 +1,4 @@
-import { RelatedTag } from '../query-signals/related-tag.model';
+import type { RelatedTag } from '../query-signals/related-tag.model';
 
 /**
  * Jest schema for validating Related Tag entities.

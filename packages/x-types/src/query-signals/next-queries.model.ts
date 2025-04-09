@@ -1,6 +1,6 @@
-import { Identifiable } from '../identifiable.model';
-import { NamedModel } from '../named-model.model';
-import { NextQuery } from './next-query.model';
+import type { Identifiable } from '../identifiable.model';
+import type { NamedModel } from '../named-model.model';
+import type { NextQuery } from './next-query.model';
 
 /**
  * A group of next queries.

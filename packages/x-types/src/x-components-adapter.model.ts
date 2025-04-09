@@ -1,5 +1,5 @@
-import { EndpointAdapter } from '@empathyco/x-adapter';
-import {
+import type { EndpointAdapter } from '@empathyco/x-adapter';
+import type {
   ExperienceControlsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
@@ -12,17 +12,17 @@ import {
   SemanticQueriesRequest,
   TaggingRequest
 } from './request';
-import {
+import type {
+  ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
   QuerySuggestionsResponse,
   RecommendationsResponse,
+  RelatedPromptsResponse,
   RelatedTagsResponse,
   SearchResponse,
-  SemanticQueriesResponse,
-  ExperienceControlsResponse,
-  RelatedPromptsResponse
+  SemanticQueriesResponse
 } from './response';
 
 export interface XComponentsAdapter {

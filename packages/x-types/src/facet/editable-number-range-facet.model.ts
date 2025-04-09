@@ -1,5 +1,5 @@
-import { Facet } from './facet.model';
-import { EditableNumberRangeFilter } from './filter';
+import type { Facet } from './facet.model';
+import type { EditableNumberRangeFilter } from './filter';
 
 /**
  * Editable Number Range Facet is a trait for filtering results using

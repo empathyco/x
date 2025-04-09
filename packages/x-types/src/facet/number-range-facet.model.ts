@@ -1,5 +1,5 @@
-import { Facet } from './facet.model';
-import { NumberRangeFilter } from './filter/number-range-filter.model';
+import type { Facet } from './facet.model';
+import type { NumberRangeFilter } from './filter/number-range-filter.model';
 
 /**
  * Number Range Facet is a trait for filtering results. It extends from {@link Facet}, changes the

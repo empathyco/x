@@ -1,11 +1,11 @@
-import { Banner } from '../banner.model';
-import { Facet } from '../facet/facet.model';
-import { PartialResult } from '../partial-result.model';
-import { Promoted } from '../promoted.model';
-import { TaggingRequest } from '../request/tagging-request.model';
-import { Redirection } from '../redirection.model';
-import { Result } from '../result/result.model';
-import { Stats } from '../stats.model';
+import type { Banner } from '../banner.model';
+import type { Facet } from '../facet/facet.model';
+import type { PartialResult } from '../partial-result.model';
+import type { Promoted } from '../promoted.model';
+import type { Redirection } from '../redirection.model';
+import type { TaggingRequest } from '../request/tagging-request.model';
+import type { Result } from '../result/result.model';
+import type { Stats } from '../stats.model';
 
 /**
  * Response for the search endpoint.

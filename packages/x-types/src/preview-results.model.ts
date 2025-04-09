@@ -1,4 +1,4 @@
-import { Result } from './result/result.model';
+import type { Result } from './result/result.model';
 
 /**
  * Interface to type the query preview objects.

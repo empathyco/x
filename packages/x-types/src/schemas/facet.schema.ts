@@ -1,8 +1,8 @@
-import { EditableNumberRangeFacet } from '../facet/editable-number-range-facet.model';
-import { Facet } from '../facet/facet.model';
-import { HierarchicalFacet } from '../facet/hierarchical-facet.model';
-import { NumberRangeFacet } from '../facet/number-range-facet.model';
-import { SimpleFacet } from '../facet/simple-facet.model';
+import type { EditableNumberRangeFacet } from '../facet/editable-number-range-facet.model';
+import type { Facet } from '../facet/facet.model';
+import type { HierarchicalFacet } from '../facet/hierarchical-facet.model';
+import type { NumberRangeFacet } from '../facet/number-range-facet.model';
+import type { SimpleFacet } from '../facet/simple-facet.model';
 import {
   EditableNumberRangeFilterSchema,
   FilterSchema,

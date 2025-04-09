@@ -1,4 +1,4 @@
-import { Promoted } from '../promoted.model';
+import type { Promoted } from '../promoted.model';
 import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingRequestSchema } from './tagging.schema';
 

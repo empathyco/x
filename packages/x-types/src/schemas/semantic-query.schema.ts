@@ -1,4 +1,4 @@
-import { SemanticQuery } from '../query-signals/semantic-query.model';
+import type { SemanticQuery } from '../query-signals/semantic-query.model';
 
 /**
  * Jest schema for validating SemanticQuery entities.

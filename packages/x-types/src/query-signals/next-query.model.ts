@@ -1,5 +1,5 @@
-import { NamedModel } from '../named-model.model';
-import { Previewable } from '../previewable.model';
+import type { NamedModel } from '../named-model.model';
+import type { Previewable } from '../previewable.model';
 
 /**
  * A next query is a suggestion of a new query that the user may be interested after searching

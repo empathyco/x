@@ -1,5 +1,5 @@
-import { Identifiable } from '../../identifiable.model';
-import { FilterModelName, NamedModel } from '../../named-model.model';
+import type { Identifiable } from '../../identifiable.model';
+import type { FilterModelName, NamedModel } from '../../named-model.model';
 
 /**
  * A basic filter.

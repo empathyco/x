@@ -1,4 +1,4 @@
-import { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils';
 
 /**
  * Response for the experience controls endpoint.

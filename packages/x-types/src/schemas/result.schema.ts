@@ -1,4 +1,4 @@
-import { Result } from '../result/result.model';
+import type { Result } from '../result/result.model';
 import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingRequestSchema } from './tagging.schema';
 

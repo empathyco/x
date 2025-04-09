@@ -1,6 +1,7 @@
-import { BooleanFilterModelName, BooleanFilterModelNames } from '../../named-model.model';
-import { FacetFilter } from './facet-filter.model';
-import { Filter } from './filter.model';
+import type { BooleanFilterModelName} from '../../named-model.model';
+import type { FacetFilter } from './facet-filter.model';
+import type { Filter } from './filter.model';
+import { BooleanFilterModelNames } from '../../named-model.model';
 
 /**
  * A boolean filter used in a {@link FacetFilter}, which status can be selected or not and

@@ -1,10 +1,10 @@
-import { EditableNumberRangeFilter, FacetFilter } from '../facet/filter';
-import { BooleanFilter } from '../facet/filter/boolean-filter.model';
-import { Filter } from '../facet/filter/filter.model';
-import { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model';
-import { NumberRangeFilter } from '../facet/filter/number-range-filter.model';
-import { RawFilter } from '../facet/filter/raw-filter.model';
-import { SimpleFilter } from '../facet/filter/simple-filter.model';
+import type { EditableNumberRangeFilter, FacetFilter } from '../facet/filter';
+import type { BooleanFilter } from '../facet/filter/boolean-filter.model';
+import type { Filter } from '../facet/filter/filter.model';
+import type { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model';
+import type { NumberRangeFilter } from '../facet/filter/number-range-filter.model';
+import type { RawFilter } from '../facet/filter/raw-filter.model';
+import type { SimpleFilter } from '../facet/filter/simple-filter.model';
 import { IdentifiableSchema } from './identifiable.schema';
 
 /**

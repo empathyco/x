@@ -1,5 +1,5 @@
-import { Facet } from './facet/facet.model';
-import { Result } from './result/result.model';
+import type { Facet } from './facet/facet.model';
+import type { Result } from './result/result.model';
 
 /**
  * Represents an item that is searchable, and the results associated to it.

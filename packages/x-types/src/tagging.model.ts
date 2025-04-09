@@ -1,4 +1,4 @@
-import { TaggingRequest } from './request/tagging-request.model';
+import type { TaggingRequest } from './request/tagging-request.model';
 
 /**
  * A taggable entity.

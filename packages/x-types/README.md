@@ -48,8 +48,8 @@ if (isHierarchicalFilter(filter)) {
 Finally, there are some `jest` schemas helpers that you could use to validate your objects.
 
 ```ts
-import { HierarchicalFilterSchema } from '@empathyco/x-types/schemas';
 import { Filter, isHierarchicalFilter } from '@empathyco/x-types';
+import { HierarchicalFilterSchema } from '@empathyco/x-types/schemas';
 
 it('is a hierarchical filter', () => {
   const filter: Filter = {

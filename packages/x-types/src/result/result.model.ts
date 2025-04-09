@@ -1,9 +1,9 @@
-import { Identifiable } from '../identifiable.model';
-import { NamedModel } from '../named-model.model';
-import { Taggable } from '../tagging.model';
-import { ResultIdentifier } from './result-identifier.model';
-import { ResultPrice } from './result-price.model';
-import { ResultRating } from './result-rating.model';
+import type { Identifiable } from '../identifiable.model';
+import type { NamedModel } from '../named-model.model';
+import type { Taggable } from '../tagging.model';
+import type { ResultIdentifier } from './result-identifier.model';
+import type { ResultPrice } from './result-price.model';
+import type { ResultRating } from './result-rating.model';
 
 /**
  * A search result.

@@ -1,5 +1,5 @@
-import { Facet } from './facet.model';
-import { HierarchicalFilter } from './filter/hierarchical-filter.model';
+import type { Facet } from './facet.model';
+import type { HierarchicalFilter } from './filter/hierarchical-filter.model';
 
 /**
  * Hierarchical facet is a trait for filtering results. It extends from {@link Facet} changes the

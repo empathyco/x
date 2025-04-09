@@ -1,5 +1,5 @@
-import { Facet } from './facet.model';
-import { SimpleFilter } from './filter/simple-filter.model';
+import type { Facet } from './facet.model';
+import type { SimpleFilter } from './filter/simple-filter.model';
 
 /**
  * Simple facet is a trait for filtering results. It extends from {@link Facet}, changes the

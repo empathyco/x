@@ -1,4 +1,4 @@
-import { ExtraParamsRequest } from './request.model';
+import type { ExtraParamsRequest } from './request.model';
 
 /**
  * Request for Experience Controls endpoint.

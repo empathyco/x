@@ -1,4 +1,4 @@
-import { HistoryQuery } from '../history-query.model';
+import type { HistoryQuery } from '../history-query.model';
 
 /**
  * Jest schema for validating Next query entities.

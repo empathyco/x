@@ -1,5 +1,5 @@
-import { NamedModel } from '../named-model.model';
-import { TaggingRequest } from '../request/index';
+import type { NamedModel } from '../named-model.model';
+import type { TaggingRequest } from '../request/index';
 
 /**
  * Represents a related prompt.

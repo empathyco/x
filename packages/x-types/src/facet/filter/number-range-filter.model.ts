@@ -1,6 +1,6 @@
-import { BooleanFilter } from './boolean-filter.model';
-import { Filter } from './filter.model';
-import { RangeValue } from './range-value.model';
+import type { BooleanFilter } from './boolean-filter.model';
+import type { Filter } from './filter.model';
+import type { RangeValue } from './range-value.model';
 
 /**
  * A type of filter used in {@link NumberRangeFacet} and extends from {@link BooleanFilter}.

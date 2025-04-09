@@ -1,4 +1,4 @@
-import { Filter } from './filter.model';
+import type { Filter } from './filter.model';
 
 /**
  * A filter which id is the value of the filter. It can be selected or not.

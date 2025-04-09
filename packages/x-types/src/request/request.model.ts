@@ -1,5 +1,5 @@
-import { Filter } from '../facet/filter/filter.model';
-import { Sort } from '../sort.model';
+import type { Filter } from '../facet/filter/filter.model';
+import type { Sort } from '../sort.model';
 
 /**
  * Interface for any Request with a `query` parameter.

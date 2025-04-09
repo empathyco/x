@@ -1,4 +1,4 @@
-import { Result } from '../result/result.model';
+import type { Result } from '../result/result.model';
 
 /**
  * Response for the identifier results endpoint.

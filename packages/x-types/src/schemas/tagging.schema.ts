@@ -1,5 +1,5 @@
-import { TaggingRequest } from '../request/tagging-request.model';
-import { Taggable, Tagging } from '../tagging.model';
+import type { TaggingRequest } from '../request/tagging-request.model';
+import type { Taggable, Tagging } from '../tagging.model';
 
 /**
  * Jest schema for validating TaggingRequest entities.

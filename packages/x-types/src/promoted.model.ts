@@ -1,6 +1,6 @@
-import { Identifiable } from './identifiable.model';
-import { NamedModel } from './named-model.model';
-import { Taggable } from './tagging.model';
+import type { Identifiable } from './identifiable.model';
+import type { NamedModel } from './named-model.model';
+import type { Taggable } from './tagging.model';
 
 /**
  * A promoted is an image with a title, that when clicked redirect the user to an URL.

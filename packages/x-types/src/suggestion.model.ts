@@ -1,5 +1,5 @@
-import { NamedModel } from './named-model.model';
-import { Previewable } from './previewable.model';
+import type { NamedModel } from './named-model.model';
+import type { Previewable } from './previewable.model';
 
 /**
  * A suggestion represents a query that has been proposed to the user, due of being popular,

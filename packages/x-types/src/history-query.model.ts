@@ -1,6 +1,6 @@
-import { NamedModel } from './named-model.model';
-import { Previewable } from './previewable.model';
-import { Filter } from './facet';
+import type { Filter } from './facet';
+import type { NamedModel } from './named-model.model';
+import type { Previewable } from './previewable.model';
 
 /**
  * Represents a query that has been made by the user.

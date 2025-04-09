@@ -1,4 +1,4 @@
-import { Identifiable } from '../identifiable.model';
+import type { Identifiable } from '../identifiable.model';
 
 /**
  * Jest schema for validating Identifiable entities.

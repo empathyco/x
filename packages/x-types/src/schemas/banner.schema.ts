@@ -1,4 +1,4 @@
-import { Banner } from '../banner.model';
+import type { Banner } from '../banner.model';
 import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingRequestSchema } from './tagging.schema';
 

@@ -1,5 +1,5 @@
-import { BooleanFilter } from './boolean-filter.model';
-import { Filter } from './filter.model';
+import type { BooleanFilter } from './boolean-filter.model';
+import type { Filter } from './filter.model';
 
 /**
  * A type of filter used in {@link SimpleFacet} and extends from {@link Filter}.

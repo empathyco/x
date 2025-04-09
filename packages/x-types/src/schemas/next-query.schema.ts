@@ -1,4 +1,4 @@
-import { NextQuery } from '../query-signals/next-query.model';
+import type { NextQuery } from '../query-signals/next-query.model';
 
 /**
  * Jest schema for validating Next query entities.

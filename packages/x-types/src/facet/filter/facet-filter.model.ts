@@ -1,6 +1,6 @@
-import { FilterModelName } from '../../named-model.model';
-import { Facet } from '../facet.model';
-import { Filter } from './filter.model';
+import type { FilterModelName } from '../../named-model.model';
+import type { Facet } from '../facet.model';
+import type { Filter } from './filter.model';
 
 /**
  * A filter which is associated with a {@link Facet}.

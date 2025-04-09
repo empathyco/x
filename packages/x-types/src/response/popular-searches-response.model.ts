@@ -1,4 +1,4 @@
-import { Suggestion } from '../suggestion.model';
+import type { Suggestion } from '../suggestion.model';
 
 /**
  * Response for the popular searches endpoint.

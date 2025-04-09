@@ -1,4 +1,4 @@
-import { NextQuery } from '../query-signals/next-query.model';
+import type { NextQuery } from '../query-signals/next-query.model';
 
 /**
  * Response for the next queries endpoint.
