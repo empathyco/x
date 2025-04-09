@@ -1,5 +1,9 @@
-import type { Dictionary } from '@empathyco/x-utils';
-import type { NumberComparatorFn, XPriorityQueue, XPriorityQueueNode } from './x-priority-queue.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type {
+  NumberComparatorFn,
+  XPriorityQueue,
+  XPriorityQueueNode,
+} from './x-priority-queue.types'
 
 /**
  * Default {@link XPriorityQueueNode} implementation.
@@ -9,14 +13,14 @@ import type { NumberComparatorFn, XPriorityQueue, XPriorityQueueNode } from './x
 export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData extends Dictionary>
   implements XPriorityQueueNode<SomeRecord, SomeData>
 {
-  public readonly key: keyof SomeRecord;
-  public readonly priority: number;
-  public readonly data: SomeData;
+  public readonly key: keyof SomeRecord
+  public readonly priority: number
+  public readonly data: SomeData
 
   public constructor(key: keyof SomeRecord, priority: number, data = {} as SomeData) {
-    this.key = key;
-    this.priority = priority;
-    this.data = data;
+    this.key = key
+    this.priority = priority
+    this.data = data
   }
 
   /**
@@ -34,7 +38,7 @@ export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData exte
    * @public
    */
   toString(): string {
-    return `[${this.priority}] ${String(this.key)} -> ${JSON.stringify(this.data)}`;
+    return `[${this.priority}] ${String(this.key)} -> ${JSON.stringify(this.data)}`
   }
 }
 
@@ -52,7 +56,7 @@ export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData exte
  */
 export class BaseXPriorityQueue<
   SomeRecord extends Dictionary,
-  SomeData extends Dictionary = Dictionary
+  SomeData extends Dictionary = Dictionary,
 > implements XPriorityQueue<SomeRecord, SomeData>
 {
   /**
@@ -60,14 +64,14 @@ export class BaseXPriorityQueue<
    *
    * @internal
    */
-  protected nodes: XPriorityQueueNode<SomeRecord, SomeData>[] = [];
+  protected nodes: XPriorityQueueNode<SomeRecord, SomeData>[] = []
 
   /**
    * The comparator function to use for sorting.
    *
    * @internal
    */
-  protected comparatorFn: NumberComparatorFn;
+  protected comparatorFn: NumberComparatorFn
 
   /**
    * Creates a new {@link XPriorityQueue}.
@@ -77,7 +81,7 @@ export class BaseXPriorityQueue<
    * be higher in the queue than another with priority 0).
    */
   public constructor(comparatorFn: NumberComparatorFn = (a: number, b: number) => a < b) {
-    this.comparatorFn = comparatorFn;
+    this.comparatorFn = comparatorFn
   }
 
   /**
@@ -87,7 +91,7 @@ export class BaseXPriorityQueue<
    * @returns The list of keys.
    */
   public get keys(): (keyof SomeRecord)[] {
-    return this.nodes.map(({ key }) => key);
+    return this.nodes.map(({ key }) => key)
   }
 
   /**.
@@ -103,12 +107,12 @@ export class BaseXPriorityQueue<
    * @param data - The extra data associated to a key and priority pair.
    */
   push(key: keyof SomeRecord, priority: number, data?: SomeData): void {
-    const node = new BaseXPriorityQueueNode<SomeRecord, SomeData>(key, priority, data);
+    const node = new BaseXPriorityQueueNode<SomeRecord, SomeData>(key, priority, data)
 
     if (this.isEmpty()) {
-      this.nodes.push(node);
+      this.nodes.push(node)
     } else {
-      this.pushAndSort(node);
+      this.pushAndSort(node)
     }
   }
 
@@ -121,20 +125,20 @@ export class BaseXPriorityQueue<
    * @internal
    */
   private pushAndSort(newNode: XPriorityQueueNode<SomeRecord, SomeData>): void {
-    const replaceableIndex = this.nodes.findIndex(node => node.key === newNode.key);
+    const replaceableIndex = this.nodes.findIndex(node => node.key === newNode.key)
 
     if (replaceableIndex > -1 && this.nodes[replaceableIndex].data.replaceable) {
-      this.nodes.splice(replaceableIndex, 1);
+      this.nodes.splice(replaceableIndex, 1)
     }
 
     const insertAtIndex = this.nodes.findIndex(node =>
-      this.comparatorFn(node.priority, newNode.priority)
-    );
+      this.comparatorFn(node.priority, newNode.priority),
+    )
 
     if (insertAtIndex === -1) {
-      this.nodes.push(newNode);
+      this.nodes.push(newNode)
     } else {
-      this.nodes.splice(insertAtIndex, 0, newNode);
+      this.nodes.splice(insertAtIndex, 0, newNode)
     }
   }
 
@@ -144,7 +148,7 @@ export class BaseXPriorityQueue<
    * @returns The head {@link XPriorityQueueNode | node} of the queue or undefined if it is empty.
    */
   pop(): XPriorityQueueNode<SomeRecord, SomeData> | undefined {
-    return this.nodes.shift();
+    return this.nodes.shift()
   }
 
   /**
@@ -153,7 +157,7 @@ export class BaseXPriorityQueue<
    * @returns The head {@link XPriorityQueueNode | node} of the queue.
    */
   peek(): XPriorityQueueNode<SomeRecord, SomeData> | undefined {
-    return this.nodes[0];
+    return this.nodes[0]
   }
 
   /**
@@ -164,14 +168,14 @@ export class BaseXPriorityQueue<
    * @returns The {@link XPriorityQueueNode | node} at the passed position in the queue.
    */
   at(index: number): XPriorityQueueNode<SomeRecord, SomeData> | undefined {
-    return this.nodes[index];
+    return this.nodes[index]
   }
 
   /**
    * Removes all the {@link XPriorityQueueNode | nodes} from the queue.
    */
   clear(): void {
-    this.nodes.length = 0;
+    this.nodes.length = 0
   }
 
   /**
@@ -180,7 +184,7 @@ export class BaseXPriorityQueue<
    * @returns True if the queue is empty, false otherwise.
    */
   isEmpty(): boolean {
-    return this.nodes.length === 0;
+    return this.nodes.length === 0
   }
 
   /**
@@ -189,7 +193,7 @@ export class BaseXPriorityQueue<
    * @returns The number of {@link XPriorityQueueNode | nodes} stored in the queue.
    */
   size(): number {
-    return this.nodes.length;
+    return this.nodes.length
   }
 
   /**
@@ -207,6 +211,6 @@ export class BaseXPriorityQueue<
    * @returns A string representation of the queue.
    */
   toString(): string {
-    return this.nodes.reduce((output, node) => output.concat(node.toString(), '\n'), '');
+    return this.nodes.reduce((output, node) => output.concat(node.toString(), '\n'), '')
   }
 }
