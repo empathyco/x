@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { PopularSearchesXStoreModule } from '../types';
+import type { PopularSearchesXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link PopularSearchesActions.fetchSuggestions}.
@@ -11,9 +11,9 @@ import { PopularSearchesXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = (
+export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = async (
   _context,
-  request
+  request,
 ) => {
-  return XPlugin.adapter.popularSearches(request).then(({ suggestions }) => suggestions);
-};
+  return XPlugin.adapter.popularSearches(request).then(({ suggestions }) => suggestions)
+}

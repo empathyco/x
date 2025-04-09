@@ -1,65 +1,62 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
-import { createWiring } from '../../wiring/wiring.utils';
-import { createRawFilters } from '../../utils/filters';
+import { createRawFilters } from '../../utils/filters'
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * WireCommit for {@link UrlXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit('url');
+const wireCommit = namespacedWireCommit('url')
 
 /**
  * Sets the {@link RelatedTag | related tags }.
  *
  * @public
  */
-export const setUrlRelatedTags = wireCommit('setRelatedTags');
+export const setUrlRelatedTags = wireCommit('setRelatedTags')
 
 /**
  * Sets the related prompt of the URL module.
  *
  * @public
  */
-export const setUrlPrompt = wireCommit('setPrompt');
+export const setUrlPrompt = wireCommit('setPrompt')
 
 /**
  * Sets the query of the url module.
  *
  * @public
  */
-export const setUrlQuery = wireCommit('setQuery');
+export const setUrlQuery = wireCommit('setQuery')
 
 /**
  * Sets the url state `query` with a selectedQueryPreview's query.
  *
  * @public
  */
-export const setUrlQueryFromPreview = wireCommit(
-  'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+export const setUrlQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
 /**
  * Sets the page of the url module.
  *
  * @public
  */
-export const setUrlPage = wireCommit('setPage');
+export const setUrlPage = wireCommit('setPage')
 
 /**
  * Sets the sort of the url module.
  *
  * @public
  */
-export const setUrlSort = wireCommit('setSort');
+export const setUrlSort = wireCommit('setSort')
 
 /**
  * Sets the extra params of the url module.
  *
  * @public
  */
-export const setParams = wireCommit('setParams');
+export const setParams = wireCommit('setParams')
 
 /**
  * Sets the extra params of the url module from a selectedQueryPreview's extraParams.
@@ -68,8 +65,8 @@ export const setParams = wireCommit('setParams');
  */
 export const setUrlParamsFromPreview = wireCommit(
   'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
+  ({ eventPayload: { extraParams } }) => extraParams,
+)
 
 /**
  * Sets the filters of the url module from a selectedQueryPreview's filters.
@@ -78,29 +75,29 @@ export const setUrlParamsFromPreview = wireCommit(
  */
 export const setUrlSelectedFiltersFromPreview = wireCommit(
   'setFilters',
-  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
-);
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : []),
+)
 
 /**
  * Sets the scroll of the url module.
  *
  * @public
  */
-export const setUrlScroll = wireCommit('setScroll');
+export const setUrlScroll = wireCommit('setScroll')
 
 /**
  * Sets the initial provided extra params.
  *
  * @public
  */
-export const setInitialExtraParams = wireCommit('setInitialExtraParams');
+export const setInitialExtraParams = wireCommit('setInitialExtraParams')
 
 /**
  * Sets the filters of the url module.
  *
  * @public
  */
-export const setUrlFilters = wireCommit('setFilters');
+export const setUrlFilters = wireCommit('setFilters')
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
@@ -109,41 +106,41 @@ export const setUrlFilters = wireCommit('setFilters');
  */
 export const urlWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setParams
+    setParams,
   },
   UserAcceptedAQuery: {
-    setUrlQuery
+    setUrlQuery,
   },
   UserAcceptedAQueryPreview: {
     setUrlQueryFromPreview,
     setUrlParamsFromPreview,
-    setUrlSelectedFiltersFromPreview
+    setUrlSelectedFiltersFromPreview,
   },
   UserClearedQuery: {
-    setUrlQuery
+    setUrlQuery,
   },
   SelectedRelatedTagsChanged: {
-    setUrlRelatedTags
+    setUrlRelatedTags,
   },
   SelectedRelatedPromptChanged: {
-    setUrlPrompt
+    setUrlPrompt,
   },
   SelectedFiltersForRequestChanged: {
-    setUrlFilters
+    setUrlFilters,
   },
   PageChanged: {
-    setUrlPage
+    setUrlPage,
   },
   SortChanged: {
-    setUrlSort
+    setUrlSort,
   },
   ExtraParamsChanged: {
-    setParams
+    setParams,
   },
   ExtraParamsInitialized: {
-    setInitialExtraParams
+    setInitialExtraParams,
   },
   UserScrolledToElement: {
-    setUrlScroll
-  }
-});
+    setUrlScroll,
+  },
+})

@@ -7,13 +7,13 @@
       @property {MouseEvent} event - The original mouse event
     -->
     <BaseSuggestion
-      @click="$emit('click', suggestion, $event)"
+      v-slot="baseScope"
       class="x-history-query__suggestion"
       :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
-      #default="baseScope"
+      @click="$emit('click', suggestion, $event)"
     >
       <!-- eslint-disable max-len -->
       <!--
@@ -26,7 +26,7 @@
     <RemoveHistoryQuery
       class="x-history-query__remove x-suggestion-group-button"
       :class="removeButtonClass"
-      :historyQuery="suggestion"
+      :history-query="suggestion"
       data-test="remove-history-query"
     >
       <!--
@@ -39,67 +39,68 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { historyQueriesXModule } from '../x-module';
-  import { useGetter } from '../../../composables/use-getter';
-  import RemoveHistoryQuery from './remove-history-query.vue';
+import type { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { historyQueriesXModule } from '../x-module'
+import RemoveHistoryQuery from './remove-history-query.vue'
 
-  /**
-   * This component renders a history query suggestion combining two buttons: one for selecting this
-   * suggestion as the search query, and another one to remove this query suggestion from the
-   * history queries.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'HistoryQuery',
-    xModule: historyQueriesXModule.name,
-    components: { RemoveHistoryQuery, BaseSuggestion },
-    props: {
-      /**
-       * The history query suggestion to render.
-       *
-       * @public
-       */
-      suggestion: {
-        type: Object as PropType<HistoryQueryModel>,
-        required: true
-      },
-      /** Class inherited by content element. */
-      removeButtonClass: String,
-      /** Class inherited by content element. */
-      suggestionClass: String
+/**
+ * This component renders a history query suggestion combining two buttons: one for selecting this
+ * suggestion as the search query, and another one to remove this query suggestion from the
+ * history queries.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'HistoryQuery',
+  xModule: historyQueriesXModule.name,
+  components: { RemoveHistoryQuery, BaseSuggestion },
+  props: {
+    /**
+     * The history query suggestion to render.
+     *
+     * @public
+     */
+    suggestion: {
+      type: Object as PropType<HistoryQueryModel>,
+      required: true,
     },
-    emits: ['click'],
-    setup(props) {
-      /**
-       * The normalized query of the history-queries module.
-       *
-       * @internal
-       */
-      const query = useGetter('historyQueries', ['normalizedQuery']).normalizedQuery;
+    /** Class inherited by content element. */
+    removeButtonClass: String,
+    /** Class inherited by content element. */
+    suggestionClass: String,
+  },
+  emits: ['click'],
+  setup(props) {
+    /**
+     * The normalized query of the history-queries module.
+     *
+     * @internal
+     */
+    const query = useGetter('historyQueries', ['normalizedQuery']).normalizedQuery
 
-      /**
-       * The list of events that are going to be emitted when the suggestion button is pressed.
-       *
-       * @internal
-       * @returns The {@link XEvent} to emit.
-       */
-      const suggestionSelectedEvents = computed(
-        (): Partial<XEventsTypes> => ({
-          UserSelectedAHistoryQuery: props.suggestion
-        })
-      );
+    /**
+     * The list of events that are going to be emitted when the suggestion button is pressed.
+     *
+     * @internal
+     * @returns The {@link XEvent} to emit.
+     */
+    const suggestionSelectedEvents = computed(
+      (): Partial<XEventsTypes> => ({
+        UserSelectedAHistoryQuery: props.suggestion,
+      }),
+    )
 
-      return {
-        query,
-        suggestionSelectedEvents
-      };
+    return {
+      query,
+      suggestionSelectedEvents,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -123,22 +124,22 @@ This component only requires a prop called `suggestion`
 </template>
 
 <script>
-  import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  export default {
-    name: 'HistoryQueryDemo',
-    components: {
-      HistoryQuery
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'HistoryQuery',
-          query: 'trousers',
-          facets: []
-        }
-      };
+import { HistoryQuery } from '@empathyco/x-components/history-queries'
+export default {
+  name: 'HistoryQueryDemo',
+  components: {
+    HistoryQuery,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'HistoryQuery',
+        query: 'trousers',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -167,27 +168,27 @@ that serves to remove this query from the history. This slot only has one proper
 </template>
 
 <script>
-  import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  import { HistoryIcon, CrossIcon, Highlight } from '@empathyco/x-components';
+import { HistoryQuery } from '@empathyco/x-components/history-queries'
+import { HistoryIcon, CrossIcon, Highlight } from '@empathyco/x-components'
 
-  export default {
-    name: 'HistoryQueryDemo',
-    components: {
-      HistoryQuery,
-      HistoryIcon,
-      CrossIcon,
-      Highlight
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'HistoryQuery',
-          query: 'trousers',
-          facets: []
-        }
-      };
+export default {
+  name: 'HistoryQueryDemo',
+  components: {
+    HistoryQuery,
+    HistoryIcon,
+    CrossIcon,
+    Highlight,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'HistoryQuery',
+        query: 'trousers',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -201,22 +202,22 @@ The `suggestionClass` prop can be used to add classes to the history query sugge
 </template>
 
 <script>
-  import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  export default {
-    name: 'HistoryQueryDemo',
-    components: {
-      HistoryQuery
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'HistoryQuery',
-          query: 'trousers',
-          facets: []
-        }
-      };
+import { HistoryQuery } from '@empathyco/x-components/history-queries'
+export default {
+  name: 'HistoryQueryDemo',
+  components: {
+    HistoryQuery,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'HistoryQuery',
+        query: 'trousers',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -228,22 +229,22 @@ The `removeButtonClass` prop can be used to add classes to the remove history qu
 </template>
 
 <script>
-  import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  export default {
-    name: 'HistoryQueryDemo',
-    components: {
-      HistoryQuery
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'HistoryQuery',
-          query: 'trousers',
-          facets: []
-        }
-      };
+import { HistoryQuery } from '@empathyco/x-components/history-queries'
+export default {
+  name: 'HistoryQueryDemo',
+  components: {
+    HistoryQuery,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'HistoryQuery',
+        query: 'trousers',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

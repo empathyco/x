@@ -1,6 +1,6 @@
-import { XStoreModule } from '../../../store';
-import { EmpathizeConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import type { XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { EmpathizeConfig } from '../config.types'
 
 /**
  * Empathize store state.
@@ -13,13 +13,13 @@ export interface EmpathizeState {
    *
    * @public
    */
-  isOpen: boolean;
+  isOpen: boolean
   /**
    * The config of `Empathize` module.
    *
    * @public
    */
-  config: EmpathizeConfig;
+  config: EmpathizeConfig
 }
 
 /**
@@ -40,7 +40,7 @@ export interface EmpathizeMutations extends ConfigMutations<EmpathizeState> {
    *
    * @param isOpen - The new isOpen state to save.
    */
-  setIsOpen(isOpen: boolean): void;
+  setIsOpen: (isOpen: boolean) => void
 }
 
 /**
@@ -60,4 +60,4 @@ export type EmpathizeXStoreModule = XStoreModule<
   EmpathizeGetters,
   EmpathizeMutations,
   EmpathizeActions
->;
+>

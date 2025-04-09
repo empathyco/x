@@ -1,4 +1,4 @@
-import { ArrowKey } from '../utils/types';
+import type { ArrowKey } from '../utils/types'
 
 /**
  * Interface for SpatialNavigation services based on
@@ -14,7 +14,7 @@ export interface SpatialNavigation {
    *
    * @returns The element to navigate to or null.
    */
-  navigateTo(direction: ArrowKey): HTMLElement;
+  navigateTo: (direction: ArrowKey) => HTMLElement
 }
 
 /**
@@ -23,8 +23,8 @@ export interface SpatialNavigation {
  * @internal
  */
 export interface Point {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 /**
@@ -32,7 +32,7 @@ export interface Point {
  *
  * @internal
  */
-export type Points = [Point, Point];
+export type Points = [Point, Point]
 
 /**
  * Interface representing the projected intersection values between two elements.
@@ -40,9 +40,9 @@ export type Points = [Point, Point];
  * @internal
  */
 export interface Intersection {
-  width: number;
-  height: number;
-  area: number;
+  width: number
+  height: number
+  area: number
 }
 
 /**
@@ -51,8 +51,8 @@ export interface Intersection {
  * @internal
  */
 export interface AbsoluteDistances {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 /**
@@ -84,15 +84,15 @@ export interface AbsoluteDistances {
  * @internal
  */
 export type TransitionStates<SomeStatus extends string, SomeEvent extends string> = {
-  [Key in SomeStatus]: Partial<Record<SomeEvent, SomeStatus>>;
-};
+  [Key in SomeStatus]: Partial<Record<SomeEvent, SomeStatus>>
+}
 
 /**
  * Represents a machine state with its states and its initial state.
  *
  * @internal
  */
-export type Machine<SomeStatus extends string, SomeEvent extends string> = {
-  initial: SomeStatus;
-  states: TransitionStates<SomeStatus, SomeEvent>;
-};
+export interface Machine<SomeStatus extends string, SomeEvent extends string> {
+  initial: SomeStatus
+  states: TransitionStates<SomeStatus, SomeEvent>
+}

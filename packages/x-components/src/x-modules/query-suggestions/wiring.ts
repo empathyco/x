@@ -1,46 +1,46 @@
+import type { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types'
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
-import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+  namespacedWireDispatchWithoutPayload,
+} from '../../wiring/namespaced-wires.factory'
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `querySuggestions` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'querySuggestions';
+const moduleName = 'querySuggestions'
 
 /**
  * WireCommit for {@link QuerySuggestionsXModule}.
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName)
 
 /**
  * WireDispatchWithoutPayload for {@link QuerySuggestionsXModule}.
  *
  * @internal
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName)
 
 /**
  * WireDispatch for {@link QuerySuggestionsXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * Sets the query-suggestions module query.
  *
  * @public
  */
-export const setQuerySuggestionsQuery = wireCommit('setQuery');
+export const setQuerySuggestionsQuery = wireCommit('setQuery')
 
 /**
  * Sets the query-suggestions module query from a selectedQueryPreview's query.
@@ -49,8 +49,8 @@ export const setQuerySuggestionsQuery = wireCommit('setQuery');
  */
 export const setQuerySuggestionsQueryFromPreview = wireCommit(
   'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Sets the query-suggestions module params from a selectedQueryPreview's extraParams.
@@ -59,43 +59,43 @@ export const setQuerySuggestionsQueryFromPreview = wireCommit(
  */
 export const setQuerySuggestionsExtraParamsFromPreview = wireCommit(
   'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
+  ({ eventPayload: { extraParams } }) => extraParams,
+)
 
 /**
  * Sets the query suggestions state `params`.
  *
  * @public
  */
-export const setQuerySuggestionsExtraParams = wireCommit('setParams');
+export const setQuerySuggestionsExtraParams = wireCommit('setParams')
 
 /**
  * Sets the query suggestions state `searchedQueries` with the list of history queries.
  *
  * @public
  */
-export const setSearchedQueriesInSuggestions = wireCommit('setSearchedQueries');
+export const setSearchedQueriesInSuggestions = wireCommit('setSearchedQueries')
 
 /**
  * Clears the query-suggestions module query.
  *
  * @public
  */
-export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
+export const clearQuerySuggestionsQuery = wireCommit('setQuery', '')
 
 /**
  * Sets the query-suggestions state `query` from url.
  *
  * @public
  */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('setUrlParams')
 
 /**
  * Requests and stores a new set of query suggestions for the query.
  *
  * @public
  */
-export const fetchAndSaveSuggestionsWire = wireDispatch('fetchAndSaveSuggestions');
+export const fetchAndSaveSuggestionsWire = wireDispatch('fetchAndSaveSuggestions')
 
 /**
  * Cancels the {@link QuerySuggestionsActions.fetchAndSaveSuggestions} request promise.
@@ -103,13 +103,13 @@ export const fetchAndSaveSuggestionsWire = wireDispatch('fetchAndSaveSuggestions
  * @public
  */
 export const cancelFetchAndSaveSuggestionsWire = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveSuggestions'
-);
+  'cancelFetchAndSaveSuggestions',
+)
 
 /**
  * Debounce function for the module.
  */
-const moduleDebounce = namespacedDebounce(moduleName);
+const moduleDebounce = namespacedDebounce(moduleName)
 
 /**
  * QuerySuggestions wiring.
@@ -118,42 +118,42 @@ const moduleDebounce = namespacedDebounce(moduleName);
  */
 export const querySuggestionsWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
   },
   UserIsTypingAQuery: {
     setQuerySuggestionsQueryDebounce: moduleDebounce(
       setQuerySuggestionsQuery,
       ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+      { cancelOn: 'UserAcceptedAQuery' },
+    ),
   },
   UserAcceptedAQuery: {
-    setQuerySuggestionsQuery
+    setQuerySuggestionsQuery,
   },
   UserClearedQuery: {
     clearQuerySuggestionsQuery,
-    cancelFetchAndSaveSuggestionsWire
+    cancelFetchAndSaveSuggestionsWire,
   },
   QuerySuggestionsRequestUpdated: {
-    fetchAndSaveSuggestionsWire
+    fetchAndSaveSuggestionsWire,
   },
   ExtraParamsChanged: {
-    setQuerySuggestionsExtraParams
+    setQuerySuggestionsExtraParams,
   },
   UserClickedCloseX: {
-    clearQuerySuggestionsQuery
+    clearQuerySuggestionsQuery,
   },
   UserClickedOutOfMainModal: {
-    clearQuerySuggestionsQuery
+    clearQuerySuggestionsQuery,
   },
   UserAcceptedAQueryPreview: {
     setQuerySuggestionsQueryFromPreview,
-    setQuerySuggestionsExtraParamsFromPreview
+    setQuerySuggestionsExtraParamsFromPreview,
   },
   QueryPreviewUnselected: {
-    setQuerySuggestionsExtraParams
+    setQuerySuggestionsExtraParams,
   },
   SessionHistoryQueriesChanged: {
-    setSearchedQueriesInSuggestions
-  }
-});
+    setSearchedQueriesInSuggestions,
+  },
+})

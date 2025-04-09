@@ -1,8 +1,9 @@
-import { HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../store/store.types';
-import { addFacetIfNotPresent } from './add-facet-if-not-present';
-import { FilterEntity } from './types';
+import type { Filter, HierarchicalFilter } from '@empathyco/x-types'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/store.types'
+import type { FilterEntity } from './types'
+import { isHierarchicalFilter } from '@empathyco/x-types'
+import { addFacetIfNotPresent } from './add-facet-if-not-present'
 
 /**
  * Allows selecting and deselecting a filter of {@link @empathyco/x-types#HierarchicalFilter
@@ -11,30 +12,32 @@ import { FilterEntity } from './types';
  * @internal
  */
 export class HierarchicalFilterEntity implements FilterEntity {
-  public static accepts = isHierarchicalFilter;
+  public static accepts = isHierarchicalFilter
 
   public constructor(protected store: Store<RootXStoreState>) {}
 
   /**
    * Deselects the hierarchical filter and all of its descendants.
    *
-   * @param filter - The filter to deselect.
+   * @param filterParam - The filter to deselect.
    */
-  deselect(filter: HierarchicalFilter): void {
-    this.saveFilter(filter, { selected: false });
-    this.deselectDescendants(filter);
-    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
+  deselect(filterParam: Filter): void {
+    const filter = filterParam as HierarchicalFilter
+    this.saveFilter(filter, { selected: false })
+    this.deselectDescendants(filter)
+    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet')
   }
 
   /**
    * Selects the hierarchical filter and its ancestors.
    *
-   * @param filter - The filter to select.
+   * @param filterParam - The filter to select.
    */
-  select(filter: HierarchicalFilter): void {
-    this.saveFilter(filter, { selected: true });
-    this.selectAncestors(filter);
-    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
+  select(filterParam: Filter): void {
+    const filter = filterParam as HierarchicalFilter
+    this.saveFilter(filter, { selected: true })
+    this.selectAncestors(filter)
+    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet')
   }
 
   /**
@@ -47,9 +50,9 @@ export class HierarchicalFilterEntity implements FilterEntity {
   protected deselectDescendants(filter: HierarchicalFilter): void {
     if (filter.children) {
       filter.children.forEach(child => {
-        this.saveFilter(child, { selected: false });
-        this.deselectDescendants(child);
-      });
+        this.saveFilter(child, { selected: false })
+        this.deselectDescendants(child)
+      })
     }
   }
 
@@ -62,10 +65,10 @@ export class HierarchicalFilterEntity implements FilterEntity {
    */
   protected selectAncestors(filter: HierarchicalFilter): void {
     if (filter.parentId) {
-      const parent = this.getFilterById(filter.parentId);
+      const parent = this.getFilterById(filter.parentId)
       if (parent) {
-        this.saveFilter(parent, { selected: true });
-        this.selectAncestors(parent);
+        this.saveFilter(parent, { selected: true })
+        this.selectAncestors(parent)
       }
     }
   }
@@ -78,7 +81,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterById(id: HierarchicalFilter['id']): HierarchicalFilter {
-    return this.store.state.x.facets.filters[id] as HierarchicalFilter;
+    return this.store.state.x.facets.filters[id] as HierarchicalFilter
   }
 
   /**
@@ -90,8 +93,8 @@ export class HierarchicalFilterEntity implements FilterEntity {
    */
   protected saveFilter(
     filter: HierarchicalFilter,
-    newFilterState: Partial<HierarchicalFilter> = {}
+    newFilterState: Partial<HierarchicalFilter> = {},
   ): void {
-    this.store.commit('x/facets/mutateFilter', { filter, newFilterState });
+    this.store.commit('x/facets/mutateFilter', { filter, newFilterState })
   }
 }

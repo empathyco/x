@@ -1,12 +1,12 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { ActionsClass } from '../../../../store/actions.types';
-import { isArrayEmpty } from '../../../../utils/array';
-import { normalizeString } from '../../../../utils/normalize';
-import { Pair } from '../../../../utils/types';
-import { HistoryQueriesActionContext, HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { ActionsClass } from '../../../../store/actions.types'
+import type { Pair } from '../../../../utils/types'
+import type { HistoryQueriesActionContext, HistoryQueriesXStoreModule } from '../types'
+import { isArrayEmpty } from '../../../../utils/array'
+import { normalizeString } from '../../../../utils/normalize'
 
 /** Regex for splitting a query into its words. */
-const SPLIT_WORDS_REGEX = /[\s-]/;
+const SPLIT_WORDS_REGEX = /[\s-]/
 
 /**
  * Class implementation for the {@link HistoryQueriesActions.addQueryToHistory} action.
@@ -19,26 +19,28 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
+   * @param context.state - state context.
+   * @param context.dispatch - dispatch context.
    * @param query - The query to try to add to the history.
    * @returns A `void` promise that resolves when the history queries finishes updating.
    */
   addQueryToHistory(
     { state, dispatch }: HistoryQueriesActionContext,
-    query: string
+    query: string,
   ): void | Promise<void> {
-    const normalizedQuery = normalizeString(query);
+    const normalizedQuery = normalizeString(query)
     if (!normalizedQuery) {
-      return;
+      return
     }
 
     if (isArrayEmpty(state.historyQueries)) {
-      return dispatch('setHistoryQueries', [this.createHistoryQuery(query)]);
+      return dispatch('setHistoryQueries', [this.createHistoryQuery(query)])
     }
 
-    const newHistory = this.createNewHistory(state.historyQueries, normalizedQuery);
+    const newHistory = this.createNewHistory(state.historyQueries, normalizedQuery)
     if (newHistory) {
-      newHistory.unshift(this.createHistoryQuery(query));
-      return dispatch('setHistoryQueries', newHistory);
+      newHistory.unshift(this.createHistoryQuery(query))
+      return dispatch('setHistoryQueries', newHistory)
     }
   }
 
@@ -53,8 +55,8 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
     return {
       query: query.trim(),
       timestamp: Date.now(),
-      modelName: 'HistoryQuery'
-    };
+      modelName: 'HistoryQuery',
+    }
   }
 
   /**
@@ -76,21 +78,21 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    */
   protected createNewHistory(
     currentHistory: HistoryQuery[],
-    normalizedQuery: string
+    normalizedQuery: string,
   ): HistoryQuery[] | null {
-    const normalizedLastQuery = normalizeString(currentHistory[0].query);
-    const queriesTuple: Pair<string> = [normalizedLastQuery, normalizedQuery];
+    const normalizedLastQuery = normalizeString(currentHistory[0].query)
+    const queriesTuple: Pair<string> = [normalizedLastQuery, normalizedQuery]
 
-    const newWords = normalizedQuery.split(SPLIT_WORDS_REGEX);
-    const lastWords = normalizedLastQuery.split(SPLIT_WORDS_REGEX);
-    const wordsTuple: Pair<string[]> = [lastWords, newWords];
+    const newWords = normalizedQuery.split(SPLIT_WORDS_REGEX)
+    const lastWords = normalizedLastQuery.split(SPLIT_WORDS_REGEX)
+    const wordsTuple: Pair<string[]> = [lastWords, newWords]
 
     return this.isReplaceAction(wordsTuple, queriesTuple)
       ? // TODO EX-1815 This replace does not take into account yet queries that end in numbers
         this.removeNewQueryFromHistory(currentHistory.slice(1), normalizedQuery)
       : this.isAddAction(wordsTuple, queriesTuple)
-      ? this.removeNewQueryFromHistory(currentHistory, normalizedQuery)
-      : null;
+        ? this.removeNewQueryFromHistory(currentHistory, normalizedQuery)
+        : null
   }
 
   /**
@@ -104,41 +106,49 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    */
   protected removeNewQueryFromHistory(
     currentHistory: HistoryQuery[],
-    normalizedQuery: string
+    normalizedQuery: string,
   ): HistoryQuery[] {
     return currentHistory.filter(
-      historyQuery => normalizeString(historyQuery.query) !== normalizedQuery
-    );
+      historyQuery => normalizeString(historyQuery.query) !== normalizedQuery,
+    )
   }
 
   /**
    * Calculates if the new query should be added to the history.
    *
    * @param wordsTuple - A tuple containing the old, and the new words arrays.
+   * @param wordsTuple.0 - 0 wordsTuple.
+   * @param wordsTuple.1 - 1 wordsTuple
    * @param queriesTuple - A tuple containing the old and the new queries.
+   * @param queriesTuple.0 - 0 queriesTuple.
+   * @param queriesTuple.1 - 0 queriesTuple.
    * @returns `true` when the new query should be added. `false` otherwise.
    * @internal
    */
   protected isAddAction(
     [lastWords, newWords]: Pair<string[]>,
-    [lastQuery, newQuery]: Pair<string>
+    [lastQuery, newQuery]: Pair<string>,
   ): boolean {
-    return newWords.length !== lastWords.length || !lastQuery.includes(newQuery);
+    return newWords.length !== lastWords.length || !lastQuery.includes(newQuery)
   }
 
   /**
    * Calculates if the new query should replace the last query in the history.
    *
    * @param wordsTuple - A tuple containing the old, and the new words arrays.
+   * @param wordsTuple.0 - 0 wordsTuple.
+   * @param wordsTuple.1 - 1 wordsTuple
    * @param queriesTuple - A tuple containing the old and the new queries.
+   * @param queriesTuple.0 - 0 queriesTuple.
+   * @param queriesTuple.1 - 0 queriesTuple.
    * @returns `true` when the new query should replace the last one. `false` otherwise.
    * @internal
    */
   protected isReplaceAction(
     [lastWords, newWords]: Pair<string[]>,
-    [lastQuery, newQuery]: Pair<string>
+    [lastQuery, newQuery]: Pair<string>,
   ): boolean {
-    return lastQuery === newQuery || this.isQueryBeingRefined(lastWords, newWords);
+    return lastQuery === newQuery || this.isQueryBeingRefined(lastWords, newWords)
   }
 
   /**
@@ -152,25 +162,24 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    * @internal
    */
   protected isQueryBeingRefined(lastWords: string[], newWords: string[]): boolean {
-    const refinedWordIndex = lastWords.length - 1;
-    const lastRefinedWord = lastWords[refinedWordIndex];
-    const newRefinedWord = newWords[refinedWordIndex];
+    const refinedWordIndex = lastWords.length - 1
+    const lastRefinedWord = lastWords[refinedWordIndex]
+    const newRefinedWord = newWords[refinedWordIndex]
     return (
       !!lastRefinedWord &&
       !!newRefinedWord &&
       newRefinedWord !== lastRefinedWord &&
       newRefinedWord.includes(lastRefinedWord)
-    );
+    )
   }
 }
 
-const addQueryToHistoryAction = new AddQueryToHistoryAction();
-/* eslint-disable jsdoc/require-description-complete-sentence */
+const addQueryToHistoryAction = new AddQueryToHistoryAction()
+
 /**
  * {@inheritDoc AddQueryToHistoryAction.addQueryToHistory}
  *
  * @public
  */
 export const addQueryToHistory =
-  addQueryToHistoryAction.addQueryToHistory.bind(addQueryToHistoryAction);
-/* eslint-enable jsdoc/require-description-complete-sentence */
+  addQueryToHistoryAction.addQueryToHistory.bind(addQueryToHistoryAction)

@@ -1,4 +1,4 @@
-import {
+import type {
   Facet,
   Filter,
   HistoryQuery,
@@ -8,13 +8,15 @@ import {
   RelatedTag,
   Result,
   SemanticQuery,
-  Suggestion
-} from '@empathyco/x-types';
-import { ScrollComponentState } from '../x-modules/scroll/store/types';
-import { InputStatus } from '../x-modules/search-box/store/types';
-import { RequestStatus } from '../store/utils/status-store.utils';
-import { getGetterPath } from '../plugins/index';
-import { useStore } from './use-store';
+  Suggestion,
+} from '@empathyco/x-types'
+import type { RequestStatus } from '../store/utils/status-store.utils'
+import type { ScrollComponentState } from '../x-modules/scroll/store/types'
+import type { InputStatus } from '../x-modules/search-box/store/types'
+import { getGetterPath } from '../plugins/index'
+import { useStore } from './use-store'
+
+/* eslint-disable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */
 
 /**
  * Creates an object containing the alias part of {@link XComponentAPI}.
@@ -30,8 +32,8 @@ export function useAliasApi(): UseAliasAPI {
     'nextQueries',
     'querySuggestions',
     'relatedTags',
-    'search'
-  ] as const;
+    'search',
+  ] as const
   const statusModules = [
     'identifierResults',
     'nextQueries',
@@ -39,117 +41,117 @@ export function useAliasApi(): UseAliasAPI {
     'querySuggestions',
     'recommendations',
     'relatedTags',
-    'search'
-  ] as const;
+    'search',
+  ] as const
 
-  const store = useStore();
+  const store = useStore()
 
   const query = queryModules.reduce((acc, moduleName) => {
     return Object.defineProperty(acc, moduleName, {
       get(): string {
-        return store.state.x[moduleName]?.query ?? '';
+        return store.state.x[moduleName]?.query ?? ''
       },
-      enumerable: true
-    });
-  }, {} as UseAliasQueryAPI);
+      enumerable: true,
+    })
+  }, {} as UseAliasQueryAPI)
 
   const status = statusModules.reduce((acc, moduleName) => {
     return Object.defineProperty(acc, moduleName, {
       get(): RequestStatus | undefined {
-        return store.state.x[moduleName]?.status;
+        return store.state.x[moduleName]?.status
       },
-      enumerable: true
-    });
-  }, {} as UseAliasStatusAPI);
+      enumerable: true,
+    })
+  }, {} as UseAliasStatusAPI)
 
   return {
     query,
     status,
     get device() {
-      return store.state.x.device?.name ?? null;
+      return store.state.x.device?.name ?? null
     },
     get facets() {
-      return store.getters[getGetterPath('facets', 'facets')] ?? {};
+      return store.getters[getGetterPath('facets', 'facets')] ?? {}
     },
     get historyQueries() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
+      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? []
     },
     get historyQueriesWithResults() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? [];
+      return store.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? []
     },
     get fullHistoryQueries() {
-      return store.state.x.historyQueries?.historyQueries ?? [];
+      return store.state.x.historyQueries?.historyQueries ?? []
     },
     get isHistoryQueriesEnabled() {
-      return store.state.x.historyQueries?.isEnabled ?? false;
+      return store.state.x.historyQueries?.isEnabled ?? false
     },
     get fromNoResultsWithFilters() {
-      return store.state.x.search?.fromNoResultsWithFilters ?? false;
+      return store.state.x.search?.fromNoResultsWithFilters ?? false
     },
     get identifierResults() {
-      return store.state.x.identifierResults?.identifierResults ?? [];
+      return store.state.x.identifierResults?.identifierResults ?? []
     },
     get searchBoxStatus() {
-      return store.state.x.searchBox?.inputStatus ?? undefined;
+      return store.state.x.searchBox?.inputStatus ?? undefined
     },
     get isEmpathizeOpen() {
-      return store.state.x.empathize?.isOpen ?? false;
+      return store.state.x.empathize?.isOpen ?? false
     },
     get nextQueries() {
-      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
+      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? []
     },
     get noResults() {
-      return store.state.x.search?.isNoResults ?? false;
+      return store.state.x.search?.isNoResults ?? false
     },
     get partialResults() {
-      return store.state.x.search?.partialResults ?? [];
+      return store.state.x.search?.partialResults ?? []
     },
     get popularSearches() {
-      return store.state.x.popularSearches?.popularSearches ?? [];
+      return store.state.x.popularSearches?.popularSearches ?? []
     },
     get querySuggestions() {
-      return store.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? [];
+      return store.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? []
     },
     get fullQuerySuggestions() {
-      return store.state.x.querySuggestions?.suggestions ?? [];
+      return store.state.x.querySuggestions?.suggestions ?? []
     },
     get recommendations() {
-      return store.state.x.recommendations?.recommendations ?? [];
+      return store.state.x.recommendations?.recommendations ?? []
     },
     get redirections() {
-      return store.state.x.search?.redirections ?? [];
+      return store.state.x.search?.redirections ?? []
     },
     get relatedTags() {
-      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
+      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? []
     },
     get results() {
-      return store.state.x.search?.results ?? [];
+      return store.state.x.search?.results ?? []
     },
     get scroll() {
-      return store.state.x.scroll?.data ?? {};
+      return store.state.x.scroll?.data ?? {}
     },
     get selectedFilters() {
-      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
+      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? []
     },
     get selectedRelatedTags() {
-      return store.state.x.relatedTags?.selectedRelatedTags ?? [];
+      return store.state.x.relatedTags?.selectedRelatedTags ?? []
     },
     get semanticQueries() {
-      return store.state.x.semanticQueries?.semanticQueries ?? [];
+      return store.state.x.semanticQueries?.semanticQueries ?? []
     },
     get spellcheckedQuery() {
-      return store.state.x.search?.spellcheckedQuery ?? null;
+      return store.state.x.search?.spellcheckedQuery ?? null
     },
     get totalResults() {
-      return store.state.x.search?.totalResults ?? 0;
+      return store.state.x.search?.totalResults ?? 0
     },
     get selectedSort() {
-      return store.state.x.search?.sort ?? '';
+      return store.state.x.search?.sort ?? ''
     },
     get priceStats() {
-      return store.state.x.search?.stats?.price ?? {};
-    }
-  };
+      return store.state.x.search?.stats?.price ?? {}
+    },
+  }
 }
 
 /**
@@ -159,65 +161,65 @@ export function useAliasApi(): UseAliasAPI {
  */
 export interface UseAliasAPI {
   /** The {@link DeviceXModule} detected device. */
-  readonly device: string | null;
+  readonly device: string | null
   /** The {@link FacetsXModule} facets. */
-  readonly facets: Record<Facet['id'], Facet>;
+  readonly facets: Record<Facet['id'], Facet>
   /** The {@link HistoryQueriesXModule} history queries matching the query. */
-  readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  readonly historyQueries: ReadonlyArray<HistoryQuery>
   /** The {@link HistoryQueriesXModule} history queries with 1 or more results. */
-  readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>;
+  readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>
   /** The {@link HistoryQueriesXModule} history queries. */
-  readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
+  readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>
   /** The {@link HistoryQueriesXModule} history queries enabled flag. */
-  readonly isHistoryQueriesEnabled: Readonly<boolean>;
+  readonly isHistoryQueriesEnabled: Readonly<boolean>
   /** The {@link SearchXModule} no results with filters flag. */
-  readonly fromNoResultsWithFilters: Readonly<boolean>;
+  readonly fromNoResultsWithFilters: Readonly<boolean>
   /** The {@link IdentifierResultsXModule} results. */
-  readonly identifierResults: ReadonlyArray<Result>;
+  readonly identifierResults: ReadonlyArray<Result>
   /** The {@link SearchBoxXModule } input status. */
-  readonly searchBoxStatus: InputStatus | undefined;
+  readonly searchBoxStatus: InputStatus | undefined
   /** The {@link Empathize} is open state. */
-  readonly isEmpathizeOpen: boolean;
+  readonly isEmpathizeOpen: boolean
   /** The {@link NextQueriesXModule} next queries. */
-  readonly nextQueries: ReadonlyArray<NextQuery>;
+  readonly nextQueries: ReadonlyArray<NextQuery>
   /** The {@link SearchXModule} no results situation. */
-  readonly noResults: boolean;
+  readonly noResults: boolean
   /** The {@link SearchXModule} partial results. */
-  readonly partialResults: ReadonlyArray<PartialResult>;
+  readonly partialResults: ReadonlyArray<PartialResult>
   /** The {@link PopularSearchesXModule} popular searches. */
-  readonly popularSearches: ReadonlyArray<Suggestion>;
+  readonly popularSearches: ReadonlyArray<Suggestion>
   /** The query value of the different modules. */
-  readonly query: UseAliasQueryAPI;
+  readonly query: UseAliasQueryAPI
   /** The {@link QuerySuggestionsXModule} query suggestions that should be displayed. */
-  readonly querySuggestions: ReadonlyArray<Suggestion>;
+  readonly querySuggestions: ReadonlyArray<Suggestion>
   /** The {@link QuerySuggestionsXModule} query suggestions. */
-  readonly fullQuerySuggestions: ReadonlyArray<Suggestion>;
+  readonly fullQuerySuggestions: ReadonlyArray<Suggestion>
   /** The {@link RecommendationsXModule} recommendations. */
-  readonly recommendations: ReadonlyArray<Result>;
+  readonly recommendations: ReadonlyArray<Result>
   /** The {@link SearchXModule} redirections. */
-  readonly redirections: ReadonlyArray<Redirection>;
+  readonly redirections: ReadonlyArray<Redirection>
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
-  readonly relatedTags: ReadonlyArray<RelatedTag>;
+  readonly relatedTags: ReadonlyArray<RelatedTag>
   /** The {@link SearchXModule} search results. */
-  readonly results: ReadonlyArray<Result>;
+  readonly results: ReadonlyArray<Result>
   /** The {@link ScrollXModule} data state. */
-  readonly scroll: Record<string, ScrollComponentState>;
+  readonly scroll: Record<string, ScrollComponentState>
   /** The {@link FacetsXModule} selected filters. */
-  readonly selectedFilters: Filter[];
+  readonly selectedFilters: Filter[]
   /** The {@link RelatedTagsXModule} selected related tags. */
-  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>
   /** The {@link SemanticQueriesXModule} queries. */
-  readonly semanticQueries: ReadonlyArray<SemanticQuery>;
+  readonly semanticQueries: ReadonlyArray<SemanticQuery>
   /** The {@link SearchXModule} spellchecked query. */
-  readonly spellcheckedQuery: string | null;
+  readonly spellcheckedQuery: string | null
   /** The status value of the different modules. */
-  readonly status: UseAliasStatusAPI;
+  readonly status: UseAliasStatusAPI
   /** The {@link SearchXModule} total results. */
-  readonly totalResults: number;
+  readonly totalResults: number
   /** The {@link SearchXModule} selected sort. */
-  readonly selectedSort: string;
+  readonly selectedSort: string
   /** The {@link SearchXModule} price specific stats. */
-  readonly priceStats: { min: number; max: number };
+  readonly priceStats: { min: number; max: number }
 }
 
 /**
@@ -227,17 +229,17 @@ export interface UseAliasAPI {
  */
 export interface UseAliasQueryAPI {
   /** The {@link FacetsXModule} query. */
-  readonly facets: string;
+  readonly facets: string
   /** The {@link SearchBoxXModule} query. */
-  readonly searchBox: string;
+  readonly searchBox: string
   /** The {@link NextQueriesXModule} query. */
-  readonly nextQueries: string;
+  readonly nextQueries: string
   /** The {@link QuerySuggestionsXModule} query. */
-  readonly querySuggestions: string;
+  readonly querySuggestions: string
   /** The {@link RelatedTagsXModule} query. */
-  readonly relatedTags: string;
+  readonly relatedTags: string
   /** The {@link SearchXModule} query. */
-  readonly search: string;
+  readonly search: string
 }
 
 /**
@@ -247,17 +249,19 @@ export interface UseAliasQueryAPI {
  */
 export interface UseAliasStatusAPI {
   /** The {@link IdentifierResultsXModule} status. */
-  readonly identifierResults: RequestStatus | undefined;
+  readonly identifierResults: RequestStatus | undefined
   /** The {@link NextQueriesXModule} status. */
-  readonly nextQueries: RequestStatus | undefined;
+  readonly nextQueries: RequestStatus | undefined
   /** The {@link PopularSearchesXModule} status. */
-  readonly popularSearches: RequestStatus | undefined;
+  readonly popularSearches: RequestStatus | undefined
   /** The {@link QuerySuggestionsXModule} status. */
-  readonly querySuggestions: RequestStatus | undefined;
+  readonly querySuggestions: RequestStatus | undefined
   /** The {@link RecommendationsXModule} status. */
-  readonly recommendations: RequestStatus | undefined;
+  readonly recommendations: RequestStatus | undefined
   /** The {@link RelatedTagsXModule} status. */
-  readonly relatedTags: RequestStatus | undefined;
+  readonly relatedTags: RequestStatus | undefined
   /** The {@link SearchXModule} status. */
-  readonly search: RequestStatus | undefined;
+  readonly search: RequestStatus | undefined
 }
+
+/* eslint-enable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */

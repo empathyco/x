@@ -1,10 +1,13 @@
-import { QuerySuggestionsXStoreModule } from '../types';
+import type { QuerySuggestionsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link QuerySuggestionsGetters.request} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the query
  * suggestions module.
+ * @param state.query - query state.
+ * @param state.config - config state.
+ * @param state.params - params state.
  *
  * @returns The query suggestions request to fetch data from the API.
  *
@@ -13,14 +16,14 @@ import { QuerySuggestionsXStoreModule } from '../types';
 export const request: QuerySuggestionsXStoreModule['getters']['request'] = ({
   query,
   config,
-  params
+  params,
 }) => {
   return query.trim()
     ? {
         query,
         rows: config.maxItemsToRequest,
         start: 0,
-        extraParams: params
+        extraParams: params,
       }
-    : null;
-};
+    : null
+}

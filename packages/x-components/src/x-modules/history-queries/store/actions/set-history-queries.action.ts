@@ -1,23 +1,26 @@
-import { localStorageService } from '../../../../utils/storage';
-import { HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQueriesXStoreModule } from '../types'
+import { localStorageService } from '../../../../utils/storage'
 
 /**
  * Default implementation for the {@link HistoryQueriesActions.setHistoryQueries}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
+ * @param context.state - state context.
+ * @param context.commit - commit context.
+ * @param context.getters - getters context.
  * @param historyQueries - The new history queries to save to the store and browser storage.
  * @public
  */
 export const setHistoryQueries: HistoryQueriesXStoreModule['actions']['setHistoryQueries'] = (
   { commit, state, getters },
-  historyQueries
+  historyQueries,
 ) => {
   if (state.isEnabled) {
     if (historyQueries.length > state.config.maxItemsToStore) {
-      historyQueries = historyQueries.slice(0, state.config.maxItemsToStore);
+      historyQueries = historyQueries.slice(0, state.config.maxItemsToStore)
     }
-    commit('setHistoryQueries', historyQueries);
-    localStorageService.setItem(getters.storageKey, historyQueries);
+    commit('setHistoryQueries', historyQueries)
+    localStorageService.setItem(getters.storageKey, historyQueries)
   }
-};
+}

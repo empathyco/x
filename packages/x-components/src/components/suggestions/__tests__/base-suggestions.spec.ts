@@ -1,12 +1,13 @@
-import { Suggestion } from '@empathyco/x-types';
-import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
+import type { Suggestion } from '@empathyco/x-types'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory'
 import {
   createPopularSearch,
-  getPopularSearchesStub
-} from '../../../__stubs__/popular-searches-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseSuggestions from '../base-suggestions.vue';
-import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
+  getPopularSearchesStub,
+} from '../../../__stubs__/popular-searches-stubs.factory'
+import { getDataTestSelector } from '../../../__tests__/utils'
+import BaseSuggestions from '../base-suggestions.vue'
 
 function renderBaseSuggestions({
   defaultSlot = '',
@@ -18,47 +19,47 @@ function renderBaseSuggestions({
   suggestions = getPopularSearchesStub(),
   showFacets = false,
   showPlainSuggestion = false,
-  suggestionItemClass
+  suggestionItemClass,
 }: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
   const wrapperContainer = mount(
     {
       template,
       components: {
-        BaseSuggestions
-      }
+        BaseSuggestions,
+      },
     },
     {
-      props: { suggestions, showFacets, showPlainSuggestion, suggestionItemClass }
-    }
-  );
+      props: { suggestions, showFacets, showPlainSuggestion, suggestionItemClass },
+    },
+  )
 
-  const wrapper = wrapperContainer.findComponent(BaseSuggestions);
+  const wrapper = wrapperContainer.findComponent(BaseSuggestions)
 
   return {
     wrapper,
     wrapperContainer,
     suggestions,
     getSuggestionsWrappers() {
-      return wrapper.findAll(getDataTestSelector('suggestion-item'));
-    }
-  };
+      return wrapper.findAll(getDataTestSelector('suggestion-item'))
+    },
+  }
 }
 
 describe('testing Base Suggestions component', () => {
   it('renders the passed suggestions', () => {
-    const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions();
+    const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions()
 
-    expect(getSuggestionsWrappers()).toHaveLength(suggestions.length);
-  });
+    expect(getSuggestionsWrappers()).toHaveLength(suggestions.length)
+  })
 
   it('renders the content passed to the default slot', () => {
     const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions({
-      defaultSlot: '<span>{{ index }} - {{ suggestion.query}}</span>'
-    });
+      defaultSlot: '<span>{{ index }} - {{ suggestion.query}}</span>',
+    })
     getSuggestionsWrappers().forEach((suggestionItemWrapper, index) =>
-      expect(suggestionItemWrapper.text()).toEqual(`${index} - ${suggestions[index].query}`)
-    );
-  });
+      expect(suggestionItemWrapper.text()).toEqual(`${index} - ${suggestions[index].query}`),
+    )
+  })
 
   it('renders at most the number of suggestions defined by `maxItemsToRender` prop, including those with facets', async () => {
     const { wrapperContainer, getSuggestionsWrappers } = renderBaseSuggestions({
@@ -70,30 +71,30 @@ describe('testing Base Suggestions component', () => {
           facets: [
             createSimpleFacetStub('category', createFilter => [
               createFilter('man'),
-              createFilter('woman')
-            ])
-          ]
+              createFilter('woman'),
+            ]),
+          ],
         }),
-        createPopularSearch('jeans')
-      ]
-    });
+        createPopularSearch('jeans'),
+      ],
+    })
 
-    const suggestionsWrappers = getSuggestionsWrappers();
-    expect(suggestionsWrappers).toHaveLength(4);
-    expect(suggestionsWrappers[0].text()).toEqual('t-shirt');
-    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man');
-    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman');
-    expect(suggestionsWrappers[3].text()).toEqual('jeans');
+    const suggestionsWrappers = getSuggestionsWrappers()
+    expect(suggestionsWrappers).toHaveLength(4)
+    expect(suggestionsWrappers[0].text()).toEqual('t-shirt')
+    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man')
+    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman')
+    expect(suggestionsWrappers[3].text()).toEqual('jeans')
 
-    await wrapperContainer.setProps({ maxItemsToRender: 2 });
-    const updatedSuggestionsWrappers = getSuggestionsWrappers();
-    expect(updatedSuggestionsWrappers).toHaveLength(2);
-    expect(updatedSuggestionsWrappers[0].text()).toEqual('t-shirt');
-    expect(updatedSuggestionsWrappers[1].text()).toEqual('t-shirt - man');
+    await wrapperContainer.setProps({ maxItemsToRender: 2 })
+    const updatedSuggestionsWrappers = getSuggestionsWrappers()
+    expect(updatedSuggestionsWrappers).toHaveLength(2)
+    expect(updatedSuggestionsWrappers[0].text()).toEqual('t-shirt')
+    expect(updatedSuggestionsWrappers[1].text()).toEqual('t-shirt - man')
 
-    await wrapperContainer.setProps({ maxItemsToRender: 0 });
-    expect(getSuggestionsWrappers()).toHaveLength(0);
-  });
+    await wrapperContainer.setProps({ maxItemsToRender: 0 })
+    expect(getSuggestionsWrappers()).toHaveLength(0)
+  })
 
   it('renders suggestions without facets when `showFacets` is false', () => {
     const suggestions = [
@@ -101,31 +102,31 @@ describe('testing Base Suggestions component', () => {
         facets: [
           createSimpleFacetStub('category', createFilter => [
             createFilter('woman'),
-            createFilter('man')
-          ])
-        ]
+            createFilter('man'),
+          ]),
+        ],
       }),
       createPopularSearch('jeans', {
         facets: [
           createSimpleFacetStub('category', createFilter => [
             createFilter('kids'),
-            createFilter('adults')
-          ])
-        ]
-      })
-    ];
+            createFilter('adults'),
+          ]),
+        ],
+      }),
+    ]
 
     const { getSuggestionsWrappers } = renderBaseSuggestions({
       defaultSlot: "<span>{{ suggestion.query }} {{ filter?.label ?? '' }}</span>",
-      suggestions
-    });
-    const suggestionsWrappers = getSuggestionsWrappers();
+      suggestions,
+    })
+    const suggestionsWrappers = getSuggestionsWrappers()
 
-    expect(suggestionsWrappers).toHaveLength(2);
+    expect(suggestionsWrappers).toHaveLength(2)
     suggestionsWrappers.forEach((suggestionWrapper, index) => {
-      expect(suggestionWrapper.text()).toBe(suggestions[index].query);
-    });
-  });
+      expect(suggestionWrapper.text()).toBe(suggestions[index].query)
+    })
+  })
 
   it('renders the plain suggestion when `showFacets` and `showPlainSuggestion` are set to true', () => {
     const { getSuggestionsWrappers } = renderBaseSuggestions({
@@ -137,57 +138,57 @@ describe('testing Base Suggestions component', () => {
           facets: [
             createSimpleFacetStub('category', createFilter => [
               createFilter('man'),
-              createFilter('woman')
-            ])
-          ]
+              createFilter('woman'),
+            ]),
+          ],
         }),
         createPopularSearch('jeans', {
           facets: [
             createSimpleFacetStub('category', createFilter => [
               createFilter('kids'),
-              createFilter('adults')
-            ])
-          ]
-        })
-      ]
-    });
+              createFilter('adults'),
+            ]),
+          ],
+        }),
+      ],
+    })
 
-    const suggestionsWrappers = getSuggestionsWrappers();
-    expect(suggestionsWrappers).toHaveLength(6);
-    expect(suggestionsWrappers[0].text()).toEqual('t-shirt');
-    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man');
-    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman');
-    expect(suggestionsWrappers[3].text()).toEqual('jeans');
-    expect(suggestionsWrappers[4].text()).toEqual('jeans - kids');
-    expect(suggestionsWrappers[5].text()).toEqual('jeans - adults');
-  });
+    const suggestionsWrappers = getSuggestionsWrappers()
+    expect(suggestionsWrappers).toHaveLength(6)
+    expect(suggestionsWrappers[0].text()).toEqual('t-shirt')
+    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man')
+    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman')
+    expect(suggestionsWrappers[3].text()).toEqual('jeans')
+    expect(suggestionsWrappers[4].text()).toEqual('jeans - kids')
+    expect(suggestionsWrappers[5].text()).toEqual('jeans - adults')
+  })
 
   it('allows to add classes to the `suggestion item`', () => {
     const { getSuggestionsWrappers } = renderBaseSuggestions({
-      suggestionItemClass: 'custom-class'
-    });
+      suggestionItemClass: 'custom-class',
+    })
     getSuggestionsWrappers().forEach(suggestionWrapper => {
-      expect(suggestionWrapper.classes('custom-class')).toBe(true);
-    });
-  });
-});
+      expect(suggestionWrapper.classes('custom-class')).toBe(true)
+    })
+  })
+})
 
 /**
  * The options for the `renderBaseSuggestions` function.
  */
 interface BaseSuggestionsOptions {
   /** Default slot content. */
-  defaultSlot?: string;
+  defaultSlot?: string
   /** Component template to render. */
-  template?: string;
+  template?: string
   /** List of suggestions to render. */
-  suggestions?: Suggestion[];
+  suggestions?: Suggestion[]
   /** Flag to indicate if facets should be rendered. */
-  showFacets?: boolean;
+  showFacets?: boolean
   /** Flag to indicate if a suggestion with filters should be rendered. */
-  showPlainSuggestion?: boolean;
+  showPlainSuggestion?: boolean
   /** Class to add to the node wrapping the suggestion item. */
-  suggestionItemClass?: string;
+  suggestionItemClass?: string
 }
 
 /**
@@ -195,11 +196,11 @@ interface BaseSuggestionsOptions {
  */
 interface BaseSuggestionsAPI {
   /** The wrapper for base suggestions component. */
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
   /** The wrapper container for the mounted component. */
-  wrapperContainer: VueWrapper;
+  wrapperContainer: VueWrapper
   /** The rendered suggestions. */
-  suggestions: Suggestion[];
+  suggestions: Suggestion[]
   /** The wrappers of the rendered suggestions. */
-  getSuggestionsWrappers: () => DOMWrapper<Element>[];
+  getSuggestionsWrappers: () => DOMWrapper<Element>[]
 }

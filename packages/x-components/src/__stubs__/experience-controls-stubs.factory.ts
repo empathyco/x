@@ -1,4 +1,4 @@
-import { ExperienceControlsResponse } from '@empathyco/x-types';
+import type { ExperienceControlsResponse } from '@empathyco/x-types'
 
 /**
  * Creates a an experience controls response stub.
@@ -8,7 +8,7 @@ import { ExperienceControlsResponse } from '@empathyco/x-types';
  * @internal
  */
 export function getExperienceControlsStub(): ExperienceControlsResponse {
-  return createExperienceControlsStub();
+  return createExperienceControlsStub()
 }
 
 /**
@@ -19,6 +19,6 @@ export function getExperienceControlsStub(): ExperienceControlsResponse {
 export function createExperienceControlsStub(): ExperienceControlsResponse {
   return {
     controls: { numberOfCarousels: 10, resultsPerCarousels: 21 },
-    events: { ColumnsNumberProvided: 6 }
-  };
+    events: { ColumnsNumberProvided: 6 },
+  }
 }

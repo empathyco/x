@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { QueriesPreviewXStoreModule } from '../types';
+import type { QueriesPreviewXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link QueriesPreviewActions.fetchQueryPreview}.
@@ -11,15 +11,15 @@ import { QueriesPreviewXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchQueryPreview: QueriesPreviewXStoreModule['actions']['fetchQueryPreview'] = (
+export const fetchQueryPreview: QueriesPreviewXStoreModule['actions']['fetchQueryPreview'] = async (
   _context,
-  request
+  request,
 ) => {
-  const { query } = request;
+  const { query } = request
   if (!query) {
-    return null;
+    return null
   }
   return XPlugin.adapter.search(request, {
-    id: `fetchQueryPreview-${query}`
-  });
-};
+    id: `fetchQueryPreview-${query}`,
+  })
+}

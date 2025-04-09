@@ -1,19 +1,19 @@
-import { namespacedWireCommit } from '../../wiring';
-import { createWiring } from '../../wiring/wiring.utils';
+import { namespacedWireCommit } from '../../wiring'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * WireCommit for {@link ExtraParamsXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit('extraParams');
+const wireCommit = namespacedWireCommit('extraParams')
 
 /**
  * Sets the extra params of the {@link ExtraParamsXModule}.
  *
  * @public
  */
-export const setExtraParams = wireCommit('setParams');
+export const setExtraParams = wireCommit('setParams')
 
 /**
  * Wiring configuration for the {@link ExtraParamsXModule | extraParams module}.
@@ -22,12 +22,12 @@ export const setExtraParams = wireCommit('setParams');
  */
 export const extraParamsWiring = createWiring({
   UserChangedExtraParams: {
-    setExtraParams
+    setExtraParams,
   },
   ExtraParamsProvided: {
-    setExtraParams
+    setExtraParams,
   },
   ExtraParamsLoadedFromUrl: {
-    setExtraParams
-  }
-});
+    setExtraParams,
+  },
+})

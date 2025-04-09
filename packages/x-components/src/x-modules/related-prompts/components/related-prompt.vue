@@ -1,6 +1,6 @@
 <template>
   <button class="x-related-prompt">
-    <slot name="related-prompt-extra-content" :relatedPrompt="relatedPrompt" />
+    <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
     <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
     <component
       :is="selected ? 'CrossTinyIcon' : 'PlusIcon'"
@@ -9,47 +9,48 @@
   </button>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { RelatedPrompt } from '@empathyco/x-types';
-  import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
-  import PlusIcon from '../../../components/icons/plus.vue';
-  import { typing } from '../../../directives/typing';
+import type { RelatedPrompt } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import CrossTinyIcon from '../../../components/icons/cross-tiny.vue'
+import PlusIcon from '../../../components/icons/plus.vue'
+import { typing } from '../../../directives/typing'
 
-  /**
-   * This component shows a suggested related prompt.
-   */
-  export default defineComponent({
-    name: 'RelatedPrompt',
-    directives: {
-      typing
+/**
+ * This component shows a suggested related prompt.
+ */
+export default defineComponent({
+  name: 'RelatedPrompt',
+  directives: {
+    typing,
+  },
+  components: {
+    CrossTinyIcon,
+    PlusIcon,
+  },
+  props: {
+    relatedPrompt: {
+      type: Object as PropType<RelatedPrompt>,
+      required: true,
     },
-    components: {
-      CrossTinyIcon,
-      PlusIcon
+    selected: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      relatedPrompt: {
-        type: Object as PropType<RelatedPrompt>,
-        required: true
-      },
-      selected: {
-        type: Boolean,
-        default: false
-      }
-    }
-  });
+  },
+})
 </script>
 <style lang="css">
-  .x-related-prompt {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: start;
-    padding: 8px;
-    height: 100%;
-    width: 100%;
-  }
-  .x-related-prompt-icon {
-    align-self: start;
-  }
+.x-related-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: start;
+  padding: 8px;
+  height: 100%;
+  width: 100%;
+}
+.x-related-prompt-icon {
+  align-self: start;
+}
 </style>

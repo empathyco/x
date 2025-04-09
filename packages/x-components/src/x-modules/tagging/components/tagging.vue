@@ -1,114 +1,113 @@
 <script lang="ts">
-  import { computed, defineComponent, inject, onMounted, watch } from 'vue';
-  import { SnippetConfig } from '../../../x-installer/api/api.types';
-  import { taggingXModule } from '../x-module';
-  import { TaggingConfig } from '../config.types';
-  import { useXBus } from '../../../composables/use-x-bus';
-  /**
-   * This component enables and manages the sending of information to the
-   * [Empathy Tagging API](https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html).
-   * It allows you to activate or deactivate the session id management through the `consent` prop.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Tagging',
-    xModule: taggingXModule.name,
-    props: {
-      /**
-       * The TTL in milliseconds for storing the result info.
-       */
-      storageTTLMs: {
-        type: Number,
-        default: 30000
-      },
-      /**
-       * The Object key of the {@link @empathyco/x-types#Result} clicked or added to the cart by the user
-       * that will be used as id for the storage.
-       * By default, the Result url will be used.
-       */
-      storageKey: {
-        type: String,
-        default: 'url'
-      },
-      /**
-       * The session TTL in milliseconds.
-       */
-      sessionTTLMs: Number,
-      /**
-       * The debounce time in milliseconds to track the query.
-       */
-      queryTaggingDebounceMs: {
-        type: Number,
-        default: 2000
-      },
-      /**
-       * The consent to be emitted.
-       */
-      consent: {
-        type: Boolean,
-        default: null
-      }
+import type { SnippetConfig } from '../../../x-installer/api/api.types'
+import type { TaggingConfig } from '../config.types'
+import { computed, defineComponent, inject, onMounted, watch } from 'vue'
+import { useXBus } from '../../../composables/use-x-bus'
+import { taggingXModule } from '../x-module'
+/**
+ * This component enables and manages the sending of information to the
+ * [Empathy Tagging API](https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html).
+ * It allows you to activate or deactivate the session id management through the `consent` prop.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Tagging',
+  xModule: taggingXModule.name,
+  props: {
+    /**
+     * The TTL in milliseconds for storing the result info.
+     */
+    storageTTLMs: {
+      type: Number,
+      default: 30000,
     },
-    setup(props) {
-      const xBus = useXBus();
+    /**
+     * The Object key of the {@link @empathyco/x-types#Result} clicked or added to the cart by the user
+     * that will be used as id for the storage.
+     * By default, the Result url will be used.
+     */
+    storageKey: {
+      type: String,
+      default: 'url',
+    },
+    /**
+     * The session TTL in milliseconds.
+     */
+    sessionTTLMs: Number,
+    /**
+     * The debounce time in milliseconds to track the query.
+     */
+    queryTaggingDebounceMs: {
+      type: Number,
+      default: 2000,
+    },
+    /**
+     * The consent to be emitted.
+     */
+    consent: {
+      type: Boolean,
+      default: null,
+    },
+  },
+  setup(props) {
+    const xBus = useXBus()
 
-      /**
-       * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-       */
-      const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig');
+    /**
+     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+     */
+    const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig')
 
-      /**
-       * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
-       * property. False by default.
-       *
-       * @remarks If the consent is undefined in the prop and in the snippetConfig, it will return
-       * false.
-       *
-       * @returns A boolean that represents if the consent is accepted or not.
-       */
-      const activeConsent = computed(() => props.consent ?? snippetConfig?.consent ?? false);
+    /**
+     * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
+     * property. False by default.
+     *
+     * @remarks If the consent is undefined in the prop and in the snippetConfig, it will return
+     * false.
+     *
+     * @returns A boolean that represents if the consent is accepted or not.
+     */
+    const activeConsent = computed(() => props.consent ?? snippetConfig?.consent ?? false)
 
-      /**
-       * The tagging config to be emitted.
-       */
-      const taggingConfig = computed<TaggingConfig>(() => {
-        return {
-          queryTaggingDebounceMs: props.queryTaggingDebounceMs,
-          sessionTTLMs: props.sessionTTLMs as number,
-          storageTTLMs: props.storageTTLMs,
-          storageKey: props.storageKey
-        };
-      });
+    /**
+     * The tagging config to be emitted.
+     */
+    const taggingConfig = computed<TaggingConfig>(() => {
+      return {
+        queryTaggingDebounceMs: props.queryTaggingDebounceMs,
+        sessionTTLMs: props.sessionTTLMs as number,
+        storageTTLMs: props.storageTTLMs,
+        storageKey: props.storageKey,
+      }
+    })
 
-      /**
-       * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
-       * a product id.
-       */
-      onMounted(() => {
-        if (snippetConfig?.productId) {
-          xBus.emit('PDPIsLoaded', snippetConfig.productId);
-        }
-      });
+    /**
+     * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
+     * a product id.
+     */
+    onMounted(() => {
+      if (snippetConfig?.productId) {
+        xBus.emit('PDPIsLoaded', snippetConfig.productId)
+      }
+    })
 
-      /**
-       * Emmits the consent when it changes.
-       */
-      watch(activeConsent, () => xBus.emit('ConsentProvided', activeConsent.value), {
-        immediate: true
-      });
+    /**
+     * Emmits the consent when it changes.
+     */
+    watch(activeConsent, () => xBus.emit('ConsentProvided', activeConsent.value), {
+      immediate: true,
+    })
 
-      /**
-       * Emmits the tagging config when it changes.
-       */
-      watch(taggingConfig, () => xBus.emit('TaggingConfigProvided', taggingConfig.value), {
-        immediate: true
-      });
+    /**
+     * Emmits the tagging config when it changes.
+     */
+    watch(taggingConfig, () => xBus.emit('TaggingConfigProvided', taggingConfig.value), {
+      immediate: true,
+    })
 
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      return () => {};
-    }
-  });
+    return () => {}
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -130,14 +129,14 @@ doesn't render elements to the DOM.
 </template>
 
 <script>
-  import { Tagging } from '@empathyco/x-components/tagging';
+import { Tagging } from '@empathyco/x-components/tagging'
 
-  export default {
-    name: 'TaggingDemo',
-    components: {
-      Tagging
-    }
-  };
+export default {
+  name: 'TaggingDemo',
+  components: {
+    Tagging,
+  },
+}
 </script>
 ```
 
@@ -158,14 +157,14 @@ will be used since `storageKey` default value is 'url'.
 </template>
 
 <script>
-  import { Tagging } from '@empathyco/x-components/tagging';
+import { Tagging } from '@empathyco/x-components/tagging'
 
-  export default {
-    name: 'TaggingDemo',
-    components: {
-      Tagging
-    }
-  };
+export default {
+  name: 'TaggingDemo',
+  components: {
+    Tagging,
+  },
+}
 </script>
 ```
 
@@ -178,14 +177,14 @@ during 60 seconds and the product id will be used as storage key
 </template>
 
 <script>
-  import { Tagging } from '@empathyco/x-components/tagging';
+import { Tagging } from '@empathyco/x-components/tagging'
 
-  export default {
-    name: 'TaggingDemo',
-    components: {
-      Tagging
-    }
-  };
+export default {
+  name: 'TaggingDemo',
+  components: {
+    Tagging,
+  },
+}
 </script>
 ```
 

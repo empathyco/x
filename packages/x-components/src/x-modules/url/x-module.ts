@@ -1,14 +1,15 @@
-import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/index';
-import { urlEmitters, urlXStoreModule, UrlXStoreModule } from './store';
-import { urlWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { UrlXStoreModule } from './store'
+import { XPlugin } from '../../plugins/index'
+import { urlEmitters, urlXStoreModule } from './store'
+import { urlWiring } from './wiring'
 
 /**
  * URL {@link XModule} alias.
  *
  * @public
  */
-export type UrlXModule = XModule<UrlXStoreModule>;
+export type UrlXModule = XModule<UrlXStoreModule>
 
 /**
  * URL {@link XModule} implementation. This module is auto-registered as soon as you
@@ -20,7 +21,7 @@ export const urlXModule: UrlXModule = {
   name: 'url',
   storeModule: urlXStoreModule,
   storeEmitters: urlEmitters,
-  wiring: urlWiring
-};
+  wiring: urlWiring,
+}
 
-XPlugin.registerXModule(urlXModule);
+XPlugin.registerXModule(urlXModule)

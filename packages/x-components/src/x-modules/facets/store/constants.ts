@@ -1,1 +1,1 @@
-export const UNKNOWN_FACET_KEY = '__unknown__';
+export const UNKNOWN_FACET_KEY = '__unknown__'

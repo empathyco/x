@@ -1,25 +1,28 @@
-import type { App } from 'vue';
-import { default as AppComponent } from './App.vue';
-import { setupDevtools } from './plugins/devtools/devtools.plugin';
-import router from './router';
-import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
-import { XInstaller } from './x-installer/x-installer/x-installer';
-import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
-import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
-import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
-import './tailwind/index.css';
+import type { App } from 'vue'
+// eslint-disable-next-line import/no-named-default
+import { default as AppComponent } from './App.vue'
+import { setupDevtools } from './plugins/devtools/devtools.plugin'
+import router from './router'
+import { baseInstallXOptions, baseSnippetConfig } from './views/base-config'
+import { XInstaller } from './x-installer/x-installer/x-installer'
+import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory'
+import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier'
+import { StickyModifier } from './x-modules/facets/entities/sticky.modifier'
+import './tailwind/index.css'
 
-FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+/* eslint-disable ts/no-unsafe-argument */
+
+FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier as any)
 FilterEntityFactory.instance.registerModifierByFacetId(
   'brand_facet',
-  StickyModifier,
-  SingleSelectModifier
-);
-FilterEntityFactory.instance.registerModifierByFacetId('price', SingleSelectModifier);
+  StickyModifier as any,
+  SingleSelectModifier as any,
+)
+FilterEntityFactory.instance.registerModifierByFacetId('price', SingleSelectModifier as any)
 FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',
-  SingleSelectModifier
-);
+  SingleSelectModifier as any,
+)
 
 const installer = new XInstaller({
   ...baseInstallXOptions,
@@ -27,14 +30,14 @@ const installer = new XInstaller({
   domElement: '#app',
   onCreateApp: initDevtools,
   installExtraPlugins({ app }) {
-    app.use(router);
-  }
-});
+    app.use(router)
+  },
+})
 
 if (window.initX) {
-  installer.init();
+  void installer.init()
 } else {
-  installer.init(baseSnippetConfig);
+  void installer.init(baseSnippetConfig)
 }
 
 /**
@@ -43,7 +46,10 @@ if (window.initX) {
  * @param app - The Vue application instance of the application.
  */
 function initDevtools(app: App): void {
+  // eslint-disable-next-line node/prefer-global/process
   if (process.env.NODE_ENV !== 'production') {
-    setupDevtools(app);
+    setupDevtools(app)
   }
 }
+
+/* eslint-enable ts/no-unsafe-argument */

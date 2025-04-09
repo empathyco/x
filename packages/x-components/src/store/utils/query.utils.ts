@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathyco/x-types';
+import type { RelatedTag } from '@empathyco/x-types'
 
 /**
  * Query state type, containing a property to hold the current query of the module.
@@ -7,7 +7,7 @@ import { RelatedTag } from '@empathyco/x-types';
  */
 export interface QueryState {
   /** The query of the module. Different modules may have queries that differ in value or time. */
-  query: string;
+  query: string
 }
 
 /**
@@ -21,7 +21,7 @@ export interface QueryMutations {
    *
    * @param query - The new query.
    */
-  setQuery(query: string): void;
+  setQuery: (query: string) => void
 }
 
 /**
@@ -37,7 +37,7 @@ export interface CreateRelatedTagsQueryGetterOptions<State, Getters> {
    * @param getters - The getters of the module.
    * @returns The list of selected related tags.
    */
-  getRelatedTags: (state: State, getters: Getters) => RelatedTag[];
+  getRelatedTags: (state: State, getters: Getters) => RelatedTag[]
 }
 
 /**
@@ -48,26 +48,27 @@ export interface CreateRelatedTagsQueryGetterOptions<State, Getters> {
  * @public
  */
 export function setQuery(state: QueryState, query: string): void {
-  state.query = query;
+  state.query = query
 }
 
 /**
  * Creates a getter that combines the current selected related tags and the query of the module.
  *
  * @param options - Options on how the getter should behave.
+ * @param options.getRelatedTags - getRelatedTags option.
  * @returns A getter that combines the selected related tags with the query.
  * @public
  */
 export function createRelatedTagsQueryGetter<State extends QueryState, Getters>({
-  getRelatedTags
+  getRelatedTags,
 }: CreateRelatedTagsQueryGetterOptions<State, Getters>): (
   state: State,
-  getters: Getters
+  getters: Getters,
 ) => string {
   return function relatedTagsQuery(state, getters) {
-    const query = state.query.trim();
-    return query ? getRelatedTags(state, getters).reduce(concatRelatedTag, query).trim() : '';
-  };
+    const query = state.query.trim()
+    return query ? getRelatedTags(state, getters).reduce(concatRelatedTag, query).trim() : ''
+  }
 }
 
 /**
@@ -75,12 +76,14 @@ export function createRelatedTagsQueryGetter<State extends QueryState, Getters>(
  *
  * @param partialQuery - The query to concatenate the related tag with.
  * @param relatedTag - The related tag to concatenate.
+ * @param relatedTag.tag - RelatedTag tag.
+ * @param relatedTag.query - RelatedTag query.
  * @returns The query and the related tag joined.
  * @internal
  */
 function concatRelatedTag(
   partialQuery: string,
-  { tag, query: relatedTagQuery }: RelatedTag
+  { tag, query: relatedTagQuery }: RelatedTag,
 ): string {
-  return relatedTagQuery.startsWith(tag) ? `${tag} ${partialQuery}` : `${partialQuery} ${tag}`;
+  return relatedTagQuery.startsWith(tag) ? `${tag} ${partialQuery}` : `${partialQuery} ${tag}`
 }

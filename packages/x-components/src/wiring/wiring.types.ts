@@ -1,13 +1,13 @@
-import { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
-import { Dictionary } from '@empathyco/x-utils';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from 'vuex';
-import { Component } from 'vue';
-import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
-import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
-import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
-import { XModuleName } from '../x-modules/x-modules.types';
-import { XEvent, XEventPayload, XEventsTypes } from './events.types';
+import type { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Observable, Subscription } from 'rxjs'
+import type { Component } from 'vue'
+import type { Store } from 'vuex'
+import type { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types'
+import type { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin'
+import type { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types'
+import type { XModuleName } from '../x-modules/x-modules.types'
+import type { XEvent, XEventPayload, XEventsTypes } from './events.types'
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -20,8 +20,8 @@ import { XEvent, XEventPayload, XEventsTypes } from './events.types';
 export type Wire<PayloadType> = (
   observable: Observable<WirePayload<PayloadType>>,
   store: Store<RootXStoreState>,
-  on: XPriorityBus<XEventsTypes, WireMetadata>['on']
-) => Subscription;
+  on: XPriorityBus<XEventsTypes, WireMetadata>['on'],
+) => Subscription
 
 /**
  * The wires metadata includes more information about the emitted event, so then these events can
@@ -31,34 +31,34 @@ export type Wire<PayloadType> = (
  */
 export interface WireMetadata {
   /** The {@link QueryFeature} that originated the event. */
-  feature?: QueryFeature | ResultFeature;
+  feature?: QueryFeature | ResultFeature
   /** The id of the component origin. */
-  id?: string;
+  id?: string
   /** The {@link FeatureLocation} from where the event has been emitted. */
-  location?: FeatureLocation;
+  location?: FeatureLocation
   /**
    * The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module.
    */
-  moduleName: XModuleName | null;
+  moduleName: XModuleName | null
   /** The old value of a watched selector triggering an emitter.  */
-  oldValue?: unknown;
+  oldValue?: unknown
   /** The DOM element that triggered the event emission. */
-  target?: HTMLElement;
+  target?: HTMLElement
   /** The component instance that triggered the event emission. */
-  component?: Component;
+  component?: Component
   /** The event priority to use when sorting the bus queue for event batching. */
-  priority?: Priority;
+  priority?: Priority
   /**
    * The event replaces an existing entry of the same event in the bus, placing this new one
    * based on its priority.
    */
-  replaceable?: boolean;
+  replaceable?: boolean
   /**
    * The event can be ignored if it is received in the wiring of the modules in the array.
    */
-  ignoreInModules?: XModuleName[];
-  [key: string]: unknown;
+  ignoreInModules?: XModuleName[]
+  [key: string]: unknown
 }
 
 /**
@@ -68,7 +68,7 @@ export interface WireMetadata {
  */
 export interface DisplayWireMetadata extends WireMetadata {
   /** The query that originated the display elements appearing. */
-  displayOriginalQuery: string;
+  displayOriginalQuery: string
 }
 
 /**
@@ -88,9 +88,9 @@ export interface WirePayload<PayloadType> extends SubjectPayload<PayloadType, Wi
  * @public
  */
 export type PayloadFactoryData<Payload> = RootStoreStateAndGetters & {
-  eventPayload: Payload;
-  metadata: WireMetadata;
-};
+  eventPayload: Payload
+  metadata: WireMetadata
+}
 
 /**
  * Alias for a wire with the type of the event payload.
@@ -99,14 +99,14 @@ export type PayloadFactoryData<Payload> = RootStoreStateAndGetters & {
  *
  * @public
  */
-export type WireForEvent<Event extends XEvent> = Wire<XEventPayload<Event>>;
+export type WireForEvent<Event extends XEvent> = Wire<XEventPayload<Event>>
 
 /**
  * Alias for a wire of any type.
  *
  * @public
  */
-export type AnyWire = Wire<any>;
+export type AnyWire = Wire<any>
 
 /**
  * The Wiring is a record where each key is an EmpathyX event, and the value is a dictionary of
@@ -115,8 +115,8 @@ export type AnyWire = Wire<any>;
  * @public
  */
 export type Wiring = {
-  [Event in XEvent]: Dictionary<WireForEvent<Event>>;
-};
+  [Event in XEvent]: Dictionary<WireForEvent<Event>>
+}
 
 /**
  * Groups the payload, metadata, and the store into an object to avoid having multiple parameters.
@@ -126,7 +126,7 @@ export type Wiring = {
  * @public
  */
 export interface WireParams<Payload> extends WirePayload<Payload> {
-  store: Store<RootXStoreState>;
+  store: Store<RootXStoreState>
 }
 
 /**
@@ -134,7 +134,7 @@ export interface WireParams<Payload> extends WirePayload<Payload> {
  *
  * @public
  */
-export type TimeSelector = (storeModule: Store<RootXStoreState>) => number;
+export type TimeSelector = (storeModule: Store<RootXStoreState>) => number
 
 /**
  * Options for wire operators that delay subscribers.
@@ -143,9 +143,9 @@ export type TimeSelector = (storeModule: Store<RootXStoreState>) => number;
  */
 export interface TimedWireOperatorOptions {
   /** Events that will prevent the next planned execution of the wire to be executed. */
-  cancelOn?: MaybeArray<XEvent>;
+  cancelOn?: MaybeArray<XEvent>
   /** Events that will make the next planned execution happen immediately. */
-  forceOn?: MaybeArray<XEvent>;
+  forceOn?: MaybeArray<XEvent>
 }
 
 /**
@@ -161,9 +161,9 @@ export interface WireService<SomeService extends Record<string, MonadicFunction>
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
    */
-  <SomeMethod extends keyof SomeService>(method: SomeMethod): Wire<
-    FirstParameter<SomeService[SomeMethod]>
-  >;
+  <SomeMethod extends keyof SomeService>(
+    method: SomeMethod,
+  ): Wire<FirstParameter<SomeService[SomeMethod]>>
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
    *
@@ -173,8 +173,8 @@ export interface WireService<SomeService extends Record<string, MonadicFunction>
    */
   <SomeMethod extends keyof SomeService>(
     method: SomeMethod,
-    payload: FirstParameter<SomeService[SomeMethod]>
-  ): AnyWire;
+    payload: FirstParameter<SomeService[SomeMethod]>,
+  ): AnyWire
 }
 
 /**
@@ -189,5 +189,5 @@ export interface WireServiceWithoutPayload<SomeService extends Record<string, Ni
    * @param method - The method to invoke.
    * @returns A Wire that can be used anywhere.
    */
-  <SomeMethod extends keyof SomeService>(method: SomeMethod): AnyWire;
+  <SomeMethod extends keyof SomeService>(method: SomeMethod): AnyWire
 }

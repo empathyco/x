@@ -3,15 +3,15 @@
     <section class="x-flex x-flex-col x-gap-16 x-p-32">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" :panelId="panelId">
+        <BaseIdTogglePanelButton class="x-button--ghost x-button" :panel-id="panelId">
           Panel
         </BaseIdTogglePanelButton>
-        <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
+        <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
           <div class="x-text1">Hey there!</div>
         </BaseIdTogglePanel>
 
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="panel2" />
-        <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
+        <BaseIdTogglePanelButton class="x-button--ghost x-button" panel-id="panel2" />
+        <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
           <div class="x-text1">
             Button without text, an element should have the ID to make it accessible.
           </div>
@@ -22,7 +22,7 @@
         <h1>ClearHistoryQueries and RemoveHistoryQuery</h1>
         <SearchInput />
         <ClearHistoryQueries>Not reading this since there is an aria-label</ClearHistoryQueries>
-        <HistoryQueries :maxItemsToRender="3" />
+        <HistoryQueries :max-items-to-render="3" />
       </div>
 
       <div>
@@ -36,11 +36,11 @@
         <h1>AllFilter & ClearFilters</h1>
         <FacetsProvider :facets="[facet]" />
         <Facets>
-          <template #default="{ facet }">
-            <AllFilter :facet="facet">
-              {{ facet.label }}
+          <template #default="{ facet: facetBinding }">
+            <AllFilter :facet="facetBinding">
+              {{ facetBinding.label }}
             </AllFilter>
-            <Filters v-slot="{ filter }" :filters="facet.filters">
+            <Filters v-slot="{ filter }" :filters="facetBinding.filters">
               <SimpleFilter :filter="filter" />
             </Filters>
           </template>
@@ -50,7 +50,7 @@
 
       <div>
         <h1>BaseColumnPickerList</h1>
-        <BaseColumnPickerList #default="{ column }" :columns="[2, 4, 6]">
+        <BaseColumnPickerList v-slot="{ column }" :columns="[2, 4, 6]">
           <span>Not reading this since there is an aria-label {{ column }}</span>
         </BaseColumnPickerList>
       </div>
@@ -74,61 +74,61 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import BaseEventsModal from '../../components/modals/base-events-modal.vue';
-  import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue';
-  import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue';
-  import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
-  import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
-  import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
-  import AllFilter from '../../x-modules/facets/components/filters/all-filter.vue';
-  // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../../x-modules/history-queries/components/clear-history-queries.vue';
-  import HistoryQueries from '../../x-modules/history-queries/components/history-queries.vue';
-  import SearchInput from '../../x-modules/search-box/components/search-input.vue';
-  import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
-  import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
-  import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
-  import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue';
-  import Filters from '../../x-modules/facets/components/lists/filters-list.vue';
-  import ScrollToTop from '../../x-modules/scroll/components/scroll-to-top.vue';
-  import { getSimpleFacetStub } from '../../__stubs__';
-  import Facets from '../../x-modules/facets/components/facets/facets.vue';
-  import Scroll from '../../x-modules/scroll/components/scroll.vue';
+import { defineComponent } from 'vue'
+import { getSimpleFacetStub } from '../../__stubs__'
+import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue'
+import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue'
+import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue'
+import BaseEventsModal from '../../components/modals/base-events-modal.vue'
+import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue'
+import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue'
+import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue'
+import ClearFilters from '../../x-modules/facets/components/clear-filters.vue'
+import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue'
+import Facets from '../../x-modules/facets/components/facets/facets.vue'
+import AllFilter from '../../x-modules/facets/components/filters/all-filter.vue'
+import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue'
+import Filters from '../../x-modules/facets/components/lists/filters-list.vue'
 
-  export default defineComponent({
-    name: 'AccessibilityCheck',
-    components: {
-      BaseEventsModal,
-      BaseEventsModalClose,
-      BaseEventsModalOpen,
-      BaseIdTogglePanel,
-      BaseIdTogglePanelButton,
-      BaseResultAddToCart,
-      BaseColumnPickerList,
-      ClearFilters,
-      ClearHistoryQueries,
-      Facets,
-      Filters,
-      HistoryQueries,
-      ScrollToTop,
-      Scroll,
-      SearchInput,
-      SimpleFilter,
-      FacetsProvider,
-      AllFilter
-    },
-    setup() {
-      return {
-        facet: getSimpleFacetStub(),
-        panelId: 'aside-panel'
-      };
+import ClearHistoryQueries from '../../x-modules/history-queries/components/clear-history-queries.vue'
+import HistoryQueries from '../../x-modules/history-queries/components/history-queries.vue'
+import ScrollToTop from '../../x-modules/scroll/components/scroll-to-top.vue'
+import Scroll from '../../x-modules/scroll/components/scroll.vue'
+import SearchInput from '../../x-modules/search-box/components/search-input.vue'
+
+export default defineComponent({
+  name: 'AccessibilityCheck',
+  components: {
+    BaseEventsModal,
+    BaseEventsModalClose,
+    BaseEventsModalOpen,
+    BaseIdTogglePanel,
+    BaseIdTogglePanelButton,
+    BaseResultAddToCart,
+    BaseColumnPickerList,
+    ClearFilters,
+    ClearHistoryQueries,
+    Facets,
+    Filters,
+    HistoryQueries,
+    ScrollToTop,
+    Scroll,
+    SearchInput,
+    SimpleFilter,
+    FacetsProvider,
+    AllFilter,
+  },
+  setup() {
+    return {
+      facet: getSimpleFacetStub(),
+      panelId: 'aside-panel',
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-scroll {
-    height: 600px;
-  }
+.x-scroll {
+  height: 600px;
+}
 </style>

@@ -1,4 +1,4 @@
-import { Redirection } from '@empathyco/x-types';
+import type { Redirection } from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#Redirection | redirections} stub.
@@ -8,7 +8,7 @@ import { Redirection } from '@empathyco/x-types';
  * @internal
  */
 export function getRedirectionsStub(): Redirection[] {
-  return [createRedirectionStub('help')];
+  return [createRedirectionStub('help')]
 }
 
 /**
@@ -27,9 +27,9 @@ export function createRedirectionStub(id: string): Redirection {
     tagging: {
       click: {
         params: {},
-        url: ''
-      }
+        url: '',
+      },
     },
-    modelName: 'Redirection'
-  };
+    modelName: 'Redirection',
+  }
 }

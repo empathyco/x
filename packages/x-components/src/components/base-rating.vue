@@ -24,104 +24,104 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
-  import StarIcon from './icons/star.vue';
+import { computed, defineComponent } from 'vue'
+import StarIcon from './icons/star.vue'
 
-  /**
-   * Rating component. This component renders a set of elements filled based on the value passed as
-   * prop.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseRating',
-    components: {
-      DefaultIcon: StarIcon
+/**
+ * Rating component. This component renders a set of elements filled based on the value passed as
+ * prop.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseRating',
+  components: {
+    DefaultIcon: StarIcon,
+  },
+  props: {
+    /**
+     * Numeric value used to calculates the width of the filled elements.
+     *
+     * @public
+     */
+    value: {
+      type: Number,
+      required: true,
     },
-    props: {
-      /**
-       * Numeric value used to calculates the width of the filled elements.
-       *
-       * @public
-       */
-      value: {
-        type: Number,
-        required: true
-      },
-      /**
-       * Maximum number of elements to paint.
-       *
-       * @public
-       */
-      max: {
-        type: Number,
-        default: 5
-      }
+    /**
+     * Maximum number of elements to paint.
+     *
+     * @public
+     */
+    max: {
+      type: Number,
+      default: 5,
     },
-    setup(props) {
-      /**
-       * Calculates the width of the filled elements wrapper.
-       *
-       * @returns The % of the wrapper width.
-       *
-       * @internal
-       */
-      const calculateFilledWrapperWidth = computed(() => {
-        return props.value < 0 ? '0%' : `${(props.value * 100) / props.max}%`;
-      });
+  },
+  setup(props) {
+    /**
+     * Calculates the width of the filled elements wrapper.
+     *
+     * @returns The % of the wrapper width.
+     *
+     * @internal
+     */
+    const calculateFilledWrapperWidth = computed(() => {
+      return props.value < 0 ? '0%' : `${(props.value * 100) / props.max}%`
+    })
 
-      /**
-       * Creates the aria label for accessibility purpose.
-       *
-       * @returns The aria label.
-       *
-       * @internal
-       */
-      const ariaLabel = computed(() => {
-        return `${props.value}/${props.max}`;
-      });
+    /**
+     * Creates the aria label for accessibility purpose.
+     *
+     * @returns The aria label.
+     *
+     * @internal
+     */
+    const ariaLabel = computed(() => {
+      return `${props.value}/${props.max}`
+    })
 
-      return {
-        calculateFilledWrapperWidth,
-        ariaLabel
-      };
+    return {
+      calculateFilledWrapperWidth,
+      ariaLabel,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-rating {
-    position: relative;
-    display: inline-block;
-    max-width: fit-content;
-  }
+.x-rating {
+  position: relative;
+  display: inline-block;
+  max-width: fit-content;
+}
 
-  .x-rating--empty {
-    overflow: hidden;
-    display: flex;
-    flex-flow: row nowrap;
-    white-space: nowrap;
-  }
+.x-rating--empty {
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  white-space: nowrap;
+}
 
-  .x-rating--filled {
-    display: flex;
-    flex-flow: row nowrap;
-    white-space: nowrap;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-    height: 100%;
-  }
+.x-rating--filled {
+  display: flex;
+  flex-flow: row nowrap;
+  white-space: nowrap;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
 
-  .x-rating__default-icon {
-    fill: currentColor;
-    stroke: currentColor;
-  }
+.x-rating__default-icon {
+  fill: currentColor;
+  stroke: currentColor;
+}
 
-  .x-rating__default-icon--empty {
-    fill: none;
-  }
+.x-rating__default-icon--empty {
+  fill: none;
+}
 </style>
 
 <docs lang="mdx">

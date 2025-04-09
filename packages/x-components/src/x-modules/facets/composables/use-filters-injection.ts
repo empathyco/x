@@ -1,30 +1,34 @@
-import { Filter, HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types';
-import { computed, inject, Ref } from 'vue';
-import { isArrayEmpty } from '../../../utils/array';
+import type { Filter, HierarchicalFilter } from '@empathyco/x-types'
+import type { Ref } from 'vue'
+import { isHierarchicalFilter } from '@empathyco/x-types'
+import { computed, inject } from 'vue'
+import { isArrayEmpty } from '../../../utils/array'
 
 /**
  * Composable to share filters injection logic.
  *
  * @param props - Composable props.
+ * @param props.filters - filters prop.
+ * @param props.parentId - parentId prop.
  * @returns An array of filters.
  *
  * @public
  */
 export function useFiltersInjection(props: {
   /** The list of filters to be rendered as slots. */
-  filters?: Filter[];
+  filters?: Filter[]
   /**
     This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
    to make the `renderedFilters` to return only the filters of each level of the hierarchy.
    */
-  parentId?: Filter['id'];
+  parentId?: Filter['id']
 }) {
   /**
    * The injected filters array.
    *
    * @public
    */
-  const injectedFilters = inject<Ref<Filter[]> | undefined>('filters', undefined);
+  const injectedFilters = inject<Ref<Filter[]> | undefined>('filters', undefined)
 
   /**
    * An array of filters formed by those that are passed through prop or injected.
@@ -38,10 +42,10 @@ export function useFiltersInjection(props: {
       props.filters ??
       injectedFilters?.value ??
       //TODO: add here logger
-      //eslint-disable-next-line no-console
+
       console.warn('It is necessary to pass a prop or inject the list of filters')
-    );
-  });
+    )
+  })
 
   /**
    * In the case that the filters are {@link @empathyco/x-types#HierarchicalFilter}, this method
@@ -57,12 +61,12 @@ export function useFiltersInjection(props: {
   const filterByParentId = (filters: Filter[]): Filter[] => {
     if (!isArrayEmpty(filters) && isHierarchicalFilter(filters[0])) {
       return (filters as HierarchicalFilter[]).filter(
-        filter => filter.parentId === (props.parentId ?? null)
-      );
+        filter => filter.parentId === (props.parentId ?? null),
+      )
     } else {
-      return filters;
+      return filters
     }
-  };
+  }
 
   /**
    * The prop or injected filters array, filtered by parentId if they are
@@ -72,5 +76,5 @@ export function useFiltersInjection(props: {
    *
    * @internal
    */
-  return computed<Filter[]>(() => filterByParentId(propOrInjectedFilters.value as Filter[]));
+  return computed<Filter[]>(() => filterByParentId(propOrInjectedFilters.value as Filter[]))
 }

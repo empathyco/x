@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { identifierResultsXStoreModule } from '../module';
-import { IdentifierResultsState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { IdentifierResultsState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { identifierResultsXStoreModule } from '../module'
 
 /**
  * Reset identifier results module state with its original state and the partial state passes as
@@ -15,11 +15,7 @@ import { IdentifierResultsState } from '../types';
  */
 export function resetIdentifierResultsStateWith(
   store: Store<IdentifierResultsState>,
-  state?: DeepPartial<IdentifierResultsState>
+  state?: DeepPartial<IdentifierResultsState>,
 ): void {
-  resetStoreModuleState<IdentifierResultsState>(
-    store,
-    identifierResultsXStoreModule.state(),
-    state
-  );
+  resetStoreModuleState<IdentifierResultsState>(store, identifierResultsXStoreModule.state(), state)
 }

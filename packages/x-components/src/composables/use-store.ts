@@ -6,4 +6,4 @@
  *
  * @public
  */
-export { useStore } from 'vuex';
+export { useStore } from 'vuex'

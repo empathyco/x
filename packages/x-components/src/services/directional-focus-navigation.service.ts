@@ -1,13 +1,13 @@
-import { FOCUSABLE_SELECTORS } from '../utils/focus';
-import { ArrowKey } from '../utils/types';
-import { getActiveElement } from '../utils/html';
-import {
+import type { ArrowKey } from '../utils/types'
+import type {
   AbsoluteDistances,
   Intersection,
   Point,
   Points,
-  SpatialNavigation
-} from './services.types';
+  SpatialNavigation,
+} from './services.types'
+import { FOCUSABLE_SELECTORS } from '../utils/focus'
+import { getActiveElement } from '../utils/html'
 
 /**
  * Implementation of {@link SpatialNavigation} using directional focus.
@@ -18,23 +18,23 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
   /**
    * The HTMLElement that is currently on focus and used as reference to navigateTo from.
    */
-  private origin!: HTMLElement;
+  private origin!: HTMLElement
 
   /**
    * The DOMRect of the origin Element.
    */
-  private originRect!: DOMRect;
+  private originRect!: DOMRect
 
   /**
    * Direction of the navigation.
    */
-  private direction!: ArrowKey;
+  private direction!: ArrowKey
 
   /**
    * Weight of the projected intersection area weight in the
    * {@link DirectionalFocusNavigationService.getDistanceScore | getDistanceScore} formula.
    */
-  private readonly intersectionAreaWeight = 100;
+  private readonly intersectionAreaWeight = 100
 
   /**
    * Weight of the absolute distance on the orthogonal axis between to elements when navigating
@@ -42,7 +42,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * {@link DirectionalFocusNavigationService.getDisplacementAndAlignment |
    * getDisplacementAndAlignment}.
    */
-  private readonly orthogonalWeightHorizontal = 30;
+  private readonly orthogonalWeightHorizontal = 30
 
   /**
    * Weight of the absolute distance on the orthogonal axis between to elements when navigating
@@ -50,14 +50,14 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * {@link DirectionalFocusNavigationService.getDisplacementAndAlignment |
    * getDisplacementAndAlignment}.
    */
-  private readonly orthogonalWeightVertical = 2;
+  private readonly orthogonalWeightVertical = 2
 
   /**
    * Weight of the degree of alignment between two elements when calculating the alignment in
    * {@link DirectionalFocusNavigationService.getDisplacementAndAlignment |
    * getDisplacementAndAlignment}.
    */
-  private readonly alignWeight = 5;
+  private readonly alignWeight = 5
 
   /**
    * Set of functions to filter out candidates based on the navigation's direction.
@@ -66,8 +66,8 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
     ArrowUp: (candidateRect: DOMRect) => this.isBelow(this.originRect, candidateRect),
     ArrowRight: (candidateRect: DOMRect) => this.isRightSide(candidateRect, this.originRect),
     ArrowDown: (candidateRect: DOMRect) => this.isBelow(candidateRect, this.originRect),
-    ArrowLeft: (candidateRect: DOMRect) => this.isRightSide(this.originRect, candidateRect)
-  };
+    ArrowLeft: (candidateRect: DOMRect) => this.isRightSide(this.originRect, candidateRect),
+  }
 
   /**
    * Constructor for the {@link DirectionalFocusNavigationService}.
@@ -84,7 +84,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
     /**
      * Comma separated focusable selectors to look up.
      */
-    private readonly focusableSelectors = FOCUSABLE_SELECTORS
+    private readonly focusableSelectors = FOCUSABLE_SELECTORS,
   ) {}
 
   /**
@@ -97,11 +97,11 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @returns The element to navigate to.
    */
   navigateTo(arrowKey: ArrowKey): HTMLElement {
-    const rawCandidates = this.getFocusableElements();
-    this.direction = arrowKey;
-    this.updateOrigin();
+    const rawCandidates = this.getFocusableElements()
+    this.direction = arrowKey
+    this.updateOrigin()
 
-    return this.getBestCandidate(rawCandidates);
+    return this.getBestCandidate(rawCandidates)
   }
 
   /**
@@ -111,7 +111,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private getFocusableElements(): HTMLElement[] {
-    return Array.from(this.container.querySelectorAll(this.focusableSelectors));
+    return Array.from(this.container.querySelectorAll(this.focusableSelectors))
   }
 
   /**
@@ -122,10 +122,10 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * SHIFT+TAB keys.
    */
   private updateOrigin(): void {
-    const newOrigin = getActiveElement();
+    const newOrigin = getActiveElement()
     if (newOrigin) {
-      this.origin = newOrigin as HTMLElement;
-      this.originRect = newOrigin.getBoundingClientRect();
+      this.origin = newOrigin as HTMLElement
+      this.originRect = newOrigin.getBoundingClientRect()
     }
   }
 
@@ -141,18 +141,18 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private getBestCandidate(rawCandidates: HTMLElement[]): HTMLElement {
-    const candidates = this.filterCandidates(rawCandidates);
-    let bestCandidate = this.origin;
+    const candidates = this.filterCandidates(rawCandidates)
+    let bestCandidate = this.origin
 
     candidates.reduce((bestCurrentScore: number, candidate) => {
-      const bestScore = Math.min(bestCurrentScore, this.getDistanceScore(candidate));
+      const bestScore = Math.min(bestCurrentScore, this.getDistanceScore(candidate))
       if (bestScore !== bestCurrentScore) {
-        bestCandidate = candidate;
+        bestCandidate = candidate
       }
-      return bestScore;
-    }, Number.MAX_SAFE_INTEGER);
+      return bestScore
+    }, Number.MAX_SAFE_INTEGER)
 
-    return bestCandidate;
+    return bestCandidate
   }
 
   /**
@@ -164,8 +164,8 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @returns List of filtered candidates.
    * @internal
    */
-  private filterCandidates(rawCandidates: HTMLElement[]): HTMLElement[] {
-    return rawCandidates.filter(candidate => this.isValidCandidate(candidate));
+  public filterCandidates(rawCandidates: HTMLElement[]): HTMLElement[] {
+    return rawCandidates.filter(candidate => this.isValidCandidate(candidate))
   }
 
   /**
@@ -182,7 +182,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
       this.isCandidateVisible(candidate) &&
       this.hasFocusCompatibleAttributes(candidate) &&
       this.isInNavigateDirection(candidate)
-    );
+    )
   }
 
   /**
@@ -193,13 +193,13 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private isCandidateVisible(candidate: HTMLElement): boolean {
-    const candidateStyle = window.getComputedStyle(candidate, null);
+    const candidateStyle = window.getComputedStyle(candidate, null)
 
     return !!(
       candidate.offsetWidth &&
       candidate.offsetHeight &&
       candidateStyle.visibility === 'visible'
-    );
+    )
   }
 
   /**
@@ -211,7 +211,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private hasFocusCompatibleAttributes(candidate: HTMLElement): boolean {
-    return !candidate.getAttribute('disabled') && candidate.getAttribute('tabindex') !== '-1';
+    return !candidate.getAttribute('disabled') && candidate.getAttribute('tabindex') !== '-1'
   }
 
   /**
@@ -222,7 +222,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private isInNavigateDirection(candidate: HTMLElement): boolean {
-    return this.filterFunction[this.direction](candidate.getBoundingClientRect());
+    return this.filterFunction[this.direction](candidate.getBoundingClientRect())
   }
 
   /**
@@ -236,24 +236,22 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private getDistanceScore(candidate: HTMLElement): number {
-    const candidateRect = candidate.getBoundingClientRect();
-    const { 0: candidatePoint, 1: originPoint } = this.getComparisionPoints(candidateRect);
+    const candidateRect = candidate.getBoundingClientRect()
+    const { 0: candidatePoint, 1: originPoint } = this.getComparisionPoints(candidateRect)
     const absoluteDistances: AbsoluteDistances = {
       x: Math.abs(candidatePoint.x - originPoint.x),
-      y: Math.abs(candidatePoint.y - originPoint.y)
-    };
-    const euclideanDistance = Math.sqrt(
-      Math.pow(absoluteDistances.x, 2) + Math.pow(absoluteDistances.y, 2)
-    );
-    const intersection = this.getIntersection(this.originRect, candidateRect);
+      y: Math.abs(candidatePoint.y - originPoint.y),
+    }
+    const euclideanDistance = Math.sqrt(absoluteDistances.x ** 2 + absoluteDistances.y ** 2)
+    const intersection = this.getIntersection(this.originRect, candidateRect)
     const { displacement, alignment } = this.getDisplacementAndAlignment(
       candidateRect,
       intersection,
-      absoluteDistances
-    );
-    const projectedArea = Math.sqrt(intersection.area) / this.intersectionAreaWeight;
+      absoluteDistances,
+    )
+    const projectedArea = Math.sqrt(intersection.area) / this.intersectionAreaWeight
 
-    return euclideanDistance + displacement - alignment - projectedArea;
+    return euclideanDistance + displacement - alignment - projectedArea
   }
 
   /**
@@ -268,13 +266,13 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
   private getComparisionPoints(candidateRect: DOMRect): Points {
     const points: Points = [
       { x: 0, y: 0 },
-      { x: 0, y: 0 }
-    ];
+      { x: 0, y: 0 },
+    ]
 
     return {
       ...this.setParallelPointValues(points, candidateRect),
-      ...this.setOrthogonalPointValues(points, candidateRect)
-    };
+      ...this.setOrthogonalPointValues(points, candidateRect),
+    }
   }
 
   /**
@@ -282,6 +280,8 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * returns them.
    *
    * @param points - Current values for the candidate and origin's points.
+   * @param points.0 - 0 point.
+   * @param points.1 - 1 point.
    * @param candidateRect - The DOMRect of the candidate.
    *
    * @returns Candidate and origin points with parallel values set.
@@ -289,28 +289,28 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    */
   private setParallelPointValues(
     { 0: candidatePoint, 1: originPoint }: Points,
-    candidateRect: DOMRect
+    candidateRect: DOMRect,
   ): Points {
     switch (this.direction) {
       case 'ArrowUp':
-        candidatePoint.y = Math.min(candidateRect.bottom, this.originRect.top);
-        originPoint.y = this.originRect.top;
-        break;
+        candidatePoint.y = Math.min(candidateRect.bottom, this.originRect.top)
+        originPoint.y = this.originRect.top
+        break
       case 'ArrowDown':
-        candidatePoint.y = Math.max(candidateRect.top, this.originRect.bottom);
-        originPoint.y = this.originRect.bottom;
-        break;
+        candidatePoint.y = Math.max(candidateRect.top, this.originRect.bottom)
+        originPoint.y = this.originRect.bottom
+        break
       case 'ArrowRight':
-        candidatePoint.x = Math.max(candidateRect.left, this.originRect.right);
-        originPoint.x = this.originRect.right;
-        break;
+        candidatePoint.x = Math.max(candidateRect.left, this.originRect.right)
+        originPoint.x = this.originRect.right
+        break
       case 'ArrowLeft':
-        candidatePoint.x = Math.min(candidateRect.right, this.originRect.left);
-        originPoint.x = this.originRect.left;
-        break;
+        candidatePoint.x = Math.min(candidateRect.right, this.originRect.left)
+        originPoint.x = this.originRect.left
+        break
     }
 
-    return [candidatePoint, originPoint];
+    return [candidatePoint, originPoint]
   }
 
   /**
@@ -318,6 +318,8 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * returns them.
    *
    * @param points - Current values for the candidate and origin's points.
+   * @param points.0 - 0 point.
+   * @param points.1 - 1 point.
    * @param candidateRect - The DOMRect of the candidate.
    *
    * @returns Candidate and origin points with orthogonal values set.
@@ -325,39 +327,39 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    */
   private setOrthogonalPointValues(
     { 0: candidatePoint, 1: originPoint }: Points,
-    candidateRect: DOMRect
+    candidateRect: DOMRect,
   ): Points {
     switch (this.direction) {
       case 'ArrowUp':
       case 'ArrowDown':
         if (this.isRightSide(this.originRect, candidateRect)) {
-          candidatePoint.x = Math.min(candidateRect.right, this.originRect.left);
-          originPoint.x = this.originRect.left;
+          candidatePoint.x = Math.min(candidateRect.right, this.originRect.left)
+          originPoint.x = this.originRect.left
         } else if (this.isRightSide(candidateRect, this.originRect)) {
-          candidatePoint.x = Math.max(candidateRect.left, this.originRect.right);
-          originPoint.x = this.originRect.right;
+          candidatePoint.x = Math.max(candidateRect.left, this.originRect.right)
+          originPoint.x = this.originRect.right
         } else {
-          candidatePoint.x = Math.max(this.originRect.left, candidateRect.left);
-          originPoint.x = candidatePoint.x;
+          candidatePoint.x = Math.max(this.originRect.left, candidateRect.left)
+          originPoint.x = candidatePoint.x
         }
-        break;
+        break
 
       case 'ArrowRight':
       case 'ArrowLeft':
         if (this.isBelow(this.originRect, candidateRect)) {
-          candidatePoint.y = Math.min(candidateRect.bottom, this.originRect.top);
-          originPoint.y = this.originRect.top;
+          candidatePoint.y = Math.min(candidateRect.bottom, this.originRect.top)
+          originPoint.y = this.originRect.top
         } else if (this.isBelow(candidateRect, this.originRect)) {
-          candidatePoint.y = Math.max(candidateRect.top, this.originRect.bottom);
-          originPoint.y = this.originRect.bottom;
+          candidatePoint.y = Math.max(candidateRect.top, this.originRect.bottom)
+          originPoint.y = this.originRect.bottom
         } else {
-          candidatePoint.y = Math.max(this.originRect.top, candidateRect.top);
-          originPoint.y = candidatePoint.y;
+          candidatePoint.y = Math.max(this.originRect.top, candidateRect.top)
+          originPoint.y = candidatePoint.y
         }
-        break;
+        break
     }
 
-    return [candidatePoint, originPoint];
+    return [candidatePoint, originPoint]
   }
 
   /**
@@ -373,39 +375,39 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
   private getDisplacementAndAlignment(
     candidateRect: DOMRect,
     intersection: Intersection,
-    absoluteDistances: AbsoluteDistances
+    absoluteDistances: AbsoluteDistances,
   ): { displacement: number; alignment: number } {
-    const areAligned = this.areAligned(this.originRect, candidateRect);
+    const areAligned = this.areAligned(this.originRect, candidateRect)
 
-    let alignBias = 0;
-    let orthogonalBias = 0;
-    let displacement = 0;
+    let alignBias = 0
+    let orthogonalBias = 0
+    let displacement = 0
 
     switch (this.direction) {
       case 'ArrowUp':
       case 'ArrowDown':
         if (areAligned) {
-          alignBias = Math.min(intersection.width / this.originRect.width, 1);
+          alignBias = Math.min(intersection.width / this.originRect.width, 1)
         } else {
-          orthogonalBias = this.originRect.width / 2;
+          orthogonalBias = this.originRect.width / 2
         }
 
-        displacement = (absoluteDistances.x + orthogonalBias) * this.orthogonalWeightVertical;
-        break;
+        displacement = (absoluteDistances.x + orthogonalBias) * this.orthogonalWeightVertical
+        break
 
       case 'ArrowRight':
       case 'ArrowLeft':
         if (areAligned) {
-          alignBias = Math.min(intersection.height / this.originRect.height, 1);
+          alignBias = Math.min(intersection.height / this.originRect.height, 1)
         } else {
-          orthogonalBias = this.originRect.height / 2;
+          orthogonalBias = this.originRect.height / 2
         }
 
-        displacement = (absoluteDistances.y + orthogonalBias) * this.orthogonalWeightHorizontal;
-        break;
+        displacement = (absoluteDistances.y + orthogonalBias) * this.orthogonalWeightHorizontal
+        break
     }
 
-    return { displacement, alignment: alignBias * this.alignWeight };
+    return { displacement, alignment: alignBias * this.alignWeight }
   }
 
   /**
@@ -419,25 +421,25 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private getIntersection(rect1: DOMRect, rect2: DOMRect): Intersection {
-    const intersection: Intersection = { width: 0, height: 0, area: 0 };
+    const intersection: Intersection = { width: 0, height: 0, area: 0 }
 
     const topLeftPoint: Point = {
       x: Math.max(rect1.left, rect2.left),
-      y: Math.max(rect1.top, rect2.top)
-    };
+      y: Math.max(rect1.top, rect2.top),
+    }
     const bottomRightPoint: Point = {
       x: Math.min(rect1.right, rect2.right),
-      y: Math.min(rect1.bottom, rect2.bottom)
-    };
-
-    intersection.width = Math.abs(topLeftPoint.x - bottomRightPoint.x);
-    intersection.height = Math.abs(topLeftPoint.y - bottomRightPoint.y);
-
-    if (topLeftPoint.x < bottomRightPoint.x || topLeftPoint.y < bottomRightPoint.y) {
-      intersection.area = intersection.width * intersection.height;
+      y: Math.min(rect1.bottom, rect2.bottom),
     }
 
-    return intersection;
+    intersection.width = Math.abs(topLeftPoint.x - bottomRightPoint.x)
+    intersection.height = Math.abs(topLeftPoint.y - bottomRightPoint.y)
+
+    if (topLeftPoint.x < bottomRightPoint.x || topLeftPoint.y < bottomRightPoint.y) {
+      intersection.area = intersection.width * intersection.height
+    }
+
+    return intersection
   }
 
   /**
@@ -452,7 +454,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
   private areAligned(rect1: DOMRect, rect2: DOMRect): boolean {
     return this.direction === 'ArrowLeft' || this.direction === 'ArrowRight'
       ? rect1.bottom > rect2.top && rect1.top < rect2.bottom
-      : rect1.right > rect2.left && rect1.left < rect2.right;
+      : rect1.right > rect2.left && rect1.left < rect2.right
   }
 
   /**
@@ -471,7 +473,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
         rect1.bottom > rect2.bottom &&
         rect1.left < rect2.right &&
         rect1.right > rect2.left)
-    );
+    )
   }
 
   /**
@@ -490,6 +492,6 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
         rect1.right > rect2.right &&
         rect1.bottom > rect2.top &&
         rect1.top < rect2.bottom)
-    );
+    )
   }
 }

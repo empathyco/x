@@ -1,8 +1,8 @@
 <template>
   <RenderlessFilter
-    v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-    :cssClasses="innerCssClasses"
-    :clickEvents="innerClickEvents"
+    v-slot="{ filter: filterBinding, clickFilter, cssClasses: cssClassesBinding, isDisabled }"
+    :css-classes="innerCssClasses"
+    :click-events="innerClickEvents"
     :filter="filter"
   >
     <!--
@@ -16,97 +16,98 @@
     -->
     <slot
       v-bind="{
-        filter,
+        filter: filterBinding,
         clickFilter,
-        cssClasses,
-        isDisabled
+        cssClasses: cssClassesBinding,
+        isDisabled,
       }"
     >
       <button
-        @click="clickFilter"
-        :aria-checked="filter.selected.toString()"
-        :class="cssClasses"
+        :aria-checked="filterBinding.selected.toString()"
+        :class="cssClassesBinding"
         :disabled="isDisabled"
         data-test="filter"
         role="checkbox"
         v-bind="$attrs"
+        @click="clickFilter"
       >
         <!--
           @slot The content to render inside the button
           @binding {Filter} filter - The filter data
         -->
-        <slot :filter="filter" name="label">{{ filter.label }}</slot>
+        <slot :filter="filter" name="label">{{ filterBinding.label }}</slot>
       </button>
     </slot>
   </RenderlessFilter>
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
-  import { Dictionary } from '@empathyco/x-utils';
-  import { XEventsTypes } from '../../../../wiring/events.types';
-  import { facetsXModule } from '../../x-module';
-  import RenderlessFilter from './renderless-filter.vue';
+import type { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { PropType } from 'vue'
+import type { XEventsTypes } from '../../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import { facetsXModule } from '../../x-module'
+import RenderlessFilter from './renderless-filter.vue'
 
-  /**
-   * Renders a number range filter, emitting the needed events when clicked.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'NumberRangeFilter',
-    xModule: facetsXModule.name,
-    components: { RenderlessFilter },
-    inheritAttrs: false,
-    props: {
-      /** The filter data to render. */
-      filter: {
-        type: Object as PropType<NumberRangeFilterModel>,
-        required: true
-      },
-      /**
-       * Additional events, with their payload, to emit when the filter is clicked.
-       *
-       * @public
-       */
-      clickEvents: Object as PropType<Partial<XEventsTypes>>,
-      /** Inheritance CSS classes. */
-      cssClasses: {
-        type: Array as PropType<(string | Dictionary<boolean>)[]>,
-        default: () => []
-      }
+/**
+ * Renders a number range filter, emitting the needed events when clicked.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'NumberRangeFilter',
+  xModule: facetsXModule.name,
+  components: { RenderlessFilter },
+  inheritAttrs: false,
+  props: {
+    /** The filter data to render. */
+    filter: {
+      type: Object as PropType<NumberRangeFilterModel>,
+      required: true,
     },
-    setup: function (props: any) {
-      /**
-       * The {@link XEventsTypes} to emit.
-       *
-       * @returns The events to emit when clicked.
-       * @internal
-       */
-      const innerClickEvents = computed(() => ({
-        UserClickedANumberRangeFilter: props.filter,
-        ...props.clickEvents
-      }));
+    /**
+     * Additional events, with their payload, to emit when the filter is clicked.
+     *
+     * @public
+     */
+    clickEvents: Object as PropType<Partial<XEventsTypes>>,
+    /** Inheritance CSS classes. */
+    cssClasses: {
+      type: Array as PropType<(string | Dictionary<boolean>)[]>,
+      default: () => [],
+    },
+  },
+  setup(props: any) {
+    /**
+     * The {@link XEventsTypes} to emit.
+     *
+     * @returns The events to emit when clicked.
+     * @internal
+     */
+    const innerClickEvents = computed(() => ({
+      UserClickedANumberRangeFilter: props.filter,
+      ...props.clickEvents,
+    }))
 
-      /**
-       * Dynamic CSS classes to apply to the component.
-       *
-       * @returns The dynamic CSS classes to apply to the component.
-       * @internal
-       */
-      const innerCssClasses = computed(() => [
-        'x-number-range-filter',
-        { 'x-number-range-filter--is-selected': props.filter.selected },
-        ...props.cssClasses
-      ]);
+    /**
+     * Dynamic CSS classes to apply to the component.
+     *
+     * @returns The dynamic CSS classes to apply to the component.
+     * @internal
+     */
+    const innerCssClasses = computed(() => [
+      'x-number-range-filter',
+      { 'x-number-range-filter--is-selected': props.filter.selected },
+      ...props.cssClasses,
+    ])
 
-      return {
-        innerClickEvents,
-        innerCssClasses
-      };
+    return {
+      innerClickEvents,
+      innerCssClasses,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -133,29 +134,29 @@ to emit on click.
 </template>
 
 <script>
-  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+import { NumberRangeFilter } from '@empathyco/x-components/facets'
 
-  export default {
-    name: 'NumberRangeFilterTest',
-    components: {
-      NumberRangeFilter
-    },
-    date() {
-      return {
-        filter: {
-          id: `price:1-10`,
-          modelName: 'NumberRangeFilter',
-          label: `From 1 to 10`,
-          facetId: 'price',
-          range: {
-            min: 1,
-            max: 10
-          },
-          selected: false
-        }
-      };
+export default {
+  name: 'NumberRangeFilterTest',
+  components: {
+    NumberRangeFilter,
+  },
+  date() {
+    return {
+      filter: {
+        id: `price:1-10`,
+        modelName: 'NumberRangeFilter',
+        label: `From 1 to 10`,
+        facetId: 'price',
+        range: {
+          min: 1,
+          max: 10,
+        },
+        selected: false,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -169,29 +170,29 @@ Configuring the events to emit when the filter is clicked.
 </template>
 
 <script>
-  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+import { NumberRangeFilter } from '@empathyco/x-components/facets'
 
-  export default {
-    name: 'NumberRangeFilterTest',
-    components: {
-      NumberRangeFilter
-    },
-    date() {
-      return {
-        filter: {
-          id: `price:1-10`,
-          modelName: 'NumberRangeFilter',
-          label: `From 1 to 10`,
-          facetId: 'price',
-          range: {
-            min: 1,
-            max: 10
-          },
-          selected: false
-        }
-      };
+export default {
+  name: 'NumberRangeFilterTest',
+  components: {
+    NumberRangeFilter,
+  },
+  date() {
+    return {
+      filter: {
+        id: `price:1-10`,
+        modelName: 'NumberRangeFilter',
+        label: `From 1 to 10`,
+        facetId: 'price',
+        range: {
+          min: 1,
+          max: 10,
+        },
+        selected: false,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -206,29 +207,29 @@ Configuring the events to emit when the filter is clicked.
 </template>
 
 <script>
-  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+import { NumberRangeFilter } from '@empathyco/x-components/facets'
 
-  export default {
-    name: 'NumberRangeFilterTest',
-    components: {
-      NumberRangeFilter
-    },
-    date() {
-      return {
-        filter: {
-          id: `price:1-10`,
-          modelName: 'NumberRangeFilter',
-          label: `From 1 to 10`,
-          facetId: 'price',
-          range: {
-            min: 1,
-            max: 10
-          },
-          selected: false
-        }
-      };
+export default {
+  name: 'NumberRangeFilterTest',
+  components: {
+    NumberRangeFilter,
+  },
+  date() {
+    return {
+      filter: {
+        id: `price:1-10`,
+        modelName: 'NumberRangeFilter',
+        label: `From 1 to 10`,
+        facetId: 'price',
+        range: {
+          min: 1,
+          max: 10,
+        },
+        selected: false,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

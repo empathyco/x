@@ -8,7 +8,7 @@
  * @public
  */
 export function isElementEqualOrContained(a: Element, b: Element): boolean {
-  return a === b || a.contains(b);
+  return a === b || a.contains(b)
 }
 
 /**
@@ -26,7 +26,7 @@ export function isElementEqualOrContained(a: Element, b: Element): boolean {
  * @public
  */
 export function getTargetElement(event: Event): Element {
-  return event.composedPath()[0] as Element;
+  return event.composedPath()[0] as Element
 }
 
 /**
@@ -43,9 +43,9 @@ export function getTargetElement(event: Event): Element {
  * @public
  */
 export function getActiveElement(root: Document | ShadowRoot = document): Element | null {
-  let current = root.activeElement;
+  let current = root.activeElement
   while (current?.shadowRoot) {
-    current = current.shadowRoot.activeElement;
+    current = current.shadowRoot.activeElement
   }
-  return current;
+  return current
 }

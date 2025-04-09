@@ -7,5 +7,6 @@
  * @public
  */
 export function clone<Something>(something: Something): Something {
-  return JSON.parse(JSON.stringify(something));
+  // eslint-disable-next-line ts/no-unsafe-return
+  return JSON.parse(JSON.stringify(something))
 }

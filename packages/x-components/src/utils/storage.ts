@@ -1,5 +1,6 @@
-import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
-import { noOp } from './function';
+import type { StorageService } from '@empathyco/x-storage-service'
+import { BrowserStorageService } from '@empathyco/x-storage-service'
+import { noOp } from './function'
 
 /**
  * Service instance of {@link @empathyco/x-storage-service#StorageService | storage service} if
@@ -16,5 +17,5 @@ export const localStorageService: StorageService =
         clear: noOp,
         getItem: noOp,
         setItem: noOp,
-        removeItem: noOp
-      };
+        removeItem: noOp,
+      }

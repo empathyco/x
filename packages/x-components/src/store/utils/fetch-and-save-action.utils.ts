@@ -1,6 +1,6 @@
-import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promise';
-import { XActionContext } from '../actions.types';
-import { StatusMutations, StatusState } from './status-store.utils';
+import type { XActionContext } from '../actions.types'
+import type { StatusMutations, StatusState } from './status-store.utils'
+import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promise'
 
 /**
  * Utility to create an action that requests and save some data asynchronously, with the
@@ -8,25 +8,27 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
  * @param hooks - The {@link FetchAndSaveHooks} hooks to create the action.
+ * @param hooks.fetch - fetch hook.
+ * @param hooks.onSuccess - onSuccess hook.
+ * @param hooks.onError - onError hook.
+ * @param hooks.onCancel - onCancel hook.
  *
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
 export function createFetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
-  // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
   Request,
-  Response
+  Response,
 >({
   fetch,
   onSuccess,
   // TODO add logger
-  // eslint-disable-next-line no-console
   onError = console.error,
-  onCancel
+  onCancel,
 }: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {
-  let cancelPreviousRequest: undefined | (() => void);
+  let cancelPreviousRequest: undefined | (() => void)
 
   /**
    * Called asynchronously after a response has been received.
@@ -36,10 +38,10 @@ export function createFetchAndSaveActions<
    * @param response - The fetch response.
    * @returns A Promise that resolves after handling the response.
    */
-  function handleResponse(context: Context, response: Response): Promise<void> {
+  async function handleResponse(context: Context, response: Response): Promise<void> {
     return Promise.resolve(onSuccess(context, response)).then(() => {
-      context.commit('setStatus', 'success');
-    });
+      context.commit('setStatus', 'success')
+    })
   }
 
   /**
@@ -49,9 +51,9 @@ export function createFetchAndSaveActions<
    * actions, provided by Vuex.
    */
   function handleCancel(context: Context): void {
-    cancelPreviousRequest = undefined;
-    context.commit('setStatus', 'success');
-    onCancel?.();
+    cancelPreviousRequest = undefined
+    context.commit('setStatus', 'success')
+    onCancel?.()
   }
 
   /**
@@ -63,36 +65,34 @@ export function createFetchAndSaveActions<
    */
   function handleError(context: Context, error: unknown): void {
     if (error !== CancelSymbol) {
-      context.commit('setStatus', 'error');
-      onError(error);
+      context.commit('setStatus', 'error')
+      onError(error)
     }
   }
 
-  // eslint-disable-next-line
   /** @see FetchAndSaveActions.fetchAndSave */
-  function fetchAndSave(context: Context, request: Request): Promise<void> {
-    cancelPrevious();
-    context.commit('setStatus', 'loading');
+  async function fetchAndSave(context: Context, request: Request): Promise<void> {
+    cancelPrevious()
+    context.commit('setStatus', 'loading')
     const { promise, cancel } = cancellablePromise(fetch(context, request), () => {
-      handleCancel(context);
-    });
+      handleCancel(context)
+    })
 
-    cancelPreviousRequest = cancel;
+    cancelPreviousRequest = cancel
     return promise
-      .then(response => handleResponse(context, response))
-      .catch(error => handleError(context, error));
+      .then(async response => handleResponse(context, response))
+      .catch(error => handleError(context, error))
   }
 
-  // eslint-disable-next-line
   /** @see FetchAndSaveActions.cancelPrevious */
   function cancelPrevious(): void {
-    cancelPreviousRequest?.();
+    cancelPreviousRequest?.()
   }
 
   return {
     fetchAndSave,
-    cancelPrevious
-  };
+    cancelPrevious,
+  }
 }
 
 /**
@@ -102,10 +102,9 @@ export function createFetchAndSaveActions<
  */
 export interface FetchAndSaveHooks<
   // Using `object` type to ensure no actions/getters can be used.
-  // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
   Request,
-  Response
+  Response,
 > {
   /**
    * Retrieves and returns asynchronously some data.
@@ -115,7 +114,7 @@ export interface FetchAndSaveHooks<
    * @param request - The request object used for fetching.
    * @returns A Promise resolved with the response of the fetch request.
    */
-  fetch(context: Context, request: Request): Promise<Response>;
+  fetch: (context: Context, request: Request) => Promise<Response>
   /**
    * Asynchronous callback executed when the {@link FetchAndSaveHooks.fetch} is
    * performed successfully.
@@ -124,14 +123,14 @@ export interface FetchAndSaveHooks<
    * actions, provided by Vuex.
    * @param response - The data returned by {@link FetchAndSaveHooks.fetch}.
    */
-  onSuccess(context: Context, response: Response): void;
+  onSuccess: (context: Context, response: Response) => void
   /**
    * Asynchronous callback executed when either the {@link FetchAndSaveHooks.fetch}
    * or {@link FetchAndSaveHooks.onSuccess} methods fail.
    *
    * @param error - The error that triggered this callback.
    */
-  onError?(error: unknown): void;
+  onError?: (error: unknown) => void
   /**
    * Synchronous callback executed when the request is cancelled. This can happen mainly for two
    * reasons:
@@ -139,7 +138,7 @@ export interface FetchAndSaveHooks<
    * - A new {@link FetchAndSaveActions.fetchAndSave} is dispatched before the previous one was
    * resolved.
    */
-  onCancel?(): void;
+  onCancel?: () => void
 }
 
 /**
@@ -149,9 +148,8 @@ export interface FetchAndSaveHooks<
  */
 export interface FetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
-  // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
-  Request
+  Request,
 > {
   /**
    * Action that requests and saves the response.
@@ -160,9 +158,9 @@ export interface FetchAndSaveActions<
    * actions, provided by Vuex.
    * @returns A promise that resolves after saving the response.
    */
-  fetchAndSave: (context: Context, request: Request) => void | Promise<void>;
+  fetchAndSave: (context: Context, request: Request) => void | Promise<void>
   /**
    * Action that cancels the previous request call if it stills in progress.
    */
-  cancelPrevious: () => void;
+  cancelPrevious: () => void
 }

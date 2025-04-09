@@ -1,4 +1,4 @@
-import {
+import type {
   Banner,
   Facet,
   Filter,
@@ -11,15 +11,15 @@ import {
   SearchResponse,
   Sort,
   Stats,
-  TaggingRequest
-} from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { StatusMutations, StatusState, XActionContext, XStoreModule } from '../../../store';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types';
-import { SearchConfig } from '../config.types';
-import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+  TaggingRequest,
+} from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { StatusMutations, StatusState, XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
+import type { SearchConfig } from '../config.types'
+import type { InternalSearchRequest, WatchedInternalSearchRequest } from '../types'
 
 /**
  * Search store state.
@@ -28,50 +28,50 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  */
 export interface SearchState extends StatusState, QueryState {
   /** The list of the banners, related to the `query` property of the state. */
-  banners: Banner[];
+  banners: Banner[]
   /** The configuration of the search module. */
-  config: SearchConfig;
+  config: SearchConfig
   /** The list of the facets, related to the `query` property of the state. */
-  facets: Facet[];
+  facets: Facet[]
   /** A flag to indicate if new results are append to the current instead of replacing them. */
-  isAppendResults: boolean;
+  isAppendResults: boolean
   /** Flag indicating if there is a no results situation. */
-  isNoResults: boolean;
+  isNoResults: boolean
   /** Flag indicating if there is a no results situation with filters selected. */
-  fromNoResultsWithFilters: boolean;
+  fromNoResultsWithFilters: boolean
   /** The origin property of the request. */
-  origin: QueryOrigin | null;
+  origin: QueryOrigin | null
   /** The current page of the request. */
-  page: number;
+  page: number
   /** The extra params property of the state. */
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
   /** The list of the partial results, related to the `query` property of the state. */
-  partialResults: PartialResult[];
+  partialResults: PartialResult[]
   /** The list of the promoted, related to the `query` property of the state. */
-  promoteds: Promoted[];
+  promoteds: Promoted[]
   /** The query tagging used to track the search events. */
-  queryTagging: TaggingRequest;
+  queryTagging: TaggingRequest
   /** The display tagging used to track the search events. */
-  displayTagging: TaggingRequest;
+  displayTagging: TaggingRequest
   /** The redirections associated to the `query`. */
-  redirections: Redirection[];
+  redirections: Redirection[]
   /** The list of the related tags, related to the `query` property of the state. */
-  relatedTags: RelatedTag[];
+  relatedTags: RelatedTag[]
   /** The list of the results, related to the `query` property of the state. */
-  results: Result[];
+  results: Result[]
   /**
    * The dictionary of selected filters, used to perform the search request.
    * The key is the facet id, and the value the list of filters for that facet.
    */
-  selectedFilters: Dictionary<Filter[]>;
+  selectedFilters: Dictionary<Filter[]>
   /** The way of ordering the results. */
-  sort: Sort;
+  sort: Sort
   /** The spellcheckedQuery property of the state. */
-  spellcheckedQuery: string;
+  spellcheckedQuery: string
   /** The stats of the results. */
-  stats: Stats;
+  stats: Stats
   /** The total number of results, related to the `query` property of the state. */
-  totalResults: number;
+  totalResults: number
 }
 
 /**
@@ -84,9 +84,9 @@ export interface SearchGetters {
    * The adapter request object for retrieving the results, or null if there is no
    * valid data to create a request.
    */
-  request: InternalSearchRequest | null;
+  request: InternalSearchRequest | null
   /** The combination of the query and the selected related tags. */
-  query: string;
+  query: string
 }
 
 /**
@@ -103,143 +103,143 @@ export interface SearchMutations
    *
    * @param results - Results array.
    */
-  appendResults(results: Result[]): void;
+  appendResults: (results: Result[]) => void
   /**
    * Resets the "resettable" part of the Search state to the initial state. See the
    * {@link searchXStoreModule} for details.
    */
-  resetState(): void;
+  resetState: () => void
   /**
    * Resets the "resettable" part of the Search state like {@link SearchMutations.resetState} but
    * maintains the values required to perform the search request again.
    */
-  resetStateForReload(): void;
+  resetStateForReload: () => void
   /**
    * Sets the banners of the module.
    *
    * @param banners - The new banners to save to the state.
    */
-  setBanners(banners: Banner[]): void;
+  setBanners: (banners: Banner[]) => void
   /**
    * Sets the facets of the module.
    *
    * @param facets - The new facets to save to the state.
    */
-  setFacets(facets: Facet[]): void;
+  setFacets: (facets: Facet[]) => void
   /**
    * Set the `isAppendResuls` flag value.
    *
    * @param isAppendResults - The new flag value.
    */
-  setIsAppendResults(isAppendResults: boolean): void;
+  setIsAppendResults: (isAppendResults: boolean) => void
   /**
    * Sets the `isNoResults` flag value.
    *
    * @param isNoResults - The new flag value.
    */
-  setIsNoResults(isNoResults: boolean): void;
+  setIsNoResults: (isNoResults: boolean) => void
   /**
    * Sets the `fromNoResultsWithFilters` flag value.
    *
    * @param fromNoResultsWithFilters - The new flag value.
    */
-  setFromNoResultsWithFilters(fromNoResultsWithFilters: boolean): void;
+  setFromNoResultsWithFilters: (fromNoResultsWithFilters: boolean) => void
   /**
    * Sets the origin of the module.
    *
    * @param origin - The new origin.
    */
-  setOrigin(origin: QueryOrigin | undefined | null): void;
+  setOrigin: (origin: QueryOrigin | undefined | null) => void
   /**
    * Sets the page of the module.
    *
    * @param page - The new page.
    */
-  setPage(page: number): void;
+  setPage: (page: number) => void
   /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
   /**
    * Sets the partial results of the module.
    *
    * @param partialResults - The new partial results to save to the state.
    */
-  setPartialResults(partialResults: PartialResult[]): void;
+  setPartialResults: (partialResults: PartialResult[]) => void
   /**
    * Sets the promoteds of the module.
    *
    * @param promoteds - The new promoted to save to the state.
    */
-  setPromoteds(promoteds: Promoted[]): void;
+  setPromoteds: (promoteds: Promoted[]) => void
   /**
    * Sets the query tagging of the module, which is used to track the query.
    *
    * @param queryTagging - The new query tagging object to save to the state.
    */
-  setQueryTagging(queryTagging: TaggingRequest): void;
+  setQueryTagging: (queryTagging: TaggingRequest) => void
   /**
    * Sets the display tagging of the module.
    *
    * @param displayTagging - The new display tagging object to save to the state.
    */
-  setDisplayTagging(DisplayTagging: TaggingRequest): void;
+  setDisplayTagging: (DisplayTagging: TaggingRequest) => void
   /**
    * Sets the redirection of the module.
    *
    * @param redirections - The redirections to store.
    */
-  setRedirections(redirections: Redirection[]): void;
+  setRedirections: (redirections: Redirection[]) => void
   /**
    * Sets the related tags of the module.
    *
    * @param relatedTags - The new related tags to save to the state.
    */
-  setRelatedTags(relatedTags: RelatedTag[]): void;
+  setRelatedTags: (relatedTags: RelatedTag[]) => void
   /**
    * Sets the results of the module.
    *
    * @param results - The new results to save to the state.
    */
-  setResults(results: Result[]): void;
+  setResults: (results: Result[]) => void
   /**
    * Sets the selected filters of the module.
    *
    * @param selectedFilters - The new selected filters to save to the state.
    */
-  setSelectedFilters(selectedFilters: Filter[]): void;
+  setSelectedFilters: (selectedFilters: Filter[]) => void
   /**
    * Sets the selected sort option of the module.
    *
    * @param sort - The new sort.
    */
-  setSort(sort: Sort): void;
+  setSort: (sort: Sort) => void
   /**
    * Sets the spellcheckedQuery of the module.
    *
    * @param spellcheckedQuery - The new spellcheck string to save to the state.
    */
-  setSpellcheck(spellcheckedQuery: string): void;
+  setSpellcheck: (spellcheckedQuery: string) => void
   /**
    * Sets the stats of the module.
    *
    * @param stats - The new stats to save to the state.
    */
-  setStats(stats: Stats): void;
+  setStats: (stats: Stats) => void
   /**
    * Sets the total results of the module.
    *
    * @param totalResults - The new total results to save to the state.
    */
-  setTotalResults(totalResults: number): void;
+  setTotalResults: (totalResults: number) => void
   /**
    * Updates a result with new fields.
    *
    * @param result - A result containing at least an id, and the properties to modify.
    */
-  updateResult(result: Partial<Result> & Pick<Result, 'id'>): void;
+  updateResult: (result: Partial<Result> & Pick<Result, 'id'>) => void
 }
 
 /**
@@ -253,21 +253,21 @@ export interface SearchActions {
    *
    * @param watchedRequest - The watched internal search request object.
    */
-  resetRequestOnRefinement(watchedRequest: WatchedInternalSearchRequest): void;
+  resetRequestOnRefinement: (watchedRequest: WatchedInternalSearchRequest) => void
   /**
    * Cancels / interrupt {@link SearchActions.fetchAndSaveSearchResponse} synchronous promise.
    */
-  cancelFetchAndSaveSearchResponse(): void;
+  cancelFetchAndSaveSearchResponse: () => void
   /**
    * Fetches a new search response and stores them in the module state.
    */
-  fetchAndSaveSearchResponse(request: InternalSearchRequest | null): void;
+  fetchAndSaveSearchResponse: (request: InternalSearchRequest | null) => void
   /**
    * Fetches the search response and returns them.
    *
    * @returns The new search response.
    */
-  fetchSearchResponse(request: SearchRequest): SearchResponse;
+  fetchSearchResponse: (request: SearchRequest) => SearchResponse
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link SearchState.isAppendResults} flag.
@@ -275,25 +275,25 @@ export interface SearchActions {
    * @remarks This action is to implement the infinite scroll behaviour. To increase the page
    * for other purposes, please use the {@link SearchMutations.setPage} mutation.
    */
-  increasePageAppendingResults(): void;
+  increasePageAppendingResults: () => void
   /**
    * Checks if the url has params on it and then updates the state with these values.
    *
    * @param urlParams - List of params from the url.
    */
-  setUrlParams(urlParams: UrlParams): void;
+  setUrlParams: (urlParams: UrlParams) => void
   /**
    * Creates a {@link QueryOrigin} and saves it.
    *
    * @param originInit - The object to create the origin with.
    */
-  saveOrigin(originInit: QueryOriginInit): void;
+  saveOrigin: (originInit: QueryOriginInit) => void
   /**
    * Saves the {@link @empathyco/x-types#SearchResponse}.
    *
    * @param response - The {@link @empathyco/x-types#SearchResponse} to save.
    */
-  saveSearchResponse(response: SearchResponse): void;
+  saveSearchResponse: (response: SearchResponse) => void
 }
 
 /**
@@ -306,7 +306,7 @@ export type SearchXStoreModule = XStoreModule<
   SearchGetters,
   SearchMutations,
   SearchActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link SearchXStoreModule}.
@@ -318,4 +318,4 @@ export type SearchActionContext = XActionContext<
   SearchGetters,
   SearchMutations,
   SearchActions
->;
+>

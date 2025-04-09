@@ -1,22 +1,24 @@
-import { IdentifierResultsXStoreModule } from '../types';
+import type { IdentifierResultsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link IdentifierResultsActions.saveQuery}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
+ * @param context.commit - commit context.
+ * @param context.getters - getters context.
  * @param query - The query to try to add to the store.
  *
  * @public
  */
 export const saveQuery: IdentifierResultsXStoreModule['actions']['saveQuery'] = (
   { commit, getters },
-  query: string
+  query: string,
 ) => {
   if (getters.identifierDetectionRegexp.test(query)) {
-    commit('setQuery', query);
+    commit('setQuery', query)
   } else {
-    commit('setQuery', '');
-    commit('setIdentifierResults', []);
+    commit('setQuery', '')
+    commit('setIdentifierResults', [])
   }
-};
+}

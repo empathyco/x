@@ -1,9 +1,9 @@
-import { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { XActionContext, XStoreModule } from '../../../store';
-import { UrlParams } from '../../../types';
+import type { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { StatusMutations, StatusState } from '../../../store/utils/status-store.utils'
+import type { UrlParams } from '../../../types'
 
 /**
  * Related prompts module state.
@@ -12,13 +12,13 @@ import { UrlParams } from '../../../types';
  */
 export interface RelatedPromptsState extends StatusState, QueryState {
   /** The list of the related-prompts, related to the `query` property of the state. */
-  relatedPrompts: RelatedPrompt[];
+  relatedPrompts: RelatedPrompt[]
   /** The index of the selected related-prompt. */
-  selectedPrompt: number;
+  selectedPrompt: number
   /** The index of the selected next query. */
-  selectedQuery: number;
+  selectedQuery: number
   /** The extra params property of the state. */
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
 }
 
 /**
@@ -31,7 +31,7 @@ export interface RelatedPromptsGetters {
    * Request object to retrieve the related prompts using the search adapter, or null if there is
    * no valid data to conform a valid request.
    */
-  request: RelatedPromptsRequest | null;
+  request: RelatedPromptsRequest | null
 }
 
 /**
@@ -45,33 +45,33 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
   /**
    * Sets the related prompts of the module.
    *
    * @param products - The new related prompts to save to the state.
    */
-  setRelatedPromptsProducts(products: RelatedPrompt[]): void;
+  setRelatedPromptsProducts: (products: RelatedPrompt[]) => void
   /**
    * Sets the selected related prompt.
    *
    * @param index - The new selected related prompt.
    */
-  setSelectedPrompt(index: number): void;
+  setSelectedPrompt: (index: number) => void
   /**
    * Sets the selected next query.
    *
    * @param index - The new selected next query.
    */
-  setSelectedQuery(index: number): void;
+  setSelectedQuery: (index: number) => void
   /**
    * Resets the related prompts state.
    */
-  resetRelatedPromptsState(): void;
+  resetRelatedPromptsState: () => void
   /**
    * Resets the selected related prompt number.
    */
-  resetSelectedPrompt(): void;
+  resetSelectedPrompt: () => void
 }
 
 /**
@@ -85,24 +85,24 @@ export interface RelatedPromptsActions {
    *
    * @param request - The related prompts request.
    */
-  fetchRelatedPrompts(request: RelatedPromptsRequest | null): RelatedPrompt[] | null;
+  fetchRelatedPrompts: (request: RelatedPromptsRequest | null) => RelatedPrompt[] | null
   /**
    * Requests a new set of related prompts and stores them in the module.
    *
    * @param request - The related prompts request.
    */
-  fetchAndSaveRelatedPrompts(request: RelatedPromptsRequest | null): void;
+  fetchAndSaveRelatedPrompts: (request: RelatedPromptsRequest | null) => void
   /**
    * Checks if the URL has params on it and then updates the state with these values.
    *
    * @param urlParams - List of params from the url.
    */
-  setUrlParams(urlParams: UrlParams): void;
+  setUrlParams: (urlParams: UrlParams) => void
   /**
    * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}
    * synchronous promise.
    */
-  cancelFetchAndSaveRelatedPrompts(): void;
+  cancelFetchAndSaveRelatedPrompts: () => void
 }
 
 /**
@@ -115,7 +115,7 @@ export type RelatedPromptsXStoreModule = XStoreModule<
   RelatedPromptsGetters,
   RelatedPromptsMutations,
   RelatedPromptsActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link RelatedPromptsXStoreModule}.
@@ -127,4 +127,4 @@ export type RelatedPromptsActionContext = XActionContext<
   RelatedPromptsGetters,
   RelatedPromptsMutations,
   RelatedPromptsActions
->;
+>

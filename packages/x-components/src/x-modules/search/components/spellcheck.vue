@@ -5,37 +5,37 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { searchXModule } from '../x-module';
-  import { useState } from '../../../composables/use-state';
+import { defineComponent } from 'vue'
+import { useState } from '../../../composables/use-state'
+import { searchXModule } from '../x-module'
 
-  /**
-   * The `Spellcheck` component allows to inform the user with a friendly message that he
-   * might have misspelled the search query. This message can be set using the default slot
-   * of the component, which gives access to the searched query using the `query` scope property,
-   * and the spellchecked query proposal, using the `spellcheckedQuery` scope property.
-   *
-   * The component will only render itself if the `spellcheckedQuery` property has value.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Spellcheck',
-    xModule: searchXModule.name,
-    setup() {
-      /**
-       * The query and the spellcheckedQuery from the search state.
-       *
-       * @public
-       */
-      const { query, spellcheckedQuery } = useState('search', ['query', 'spellcheckedQuery']);
+/**
+ * The `Spellcheck` component allows to inform the user with a friendly message that he
+ * might have misspelled the search query. This message can be set using the default slot
+ * of the component, which gives access to the searched query using the `query` scope property,
+ * and the spellchecked query proposal, using the `spellcheckedQuery` scope property.
+ *
+ * The component will only render itself if the `spellcheckedQuery` property has value.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Spellcheck',
+  xModule: searchXModule.name,
+  setup() {
+    /**
+     * The query and the spellcheckedQuery from the search state.
+     *
+     * @public
+     */
+    const { query, spellcheckedQuery } = useState('search', ['query', 'spellcheckedQuery'])
 
-      return {
-        query,
-        spellcheckedQuery
-      };
+    return {
+      query,
+      spellcheckedQuery,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -62,13 +62,13 @@ This two props should be show like a message comparing them.
 </Spellcheck>
 
 <script>
-  import { Spellcheck } from '@empathyco/x-components/search';
+import { Spellcheck } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      Spellcheck
-    }
-  };
+export default {
+  components: {
+    Spellcheck,
+  },
+}
 </script>
 ```
 </docs>

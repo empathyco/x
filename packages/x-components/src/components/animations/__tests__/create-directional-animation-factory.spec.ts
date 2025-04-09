@@ -1,6 +1,7 @@
-import { DOMWrapper, mount } from '@vue/test-utils';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import { createDirectionalAnimationFactory } from '../create-directional-animation-factory';
+import type { DOMWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { getDataTestSelector } from '../../../__tests__/utils'
+import { createDirectionalAnimationFactory } from '../create-directional-animation-factory'
 
 describe('testing animation abstract factory', () => {
   function renderAnimatedComponent(animationName: string): RenderApi {
@@ -12,35 +13,35 @@ describe('testing animation abstract factory', () => {
           </animationComponent>
         `,
         components: {
-          animationComponent: createDirectionalAnimationFactory(animationName)()
+          animationComponent: createDirectionalAnimationFactory(animationName)(),
         },
         props: {
-          open: { default: false }
-        }
+          open: { default: false },
+        },
       },
-      {}
-    );
+      {},
+    )
 
     return {
       open(): void | Promise<void> {
-        return wrapper.setProps({ open: true });
+        return wrapper.setProps({ open: true })
       },
       getContentWrapper(): DOMWrapper<Element> {
-        return wrapper.find(getDataTestSelector('animation-content'));
-      }
-    };
+        return wrapper.find(getDataTestSelector('animation-content'))
+      },
+    }
   }
 
   it('renders the slots content.', async () => {
-    const { open, getContentWrapper } = renderAnimatedComponent('my-animation');
+    const { open, getContentWrapper } = renderAnimatedComponent('my-animation')
 
-    expect(getContentWrapper().exists()).toBe(false);
-    await open();
-    expect(getContentWrapper().exists()).toBe(true);
-  });
-});
+    expect(getContentWrapper().exists()).toBe(false)
+    await open()
+    expect(getContentWrapper().exists()).toBe(true)
+  })
+})
 
 interface RenderApi {
-  open: () => void | Promise<void>;
-  getContentWrapper: () => DOMWrapper<Element>;
+  open: () => void | Promise<void>
+  getContentWrapper: () => DOMWrapper<Element>
 }

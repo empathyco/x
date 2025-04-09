@@ -1,13 +1,13 @@
-import { Directive } from 'vue';
-import { XPlugin } from '../plugins';
+import type { Directive } from 'vue'
+import { XPlugin } from '../plugins'
 
-const VIEWPORT_ID = 'viewport';
+const VIEWPORT_ID = 'viewport'
 
 /**
  * A record which contains {@link IntersectionObserver} objects indexed by the ID of the scrollable
  * container.
  */
-const state: Record<string, IntersectionObserver> = {};
+const state: Record<string, IntersectionObserver> = {}
 
 /**
  * Retrieves the root element for the provided ID.
@@ -19,13 +19,13 @@ const state: Record<string, IntersectionObserver> = {};
 function getRoot(element: HTMLElement, id: string): HTMLElement | null {
   switch (id) {
     case 'html':
-      return null;
+      return null
     case 'body':
-      return document.body;
+      return document.body
     case VIEWPORT_ID:
-      return null;
+      return null
     default:
-      return element.closest(`#${id}`)!;
+      return element.closest(`#${id}`)!
   }
 }
 
@@ -80,29 +80,29 @@ export const infiniteScroll: Directive<HTMLElement, { margin: number }> = {
      * This hack allows the root element to always contain the observed element.
      * Not overpass the top margin more than 1700000 because it doesn't work in Android chrome
      */
-    const rootMargin = `1000000% 0px ${margin}px 0px`;
-    const root = getRoot(element, id);
-    const xBus = XPlugin.bus;
+    const rootMargin = `1000000% 0px ${margin}px 0px`
+    const root = getRoot(element, id)
+    const xBus = XPlugin.bus
 
     state[id] = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          xBus.emit('UserReachedResultsListEnd');
+          void xBus.emit('UserReachedResultsListEnd')
         }
       },
       {
         threshold: 0.99,
         rootMargin,
-        root
-      }
-    );
+        root,
+      },
+    )
 
-    state[id].observe(element);
+    state[id].observe(element)
   },
   unmounted(_, { arg: id = VIEWPORT_ID }) {
     if (state[id]) {
-      state[id].disconnect();
-      delete state[id];
+      state[id].disconnect()
+      delete state[id]
     }
-  }
-};
+  },
+}

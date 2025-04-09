@@ -1,14 +1,14 @@
-import { Given, When } from '@badeball/cypress-cucumber-preprocessor';
-import {
-  NextQueriesResponse,
-  RelatedTagsResponse,
+import type {
   IdentifierResultsResponse,
-  SearchRequest,
-  SearchResponse,
+  NextQueriesResponse,
+  PopularSearchesResponse,
   QuerySuggestionsResponse,
   RecommendationsResponse,
-  PopularSearchesResponse
-} from '@empathyco/x-types';
+  RelatedTagsResponse,
+  SearchRequest,
+  SearchResponse,
+} from '@empathyco/x-types'
+import { Given, When } from '@badeball/cypress-cucumber-preprocessor'
 import {
   createBannerStub,
   createPromotedStub,
@@ -19,8 +19,8 @@ import {
   getPopularSearchesStub,
   getQuerySuggestionsStub,
   getResultsStub,
-  getSemanticQueriesStub
-} from '../../../src/__stubs__/index';
+  getSemanticQueriesStub,
+} from '../../../src/__stubs__/index'
 import {
   createSearchResponse,
   getIdentifierResultsEndpoint,
@@ -32,54 +32,54 @@ import {
   getSemanticQueriesEndpoint,
   mockedResponses,
   searchEndpoint,
-  trackEndpoint
-} from '../../../src/adapter/mocked-responses';
+  trackEndpoint,
+} from '../../../src/adapter/mocked-responses'
 
 // ID Results
 Given('an ID results API', () => {
   cy.intercept(getIdentifierResultsEndpoint, req => {
     req.reply(<IdentifierResultsResponse>{
-      results: getResultsStub()
-    });
-  });
-});
+      results: getResultsStub(),
+    })
+  })
+})
 
 Given('an ID results API with a known response', () => {
   cy.intercept(getIdentifierResultsEndpoint, req => {
-    req.reply(<IdentifierResultsResponse>mockedResponses['identifier-results']);
-  }).as('interceptedIDResults');
-});
+    req.reply(<IdentifierResultsResponse>mockedResponses['identifier-results'])
+  }).as('interceptedIDResults')
+})
 
 Given('an ID results API with no results', () => {
   cy.intercept(getIdentifierResultsEndpoint, req => {
     req.reply(<IdentifierResultsResponse>{
-      results: []
-    });
-  }).as('interceptedNoIDResults');
-});
+      results: [],
+    })
+  }).as('interceptedNoIDResults')
+})
 
 // Next Queries
 Given('a next queries API', () => {
   cy.intercept(getNextQueriesEndpoint, req => {
     req.reply(<NextQueriesResponse>{
-      nextQueries: getNextQueriesStub()
-    });
-  });
-});
+      nextQueries: getNextQueriesStub(),
+    })
+  })
+})
 
 Given('a next queries API with a known response', () => {
   cy.intercept(getNextQueriesEndpoint, req => {
-    req.reply(<NextQueriesResponse>mockedResponses['next-queries']);
-  }).as('interceptedNextQueries');
-});
+    req.reply(<NextQueriesResponse>mockedResponses['next-queries'])
+  }).as('interceptedNextQueries')
+})
 
 Given('a next queries API with no next queries', () => {
   cy.intercept(getNextQueriesEndpoint, req => {
     req.reply(<NextQueriesResponse>{
-      nextQueries: []
-    });
-  }).as('interceptedNextQueries');
-});
+      nextQueries: [],
+    })
+  }).as('interceptedNextQueries')
+})
 
 // Partial Results
 Given('a results API with partial results', () => {
@@ -91,13 +91,13 @@ Given('a results API with partial results', () => {
       totalResults: 1,
       queryTagging: {
         url: 'https://api.empathy.co/',
-        params: {}
+        params: {},
       },
       redirections: [],
       results: [
         createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
-          images: ['https://picsum.photos/seed/1/100/100']
-        })
+          images: ['https://picsum.photos/seed/1/100/100'],
+        }),
       ],
       facets: [],
       partialResults: [
@@ -105,72 +105,72 @@ Given('a results API with partial results', () => {
           query: 'verde azul',
           results: [
             createResultStub('Twister', {
-              images: ['https://picsum.photos/seed/30/100/100']
+              images: ['https://picsum.photos/seed/30/100/100'],
             }),
             createResultStub('Juego de Anillas Acuáticas Peces', {
-              images: ['https://picsum.photos/seed/31/100/100']
+              images: ['https://picsum.photos/seed/31/100/100'],
             }),
             createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos', {
-              images: ['https://picsum.photos/seed/32/100/100']
-            })
+              images: ['https://picsum.photos/seed/32/100/100'],
+            }),
           ],
-          totalResults: 9
+          totalResults: 9,
         },
         {
           query: 'lego verde',
           results: [
             createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007', {
-              images: ['https://picsum.photos/seed/33/100/100']
+              images: ['https://picsum.photos/seed/33/100/100'],
             }),
             createResultStub('LEGO Creator Grandes Dinosaurios -31058', {
-              images: ['https://picsum.photos/seed/34/100/100']
+              images: ['https://picsum.photos/seed/34/100/100'],
             }),
             createResultStub('LEGO My City Casa Familiar - 60291', {
-              images: ['https://picsum.photos/seed/35/100/100']
-            })
+              images: ['https://picsum.photos/seed/35/100/100'],
+            }),
           ],
-          totalResults: 6
-        }
-      ]
-    });
-  }).as('interceptedPartialResults');
-});
+          totalResults: 6,
+        },
+      ],
+    })
+  }).as('interceptedPartialResults')
+})
 
 // Popular Searches
 Given('a popular searches API with a known response', () => {
   cy.intercept(getPopularSearchesEndpoint, req => {
-    req.reply(<PopularSearchesResponse>mockedResponses['popular-searches']);
-  }).as('interceptedPopularSearches');
-});
+    req.reply(<PopularSearchesResponse>mockedResponses['popular-searches'])
+  }).as('interceptedPopularSearches')
+})
 
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
   cy.intercept(getQuerySuggestionsEndpoint, req => {
-    req.reply(<QuerySuggestionsResponse>mockedResponses['query-suggestions']);
-  }).as('interceptedQuerySuggestions');
-});
+    req.reply(<QuerySuggestionsResponse>mockedResponses['query-suggestions'])
+  }).as('interceptedQuerySuggestions')
+})
 
 Given('a query suggestions API with no query suggestions', () => {
   cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
-      suggestions: []
-    });
-  }).as('interceptedQuerySuggestions');
-});
+      suggestions: [],
+    })
+  }).as('interceptedQuerySuggestions')
+})
 
 // Recommendations
 Given('a recommendations API with a known response', () => {
   cy.intercept(getRecommendationsEndpoint, req => {
-    req.reply(<RecommendationsResponse>mockedResponses.recommendations);
-  }).as('interceptedRecommendations');
-});
+    req.reply(<RecommendationsResponse>mockedResponses.recommendations)
+  }).as('interceptedRecommendations')
+})
 
 // Related Tags
 Given('a related tags API', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
-    req.reply(<RelatedTagsResponse>mockedResponses['related-tags']);
-  });
-});
+    req.reply(<RelatedTagsResponse>mockedResponses['related-tags'])
+  })
+})
 
 Given('a related tags API with a known response', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
@@ -178,11 +178,11 @@ Given('a related tags API with a known response', () => {
       relatedTags: [
         createRelatedTagStub('funko marvel', 'marvel'),
         createRelatedTagStub('funko pop', 'pop'),
-        createRelatedTagStub('funko harry', 'harry')
-      ]
-    });
-  }).as('interceptedRelatedTags');
-});
+        createRelatedTagStub('funko harry', 'harry'),
+      ],
+    })
+  }).as('interceptedRelatedTags')
+})
 
 Given('a second related tags API with a known response', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
@@ -190,18 +190,18 @@ Given('a second related tags API with a known response', () => {
       relatedTags: [
         createRelatedTagStub('funko spiderman', 'spiderman'),
         createRelatedTagStub('funko deadpool', 'deadpool'),
-        createRelatedTagStub('funko loki', 'loki')
-      ]
-    });
-  }).as('interceptedRelatedTagsWithSelection');
-});
+        createRelatedTagStub('funko loki', 'loki'),
+      ],
+    })
+  }).as('interceptedRelatedTagsWithSelection')
+})
 
 // Results
 Given('a results API with a known response', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(mockedResponses.search);
-  }).as('interceptedResults');
-});
+    req.reply(mockedResponses.search)
+  }).as('interceptedResults')
+})
 
 Given('a second results API with a known response', () => {
   cy.intercept(searchEndpoint, req => {
@@ -209,17 +209,17 @@ Given('a second results API with a known response', () => {
       createSearchResponse({
         results: [
           createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
-            images: ['https://picsum.photos/seed/8/100/100']
+            images: ['https://picsum.photos/seed/8/100/100'],
           }),
           createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
-            images: ['https://picsum.photos/seed/10/100/100']
-          })
+            images: ['https://picsum.photos/seed/10/100/100'],
+          }),
         ],
-        totalResults: 7
-      })
-    );
-  }).as('interceptedNewResults');
-});
+        totalResults: 7,
+      }),
+    )
+  }).as('interceptedNewResults')
+})
 
 Given('a results API with {int} results', (resultsLength: number) => {
   cy.intercept(searchEndpoint, req => {
@@ -227,14 +227,14 @@ Given('a results API with {int} results', (resultsLength: number) => {
       createSearchResponse({
         results: Array.from({ length: resultsLength }, (_, index) =>
           createResultStub(`Result ${index}`, {
-            images: [`https://picsum.photos/seed/${index}/100/100`]
-          })
+            images: [`https://picsum.photos/seed/${index}/100/100`],
+          }),
         ),
-        totalResults: resultsLength
-      })
-    );
-  }).as('interceptedResults');
-});
+        totalResults: resultsLength,
+      }),
+    )
+  }).as('interceptedResults')
+})
 
 Given('a results API with no results', () => {
   cy.intercept(searchEndpoint, req => {
@@ -242,11 +242,11 @@ Given('a results API with no results', () => {
       createSearchResponse({
         results: [],
         facets: [],
-        totalResults: 0
-      })
-    );
-  }).as('interceptedNoResults');
-});
+        totalResults: 0,
+      }),
+    )
+  }).as('interceptedNoResults')
+})
 
 Given('a results API with broken images', () => {
   cy.intercept(searchEndpoint, req => {
@@ -257,14 +257,14 @@ Given('a results API with broken images', () => {
           createResultStub('Result 1', {
             images: [
               'https://picsum.photos/seed/18/100/100',
-              'https://picsum.photos/seed/2/100/100'
+              'https://picsum.photos/seed/2/100/100',
             ],
             price: {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99
-            }
+              futureValue: 59.99,
+            },
           }),
           createResultStub('Result 2', {
             images: ['https://notexistsimage1.com', 'https://notexistsimage2.com'],
@@ -272,60 +272,60 @@ Given('a results API with broken images', () => {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99
-            }
+              futureValue: 59.99,
+            },
           }),
           createResultStub('Result 3', {
             images: [
               'https://notexistsimage1.com',
               'https://notexistsimage2.com',
               'https://notexistsimage3.com',
-              'https://picsum.photos/seed/20/100/100'
+              'https://picsum.photos/seed/20/100/100',
             ],
             price: {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99
-            }
-          })
-        ]
-      })
-    );
-  }).as('interceptedFallbackResults');
-});
+              futureValue: 59.99,
+            },
+          }),
+        ],
+      }),
+    )
+  }).as('interceptedFallbackResults')
+})
 
 Given('a results API with {int} pages', (numberOfPages: number) => {
   cy.intercept(searchEndpoint, req => {
-    const { rows = 24, start = 0 }: SearchRequest = JSON.parse(req.body);
+    const { rows = 24, start = 0 }: SearchRequest = JSON.parse(req.body)
     req.reply(
       createSearchResponse({
         results: Array.from({ length: rows }, (_, index) =>
           createResultStub(`Result ${start + index}`, {
-            images: [`https://picsum.photos/seed/${start + index}/100/100`]
-          })
+            images: [`https://picsum.photos/seed/${start + index}/100/100`],
+          }),
         ),
         totalResults: numberOfPages * rows,
         queryTagging: {
           url: `${trackEndpoint}/query`,
-          params: { page: 2, totalHits: 5 }
-        }
-      })
-    );
-  }).as('interceptedResults');
-});
+          params: { page: 2, totalHits: 5 },
+        },
+      }),
+    )
+  }).as('interceptedResults')
+})
 
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply(createSearchResponse());
-  }).as('interceptedRawResults');
-});
+    req.reply(createSearchResponse())
+  }).as('interceptedRawResults')
+})
 
 Given('a results API with a promoted', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(createSearchResponse({ promoteds: [createPromotedStub('Promotion')] }));
-  }).as('interceptedResults');
-});
+    req.reply(createSearchResponse({ promoteds: [createPromotedStub('Promotion')] }))
+  }).as('interceptedResults')
+})
 
 Given('a results API with a banner', () => {
   cy.intercept(searchEndpoint, req => {
@@ -335,73 +335,73 @@ Given('a results API with a banner', () => {
           createBannerStub('Banner', {
             title: 'Banner',
             url: '/banner/Banner',
-            image: '/img/test-image-1.jpeg'
-          })
-        ]
-      })
-    );
-  }).as('interceptedResults');
-});
+            image: '/img/test-image-1.jpeg',
+          }),
+        ],
+      }),
+    )
+  }).as('interceptedResults')
+})
 
 Given('a results API with a redirection', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(createSearchResponse({ redirections: [createRedirectionStub('Redirection')] }));
-  }).as('interceptedResults');
-});
+    req.reply(createSearchResponse({ redirections: [createRedirectionStub('Redirection')] }))
+  }).as('interceptedResults')
+})
 
 When('waiting for search request intercept', () => {
-  cy.intercept('https://api.empathy.co/search').as('requestWithFilter');
-});
+  cy.intercept('https://api.empathy.co/search').as('requestWithFilter')
+})
 
 // Spellcheck
 Given('a results API response for a misspelled word', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(createSearchResponse({ spellcheck: 'lego' }));
-  });
-});
+    req.reply(createSearchResponse({ spellcheck: 'lego' }))
+  })
+})
 
 // Query Suggestions
 Given('a query suggestions API', () => {
   cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
-      suggestions: getQuerySuggestionsStub('rum')
-    });
-  });
-});
+      suggestions: getQuerySuggestionsStub('rum'),
+    })
+  })
+})
 
 // Popular Searches
 Given('a popular searches API', () => {
   cy.intercept(getPopularSearchesEndpoint, req => {
     req.reply(<PopularSearchesResponse>{
-      suggestions: getPopularSearchesStub()
-    });
-  });
-});
+      suggestions: getPopularSearchesStub(),
+    })
+  })
+})
 
 // Tracking
 Given('a tracking API', () => {
-  cy.intercept(`${trackEndpoint}/*`, { statusCode: 200, body: {} });
-});
+  cy.intercept(`${trackEndpoint}/*`, { statusCode: 200, body: {} })
+})
 
 Given('a tracking API with a known response', () => {
-  cy.intercept('**/track/query', { statusCode: 200, body: {} }).as('queryTagging');
-  cy.intercept('**/track/click', { statusCode: 200, body: {} }).as('clickTagging');
-  cy.intercept('**/track/add2cart', { statusCode: 200, body: {} }).as('addToCartTagging');
-  cy.intercept('**/track/displayClick', { statusCode: 200, body: {} }).as('displayClickTagging');
-});
+  cy.intercept('**/track/query', { statusCode: 200, body: {} }).as('queryTagging')
+  cy.intercept('**/track/click', { statusCode: 200, body: {} }).as('clickTagging')
+  cy.intercept('**/track/add2cart', { statusCode: 200, body: {} }).as('addToCartTagging')
+  cy.intercept('**/track/displayClick', { statusCode: 200, body: {} }).as('displayClickTagging')
+})
 
 // Semantic Queries
 Given('a semantic queries API', () => {
   cy.intercept(getSemanticQueriesEndpoint, req => {
-    req.reply(getSemanticQueriesStub());
-  }).as('interceptedSemanticQueries');
-});
+    req.reply(getSemanticQueriesStub())
+  }).as('interceptedSemanticQueries')
+})
 
 Given('a results API with a known response for semantic queries', () => {
   cy.intercept(searchEndpoint, req => {
-    const origin = JSON.parse(<string>req.body).origin as string | undefined;
+    const origin = JSON.parse(<string>req.body).origin as string | undefined
     if (origin?.startsWith('semantics:')) {
-      req.reply(mockedResponses.search);
+      req.reply(mockedResponses.search)
     }
-  }).as('interceptedResults');
-});
+  }).as('interceptedResults')
+})

@@ -1,32 +1,34 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseHeaderTogglePanel from '../base-header-toggle-panel.vue';
+import type { VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { getDataTestSelector } from '../../../__tests__/utils'
+import BaseHeaderTogglePanel from '../base-header-toggle-panel.vue'
 
 /**
  * Function that returns a BaseHeaderTogglePanel wrapper. The animation prop is not gonna be tested
  * because is part of BaseTogglePanel component'.
  *
  * @param params - Wrapper options.
+ * @param params.template - Template param.
  *
  * @returns BaseHeaderTogglePanel vue-test-utils wrapper.
  */
 function renderBaseHeaderTogglePanel({
-  template = '<BaseHeaderTogglePanel></BaseHeaderTogglePanel>'
+  template = '<BaseHeaderTogglePanel></BaseHeaderTogglePanel>',
 }: RenderBaseTogglePanelOptions = {}): RenderBaseHeaderTogglePanelAPI {
   const wrapperContainer = mount({
     components: {
-      BaseHeaderTogglePanel
+      BaseHeaderTogglePanel,
     },
-    template
-  });
+    template,
+  })
 
-  const wrapper = wrapperContainer.findComponent(BaseHeaderTogglePanel);
-  const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
+  const wrapper = wrapperContainer.findComponent(BaseHeaderTogglePanel)
+  const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'))
 
   return {
     wrapper,
-    toggleOpen: async () => await headerWrapper.trigger('click')
-  };
+    toggleOpen: async () => headerWrapper.trigger('click'),
+  }
 }
 
 describe('testing BaseHeaderTogglePanel component', () => {
@@ -36,11 +38,11 @@ describe('testing BaseHeaderTogglePanel component', () => {
         <BaseHeaderTogglePanel :start-collapsed="true">
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
-      `
-    });
+      `,
+    })
 
-    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false);
-  });
+    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false)
+  })
 
   it('renders default slot at the start when startCollapsed is true', () => {
     const { wrapper } = renderBaseHeaderTogglePanel({
@@ -48,22 +50,22 @@ describe('testing BaseHeaderTogglePanel component', () => {
         <BaseHeaderTogglePanel :start-collapsed="false">
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
-      `
-    });
+      `,
+    })
 
-    const togglePanelWrapper = wrapper.find(getDataTestSelector('base-toggle-panel'));
-    expect(togglePanelWrapper.exists()).toBe(true);
-    expect(togglePanelWrapper.text()).toBe('Default slot');
-  });
+    const togglePanelWrapper = wrapper.find(getDataTestSelector('base-toggle-panel'))
+    expect(togglePanelWrapper.exists()).toBe(true)
+    expect(togglePanelWrapper.text()).toBe('Default slot')
+  })
 
   it('emits its open status as an event on header click', async () => {
-    const { wrapper, toggleOpen } = renderBaseHeaderTogglePanel();
+    const { wrapper, toggleOpen } = renderBaseHeaderTogglePanel()
 
-    await toggleOpen();
-    expect(wrapper.emitted().close).toHaveLength(1);
-    await toggleOpen();
-    expect(wrapper.emitted().open).toHaveLength(1);
-  });
+    await toggleOpen()
+    expect(wrapper.emitted().close).toHaveLength(1)
+    await toggleOpen()
+    expect(wrapper.emitted().open).toHaveLength(1)
+  })
 
   it('renders header slot correctly', async () => {
     const { wrapper } = renderBaseHeaderTogglePanel({
@@ -75,19 +77,19 @@ describe('testing BaseHeaderTogglePanel component', () => {
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
-      `
-    });
+      `,
+    })
 
     // open
-    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).text()).toBe('Default slot');
-    expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('open');
+    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).text()).toBe('Default slot')
+    expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('open')
 
-    await wrapper.find(getDataTestSelector('toggle-button')).trigger('click');
+    await wrapper.find(getDataTestSelector('toggle-button')).trigger('click')
     // closed
-    expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('closed');
-    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false);
-  });
+    expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('closed')
+    expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false)
+  })
 
   it('renders header-content slot correctly', async () => {
     const { wrapper, toggleOpen } = renderBaseHeaderTogglePanel({
@@ -98,14 +100,14 @@ describe('testing BaseHeaderTogglePanel component', () => {
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
-      `
-    });
+      `,
+    })
 
-    const headerWrapper = wrapper.find(getDataTestSelector('header-content'));
-    expect(headerWrapper.text()).toBe('open');
-    await toggleOpen();
-    expect(headerWrapper.text()).toBe('closed');
-  });
+    const headerWrapper = wrapper.find(getDataTestSelector('header-content'))
+    expect(headerWrapper.text()).toBe('open')
+    await toggleOpen()
+    expect(headerWrapper.text()).toBe('closed')
+  })
 
   it('allows adding classes to the header', () => {
     const { wrapper } = renderBaseHeaderTogglePanel({
@@ -113,21 +115,21 @@ describe('testing BaseHeaderTogglePanel component', () => {
         <BaseHeaderTogglePanel headerClass="custom-class">
           <template #header-content>Header Content</template>
           <p>Default Slot</p>
-        </BaseHeaderTogglePanel>`
-    });
-    const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
-    expect(headerWrapper.classes('custom-class')).toBe(true);
-  });
-});
+        </BaseHeaderTogglePanel>`,
+    })
+    const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'))
+    expect(headerWrapper.classes('custom-class')).toBe(true)
+  })
+})
 
 interface RenderBaseTogglePanelOptions {
   /** The template to render. Receives the `open` via prop. */
-  template?: string;
+  template?: string
 }
 
 interface RenderBaseHeaderTogglePanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseHeaderTogglePanelComponent}. */
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
   /** Function that toggles panel visibility. */
-  toggleOpen: () => Promise<void>;
+  toggleOpen: () => Promise<void>
 }

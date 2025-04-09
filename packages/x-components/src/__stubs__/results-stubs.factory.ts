@@ -1,5 +1,5 @@
-import { Result, Tagging, TaggingRequest } from '@empathyco/x-types';
-import { toKebabCase } from '../utils/string';
+import type { Result, Tagging, TaggingRequest } from '@empathyco/x-types'
+import { toKebabCase } from '../utils/string'
 
 /**
  * Creates a {@link @empathyco/x-types#Result | results} stub.
@@ -12,8 +12,8 @@ import { toKebabCase } from '../utils/string';
  */
 export function getResultsStub(amount = 4): Result[] {
   return Array.from<number, Result>({ length: amount }, (_, index) =>
-    createResultStub(`Product ${index + 1}`)
-  );
+    createResultStub(`Product ${index + 1}`),
+  )
 }
 
 /**
@@ -26,14 +26,14 @@ export function getResultsStub(amount = 4): Result[] {
  * @returns A result.
  */
 export function createResultStub(name: string, result?: Partial<Result>): Result {
-  const kebabCaseName = toKebabCase(name);
+  const kebabCaseName = toKebabCase(name)
   return {
     id: kebabCaseName,
     modelName: 'Result',
     type: 'Product',
     isWishlisted: false,
     identifier: {
-      value: kebabCaseName
+      value: kebabCaseName,
     },
     images: [],
     name,
@@ -41,15 +41,15 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
       hasDiscount: false,
       originalValue: 10,
       futureValue: 10,
-      value: 10
+      value: 10,
     },
     rating: {
-      value: 5
+      value: 5,
     },
     tagging: getResultTagging(kebabCaseName),
     url: `/products/${kebabCaseName}`,
-    ...result
-  };
+    ...result,
+  }
 }
 
 /**
@@ -67,8 +67,8 @@ function getResultTagging(productId: string): Tagging {
     click: getTaggingByAction('click', { productId }),
     add2cart: getTaggingByAction('add2cart', { productId }),
     checkout: getTaggingByAction('checkout', { productId }),
-    displayClick: getTaggingByAction('displayClick', { productId })
-  };
+    displayClick: getTaggingByAction('displayClick', { productId }),
+  }
 }
 
 /**
@@ -86,7 +86,7 @@ function getTaggingByAction(action: string, params: Record<string, any>): Taggin
     url: `https://api.empathy.co/track/${action}`,
     params: {
       lang: 'es',
-      ...params
-    }
-  };
+      ...params,
+    },
+  }
 }

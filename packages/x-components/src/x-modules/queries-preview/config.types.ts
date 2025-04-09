@@ -7,5 +7,5 @@ export interface QueriesPreviewConfig {
   /**
    * Maximum number of items to request.
    */
-  maxItemsToRequest: number;
+  maxItemsToRequest: number
 }

@@ -10,8 +10,8 @@
  */
 const removeCombiningDiacriticalMarks =
   typeof String.prototype.normalize === 'function'
-    ? (string: string) => string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    : (string: string) => string;
+    ? (string: string) => string.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
+    : (string: string) => string
 
 /**
  * Trims the string, transforms it to lower case, and removes
@@ -23,6 +23,6 @@ const removeCombiningDiacriticalMarks =
  * @public
  */
 export function normalizeString(string: string | undefined): string {
-  string = string?.trim().toLowerCase() ?? '';
-  return removeCombiningDiacriticalMarks(string);
+  string = string?.trim().toLowerCase() ?? ''
+  return removeCombiningDiacriticalMarks(string)
 }

@@ -1,7 +1,8 @@
-import { computed, ComputedRef } from 'vue';
-import { Dictionary } from '@empathyco/x-utils';
-import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
-import { useStore } from './use-store';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ComputedRef } from 'vue'
+import type { ExtractState, XModuleName } from '../x-modules/x-modules.types'
+import { computed } from 'vue'
+import { useStore } from './use-store'
 
 /**
  * Function which returns the requested state's properties as a dictionary.
@@ -14,12 +15,13 @@ import { useStore } from './use-store';
  */
 export function useState<
   Module extends XModuleName,
-  Path extends keyof ExtractState<Module> & string
+  Path extends keyof ExtractState<Module> & string,
 >(module: Module, paths: Path[]): Dictionary<ComputedRef> {
-  const store = useStore();
+  const store = useStore()
 
   return paths.reduce<Dictionary<ComputedRef>>((stateDictionary, path) => {
-    stateDictionary[path] = computed(() => store?.state.x[module]?.[path]);
-    return stateDictionary;
-  }, {});
+    // eslint-disable-next-line ts/no-unsafe-return,ts/no-unsafe-member-access
+    stateDictionary[path] = computed(() => store?.state.x[module]?.[path])
+    return stateDictionary
+  }, {})
 }

@@ -1,7 +1,7 @@
 /**
  * Type options for the property that will be animated.
  */
-type AnimatedProperty = 'height' | 'width';
+type AnimatedProperty = 'height' | 'width'
 
 /**
  * Returns parametrized methods to use in a component to allow the collapsing of the provided
@@ -12,7 +12,7 @@ type AnimatedProperty = 'height' | 'width';
  * @public
  */
 export function useCollapseAnimation(property: AnimatedProperty) {
-  const scrollProperty = property === 'width' ? 'scrollWidth' : 'scrollHeight';
+  const scrollProperty = property === 'width' ? 'scrollWidth' : 'scrollHeight'
 
   /**
    * Changes the element's animated property from 0 to the element's content size.
@@ -27,12 +27,14 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    * @param element - The DOM element that is going to be animated.
    */
   function expand(element: HTMLElement): void {
-    element.style[property] = '0';
-    const originalValue = (element.style as any)['content-visibility'];
-    (element.style as any)['content-visibility'] = 'visible';
-    element.getBoundingClientRect();
-    element.style[property] = `${element[scrollProperty]}px`;
-    (element.style as any)['content-visibility'] = originalValue;
+    /* eslint-disable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
+    element.style[property] = '0'
+    const originalValue = (element.style as any)['content-visibility']
+    ;(element.style as any)['content-visibility'] = 'visible'
+    element.getBoundingClientRect()
+    element.style[property] = `${element[scrollProperty]}px`
+    ;(element.style as any)['content-visibility'] = originalValue
+    /* eslint-enable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
   }
 
   /**
@@ -41,7 +43,7 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    * @param element - The DOM element that is going to be animated.
    */
   function cleanUpAnimationStyles(element: HTMLElement): void {
-    element.style.removeProperty(property);
+    element.style.removeProperty(property)
   }
 
   /**
@@ -50,15 +52,15 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    * @param element - The DOM element that is going to be animated.
    */
   function collapse(element: HTMLElement): void {
-    element.style[property] = `${element[scrollProperty]}px`;
+    element.style[property] = `${element[scrollProperty]}px`
     // This is intended. We want to provoke a layer repaint to apply this style.
-    element.getBoundingClientRect();
-    element.style[property] = '0';
+    element.getBoundingClientRect()
+    element.style[property] = '0'
   }
 
   return {
     expand,
     cleanUpAnimationStyles,
-    collapse
-  };
+    collapse,
+  }
 }

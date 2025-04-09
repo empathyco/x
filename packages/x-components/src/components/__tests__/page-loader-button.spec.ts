@@ -1,20 +1,21 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { Result } from '@empathyco/x-types';
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
-import PageLoaderButton from '../page-loader-button.vue';
-import { getResultsStub } from '../../__stubs__/index';
-import { XPlugin } from '../../plugins/index';
+import type { Result } from '@empathyco/x-types'
+import type { VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { getResultsStub } from '../../__stubs__/index'
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { XPlugin } from '../../plugins/index'
+import PageLoaderButton from '../page-loader-button.vue'
 
 function renderPageLoaderButton({
   query = 'dress',
   results = getResultsStub(48),
   totalResults = 100,
-  slots
+  slots,
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
   const wrapper = mount(PageLoaderButton, {
     props: {
       buttonClasses: '',
-      buttonEvents: {}
+      buttonEvents: {},
     },
     global: { plugins: [installNewXPlugin()] },
     slots,
@@ -22,112 +23,112 @@ function renderPageLoaderButton({
       return {
         query,
         results,
-        totalResults
-      };
-    }
-  });
+        totalResults,
+      }
+    },
+  })
 
   return {
     wrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
-  };
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+  }
 }
 
 describe('testing PageLoaderButton component', () => {
   beforeAll(() => {
-    jest.useFakeTimers();
-  });
+    jest.useFakeTimers()
+  })
 
   beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks()
+  })
 
   it('renders a page loader button component with default slots', () => {
-    const { wrapper } = renderPageLoaderButton();
+    const { wrapper } = renderPageLoaderButton()
 
-    expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load');
-  });
+    expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load')
+  })
 
   it('allows customizing its slots', () => {
     const { wrapper } = renderPageLoaderButton({
       slots: {
         textContent: `<p data-test="replaced-slot">Click to see more results</p>`,
-        buttonContent: `<span>Load More</span>`
-      }
-    });
+        buttonContent: `<span>Load More</span>`,
+      },
+    })
 
-    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('replaced-slot')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load More');
-  });
+    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(false)
+    expect(wrapper.find(getDataTestSelector('replaced-slot')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load More')
+  })
 
   it('renders a base event button with custom button classes if passed as props', async () => {
-    const { wrapper } = renderPageLoaderButton();
+    const { wrapper } = renderPageLoaderButton()
 
-    wrapper.setProps({ buttonClasses: 'x-rounded-full' });
-    await wrapper.vm.$nextTick();
+    await wrapper.setProps({ buttonClasses: 'x-rounded-full' })
+    await wrapper.vm.$nextTick()
 
-    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
-    expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
-  });
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true)
+    expect(wrapper.find('.x-rounded-full').exists()).toBe(true)
+  })
 
-  it('emits the event UserReachedResultsListEnd when the button is clicked', () => {
-    const { wrapper, emitSpy } = renderPageLoaderButton();
-    const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
+  it('emits the event UserReachedResultsListEnd when the button is clicked', async () => {
+    const { wrapper, emitSpy } = renderPageLoaderButton()
+    const baseEventButton = wrapper.find(getDataTestSelector('load-content'))
 
-    baseEventButton.trigger('click');
+    await baseEventButton.trigger('click')
 
-    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledTimes(1)
     expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
       target: baseEventButton.element,
       location: 'none',
       moduleName: null,
-      replaceable: true
-    });
-  });
+      replaceable: true,
+    })
+  })
 
   it('emits an event passed via prop', async () => {
-    const { wrapper, emitSpy } = renderPageLoaderButton();
-    const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
+    const { wrapper, emitSpy } = renderPageLoaderButton()
+    const baseEventButton = wrapper.find(getDataTestSelector('load-content'))
 
-    wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } });
-    await wrapper.vm.$nextTick();
+    await wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } })
+    await wrapper.vm.$nextTick()
 
-    baseEventButton.trigger('click');
-    jest.runAllTimers();
+    await baseEventButton.trigger('click')
+    jest.runAllTimers()
 
-    expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledTimes(2)
     expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
       target: baseEventButton.element,
       location: 'none',
       moduleName: null,
-      replaceable: true
-    });
+      replaceable: true,
+    })
     expect(emitSpy).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
       target: baseEventButton.element,
       location: 'none',
       moduleName: null,
-      replaceable: true
-    });
-  });
-});
+      replaceable: true,
+    })
+  })
+})
 
 /**
  * Options to configure how the page loader button component should be rendered.
  */
 interface RenderPageLoaderButtonOptions {
   /** The `query` used to perform a search. */
-  query?: string;
+  query?: string
   /** The `results` used to be rendered. */
-  results?: Result[];
+  results?: Result[]
   /** The total number of results. */
-  totalResults?: number;
+  totalResults?: number
   /** Scoped slots to be passed to the mount function. */
-  slots?: Record<string, string>;
+  slots?: Record<string, string>
 }
 
 /**
@@ -135,7 +136,7 @@ interface RenderPageLoaderButtonOptions {
  */
 interface RenderPageLoaderButtonAPI {
   /** The wrapper for the page loader button component. */
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
   /* A jest spy of the X emit method. */
-  emitSpy: ReturnType<typeof jest.spyOn>;
+  emitSpy: ReturnType<typeof jest.spyOn>
 }

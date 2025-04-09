@@ -1,5 +1,5 @@
-import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { XPluginOptions } from '../../../src/plugins/x-plugin.types';
+import type { XPluginOptions } from '../../../src/plugins/x-plugin.types'
+import { Given, Then } from '@badeball/cypress-cucumber-preprocessor'
 
 Given(
   'following config: identifier detection Regexp {string}',
@@ -7,25 +7,23 @@ Given(
     const config: XPluginOptions['xModules'] = {
       identifierResults: {
         config: {
-          identifierDetectionRegexp
-        }
-      }
-    };
+          identifierDetectionRegexp,
+        },
+      },
+    }
 
     cy.visit('/', {
       qs: {
-        xModules: JSON.stringify(config)
-      }
-    });
-  }
-);
+        xModules: JSON.stringify(config),
+      },
+    })
+  },
+)
 
 Then('identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item')
-    .should('be.visible')
-    .should('have.length.at.least', 1);
-});
+  cy.getByDataTest('identifier-results-item').should('be.visible').should('have.length.at.least', 1)
+})
 
 Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item').should('not.exist');
-});
+  cy.getByDataTest('identifier-results-item').should('not.exist')
+})

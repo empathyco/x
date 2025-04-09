@@ -1,21 +1,22 @@
-import { NextQuery } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
-import { mount } from '@vue/test-utils';
-import { defineComponent, inject, nextTick, provide, ref, Ref } from 'vue';
-import { Store } from 'vuex';
-import { createNextQueryStub } from '../../../../__stubs__';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import type { NextQuery } from '@empathyco/x-types'
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Ref } from 'vue'
+import type { RequestStatus, RootXStoreState } from '../../../../store'
+import type { ListItem } from '../../../../utils/types'
+import { mount } from '@vue/test-utils'
+import { defineComponent, inject, nextTick, provide, ref } from 'vue'
+import { Store } from 'vuex'
+import { createNextQueryStub } from '../../../../__stubs__'
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import {
+  getXComponentXModuleName,
+  isXComponent,
   LIST_ITEMS_KEY,
   QUERY_KEY,
-  getXComponentXModuleName,
-  isXComponent
-} from '../../../../components';
-import { RootXStoreState, RequestStatus } from '../../../../store';
-import { ListItem } from '../../../../utils/types';
-import { nextQueriesXModule } from '../../x-module';
-import NextQueriesList from '../next-queries-list.vue';
-import { resetXNextQueriesStateWith } from './utils';
+} from '../../../../components'
+import { nextQueriesXModule } from '../../x-module'
+import NextQueriesList from '../next-queries-list.vue'
+import { resetXNextQueriesStateWith } from './utils'
 
 /**
  * Creates a list of {@link ListItem} of the given length.
@@ -26,8 +27,8 @@ import { resetXNextQueriesStateWith } from './utils';
 function createExtraItems(length: number): ListItem[] {
   return Array.from({ length }, (_, index) => ({
     id: `Extra ${index}`,
-    modelName: `ExtraItem`
-  }));
+    modelName: `ExtraItem`,
+  }))
 }
 
 /**
@@ -37,7 +38,7 @@ function createExtraItems(length: number): ListItem[] {
  * @returns A list of {@link NextQuery|NextQueries}.
  */
 function createNextQueries(...queries: string[]) {
-  return queries.map(query => createNextQueryStub(query));
+  return queries.map(query => createNextQueryStub(query))
 }
 
 async function render({
@@ -59,36 +60,36 @@ async function render({
   frequency = 24,
   maxNextQueriesPerGroup = 4,
   maxGroups = undefined as undefined | number,
-  showOnlyAfterOffset = false
+  showOnlyAfterOffset = false,
 } = {}) {
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(
     {
       template,
       components: { NextQueriesList, ...components },
       setup() {
-        provide(LIST_ITEMS_KEY as string, ref(extraItems));
-        provide(QUERY_KEY as string, ref(searchQuery));
-      }
+        provide(LIST_ITEMS_KEY as string, ref(extraItems))
+        provide(QUERY_KEY as string, ref(searchQuery))
+      },
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })]
+        plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })],
       },
-      props: { offset, frequency, maxNextQueriesPerGroup, maxGroups, showOnlyAfterOffset }
-    }
-  );
+      props: { offset, frequency, maxNextQueriesPerGroup, maxGroups, showOnlyAfterOffset },
+    },
+  )
 
-  resetXNextQueriesStateWith(store, { nextQueries, query, status });
-  await nextTick();
+  resetXNextQueriesStateWith(store, { nextQueries, query, status })
+  await nextTick()
 
-  const nextQueriesListWrapper = wrapper.findComponent(NextQueriesList);
+  const nextQueriesListWrapper = wrapper.findComponent(NextQueriesList)
 
   function getSearchItemWrappers() {
-    const nextQueriesGroups = getDataTestSelector('next-queries-groups-list-item');
-    const extraItemsGroups = getDataTestSelector('extra-items-list-item');
-    return nextQueriesListWrapper.findAll(`${nextQueriesGroups}, ${extraItemsGroups}`);
+    const nextQueriesGroups = getDataTestSelector('next-queries-groups-list-item')
+    const extraItemsGroups = getDataTestSelector('extra-items-list-item')
+    return nextQueriesListWrapper.findAll(`${nextQueriesGroups}, ${extraItemsGroups}`)
   }
 
   return {
@@ -97,31 +98,31 @@ async function render({
     getNextQueryGroupWrappers: () => nextQueriesListWrapper.findAll('.next-queries-group'),
     getItemsRenderedText: () => getSearchItemWrappers().map(wrapper => wrapper.text()),
     setStatusState: async () => {
-      store.commit('x/nextQueries/setStatus', status);
-      await nextTick();
-    }
-  };
+      store.commit('x/nextQueries/setStatus', status)
+      await nextTick()
+    },
+  }
 }
 
 describe('testing NextQueriesList component', () => {
   it('is an XComponent and has Search as XModule', async () => {
-    const { wrapper } = await render();
+    const { wrapper } = await render()
 
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('nextQueries');
-  });
+    expect(isXComponent(wrapper.vm)).toEqual(true)
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('nextQueries')
+  })
 
   it('renders no group if no list items are injected', async () => {
-    const nextQueries = createNextQueries('milk', 'sugar', 'beer');
+    const nextQueries = createNextQueries('milk', 'sugar', 'beer')
     const { getNextQueryGroupWrappers, getSearchItemWrappers } = await render({
       nextQueries,
       maxNextQueriesPerGroup: 2,
-      extraItems: []
-    });
+      extraItems: [],
+    })
 
-    expect(getSearchItemWrappers()).toHaveLength(0);
-    expect(getNextQueryGroupWrappers()).toHaveLength(0);
-  });
+    expect(getSearchItemWrappers()).toHaveLength(0)
+    expect(getNextQueryGroupWrappers()).toHaveLength(0)
+  })
 
   it('inserts next queries groups in the appropriate order', async () => {
     const nextQueries = createNextQueries(
@@ -133,16 +134,16 @@ describe('testing NextQueriesList component', () => {
       'ribs',
       'picanha',
       'short-ribs',
-      'flank steak' // This one should be ignored as there is no room for it.
-    );
-    const extraItems = createExtraItems(11);
+      'flank steak', // This one should be ignored as there is no room for it.
+    )
+    const extraItems = createExtraItems(11)
     const { getItemsRenderedText } = await render({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 2,
       frequency: 3,
-      offset: 4
-    });
+      offset: 4,
+    })
 
     // 11 extra items + 4 groups of NQs at index 4, 7, 10, 13
     expect(getItemsRenderedText()).toEqual([
@@ -160,9 +161,9 @@ describe('testing NextQueriesList component', () => {
       extraItems[8].id,
       extraItems[9].id,
       ['picanha', 'short-ribs'].join(''),
-      extraItems[10].id
-    ]);
-  });
+      extraItems[10].id,
+    ])
+  })
 
   it('does not render more than the specified groups', async () => {
     const nextQueries = createNextQueries(
@@ -171,17 +172,17 @@ describe('testing NextQueriesList component', () => {
       'absinthe',
       'vodka',
       'rum', // Should be ignored because maxGroups: 2
-      'dark-rum' // Should be ignored because maxGroups: 2
-    );
-    const extraItems = createExtraItems(10);
+      'dark-rum', // Should be ignored because maxGroups: 2
+    )
+    const extraItems = createExtraItems(10)
     const { getItemsRenderedText } = await render({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 2,
       frequency: 3,
       offset: 4,
-      maxGroups: 2
-    });
+      maxGroups: 2,
+    })
 
     // 10 extra items + 2 groups of NQs at index 4, 7
     expect(getItemsRenderedText()).toEqual([
@@ -196,19 +197,19 @@ describe('testing NextQueriesList component', () => {
       extraItems[6].id,
       extraItems[7].id,
       extraItems[8].id,
-      extraItems[9].id
-    ]);
-  });
+      extraItems[9].id,
+    ])
+  })
 
   it('renders a group even if it has not enough next queries', async () => {
-    const nextQueries = createNextQueries('piña colada');
-    const extraItems = createExtraItems(4);
+    const nextQueries = createNextQueries('piña colada')
+    const extraItems = createExtraItems(4)
     const { getItemsRenderedText } = await render({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 4,
-      offset: 2
-    });
+      offset: 2,
+    })
 
     // 4 extra items + 1 groups of NQs at index 2
     expect(getItemsRenderedText()).toEqual([
@@ -216,18 +217,18 @@ describe('testing NextQueriesList component', () => {
       extraItems[1].id,
       'piña colada',
       extraItems[2].id,
-      extraItems[3].id
-    ]);
-  });
+      extraItems[3].id,
+    ])
+  })
 
   it('provides the modified list of list items', async () => {
     const CustomList = defineComponent({
       name: 'CustomList',
       setup: () => ({ injectedListItems: inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string) }),
-      template: `<ul><li class="search-item" v-for="item in injectedListItems">{{ item.id }}</li></ul>`
-    });
-    const nextQueries = createNextQueries('rib chop', 'shoulder steak');
-    const extraItems = createExtraItems(4);
+      template: `<ul><li class="search-item" v-for="item in injectedListItems">{{ item.id }}</li></ul>`,
+    })
+    const nextQueries = createNextQueries('rib chop', 'shoulder steak')
+    const extraItems = createExtraItems(4)
     const { wrapper } = await render({
       template: `<NextQueriesList><CustomList/></NextQueriesList>`,
       components: { CustomList },
@@ -235,10 +236,10 @@ describe('testing NextQueriesList component', () => {
       extraItems,
       maxNextQueriesPerGroup: 1,
       frequency: 3,
-      offset: 2
-    });
+      offset: 2,
+    })
 
-    const customItemsRenderedText = wrapper.findAll('.search-item').map(wrapper => wrapper.text());
+    const customItemsRenderedText = wrapper.findAll('.search-item').map(wrapper => wrapper.text())
 
     expect(customItemsRenderedText).toEqual([
       extraItems[0].id,
@@ -246,13 +247,13 @@ describe('testing NextQueriesList component', () => {
       'rib chop',
       extraItems[2].id,
       extraItems[3].id,
-      'shoulder steak'
-    ]);
-  });
+      'shoulder steak',
+    ])
+  })
 
   describe('when a search query is provided', () => {
-    const extraItems = createExtraItems(5);
-    const nextQueries = createNextQueries('gloves', 'hat');
+    const extraItems = createExtraItems(5)
+    const nextQueries = createNextQueries('gloves', 'hat')
 
     it('renders extra items if the next queries query and the search query are different', async () => {
       const { getItemsRenderedText } = await render({
@@ -262,14 +263,14 @@ describe('testing NextQueriesList component', () => {
         searchQuery: 'tshirt',
         maxNextQueriesPerGroup: 1,
         frequency: 1,
-        offset: 0
-      });
+        offset: 0,
+      })
 
-      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id));
-    });
+      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id))
+    })
 
     it('renders extra items if the status of the next queries requests is not success', async () => {
-      const query = 'jacket';
+      const query = 'jacket'
       const { getItemsRenderedText } = await render({
         nextQueries,
         extraItems,
@@ -277,14 +278,14 @@ describe('testing NextQueriesList component', () => {
         searchQuery: query,
         maxNextQueriesPerGroup: 1,
         frequency: 1,
-        offset: 0
-      });
+        offset: 0,
+      })
 
-      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id));
-    });
+      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id))
+    })
 
     it('renders next queries and extra items if the status is success and the search query and the query are equal', async () => {
-      const query = 'jacket';
+      const query = 'jacket'
       const { getItemsRenderedText, setStatusState } = await render({
         nextQueries,
         extraItems,
@@ -293,37 +294,37 @@ describe('testing NextQueriesList component', () => {
         maxNextQueriesPerGroup: 1,
         frequency: 1,
         offset: 0,
-        status: 'success'
-      });
+        status: 'success',
+      })
 
       /*
         To avoid side effects with `NextQueriesRequestUpdated` event emitter because `query` change
         and `status` set to `loading`.
         Status workflow: 'initial' -> 'success' -> 'loading' -> `success`
       */
-      await setStatusState();
+      await setStatusState()
 
       expect(getItemsRenderedText()).toEqual([
         ...nextQueries.map(nextQuery => nextQuery.query),
-        ...extraItems.map(item => item.id)
-      ]);
-    });
-  });
+        ...extraItems.map(item => item.id),
+      ])
+    })
+  })
 
   describe('when the offset is lower than the number of items', () => {
     it('inserts next queries groups by default', async () => {
       const nextQueries = createNextQueries(
         'steak',
-        'tomahawk' // This one should be ignored as there is no room for it.
-      );
-      const extraItems = createExtraItems(5);
+        'tomahawk', // This one should be ignored as there is no room for it.
+      )
+      const extraItems = createExtraItems(5)
       const { getItemsRenderedText } = await render({
         nextQueries,
         extraItems,
         maxNextQueriesPerGroup: 1,
         frequency: 48,
-        offset: 24
-      });
+        offset: 24,
+      })
 
       // 5 extra items + 1 group of NQs at index 5
       expect(getItemsRenderedText()).toEqual([
@@ -332,21 +333,21 @@ describe('testing NextQueriesList component', () => {
         extraItems[2].id,
         extraItems[3].id,
         extraItems[4].id,
-        ['steak'].join('')
-      ]);
-    });
+        ['steak'].join(''),
+      ])
+    })
 
     it('does not insert next queries groups if `showOnlyAfterOffset` is `true`', async () => {
-      const nextQueries = createNextQueries('steak', 'tomahawk');
-      const extraItems = createExtraItems(5);
+      const nextQueries = createNextQueries('steak', 'tomahawk')
+      const extraItems = createExtraItems(5)
       const { getItemsRenderedText } = await render({
         nextQueries,
         extraItems,
         maxNextQueriesPerGroup: 1,
         frequency: 48,
         offset: 24,
-        showOnlyAfterOffset: true
-      });
+        showOnlyAfterOffset: true,
+      })
 
       // 5 extra items + no groups of NQs
       expect(getItemsRenderedText()).toEqual([
@@ -354,8 +355,8 @@ describe('testing NextQueriesList component', () => {
         extraItems[1].id,
         extraItems[2].id,
         extraItems[3].id,
-        extraItems[4].id
-      ]);
-    });
-  });
-});
+        extraItems[4].id,
+      ])
+    })
+  })
+})

@@ -1,15 +1,15 @@
-import { Store } from 'vuex';
-import { RootXStoreState } from '../store/store.types';
-import { MonadicFunction, NiladicFunction, SubObject } from '../utils/index';
-import {
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../store/store.types'
+import type { MonadicFunction, NiladicFunction, SubObject } from '../utils/index'
+import type {
   AnyWire,
   PayloadFactoryData,
   Wire,
   WireParams,
   WirePayload,
   WireService,
-  WireServiceWithoutPayload
-} from './wiring.types';
+  WireServiceWithoutPayload,
+} from './wiring.types'
 
 /**
  * Creates a wire that executes the function passed. This function will receive a
@@ -20,12 +20,12 @@ import {
  * @public
  */
 export function createWireFromFunction<Payload>(
-  fn: (parameters: WireParams<Payload>) => void
+  fn: (parameters: WireParams<Payload>) => void,
 ): Wire<Payload> {
   return (observable, store) =>
     observable.subscribe(({ metadata, eventPayload }) => {
-      fn({ eventPayload, store, metadata });
-    });
+      fn({ eventPayload, store, metadata })
+    })
 }
 
 /**
@@ -42,8 +42,8 @@ export function createWireFromFunction<Payload>(
  */
 export function wireCommit<Payload>(
   mutation: string,
-  payloadFactory: (params: PayloadFactoryData<Payload>) => any
-): AnyWire;
+  payloadFactory: (params: PayloadFactoryData<Payload>) => any,
+): AnyWire
 /**
  * Creates a wire that commits a mutation to the store. This wire can receive any value as payload.
  * This wire can be used in every event, as it does not have a payload type associated.
@@ -53,7 +53,7 @@ export function wireCommit<Payload>(
  * @returns {@link AnyWire} A wire that commits the mutation with the staticPayload payload.
  * @public
  */
-export function wireCommit(mutation: string, staticPayload: any): AnyWire;
+export function wireCommit(mutation: string, staticPayload: any): AnyWire
 /**
  * Creates a wire that commits a mutation to the store. This wire will commit to the store the
  * payload that it receives in the observable.
@@ -64,11 +64,11 @@ export function wireCommit(mutation: string, staticPayload: any): AnyWire;
  * in the observable.
  * @public
  */
-export function wireCommit<Payload>(mutation: string): Wire<Payload>;
-// eslint-disable-next-line jsdoc/require-jsdoc
+export function wireCommit<Payload>(mutation: string): Wire<Payload>
+
 export function wireCommit<Payload>(mutation: string, payload?: Payload): Wire<Payload> {
   return (observable, store) =>
-    observable.subscribe(createSubscriptionCallback(store, 'commit', mutation, payload));
+    observable.subscribe(createSubscriptionCallback(store, 'commit', mutation, payload))
 }
 
 /**
@@ -80,7 +80,7 @@ export function wireCommit<Payload>(mutation: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireCommitWithoutPayload(mutation: string): AnyWire {
-  return (observable, store) => observable.subscribe(() => store.commit(mutation));
+  return (observable, store) => observable.subscribe(() => store.commit(mutation))
 }
 
 /**
@@ -97,8 +97,8 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  */
 export function wireDispatch<Payload>(
   action: string,
-  payloadFactory: (params: PayloadFactoryData<Payload>) => any
-): AnyWire;
+  payloadFactory: (params: PayloadFactoryData<Payload>) => any,
+): AnyWire
 /**
  * Creates a wire that dispatches an action to the store. This wire can be used in every event,
  * as it does not have a payload type associated.
@@ -108,7 +108,7 @@ export function wireDispatch<Payload>(
  * @returns {@link AnyWire} A wire that dispatches the action with the staticPayload payload.
  * @public
  */
-export function wireDispatch(action: string, staticPayload: any): AnyWire;
+export function wireDispatch(action: string, staticPayload: any): AnyWire
 /**
  * Creates a wire that dispatches an action to the store. This wire will pass the payload
  * received in the observable to the action.
@@ -119,11 +119,11 @@ export function wireDispatch(action: string, staticPayload: any): AnyWire;
  * in the observable.
  * @public
  */
-export function wireDispatch<Payload>(action: string): Wire<Payload>;
-// eslint-disable-next-line jsdoc/require-jsdoc
+export function wireDispatch<Payload>(action: string): Wire<Payload>
+
 export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<Payload> {
   return (observable, store) =>
-    observable.subscribe(createSubscriptionCallback(store, 'dispatch', action, payload));
+    observable.subscribe(createSubscriptionCallback(store, 'dispatch', action, payload))
 }
 
 /**
@@ -135,7 +135,8 @@ export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
-  return (observable, store) => observable.subscribe(() => store.dispatch(action));
+  // eslint-disable-next-line ts/no-unsafe-return,ts/no-misused-promises
+  return (observable, store) => observable.subscribe(async () => store.dispatch(action))
 }
 
 /**
@@ -146,16 +147,18 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * @public
  */
 export function wireService<SomeService>(
-  service: SomeService & SubObject<SomeService, MonadicFunction>
+  service: SomeService & SubObject<SomeService, MonadicFunction>,
 ): WireService<SubObject<SomeService, MonadicFunction>> {
   return (method, payload?) => {
     return observable =>
       observable.subscribe(
         payload !== undefined
-          ? () => service[method](payload)
-          : observablePayload => service[method](observablePayload.eventPayload)
-      );
-  };
+          ? // eslint-disable-next-line ts/no-unsafe-return
+            () => service[method](payload)
+          : // eslint-disable-next-line ts/no-unsafe-return
+            observablePayload => service[method](observablePayload.eventPayload),
+      )
+  }
 }
 
 /**
@@ -167,11 +170,12 @@ export function wireService<SomeService>(
  * @public
  */
 export function wireServiceWithoutPayload<SomeService>(
-  service: SomeService & SubObject<SomeService, NiladicFunction>
+  service: SomeService & SubObject<SomeService, NiladicFunction>,
 ): WireServiceWithoutPayload<SubObject<SomeService, NiladicFunction>> {
   return method => {
-    return observable => observable.subscribe(() => service[method]());
-  };
+    // eslint-disable-next-line ts/no-unsafe-return
+    return observable => observable.subscribe(() => service[method]())
+  }
 }
 
 /**
@@ -192,25 +196,28 @@ function createSubscriptionCallback<Payload>(
   store: Store<RootXStoreState>,
   commitOrDispatch: 'commit' | 'dispatch',
   mutationOrAction: string,
-  payload?: Payload
+  payload?: Payload,
 ): (observableValue: WirePayload<Payload>) => void {
-  const storeExecutor = store[commitOrDispatch];
+  const storeExecutor = store[commitOrDispatch]
   return typeof payload === 'function'
-    ? wirePayload => {
+    ? async wirePayload => {
+        // eslint-disable-next-line ts/no-unsafe-return
         return storeExecutor(
           mutationOrAction,
+          // eslint-disable-next-line ts/no-unsafe-call
           payload({
             state: store.state,
+            // eslint-disable-next-line ts/no-unsafe-assignment
             getters: store.getters,
-            ...wirePayload
-          })
-        );
+            ...wirePayload,
+          }),
+        )
       }
     : payload !== undefined
-    ? () => {
-        storeExecutor(mutationOrAction, payload);
-      }
-    : observableValue => {
-        storeExecutor(mutationOrAction, observableValue.eventPayload);
-      };
+      ? () => {
+          void storeExecutor(mutationOrAction, payload)
+        }
+      : observableValue => {
+          void storeExecutor(mutationOrAction, observableValue.eventPayload)
+        }
 }

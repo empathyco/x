@@ -1,7 +1,7 @@
-import { Facet, Filter, RawFilter } from '@empathyco/x-types';
-import { XActionContext, XStoreModule } from '../../../store';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
-import { QueryMutations } from '../../../store/utils/query.utils';
+import type { Facet, Filter, RawFilter } from '@empathyco/x-types'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { QueryMutations } from '../../../store/utils/query.utils'
 
 /**
  * Facets store state.
@@ -10,19 +10,19 @@ import { QueryMutations } from '../../../store/utils/query.utils';
  */
 export interface FacetsState {
   /** The current facets config {@link FacetsState.config}. */
-  config: FacetsConfig;
+  config: FacetsConfig
   /** The current query {@link FacetsState.query}. */
-  query: string;
+  query: string
   /** Record of all available filters indexed by its id. */
-  filters: Record<Filter['id'], Filter>;
+  filters: Record<Filter['id'], Filter>
   /** Record specifying the group each facet belongs to. */
-  groups: Record<Facet['id'], GroupId>;
+  groups: Record<Facet['id'], GroupId>
   /** The facets without their filters. */
-  facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
+  facets: Record<Facet['id'], Omit<Facet, 'filters'>>
   /** Record of preselected filters indexed by its id. */
-  preselectedFilters: RawFilter[];
+  preselectedFilters: RawFilter[]
   /** Record of sticky filters indexed by its id. */
-  stickyFilters: Record<Filter['id'], Filter>;
+  stickyFilters: Record<Filter['id'], Filter>
 }
 
 /**
@@ -34,19 +34,19 @@ export interface FacetsGetters {
   /**
    * List of all selected filters.
    */
-  selectedFilters: Filter[];
+  selectedFilters: Filter[]
   /**
    * List of all selected filters that conform to the filters for request strategy.
    */
-  selectedFiltersForRequest: Filter[];
+  selectedFiltersForRequest: Filter[]
   /**
    * List of all selected filters grouped by their facet.
    */
-  selectedFiltersByFacet: FiltersByFacet;
+  selectedFiltersByFacet: FiltersByFacet
   /**
    * List of all facets with their filters.
    */
-  facets: Record<Facet['id'], Facet>;
+  facets: Record<Facet['id'], Facet>
 }
 
 /**
@@ -60,68 +60,68 @@ export interface FacetsMutations extends QueryMutations, ConfigMutations<FacetsS
    *
    * @param payload - An object containing the filter to update, and the properties to modify.
    */
-  mutateFilter(payload: MutateFilterPayload): void;
+  mutateFilter: (payload: MutateFilterPayload) => void
   /**
    * Removes the filter from the {@link FacetsState.filters | filters} record.
    *
    * @param filter - The filter to remove.
    */
-  removeFilter(filter: Filter): void;
+  removeFilter: (filter: Filter) => void
   /**
    * Removes a list of filters from the {@link FacetsState.filters | filters} record.
    *
    * @param filters - The filters to remove.
    */
-  removeFilters(filters: Filter[]): void;
+  removeFilters: (filters: Filter[]) => void
   /**
    * Sets the group id of the facet.
    *
    * @param facetGroupEntry - An object containing the new groupId and the facetId of the facet to
    * update.
    */
-  setFacetGroup(facetGroupEntry: FacetGroupEntry): void;
+  setFacetGroup: (facetGroupEntry: FacetGroupEntry) => void
   /**
    * Adds a list of filters to the {@link FacetsState.filters | filters} record.
    *
    * @param filters - The filters to add.
    */
-  setFilters(filters: Filter[]): void;
+  setFilters: (filters: Filter[]) => void
   /**
    * Adds a list of filters to the {@link FacetsState.preselectedFilters | preselectedFilters}
    * record.
    *
    * @param filters - The filters to add.
    */
-  setPreselectedFilters(filters: RawFilter[]): void;
+  setPreselectedFilters: (filters: RawFilter[]) => void
   /**
    * Removes the facet from the {@link FacetsState.facets | facets} record.
    *
    * @param facet - The facet to remove.
    */
-  removeFacet(facet: Facet): void;
+  removeFacet: (facet: Facet) => void
   /**
    * Adds the facet to the {@link FacetsState.facets | facets} record.
    *
    * @param facet - The facet to set in the store.
    */
-  setFacet(facet: Facet): void;
+  setFacet: (facet: Facet) => void
   /**
    * Adds the filter to the {@link FacetsState.stickyFilters | sticky filters} record.
    *
    * @param filter - The filter to set in the store.
    */
-  setStickyFilter(filter: RawFilter): void;
+  setStickyFilter: (filter: RawFilter) => void
   /**
    * Removes the filter from the {@link FacetsState.stickyFilters | sticky filters} record.
    *
    * @param filter - The filter to set in the store.
    */
-  removeStickyFilter(filter: RawFilter): void;
+  removeStickyFilter: (filter: RawFilter) => void
   /**
    * Removes all the filters from the {@link FacetsState.stickyFilters | sticky filters} record.
    *
    */
-  clearStickyFilters(): void;
+  clearStickyFilters: () => void
 }
 
 /**
@@ -141,7 +141,7 @@ export type FacetsActionsContext = XActionContext<
   FacetsGetters,
   FacetsMutations,
   FacetsActions
->;
+>
 
 /**
  * Facets type safe store module.
@@ -153,14 +153,14 @@ export type FacetsXStoreModule = XStoreModule<
   FacetsGetters,
   FacetsMutations,
   FacetsActions
->;
+>
 
 /**
  * Alias for GroupId.
  *
  * @public
  */
-export type GroupId = string;
+export type GroupId = string
 
 /**
  * An object containing a facet id and the group id it belongs to.
@@ -169,9 +169,9 @@ export type GroupId = string;
  */
 export interface FacetGroupEntry {
   /** The facet id. */
-  facetId: Facet['id'];
+  facetId: Facet['id']
   /** The group id. */
-  groupId: GroupId;
+  groupId: GroupId
 }
 
 /**
@@ -179,7 +179,7 @@ export interface FacetGroupEntry {
  *
  * @public
  */
-export type FiltersByFacet = Record<Facet['id'], Filter[]>;
+export type FiltersByFacet = Record<Facet['id'], Filter[]>
 
 /**
  * Payload to use in the `mutateFilter` mutation.
@@ -191,11 +191,11 @@ export interface MutateFilterPayload {
    * The filter to modify.
    * If it does not belong to the store it will be added.
    */
-  filter: Filter;
+  filter: Filter
   /**
    * The new fields values to modify in the filter.
    */
-  newFilterState: Partial<Filter>;
+  newFilterState: Partial<Filter>
 }
 
 /**
@@ -205,7 +205,7 @@ export interface MutateFilterPayload {
  */
 export interface FacetsConfig {
   /** The filter strategy to use when providing the selected filters for requests. */
-  filtersStrategyForRequest: filtersStrategyForRequest;
+  filtersStrategyForRequest: filtersStrategyForRequest
 }
 
 /**
@@ -213,4 +213,4 @@ export interface FacetsConfig {
  *
  * @public
  */
-export type filtersStrategyForRequest = 'all' | 'leaves-only';
+export type filtersStrategyForRequest = 'all' | 'leaves-only'

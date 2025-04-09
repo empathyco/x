@@ -11,51 +11,51 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue';
-  import BaseEventButton from '../../../components/base-event-button.vue';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { useState } from '../../../composables/use-state';
-  import { searchBoxXModule } from '../x-module';
+import type { VueCSSClasses } from '../../../utils/types'
+import { computed, defineComponent, ref } from 'vue'
+import BaseEventButton from '../../../components/base-event-button.vue'
+import { useState } from '../../../composables/use-state'
+import { searchBoxXModule } from '../x-module'
 
-  /**
-   * This component renders a button to delete the current query.
-   *
-   * @remarks
-   * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
-   * and {@link SearchBoxXEvents.UserClearedQuery} events, expressing the user intention to clear
-   * the current query.
-   * It also adds `x-clear-search-input--has-empty-query` as class when there is no query.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'ClearSearchInput',
-    components: { BaseEventButton },
-    xModule: searchBoxXModule.name,
-    setup: function () {
-      const { query } = useState('searchBox', ['query']);
+/**
+ * This component renders a button to delete the current query.
+ *
+ * @remarks
+ * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
+ * and {@link SearchBoxXEvents.UserClearedQuery} events, expressing the user intention to clear
+ * the current query.
+ * It also adds `x-clear-search-input--has-empty-query` as class when there is no query.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'ClearSearchInput',
+  components: { BaseEventButton },
+  xModule: searchBoxXModule.name,
+  setup() {
+    const { query } = useState('searchBox', ['query'])
 
-      /**
-       * The events dictionary that are going to be emitted when the button is pressed.
-       *
-       * @internal
-       */
-      const clearSearchInputEvents = ref({
-        UserPressedClearSearchBoxButton: undefined
-      });
+    /**
+     * The events dictionary that are going to be emitted when the button is pressed.
+     *
+     * @internal
+     */
+    const clearSearchInputEvents = ref({
+      UserPressedClearSearchBoxButton: undefined,
+    })
 
-      const isQueryEmpty = computed(() => query.value.length === 0);
+    const isQueryEmpty = computed(() => query.value.length === 0)
 
-      const dynamicClasses = computed<VueCSSClasses>(() => ({
-        'x-clear-search-input--has-empty-query': isQueryEmpty.value
-      }));
+    const dynamicClasses = computed<VueCSSClasses>(() => ({
+      'x-clear-search-input--has-empty-query': isQueryEmpty.value,
+    }))
 
-      return {
-        dynamicClasses,
-        clearSearchInputEvents
-      };
+    return {
+      dynamicClasses,
+      clearSearchInputEvents,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -81,15 +81,15 @@ _Type any term in the input field and then click the Clear button to try it out!
 </template>
 
 <script>
-  import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box';
+import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'ClearSearchInputDemo',
-    components: {
-      ClearSearchInput,
-      SearchInput
-    }
-  };
+export default {
+  name: 'ClearSearchInputDemo',
+  components: {
+    ClearSearchInput,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -106,14 +106,14 @@ _Click the icon button to try it out!_
 </template>
 
 <script>
-  import { ClearSearchInput } from '@empathyco/x-components/search-box';
+import { ClearSearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'ClearSearchInputDemo',
-    components: {
-      ClearSearchInput
-    }
-  };
+export default {
+  name: 'ClearSearchInputDemo',
+  components: {
+    ClearSearchInput,
+  },
+}
 </script>
 ```
 
@@ -133,19 +133,19 @@ _Click the Clear button to try it out!_
 </template>
 
 <script>
-  import { ClearSearchInput } from '@empathyco/x-components/search-box';
+import { ClearSearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'ClearSearchInputDemo',
-    components: {
-      ClearSearchInput
-    },
-    data() {
-      return {
-        message: ''
-      };
+export default {
+  name: 'ClearSearchInputDemo',
+  components: {
+    ClearSearchInput,
+  },
+  data() {
+    return {
+      message: '',
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -166,15 +166,15 @@ _Type any term in the input field and then click the icon button to try it out!_
 </template>
 
 <script>
-  import { SearchInput, ClearSearchInput } from '@empathyco/x-components/search-box';
+import { SearchInput, ClearSearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'ClearSearchInputDemo',
-    components: {
-      SearchInput,
-      ClearSearchInput
-    }
-  };
+export default {
+  name: 'ClearSearchInputDemo',
+  components: {
+    SearchInput,
+    ClearSearchInput,
+  },
+}
 </script>
 ```
 </docs>

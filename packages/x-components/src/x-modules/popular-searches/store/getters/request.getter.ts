@@ -1,10 +1,12 @@
-import { PopularSearchesXStoreModule } from '../types';
+import type { PopularSearchesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link PopularSearchesGetters.request} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the popular
  * searches module.
+ * @param state.config - config state.
+ * @param state.params - params state.
  *
  * @returns The popular searches request to fetch data from the API.
  *
@@ -14,6 +16,6 @@ export const request: PopularSearchesXStoreModule['getters']['request'] = ({ con
   return {
     rows: config.maxItemsToRequest,
     start: 0,
-    extraParams: params
-  };
-};
+    extraParams: params,
+  }
+}

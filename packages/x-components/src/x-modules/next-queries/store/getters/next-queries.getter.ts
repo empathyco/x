@@ -1,11 +1,14 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { NextQueriesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { NextQueriesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link NextQueriesGetters.nextQueries} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the next
  * queries module.
+ * @param state.nextQueries - nextQueries state.
+ * @param state.searchedQueries - searchedQueries state.
+ * @param state.config - config state.
  * @returns The next queries filtered by the searched queries or not.
  *
  * @public
@@ -13,10 +16,10 @@ import { NextQueriesXStoreModule } from '../types';
 export const nextQueries: NextQueriesXStoreModule['getters']['nextQueries'] = ({
   nextQueries,
   searchedQueries,
-  config
+  config,
 }) => {
-  const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query);
+  const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query)
   return config.hideSessionQueries
     ? nextQueries.filter(({ query }) => !queriesToFilter.includes(query))
-    : nextQueries;
-};
+    : nextQueries
+}

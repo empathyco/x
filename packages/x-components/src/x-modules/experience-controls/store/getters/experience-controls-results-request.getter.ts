@@ -1,4 +1,4 @@
-import { ExperienceControlsXStoreModule } from '../types';
+import type { ExperienceControlsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link ExperienceControlsGetters.experienceControlsRequest}
@@ -10,10 +10,10 @@ import { ExperienceControlsXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const experienceControlsRequest: ExperienceControlsXStoreModule['getters']['experienceControlsRequest'] =
   ({ params }) => {
     return {
-      extraParams: params
-    };
-  };
+      extraParams: params,
+    }
+  }

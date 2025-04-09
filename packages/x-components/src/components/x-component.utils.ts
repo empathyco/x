@@ -1,5 +1,5 @@
-import { ComponentPublicInstance } from 'vue';
-import { XModuleName } from '../x-modules/x-modules.types';
+import type { ComponentPublicInstance } from 'vue'
+import type { XModuleName } from '../x-modules/x-modules.types'
 
 /**
  * Gets the X-Component name.
@@ -10,9 +10,10 @@ import { XModuleName } from '../x-modules/x-modules.types';
  * @internal
  */
 export function getXComponentXModuleName(
-  component: ComponentPublicInstance | undefined
+  component: ComponentPublicInstance | undefined,
 ): XModuleName | null {
-  return component?.$options.xModule ?? null;
+  // eslint-disable-next-line ts/no-unsafe-return
+  return component?.$options.xModule ?? null
 }
 
 /**
@@ -24,7 +25,7 @@ export function getXComponentXModuleName(
  * @public
  */
 export function isXComponent(component: ComponentPublicInstance): boolean {
-  return !!getXComponentXModuleName(component);
+  return !!getXComponentXModuleName(component)
 }
 
 /**
@@ -35,15 +36,15 @@ export function isXComponent(component: ComponentPublicInstance): boolean {
  * @public
  */
 export function getRootXComponent(
-  component: ComponentPublicInstance | null
+  component: ComponentPublicInstance | null,
 ): ComponentPublicInstance | undefined {
-  let xComponent: ComponentPublicInstance | undefined;
-  let currentComponent = component;
+  let xComponent: ComponentPublicInstance | undefined
+  let currentComponent = component
   while (currentComponent != null) {
     if (isXComponent(currentComponent)) {
-      xComponent = currentComponent;
+      xComponent = currentComponent
     }
-    currentComponent = currentComponent.$parent;
+    currentComponent = currentComponent.$parent
   }
-  return xComponent;
+  return xComponent
 }

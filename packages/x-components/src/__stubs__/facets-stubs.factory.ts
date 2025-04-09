@@ -1,4 +1,4 @@
-import {
+import type {
   EditableNumberRangeFacet,
   EditableNumberRangeFilter,
   Facet,
@@ -8,16 +8,16 @@ import {
   NumberRangeFilter,
   RangeValue,
   SimpleFacet,
-  SimpleFilter
-} from '@empathyco/x-types';
+  SimpleFilter,
+} from '@empathyco/x-types'
+import type { CreateHierarchicalFilter } from './filters-stubs.factory'
 import {
   createEditableNumberRangeFilter,
-  CreateHierarchicalFilter,
   createHierarchicalFilterFactory,
   createNumberRangeFilter,
   createSimpleFilter,
-  getHierarchicalFilterStub
-} from './filters-stubs.factory';
+  getHierarchicalFilterStub,
+} from './filters-stubs.factory'
 
 /**
  * Creates a {@link @empathyco/x-types#SimpleFacet | SimpleFacet} stub.
@@ -38,7 +38,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO CITY',
         selected: false,
         totalResults: 64,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -46,7 +46,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO STAR WARS',
         selected: false,
         totalResults: 58,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -54,7 +54,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO FRIENDS',
         selected: false,
         totalResults: 57,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -62,7 +62,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO DUPLO',
         selected: false,
         totalResults: 50,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -70,7 +70,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO NINJAGO',
         selected: false,
         totalResults: 47,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -78,7 +78,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO CREATOR',
         selected: false,
         totalResults: 33,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -86,7 +86,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO MARVEL',
         selected: false,
         totalResults: 18,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -94,7 +94,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO TECHNIC',
         selected: false,
         totalResults: 16,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -102,7 +102,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO HARRY POTTER',
         selected: false,
         totalResults: 13,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -110,7 +110,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO CLASSIC',
         selected: false,
         totalResults: 12,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -118,7 +118,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO DISNEY PRINCESS',
         selected: false,
         totalResults: 9,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -126,7 +126,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO JUNIORS',
         selected: false,
         totalResults: 8,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -134,7 +134,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO MINECRAFT',
         selected: false,
         totalResults: 8,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -142,7 +142,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO SPEED CHAMPION',
         selected: false,
         totalResults: 8,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -150,7 +150,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO ARCHITECTURE',
         selected: false,
         totalResults: 7,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -158,7 +158,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO SUPERHEROES',
         selected: false,
         totalResults: 6,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -166,7 +166,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO',
         selected: false,
         totalResults: 5,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -174,7 +174,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO JURASSIC W',
         selected: false,
         totalResults: 5,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -182,7 +182,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO TOY STORY',
         selected: false,
         totalResults: 5,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -190,7 +190,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO THE MOVIE',
         selected: false,
         totalResults: 4,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -198,7 +198,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO DC COMICS',
         selected: false,
         totalResults: 3,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -206,7 +206,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO BATMAN',
         selected: false,
         totalResults: 2,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -214,7 +214,7 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'CONSTRUCCIÓN',
         selected: false,
         totalResults: 1,
-        modelName: 'SimpleFilter'
+        modelName: 'SimpleFilter',
       },
       {
         facetId: 'brand_facet',
@@ -222,10 +222,10 @@ export function getSimpleFacetStub(): SimpleFacet {
         label: 'LEGO COLECCIONISTA',
         selected: false,
         totalResults: 1,
-        modelName: 'SimpleFilter'
-      }
-    ]
-  };
+        modelName: 'SimpleFilter',
+      },
+    ],
+  }
 }
 
 /**
@@ -251,72 +251,72 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
             facetId: 'hierarchical_category',
             parentId: 'hierarchical_category:"rompecabezas"',
             id: 'hierarchical_category:"rompecabezas-faciles"',
-            label: 'Rompecabezas fáciles'
+            label: 'Rompecabezas fáciles',
           }),
           getHierarchicalFilterStub({
             facetId: 'hierarchical_category',
             parentId: 'hierarchical_category:"rompecabezas"',
             id: 'hierarchical_category:"rompecabezas-dificiles"',
-            label: 'Rompecabezas difíciles'
-          })
-        ]
+            label: 'Rompecabezas difíciles',
+          }),
+        ],
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"infantiles_\\(hasta_48_piezas\\)"',
         label: 'Infantiles (hasta 48 piezas)',
-        totalResults: 1
+        totalResults: 1,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"construcción_por_bloques"',
         label: 'Construcción por bloques',
-        totalResults: 314
+        totalResults: 314,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"series_y_péliculas"',
         label: 'Series y péliculas',
-        totalResults: 17
+        totalResults: 17,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"packs_con_personajes"',
         label: 'Packs con personajes',
-        totalResults: 2
+        totalResults: 2,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"grandes_\\(hasta_250_piezas\\)"',
         label: 'Grandes (hasta 250 piezas)',
-        totalResults: 2
+        totalResults: 2,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"amigos_y_familia"',
         label: 'Amigos y familia',
-        totalResults: 2
+        totalResults: 2,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"niños"',
         label: 'Niños',
-        totalResults: 3
+        totalResults: 3,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"construye"',
         label: 'Construye',
-        totalResults: 167
+        totalResults: 167,
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"mi_primera_construcción"',
         label: 'Mi primera construcción',
-        totalResults: 4
-      })
-    ]
-  };
+        totalResults: 4,
+      }),
+    ],
+  }
 }
 
 /**
@@ -339,7 +339,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: null, max: 10 },
         totalResults: 23,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -348,7 +348,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 10, max: 20 },
         totalResults: 150,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -357,7 +357,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 20, max: 30 },
         totalResults: 164,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -366,7 +366,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 30, max: 40 },
         totalResults: 58,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -375,7 +375,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 40, max: 50 },
         totalResults: 38,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -384,7 +384,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 50, max: 70 },
         totalResults: 44,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -393,7 +393,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 70, max: 100 },
         totalResults: 24,
-        modelName: 'NumberRangeFilter'
+        modelName: 'NumberRangeFilter',
       },
       {
         facetId: 'price_facet',
@@ -402,10 +402,10 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         selected: false,
         range: { min: 100, max: null },
         totalResults: 22,
-        modelName: 'NumberRangeFilter'
-      }
-    ]
-  };
+        modelName: 'NumberRangeFilter',
+      },
+    ],
+  }
 }
 
 /**
@@ -416,7 +416,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
  * @internal
  */
 export function getFacetsStub(): Facet[] {
-  return [getSimpleFacetStub(), getHierarchicalFacetStub(), getNumberRangeFacetStub()];
+  return [getSimpleFacetStub(), getHierarchicalFacetStub(), getNumberRangeFacetStub()]
 }
 
 /**
@@ -432,28 +432,28 @@ export function getFacetsStub(): Facet[] {
 export function createNumberRangeFacet(
   label: string,
   createChildren: (
-    createNumberRangeFilter: (range: RangeValue, selected: boolean) => NumberRangeFilter
-  ) => NumberRangeFilter[]
+    createNumberRangeFilter: (range: RangeValue, selected: boolean) => NumberRangeFilter,
+  ) => NumberRangeFilter[],
 ): NumberRangeFacet {
-  const facetId = label.toLowerCase();
+  const facetId = label.toLowerCase()
   return {
     modelName: 'NumberRangeFacet',
     id: facetId,
     label,
     filters: createChildren((range, selected) => {
-      const { min, max } = range;
+      const { min, max } = range
 
       return {
         id: `${facetId}:${min ?? '*'}-${max ?? '*'}`,
-        facetId: facetId,
+        facetId,
         selected,
         label: `${min ?? '0'} - ${max ?? 'None'}`,
         totalResults: 10,
         range,
-        modelName: 'NumberRangeFilter'
-      };
-    })
-  };
+        modelName: 'NumberRangeFilter',
+      }
+    }),
+  }
 }
 
 /**
@@ -467,8 +467,8 @@ export function createFacetWithFilter(category: string): SimpleFacet {
     id: 'category',
     modelName: 'SimpleFacet',
     filters: [createSimpleFilter('category', category)],
-    label: 'category'
-  };
+    label: 'category',
+  }
 }
 
 /* Next Facets */
@@ -483,18 +483,18 @@ export function createFacetWithFilter(category: string): SimpleFacet {
 export function createSimpleFacetStub(
   label: string,
   createChildren: (
-    createChild: (label: string, selected?: boolean, totalResults?: number) => SimpleFilter
-  ) => SimpleFilter[]
+    createChild: (label: string, selected?: boolean, totalResults?: number) => SimpleFilter,
+  ) => SimpleFilter[],
 ): SimpleFacet {
-  const facetId = label.toLowerCase();
+  const facetId = label.toLowerCase()
   return {
     modelName: 'SimpleFacet',
     id: facetId,
     label,
     filters: createChildren((label, selected, totalResults) =>
-      createSimpleFilter(facetId, label, selected, totalResults)
-    )
-  };
+      createSimpleFilter(facetId, label, selected, totalResults),
+    ),
+  }
 }
 
 /**
@@ -507,16 +507,16 @@ export function createSimpleFacetStub(
 export function createNumberRangeFacetStub(
   label: string,
   createChildren: (
-    createChild: (range: RangeValue, selected?: boolean) => NumberRangeFilter
-  ) => NumberRangeFilter[]
+    createChild: (range: RangeValue, selected?: boolean) => NumberRangeFilter,
+  ) => NumberRangeFilter[],
 ): NumberRangeFacet {
-  const facetId = label.toLowerCase();
+  const facetId = label.toLowerCase()
   return {
     modelName: 'NumberRangeFacet',
     id: facetId,
     label,
-    filters: createChildren((range, selected) => createNumberRangeFilter(facetId, range, selected))
-  };
+    filters: createChildren((range, selected) => createNumberRangeFilter(facetId, range, selected)),
+  }
 }
 
 /**
@@ -529,18 +529,20 @@ export function createNumberRangeFacetStub(
 export function createEditableNumberRangeFacetStub(
   label: string,
   createChildren: (
-    createChild: (range: RangeValue, selected?: boolean) => EditableNumberRangeFilter
-  ) => EditableNumberRangeFilter
+    createChild: (range: RangeValue, selected?: boolean) => EditableNumberRangeFilter,
+  ) => EditableNumberRangeFilter,
 ): EditableNumberRangeFacet {
-  const facetId = label.toLowerCase();
+  const facetId = label.toLowerCase()
   return {
     modelName: 'EditableNumberRangeFacet',
     id: facetId,
     label,
     filters: [
-      createChildren((range, selected) => createEditableNumberRangeFilter(facetId, range, selected))
-    ]
-  };
+      createChildren((range, selected) =>
+        createEditableNumberRangeFilter(facetId, range, selected),
+      ),
+    ],
+  }
 }
 
 /**
@@ -552,13 +554,13 @@ export function createEditableNumberRangeFacetStub(
  */
 export function createHierarchicalFacetStub(
   label: string,
-  createChildren: (createChild: CreateHierarchicalFilter) => HierarchicalFilter[]
+  createChildren: (createChild: CreateHierarchicalFilter) => HierarchicalFilter[],
 ): HierarchicalFacet {
-  const facetId = label.toLowerCase();
+  const facetId = label.toLowerCase()
   return {
     modelName: 'HierarchicalFacet',
     id: facetId,
     label,
-    filters: createChildren(createHierarchicalFilterFactory(facetId))
-  };
+    filters: createChildren(createHierarchicalFilterFactory(facetId)),
+  }
 }

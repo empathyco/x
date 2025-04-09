@@ -1,4 +1,4 @@
-import { HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQueriesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link HistoryQueriesGetters.historyQueriesWithResults} getter.
@@ -13,6 +13,6 @@ import { HistoryQueriesXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const historyQueriesWithResults: HistoryQueriesXStoreModule['getters']['historyQueriesWithResults'] =
-  (state, { historyQueries }) => historyQueries.filter(({ totalResults }) => totalResults !== 0);
+  (state, { historyQueries }) => historyQueries.filter(({ totalResults }) => totalResults !== 0)

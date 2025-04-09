@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { SemanticQueriesXStoreModule } from '../types';
+import type { SemanticQueriesXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link SemanticQueriesActions.fetchSemanticQuery}.
@@ -11,9 +11,7 @@ import { SemanticQueriesXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchSemanticQuery'] = (
-  _context,
-  request
-) => {
-  return request?.query ? XPlugin.adapter.semanticQueries(request) : null;
-};
+export const fetchSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchSemanticQuery'] =
+  async (_context, request) => {
+    return request?.query ? XPlugin.adapter.semanticQueries(request) : null
+  }

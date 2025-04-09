@@ -1,16 +1,16 @@
-import { XPlugin } from '../../plugins/x-plugin';
-import { XModule } from '../x-modules.types';
-import { searchBoxEmitters } from './store/emitters';
-import { searchBoxXStoreModule } from './store/module';
-import { SearchBoxXStoreModule } from './store/types';
-import { searchBoxWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { SearchBoxXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { searchBoxEmitters } from './store/emitters'
+import { searchBoxXStoreModule } from './store/module'
+import { searchBoxWiring } from './wiring'
 
 /**
  * SearchBox {@link XModule} alias.
  *
  * @public
  */
-export type SearchBoxXModule = XModule<SearchBoxXStoreModule>;
+export type SearchBoxXModule = XModule<SearchBoxXStoreModule>
 
 /**
  * SearchBox {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const searchBoxXModule: SearchBoxXModule = {
   name: 'searchBox',
   storeModule: searchBoxXStoreModule,
   storeEmitters: searchBoxEmitters,
-  wiring: searchBoxWiring
-};
+  wiring: searchBoxWiring,
+}
 
-XPlugin.registerXModule(searchBoxXModule);
+XPlugin.registerXModule(searchBoxXModule)

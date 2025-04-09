@@ -1,5 +1,5 @@
-import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils';
-import { NextQueriesXStoreModule } from '../types';
+import type { NextQueriesXStoreModule } from '../types'
+import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils'
 
 /**
  * Default implementation for the next-queries query getter.
@@ -12,5 +12,5 @@ import { NextQueriesXStoreModule } from '../types';
  * @public
  */
 export const query: NextQueriesXStoreModule['getters']['query'] = createRelatedTagsQueryGetter({
-  getRelatedTags: state => state.relatedTags
-});
+  getRelatedTags: state => state.relatedTags,
+})

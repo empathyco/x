@@ -1,4 +1,4 @@
-import { XComponentsAdapter } from '@empathyco/x-types';
+import type { XComponentsAdapter } from '@empathyco/x-types'
 
 export const XComponentsAdapterDummy: XComponentsAdapter = {
   identifierResults: jest.fn(),
@@ -11,5 +11,5 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   search: jest.fn(),
   semanticQueries: jest.fn(),
   tagging: jest.fn(),
-  experienceControls: jest.fn()
-};
+  experienceControls: jest.fn(),
+}

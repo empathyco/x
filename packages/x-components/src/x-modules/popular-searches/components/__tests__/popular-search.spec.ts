@@ -1,80 +1,77 @@
-import { Suggestion } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
-import { mount, VueWrapper } from '@vue/test-utils';
-import { Store } from 'vuex';
-import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
-import { installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { RootXStoreState } from '../../../../store/store.types';
-import { WireMetadata } from '../../../../wiring/wiring.types';
-import { popularSearchesXModule } from '../../x-module';
-import PopularSearch from '../popular-search.vue';
-import { XPlugin } from '../../../../plugins/index';
+import type { Suggestion } from '@empathyco/x-types'
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { WireMetadata } from '../../../../wiring/wiring.types'
+import { mount } from '@vue/test-utils'
+import { Store } from 'vuex'
+import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory'
+import { installNewXPlugin } from '../../../../__tests__/utils'
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { XPlugin } from '../../../../plugins/index'
+import { popularSearchesXModule } from '../../x-module'
+import PopularSearch from '../popular-search.vue'
 
 function renderPopularSearch({
   suggestion = createPopularSearch('baileys'),
-  template = '<PopularSearch v-bind="$attrs"/>'
+  template = '<PopularSearch v-bind="$attrs"/>',
 }: RenderPopularSearchOptions = {}): RenderPopularSearchApi {
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(
     {
       template,
       inheritAttrs: false,
       components: {
-        PopularSearch
-      }
+        PopularSearch,
+      },
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [popularSearchesXModule] })]
+        plugins: [installNewXPlugin({ store, initialXModules: [popularSearchesXModule] })],
       },
       props: { suggestion },
-      store
-    }
-  );
+      store,
+    },
+  )
 
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
-  };
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+  }
 }
 
 describe('testing popular-search component', () => {
   it('is an XComponent that belongs to the popular searches', () => {
-    const { wrapper } = renderPopularSearch();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('popularSearches');
-  });
+    const { wrapper } = renderPopularSearch()
+    expect(isXComponent(wrapper.vm)).toEqual(true)
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('popularSearches')
+  })
 
   it('renders the suggestion received as prop', () => {
     const { wrapper } = renderPopularSearch({
-      suggestion: createPopularSearch('milk')
-    });
-    expect(wrapper.text()).toEqual('milk');
-  });
+      suggestion: createPopularSearch('milk'),
+    })
+    expect(wrapper.text()).toEqual('milk')
+  })
 
-  it('emits appropriate events on click', () => {
+  it('emits appropriate events on click', async () => {
     const { wrapper, emitSpy, suggestion } = renderPopularSearch({
-      suggestion: createPopularSearch('milk')
-    });
+      suggestion: createPopularSearch('milk'),
+    })
 
-    wrapper.trigger('click');
+    await wrapper.trigger('click')
 
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'popularSearches',
       target: wrapper.element,
-      feature: 'popular_search'
-    });
-    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
-    expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
-    expect(emitSpy).toHaveBeenCalledWith(
-      'UserSelectedAPopularSearch',
-      suggestion,
-      expectedMetadata
-    );
-  });
+      feature: 'popular_search',
+    })
+    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata)
+    expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata)
+    expect(emitSpy).toHaveBeenCalledWith('UserSelectedAPopularSearch', suggestion, expectedMetadata)
+  })
 
   it('allows to customise the rendered content', () => {
     const { wrapper } = renderPopularSearch({
@@ -84,25 +81,25 @@ describe('testing popular-search component', () => {
         <span>🔍</span>
         <span>{{ suggestion.query }}</span>
       </PopularSearch>
-      `
-    });
+      `,
+    })
 
-    expect(wrapper.text()).toEqual('🔍baileys');
-  });
-});
+    expect(wrapper.text()).toEqual('🔍baileys')
+  })
+})
 
 interface RenderPopularSearchOptions {
   /** The suggestion data to render. */
-  suggestion?: Suggestion;
+  suggestion?: Suggestion
   /** The template to render. */
-  template?: string;
+  template?: string
 }
 
 interface RenderPopularSearchApi {
   /** Testing wrapper of the {@link PopularSearch} component. */
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
   /** The {@link XBus.emit} spy. */
-  emitSpy: jest.SpyInstance;
+  emitSpy: jest.SpyInstance
   /** Rendered {@link Suggestion} model data. */
-  suggestion: Suggestion;
+  suggestion: Suggestion
 }

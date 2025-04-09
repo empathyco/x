@@ -1,5 +1,5 @@
-import { ExtractGetters, XModuleName } from '../x-modules/x-modules.types';
-import { XPluginOptions } from './x-plugin.types';
+import type { ExtractGetters, XModuleName } from '../x-modules/x-modules.types'
+import type { XPluginOptions } from './x-plugin.types'
 
 /**
  * Asserts that the passed options object is valid, providing helpful error messages.
@@ -8,20 +8,18 @@ import { XPluginOptions } from './x-plugin.types';
  * @public
  */
 export function assertXPluginOptionsAreValid(
-  options: XPluginOptions | undefined
+  options: XPluginOptions | undefined,
 ): asserts options is XPluginOptions {
   if (!options) {
     throw new Error(
-      // eslint-disable-next-line max-len
-      'XPlugin needs to be installed with an options object containing at least an adapter. Please provide a valid object'
-    );
+      'XPlugin needs to be installed with an options object containing at least an adapter. Please provide a valid object',
+    )
   }
 
   if (options.adapter == null) {
     throw new Error(
-      // eslint-disable-next-line max-len
-      "The options object doesn't seem to have an adapter. Please, create one and pass it through the options object"
-    );
+      "The options object doesn't seem to have an adapter. Please, create one and pass it through the options object",
+    )
   }
 }
 
@@ -35,7 +33,7 @@ export function assertXPluginOptionsAreValid(
  */
 export function getGetterPath<ModuleName extends XModuleName>(
   moduleName: ModuleName,
-  getterName: keyof ExtractGetters<ModuleName>
+  getterName: keyof ExtractGetters<ModuleName>,
 ): string {
-  return `x/${moduleName}/${getterName as string}`;
+  return `x/${moduleName}/${getterName as string}`
 }

@@ -1,10 +1,13 @@
-import { RecommendationsXStoreModule } from '../types';
+import type { RecommendationsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link RecommendationsGetters.request} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the query
  * suggestions module.
+ * @param state.origin - origin state.
+ * @param state.config - config state.
+ * @param state.params - params state.
  * @returns The recommendations request to fetch data from the API.
  *
  * @public
@@ -12,12 +15,12 @@ import { RecommendationsXStoreModule } from '../types';
 export const request: RecommendationsXStoreModule['getters']['request'] = ({
   origin,
   config,
-  params
+  params,
 }) => {
   return {
     rows: config.maxItemsToRequest,
     start: 0,
     origin,
-    extraParams: params
-  };
-};
+    extraParams: params,
+  }
+}

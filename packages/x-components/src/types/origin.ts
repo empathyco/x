@@ -1,4 +1,4 @@
-import { WireMetadata } from '../wiring/wiring.types';
+import type { WireMetadata } from '../wiring/wiring.types'
 
 /**
  * Information to track the usefulness of the query in relation to the {@link QueryFeature} that
@@ -6,14 +6,14 @@ import { WireMetadata } from '../wiring/wiring.types';
  *
  * @public
  */
-export type QueryOrigin = `${QueryFeature}:${FeatureLocation}`;
+export type QueryOrigin = `${QueryFeature}:${FeatureLocation}`
 /**
  * Information to track the usefulness of a result in relation to the {@link ResultFeature} that
  * generated it, and the {@link FeatureLocation} where it has been shown to the user.
  *
  * @public
  */
-export type ResultOrigin = `${ResultFeature}:${FeatureLocation}`;
+export type ResultOrigin = `${ResultFeature}:${FeatureLocation}`
 
 /**
  * The name of the tool that generated the query.
@@ -32,7 +32,7 @@ export type QueryFeature =
   | 'spellcheck'
   | 'customer'
   | 'semantics'
-  | 'related_prompts';
+  | 'related_prompts'
 
 /**
  * The name of the tool that generated the results.
@@ -47,7 +47,7 @@ export type ResultFeature =
   | 'semantic_recommendations'
   | 'partial_results'
   | 'identifier_result'
-  | 'related_prompts';
+  | 'related_prompts'
 
 /**
  * Indicates where the feature is placed.
@@ -72,11 +72,11 @@ export type FeatureLocation =
   | 'pdp'
   | 'url_history'
   | 'url_history_pdp'
-  | 'related_prompts';
+  | 'related_prompts'
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.
  *
  * @public
  */
-export type QueryOriginInit = Partial<Pick<WireMetadata, 'feature' | 'location'>>;
+export type QueryOriginInit = Partial<Pick<WireMetadata, 'feature' | 'location'>>

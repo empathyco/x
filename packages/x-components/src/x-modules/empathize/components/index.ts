@@ -1,1 +1,1 @@
-export { default as Empathize } from './empathize.vue';
+export { default as Empathize } from './empathize.vue'

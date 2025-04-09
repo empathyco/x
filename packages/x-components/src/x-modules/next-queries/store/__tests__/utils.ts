@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { nextQueriesXStoreModule } from '../module';
-import { NextQueriesState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { NextQueriesState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { nextQueriesXStoreModule } from '../module'
 
 /**
  * Reset next queries module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { NextQueriesState } from '../types';
  */
 export function resetNextQueriesStateWith(
   store: Store<NextQueriesState>,
-  state?: DeepPartial<NextQueriesState>
+  state?: DeepPartial<NextQueriesState>,
 ): void {
-  resetStoreModuleState<NextQueriesState>(store, nextQueriesXStoreModule.state(), state);
+  resetStoreModuleState<NextQueriesState>(store, nextQueriesXStoreModule.state(), state)
 }

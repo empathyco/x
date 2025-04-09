@@ -1,9 +1,9 @@
-import { RequiredProperties } from '@empathyco/x-utils';
-import { XBus } from '@empathyco/x-bus';
-import { DocumentDirection } from '../../plugins/x-plugin.types';
-import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
-import { WireMetadata } from '../../wiring/wiring.types';
-import { QueryPreviewInfo } from '../../x-modules/queries-preview/index';
+import type { XBus } from '@empathyco/x-bus'
+import type { RequiredProperties } from '@empathyco/x-utils'
+import type { DocumentDirection } from '../../plugins/x-plugin.types'
+import type { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types'
+import type { WireMetadata } from '../../wiring/wiring.types'
+import type { QueryPreviewInfo } from '../../x-modules/queries-preview/index'
 
 /**
  * Interface with the API functions exposes as X
@@ -20,7 +20,7 @@ export interface XAPI {
    * @remarks if no productId is provided, then the current page url will be used as id for
    * getting the previously stored result information.
    */
-  addProductToCart(productId?: string): void;
+  addProductToCart: (productId?: string) => void
 
   /**
    * To get the snippet config object.
@@ -29,7 +29,7 @@ export interface XAPI {
    *
    * @public
    */
-  getSnippetConfig(): SnippetConfig;
+  getSnippetConfig: () => SnippetConfig
 
   /**
    * To set the {@link @empathyco/x-bus#XBus | bus} to the API. This bus will be used to emit
@@ -37,7 +37,7 @@ export interface XAPI {
    *
    * @internal
    */
-  setBus(bus: XBus<XEventsTypes, WireMetadata>): void;
+  setBus: (bus: XBus<XEventsTypes, WireMetadata>) => void
 
   /**
    * To set the callback to call after the call to method init. This is used from {@link XInstaller}
@@ -47,7 +47,7 @@ export interface XAPI {
    *
    * @internal
    */
-  setInitCallback(initCallback: (config: SnippetConfig) => void): void;
+  setInitCallback: (initCallback: (config: SnippetConfig) => void) => void
 
   /**
    * To set or update any property of the {@link SnippetConfig}.
@@ -56,7 +56,7 @@ export interface XAPI {
    *
    * @public
    */
-  setSnippetConfig(config: Partial<SnippetConfig>): void;
+  setSnippetConfig: (config: Partial<SnippetConfig>) => void
 
   /**
    * To set or update any property of the snippet config getter.
@@ -65,7 +65,7 @@ export interface XAPI {
    *
    * @internal
    */
-  setSnippetConfigGetter(snippetConfigGetter: () => NormalisedSnippetConfig): void;
+  setSnippetConfigGetter: (snippetConfigGetter: () => NormalisedSnippetConfig) => void
 
   /**
    * To set the snippet config callback.
@@ -74,7 +74,7 @@ export interface XAPI {
    *
    * @internal
    */
-  setSnippetConfigCallback(callback: (config: Partial<SnippetConfig>) => void): void;
+  setSnippetConfigCallback: (callback: (config: Partial<SnippetConfig>) => void) => void
 
   /**
    * Dispatch a search with the query parameter.
@@ -83,7 +83,7 @@ export interface XAPI {
    *
    * @public
    */
-  search(query?: string): void;
+  search: (query?: string) => void
 
   /**
    * Method to initialize the XComponents app.
@@ -92,7 +92,7 @@ export interface XAPI {
    *
    * @public
    */
-  init(config: SnippetConfig): Promise<void>;
+  init: (config: SnippetConfig) => Promise<void>
 }
 
 /**
@@ -101,8 +101,8 @@ export interface XAPI {
  * @public
  */
 export type XEventListeners = Partial<{
-  [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => unknown;
-}>;
+  [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => unknown
+}>
 
 /**
  * Interface with the possible parameters to receive through the snippet integration.
@@ -111,33 +111,33 @@ export type XEventListeners = Partial<{
  */
 export interface SnippetConfig {
   /** Customer instance. */
-  instance: string;
+  instance: string
   /** Backend services environment. */
-  env?: 'staging';
+  env?: 'staging'
   /** Execution scope (desktop, mobile, app, ...). */
-  scope: string;
+  scope: string
   /** Language for the API request, and default value for {@link SnippetConfig.uiLang}. */
-  lang: string;
+  lang: string
   /** Language to use for the messages. Defaults to {@link SnippetConfig.lang}. */
-  uiLang?: string;
+  uiLang?: string
   /** User GDPR consent. */
-  consent?: boolean;
+  consent?: boolean
   /** Document direction. */
-  documentDirection?: DocumentDirection;
+  documentDirection?: DocumentDirection
   /** The currency name. There should be a currency format associated to this name in the app. */
-  currency?: string;
+  currency?: string
   /** Callbacks to be triggered when an XEvent is emitted. */
-  callbacks?: XEventListeners;
+  callbacks?: XEventListeners
   /** Flag determining if the page is a single page application or not. */
-  isSpa?: boolean;
+  isSpa?: boolean
   /** The id for the current product when product page is loaded. */
-  productId?: string;
+  productId?: string
   /** The filters to be applied on the first request. */
-  filters?: string[];
+  filters?: string[]
   /** List of queries to preview. */
-  queriesPreview?: QueryPreviewInfo[];
+  queriesPreview?: QueryPreviewInfo[]
   /** Any extra param to send in all backend calls. */
-  [extra: string]: unknown;
+  [extra: string]: unknown
 }
 
 /**
@@ -145,4 +145,4 @@ export interface SnippetConfig {
  *
  * @public
  */
-export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'>;
+export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'>

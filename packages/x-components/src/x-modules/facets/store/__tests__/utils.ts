@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { facetsXStoreModule } from '../module';
-import { FacetsState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { FacetsState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { facetsXStoreModule } from '../module'
 
 /**
  * Reset facets module state with its original state and the partial state passed as
@@ -15,7 +15,7 @@ import { FacetsState } from '../types';
  */
 export function resetFacetsStateWith(
   store: Store<FacetsState>,
-  state?: DeepPartial<FacetsState>
+  state?: DeepPartial<FacetsState>,
 ): void {
-  resetStoreModuleState<FacetsState>(store, facetsXStoreModule.state(), state);
+  resetStoreModuleState<FacetsState>(store, facetsXStoreModule.state(), state)
 }

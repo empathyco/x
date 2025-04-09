@@ -2,50 +2,50 @@ import {
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
-import { createWiring } from '../../wiring/wiring.utils';
-import { filter } from '../../wiring/wires.operators';
+  namespacedWireDispatchWithoutPayload,
+} from '../../wiring/namespaced-wires.factory'
+import { filter } from '../../wiring/wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /** `relatedPrompts` XModule name. */
-const moduleName = 'relatedPrompts';
+const moduleName = 'relatedPrompts'
 /** WireCommit for RelatedPromptsXModule. */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 /** WireCommitWithoutPayload for RelatedPromptsXModule. */
-const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName)
 /** WireDispatch for RelatedPromptsXModule.*/
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 /** WireDispatchWithoutPayload for RelatedPromptsXModule. */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName)
 
 /** Sets the related prompts state from URL data. */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('setUrlParams')
 /** Sets the related prompts state `params`. */
-const setExtraParams = wireCommit('setParams');
+const setExtraParams = wireCommit('setParams')
 
 /** Sets the related prompts state `query`. */
-const setRelatedPromptsQuery = wireCommit('setQuery');
+const setRelatedPromptsQuery = wireCommit('setQuery')
 /** Sets the related prompts state `query` from the payload. */
 const setRelatedPromptsQueryFromPreview = wireCommit(
   'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 /** Sets the related prompts state `selectedQuery`. */
-const setRelatedPromptQuery = wireCommit('setSelectedQuery');
+const setRelatedPromptQuery = wireCommit('setSelectedQuery')
 /** Sets the related prompts state `selectedPrompt`. */
-const setRelatedPrompt = wireCommit('setSelectedPrompt');
+const setRelatedPrompt = wireCommit('setSelectedPrompt')
 
 /** Fetches and saves the related prompts response. */
-const fetchAndSaveRelatedPrompts = wireDispatch('fetchAndSaveRelatedPrompts');
+const fetchAndSaveRelatedPrompts = wireDispatch('fetchAndSaveRelatedPrompts')
 /** Cancels the fetch and save related prompts response. */
 const cancelFetchAndSaveRelatedPrompts = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveRelatedPrompts'
-);
+  'cancelFetchAndSaveRelatedPrompts',
+)
 
 /** Resets the related prompts state. */
-const resetRelatedPromptsState = wireCommitWithoutPayload('resetRelatedPromptsState');
+const resetRelatedPromptsState = wireCommitWithoutPayload('resetRelatedPromptsState')
 /** Resets the selected related prompt number. */
-const resetRelatedPrompt = wireCommitWithoutPayload('resetSelectedPrompt');
+const resetRelatedPrompt = wireCommitWithoutPayload('resetSelectedPrompt')
 
 /**
  * Wiring configuration for the {@link RelatedPromptsXModule | related prompts module}.
@@ -54,38 +54,38 @@ const resetRelatedPrompt = wireCommitWithoutPayload('resetSelectedPrompt');
  */
 export const relatedPromptsWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
   },
   ExtraParamsChanged: {
-    setExtraParams
+    setExtraParams,
   },
   UserAcceptedAQuery: {
     setRelatedPromptsQuery,
-    resetRelatedPrompt
+    resetRelatedPrompt,
   },
   UserAcceptedAQueryPreview: {
     setRelatedPromptsQueryFromPreview,
-    resetRelatedPrompt
+    resetRelatedPrompt,
   },
   UserClearedQuery: {
     cancelFetchAndSaveRelatedPrompts,
     resetRelatedPromptsState,
-    setRelatedPromptsQuery
+    setRelatedPromptsQuery,
   },
   RelatedPromptsRequestUpdated: {
-    fetchAndSaveRelatedPrompts
+    fetchAndSaveRelatedPrompts,
   },
   UserSelectedARelatedPrompt: {
-    setRelatedPrompt
+    setRelatedPrompt,
   },
   UserSelectedARelatedPromptQuery: {
-    setRelatedPromptQuery
+    setRelatedPromptQuery,
   },
   SearchRequestChanged: {
     resetRelatedPrompt: filter(
       resetRelatedPrompt,
       // Avoid reset selected prompt just after restored from URL with ParamsLoadedFromUrl event
-      ({ store }) => store.state.x.search.origin !== 'url:external'
-    )
-  }
-});
+      ({ store }) => store.state.x.search.origin !== 'url:external',
+    ),
+  },
+})

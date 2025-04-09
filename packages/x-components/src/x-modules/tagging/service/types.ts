@@ -1,4 +1,4 @@
-import { Result } from '@empathyco/x-types';
+import type { Result } from '@empathyco/x-types'
 
 /**
  * Service to handle the workflow for tracking add to cart from PDP.
@@ -12,7 +12,7 @@ export interface ExternalTaggingService {
    *
    * @param result - The result to store.
    */
-  storeResultClicked(result: Result): void;
+  storeResultClicked: (result: Result) => void
 
   /**
    * Stores in the local storage the information from the Result added to the cart
@@ -21,7 +21,7 @@ export interface ExternalTaggingService {
    *
    * @param result - The result to store.
    */
-  storeAddToCart(result: Result): void;
+  storeAddToCart: (result: Result) => void
 
   /**
    * Checks if the local storage contains a result information for the given id and moves
@@ -29,7 +29,7 @@ export interface ExternalTaggingService {
    *
    * @param id - The id of the result to move to the session storage.
    */
-  moveToSessionStorage(id?: string): void;
+  moveToSessionStorage: (id?: string) => void
 
   /**
    * Checks if the session storage contains a result information for a given id or the current url.
@@ -38,5 +38,5 @@ export interface ExternalTaggingService {
    *
    * @param id - The id of the result to track.
    */
-  trackAddToCart(id?: string): void;
+  trackAddToCart: (id?: string) => void
 }

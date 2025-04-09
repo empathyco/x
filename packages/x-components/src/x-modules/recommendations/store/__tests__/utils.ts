@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { recommendationsXStoreModule } from '../module';
-import { RecommendationsState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RecommendationsState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { recommendationsXStoreModule } from '../module'
 
 /**
  * Reset recommendations module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { RecommendationsState } from '../types';
  */
 export function resetRecommendationsStateWith(
   store: Store<RecommendationsState>,
-  state?: DeepPartial<RecommendationsState>
+  state?: DeepPartial<RecommendationsState>,
 ): void {
-  resetStoreModuleState<RecommendationsState>(store, recommendationsXStoreModule.state(), state);
+  resetStoreModuleState<RecommendationsState>(store, recommendationsXStoreModule.state(), state)
 }

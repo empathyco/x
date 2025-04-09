@@ -1,10 +1,11 @@
-import { EditableNumberRangeFilter, Filter, Facet, isHierarchicalFilter } from '@empathyco/x-types';
-import { Store } from 'vuex';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { RootXStoreState } from '../../../../store/store.types';
-import { arrayToObject } from '../../../../utils/array';
-import { facetsXStoreModule } from '../../store/module';
-import { flatHierarchicalFilters } from '../../utils';
+import type { EditableNumberRangeFilter, Facet, Filter } from '@empathyco/x-types'
+import type { RootXStoreState } from '../../../../store/store.types'
+import { isHierarchicalFilter } from '@empathyco/x-types'
+import { Store } from 'vuex'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { arrayToObject } from '../../../../utils/array'
+import { facetsXStoreModule } from '../../store/module'
+import { flatHierarchicalFilters } from '../../utils'
 
 /**
  * Creates an store with the {@link facetsXStoreModule} registered. It accepts an optional list
@@ -18,19 +19,19 @@ export function prepareFacetsStore(filters?: Filter[]): Store<RootXStoreState> {
     modules: {
       x: {
         modules: {
-          facets: { ...facetsXStoreModule, namespaced: true }
+          facets: { ...facetsXStoreModule, namespaced: true },
         },
-        namespaced: true
-      }
-    }
-  });
+        namespaced: true,
+      },
+    },
+  })
   if (filters) {
-    const hierarchicalFilters = filters.filter(isHierarchicalFilter);
+    const hierarchicalFilters = filters.filter(isHierarchicalFilter)
     resetStoreXModuleState(store, 'facets', facetsXStoreModule.state(), {
-      filters: arrayToObject([...filters, ...flatHierarchicalFilters(hierarchicalFilters)], 'id')
-    });
+      filters: arrayToObject([...filters, ...flatHierarchicalFilters(hierarchicalFilters)], 'id'),
+    })
   }
-  return store;
+  return store
 }
 
 /**
@@ -41,7 +42,7 @@ export function prepareFacetsStore(filters?: Filter[]): Store<RootXStoreState> {
  * @returns True if the filter is selected, false otherwise.
  */
 export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter['id']): boolean {
-  return store.state.x.facets.filters[filterId].selected;
+  return store.state.x.facets.filters[filterId].selected
 }
 
 /**
@@ -53,9 +54,9 @@ export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter
  */
 export function getStoreFilter<SomeFilter extends Filter>(
   store: Store<RootXStoreState>,
-  filterId: EditableNumberRangeFilter['id']
+  filterId: EditableNumberRangeFilter['id'],
 ): SomeFilter {
-  return store.state.x.facets.filters[filterId] as SomeFilter;
+  return store.state.x.facets.filters[filterId] as SomeFilter
 }
 
 /**
@@ -67,9 +68,10 @@ export function getStoreFilter<SomeFilter extends Filter>(
  */
 export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
   store: Store<RootXStoreState>,
-  facetId: Facet['id']
+  facetId: Facet['id'],
 ): SomeFilter[] {
-  return store.getters['x/facets/facets'][facetId]?.filters ?? [];
+  // eslint-disable-next-line ts/no-unsafe-return,ts/no-unsafe-member-access
+  return store.getters['x/facets/facets'][facetId]?.filters ?? []
 }
 
 /**
@@ -82,10 +84,10 @@ export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
  */
 export function isEditableNumberRangeFilterSelected(
   store: Store<RootXStoreState>,
-  facetId: Facet['id']
+  facetId: Facet['id'],
 ): boolean {
-  const filter = getStoreEditableNumberRangeFilter(store, facetId);
-  return filter.selected && (filter.range.min !== null || filter.range.max !== null);
+  const filter = getStoreEditableNumberRangeFilter(store, facetId)
+  return filter.selected && (filter.range.min !== null || filter.range.max !== null)
 }
 
 /**
@@ -97,7 +99,7 @@ export function isEditableNumberRangeFilterSelected(
  */
 export function getStoreEditableNumberRangeFilter(
   store: Store<RootXStoreState>,
-  facetId: Facet['id']
+  facetId: Facet['id'],
 ): EditableNumberRangeFilter {
-  return getStoreFiltersByFacetId<EditableNumberRangeFilter>(store, facetId)[0];
+  return getStoreFiltersByFacetId<EditableNumberRangeFilter>(store, facetId)[0]
 }

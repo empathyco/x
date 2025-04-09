@@ -1,8 +1,8 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types';
-import { XEventsTypes } from '../../../wiring';
-import { XStoreModule } from '../../../store/store.types';
-import { StatusMutations, StatusState, XActionContext } from '../../../store';
+import type { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { StatusMutations, StatusState, XActionContext } from '../../../store'
+import type { XStoreModule } from '../../../store/store.types'
+import type { XEventsTypes } from '../../../wiring'
 
 /**
  * Experience Controls store state.
@@ -13,9 +13,9 @@ export interface ExperienceControlsState extends StatusState {
   /**
    * Configuration for the `ExperienceControls` module.
    */
-  controls: Dictionary<unknown>;
-  events: Partial<XEventsTypes>;
-  params: Dictionary<unknown>;
+  controls: Dictionary<unknown>
+  events: Partial<XEventsTypes>
+  params: Dictionary<unknown>
 }
 
 /**
@@ -28,7 +28,7 @@ export interface ExperienceControlsGetters {
    * The adapter request object for retrieving the controls request, or null if there is not
    * valid data to create a request.
    */
-  experienceControlsRequest: ExperienceControlsRequest | null;
+  experienceControlsRequest: ExperienceControlsRequest | null
 }
 
 /**
@@ -42,21 +42,21 @@ export interface ExperienceControlsMutations extends StatusMutations {
    *
    * @param controls - The new {@link ExperienceControlsState.controls}.
    */
-  setControls(controls: Dictionary<unknown>): void;
+  setControls: (controls: Dictionary<unknown>) => void
 
   /**
    * Sets the {@link ExperienceControlsState.events} property.
    *
    * @param events - The new {@link ExperienceControlsState.events}.
    */
-  setEvents(events: Partial<XEventsTypes>): void;
+  setEvents: (events: Partial<XEventsTypes>) => void
 
   /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
 }
 
 /**
@@ -72,21 +72,21 @@ export interface ExperienceControlsActions {
    * @param request - The request to fetch the experience controls.
    * @returns the experience controls.
    */
-  fetchExperienceControlsResponse(
-    request: ExperienceControlsRequest | null
-  ): ExperienceControlsResponse;
+  fetchExperienceControlsResponse: (
+    request: ExperienceControlsRequest | null,
+  ) => ExperienceControlsResponse
 
   /**
    * Requests the experience controls and saves them in the module.
    *
    * @param request - The request to fetch the experience controls.
    */
-  fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest | null): void;
+  fetchAndSaveExperienceControlsResponse: (request: ExperienceControlsRequest | null) => void
 
   /**
    * Cancels the {@link ExperienceControlsActions.fetchAndSaveExperienceControlsResponse}.
    */
-  cancelFetchAndSaveControls: () => void;
+  cancelFetchAndSaveControls: () => void
 }
 
 /**
@@ -99,7 +99,7 @@ export type ExperienceControlsXStoreModule = XStoreModule<
   ExperienceControlsGetters,
   ExperienceControlsMutations,
   ExperienceControlsActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link ExperienceControlsXStoreModule}.
@@ -111,4 +111,4 @@ export type ExperienceControlsActionContext = XActionContext<
   ExperienceControlsGetters,
   ExperienceControlsMutations,
   ExperienceControlsActions
->;
+>

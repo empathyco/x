@@ -1,166 +1,167 @@
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, h, inject, provide, Ref } from 'vue';
-  import { NextQuery } from '@empathyco/x-types';
-  import ItemsList from '../../../components/items-list.vue';
-  import { useState } from '../../../composables/use-state';
-  import { groupItemsBy } from '../../../utils/array';
-  import { ListItem } from '../../../utils/types';
-  import { NextQueriesGroup } from '../types';
-  import { nextQueriesXModule } from '../x-module';
-  import {
-    HAS_MORE_ITEMS_KEY,
-    LIST_ITEMS_KEY,
-    QUERY_KEY
-  } from '../../../components/decorators/injection.consts';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { useGetter } from '../../../composables/use-getter';
+import type { NextQuery } from '@empathyco/x-types'
+import type { ComputedRef, Ref } from 'vue'
+import type { ListItem } from '../../../utils/types'
+import type { NextQueriesGroup } from '../types'
+import { computed, defineComponent, h, inject, provide } from 'vue'
+import {
+  HAS_MORE_ITEMS_KEY,
+  LIST_ITEMS_KEY,
+  QUERY_KEY,
+} from '../../../components/decorators/injection.consts'
+import ItemsList from '../../../components/items-list.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { useState } from '../../../composables/use-state'
+import { AnimationProp } from '../../../types/animation-prop'
+import { groupItemsBy } from '../../../utils/array'
+import { nextQueriesXModule } from '../x-module'
 
-  /**
-   * Component that inserts groups of next queries in different positions of the injected search
-   * items list, based on the provided configuration.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'NextQueriesList',
-    xModule: nextQueriesXModule.name,
-    props: {
-      /** Animation component that will be used to animate the next queries groups. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /** The first index to insert a group of next queries at. */
-      offset: {
-        type: Number,
-        default: 24
-      },
-      /** The items cycle size to keep inserting next queries groups at. */
-      frequency: {
-        type: Number,
-        default: 24
-      },
-      /** The maximum amount of next queries to add in a single group. */
-      maxNextQueriesPerGroup: {
-        type: Number,
-        default: 4
-      },
-      /** The maximum number of groups to insert into the injected list items list. */
-      maxGroups: Number,
-      /**
-       * Determines if a group is added to the injected items list in case the number
-       * of items is smaller than the offset.
-       */
-      showOnlyAfterOffset: {
-        type: Boolean,
-        default: false
-      }
+/**
+ * Component that inserts groups of next queries in different positions of the injected search
+ * items list, based on the provided configuration.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'NextQueriesList',
+  xModule: nextQueriesXModule.name,
+  props: {
+    /** Animation component that will be used to animate the next queries groups. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props, { slots }) {
-      const { query, status } = useState('nextQueries', ['query', 'status']);
+    /** The first index to insert a group of next queries at. */
+    offset: {
+      type: Number,
+      default: 24,
+    },
+    /** The items cycle size to keep inserting next queries groups at. */
+    frequency: {
+      type: Number,
+      default: 24,
+    },
+    /** The maximum amount of next queries to add in a single group. */
+    maxNextQueriesPerGroup: {
+      type: Number,
+      default: 4,
+    },
+    /** The maximum number of groups to insert into the injected list items list. */
+    maxGroups: Number,
+    /**
+     * Determines if a group is added to the injected items list in case the number
+     * of items is smaller than the offset.
+     */
+    showOnlyAfterOffset: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props, { slots }) {
+    const { query, status } = useState('nextQueries', ['query', 'status'])
 
-      /** The state next queries. */
-      const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [
-        'nextQueries'
-      ]).nextQueries;
+    /** The state next queries. */
+    const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [
+      'nextQueries',
+    ]).nextQueries
 
-      /** Injected query, updated when the related request(s) have succeeded. */
-      const injectedQuery = inject<Ref<string>>(QUERY_KEY as string);
+    /** Injected query, updated when the related request(s) have succeeded. */
+    const injectedQuery = inject<Ref<string>>(QUERY_KEY as string)
 
-      /** Indicates if there are more available results than the injected. */
-      const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string);
+    /** Indicates if there are more available results than the injected. */
+    const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string)
 
-      /**
-       * The grouped next queries based on the given config.
-       *
-       * @returns A list of next queries groups.
-       */
-      const nextQueriesGroups = computed<NextQueriesGroup[]>(() =>
-        Object.values(
-          groupItemsBy(nextQueries?.value, (_, index) =>
-            Math.floor(index / props.maxNextQueriesPerGroup)
-          )
-        )
-          .slice(0, props.maxGroups)
-          .map(nextQueries => ({
-            modelName: 'NextQueriesGroup' as const,
-            id: nextQueries.map(nextQuery => nextQuery.query).join(','),
-            nextQueries
-          }))
-      );
+    /**
+     * The grouped next queries based on the given config.
+     *
+     * @returns A list of next queries groups.
+     */
+    const nextQueriesGroups = computed<NextQueriesGroup[]>(() =>
+      Object.values(
+        groupItemsBy(nextQueries?.value, (_, index) =>
+          Math.floor(index / props.maxNextQueriesPerGroup),
+        ),
+      )
+        .slice(0, props.maxGroups)
+        .map(nextQueries => ({
+          modelName: 'NextQueriesGroup' as const,
+          id: nextQueries.map(nextQuery => nextQuery.query).join(','),
+          nextQueries,
+        })),
+    )
 
-      /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
-      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
+    /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
+    const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
-      /**
-       * Checks if the next queries are outdated taking into account the injected query.
-       *
-       * @returns True if the next queries are outdated, false if not.
-       */
-      const nextQueriesAreOutdated = computed(
-        () =>
-          !!injectedQuery?.value &&
-          (query.value !== injectedQuery.value || status.value !== 'success')
-      );
+    /**
+     * Checks if the next queries are outdated taking into account the injected query.
+     *
+     * @returns True if the next queries are outdated, false if not.
+     */
+    const nextQueriesAreOutdated = computed(
+      () =>
+        !!injectedQuery?.value &&
+        (query.value !== injectedQuery.value || status.value !== 'success'),
+    )
 
-      /**
-       * Checks if the number of items is smaller than the offset so a group
-       * should be added to the injected items list.
-       *
-       * @returns True if a group should be added, false if not.
-       */
-      const hasNotEnoughListItems = computed(
-        () =>
-          !props.showOnlyAfterOffset &&
-          !hasMoreItems?.value &&
-          injectedListItems !== undefined &&
-          injectedListItems.value.length > 0 &&
-          props.offset > injectedListItems.value.length
-      );
+    /**
+     * Checks if the number of items is smaller than the offset so a group
+     * should be added to the injected items list.
+     *
+     * @returns True if a group should be added, false if not.
+     */
+    const hasNotEnoughListItems = computed(
+      () =>
+        !props.showOnlyAfterOffset &&
+        !hasMoreItems?.value &&
+        injectedListItems !== undefined &&
+        injectedListItems.value.length > 0 &&
+        props.offset > injectedListItems.value.length,
+    )
 
-      /**
-       * New list of {@link ListItem}s to render.
-       *
-       * @returns The new list of {@link ListItem}s with the next queries groups inserted.
-       */
-      const items = computed(() => {
-        if (!injectedListItems?.value) {
-          return nextQueriesGroups.value;
-        }
-        if (nextQueriesAreOutdated.value) {
-          return injectedListItems.value;
-        }
-        if (hasNotEnoughListItems.value) {
-          return injectedListItems.value.concat(nextQueriesGroups.value[0] ?? []);
-        }
-        return nextQueriesGroups?.value.reduce(
-          (items, nextQueriesGroup, index) => {
-            const targetIndex = props.offset + props.frequency * index;
-            if (targetIndex <= items.length) {
-              items.splice(targetIndex, 0, nextQueriesGroup);
-            }
-            return items;
-          },
-          [...injectedListItems.value]
-        );
-      });
+    /**
+     * New list of {@link ListItem}s to render.
+     *
+     * @returns The new list of {@link ListItem}s with the next queries groups inserted.
+     */
+    const items = computed(() => {
+      if (!injectedListItems?.value) {
+        return nextQueriesGroups.value
+      }
+      if (nextQueriesAreOutdated.value) {
+        return injectedListItems.value
+      }
+      if (hasNotEnoughListItems.value) {
+        return injectedListItems.value.concat(nextQueriesGroups.value[0] ?? [])
+      }
+      return nextQueriesGroups?.value.reduce(
+        (items, nextQueriesGroup, index) => {
+          const targetIndex = props.offset + props.frequency * index
+          if (targetIndex <= items.length) {
+            items.splice(targetIndex, 0, nextQueriesGroup)
+          }
+          return items
+        },
+        [...injectedListItems.value],
+      )
+    })
 
-      /**
-       * The computed list items of the entity that uses the mixin.
-       *
-       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
-       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
-       * @returns An empty array as fallback in case it is not overridden.
-       */
-      provide(LIST_ITEMS_KEY as string, items);
+    /**
+     * The computed list items of the entity that uses the mixin.
+     *
+     * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+     * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+     * @returns An empty array as fallback in case it is not overridden.
+     */
+    provide(LIST_ITEMS_KEY as string, items)
 
-      return () => {
-        const innerProps = { items: items.value, animation: props.animation };
-        // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
-        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots);
-      };
+    return () => {
+      const innerProps = { items: items.value, animation: props.animation }
+      // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
+      return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots)
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -192,18 +193,18 @@ results list.
 </template>
 
 <script>
-  import { NextQueriesList } from '@empathyco/x-components/next-queries';
-  import { ResultsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { NextQueriesList } from '@empathyco/x-components/next-queries'
+import { ResultsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'NextQueriesListDemo',
-    components: {
-      NextQueriesList,
-      ResultsList,
-      SearchInput
-    }
-  };
+export default {
+  name: 'NextQueriesListDemo',
+  components: {
+    NextQueriesList,
+    ResultsList,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -227,18 +228,18 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
 </template>
 
 <script>
-  import { NextQueriesList } from '@empathyco/x-components/next-queries';
-  import { ResultsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { NextQueriesList } from '@empathyco/x-components/next-queries'
+import { ResultsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'NextQueriesListDemo',
-    components: {
-      NextQueriesList,
-      ResultsList,
-      SearchInput
-    }
-  };
+export default {
+  name: 'NextQueriesListDemo',
+  components: {
+    NextQueriesList,
+    ResultsList,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -264,18 +265,18 @@ than the offset, but this behavior can be deactivated by setting the `showOnlyAf
 </template>
 
 <script>
-  import { NextQueriesList } from '@empathyco/x-components/next-queries';
-  import { ResultsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { NextQueriesList } from '@empathyco/x-components/next-queries'
+import { ResultsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'NextQueriesListDemo',
-    components: {
-      NextQueriesList,
-      ResultsList,
-      SearchInput
-    }
-  };
+export default {
+  name: 'NextQueriesListDemo',
+  components: {
+    NextQueriesList,
+    ResultsList,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -314,20 +315,20 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
 </template>
 
 <script>
-  import { NextQueriesList } from '@empathyco/x-components/next-queries';
-  import { ResultsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { BaseGrid } from '@empathyco/x-components';
+import { NextQueriesList } from '@empathyco/x-components/next-queries'
+import { ResultsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { BaseGrid } from '@empathyco/x-components'
 
-  export default {
-    name: 'NextQueriesListDemo',
-    components: {
-      NextQueriesList,
-      ResultsList,
-      BaseGrid,
-      SearchInput
-    }
-  };
+export default {
+  name: 'NextQueriesListDemo',
+  components: {
+    NextQueriesList,
+    ResultsList,
+    BaseGrid,
+    SearchInput,
+  },
+}
 </script>
 ```
 </docs>

@@ -1,10 +1,10 @@
-import { noOp } from './function';
+import { noOp } from './function'
 /**
  * Symbol used to know if a promise is cancelled.
  *
  * @internal
  */
-export const CancelSymbol = Symbol('cancelled-promise');
+export const CancelSymbol = Symbol('cancelled-promise')
 /**
  * The type returned by the {@link cancellablePromise} function.
  *
@@ -15,12 +15,12 @@ export interface CancellablePromiseFunction<T, K = unknown> {
    * The resultant promise that groups the original promise, passed as the first parameter, and the
    * promise created in cancellablePromise, which rejects the resultant promise if called.
    */
-  promise: Promise<T>;
+  promise: Promise<T>
   /**
    * Function to cancel the resultant promise. This function triggers the reject of the second
    * promise of the promise race. The first parameter is the resultant promise rejection value.
    */
-  cancel: (payload?: K) => void;
+  cancel: (payload?: K) => void
 }
 
 /**
@@ -45,19 +45,19 @@ export interface CancellablePromiseFunction<T, K = unknown> {
  */
 export function cancellablePromise<T, K = unknown>(
   promise: Promise<T>,
-  cancelCallback?: (payload?: K) => void
+  cancelCallback?: (payload?: K) => void,
 ): CancellablePromiseFunction<T, K> {
-  let cancel: (payload?: K) => void = noOp;
+  let cancel: (payload?: K) => void = noOp
 
   const cancelPromise = new Promise<never>((_, reject) => {
     cancel = payload => {
-      reject(CancelSymbol);
-      cancelCallback?.(payload);
-    };
-  });
+      reject(CancelSymbol)
+      cancelCallback?.(payload)
+    }
+  })
 
   return {
     promise: Promise.race([promise, cancelPromise]),
-    cancel
-  };
+    cancel,
+  }
 }

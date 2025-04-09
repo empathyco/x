@@ -1,16 +1,17 @@
-import { InspectorNodeTag } from '@vue/devtools-api';
-import { map } from '@empathyco/x-utils';
-import { RootXStoreModule, XModuleState } from '../../store/x.module';
-import { XModuleName } from '../../x-modules/x-modules.types';
+import type { InspectorNodeTag } from '@vue/devtools-api'
+import type { XModuleState } from '../../store/x.module'
+import type { XModuleName } from '../../x-modules/x-modules.types'
+import { map } from '@empathyco/x-utils'
+import { RootXStoreModule } from '../../store/x.module'
 
 /** Unique text and background colors for each module. */
-type ModuleColors = Record<XModuleName, Pick<InspectorNodeTag, 'textColor' | 'backgroundColor'>>;
+type ModuleColors = Record<XModuleName, Pick<InspectorNodeTag, 'textColor' | 'backgroundColor'>>
 /**
  * Unique color values for the text and background of each module.
  *
  * @internal
  */
-export const moduleColors = createModuleColors();
+export const moduleColors = createModuleColors()
 
 /**
  * Creates a dictionary with unique colors for each {@link XModule}.
@@ -18,15 +19,15 @@ export const moduleColors = createModuleColors();
  * @returns A dictionary with unique text and background colors for every {@link XModule}.
  */
 function createModuleColors(): ModuleColors {
-  const xState = (RootXStoreModule.state as () => XModuleState)();
-  const modulesCount = Object.keys(xState).length;
+  const xState = (RootXStoreModule.state as () => XModuleState)()
+  const modulesCount = Object.keys(xState).length
   return map(xState, (moduleName, _, index) => {
-    const hue = Math.trunc((index * 360) / modulesCount);
+    const hue = Math.trunc((index * 360) / modulesCount)
     return {
       textColor: hslToHex(hue, 30, 97.5),
-      backgroundColor: hslToHex(hue, 80, 35)
-    };
-  });
+      backgroundColor: hslToHex(hue, 80, 35),
+    }
+  })
 }
 
 /**
@@ -39,14 +40,14 @@ function createModuleColors(): ModuleColors {
  * @internal
  */
 export function hslToHex(hue: number, saturation: number, lightness: number): number {
-  lightness /= 100;
-  const a = (saturation * Math.min(lightness, 1 - lightness)) / 100;
+  lightness /= 100
+  const a = (saturation * Math.min(lightness, 1 - lightness)) / 100
   const f = (n: number): string => {
-    const k = (n + hue / 30) % 12;
-    const color = lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    const k = (n + hue / 30) % 12
+    const color = lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
     return Math.round(255 * color)
       .toString(16)
-      .padStart(2, '0');
-  };
-  return parseInt(`${f(0)}${f(8)}${f(4)}`, 16);
+      .padStart(2, '0')
+  }
+  return Number.parseInt(`${f(0)}${f(8)}${f(4)}`, 16)
 }

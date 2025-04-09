@@ -1,10 +1,10 @@
 // XModule
-import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/x-plugin';
-import { relatedTagsEmitters } from './store/emitters';
-import { relatedTagsXStoreModule } from './store/module';
-import { RelatedTagsXStoreModule } from './store/types';
-import { relatedTagsWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { RelatedTagsXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { relatedTagsEmitters } from './store/emitters'
+import { relatedTagsXStoreModule } from './store/module'
+import { relatedTagsWiring } from './wiring'
 
 /**
  * RelatedTags {@link XModule} alias.
@@ -12,7 +12,7 @@ import { relatedTagsWiring } from './wiring';
  * @public
  */
 
-export type RelatedTagsXModule = XModule<RelatedTagsXStoreModule>;
+export type RelatedTagsXModule = XModule<RelatedTagsXStoreModule>
 
 /**
  * RelatedTags {@link XModule} implementation. This module is auto-registered as soon as you
@@ -25,7 +25,7 @@ export const relatedTagsXModule: RelatedTagsXModule = {
   name: 'relatedTags',
   storeModule: relatedTagsXStoreModule,
   storeEmitters: relatedTagsEmitters,
-  wiring: relatedTagsWiring
-};
+  wiring: relatedTagsWiring,
+}
 
-XPlugin.registerXModule(relatedTagsXModule);
+XPlugin.registerXModule(relatedTagsXModule)

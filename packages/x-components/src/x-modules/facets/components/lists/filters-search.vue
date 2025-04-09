@@ -9,163 +9,165 @@
     -->
     <slot name="search" v-bind="{ query, setQuery, clearQuery }">
       <input
-        @input="setQuery($event.target.value)"
         :value="query"
         type="search"
         class="x-filters-search__input x-input"
         data-test="filters-search-input"
-        :aria-label="'search into the filter values'"
+        aria-label="search into the filter values"
+        @input="setQuery($event.target.value)"
       />
     </slot>
     <!--
       @slot (Required) Sifted filters content.
         @binding {Filter[]} siftedFilters - Sifted filters data.
     -->
-    <slot :siftedFilters="siftedFilters"></slot>
+    <slot :sifted-filters="siftedFilters"></slot>
   </div>
 </template>
 
 <script lang="ts">
-  import { Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, provide, ref, watch } from 'vue';
-  import { debounce } from '../../../../utils/debounce';
-  import { normalizeString } from '../../../../utils/normalize';
-  import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
-  import { facetsXModule } from '../../x-module';
-  import { useFiltersInjection } from '../../composables/use-filters-injection';
+import type { Filter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { DebouncedFunction, VueCSSClasses } from '../../../../utils/types'
+import { isBooleanFilter } from '@empathyco/x-types'
+import { computed, defineComponent, provide, ref, watch } from 'vue'
+import { debounce } from '../../../../utils/debounce'
+import { normalizeString } from '../../../../utils/normalize'
+import { useFiltersInjection } from '../../composables/use-filters-injection'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Renders the filters sifted with the input query.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'FiltersSearch',
-    xModule: facetsXModule.name,
-    props: {
-      /**
-       * The list of filters to be rendered as slots.
-       *
-       * @public
-       */
-      filters: Array as PropType<Filter[]>,
+/**
+ * Renders the filters sifted with the input query.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'FiltersSearch',
+  xModule: facetsXModule.name,
+  props: {
+    /**
+     * The list of filters to be rendered as slots.
+     *
+     * @public
+     */
+    filters: Array as PropType<Filter[]>,
 
-      /**
-       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
-       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       *
-       * @public
-       */
-      parentId: {
-        type: String as PropType<Filter['id']>,
-        required: false
-      },
-
-      /** The debounce time for applying the filter sifting. */
-      debounceInMs: {
-        type: Number,
-        default: 200
-      }
+    /**
+     * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+     * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+     *
+     * @public
+     */
+    parentId: {
+      type: String as PropType<Filter['id']>,
+      required: false,
     },
-    setup(props) {
-      const renderedFilters = useFiltersInjection(props);
 
-      let query = ref('');
-      let setQueryDebounced: DebouncedFunction<[string]>;
+    /** The debounce time for applying the filter sifting. */
+    debounceInMs: {
+      type: Number,
+      default: 200,
+    },
+  },
+  setup(props) {
+    const renderedFilters = useFiltersInjection(props)
 
-      const debounceInMs = computed(() => props.debounceInMs);
+    const query = ref('')
+    let setQueryDebounced: DebouncedFunction<[string]>
 
-      /**
-       * Set the debounce function for setting the query debounced.
-       *
-       * @internal
-       */
-      const updateSetQueryDebounced = () => {
-        setQueryDebounced = debounce(queryDebounced => {
-          query.value = queryDebounced;
-        }, props.debounceInMs);
-      };
-      watch(debounceInMs, updateSetQueryDebounced, { immediate: true });
+    const debounceInMs = computed(() => props.debounceInMs)
 
-      /**
-       * Sift the array of filters which matches with the query.
-       *
-       * @returns Array of sifted filters.
-       * @internal
-       */
-      const siftedFilters = computed((): Filter[] => {
-        const normalizedQuery = normalizeString(query.value);
-        return renderedFilters.value.filter(
-          filter =>
-            isBooleanFilter(filter) && normalizeString(filter.label).includes(normalizedQuery)
-        );
-      });
-      provide('filters', siftedFilters);
-
-      /**
-       * Adds the dynamic css classes to the component.
-       *
-       * @returns The class to be added to the component.
-       * @internal
-       */
-      const cssClasses = computed((): VueCSSClasses => {
-        return { 'x-filters-search--is-sifted': !!query.value };
-      });
-
-      /**
-       * Set the query through the debounced function.
-       *
-       * @param query - The query to sift filters.
-       * @internal
-       */
-      const setQuery = (query: string): void => {
-        setQueryDebounced(query);
-      };
-
-      /**
-       * Clear the query.
-       *
-       * @internal
-       */
-      const clearQuery = (): void => {
-        query.value = '';
-      };
-
-      return {
-        clearQuery,
-        setQuery,
-        cssClasses,
-        siftedFilters,
-        query
-      };
+    /**
+     * Set the debounce function for setting the query debounced.
+     *
+     * @internal
+     */
+    const updateSetQueryDebounced = () => {
+      setQueryDebounced = debounce(queryDebounced => {
+        query.value = queryDebounced
+      }, props.debounceInMs)
     }
-  });
+    watch(debounceInMs, updateSetQueryDebounced, { immediate: true })
+
+    /**
+     * Sift the array of filters which matches with the query.
+     *
+     * @returns Array of sifted filters.
+     * @internal
+     */
+    const siftedFilters = computed((): Filter[] => {
+      const normalizedQuery = normalizeString(query.value)
+      return renderedFilters.value.filter(
+        filter =>
+          isBooleanFilter(filter) && normalizeString(filter.label).includes(normalizedQuery),
+      )
+    })
+    provide('filters', siftedFilters)
+
+    /**
+     * Adds the dynamic css classes to the component.
+     *
+     * @returns The class to be added to the component.
+     * @internal
+     */
+    const cssClasses = computed((): VueCSSClasses => {
+      return { 'x-filters-search--is-sifted': !!query.value }
+    })
+
+    /**
+     * Set the query through the debounced function.
+     *
+     * @param query - The query to sift filters.
+     * @internal
+     */
+    const setQuery = (query: string): void => {
+      setQueryDebounced(query)
+    }
+
+    /**
+     * Clear the query.
+     *
+     * @internal
+     */
+    const clearQuery = (): void => {
+      query.value = ''
+    }
+
+    return {
+      clearQuery,
+      setQuery,
+      cssClasses,
+      siftedFilters,
+      query,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-filters-search {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.x-filters-search {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-  .x-filters-search__input::-ms-clear {
-    display: none;
-    width: 0;
-    height: 0;
-  }
+.x-filters-search__input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
 
-  .x-filters-search__input::-ms-reveal {
-    display: none;
-    width: 0;
-    height: 0;
-  }
+.x-filters-search__input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
 
-  .x-filters-search__input::-webkit-search-decoration,
-  .x-filters-search__input::-webkit-search-cancel-button,
-  .x-filters-search__input::-webkit-search-results-button,
-  .x-filters-search__input::-webkit-search-results-decoration {
-    display: none;
-  }
+.x-filters-search__input::-webkit-search-decoration,
+.x-filters-search__input::-webkit-search-cancel-button,
+.x-filters-search__input::-webkit-search-results-button,
+.x-filters-search__input::-webkit-search-results-decoration {
+  display: none;
+}
 </style>
 
 <docs lang="mdx">

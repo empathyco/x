@@ -1,5 +1,5 @@
-import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils';
-import { SearchXStoreModule } from '../types';
+import type { SearchXStoreModule } from '../types'
+import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils'
 
 /**
  * Default implementation for the search query getter.
@@ -12,5 +12,5 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const query: SearchXStoreModule['getters']['query'] = createRelatedTagsQueryGetter({
-  getRelatedTags: state => state.relatedTags
-});
+  getRelatedTags: state => state.relatedTags,
+})

@@ -1,4 +1,4 @@
-import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor'
 
 Then(
   'filter number {int} is shown in the selected filters list is {boolean}',
@@ -10,10 +10,10 @@ Then(
       .then(filterName => {
         isShown
           ? expect(filterName).to.eq(this[`clickedFilter${simpleFilterIndex}`])
-          : expect(filterName).to.not.contain(this[`clickedFilter${simpleFilterIndex}`]);
-      });
-  }
-);
+          : expect(filterName).to.not.contain(this[`clickedFilter${simpleFilterIndex}`])
+      })
+  },
+)
 
 // Scenario 2
 When(
@@ -26,15 +26,15 @@ When(
       .eq(childFilterIndex)
       .click()
       .invoke('text')
-      .as(`clickedChildFilter${childFilterIndex}`);
-  }
-);
+      .as(`clickedChildFilter${childFilterIndex}`)
+  },
+)
 
 Then(
   'selection status of child filter number {int} in facet {string} is {boolean}',
   function (simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
       .contains(this[`clickedChildFilter${simpleFilterIndex}`])
-      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected');
-  }
-);
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected')
+  },
+)

@@ -1,91 +1,92 @@
 <script lang="ts">
-  import { computed, defineComponent, h, PropType } from 'vue';
-  import { RangeValue } from '@empathyco/x-types';
-  import BaseCurrency from '../../currency/base-currency.vue';
+import type { RangeValue } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { computed, defineComponent, h } from 'vue'
+import BaseCurrency from '../../currency/base-currency.vue'
 
-  /**
-   * Renders a label for a price filter, allowing to select different messages depending on the
-   * value of the filter.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: { BaseCurrency },
-    props: {
-      /** The filter data for get min and max value. */
-      filter: {
-        type: Object as PropType<{ range: RangeValue }>,
-        required: true
-      },
-      /** Configuration for show the label. */
-      format: {
-        type: String
-      },
-      /**
-       * Message shown when the filter hasn't got the min value defined.
-       *
-       * @public
-       */
-      lessThan: {
-        type: String,
-        required: true
-      },
-      /**
-       * Message shown when the filter has both the min and max values defined.
-       *
-       * @public
-       */
-      fromTo: {
-        type: String,
-        required: true
-      },
-      /**
-       * Message shown when the filter hasn't got max value defined.
-       *
-       * @public
-       */
-      from: {
-        type: String,
-        required: true
-      }
+/**
+ * Renders a label for a price filter, allowing to select different messages depending on the
+ * value of the filter.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: { BaseCurrency },
+  props: {
+    /** The filter data for get min and max value. */
+    filter: {
+      type: Object as PropType<{ range: RangeValue }>,
+      required: true,
     },
-    setup(props) {
-      /**
-       * The active label, retrieved from the provided props.
-       * It depends on the min and max values of the filter.
-       *
-       * @returns The active label to be formatted with the min and max values of the filter.
-       */
-      const label = computed<string>(() => {
-        return props.filter.range.min === null
-          ? props.lessThan
-          : props.filter.range.max === null
+    /** Configuration for show the label. */
+    format: {
+      type: String,
+    },
+    /**
+     * Message shown when the filter hasn't got the min value defined.
+     *
+     * @public
+     */
+    lessThan: {
+      type: String,
+      required: true,
+    },
+    /**
+     * Message shown when the filter has both the min and max values defined.
+     *
+     * @public
+     */
+    fromTo: {
+      type: String,
+      required: true,
+    },
+    /**
+     * Message shown when the filter hasn't got max value defined.
+     *
+     * @public
+     */
+    from: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    /**
+     * The active label, retrieved from the provided props.
+     * It depends on the min and max values of the filter.
+     *
+     * @returns The active label to be formatted with the min and max values of the filter.
+     */
+    const label = computed<string>(() => {
+      return props.filter.range.min === null
+        ? props.lessThan
+        : props.filter.range.max === null
           ? props.from
-          : props.fromTo;
-      });
+          : props.fromTo
+    })
 
-      return () => {
-        const labelParts = label.value.split(/({min}|{max})/);
+    return () => {
+      const labelParts = label.value.split(/(\{min\}|\{max\})/)
 
-        const children = labelParts.map(partMessage => {
-          if (partMessage === '{min}') {
-            return h(BaseCurrency, {
-              value: props.filter.range.min as number,
-              format: props.format
-            });
-          } else if (partMessage === '{max}') {
-            return h(BaseCurrency, {
-              value: props.filter.range.max as number,
-              format: props.format
-            });
-          }
-          return partMessage;
-        });
+      const children = labelParts.map(partMessage => {
+        if (partMessage === '{min}') {
+          return h(BaseCurrency, {
+            value: props.filter.range.min as number,
+            format: props.format,
+          })
+        } else if (partMessage === '{max}') {
+          return h(BaseCurrency, {
+            value: props.filter.range.max as number,
+            format: props.format,
+          })
+        }
+        return partMessage
+      })
 
-        return h('span', { class: 'x-price-filter-label' }, children);
-      };
+      return h('span', { class: 'x-price-filter-label' }, children)
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -126,18 +127,18 @@ how the price should look like.
 </template>
 
 <script>
-  import { BasePriceFilterLabel } from '@empathyco/x-components';
-  import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets';
+import { BasePriceFilterLabel } from '@empathyco/x-components'
+import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets'
 
-  export default {
-    name: 'MyFacets',
-    components: {
-      Facets,
-      Filters,
-      NumberRangeFilter,
-      BasePriceFilterLabel
-    }
-  };
+export default {
+  name: 'MyFacets',
+  components: {
+    Facets,
+    Filters,
+    NumberRangeFilter,
+    BasePriceFilterLabel,
+  },
+}
 </script>
 ```
 </docs>

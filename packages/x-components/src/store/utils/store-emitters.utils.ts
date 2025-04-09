@@ -1,9 +1,9 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { WatchOptions } from 'vue';
-import { Returns } from '../../utils/types';
-import { XEvent, XEventPayload } from '../../wiring/events.types';
-import { AnyXStoreModule } from '../store.types';
-import { WireMetadata } from '../../wiring/wiring.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { WatchOptions } from 'vue'
+import type { Returns } from '../../utils/types'
+import type { XEvent, XEventPayload } from '../../wiring/events.types'
+import type { WireMetadata } from '../../wiring/wiring.types'
+import type { AnyXStoreModule } from '../store.types'
 
 /**
  * Selects a part of the store state or getters (AKA "getter" inside
@@ -17,8 +17,8 @@ import { WireMetadata } from '../../wiring/wiring.types';
 export type SimpleStateSelector<
   ReturnType,
   State extends Dictionary,
-  Getters extends Dictionary
-> = (state: State, getters: Getters) => ReturnType;
+  Getters extends Dictionary,
+> = (state: State, getters: Getters) => ReturnType
 
 /**
  * Composition type of {@link SimpleStateSelector} which allows to indicate if the state selector
@@ -33,7 +33,7 @@ export type SimpleStateSelector<
  */
 export interface StateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary>
   extends WatchOptions {
-  selector: SimpleStateSelector<ReturnType, State, Getters>;
+  selector: SimpleStateSelector<ReturnType, State, Getters>
   /**
    * Asserts if the event should really be emitted taking into account the new and old values and
    * the module state.
@@ -47,8 +47,8 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
    * @param state - The state of the {@link XModule} where this selector is used.
    * @returns True if the value has really changed.
    */
-  filter?(newValue: ReturnType, oldValue: ReturnType, state: State): boolean;
-  metadata?: Partial<WireMetadata>;
+  filter?: (newValue: ReturnType, oldValue: ReturnType, state: State) => boolean
+  metadata?: Partial<WireMetadata>
 }
 
 /**
@@ -72,39 +72,38 @@ export type StoreEmitters<StoreModule extends AnyXStoreModule> = {
         XEventPayload<Event>,
         ReturnType<StoreModule['state']>,
         Returns<StoreModule['getters']>
-      >;
-};
+      >
+}
 /**
  * Alias for any simple state selector.
  *
  * @public
  */
-export type AnySimpleStateSelector = SimpleStateSelector<any, any, any>;
+export type AnySimpleStateSelector = SimpleStateSelector<any, any, any>
 /**
  * Alias for any state selector.
  *
  * @public
  */
-export type AnyStateSelector = StateSelector<any, any, any>;
+export type AnyStateSelector = StateSelector<any, any, any>
 /**
  * Alias for any store emitters.
  *
  * @public
  */
-export type AnyStoreEmitters = StoreEmitters<AnyXStoreModule>;
+export type AnyStoreEmitters = StoreEmitters<AnyXStoreModule>
 
 /**
  * Helper function for creating type-safe {@link StoreEmitters}.
  *
- * @param storeModule - The store module that the emitters will be associated to.
+ * @param _storeModule - The store module that the emitters will be associated to.
  * @param emitters - The {@link StoreEmitters} to create.
  * @returns A type-safe function for storeEmitters.
  * @public
  */
 export function createStoreEmitters<
   Module extends AnyXStoreModule,
-  Emitters extends StoreEmitters<Module>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(storeModule: Module, emitters: Emitters): Emitters {
-  return emitters;
+  Emitters extends StoreEmitters<Module>,
+>(_storeModule: Module, emitters: Emitters): Emitters {
+  return emitters
 }

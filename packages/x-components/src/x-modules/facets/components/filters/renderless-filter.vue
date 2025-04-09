@@ -1,75 +1,76 @@
 <script lang="ts">
-  import { Dictionary } from '@empathyco/x-utils';
-  import { computed, defineComponent, PropType } from 'vue';
-  import { BooleanFilter } from '@empathyco/x-types';
-  import { useXBus } from '../../../../composables/use-x-bus';
-  import { XEvent, XEventsTypes } from '../../../../wiring/events.types';
-  import { facetsXModule } from '../../x-module';
+import type { BooleanFilter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { PropType } from 'vue'
+import type { XEvent, XEventsTypes } from '../../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import { useXBus } from '../../../../composables/use-x-bus'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Renders default slot content. It binds to the default slot a
-   * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
-   * that will be emitted when clicking the content, the CSS classes and if the content should be
-   * deactivated.
-   *
-   * @remarks The default slot expects a root element, if it receives a list of elements, it will
-   * render the first element.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'RenderlessFilter',
-    xModule: facetsXModule.name,
-    inheritAttrs: false,
-    props: {
-      /** The filter data to render. */
-      filter: {
-        type: Object as PropType<BooleanFilter>,
-        required: true
-      },
-      /** Additional events with its payload to emit when the filter is clicked. */
-      clickEvents: Object as PropType<Partial<XEventsTypes>>,
-      /** Inheritance CSS classes. */
-      cssClasses: {
-        type: Array as PropType<(string | Dictionary<boolean>)[]>,
-        default: () => []
-      }
+/**
+ * Renders default slot content. It binds to the default slot a
+ * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
+ * that will be emitted when clicking the content, the CSS classes and if the content should be
+ * deactivated.
+ *
+ * @remarks The default slot expects a root element, if it receives a list of elements, it will
+ * render the first element.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'RenderlessFilter',
+  xModule: facetsXModule.name,
+  inheritAttrs: false,
+  props: {
+    /** The filter data to render. */
+    filter: {
+      type: Object as PropType<BooleanFilter>,
+      required: true,
     },
-    setup(props, { slots }) {
-      const xBus = useXBus();
+    /** Additional events with its payload to emit when the filter is clicked. */
+    clickEvents: Object as PropType<Partial<XEventsTypes>>,
+    /** Inheritance CSS classes. */
+    cssClasses: {
+      type: Array as PropType<(string | Dictionary<boolean>)[]>,
+      default: () => [],
+    },
+  },
+  setup(props, { slots }) {
+    const xBus = useXBus()
 
-      /** Returns `true` when the filter should be disabled. */
-      const isDisabled = computed(() => props.filter.totalResults === 0);
+    /** Returns `true` when the filter should be disabled. */
+    const isDisabled = computed(() => props.filter.totalResults === 0)
 
-      /** CSS classes to apply to the element. */
-      const innerCssClasses = computed(() => [
-        'x-facet-filter',
-        { 'x-selected': props.filter.selected },
-        ...props.cssClasses
-      ]);
+    /** CSS classes to apply to the element. */
+    const innerCssClasses = computed(() => [
+      'x-facet-filter',
+      { 'x-selected': props.filter.selected },
+      ...props.cssClasses,
+    ])
 
-      /** The events that will be emitted when the filter is clicked. */
-      const innerClickEvents = computed(() => ({
-        UserClickedAFilter: props.filter,
-        ...props.clickEvents
-      }));
+    /** The events that will be emitted when the filter is clicked. */
+    const innerClickEvents = computed(() => ({
+      UserClickedAFilter: props.filter,
+      ...props.clickEvents,
+    }))
 
-      /** Emit filter click events to the bus. */
-      function emitClickEvents() {
-        Object.entries(innerClickEvents.value).forEach(([event, payload]) => {
-          xBus.emit(event as XEvent, payload);
-        });
-      }
-
-      return () =>
-        slots.default?.({
-          filter: props.filter,
-          clickFilter: emitClickEvents,
-          cssClasses: innerCssClasses.value,
-          isDisabled: isDisabled.value
-        }) ?? '';
+    /** Emit filter click events to the bus. */
+    function emitClickEvents() {
+      Object.entries(innerClickEvents.value).forEach(([event, payload]) => {
+        xBus.emit(event as XEvent, payload)
+      })
     }
-  });
+
+    return () =>
+      slots.default?.({
+        filter: props.filter,
+        clickFilter: emitClickEvents,
+        cssClasses: innerCssClasses.value,
+        isDisabled: isDisabled.value,
+      }) ?? ''
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -100,19 +101,19 @@ when clicking the content, the CSS classes and if the content should be deactiva
 </template>
 
 <script>
-  import { RenderlessFilter } from '@empathyco/x-components';
+import { RenderlessFilter } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      RenderlessFilter
+export default {
+  components: {
+    RenderlessFilter,
+  },
+  props: ['filter'],
+  computed: {
+    clickEvents() {
+      return { UserClickedAHierarchicalFilter: this.filter }
     },
-    props: ['filter'],
-    computed: {
-      clickEvents() {
-        return { UserClickedAHierarchicalFilter: this.filter };
-      }
-    }
-  };
+  },
+}
 </script>
 ```
 </docs>

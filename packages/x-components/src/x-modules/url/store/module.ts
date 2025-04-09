@@ -1,8 +1,8 @@
-import { setQuery } from '../../../store/utils/query.utils';
-import { urlParams } from './getters/url-params.getter';
-import { initialUrlState } from './initial-state';
-import { setParams } from './mutations/set-params.mutation';
-import { UrlXStoreModule } from './types';
+import type { UrlXStoreModule } from './types'
+import { setQuery } from '../../../store/utils/query.utils'
+import { urlParams } from './getters/url-params.getter'
+import { initialUrlState } from './initial-state'
+import { setParams } from './mutations/set-params.mutation'
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -12,35 +12,35 @@ import { UrlXStoreModule } from './types';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     ...initialUrlState,
-    initialExtraParams: {}
+    initialExtraParams: {},
   }),
   getters: {
-    urlParams
+    urlParams,
   },
   mutations: {
     setParams,
     setQuery,
     setRelatedTags(state, relatedTags) {
-      state.tag = relatedTags.map(relatedTag => relatedTag.tag);
+      state.tag = relatedTags.map(relatedTag => relatedTag.tag)
     },
     setPrompt(state, prompt) {
-      state.prompt = prompt;
+      state.prompt = prompt
     },
     setFilters(state, newFilters) {
-      state.filter = newFilters.map(filter => filter.id as string);
+      state.filter = newFilters.map(filter => filter.id as string)
     },
     setPage(state, page) {
-      state.page = page;
+      state.page = page
     },
     setSort(state, sort) {
-      state.sort = sort;
+      state.sort = sort
     },
     setInitialExtraParams(state, extraParams) {
-      state.initialExtraParams = extraParams;
+      state.initialExtraParams = extraParams
     },
     setScroll(state, scroll) {
-      state.scroll = scroll;
-    }
+      state.scroll = scroll
+    },
   },
-  actions: {}
-};
+  actions: {},
+}
