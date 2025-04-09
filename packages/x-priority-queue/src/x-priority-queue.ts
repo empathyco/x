@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { NumberComparatorFn, XPriorityQueue, XPriorityQueueNode } from './x-priority-queue.types';
+import type { Dictionary } from '@empathyco/x-utils';
+import type { NumberComparatorFn, XPriorityQueue, XPriorityQueueNode } from './x-priority-queue.types';
 
 /**
  * Default {@link XPriorityQueueNode} implementation.

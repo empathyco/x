@@ -1,4 +1,4 @@
-import { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils';
 
 /**
  * An object containing a key, a priority number and a data.
@@ -43,7 +43,7 @@ export interface XPriorityQueue<SomeRecord extends Dictionary, SomeData extends 
    * in the queue.
    * @param data - Extra data related to the inserted key.
    */
-  push(key: keyof SomeRecord, priority: number, data?: SomeData): void;
+  push: (key: keyof SomeRecord, priority: number, data?: SomeData) => void;
 
   /**
    * Retrieves and removes the head {@link XPriorityQueueNode | node} of the queue.
@@ -51,14 +51,14 @@ export interface XPriorityQueue<SomeRecord extends Dictionary, SomeData extends 
    * @returns The head {@link XPriorityQueueNode | node} of the {@link XPriorityQueue | queue} or
    * undefined if the queue is empty.
    */
-  pop(): XPriorityQueueNode<SomeRecord, SomeData> | undefined;
+  pop: () => XPriorityQueueNode<SomeRecord, SomeData> | undefined;
 
   /**
    * Retrieves the number of elements stored in the queue.
    *
    * @returns The number of elements in the queue.
    */
-  size(): number;
+  size: () => number;
 }
 
 /**

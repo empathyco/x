@@ -1,5 +1,5 @@
+import type { XPriorityQueueNode } from '../x-priority-queue.types';
 import { BaseXPriorityQueue } from '../x-priority-queue';
-import { XPriorityQueueNode } from '../x-priority-queue.types';
 
 describe('x-priority-queue scenarios', () => {
   interface QueueRecord {
@@ -70,7 +70,7 @@ describe('x-priority-queue scenarios', () => {
       ]);
     });
 
-    // eslint-disable-next-line max-len
+     
     it('inserts an element with the same key as an already existing non-replaceable element', () => {
       interface QueueNodeData {
         previous: boolean;
@@ -101,7 +101,7 @@ describe('x-priority-queue scenarios', () => {
       });
     });
 
-    // eslint-disable-next-line max-len
+     
     it('inserts an element with the same key as an already existing and replaceable element', () => {
       interface QueueNodeData {
         replaceable: true;
