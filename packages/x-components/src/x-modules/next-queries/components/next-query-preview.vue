@@ -70,7 +70,7 @@ export default defineComponent({
      * The results preview of the next queries mounted.
      * It is a dictionary, indexed by the next query query.
      */
-    const { resultsPreview } = useState('nextQueries', ['resultsPreview'])
+    const { resultsPreview } = useState('nextQueries')
 
     /**
      * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview

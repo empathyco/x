@@ -41,7 +41,7 @@ export default defineComponent({
      *
      * @public
      */
-    const { query } = useState('identifierResults', ['query'])
+    const { query } = useState('identifierResults')
 
     /**
      * The RegExp with the current query from the state adding the separatorChars after each

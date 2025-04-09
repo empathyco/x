@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { Promoted } from '@empathyco/x-types'
-import type { ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { ListItem } from '../../../utils/types'
 import { computed, defineComponent, h, inject, provide } from 'vue'
 import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts'
@@ -35,7 +34,7 @@ export default defineComponent({
     const $x = use$x()
 
     /** The promoteds to render from the state. */
-    const stateItems: ComputedRef<Promoted[]> = useState('search', ['promoteds']).promoteds
+    const stateItems = useState('search').promoteds
 
     /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)

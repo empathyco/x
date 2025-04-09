@@ -57,7 +57,7 @@ export default defineComponent({
      *
      * @public
      */
-    const { identifierResults } = useState('identifierResults', ['identifierResults'])
+    const { identifierResults } = useState('identifierResults')
 
     /**
      * The additional events to be emitted by the mandatory {@link BaseResultLink} component.

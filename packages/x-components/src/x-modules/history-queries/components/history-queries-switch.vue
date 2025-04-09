@@ -31,10 +31,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { isEnabled, historyQueries } = useState('historyQueries', [
-      'isEnabled',
-      'historyQueries',
-    ])
+    const { isEnabled, historyQueries } = useState('historyQueries')
 
     /**
      * Checks if there are history queries.

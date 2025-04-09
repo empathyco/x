@@ -63,7 +63,7 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { sort: selectedSort } = useState('search', ['sort'])
+    const { sort: selectedSort } = useState('search')
 
     watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
       immediate: true,

@@ -72,7 +72,7 @@ export default defineComponent({
      * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
      * `id` property, this component should be scrolled into view.
      */
-    const { pendingScrollTo } = useState('scroll', ['pendingScrollTo'])
+    const { pendingScrollTo } = useState('scroll')
 
     /** Disables the animations. */
     const disableAnimations = computed((): boolean => !!pendingScrollTo.value)

@@ -58,7 +58,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { query, status } = useState('nextQueries', ['query', 'status'])
+    const { query, status } = useState('nextQueries')
 
     /** The state next queries. */
     const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [

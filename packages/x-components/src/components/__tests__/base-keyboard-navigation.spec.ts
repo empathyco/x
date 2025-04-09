@@ -1,4 +1,7 @@
+import type { DeepPartial } from '@empathyco/x-utils/types/types/utils.types'
+import type { RootXStoreState } from 'src/store/store.types'
 import { mount } from '@vue/test-utils'
+import { Store } from 'vuex'
 import { installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
 import { DirectionalFocusNavigationService } from '../../services/directional-focus-navigation.service'
@@ -11,8 +14,9 @@ describe('testing keyboard navigation component', () => {
       DirectionalFocusNavigationService.prototype as any,
       'navigateTo',
     )
+    const store = new Store<DeepPartial<RootXStoreState>>({})
     mount(BaseKeyboardNavigation, {
-      global: { plugins: [installNewXPlugin()] },
+      global: { plugins: [installNewXPlugin({ store })] },
       props: {
         navigationHijacker: [
           {

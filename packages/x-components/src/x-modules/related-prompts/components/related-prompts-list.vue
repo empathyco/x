@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { RelatedPrompt } from '@empathyco/x-types'
-import type { ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { ListItem } from '../../../utils/types'
 import type { RelatedPromptsGroup } from '../types'
 import { computed, defineComponent, h, inject, provide } from 'vue'
@@ -70,14 +69,10 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { query, status } = useState('relatedPrompts', ['query', 'status'])
-
     /**
      * The state related prompts.
      */
-    const relatedPrompts: ComputedRef<RelatedPrompt[]> = useState('relatedPrompts', [
-      'relatedPrompts',
-    ]).relatedPrompts
+    const { query, status, relatedPrompts } = useState('relatedPrompts')
 
     /**
      * Injected query, updated when the related request(s) have succeeded.

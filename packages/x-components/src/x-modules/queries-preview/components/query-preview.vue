@@ -19,12 +19,10 @@
 
 <script lang="ts">
 import type { Filter, SearchRequest } from '@empathyco/x-types'
-import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import type { FeatureLocation, QueryFeature } from '../../../types'
 import type { DebouncedFunction } from '../../../utils'
-import type { QueriesPreviewConfig } from '../config.types'
-import type { QueryPreviewInfo, QueryPreviewItem } from '../store/types'
+import type { QueryPreviewInfo } from '../store/types'
 import { deepEqual } from '@empathyco/x-utils'
 import { computed, defineComponent, inject, onBeforeUnmount, provide, watch } from 'vue'
 import { LIST_ITEMS_KEY } from '../../../components'
@@ -79,26 +77,17 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const xBus = useXBus()
 
-    const queriesPreviewState = useState('queriesPreview', ['queriesPreview', 'params', 'config'])
-
     /**
-     * The results preview of the queries preview cacheable mounted.
+     * previewResults: The results preview of the queries preview cacheable mounted.
      * It is a dictionary, indexed by the query preview query.
-     */
-    const previewResults: ComputedRef<Dictionary<QueryPreviewItem>> =
-      queriesPreviewState.queriesPreview
-
-    /**
-     * As the request is handled in this component, we need
+     *
+     * params: As the request is handled in this component, we need
      * the extra params that will be used in the request.
-     */
-    const params: ComputedRef<Dictionary<unknown>> = queriesPreviewState.params
-
-    /**
-     * As the request is handled in this component, we need
+     *
+     * config: As the request is handled in this component, we need
      * the config that will be used in the request.
      */
-    const config: ComputedRef<QueriesPreviewConfig> = queriesPreviewState.config
+    const { queriesPreview: previewResults, params, config } = useState('queriesPreview')
 
     /**
      * Query Preview key converted into a unique id.

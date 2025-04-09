@@ -22,8 +22,6 @@
 </template>
 
 <script lang="ts">
-import type { PartialResult } from '@empathyco/x-types'
-import type { ComputedRef } from 'vue'
 import { computed, defineComponent } from 'vue'
 import { useState } from '../../../composables/use-state'
 import { AnimationProp } from '../../../types/animation-prop'
@@ -65,9 +63,7 @@ export default defineComponent({
      *
      * @public
      */
-    const items: ComputedRef<PartialResult[]> = useState('search', [
-      'partialResults',
-    ]).partialResults
+    const items = useState('search').partialResults
 
     /**
      * A limited number of partial results.

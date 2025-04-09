@@ -63,7 +63,7 @@ export default defineComponent({
   setup(_, { emit }) {
     const $x = use$x()
 
-    const { sort: selectedSort } = useState('search', ['sort'])
+    const { sort: selectedSort } = useState('search')
     const rootRef = ref<typeof BaseDropdown>()
 
     watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {

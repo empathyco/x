@@ -65,7 +65,7 @@ export default defineComponent({
      * @internal
      */
     // TODO: Directly retrieve the needed data in this computed property
-    const { data } = useState('scroll', ['data'])
+    const { data } = useState('scroll')
 
     /**
      * The scroll data retrieved for this component.
