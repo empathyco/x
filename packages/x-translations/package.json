@@ -5,21 +5,21 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-translations#readme",
-  "keywords": [
-    "translations"
-  ],
-  "files": [
-    "dist"
-  ],
-  "bin": {
-    "json-csv": "dist/json-to-csv.js",
-    "csv-json": "dist/csv-to-json.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/x-translations"
   },
+  "keywords": [
+    "translations"
+  ],
+  "bin": {
+    "json-csv": "dist/json-to-csv.js",
+    "csv-json": "dist/csv-to-json.js"
+  },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
   },

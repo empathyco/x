@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import path from 'path';
+import type { JSON } from './types';
+import path from 'node:path';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
-import { JSON } from './types';
 
 if (require.main === module) {
   getCSVTranslations();
@@ -45,6 +45,7 @@ function generateCSVFile(sourcePath: string): string {
 function getTranslations(columnNames: string[], source: JSON): JSON {
   return columnNames.reduce(
     (translations, column) =>
+      // eslint-disable-next-line ts/no-unsafe-return
       deepMerge(translations, getTranslation(source[column] as JSON, column)),
     {}
   );
@@ -86,7 +87,7 @@ function getTranslation(source: JSON, column: string): JSON {
     if (typeof value === 'object') {
       const flatObject = getTranslation(value as JSON, column);
       Object.entries(flatObject).forEach(([subKey, subValue]) => {
-        translation[key + '.' + subKey] = subValue;
+        translation[`${key  }.${  subKey}`] = subValue;
       });
     } else {
       if (!(key in translation)) {
@@ -110,7 +111,7 @@ function transformToCSV(sourceJson: JSON): string {
   const translations = getTranslations(columnNames, sourceJson);
 
   const delimiter = ';';
-  let csv = ['key', ...columnNames].join(delimiter) + '\n';
+  let csv = `${['key', ...columnNames].join(delimiter)  }\n`;
 
   Object.entries(translations).forEach(([key, value]) => {
     const line = [key];
@@ -119,7 +120,7 @@ function transformToCSV(sourceJson: JSON): string {
       line.push(`${((value as JSON)[columnName] as string) ?? ''}`);
     });
 
-    csv += line.join(delimiter) + '\n';
+    csv += `${line.join(delimiter)  }\n`;
   });
   return csv;
 }

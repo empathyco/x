@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import path from 'path';
-import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
+import path from 'node:path';
 import { JSON } from './types';
+import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
 
 if (require.main === module) {
   getJSONTranslations();

@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { loadFile } from '../utils';
+import fs from 'node:fs';
+import path from 'node:path';
 import { getCSVTranslations } from '../json-to-csv';
+import { loadFile } from '../utils';
 
 describe('transform json to csv', () => {
   const sourcePath = './src/__tests__/json/en.messages.json';

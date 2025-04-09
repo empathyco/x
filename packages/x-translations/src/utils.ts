@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { CommandParameters, JSON } from './types';
+import type { CommandParameters, JSON } from './types';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Gets the parameters used to call the script.
@@ -8,9 +8,10 @@ import { CommandParameters, JSON } from './types';
  * @returns SourcePath and targetPath as strings.
  */
 export function getParams(): CommandParameters {
+  // eslint-disable-next-line node/prefer-global/process
   const [sourcePath, targetPath] = process.argv.slice(2);
   if (sourcePath === undefined) {
-    throw Error('getParams, sourcePath not found');
+    throw new Error('getParams, sourcePath not found');
   }
   return { sourcePath, targetPath };
 }
@@ -24,9 +25,10 @@ export function getParams(): CommandParameters {
  */
 export function loadFile(sourcePath: string): JSON | string {
   if (!fs.existsSync(sourcePath)) {
-    throw Error(`loadFile, file not found ${sourcePath}`);
+    throw new Error(`loadFile, file not found ${sourcePath}`);
   }
   if (path.extname(sourcePath) === '.json') {
+    // eslint-disable-next-line ts/no-require-imports,ts/no-unsafe-return
     return require(sourcePath);
   } else {
     return fs.readFileSync(sourcePath, { encoding: 'utf8' });
@@ -47,6 +49,7 @@ export function getSourcePaths(source: string, extension: string): string[] {
     : [source];
   return filePaths
     .filter(filePath => filePath.endsWith(extension))
+    // eslint-disable-next-line node/prefer-global/process
     .map(filePath => path.resolve(process.cwd(), filePath));
 }
 /**

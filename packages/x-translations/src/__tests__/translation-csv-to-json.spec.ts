@@ -1,9 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import { getJSONTranslations } from '../csv-to-json';
+import fs from 'node:fs';
+import path from 'node:path';
 import expectedJson from '../__tests__/json/en.messages.json';
+import { getJSONTranslations } from '../csv-to-json';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 describe('transform CSV to a JSON', () => {
   const sourcePath = './src/__tests__/csv/en.messages.csv';
   const csvPath = './src/__tests__/csv';

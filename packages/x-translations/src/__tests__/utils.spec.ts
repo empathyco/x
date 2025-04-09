@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { exportToFile, getParams, loadFile } from '../utils';
 
 describe('test utils', () => {
