@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `sizes` variants for component `progress-bar`.
@@ -9,10 +9,10 @@ import type { TailwindHelpers } from '../../../types';
 export function progressBarSizes({ theme }: TailwindHelpers) {
   return {
     md: {
-      height: theme('x.spacing.4')
+      height: theme('x.spacing.4'),
     },
     lg: {
-      height: theme('x.spacing.8')
-    }
-  };
+      height: theme('x.spacing.8'),
+    },
+  }
 }

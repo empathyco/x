@@ -6,7 +6,6 @@ export default empathyco({
     'vue/no-template-shadow': 'off',
     'ts/no-unsafe-assignment': 'off',
     'ts/restrict-template-expressions': 'off',
-    'jsdoc/check-param-names': 'off'
-  }
+    'jsdoc/check-param-names': 'off',
+  },
 })
-

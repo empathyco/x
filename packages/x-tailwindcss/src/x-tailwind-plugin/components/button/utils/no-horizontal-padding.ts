@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Util to remove horizontal padding for component `button`.
@@ -9,6 +9,6 @@ import type { TailwindHelpers } from '../../../../types';
 export function noHorizontalPadding(_helpers: TailwindHelpers) {
   return {
     paddingInlineStart: '0',
-    paddingInlineEnd: '0'
-  };
+    paddingInlineEnd: '0',
+  }
 }

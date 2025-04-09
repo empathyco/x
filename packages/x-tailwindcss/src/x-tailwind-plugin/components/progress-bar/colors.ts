@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `colors` variants for component `progress-bar`.
@@ -10,8 +10,8 @@ import { mapColors } from '../../utils/map-colors';
 export function progressBarColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
-      '--progress-bar-color-50': color['50']
+      '--progress-bar-color-50': color['50'],
     }),
-    helpers
-  );
+    helpers,
+  )
 }

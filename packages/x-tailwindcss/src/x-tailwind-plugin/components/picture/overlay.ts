@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `overlay` variant of component `picture`.
@@ -7,17 +7,17 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function overlay(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     overlay: {
       '&:hover': {
-        mixBlendMode: 'multiply'
+        mixBlendMode: 'multiply',
       },
       '.x-picture-image': {
         '&:hover': {
-          maskImage: `linear-gradient(to top, transparent, 20%, ${theme('x.colors.neutral.100')})`
-        }
-      }
-    }
-  };
+          maskImage: `linear-gradient(to top, transparent, 20%, ${theme('x.colors.neutral.100')})`,
+        },
+      },
+    },
+  }
 }

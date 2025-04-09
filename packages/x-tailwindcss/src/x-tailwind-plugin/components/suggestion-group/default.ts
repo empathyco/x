@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../types';
-import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
-import { suggestionGroupSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline'
+import { suggestionGroupSizes } from './sizes'
 
 /**
  * Returns the default styles for component `suggestion group`.
@@ -9,7 +9,7 @@ import { suggestionGroupSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function suggestionGroupDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     gap: theme('x.spacing.16'),
     ...suggestionGroupSizes(helpers).md,
@@ -32,7 +32,7 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     ...alignIconWithBaseline(),
 
     '&:hover': {
-      textDecoration: 'underline'
+      textDecoration: 'underline',
     },
 
     '.x-suggestion': {
@@ -41,7 +41,7 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
       fontSize: 'inherit',
       fontFamily: 'inherit',
       fontWeight: 'inherit',
-      textDecoration: 'inherit'
-    }
-  };
+      textDecoration: 'inherit',
+    },
+  }
 }

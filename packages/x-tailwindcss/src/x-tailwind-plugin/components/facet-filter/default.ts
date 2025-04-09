@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../types';
-import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
-import { facetFilterSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline'
+import { facetFilterSizes } from './sizes'
 
 /**
  * Returns the default styles for component `facet-filter`.
@@ -9,7 +9,7 @@ import { facetFilterSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function facetFilterDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     display: 'grid',
@@ -34,18 +34,18 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
     ...alignIconWithBaseline(),
 
     '&:hover': {
-      color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`
+      color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`,
     },
 
     '&.selected': {
       fontWeight: theme('x.fontWeight.bold'),
       letterSpacing: theme('x.letterSpacing.xs'),
-      color: `var(--filter-color-50, ${theme('x.colors.neutral.90')})`
+      color: `var(--filter-color-50, ${theme('x.colors.neutral.90')})`,
     },
 
     '&:disabled': {
       color: theme('x.colors.neutral.25'),
-      cursor: 'not-allowed'
-    }
-  };
+      cursor: 'not-allowed',
+    },
+  }
 }

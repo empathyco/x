@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../../types';
-import { rename } from '@empathyco/x-utils';
-import { mapColors } from '../../../utils/map-colors';
+import type { TailwindHelpers } from '../../../../types'
+import { rename } from '@empathyco/x-utils'
+import { mapColors } from '../../../utils/map-colors'
 /**
  * Returns the `color` variants for component `suggestion group button lighter`.
  *
@@ -13,11 +13,11 @@ export function suggestionGroupLighterColors(helpers: TailwindHelpers) {
       color => ({
         '--suggestion-group-button-color-50': color['50'],
         '.x-suggestion-group-button-lighter:hover': {
-          color: 'var(--suggestion-group-button-color-50)'
-        }
+          color: 'var(--suggestion-group-button-color-50)',
+        },
       }),
-      helpers
+      helpers,
     ),
-    { prefix: '.x-suggestion-group-' }
-  );
+    { prefix: '.x-suggestion-group-' },
+  )
 }

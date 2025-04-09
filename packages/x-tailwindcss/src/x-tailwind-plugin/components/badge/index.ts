@@ -1,12 +1,12 @@
-import type { TailwindHelpers } from '../../../types';
-import { rename } from '@empathyco/x-utils';
-import { badgeBright } from './bright';
-import { badgeCircle } from './circle';
-import { badgeColors } from './colors';
-import { badgeDefault } from './default';
-import { badgeLight } from './light';
-import { badgeOutlined } from './outlined';
-import { badgeSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
+import { badgeBright } from './bright'
+import { badgeCircle } from './circle'
+import { badgeColors } from './colors'
+import { badgeDefault } from './default'
+import { badgeLight } from './light'
+import { badgeOutlined } from './outlined'
+import { badgeSizes } from './sizes'
 
 /**
  * Returns the component `badge` CSS.
@@ -25,12 +25,12 @@ export function badge(helpers: TailwindHelpers) {
           ...badgeColors(helpers),
           ...badgeOutlined(helpers),
           ...badgeLight(helpers),
-          ...badgeBright(helpers)
+          ...badgeBright(helpers),
         },
         {
-          prefix: '&-'
-        }
-      )
-    }
-  };
+          prefix: '&-',
+        },
+      ),
+    },
+  }
 }

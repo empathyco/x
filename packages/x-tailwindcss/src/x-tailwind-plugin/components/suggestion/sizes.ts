@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `sizes` variants for component `suggestion`.
@@ -11,17 +11,17 @@ export function suggestionSizes({ theme }: TailwindHelpers) {
     sm: {
       minHeight: theme('x.spacing.24'),
       gap: theme('x.spacing.8'),
-      fontSize: theme('x.fontSize.sm')
+      fontSize: theme('x.fontSize.sm'),
     },
     md: {
       minHeight: theme('x.spacing.32'),
       gap: theme('x.spacing.8'),
-      fontSize: theme('x.fontSize.sm')
+      fontSize: theme('x.fontSize.sm'),
     },
     lg: {
       minHeight: theme('x.spacing.48'),
       gap: theme('x.spacing.24'),
-      fontSize: theme('x.fontSize.md')
-    }
-  };
+      fontSize: theme('x.fontSize.md'),
+    },
+  }
 }

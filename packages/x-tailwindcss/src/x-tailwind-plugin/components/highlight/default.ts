@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the default styles for component `highlight`.
@@ -7,11 +7,11 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function highlightDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     fontWeight: theme('x.fontWeight.bold'),
     '&-match': {
-      fontWeight: theme('x.fontWeight.regular')
-    }
-  };
+      fontWeight: theme('x.fontWeight.regular'),
+    },
+  }
 }

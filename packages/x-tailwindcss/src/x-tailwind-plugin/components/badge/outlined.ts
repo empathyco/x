@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `outlined` variant for component `badge`.
@@ -7,7 +7,7 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function badgeOutlined(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     outlined: {
@@ -15,7 +15,7 @@ export function badgeOutlined(helpers: TailwindHelpers) {
       backgroundColor: 'transparent',
 
       borderWidth: theme('x.spacing.1'),
-      borderColor: `var(--badge-color-50, ${theme('x.colors.neutral.90')})`
-    }
-  };
+      borderColor: `var(--badge-color-50, ${theme('x.colors.neutral.90')})`,
+    },
+  }
 }

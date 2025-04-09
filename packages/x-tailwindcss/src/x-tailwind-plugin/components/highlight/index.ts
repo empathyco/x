@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { highlightDefault } from './default';
+import type { TailwindHelpers } from '../../../types'
+import { highlightDefault } from './default'
 
 /**
  * Returns the `highlight` component CSS. The highlight component serves to emphasize certain part
@@ -11,7 +11,7 @@ import { highlightDefault } from './default';
 export function highlight(helpers: TailwindHelpers) {
   return {
     '.x-highlight-text': {
-      ...highlightDefault(helpers)
-    }
-  };
+      ...highlightDefault(helpers),
+    },
+  }
 }

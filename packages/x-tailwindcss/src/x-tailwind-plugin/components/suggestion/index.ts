@@ -1,10 +1,10 @@
-import type { TailwindHelpers } from '../../../types';
-import { rename } from '@empathyco/x-utils';
-import { suggestionColors } from './colors';
-import { suggestionDefault } from './default';
-import { suggestionGhost } from './ghost';
-import { suggestionOutlined } from './outlined';
-import { suggestionSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
+import { suggestionColors } from './colors'
+import { suggestionDefault } from './default'
+import { suggestionGhost } from './ghost'
+import { suggestionOutlined } from './outlined'
+import { suggestionSizes } from './sizes'
 
 /**
  * Returns the component `suggestion` CSS.
@@ -21,10 +21,10 @@ export function suggestion(helpers: TailwindHelpers) {
           ...suggestionColors(helpers),
           ...suggestionSizes(helpers),
           ...suggestionOutlined(helpers),
-          ...suggestionGhost(helpers)
+          ...suggestionGhost(helpers),
         },
-        { prefix: '&-' }
-      )
-    }
-  };
+        { prefix: '&-' },
+      ),
+    },
+  }
 }

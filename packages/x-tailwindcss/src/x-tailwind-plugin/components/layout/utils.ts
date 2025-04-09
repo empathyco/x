@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the component `layout` utils CSS.
@@ -21,51 +21,51 @@ export function utils(_helpers: TailwindHelpers) {
         minHeight: '0',
         minWidth: '0',
         maxHeight: '100%',
-        maxWidth: '100%'
-      }
+        maxWidth: '100%',
+      },
     },
 
     '.x-layout-expand': {
       height: '100%',
       flex: '1 1 0',
-      minHeight: '0'
+      minHeight: '0',
     },
 
     '.x-layout-on-margin-left': {
-      gridColumn: '1 / 2'
+      gridColumn: '1 / 2',
     },
     '.x-layout-on-margin-right': {
-      gridColumn: '-2 / -1'
+      gridColumn: '-2 / -1',
     },
 
     '.x-layout-overlap': {
       height: '0',
       overflow: 'visible',
       alignContent: 'flex-end',
-      zIndex: '1'
+      zIndex: '1',
     },
     '.x-layout-overlap-from-top': {
       height: '0',
       overflow: 'visible',
       zIndex: '1',
-      alignContent: 'flex-start'
+      alignContent: 'flex-start',
     },
 
     '.x-layout-no-margin-left': {
-      '--x-margin-left': '0px'
+      '--x-margin-left': '0px',
     },
     '.x-layout-no-margin-right': {
-      '--x-margin-right': '0px'
+      '--x-margin-right': '0px',
     },
     '.x-layout-no-margin': {
       '--x-margin-left': '0px',
-      '--x-margin-right': '0px'
+      '--x-margin-right': '0px',
     },
 
     '@media (hover: hover) and (pointer: fine)': {
       '.x-scroll > .x-layout-item:not(.x-layout-no-margin-right)': {
-        '--x-layout-scroll-width': '17px'
-      }
-    }
-  };
+        '--x-layout-scroll-width': '17px',
+      },
+    },
+  }
 }

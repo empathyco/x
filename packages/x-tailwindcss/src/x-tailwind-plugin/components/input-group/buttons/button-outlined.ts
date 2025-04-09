@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Returns the `outlined` variant for component `input-group-button-primary`.
@@ -7,7 +7,7 @@ import type { TailwindHelpers } from '../../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function inputGroupButtonOutlined(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     backgroundColor: theme('x.colors.neutral.0'),
     borderColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
@@ -16,7 +16,7 @@ export function inputGroupButtonOutlined(helpers: TailwindHelpers) {
     '&:hover,&:focus,&:active': {
       backgroundColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
       borderColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
-      color: `theme('x.colors.neutral.0')`
-    }
-  };
+      color: `theme('x.colors.neutral.0')`,
+    },
+  }
 }

@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the CSS global variables to be used across the components.
@@ -24,7 +24,7 @@ export function variables(_helpers: TailwindHelpers) {
   return {
     ':root': {
       '--ON': 'initial',
-      '--OFF': ' '
-    }
-  };
+      '--OFF': ' ',
+    },
+  }
 }

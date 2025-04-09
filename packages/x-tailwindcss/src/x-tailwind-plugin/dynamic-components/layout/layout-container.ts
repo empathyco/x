@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { map, rename } from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
 
 /**
  * Returns the `layout-container` dynamic features of component `layout`.
@@ -8,7 +8,7 @@ import { map, rename } from '@empathyco/x-utils';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function dynamicLayoutContainer(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     ...map(
@@ -18,31 +18,31 @@ export function dynamicLayoutContainer(helpers: TailwindHelpers) {
             mx: (value: any) => ({
               '& > .x-layout-item': {
                 '--x-margin-left': value,
-                '--x-margin-right': value
-              }
+                '--x-margin-right': value,
+              },
             }),
             ml: (value: any) => ({
               '& > .x-layout-item': {
-                '--x-margin-left': value
-              }
+                '--x-margin-left': value,
+              },
             }),
             mr: (value: any) => ({
               '& > .x-layout-item': {
-                '--x-margin-right': value
-              }
-            })
+                '--x-margin-right': value,
+              },
+            }),
           },
-          { prefix: 'x-layout-container-' }
-        )
+          { prefix: 'x-layout-container-' },
+        ),
       },
       (name, styles) => {
         return {
           styles,
           values: {
-            ...theme('x.spacing')
-          }
-        };
-      }
-    )
-  };
+            ...theme('x.spacing'),
+          },
+        }
+      },
+    ),
+  }
 }

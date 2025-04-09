@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../types';
-import { map, rename } from '@empathyco/x-utils';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `suggestion group`.
@@ -15,11 +15,11 @@ export function suggestionGroupColors(helpers: TailwindHelpers) {
       color: 'var(--suggestion-group-color-75)',
       ...rename(
         map(color, (shadeName, shadeColor) => ({
-          color: shadeColor
+          color: shadeColor,
         })),
-        { prefix: '&-' }
-      )
+        { prefix: '&-' },
+      ),
     }),
-    helpers
-  );
+    helpers,
+  )
 }

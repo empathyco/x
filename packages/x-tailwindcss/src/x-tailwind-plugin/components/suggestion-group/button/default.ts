@@ -17,18 +17,18 @@ export function suggestionGroupButtonDefault() {
     minHeight: 'inherit',
     aspectRatio: '1',
     '&:hover': {
-      transform: 'scale(1.2)'
+      transform: 'scale(1.2)',
     },
 
     '&:last-child': {
-      justifySelf: 'end'
+      justifySelf: 'end',
     },
 
     /*To fix icon baseline alignment needs text to know the baseline*/
     '&::after': {
       content: `'|'`,
       width: 0,
-      visibility: 'hidden'
-    }
-  };
+      visibility: 'hidden',
+    },
+  }
 }

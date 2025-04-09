@@ -118,32 +118,32 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-import type { ShowcaseSections } from '../types/types';
-  import { defineComponent } from 'vue';
-  import { addParentClasses } from '../utils';
-  import PlusIcon from './icons/plus.vue';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { PropType } from 'vue'
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import PlusIcon from './icons/plus.vue'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: { XdsBaseShowcase, PlusIcon },
-    props: {
-      base: {
-        type: String,
-        default: 'x-button-group'
-      },
-      rounded: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-rounded-md']
+export default defineComponent({
+  components: { XdsBaseShowcase, PlusIcon },
+  props: {
+    base: {
+      type: String,
+      default: 'x-button-group',
+    },
+    rounded: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-rounded-md'],
+    },
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        Default: [this.base],
+        Rounded: this.rounded.map(addParentClasses(this.base)),
       }
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          Default: [this.base],
-          Rounded: this.rounded.map(addParentClasses(this.base))
-        };
-      }
-    }
-  });
+  },
+})
 </script>

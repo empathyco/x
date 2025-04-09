@@ -1,6 +1,6 @@
-import { slidingPanelButtonsDefault } from './default';
-import { slidingPanelButtonsHover } from './hover';
-import { slidingPanelButtonsPositions } from './positions';
+import { slidingPanelButtonsDefault } from './default'
+import { slidingPanelButtonsHover } from './hover'
+import { slidingPanelButtonsPositions } from './positions'
 
 /**
  * Returns the buttons for the component `sliding panel`.
@@ -12,14 +12,14 @@ export function slidingPanelButtons() {
     '.x-sliding-panel-button': {
       '&-left': {
         ...slidingPanelButtonsDefault(),
-        left: 0
+        left: 0,
       },
       '&-right': {
         ...slidingPanelButtonsDefault(),
-        right: 0
-      }
+        right: 0,
+      },
     },
     ...slidingPanelButtonsHover(),
-    ...slidingPanelButtonsPositions()
-  };
+    ...slidingPanelButtonsPositions(),
+  }
 }

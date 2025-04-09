@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `tight` styles for component `tag`.
@@ -7,22 +7,22 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function tagTight(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   // Tight & Tight Selected common styles
   const disabledStyles = {
     '&:disabled': {
       borderColor: 'transparent',
       color: theme('x.colors.neutral.25'),
-      fontWeight: theme('x.fontWeight.regular')
-    }
-  };
+      fontWeight: theme('x.fontWeight.regular'),
+    },
+  }
   const hoverStyles = {
     '&:hover,&:focus,&:active': {
       borderColor: 'transparent',
-      color: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
-    }
-  };
+      color: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
+    },
+  }
 
   return {
     tight: {
@@ -40,8 +40,8 @@ export function tagTight(helpers: TailwindHelpers) {
         fontWeight: theme('x.fontWeight.bold'),
 
         ...hoverStyles,
-        ...disabledStyles
-      }
-    }
-  };
+        ...disabledStyles,
+      },
+    },
+  }
 }

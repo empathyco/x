@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { inputSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { inputSizes } from './sizes'
 
 /**
  * Returns the default styles for component `input`.
@@ -9,7 +9,7 @@ import { inputSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function inputDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(
     {
@@ -25,29 +25,29 @@ export function inputDefault(helpers: TailwindHelpers) {
       cursor: 'text',
 
       '&:hover': {
-        borderColor: `var(--input-color-75,${theme('x.colors.neutral.50')})`
+        borderColor: `var(--input-color-75,${theme('x.colors.neutral.50')})`,
       },
 
       '&:focus,&:focus-within': {
         borderColor: `var(--input-color-75,${theme('x.colors.neutral.50')})`,
         outlineColor: `var(--input-color-25,${theme('x.colors.neutral.25')})`,
         outlineWidth: theme('x.borderWidth.2'),
-        outlineStyle: 'solid'
+        outlineStyle: 'solid',
       },
 
       '&:disabled,&[disabled]': {
         cursor: 'not-allowed',
         borderColor: theme('x.colors.neutral.25'),
         backgroundColor: theme('x.colors.neutral.10'),
-        color: theme('x.colors.neutral.50')
+        color: theme('x.colors.neutral.50'),
       },
 
       '&::placeholder,& .input-placeholder': {
         color: theme('x.colors.neutral.50'),
         fontFamily: theme('x.fontFamily.main'),
-        fontWeight: theme('x.fontWeight.regular')
-      }
+        fontWeight: theme('x.fontWeight.regular'),
+      },
     },
-    inputSizes(helpers).md
-  );
+    inputSizes(helpers).md,
+  )
 }

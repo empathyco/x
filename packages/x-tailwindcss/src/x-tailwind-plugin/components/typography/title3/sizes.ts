@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Returns the `sizes` variants for component `title3`.
@@ -9,14 +9,14 @@ import type { TailwindHelpers } from '../../../../types';
 export function titleSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      fontSize: theme('x.fontSize.sm')
+      fontSize: theme('x.fontSize.sm'),
     },
     md: {
       fontSize: theme('x.fontSize.md'),
-      lineHeight: theme('x.lineHeight.md')
+      lineHeight: theme('x.lineHeight.md'),
     },
     lg: {
-      fontSize: theme('x.fontSize.xl')
-    }
-  };
+      fontSize: theme('x.fontSize.xl'),
+    },
+  }
 }

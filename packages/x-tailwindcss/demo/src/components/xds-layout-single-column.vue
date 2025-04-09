@@ -48,32 +48,32 @@
 </template>
 
 <script lang="ts">
-  import type { ShowcaseSections } from '../types/types';
-  import { defineComponent } from 'vue';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-layout-container x-layout-max-width-md',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-layout-container x-layout-max-width-md'
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        '': [this.base],
       }
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          '': [this.base]
-        };
-      }
-    }
-  });
+  },
+})
 </script>
 
 <style lang="scss" scoped>
-  code {
-    text-decoration: underline;
-  }
+code {
+  text-decoration: underline;
+}
 </style>

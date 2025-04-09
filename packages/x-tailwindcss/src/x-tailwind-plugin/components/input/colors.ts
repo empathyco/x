@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `input`.
@@ -16,9 +16,9 @@ export function inputColors(helpers: TailwindHelpers) {
       borderColor: 'var(--input-color-50)',
 
       '&:focus': {
-        borderColor: 'var(--input-color-75)'
-      }
+        borderColor: 'var(--input-color-75)',
+      },
     }),
-    helpers
-  );
+    helpers,
+  )
 }

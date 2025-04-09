@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `colors` variants for component `badge`.
@@ -14,8 +14,8 @@ export function badgeColors(helpers: TailwindHelpers) {
         '--badge-color-25': color['25'],
         '--badge-color-50': color['50'],
 
-        backgroundColor: color['75']
-      };
-    }, helpers)
-  };
+        backgroundColor: color['75'],
+      }
+    }, helpers),
+  }
 }

@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Returns the `ghost` variant for component `suggestion group button`.
@@ -7,13 +7,13 @@ import type { TailwindHelpers } from '../../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function suggestionGroupButtonGhost(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     ghost: {
       '&:hover': {
         backgroundColor: theme('x.colors.neutral.25'),
-        transform: 'none'
-      }
-    }
-  };
+        transform: 'none',
+      },
+    },
+  }
 }

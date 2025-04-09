@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `container` element CSS.
@@ -19,8 +19,8 @@ export function container(_helpers: TailwindHelpers) {
       '& > .scroll': {
         height: '100%',
         flex: '1 1 0',
-        minHeight: '0'
-      }
-    }
-  };
+        minHeight: '0',
+      },
+    },
+  }
 }

@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { commonGhostAndTagStyles } from './utils/common-ghost-and-tag-styles';
+import type { TailwindHelpers } from '../../../types'
+import { commonGhostAndTagStyles } from './utils/common-ghost-and-tag-styles'
 
 /**
  * Returns the `ghost` variant for component `suggestion`.
@@ -8,13 +8,13 @@ import { commonGhostAndTagStyles } from './utils/common-ghost-and-tag-styles';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function suggestionGhost(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     ghost: {
       backgroundColor: theme('x.colors.neutral.0'),
       borderColor: theme('x.colors.neutral.0'),
       borderWidth: theme('x.borderWidth.1'),
-      ...commonGhostAndTagStyles(helpers)
-    }
-  };
+      ...commonGhostAndTagStyles(helpers),
+    },
+  }
 }

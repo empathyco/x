@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { dynamicLayoutContainer } from './layout-container';
+import type { TailwindHelpers } from '../../../types'
+import { dynamicLayoutContainer } from './layout-container'
 
 /**
  * Returns the dynamic features of the `layout` CSS.
@@ -9,6 +9,6 @@ import { dynamicLayoutContainer } from './layout-container';
  */
 export function dynamicLayout(helpers: TailwindHelpers) {
   return {
-    ...dynamicLayoutContainer(helpers)
-  };
+    ...dynamicLayoutContainer(helpers),
+  }
 }

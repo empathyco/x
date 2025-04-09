@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `underline` variant for component `facet-filter`.
@@ -7,7 +7,7 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function facetFilterUnderline(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     underline: {
@@ -15,13 +15,13 @@ export function facetFilterUnderline(helpers: TailwindHelpers) {
         borderColor: 'currentColor',
 
         '&:disabled': {
-          borderColor: 'transparent'
-        }
+          borderColor: 'transparent',
+        },
       },
       '&.selected': {
         fontWeight: theme('x.fontWeight.regular'),
-        letterSpacing: theme('x.letterSpacing.md')
-      }
-    }
-  };
+        letterSpacing: theme('x.letterSpacing.md'),
+      },
+    },
+  }
 }

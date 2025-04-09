@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Returns the `sizes` variants for component `text1`.
@@ -10,14 +10,14 @@ export function textSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
       fontSize: theme('x.fontSize.xs'),
-      lineHeight: theme('x.lineHeight.lg')
+      lineHeight: theme('x.lineHeight.lg'),
     },
     md: {
       fontSize: theme('x.fontSize.sm'),
-      lineHeight: theme('x.lineHeight.md')
+      lineHeight: theme('x.lineHeight.md'),
     },
     lg: {
-      fontSize: theme('x.fontSize.md')
-    }
-  };
+      fontSize: theme('x.fontSize.md'),
+    },
+  }
 }

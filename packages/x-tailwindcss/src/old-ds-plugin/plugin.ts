@@ -1,7 +1,7 @@
-import type { Dictionary} from '@empathyco/x-utils';
-import type { TailwindHelpers } from '../types';
-import { reduce } from '@empathyco/x-utils';
-import plugin from 'tailwindcss/plugin';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { TailwindHelpers } from '../types'
+import { reduce } from '@empathyco/x-utils'
+import plugin from 'tailwindcss/plugin'
 
 /**
  * Maps a `Dictionary` to another with the same properties but adding a prefix the keys.
@@ -12,24 +12,24 @@ import plugin from 'tailwindcss/plugin';
  */
 function mapPrefix<SomeObject extends Dictionary, Prefix extends string>(
   prefix: Prefix,
-  obj: SomeObject
+  obj: SomeObject,
 ): PrefixObject<SomeObject, Prefix> {
   return reduce(
     obj,
     (result, key, value) => {
-      result[`${prefix}${key as string}`] = value;
-      return result;
+      result[`${prefix}${key as string}`] = value
+      return result
     },
-    {} as PrefixObject<SomeObject, Prefix>
-  );
+    {} as PrefixObject<SomeObject, Prefix>,
+  )
 }
 
 /**
  * Prefix the given object type keys.
  */
 type PrefixObject<SomeObject extends Dictionary, Prefix extends string> = {
-  [Key in keyof SomeObject as `${Prefix}${Key & string}`]: SomeObject[Key];
-};
+  [Key in keyof SomeObject as `${Prefix}${Key & string}`]: SomeObject[Key]
+}
 
 /**
  * Integrates tailwind theme with the old design system tokens.
@@ -49,7 +49,7 @@ export default plugin(({ addBase, theme }: TailwindHelpers) => {
         'neutral-100': theme('x.colors.neutral.0'),
         accent: theme('x.colors.auxiliary.50'),
         enable: theme('x.colors.success.50'),
-        disable: theme('x.colors.error.50')
+        disable: theme('x.colors.error.50'),
       }),
 
       // SPACING
@@ -73,13 +73,13 @@ export default plugin(({ addBase, theme }: TailwindHelpers) => {
         '17': '184px',
         '18': '216px',
         '19': '280px',
-        '20': '344px'
+        '20': '344px',
       }),
 
       // BORDER
       ...mapPrefix('--x-size-border-', {
         'radius-base-pill': theme('x.borderRadius.round'),
-        'width-base': theme('x.borderWidth.1')
+        'width-base': theme('x.borderWidth.1'),
       }),
 
       // FONT FAMILY
@@ -91,21 +91,21 @@ export default plugin(({ addBase, theme }: TailwindHelpers) => {
         'base-s': theme('x.fontSize.sm'),
         'base-m': theme('x.fontSize.md'),
         'base-l': theme('x.fontSize.lg'),
-        'base-xl': theme('x.fontSize.2xl')
+        'base-xl': theme('x.fontSize.2xl'),
       }),
 
       // FONT WEIGHT
       ...mapPrefix('--x-number-font-weight-base-', {
         light: theme('x.fontWeight.light'),
         regular: theme('x.fontWeight.regular'),
-        bold: theme('x.fontWeight.bold')
+        bold: theme('x.fontWeight.bold'),
       }),
 
       // LINE HEIGHT
       ...mapPrefix('--x-size-line-height-base-', {
         s: theme('x.lineHeight.sm'),
         m: theme('x.lineHeight.md'),
-        l: theme('x.lineHeight.lg')
+        l: theme('x.lineHeight.lg'),
       }),
 
       // TEXT
@@ -122,7 +122,7 @@ export default plugin(({ addBase, theme }: TailwindHelpers) => {
       '--x-size-line-height-title3': theme('x.lineHeight.md'),
 
       // IMAGE
-      '--x-number-aspect-ratio-picture': theme('x.aspectRatio.default')
-    }
-  });
-});
+      '--x-number-aspect-ratio-picture': theme('x.aspectRatio.default'),
+    },
+  })
+})

@@ -22,7 +22,7 @@ export function alignIconWithBaseline() {
       '--enableIconOffset': 'var(--ON)',
       // To half the icon's height, we subtract half the font's x-height (1ex).
       // For some reason, we have to adjust it by subtracting one pixel additionally.
-      '--iconVerticalOffset': 'calc(50% - 0.5ex - 1px)'
-    }
-  };
+      '--iconVerticalOffset': 'calc(50% - 0.5ex - 1px)',
+    },
+  }
 }

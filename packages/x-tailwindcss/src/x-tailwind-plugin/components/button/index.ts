@@ -1,15 +1,15 @@
-import type { TailwindHelpers } from '../../../types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { rename } from '@empathyco/x-utils';
-import { buttonColors } from './colors';
-import { buttonDefault } from './default';
-import { buttonDisabled } from './disabled';
-import { buttonGhost } from './ghost';
-import { buttonLayouts } from './layouts';
-import { buttonLink } from './link';
-import { buttonOutlined } from './outlined';
-import { buttonSizes } from './sizes';
-import { buttonTight } from './tight';
+import type { TailwindHelpers } from '../../../types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { rename } from '@empathyco/x-utils'
+import { buttonColors } from './colors'
+import { buttonDefault } from './default'
+import { buttonDisabled } from './disabled'
+import { buttonGhost } from './ghost'
+import { buttonLayouts } from './layouts'
+import { buttonLink } from './link'
+import { buttonOutlined } from './outlined'
+import { buttonSizes } from './sizes'
+import { buttonTight } from './tight'
 
 /**
  * Returns the component `button` CSS.
@@ -29,11 +29,11 @@ export function button(helpers: TailwindHelpers) {
           ...buttonOutlined(helpers),
           ...buttonLink(helpers),
           ...buttonGhost(helpers),
-          ...buttonTight(helpers)
+          ...buttonTight(helpers),
         },
-        { prefix: '&-' }
+        { prefix: '&-' },
       ),
-      buttonDisabled(helpers)
-    )
-  };
+      buttonDisabled(helpers),
+    ),
+  }
 }

@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { progressBarSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { progressBarSizes } from './sizes'
 
 /**
  * Returns the default styles for component `progress-bar`.
@@ -8,7 +8,7 @@ import { progressBarSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function progressBarDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     borderRadius: theme('x.borderRadius.sm'),
@@ -18,9 +18,9 @@ export function progressBarDefault(helpers: TailwindHelpers) {
 
     '& > &-fill': {
       height: '100%',
-      backgroundColor: `var(--progress-bar-color-50, ${theme('x.colors.neutral.90')})`
+      backgroundColor: `var(--progress-bar-color-50, ${theme('x.colors.neutral.90')})`,
     },
 
-    ...progressBarSizes(helpers).md
-  };
+    ...progressBarSizes(helpers).md,
+  }
 }

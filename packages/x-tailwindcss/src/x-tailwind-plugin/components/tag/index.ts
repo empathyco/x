@@ -1,12 +1,12 @@
-import type { TailwindHelpers } from '../../../types';
-import { rename } from '@empathyco/x-utils';
-import { tagColors } from './colors';
-import { tagDefault } from './default';
-import { tagGhost } from './ghost';
-import { tagOutlined } from './outlined';
-import { tagSizes } from './sizes';
-import { tagSolid } from './solid';
-import { tagTight } from './tight';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
+import { tagColors } from './colors'
+import { tagDefault } from './default'
+import { tagGhost } from './ghost'
+import { tagOutlined } from './outlined'
+import { tagSizes } from './sizes'
+import { tagSolid } from './solid'
+import { tagTight } from './tight'
 
 /**
  * Returns the component `tag` CSS.
@@ -25,10 +25,10 @@ export function tag(helpers: TailwindHelpers) {
           ...tagOutlined(helpers),
           ...tagSolid(helpers),
           ...tagGhost(helpers),
-          ...tagTight(helpers)
+          ...tagTight(helpers),
         },
-        { prefix: '&-' }
-      )
-    }
-  };
+        { prefix: '&-' },
+      ),
+    },
+  }
 }

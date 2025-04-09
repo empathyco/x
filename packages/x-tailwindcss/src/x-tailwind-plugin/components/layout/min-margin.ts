@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { map, rename } from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
 
 /**
  * Returns the `min-margin` variants of component `layout`.
@@ -8,13 +8,13 @@ import { map, rename } from '@empathyco/x-utils';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function minMargin(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     'min-margin': rename(
       map(theme('x.spacing'), (spacingName, spacingValue) => ({
-        '--x-layout-min-margin': spacingValue
+        '--x-layout-min-margin': spacingValue,
       })),
-      { prefix: '&-' }
-    )
-  };
+      { prefix: '&-' },
+    ),
+  }
 }

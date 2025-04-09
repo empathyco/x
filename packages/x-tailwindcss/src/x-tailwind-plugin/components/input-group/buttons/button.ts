@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Returns the styles for component `input-group-button`.
@@ -27,13 +27,13 @@ export function inputGroupButton({ theme }: TailwindHelpers) {
     '&:hover,&:focus,&:active': {
       color: theme('x.colors.neutral.75'),
       borderColor: 'transparent',
-      backgroundColor: theme('x.colors.neutral.10')
+      backgroundColor: theme('x.colors.neutral.10'),
     },
 
     '&:disabled': {
       color: theme('x.colors.neutral.25'),
       borderColor: theme('x.colors.neutral.10'),
-      backgroundColor: theme('x.colors.neutral.10')
-    }
-  };
+      backgroundColor: theme('x.colors.neutral.10'),
+    },
+  }
 }

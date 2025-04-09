@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { iconSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { iconSizes } from './sizes'
 
 /**
  * Returns the default styles for component `icon`.
@@ -8,7 +8,7 @@ import { iconSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function iconDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     display: 'flex',
     alignItems: 'center',
@@ -28,6 +28,6 @@ export function iconDefault(helpers: TailwindHelpers) {
     // Sets the margin top to avoid alignment problems when the icon is large.
     marginTop: 'var(--enableIconOffset, calc(var(--iconVerticalOffset) * -1))',
 
-    ...iconSizes(helpers).md
-  };
+    ...iconSizes(helpers).md,
+  }
 }

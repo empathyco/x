@@ -1,5 +1,5 @@
-import type { CSSRuleObject } from 'tailwindcss/types/config';
-import type { TailwindHelpers } from '../types';
+import type { CSSRuleObject } from 'tailwindcss/types/config'
+import type { TailwindHelpers } from '../types'
 
 /**
  * Default utility styles.
@@ -15,11 +15,11 @@ export default function utilities({ theme }: TailwindHelpers) {
     '.x-border-large': {
       borderStyle: 'solid',
       borderWidth: theme('x.borderWidth.4'),
-      borderColor: theme('x.colors.neutral.100')
+      borderColor: theme('x.colors.neutral.100'),
     },
     // This is here to not include it in the bundle if it is not being used
     '.x-disable-icon-offset *': {
-      '--enableIconOffset': 'var(--OFF)'
-    }
-  } as unknown as CSSRuleObject;
+      '--enableIconOffset': 'var(--OFF)',
+    },
+  } as unknown as CSSRuleObject
 }

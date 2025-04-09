@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../types';
-import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
-import { suggestionSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline'
+import { suggestionSizes } from './sizes'
 
 /**
  * Returns the default styles for component `suggestion`.
@@ -9,7 +9,7 @@ import { suggestionSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function suggestionDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     fontFamily: theme('x.fontFamily.main'),
     fontWeight: theme('x.fontWeight.regular'),
@@ -28,9 +28,9 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     color: theme('x.colors.neutral.90'),
 
     '&:hover': {
-      textDecoration: 'underline'
+      textDecoration: 'underline',
     },
 
-    ...alignIconWithBaseline()
-  };
+    ...alignIconWithBaseline(),
+  }
 }

@@ -83,65 +83,65 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-import type { ShowcaseSections } from '../types/types';
-  import { defineComponent } from 'vue';
-  import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { PropType } from 'vue'
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-layout-item',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-layout-item'
-      },
-      noMargin: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-layout-no-margin', 'x-layout-no-margin-left', 'x-layout-no-margin-right']
-      },
-      onMargin: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-layout-on-margin-left', 'x-layout-on-margin-right']
-      },
-      overlap: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-layout-overlap', 'x-layout-overlap-from-top']
-      },
-      expand: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-layout-expand']
-      }
+    noMargin: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-layout-no-margin', 'x-layout-no-margin-left', 'x-layout-no-margin-right'],
     },
-    data() {
-      return {
-        modalContent: {
-          'No margin': this.noMargin.map(addParentClasses(this.base)),
-          'On margin': this.onMargin,
-          Overlap: this.overlap.map(addParentClasses(this.base)),
-          Expand: this.expand.map(addParentClasses(this.base))
-        },
-        sectionDescriptions: {
-          'No margin': 'Removes the margin from one or both sides of the layout item.',
-          'On margin': 'Positions an element in one of the side margins of the layout.',
-          Overlap: 'Positions an element over a layout item.',
-          Expand: 'Makes a layout item to fit the container height.'
-        }
-      };
+    onMargin: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-layout-on-margin-left', 'x-layout-on-margin-right'],
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          '': [this.base]
-        };
-      }
+    overlap: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-layout-overlap', 'x-layout-overlap-from-top'],
     },
-    methods: {
-      copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      }
+    expand: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-layout-expand'],
+    },
+  },
+  data() {
+    return {
+      modalContent: {
+        'No margin': this.noMargin.map(addParentClasses(this.base)),
+        'On margin': this.onMargin,
+        Overlap: this.overlap.map(addParentClasses(this.base)),
+        Expand: this.expand.map(addParentClasses(this.base)),
+      },
+      sectionDescriptions: {
+        'No margin': 'Removes the margin from one or both sides of the layout item.',
+        'On margin': 'Positions an element in one of the side margins of the layout.',
+        Overlap: 'Positions an element over a layout item.',
+        Expand: 'Makes a layout item to fit the container height.',
+      },
     }
-  });
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        '': [this.base],
+      }
+    },
+  },
+  methods: {
+    copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
+    },
+  },
+})
 </script>

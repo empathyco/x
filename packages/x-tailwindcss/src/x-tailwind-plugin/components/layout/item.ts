@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the component `layout item` CSS.
@@ -23,12 +23,12 @@ export function item(_helpers: TailwindHelpers) {
 
       '& > *': {
         gridColumn: '2/-2',
-        minWidth: '0'
+        minWidth: '0',
       },
 
       '&:not(.x-layout-overlap):not(.x-layout-overlap-from-top) > *': {
-        minHeight: '0'
-      }
-    }
-  };
+        minHeight: '0',
+      },
+    },
+  }
 }

@@ -1,11 +1,11 @@
-import type { TailwindHelpers } from '../../../types';
-import { rename } from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
 
-import { container } from './container';
-import { item } from './item';
-import { maxWidth } from './max-width';
-import { minMargin } from './min-margin';
-import { utils } from './utils';
+import { container } from './container'
+import { item } from './item'
+import { maxWidth } from './max-width'
+import { minMargin } from './min-margin'
+import { utils } from './utils'
 
 /**
  * Returns the component `layout` CSS.
@@ -20,10 +20,10 @@ export function layout(helpers: TailwindHelpers) {
         ...container(helpers),
         ...maxWidth(helpers),
         ...minMargin(helpers),
-        ...item(helpers)
+        ...item(helpers),
       },
-      { prefix: '&-' }
+      { prefix: '&-' },
     ),
-    ...utils(helpers)
-  };
+    ...utils(helpers),
+  }
 }

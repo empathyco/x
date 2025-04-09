@@ -32,7 +32,7 @@
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "rollup -c && vite build demo",
     "postbuild": "pnpm pack",
-    "lint": "eslint --fix",
+    "lint": "eslint",
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

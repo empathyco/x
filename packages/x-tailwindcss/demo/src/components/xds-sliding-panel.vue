@@ -18,7 +18,7 @@
           'x-sliding-panel-fade-sm':
             section === 'Combinations' && cssClass.includes('x-sliding-panel-buttons-outside'),
           'x-sliding-panel-fade-lg':
-            section === 'Combinations' && cssClass.includes('x-sliding-panel-buttons-center')
+            section === 'Combinations' && cssClass.includes('x-sliding-panel-buttons-center'),
         }"
       >
         <div
@@ -35,84 +35,84 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-import type { ShowcaseSections } from '../types/types';
-  import { defineComponent } from 'vue';
-  import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { PropType } from 'vue'
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-sliding-panel',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-sliding-panel'
-      },
-      buttonsPositionVariants: {
-        type: Array as PropType<string[]>,
-        default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside']
-      },
-      showButtonsOnHover: {
-        type: Array as PropType<string[]>,
-        default: () => [
-          'x-sliding-panel-show-buttons-on-hover',
-          'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-          'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
-        ]
-      },
-      fadeSizes: {
-        type: Array as PropType<string[]>,
-        default: () => [
-          '',
-          'x-sliding-panel-at-start',
-          'x-sliding-panel-at-end',
-          'x-sliding-panel-at-start x-sliding-panel-at-end'
-        ]
-      }
+    buttonsPositionVariants: {
+      type: Array as PropType<string[]>,
+      default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside'],
     },
-    data() {
-      return {
-        items: [
-          'Baghdad',
-          'Nairobi',
-          'Ankara',
-          'Thais',
-          'Edron',
-          'Venore',
-          'Carlin',
-          'Belgrado',
-          'Zagreb',
-          'Sarajevo'
-        ],
-        combinations: [
-          'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
-          'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
-           
-          'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-           
-          'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
-        ]
-      };
+    showButtonsOnHover: {
+      type: Array as PropType<string[]>,
+      default: () => [
+        'x-sliding-panel-show-buttons-on-hover',
+        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end',
+      ],
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          Default: [this.base],
-          Buttons: this.buttonsPositionVariants.map(addParentClasses(this.base)),
-          Hover: this.showButtonsOnHover.map(addParentClasses(this.base)),
-          Fade: this.fadeSizes.map(addParentClasses(this.base)),
-          Combinations: this.combinations.map(addParentClasses(this.base))
-        };
-      }
+    fadeSizes: {
+      type: Array as PropType<string[]>,
+      default: () => [
+        '',
+        'x-sliding-panel-at-start',
+        'x-sliding-panel-at-end',
+        'x-sliding-panel-at-start x-sliding-panel-at-end',
+      ],
     },
-    methods: {
-      copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      }
+  },
+  data() {
+    return {
+      items: [
+        'Baghdad',
+        'Nairobi',
+        'Ankara',
+        'Thais',
+        'Edron',
+        'Venore',
+        'Carlin',
+        'Belgrado',
+        'Zagreb',
+        'Sarajevo',
+      ],
+      combinations: [
+        'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
+        'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
+
+        'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+
+        'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end',
+      ],
     }
-  });
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        Default: [this.base],
+        Buttons: this.buttonsPositionVariants.map(addParentClasses(this.base)),
+        Hover: this.showButtonsOnHover.map(addParentClasses(this.base)),
+        Fade: this.fadeSizes.map(addParentClasses(this.base)),
+        Combinations: this.combinations.map(addParentClasses(this.base)),
+      }
+    },
+  },
+  methods: {
+    copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
+    },
+  },
+})
 </script>
 
 <style scoped></style>

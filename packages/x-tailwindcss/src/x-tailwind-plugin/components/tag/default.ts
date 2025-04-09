@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { tagSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { tagSizes } from './sizes'
 
 /**
  * Returns the default styles for component `tag`.
@@ -8,7 +8,7 @@ import { tagSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function tagDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   // Default & Default Selected common styles
   const disabledStyles = {
@@ -16,9 +16,9 @@ export function tagDefault(helpers: TailwindHelpers) {
       cursor: 'not-allowed',
       borderColor: theme('x.colors.neutral.25'),
       borderWidth: theme('x.spacing.1'),
-      color: theme('x.colors.neutral.25')
-    }
-  };
+      color: theme('x.colors.neutral.25'),
+    },
+  }
 
   return {
     display: 'flex',
@@ -45,7 +45,7 @@ export function tagDefault(helpers: TailwindHelpers) {
 
     '&:hover,&:focus,&:active': {
       borderColor: theme('x.colors.neutral.50'),
-      color: theme('x.colors.neutral.90')
+      color: theme('x.colors.neutral.90'),
     },
 
     paddingTop: 0,
@@ -59,10 +59,10 @@ export function tagDefault(helpers: TailwindHelpers) {
       color: theme('x.colors.neutral.90'),
 
       '&:hover,&:focus,&:active': {
-        borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
+        borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
       },
 
-      ...disabledStyles
-    }
-  };
+      ...disabledStyles,
+    },
+  }
 }

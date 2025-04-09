@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { map, rename } from '@empathyco/x-utils';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
 
 /**
  * Returns the `max width` variants of component `layout`.
@@ -8,13 +8,13 @@ import { map, rename } from '@empathyco/x-utils';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function maxWidth(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     'max-width': rename(
       map(theme('x.layoutMaxWidth'), (maxWidthName, maxWidthValue) => ({
-        '--x-layout-max-width': maxWidthValue
+        '--x-layout-max-width': maxWidthValue,
       })),
-      { prefix: '&-' }
-    )
-  };
+      { prefix: '&-' },
+    ),
+  }
 }

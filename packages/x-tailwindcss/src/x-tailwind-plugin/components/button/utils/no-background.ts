@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Util to remove background for component `button`.
@@ -7,7 +7,7 @@ import type { TailwindHelpers } from '../../../../types';
  * @returns The {@link CssStyleOptions} for the util.
  */
 export function noBackground(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     // Disabled style
     '--button-disabled-border-color': 'transparent',
@@ -20,13 +20,13 @@ export function noBackground(helpers: TailwindHelpers) {
     '&:hover': {
       borderColor: 'transparent',
       backgroundColor: 'transparent',
-      color: `var(--button-color-75,${theme('x.colors.neutral.100')})`
+      color: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
     },
 
     '&:active': {
       borderColor: 'transparent',
       backgroundColor: 'transparent',
-      color: `var(--button-color-75,${theme('x.colors.neutral.100')})`
-    }
-  };
+      color: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
+    },
+  }
 }

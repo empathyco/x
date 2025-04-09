@@ -1,6 +1,6 @@
-import type { TailwindHelpers } from '../../../../types';
-import { rename } from '@empathyco/x-utils';
-import { paddingBySize } from './padding-by-size';
+import type { TailwindHelpers } from '../../../../types'
+import { rename } from '@empathyco/x-utils'
+import { paddingBySize } from './padding-by-size'
 
 /**
  * Util to return hover styles for `ghost` and `tag` variants.
@@ -9,14 +9,14 @@ import { paddingBySize } from './padding-by-size';
  * @returns The {@link CssStyleOptions} for the util.
  */
 export function commonGhostAndTagStyles(helpers: TailwindHelpers) {
-  const { theme } = helpers;
-  const padding = paddingBySize(helpers);
+  const { theme } = helpers
+  const padding = paddingBySize(helpers)
   return {
     '&:hover': {
       backgroundColor: theme('x.colors.neutral.10'),
-      textDecoration: 'none'
+      textDecoration: 'none',
     },
     ...padding.md,
-    ...rename(padding, { prefix: '&.suggestion-' })
-  };
+    ...rename(padding, { prefix: '&.suggestion-' }),
+  }
 }

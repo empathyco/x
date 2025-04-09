@@ -1,14 +1,14 @@
-import { resolve } from 'node:path';
-import * as url from 'node:url';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from 'rollup-plugin-typescript2';
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import { resolve } from 'node:path'
+import * as url from 'node:url'
+import commonjs from '@rollup/plugin-commonjs'
+import typescript from 'rollup-plugin-typescript2'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 export default {
   input: resolve(__dirname, 'src/index.ts'),
   output: [
     { format: 'esm', dir: resolve(__dirname, 'dist/esm'), preserveModules: true },
-    { format: 'cjs', dir: resolve(__dirname, 'dist/cjs'), preserveModules: true, exports: 'auto' }
+    { format: 'cjs', dir: resolve(__dirname, 'dist/cjs'), preserveModules: true, exports: 'auto' },
   ],
   external: ['tailwindcss', 'tailwindcss/plugin', '@empathyco/x-deep-merge', '@empathyco/x-utils'],
   plugins: [
@@ -18,10 +18,10 @@ export default {
       tsconfigOverride: {
         include: ['src/**/*.ts'],
         compilerOptions: {
-          declarationDir: 'dist/types'
-        }
+          declarationDir: 'dist/types',
+        },
       },
-      useTsconfigDeclarationDir: true
-    })
-  ]
-};
+      useTsconfigDeclarationDir: true,
+    }),
+  ],
+}

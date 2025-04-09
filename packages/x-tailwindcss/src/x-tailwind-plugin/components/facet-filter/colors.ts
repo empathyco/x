@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `colors` variants for component `facet-filter`.
@@ -11,8 +11,8 @@ export function facetFilterColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
       '--filter-color-50': color['50'],
-      '--filter-color-75': color['75']
+      '--filter-color-75': color['75'],
     }),
-    helpers
-  );
+    helpers,
+  )
 }

@@ -1,5 +1,5 @@
-import type { TailwindHelpers } from '../types';
-import { dynamicLayout } from './dynamic-components/layout';
+import type { TailwindHelpers } from '../types'
+import { dynamicLayout } from './dynamic-components/layout'
 
 /**
  * Default dynamic component styles.
@@ -11,6 +11,6 @@ import { dynamicLayout } from './dynamic-components/layout';
  */
 export default function dynamicComponents(helpers: TailwindHelpers) {
   return {
-    ...dynamicLayout(helpers)
-  };
+    ...dynamicLayout(helpers),
+  }
 }

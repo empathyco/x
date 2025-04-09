@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 /**
  * Returns the default styles for component `scroll`.
  *
@@ -6,7 +6,7 @@ import type { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function scrollDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     overflowY: 'scroll',
     minHeight: 0,
@@ -21,7 +21,7 @@ export function scrollDefault(helpers: TailwindHelpers) {
       scrollbarColor: 'var(--x-color-thumb-scroll-bar) var(--x-color-background-scroll-bar)',
 
       '&::-webkit-scrollbar': {
-        width: '17px'
+        width: '17px',
       },
       '&::-webkit-scrollbar-thumb': {
         backgroundClip: 'content-box',
@@ -29,14 +29,14 @@ export function scrollDefault(helpers: TailwindHelpers) {
         borderColor: 'transparent',
         borderWidth: theme('x.spacing.4'),
         borderRadius: theme('x.spacing.24'),
-        borderStyle: 'solid'
+        borderStyle: 'solid',
       },
       '&::-webkit-scrollbar-track': {
-        backgroundColor: 'var(--x-color-background-scroll-bar)'
+        backgroundColor: 'var(--x-color-background-scroll-bar)',
       },
       '&:hover': {
-        '--x-color-thumb-scroll-bar': 'var(--x-color-thumb-scroll-bar-hover)'
-      }
-    }
-  };
+        '--x-color-thumb-scroll-bar': 'var(--x-color-thumb-scroll-bar-hover)',
+      },
+    },
+  }
 }

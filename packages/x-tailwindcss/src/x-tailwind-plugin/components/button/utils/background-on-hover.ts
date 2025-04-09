@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../../types';
+import type { TailwindHelpers } from '../../../../types'
 
 /**
  * Util to add background on hover for component `button`.
@@ -7,11 +7,11 @@ import type { TailwindHelpers } from '../../../../types';
  * @returns The {@link CssStyleOptions} for the util.
  */
 export function backgroundOnHover(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     '&:hover': {
       borderColor: theme('x.colors.neutral.10'),
-      backgroundColor: theme('x.colors.neutral.10')
-    }
-  };
+      backgroundColor: theme('x.colors.neutral.10'),
+    },
+  }
 }

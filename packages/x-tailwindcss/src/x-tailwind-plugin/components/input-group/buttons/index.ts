@@ -1,9 +1,9 @@
-import type { TailwindHelpers } from '../../../../types';
-import { inputGroupButton } from './button';
-import { inputGroupButtonGhost } from './button-ghost';
-import { inputGroupButtonOutlined } from './button-outlined';
-import { inputGroupButtonPrimary } from './button-primary';
-import { inputGroupButtonRectangle } from './button-rectangle';
+import type { TailwindHelpers } from '../../../../types'
+import { inputGroupButton } from './button'
+import { inputGroupButtonGhost } from './button-ghost'
+import { inputGroupButtonOutlined } from './button-outlined'
+import { inputGroupButtonPrimary } from './button-primary'
+import { inputGroupButtonRectangle } from './button-rectangle'
 
 /**
  * Returns the default styles for component `input-group-button`.
@@ -17,6 +17,6 @@ export function inputGroupButtons(helpers: TailwindHelpers) {
     'button-primary': inputGroupButtonPrimary(helpers),
     'button-rectangle': inputGroupButtonRectangle(helpers),
     'button-outlined': inputGroupButtonOutlined(helpers),
-    'button-ghost': inputGroupButtonGhost(helpers)
-  };
+    'button-ghost': inputGroupButtonGhost(helpers),
+  }
 }

@@ -1,4 +1,4 @@
-import type { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `sharp` variants for component `icon`.
@@ -11,8 +11,8 @@ export function iconSharp(_helpers: TailwindHelpers) {
     sharp: {
       '*': {
         strokeLinecap: 'square',
-        strokeLinejoin: 'miter'
-      }
-    }
-  };
+        strokeLinejoin: 'miter',
+      },
+    },
+  }
 }
