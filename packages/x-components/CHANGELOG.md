@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.60...@empathyco/x-components@6.0.0-alpha.61) (2025-04-10)
+
+
+### Features
+
+* create generic custom teleport component (#1742) ([b738e2a](https://github.com/empathyco/x/commit/b738e2a33a49bd6c598d38b0785d19f49dd57bce))
+
+
+
 ## [6.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.59...@empathyco/x-components@6.0.0-alpha.60) (2025-04-08)
 
 
