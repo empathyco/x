@@ -27,7 +27,6 @@
     "lerna": "6.6.0",
     "lint-staged": "13.3.0"
   },
-  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": ">=22",
     "npm": ">=10"
