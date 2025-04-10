@@ -1,13 +1,23 @@
-import { mount, VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import BaseTeleport from '../base-teleport.vue';
 
+/**
+ * Renders the `BaseTeleport` component, exposing a basic API for testing.
+ *
+ * @param options - The options to render the component with.
+ * @param options.target - The target element to teleport the content to.
+ * @param options.slotContent - The content to be teleported.
+ * @returns The API for testing the `BaseTeleport` component.
+ */
 function renderBaseTeleport({
   target,
-  visible = false,
   slotContent = '<div>Teleport Content</div>'
-}: RenderBaseTeleportOptions): RenderBaseTeleportApi {
+}: {
+  target: string;
+  slotContent?: string;
+}) {
   const wrapper = mount(BaseTeleport, {
-    props: { target, visible },
+    props: { target },
     slots: { default: slotContent }
   });
 
@@ -27,54 +37,16 @@ describe('testing BaseTeleport component', () => {
     document.body.removeChild(targetElement);
   });
 
-  it('renders content in the target element when visible is true', () => {
-    renderBaseTeleport({ target: '#teleport-target', visible: true });
+  it('renders content in the target element', () => {
+    renderBaseTeleport({ target: '#teleport-target' });
 
     expect(targetElement.querySelector('.x-base-teleport')).not.toBeNull();
     expect(targetElement.textContent).toContain('Teleport Content');
   });
 
-  it('does not render content in the target element when visible is false', () => {
-    renderBaseTeleport({ target: '#teleport-target', visible: false });
+  it('does not render content if the target element does not exist', () => {
+    renderBaseTeleport({ target: '#non-existent-target' });
 
-    expect(targetElement.querySelector('.x-base-teleport')).toBeNull();
-    expect(targetElement.textContent).not.toContain('Teleport Content');
-  });
-
-  it('toggles content visibility when the visible prop changes', async () => {
-    const { wrapper } = renderBaseTeleport({
-      target: '#teleport-target',
-      visible: false
-    });
-
-    expect(targetElement.querySelector('.x-base-teleport')).toBeNull();
-
-    await wrapper.setProps({ visible: true });
-    expect(targetElement.querySelector('.x-base-teleport')).not.toBeNull();
-
-    await wrapper.setProps({ visible: false });
-    expect(targetElement.querySelector('.x-base-teleport')).toBeNull();
+    expect(document.querySelector('#non-existent-target .x-base-teleport')).toBeNull();
   });
 });
-
-interface RenderBaseTeleportOptions {
-  /**
-   * The target selector for the teleport.
-   */
-  target: string;
-  /**
-   * Whether the content is visible.
-   */
-  visible?: boolean;
-  /**
-   * The content to render in the slot.
-   */
-  slotContent?: string;
-}
-
-interface RenderBaseTeleportApi {
-  /**
-   * The wrapper testing component instance.
-   */
-  wrapper: VueWrapper;
-}
