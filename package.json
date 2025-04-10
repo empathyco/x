@@ -23,6 +23,7 @@
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cross-env": "7.0.3",
+    "eslint": "9.24.0",
     "husky": "8.0.3",
     "lerna": "6.6.0",
     "lint-staged": "13.3.0"
@@ -32,8 +33,5 @@
     "node": ">=22",
     "npm": ">=10"
   },
-  "prettier": "@empathyco/eslint-config/prettier",
-  "dependencies": {
-    "eslint": "^9.24.0"
-  }
+  "prettier": "@empathyco/eslint-config/prettier"
 }
