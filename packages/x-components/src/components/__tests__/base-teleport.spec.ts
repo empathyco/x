@@ -27,14 +27,10 @@ function renderBaseTeleport({
 describe('testing BaseTeleport component', () => {
   let targetElement: HTMLElement;
 
-  beforeEach(() => {
+  beforeAll(() => {
     targetElement = document.createElement('div');
     targetElement.id = 'teleport-target';
     document.body.appendChild(targetElement);
-  });
-
-  afterEach(() => {
-    document.body.removeChild(targetElement);
   });
 
   it('renders content in the target element', () => {
