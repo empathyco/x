@@ -7,21 +7,41 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
 
+
+
+
+
 ## [2.0.2](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.2-alpha.0...@empathyco/x-jest-utils@2.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
+
+
+
+
 
 ## [2.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.1-alpha.0...@empathyco/x-jest-utils@2.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
 
+
+
+
+
 ## [2.0.1](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.1-alpha.0...@empathyco/x-jest-utils@2.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
 
+
+
+
+
 ## [2.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.0-alpha.5...@empathyco/x-jest-utils@2.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
+
+
+
+
 
 # Change Log
 

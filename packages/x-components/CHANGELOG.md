@@ -5,95 +5,143 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [6.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.60...@empathyco/x-components@6.0.0-alpha.61) (2025-04-10)
 
+
 ### Features
 
-- create generic custom teleport component (#1742) ([b738e2a](https://github.com/empathyco/x/commit/b738e2a33a49bd6c598d38b0785d19f49dd57bce))
+* create generic custom teleport component (#1742) ([b738e2a](https://github.com/empathyco/x/commit/b738e2a33a49bd6c598d38b0785d19f49dd57bce))
+
+
 
 ## [6.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.59...@empathyco/x-components@6.0.0-alpha.60) (2025-04-08)
 
+
 ### Bug Fixes
 
-- send the query + tag as query param if a related tag is selected (#1739) ([0061d2b](https://github.com/empathyco/x/commit/0061d2b3426fc053c793ca9861e2942b2309a4d7))
+* send the query + tag as query param if a related tag is selected (#1739) ([0061d2b](https://github.com/empathyco/x/commit/0061d2b3426fc053c793ca9861e2942b2309a4d7))
+
+
 
 ## [6.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.58...@empathyco/x-components@6.0.0-alpha.59) (2025-04-07)
 
+
 ### Styling
 
-- **related-prompt:** align text left (#1736) ([c0d8544](https://github.com/empathyco/x/commit/c0d85447ee74dd27e66d42e3f023d42609468495))
+* **related-prompt:** align text left (#1736) ([c0d8544](https://github.com/empathyco/x/commit/c0d85447ee74dd27e66d42e3f023d42609468495))
+
+
 
 ## [6.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.57...@empathyco/x-components@6.0.0-alpha.58) (2025-04-02)
 
+
 ### Bug Fixes
 
-- base-switch classes are not reacting to external changes to modelValue (#1735) ([578310a](https://github.com/empathyco/x/commit/578310ad82faf99b3667ce6a1a43995f34b10eca))
+* base-switch classes are not reacting to external changes to modelValue (#1735) ([578310a](https://github.com/empathyco/x/commit/578310ad82faf99b3667ce6a1a43995f34b10eca))
+
+
 
 ## [6.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.56...@empathyco/x-components@6.0.0-alpha.57) (2025-04-02)
 
+
 ### Features
 
-- ResultFeature type augmentation (#1727) ([dc02fb8](https://github.com/empathyco/x/commit/dc02fb8bf30a8eab237a1d12d538891b4ba74bbb))
+* ResultFeature type augmentation (#1727) ([dc02fb8](https://github.com/empathyco/x/commit/dc02fb8bf30a8eab237a1d12d538891b4ba74bbb))
+
+
 
 ## [6.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.55...@empathyco/x-components@6.0.0-alpha.56) (2025-03-26)
 
+
 ### Features
 
-- **related-prompt:** persist prompt in URL (#1723) ([63529d8](https://github.com/empathyco/x/commit/63529d899b9a471604ad498c198a3962a5411f87))
+* **related-prompt:** persist prompt in URL (#1723) ([63529d8](https://github.com/empathyco/x/commit/63529d899b9a471604ad498c198a3962a5411f87))
+
+
 
 ## [6.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.54...@empathyco/x-components@6.0.0-alpha.55) (2025-03-24)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.53...@empathyco/x-components@6.0.0-alpha.54) (2025-03-24)
+
 
 ### ⚠ BREAKING CHANGES
 
-- - Checkout info added on add2cart action previously saved into SessionStorage, passes to be saved in LocalStorage with the established ttl.
+* * Checkout info added on add2cart action previously saved into SessionStorage, passes to be saved in LocalStorage with the established ttl.
 
 ### Features
 
-- save checkout info in the LocalStorage with a ttl (#1731) ([99249d5](https://github.com/empathyco/x/commit/99249d5fd85db0100883d689b1c013958d961b7b))
+* save checkout info in the LocalStorage with a ttl (#1731) ([99249d5](https://github.com/empathyco/x/commit/99249d5fd85db0100883d689b1c013958d961b7b))
+
+
 
 ## [6.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.52...@empathyco/x-components@6.0.0-alpha.53) (2025-03-20)
 
+
 ### Bug Fixes
 
-- update toolingDisplayTagging to be inside tagging object (#1728) ([96e349e](https://github.com/empathyco/x/commit/96e349ebece45e4dd7bcd45f35afa78cd0880627))
+* update toolingDisplayTagging to be inside tagging object (#1728) ([96e349e](https://github.com/empathyco/x/commit/96e349ebece45e4dd7bcd45f35afa78cd0880627))
+
+
 
 ## [6.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.51...@empathyco/x-components@6.0.0-alpha.52) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.50...@empathyco/x-components@6.0.0-alpha.51) (2025-03-19)
+
 
 ### Bug Fixes
 
-- related-prompts-tag-list refresh on request change (#1724) ([7f7c7ce](https://github.com/empathyco/x/commit/7f7c7ce0d9c6468b92ada221a2c887f796310aaf))
+* related-prompts-tag-list refresh on request change (#1724) ([7f7c7ce](https://github.com/empathyco/x/commit/7f7c7ce0d9c6468b92ada221a2c887f796310aaf))
+
+
 
 ## [6.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.49...@empathyco/x-components@6.0.0-alpha.50) (2025-03-19)
 
+
 ### Documentation
 
-- update x-components CHANGELOG to reflect breaking change (#1725) ([db03940](https://github.com/empathyco/x/commit/db03940b00cc7795a82031d075e79715455bc3e5))
+* update x-components CHANGELOG to reflect breaking change (#1725) ([db03940](https://github.com/empathyco/x/commit/db03940b00cc7795a82031d075e79715455bc3e5))
+
+
 
 ## [6.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.48...@empathyco/x-components@6.0.0-alpha.49) (2025-03-17)
 
+
 ### Bug Fixes
 
-- **related-prompt:** expanded related prompt width on mobile ([25a49d6](https://github.com/empathyco/x/commit/25a49d6987039b9391a3d321b83b39ba4caf2f33))
+* **related-prompt:** expanded related prompt width on mobile ([25a49d6](https://github.com/empathyco/x/commit/25a49d6987039b9391a3d321b83b39ba4caf2f33))
+
+
 
 ## [6.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.47...@empathyco/x-components@6.0.0-alpha.48) (2025-03-14)
 
+
 ### Features
 
-- add slot for extra content in related prompts component (#1719) ([7247c90](https://github.com/empathyco/x/commit/7247c90b239caa6e928b378a10208ee9ffe09fb5))
+* add slot for extra content in related prompts component (#1719) ([7247c90](https://github.com/empathyco/x/commit/7247c90b239caa6e928b378a10208ee9ffe09fb5))
+
+
 
 ## [6.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.46...@empathyco/x-components@6.0.0-alpha.47) (2025-03-13)
 
+
 ### Bug Fixes
 
-- **url-handler:** replace '+' with '%20' in query parameters only ([6fed89f](https://github.com/empathyco/x/commit/6fed89fba25b5ec19e32603c6c43b3e3d3df25e7))
+* **url-handler:** replace '+' with '%20' in query parameters only ([6fed89f](https://github.com/empathyco/x/commit/6fed89fba25b5ec19e32603c6c43b3e3d3df25e7))
+
+
 
 ## [6.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.45...@empathyco/x-components@6.0.0-alpha.46) (2025-03-13)
+
 
 ### ⚠ BREAKING CHANGES
 
@@ -107,163 +155,244 @@ Renaming properties in the Tagging module and renaming DefaultPDPAddToCartServic
 
 ### Features
 
-- store result info on add to cart events to be able to track checkout (#1718) ([3ac62b0](https://github.com/empathyco/x/commit/3ac62b072b5841af29fd450b5c13779f085cea50))
+* store result info on add to cart events to be able to track checkout (#1718) ([3ac62b0](https://github.com/empathyco/x/commit/3ac62b072b5841af29fd450b5c13779f085cea50))
+
+
 
 ## [6.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.44...@empathyco/x-components@6.0.0-alpha.45) (2025-03-03)
 
+
 ### Bug Fixes
 
-- remove selected filters from state when there are no results (#1716) ([1324ce9](https://github.com/empathyco/x/commit/1324ce96bbb6fa753fbe1623fcfd0bc93050dd4f))
+* remove selected filters from state when there are no results (#1716) ([1324ce9](https://github.com/empathyco/x/commit/1324ce96bbb6fa753fbe1623fcfd0bc93050dd4f))
+
+
 
 ## [6.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.43...@empathyco/x-components@6.0.0-alpha.44) (2025-02-28)
 
+
 ### Features
 
-- refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
+* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
+
+
 
 ## [6.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.42...@empathyco/x-components@6.0.0-alpha.43) (2025-02-27)
 
+
 ### Code Refactoring
 
-- **empathize:** use computed for hasContent to improve reactivity (#1712) ([76de6ac](https://github.com/empathyco/x/commit/76de6ac65c345a4add6c9e0eb80c3853c518ed31))
+* **empathize:** use computed for hasContent to improve reactivity (#1712) ([76de6ac](https://github.com/empathyco/x/commit/76de6ac65c345a4add6c9e0eb80c3853c518ed31))
+
+
 
 ## [6.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.41...@empathyco/x-components@6.0.0-alpha.42) (2025-02-26)
 
+
 ### Code Refactoring
 
-- related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
+* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
+
+
 
 ## [6.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.40...@empathyco/x-components@6.0.0-alpha.41) (2025-02-19)
 
+
 ### Code Refactoring
 
-- **typing:** avoiding export default (#1711) ([fe1d67a](https://github.com/empathyco/x/commit/fe1d67ad3ecfef745d9c483bc3fe58b10b312847))
+* **typing:** avoiding export default (#1711) ([fe1d67a](https://github.com/empathyco/x/commit/fe1d67ad3ecfef745d9c483bc3fe58b10b312847))
+
+
 
 ## [6.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.39...@empathyco/x-components@6.0.0-alpha.40) (2025-02-18)
 
+
 ### Styling
 
-- **related-prompts-tag-list:** add showButton and scrollContainerClass props (#1708) ([ff78329](https://github.com/empathyco/x/commit/ff783295f33cb20f962ec3d9508194a46047a2ee))
+* **related-prompts-tag-list:** add showButton and scrollContainerClass props (#1708) ([ff78329](https://github.com/empathyco/x/commit/ff783295f33cb20f962ec3d9508194a46047a2ee))
+
+
 
 ## [6.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.38...@empathyco/x-components@6.0.0-alpha.39) (2025-02-17)
 
+
 ### Features
 
-- change display-click-provider component location (#1709) ([132a671](https://github.com/empathyco/x/commit/132a67150fa9d777a65dc780c61f1e1d7f77d97e))
+* change display-click-provider component location (#1709) ([132a671](https://github.com/empathyco/x/commit/132a67150fa9d777a65dc780c61f1e1d7f77d97e))
+
+
 
 ## [6.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.37...@empathyco/x-components@6.0.0-alpha.38) (2025-02-17)
 
+
 ### Features
 
-- related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
+* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
+
+
 
 ## [6.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.36...@empathyco/x-components@6.0.0-alpha.37) (2025-02-17)
 
+
 ### Code Refactoring
 
-- **RelatedPrompt:** component logic to be reusable (#1696) ([fede761](https://github.com/empathyco/x/commit/fede7611e14fab550da63a7a2d793479680f5aba))
+* **RelatedPrompt:** component logic to be reusable (#1696) ([fede761](https://github.com/empathyco/x/commit/fede7611e14fab550da63a7a2d793479680f5aba))
+
+
 
 ## [6.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.35...@empathyco/x-components@6.0.0-alpha.36) (2025-01-28)
 
+
 ### Features
 
-- remove tailwind class dependency from page-loader-button.vue (#1693) ([26e7c05](https://github.com/empathyco/x/commit/26e7c05970a560be28aa5be55a2bcbfc5277642a))
+* remove tailwind class dependency from page-loader-button.vue  (#1693) ([26e7c05](https://github.com/empathyco/x/commit/26e7c05970a560be28aa5be55a2bcbfc5277642a))
+
 
 ### Bug Fixes
 
-- **extra-params:** give more priority to values prop over params state in the ExtraParamsProvided payload (#1700) ([d924211](https://github.com/empathyco/x/commit/d9242110a4443cba3cf78ee7c7f9d7689e8fe3a9))
+* **extra-params:** give more priority to values prop over params state in the ExtraParamsProvided payload (#1700) ([d924211](https://github.com/empathyco/x/commit/d9242110a4443cba3cf78ee7c7f9d7689e8fe3a9))
+
+
 
 ## [6.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.34...@empathyco/x-components@6.0.0-alpha.35) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.33...@empathyco/x-components@6.0.0-alpha.34) (2025-01-22)
+
 
 ### Bug Fixes
 
-- **page-selector:** request should start at 0 (#1697) ([5dbad85](https://github.com/empathyco/x/commit/5dbad85a6c844eeaf3b2f0df8d63b4e503ab2a9f))
+* **page-selector:** request should start at 0 (#1697) ([5dbad85](https://github.com/empathyco/x/commit/5dbad85a6c844eeaf3b2f0df8d63b4e503ab2a9f))
+
+
 
 ## [6.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.32...@empathyco/x-components@6.0.0-alpha.33) (2025-01-21)
 
+
 ### Features
 
-- create pagination component (#1687) ([63b20bd](https://github.com/empathyco/x/commit/63b20bd13e28d433d609ef9210dd17dbc7f963dc))
+* create pagination component (#1687) ([63b20bd](https://github.com/empathyco/x/commit/63b20bd13e28d433d609ef9210dd17dbc7f963dc))
+
+
 
 ## [6.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.31...@empathyco/x-components@6.0.0-alpha.32) (2025-01-16)
 
+
 ### Bug Fixes
 
-- send related-prompts request when a query preview is accepted (#1692) ([ba336b3](https://github.com/empathyco/x/commit/ba336b37574d541b0f220e916ece77a07b6f05fc))
+* send related-prompts request when a query preview is accepted (#1692) ([ba336b3](https://github.com/empathyco/x/commit/ba336b37574d541b0f220e916ece77a07b6f05fc))
+
+
 
 ## [6.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.30...@empathyco/x-components@6.0.0-alpha.31) (2025-01-15)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.29...@empathyco/x-components@6.0.0-alpha.30) (2025-01-15)
+
 
 ### Bug Fixes
 
-- replace `x-w-[calc(100%)]` with a custom one (#1690) ([ecff709](https://github.com/empathyco/x/commit/ecff709280ea8716414439107dc017b396ffc0b4))
+* replace `x-w-[calc(100%)]` with a custom one (#1690) ([ecff709](https://github.com/empathyco/x/commit/ecff709280ea8716414439107dc017b396ffc0b4))
+
+
 
 ## [6.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.28...@empathyco/x-components@6.0.0-alpha.29) (2025-01-13)
 
+
 ### Styling
 
-- **tailwind:** extend tailwind config to be used by the demo (#1668) ([f33992e](https://github.com/empathyco/x/commit/f33992ed8743367677e1e35fb7dd07e6dcce7424))
+* **tailwind:** extend tailwind config to be used by the demo (#1668) ([f33992e](https://github.com/empathyco/x/commit/f33992ed8743367677e1e35fb7dd07e6dcce7424))
+
+
 
 ## [6.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.27...@empathyco/x-components@6.0.0-alpha.28) (2025-01-09)
 
+
 ### Features
 
-- **components:** make reference selector for `BaseModal` reactive (#1686) ([b25c2af](https://github.com/empathyco/x/commit/b25c2af800880ecd4ce36369be3e55a626be55e5))
+* **components:** make reference selector for `BaseModal` reactive (#1686) ([b25c2af](https://github.com/empathyco/x/commit/b25c2af800880ecd4ce36369be3e55a626be55e5))
+
+
 
 ## [6.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.26...@empathyco/x-components@6.0.0-alpha.27) (2025-01-09)
 
+
 ### Features
 
-- add related prompts list component (#1680) ([8011a96](https://github.com/empathyco/x/commit/8011a967528f6fa33af41aca45971cb9f30d6a8f))
+* add related prompts list component (#1680) ([8011a96](https://github.com/empathyco/x/commit/8011a967528f6fa33af41aca45971cb9f30d6a8f))
+
+
 
 ## [6.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.25...@empathyco/x-components@6.0.0-alpha.26) (2025-01-07)
 
+
 ### Code Refactoring
 
-- **store:** deprecate useStore in favor of vuex's useStore ([de4fecf](https://github.com/empathyco/x/commit/de4fecfa6dcfd9f0d408d34a60d4bdd00dffce99))
+* **store:** deprecate useStore in favor of vuex's useStore ([de4fecf](https://github.com/empathyco/x/commit/de4fecfa6dcfd9f0d408d34a60d4bdd00dffce99))
+
+
 
 ## [6.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.24...@empathyco/x-components@6.0.0-alpha.25) (2025-01-06)
 
+
 ### Continuous Integration
 
-- remove template comments from build ([443d277](https://github.com/empathyco/x/commit/443d27761bc2c024931245d9e6a7b26766101ed7))
+* remove template comments from build ([443d277](https://github.com/empathyco/x/commit/443d27761bc2c024931245d9e6a7b26766101ed7))
+
+
 
 ## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
 
+
 ### Bug Fixes
 
-- **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+* **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+
+
 
 ## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
 
+
 ### Bug Fixes
 
-- **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+* **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+
+
 
 ## [6.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.21...@empathyco/x-components@6.0.0-alpha.22) (2024-12-09)
 
+
 ### Bug Fixes
 
-- fix ref usage ([12d5a05](https://github.com/empathyco/x/commit/12d5a053b55d8a4f09b6e396f16a9ce1877c0774))
+* fix ref usage ([12d5a05](https://github.com/empathyco/x/commit/12d5a053b55d8a4f09b6e396f16a9ce1877c0774))
+
+
 
 ## [6.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.20...@empathyco/x-components@6.0.0-alpha.21) (2024-12-09)
 
+
 ### Features
 
-- **x-installer:** extend domElement type to allow ShadowRoot ([900eb9c](https://github.com/empathyco/x/commit/900eb9c0c9bce7b48897b86ca11e4f1ec82d783b))
+* **x-installer:** extend domElement type to allow  ShadowRoot ([900eb9c](https://github.com/empathyco/x/commit/900eb9c0c9bce7b48897b86ca11e4f1ec82d783b))
+
+
 
 ## [6.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.19...@empathyco/x-components@6.0.0-alpha.20) (2024-11-25)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}} so now if you need to customize a value you can do it via extending the general tailwind theme:
+* **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
 
 module.exports = {
 theme: {
@@ -284,448 +413,659 @@ To add new components you can do it via https://tailwindcss.com/docs/adding-cust
 
 ### Features
 
-- **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+* **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+
+
 
 ## [6.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.18...@empathyco/x-components@6.0.0-alpha.19) (2024-11-25)
 
+
 ### Features
 
-- Add content class in base slider to ease customisation (#1662) ([63d7b99](https://github.com/empathyco/x/commit/63d7b9983ec37fb979115ec35a32d2ec2dfc1eca))
+* Add content class in base slider to ease customisation (#1662) ([63d7b99](https://github.com/empathyco/x/commit/63d7b9983ec37fb979115ec35a32d2ec2dfc1eca))
+
+
 
 ## [6.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.17...@empathyco/x-components@6.0.0-alpha.18) (2024-11-22)
 
+
 ### Features
 
-- add related prompts selection events (#1663) ([8cdf6db](https://github.com/empathyco/x/commit/8cdf6dbaff4a5e111fbc77a898a502ce133e1afe))
+* add related prompts selection events (#1663) ([8cdf6db](https://github.com/empathyco/x/commit/8cdf6dbaff4a5e111fbc77a898a502ce133e1afe))
+
+
 
 ## [6.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.16...@empathyco/x-components@6.0.0-alpha.17) (2024-11-21)
 
+
 ### Features
 
-- add selection state to related prompts module (#1659) ([220c449](https://github.com/empathyco/x/commit/220c44926709378ebee87a21e06c6f188c5d3cd1))
+* add selection state to related prompts module (#1659) ([220c449](https://github.com/empathyco/x/commit/220c44926709378ebee87a21e06c6f188c5d3cd1))
+
 
 ### Bug Fixes
 
-- **animation-prop:** decommission old animation-prop.ts and generalize the new one (#1660) ([493b6bd](https://github.com/empathyco/x/commit/493b6bd1e8a9de2731b582bb60fac6e29a1a0a47))
+* **animation-prop:** decommission old animation-prop.ts and generalize the new one (#1660) ([493b6bd](https://github.com/empathyco/x/commit/493b6bd1e8a9de2731b582bb60fac6e29a1a0a47))
+
+
 
 ## [6.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.15...@empathyco/x-components@6.0.0-alpha.16) (2024-11-21)
 
+
 ### Bug Fixes
 
-- **next-queries:** export types from module(#1661) ([ef0f71e](https://github.com/empathyco/x/commit/ef0f71eb08494699b4c017d077dc9fc8fbe97ce0))
+* **next-queries:** export types from module(#1661) ([ef0f71e](https://github.com/empathyco/x/commit/ef0f71eb08494699b4c017d077dc9fc8fbe97ce0))
+
+
 
 ## [6.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.14...@empathyco/x-components@6.0.0-alpha.15) (2024-11-20)
 
+
 ### Bug Fixes
 
-- **define-component:** relax definecomponent type to avoid type collisions (#1657) ([2ff1b67](https://github.com/empathyco/x/commit/2ff1b67bf38f6b59425131e55354ebfe681a3b66))
+* **define-component:** relax definecomponent type to avoid type collisions (#1657) ([2ff1b67](https://github.com/empathyco/x/commit/2ff1b67bf38f6b59425131e55354ebfe681a3b66))
+
+
 
 ## [6.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.13...@empathyco/x-components@6.0.0-alpha.14) (2024-11-20)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.12...@empathyco/x-components@6.0.0-alpha.13) (2024-11-13)
+
 
 ### Features
 
-- add lang parameter to the queriesPreview hash (#1653) ([b41e6c6](https://github.com/empathyco/x/commit/b41e6c6dfe629270a7919cf7f5c528b839c7c831))
+* add lang parameter to the queriesPreview hash (#1653) ([b41e6c6](https://github.com/empathyco/x/commit/b41e6c6dfe629270a7919cf7f5c528b839c7c831))
+
+
 
 ## [6.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.11...@empathyco/x-components@6.0.0-alpha.12) (2024-11-04)
 
+
 ### Features
 
-- new base-slider component (#1650) ([a3b1a0a](https://github.com/empathyco/x/commit/a3b1a0ad1c53d2ae39ae3e9d4229518825a040af))
+* new base-slider component (#1650) ([a3b1a0a](https://github.com/empathyco/x/commit/a3b1a0ad1c53d2ae39ae3e9d4229518825a040af))
+
+
 
 ## [6.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.10...@empathyco/x-components@6.0.0-alpha.11) (2024-11-01)
 
+
 ### Features
 
-- create related prompts module (#1642) ([36cdcc6](https://github.com/empathyco/x/commit/36cdcc681d4b049815b99a42d48c22d30c49fafa))
+* create related prompts module (#1642) ([36cdcc6](https://github.com/empathyco/x/commit/36cdcc681d4b049815b99a42d48c22d30c49fafa))
+
+
 
 ## [6.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.9...@empathyco/x-components@6.0.0-alpha.10) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.8...@empathyco/x-components@6.0.0-alpha.9) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-components
+
+
+
+
 
 ## [6.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.7...@empathyco/x-components@6.0.0-alpha.8) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.6...@empathyco/x-components@6.0.0-alpha.7) (2024-10-28)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [6.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.5...@empathyco/x-components@6.0.0-alpha.6) (2024-10-28)
+
 
 ### Features
 
-- add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
+* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
+
+
 
 ## [6.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.4...@empathyco/x-components@6.0.0-alpha.5) (2024-10-28)
 
+
 ### Build System
 
-- use vue latest version as peer dependency (#1651) ([1618993](https://github.com/empathyco/x/commit/161899326d325db46f39eead4ca7b57984b58b39))
+* use vue latest version as peer dependency (#1651) ([1618993](https://github.com/empathyco/x/commit/161899326d325db46f39eead4ca7b57984b58b39))
+
+
 
 ## [6.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.4) (2024-10-24)
 
+
 ### Features
 
-- update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
 
 ## [6.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.2...@empathyco/x-components@6.0.0-alpha.3) (2024-10-04)
 
+
 ### Bug Fixes
 
-- **scroll:** scroll direction inconsistency (#1629) ([ad970ae](https://github.com/empathyco/x/commit/ad970ae8cd7898f23baa11d3a128d3251cd57cdb))
+* **scroll:** scroll direction inconsistency (#1629) ([ad970ae](https://github.com/empathyco/x/commit/ad970ae8cd7898f23baa11d3a128d3251cd57cdb))
+
+
 
 ## [6.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.1...@empathyco/x-components@6.0.0-alpha.2) (2024-09-25)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component.
+* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component.
 
 ### Bug Fixes
 
-- **history-queries-switch:** migrate value to modelValue (#1618) ([82a6e27](https://github.com/empathyco/x/commit/82a6e27b9a78388b6c0b42c57ce7ff6e63293686))
+* **history-queries-switch:** migrate value to modelValue (#1618) ([82a6e27](https://github.com/empathyco/x/commit/82a6e27b9a78388b6c0b42c57ce7ff6e63293686))
+
 
 ### Testing
 
-- active and fix linter for tests (#1616) ([0f35e7c](https://github.com/empathyco/x/commit/0f35e7caf529e7a06252abe0ea64b119c1206566))
-- adjust test to vue3 (#1608) ([0f4bb97](https://github.com/empathyco/x/commit/0f4bb97dcba50b21c98575d51bda944bfe532b1f))
-- **e2e-components:** rewrite all e2e sheet components to accomplish vue3 (#1619) ([5a419b2](https://github.com/empathyco/x/commit/5a419b2d882c151f81d9921d591140e5471f5b05))
-- **e2e:** fix e2e tests (#1617) ([f81add6](https://github.com/empathyco/x/commit/f81add665e5b2f36ecedf25d14eb5f6573f0e0fb))
+* active and fix linter for tests (#1616) ([0f35e7c](https://github.com/empathyco/x/commit/0f35e7caf529e7a06252abe0ea64b119c1206566))
+* adjust test to vue3 (#1608) ([0f4bb97](https://github.com/empathyco/x/commit/0f4bb97dcba50b21c98575d51bda944bfe532b1f))
+* **e2e-components:** rewrite all e2e sheet components to accomplish vue3  (#1619) ([5a419b2](https://github.com/empathyco/x/commit/5a419b2d882c151f81d9921d591140e5471f5b05))
+* **e2e:** fix e2e tests (#1617) ([f81add6](https://github.com/empathyco/x/commit/f81add665e5b2f36ecedf25d14eb5f6573f0e0fb))
+
+
 
 ## [6.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@6.0.0-alpha.1) (2024-09-05)
 
+
 ### ⚠ BREAKING CHANGES
 
-- @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
-- refactors the GlobalXBus to use a prop to receive the listeners instead of relying on attributes.
+* @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
+* refactors the GlobalXBus to use a prop to receive the listeners instead of relying on attributes.
 
 ### Features
 
-- bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
-- make internal demo app functional (#1574) ([a485dea](https://github.com/empathyco/x/commit/a485dea768918280e2fec46cae0d5a3f4932002f))
-- **x-installer:** update to vue3 and adapt x-installer (#1572) ([c6b28e5](https://github.com/empathyco/x/commit/c6b28e5e9a07832e992f27a40d7513dbec90d2f2))
+* bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
+* make internal demo app functional (#1574) ([a485dea](https://github.com/empathyco/x/commit/a485dea768918280e2fec46cae0d5a3f4932002f))
+* **x-installer:** update to vue3 and adapt x-installer (#1572) ([c6b28e5](https://github.com/empathyco/x/commit/c6b28e5e9a07832e992f27a40d7513dbec90d2f2))
+
 
 ### Bug Fixes
 
-- adjust to new vue render function API (#1596) ([7ec2b97](https://github.com/empathyco/x/commit/7ec2b9719f18275e7843544f26f94c393fef7090))
-- **infinite-scroll:** getting xBus from XPlugin instead useXBus ([b936ae5](https://github.com/empathyco/x/commit/b936ae585b4ef5ae390515cfc2c3a0dfc782ad39))
-- **layout:** avoid shared CSS classes between layouts with scoped (#1605) ([b3cc3f5](https://github.com/empathyco/x/commit/b3cc3f528f71b0877a406c65cadfbecda7aca756))
-- **list-components:** fix list components, migrate infinite-scroll directive and deprecated layouts (#1576) ([4b57f19](https://github.com/empathyco/x/commit/4b57f19be601220a4dc6874dc1d5efa8fdbcf991))
-- **search:** replace results state to append new results instead of pushing them (#1597) ([e64e3cb](https://github.com/empathyco/x/commit/e64e3cb9f3c046d1c30249fb56b0b3ad32f97925))
+* adjust to new vue render function API (#1596) ([7ec2b97](https://github.com/empathyco/x/commit/7ec2b9719f18275e7843544f26f94c393fef7090))
+* **infinite-scroll:** getting xBus from XPlugin instead useXBus ([b936ae5](https://github.com/empathyco/x/commit/b936ae585b4ef5ae390515cfc2c3a0dfc782ad39))
+* **layout:** avoid shared CSS classes between layouts with scoped (#1605) ([b3cc3f5](https://github.com/empathyco/x/commit/b3cc3f528f71b0877a406c65cadfbecda7aca756))
+* **list-components:** fix list components, migrate infinite-scroll directive and deprecated layouts (#1576) ([4b57f19](https://github.com/empathyco/x/commit/4b57f19be601220a4dc6874dc1d5efa8fdbcf991))
+* **search:** replace results state to append new results instead of pushing them (#1597) ([e64e3cb](https://github.com/empathyco/x/commit/e64e3cb9f3c046d1c30249fb56b0b3ad32f97925))
+
 
 ### Testing
 
-- **auto-progress-bar:** fix test after Vue3 update (#1582) ([335c370](https://github.com/empathyco/x/commit/335c37021f9a0f6fefaec01714cc31fb6bf66391))
-- **components:** fix tests after Vue3 update BATCH 1 ([5d4dec8](https://github.com/empathyco/x/commit/5d4dec81b5b9ee99f1cbfc1d88bbf58cd5188602))
-- **vue-jest:** update vue-jest dependency (#1581) ([46ff08b](https://github.com/empathyco/x/commit/46ff08bb5834d790b0c6414fc549141b9a64f1d1))
+* **auto-progress-bar:** fix test after Vue3 update (#1582) ([335c370](https://github.com/empathyco/x/commit/335c37021f9a0f6fefaec01714cc31fb6bf66391))
+* **components:** fix tests after Vue3 update BATCH 1 ([5d4dec8](https://github.com/empathyco/x/commit/5d4dec81b5b9ee99f1cbfc1d88bbf58cd5188602))
+* **vue-jest:** update vue-jest dependency (#1581) ([46ff08b](https://github.com/empathyco/x/commit/46ff08bb5834d790b0c6414fc549141b9a64f1d1))
+
 
 ### Code Refactoring
 
-- **animation-factory:** fix Vue3 breaking changes (#1579) ([f915731](https://github.com/empathyco/x/commit/f915731cc8ea662a2066fee054f47885ee2154a9))
-- **base-switch:** decommission of value prop (#1589) ([35968eb](https://github.com/empathyco/x/commit/35968ebb69634984e867b03221d373efe4af96c8))
-- **base-switch:** migrate component to vue3 (#1588) ([875a6e2](https://github.com/empathyco/x/commit/875a6e2638885498396db362753550857ec8d7e2))
-- **components:** remove warnings first batch (#1575) ([1877da6](https://github.com/empathyco/x/commit/1877da61c2eb5aff5742387dc2285b3db86afda5))
-- get rid of NoElement component and useNoElementRender composable (#1583) ([059eecc](https://github.com/empathyco/x/commit/059eecc0fd5aa1612c1fc7b4d5ec08cfe5fc5b84))
-- **render-function:** clear void calls (#1580) ([7875ff5](https://github.com/empathyco/x/commit/7875ff5b8420ea1ed03edd3fee28a822582b4641))
-- **staggered-fade-and-slide:** use Vue native staggered transition (#1578) ([79e136f](https://github.com/empathyco/x/commit/79e136f04b0b75ddea77c464b8f5ea0ed6602eb1))
-- **v-deep:** replace by :deep() (#1577) ([71c08db](https://github.com/empathyco/x/commit/71c08dbc175093bbfc56160e3b07b8774fcbc683))
+* **animation-factory:** fix Vue3 breaking changes (#1579) ([f915731](https://github.com/empathyco/x/commit/f915731cc8ea662a2066fee054f47885ee2154a9))
+* **base-switch:** decommission of value prop (#1589) ([35968eb](https://github.com/empathyco/x/commit/35968ebb69634984e867b03221d373efe4af96c8))
+* **base-switch:** migrate component to vue3 (#1588) ([875a6e2](https://github.com/empathyco/x/commit/875a6e2638885498396db362753550857ec8d7e2))
+* **components:** remove warnings first batch (#1575) ([1877da6](https://github.com/empathyco/x/commit/1877da61c2eb5aff5742387dc2285b3db86afda5))
+* get rid of NoElement component and useNoElementRender composable (#1583) ([059eecc](https://github.com/empathyco/x/commit/059eecc0fd5aa1612c1fc7b4d5ec08cfe5fc5b84))
+* **render-function:** clear void calls (#1580) ([7875ff5](https://github.com/empathyco/x/commit/7875ff5b8420ea1ed03edd3fee28a822582b4641))
+* **staggered-fade-and-slide:** use Vue native staggered transition (#1578) ([79e136f](https://github.com/empathyco/x/commit/79e136f04b0b75ddea77c464b8f5ea0ed6602eb1))
+* **v-deep:** replace by :deep() (#1577) ([71c08db](https://github.com/empathyco/x/commit/71c08dbc175093bbfc56160e3b07b8774fcbc683))
+
 
 ### Build System
 
-- adjust rollup production build for Vue3 (#1603) ([ed587b1](https://github.com/empathyco/x/commit/ed587b16a56b32734e9cf3ff05311954627f3820))
+* adjust rollup production build for Vue3 (#1603) ([ed587b1](https://github.com/empathyco/x/commit/ed587b16a56b32734e9cf3ff05311954627f3820))
+
 
 ### Continuous Integration
 
-- **linter:** fix linter issues to pass the CI (#1606) ([aff3151](https://github.com/empathyco/x/commit/aff3151818c64885d7c28e69f511d33ae41b38f5))
+* **linter:** fix linter issues to pass the CI (#1606) ([aff3151](https://github.com/empathyco/x/commit/aff3151818c64885d7c28e69f511d33ae41b38f5))
+
+
 
 ## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
 
+
 ### Bug Fixes
 
-- snippet config extra params reactivity (#1628) ([c87788a](https://github.com/empathyco/x/commit/c87788a6f194e6b8f59b520f05e9ed617c98bae6))
+* snippet config extra params reactivity (#1628) ([c87788a](https://github.com/empathyco/x/commit/c87788a6f194e6b8f59b520f05e9ed617c98bae6))
+
+
 
 ## [5.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@5.0.0-alpha.82) (2024-09-30)
 
+
 ### Bug Fixes
 
-- **tagging:** query tagging and send session param (#1627) ([69dd690](https://github.com/empathyco/x/commit/69dd690c1adf9195782f4747ba5d255251f5ac3c))
+* **tagging:** query tagging and send session param (#1627) ([69dd690](https://github.com/empathyco/x/commit/69dd690c1adf9195782f4747ba5d255251f5ac3c))
+
+
 
 ## [5.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.80...@empathyco/x-components@5.0.0-alpha.81) (2024-08-20)
 
+
 ### Features
 
-- **querySuggestions:** hide suggestions that match with any session query (#1600) ([2f51375](https://github.com/empathyco/x/commit/2f51375e04d46e2aba77f08332797285829ebde7))
+* **querySuggestions:** hide suggestions that match with any session query (#1600) ([2f51375](https://github.com/empathyco/x/commit/2f51375e04d46e2aba77f08332797285829ebde7))
+
+
 
 ## [5.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.79...@empathyco/x-components@5.0.0-alpha.80) (2024-08-19)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [5.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.78...@empathyco/x-components@5.0.0-alpha.79) (2024-08-14)
+
 
 ### Features
 
-- update result information in the QPs (#1591) ([3e99d0c](https://github.com/empathyco/x/commit/3e99d0cdcb25366af2adff977e25d58d45f7421f))
+* update result information in the QPs (#1591) ([3e99d0c](https://github.com/empathyco/x/commit/3e99d0cdcb25366af2adff977e25d58d45f7421f))
+
+
 
 ## [5.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.77...@empathyco/x-components@5.0.0-alpha.78) (2024-08-13)
 
+
 ### Features
 
-- **main-modal:** make events configurable via props (#1590) ([60d630c](https://github.com/empathyco/x/commit/60d630ca2a181d2919b9f1019abbf1eee5dd2c30))
+* **main-modal:** make events configurable via props (#1590) ([60d630c](https://github.com/empathyco/x/commit/60d630ca2a181d2919b9f1019abbf1eee5dd2c30))
+
+
 
 ## [5.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.76...@empathyco/x-components@5.0.0-alpha.77) (2024-08-13)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [5.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.75...@empathyco/x-components@5.0.0-alpha.76) (2024-08-08)
+
 
 ### Bug Fixes
 
-- send origin in query tagging (#1585) ([92efdf7](https://github.com/empathyco/x/commit/92efdf71a4f794d58b9f68cf68783ca0489eb7ee))
+* send origin in query tagging (#1585) ([92efdf7](https://github.com/empathyco/x/commit/92efdf71a4f794d58b9f68cf68783ca0489eb7ee))
+
+
 
 ## [5.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.74...@empathyco/x-components@5.0.0-alpha.75) (2024-07-23)
 
+
 ### Code Refactoring
 
-- **no-element:** towards getting rid of no-element component (#1564) ([12bb73d](https://github.com/empathyco/x/commit/12bb73dbe7ff6cf761cc2e6581b56e78c9c3359a))
+* **no-element:** towards getting rid of no-element component (#1564) ([12bb73d](https://github.com/empathyco/x/commit/12bb73dbe7ff6cf761cc2e6581b56e78c9c3359a))
+
+
 
 ## [5.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.73...@empathyco/x-components@5.0.0-alpha.74) (2024-07-23)
 
+
 ### Features
 
-- **display-emitter:** support Vue3 to the component (#1555) ([21bcd52](https://github.com/empathyco/x/commit/21bcd5228bf2cc3e8f31d49fe55683788438e089))
+* **display-emitter:** support Vue3 to the component (#1555) ([21bcd52](https://github.com/empathyco/x/commit/21bcd5228bf2cc3e8f31d49fe55683788438e089))
+
+
 
 ## [5.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.72...@empathyco/x-components@5.0.0-alpha.73) (2024-07-18)
 
+
 ### Bug Fixes
 
-- keyboard navigation within shadow dom (#1571) ([1784c4c](https://github.com/empathyco/x/commit/1784c4cb6f130947a2454f5adbabcaf4821f8ab2))
+* keyboard navigation within shadow dom (#1571) ([1784c4c](https://github.com/empathyco/x/commit/1784c4cb6f130947a2454f5adbabcaf4821f8ab2))
+
+
 
 ## [5.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.71...@empathyco/x-components@5.0.0-alpha.72) (2024-07-18)
 
+
 ### Bug Fixes
 
-- **queryPreviewList:** repeated query loading issue (#1566) ([60aa0c0](https://github.com/empathyco/x/commit/60aa0c0975eabc3a282cfece4ab64fd29c02a3cb))
+* **queryPreviewList:** repeated query loading issue (#1566) ([60aa0c0](https://github.com/empathyco/x/commit/60aa0c0975eabc3a282cfece4ab64fd29c02a3cb))
+
+
 
 ## [5.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.70...@empathyco/x-components@5.0.0-alpha.71) (2024-07-15)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [5.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.69...@empathyco/x-components@5.0.0-alpha.70) (2024-07-11)
+
 
 ### Features
 
-- migrate internal view components (#1563) ([df0d026](https://github.com/empathyco/x/commit/df0d02634d1193f35918a5c8fd6913faa65c9ab7))
+* migrate internal view components (#1563) ([df0d026](https://github.com/empathyco/x/commit/df0d02634d1193f35918a5c8fd6913faa65c9ab7))
+
+
 
 ## [5.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.68...@empathyco/x-components@5.0.0-alpha.69) (2024-07-11)
 
+
 ### Features
 
-- migrate Scroll and ScrolToTop componentes (#1562) ([c8182f4](https://github.com/empathyco/x/commit/c8182f4a4435e1e62e7eaee518fb6325fe01bf7e))
+* migrate Scroll and ScrolToTop componentes (#1562) ([c8182f4](https://github.com/empathyco/x/commit/c8182f4a4435e1e62e7eaee518fb6325fe01bf7e))
+
+
 
 ## [5.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.67...@empathyco/x-components@5.0.0-alpha.68) (2024-07-10)
 
+
 ### Features
 
-- **create-animation:** migrate to composition API (#1553) ([1097c0d](https://github.com/empathyco/x/commit/1097c0d1b9dd63f9573812b9ddb41b790725b46e))
+* **create-animation:** migrate to composition API (#1553) ([1097c0d](https://github.com/empathyco/x/commit/1097c0d1b9dd63f9573812b9ddb41b790725b46e))
+
+
 
 ## [5.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.66...@empathyco/x-components@5.0.0-alpha.67) (2024-07-10)
 
+
 ### Features
 
-- migrate url-handler x-module (#1556) ([9445758](https://github.com/empathyco/x/commit/94457580884be4b03ec72fa18231350bdf3f115a))
+* migrate url-handler x-module (#1556) ([9445758](https://github.com/empathyco/x/commit/94457580884be4b03ec72fa18231350bdf3f115a))
+
+
 
 ## [5.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.65...@empathyco/x-components@5.0.0-alpha.66) (2024-07-10)
 
+
 ### Features
 
-- **icons:** migrate icons to composition API (#1551) ([243419f](https://github.com/empathyco/x/commit/243419f15b504cea6f8db3ef53899915a174a031))
+* **icons:** migrate icons to composition API (#1551) ([243419f](https://github.com/empathyco/x/commit/243419f15b504cea6f8db3ef53899915a174a031))
+
+
 
 ## [5.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.64...@empathyco/x-components@5.0.0-alpha.65) (2024-07-09)
 
+
 ### Features
 
-- migrate experience controls (#1530) ([91ee6d0](https://github.com/empathyco/x/commit/91ee6d0f171b870c42e6dcc95229a6be66b7067e))
+* migrate experience controls (#1530) ([91ee6d0](https://github.com/empathyco/x/commit/91ee6d0f171b870c42e6dcc95229a6be66b7067e))
+
+
 
 ## [5.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.63...@empathyco/x-components@5.0.0-alpha.64) (2024-07-09)
 
+
 ### Bug Fixes
 
-- **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+* **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+
+
 
 ## [5.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.62...@empathyco/x-components@5.0.0-alpha.63) (2024-07-08)
 
+
 ### Features
 
-- migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+* migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+
+
 
 ## [5.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.61...@empathyco/x-components@5.0.0-alpha.62) (2024-07-08)
 
+
 ### Features
 
-- **renderless-extra-param:** migrate to composition API (#1546) ([3f111f9](https://github.com/empathyco/x/commit/3f111f98fdf0a4175dce0a5d8711bb8d4e4729df))
+* **renderless-extra-param:** migrate to composition API (#1546) ([3f111f9](https://github.com/empathyco/x/commit/3f111f98fdf0a4175dce0a5d8711bb8d4e4729df))
+
+
 
 ## [5.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.60...@empathyco/x-components@5.0.0-alpha.61) (2024-07-03)
 
+
 ### Features
 
-- **fallback-disclaimer:** migration to composition api (#1545) ([6af6737](https://github.com/empathyco/x/commit/6af6737e854616567822e6ea5a09f093a7368960))
+* **fallback-disclaimer:** migration to composition api (#1545) ([6af6737](https://github.com/empathyco/x/commit/6af6737e854616567822e6ea5a09f093a7368960))
+
+
 
 ## [5.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.59...@empathyco/x-components@5.0.0-alpha.60) (2024-07-03)
 
+
 ### Features
 
-- migrate device-detector component (#1544) ([4083571](https://github.com/empathyco/x/commit/4083571bd2fdfc268b529c4ea5a02acb81eecc32))
+* migrate device-detector component (#1544) ([4083571](https://github.com/empathyco/x/commit/4083571bd2fdfc268b529c4ea5a02acb81eecc32))
+
+
 
 ## [5.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.58...@empathyco/x-components@5.0.0-alpha.59) (2024-07-03)
 
+
 ### Features
 
-- **tagging:** migrate to composition API (#1543) ([f06e35d](https://github.com/empathyco/x/commit/f06e35d25fb561bca1b53f579ed7ace8674b9085))
+* **tagging:** migrate to composition API (#1543) ([f06e35d](https://github.com/empathyco/x/commit/f06e35d25fb561bca1b53f579ed7ace8674b9085))
+
+
 
 ## [5.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.57...@empathyco/x-components@5.0.0-alpha.58) (2024-07-02)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **simple-filter:** use cssClasses prop to pass classes through the component in Vue 3 instead of class or :class when using RenderlessFilter or SimpleFilter components
+* **simple-filter:** use cssClasses prop to pass classes through the component in Vue 3 instead of class or :class when using RenderlessFilter or SimpleFilter components
 
 ### Features
 
-- **simple-filter:** migrate RenderlessFilter and SimpleFilter to composition API(#1529) ([8d3a2f2](https://github.com/empathyco/x/commit/8d3a2f23748eec700be10f83cad909b6fdf2aa9b))
+* **simple-filter:** migrate RenderlessFilter and SimpleFilter to composition API(#1529) ([8d3a2f2](https://github.com/empathyco/x/commit/8d3a2f23748eec700be10f83cad909b6fdf2aa9b))
+
+
 
 ## [5.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.56...@empathyco/x-components@5.0.0-alpha.57) (2024-07-01)
 
+
 ### Features
 
-- **facets:** migrate AllFilter component to Composition API (#1535) ([0b00671](https://github.com/empathyco/x/commit/0b006711297f6fb3721622082fe63b87ce4bcbf7))
+* **facets:** migrate AllFilter component to Composition API (#1535) ([0b00671](https://github.com/empathyco/x/commit/0b006711297f6fb3721622082fe63b87ce4bcbf7))
+
 
 ### Bug Fixes
 
-- **vue3:** fix minor Vue3 warnings about migration (#1533) ([8b65ea7](https://github.com/empathyco/x/commit/8b65ea796c7e02c973ba9566bd6bae17fc879c3e))
+* **vue3:** fix minor Vue3 warnings about migration (#1533) ([8b65ea7](https://github.com/empathyco/x/commit/8b65ea796c7e02c973ba9566bd6bae17fc879c3e))
+
+
 
 ## [5.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.55...@empathyco/x-components@5.0.0-alpha.56) (2024-07-01)
 
+
 ### Features
 
-- migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+* migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+
+
 
 ## [5.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.54...@empathyco/x-components@5.0.0-alpha.55) (2024-06-26)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **use-register-x-module:** get rid of useRegisterXModule composable. Use XPlugin.registerXModule(xModule) or InstallXOptions.initialXModules instead
+* **use-register-x-module:** get rid of useRegisterXModule composable. Use XPlugin.registerXModule(xModule) or InstallXOptions.initialXModules instead
 
 ### Code Refactoring
 
-- **use-register-x-module:** get rid of register x-module composable and deprecated the mixin for the same (#1534) ([4dabc84](https://github.com/empathyco/x/commit/4dabc84c67720e4bfca739b685f3fed5d100f693))
+* **use-register-x-module:** get rid of register x-module composable and deprecated the mixin for the same (#1534) ([4dabc84](https://github.com/empathyco/x/commit/4dabc84c67720e4bfca739b685f3fed5d100f693))
+
+
 
 ## [5.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.53...@empathyco/x-components@5.0.0-alpha.54) (2024-06-24)
 
+
 ### Features
 
-- replace DisableAnimationMixin by useDisableAnimation composable (#1469) ([f498d3f](https://github.com/empathyco/x/commit/f498d3fba5d294391dcfca47f9724558e98f50f0))
+* replace DisableAnimationMixin by useDisableAnimation composable (#1469) ([f498d3f](https://github.com/empathyco/x/commit/f498d3fba5d294391dcfca47f9724558e98f50f0))
+
+
 
 ## [5.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.52...@empathyco/x-components@5.0.0-alpha.53) (2024-06-24)
 
+
 ### Features
 
-- **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+* **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+
+
 
 ## [5.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.51...@empathyco/x-components@5.0.0-alpha.52) (2024-06-20)
 
+
 ### Features
 
-- migrate `QueryPreviewButton` component to composition API (#1525) ([3eff0c7](https://github.com/empathyco/x/commit/3eff0c7c9479abbebbda59e8cc538af6f55375e1))
+* migrate `QueryPreviewButton` component to composition API (#1525) ([3eff0c7](https://github.com/empathyco/x/commit/3eff0c7c9479abbebbda59e8cc538af6f55375e1))
+
+
 
 ## [5.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.50...@empathyco/x-components@5.0.0-alpha.51) (2024-06-19)
 
+
 ### Features
 
-- migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+* migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+
+
 
 ## [5.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.49...@empathyco/x-components@5.0.0-alpha.50) (2024-06-19)
 
+
 ### Features
 
-- migrate `facets provider` component to use Composition API (#1523) ([eff7b8d](https://github.com/empathyco/x/commit/eff7b8d92c54aece07061c2d8ce58507a56e7d01))
+* migrate `facets provider` component to use Composition API (#1523) ([eff7b8d](https://github.com/empathyco/x/commit/eff7b8d92c54aece07061c2d8ce58507a56e7d01))
+
+
 
 ## [5.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.48...@empathyco/x-components@5.0.0-alpha.49) (2024-06-18)
 
+
 ### Features
 
-- migrate `next-queries` module to composition API ([324d5d8](https://github.com/empathyco/x/commit/324d5d866167352b9ad5e1b2858853ce197fe7fe))
+* migrate `next-queries` module to composition API ([324d5d8](https://github.com/empathyco/x/commit/324d5d866167352b9ad5e1b2858853ce197fe7fe))
+
+
 
 ## [5.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.47...@empathyco/x-components@5.0.0-alpha.48) (2024-06-18)
 
+
 ### Features
 
-- migrate `identifier-results` x-module to composition API (#1521) ([81b18d0](https://github.com/empathyco/x/commit/81b18d03b3ae2ba9df05f5c288a7eab0e0e7966c))
+* migrate `identifier-results` x-module to composition API (#1521) ([81b18d0](https://github.com/empathyco/x/commit/81b18d03b3ae2ba9df05f5c288a7eab0e0e7966c))
+
+
 
 ## [5.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.46...@empathyco/x-components@5.0.0-alpha.47) (2024-06-17)
 
+
 ### Bug Fixes
 
-- **x-module:** deprecate useRegisterXModule composable in favour of register the x-module itself in the import (#1520) ([525b020](https://github.com/empathyco/x/commit/525b020f033b1e44d95e5b4042c8201636c87287))
+* **x-module:** deprecate useRegisterXModule composable in favour of register the x-module itself in the import (#1520) ([525b020](https://github.com/empathyco/x/commit/525b020f033b1e44d95e5b4042c8201636c87287))
+
+
 
 ## [5.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.45...@empathyco/x-components@5.0.0-alpha.46) (2024-06-17)
 
+
 ### Features
 
-- **search:** add the capability to reload the current search (#1515) ([617c3b0](https://github.com/empathyco/x/commit/617c3b0d4c07a1054d95c9b4316b86dc5112643e))
+* **search:** add the capability to reload the current search (#1515) ([617c3b0](https://github.com/empathyco/x/commit/617c3b0d4c07a1054d95c9b4316b86dc5112643e))
+
+
 
 ## [5.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.44...@empathyco/x-components@5.0.0-alpha.45) (2024-06-14)
 
+
 ### Features
 
-- **recommendations:** migrate recommendations x-module to composition api (#1519) ([5d44214](https://github.com/empathyco/x/commit/5d44214092af033d9cbf88ec9f306d15a1ded120))
+* **recommendations:** migrate recommendations x-module to composition api (#1519) ([5d44214](https://github.com/empathyco/x/commit/5d44214092af033d9cbf88ec9f306d15a1ded120))
+
+
 
 ## [5.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.43...@empathyco/x-components@5.0.0-alpha.44) (2024-06-14)
 
+
 ### Features
 
-- migrate `Spellcheck` and `SpellcheckButton` components to composition api (#1518) ([0e848a7](https://github.com/empathyco/x/commit/0e848a70d69a780b4a053d5bc78b432178f21327))
+* migrate `Spellcheck` and `SpellcheckButton` components to composition api (#1518) ([0e848a7](https://github.com/empathyco/x/commit/0e848a70d69a780b4a053d5bc78b432178f21327))
+
+
 
 ## [5.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.42...@empathyco/x-components@5.0.0-alpha.43) (2024-06-13)
 
+
 ### Features
 
-- migrate semantics queries module to composition api (#1508) ([72914a2](https://github.com/empathyco/x/commit/72914a25195e2e546da343d32c6a4544b38bdd91))
+* migrate semantics queries module to composition api (#1508) ([72914a2](https://github.com/empathyco/x/commit/72914a25195e2e546da343d32c6a4544b38bdd91))
+
+
 
 ## [5.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.41...@empathyco/x-components@5.0.0-alpha.42) (2024-06-12)
 
+
 ### Features
 
-- migrate `Banner` and `Promoted` to composition API (#1506) ([c102fd9](https://github.com/empathyco/x/commit/c102fd96b26425df2ed8d73d58b3db8fc454deeb))
-- migrate RTs module to composition API (#1498) ([22c5325](https://github.com/empathyco/x/commit/22c5325666441121e8ee64bfaa4c51ddad11939a))
+* migrate `Banner` and `Promoted` to composition API (#1506) ([c102fd9](https://github.com/empathyco/x/commit/c102fd96b26425df2ed8d73d58b3db8fc454deeb))
+* migrate RTs module to composition API (#1498) ([22c5325](https://github.com/empathyco/x/commit/22c5325666441121e8ee64bfaa4c51ddad11939a))
+
+
 
 ## [5.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.40...@empathyco/x-components@5.0.0-alpha.41) (2024-06-12)
 
+
 ### Features
 
-- migrate `query suggestions` module to composition api (#1497) ([4a9c742](https://github.com/empathyco/x/commit/4a9c742007476367328be6c978d16ec16ae115c1))
+* migrate `query suggestions` module to composition api (#1497) ([4a9c742](https://github.com/empathyco/x/commit/4a9c742007476367328be6c978d16ec16ae115c1))
+
+
 
 ## [5.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.39...@empathyco/x-components@5.0.0-alpha.40) (2024-06-12)
 
+
 ### Features
 
-- migrate history queries x module to composition api (#1494) ([cd51e9b](https://github.com/empathyco/x/commit/cd51e9bb2afb77bbb8f935445bfda360dcfaafde))
+* migrate history queries x module to composition api (#1494) ([cd51e9b](https://github.com/empathyco/x/commit/cd51e9bb2afb77bbb8f935445bfda360dcfaafde))
+
+
 
 ## [5.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.34...@empathyco/x-components@5.0.0-alpha.39) (2024-06-11)
 
+
 ### Bug Fixes
 
-- **semantic-queries:** cancel track no results query on QueryPreviewUnmounted event (#1507) ([cc6518e](https://github.com/empathyco/x/commit/cc6518efe8e00bf02240ca54e39ef77d05a3139f))
+* **semantic-queries:** cancel track no results query on QueryPreviewUnmounted event (#1507) ([cc6518e](https://github.com/empathyco/x/commit/cc6518efe8e00bf02240ca54e39ef77d05a3139f))
+
 
 ### Continuous Integration
 
-- add token to checkout action (#1511) ([c7cd70a](https://github.com/empathyco/x/commit/c7cd70a5b6df5701b5e46b4558b82485bc40f953))
-- fix package version and remove `persist-credentials` (#1513) ([c3add80](https://github.com/empathyco/x/commit/c3add8033ac5515e715e1ffff636b6df8133bccc))
+* add token to checkout action (#1511) ([c7cd70a](https://github.com/empathyco/x/commit/c7cd70a5b6df5701b5e46b4558b82485bc40f953))
+* fix package version and remove `persist-credentials` (#1513) ([c3add80](https://github.com/empathyco/x/commit/c3add8033ac5515e715e1ffff636b6df8133bccc))
+
+
 
 ## [5.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.37...@empathyco/x-components@5.0.0-alpha.38) (2024-06-11)
 
@@ -743,190 +1083,274 @@ To add new components you can do it via https://tailwindcss.com/docs/adding-cust
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
 ## [5.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.33...@empathyco/x-components@5.0.0-alpha.34) (2024-06-06)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
 ## [5.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.32...@empathyco/x-components@5.0.0-alpha.33) (2024-06-05)
+
 
 ### Code Refactoring
 
-- **keyboard-navigation:** use xBus only (#1502) ([8bb3c60](https://github.com/empathyco/x/commit/8bb3c604f308598a124719345bb4cf15a4d83103))
+* **keyboard-navigation:** use xBus only (#1502) ([8bb3c60](https://github.com/empathyco/x/commit/8bb3c604f308598a124719345bb4cf15a4d83103))
+
+
 
 ## [5.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.31...@empathyco/x-components@5.0.0-alpha.32) (2024-06-05)
 
+
 ### Features
 
-- migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+* migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+
+
 
 ## [5.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.30...@empathyco/x-components@5.0.0-alpha.31) (2024-06-04)
 
+
 ### Features
 
-- migrate BaseEventsModal to composition API ([7ef04b6](https://github.com/empathyco/x/commit/7ef04b65bcef2eb9b9dc5bc107bc02823831d444))
+* migrate BaseEventsModal to composition API ([7ef04b6](https://github.com/empathyco/x/commit/7ef04b65bcef2eb9b9dc5bc107bc02823831d444))
+
+
 
 ## [5.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.29...@empathyco/x-components@5.0.0-alpha.30) (2024-06-04)
 
+
 ### Features
 
-- **base-id-modal:** migrate to composition API (#1500) ([6274c67](https://github.com/empathyco/x/commit/6274c676946536c9c1c4e54205ebda18c79b8f55))
+* **base-id-modal:** migrate to composition API (#1500) ([6274c67](https://github.com/empathyco/x/commit/6274c676946536c9c1c4e54205ebda18c79b8f55))
+
+
 
 ## [5.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.28...@empathyco/x-components@5.0.0-alpha.29) (2024-05-31)
 
+
 ### Features
 
-- **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+* **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+
+
 
 ## [5.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.27...@empathyco/x-components@5.0.0-alpha.28) (2024-05-31)
 
+
 ### Features
 
-- **panels:** migrate `base-panels` components to composition api (#1491) ([077ad4d](https://github.com/empathyco/x/commit/077ad4d1bcc1dcf0ae2e16a02f1ac073481a1892))
-- **result-images:** migrate result images components to composition API (#1496) ([624fb45](https://github.com/empathyco/x/commit/624fb459e71b3c0905e53ba70c1a3a15f581a0fc))
+* **panels:** migrate `base-panels` components to composition api (#1491) ([077ad4d](https://github.com/empathyco/x/commit/077ad4d1bcc1dcf0ae2e16a02f1ac073481a1892))
+* **result-images:** migrate result images components to composition API (#1496) ([624fb45](https://github.com/empathyco/x/commit/624fb459e71b3c0905e53ba70c1a3a15f581a0fc))
+
+
 
 ## [5.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.26...@empathyco/x-components@5.0.0-alpha.27) (2024-05-30)
 
+
 ### Features
 
-- **highlight:** migrate highlight component to composition API (#1486) ([10dd541](https://github.com/empathyco/x/commit/10dd5417f861d6e1152483abbd510059d2917f48))
+* **highlight:** migrate highlight component to composition API (#1486) ([10dd541](https://github.com/empathyco/x/commit/10dd5417f861d6e1152483abbd510059d2917f48))
+
+
 
 ## [5.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.25...@empathyco/x-components@5.0.0-alpha.26) (2024-05-30)
 
+
 ### Bug Fixes
 
-- **animation:** fix Expected Object, got Function on animations props (#1489) ([4467edc](https://github.com/empathyco/x/commit/4467edcb08c8d4f59044209d0f9a800745f6d6af))
+* **animation:** fix Expected Object, got Function on animations props (#1489) ([4467edc](https://github.com/empathyco/x/commit/4467edcb08c8d4f59044209d0f9a800745f6d6af))
+
+
 
 ## [5.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.24...@empathyco/x-components@5.0.0-alpha.25) (2024-05-29)
 
+
 ### Features
 
-- migrate base suggestions component to composition API ([34bd833](https://github.com/empathyco/x/commit/34bd833e58f9b5f559df17ec2781e529476cdda8))
+* migrate base suggestions component to composition API ([34bd833](https://github.com/empathyco/x/commit/34bd833e58f9b5f559df17ec2781e529476cdda8))
+
 
 ### Bug Fixes
 
-- build ([f3b6ea9](https://github.com/empathyco/x/commit/f3b6ea91039dcfb1a2d2a50977b65aec7c5cd4c8))
-- fix type of prop ([fbfca6f](https://github.com/empathyco/x/commit/fbfca6f09f3d5145f87b4a2b7f6e4f7084468996))
+* build ([f3b6ea9](https://github.com/empathyco/x/commit/f3b6ea91039dcfb1a2d2a50977b65aec7c5cd4c8))
+* fix type of prop ([fbfca6f](https://github.com/empathyco/x/commit/fbfca6f09f3d5145f87b4a2b7f6e4f7084468996))
+
 
 ### Code Refactoring
 
-- use implicit return ([99dce8d](https://github.com/empathyco/x/commit/99dce8d461c0b966fabca4ef61ced10ab44b20e2))
-- use implicit return ([4405835](https://github.com/empathyco/x/commit/440583514bf78eae6b8531d89ef28a22718831ea))
+* use implicit return ([99dce8d](https://github.com/empathyco/x/commit/99dce8d461c0b966fabca4ef61ced10ab44b20e2))
+* use implicit return ([4405835](https://github.com/empathyco/x/commit/440583514bf78eae6b8531d89ef28a22718831ea))
+
+
 
 ## [5.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.23...@empathyco/x-components@5.0.0-alpha.24) (2024-05-29)
 
+
 ### Bug Fixes
 
-- handle dynamic content in empathize (#1492) ([db082ef](https://github.com/empathyco/x/commit/db082efdcfa6fda3863a344f884cd05848bac97d))
+* handle dynamic content in empathize (#1492) ([db082ef](https://github.com/empathyco/x/commit/db082efdcfa6fda3863a344f884cd05848bac97d))
+
+
 
 ## [5.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.22...@empathyco/x-components@5.0.0-alpha.23) (2024-05-28)
 
+
 ### Features
 
-- **base-modal:** migrate base-modal component and side effects (#1479) ([610ec16](https://github.com/empathyco/x/commit/610ec16e20b10a344936b2914c61085e22a09dfd))
-- **sliding-panel:** migrate sliding-panel component to composition API (#1485) ([bf9e1a3](https://github.com/empathyco/x/commit/bf9e1a38364a23402562a19ce8095452da5f02d7))
+* **base-modal:** migrate base-modal component and side effects (#1479) ([610ec16](https://github.com/empathyco/x/commit/610ec16e20b10a344936b2914c61085e22a09dfd))
+* **sliding-panel:** migrate sliding-panel component to composition API (#1485) ([bf9e1a3](https://github.com/empathyco/x/commit/bf9e1a38364a23402562a19ce8095452da5f02d7))
+
+
 
 ## [5.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.21...@empathyco/x-components@5.0.0-alpha.22) (2024-05-28)
 
+
 ### Code Refactoring
 
-- migrate `BaseVariableColumnGrid` to Composition API (#1482) ([b7e292a](https://github.com/empathyco/x/commit/b7e292ae55560f557dd7db3cfbceed993c7b318e))
+* migrate `BaseVariableColumnGrid` to Composition API (#1482) ([b7e292a](https://github.com/empathyco/x/commit/b7e292ae55560f557dd7db3cfbceed993c7b318e))
+
+
 
 ## [5.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.20...@empathyco/x-components@5.0.0-alpha.21) (2024-05-28)
 
+
 ### Features
 
-- replace extra divs with `NoElement` (#1484) ([cc7042e](https://github.com/empathyco/x/commit/cc7042e5f144f2abc9eb39e3834c8a153795f558))
+* replace extra divs with `NoElement` (#1484) ([cc7042e](https://github.com/empathyco/x/commit/cc7042e5f144f2abc9eb39e3834c8a153795f558))
+
+
 
 ## [5.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.19...@empathyco/x-components@5.0.0-alpha.20) (2024-05-28)
 
+
 ### Features
 
-- **empathize:** migrate empathize component to composition API (#1481) ([ae34083](https://github.com/empathyco/x/commit/ae34083978ea658f7b740f7a4f701b3dd74c0b2f))
+* **empathize:** migrate empathize component to composition API (#1481) ([ae34083](https://github.com/empathyco/x/commit/ae34083978ea658f7b740f7a4f701b3dd74c0b2f))
+
+
 
 ## [5.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.18...@empathyco/x-components@5.0.0-alpha.19) (2024-05-27)
 
+
 ### Features
 
-- Replace `layoutsmixin` by `useLayouts` composable (#1480) ([71feaae](https://github.com/empathyco/x/commit/71feaae8493fb683919967bdf52de161a4e4fbf2))
+* Replace `layoutsmixin` by `useLayouts` composable (#1480) ([71feaae](https://github.com/empathyco/x/commit/71feaae8493fb683919967bdf52de161a4e4fbf2))
+
+
 
 ## [5.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.17...@empathyco/x-components@5.0.0-alpha.18) (2024-05-23)
 
+
 ### Features
 
-- **search-box:** migrate search-box x-module components to Composition API (#1476) ([5c2b7bc](https://github.com/empathyco/x/commit/5c2b7bcf47281f9a3bb2ea65a1bfb73c6d850260))
+* **search-box:** migrate search-box x-module components to Composition API (#1476) ([5c2b7bc](https://github.com/empathyco/x/commit/5c2b7bcf47281f9a3bb2ea65a1bfb73c6d850260))
+
+
 
 ## [5.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.16...@empathyco/x-components@5.0.0-alpha.17) (2024-05-22)
 
+
 ### Features
 
-- **use-debounce:** create useDebounce composable to deprecate Debounce decorator (#1475) ([67f0e42](https://github.com/empathyco/x/commit/67f0e42079839ec9c0f74a9d25ecf9bb2de9a9ab))
+* **use-debounce:** create useDebounce composable to deprecate Debounce decorator (#1475) ([67f0e42](https://github.com/empathyco/x/commit/67f0e42079839ec9c0f74a9d25ecf9bb2de9a9ab))
+
+
 
 ## [5.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.15...@empathyco/x-components@5.0.0-alpha.16) (2024-05-22)
 
+
 ### Code Refactoring
 
-- **noElement:** use the full array of VNodes from the default slot (#1474) ([8fb904c](https://github.com/empathyco/x/commit/8fb904caf9be32ab573bcc9acba4dbc602dd1bc6))
+* **noElement:** use the full array of VNodes from the default slot (#1474) ([8fb904c](https://github.com/empathyco/x/commit/8fb904caf9be32ab573bcc9acba4dbc602dd1bc6))
+
+
 
 ## [5.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.14...@empathyco/x-components@5.0.0-alpha.15) (2024-05-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [5.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.13...@empathyco/x-components@5.0.0-alpha.14) (2024-05-21)
+
 
 ### Features
 
-- **use-x-bus:** unsubscribe from bus events when component is unmounted (#1472) ([36f542a](https://github.com/empathyco/x/commit/36f542ad255096816fccba4c7dcec8e5a9571550))
+* **use-x-bus:** unsubscribe from bus events when component is unmounted (#1472) ([36f542a](https://github.com/empathyco/x/commit/36f542ad255096816fccba4c7dcec8e5a9571550))
+
+
 
 ## [5.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.12...@empathyco/x-components@5.0.0-alpha.13) (2024-05-17)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **scroll:** `WindowScroll' component will no longer be available and has been removed.
+* **scroll:** `WindowScroll' component will no longer be available and has been removed.
 
 ### Features
 
-- **scroll:** replace `ScrollMixin` by `UseScroll` composable (#1473) ([26244cd](https://github.com/empathyco/x/commit/26244cdc8ced863918f0ceb8138ca89bf6792461))
+* **scroll:** replace `ScrollMixin` by `UseScroll` composable (#1473) ([26244cd](https://github.com/empathyco/x/commit/26244cdc8ced863918f0ceb8138ca89bf6792461))
+
+
 
 ## [5.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.11...@empathyco/x-components@5.0.0-alpha.12) (2024-05-15)
 
+
 ### Features
 
-- migrate `FiltersInjection` mixin (#1467) ([839c663](https://github.com/empathyco/x/commit/839c66334c98ed399ce354a2c5a3a842734ed54c))
+* migrate `FiltersInjection` mixin (#1467) ([839c663](https://github.com/empathyco/x/commit/839c66334c98ed399ce354a2c5a3a842734ed54c))
+
+
 
 ## [5.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.10...@empathyco/x-components@5.0.0-alpha.11) (2024-05-13)
 
+
 ### Features
 
-- replace `AnimationsMixin` with `useCollapseAnimation` composable (#1468) ([e3ee9d9](https://github.com/empathyco/x/commit/e3ee9d94f9acc4abdcd1c591a754c86d9a6abbb7))
+* replace `AnimationsMixin` with `useCollapseAnimation` composable (#1468) ([e3ee9d9](https://github.com/empathyco/x/commit/e3ee9d94f9acc4abdcd1c591a754c86d9a6abbb7))
+
+
 
 ## [5.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.9...@empathyco/x-components@5.0.0-alpha.10) (2024-05-09)
 
+
 ### Features
 
-- Replace FacetsMixin by useFacets composable (#1462) ([bb7e0ce](https://github.com/empathyco/x/commit/bb7e0cede8653d82e436db696e80c1bdbcb9cc41))
+* Replace FacetsMixin by useFacets composable (#1462) ([bb7e0ce](https://github.com/empathyco/x/commit/bb7e0cede8653d82e436db696e80c1bdbcb9cc41))
+
+
 
 ## [5.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.8...@empathyco/x-components@5.0.0-alpha.9) (2024-05-09)
 
+
 ### Features
 
-- migrate `ItemsListInjection` mixin (#1460) ([a89fb51](https://github.com/empathyco/x/commit/a89fb5179de040695f13d56f43de50917e1c7f97))
+* migrate `ItemsListInjection` mixin (#1460) ([a89fb51](https://github.com/empathyco/x/commit/a89fb5179de040695f13d56f43de50917e1c7f97))
+
+
 
 ## [5.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.7...@empathyco/x-components@5.0.0-alpha.8) (2024-05-08)
 
+
 ### ⚠ BREAKING CHANGES
 
-- `MainScroll` drops the usage of `NoElement` as root element and uses a div instead. This extra div could break the style of an application that relies on `MainScroll` rendering their content directly.
+* `MainScroll` drops the usage of `NoElement` as root element and uses a div instead. This extra div could break the style of an application that relies on `MainScroll` rendering their content directly.
   `MainScrollItem` drops the usage of `NoElement` if no `tag` prop is passed and uses a div as fallback.
 
 ### Features
 
-- migrate `MainScroll` and `MainScrollItem` components (#1456) ([b720132](https://github.com/empathyco/x/commit/b7201322bbf1f5696e80e00622d21d653228177c))
+* migrate `MainScroll` and `MainScrollItem` components (#1456) ([b720132](https://github.com/empathyco/x/commit/b7201322bbf1f5696e80e00622d21d653228177c))
+
+
 
 ## [5.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.6...@empathyco/x-components@5.0.0-alpha.7) (2024-05-06)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead.
+* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead.
   `BaseColumnPickerDropdown` prop for the selected columns was renamed from `value` to `modelValue`.
 
 `BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead.
@@ -936,429 +1360,652 @@ To add new components you can do it via https://tailwindcss.com/docs/adding-cust
 
 ### Code Refactoring
 
-- **ColumnPickerMixin:** get rid of `ColumnPickerMixin` and refactor components which use it (#1461) ([c5b84da](https://github.com/empathyco/x/commit/c5b84da32b75a37d028e91b64220016a2cfb3037))
+* **ColumnPickerMixin:** get rid of `ColumnPickerMixin` and refactor components which use it (#1461) ([c5b84da](https://github.com/empathyco/x/commit/c5b84da32b75a37d028e91b64220016a2cfb3037))
+
+
 
 ## [5.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.5...@empathyco/x-components@5.0.0-alpha.6) (2024-05-03)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [5.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.4...@empathyco/x-components@5.0.0-alpha.5) (2024-05-01)
+
 
 ### Testing
 
-- add Sort components to Vue 3 migration test (#1454) ([7ccffb0](https://github.com/empathyco/x/commit/7ccffb084cdf6521c57977eca4d19d93f6586a2d))
+* add Sort components to Vue 3 migration test (#1454) ([7ccffb0](https://github.com/empathyco/x/commit/7ccffb084cdf6521c57977eca4d19d93f6586a2d))
+
+
 
 ## [5.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.3...@empathyco/x-components@5.0.0-alpha.4) (2024-05-01)
 
+
 ### Bug Fixes
 
-- **query-preview-list:** enable inherit attrs (#1458) ([1adbfe0](https://github.com/empathyco/x/commit/1adbfe04665e289aa0c325daced40f257669fe2d))
+* **query-preview-list:** enable inherit attrs (#1458) ([1adbfe0](https://github.com/empathyco/x/commit/1adbfe04665e289aa0c325daced40f257669fe2d))
+
+
 
 ## [5.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.2...@empathyco/x-components@5.0.0-alpha.3) (2024-05-01)
 
+
 ### Code Refactoring
 
-- **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+* **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+
+
 
 ## [5.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.1...@empathyco/x-components@5.0.0-alpha.2) (2024-05-01)
 
+
 ### Documentation
 
-- fix typo (#1455) ([44eae35](https://github.com/empathyco/x/commit/44eae359b33f9642eb9af02701fd6a3295a2deb9))
+* fix typo (#1455) ([44eae35](https://github.com/empathyco/x/commit/44eae359b33f9642eb9af02701fd6a3295a2deb9))
+
+
 
 ## [5.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.0...@empathyco/x-components@5.0.0-alpha.1) (2024-04-29)
 
+
 ### Code Refactoring
 
-- **query-preview:** migrate query preview component x provide (#1452) ([a60c62a](https://github.com/empathyco/x/commit/a60c62a35d7ba3f13e6561583a0af9f5a46c61b2))
+* **query-preview:** migrate query preview component x provide (#1452) ([a60c62a](https://github.com/empathyco/x/commit/a60c62a35d7ba3f13e6561583a0af9f5a46c61b2))
+
+
 
 ## [5.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.46...@empathyco/x-components@5.0.0-alpha.0) (2024-04-24)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead.
+* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead.
   base-dropdown prop for the selected item was renamed from `value` to `modelValue`.
 
 ### Code Refactoring
 
-- **sort-mixin:** get rid of SortMixin and refactor components which use it (#1448) ([de0a287](https://github.com/empathyco/x/commit/de0a28754d8fefe8c4db6aa7b7cb5d8407016be2))
+* **sort-mixin:** get rid of SortMixin and refactor components which use it (#1448) ([de0a287](https://github.com/empathyco/x/commit/de0a28754d8fefe8c4db6aa7b7cb5d8407016be2))
+
+
 
 ## [4.1.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.45...@empathyco/x-components@4.1.0-alpha.46) (2024-04-22)
 
+
 ### Features
 
-- export pageLoaderButton component (#1449) ([115f744](https://github.com/empathyco/x/commit/115f7448fc92cee5be4151191d4b1a347fd570a1))
+* export pageLoaderButton component (#1449) ([115f744](https://github.com/empathyco/x/commit/115f7448fc92cee5be4151191d4b1a347fd570a1))
+
+
 
 ## [4.1.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.44...@empathyco/x-components@4.1.0-alpha.45) (2024-04-19)
 
+
 ### Features
 
-- **bus:** make `useXBus` get bus from `XPlugin` (#1447) ([c57d1af](https://github.com/empathyco/x/commit/c57d1aff8df162e5b99b78822ba5013b617d4aba))
+* **bus:** make `useXBus` get bus from `XPlugin` (#1447) ([c57d1af](https://github.com/empathyco/x/commit/c57d1aff8df162e5b99b78822ba5013b617d4aba))
+
+
 
 ## [4.1.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.43...@empathyco/x-components@4.1.0-alpha.44) (2024-04-19)
 
+
 ### Features
 
-- EMP-3849 Create vue3-migration-test package ([399fe51](https://github.com/empathyco/x/commit/399fe5176b8c0a5206ed7da4edf9c54c1219f70b))
+* EMP-3849 Create vue3-migration-test package ([399fe51](https://github.com/empathyco/x/commit/399fe5176b8c0a5206ed7da4edf9c54c1219f70b))
+
 
 ### Bug Fixes
 
-- Fix @vue/compat alias for x-components imports ([d6d7e2f](https://github.com/empathyco/x/commit/d6d7e2f26e6944af7453c213b8d0a1d28ff359eb))
-- Fix Vue alias for Cypress component testing ([6a71960](https://github.com/empathyco/x/commit/6a71960ffeef4c4b964084c924feac76e25850b5))
+* Fix @vue/compat alias for x-components imports ([d6d7e2f](https://github.com/empathyco/x/commit/d6d7e2f26e6944af7453c213b8d0a1d28ff359eb))
+* Fix Vue alias for Cypress component testing ([6a71960](https://github.com/empathyco/x/commit/6a71960ffeef4c4b964084c924feac76e25850b5))
+
+
 
 ## [4.1.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.42...@empathyco/x-components@4.1.0-alpha.43) (2024-04-08)
 
+
 ### Features
 
-- migrate result variant provider (#1440) ([b981d9b](https://github.com/empathyco/x/commit/b981d9ba35394288957e13adbffbaaded142e6c7))
+* migrate result variant provider (#1440) ([b981d9b](https://github.com/empathyco/x/commit/b981d9ba35394288957e13adbffbaaded142e6c7))
+
+
 
 ## [4.1.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.41...@empathyco/x-components@4.1.0-alpha.42) (2024-04-08)
 
+
 ### Features
 
-- migrate result variants selector component (#1438) ([1e6d681](https://github.com/empathyco/x/commit/1e6d681d7368ca04810df5d8d6116e702face4ff))
+* migrate result variants selector component (#1438) ([1e6d681](https://github.com/empathyco/x/commit/1e6d681d7368ca04810df5d8d6116e702face4ff))
+
+
 
 ## [4.1.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.40...@empathyco/x-components@4.1.0-alpha.41) (2024-04-08)
 
+
 ### Features
 
-- migrate base-grid component to vue 2.7 (#1441) ([1974715](https://github.com/empathyco/x/commit/19747154d727bec6cbee171df7d655c34f714db0))
+* migrate base-grid component to vue 2.7 (#1441) ([1974715](https://github.com/empathyco/x/commit/19747154d727bec6cbee171df7d655c34f714db0))
+
+
 
 ## [4.1.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.39...@empathyco/x-components@4.1.0-alpha.40) (2024-04-04)
 
+
 ### Code Refactoring
 
-- remove useHybridInject (#1439) ([f3f6c75](https://github.com/empathyco/x/commit/f3f6c75b9860937869eee89249a50a65480054b8))
+* remove useHybridInject (#1439) ([f3f6c75](https://github.com/empathyco/x/commit/f3f6c75b9860937869eee89249a50a65480054b8))
+
+
 
 ## [4.1.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.38...@empathyco/x-components@4.1.0-alpha.39) (2024-04-04)
 
+
 ### Features
 
-- modify use-$x composable (#1434) ([cd9a0d1](https://github.com/empathyco/x/commit/cd9a0d1acc95e9b79142aa1abe4b5df5d04aef40))
+* modify use-$x composable (#1434) ([cd9a0d1](https://github.com/empathyco/x/commit/cd9a0d1acc95e9b79142aa1abe4b5df5d04aef40))
+
+
 
 ## [4.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.37...@empathyco/x-components@4.1.0-alpha.38) (2024-03-27)
 
+
 ### Bug Fixes
 
-- make arrays reactive with ref in useHybridInject (#1437) ([75e6fbf](https://github.com/empathyco/x/commit/75e6fbf0b5c2cc95a2bb6f5549afed5eeca635ca))
+* make arrays reactive with ref in useHybridInject (#1437) ([75e6fbf](https://github.com/empathyco/x/commit/75e6fbf0b5c2cc95a2bb6f5549afed5eeca635ca))
+
+
 
 ## [4.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.36...@empathyco/x-components@4.1.0-alpha.37) (2024-03-22)
 
+
 ### Code Refactoring
 
-- migrate aside to vue 2.7 and use hybridInject (#1433) ([3c94afc](https://github.com/empathyco/x/commit/3c94afc813e58d6c70943e103f814129a17c7eff))
+* migrate aside to vue 2.7 and use hybridInject (#1433) ([3c94afc](https://github.com/empathyco/x/commit/3c94afc813e58d6c70943e103f814129a17c7eff))
+
+
 
 ## [4.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.35...@empathyco/x-components@4.1.0-alpha.36) (2024-03-21)
 
+
 ### Bug Fixes
 
-- bus handling of a location ref (#1432) ([b980638](https://github.com/empathyco/x/commit/b98063826f5657088bb613db1a529a446389ed67))
+* bus handling of a location ref (#1432) ([b980638](https://github.com/empathyco/x/commit/b98063826f5657088bb613db1a529a446389ed67))
+
+
 
 ## [4.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.34...@empathyco/x-components@4.1.0-alpha.35) (2024-03-20)
 
+
 ### Code Refactoring
 
-- create alias api composable (#1426) ([6badb3a](https://github.com/empathyco/x/commit/6badb3a9815f880f0f411f948b3755f50e9e60a7))
+* create alias api composable (#1426) ([6badb3a](https://github.com/empathyco/x/commit/6badb3a9815f880f0f411f948b3755f50e9e60a7))
+
+
 
 ## [4.1.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.33...@empathyco/x-components@4.1.0-alpha.34) (2024-03-19)
 
+
 ### Code Refactoring
 
-- migrate no-element component to vue 2.7 ([29d6a61](https://github.com/empathyco/x/commit/29d6a613aa5a46a6584fcb99015a5cbd99d43b42))
+* migrate no-element component to vue 2.7 ([29d6a61](https://github.com/empathyco/x/commit/29d6a613aa5a46a6584fcb99015a5cbd99d43b42))
+
+
 
 ## [4.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.32...@empathyco/x-components@4.1.0-alpha.33) (2024-03-19)
 
+
 ### Code Refactoring
 
-- migrate snippet-callbacks to vue 2.7 (#1431) ([168ff1d](https://github.com/empathyco/x/commit/168ff1db8ac964fd12c307c61756d23d84e6ad76))
+* migrate snippet-callbacks to vue 2.7 (#1431) ([168ff1d](https://github.com/empathyco/x/commit/168ff1db8ac964fd12c307c61756d23d84e6ad76))
+
+
 
 ## [4.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.31...@empathyco/x-components@4.1.0-alpha.32) (2024-03-13)
 
+
 ### Code Refactoring
 
-- migrate preselected filters component (#1422) ([4a38318](https://github.com/empathyco/x/commit/4a383186b5ca669938ffbc230c9c3d02805e866b))
+* migrate preselected filters component (#1422) ([4a38318](https://github.com/empathyco/x/commit/4a383186b5ca669938ffbc230c9c3d02805e866b))
+
+
 
 ## [4.1.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.30...@empathyco/x-components@4.1.0-alpha.31) (2024-03-13)
 
+
 ### Code Refactoring
 
-- migrate global-x-bus component (#1429) ([48c8ff5](https://github.com/empathyco/x/commit/48c8ff58f112c7ff11df4568358bde8542f32b0a))
+* migrate global-x-bus component (#1429) ([48c8ff5](https://github.com/empathyco/x/commit/48c8ff58f112c7ff11df4568358bde8542f32b0a))
+
+
 
 ## [4.1.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.29...@empathyco/x-components@4.1.0-alpha.30) (2024-03-12)
 
+
 ### Features
 
-- send totalHits -1 when there are no results and semantics (#1425) ([d393649](https://github.com/empathyco/x/commit/d39364944d2ee76ee5412480e9c3cdeb55fc4fa1))
+* send totalHits -1 when there are no results and semantics (#1425) ([d393649](https://github.com/empathyco/x/commit/d39364944d2ee76ee5412480e9c3cdeb55fc4fa1))
+
+
 
 ## [4.1.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.28...@empathyco/x-components@4.1.0-alpha.29) (2024-03-08)
 
+
 ### Features
 
-- create load next page component (#1424) ([cf05167](https://github.com/empathyco/x/commit/cf05167904dfdc018e36f33c7d0df2ff0e5de4a9))
+* create load next page component (#1424) ([cf05167](https://github.com/empathyco/x/commit/cf05167904dfdc018e36f33c7d0df2ff0e5de4a9))
+
+
 
 ## [4.1.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.27...@empathyco/x-components@4.1.0-alpha.28) (2024-03-07)
 
+
 ### Bug Fixes
 
-- Next Queries not being calculated when using Related Tags (#1428) ([50306b6](https://github.com/empathyco/x/commit/50306b600c681c1bd54e209ee048893295a016cb))
+*  Next Queries not being calculated when using Related Tags (#1428) ([50306b6](https://github.com/empathyco/x/commit/50306b600c681c1bd54e209ee048893295a016cb))
+
+
 
 ## [4.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.26...@empathyco/x-components@4.1.0-alpha.27) (2024-03-04)
 
+
 ### Features
 
-- change useHybridInject so it works more like vue inject (#1427) ([f7e2946](https://github.com/empathyco/x/commit/f7e2946771213c06b6b7f6c9b4987ba971303463))
+* change useHybridInject so it works more like vue inject (#1427) ([f7e2946](https://github.com/empathyco/x/commit/f7e2946771213c06b6b7f6c9b4987ba971303463))
+
+
 
 ## [4.1.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.25...@empathyco/x-components@4.1.0-alpha.26) (2024-02-23)
 
+
 ### Documentation
 
-- replace enable/disable with activate/deactivate (#1420) ([5370c7c](https://github.com/empathyco/x/commit/5370c7c908db1f78d1b315dfd46a518cb534ca8d))
+* replace enable/disable with activate/deactivate (#1420) ([5370c7c](https://github.com/empathyco/x/commit/5370c7c908db1f78d1b315dfd46a518cb534ca8d))
+
+
 
 ## [4.1.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.24...@empathyco/x-components@4.1.0-alpha.25) (2024-02-23)
 
+
 ### Code Refactoring
 
-- **components:** migrate location-provider component to vue 2.7 (#1421) ([98377e8](https://github.com/empathyco/x/commit/98377e8fb4e3a65dce7aa8ddd144cd69f2ab1395))
+* **components:** migrate location-provider component to vue 2.7 (#1421) ([98377e8](https://github.com/empathyco/x/commit/98377e8fb4e3a65dce7aa8ddd144cd69f2ab1395))
+
+
 
 ## [4.1.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.23...@empathyco/x-components@4.1.0-alpha.24) (2024-02-21)
 
+
 ### Features
 
-- migrating base-rating component using defineComponent sintax (#1419) ([3fb116a](https://github.com/empathyco/x/commit/3fb116ad5a28addcf53c6d66035072e7013a7818))
+* migrating base-rating component using defineComponent sintax (#1419) ([3fb116a](https://github.com/empathyco/x/commit/3fb116ad5a28addcf53c6d66035072e7013a7818))
+
+
 
 ## [4.1.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.22...@empathyco/x-components@4.1.0-alpha.23) (2024-02-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.1.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.21...@empathyco/x-components@4.1.0-alpha.22) (2024-02-21)
+
 
 ### Features
 
-- **filters:** update preselected filters component so it reacts to snippetConfig changes (#1404) ([05983f3](https://github.com/empathyco/x/commit/05983f352830b7d52c2b586566938749fa9ce44e))
+* **filters:** update preselected filters component so it reacts to snippetConfig changes (#1404) ([05983f3](https://github.com/empathyco/x/commit/05983f352830b7d52c2b586566938749fa9ce44e))
+
+
 
 ## [4.1.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.20...@empathyco/x-components@4.1.0-alpha.21) (2024-02-20)
 
+
 ### Features
 
-- migrate base-switch to use defineComponent sintax (#1415) ([0592ec9](https://github.com/empathyco/x/commit/0592ec94f7f47c91946d0e3a465dde134dd12021))
+* migrate base-switch to use defineComponent sintax (#1415) ([0592ec9](https://github.com/empathyco/x/commit/0592ec94f7f47c91946d0e3a465dde134dd12021))
+
+
 
 ## [4.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.19...@empathyco/x-components@4.1.0-alpha.20) (2024-02-20)
 
+
 ### Bug Fixes
 
-- **tagging:** fix e2e test when a display result has no queryTagging (#1416) ([6193307](https://github.com/empathyco/x/commit/6193307e609ab340fcd5f1f047d87b352c571e72))
+* **tagging:** fix e2e test when a display result has no queryTagging (#1416) ([6193307](https://github.com/empathyco/x/commit/6193307e609ab340fcd5f1f047d87b352c571e72))
+
+
 
 ## [4.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.18...@empathyco/x-components@4.1.0-alpha.19) (2024-02-20)
 
+
 ### Features
 
-- **composables:** create XBus composable (#1412) ([5246135](https://github.com/empathyco/x/commit/5246135aaf2581e338dcf1934aeb8fb781cfe0a0))
-- **tagging:** send query event when a result from a QP is clicked (#1409) ([2236948](https://github.com/empathyco/x/commit/22369482f51fc2e9b36c7b8280ad0da3ab5e504d))
+* **composables:** create XBus composable (#1412) ([5246135](https://github.com/empathyco/x/commit/5246135aaf2581e338dcf1934aeb8fb781cfe0a0))
+* **tagging:** send query event when a result from a QP is clicked (#1409) ([2236948](https://github.com/empathyco/x/commit/22369482f51fc2e9b36c7b8280ad0da3ab5e504d))
+
 
 ### Code Refactoring
 
-- migrate cross-fade component to vue 2.7 (#1414) ([7f28d20](https://github.com/empathyco/x/commit/7f28d20f3d644cd69da0914ff7a1f3e2819b2966))
-- migrate fade component to vue 2.7 (#1413) ([4a8d016](https://github.com/empathyco/x/commit/4a8d0166f34876c71a77ac5326af0f44e4956e77))
-- move getRottXComponent to a util (#1410) ([6f93f23](https://github.com/empathyco/x/commit/6f93f238fae6da2db7251eb8b2524e306e415814))
+* migrate cross-fade component to vue 2.7 (#1414) ([7f28d20](https://github.com/empathyco/x/commit/7f28d20f3d644cd69da0914ff7a1f3e2819b2966))
+* migrate fade component to vue 2.7 (#1413) ([4a8d016](https://github.com/empathyco/x/commit/4a8d0166f34876c71a77ac5326af0f44e4956e77))
+* move getRottXComponent to a util (#1410) ([6f93f23](https://github.com/empathyco/x/commit/6f93f238fae6da2db7251eb8b2524e306e415814))
+
+
 
 ## [4.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.17...@empathyco/x-components@4.1.0-alpha.18) (2024-02-16)
 
+
 ### Code Refactoring
 
-- **components:** migrate animate-width component to vue 2.7 (#1411) ([47c26fb](https://github.com/empathyco/x/commit/47c26fba64025ae6fc391979e8d82fd366afe5b9))
+* **components:** migrate animate-width component to vue 2.7 (#1411) ([47c26fb](https://github.com/empathyco/x/commit/47c26fba64025ae6fc391979e8d82fd366afe5b9))
+
+
 
 ## [4.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.16...@empathyco/x-components@4.1.0-alpha.17) (2024-02-14)
 
+
 ### Features
 
-- **composables:** create use getter composable (#1407) ([44a1488](https://github.com/empathyco/x/commit/44a148848ab027a624a3a1980ed4a62cb0956dea))
+* **composables:** create use getter composable (#1407) ([44a1488](https://github.com/empathyco/x/commit/44a148848ab027a624a3a1980ed4a62cb0956dea))
+
+
 
 ## [4.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.15...@empathyco/x-components@4.1.0-alpha.16) (2024-02-14)
 
+
 ### Testing
 
-- uncomment tests that were expected to fail (#1405) ([f2310a4](https://github.com/empathyco/x/commit/f2310a43133a1b6e1531d59d8e392912eff96894))
+* uncomment tests that were expected to fail (#1405) ([f2310a4](https://github.com/empathyco/x/commit/f2310a43133a1b6e1531d59d8e392912eff96894))
+
+
 
 ## [4.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.14...@empathyco/x-components@4.1.0-alpha.15) (2024-02-13)
 
+
 ### Features
 
-- **composables:** create useState composable (#1402) ([435af42](https://github.com/empathyco/x/commit/435af4222a2ed08d44d728a973406c0e1122b862))
+* **composables:** create useState composable (#1402) ([435af42](https://github.com/empathyco/x/commit/435af4222a2ed08d44d728a973406c0e1122b862))
+
+
 
 ## [4.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.13...@empathyco/x-components@4.1.0-alpha.14) (2024-02-05)
 
+
 ### Features
 
-- **components:** create useStore composable (#1401) ([b4e42b9](https://github.com/empathyco/x/commit/b4e42b95bdee4dcc869908e9505830cc15e975a8))
-- creating useRegisterXModule composable (#1399) ([850a741](https://github.com/empathyco/x/commit/850a741f3a144ae79374d85e7e2f6a2f1c502946))
+* **components:** create useStore composable (#1401) ([b4e42b9](https://github.com/empathyco/x/commit/b4e42b95bdee4dcc869908e9505830cc15e975a8))
+* creating useRegisterXModule composable (#1399) ([850a741](https://github.com/empathyco/x/commit/850a741f3a144ae79374d85e7e2f6a2f1c502946))
+
 
 ### Code Refactoring
 
-- **tagging:** change sessionId creation logic from nanoId to UUID (#1398) ([be06367](https://github.com/empathyco/x/commit/be063673bb74559efab5be9bf6f7ec56688c71f9))
+* **tagging:** change sessionId creation logic from nanoId to UUID (#1398) ([be06367](https://github.com/empathyco/x/commit/be063673bb74559efab5be9bf6f7ec56688c71f9))
+
+
 
 ## [4.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.12...@empathyco/x-components@4.1.0-alpha.13) (2024-01-25)
 
+
 ### Features
 
-- **queries-preview:** allow queries preview with same query but different filters or params (#1392) ([4c1f63a](https://github.com/empathyco/x/commit/4c1f63aaf4e9fc75d3b8298b2ea41c1fc207940a))
+* **queries-preview:** allow queries preview with same query but different filters or params (#1392) ([4c1f63a](https://github.com/empathyco/x/commit/4c1f63aaf4e9fc75d3b8298b2ea41c1fc207940a))
+
+
 
 ## [4.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.11...@empathyco/x-components@4.1.0-alpha.12) (2024-01-25)
 
+
 ### Features
 
-- **components:** composable and component to fire callbacks when an element appears on viewport (#1391) ([c463352](https://github.com/empathyco/x/commit/c46335243c74c604e6f8168c158461edff9d4eb5))
+* **components:** composable and component to fire callbacks when an element appears on viewport (#1391) ([c463352](https://github.com/empathyco/x/commit/c46335243c74c604e6f8168c158461edff9d4eb5))
+
+
 
 ## [4.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.10...@empathyco/x-components@4.1.0-alpha.11) (2024-01-22)
 
+
 ### Bug Fixes
 
-- prevent snippet-config-extra-params of firing change event with no changes (#1393) ([73a7a1b](https://github.com/empathyco/x/commit/73a7a1b4168fbcbca23b665baf45fd0e7398f494))
+* prevent snippet-config-extra-params of firing change event with no changes (#1393) ([73a7a1b](https://github.com/empathyco/x/commit/73a7a1b4168fbcbca23b665baf45fd0e7398f494))
+
+
 
 ## [4.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.9...@empathyco/x-components@4.1.0-alpha.10) (2024-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.8...@empathyco/x-components@4.1.0-alpha.9) (2024-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.7...@empathyco/x-components@4.1.0-alpha.8) (2024-01-15)
+
 
 ### Features
 
-- **queries-preview:** display tagging from QP request accessible in QP component (#1389) ([27dfec8](https://github.com/empathyco/x/commit/27dfec8dc2725a7c2300e306d82617a2d1de130f))
+* **queries-preview:** display tagging from QP request accessible in QP component (#1389) ([27dfec8](https://github.com/empathyco/x/commit/27dfec8dc2725a7c2300e306d82617a2d1de130f))
+
+
 
 ## [4.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.6...@empathyco/x-components@4.1.0-alpha.7) (2024-01-12)
 
+
 ### Features
 
-- **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+
+
 
 ## [4.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.5...@empathyco/x-components@4.1.0-alpha.6) (2024-01-11)
 
+
 ### Features
 
-- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+
+
 
 ## [4.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.4...@empathyco/x-components@4.1.0-alpha.5) (2024-01-03)
 
+
 ### Documentation
 
-- **integration:** add getSnippetConfig info (#1387) ([622286b](https://github.com/empathyco/x/commit/622286be7b9e552f3dd1e5563a295c7bd267cc49))
+* **integration:** add getSnippetConfig info (#1387) ([622286b](https://github.com/empathyco/x/commit/622286be7b9e552f3dd1e5563a295c7bd267cc49))
+
+
 
 ## [4.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.3...@empathyco/x-components@4.1.0-alpha.4) (2023-12-29)
 
+
 ### Features
 
-- **x-plugin:** add snippet config getter to XAPI (#1378) ([a76e1b7](https://github.com/empathyco/x/commit/a76e1b716b9aa86fc6853bcf4d1bb7aaa9478f4a))
+* **x-plugin:** add snippet config getter to XAPI (#1378) ([a76e1b7](https://github.com/empathyco/x/commit/a76e1b716b9aa86fc6853bcf4d1bb7aaa9478f4a))
+
+
 
 ## [4.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.2...@empathyco/x-components@4.1.0-alpha.3) (2023-12-29)
 
+
 ### Documentation
 
-- optimize images for SEO (#1379) ([b115a08](https://github.com/empathyco/x/commit/b115a08caa450447f0515532c3d9c9fd1125a1a4))
+* optimize images for SEO (#1379) ([b115a08](https://github.com/empathyco/x/commit/b115a08caa450447f0515532c3d9c9fd1125a1a4))
+
+
 
 ## [4.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.1...@empathyco/x-components@4.1.0-alpha.2) (2023-12-28)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.0...@empathyco/x-components@4.1.0-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.2-alpha.0...@empathyco/x-components@4.1.0-alpha.0) (2023-12-11)
+
 
 ### Features
 
-- **query-preview:** use cached query-previews (#1360) ([2579ca4](https://github.com/empathyco/x/commit/2579ca42d52c6f6c428b9129d63dc4a0ddb4788c))
+* **query-preview:** use cached query-previews (#1360) ([2579ca4](https://github.com/empathyco/x/commit/2579ca42d52c6f6c428b9129d63dc4a0ddb4788c))
+
+
 
 ## [4.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.1...@empathyco/x-components@4.0.2-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.1-alpha.0...@empathyco/x-components@4.0.1) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-components
+
+
+
+
 
 ## [4.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.1...@empathyco/x-components@4.0.1-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.1...@empathyco/x-components@4.0.0) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [4.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.0...@empathyco/x-components@4.0.0-alpha.1) (2023-11-20)
+
 
 ### Bug Fixes
 
-- use `cypress run` for headless testing (#1357) ([bc88050](https://github.com/empathyco/x/commit/bc88050a6c525e65d8b0e2d1adacf5d823df9137))
+* use `cypress run` for headless testing (#1357) ([bc88050](https://github.com/empathyco/x/commit/bc88050a6c525e65d8b0e2d1adacf5d823df9137))
+
+
 
 ## [4.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.3...@empathyco/x-components@4.0.0-alpha.0) (2023-11-16)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **components:** remove deprecated origins from (#1344)
-- **facets:** The '**unknown-facet**' value for a facetId is deprecated: it has been replaced by the UNKNOWN_FACET_KEY constant, whose value is '**unknown**'.
+* **components:** remove deprecated origins from (#1344)
+* **facets:** The '__unknown-facet__' value for a facetId is deprecated: it has been replaced by the UNKNOWN_FACET_KEY constant, whose value is '__unknown__'.
 
 Co-authored-by: Guillermo Cacheda <cachedacodes@gmail.com>
 
 ### Features
 
-- **components:** remove deprecated origins (#1355) ([3d7c981](https://github.com/empathyco/x/commit/3d7c981380bd8af30724780f7810808d563db471))
-- **facets:** Unify **unknown** and **unknown-facet** in a constant (#1351) ([30585f2](https://github.com/empathyco/x/commit/30585f2d57653aa33c68f748ff10f93202f1887e))
+* **components:** remove deprecated origins (#1355) ([3d7c981](https://github.com/empathyco/x/commit/3d7c981380bd8af30724780f7810808d563db471))
+* **facets:** Unify __unknown__ and __unknown-facet__ in a constant (#1351) ([30585f2](https://github.com/empathyco/x/commit/30585f2d57653aa33c68f748ff10f93202f1887e))
+
+
 
 ## [3.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.2...@empathyco/x-components@3.1.0-alpha.3) (2023-11-13)
 
+
 ### Features
 
-- migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+* migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+
+
 
 ## [3.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.1...@empathyco/x-components@3.1.0-alpha.2) (2023-11-13)
 
+
 ### Documentation
 
-- **integration:** how to track add2cart event (#1349) ([65509fd](https://github.com/empathyco/x/commit/65509fdfcbd89ce823bd2a36898c3bbf21b7b3ce))
+* **integration:** how to track add2cart event (#1349) ([65509fd](https://github.com/empathyco/x/commit/65509fdfcbd89ce823bd2a36898c3bbf21b7b3ce))
+
+
 
 ## [3.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.0...@empathyco/x-components@3.1.0-alpha.1) (2023-11-10)
 
+
 ### Documentation
 
-- fix `@empathyco/x-components import path in examples (#1353) ([071f12d](https://github.com/empathyco/x/commit/071f12dd96285a02f56c9ddc52c8fe6b802cefae))
+* fix `@empathyco/x-components import path in examples (#1353) ([071f12d](https://github.com/empathyco/x/commit/071f12dd96285a02f56c9ddc52c8fe6b802cefae))
+
+
 
 ## [3.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.4...@empathyco/x-components@3.1.0-alpha.0) (2023-11-06)
 
+
 ### Features
 
-- **extra-params:** allow currency to be an extra param as default ([319851d](https://github.com/empathyco/x/commit/319851da07f04a79aae128081c9c45cd7ae1b1e9))
+* **extra-params:** allow currency to be an extra param as default ([319851d](https://github.com/empathyco/x/commit/319851da07f04a79aae128081c9c45cd7ae1b1e9))
+
+
 
 ## [3.0.1-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.3...@empathyco/x-components@3.0.1-alpha.4) (2023-10-31)
 
+
 ### Bug Fixes
 
-- **x-plugin:** improve ResultFeature type values (#1344) ([c4c9f6e](https://github.com/empathyco/x/commit/c4c9f6e69d9f9f2a68619d6f10e918c649b42894))
+* **x-plugin:** improve ResultFeature type values (#1344) ([c4c9f6e](https://github.com/empathyco/x/commit/c4c9f6e69d9f9f2a68619d6f10e918c649b42894))
+
+
 
 ## [3.0.1-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.2...@empathyco/x-components@3.0.1-alpha.3) (2023-10-30)
 
+
 ### Bug Fixes
 
-- identation error in search-box.md ([614407e](https://github.com/empathyco/x/commit/614407e17a4f198e9c8ad11ca324a00ee7275fa6))
+* identation error in search-box.md ([614407e](https://github.com/empathyco/x/commit/614407e17a4f198e9c8ad11ca324a00ee7275fa6))
+
+
 
 ## [3.0.1-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.1...@empathyco/x-components@3.0.1-alpha.2) (2023-10-27)
 
+
 ### Documentation
 
-- **static-docs:** added redirections in static docs metadata (#1341) ([8c1d27f](https://github.com/empathyco/x/commit/8c1d27fdef0ff5b95a274d0693c98495799436bb))
+* **static-docs:** added redirections in static docs metadata (#1341) ([8c1d27f](https://github.com/empathyco/x/commit/8c1d27fdef0ff5b95a274d0693c98495799436bb))
+
+
 
 ## [3.0.1-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.0...@empathyco/x-components@3.0.1-alpha.1) (2023-10-26)
 
+
 ### Bug Fixes
 
-- **history-queries:** map selected filters correctly when coming from Query Preview (#1325) ([61fdfd1](https://github.com/empathyco/x/commit/61fdfd1f4af0183952084abfd8a72ecdd76ee6ee))
+* **history-queries:** map selected filters correctly when coming from Query Preview (#1325) ([61fdfd1](https://github.com/empathyco/x/commit/61fdfd1f4af0183952084abfd8a72ecdd76ee6ee))
+
+
 
 ## [3.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.425...@empathyco/x-components@3.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-components
+
+
+
+
 
 # Change Log
 
@@ -1371,9 +2018,12 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0-alpha.425](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.424...@empathyco/x-components@3.0.0-alpha.425) (2023-10-23)
 
+
 ### Documentation
 
-- **integration:** update integration documentation for query preview with filters [(#1336)](https://github.com/empathyco/x/pull/1336) ([b6d6b70](https://github.com/empathyco/x/commit/b6d6b70a6dff5fa22beac9980026e837aded8f8a))
+* **integration:** update integration documentation for query preview with filters [(#1336)](https://github.com/empathyco/x/pull/1336) ([b6d6b70](https://github.com/empathyco/x/commit/b6d6b70a6dff5fa22beac9980026e837aded8f8a))
+
+
 
 ## [3.0.0-alpha.424](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.423...@empathyco/x-components@3.0.0-alpha.424) (2023-10-23)
 

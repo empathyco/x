@@ -7,21 +7,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.2...@empathyco/x-tailwindcss@2.0.0-alpha.3) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.1...@empathyco/x-tailwindcss@2.0.0-alpha.2) (2025-01-13)
+
 
 ### Bug Fixes
 
-- **x-tailwindcss:** use complete class name in css rule for layout items (#1665) ([4c0b811](https://github.com/empathyco/x/commit/4c0b81140d0ccb104f514f259dbc08bbc4136932))
+* **x-tailwindcss:** use complete class name in css rule for layout items (#1665) ([4c0b811](https://github.com/empathyco/x/commit/4c0b81140d0ccb104f514f259dbc08bbc4136932))
+
+
 
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.0...@empathyco/x-tailwindcss@2.0.0-alpha.1) (2024-11-25)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}} so now if you need to customize a value you can do it via extending the general tailwind theme:
+* **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
 
 module.exports = {
 theme: {
@@ -42,89 +54,148 @@ To add new components you can do it via https://tailwindcss.com/docs/adding-cust
 
 ### Features
 
-- **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+* **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+
+
 
 ## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.7...@empathyco/x-tailwindcss@2.0.0-alpha.0) (2024-11-20)
 
+
 ### ⚠ BREAKING CHANGES
 
-- The showcase is no longer exported as Vue components but as web application.
+* The showcase is no longer exported as Vue components but as web application.
 
 ### Features
 
-- update x-tailwindcss package to vue 3 (#1656) ([ee2f06f](https://github.com/empathyco/x/commit/ee2f06fa6af09cbce3d78be1438111819c7e4535))
+* update x-tailwindcss package to vue 3 (#1656) ([ee2f06f](https://github.com/empathyco/x/commit/ee2f06fa6af09cbce3d78be1438111819c7e4535))
+
+
 
 ## [1.2.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.5...@empathyco/x-tailwindcss@1.2.0-alpha.7) (2024-10-24)
 
+
 ### Features
 
-- update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
 
 ## [1.2.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.5...@empathyco/x-tailwindcss@1.2.0-alpha.6) (2024-09-05)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.2.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.4...@empathyco/x-tailwindcss@1.2.0-alpha.5) (2024-08-19)
+
 
 ### Bug Fixes
 
-- facets alignment in firefox (#1598) ([e173894](https://github.com/empathyco/x/commit/e173894f2b6456ec2e8696692c4a654e5a000561))
+* facets alignment in firefox (#1598) ([e173894](https://github.com/empathyco/x/commit/e173894f2b6456ec2e8696692c4a654e5a000561))
+
+
 
 ## [1.2.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.3...@empathyco/x-tailwindcss@1.2.0-alpha.4) (2024-08-13)
 
+
 ### Bug Fixes
 
-- **design-system:** facet alignment in firefox (#1587) ([13b29d0](https://github.com/empathyco/x/commit/13b29d0a0fecbf0dd985d04dce4ab6299ce86d9c))
+* **design-system:** facet alignment in firefox (#1587) ([13b29d0](https://github.com/empathyco/x/commit/13b29d0a0fecbf0dd985d04dce4ab6299ce86d9c))
+
+
 
 ## [1.2.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.2...@empathyco/x-tailwindcss@1.2.0-alpha.3) (2024-07-15)
 
+
 ### Bug Fixes
 
-- **design-system:** suggestion alignment in firefox (#1565) ([30e0186](https://github.com/empathyco/x/commit/30e0186ddc77ee6043799010576dee4a8e1f93f9))
+* **design-system:** suggestion alignment in firefox (#1565) ([30e0186](https://github.com/empathyco/x/commit/30e0186ddc77ee6043799010576dee4a8e1f93f9))
+
+
 
 ## [1.2.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.1...@empathyco/x-tailwindcss@1.2.0-alpha.2) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.2.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.0...@empathyco/x-tailwindcss@1.2.0-alpha.1) (2024-01-17)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.2.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.2-alpha.1...@empathyco/x-tailwindcss@1.2.0-alpha.0) (2024-01-11)
+
 
 ### Features
 
-- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+
+
 
 ## [1.1.2-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.2-alpha.0...@empathyco/x-tailwindcss@1.1.2-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.1.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.1...@empathyco/x-tailwindcss@1.1.2-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
 
 ## [1.1.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.1-alpha.0...@empathyco/x-tailwindcss@1.1.1) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.1.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.0-alpha.0...@empathyco/x-tailwindcss@1.1.1-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
 
 ## [1.1.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.1.0-alpha.0...@empathyco/x-tailwindcss@1.1.0) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
+
+
+
+
 ## [1.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.1-alpha.0...@empathyco/x-tailwindcss@1.1.0-alpha.0) (2023-11-13)
+
 
 ### Features
 
-- migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+* migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+
+
 
 ## [1.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.35...@empathyco/x-tailwindcss@1.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
 
 # Change Log
 
