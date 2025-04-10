@@ -118,6 +118,7 @@
     "postcss": "8.4.12",
     "postcss-dir-pseudo-class": "7.0.0",
     "postcss-logical": "4.0.2",
+    "prettier-plugin-tailwindcss": "0.6.11",
     "rimraf": "3.0.2",
     "rollup": "4.9.1",
     "rollup-plugin-copy": "3.5.0",
