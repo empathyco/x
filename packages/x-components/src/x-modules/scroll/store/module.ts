@@ -13,16 +13,15 @@ export const scrollXStoreModule: ScrollXStoreModule = {
   getters: {},
   mutations: {
     setScrollComponentState(state, { id, newState }) {
-      if (!state.data[id]) {
-        state.data[id] = {
-          hasReachedStart: false,
-          hasAlmostReachedEnd: false,
-          hasReachedEnd: false,
-          position: 0,
-          direction: 'UP',
-        }
-      }
-      Object.assign(state.data[id], newState)
+      state.data[id] = !state.data[id]
+        ? {
+            hasReachedStart: false,
+            hasAlmostReachedEnd: false,
+            hasReachedEnd: false,
+            position: 0,
+            direction: 'UP',
+          }
+        : { ...state.data[id], ...newState }
     },
     setPendingScrollTo(state, pendingScrollTo) {
       state.pendingScrollTo = pendingScrollTo

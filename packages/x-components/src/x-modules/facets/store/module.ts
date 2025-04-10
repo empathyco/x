@@ -32,7 +32,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   },
   mutations: {
     mutateFilter(state, { filter, newFilterState }) {
-      const newFilter = Object.assign(filter, newFilterState)
+      const newFilter = { ...filter, ...newFilterState }
       state.filters[newFilter.id] = newFilter
     },
     setFilters(state, filters) {
