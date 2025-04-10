@@ -1,6 +1,6 @@
 <template>
   <Teleport :to="target">
-    <div v-if="visible" class="x-base-teleport">
+    <div class="x-base-teleport">
       <slot></slot>
     </div>
   </Teleport>
@@ -15,10 +15,6 @@
       target: {
         type: String,
         required: true
-      },
-      visible: {
-        type: Boolean,
-        default: false
       }
     }
   });
