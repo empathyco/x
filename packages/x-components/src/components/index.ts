@@ -8,9 +8,10 @@ export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vu
 export { default as BaseRating } from './base-rating.vue'
 export { default as BaseSlider } from './base-slider.vue'
 export { default as BaseSwitch } from './base-switch.vue'
+export { default as BaseTeleport } from './base-teleport.vue'
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue'
-export * from './column-picker'
 
+export * from './column-picker'
 export * from './currency'
 // Utils
 export * from './decorators/injection.consts'
