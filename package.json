@@ -32,5 +32,8 @@
     "node": ">=22",
     "npm": ">=10"
   },
-  "prettier": "@empathyco/eslint-config/prettier"
+  "prettier": "@empathyco/eslint-config/prettier",
+  "dependencies": {
+    "eslint": "^9.24.0"
+  }
 }
