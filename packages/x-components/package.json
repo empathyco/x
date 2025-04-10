@@ -40,7 +40,7 @@
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "serve": "vite",

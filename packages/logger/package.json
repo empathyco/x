@@ -23,7 +23,7 @@
     "types"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
