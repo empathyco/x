@@ -143,12 +143,7 @@
     },
     setup(props) {
       const x = use$x();
-      const relatedPrompts: ComputedRef<RelatedPromptModel[]> = useState('relatedPrompts', [
-        'relatedPrompts'
-      ]).relatedPrompts;
-      const selectedPromptIndex: ComputedRef<number> = useState('relatedPrompts', [
-        'selectedPrompt'
-      ]).selectedPrompt;
+      const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts');
 
       const clickedListItemIndex = ref<number | null>(null);
       const initialOffsetLefts: Record<number, number> = {};

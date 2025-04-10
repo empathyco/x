@@ -25,7 +25,6 @@
 
 <script lang="ts">
   import { computed, ComputedRef, defineComponent } from 'vue';
-  import { Suggestion } from '@empathyco/x-types';
   import { semanticQueriesXModule } from '../x-module';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { useState } from '../../../composables';
@@ -42,9 +41,7 @@
     components: { BaseSuggestions, SemanticQuery },
     setup(_, { slots }) {
       /** The semantic queries from the state. */
-      const suggestions: ComputedRef<Suggestion[]> = useState('semanticQueries', [
-        'semanticQueries'
-      ]).semanticQueries;
+      const suggestions = useState('semanticQueries').semanticQueries;
 
       /**
        * Maps the list of semantic queries to a list of queries, to make it compatible with

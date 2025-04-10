@@ -55,7 +55,7 @@
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
        * `id` property, this component should be scrolled into view.
        */
-      const { pendingScrollTo } = useState('scroll', ['pendingScrollTo']);
+      const { pendingScrollTo } = useState('scroll');
 
       /** Observer to detect the first visible element. */
       const firstVisibleItemObserver = inject<Ref<ScrollVisibilityObserver> | null>(

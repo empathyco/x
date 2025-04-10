@@ -64,9 +64,7 @@
        *
        * @public
        */
-      const items: ComputedRef<PartialResult[]> = useState('search', [
-        'partialResults'
-      ]).partialResults;
+      const items = useState('search').partialResults;
 
       /**
        * A limited number of partial results.

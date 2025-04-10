@@ -66,10 +66,7 @@
        *
        * @internal
        */
-      const { selectedRelatedTags }: Dictionary<ComputedRef<RelatedTagModel[]>> = useState(
-        'relatedTags',
-        ['selectedRelatedTags']
-      );
+      const { selectedRelatedTags } = useState('relatedTags');
 
       /**
        * Check if the related tag is selected or not.

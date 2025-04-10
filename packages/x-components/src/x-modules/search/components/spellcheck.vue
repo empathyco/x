@@ -28,7 +28,7 @@
        *
        * @public
        */
-      const { query, spellcheckedQuery } = useState('search', ['query', 'spellcheckedQuery']);
+      const { query, spellcheckedQuery } = useState('search');
 
       return {
         query,

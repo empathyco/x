@@ -722,7 +722,7 @@
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
       const referenceSelector = ref();
 
-      const scrollData = useState('scroll', ['data']).data;
+      const scrollData = useState('scroll').data;
       const mainScrollDirection = computed(() => scrollData.value['main-scroll']?.direction);
 
       const controls: ComputedRef<HomeControls> = computed(() => {
@@ -757,16 +757,13 @@
 
       provide('controls', controls);
 
-      const { relatedPrompts, selectedPrompt } = useState('relatedPrompts', [
-        'relatedPrompts',
-        'selectedPrompt'
-      ]);
+      const { relatedPrompts, selectedPrompt } = useState('relatedPrompts');
 
       const relatedPromptsQueriesPreviewInfo = computed(() => {
         if (relatedPrompts.value) {
-          const queries = [] as string[];
+          const queries: string[] = [];
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.forEach(
+          relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.forEach(
             (nextQuery: RelatedPromptNextQuery) => queries.push(nextQuery.query)
           );
           return queries.map(query => ({ query }));
@@ -774,30 +771,32 @@
         return [];
       });
 
+      const fallbackTaggingRequest = {} as TaggingRequest;
+
       const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
           nextQuery => nextQuery.query === queryPreviewInfo.query
         );
-        return nextQuery.toolingDisplayTagging;
+        return nextQuery?.toolingDisplayTagging ?? fallbackTaggingRequest;
       };
 
       const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
           nextQuery => nextQuery.query === queryPreviewInfo.query
         );
-        return nextQuery.toolingDisplayAdd2CartTagging;
+        return nextQuery?.toolingDisplayAdd2CartTagging ?? fallbackTaggingRequest;
       };
 
       const getToolingDisplayClickTagging = (
         queryPreviewInfo: QueryPreviewInfo
       ): TaggingRequest => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries.find(
+        const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
           nextQuery => nextQuery.query === queryPreviewInfo.query
         );
-        return nextQuery.toolingDisplayClickTagging;
+        return nextQuery?.toolingDisplayClickTagging ?? fallbackTaggingRequest;
       };
 
       const queriesPreviewInfo: QueryPreviewInfo[] = [

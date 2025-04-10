@@ -22,7 +22,7 @@
       }
     },
     setup(props) {
-      const params: ComputedRef<Dictionary> = useState('extraParams', ['params']).params;
+      const params = useState('extraParams').params;
       const $x = use$x();
 
       $x.emit('ExtraParamsInitialized', { ...props.values });
