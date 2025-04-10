@@ -33,7 +33,7 @@ jobs:
       - name: install pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
         with:
-          version: 10.7.1
+          version: 9.15.9
 
       - name: install dependencies
         run: pnpm install
