@@ -7,7 +7,7 @@ export default {
     "pnpm run format:check",
     "pnpm run lint:check"
   ],
-  "*.{md,js,json}": (stagedFiles) => [
+  "*.{md,js,json}": (_stagedFiles) => [
     "pnpm run format:check"
   ],
 }

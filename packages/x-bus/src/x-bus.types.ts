@@ -128,14 +128,15 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
    *
    * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit: (<SomeEvent extends keyof SomeEvents>(
-    event: SomeEvent,
-  ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>) &
-    (<SomeEvent extends keyof SomeEvents>(
-      event: SomeEvent,
-      payload: EventPayload<SomeEvents, SomeEvent>,
-      metadata?: SomeEventMetadata,
-    ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>)
+  emit:
+    | (<SomeEvent extends keyof SomeEvents>(
+        event: SomeEvent,
+      ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>)
+    | (<SomeEvent extends keyof SomeEvents>(
+        event: SomeEvent,
+        payload: EventPayload<SomeEvents, SomeEvent>,
+        metadata?: SomeEventMetadata,
+      ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>)
 
   /**
    * Retrieves an observable for an event.
