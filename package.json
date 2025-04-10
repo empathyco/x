@@ -19,7 +19,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-config": "1.7.0",
+    "@empathyco/eslint-config": "1.8.0",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cross-env": "7.0.3",
@@ -27,6 +27,7 @@
     "lerna": "6.6.0",
     "lint-staged": "13.3.0"
   },
+  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": ">=18",
     "npm": ">=9"

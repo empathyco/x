@@ -12,7 +12,7 @@ runs:
     - name: install pnpm
       uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
       with:
-        version: 9
+        version: 10
 
     - name: Install deps
       uses: cypress-io/github-action@v5
