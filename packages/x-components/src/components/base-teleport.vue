@@ -1,13 +1,13 @@
 <template>
   <Teleport :to="target">
-    <div class="x-base-teleport-container" :class="containerClasses">
+    <div v-if="visible" class="x-base-teleport">
       <slot></slot>
     </div>
   </Teleport>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, watch, onMounted, computed } from 'vue';
+  import { defineComponent } from 'vue';
 
   export default defineComponent({
     name: 'BaseTeleport',
@@ -16,43 +16,16 @@
         type: String,
         required: true
       },
-      hideTargetContent: {
+      visible: {
         type: Boolean,
         default: false
       }
-    },
-    setup(props) {
-      const targetElement = ref<HTMLElement>();
-
-      const containerClasses = computed(() => ({
-        'x-base-teleport-container--hide-siblings': props.hideTargetContent
-      }));
-
-      const updateVisibility = () => {
-        if (!props.hideTargetContent) {
-          targetElement.value?.classList.add('x-base-teleport-parent-container');
-        } else {
-          targetElement.value?.classList.remove('x-base-teleport-parent-container');
-        }
-      };
-
-      onMounted(() => {
-        targetElement.value = document.querySelector(props.target);
-
-        updateVisibility();
-      });
-
-      watch(() => props.hideTargetContent, updateVisibility);
-
-      return {
-        containerClasses
-      };
     }
   });
 </script>
 
 <style lang="css">
-  :has(> .x-base-teleport-container--hide-siblings) > *:not(.x-base-teleport-container) {
+  :has(> .x-base-teleport) > *:not(.x-base-teleport) {
     display: none;
   }
 </style>
