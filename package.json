@@ -32,12 +32,5 @@
     "node": ">=18",
     "npm": ">=9"
   },
-  "prettier": "@empathyco/eslint-config/prettier",
-  "lint-staged": {
-    "*.{ts,tsx,vue}": [
-      "prettier",
-      "npm run lint:check"
-    ],
-    "*.{md,js,json}": "prettier"
-  }
+  "prettier": "@empathyco/eslint-config/prettier"
 }
