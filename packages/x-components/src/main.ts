@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import process from 'node:process'
 // eslint-disable-next-line import/no-named-default
 import { default as AppComponent } from './App.vue'
 import { setupDevtools } from './plugins/devtools/devtools.plugin'
@@ -46,7 +47,6 @@ if (window.initX) {
  * @param app - The Vue application instance of the application.
  */
 function initDevtools(app: App): void {
-  // eslint-disable-next-line node/prefer-global/process
   if (process.env.NODE_ENV !== 'production') {
     setupDevtools(app)
   }

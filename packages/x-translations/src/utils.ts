@@ -1,6 +1,7 @@
 import type { CommandParameters, JSON } from './types'
 import fs from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 
 /**
  * Gets the parameters used to call the script.
@@ -8,7 +9,6 @@ import path from 'node:path'
  * @returns SourcePath and targetPath as strings.
  */
 export function getParams(): CommandParameters {
-  // eslint-disable-next-line node/prefer-global/process
   const [sourcePath, targetPath] = process.argv.slice(2)
   if (sourcePath === undefined) {
     throw new Error('getParams, sourcePath not found')
@@ -47,12 +47,9 @@ export function getSourcePaths(source: string, extension: string): string[] {
   const filePaths = fs.lstatSync(source).isDirectory()
     ? fs.readdirSync(source).map(fileName => path.join(source, fileName))
     : [source]
-  return (
-    filePaths
-      .filter(filePath => filePath.endsWith(extension))
-      // eslint-disable-next-line node/prefer-global/process
-      .map(filePath => path.resolve(process.cwd(), filePath))
-  )
+  return filePaths
+    .filter(filePath => filePath.endsWith(extension))
+    .map(filePath => path.resolve(process.cwd(), filePath))
 }
 /**
  * Exports the CSV or the JSON to a file.

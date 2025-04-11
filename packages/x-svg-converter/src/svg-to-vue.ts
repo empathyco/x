@@ -1,6 +1,7 @@
 import type { CommandParameters, SVGInfo } from './types'
 import { exec } from 'node:child_process'
 import fs from 'node:fs'
+import process from 'node:process'
 import { applyXDSFormat } from './regex-utils'
 
 if (require.main === module) {
@@ -82,7 +83,6 @@ function wrapAsVueComponent(svg: SVGInfo['svgData']): string {
  * @returns SourcePath as string and keepSVGs as boolean.
  */
 function getParams(): CommandParameters {
-  // eslint-disable-next-line node/prefer-global/process
   const [sourcePath, keepSVGs] = process.argv.slice(2)
   if (sourcePath === undefined) {
     throw new Error('getParams, sourcePath not found')
