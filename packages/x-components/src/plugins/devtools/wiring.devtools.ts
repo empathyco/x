@@ -3,7 +3,6 @@ import type { CustomInspectorNode, DevtoolsPluginApi, InspectorNodeTag } from '@
 import type { XEvent } from '../../wiring/events.types'
 import type { AnyWire, Wiring } from '../../wiring/wiring.types'
 import type { XModuleName } from '../../x-modules/x-modules.types'
-import process from 'node:process'
 import { forEach, reduce } from '@empathyco/x-utils'
 import { filter } from '../../wiring/wires.operators'
 import { hslToHex, moduleColors } from './colors.utils'
@@ -112,6 +111,7 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<Dictionary<unknown>>)
  * @internal
  */
 export function sendWiringToDevtools(module: XModuleName, wiring: Partial<Wiring>): void {
+  // eslint-disable-next-line node/prefer-global/process
   if (process.env.NODE_ENV !== 'production') {
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       const eventWiring = wiringNodes[event] ?? (wiringNodes[event] = [])

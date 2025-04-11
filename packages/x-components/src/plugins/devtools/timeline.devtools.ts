@@ -2,7 +2,6 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { DevtoolsPluginApi } from '@vue/devtools-api'
 import type { XEvent, XEventPayload } from '../../wiring/events.types'
 import type { WirePayload } from '../../wiring/wiring.types'
-import process from 'node:process'
 import { hslToHex } from './colors.utils'
 
 /**
@@ -96,6 +95,7 @@ export function logDevtoolsXEvent<Event extends XEvent>(
   event: Event,
   value: WirePayload<XEventPayload<Event>>,
 ): void {
+  // eslint-disable-next-line node/prefer-global/process
   if (process.env.NODE_ENV !== 'production' && devtoolsAPI) {
     const timelineEvent = {
       title: event,
