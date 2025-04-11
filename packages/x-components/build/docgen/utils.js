@@ -9,7 +9,7 @@ const { join } = require('node:path')
  * @internal
  */
 function cleanMarkdown(input) {
-  return input.replace(/\\/g, '\\\\').replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|')
+  return input.replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|')
 }
 
 /**
