@@ -35,20 +35,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
 
+```ts
 module.exports = {
-theme: {
-extend: {
-spacing: theme => theme('x.spacing'),
-colors: theme => theme('x.colors'),
-screens: theme => theme('x.screens'),
-fontSize: theme => theme('x.fontSize'),
-fontFamily: theme => theme('x.fontFamily'),
-x: {
-colors: {
-neutral: {
-5: '#56ac91'
+  theme: {
+    extend: {
+      spacing: theme => theme('x.spacing'),
+      colors: theme => theme('x.colors'),
+      screens: theme => theme('x.screens'),
+      fontSize: theme => theme('x.fontSize'),
+      fontFamily: theme => theme('x.fontFamily'),
+      x: {
+        colors: {
+          neutral: {
+            5: '#56ac91'
+          } 
+        }
+      }
+    }
+  }
 }
-....
+```
 
 To add new components you can do it via https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
 
