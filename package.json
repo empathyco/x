@@ -24,8 +24,7 @@
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cross-env": "7.0.3",
     "husky": "8.0.3",
-    "lerna": "6.6.0",
-    "lint-staged": "13.3.0"
+    "lerna": "6.6.0"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {
