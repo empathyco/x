@@ -1,2 +1,4 @@
-/showcase
+# Prettier CHANGELOG.md ignore
+/CHANGELOG.md
 /dist
+/showcase

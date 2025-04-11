@@ -1,3 +1,5 @@
+# Prettier CHANGELOG.md ignore
+/CHANGELOG.md
 /dist
 /docs
 /report
