@@ -4,7 +4,7 @@
     <input id="layout-two-columns-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-gray-100">
-      <div class="x-layout-min-margin-48" :class="[cssClass]">
+      <div class="x-layout-min-margin-48" :class="cssClass">
         <div class="x-layout-item border-b-1 border-gray-300 bg-white">
           <div class="flex items-center justify-between py-2">
             <span class="x-title3">TWO COLUMNS LAYOUT</span>

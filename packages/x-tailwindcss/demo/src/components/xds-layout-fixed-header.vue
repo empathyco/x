@@ -4,7 +4,7 @@
     <input id="layout-fixed-header-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-white">
-      <div class="x-layout-min-margin-48 bg-gray-100" :class="[cssClass]">
+      <div class="x-layout-min-margin-48 bg-gray-100" :class="cssClass">
         <div class="x-scroll flex flex-col">
           <div class="x-layout-item border-b-1 sticky top-0 border-gray-300 bg-white">
             <div class="flex items-center justify-between py-2">
