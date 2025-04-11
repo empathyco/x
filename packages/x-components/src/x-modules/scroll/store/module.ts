@@ -1,12 +1,4 @@
-import type { ScrollComponentState, ScrollXStoreModule } from './types'
-
-const defaultState: ScrollComponentState = {
-  hasReachedStart: false,
-  hasAlmostReachedEnd: false,
-  hasReachedEnd: false,
-  position: 0,
-  direction: 'UP',
-}
+import type { ScrollXStoreModule } from './types'
 
 /**
  * {@link XStoreModule} For the scroll module.
@@ -21,7 +13,16 @@ export const scrollXStoreModule: ScrollXStoreModule = {
   getters: {},
   mutations: {
     setScrollComponentState(state, { id, newState }) {
-      state.data[id] = { ...(state.data[id] ?? defaultState), ...newState }
+      if (!state.data[id]) {
+        state.data[id] = {
+          hasReachedStart: false,
+          hasAlmostReachedEnd: false,
+          hasReachedEnd: false,
+          position: 0,
+          direction: 'UP',
+        }
+      }
+      Object.assign(state.data[id], newState)
     },
     setPendingScrollTo(state, pendingScrollTo) {
       state.pendingScrollTo = pendingScrollTo
