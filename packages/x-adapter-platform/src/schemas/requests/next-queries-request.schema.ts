@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { NextQueriesRequest } from '@empathyco/x-types';
-import { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model';
+import type { NextQueriesRequest } from '@empathyco/x-types'
+import type { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the NextQueriesRequestSchema.
@@ -12,5 +12,5 @@ export const nextQueriesRequestSchema = createMutableSchema<
   PlatformNextQueriesRequest
 >({
   query: 'query',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

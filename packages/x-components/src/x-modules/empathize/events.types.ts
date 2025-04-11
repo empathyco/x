@@ -7,17 +7,17 @@
 export interface EmpathizeXEvents {
   /**
    * The empathize closed following its events configuration.
-   * * Payload: none.
+   * Payload: none.
    */
-  EmpathizeClosed: void;
+  EmpathizeClosed: void
   /**
    * The empathize opened following its events configuration.
-   * * Payload: none.
+   * Payload: none.
    */
-  EmpathizeOpened: void;
+  EmpathizeOpened: void
   /**
    * The user closed the empathize.
-   * * Payload: none.
+   * Payload: none.
    */
-  UserClosedEmpathize: void;
+  UserClosedEmpathize: void
 }

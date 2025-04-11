@@ -1,20 +1,20 @@
-import { Result, RecommendationsRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { RecommendationsActionContext } from '../types';
+import type { RecommendationsRequest, Result } from '@empathyco/x-types'
+
+import type { RecommendationsActionContext } from '../types'
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RecommendationsActionContext,
   RecommendationsRequest | null,
   Result[]
 >({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchRecommendations', request);
+  async fetch({ dispatch }, request) {
+    return dispatch('fetchRecommendations', request)
   },
   onSuccess({ commit }, recommendations) {
-    commit('setRecommendations', recommendations);
-  }
-});
+    commit('setRecommendations', recommendations)
+  },
+})
 
 /**
  * Default implementation for {@link RecommendationsActions.fetchAndSaveRecommendations}
@@ -22,7 +22,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  *
  * @public
  */
-export const fetchAndSaveRecommendations = fetchAndSave;
+export const fetchAndSaveRecommendations = fetchAndSave
 
 /**
  * Default implementation for {@link RecommendationsActions.cancelFetchAndSaveRecommendations}
@@ -30,4 +30,4 @@ export const fetchAndSaveRecommendations = fetchAndSave;
  *
  * @public
  */
-export const cancelFetchAndSaveRecommendations = cancelPrevious;
+export const cancelFetchAndSaveRecommendations = cancelPrevious

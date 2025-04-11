@@ -1,8 +1,9 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { computed, ComputedRef } from 'vue';
-import { ExtractGetters, XModuleName } from '../x-modules/x-modules.types';
-import { getGetterPath } from '../plugins/index';
-import { useStore } from './use-store';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ComputedRef } from 'vue'
+import type { ExtractGetters, XModuleName } from '../x-modules/x-modules.types'
+import { computed } from 'vue'
+import { getGetterPath } from '../plugins/index'
+import { useStore } from './use-store'
 
 /**
  * Function which returns the requested getters as a dictionary of getters.
@@ -14,13 +15,14 @@ import { useStore } from './use-store';
  */
 export function useGetter<
   Module extends XModuleName,
-  GetterName extends keyof ExtractGetters<Module> & string
+  GetterName extends keyof ExtractGetters<Module> & string,
 >(module: Module, getters: GetterName[]): Dictionary<ComputedRef> {
-  const store = useStore();
+  const store = useStore()
 
   return getters.reduce<Dictionary<ComputedRef>>((getterDictionary, getterName) => {
-    const getterPath = getGetterPath(module, getterName);
-    getterDictionary[getterName] = computed(() => store.getters[getterPath]);
-    return getterDictionary;
-  }, {});
+    const getterPath = getGetterPath(module, getterName)
+    // eslint-disable-next-line ts/no-unsafe-return,ts/no-unsafe-member-access
+    getterDictionary[getterName] = computed(() => store.getters[getterPath])
+    return getterDictionary
+  }, {})
 }

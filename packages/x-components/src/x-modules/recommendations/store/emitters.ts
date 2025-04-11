@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { recommendationsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { recommendationsXStoreModule } from './module'
 /**
  * {@link StoreEmitters} For the recommendations module.
  *
@@ -8,6 +8,6 @@ import { recommendationsXStoreModule } from './module';
 export const recommendationsEmitters = createStoreEmitters(recommendationsXStoreModule, {
   RecommendationsChanged: state => state.recommendations,
   RecommendationsRequestUpdated: {
-    selector: (_, getters) => getters.request
-  }
-});
+    selector: (_, getters) => getters.request,
+  },
+})

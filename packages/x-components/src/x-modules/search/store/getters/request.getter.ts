@@ -1,4 +1,4 @@
-import { SearchXStoreModule } from '../types';
+import type { SearchXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link SearchGetters.request} getter.
@@ -8,12 +8,11 @@ import { SearchXStoreModule } from '../types';
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * search module.
  * @returns The search request to fetch data from the API.
- *
  * @public
  */
 export const request: SearchXStoreModule['getters']['request'] = (
   { page, params, selectedFilters: filters, sort },
-  { query }
+  { query },
 ) => {
   return query
     ? {
@@ -21,7 +20,7 @@ export const request: SearchXStoreModule['getters']['request'] = (
         sort,
         page,
         filters,
-        extraParams: params
+        extraParams: params,
       }
-    : null;
-};
+    : null
+}

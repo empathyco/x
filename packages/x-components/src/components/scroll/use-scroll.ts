@@ -1,9 +1,10 @@
-import { computed, nextTick, onMounted, Ref, ref, SetupContext, watch } from 'vue';
-import { isArray } from '@empathyco/x-utils';
-import { XEvent } from '../../wiring/events.types';
-import { throttle } from '../../utils/throttle';
-import { use$x } from '../../composables/use-$x';
-import { ScrollDirection } from './scroll.types';
+import type { Ref, SetupContext } from 'vue'
+import type { XEvent } from '../../wiring/events.types'
+import type { ScrollDirection } from './scroll.types'
+import { isArray } from '@empathyco/x-utils'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { use$x } from '../../composables/use-$x'
+import { throttle } from '../../utils/throttle'
 
 /**
  * Composable to share Scroll logic.
@@ -22,76 +23,76 @@ export function useScroll(
      *
      * @public
      */
-    distanceToBottom: number;
+    distanceToBottom: number
     /**
      * Positive vertical distance to still consider that the element is the first one visible.
      * For example, if set to 100, after scrolling 100 pixels, the first rendered element
      * will still be considered the first one.
      */
-    firstElementThresholdPx: number;
+    firstElementThresholdPx: number
     /**
      * Time duration to ignore the subsequent scroll events after an emission.
      * Higher values will decrease events precision but can prevent performance issues.
      *
      * @public
      */
-    throttleMs: number;
+    throttleMs: number
     /**
      * If true (default), sets the scroll position to the top when certain events are emitted.
      *
      * @public
      */
-    resetOnChange: boolean;
+    resetOnChange: boolean
     /**
      * List of events that should reset the scroll when emitted.
      *
      * @public
      */
-    resetOn: XEvent | XEvent[];
+    resetOn: XEvent | XEvent[]
   },
   { emit }: SetupContext<any>,
-  scrollEl: Ref<HTMLElement | undefined>
+  scrollEl: Ref<HTMLElement | undefined>,
 ) {
   /**
    * Property for getting the client height of scroll.
    *
    * @internal
    */
-  const clientHeight = ref(0);
+  const clientHeight = ref(0)
 
   /**
    * Property for getting the current position of scroll.
    *
    * @internal
    */
-  const currentPosition = ref(0);
+  const currentPosition = ref(0)
 
   /**
    * Property for getting the previous position of scroll.
    *
    * @internal
    */
-  const previousPosition = ref(0);
+  const previousPosition = ref(0)
 
   /**
    * Property for getting the scroll height.
    *
    * @internal
    */
-  const scrollHeight = ref(0);
+  const scrollHeight = ref(0)
   /**
    * Flag to know if the property clientHeight is changing or gets the final value.
    *
    * @internal
    */
-  const isClientHeightChanging = ref(false);
+  const isClientHeightChanging = ref(false)
 
   /**
    * Property for setting the direction of scroll.
    *
    * @internal
    */
-  const scrollDirection: Ref<ScrollDirection> = ref('UP');
+  const scrollDirection: Ref<ScrollDirection> = ref('UP')
 
   /**
    * Restores the clientHeight flag when clientHeight property stops changing.
@@ -100,11 +101,11 @@ export function useScroll(
    * @internal
    */
   const restoreClientHeightFlag = (): void => {
-    isClientHeightChanging.value = false;
-    previousPosition.value = currentPosition.value;
-  };
+    isClientHeightChanging.value = false
+    previousPosition.value = currentPosition.value
+  }
 
-  const throtteledCall = throttle(restoreClientHeightFlag, 100);
+  const throtteledCall = throttle(restoreClientHeightFlag, 100)
 
   /**
    * Updates scroll related properties.
@@ -113,11 +114,11 @@ export function useScroll(
    */
   const storeScrollData = () => {
     if (scrollEl.value) {
-      scrollHeight.value = scrollEl.value.scrollHeight;
-      clientHeight.value = scrollEl.value.clientHeight;
-      currentPosition.value = scrollEl.value.scrollTop;
+      scrollHeight.value = scrollEl.value.scrollHeight
+      clientHeight.value = scrollEl.value.clientHeight
+      currentPosition.value = scrollEl.value.scrollTop
     }
-  };
+  }
 
   /**
    * Throttled version of the function that stores the DOM scroll related properties.
@@ -126,7 +127,7 @@ export function useScroll(
    * @returns A throttled version of the function to store the scroll data.
    * @internal
    */
-  const throttledStoreScrollData = computed(() => throttle(storeScrollData, props.throttleMs));
+  const throttledStoreScrollData = computed(() => throttle(storeScrollData, props.throttleMs))
 
   /**
    * Returns end position of scroll.
@@ -134,7 +135,7 @@ export function useScroll(
    * @returns A number for knowing end position of scroll.
    * @internal
    */
-  const scrollEndPosition = computed(() => scrollHeight.value - clientHeight.value);
+  const scrollEndPosition = computed(() => scrollHeight.value - clientHeight.value)
 
   /**
    * Returns distance missing to endPosition position.
@@ -142,7 +143,7 @@ export function useScroll(
    * @returns A number for knowing the distance missing to endPosition position.
    * @internal
    */
-  const distanceToEnd = computed(() => scrollEndPosition.value - currentPosition.value);
+  const distanceToEnd = computed(() => scrollEndPosition.value - currentPosition.value)
 
   /**
    * Returns `true` when there is no more content to scroll.
@@ -150,7 +151,7 @@ export function useScroll(
    * @returns A boolean for knowing if the user scrolls to the end.
    * @internal
    */
-  const hasScrollReachedEnd = computed(() => currentPosition.value === scrollEndPosition.value);
+  const hasScrollReachedEnd = computed(() => currentPosition.value === scrollEndPosition.value)
 
   /**
    * Returns `true` when the scroll is at the initial position.
@@ -158,7 +159,7 @@ export function useScroll(
    * @returns A boolean for knowing if the user scrolls to the start.
    * @internal
    */
-  const hasScrollReachedStart = computed(() => currentPosition.value === 0);
+  const hasScrollReachedStart = computed(() => currentPosition.value === 0)
 
   /**
    * Returns `true` when the amount of pixels scrolled is greater than
@@ -168,24 +169,25 @@ export function useScroll(
    * @internal
    */
   const hasScrollAlmostReachedEnd = computed(
-    () => !hasScrollReachedStart.value && props.distanceToBottom > distanceToEnd.value
-  );
+    () => !hasScrollReachedStart.value && props.distanceToBottom > distanceToEnd.value,
+  )
 
   onMounted(() => {
+    // eslint-disable-next-line ts/no-floating-promises
     nextTick().then(() => {
       if (!scrollEl.value) {
         // TODO Replace with Empathy's logger
-        // eslint-disable-next-line no-console
+
         console.warn(
           '[useScroll]',
-          // eslint-disable-next-line max-len
-          'Components using this composable must pass `scrollEl` as the HTML node that is scrolling.'
-        );
+
+          'Components using this composable must pass `scrollEl` as the HTML node that is scrolling.',
+        )
       } else {
-        storeScrollData();
+        storeScrollData()
       }
-    });
-  });
+    })
+  })
 
   /**
    * Change the isClientHeightChanging flag when the property clientHeight is changing and
@@ -196,12 +198,12 @@ export function useScroll(
   watch(
     clientHeight,
     () => {
-      isClientHeightChanging.value = true;
+      isClientHeightChanging.value = true
 
-      throtteledCall();
+      throtteledCall()
     },
-    { immediate: true }
-  );
+    { immediate: true },
+  )
 
   /**
    * Emits the `scroll` event.
@@ -211,9 +213,9 @@ export function useScroll(
    * @internal
    */
   watch(currentPosition, (_newScrollPosition: number, oldScrollPosition: number) => {
-    emit('scroll', currentPosition.value);
-    previousPosition.value = oldScrollPosition;
-  });
+    emit('scroll', currentPosition.value)
+    previousPosition.value = oldScrollPosition
+  })
 
   /**
    * Sets direction of scroll based in {@link ScrollDirection} when the current position
@@ -223,9 +225,9 @@ export function useScroll(
    */
   watch(currentPosition, () => {
     if (!isClientHeightChanging.value && currentPosition.value !== previousPosition.value) {
-      scrollDirection.value = currentPosition.value > previousPosition.value ? 'DOWN' : 'UP';
+      scrollDirection.value = currentPosition.value > previousPosition.value ? 'DOWN' : 'UP'
     }
-  });
+  })
 
   /**
    * Emits the 'scroll:almost-at-end' event when the user is about to reach to end.
@@ -234,8 +236,8 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedStart, (isScrollAtStart: boolean) => {
-    emit('scroll:at-start', isScrollAtStart);
-  });
+    emit('scroll:at-start', isScrollAtStart)
+  })
 
   /**
    * Sets direction of scroll based in {@link ScrollDirection} when the current position
@@ -244,8 +246,8 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollAlmostReachedEnd, (isScrollAlmostAtEnd: boolean) => {
-    emit('scroll:almost-at-end', isScrollAlmostAtEnd);
-  });
+    emit('scroll:almost-at-end', isScrollAlmostAtEnd)
+  })
 
   /**
    * Emits the 'scroll:at-end' event when the user reaches the end.
@@ -254,8 +256,8 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedEnd, (isScrollAtEnd: boolean) => {
-    emit('scroll:at-end', isScrollAtEnd);
-  });
+    emit('scroll:at-end', isScrollAtEnd)
+  })
 
   /**
    * Emits the `scroll:direction-change` event when the scrolling direction has changed.
@@ -265,26 +267,27 @@ export function useScroll(
    */
   watch(scrollDirection, (direction: ScrollDirection) => {
     if (!isClientHeightChanging.value) {
-      emit('scroll:direction-change', direction);
+      emit('scroll:direction-change', direction)
     }
-  });
+  })
 
   /**
    * Resets the scroll position.
    *
    * @internal
    */
-  const $x = use$x();
-  const resetOnEvents = isArray(props.resetOn) ? props.resetOn : [props.resetOn];
+  const $x = use$x()
+  const resetOnEvents = isArray(props.resetOn) ? props.resetOn : [props.resetOn]
   resetOnEvents.forEach(event =>
-    $x.on(event, false).subscribe(() =>
+    // eslint-disable-next-line ts/no-misused-promises
+    $x.on(event, false).subscribe(async () =>
       nextTick().then(() => {
         if (props.resetOnChange) {
-          scrollEl.value?.scrollTo({ top: 0 });
+          scrollEl.value?.scrollTo({ top: 0 })
         }
-      })
-    )
-  );
+      }),
+    ),
+  )
 
-  return { throttledStoreScrollData };
+  return { throttledStoreScrollData }
 }

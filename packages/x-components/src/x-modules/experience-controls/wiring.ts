@@ -1,31 +1,28 @@
-import {
-  namespacedWireCommit,
-  namespacedWireDispatch
-} from '../../wiring/namespaced-wires.factory';
-import { createWiring } from '../../wiring/wiring.utils';
+import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
-const moduleName = 'experienceControls';
+const moduleName = 'experienceControls'
 
 /**
  * WireCommit for {@link ExperienceControlsXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * WireDispatch for {@link ExperienceControlsXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * WireCommit for {@link ExperienceControlsXModule}.
  *
  * @internal
  */
-export const setParamsWire = wireCommit('setParams');
+export const setParamsWire = wireCommit('setParams')
 
 /**
  * Requests and stores a new set of controls results.
@@ -33,8 +30,8 @@ export const setParamsWire = wireCommit('setParams');
  * @public
  */
 export const fetchAndSaveExperienceControlsWire = wireDispatch(
-  'fetchAndSaveExperienceControlsResponse'
-);
+  'fetchAndSaveExperienceControlsResponse',
+)
 
 /**
  * Wiring configuration for the {@link ExperienceControlsXModule | experience-controls module}.
@@ -43,9 +40,9 @@ export const fetchAndSaveExperienceControlsWire = wireDispatch(
  */
 export const experienceControlsWiring = createWiring({
   ExtraParamsChanged: {
-    setParamsWire
+    setParamsWire,
   },
   ExperienceControlsRequestUpdated: {
-    fetchAndSaveExperienceControlsWire
-  }
-});
+    fetchAndSaveExperienceControlsWire,
+  },
+})

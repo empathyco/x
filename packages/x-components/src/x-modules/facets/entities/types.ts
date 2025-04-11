@@ -1,7 +1,7 @@
-import { Store } from 'vuex';
-import { Filter } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { RootXStoreState } from '../../../store/store.types';
+import type { Filter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/store.types'
 
 /**
  * Contains business logic to select or deselect a filter of a certain type.
@@ -10,9 +10,9 @@ import { RootXStoreState } from '../../../store/store.types';
  */
 export interface FilterEntity<Metadata extends Dictionary = Dictionary<unknown>> {
   /** Selects the filter. */
-  select(filter: Filter): void;
+  select: (filter: Filter) => void
   /** Deselects the filter. */
-  deselect(filter: Filter, metadata?: Metadata): void;
+  deselect: (filter: Filter, metadata?: Metadata) => void
 }
 
 /**
@@ -21,14 +21,14 @@ export interface FilterEntity<Metadata extends Dictionary = Dictionary<unknown>>
  * @internal
  */
 export interface FilterEntityConstructor {
-  new (store: Store<RootXStoreState>): FilterEntity;
+  new (store: Store<RootXStoreState>): FilterEntity
   /**
    * Checks if this class can create an instance with the passed filter DTO.
    *
    * @param filter - The filter to check if this class can create an instance with it.
    * @returns True if this class can create an instance with it. False otherwise.
    */
-  accepts(filter: Filter): boolean;
+  accepts: (filter: Filter) => boolean
 }
 
 /**
@@ -41,7 +41,7 @@ export interface FilterEntityConstructor {
  * @internal
  */
 export interface FilterEntityModifier<Metadata extends Dictionary = Dictionary> {
-  new (store: Store<RootXStoreState>, entity: FilterEntity<Metadata>): FilterEntity<Metadata>;
+  new (store: Store<RootXStoreState>, entity: FilterEntity<Metadata>): FilterEntity<Metadata>
 }
 
 /**
@@ -52,7 +52,10 @@ export interface FilterEntityModifier<Metadata extends Dictionary = Dictionary> 
 export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dictionary>
   implements FilterEntity<Metadata>
 {
-  public constructor(protected store: Store<RootXStoreState>, protected entity: FilterEntity) {}
+  public constructor(
+    protected store: Store<RootXStoreState>,
+    protected entity: FilterEntity,
+  ) {}
 
   /**
    * Selects the filter passed by parameter.
@@ -60,7 +63,7 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * @param filter - The filter to select.
    */
   select(filter: Filter): void {
-    this.entity.select(filter);
+    this.entity.select(filter)
   }
 
   /**
@@ -70,6 +73,6 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * @param metadata - The event metadata.
    */
   deselect(filter: Filter, metadata?: Metadata): void {
-    this.entity.deselect(filter, metadata);
+    this.entity.deselect(filter, metadata)
   }
 }

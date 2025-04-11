@@ -1,12 +1,11 @@
-import { objectFilter } from '@empathyco/x-utils';
-import { initialUrlState } from '../initial-state';
-import { UrlParamValue, UrlXStoreModule } from '../types';
+import type { UrlParamValue, UrlXStoreModule } from '../types'
+import { objectFilter } from '@empathyco/x-utils'
+import { initialUrlState } from '../initial-state'
 
 /**
  * Default implementation for the getter.
  *
  * @param state - Current state of the url module.
- *
  * @returns The url params.
  * @public
  */
@@ -17,8 +16,8 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
   objectFilter(params, (paramKey, paramValue) => {
     return paramKey in initialUrlState
       ? isNotDefaultValue(paramKey, paramValue, initialUrlState)
-      : isNotEmptyParam(paramValue) && isNotDefaultValue(paramKey, paramValue, initialExtraParams);
-  });
+      : isNotEmptyParam(paramValue) && isNotDefaultValue(paramKey, paramValue, initialExtraParams)
+  })
 
 /**
  * Checks if a parameter is not empty to avoid adding it to the URL.
@@ -28,7 +27,7 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
  * @returns True if is not empty, False otherwise.
  */
 function isNotEmptyParam(value: UrlParamValue | unknown): boolean {
-  return Array.isArray(value) ? value.length > 0 : value != null && value !== '';
+  return Array.isArray(value) ? value.length > 0 : value != null && value !== ''
 }
 
 /**
@@ -43,7 +42,7 @@ function isNotEmptyParam(value: UrlParamValue | unknown): boolean {
 function isNotDefaultValue<Key extends string | number, Value extends UrlParamValue | unknown>(
   key: Key,
   value: Value,
-  defaultValues: Record<Key, Value>
+  defaultValues: Record<Key, Value>,
 ): boolean {
-  return Array.isArray(value) ? value.length > 0 : defaultValues[key] !== value;
+  return Array.isArray(value) ? value.length > 0 : defaultValues[key] !== value
 }

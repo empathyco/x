@@ -6,80 +6,81 @@
     :aria-pressed="isPanelOpen.toString()"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
-    <slot :isPanelOpen="isPanelOpen" />
+    <slot :is-panel-open="isPanelOpen" />
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed } from 'vue';
-  import { XEventsTypes } from '../../wiring/events.types';
-  import { WireMetadata } from '../../wiring/wiring.types';
-  import BaseEventButton from '../base-event-button.vue';
-  import { useXBus } from '../../composables';
+import type { XEventsTypes } from '../../wiring/events.types'
+import type { WireMetadata } from '../../wiring/wiring.types'
+import { computed, defineComponent, ref } from 'vue'
+import { useXBus } from '../../composables'
+import BaseEventButton from '../base-event-button.vue'
 
-  /**
-   * Component containing an event button that emits
-   * {@link XEventsTypes.UserClickedPanelToggleButton} when clicked with
-   * the panelId as payload.
-   *
-   * It has a default slot to customize its contents.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseIdTogglePanelButton',
-    components: { BaseEventButton },
-    props: {
-      /**
-       * The panelId to use for the toggle event listeners.
-       */
-      panelId: {
-        type: String,
-        required: true
-      }
+/**
+ * Component containing an event button that emits
+ * {@link XEventsTypes.UserClickedPanelToggleButton} when clicked with
+ * the panelId as payload.
+ *
+ * It has a default slot to customize its contents.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseIdTogglePanelButton',
+  components: { BaseEventButton },
+  props: {
+    /**
+     * The panelId to use for the toggle event listeners.
+     */
+    panelId: {
+      type: String,
+      required: true,
     },
-    setup: function (props) {
-      const bus = useXBus();
+  },
+  setup(props) {
+    const bus = useXBus()
 
-      /**
-       * The panel state to pass through the slot.
-       */
-      const isPanelOpen = ref(false);
+    /**
+     * The panel state to pass through the slot.
+     */
+    const isPanelOpen = ref(false)
 
-      /**
-       * List of events to emit by the BaseEventButton.
-       *
-       * @returns An object with the event and payload.
-       *
-       * @internal
-       */
-      const events = computed(
-        (): Partial<XEventsTypes> => ({ UserClickedPanelToggleButton: props.panelId })
-      );
+    /**
+     * List of events to emit by the BaseEventButton.
+     *
+     * @returns An object with the event and payload.
+     *
+     * @internal
+     */
+    const events = computed(
+      (): Partial<XEventsTypes> => ({ UserClickedPanelToggleButton: props.panelId }),
+    )
 
-      /**
-       * The subscription to the {@link XEventsTypes.TogglePanelStateChanged} event
-       * to update the `isPanelOpen` property.
-       *
-       * @param newState - The new isOpen state of the panel.
-       * @param id - The `panelId`.
-       */
-      const updatePanelState = (newState: boolean, { id }: WireMetadata) => {
-        if (props.panelId === id) {
-          isPanelOpen.value = newState;
-        }
-      };
-
-      bus
-        .on('TogglePanelStateChanged', false)
-        .subscribe(newState => updatePanelState(newState, { id: props.panelId, moduleName: null }));
-
-      return {
-        isPanelOpen,
-        events
-      };
+    /**
+     * The subscription to the {@link XEventsTypes.TogglePanelStateChanged} event
+     * to update the `isPanelOpen` property.
+     *
+     * @param newState - The new isOpen state of the panel.
+     * @param id - The `panelId`.
+     * @param id.id - The ID of the `panelId`.
+     */
+    const updatePanelState = (newState: boolean, { id }: WireMetadata) => {
+      if (props.panelId === id) {
+        isPanelOpen.value = newState
+      }
     }
-  });
+
+    bus
+      .on('TogglePanelStateChanged', false)
+      .subscribe(newState => updatePanelState(newState, { id: props.panelId, moduleName: null }))
+
+    return {
+      isPanelOpen,
+      events,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -118,24 +119,24 @@ The component rendering content passed to the default slot and opening the panel
 </template>
 
 <script>
-  import {
+import {
+  BaseIdTogglePanel,
+  BaseIdTogglePanelButton,
+  CollapseFromTop,
+} from '@empathyco/x-components'
+
+export default {
+  components: {
     BaseIdTogglePanel,
     BaseIdTogglePanelButton,
-    CollapseFromTop
-  } from '@empathyco/x-components';
-
-  export default {
-    components: {
-      BaseIdTogglePanel,
-      BaseIdTogglePanelButton,
-      CollapseFromTop
-    },
-    data: function () {
-      return {
-        animation: CollapseFromTop
-      };
+    CollapseFromTop,
+  },
+  data: function () {
+    return {
+      animation: CollapseFromTop,
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

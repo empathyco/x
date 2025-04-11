@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { experienceControlsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { experienceControlsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the {@link ExperienceControlsXModule}.
@@ -8,7 +8,7 @@ import { experienceControlsXStoreModule } from './module';
  */
 export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {
   ExperienceControlsEventsChanged: {
-    selector: state => state.events
+    selector: state => state.events,
   },
-  ExperienceControlsRequestUpdated: (_, getters) => getters.experienceControlsRequest
-});
+  ExperienceControlsRequestUpdated: (_, getters) => getters.experienceControlsRequest,
+})

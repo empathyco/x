@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
+    v-slot="{ cssClass, copyCssClassesToClipboard }"
     title="Button Group"
     :sections="sections"
-    #default="{ cssClass, copyCssClassesToClipboard }"
   >
     <div class="flex flex-wrap gap-5">
       <div
+        :class="cssClass"
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
-        :class="cssClass"
       >
         <button class="x-button">BUTTON 1</button>
         <button class="x-button">BUTTON 2</button>
@@ -16,10 +16,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="gap-2"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -29,9 +29,9 @@
       </div>
 
       <div
+        :class="cssClass"
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
-        :class="cssClass"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
         <button class="x-button x-button-outlined">BUTTON 2</button>
@@ -39,10 +39,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="gap-2"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
         <button class="x-button x-button-outlined">BUTTON 2</button>
@@ -50,10 +50,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="gap-2"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -63,10 +63,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="text-red-500"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-ghost">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -76,10 +76,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="gap-2 text-red-500"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-tight">BUTTON 1</button>
         <button class="x-button x-button-tight">BUTTON 2</button>
@@ -87,10 +87,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="text-red-500"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-highlight x-button-circle">
           <PlusIcon class="x-icon" />
@@ -101,10 +101,10 @@
       </div>
 
       <div
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         class="text-red-500"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
       >
         <button class="x-button x-button-highlight x-button-square">
           <PlusIcon class="x-icon" />
@@ -118,31 +118,32 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
-  import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
-  import PlusIcon from './icons/plus.vue';
+import type { PropType } from 'vue'
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import PlusIcon from './icons/plus.vue'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: { XdsBaseShowcase, PlusIcon },
-    props: {
-      base: {
-        type: String,
-        default: 'x-button-group'
-      },
-      rounded: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-rounded-md']
+export default defineComponent({
+  components: { XdsBaseShowcase, PlusIcon },
+  props: {
+    base: {
+      type: String,
+      default: 'x-button-group',
+    },
+    rounded: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-rounded-md'],
+    },
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        Default: [this.base],
+        Rounded: this.rounded.map(addParentClasses(this.base)),
       }
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          Default: [this.base],
-          Rounded: this.rounded.map(addParentClasses(this.base))
-        };
-      }
-    }
-  });
+  },
+})
 </script>

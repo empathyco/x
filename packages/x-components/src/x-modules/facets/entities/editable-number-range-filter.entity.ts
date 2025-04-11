@@ -1,13 +1,9 @@
-import {
-  EditableNumberRangeFilter,
-  Facet,
-  Filter,
-  isEditableNumberRangeFilter
-} from '@empathyco/x-types';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../store/store.types';
-import { addFacetIfNotPresent } from './add-facet-if-not-present';
-import { FilterEntity } from './types';
+import type { EditableNumberRangeFilter, Facet, Filter } from '@empathyco/x-types'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/store.types'
+import type { FilterEntity } from './types'
+import { isEditableNumberRangeFilter } from '@empathyco/x-types'
+import { addFacetIfNotPresent } from './add-facet-if-not-present'
 
 /**
  * Allows selecting and deselecting a filter of {@link @empathyco/x-types#EditableNumberRangeFilter
@@ -19,7 +15,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   public constructor(protected store: Store<RootXStoreState>) {}
 
   static accepts(filter: Filter): boolean {
-    return isEditableNumberRangeFilter(filter);
+    return isEditableNumberRangeFilter(filter)
   }
 
   /**
@@ -27,41 +23,43 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * false. Range values are kept to be able to update the {@link FacetsGetters.selectedFilters}
    * getter accordingly (as the id is built using the range).
    *
-   * @param filter - The filter to deselect.
+   * @param filterParam - The filter to deselect.
    */
-  deselect(filter: EditableNumberRangeFilter): void {
+  deselect(filterParam: Filter): void {
+    const filter = filterParam as EditableNumberRangeFilter
     const newFilterState: Pick<EditableNumberRangeFilter, 'range' | 'facetId' | 'selected'> = {
       facetId: filter.facetId,
       range: { min: filter.range.min, max: filter.range.max },
-      selected: false
-    };
-    this.removePreviousFilter(filter.facetId);
+      selected: false,
+    }
+    this.removePreviousFilter(filter.facetId)
     this.store.commit('x/facets/mutateFilter', {
       filter,
-      newFilterState: Object.assign(newFilterState, { id: this.getNewFilterId(newFilterState) })
-    });
-    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
+      newFilterState: Object.assign(newFilterState, { id: this.getNewFilterId(newFilterState) }),
+    })
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet')
   }
 
   /**
    * It selects the {@link @empathyco/x-types#EditableNumberRangeFilter
    * | EditableNumberRangeFilter}.
    *
-   * @param filter - The filter to select.
+   * @param filterParam - The filter to select.
    * @remarks If the filter has no selected range, then filter is deselected when this
    * method is called.
    */
-  select(filter: EditableNumberRangeFilter): void {
-    const newFilterId = this.getNewFilterId(filter);
-    this.removePreviousFilter(filter.facetId);
+  select(filterParam: Filter): void {
+    const filter = filterParam as EditableNumberRangeFilter
+    const newFilterId = this.getNewFilterId(filter)
+    this.removePreviousFilter(filter.facetId)
     this.store.commit('x/facets/mutateFilter', {
       filter,
       newFilterState: {
         id: newFilterId,
-        selected: this.isSelected(filter)
-      }
-    });
-    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
+        selected: this.isSelected(filter),
+      },
+    })
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet')
   }
 
   /**
@@ -72,9 +70,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getNewFilterId(filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>): string {
-    return `${filter.facetId}:${String(filter.range.min ?? '*')}-${String(
-      filter.range.max ?? '*'
-    )}`;
+    return `${filter.facetId}:${String(filter.range.min ?? '*')}-${String(filter.range.max ?? '*')}`
   }
 
   /**
@@ -85,7 +81,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected isSelected(filter: EditableNumberRangeFilter): boolean {
-    return filter.range.min !== null || filter.range.max !== null;
+    return filter.range.min !== null || filter.range.max !== null
   }
 
   /**
@@ -95,9 +91,9 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected removePreviousFilter(facetId: Facet['id']): void {
-    const previousFilter = this.getFilterByFacet(facetId);
+    const previousFilter = this.getFilterByFacet(facetId)
     if (previousFilter) {
-      this.store.commit('x/facets/removeFilter', previousFilter);
+      this.store.commit('x/facets/removeFilter', previousFilter)
     }
   }
 
@@ -109,6 +105,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
-    return this.store.getters['x/facets/facets'][facetId]?.filters?.[0];
+    // eslint-disable-next-line ts/no-unsafe-member-access,ts/no-unsafe-return
+    return this.store.getters['x/facets/facets'][facetId]?.filters?.[0]
   }
 }

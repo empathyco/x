@@ -1,6 +1,7 @@
 @import '../../mixins';
 
-.x-filter, .x-facet-filter {
+.x-filter,
+.x-facet-filter {
   // layout
   display: inline-flex;
   justify-content: flex-start;
@@ -56,7 +57,8 @@
     font-weight: var(--x-number-font-weight-filter-count-default);
   }
 
-  &--is-selected, &.x-selected {
+  &--is-selected,
+  &.x-selected {
     // color
     --x-color-background-filter-default: var(--x-color-background-filter-default-selected);
     --x-color-border-filter-default: var(--x-color-border-filter-default-selected);

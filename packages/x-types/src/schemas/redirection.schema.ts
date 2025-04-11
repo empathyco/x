@@ -1,6 +1,6 @@
-import { Redirection } from '../redirection.model';
-import { IdentifiableSchema } from './identifiable.schema';
-import { TaggingRequestSchema } from './tagging.schema';
+import type { Redirection } from '../redirection.model'
+import { IdentifiableSchema } from './identifiable.schema'
+import { TaggingRequestSchema } from './tagging.schema'
 
 /**
  * Jest schema for validating Redirection entities.
@@ -10,8 +10,8 @@ import { TaggingRequestSchema } from './tagging.schema';
 export const RedirectionSchema: Redirection = {
   ...IdentifiableSchema,
   tagging: {
-    click: TaggingRequestSchema
+    click: TaggingRequestSchema,
   },
   modelName: 'Redirection',
-  url: expect.any(String)
-};
+  url: expect.any(String),
+}

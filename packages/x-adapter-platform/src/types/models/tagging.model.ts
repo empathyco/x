@@ -4,8 +4,8 @@
  * @public
  */
 export interface PlatformTagging {
-  add2cart: string;
-  checkout: string;
-  click: string;
-  displayClick: string;
+  add2cart: string
+  checkout: string
+  click: string
+  displayClick: string
 }

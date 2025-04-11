@@ -1,4 +1,4 @@
-const { join } = require('path');
+const { join } = require('node:path')
 
 /**
  * Replaces returns and tubes to make the input compatible with markdown.
@@ -9,7 +9,7 @@ const { join } = require('path');
  * @internal
  */
 function cleanMarkdown(input) {
-  return input.replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|');
+  return input.replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|')
 }
 
 /**
@@ -21,10 +21,10 @@ function cleanMarkdown(input) {
  * @internal
  */
 function removeLinks(input) {
-  return input.replace(/{@link /g, '').replace(/}/g, '');
+  return input.replace(/\{@link /g, '').replace(/\}/g, '')
 }
 
-const COMPONENTS_DOC_FOLDER = 'API-reference/components';
+const COMPONENTS_DOC_FOLDER = 'API-reference/components'
 
 /**
  * This function is used in the config of `docgen.config.js` to generate the destination of each
@@ -36,17 +36,18 @@ const COMPONENTS_DOC_FOLDER = 'API-reference/components';
  * includes de file name and extension.
  */
 function getDocumentFileDestination(file, config) {
-  const commonComponentsRegex = /^components\/?(?<path>.*)\/(?<componentName>.+)\.vue$/;
-  const xModulesRegex = /^x-modules\/(?<path>.+)\/components\/(?<componentName>.+)\.vue$/;
+  // eslint-disable-next-line regexp/no-super-linear-backtracking,regexp/no-misleading-capturing-group
+  const commonComponentsRegex = /^components\/?(?<path>.*)\/(?<componentName>.+)\.vue$/
+  const xModulesRegex = /^x-modules\/(?<path>.+)\/components\/(?<componentName>.+)\.vue$/
 
   const destinationFileName =
     generateDestination(join(COMPONENTS_DOC_FOLDER, 'common'), commonComponentsRegex, file) ||
-    generateDestination(COMPONENTS_DOC_FOLDER, xModulesRegex, file);
+    generateDestination(COMPONENTS_DOC_FOLDER, xModulesRegex, file)
 
   if (destinationFileName) {
-    return join(config.outDir, destinationFileName);
+    return join(config.outDir, destinationFileName)
   } else {
-    return '';
+    return ''
   }
 }
 
@@ -61,12 +62,12 @@ function getDocumentFileDestination(file, config) {
  * includes de file name and extension. If it doesn't match the regex, an empty string is returned.
  */
 function generateDestination(folder, regex, file) {
-  const match = regex.exec(file);
+  const match = regex.exec(file)
   if (match) {
-    const { path, componentName } = match.groups;
-    return join(folder, path, `x-components.${componentName}.md`);
+    const { path, componentName } = match.groups
+    return join(folder, path, `x-components.${componentName}.md`)
   } else {
-    return '';
+    return ''
   }
 }
 
@@ -74,5 +75,5 @@ module.exports = {
   cleanMarkdown,
   removeLinks,
   getDocumentFileDestination,
-  COMPONENTS_DOC_FOLDER
-};
+  COMPONENTS_DOC_FOLDER,
+}

@@ -1,4 +1,4 @@
-import { TaggingRequest } from '@empathyco/x-types';
+import type { TaggingRequest } from '@empathyco/x-types'
 
 /**
  * Extracts the tagging info from a URL.
@@ -10,14 +10,14 @@ import { TaggingRequest } from '@empathyco/x-types';
  * @public
  */
 export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
-  const { url, params } = extractUrlParameters(taggingUrl);
+  const { url, params } = extractUrlParameters(taggingUrl)
   return {
     url,
     params: {
       ...params,
-      follow: false
-    }
-  };
+      follow: false,
+    },
+  }
 }
 
 /**
@@ -29,13 +29,13 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
  * @public
  */
 export function getDisplayTaggingInfoFromUrl(displayTaggingUrl: string): TaggingRequest {
-  const displayTagging = getTaggingInfoFromUrl(displayTaggingUrl);
-  const displayTaggingParams = displayTagging.params;
+  const displayTagging = getTaggingInfoFromUrl(displayTaggingUrl)
+  const displayTaggingParams = displayTagging.params
 
-  displayTaggingParams.displayId = displayTaggingParams.q ?? 'no_query';
-  delete displayTaggingParams.q;
+  displayTaggingParams.displayId = displayTaggingParams.q ?? 'no_query'
+  delete displayTaggingParams.q
 
-  return displayTagging;
+  return displayTagging
 }
 
 /**
@@ -48,31 +48,31 @@ export function getDisplayTaggingInfoFromUrl(displayTaggingUrl: string): Tagging
  * @public
  */
 export function extractUrlParameters(url: string): {
-  url: string;
-  params?: Record<string, string[] | string>;
+  url: string
+  params?: Record<string, string[] | string>
 } {
-  const searchParams = new Map<string, string | string[]>();
+  const searchParams = new Map<string, string | string[]>()
   try {
-    const urlObject = new URL(url);
+    const urlObject = new URL(url)
     urlObject.searchParams.forEach((value, key) => {
-      const param = searchParams.get(key);
+      const param = searchParams.get(key)
       if (Array.isArray(param)) {
-        searchParams.set(key, [...param, value]);
+        searchParams.set(key, [...param, value])
       } else if (param) {
-        searchParams.set(key, [param, value]);
+        searchParams.set(key, [param, value])
       } else {
-        searchParams.set(key, value);
+        searchParams.set(key, value)
       }
-    });
+    })
     return {
       url: `${urlObject.origin}${urlObject.pathname}`,
-      params: Object.fromEntries(searchParams)
-    };
-  } catch (e) {
-    //eslint-disable-next-line no-console
-    console.warn('Invalid url', url); // TODO Use Empathy's logger
+      params: Object.fromEntries(searchParams),
+    }
+    // eslint-disable-next-line unused-imports/no-unused-vars
+  } catch (_error) {
+    console.warn('Invalid url', url) // TODO Use Empathy's logger
     return {
-      url
-    };
+      url,
+    }
   }
 }

@@ -5,11 +5,11 @@
  */
 export interface ResultPrice {
   /** The old value. */
-  originalValue: number;
+  originalValue: number
   /** The current value. */
-  value: number;
+  value: number
   /** Pre-warming price. */
-  futureValue: number;
+  futureValue: number
   /** Whether this result has discount. */
-  hasDiscount: boolean;
+  hasDiscount: boolean
 }

@@ -8,7 +8,7 @@ export interface StatusState {
    * The request status. Useful for changing the displayed component depending on whether the
    * request has succeeded, has not been fulfilled or has failed.
    */
-  status: RequestStatus;
+  status: RequestStatus
 }
 
 /**
@@ -22,7 +22,7 @@ export interface StatusMutations {
    *
    * @param status - The new request status.
    */
-  setStatus(status: RequestStatus): void;
+  setStatus: (status: RequestStatus) => void
 }
 
 /**
@@ -33,7 +33,7 @@ export interface StatusMutations {
  *
  * @public
  */
-export type RequestStatus = 'success' | 'loading' | 'error' | 'initial';
+export type RequestStatus = 'success' | 'loading' | 'error' | 'initial'
 
 /**
  * Sets the request status. Can be used as a mutation.
@@ -43,5 +43,5 @@ export type RequestStatus = 'success' | 'loading' | 'error' | 'initial';
  * @public
  */
 export function setStatus(state: StatusState, status: RequestStatus): void {
-  state.status = status;
+  state.status = status
 }

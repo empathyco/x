@@ -19,14 +19,14 @@
         v-bind="{ tab, isSelected: tabIsSelected(tab), select: () => selectTab(tab) }"
       >
         <button
-          :key="tab"
-          @click="selectTab(tab)"
           :id="`base-tabs-panel-${tab}`"
+          :key="tab"
           class="x-tabs-panel__list-item x-tabs-panel__button x-button"
           :class="tabIsSelected(tab) ? activeTabClass : tabClass"
           :aria-selected="tabIsSelected(tab).toString()"
           data-test="base-tabs-panel-button"
           role="tab"
+          @click="selectTab(tab)"
         >
           <!--
               @slot Slot used to just pass the content.
@@ -65,122 +65,122 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { AnimationProp } from '../../types';
-  import { NoAnimation } from '../animations';
+import { defineComponent, ref } from 'vue'
+import { AnimationProp } from '../../types'
+import { NoAnimation } from '../animations'
 
-  /**
-   * Base Tabs Panel.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseTabsPanel',
-    props: {
-      /**
-       * Animation component that will be used to animate the tabs list.
-       *
-       * @public
-       */
-      tabsAnimation: {
-        type: AnimationProp,
-        default: 'header'
-      },
-      /**
-       * Animation component that will be used to animate the selected tab content.
-       *
-       * @public
-       */
-      contentAnimation: {
-        type: AnimationProp,
-        default: () => NoAnimation
-      },
-      /**
-       * The tab to be initially selected.
-       *
-       * @public
-       */
-      initialTab: {
-        type: String,
-        default: ''
-      },
-      /**
-       * Allows the tabs to be unselected.
-       *
-       * @public
-       */
-      allowTabDeselect: {
-        type: Boolean,
-        default: false
-      },
-      /** Class inherited by content element. */
-      activeTabClass: String,
-      /** Class inherited by content element. */
-      contentClass: String,
-      /** Class inherited by content element. */
-      tabClass: String,
-      /** Class inherited by content element. */
-      tabsListClass: String
+/**
+ * Base Tabs Panel.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseTabsPanel',
+  props: {
+    /**
+     * Animation component that will be used to animate the tabs list.
+     *
+     * @public
+     */
+    tabsAnimation: {
+      type: AnimationProp,
+      default: 'header',
     },
-    setup: function (props, { slots }) {
-      /**
-       * The currently selected tab.
-       *
-       * @internal
-       */
-      const selectedTab = ref(props.initialTab);
+    /**
+     * Animation component that will be used to animate the selected tab content.
+     *
+     * @public
+     */
+    contentAnimation: {
+      type: AnimationProp,
+      default: () => NoAnimation,
+    },
+    /**
+     * The tab to be initially selected.
+     *
+     * @public
+     */
+    initialTab: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Allows the tabs to be unselected.
+     *
+     * @public
+     */
+    allowTabDeselect: {
+      type: Boolean,
+      default: false,
+    },
+    /** Class inherited by content element. */
+    activeTabClass: String,
+    /** Class inherited by content element. */
+    contentClass: String,
+    /** Class inherited by content element. */
+    tabClass: String,
+    /** Class inherited by content element. */
+    tabsListClass: String,
+  },
+  setup(props, { slots }) {
+    /**
+     * The currently selected tab.
+     *
+     * @internal
+     */
+    const selectedTab = ref(props.initialTab)
 
-      /**
-       * Extracts the tab from the slots.
-       *
-       * @returns The list of tabs.
-       *
-       * @internal
-       */
-      const getTabs = () =>
-        Object.keys(slots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
+    /**
+     * Extracts the tab from the slots.
+     *
+     * @returns The list of tabs.
+     *
+     * @internal
+     */
+    const getTabs = () =>
+      Object.keys(slots).filter(slotName => !['tab', 'tab-content'].includes(slotName))
 
-      /**
-       * Changes the current selected tab. If the tab is already selected
-       * and `allowTabDeselect` is `true`, the tab will be unselected.
-       *
-       * @param tab - The tab to be selected.
-       *
-       * @internal
-       */
-      const selectTab = (tab: string) => {
-        if (props.allowTabDeselect && selectedTab.value === tab) {
-          selectedTab.value = '';
-        } else {
-          selectedTab.value = tab;
-        }
-      };
-
-      /**
-       * Checks if a tab is selected.
-       *
-       * @param tab - Tab to check.
-       * @returns True if the tab is selected, false otherwise.
-       *
-       * @internal
-       */
-      const tabIsSelected = (tab: string) => selectedTab.value === tab;
-
-      return {
-        selectedTab,
-        slots,
-        getTabs,
-        selectTab,
-        tabIsSelected
-      };
+    /**
+     * Changes the current selected tab. If the tab is already selected
+     * and `allowTabDeselect` is `true`, the tab will be unselected.
+     *
+     * @param tab - The tab to be selected.
+     *
+     * @internal
+     */
+    const selectTab = (tab: string) => {
+      if (props.allowTabDeselect && selectedTab.value === tab) {
+        selectedTab.value = ''
+      } else {
+        selectedTab.value = tab
+      }
     }
-  });
+
+    /**
+     * Checks if a tab is selected.
+     *
+     * @param tab - Tab to check.
+     * @returns True if the tab is selected, false otherwise.
+     *
+     * @internal
+     */
+    const tabIsSelected = (tab: string) => selectedTab.value === tab
+
+    return {
+      selectedTab,
+      slots,
+      getTabs,
+      selectTab,
+      tabIsSelected,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-tabs-panel__items-list {
-    display: flex;
-  }
+.x-tabs-panel__items-list {
+  display: flex;
+}
 </style>
 
 <docs lang="mdx">
@@ -217,14 +217,14 @@ It renders a list of tabs and, when a tab is clicked, a panel with its content w
 </template>
 
 <script>
-  import { BaseTabsPanel } from '@empathyco/x-components';
+import { BaseTabsPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+}
 </script>
 ```
 
@@ -253,14 +253,14 @@ which tab should be opened at first.
 </template>
 
 <script>
-  import { BaseTabsPanel } from '@empathyco/x-components';
+import { BaseTabsPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+}
 </script>
 ```
 
@@ -288,14 +288,14 @@ behavior is deactivated.
 </template>
 
 <script>
-  import { BaseTabsPanel } from '@empathyco/x-components';
+import { BaseTabsPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+}
 </script>
 ```
 
@@ -329,14 +329,14 @@ behavior is deactivated.
 </template>
 
 <script>
-  import { BaseTabsPanel } from '@empathyco/x-components';
+import { BaseTabsPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+}
 </script>
 ```
 
@@ -359,19 +359,19 @@ behavior is deactivated.
 </template>
 
 <script>
-  import { BaseTabsPanel, StaggeredFadeAndSlide } from '@empathyco/x-components';
+import { BaseTabsPanel, StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    },
-    data() {
-      return {
-        staggeredFadeAndSlide: StaggeredFadeAndSlide
-      };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+  data() {
+    return {
+      staggeredFadeAndSlide: StaggeredFadeAndSlide,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -406,15 +406,15 @@ replaced entirely through the `tab` slot.
 </template>
 
 <script>
-  import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components';
+import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel,
-      CheckIcon
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+    CheckIcon,
+  },
+}
 </script>
 ```
 
@@ -446,15 +446,15 @@ Alternatively to the previous example, instead of changing the whole tab button,
 </template>
 
 <script>
-  import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components';
+import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel,
-      CheckIcon
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+    CheckIcon,
+  },
+}
 </script>
 ```
 
@@ -478,14 +478,14 @@ The displayed tab name and a method to select a tab are exposed to the tab panel
 </template>
 
 <script>
-  import { BaseTabsPanel } from '@empathyco/x-components';
+import { BaseTabsPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseTabsPanelDemo',
-    components: {
-      BaseTabsPanel
-    }
-  };
+export default {
+  name: 'BaseTabsPanelDemo',
+  components: {
+    BaseTabsPanel,
+  },
+}
 </script>
 ```
 </docs>

@@ -6,43 +6,43 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-  /**
-   * Renders a transition wrapping the element passed in the default slot. The transition
-   * fades between the two toggled elements at the same time.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'CrossFade',
-    props: {
-      /**
-       * Indicates if the transition must be applied on the initial render of the node.
-       */
-      appear: {
-        type: Boolean,
-        default: true
-      }
-    }
-  });
+/**
+ * Renders a transition wrapping the element passed in the default slot. The transition
+ * fades between the two toggled elements at the same time.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'CrossFade',
+  props: {
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    appear: {
+      type: Boolean,
+      default: true,
+    },
+  },
+})
 </script>
 
 <style lang="css">
-  .x-cross-fade--enter-active,
-  .x-cross-fade--leave-active {
-    transition: opacity 0.25s ease-in-out;
-    mix-blend-mode: multiply;
-  }
+.x-cross-fade--enter-active,
+.x-cross-fade--leave-active {
+  transition: opacity 0.25s ease-in-out;
+  mix-blend-mode: multiply;
+}
 
-  .x-cross-fade--leave-active {
-    position: absolute;
-  }
+.x-cross-fade--leave-active {
+  position: absolute;
+}
 
-  .x-cross-fade--leave-to,
-  .x-cross-fade--enter-from {
-    opacity: 0 !important;
-  }
+.x-cross-fade--leave-to,
+.x-cross-fade--enter-from {
+  opacity: 0 !important;
+}
 </style>
 
 <docs lang="mdx">

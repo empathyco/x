@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins';
-import { RecommendationsXStoreModule } from '../types';
+import type { RecommendationsXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins'
 
 /**
  * Default implementation for the {@link RecommendationsActions.fetchRecommendations}.
@@ -12,6 +12,6 @@ import { RecommendationsXStoreModule } from '../types';
  * @public
  */
 export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] =
-  (_context, request) => {
-    return request ? XPlugin.adapter.recommendations(request).then(({ results }) => results) : [];
-  };
+  async (_context, request) => {
+    return request ? XPlugin.adapter.recommendations(request).then(({ results }) => results) : []
+  }

@@ -1,12 +1,12 @@
 <template>
   <BaseSuggestion
+    v-slot="baseScope"
     class="x-next-query"
     :suggestion="suggestion"
-    :suggestionSelectedEvents="events"
+    :suggestion-selected-events="events"
     data-test="next-query"
     feature="next_query"
     :class="{ 'x-next-query--is-curated': shouldHighlightCurated }"
-    #default="baseScope"
   >
     <!-- eslint-disable max-len -->
     <!--
@@ -20,71 +20,72 @@
 </template>
 
 <script lang="ts">
-  import { NextQuery as NextQueryModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { nextQueriesXModule } from '../x-module';
+import type { NextQuery as NextQueryModel } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { nextQueriesXModule } from '../x-module'
 
-  /**
-   * Renders a next query item which receives the suggestion that will be rendered as a prop. It
-   * exposes a default slot to change the next query content. If the slot is not overridden,
-   * it will render the suggestion query by default.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'NextQuery',
-    xModule: nextQueriesXModule.name,
-    components: { BaseSuggestion },
-    props: {
-      /**
-       * The suggestion to render and use in the default slot.
-       *
-       * @public
-       */
-      suggestion: {
-        type: Object as PropType<NextQueryModel>,
-        required: true
-      },
-      /**
-       * Indicates if the curated next query should be highlighted.
-       *
-       * @public
-       */
-      highlightCurated: {
-        type: Boolean,
-        default: false
-      }
+/**
+ * Renders a next query item which receives the suggestion that will be rendered as a prop. It
+ * exposes a default slot to change the next query content. If the slot is not overridden,
+ * it will render the suggestion query by default.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'NextQuery',
+  xModule: nextQueriesXModule.name,
+  components: { BaseSuggestion },
+  props: {
+    /**
+     * The suggestion to render and use in the default slot.
+     *
+     * @public
+     */
+    suggestion: {
+      type: Object as PropType<NextQueryModel>,
+      required: true,
     },
-    setup(props) {
-      /**
-       * Events list which are going to be emitted when a next query is selected.
-       *
-       * @returns The {@link XEvent} to emit.
-       * @public
-       */
-      const events = computed(
-        (): Partial<XEventsTypes> => ({ UserSelectedANextQuery: props.suggestion })
-      );
+    /**
+     * Indicates if the curated next query should be highlighted.
+     *
+     * @public
+     */
+    highlightCurated: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    /**
+     * Events list which are going to be emitted when a next query is selected.
+     *
+     * @returns The {@link XEvent} to emit.
+     * @public
+     */
+    const events = computed(
+      (): Partial<XEventsTypes> => ({ UserSelectedANextQuery: props.suggestion }),
+    )
 
-      /**
-       * Checks if the next query is curated and if it should be highlighted.
-       *
-       * @returns True if the next query is curated and should be highlighted.
-       *
-       * @internal
-       */
-      const shouldHighlightCurated = computed(
-        () => props.highlightCurated && (props.suggestion.isCurated ?? false)
-      );
+    /**
+     * Checks if the next query is curated and if it should be highlighted.
+     *
+     * @returns True if the next query is curated and should be highlighted.
+     *
+     * @internal
+     */
+    const shouldHighlightCurated = computed(
+      () => props.highlightCurated && (props.suggestion.isCurated ?? false),
+    )
 
-      return {
-        events,
-        shouldHighlightCurated
-      };
+    return {
+      events,
+      shouldHighlightCurated,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -118,23 +119,23 @@ Using default slot:
 </template>
 
 <script>
-  import { NextQuery } from '@empathyco/x-components/next-queries';
+import { NextQuery } from '@empathyco/x-components/next-queries'
 
-  export default {
-    name: 'NextQueryDemo',
-    components: {
-      NextQuery
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryDemo',
+  components: {
+    NextQuery,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -153,25 +154,25 @@ The default slot allows you to replace the content of the suggestion button.
 </template>
 
 <script>
-  import { NextQuery } from '@empathyco/x-components/next-queries';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { NextQuery } from '@empathyco/x-components/next-queries'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'NextQueryDemo',
-    components: {
-      NextQuery,
-      TrendingIcon
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryDemo',
+  components: {
+    NextQuery,
+    TrendingIcon,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

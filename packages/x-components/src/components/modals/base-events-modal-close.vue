@@ -11,39 +11,40 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { PropsWithType } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
-  import BaseEventButton from '../base-event-button.vue';
+import type { PropType } from 'vue'
+import type { PropsWithType } from '../../utils/types'
+import type { XEventsTypes } from '../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseEventButton from '../base-event-button.vue'
 
-  /**
-   * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
-   * when clicked. It has a default slot to customize its contents.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseEventButton
+/**
+ * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
+ * when clicked. It has a default slot to customize its contents.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseEventButton,
+  },
+  props: {
+    /**
+     * Event name to use for closing the modal.
+     *
+     * @public
+     */
+    closingEvent: {
+      type: String as PropType<PropsWithType<XEventsTypes, void>>,
+      default: 'UserClickedCloseEventsModal',
     },
-    props: {
-      /**
-       * Event name to use for closing the modal.
-       *
-       * @public
-       */
-      closingEvent: {
-        type: String as PropType<PropsWithType<XEventsTypes, void>>,
-        default: 'UserClickedCloseEventsModal'
-      }
-    },
-    setup(props) {
-      const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }));
-      return {
-        events
-      };
+  },
+  setup(props) {
+    const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }))
+    return {
+      events,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -72,14 +73,14 @@ of them...
 </template>
 
 <script>
-  import { BaseEventsModalClose } from '@empathyco/x-components';
+import { BaseEventsModalClose } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseEventsModalCloseTest',
-    components: {
-      BaseEventsModalClose
-    }
-  };
+export default {
+  name: 'BaseEventsModalCloseTest',
+  components: {
+    BaseEventsModalClose,
+  },
+}
 </script>
 ```
 
@@ -94,14 +95,14 @@ This event can be changed using the `closingEvent` prop.
 </template>
 
 <script>
-  import { BaseEventsModalClose } from '@empathyco/x-components';
+import { BaseEventsModalClose } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseEventsModalCloseTest',
-    components: {
-      BaseEventsModalClose
-    }
-  };
+export default {
+  name: 'BaseEventsModalCloseTest',
+  components: {
+    BaseEventsModalClose,
+  },
+}
 </script>
 ```
 </docs>

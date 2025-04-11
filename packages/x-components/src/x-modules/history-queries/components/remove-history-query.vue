@@ -10,55 +10,56 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseEventButton from '../../../components/base-event-button.vue';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { historyQueriesXModule } from '../x-module';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseEventButton from '../../../components/base-event-button.vue'
+import { historyQueriesXModule } from '../x-module'
 
-  /**
-   * Button that when it is pressed emits the
-   * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery} event, expressing the user
-   * intention to remove a query in the history.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'RemoveHistoryQuery',
-    xModule: historyQueriesXModule.name,
-    components: {
-      BaseEventButton
+/**
+ * Button that when it is pressed emits the
+ * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery} event, expressing the user
+ * intention to remove a query in the history.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'RemoveHistoryQuery',
+  xModule: historyQueriesXModule.name,
+  components: {
+    BaseEventButton,
+  },
+  props: {
+    /**
+     * The historyQuery that will be removed when clicking the clear button.
+     *
+     * @public
+     */
+    historyQuery: {
+      type: Object as PropType<HistoryQuery>,
+      required: true,
     },
-    props: {
-      /**
-       * The historyQuery that will be removed when clicking the clear button.
-       *
-       * @public
-       */
-      historyQuery: {
-        type: Object as PropType<HistoryQuery>,
-        required: true
-      }
-    },
-    setup(props) {
-      /**
-       * The event handler that will be triggered when clicking on the clear history query button.
-       *
-       * @remarks
-       * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
-       *
-       * @returns The {@link XEvent} to emit.
-       * @public
-       */
-      const removeHistoryQueryEvent = computed(
-        (): Partial<XEventsTypes> => ({ UserPressedRemoveHistoryQuery: props.historyQuery })
-      );
+  },
+  setup(props) {
+    /**
+     * The event handler that will be triggered when clicking on the clear history query button.
+     *
+     * @remarks
+     * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
+     *
+     * @returns The {@link XEvent} to emit.
+     * @public
+     */
+    const removeHistoryQueryEvent = computed(
+      (): Partial<XEventsTypes> => ({ UserPressedRemoveHistoryQuery: props.historyQuery }),
+    )
 
-      return {
-        removeHistoryQueryEvent
-      };
+    return {
+      removeHistoryQueryEvent,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">

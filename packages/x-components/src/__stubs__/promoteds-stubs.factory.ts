@@ -1,4 +1,4 @@
-import { Promoted } from '@empathyco/x-types';
+import type { Promoted } from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#Promoted | Promoted} stub.
@@ -14,8 +14,8 @@ export function getPromotedsStub(): Promoted[] {
     createPromotedStub('3', 3),
     createPromotedStub('4', 4),
     createPromotedStub('5', 9),
-    createPromotedStub('6', 11)
-  ];
+    createPromotedStub('6', 11),
+  ]
 }
 
 /**
@@ -38,9 +38,9 @@ export function createPromotedStub(identifier: string, position?: number): Promo
     tagging: {
       click: {
         params: {},
-        url: ''
-      }
+        url: '',
+      },
     },
-    modelName: 'Promoted'
-  };
+    modelName: 'Promoted',
+  }
 }

@@ -1,2 +1,2 @@
-export * from './types';
-export * from './x-installer';
+export * from './types'
+export * from './x-installer'

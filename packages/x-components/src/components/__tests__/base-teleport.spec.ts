@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils';
-import BaseTeleport from '../base-teleport.vue';
+import { mount } from '@vue/test-utils'
+import BaseTeleport from '../base-teleport.vue'
 
 /**
  * Renders the `BaseTeleport` component, exposing a basic API for testing.
@@ -11,38 +11,38 @@ import BaseTeleport from '../base-teleport.vue';
  */
 function renderBaseTeleport({
   target,
-  slotContent = '<div>Teleport Content</div>'
+  slotContent = '<div>Teleport Content</div>',
 }: {
-  target: string;
-  slotContent?: string;
+  target: string
+  slotContent?: string
 }) {
   const wrapper = mount(BaseTeleport, {
     props: { target },
-    slots: { default: slotContent }
-  });
+    slots: { default: slotContent },
+  })
 
-  return { wrapper };
+  return { wrapper }
 }
 
 describe('testing BaseTeleport component', () => {
-  let targetElement: HTMLElement;
+  let targetElement: HTMLElement
 
   beforeAll(() => {
-    targetElement = document.createElement('div');
-    targetElement.id = 'teleport-target';
-    document.body.appendChild(targetElement);
-  });
+    targetElement = document.createElement('div')
+    targetElement.id = 'teleport-target'
+    document.body.appendChild(targetElement)
+  })
 
   it('renders content in the target element', () => {
-    renderBaseTeleport({ target: '#teleport-target' });
+    renderBaseTeleport({ target: '#teleport-target' })
 
-    expect(targetElement.querySelector('.x-base-teleport')).not.toBeNull();
-    expect(targetElement.textContent).toContain('Teleport Content');
-  });
+    expect(targetElement.querySelector('.x-base-teleport')).not.toBeNull()
+    expect(targetElement.textContent).toContain('Teleport Content')
+  })
 
   it('does not render content if the target element does not exist', () => {
-    renderBaseTeleport({ target: '#non-existent-target' });
+    renderBaseTeleport({ target: '#non-existent-target' })
 
-    expect(document.querySelector('#non-existent-target .x-base-teleport')).toBeNull();
-  });
-});
+    expect(document.querySelector('#non-existent-target .x-base-teleport')).toBeNull()
+  })
+})

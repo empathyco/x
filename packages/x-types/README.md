@@ -14,20 +14,20 @@ The package export several model types that can be used to safely create objects
 expectations of X packages.
 
 ```ts
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag } from '@empathyco/x-types'
 
 const relatedTag: RelatedTag = {
   query: 'lego',
   tag: 'city',
   selected: false,
-  previous: 'lego'
-};
+  previous: 'lego',
+}
 ```
 
 Additionally it also exposes some type guards to check between different types.
 
 ```ts
-import { Filter, isHierarchicalFilter } from '@empathyco/x-types';
+import { Filter, isHierarchicalFilter } from '@empathyco/x-types'
 
 const filter: Filter = {
   modelName: 'HierarchicalFilter',
@@ -35,21 +35,21 @@ const filter: Filter = {
   facetId: 'color',
   label: 'red',
   selected: false,
-  children: []
-};
+  children: [],
+}
 // You can't access filter.children before the `if` because you have a `Filter`, not a `HierarchicalFilter`.
 
 if (isHierarchicalFilter(filter)) {
   // But after using the `isHierarchicalFilter` guard, you can acces it.
-  console.log('Children:', filter.children);
+  console.log('Children:', filter.children)
 }
 ```
 
 Finally, there are some `jest` schemas helpers that you could use to validate your objects.
 
 ```ts
-import { HierarchicalFilterSchema } from '@empathyco/x-types/schemas';
-import { Filter, isHierarchicalFilter } from '@empathyco/x-types';
+import { Filter, isHierarchicalFilter } from '@empathyco/x-types'
+import { HierarchicalFilterSchema } from '@empathyco/x-types/schemas'
 
 it('is a hierarchical filter', () => {
   const filter: Filter = {
@@ -58,11 +58,11 @@ it('is a hierarchical filter', () => {
     facetId: 'color',
     label: 'red',
     selected: false,
-    children: []
-  };
+    children: [],
+  }
 
-  expect(filter).toEqual(HierarchicalFilterSchema);
-});
+  expect(filter).toEqual(HierarchicalFilterSchema)
+})
 ```
 
 ### How to update the version

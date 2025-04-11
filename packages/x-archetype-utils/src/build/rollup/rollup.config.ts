@@ -3,9 +3,9 @@ export const rollupCssInjectorConfig = {
     // Replace X CSS injector by our custom one.
     'export default injectCss;':
       'export default (css) => window.xCSSInjector.addStyle({ source: css });',
-    delimiters: ['', '']
+    delimiters: ['', ''],
   },
   styles: {
-    mode: ['inject', (varname: string) => `window.xCSSInjector.addStyle({ source: ${varname} });`]
-  }
-};
+    mode: ['inject', (varname: string) => `window.xCSSInjector.addStyle({ source: ${varname} });`],
+  },
+}

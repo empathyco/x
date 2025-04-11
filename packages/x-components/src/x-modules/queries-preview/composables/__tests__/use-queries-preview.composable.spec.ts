@@ -1,43 +1,44 @@
-import { Store } from 'vuex';
-import { DeepPartial } from '@empathyco/x-utils';
-import { defineComponent } from 'vue';
-import { mount, VueWrapper } from '@vue/test-utils';
-import { installNewXPlugin } from '../../../../__tests__/utils';
-import { useQueriesPreview } from '../use-queries-preview.composable';
-import { XPlugin } from '../../../../plugins';
-import { RootXStoreState } from '../../../../store';
-import { resetXQueriesPreviewStateWith } from '../../components/__tests__/utils';
-import { queriesPreviewXModule } from '../../x-module';
-import { createQueryPreviewItem } from '../../../../__stubs__/queries-preview-stubs.factory';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import type { RootXStoreState } from '../../../../store'
+import { mount } from '@vue/test-utils'
+import { defineComponent } from 'vue'
+import { Store } from 'vuex'
+import { createQueryPreviewItem } from '../../../../__stubs__/queries-preview-stubs.factory'
+import { installNewXPlugin } from '../../../../__tests__/utils'
+import { XPlugin } from '../../../../plugins'
+import { resetXQueriesPreviewStateWith } from '../../components/__tests__/utils'
+import { queriesPreviewXModule } from '../../x-module'
+import { useQueriesPreview } from '../use-queries-preview.composable'
 
-const store = new Store<DeepPartial<RootXStoreState>>({});
+const store = new Store<DeepPartial<RootXStoreState>>({})
 
-const renderUseQueriesPreview = (): renderUseQueriesPreview => {
+const renderUseQueriesPreview = (): RenderUseQueriesPreview => {
   const component = defineComponent({
     xModule: queriesPreviewXModule.name,
-    template: '<div></div>'
-  });
+    template: '<div></div>',
+  })
 
   const wrapper = mount(component, {
-    global: { plugins: [installNewXPlugin({ store }), store] }
-  });
+    global: { plugins: [installNewXPlugin({ store }), store] },
+  })
 
-  XPlugin.registerXModule(queriesPreviewXModule);
+  XPlugin.registerXModule(queriesPreviewXModule)
 
   return {
     store,
-    wrapper
-  };
-};
+    wrapper,
+  }
+}
 
 describe('queries preview composables', () => {
   beforeEach(() => {
-    resetXQueriesPreviewStateWith(store);
-  });
+    resetXQueriesPreviewStateWith(store)
+  })
 
   describe('isAnyQueryLoadedInPreview', () => {
-    const { store } = renderUseQueriesPreview();
-    const { isAnyQueryLoadedInPreview } = useQueriesPreview();
+    const { store } = renderUseQueriesPreview()
+    const { isAnyQueryLoadedInPreview } = useQueriesPreview()
 
     it('returns true if any query has results', () => {
       resetXQueriesPreviewStateWith(store, {
@@ -45,12 +46,12 @@ describe('queries preview composables', () => {
           queryWithResults: createQueryPreviewItem('queryWithResults'),
           queryWithNoResults: createQueryPreviewItem('queryWithNoResults', {
             totalResults: 0,
-            results: []
-          })
-        }
-      });
-      expect(isAnyQueryLoadedInPreview(['queryWithResults'])).toBe(true);
-    });
+            results: [],
+          }),
+        },
+      })
+      expect(isAnyQueryLoadedInPreview(['queryWithResults'])).toBe(true)
+    })
 
     it('returns false if no query with results matches', () => {
       resetXQueriesPreviewStateWith(store, {
@@ -58,28 +59,28 @@ describe('queries preview composables', () => {
           queryWithResults: createQueryPreviewItem('queryWithResults'),
           queryWithNoResults: createQueryPreviewItem('queryWithNoResults', {
             totalResults: 0,
-            results: []
-          })
-        }
-      });
-      expect(isAnyQueryLoadedInPreview(['someQuery', 'anotherQuery'])).toBe(false);
-    });
+            results: [],
+          }),
+        },
+      })
+      expect(isAnyQueryLoadedInPreview(['someQuery', 'anotherQuery'])).toBe(false)
+    })
 
     it('returns false if the query is present but does not have results', () => {
       resetXQueriesPreviewStateWith(store, {
         queriesPreview: {
           queryWithNoResults: createQueryPreviewItem('queryWithNoResults', {
             totalResults: 0,
-            results: []
-          })
-        }
-      });
-      expect(isAnyQueryLoadedInPreview(['queryWithNoResults'])).toBe(false);
-    });
-  });
-});
+            results: [],
+          }),
+        },
+      })
+      expect(isAnyQueryLoadedInPreview(['queryWithNoResults'])).toBe(false)
+    })
+  })
+})
 
-type renderUseQueriesPreview = {
-  store: Store<DeepPartial<RootXStoreState>>;
-  wrapper: VueWrapper;
-};
+interface RenderUseQueriesPreview {
+  store: Store<DeepPartial<RootXStoreState>>
+  wrapper: VueWrapper
+}

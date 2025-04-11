@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { cleanMarkdown } = require('../utils');
+const { cleanMarkdown } = require('../utils')
 
 /**
  * Function to overwrite slots template on vue-docgen.
@@ -22,7 +19,7 @@ function createDocsSlotsSection(slots) {
 | Name          | Description  | Bindings<br />(name - type - description) |
 | ------------- | ------------ | ---------------------------------------  |
 ${slots.map(toSlotsMarkdownTable).join('\n')}
-`;
+`
 }
 
 /**
@@ -39,32 +36,35 @@ ${slots.map(toSlotsMarkdownTable).join('\n')}
 const formatBindings = bindings => {
   return bindings
     .map(binding => {
-      const { name, description, type } = binding;
+      const { name, description, type } = binding
       if (!type) {
-        return '';
+        return ''
       }
       return `**${name}** <code>${
         type.name === 'union' && type.elements
           ? type.elements.map(({ name: insideName }) => insideName).join(' &#124; ')
           : type.name
-      }</code> - ${description}`;
+      }</code> - ${description}`
     })
-    .join('\n');
-};
+    .join('\n')
+}
 
 /**
  * Transforms the slots array into a markdown table.
  *
  * @param slot - Each of the slots of the template.
+ * @param slot.description - Slot description.
+ * @param slot.bindings - Slot bindings.
+ * @param slot.name - Slot name.
  * @returns String with markdown table row.
  *
  * @internal
  */
 function toSlotsMarkdownTable({ description = '', bindings = {}, name }) {
-  const readableBindings = Object.keys(bindings).length ? `${formatBindings(bindings)}` : 'None';
+  const readableBindings = Object.keys(bindings).length ? `${formatBindings(bindings)}` : 'None'
   return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(description)} | ${cleanMarkdown(
-    readableBindings
-  )} |`;
+    readableBindings,
+  )} |`
 }
 
-module.exports = createDocsSlotsSection;
+module.exports = createDocsSlotsSection

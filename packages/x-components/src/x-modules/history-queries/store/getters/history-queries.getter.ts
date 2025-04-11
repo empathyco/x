@@ -1,7 +1,7 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { GettersClass } from '../../../../store/getters.types';
-import { normalizeString } from '../../../../utils/normalize';
-import { HistoryQueriesState, HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { GettersClass } from '../../../../store/getters.types'
+import type { HistoryQueriesState, HistoryQueriesXStoreModule } from '../types'
+import { normalizeString } from '../../../../utils/normalize'
 
 /**
  * Class implementation for the {@link HistoryQueriesGetters.historyQueries} getter.
@@ -19,9 +19,9 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
   historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
     return query
       ? historyQueries.filter(
-          this.searchInHistoryQueries(normalizeString(query), config.hideIfEqualsQuery)
+          this.searchInHistoryQueries(normalizeString(query), config.hideIfEqualsQuery),
         )
-      : historyQueries;
+      : historyQueries
   }
 
   /**
@@ -36,23 +36,23 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
    */
   protected searchInHistoryQueries(
     normalizedQuery: string,
-    hideIfEqualsQuery: boolean
+    hideIfEqualsQuery: boolean,
   ): (historyQuery: HistoryQuery) => boolean {
     return (historyQuery: HistoryQuery) => {
-      const normalizedHistoryQuery = normalizeString(historyQuery.query);
-      const matchesQuery = normalizedHistoryQuery.includes(normalizedQuery);
+      const normalizedHistoryQuery = normalizeString(historyQuery.query)
+      const matchesQuery = normalizedHistoryQuery.includes(normalizedQuery)
       return hideIfEqualsQuery
         ? matchesQuery && normalizedHistoryQuery !== normalizedQuery
-        : matchesQuery;
-    };
+        : matchesQuery
+    }
   }
 }
 
-const historyQueriesGetter = new HistoryQueriesGetter();
+const historyQueriesGetter = new HistoryQueriesGetter()
 
 /**
  * History Queries getter.
  *
  * @public
  */
-export const historyQueries = historyQueriesGetter.historyQueries.bind(historyQueriesGetter);
+export const historyQueries = historyQueriesGetter.historyQueries.bind(historyQueriesGetter)

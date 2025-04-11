@@ -1,5 +1,5 @@
-import { ExperienceControlsRequest } from '@empathyco/x-types';
-import { XEventsTypes } from '../../wiring';
+import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import type { XEventsTypes } from '../../wiring'
 
 /**
  * Dictionary of the events of Experience Controls XModule.
@@ -7,6 +7,6 @@ import { XEventsTypes } from '../../wiring';
  * @public
  */
 export interface ExperienceControlsXEvents {
-  ExperienceControlsEventsChanged: Partial<XEventsTypes>;
-  ExperienceControlsRequestUpdated: ExperienceControlsRequest | null;
+  ExperienceControlsEventsChanged: Partial<XEventsTypes>
+  ExperienceControlsRequestUpdated: ExperienceControlsRequest | null
 }

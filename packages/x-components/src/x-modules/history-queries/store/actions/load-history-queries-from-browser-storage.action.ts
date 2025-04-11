@@ -1,6 +1,6 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { localStorageService } from '../../../../utils/storage';
-import { HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { HistoryQueriesXStoreModule } from '../types'
+import { localStorageService } from '../../../../utils/storage'
 
 /**
  * Default implementation for the
@@ -10,9 +10,9 @@ import { HistoryQueriesXStoreModule } from '../types';
  * provided by Vuex.
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const loadHistoryQueriesFromBrowserStorage: HistoryQueriesXStoreModule['actions']['loadHistoryQueriesFromBrowserStorage'] =
   ({ commit, getters }) => {
-    const historyQueries = localStorageService.getItem<HistoryQuery[]>(getters.storageKey) ?? [];
-    commit('setHistoryQueries', historyQueries);
-  };
+    const historyQueries = localStorageService.getItem<HistoryQuery[]>(getters.storageKey) ?? []
+    commit('setHistoryQueries', historyQueries)
+  }

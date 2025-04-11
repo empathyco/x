@@ -16,16 +16,16 @@
       <slot
         name="variant"
         :variant="variant"
-        :isSelected="variantIsSelected(variant)"
-        :selectVariant="() => selectVariant(variant)"
+        :is-selected="variantIsSelected(variant)"
+        :select-variant="() => selectVariant(variant)"
       >
-        <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
+        <button data-test="variant-button" class="x-button" @click="selectVariant(variant)">
           <!--
             @slot Variant content
             @binding {ResultVariant} variant - The variant item
             @binding {boolean} isSelected - Indicates if the variant is selected
           -->
-          <slot name="variant-content" :variant="variant" :isSelected="variantIsSelected(variant)">
+          <slot name="variant-content" :variant="variant" :is-selected="variantIsSelected(variant)">
             {{ variant }}
           </slot>
         </button>
@@ -35,118 +35,119 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, inject, Ref } from 'vue';
-  import { Result, ResultVariant } from '@empathyco/x-types';
-  import {
-    RESULT_WITH_VARIANTS_KEY,
-    SELECTED_VARIANTS_KEY,
-    SELECT_RESULT_VARIANT_KEY
-  } from '../decorators/injection.consts';
+import type { Result, ResultVariant } from '@empathyco/x-types'
+import type { Ref } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
+import {
+  RESULT_WITH_VARIANTS_KEY,
+  SELECT_RESULT_VARIANT_KEY,
+  SELECTED_VARIANTS_KEY,
+} from '../decorators/injection.consts'
 
-  /**
-   * Component to show and select the available variants of a product for a given nest level.
-   * TODO: Add logger warning on mount when result is not injected.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'ResultVariantSelector',
-    props: {
-      /** The nest level of the variants to be rendered. */
-      level: {
-        type: Number,
-        default: 0
-      }
+/**
+ * Component to show and select the available variants of a product for a given nest level.
+ * TODO: Add logger warning on mount when result is not injected.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'ResultVariantSelector',
+  props: {
+    /** The nest level of the variants to be rendered. */
+    level: {
+      type: Number,
+      default: 0,
     },
-    setup(props, { slots }) {
-      /**
-       * Callback to be called when a variant is selected.
-       *
-       * @public
-       * @returns The 'selectResultVariant' injection key.
-       */
-      const selectResultVariant = inject<(variant: ResultVariant, level?: number) => void>(
-        SELECT_RESULT_VARIANT_KEY as string
-      );
+  },
+  setup(props, { slots }) {
+    /**
+     * Callback to be called when a variant is selected.
+     *
+     * @public
+     * @returns The 'selectResultVariant' injection key.
+     */
+    const selectResultVariant = inject<(variant: ResultVariant, level?: number) => void>(
+      SELECT_RESULT_VARIANT_KEY as string,
+    )
 
-      /** The original result, used to retrieve the available variants for the level. */
-      const result = inject<Ref<Result>>(RESULT_WITH_VARIANTS_KEY as string);
+    /** The original result, used to retrieve the available variants for the level. */
+    const result = inject<Ref<Result>>(RESULT_WITH_VARIANTS_KEY as string)
 
-      /** Array containing the selected variants. */
-      const selectedVariants = inject<Ref<ResultVariant[]>>(SELECTED_VARIANTS_KEY as string);
+    /** Array containing the selected variants. */
+    const selectedVariants = inject<Ref<ResultVariant[]>>(SELECTED_VARIANTS_KEY as string)
 
-      /**
-       * It retrieves the available variants from the result.
-       *
-       * @returns - The variants of the result for the current level.
-       */
-      const variants = computed<ResultVariant[] | undefined>(() => {
-        if (props.level === 0) {
-          return result!.value?.variants;
-        }
-        return selectedVariants!.value[props.level - 1]?.variants;
-      });
-
-      /**
-       * Gets the selected variant of the current level.
-       *
-       * @returns - The selected variant.
-       */
-      const selectedVariant = computed<ResultVariant | undefined>(() =>
-        variants.value?.find(variant => variant === selectedVariants!.value[props.level])
-      );
-
-      /**
-       * Calls the provided method to select a variant.
-       *
-       * @param variant - Variant to select.
-       */
-      const selectVariant = (variant: ResultVariant) => {
-        selectResultVariant!(variant, props.level);
-      };
-
-      /**
-       * Checks if a variant is selected.
-       *
-       * @param variant - Variant to check.
-       * @returns True if the variant is selected, false if not.
-       */
-      const variantIsSelected = (variant: ResultVariant) => {
-        return selectedVariant.value === variant;
-      };
-
-      /**
-       * Render function to execute the `default` slot, binding `slotsProps` and getting only the
-       * first `vNode` to avoid Fragments and Text root nodes.
-       * If there are no result or variants, nothing is rendered.
-       *
-       * @remarks `slotProps` must be values without Vue reactivity and located inside the
-       * render-function to update the binding data properly.
-       *
-       * @returns The root `vNode` of the `default` slot or empty string if there are
-       * no result or variants.
-       */
-      function renderDefaultSlot() {
-        const slotProps = {
-          variants: variants.value,
-          selectedVariant: selectedVariant.value,
-          selectVariant
-        };
-        return result && variants.value ? slots.default?.(slotProps)[0] : '';
+    /**
+     * It retrieves the available variants from the result.
+     *
+     * @returns - The variants of the result for the current level.
+     */
+    const variants = computed<ResultVariant[] | undefined>(() => {
+      if (props.level === 0) {
+        return result!.value?.variants
       }
+      return selectedVariants!.value[props.level - 1]?.variants
+    })
 
-      /* Hack to render through a render-function, the `default` slot or, in its absence,
-       the component itself. It is the alternative for the NoElement antipattern. */
-      const componentProps = { result, variants, variantIsSelected, selectVariant };
-      return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps;
+    /**
+     * Gets the selected variant of the current level.
+     *
+     * @returns - The selected variant.
+     */
+    const selectedVariant = computed<ResultVariant | undefined>(() =>
+      variants.value?.find(variant => variant === selectedVariants!.value[props.level]),
+    )
+
+    /**
+     * Calls the provided method to select a variant.
+     *
+     * @param variant - Variant to select.
+     */
+    const selectVariant = (variant: ResultVariant) => {
+      selectResultVariant!(variant, props.level)
     }
-  });
+
+    /**
+     * Checks if a variant is selected.
+     *
+     * @param variant - Variant to check.
+     * @returns True if the variant is selected, false if not.
+     */
+    const variantIsSelected = (variant: ResultVariant) => {
+      return selectedVariant.value === variant
+    }
+
+    /**
+     * Render function to execute the `default` slot, binding `slotsProps` and getting only the
+     * first `vNode` to avoid Fragments and Text root nodes.
+     * If there are no result or variants, nothing is rendered.
+     *
+     * @remarks `slotProps` must be values without Vue reactivity and located inside the
+     * render-function to update the binding data properly.
+     *
+     * @returns The root `vNode` of the `default` slot or empty string if there are
+     * no result or variants.
+     */
+    function renderDefaultSlot() {
+      const slotProps = {
+        variants: variants.value,
+        selectedVariant: selectedVariant.value,
+        selectVariant,
+      }
+      return result && variants.value ? slots.default?.(slotProps)[0] : ''
+    }
+
+    /* Hack to render through a render-function, the `default` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+    const componentProps = { result, variants, variantIsSelected, selectVariant }
+    return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-result-variant-selector__list {
-    display: flex;
-  }
+.x-result-variant-selector__list {
+  display: flex;
+}
 </style>
 
 <docs lang="mdx">
@@ -181,57 +182,57 @@ rendered.
 </template>
 
 <script>
-  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
+import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultVariantSelectorDemo',
-    components: {
-      ResultVariantsProvider,
-      ResultVariantSelector
-    },
-    data() {
-      return {
-        result: {
-          id: 'jacket',
-          modelName: 'Result',
-          type: 'Product',
-          isWishlisted: false,
-          identifier: { value: 'jacket' },
-          images: [],
-          name: 'jacket',
-          price: { hasDiscount: false, originalValue: 10, value: 10 },
-          url: '/products/jacket',
-          variants: [
-            {
-              name: 'red',
-              variants: [
-                {
-                  name: 'red XL'
-                },
-                {
-                  name: 'red L'
-                }
-              ]
-            },
-            {
-              name: 'blue',
-              variants: [
-                {
-                  name: 'blue S'
-                },
-                {
-                  name: 'blue M'
-                },
-                {
-                  name: 'blue L'
-                }
-              ]
-            }
-          ]
-        }
-      };
+export default {
+  name: 'ResultVariantSelectorDemo',
+  components: {
+    ResultVariantsProvider,
+    ResultVariantSelector,
+  },
+  data() {
+    return {
+      result: {
+        id: 'jacket',
+        modelName: 'Result',
+        type: 'Product',
+        isWishlisted: false,
+        identifier: { value: 'jacket' },
+        images: [],
+        name: 'jacket',
+        price: { hasDiscount: false, originalValue: 10, value: 10 },
+        url: '/products/jacket',
+        variants: [
+          {
+            name: 'red',
+            variants: [
+              {
+                name: 'red XL',
+              },
+              {
+                name: 'red L',
+              },
+            ],
+          },
+          {
+            name: 'blue',
+            variants: [
+              {
+                name: 'blue S',
+              },
+              {
+                name: 'blue M',
+              },
+              {
+                name: 'blue L',
+              },
+            ],
+          },
+        ],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -258,38 +259,38 @@ In this example the default slot is used to customize the list.
 </template>
 
 <script>
-  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
+import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultVariantSelectorDemo',
-    components: {
-      ResultVariantsProvider,
-      ResultVariantSelector
-    },
-    data() {
-      return {
-        result: {
-          id: 'jacket',
-          modelName: 'Result',
-          type: 'Product',
-          isWishlisted: false,
-          identifier: { value: 'jacket' },
-          images: [],
-          name: 'jacket',
-          price: { hasDiscount: false, originalValue: 10, value: 10 },
-          url: '/products/jacket',
-          variants: [
-            {
-              name: 'red'
-            },
-            {
-              name: 'blue'
-            }
-          ]
-        }
-      };
+export default {
+  name: 'ResultVariantSelectorDemo',
+  components: {
+    ResultVariantsProvider,
+    ResultVariantSelector,
+  },
+  data() {
+    return {
+      result: {
+        id: 'jacket',
+        modelName: 'Result',
+        type: 'Product',
+        isWishlisted: false,
+        identifier: { value: 'jacket' },
+        images: [],
+        name: 'jacket',
+        price: { hasDiscount: false, originalValue: 10, value: 10 },
+        url: '/products/jacket',
+        variants: [
+          {
+            name: 'red',
+          },
+          {
+            name: 'blue',
+          },
+        ],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -316,38 +317,38 @@ The variant will be rendered inside a list.
 </template>
 
 <script>
-  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
+import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultVariantSelectorDemo',
-    components: {
-      ResultVariantsProvider,
-      ResultVariantSelector
-    },
-    data() {
-      return {
-        result: {
-          id: 'jacket',
-          modelName: 'Result',
-          type: 'Product',
-          isWishlisted: false,
-          identifier: { value: 'jacket' },
-          images: [],
-          name: 'jacket',
-          price: { hasDiscount: false, originalValue: 10, value: 10 },
-          url: '/products/jacket',
-          variants: [
-            {
-              name: 'red'
-            },
-            {
-              name: 'blue'
-            }
-          ]
-        }
-      };
+export default {
+  name: 'ResultVariantSelectorDemo',
+  components: {
+    ResultVariantsProvider,
+    ResultVariantSelector,
+  },
+  data() {
+    return {
+      result: {
+        id: 'jacket',
+        modelName: 'Result',
+        type: 'Product',
+        isWishlisted: false,
+        identifier: { value: 'jacket' },
+        images: [],
+        name: 'jacket',
+        price: { hasDiscount: false, originalValue: 10, value: 10 },
+        url: '/products/jacket',
+        variants: [
+          {
+            name: 'red',
+          },
+          {
+            name: 'blue',
+          },
+        ],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -371,38 +372,38 @@ button.
 </template>
 
 <script>
-  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
+import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultVariantSelectorDemo',
-    components: {
-      ResultVariantsProvider,
-      ResultVariantSelector
-    },
-    data() {
-      return {
-        result: {
-          id: 'jacket',
-          modelName: 'Result',
-          type: 'Product',
-          isWishlisted: false,
-          identifier: { value: 'jacket' },
-          images: [],
-          name: 'jacket',
-          price: { hasDiscount: false, originalValue: 10, value: 10 },
-          url: '/products/jacket',
-          variants: [
-            {
-              name: 'red'
-            },
-            {
-              name: 'blue'
-            }
-          ]
-        }
-      };
+export default {
+  name: 'ResultVariantSelectorDemo',
+  components: {
+    ResultVariantsProvider,
+    ResultVariantSelector,
+  },
+  data() {
+    return {
+      result: {
+        id: 'jacket',
+        modelName: 'Result',
+        type: 'Product',
+        isWishlisted: false,
+        identifier: { value: 'jacket' },
+        images: [],
+        name: 'jacket',
+        price: { hasDiscount: false, originalValue: 10, value: 10 },
+        url: '/products/jacket',
+        variants: [
+          {
+            name: 'red',
+          },
+          {
+            name: 'blue',
+          },
+        ],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

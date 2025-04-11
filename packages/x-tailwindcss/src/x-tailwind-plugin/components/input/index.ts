@@ -1,10 +1,10 @@
-import { rename } from '@empathyco/x-utils';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
-import { inputDefault } from './default';
-import { inputColors } from './colors';
-import { inputSizes } from './sizes';
-import { inputLine } from './line';
+import type { TailwindHelpers } from '../../../types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { rename } from '@empathyco/x-utils'
+import { inputColors } from './colors'
+import { inputDefault } from './default'
+import { inputLine } from './line'
+import { inputSizes } from './sizes'
 
 /**
  * Returns the component `input` CSS.
@@ -20,12 +20,12 @@ export function input(helpers: TailwindHelpers) {
         {
           ...inputColors(helpers),
           ...inputSizes(helpers),
-          ...inputLine(helpers)
+          ...inputLine(helpers),
         },
         {
-          prefix: '&-'
-        }
-      )
-    )
-  };
+          prefix: '&-',
+        },
+      ),
+    ),
+  }
 }

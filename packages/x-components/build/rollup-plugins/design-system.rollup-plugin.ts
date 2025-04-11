@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { Plugin } from 'rollup';
-import { normalizePath } from '../build.utils';
+import type { Plugin } from 'rollup'
+import fs from 'node:fs'
+import { normalizePath } from '../build.utils'
 
 /**
  * This function interpolates the `.tokens` suffix into a file path and checks if exists.
@@ -12,10 +12,10 @@ import { normalizePath } from '../build.utils';
  * @internal
  */
 function getTokensFilePath(file: string) {
-  const fileParts = file.split('.');
-  const fileExtension = fileParts.pop() ?? '';
-  const tokensFile = `${fileParts.join('.')}.tokens.${fileExtension}`;
-  return fs.existsSync(tokensFile) ? normalizePath(tokensFile) : null;
+  const fileParts = file.split('.')
+  const fileExtension = fileParts.pop() ?? ''
+  const tokensFile = `${fileParts.join('.')}.tokens.${fileExtension}`
+  return fs.existsSync(tokensFile) ? normalizePath(tokensFile) : null
 }
 
 /**
@@ -30,10 +30,10 @@ export function importTokens(): Plugin {
   return {
     name: 'importTokens',
     transform(code, id) {
-      const tokensFile = getTokensFilePath(id);
-      return tokensFile ? `@import '${tokensFile}'; ${code}` : code;
-    }
-  };
+      const tokensFile = getTokensFilePath(id)
+      return tokensFile ? `@import '${tokensFile}'; ${code}` : code
+    },
+  }
 }
 
 /**
@@ -51,9 +51,9 @@ export function omitJsFiles(): Plugin {
     generateBundle(_, bundle): void {
       Object.keys(bundle).forEach(fileName => {
         if (fileName.endsWith('.js')) {
-          delete bundle[fileName];
+          delete bundle[fileName]
         }
-      });
-    }
-  };
+      })
+    },
+  }
 }

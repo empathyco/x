@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { queriesPreviewXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { queriesPreviewXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the queries-preview module.
@@ -10,6 +10,6 @@ export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreMo
   QueryPreviewUnselected: {
     selector: state =>
       !state.selectedQueryPreview ? state.params : state.selectedQueryPreview.extraParams!,
-    filter: (newValue, oldValue, state) => !state.selectedQueryPreview
-  }
-});
+    filter: (newValue, oldValue, state) => !state.selectedQueryPreview,
+  },
+})

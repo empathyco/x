@@ -1,18 +1,19 @@
-import { ComponentMountingOptions, mount } from '@vue/test-utils';
-import { installNewXPlugin } from '../../__tests__/utils';
-import { XPlugin } from '../../plugins';
-import { WireMetadata, XEventsTypes } from '../../wiring';
-import BaseEventButton from '../base-event-button.vue';
+import type { ComponentMountingOptions } from '@vue/test-utils'
+import type { WireMetadata, XEventsTypes } from '../../wiring'
+import { mount } from '@vue/test-utils'
+import { installNewXPlugin } from '../../__tests__/utils'
+import { XPlugin } from '../../plugins'
+import BaseEventButton from '../base-event-button.vue'
 
-const stubSlot = `<span class="test-msg">button text</span><i class="test-icon"></i>`;
+const stubSlot = `<span class="test-msg">button text</span><i class="test-icon"></i>`
 
 function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) {
   const wrapper = mount(BaseEventButton, {
     props: { events: {} },
     slots: { default: stubSlot },
     global: { plugins: [installNewXPlugin()] },
-    ...options
-  });
+    ...options,
+  })
 
   return {
     wrapper,
@@ -21,55 +22,55 @@ function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) 
       location: 'none',
       moduleName: null,
       replaceable: true,
-      target: wrapper.element
-    } as WireMetadata
-  } as const;
+      target: wrapper.element,
+    } as WireMetadata,
+  } as const
 }
 
 describe('testing Base Event Button Component', () => {
   it('renders everything passed to its default slot', () => {
-    const { wrapper } = render();
+    const { wrapper } = render()
 
-    expect(wrapper.find('.test-msg').exists()).toBeTruthy();
-    expect(wrapper.find('.test-icon').exists()).toBeTruthy();
-  });
+    expect(wrapper.find('.test-msg').exists()).toBeTruthy()
+    expect(wrapper.find('.test-icon').exists()).toBeTruthy()
+  })
 
   it('emits an event with a payload', async () => {
-    const { wrapper, emitSpy, expectedMetadata } = render();
+    const { wrapper, emitSpy, expectedMetadata } = render()
 
     await wrapper.setProps({
-      events: { testEvent: 'test-payload' } as Partial<XEventsTypes>
-    } as any);
-    await wrapper.trigger('click');
+      events: { testEvent: 'test-payload' } as Partial<XEventsTypes>,
+    } as any)
+    await wrapper.trigger('click')
 
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('testEvent', 'test-payload', expectedMetadata);
-  });
+    expect(emitSpy).toHaveBeenCalledTimes(1)
+    expect(emitSpy).toHaveBeenCalledWith('testEvent', 'test-payload', expectedMetadata)
+  })
 
   it('emits an event with no payload', async () => {
-    const { wrapper, emitSpy, expectedMetadata } = render();
+    const { wrapper, emitSpy, expectedMetadata } = render()
 
-    await wrapper.setProps({ events: { testEvent: undefined } as Partial<XEventsTypes> } as any);
-    await wrapper.trigger('click');
+    await wrapper.setProps({ events: { testEvent: undefined } as Partial<XEventsTypes> } as any)
+    await wrapper.trigger('click')
 
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('testEvent', undefined, expectedMetadata);
-  });
+    expect(emitSpy).toHaveBeenCalledTimes(1)
+    expect(emitSpy).toHaveBeenCalledWith('testEvent', undefined, expectedMetadata)
+  })
 
   it('emits multiple events with multiple payloads', async () => {
-    const { wrapper, emitSpy, expectedMetadata } = render();
+    const { wrapper, emitSpy, expectedMetadata } = render()
 
     const events = {
       testEvent1: 'test-payload-1',
       testEvent2: 'test-payload-2',
-      testEvent3: undefined
-    } as Partial<XEventsTypes>;
-    await wrapper.setProps({ events } as any);
-    await wrapper.trigger('click');
+      testEvent3: undefined,
+    } as Partial<XEventsTypes>
+    await wrapper.setProps({ events } as any)
+    await wrapper.trigger('click')
 
-    expect(emitSpy).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledTimes(3)
     Object.entries(events).forEach(([event, payload]) =>
-      expect(emitSpy).toHaveBeenCalledWith(event, payload, expectedMetadata)
-    );
-  });
-});
+      expect(emitSpy).toHaveBeenCalledWith(event, payload, expectedMetadata),
+    )
+  })
+})

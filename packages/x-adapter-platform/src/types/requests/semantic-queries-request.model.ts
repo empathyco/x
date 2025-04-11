@@ -1,4 +1,4 @@
-import { PlatformExtraParamsRequest } from './request.types';
+import type { PlatformExtraParamsRequest } from './request.types'
 
 /**
  * Request for the `semantic queries` endpoint.
@@ -7,5 +7,5 @@ import { PlatformExtraParamsRequest } from './request.types';
  * @public
  */
 export interface PlatformSemanticQueriesRequest extends PlatformExtraParamsRequest {
-  q: string;
+  q: string
 }

@@ -1,157 +1,158 @@
 <template>
-  <GlobalEvents v-if="!force" @resize="throttledStoreWindowWidth" target="window" />
+  <GlobalEvents v-if="!force" target="window" @resize="throttledStoreWindowWidth" />
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, onMounted, PropType, Ref, ref, watch } from 'vue';
-  import { GlobalEvents } from 'vue-global-events';
-  import { throttle } from '../../../utils/throttle';
-  import { deviceXModule } from '../x-module';
-  import { useXBus } from '../../../composables/use-x-bus';
+import type { PropType, Ref } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { GlobalEvents } from 'vue-global-events'
+import { useXBus } from '../../../composables/use-x-bus'
+import { throttle } from '../../../utils/throttle'
+import { deviceXModule } from '../x-module'
 
-  /** Alias just to improve code readiness. */
-  type Device = string;
-  /** Alias just to improve code readiness. */
-  type MaxWidth = number;
+/** Alias just to improve code readiness. */
+type Device = string
+/** Alias just to improve code readiness. */
+type MaxWidth = number
 
-  /**
-   * This component helps to detect or setting a device, that can be used later to create
-   * different layouts optimized for different devices. This detected device is available under
-   * the {@link XComponentAliasAPI.device} property.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'DeviceDetector',
-    xModule: deviceXModule.name,
-    components: { GlobalEvents },
-    props: {
-      /**
-       * Record of the device name, that can be whatever you want `xs`, `mobile`, `big`... And
-       * the max width in pixels for that device.
-       *
-       * @public
-       */
-      breakpoints: {
-        type: Object as PropType<Record<Device, MaxWidth>>,
-        default: () => ({})
-      },
-      /**
-       * Forces a device, ignoring the breakpoints prop.
-       *
-       * @public
-       */
-      force: String as PropType<Device>,
-
-      /**
-       * Time in milliseconds to throttle the resize events used to detect the device.
-       *
-       * @public
-       */
-      throttleMs: {
-        type: Number,
-        default: 100
-      }
+/**
+ * This component helps to detect or setting a device, that can be used later to create
+ * different layouts optimized for different devices. This detected device is available under
+ * the {@link XComponentAliasAPI.device} property.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'DeviceDetector',
+  xModule: deviceXModule.name,
+  components: { GlobalEvents },
+  props: {
+    /**
+     * Record of the device name, that can be whatever you want `xs`, `mobile`, `big`... And
+     * the max width in pixels for that device.
+     *
+     * @public
+     */
+    breakpoints: {
+      type: Object as PropType<Record<Device, MaxWidth>>,
+      default: () => ({}),
     },
-    setup(props) {
-      const xBus = useXBus();
+    /**
+     * Forces a device, ignoring the breakpoints prop.
+     *
+     * @public
+     */
+    force: String as PropType<Device>,
 
-      /**
-       * The width in pixels of the window where the app is being rendered.
-       *
-       * @internal
-       */
-      const windowWidthPx: Ref<number | null> = ref(null);
+    /**
+     * Time in milliseconds to throttle the resize events used to detect the device.
+     *
+     * @public
+     */
+    throttleMs: {
+      type: Number,
+      default: 100,
+    },
+  },
+  setup(props) {
+    const xBus = useXBus()
 
-      /**
-       * Stores the window width in {@link DeviceDetector.windowWidthPx}.
-       *
-       * @internal
-       */
-      const storeWindowWidth = (): void => {
-        windowWidthPx.value = window.innerWidth;
-      };
+    /**
+     * The width in pixels of the window where the app is being rendered.
+     *
+     * @internal
+     */
+    const windowWidthPx: Ref<number | null> = ref(null)
 
-      /**
-       * Throttled version of {@link DeviceDetector.storeWindowWidth} function.
-       *
-       * @internal
-       */
-      let throttledStoreWindowWidth = storeWindowWidth;
-
-      /**
-       * List of each of the entries of the breakpoints sorted from the smallest to the biggest
-       * max width.
-       *
-       * @returns A list of the breakpoints sorted by its max width in ascending order.
-       *
-       * @internal
-       */
-      const sortedBreakpoints = computed((): [Device, MaxWidth][] =>
-        Object.entries(props.breakpoints).sort(([, aWidth], [, bWidth]) => aWidth - bWidth)
-      );
-
-      /**
-       * The device detected by this component, or the value provided in {@link DeviceDetector.force}
-       * prop.
-       *
-       * @returns The detected device, or the value provided in {@link DeviceDetector.force}
-       * prop.
-       *
-       * @internal
-       */
-      const detectedDevice = computed((): string | null => {
-        if (props.force) {
-          return props.force;
-        } else if (windowWidthPx.value === null) {
-          return null;
-        } else {
-          return (
-            sortedBreakpoints.value.find(([, width]) => windowWidthPx.value! <= width)?.[0] ?? null
-          );
-        }
-      });
-
-      watch(
-        detectedDevice,
-        device => {
-          xBus.emit('DeviceProvided', device);
-        },
-        { immediate: true }
-      );
-
-      /**
-       * Updates {@link DeviceDetector.throttledStoreWindowWidth} with the throttle time at
-       * {@link DeviceDetector.throttleMs}.
-       *
-       * @param throttleMs - The new duration in milliseconds for the throttle.
-       *
-       * @internal
-       */
-      watch(
-        () => props.throttleMs,
-        throttleMs => {
-          throttledStoreWindowWidth = throttle(storeWindowWidth, throttleMs);
-        },
-        { immediate: true }
-      );
-
-      /**
-       * Initialises the store window width.
-       *
-       * @remarks This is done this way to ensure SSR compatibility.
-       *
-       * @internal
-       */
-      onMounted(() => {
-        storeWindowWidth();
-      });
-
-      return {
-        throttledStoreWindowWidth
-      };
+    /**
+     * Stores the window width in {@link DeviceDetector.windowWidthPx}.
+     *
+     * @internal
+     */
+    const storeWindowWidth = (): void => {
+      windowWidthPx.value = window.innerWidth
     }
-  });
+
+    /**
+     * Throttled version of {@link DeviceDetector.storeWindowWidth} function.
+     *
+     * @internal
+     */
+    let throttledStoreWindowWidth = storeWindowWidth
+
+    /**
+     * List of each of the entries of the breakpoints sorted from the smallest to the biggest
+     * max width.
+     *
+     * @returns A list of the breakpoints sorted by its max width in ascending order.
+     *
+     * @internal
+     */
+    const sortedBreakpoints = computed((): [Device, MaxWidth][] =>
+      Object.entries(props.breakpoints).sort(([, aWidth], [, bWidth]) => aWidth - bWidth),
+    )
+
+    /**
+     * The device detected by this component, or the value provided in {@link DeviceDetector.force}
+     * prop.
+     *
+     * @returns The detected device, or the value provided in {@link DeviceDetector.force}
+     * prop.
+     *
+     * @internal
+     */
+    const detectedDevice = computed((): string | null => {
+      if (props.force) {
+        return props.force
+      } else if (windowWidthPx.value === null) {
+        return null
+      } else {
+        return (
+          sortedBreakpoints.value.find(([, width]) => windowWidthPx.value! <= width)?.[0] ?? null
+        )
+      }
+    })
+
+    watch(
+      detectedDevice,
+      device => {
+        xBus.emit('DeviceProvided', device)
+      },
+      { immediate: true },
+    )
+
+    /**
+     * Updates {@link DeviceDetector.throttledStoreWindowWidth} with the throttle time at
+     * {@link DeviceDetector.throttleMs}.
+     *
+     * @param throttleMs - The new duration in milliseconds for the throttle.
+     *
+     * @internal
+     */
+    watch(
+      () => props.throttleMs,
+      throttleMs => {
+        throttledStoreWindowWidth = throttle(storeWindowWidth, throttleMs)
+      },
+      { immediate: true },
+    )
+
+    /**
+     * Initialises the store window width.
+     *
+     * @remarks This is done this way to ensure SSR compatibility.
+     *
+     * @internal
+     */
+    onMounted(() => {
+      storeWindowWidth()
+    })
+
+    return {
+      throttledStoreWindowWidth,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -177,23 +178,23 @@ _Try resizing the browser window!_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathyco/x-components/device';
+import { DeviceDetector } from '@empathyco/x-components/device'
 
-  export default {
-    name: 'DeviceDemo',
-    components: {
-      DeviceDetector
-    },
-    data() {
-      return {
-        breakpoints: {
-          mobile: 600,
-          tablet: 900,
-          desktop: Number.POSITIVE_INFINITY
-        }
-      };
+export default {
+  name: 'DeviceDemo',
+  components: {
+    DeviceDetector,
+  },
+  data() {
+    return {
+      breakpoints: {
+        mobile: 600,
+        tablet: 900,
+        desktop: Number.POSITIVE_INFINITY,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -213,23 +214,23 @@ _Try resizing the window to check that it never changes_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathyco/x-components/device';
+import { DeviceDetector } from '@empathyco/x-components/device'
 
-  export default {
-    name: 'DeviceDemo',
-    components: {
-      DeviceDetector
-    },
-    data() {
-      return {
-        breakpoints: {
-          mobile: 600,
-          tablet: 900,
-          desktop: Number.POSITIVE_INFINITY
-        }
-      };
+export default {
+  name: 'DeviceDemo',
+  components: {
+    DeviceDetector,
+  },
+  data() {
+    return {
+      breakpoints: {
+        mobile: 600,
+        tablet: 900,
+        desktop: Number.POSITIVE_INFINITY,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -249,29 +250,29 @@ _Try resizing the browser window!_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathyco/x-components/device';
+import { DeviceDetector } from '@empathyco/x-components/device'
 
-  export default {
-    name: 'DeviceDemo',
-    components: {
-      DeviceDetector
-    },
-    data() {
-      return {
-        device: 'unknown',
-        breakpoints: {
-          mobile: 600,
-          tablet: 900,
-          desktop: Number.POSITIVE_INFINITY
-        }
-      };
-    },
-    methods: {
-      storeDevice(device) {
-        this.device = device;
-      }
+export default {
+  name: 'DeviceDemo',
+  components: {
+    DeviceDetector,
+  },
+  data() {
+    return {
+      device: 'unknown',
+      breakpoints: {
+        mobile: 600,
+        tablet: 900,
+        desktop: Number.POSITIVE_INFINITY,
+      },
     }
-  };
+  },
+  methods: {
+    storeDevice(device) {
+      this.device = device
+    },
+  },
+}
 </script>
 ```
 </docs>

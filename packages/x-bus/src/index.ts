@@ -1,2 +1,2 @@
-export * from './x-bus';
-export * from './x-bus.types';
+export * from './x-bus'
+export * from './x-bus.types'

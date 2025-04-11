@@ -1,9 +1,9 @@
-import { HistoryQuery, Suggestion, PopularSearchesRequest } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { PopularSearchesConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import type { HistoryQuery, PopularSearchesRequest, Suggestion } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { StatusMutations, StatusState } from '../../../store/utils/status-store.utils'
+import type { PopularSearchesConfig } from '../config.types'
 
 /**
  * Popular searches module state.
@@ -12,14 +12,14 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  */
 export interface PopularSearchesState extends StatusState {
   /** The suggestions list. These suggestions represent the most searched queries. */
-  popularSearches: Suggestion[];
+  popularSearches: Suggestion[]
   /** The popular searches module configuration. */
-  config: PopularSearchesConfig;
+  config: PopularSearchesConfig
   /** The list of the searched queries, related to the `query` property of the state. */
   //TODO Changes to uses the base extended class Previewable or what we decide.
-  searchedQueries: HistoryQuery[];
+  searchedQueries: HistoryQuery[]
   /** The extra params property of the state. */
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
 }
 
 /**
@@ -29,9 +29,9 @@ export interface PopularSearchesState extends StatusState {
  */
 export interface PopularSearchesGetters {
   /** The request object to retrieve popular searches. */
-  request: PopularSearchesRequest;
+  request: PopularSearchesRequest
   /** List of the Popular Searches. */
-  popularSearches: Suggestion[];
+  popularSearches: Suggestion[]
 }
 
 /**
@@ -47,19 +47,19 @@ export interface PopularSearchesMutations
    *
    * @param suggestions - The new suggestions list.
    */
-  setSuggestions(suggestions: Suggestion[]): void;
+  setSuggestions: (suggestions: Suggestion[]) => void
   /**
    * Sets the searched queries of the module.
    *
    * @param searchedQueries - The searched queries to save to the state.
    */
-  setSearchedQueries(searchedQueries: HistoryQuery[]): void;
+  setSearchedQueries: (searchedQueries: HistoryQuery[]) => void
   /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
 }
 
 /**
@@ -71,17 +71,17 @@ export interface PopularSearchesActions {
   /**
    * Cancels / interrupt {@link PopularSearchesActions.fetchAndSaveSuggestions} synchronous promise.
    */
-  cancelFetchAndSaveSuggestions(): void;
+  cancelFetchAndSaveSuggestions: () => void
   /**
    * Fetches a new set of suggestions and returns them.
    *
    * @returns The new set of suggestions.
    */
-  fetchSuggestions(request: PopularSearchesRequest): Suggestion[];
+  fetchSuggestions: (request: PopularSearchesRequest) => Suggestion[]
   /**
    * Fetches a new set of suggestions and stores them in the module state.
    */
-  fetchAndSaveSuggestions(request: PopularSearchesRequest): void;
+  fetchAndSaveSuggestions: (request: PopularSearchesRequest) => void
 }
 
 /**
@@ -94,7 +94,7 @@ export type PopularSearchesXStoreModule = XStoreModule<
   PopularSearchesGetters,
   PopularSearchesMutations,
   PopularSearchesActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link PopularSearchesXStoreModule}.
@@ -106,4 +106,4 @@ export type PopularSearchesActionContext = XActionContext<
   PopularSearchesGetters,
   PopularSearchesMutations,
   PopularSearchesActions
->;
+>

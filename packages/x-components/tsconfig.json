@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "types": ["jest", "testing-library__jest-dom", "node"],
+    "strict": true,
     "declaration": true,
     "declarationMap": true,
+    "importHelpers": true,
     "sourceMap": true,
-    "rootDir": "src",
-    "baseUrl": ".",
-    "types": ["jest", "testing-library__jest-dom", "node"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.vue"],
   "exclude": ["node_modules"]
 }

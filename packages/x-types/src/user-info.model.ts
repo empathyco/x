@@ -5,9 +5,9 @@
  */
 export interface UserInfo {
   /** A unique token that represents the user over a long period of time. */
-  user: string;
+  user: string
   /** A unique token that represents a search session. */
-  session: string;
+  session: string
   /** Whether the user is new or recurrent. */
-  userType: string;
+  userType: string
 }

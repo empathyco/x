@@ -1,56 +1,56 @@
-import {
-  namespacedWireCommit,
-  namespacedWireCommitWithoutPayload,
-  namespacedWireDispatch
-} from '../../wiring/namespaced-wires.factory';
-import {
+import type {
   NamespacedWireCommit,
   NamespacedWireCommitWithoutPayload,
   NamespacedWireDispatch,
-  NamespacedWiringData
-} from '../../wiring/namespaced-wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+  NamespacedWiringData,
+} from '../../wiring/namespaced-wiring.types'
+import {
+  namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
+  namespacedWireDispatch,
+} from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `nextQueries` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'nextQueries';
+const moduleName = 'nextQueries'
 
 /**
  * WireCommit for {@link NextQueriesXModule}.
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName)
 
 /**
  * WireCommitWithoutPayload for {@link NextQueriesXModule}.
  */
 const wireCommitWithoutPayload: NamespacedWireCommitWithoutPayload<typeof moduleName> =
-  namespacedWireCommitWithoutPayload(moduleName);
+  namespacedWireCommitWithoutPayload(moduleName)
 
 /**
  * WireDispatch for {@link NextQueriesXModule}.
  *
  * @internal
  */
-const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName)
 
 /**
  * Sets the next queries state `query`.
  *
  * @public
  */
-export const setNextQueriesQuery = wireCommit('setQuery');
+export const setNextQueriesQuery = wireCommit('setQuery')
 
 /**
  * Sets the next queries state `relatedTags`.
  *
  * @public
  */
-export const setNextQueriesRelatedTags = wireCommit('setRelatedTags');
+export const setNextQueriesRelatedTags = wireCommit('setRelatedTags')
 
 /**
  * Sets the next queries state `query` with a selectedQueryPreview's query.
@@ -59,22 +59,22 @@ export const setNextQueriesRelatedTags = wireCommit('setRelatedTags');
  */
 export const setNextQueriesQueryFromPreview = wireCommit(
   'setParams',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Sets the next queries state `query` from url.
  *
  * @public
  */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('setUrlParams')
 
 /**
  * Sets the next queries state `params`.
  *
  * @public
  */
-export const setNextQueriesExtraParams = wireCommit('setParams');
+export const setNextQueriesExtraParams = wireCommit('setParams')
 
 /**
  * Sets the next queries state `params` with a selectedQueryPreview's extraParams.
@@ -83,22 +83,22 @@ export const setNextQueriesExtraParams = wireCommit('setParams');
  */
 export const setNextQueriesExtraParamsFromPreview = wireCommit(
   'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
+  ({ eventPayload: { extraParams } }) => extraParams,
+)
 
 /**
  * Requests and stores the next queries.
  *
  * @public
  */
-export const fetchAndSaveNextQueriesWire = wireDispatch('fetchAndSaveNextQueries');
+export const fetchAndSaveNextQueriesWire = wireDispatch('fetchAndSaveNextQueries')
 
 /**
  * Sets the next queries state `query` with the last query in history queries.
  *
  * @public
  */
-export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHistoryQuery');
+export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHistoryQuery')
 
 /**
  * Requests and store the next query preview results.
@@ -110,23 +110,23 @@ export const fetchAndSaveNextQueryPreviewWire = wireDispatch(
   ({ eventPayload: query, metadata: { location } }: NamespacedWiringData<'nextQueries'>) => {
     return {
       query,
-      location
-    };
-  }
-);
+      location,
+    }
+  },
+)
 /**
  * Resets the next query preview results.
  *
  * @public
  */
-export const resetResultsPreviewWire = wireCommitWithoutPayload('resetResultsPreview');
+export const resetResultsPreviewWire = wireCommitWithoutPayload('resetResultsPreview')
 
 /**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
  * @public
  */
-export const setSearchedQueries = wireCommit('setSearchedQueries');
+export const setSearchedQueries = wireCommit('setSearchedQueries')
 
 /**
  * Wiring configuration for the {@link NextQueriesXModule | next queries module}.
@@ -135,33 +135,33 @@ export const setSearchedQueries = wireCommit('setSearchedQueries');
  */
 export const nextQueriesWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
   },
   NextQueriesChanged: {
-    resetResultsPreviewWire
+    resetResultsPreviewWire,
   },
   UserAcceptedAQuery: {
-    setNextQueriesQuery
+    setNextQueriesQuery,
   },
   SelectedRelatedTagsChanged: {
-    setNextQueriesRelatedTags
+    setNextQueriesRelatedTags,
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueries,
     // TODO setQueryFromLastHistoryQuery it has to be called only one time
-    setQueryFromLastHistoryQueryWire
+    setQueryFromLastHistoryQueryWire,
   },
   NextQueriesRequestUpdated: {
-    fetchAndSaveNextQueriesWire
+    fetchAndSaveNextQueriesWire,
   },
   ExtraParamsChanged: {
-    setNextQueriesExtraParams
+    setNextQueriesExtraParams,
   },
   NextQueryPreviewMountedHook: {
-    fetchAndSaveNextQueryPreviewWire
+    fetchAndSaveNextQueryPreviewWire,
   },
   UserAcceptedAQueryPreview: {
     setNextQueriesQueryFromPreview,
-    setNextQueriesExtraParamsFromPreview
-  }
-});
+    setNextQueriesExtraParamsFromPreview,
+  },
+})

@@ -1,7 +1,8 @@
-import { reduce } from '@empathyco/x-utils';
-import { useWindowSize, useScreenOrientation, useEventListener, useMemoize } from '@vueuse/core';
-import { computed, effectScope, ref, Ref } from 'vue';
-import { capitalize } from '../utils';
+import type { Ref } from 'vue'
+import { reduce } from '@empathyco/x-utils'
+import { useEventListener, useMemoize, useScreenOrientation, useWindowSize } from '@vueuse/core'
+import { computed, effectScope, ref } from 'vue'
+import { capitalize } from '../utils'
 
 /**
  * The Return type of the composable returned by `createUseDevice`.
@@ -9,10 +10,10 @@ import { capitalize } from '../utils';
  * @public
  */
 export type UseDeviceReturn<Device extends string = string> = {
-  orientation: Ref<'landscape' | 'portrait' | undefined>;
-  isTouchable: Ref<boolean>;
-  deviceName: Ref<string>;
-} & UseDeviceFlags<Device>;
+  orientation: Ref<'landscape' | 'portrait' | undefined>
+  isTouchable: Ref<boolean>
+  deviceName: Ref<string>
+} & UseDeviceFlags<Device>
 
 /**
  * The device flags type of the Return type of the composable returned by `createUseDevice`.
@@ -24,7 +25,7 @@ export type UseDeviceFlags<Device extends string> = Record<
   Ref<boolean>
 > &
   Record<`is${Capitalize<Device>}OrGreater`, Ref<boolean>> &
-  Record<`is${Capitalize<Device>}OrLess`, Ref<boolean>>;
+  Record<`is${Capitalize<Device>}OrLess`, Ref<boolean>>
 
 /**
  * Factory function that creates a composable for device detection using the devices parameter
@@ -59,26 +60,26 @@ export type UseDeviceFlags<Device extends string> = Record<
  * @public
  */
 export function createUseDevice<Device extends string>(
-  devices: Record<Device, number>
+  devices: Record<Device, number>,
 ): () => UseDeviceReturn<Device> {
-  let devicesFlags: UseDeviceFlags<Device>;
-  let orientation: UseDeviceReturn['orientation'];
-  let isTouchable: UseDeviceReturn['isTouchable'];
-  let deviceName: UseDeviceReturn['deviceName'];
+  let devicesFlags: UseDeviceFlags<Device>
+  let orientation: UseDeviceReturn['orientation']
+  let isTouchable: UseDeviceReturn['isTouchable']
+  let deviceName: UseDeviceReturn['deviceName']
   // The `effectScope` group all the changes in one to avoid multiple re-renderings.
-  const scope = effectScope();
+  const scope = effectScope()
   scope.run(() => {
-    devicesFlags = getDeviceFlags(devices);
-    orientation = getOrientation();
-    isTouchable = getIsTouchable();
-    deviceName = getDeviceName(devices, devicesFlags);
-  });
+    devicesFlags = getDeviceFlags(devices)
+    orientation = getOrientation()
+    isTouchable = getIsTouchable()
+    deviceName = getDeviceName(devices, devicesFlags)
+  })
   return () => ({
     ...devicesFlags,
     orientation,
     isTouchable,
-    deviceName
-  });
+    deviceName,
+  })
 }
 
 /**
@@ -92,32 +93,32 @@ export function createUseDevice<Device extends string>(
  * @internal
  */
 function getDeviceFlags<Device extends string>(
-  devices: Record<Device, number>
+  devices: Record<Device, number>,
 ): UseDeviceFlags<Device> {
-  const { width: windowSize } = useWindowSize();
+  const { width: windowSize } = useWindowSize()
   return reduce(
     devices,
     (accumulator, device, deviceWidth) => {
-      const isDevice = computed(() => isCurrentDevice(device, devices, windowSize.value));
-      accumulator[`is${capitalize(device)}`] = isDevice;
+      const isDevice = computed(() => isCurrentDevice(device, devices, windowSize.value))
+      accumulator[`is${capitalize(device)}`] = isDevice
       accumulator[`is${capitalize(device)}OrLess`] = computed(
-        () => deviceWidth >= windowSize.value || isDevice.value
-      );
+        () => deviceWidth >= windowSize.value || isDevice.value,
+      )
       accumulator[`is${capitalize(device)}OrGreater`] = computed(
-        () => deviceWidth <= windowSize.value
-      );
-      return accumulator;
+        () => deviceWidth <= windowSize.value,
+      )
+      return accumulator
     },
-    {} as Record<string, Ref<boolean>>
-  );
+    {} as Record<string, Ref<boolean>>,
+  )
 }
 
 /**
  * To get the devices sorted by size and not run this calculation on every check.
  */
 const getSortedByWidthDevices = useMemoize((devices: Record<string, number>) =>
-  Object.entries(devices).sort(([, aWidth], [, bWidth]) => bWidth - aWidth)
-);
+  Object.entries(devices).sort(([, aWidth], [, bWidth]) => bWidth - aWidth),
+)
 
 /**
  * Checks if the current device satisfies the criteria of being a valid device.
@@ -134,15 +135,15 @@ const getSortedByWidthDevices = useMemoize((devices: Record<string, number>) =>
 function isCurrentDevice(
   device: string,
   devices: Record<string, number>,
-  windowSize: number
+  windowSize: number,
 ): boolean {
-  const deviceWidth = devices[device];
+  const deviceWidth = devices[device]
   return (
     deviceWidth <= windowSize &&
     !getSortedByWidthDevices(devices).some(
-      ([, otherDeviceWidth]) => otherDeviceWidth <= windowSize && otherDeviceWidth > deviceWidth
+      ([, otherDeviceWidth]) => otherDeviceWidth <= windowSize && otherDeviceWidth > deviceWidth,
     )
-  );
+  )
 }
 
 /**
@@ -154,14 +155,14 @@ function isCurrentDevice(
  * @internal
  */
 function getOrientation(): UseDeviceReturn['orientation'] {
-  const { orientation } = useScreenOrientation();
+  const { orientation } = useScreenOrientation()
   return computed(() =>
     orientation.value?.includes('landscape')
       ? 'landscape'
       : orientation.value?.includes('portrait')
-      ? 'portrait'
-      : undefined
-  );
+        ? 'portrait'
+        : undefined,
+  )
 }
 
 /**
@@ -173,13 +174,13 @@ function getOrientation(): UseDeviceReturn['orientation'] {
  * @internal
  */
 function getIsTouchable(): Ref<boolean> {
-  const isTouchableRef = ref(detectTouchable());
+  const isTouchableRef = ref(detectTouchable())
   if (window) {
     useEventListener(window, 'resize', () => (isTouchableRef.value = detectTouchable()), {
-      passive: true
-    });
+      passive: true,
+    })
   }
-  return isTouchableRef;
+  return isTouchableRef
 }
 
 /**
@@ -196,11 +197,11 @@ function getIsTouchable(): Ref<boolean> {
  */
 function getDeviceName(
   devices: Record<string, number>,
-  devicesFlags: UseDeviceFlags<string>
+  devicesFlags: UseDeviceFlags<string>,
 ): Ref<string> {
   return computed(
-    () => Object.keys(devices).find(device => devicesFlags[`is${capitalize(device)}`]?.value) ?? ''
-  );
+    () => Object.keys(devices).find(device => devicesFlags[`is${capitalize(device)}`]?.value) ?? '',
+  )
 }
 
 /**
@@ -211,5 +212,5 @@ function getDeviceName(
  * @internal
  */
 function detectTouchable(): boolean {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0
 }

@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../../../../types';
-import { titleSizes } from './sizes';
+import type { TailwindHelpers } from '../../../../types'
+import { titleSizes } from './sizes'
 
 /**
  * Returns the default styles for component `title4`.
@@ -8,11 +8,11 @@ import { titleSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function titleDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     fontFamily: theme('x.fontFamily.main'),
     fontWeight: theme('x.fontWeight.bold'),
 
-    ...titleSizes(helpers).md
-  };
+    ...titleSizes(helpers).md,
+  }
 }

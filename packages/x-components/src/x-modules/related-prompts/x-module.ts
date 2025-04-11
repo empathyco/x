@@ -1,16 +1,16 @@
-import { XPlugin } from '../../plugins/x-plugin';
-import { XModule } from '../x-modules.types';
-import { RelatedPromptsXStoreModule } from './store/types';
-import { relatedPromptsXStoreModule } from './store/module';
-import { relatedPromptsStoreEmitters } from './store/emitters';
-import { relatedPromptsWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { RelatedPromptsXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { relatedPromptsStoreEmitters } from './store/emitters'
+import { relatedPromptsXStoreModule } from './store/module'
+import { relatedPromptsWiring } from './wiring'
 
 /**
  * RelatedPrompts {@link XModule} alias.
  *
  * @public
  */
-export type RelatedPromptsXModule = XModule<RelatedPromptsXStoreModule>;
+export type RelatedPromptsXModule = XModule<RelatedPromptsXStoreModule>
 
 /**
  * Related Prompts {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const relatedPromptsXModule: RelatedPromptsXModule = {
   name: 'relatedPrompts',
   storeModule: relatedPromptsXStoreModule,
   storeEmitters: relatedPromptsStoreEmitters,
-  wiring: relatedPromptsWiring
-};
+  wiring: relatedPromptsWiring,
+}
 
-XPlugin.registerXModule(relatedPromptsXModule);
+XPlugin.registerXModule(relatedPromptsXModule)

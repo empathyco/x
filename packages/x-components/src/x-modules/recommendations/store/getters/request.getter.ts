@@ -1,4 +1,4 @@
-import { RecommendationsXStoreModule } from '../types';
+import type { RecommendationsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link RecommendationsGetters.request} getter.
@@ -12,12 +12,12 @@ import { RecommendationsXStoreModule } from '../types';
 export const request: RecommendationsXStoreModule['getters']['request'] = ({
   origin,
   config,
-  params
+  params,
 }) => {
   return {
     rows: config.maxItemsToRequest,
     start: 0,
     origin,
-    extraParams: params
-  };
-};
+    extraParams: params,
+  }
+}

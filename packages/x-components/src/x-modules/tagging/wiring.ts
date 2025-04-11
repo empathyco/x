@@ -1,74 +1,71 @@
-import {
+import type {
   RelatedPrompt,
   Result,
   SemanticQuery,
   Taggable,
   Tagging,
-  TaggingRequest
-} from '@empathyco/x-types';
-import { DefaultSessionService } from '@empathyco/x-utils';
-import {
-  namespacedWireCommit,
-  namespacedWireDispatch
-} from '../../wiring/namespaced-wires.factory';
-import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { filter, mapWire } from '../../wiring/wires.operators';
-import { DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
-import { createOrigin } from '../../utils/index';
-import { FeatureLocation } from '../../types/index';
-import { DefaultExternalTaggingService } from './service/external-tagging.service';
+  TaggingRequest,
+} from '@empathyco/x-types'
+import type { FeatureLocation } from '../../types/index'
+import type { DisplayWireMetadata, Wire } from '../../wiring/wiring.types'
+import { DefaultSessionService } from '@empathyco/x-utils'
+import { createOrigin } from '../../utils/index'
+import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory'
+import { filter, mapWire } from '../../wiring/wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
+import { DefaultExternalTaggingService } from './service/external-tagging.service'
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'tagging';
+const moduleName = 'tagging'
 
 /**
  * Debounce function for the module.
  */
-const moduleDebounce = namespacedDebounce(moduleName);
+const moduleDebounce = namespacedDebounce(moduleName)
 
 /**
  * WireCommit for {@link TaggingXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * WireDispatch for {@link TaggingXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * Wires without payload factory for {@link DefaultSessionService}.
  */
-const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessionService.instance);
+const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessionService.instance)
 
 /**
  * Wires factory for {@link DefaultExternalTaggingService}.
  */
-const wireExternalTaggingService = wireService(DefaultExternalTaggingService.instance);
+const wireExternalTaggingService = wireService(DefaultExternalTaggingService.instance)
 
 /**
  * Stores the given result on the local storage.
  *
  * @public
  */
-const storeClickedResultWire = wireExternalTaggingService('storeResultClicked');
+const storeClickedResultWire = wireExternalTaggingService('storeResultClicked')
 
 /**
  * Stores the result added to cart on the local storage.
  *
  * @public
  */
-const storeAddToCartWire = wireExternalTaggingService('storeAddToCart');
+const storeAddToCartWire = wireExternalTaggingService('storeAddToCart')
 
 /**
  * Moves the result information from the local storage to session storage.
@@ -78,16 +75,16 @@ const storeAddToCartWire = wireExternalTaggingService('storeAddToCart');
 const moveClickedResultToSessionWire = mapWire(
   wireExternalTaggingService('moveToSessionStorage'),
   (payload: string) => {
-    return payload === 'url' ? undefined : payload;
-  }
-);
+    return payload === 'url' ? undefined : payload
+  },
+)
 
 /**
  * Triggers the add to cart tracking.
  *
  * @public
  */
-const trackAddToCartFromSessionStorage = wireExternalTaggingService('trackAddToCart');
+const trackAddToCartFromSessionStorage = wireExternalTaggingService('trackAddToCart')
 
 /**
  * Clears the session id.
@@ -96,29 +93,29 @@ const trackAddToCartFromSessionStorage = wireExternalTaggingService('trackAddToC
  */
 const clearSessionWire = filter(
   wireSessionServiceWithoutPayload('clearSessionId'),
-  ({ eventPayload: consent }) => !consent
-);
+  ({ eventPayload: consent }) => !consent,
+)
 
 /**
  * Sets the tagging state `consent`.
  *
  * @public
  */
-export const setConsent = wireCommit('setConsent');
+export const setConsent = wireCommit('setConsent')
 
 /**
  * Sets the tagging state `noResultsTaggingEnabled`.
  *
  * @public
  */
-export const setNoResultsTaggingEnabledWire = wireCommit('setNoResultsTaggingEnabled');
+export const setNoResultsTaggingEnabledWire = wireCommit('setNoResultsTaggingEnabled')
 
 /**
  * Sets the tagging config state.
  *
  * @public
  */
-export const setTaggingConfig = wireCommit('mergeConfig');
+export const setTaggingConfig = wireCommit('mergeConfig')
 
 /**
  * Tracks the tagging of the query.
@@ -129,8 +126,8 @@ export const trackQueryWire = filter(
   wireDispatch('track'),
   ({ eventPayload, store }) =>
     ((eventPayload as TaggingRequest).params.totalHits as number) > 0 ||
-    !store.state.x.tagging.noResultsTaggingEnabled
-);
+    !store.state.x.tagging.noResultsTaggingEnabled,
+)
 
 /**
  * Sets the tagging state of the query tagging info using a debounce which ends if the user
@@ -148,59 +145,59 @@ export const setQueryTaggingInfo = moduleDebounce(
       'UserClickedAPromoted',
       'UserClickedABanner',
       'UserClickedARedirection',
-      'UserReachedResultsListEnd'
-    ]
-  }
-);
+      'UserReachedResultsListEnd',
+    ],
+  },
+)
 
 /**
  * Sets the tagging state of the query tagging info using.
  *
  * @public
  */
-export const setQueryTaggingFromQueryPreview = createSetQueryTaggingFromQueryPreview();
+export const setQueryTaggingFromQueryPreview = createSetQueryTaggingFromQueryPreview()
 
 /**
  * Tracks the tagging of the result.
  *
  * @public
  */
-export const trackResultClickedWire = createTrackWire('click');
+export const trackResultClickedWire = createTrackWire('click')
 
 /**
  * Tracks the tagging of the banner.
  *
  * @public
  */
-export const trackBannerClickedWire = createTrackWire('click');
+export const trackBannerClickedWire = createTrackWire('click')
 
 /**
  * Performs a track of a result added to the cart.
  *
  * @public
  */
-export const trackAddToCartWire = createTrackWire('add2cart');
+export const trackAddToCartWire = createTrackWire('add2cart')
 
 /**
  * Performs a track of a display result being clicked.
  *
  * @public
  */
-export const trackDisplayClickedWire = createTrackDisplayWire('displayClick');
+export const trackDisplayClickedWire = createTrackDisplayWire('displayClick')
 
 /**
  * Performs a track of a display result being clicked.
  *
  * @public
  */
-export const trackToolingDisplayClickedWire = createTrackToolingDisplayWire();
+export const trackToolingDisplayClickedWire = createTrackToolingDisplayWire()
 
 /**
  * Performs a track of a display result being clicked.
  *
  * @public
  */
-export const trackToolingAdd2CartWire = createTrackToolingAdd2CartWire();
+export const trackToolingAdd2CartWire = createTrackToolingAdd2CartWire()
 
 /**
  * Performs a track of a clicked related prompt.
@@ -208,14 +205,14 @@ export const trackToolingAdd2CartWire = createTrackToolingAdd2CartWire();
  * @public
  */
 export const trackRelatedPromptToolingDisplayClickWire =
-  createTrackRelatedPromptToolingDisplayClickWire();
+  createTrackRelatedPromptToolingDisplayClickWire()
 
 /**
  * Performs a track of a display element appearing.
  *
  * @public
  */
-export const trackElementDisplayedWire = createTrackDisplayWire('display');
+export const trackElementDisplayedWire = createTrackDisplayWire('display')
 
 /**
  * Factory helper to create a wire for the track of a taggable element.
@@ -228,13 +225,14 @@ export const trackElementDisplayedWire = createTrackDisplayWire('display');
 export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
-      const taggingInfo: TaggingRequest = tagging[property];
-      taggingInfo.params.location = location as string;
-      return taggingInfo;
+      const taggingInfo: TaggingRequest = tagging[property]
+      taggingInfo.params.location = location as string
+      return taggingInfo
     }),
     ({ eventPayload: { tagging }, metadata: { ignoreInModules } }) =>
-      !!tagging?.[property] && !ignoreInModules?.includes(moduleName)
-  );
+      // eslint-disable-next-line ts/no-unsafe-member-access
+      !!tagging?.[property] && !ignoreInModules?.includes(moduleName),
+  )
 }
 
 /**
@@ -246,15 +244,15 @@ export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
  */
 export const trackNoResultsQueryWithSemanticsWire = filter(
   wireDispatch('track', ({ eventPayload, state }) => {
-    const { queryTaggingInfo } = state;
-    const totalHits = (eventPayload as SemanticQuery[]).length > 0 ? -1 : 0;
+    const { queryTaggingInfo } = state
+    const totalHits = (eventPayload as SemanticQuery[]).length > 0 ? -1 : 0
     return {
       params: { ...queryTaggingInfo?.params, totalHits },
-      url: queryTaggingInfo?.url ?? ''
-    };
+      url: queryTaggingInfo?.url ?? '',
+    }
   }),
-  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits)! === 0
-);
+  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0,
+)
 
 /**.
  * Debounced version of {@link trackNoResultsQueryWithSemanticsWire}
@@ -264,8 +262,8 @@ export const trackNoResultsQueryWithSemanticsWire = filter(
 export const trackNoResultsQueryWithSemanticsWireDebounced = moduleDebounce(
   trackNoResultsQueryWithSemanticsWire,
   ({ state }) => state.config.queryTaggingDebounceMs,
-  { cancelOn: 'QueryPreviewUnmounted' }
-);
+  { cancelOn: 'QueryPreviewUnmounted' },
+)
 
 /**
  * Factory helper to create a wire for the track of the display click.
@@ -278,20 +276,21 @@ export const trackNoResultsQueryWithSemanticsWireDebounced = moduleDebounce(
 export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata }) => {
-      const taggingInfo: TaggingRequest = tagging[property];
-      const location = metadata.location as FeatureLocation;
+      const taggingInfo: TaggingRequest = tagging[property]
+      const location = metadata.location as FeatureLocation
 
-      taggingInfo.params.location = location;
+      taggingInfo.params.location = location
       taggingInfo.params.displayFamily = createOrigin({
         feature: metadata.feature,
-        location
-      })!;
-      taggingInfo.params.q = (metadata as DisplayWireMetadata).displayOriginalQuery;
+        location,
+      })!
+      taggingInfo.params.q = (metadata as DisplayWireMetadata).displayOriginalQuery
 
-      return taggingInfo;
+      return taggingInfo
     }),
-    ({ eventPayload: { tagging } }) => !!tagging?.[property]?.url
-  );
+    // eslint-disable-next-line ts/no-unsafe-member-access
+    ({ eventPayload: { tagging } }) => !!tagging?.[property]?.url,
+  )
 }
 
 /**
@@ -305,13 +304,13 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
  */
 function updateToolingTaggingWithResult(
   taggingRequest: TaggingRequest,
-  result: Result
+  result: Result,
 ): TaggingRequest {
-  taggingRequest.params.productId = result.id;
-  taggingRequest.params.title = result.name!;
-  taggingRequest.params.url = result.url!;
+  taggingRequest.params.productId = result.id
+  taggingRequest.params.title = result.name!
+  taggingRequest.params.url = result.url!
 
-  return taggingRequest;
+  return taggingRequest
 }
 
 /**
@@ -324,15 +323,15 @@ function updateToolingTaggingWithResult(
 export function createTrackToolingDisplayWire(): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload, metadata }) => {
-      const taggingInfo: TaggingRequest = metadata.toolingTagging as TaggingRequest;
-      const resultInfo = eventPayload as Result;
+      const taggingInfo: TaggingRequest = metadata.toolingTagging as TaggingRequest
+      const resultInfo = eventPayload as Result
 
-      updateToolingTaggingWithResult(taggingInfo, resultInfo);
+      updateToolingTaggingWithResult(taggingInfo, resultInfo)
 
-      return taggingInfo;
+      return taggingInfo
     }),
-    ({ metadata }) => !!metadata?.toolingTagging
-  );
+    ({ metadata }) => !!metadata?.toolingTagging,
+  )
 }
 
 /**
@@ -345,15 +344,15 @@ export function createTrackToolingDisplayWire(): Wire<Taggable> {
 export function createTrackToolingAdd2CartWire(): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload, metadata }) => {
-      const taggingInfo: TaggingRequest = metadata.toolingAdd2CartTagging as TaggingRequest;
-      const resultInfo = eventPayload as Result;
+      const taggingInfo: TaggingRequest = metadata.toolingAdd2CartTagging as TaggingRequest
+      const resultInfo = eventPayload as Result
 
-      updateToolingTaggingWithResult(taggingInfo, resultInfo);
+      updateToolingTaggingWithResult(taggingInfo, resultInfo)
 
-      return taggingInfo;
+      return taggingInfo
     }),
-    ({ metadata }) => !!metadata?.toolingAdd2CartTagging
-  );
+    ({ metadata }) => !!metadata?.toolingAdd2CartTagging,
+  )
 }
 
 /**
@@ -366,22 +365,22 @@ export function createTrackToolingAdd2CartWire(): Wire<Taggable> {
 export function createTrackRelatedPromptToolingDisplayClickWire() {
   return filter(
     wireDispatch('track', ({ metadata }) => {
-      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt;
-      const taggingInfo = relatedPrompt.tagging!.toolingDisplayClickTagging as TaggingRequest;
+      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt
+      const taggingInfo = relatedPrompt.tagging!.toolingDisplayClickTagging as TaggingRequest
 
-      taggingInfo.params.productId = 'EXPAND';
-      taggingInfo.params.title = relatedPrompt.suggestionText;
-      taggingInfo.params.url = 'none';
+      taggingInfo.params.productId = 'EXPAND'
+      taggingInfo.params.title = relatedPrompt.suggestionText
+      taggingInfo.params.url = 'none'
 
-      return taggingInfo;
+      return taggingInfo
     }),
     ({ metadata }) => {
-      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt | undefined;
-      const isUnselected = metadata?.selectedPrompt === -1;
-      const taggingInfo = relatedPrompt?.tagging?.toolingDisplayClickTagging;
-      return isUnselected && !!taggingInfo;
-    }
-  );
+      const relatedPrompt = metadata.relatedPrompt as RelatedPrompt | undefined
+      const isUnselected = metadata?.selectedPrompt === -1
+      const taggingInfo = relatedPrompt?.tagging?.toolingDisplayClickTagging
+      return isUnselected && !!taggingInfo
+    },
+  )
 }
 
 /**
@@ -395,10 +394,10 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
   return filter(
     wireCommit(
       'setQueryTaggingInfo',
-      ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
+      ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest,
     ),
-    ({ metadata: { queryTagging } }) => !!queryTagging
-  );
+    ({ metadata: { queryTagging } }) => !!queryTagging,
+  )
 }
 
 /**
@@ -408,61 +407,61 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
  */
 export const taggingWiring = createWiring({
   ConsentProvided: {
-    setConsent
+    setConsent,
   },
   ConsentChanged: {
-    clearSessionWire
+    clearSessionWire,
   },
   PDPIsLoaded: {
-    moveClickedResultToSessionWire
+    moveClickedResultToSessionWire,
   },
   ResultURLTrackingEnabled: {
-    moveClickedResultToSessionWire
+    moveClickedResultToSessionWire,
   },
   SearchTaggingChanged: {
-    setQueryTaggingInfo
+    setQueryTaggingInfo,
   },
   SearchTaggingReceived: {
-    trackQueryWire
+    trackQueryWire,
   },
   TrackableElementDisplayed: {
-    trackElementDisplayedWire
+    trackElementDisplayedWire,
   },
   TaggingConfigProvided: {
-    setTaggingConfig
+    setTaggingConfig,
   },
   UserClickedAResult: {
     trackResultClickedWire,
-    storeClickedResultWire
+    storeClickedResultWire,
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire,
     trackResultClickedWire,
-    storeAddToCartWire
+    storeAddToCartWire,
   },
   UserClickedPDPAddToCart: {
-    trackAddToCartFromSessionStorage
+    trackAddToCartFromSessionStorage,
   },
   UserClickedABanner: {
-    trackBannerClickedWire
+    trackBannerClickedWire,
   },
   UserClickedADisplayResult: {
     trackDisplayClickedWire,
-    setQueryTaggingFromQueryPreview
+    setQueryTaggingFromQueryPreview,
   },
   SemanticQueriesResponseChanged: {
-    trackNoResultsQueryWithSemanticsWireDebounced
+    trackNoResultsQueryWithSemanticsWireDebounced,
   },
   ModuleRegistered: {
-    setNoResultsTaggingEnabledWire
+    setNoResultsTaggingEnabledWire,
   },
   UserClickedARelatedPromptResult: {
-    trackToolingDisplayClickedWire
+    trackToolingDisplayClickedWire,
   },
   UserClickedARelatedPromptAdd2Cart: {
-    trackToolingAdd2CartWire
+    trackToolingAdd2CartWire,
   },
   UserSelectedARelatedPrompt: {
-    trackRelatedPromptToolingDisplayClickWire
-  }
-});
+    trackRelatedPromptToolingDisplayClickWire,
+  },
+})

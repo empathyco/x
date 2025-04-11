@@ -1,4 +1,4 @@
-import { RelatedTag } from '../query-signals';
+import type { RelatedTag } from '../query-signals'
 
 /**
  * Response for the related tags endpoint.
@@ -6,5 +6,5 @@ import { RelatedTag } from '../query-signals';
  * @public
  */
 export interface RelatedTagsResponse {
-  relatedTags: RelatedTag[];
+  relatedTags: RelatedTag[]
 }

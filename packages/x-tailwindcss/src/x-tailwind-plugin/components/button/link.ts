@@ -1,6 +1,6 @@
-import { TailwindHelpers } from '../../../types';
-import { noBackground } from './utils/no-background';
-import { noHorizontalPadding } from './utils/no-horizontal-padding';
+import type { TailwindHelpers } from '../../../types'
+import { noBackground } from './utils/no-background'
+import { noHorizontalPadding } from './utils/no-horizontal-padding'
 
 /**
  * Returns the `link` variant for component `button`.
@@ -9,7 +9,7 @@ import { noHorizontalPadding } from './utils/no-horizontal-padding';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function buttonLink(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     link: {
       display: 'inline-flex',
@@ -32,13 +32,13 @@ export function buttonLink(helpers: TailwindHelpers) {
         '&:hover,&:active': {
           borderColor: 'transparent',
           backgroundColor: 'transparent',
-          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`
+          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         },
 
         '&:disabled': {
-          fontWeight: 'inherit'
-        }
-      }
-    }
-  };
+          fontWeight: 'inherit',
+        },
+      },
+    },
+  }
 }

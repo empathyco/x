@@ -1,4 +1,4 @@
-const REPLACE_REGEX = /[<>&]/g;
+const REPLACE_REGEX = /[<>&]/g
 /**
  * Sanitize characters from a given string.
  *
@@ -7,5 +7,5 @@ const REPLACE_REGEX = /[<>&]/g;
  * @public
  */
 export const sanitize = (str: string): string => {
-  return str.replace(REPLACE_REGEX, key => `&#${key.charCodeAt(0)};`);
-};
+  return str.replace(REPLACE_REGEX, key => `&#${key.charCodeAt(0)};`)
+}

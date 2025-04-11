@@ -4,10 +4,10 @@
     <slot name="header" v-bind="{ toggleOpen, open }">
       <!-- header-toggle-panel__header -->
       <button
-        @click="toggleOpen"
         class="x-header-toggle-panel__header"
         :class="headerClass"
         data-test="toggle-panel-header"
+        @click="toggleOpen"
       >
         <!-- @slot (Required) Slot used to just pass the content. -->
         <slot name="header-content" v-bind="{ open }"></slot>
@@ -22,70 +22,70 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { AnimationProp } from '../../types';
-  import { NoAnimation } from '../animations';
-  import BaseTogglePanel from './base-toggle-panel.vue';
+import { defineComponent, ref } from 'vue'
+import { AnimationProp } from '../../types'
+import { NoAnimation } from '../animations'
+import BaseTogglePanel from './base-toggle-panel.vue'
 
-  /**
-   * Toggle panel which uses the base toggle panel, adds a header and manage the
-   * open / close state of the panel.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseHeaderTogglePanel',
-    components: { BaseTogglePanel },
-    props: {
-      /** Animation component that will be used to animate the base-toggle-panel. */
-      animation: {
-        type: AnimationProp,
-        default: () => NoAnimation
-      },
-      /** Handles if the panel is open by default. */
-      startCollapsed: Boolean,
-      /** Class inherited by content element. */
-      headerClass: String
+/**
+ * Toggle panel which uses the base toggle panel, adds a header and manage the
+ * open / close state of the panel.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseHeaderTogglePanel',
+  components: { BaseTogglePanel },
+  props: {
+    /** Animation component that will be used to animate the base-toggle-panel. */
+    animation: {
+      type: AnimationProp,
+      default: () => NoAnimation,
     },
-    setup: function (props, { emit }) {
-      /**
-       * Handles if the base panel is open or closed.
-       *
-       * @internal
-       */
-      const open = ref(!props.startCollapsed);
+    /** Handles if the panel is open by default. */
+    startCollapsed: Boolean,
+    /** Class inherited by content element. */
+    headerClass: String,
+  },
+  setup(props, { emit }) {
+    /**
+     * Handles if the base panel is open or closed.
+     *
+     * @internal
+     */
+    const open = ref(!props.startCollapsed)
 
-      /**
-       * Emits open status event.
-       *
-       * @internal
-       */
-      const emitOpenStatusEvent = () => {
-        emit(open.value ? 'open' : 'close');
-      };
-
-      /**
-       * Toggles the open property.
-       *
-       * @internal
-       */
-      const toggleOpen = () => {
-        open.value = !open.value;
-        emitOpenStatusEvent();
-      };
-
-      return {
-        open,
-        toggleOpen
-      };
+    /**
+     * Emits open status event.
+     *
+     * @internal
+     */
+    const emitOpenStatusEvent = () => {
+      emit(open.value ? 'open' : 'close')
     }
-  });
+
+    /**
+     * Toggles the open property.
+     *
+     * @internal
+     */
+    const toggleOpen = () => {
+      open.value = !open.value
+      emitOpenStatusEvent()
+    }
+
+    return {
+      open,
+      toggleOpen,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-header-toggle-panel__header {
-    cursor: pointer;
-  }
+.x-header-toggle-panel__header {
+  cursor: pointer;
+}
 </style>
 
 <docs lang="mdx">

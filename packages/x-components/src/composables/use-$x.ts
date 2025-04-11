@@ -1,5 +1,5 @@
-import { useAliasApi } from './use-alias-api';
-import { useXBus } from './use-x-bus';
+import { useAliasApi } from './use-alias-api'
+import { useXBus } from './use-x-bus'
 
 /**
  * Function which returns the `$x` object from the current component instance.
@@ -9,7 +9,7 @@ import { useXBus } from './use-x-bus';
  * @public
  */
 export function use$x() {
-  const xAliasAPI = useAliasApi();
-  const xBusAPI = useXBus();
-  return Object.assign(xAliasAPI, xBusAPI);
+  const xAliasAPI = useAliasApi()
+  const xBusAPI = useXBus()
+  return Object.assign(xAliasAPI, xBusAPI)
 }

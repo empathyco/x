@@ -7,7 +7,7 @@ export interface PopularSearchesConfig {
   /**
    * Number of popular searches to request.
    */
-  maxItemsToRequest: number;
+  maxItemsToRequest: number
   /**
    * Hides the popular searches that have been already searched during the session.
    *
@@ -29,5 +29,5 @@ export interface PopularSearchesConfig {
    * // Suggests ['t-shirt', 'shorts', 'dress']
    * ```
    */
-  hideSessionQueries: boolean;
+  hideSessionQueries: boolean
 }

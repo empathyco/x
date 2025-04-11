@@ -1,18 +1,18 @@
-import { XModuleName } from '../x-modules/x-modules.types';
-import {
+import type { XModuleName } from '../x-modules/x-modules.types'
+import type {
   NamespacedWireCommit,
   NamespacedWireCommitWithoutPayload,
   NamespacedWireDispatch,
-  NamespacedWireDispatchWithoutPayload
-} from './namespaced-wiring.types';
+  NamespacedWireDispatchWithoutPayload,
+} from './namespaced-wiring.types'
+import type { PayloadFactoryData } from './wiring.types'
 import {
   wireCommit,
   wireCommitWithoutPayload,
   wireDispatch,
-  wireDispatchWithoutPayload
-} from './wires.factory';
-import { PayloadFactoryData } from './wiring.types';
-import { getStateAndGettersFromModule } from './wiring.utils';
+  wireDispatchWithoutPayload,
+} from './wires.factory'
+import { getStateAndGettersFromModule } from './wiring.utils'
 
 /**
  * Creates a namespaced {@link (wireCommit:1)} for the module name passed.
@@ -23,10 +23,10 @@ import { getStateAndGettersFromModule } from './wiring.utils';
  * @public
  */
 export function namespacedWireCommit<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedWireCommit<ModuleName> {
   return (mutation: string, payload?: unknown) =>
-    wireCommit(`x/${moduleName}/${mutation}`, getPayload(moduleName, payload));
+    wireCommit(`x/${moduleName}/${mutation}`, getPayload(moduleName, payload))
 }
 
 /**
@@ -38,9 +38,9 @@ export function namespacedWireCommit<ModuleName extends XModuleName>(
  * @public
  */
 export function namespacedWireCommitWithoutPayload<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedWireCommitWithoutPayload<ModuleName> {
-  return mutation => wireCommitWithoutPayload(`x/${moduleName}/${mutation as string}`);
+  return mutation => wireCommitWithoutPayload(`x/${moduleName}/${mutation as string}`)
 }
 
 /**
@@ -52,10 +52,10 @@ export function namespacedWireCommitWithoutPayload<ModuleName extends XModuleNam
  * @public
  */
 export function namespacedWireDispatch<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedWireDispatch<ModuleName> {
   return (action: string, payload?: unknown) =>
-    wireDispatch(`x/${moduleName}/${action}`, getPayload(moduleName, payload));
+    wireDispatch(`x/${moduleName}/${action}`, getPayload(moduleName, payload))
 }
 
 /**
@@ -67,9 +67,9 @@ export function namespacedWireDispatch<ModuleName extends XModuleName>(
  * @public
  */
 export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedWireDispatchWithoutPayload<ModuleName> {
-  return action => wireDispatchWithoutPayload(`x/${moduleName}/${action as string}`);
+  return action => wireDispatchWithoutPayload(`x/${moduleName}/${action as string}`)
 }
 
 /**
@@ -86,10 +86,11 @@ export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleN
 function getPayload(moduleName: XModuleName, payload: unknown): unknown {
   return typeof payload === 'function'
     ? ({ state, getters, eventPayload, metadata }: PayloadFactoryData<XModuleName>) =>
+        // eslint-disable-next-line ts/no-unsafe-call,ts/no-unsafe-return
         payload({
           ...getStateAndGettersFromModule(state, getters, moduleName),
           eventPayload,
-          metadata
+          metadata,
         })
-    : payload;
+    : payload
 }

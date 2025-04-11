@@ -34,111 +34,112 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, onBeforeMount, PropType, ref, watch } from 'vue';
-  import { use$x } from '../../composables/use-$x';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring';
-  import BaseEventButton from '../base-event-button.vue';
+import type { PropType } from 'vue'
+import type { VueCSSClasses } from '../../utils/types'
+import type { XEventsTypes } from '../../wiring'
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { use$x } from '../../composables/use-$x'
+import BaseEventButton from '../base-event-button.vue'
 
-  interface ColumnPickerItem {
-    column: number;
-    cssClasses: VueCSSClasses;
-    events: Partial<XEventsTypes>;
-    isSelected: boolean;
-  }
+interface ColumnPickerItem {
+  column: number
+  cssClasses: VueCSSClasses
+  events: Partial<XEventsTypes>
+  isSelected: boolean
+}
 
-  /**
-   * Column picker list component renders a list of buttons to choose the columns number.
-   *
-   * Additionally, this component exposes the following props to modify the classes of the
-   * elements: `buttonClass`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseColumnPickerList',
-    components: { BaseEventButton },
-    props: {
-      /** An array of numbers that represents the number of columns to render. */
-      columns: {
-        type: Array as PropType<number[]>,
-        required: true
-      },
-      /** The value of the selected columns number. */
-      modelValue: Number,
-      /** Class inherited by each button. */
-      buttonClass: String
+/**
+ * Column picker list component renders a list of buttons to choose the columns number.
+ *
+ * Additionally, this component exposes the following props to modify the classes of the
+ * elements: `buttonClass`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseColumnPickerList',
+  components: { BaseEventButton },
+  props: {
+    /** An array of numbers that represents the number of columns to render. */
+    columns: {
+      type: Array as PropType<number[]>,
+      required: true,
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-      const $x = use$x();
+    /** The value of the selected columns number. */
+    modelValue: Number,
+    /** Class inherited by each button. */
+    buttonClass: String,
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const $x = use$x()
 
-      const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0]);
-      const selectedColumns = ref(providedSelectedColumns.value);
+    const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
+    const selectedColumns = ref(providedSelectedColumns.value)
 
-      /**
-       * Assigns `selectedColumns` value and emits `ColumnsNumberProvided`.
-       *
-       * @param column - Column number provided.
-       */
-      function emitColumnsNumberProvided(column: number) {
-        selectedColumns.value = column;
-        $x.emit('ColumnsNumberProvided', column);
-      }
-
-      /**
-       * Emits `update:modelValue` with the column selected.
-       *
-       * @param column - Column number selected.
-       */
-      function emitUpdateModelValue(column: number) {
-        if (props.modelValue !== column) {
-          emit('update:modelValue', column);
-        }
-      }
-
-      watch(providedSelectedColumns, emitColumnsNumberProvided);
-      watch(selectedColumns, emitUpdateModelValue);
-
-      $x.on('ColumnsNumberProvided', false).subscribe(column => (selectedColumns.value = column));
-
-      /**
-       * Synchronizes the columns number before mounting the component. If the real number of selected
-       * columns equals the provided columns, it emits the event to sync it with every other component.
-       * If it is not equal it means that the user has already selected a number of columns, so we emit
-       * a `update:modelValue` event so developers can sync the provided value.
-       */
-      onBeforeMount(() => {
-        if (selectedColumns.value === providedSelectedColumns.value) {
-          emitColumnsNumberProvided(selectedColumns.value);
-        } else {
-          emitUpdateModelValue(selectedColumns.value);
-        }
-      });
-
-      /**
-       * Maps the column to an object containing: the `column` and `CSS classes`.
-       *
-       * @returns An array of objects containing the column number and CSS classes.
-       */
-      const columnsWithCssClasses = computed<ColumnPickerItem[]>(() =>
-        props.columns.map(column => ({
-          column,
-          cssClasses: [
-            `x-column-picker-list__button--${column}-cols`,
-            { 'x-selected': selectedColumns.value === column }
-          ],
-          isSelected: selectedColumns.value === column,
-          events: {
-            UserClickedColumnPicker: column,
-            ColumnsNumberProvided: column
-          }
-        }))
-      );
-
-      return { columnsWithCssClasses };
+    /**
+     * Assigns `selectedColumns` value and emits `ColumnsNumberProvided`.
+     *
+     * @param column - Column number provided.
+     */
+    function emitColumnsNumberProvided(column: number) {
+      selectedColumns.value = column
+      $x.emit('ColumnsNumberProvided', column)
     }
-  });
+
+    /**
+     * Emits `update:modelValue` with the column selected.
+     *
+     * @param column - Column number selected.
+     */
+    function emitUpdateModelValue(column: number) {
+      if (props.modelValue !== column) {
+        emit('update:modelValue', column)
+      }
+    }
+
+    watch(providedSelectedColumns, emitColumnsNumberProvided)
+    watch(selectedColumns, emitUpdateModelValue)
+
+    $x.on('ColumnsNumberProvided', false).subscribe(column => (selectedColumns.value = column))
+
+    /**
+     * Synchronizes the columns number before mounting the component. If the real number of selected
+     * columns equals the provided columns, it emits the event to sync it with every other component.
+     * If it is not equal it means that the user has already selected a number of columns, so we emit
+     * a `update:modelValue` event so developers can sync the provided value.
+     */
+    onBeforeMount(() => {
+      if (selectedColumns.value === providedSelectedColumns.value) {
+        emitColumnsNumberProvided(selectedColumns.value)
+      } else {
+        emitUpdateModelValue(selectedColumns.value)
+      }
+    })
+
+    /**
+     * Maps the column to an object containing: the `column` and `CSS classes`.
+     *
+     * @returns An array of objects containing the column number and CSS classes.
+     */
+    const columnsWithCssClasses = computed<ColumnPickerItem[]>(() =>
+      props.columns.map(column => ({
+        column,
+        cssClasses: [
+          `x-column-picker-list__button--${column}-cols`,
+          { 'x-selected': selectedColumns.value === column },
+        ],
+        isSelected: selectedColumns.value === column,
+        events: {
+          UserClickedColumnPicker: column,
+          ColumnsNumberProvided: column,
+        },
+      })),
+    )
+
+    return { columnsWithCssClasses }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -157,16 +158,16 @@ It is required to send the columns prop.
   <BaseColumnPickerList :columns="columns" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/x-components';
+import { BaseColumnPickerList } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      BaseColumnPickerList
-    },
-    data() {
-      return { columns: [2, 4, 6] };
-    }
-  };
+export default {
+  components: {
+    BaseColumnPickerList,
+  },
+  data() {
+    return { columns: [2, 4, 6] }
+  },
+}
 </script>
 ```
 
@@ -180,16 +181,16 @@ updated if it changed the value or if the parent changes it.
   <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/x-components';
+import { BaseColumnPickerList } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      BaseColumnPickerList
-    },
-    data() {
-      return { columns: [2, 4, 6], selectedColumns: 4 };
-    }
-  };
+export default {
+  components: {
+    BaseColumnPickerList,
+  },
+  data() {
+    return { columns: [2, 4, 6], selectedColumns: 4 }
+  },
+}
 </script>
 ```
 
@@ -206,16 +207,16 @@ It is possible to override the column picker button content.
   </BaseColumnPickerList>
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/x-components';
+import { BaseColumnPickerList } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      BaseColumnPickerList
-    },
-    data() {
-      return { columns: [2, 4, 6] };
-    }
-  };
+export default {
+  components: {
+    BaseColumnPickerList,
+  },
+  data() {
+    return { columns: [2, 4, 6] }
+  },
+}
 </script>
 ```
 
@@ -231,17 +232,17 @@ It is also possible to add a divider element between the column picker buttons b
   </BaseColumnPickerList>
 </template>
 <script>
-  import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/x-components';
+import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      BaseColumnPickerList,
-      ChevronRightIcon
-    },
-    data() {
-      return { columns: [2, 4, 6] };
-    }
-  };
+export default {
+  components: {
+    BaseColumnPickerList,
+    ChevronRightIcon,
+  },
+  data() {
+    return { columns: [2, 4, 6] }
+  },
+}
 </script>
 ```
 
@@ -254,16 +255,16 @@ The `buttonClass` prop can be used to add classes to the buttons.
   <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/x-components';
+import { BaseColumnPickerList } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      BaseColumnPickerList
-    },
-    data() {
-      return { columns: [2, 4, 6] };
-    }
-  };
+export default {
+  components: {
+    BaseColumnPickerList,
+  },
+  data() {
+    return { columns: [2, 4, 6] }
+  },
+}
 </script>
 ```
 

@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `sizes` variants for component `button`.
@@ -13,7 +13,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       gap: theme('x.spacing.8'),
       paddingInlineStart: theme('x.spacing.12'),
       paddingInlineEnd: theme('x.spacing.12'),
-      fontSize: theme('x.fontSize.sm')
+      fontSize: theme('x.fontSize.sm'),
     },
 
     md: {
@@ -21,7 +21,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       gap: theme('x.spacing.8'),
       paddingInlineStart: theme('x.spacing.16'),
       paddingInlineEnd: theme('x.spacing.16'),
-      fontSize: theme('x.fontSize.sm')
+      fontSize: theme('x.fontSize.sm'),
     },
 
     lg: {
@@ -29,7 +29,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       gap: theme('x.spacing.8'),
       paddingInlineStart: theme('x.spacing.20'),
       paddingInlineEnd: theme('x.spacing.20'),
-      fontSize: theme('x.fontSize.md')
+      fontSize: theme('x.fontSize.md'),
     },
 
     xl: {
@@ -37,7 +37,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       gap: theme('x.spacing.8'),
       paddingInlineStart: theme('x.spacing.24'),
       paddingInlineEnd: theme('x.spacing.24'),
-      fontSize: theme('x.fontSize.lg')
-    }
-  };
+      fontSize: theme('x.fontSize.lg'),
+    },
+  }
 }

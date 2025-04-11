@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "target": "es2019",
+    "lib": ["dom", "esnext"],
     "module": "commonjs",
-    "outDir": "./dist/cjs",
+    "moduleResolution": "node",
+    "types": ["jest"],
+    "strict": true,
     "declaration": true,
     "declarationDir": "./dist/types",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "strict": true,
-    "inlineSources": true,
-    "esModuleInterop": true,
     "importHelpers": true,
-    "types": ["jest"],
-    "lib": ["dom", "esnext"],
-    "noEmit": true
+    "inlineSources": true,
+    "noEmit": true,
+    "outDir": "./dist/cjs",
+    "sourceMap": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

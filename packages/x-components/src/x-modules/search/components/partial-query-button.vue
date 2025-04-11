@@ -1,73 +1,73 @@
 <template>
   <button
     ref="partialButtonEl"
-    @click="emitEvents"
     class="x-partial-query-button x-button"
     data-test="partial-query-button"
+    @click="emitEvents"
   >
     <slot v-bind="{ query }">{{ query }}</slot>
   </button>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { WireMetadata } from '../../../wiring/wiring.types';
-  import { searchXModule } from '../x-module';
-  import { use$x } from '../../../composables/use-$x';
+import type { WireMetadata } from '../../../wiring/wiring.types'
+import { defineComponent, ref } from 'vue'
+import { use$x } from '../../../composables/use-$x'
+import { searchXModule } from '../x-module'
 
-  /**
-   * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
-   * and {@link SearchXEvents.UserClickedPartialQuery} events, expressing the user
-   * intention to set the partial query.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PartialQueryButton',
-    xModule: searchXModule.name,
-    props: {
-      /**
-       * The query property.
-       *
-       * @public
-       */
-      query: {
-        type: String,
-        required: true
-      }
+/**
+ * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
+ * and {@link SearchXEvents.UserClickedPartialQuery} events, expressing the user
+ * intention to set the partial query.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PartialQueryButton',
+  xModule: searchXModule.name,
+  props: {
+    /**
+     * The query property.
+     *
+     * @public
+     */
+    query: {
+      type: String,
+      required: true,
     },
-    setup(props) {
-      const $x = use$x();
+  },
+  setup(props) {
+    const $x = use$x()
 
-      const partialButtonEl = ref<HTMLElement>();
+    const partialButtonEl = ref<HTMLElement>()
 
-      /**
-       * Generates the {@link WireMetadata} object omitting the moduleName.
-       *
-       * @returns The {@link WireMetadata} object omitting the moduleName.
-       * @internal
-       */
-      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => ({
-        target: partialButtonEl.value,
-        feature: 'partial_result'
-      });
+    /**
+     * Generates the {@link WireMetadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => ({
+      target: partialButtonEl.value,
+      feature: 'partial_result',
+    })
 
-      /**
-       * Emits events when the button is clicked.
-       *
-       * @public
-       */
-      const emitEvents = () => {
-        $x.emit('UserAcceptedAQuery', props.query, createEventMetadata());
-        $x.emit('UserClickedPartialQuery', props.query, createEventMetadata());
-      };
-
-      return {
-        partialButtonEl,
-        emitEvents
-      };
+    /**
+     * Emits events when the button is clicked.
+     *
+     * @public
+     */
+    const emitEvents = () => {
+      $x.emit('UserAcceptedAQuery', props.query, createEventMetadata())
+      $x.emit('UserClickedPartialQuery', props.query, createEventMetadata())
     }
-  });
+
+    return {
+      partialButtonEl,
+      emitEvents,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -113,13 +113,13 @@ The component sets the current query as the new query and emits the `UserAccepte
 </template>
 
 <script>
-  import { PartialQueryButton } from '@empathyco/x-components/search';
+import { PartialQueryButton } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      PartialQueryButton
-    }
-  };
+export default {
+  components: {
+    PartialQueryButton,
+  },
+}
 </script>
 ```
 </docs>

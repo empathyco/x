@@ -1,4 +1,4 @@
-import { HistoryQueriesXStoreModule } from '../types';
+import type { HistoryQueriesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link HistoryQueriesActions.removeFromHistory}.
@@ -9,12 +9,12 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @returns A `void` promise that resolves when the history queries finishes updating.
  * @public
  */
-export const removeFromHistory: HistoryQueriesXStoreModule['actions']['removeFromHistory'] = (
+export const removeFromHistory: HistoryQueriesXStoreModule['actions']['removeFromHistory'] = async (
   { state, dispatch },
-  historyQueryToRemove
+  historyQueryToRemove,
 ) => {
   const newHistoryQueries = state.historyQueries.filter(
-    historyQuery => historyQuery.query !== historyQueryToRemove.query
-  );
-  return dispatch('setHistoryQueries', newHistoryQueries);
-};
+    historyQuery => historyQuery.query !== historyQueryToRemove.query,
+  )
+  return dispatch('setHistoryQueries', newHistoryQueries)
+}

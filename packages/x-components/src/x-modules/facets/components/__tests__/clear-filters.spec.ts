@@ -1,26 +1,28 @@
-import { Facet } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
-import { mount, VueWrapper } from '@vue/test-utils';
-import { nextTick } from 'vue';
-import { Store } from 'vuex';
+import type { Facet } from '@empathyco/x-types'
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import type { RootXStoreState } from '../../../../store/store.types'
+import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
+import { Store } from 'vuex'
 import {
   createHierarchicalFacetStub,
-  createSimpleFacetStub
-} from '../../../../__stubs__/facets-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetFacetsService } from '../../__tests__/utils';
-import { DefaultFacetsService } from '../../service/facets.service';
-import { facetsXModule } from '../../x-module';
-import ClearFilters from '../clear-filters.vue';
-import { resetXFacetsStateWith } from './utils';
+  createSimpleFacetStub,
+} from '../../../../__stubs__/facets-stubs.factory'
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { XPlugin } from '../../../../plugins/x-plugin'
+import { resetFacetsService } from '../../__tests__/utils'
+import { DefaultFacetsService } from '../../service/facets.service'
+import { facetsXModule } from '../../x-module'
+import ClearFilters from '../clear-filters.vue'
+import { resetXFacetsStateWith } from './utils'
 
 /**
  * Renders the `ClearFilters` component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
+ * @param options.template - template option.
  * @returns The API for testing the `ClearFilters` component.
  */
 function renderClearFilters({
@@ -28,95 +30,95 @@ function renderClearFilters({
     <ClearFilters v-slot="{ selectedFilters }" :facets-ids="facetsIds">
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
-  `
+  `,
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
-  resetFacetsService();
+  resetFacetsService()
 
   const facets = {
     category: createHierarchicalFacetStub('Category', createFilter => [
       createFilter('Men', false),
-      createFilter('Women', false)
+      createFilter('Women', false),
     ]),
     brand: createSimpleFacetStub('Brand', createFilter => [
       createFilter('Audi', false),
-      createFilter('BMW', false)
-    ])
-  };
+      createFilter('BMW', false),
+    ]),
+  }
 
-  const store: Store<DeepPartial<RootXStoreState>> = new Store<DeepPartial<RootXStoreState>>({});
+  const store: Store<DeepPartial<RootXStoreState>> = new Store<DeepPartial<RootXStoreState>>({})
   const wrapper = mount(
     {
       components: {
-        ClearFilters
+        ClearFilters,
       },
       template,
-      props: ['facetsIds']
+      props: ['facetsIds'],
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
+        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })],
       },
-      store
-    }
-  );
+      store,
+    },
+  )
 
-  XPlugin.registerXModule(facetsXModule);
-  resetXFacetsStateWith(store, facets);
+  XPlugin.registerXModule(facetsXModule)
+  resetXFacetsStateWith(store, facets)
 
-  const clearFiltersWrapper = wrapper.findComponent(ClearFilters);
+  const clearFiltersWrapper = wrapper.findComponent(ClearFilters)
 
   return {
     wrapper,
     clearFiltersWrapper,
-    setCategoryFacetFiltersAsSelected() {
-      facets.category.filters.forEach(filter => DefaultFacetsService.instance.select(filter));
-      return nextTick();
+    async setCategoryFacetFiltersAsSelected() {
+      facets.category.filters.forEach(filter => DefaultFacetsService.instance.select(filter))
+      return nextTick()
     },
-    setFacetsIds(facetsIds) {
-      wrapper.setProps({ facetsIds });
-      return nextTick();
-    }
-  };
+    async setFacetsIds(facetsIds) {
+      await wrapper.setProps({ facetsIds })
+      return nextTick()
+    },
+  }
 }
 
 describe('testing ClearFilters component', () => {
   it('is an x-component', () => {
-    const { clearFiltersWrapper } = renderClearFilters();
+    const { clearFiltersWrapper } = renderClearFilters()
 
-    expect(isXComponent(clearFiltersWrapper.vm)).toEqual(true);
-  });
+    expect(isXComponent(clearFiltersWrapper.vm)).toEqual(true)
+  })
 
   it('belongs to the `facets` x-module', () => {
-    const { clearFiltersWrapper } = renderClearFilters();
+    const { clearFiltersWrapper } = renderClearFilters()
 
-    expect(getXComponentXModuleName(clearFiltersWrapper.vm)).toEqual('facets');
-  });
+    expect(getXComponentXModuleName(clearFiltersWrapper.vm)).toEqual('facets')
+  })
 
   it('does not render if there are no selected filters', async () => {
-    const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters();
+    const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters()
 
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(false)
 
-    await setCategoryFacetFiltersAsSelected();
+    await setCategoryFacetFiltersAsSelected()
 
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-    expect(wrapper.attributes()).not.toHaveProperty('disabled');
-    expect(wrapper.text()).toEqual('Clear 2 filters');
-  });
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true)
+    expect(wrapper.attributes()).not.toHaveProperty('disabled')
+    expect(wrapper.text()).toEqual('Clear 2 filters')
+  })
 
   it('does not render if there are selected filters with the provided facetIds', async () => {
-    const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
+    const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters()
 
-    await setCategoryFacetFiltersAsSelected();
-    await setFacetsIds(['brand']);
+    await setCategoryFacetFiltersAsSelected()
+    await setFacetsIds(['brand'])
 
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(false)
 
-    await setFacetsIds(['category']);
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-    expect(wrapper.attributes()).not.toHaveProperty('disabled');
-    expect(wrapper.text()).toEqual('Clear 2 filters');
-  });
+    await setFacetsIds(['category'])
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true)
+    expect(wrapper.attributes()).not.toHaveProperty('disabled')
+    expect(wrapper.text()).toEqual('Clear 2 filters')
+  })
 
   it(
     'is disabled if there are selected filters with the provided facetIds when ' +
@@ -126,94 +128,94 @@ describe('testing ClearFilters component', () => {
         template: `
           <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true" :facets-ids="facetsIds">
             Clear {{ selectedFilters.length }} filters
-          </ClearFilters>`
-      });
+          </ClearFilters>`,
+      })
 
-      expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-      expect(wrapper.attributes()).toHaveProperty('disabled');
-      expect(wrapper.text()).toEqual('Clear 0 filters');
+      expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true)
+      expect(wrapper.attributes()).toHaveProperty('disabled')
+      expect(wrapper.text()).toEqual('Clear 0 filters')
 
-      await setCategoryFacetFiltersAsSelected();
+      await setCategoryFacetFiltersAsSelected()
 
-      expect(wrapper.attributes()).not.toHaveProperty('disabled');
-      expect(wrapper.text()).toEqual('Clear 2 filters');
+      expect(wrapper.attributes()).not.toHaveProperty('disabled')
+      expect(wrapper.text()).toEqual('Clear 2 filters')
 
-      await setFacetsIds(['brand']);
+      await setFacetsIds(['brand'])
 
-      expect(wrapper.attributes()).toHaveProperty('disabled');
-      expect(wrapper.text()).toEqual('Clear 0 filters');
+      expect(wrapper.attributes()).toHaveProperty('disabled')
+      expect(wrapper.text()).toEqual('Clear 0 filters')
 
-      await setFacetsIds(['category']);
-      expect(wrapper.attributes()).not.toHaveProperty('disabled');
-      expect(wrapper.text()).toEqual('Clear 2 filters');
-    }
-  );
+      await setFacetsIds(['category'])
+      expect(wrapper.attributes()).not.toHaveProperty('disabled')
+      expect(wrapper.text()).toEqual('Clear 2 filters')
+    },
+  )
 
   it('emits UserClickedClearAllFilters event with the provided facetIds', async () => {
-    const listenerClearFilterFacets = jest.fn();
-    const facetsIds = ['category'];
-    const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
-    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets);
+    const listenerClearFilterFacets = jest.fn()
+    const facetsIds = ['category']
+    const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters()
+    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets)
 
-    await setCategoryFacetFiltersAsSelected();
-    await setFacetsIds(facetsIds);
-    wrapper.trigger('click');
+    await setCategoryFacetFiltersAsSelected()
+    await setFacetsIds(facetsIds)
+    void wrapper.trigger('click')
 
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-    expect(listenerClearFilterFacets).toHaveBeenCalledTimes(1);
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true)
+    expect(listenerClearFilterFacets).toHaveBeenCalledTimes(1)
     expect(listenerClearFilterFacets).toHaveBeenCalledWith({
       eventPayload: facetsIds,
       metadata: {
         moduleName: 'facets',
         target: wrapper.element,
         location: 'none',
-        replaceable: true
-      }
-    });
-  });
+        replaceable: true,
+      },
+    })
+  })
 
   it('emits UserClickedClearAllFilters event', async () => {
-    const listenerClearFilter = jest.fn();
-    const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters();
-    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter);
+    const listenerClearFilter = jest.fn()
+    const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters()
+    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter)
 
-    await setCategoryFacetFiltersAsSelected();
-    wrapper.trigger('click');
+    await setCategoryFacetFiltersAsSelected()
+    void wrapper.trigger('click')
 
-    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-    expect(listenerClearFilter).toHaveBeenCalledTimes(1);
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true)
+    expect(listenerClearFilter).toHaveBeenCalledTimes(1)
     expect(listenerClearFilter).toHaveBeenCalledWith({
       eventPayload: undefined,
       metadata: {
         moduleName: 'facets',
         target: wrapper.element,
         location: 'none',
-        replaceable: true
-      }
-    });
-  });
-});
+        replaceable: true,
+      },
+    })
+  })
+})
 
 interface RenderFiltersOptions {
   /** The template to be rendered. */
-  template?: string;
+  template?: string
 }
 
 interface RenderFiltersAPI {
   /** The `clearFilters` wrapper component. */
-  clearFiltersWrapper: VueWrapper;
+  clearFiltersWrapper: VueWrapper
   /**
    * Change value property "selected" of some specifics filters.
    *
    * @returns A promise that resolves after re-rendering the component.
    */
-  setCategoryFacetFiltersAsSelected: () => Promise<void>;
+  setCategoryFacetFiltersAsSelected: () => Promise<void>
   /**
    * Set the new facets ids for setting the property "facetsIds".
    *
    * @returns A promise that resolves after re-rendering the component.
    */
-  setFacetsIds: (facetsIds: Array<Facet['id']>) => Promise<void>;
+  setFacetsIds: (facetsIds: Array<Facet['id']>) => Promise<void>
   /** The wrapper of the container element.*/
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
 }

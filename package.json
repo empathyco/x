@@ -6,8 +6,10 @@
     "postinstall": "lerna run build",
     "postci": "lerna run build",
     "build": "lerna run build",
-    "lint": "lerna run lint -- --quiet --cache --cache-strategy content",
-    "lint:fix": "lerna run lint -- --fix",
+    "lint": "lerna run lint -- --cache --cache-strategy content",
+    "lint:check": "lerna run lint:check -- --quiet --cache --cache-strategy content",
+    "format": "lerna run format",
+    "format:check": "lerna run format:check",
     "test": "lerna run test",
     "test:unit": "lerna run test:unit",
     "serve": "lerna run serve",
@@ -17,26 +19,17 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
+    "@empathyco/eslint-config": "1.8.0",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cross-env": "7.0.3",
-    "eslint": "8.33.0",
     "husky": "8.0.3",
-    "lerna": "6.6.0",
-    "lint-staged": "13.3.0",
-    "prettier": "2.8.3"
+    "lerna": "6.6.0"
   },
+  "packageManager": "pnpm@9.15.9",
   "engines": {
-    "node": ">=18",
-    "npm": ">=9"
+    "node": ">=22",
+    "npm": ">=10"
   },
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
-  "lint-staged": {
-    "*.{ts,tsx,vue}": [
-      "prettier --write",
-      "cross-env NODE_ENV=production eslint --fix"
-    ],
-    "*.{md,js,json}": "prettier --write"
-  }
+  "prettier": "@empathyco/eslint-config/prettier"
 }

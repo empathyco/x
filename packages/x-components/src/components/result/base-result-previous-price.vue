@@ -15,48 +15,49 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
-  import { defineComponent, PropType } from 'vue';
-  import BaseCurrency from '../currency/base-currency.vue';
+import type { Result } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import BaseCurrency from '../currency/base-currency.vue'
 
-  /**
-   * Component that renders the {@link @empathyco/x-types#Result} previous price.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: { BaseCurrency },
-    props: {
-      /**
-       * (Required) The {@link @empathyco/x-types#Result} information.
-       *
-       * @public
-       */
-      result: {
-        type: Object as PropType<Result>,
-        required: true
-      },
-      /**
-       * Format or mask to be defined as string.
-       * - Use 'i' to define integer numbers.
-       * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
-       * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
-       * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
-       * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
-       * than one character.
-       * - Set whatever you need around the integers and decimals marks.
-       *
-       * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
-       * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
-       * part, delete significant digits.
-       *
-       * @public
-       */
-      format: {
-        type: String
-      }
-    }
-  });
+/**
+ * Component that renders the {@link @empathyco/x-types#Result} previous price.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: { BaseCurrency },
+  props: {
+    /**
+     * (Required) The {@link @empathyco/x-types#Result} information.
+     *
+     * @public
+     */
+    result: {
+      type: Object as PropType<Result>,
+      required: true,
+    },
+    /**
+     * Format or mask to be defined as string.
+     * - Use 'i' to define integer numbers.
+     * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
+     * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
+     * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
+     * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
+     * than one character.
+     * - Set whatever you need around the integers and decimals marks.
+     *
+     * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
+     * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
+     * part, delete significant digits.
+     *
+     * @public
+     */
+    format: {
+      type: String,
+    },
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -73,14 +74,14 @@ props. `format` to select the currency format to be applied.
 </template>
 
 <script>
-  import { BaseResultPreviousPrice } from '@empathyco/x-components';
+import { BaseResultPreviousPrice } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseResultPreviousPriceDemo',
-    components: {
-      BaseResultPreviousPrice
-    }
-  };
+export default {
+  name: 'BaseResultPreviousPriceDemo',
+  components: {
+    BaseResultPreviousPrice,
+  },
+}
 </script>
 ```
 
@@ -94,14 +95,14 @@ props. `format` to select the currency format to be applied.
 </template>
 
 <script>
-  import { BaseResultPreviousPrice } from '@empathyco/x-components';
+import { BaseResultPreviousPrice } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseResultPreviousPriceDemo',
-    components: {
-      BaseResultPreviousPrice
-    }
-  };
+export default {
+  name: 'BaseResultPreviousPriceDemo',
+  components: {
+    BaseResultPreviousPrice,
+  },
+}
 </script>
 ```
 </docs>

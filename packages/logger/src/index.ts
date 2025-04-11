@@ -1,3 +1,3 @@
-export * from './logger';
-export * from './logger.interfaces';
-export * from './simple-logger';
+export * from './logger'
+export * from './logger.interfaces'
+export * from './simple-logger'

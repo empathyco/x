@@ -1,16 +1,16 @@
-import { XPlugin } from '../../plugins/x-plugin';
-import { XModule } from '../x-modules.types';
-import { scrollEmitters } from './store/emitters';
-import { scrollXStoreModule } from './store/module';
-import { ScrollXStoreModule } from './store/types';
-import { scrollWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { ScrollXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { scrollEmitters } from './store/emitters'
+import { scrollXStoreModule } from './store/module'
+import { scrollWiring } from './wiring'
 
 /**
  * Scroll {@link XModule} alias.
  *
  * @public
  */
-export type ScrollXModule = XModule<ScrollXStoreModule>;
+export type ScrollXModule = XModule<ScrollXStoreModule>
 
 /**
  * Scroll {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const scrollXModule: ScrollXModule = {
   name: 'scroll',
   storeModule: scrollXStoreModule,
   storeEmitters: scrollEmitters,
-  wiring: scrollWiring
-};
+  wiring: scrollWiring,
+}
 
-XPlugin.registerXModule(scrollXModule);
+XPlugin.registerXModule(scrollXModule)

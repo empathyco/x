@@ -1,7 +1,7 @@
-import { HistoryQuery, Suggestion } from '@empathyco/x-types';
-import { GettersClass } from '../../../../store/getters.types';
-import { normalizeString } from '../../../../utils/normalize';
-import { QuerySuggestionsState, QuerySuggestionsXStoreModule } from '../types';
+import type { HistoryQuery, Suggestion } from '@empathyco/x-types'
+import type { GettersClass } from '../../../../store/getters.types'
+import type { QuerySuggestionsState, QuerySuggestionsXStoreModule } from '../types'
+import { normalizeString } from '../../../../utils/normalize'
 
 /**
  * Class implementation for the {@link QuerySuggestionsGetter.querySuggestions} getter.
@@ -20,20 +20,20 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
     query,
     suggestions,
     config,
-    searchedQueries
+    searchedQueries,
   }: QuerySuggestionsState): Suggestion[] {
-    const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query);
+    const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query)
     if (!query || !config.hideIfEqualsQuery) {
       return config.hideSessionQueries
         ? suggestions.filter(({ query }) => !queriesToFilter.includes(query))
-        : suggestions;
+        : suggestions
     }
     const filteredSuggestions = suggestions.filter(
-      this.isInQuerySuggestions(normalizeString(query))
-    );
+      this.isInQuerySuggestions(normalizeString(query)),
+    )
     return config.hideSessionQueries
       ? filteredSuggestions.filter(({ query }) => !queriesToFilter.includes(query))
-      : filteredSuggestions;
+      : filteredSuggestions
   }
 
   /**
@@ -47,21 +47,20 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    */
   protected isInQuerySuggestions(normalizedQuery: string): (suggestion: Suggestion) => boolean {
     return (suggestion: Suggestion) => {
-      const normalizedSuggestionQuery = normalizeString(suggestion.query);
+      const normalizedSuggestionQuery = normalizeString(suggestion.query)
       // TODO Hide the suggestion if it's equals to the query and it does NOT have facets. (EX-3184)
       // The logic is here https://bitbucket.org/colbenson/x-components/pull-requests/432
       // normalizedSuggestionQuery !== normalizedQuery || !isArrayEmpty(suggestion.facets)
-      return normalizedSuggestionQuery !== normalizedQuery;
-    };
+      return normalizedSuggestionQuery !== normalizedQuery
+    }
   }
 }
 
-const querySuggestionsGetter = new QuerySuggestionsGetter();
+const querySuggestionsGetter = new QuerySuggestionsGetter()
 
 /**
  * Query Suggestions getter.
  *
  * @public
  */
-export const querySuggestions =
-  querySuggestionsGetter.querySuggestions.bind(querySuggestionsGetter);
+export const querySuggestions = querySuggestionsGetter.querySuggestions.bind(querySuggestionsGetter)

@@ -3,4 +3,4 @@
  *
  * @public
  */
-export const RECOMMENDATIONS_ORIGIN = 'default';
+export const RECOMMENDATIONS_ORIGIN = 'default'

@@ -1,2 +1,2 @@
-export * from './infinite-scroll';
-export * from './typing';
+export * from './infinite-scroll'
+export * from './typing'

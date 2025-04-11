@@ -1,5 +1,5 @@
-import { setConfig, mergeConfig } from '../../../store/utils/config-store.utils';
-import { EmpathizeXStoreModule } from './types';
+import type { EmpathizeXStoreModule } from './types'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 
 /**
  * {@link XStoreModule} For the empathize module.
@@ -9,15 +9,15 @@ import { EmpathizeXStoreModule } from './types';
 export const empathizeXStoreModule: EmpathizeXStoreModule = {
   state: () => ({
     config: {},
-    isOpen: false
+    isOpen: false,
   }),
   getters: {},
   mutations: {
     setIsOpen(state, isOpen) {
-      state.isOpen = isOpen;
+      state.isOpen = isOpen
     },
     setConfig,
-    mergeConfig
+    mergeConfig,
   },
-  actions: {}
-};
+  actions: {},
+}

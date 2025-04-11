@@ -1,8 +1,8 @@
 <template>
   <button
-    @click="closeModal"
     class="x-events-modal-id-close-button x-button"
     data-test="close-modal-id"
+    @click="closeModal"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -10,46 +10,47 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { use$x } from '../../composables';
+import { defineComponent } from 'vue'
+import { use$x } from '../../composables'
 
-  /**
-   * Component that allows to close a modal by emitting
-   * {@link XEventsTypes.UserClickedCloseModal}.
-   * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
-   * function.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseIdModalClose',
-    props: {
-      /** The modalId of the modal that will be closed. */
-      modalId: {
-        type: String,
-        required: true
-      }
+/**
+ * Component that allows to close a modal by emitting
+ * {@link XEventsTypes.UserClickedCloseModal}.
+ * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
+ * function.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseIdModalClose',
+  props: {
+    /** The modalId of the modal that will be closed. */
+    modalId: {
+      type: String,
+      required: true,
     },
-    setup(props, { slots }) {
-      const $x = use$x();
+  },
+  setup(props, { slots }) {
+    const $x = use$x()
 
-      /**
-       * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
-       *
-       * @param event - The event triggering the function.
-       */
-      function closeModal({ target }: Event) {
-        $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement });
-      }
-
-      /* Hack to render through a render-function, the `closing-element` slot or, in its absence,
-       the component itself. It is the alternative for the NoElement antipattern. */
-      const innerProps = { closeModal };
-      return (
-        slots['closing-element'] ? () => slots['closing-element']?.(innerProps)[0] : innerProps
-      ) as typeof innerProps;
+    /**
+     * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
+     *
+     * @param event - The event triggering the function.
+     * @param event.target - Event target.
+     */
+    function closeModal({ target }: Event) {
+      $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement })
     }
-  });
+
+    /* Hack to render through a render-function, the `closing-element` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+    const innerProps = { closeModal }
+    return (
+      slots['closing-element'] ? () => slots['closing-element']?.(innerProps)[0] : innerProps
+    ) as typeof innerProps
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -80,14 +81,14 @@ modal with modalId `my-modal`.
 </template>
 
 <script>
-  import { BaseIdModalClose } from '@empathyco/x-components';
+import { BaseIdModalClose } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseIdModalCloseTest',
-    components: {
-      BaseIdModalClose
-    }
-  };
+export default {
+  name: 'BaseIdModalCloseTest',
+  components: {
+    BaseIdModalClose,
+  },
+}
 </script>
 ```
 
@@ -109,14 +110,14 @@ function to close the modal with modalId `my-modal`.
 </template>
 
 <script>
-  import { BaseIdModalClose } from '@empathyco/x-components';
+import { BaseIdModalClose } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseIdModalCloseTest',
-    components: {
-      BaseIdModalClose
-    }
-  };
+export default {
+  name: 'BaseIdModalCloseTest',
+  components: {
+    BaseIdModalClose,
+  },
+}
 </script>
 ```
 </docs>

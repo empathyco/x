@@ -1,2 +1,2 @@
-export * from './api';
-export * from './x-installer';
+export * from './api'
+export * from './x-installer'

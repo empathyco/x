@@ -1,8 +1,9 @@
-import { Ref, watch, WatchStopHandle } from 'vue';
-import { useElementVisibility } from '@vueuse/core';
-import { TaggingRequest } from '@empathyco/x-types';
-import { WireMetadata } from '../wiring';
-import { useXBus } from './use-x-bus';
+import type { TaggingRequest } from '@empathyco/x-types'
+import type { Ref, WatchStopHandle } from 'vue'
+import type { WireMetadata } from '../wiring'
+import { useElementVisibility } from '@vueuse/core'
+import { watch } from 'vue'
+import { useXBus } from './use-x-bus'
 
 /**
  * Composable that triggers a callback whenever the provided element appears in the viewport.
@@ -11,31 +12,29 @@ import { useXBus } from './use-x-bus';
  * @param options - The options to customize the behavior of the composable. The element that
  * will be watched, the callback to trigger and if the callback should be triggered only once
  * or every time the element appears in the viewport, true by default.
- *
  * @returns If the element is currently visible in the viewport or not and the watcher stop handle.
- *
  * @public
  */
 export function useOnDisplay({
   element,
   callback,
-  triggerOnce = true
+  triggerOnce = true,
 }: UseOnDisplayOptions): UseOnDisplayReturn {
-  const isElementVisible = useElementVisibility(element);
+  const isElementVisible = useElementVisibility(element)
 
   const unwatchDisplay = watch(isElementVisible, newValue => {
     if (newValue) {
-      callback();
+      callback()
       if (triggerOnce) {
-        unwatchDisplay();
+        unwatchDisplay()
       }
     }
-  });
+  })
 
   return {
     isElementVisible,
-    unwatchDisplay
-  };
+    unwatchDisplay,
+  }
 }
 
 /**
@@ -44,57 +43,55 @@ export function useOnDisplay({
  *
  * @param options - The options to customize the behavior of the composable. The element that
  * will be watched and the tagging request to emit.
- *
  * @returns If the element is currently visible in the viewport or not and the watcher stop handle.
- *
  * @public
  */
 export function useEmitDisplayEvent({
   element,
   taggingRequest,
-  eventMetadata = {}
+  eventMetadata = {},
 }: UseEmitDisplayEventOptions): UseOnDisplayReturn {
-  const bus = useXBus();
+  const bus = useXBus()
 
   const { isElementVisible, unwatchDisplay } = useOnDisplay({
     element,
     callback: () => {
-      bus.emit(
+      void bus.emit(
         'TrackableElementDisplayed',
         { tagging: { display: taggingRequest } },
-        eventMetadata
-      );
-    }
-  });
+        eventMetadata,
+      )
+    },
+  })
 
   return {
     isElementVisible,
-    unwatchDisplay
-  };
+    unwatchDisplay,
+  }
 }
 
 /**
  * Options for the {@link useOnDisplay} composable.
  */
-type UseOnDisplayOptions = {
-  element: HTMLElement | Ref<HTMLElement | null>;
-  callback: () => void;
-  triggerOnce?: boolean;
-};
+interface UseOnDisplayOptions {
+  element: HTMLElement | Ref<HTMLElement | null>
+  callback: () => void
+  triggerOnce?: boolean
+}
 
 /**
  * Return type of the {@link useOnDisplay} composable.
  */
-type UseOnDisplayReturn = {
-  isElementVisible: Ref<boolean>;
-  unwatchDisplay: WatchStopHandle;
-};
+interface UseOnDisplayReturn {
+  isElementVisible: Ref<boolean>
+  unwatchDisplay: WatchStopHandle
+}
 
 /**
  * Options for the {@link useEmitDisplayEvent} composable.
  */
-type UseEmitDisplayEventOptions = {
-  element: UseOnDisplayOptions['element'];
-  taggingRequest: TaggingRequest;
-  eventMetadata?: Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>;
-};
+interface UseEmitDisplayEventOptions {
+  element: UseOnDisplayOptions['element']
+  taggingRequest: TaggingRequest
+  eventMetadata?: Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
+}

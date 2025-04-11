@@ -1,8 +1,8 @@
-import { UrlParams } from '../../../../types/url-params';
-import { createUrlStore } from './utils';
+import type { UrlParams } from '../../../../types/url-params'
+import { createUrlStore } from './utils'
 
 describe('testing Url module mutations', () => {
-  const store = createUrlStore();
+  const store = createUrlStore()
 
   describe('setParams', () => {
     it('should update the state with the correct url parameters', () => {
@@ -11,9 +11,9 @@ describe('testing Url module mutations', () => {
         tag: ['capucha', 'disney'],
         page: 3,
         warehouse: '01234',
-        consent: true
-      };
-      store.commit('setParams', urlParams);
+        consent: true,
+      }
+      store.commit('setParams', urlParams)
 
       expect(store.state).toEqual<Partial<UrlParams>>({
         page: 3,
@@ -25,8 +25,8 @@ describe('testing Url module mutations', () => {
         scroll: '',
         warehouse: '01234',
         consent: true,
-        initialExtraParams: {}
-      });
-    });
-  });
-});
+        initialExtraParams: {},
+      })
+    })
+  })
+})

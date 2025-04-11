@@ -1,4 +1,4 @@
-import { RelatedPromptsRequest, Result } from '@empathyco/x-types';
+import type { RelatedPromptsRequest, Result } from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of RelatedPrompts XModule, where each key is the event name,
@@ -12,30 +12,30 @@ export interface RelatedPromptsXEvents {
    * Payload: The new related-prompts request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  RelatedPromptsRequestUpdated: RelatedPromptsRequest | null;
+  RelatedPromptsRequestUpdated: RelatedPromptsRequest | null
   /**
    * Selected Related Prompt has been changed.
    * Payload: Selected Related Prompt index. -1 is deselected.
    */
-  SelectedRelatedPromptChanged: number;
+  SelectedRelatedPromptChanged: number
   /**
    * The selected prompt has changed.
    * Payload: The index of the prompt in the RelatedPrompts list or -1 to remove selection.
    */
-  UserSelectedARelatedPrompt: number;
+  UserSelectedARelatedPrompt: number
   /**
    * The selected next query of the selected prompt has changed.
    * Payload: The index of the next query in the NextQueries list or -1 to remove selection.
    */
-  UserSelectedARelatedPromptQuery: number;
+  UserSelectedARelatedPromptQuery: number
   /**
    * The user has clicked one prompt.
    * Payload: The result that the user clicked.
    */
-  UserClickedARelatedPromptResult: Result;
+  UserClickedARelatedPromptResult: Result
   /**
    * The user has clicked one add to cart from a prompt.
    * Payload: The result that the user clicked.
    */
-  UserClickedARelatedPromptAdd2Cart: Result;
+  UserClickedARelatedPromptAdd2Cart: Result
 }

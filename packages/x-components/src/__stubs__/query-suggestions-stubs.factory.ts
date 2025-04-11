@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import type { Suggestion } from '@empathyco/x-types'
 
 /**
  * Creates a list of generic query suggestions for the given query.
@@ -10,8 +10,8 @@ import { Suggestion } from '@empathyco/x-types';
  */
 export function getQuerySuggestionsStub(query: string, amount = 3): Suggestion[] {
   return Array.from({ length: amount }, (_, index) =>
-    createQuerySuggestion(`${query} suggestion ${index}`)
-  );
+    createQuerySuggestion(`${query} suggestion ${index}`),
+  )
 }
 
 /**
@@ -30,6 +30,6 @@ export function createQuerySuggestion(query: string, suggestion?: Partial<Sugges
     totalResults: 10,
     results: [],
     modelName: 'QuerySuggestion',
-    ...suggestion
-  };
+    ...suggestion,
+  }
 }

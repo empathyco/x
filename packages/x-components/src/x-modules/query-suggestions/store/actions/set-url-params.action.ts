@@ -1,17 +1,16 @@
-import { QuerySuggestionsXStoreModule } from '../types';
+import type { QuerySuggestionsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link QuerySuggestionsActions.setUrlParams}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- *
  * @param urlParams - List of params from the url.
  * @public
  */
 export const setUrlParams: QuerySuggestionsXStoreModule['actions']['setUrlParams'] = (
   { commit },
-  { query }
+  { query },
 ) => {
-  commit('setQuery', query);
-};
+  commit('setQuery', query)
+}

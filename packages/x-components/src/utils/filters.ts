@@ -1,4 +1,4 @@
-import { Filter, RawFilter } from '@empathyco/x-types';
+import type { Filter, RawFilter } from '@empathyco/x-types'
 
 /**
  * Compares if two lists contains the same filters.
@@ -15,7 +15,7 @@ export function areFiltersDifferent(someFilters: Filter[], anotherFilters: Filte
   return (
     someFilters.length !== anotherFilters.length ||
     someFilters.some(filter => !anotherFilters.find(otherFilter => otherFilter.id === filter.id))
-  );
+  )
 }
 
 /**
@@ -32,7 +32,7 @@ export function createRawFilters(filterIds: Array<Filter['id']>): RawFilter[] {
     return {
       id: filterId as string,
       modelName: 'RawFilter',
-      selected: true
-    };
-  });
+      selected: true,
+    }
+  })
 }

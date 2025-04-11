@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { relatedTagsXStoreModule } from '../module';
-import { RelatedTagsState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RelatedTagsState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { relatedTagsXStoreModule } from '../module'
 
 /**
  * Reset related tags module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { RelatedTagsState } from '../types';
  */
 export function resetRelatedTagsStateWith(
   store: Store<RelatedTagsState>,
-  state?: DeepPartial<RelatedTagsState>
+  state?: DeepPartial<RelatedTagsState>,
 ): void {
-  resetStoreModuleState<RelatedTagsState>(store, relatedTagsXStoreModule.state(), state);
+  resetStoreModuleState<RelatedTagsState>(store, relatedTagsXStoreModule.state(), state)
 }

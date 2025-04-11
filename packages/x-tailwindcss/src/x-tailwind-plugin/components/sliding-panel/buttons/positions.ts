@@ -7,19 +7,19 @@ export function slidingPanelButtonsPositions() {
   return {
     '&.x-sliding-panel-buttons-center': {
       '.x-sliding-panel-button-left': {
-        transform: 'translateX(-50%)'
+        transform: 'translateX(-50%)',
       },
       '.x-sliding-panel-button-right': {
-        transform: 'translateX(50%)'
-      }
+        transform: 'translateX(50%)',
+      },
     },
     '&.x-sliding-panel-buttons-outside': {
       '.x-sliding-panel-button-left': {
-        transform: 'translateX(-100%)'
+        transform: 'translateX(-100%)',
       },
       '.x-sliding-panel-button-right': {
-        transform: 'translateX(100%)'
-      }
-    }
-  };
+        transform: 'translateX(100%)',
+      },
+    },
+  }
 }

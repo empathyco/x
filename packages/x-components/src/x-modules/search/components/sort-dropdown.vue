@@ -1,13 +1,13 @@
 <template>
   <BaseDropdown
     ref="rootRef"
-    @update:modelValue="emitUserClickedASort"
     :items="items"
-    :modelValue="selectedSort"
+    :model-value="selectedSort"
     :animation="animation"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
     aria-label="Select sorting"
+    @update:model-value="emitUserClickedASort"
   >
     <template #toggle="{ isOpen, item }">
       <!--
@@ -32,62 +32,64 @@
 </template>
 
 <script lang="ts">
-  import { Sort } from '@empathyco/x-types';
-  import Vue, { defineComponent, PropType, ref, watch } from 'vue';
+import type { Sort } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type Vue from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
-  import BaseDropdown from '../../../components/base-dropdown.vue';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { searchXModule } from '../x-module';
+import BaseDropdown from '../../../components/base-dropdown.vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { searchXModule } from '../x-module'
 
-  /**
-   * The `SortDropdown` component allows user to select the search results order. This component
-   * also allows to change the selected sort programmatically.
-   */
-  export default defineComponent({
-    name: 'SortDropdown',
-    xModule: searchXModule.name,
-    components: { BaseDropdown },
-    props: {
-      /** The list of possible sort values. */
-      items: {
-        type: Array as PropType<Sort[]>,
-        required: true
-      },
-      /** The transition to use for opening and closing the dropdown. */
-      animation: [String, Object] as PropType<string | typeof Vue>
+/**
+ * The `SortDropdown` component allows user to select the search results order. This component
+ * also allows to change the selected sort programmatically.
+ */
+export default defineComponent({
+  name: 'SortDropdown',
+  xModule: searchXModule.name,
+  components: { BaseDropdown },
+  props: {
+    /** The list of possible sort values. */
+    items: {
+      type: Array as PropType<Sort[]>,
+      required: true,
     },
-    emits: ['change'],
-    setup(_, { emit }) {
-      const $x = use$x();
+    /** The transition to use for opening and closing the dropdown. */
+    animation: [String, Object] as PropType<string | typeof Vue>,
+  },
+  emits: ['change'],
+  setup(_, { emit }) {
+    const $x = use$x()
 
-      const { sort: selectedSort } = useState('search', ['sort']);
-      const rootRef = ref<typeof BaseDropdown>();
+    const { sort: selectedSort } = useState('search', ['sort'])
+    const rootRef = ref<typeof BaseDropdown>()
 
-      watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-        immediate: true
-      });
+    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
+      immediate: true,
+    })
 
-      /**
-       * Emits the events related to the selection of a sort value.
-       *
-       * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
-       * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
-       *
-       * @param sort - The selected sort.
-       */
-      function emitUserClickedASort(sort: Sort) {
-        $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el });
-        emit('change', sort);
-      }
-
-      return {
-        emitUserClickedASort,
-        rootRef,
-        selectedSort
-      };
+    /**
+     * Emits the events related to the selection of a sort value.
+     *
+     * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
+     * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
+     *
+     * @param sort - The selected sort.
+     */
+    function emitUserClickedASort(sort: Sort) {
+      $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el })
+      emit('change', sort)
     }
-  });
+
+    return {
+      emitUserClickedASort,
+      rootRef,
+      selectedSort,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -135,16 +137,16 @@ This component emits 2 different events:
 </template>
 
 <script>
-  import { SortDropdown } from '@empathyco/x-components/search';
+import { SortDropdown } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      SortDropdown
-    },
-    data() {
-      return { sortValues: ['Relevance', 'Price asc', 'Price desc'] };
-    }
-  };
+export default {
+  components: {
+    SortDropdown,
+  },
+  data() {
+    return { sortValues: ['Relevance', 'Price asc', 'Price desc'] }
+  },
+}
 </script>
 ```
 
@@ -163,19 +165,19 @@ This component emits 2 different events:
 </template>
 
 <script>
-  import { SortDropdown } from '@empathyco/x-components/search';
+import { SortDropdown } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      SortDropdown
-    },
-    data() {
-      return {
-        selectedSort: 'Price asc',
-        sortValues: ['Relevance', 'Price asc', 'Price desc']
-      };
+export default {
+  components: {
+    SortDropdown,
+  },
+  data() {
+    return {
+      selectedSort: 'Price asc',
+      sortValues: ['Relevance', 'Price asc', 'Price desc'],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

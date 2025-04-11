@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `layout` variants for component `button`.
@@ -11,14 +11,14 @@ export function buttonLayouts({ theme }: TailwindHelpers) {
     square: {
       aspectRatio: '1/1',
       paddingInlineStart: 0,
-      paddingInlineEnd: 0
+      paddingInlineEnd: 0,
     },
 
     circle: {
       aspectRatio: '1/1',
       paddingInlineStart: 0,
       paddingInlineEnd: 0,
-      borderRadius: theme('x.borderRadius.full')
-    }
-  };
+      borderRadius: theme('x.borderRadius.full'),
+    },
+  }
 }

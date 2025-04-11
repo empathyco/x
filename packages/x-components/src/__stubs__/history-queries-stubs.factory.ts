@@ -1,6 +1,6 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { DeepPartial } from '@empathyco/x-utils';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { DeepPartial } from '@empathyco/x-utils'
+import { deepMerge } from '@empathyco/x-deep-merge'
 
 /**
  * Creates a history query overriding default values with the ones passed.
@@ -10,13 +10,13 @@ import { DeepPartial } from '@empathyco/x-utils';
  *
  * @internal
  */
-export function createHistoryQuery(historyQuery: DeepPartial<HistoryQuery>): HistoryQuery {
+export function createHistoryQuery(historyQuery: DeepPartial<HistoryQuery>) {
   const defaults: HistoryQuery = {
     modelName: 'HistoryQuery',
     timestamp: Date.now(),
-    query: ''
-  };
-  return deepMerge(defaults, historyQuery);
+    query: '',
+  }
+  return deepMerge(defaults, historyQuery) as HistoryQuery
 }
 
 /**
@@ -28,5 +28,5 @@ export function createHistoryQuery(historyQuery: DeepPartial<HistoryQuery>): His
  * @internal
  */
 export function createHistoryQueries(...queries: string[]): HistoryQuery[] {
-  return queries.map(query => createHistoryQuery({ query }));
+  return queries.map(query => createHistoryQuery({ query }))
 }

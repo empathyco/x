@@ -1,77 +1,79 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { mount } from '@vue/test-utils';
-import { Store } from 'vuex';
-import { nextTick } from 'vue';
-import { getPartialResultsStub } from '../../../../__stubs__';
-import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { RootXStoreState } from '../../../../store';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import PartialResultsList from '../partial-results-list.vue';
-import { searchXModule } from '../../x-module';
-import { resetXSearchStateWith } from './utils';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { RootXStoreState } from '../../../../store'
+import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
+import { Store } from 'vuex'
+import { getPartialResultsStub } from '../../../../__stubs__'
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { getXComponentXModuleName, isXComponent } from '../../../../components'
+import { searchXModule } from '../../x-module'
+import PartialResultsList from '../partial-results-list.vue'
+import { resetXSearchStateWith } from './utils'
 
 /**
  * Renders the `PartialResultsList` component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
+ * @param options.template - template option.
+ * @param options.partialResults - partialResults option.
  * @returns The API for testing the `PartialResultsList` component.
  */
 function renderPartialResultsList({
   template = '<PartialResultsList />',
-  partialResults = getPartialResultsStub()
+  partialResults = getPartialResultsStub(),
 } = {}) {
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(
     {
       components: {
-        PartialResultsList
+        PartialResultsList,
       },
-      template
+      template,
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })],
       },
-      store
-    }
-  );
+      store,
+    },
+  )
 
-  resetXSearchStateWith(store, { partialResults });
+  resetXSearchStateWith(store, { partialResults })
 
-  const partialResultsListWrapper = wrapper.findComponent(PartialResultsList);
+  const partialResultsListWrapper = wrapper.findComponent(PartialResultsList)
 
   return {
     partialResultsListWrapper,
-    getPartialResults: () => partialResults
-  };
+    getPartialResults: () => partialResults,
+  }
 }
 describe('testing Partial results list component', () => {
   it('is an XComponent', () => {
-    const { partialResultsListWrapper } = renderPartialResultsList();
-    expect(isXComponent(partialResultsListWrapper.vm)).toEqual(true);
-  });
+    const { partialResultsListWrapper } = renderPartialResultsList()
+    expect(isXComponent(partialResultsListWrapper.vm)).toEqual(true)
+  })
 
   it('has Search as XModule', () => {
-    const { partialResultsListWrapper } = renderPartialResultsList();
-    expect(getXComponentXModuleName(partialResultsListWrapper.vm)).toEqual('search');
-  });
+    const { partialResultsListWrapper } = renderPartialResultsList()
+    expect(getXComponentXModuleName(partialResultsListWrapper.vm)).toEqual('search')
+  })
 
   it('renders the partial results in the state', async () => {
-    const { partialResultsListWrapper, getPartialResults } = renderPartialResultsList();
-    await nextTick();
+    const { partialResultsListWrapper, getPartialResults } = renderPartialResultsList()
+    await nextTick()
     const partialResultsItems = partialResultsListWrapper.findAll(
-      getDataTestSelector('partial-result')
-    );
-    expect(partialResultsItems).toHaveLength(getPartialResults().length);
-  });
+      getDataTestSelector('partial-result'),
+    )
+    expect(partialResultsItems).toHaveLength(getPartialResults().length)
+  })
 
   it('does not render any partial results if the are none', () => {
-    const { partialResultsListWrapper } = renderPartialResultsList({ partialResults: [] });
+    const { partialResultsListWrapper } = renderPartialResultsList({ partialResults: [] })
     expect(partialResultsListWrapper.find(getDataTestSelector('partial-results')).exists()).toBe(
-      false
-    );
-  });
+      false,
+    )
+  })
 
   it('allows customizing the default slot', async () => {
     const { partialResultsListWrapper } = renderPartialResultsList({
@@ -80,16 +82,16 @@ describe('testing Partial results list component', () => {
           <template #default="{ partialResult }">
             <p data-test="partial-slot-overridden">{{ partialResult.query }}</p>
           </template>
-        </PartialResultsList>`
-    });
+        </PartialResultsList>`,
+    })
 
-    await nextTick();
+    await nextTick()
 
     expect(partialResultsListWrapper.find(getDataTestSelector('partial-results')).exists()).toEqual(
-      true
-    );
+      true,
+    )
     expect(
-      partialResultsListWrapper.find(getDataTestSelector('partial-slot-overridden')).exists()
-    ).toEqual(true);
-  });
-});
+      partialResultsListWrapper.find(getDataTestSelector('partial-slot-overridden')).exists(),
+    ).toEqual(true)
+  })
+})

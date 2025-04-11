@@ -1,29 +1,29 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { I18n as VueI18n } from 'vue-i18n';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { I18n as VueI18n } from 'vue-i18n'
 
 /** Supported locales. */
-export type Locale = string;
+export type Locale = string
 
 /** Supported devices. */
-export type Device = string;
+export type Device = string
 
 /** Union type containing both eager and lazy messages. */
 export type AnyMessages<SomeMessages> =
   | MessagesByDevice<SomeMessages>
-  | LoadLazyMessagesByDevice<SomeMessages>;
+  | LoadLazyMessagesByDevice<SomeMessages>
 
 /** A function that loads on demand the messages for a specific locale. */
 export type LoadLazyMessagesByDevice<SomeMessages> = () => Promise<{
-  default: MessagesByDevice<SomeMessages>;
-}>;
+  default: MessagesByDevice<SomeMessages>
+}>
 
 /**
  * An object containing a base property with all the existing messages and the overridden ones for
  * each device.
  */
 export interface MessagesByDevice<SomeMessages> {
-  base: SomeMessages;
-  [device: Device]: DeepPartial<SomeMessages>;
+  base: SomeMessages
+  [device: Device]: DeepPartial<SomeMessages>
 }
 
 /**
@@ -31,13 +31,13 @@ export interface MessagesByDevice<SomeMessages> {
  */
 export interface I18nOptions<SomeMessages> {
   /** The initial messages. */
-  messages: Record<Locale, AnyMessages<SomeMessages>>;
+  messages: Record<Locale, AnyMessages<SomeMessages>>
   /** The initial device. */
-  device: Device;
+  device: Device
   /** The locale to fall back if no matching locale is available. */
-  fallbackLocale: Locale;
+  fallbackLocale: Locale
   /** The initial locale. */
-  locale: Locale;
+  locale: Locale
 }
 
 /**
@@ -46,17 +46,17 @@ export interface I18nOptions<SomeMessages> {
  */
 export interface I18nAPI {
   /** The Vue I18n instance that should be passed to the root Vue component. */
-  readonly vueI18n: Readonly<VueI18n>;
+  readonly vueI18n: Readonly<VueI18n>
   /**
    * Sets the new locale.
    *
    * @param newLocale - The new locale.
    */
-  setLocale: (newLocale: Locale) => Promise<void>;
+  setLocale: (newLocale: Locale) => Promise<void>
   /**
    * Sets the new device.
    *
    * @param newDevice - The new device.
    */
-  setDevice: (newDevice: Device) => Promise<void>;
+  setDevice: (newDevice: Device) => Promise<void>
 }

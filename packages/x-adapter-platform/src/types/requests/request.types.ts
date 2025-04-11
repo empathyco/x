@@ -5,8 +5,8 @@
  */
 export interface PlatformExtraParamsRequest {
   extraParams?: {
-    [key: string]: unknown;
-  };
+    [key: string]: unknown
+  }
 }
 
 /**
@@ -15,8 +15,8 @@ export interface PlatformExtraParamsRequest {
  * @public
  */
 export interface PlatformPageableRequest {
-  rows?: number;
-  start?: number;
+  rows?: number
+  start?: number
 }
 
 /**
@@ -25,7 +25,7 @@ export interface PlatformPageableRequest {
  * @public
  */
 export interface PlatformQueryableRequest {
-  query: string;
+  query: string
 }
 
 /**
@@ -34,7 +34,7 @@ export interface PlatformQueryableRequest {
  * @public
  */
 export declare interface PlatformSortableRequest {
-  sort?: string;
+  sort?: string
 }
 
 /**
@@ -43,7 +43,7 @@ export declare interface PlatformSortableRequest {
  * @public
  */
 export interface PlatformTrackableRequest {
-  origin?: string;
+  origin?: string
 }
 
 /**
@@ -52,5 +52,5 @@ export interface PlatformTrackableRequest {
  * @public
  */
 export interface PlatformFilterableRequest {
-  filter?: string[];
+  filter?: string[]
 }

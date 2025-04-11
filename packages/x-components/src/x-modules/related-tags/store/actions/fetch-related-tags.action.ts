@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RelatedTagsXStoreModule } from '../types';
+import type { RelatedTagsXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link RelatedTagsActions.fetchRelatedTags}.
@@ -11,9 +11,9 @@ import { RelatedTagsXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchRelatedTags: RelatedTagsXStoreModule['actions']['fetchRelatedTags'] = (
+export const fetchRelatedTags: RelatedTagsXStoreModule['actions']['fetchRelatedTags'] = async (
   _context,
-  request
+  request,
 ) => {
-  return request ? XPlugin.adapter.relatedTags(request).then(({ relatedTags }) => relatedTags) : [];
-};
+  return request ? XPlugin.adapter.relatedTags(request).then(({ relatedTags }) => relatedTags) : []
+}

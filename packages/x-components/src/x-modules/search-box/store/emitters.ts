@@ -1,6 +1,6 @@
-import { createStoreEmitters } from '../../../store';
-import { isStringEmpty } from '../../../utils/string';
-import { searchBoxXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { isStringEmpty } from '../../../utils/string'
+import { searchBoxXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the search-box module.
@@ -9,5 +9,5 @@ import { searchBoxXStoreModule } from './module';
  */
 export const searchBoxEmitters = createStoreEmitters(searchBoxXStoreModule, {
   SearchBoxQueryChanged: (_, getters) => getters.trimmedQuery,
-  UserClearedQuery: { selector: state => state.query, filter: isStringEmpty }
-});
+  UserClearedQuery: { selector: state => state.query, filter: isStringEmpty },
+})

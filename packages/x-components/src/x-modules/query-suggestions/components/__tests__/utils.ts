@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { querySuggestionsXStoreModule } from '../../store/module';
-import { QuerySuggestionsState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { QuerySuggestionsState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { querySuggestionsXStoreModule } from '../../store/module'
 
 /**
  * Reset query suggestions x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { QuerySuggestionsState } from '../../store/types';
  */
 export function resetXQuerySuggestionsStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<QuerySuggestionsState>
+  state?: DeepPartial<QuerySuggestionsState>,
 ): void {
-  resetStoreXModuleState(store, 'querySuggestions', querySuggestionsXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'querySuggestions', querySuggestionsXStoreModule.state(), state)
 }

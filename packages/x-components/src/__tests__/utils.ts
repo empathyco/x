@@ -1,53 +1,53 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { VueWrapper } from '@vue/test-utils';
-import { Store } from 'vuex';
-import {
-  XComponentsAdapter,
+import type {
+  ExperienceControlsResponse,
   IdentifierResultsResponse,
-  RecommendationsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
   QuerySuggestionsResponse,
+  RecommendationsResponse,
+  RelatedPromptsResponse,
   RelatedTagsResponse,
   SearchResponse,
   SemanticQueriesResponse,
-  ExperienceControlsResponse,
-  RelatedPromptsResponse
-} from '@empathyco/x-types';
-import { XPluginOptions } from '../plugins';
-import { XPlugin } from '../plugins/x-plugin';
-import { ActionsDictionary } from '../store/actions.types';
-import { MutationsDictionary } from '../store/mutations.types';
-import { RootXStoreState, XStoreModule } from '../store/store.types';
-import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
-import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
-import { XComponentsAdapterDummy } from './adapter.dummy';
-import { XDummyBus } from './bus.dummy';
-import Mock = jest.Mock;
+  XComponentsAdapter,
+} from '@empathyco/x-types'
+import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import type { Store } from 'vuex'
+import type { XPluginOptions } from '../plugins'
+import type { ActionsDictionary } from '../store/actions.types'
+import type { MutationsDictionary } from '../store/mutations.types'
+import type { RootXStoreState, XStoreModule } from '../store/store.types'
+import type { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { XPlugin } from '../plugins/x-plugin'
+import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
+import { XComponentsAdapterDummy } from './adapter.dummy'
+import { XDummyBus } from './bus.dummy'
+import Mock = jest.Mock
 
 export type MockedXComponentsAdapter = {
   [Method in keyof Required<XComponentsAdapter>]: jest.Mock<
     ReturnType<Required<XComponentsAdapter>[Method]>,
     Parameters<Required<XComponentsAdapter>[Method]>
-  >;
-};
+  >
+}
 
 /**
  * Interface containing the features responses that can be mocked.
  */
 interface MockedAdapterFeatures {
-  identifierResults: IdentifierResultsResponse;
-  nextQueries: NextQueriesResponse;
-  popularSearches: PopularSearchesResponse;
-  querySuggestions: QuerySuggestionsResponse;
-  recommendations: RecommendationsResponse;
-  relatedPrompts: RelatedPromptsResponse;
-  relatedTags: RelatedTagsResponse;
-  search: SearchResponse;
-  semanticQueries: SemanticQueriesResponse;
-  tagging: void;
-  experienceControls: ExperienceControlsResponse;
+  identifierResults: IdentifierResultsResponse
+  nextQueries: NextQueriesResponse
+  popularSearches: PopularSearchesResponse
+  querySuggestions: QuerySuggestionsResponse
+  recommendations: RecommendationsResponse
+  relatedPrompts: RelatedPromptsResponse
+  relatedTags: RelatedTagsResponse
+  search: SearchResponse
+  semanticQueries: SemanticQueriesResponse
+  tagging: void
+  experienceControls: ExperienceControlsResponse
 }
 
 /**
@@ -59,7 +59,7 @@ interface MockedAdapterFeatures {
  * @internal
  */
 export function getDataTestSelector(dataTest: string): string {
-  return `[data-test="${dataTest}"]`;
+  return `[data-test="${dataTest}"]`
 }
 
 /**
@@ -71,7 +71,7 @@ export function getDataTestSelector(dataTest: string): string {
  * @returns The wrappers matching the searched test data id.
  */
 export function findTestDataById(wrapper: VueWrapper, testDataId: string) {
-  return wrapper.findAll(getDataTestSelector(testDataId));
+  return wrapper.findAll(getDataTestSelector(testDataId))
 }
 
 /**
@@ -87,10 +87,10 @@ export function findTestDataById(wrapper: VueWrapper, testDataId: string) {
 export function resetStoreModuleState<ModuleState extends Dictionary>(
   store: Store<ModuleState>,
   moduleState: ModuleState,
-  newPartialState?: DeepPartial<ModuleState>
+  newPartialState?: DeepPartial<ModuleState>,
 ): void {
-  cleanGettersProxyCache();
-  store.replaceState(mergeStates(moduleState, newPartialState));
+  cleanGettersProxyCache()
+  store.replaceState(mergeStates(moduleState, newPartialState))
 }
 
 /**
@@ -108,14 +108,14 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
   store: Store<DeepPartial<RootXStoreState>>,
   moduleName: ModuleName,
   moduleState: ExtractState<ModuleName>,
-  newPartialState?: DeepPartial<ExtractState<ModuleName>>
+  newPartialState?: DeepPartial<ExtractState<ModuleName>>,
 ): void {
-  cleanGettersProxyCache();
+  cleanGettersProxyCache()
   store.replaceState({
     x: {
-      [moduleName]: mergeStates(moduleState, newPartialState)
-    }
-  });
+      [moduleName]: mergeStates(moduleState, newPartialState),
+    },
+  })
 }
 
 /**
@@ -128,13 +128,13 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
  */
 export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
   return jest.fn(
-    () =>
+    async () =>
       new Promise(resolve => {
         setTimeout(() => {
-          resolve(whatReturns);
-        });
-      })
-  );
+          resolve(whatReturns)
+        })
+      }),
+  )
 }
 
 /**
@@ -149,10 +149,10 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
  * @internal
  */
 export function getMockedAdapter(
-  responseFeatures?: Partial<MockedAdapterFeatures>
+  responseFeatures?: Partial<MockedAdapterFeatures>,
 ): MockedXComponentsAdapter {
   return {
-    /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+    /* eslint-disable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
     popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
@@ -163,9 +163,9 @@ export function getMockedAdapter(
     search: getMockedAdapterFunction(responseFeatures?.search!),
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
-    experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!)
-    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
-  };
+    experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
+    /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
+  }
 }
 
 /**
@@ -178,9 +178,9 @@ export function getMockedAdapter(
  */
 function mergeStates<State extends Dictionary>(
   moduleState: State,
-  newPartialState?: DeepPartial<State>
+  newPartialState?: DeepPartial<State>,
 ): State {
-  return deepMerge({}, moduleState, newPartialState);
+  return deepMerge({}, moduleState, newPartialState) as State
 }
 
 /**
@@ -195,15 +195,15 @@ function mergeStates<State extends Dictionary>(
  */
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
-  bus = new XDummyBus()
+  bus = new XDummyBus(),
 ): [XPlugin, XPluginOptions] {
-  XPlugin.resetInstance();
-  const xPlugin = new XPlugin(bus);
+  XPlugin.resetInstance()
+  const xPlugin = new XPlugin(bus)
   const installOptions: XPluginOptions = {
     adapter: XComponentsAdapterDummy,
-    ...options
-  };
-  return [xPlugin, installOptions];
+    ...options,
+  }
+  return [xPlugin, installOptions]
 }
 
 /**
@@ -216,11 +216,11 @@ export function createXModule<
   State extends Record<keyof State, any>,
   Getters extends Record<keyof Getters, any>,
   Mutations extends MutationsDictionary<Mutations>,
-  Actions extends ActionsDictionary<Actions>
+  Actions extends ActionsDictionary<Actions>,
 >(
-  xModule: XModule<XStoreModule<State, Getters, Mutations, Actions>>
+  xModule: XModule<XStoreModule<State, Getters, Mutations, Actions>>,
 ): XModule<XStoreModule<State, Getters, Mutations, Actions>> {
-  return xModule;
+  return xModule
 }
 
 /**
@@ -232,19 +232,18 @@ export function createXModule<
  * @internal
  */
 export function getFetchMock(
-  response: unknown
+  response: unknown,
 ): (url: string, params: RequestInit) => Promise<Response> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return _url => {
+  return async _url => {
     return new Promise<Response>(resolve => {
       setTimeout(() => {
         resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(response),
-          text: () => Promise.resolve(JSON.stringify(response))
-        } as Response);
-      });
-    });
-  };
+          json: async () => Promise.resolve(response),
+          text: async () => Promise.resolve(JSON.stringify(response)),
+        } as Response)
+      })
+    })
+  }
 }

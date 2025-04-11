@@ -1,5 +1,5 @@
-import { BooleanFilter } from './boolean-filter.model';
-import { Filter } from './filter.model';
+import type { BooleanFilter } from './boolean-filter.model'
+import type { Filter } from './filter.model'
 
 /**
  * A type of filter used in {@link HierarchicalFacet} and extends from {@link BooleanFilter}.
@@ -9,11 +9,11 @@ import { Filter } from './filter.model';
  */
 export interface HierarchicalFilter extends BooleanFilter {
   /** Model name to indicate the filter type. */
-  modelName: 'HierarchicalFilter';
+  modelName: 'HierarchicalFilter'
   /** A unique id used to reference the parent filter or null if it hasn't. */
-  parentId: Filter['id'] | null;
+  parentId: Filter['id'] | null
   /** Descendants filters. */
-  children?: HierarchicalFilter[];
+  children?: HierarchicalFilter[]
 }
 
 /**
@@ -26,5 +26,5 @@ export interface HierarchicalFilter extends BooleanFilter {
  * @public
  */
 export function isHierarchicalFilter(filter: Filter): filter is HierarchicalFilter {
-  return filter.modelName === 'HierarchicalFilter';
+  return filter.modelName === 'HierarchicalFilter'
 }

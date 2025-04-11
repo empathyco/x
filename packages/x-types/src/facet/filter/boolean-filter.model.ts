@@ -1,6 +1,7 @@
-import { BooleanFilterModelName, BooleanFilterModelNames } from '../../named-model.model';
-import { FacetFilter } from './facet-filter.model';
-import { Filter } from './filter.model';
+import type { BooleanFilterModelName } from '../../named-model.model'
+import type { FacetFilter } from './facet-filter.model'
+import type { Filter } from './filter.model'
+import { BooleanFilterModelNames } from '../../named-model.model'
 
 /**
  * A boolean filter used in a {@link FacetFilter}, which status can be selected or not and
@@ -13,11 +14,11 @@ import { Filter } from './filter.model';
  */
 export interface BooleanFilter extends FacetFilter {
   /** Text to render the filter label. */
-  label: string;
+  label: string
   /** Type to narrow {@link ModelNameType} from the extended Filter for the known subtypes. */
-  modelName: BooleanFilterModelName;
+  modelName: BooleanFilterModelName
   /** Amount of matching results. */
-  totalResults?: number;
+  totalResults?: number
 }
 
 /**
@@ -30,5 +31,5 @@ export interface BooleanFilter extends FacetFilter {
  * @public
  */
 export function isBooleanFilter(filter: Filter): filter is BooleanFilter {
-  return BooleanFilterModelNames.includes(filter.modelName as BooleanFilterModelName);
+  return BooleanFilterModelNames.includes(filter.modelName as BooleanFilterModelName)
 }

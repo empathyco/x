@@ -1,5 +1,5 @@
-import { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model';
-import { relatedTagsResponseMapper } from '../related-tags-response.mapper';
+import type { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model'
+import { relatedTagsResponseMapper } from '../related-tags-response.mapper'
 
 describe('relatedTagsResponseMapper tests', () => {
   it('should map the response', () => {
@@ -10,18 +10,18 @@ describe('relatedTagsResponseMapper tests', () => {
             query: 'levis jeans',
             source: 'ORGANIC',
             tag: 'levis',
-            position: 1000
+            position: 1000,
           },
           {
             query: 'shoes brown',
             position: 1000,
             source: 'CURATED',
-            tag: 'shoes'
-          }
-        ]
+            tag: 'shoes',
+          },
+        ],
       },
-      status: 200
-    };
+      status: 200,
+    }
 
     expect(relatedTagsResponseMapper(platformRelatedTagsResponse, {})).toStrictEqual({
       relatedTags: [
@@ -29,15 +29,15 @@ describe('relatedTagsResponseMapper tests', () => {
           query: 'levis jeans',
           modelName: 'RelatedTag',
           isCurated: false,
-          tag: 'levis'
+          tag: 'levis',
         },
         {
           query: 'shoes brown',
           modelName: 'RelatedTag',
           isCurated: true,
-          tag: 'shoes'
-        }
-      ]
-    });
-  });
-});
+          tag: 'shoes',
+        },
+      ],
+    })
+  })
+})

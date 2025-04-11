@@ -1,10 +1,10 @@
 <template>
   <BaseDropdown
-    @update:modelValue="emitEvents"
-    :modelValue="selectedColumns"
+    :model-value="selectedColumns"
     :items="columns"
     :animation="animation"
     aria-label="Select number of columns"
+    @update:model-value="emitEvents"
   >
     <template v-if="hasToggleSlot" #toggle="{ item, isOpen }">
       <!--
@@ -30,98 +30,100 @@
 </template>
 
 <script lang="ts">
-  import Vue, { computed, defineComponent, onBeforeMount, PropType, ref, watch } from 'vue';
-  import { use$x } from '../../composables/use-$x';
-  import BaseDropdown from '../base-dropdown.vue';
+import type { PropType } from 'vue'
+import type Vue from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { use$x } from '../../composables/use-$x'
+import BaseDropdown from '../base-dropdown.vue'
 
-  /**
-   * Column picker dropdown component renders {@link BaseDropdown} component which
-   * options are the different columns you can set for a grid.
-   *
-   * It emits {@link XEventsTypes.UserClickedColumnPicker} on dropdown
-   * input.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseColumnPickerDropdown',
-    components: { BaseDropdown },
-    props: {
-      /** An array of numbers that represents the number of columns to render. */
-      columns: {
-        type: Array as PropType<number[]>,
-        required: true
-      },
-      /** The value of the selected columns number. */
-      modelValue: Number,
-      /** The transition to use for opening and closing the dropdown. */
-      animation: [String, Object] as PropType<string | typeof Vue>
+/**
+ * Column picker dropdown component renders {@link BaseDropdown} component which
+ * options are the different columns you can set for a grid.
+ *
+ * It emits {@link XEventsTypes.UserClickedColumnPicker} on dropdown
+ * input.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseColumnPickerDropdown',
+  components: { BaseDropdown },
+  props: {
+    /** An array of numbers that represents the number of columns to render. */
+    columns: {
+      type: Array as PropType<number[]>,
+      required: true,
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit, slots }) {
-      const $x = use$x();
+    /** The value of the selected columns number. */
+    modelValue: Number,
+    /** The transition to use for opening and closing the dropdown. */
+    animation: [String, Object] as PropType<string | typeof Vue>,
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit, slots }) {
+    const $x = use$x()
 
-      const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0]);
-      const selectedColumns = ref(providedSelectedColumns.value);
+    const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
+    const selectedColumns = ref(providedSelectedColumns.value)
 
-      /**
-       * Assigns `selectedColumns` value and emits `ColumnsNumberProvided`.
-       *
-       * @param column - Column number provided.
-       */
-      function emitColumnsNumberProvided(column: number) {
-        selectedColumns.value = column;
-        $x.emit('ColumnsNumberProvided', column);
-      }
-
-      /**
-       * Emits `update:modelValue` with the column selected.
-       *
-       * @param column - Column number selected.
-       */
-      function emitUpdateModelValue(column: number) {
-        if (props.modelValue !== column) {
-          emit('update:modelValue', column);
-        }
-      }
-
-      watch(providedSelectedColumns, emitColumnsNumberProvided);
-      watch(selectedColumns, emitUpdateModelValue);
-
-      $x.on('ColumnsNumberProvided', false).subscribe(column => (selectedColumns.value = column));
-
-      /**
-       * Synchronizes the columns number before mounting the component. If the real number of selected
-       * columns equals the provided columns, it emits the event to sync it with every other component.
-       * If it is not equal it means that the user has already selected a number of columns, so we emit
-       * a `update:modelValue` event so developers can sync the provided value.
-       */
-      onBeforeMount(() => {
-        if (selectedColumns.value === providedSelectedColumns.value) {
-          emitColumnsNumberProvided(selectedColumns.value);
-        } else {
-          emitUpdateModelValue(selectedColumns.value);
-        }
-      });
-
-      /**
-       * Emits a {@link XEventsTypes.UserClickedColumnPicker} and
-       * {@link XEventsTypes.ColumnsNumberProvided} events.
-       *
-       * @param column - Column number payload.
-       */
-      function emitEvents(column: number) {
-        $x.emit('UserClickedColumnPicker', column);
-        $x.emit('ColumnsNumberProvided', column);
-      }
-
-      return {
-        emitEvents,
-        hasToggleSlot: !!slots.toggle,
-        selectedColumns
-      };
+    /**
+     * Assigns `selectedColumns` value and emits `ColumnsNumberProvided`.
+     *
+     * @param column - Column number provided.
+     */
+    function emitColumnsNumberProvided(column: number) {
+      selectedColumns.value = column
+      $x.emit('ColumnsNumberProvided', column)
     }
-  });
+
+    /**
+     * Emits `update:modelValue` with the column selected.
+     *
+     * @param column - Column number selected.
+     */
+    function emitUpdateModelValue(column: number) {
+      if (props.modelValue !== column) {
+        emit('update:modelValue', column)
+      }
+    }
+
+    watch(providedSelectedColumns, emitColumnsNumberProvided)
+    watch(selectedColumns, emitUpdateModelValue)
+
+    $x.on('ColumnsNumberProvided', false).subscribe(column => (selectedColumns.value = column))
+
+    /**
+     * Synchronizes the columns number before mounting the component. If the real number of selected
+     * columns equals the provided columns, it emits the event to sync it with every other component.
+     * If it is not equal it means that the user has already selected a number of columns, so we emit
+     * a `update:modelValue` event so developers can sync the provided value.
+     */
+    onBeforeMount(() => {
+      if (selectedColumns.value === providedSelectedColumns.value) {
+        emitColumnsNumberProvided(selectedColumns.value)
+      } else {
+        emitUpdateModelValue(selectedColumns.value)
+      }
+    })
+
+    /**
+     * Emits a {@link XEventsTypes.UserClickedColumnPicker} and
+     * {@link XEventsTypes.ColumnsNumberProvided} events.
+     *
+     * @param column - Column number payload.
+     */
+    function emitEvents(column: number) {
+      $x.emit('UserClickedColumnPicker', column)
+      $x.emit('ColumnsNumberProvided', column)
+    }
+
+    return {
+      emitEvents,
+      hasToggleSlot: !!slots.toggle,
+      selectedColumns,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -160,19 +162,19 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
+import { BaseColumnPickerDropdown } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseColumnPickerDropdownTest',
-    components: {
-      BaseColumnPickerDropdown
-    },
-    data() {
-      return {
-        selectedColumns: 2
-      };
+export default {
+  name: 'BaseColumnPickerDropdownTest',
+  components: {
+    BaseColumnPickerDropdown,
+  },
+  data() {
+    return {
+      selectedColumns: 2,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -191,19 +193,19 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
+import { BaseColumnPickerDropdown } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseColumnPickerDropdownTest',
-    components: {
-      BaseColumnPickerDropdown
-    },
-    data() {
-      return {
-        selectedColumns: 2
-      };
+export default {
+  name: 'BaseColumnPickerDropdownTest',
+  components: {
+    BaseColumnPickerDropdown,
+  },
+  data() {
+    return {
+      selectedColumns: 2,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -226,14 +228,14 @@ with other column pickers.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
+import { BaseColumnPickerDropdown } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseColumnPickerDropdownTest',
-    components: {
-      BaseColumnPickerDropdown
-    }
-  };
+export default {
+  name: 'BaseColumnPickerDropdownTest',
+  components: {
+    BaseColumnPickerDropdown,
+  },
+}
 </script>
 ```
 </docs>

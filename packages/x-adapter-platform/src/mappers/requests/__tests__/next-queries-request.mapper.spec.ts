@@ -1,5 +1,5 @@
-import { NextQueriesRequest } from '@empathyco/x-types';
-import { nextQueriesRequestMapper } from '../next-queries-request.mapper';
+import type { NextQueriesRequest } from '@empathyco/x-types'
+import { nextQueriesRequestMapper } from '../next-queries-request.mapper'
 
 describe('nextQueriesRequestMapper tests', () => {
   it('should map the request', () => {
@@ -10,9 +10,9 @@ describe('nextQueriesRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(nextQueriesRequestMapper(internalRequest, {})).toStrictEqual({
       query: 'chips',
@@ -21,8 +21,8 @@ describe('nextQueriesRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

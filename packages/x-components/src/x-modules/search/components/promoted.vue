@@ -1,5 +1,5 @@
 <template>
-  <a @click="emitClickEvent" :href="promoted.url" class="x-promoted" data-test="promoted">
+  <a :href="promoted.url" class="x-promoted" data-test="promoted" @click="emitClickEvent">
     <img :src="promoted.image" class="x-promoted__image" :alt="promoted.title" />
     <h2 class="x-promoted__title" :class="titleClass" data-test="promoted-title">
       {{ promoted.title }}
@@ -8,66 +8,67 @@
 </template>
 
 <script lang="ts">
-  import { Promoted as PromotedModel } from '@empathyco/x-types';
-  import { defineComponent, PropType } from 'vue';
-  import { searchXModule } from '../x-module';
-  import { useXBus } from '../../../composables/use-x-bus';
+import type { Promoted as PromotedModel } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import { useXBus } from '../../../composables/use-x-bus'
+import { searchXModule } from '../x-module'
 
-  /**
-   * A promoted result is just an item that has been inserted into the search results to advertise
-   * something. Usually it is one of the first items in the grid, and has the same shape as a
-   * result. It just contains a link to the promoted content, an image, and a title.
-   *
-   * Additionally, this component exposes the following props to modify the classes of the
-   * elements: `titleClass`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Promoted',
-    xModule: searchXModule.name,
-    props: {
-      /**
-       * The promoted data.
-       *
-       * @public
-       */
-      promoted: {
-        type: Object as PropType<PromotedModel>,
-        required: true
-      },
-      titleClass: String
+/**
+ * A promoted result is just an item that has been inserted into the search results to advertise
+ * something. Usually it is one of the first items in the grid, and has the same shape as a
+ * result. It just contains a link to the promoted content, an image, and a title.
+ *
+ * Additionally, this component exposes the following props to modify the classes of the
+ * elements: `titleClass`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Promoted',
+  xModule: searchXModule.name,
+  props: {
+    /**
+     * The promoted data.
+     *
+     * @public
+     */
+    promoted: {
+      type: Object as PropType<PromotedModel>,
+      required: true,
     },
-    setup(props) {
-      const xBus = useXBus();
+    titleClass: String,
+  },
+  setup(props) {
+    const xBus = useXBus()
 
-      /**
-       * Emits the promoted click event.
-       *
-       * @internal
-       */
-      const emitClickEvent = () => {
-        xBus.emit('UserClickedAPromoted', props.promoted);
-      };
-
-      return {
-        emitClickEvent
-      };
+    /**
+     * Emits the promoted click event.
+     *
+     * @internal
+     */
+    const emitClickEvent = () => {
+      xBus.emit('UserClickedAPromoted', props.promoted)
     }
-  });
+
+    return {
+      emitClickEvent,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-promoted {
-    display: flex;
-    flex-flow: column nowrap;
-    text-decoration: none;
-  }
+.x-promoted {
+  display: flex;
+  flex-flow: column nowrap;
+  text-decoration: none;
+}
 
-  .x-promoted__image {
-    width: 100%;
-    object-fit: contain;
-  }
+.x-promoted__image {
+  width: 100%;
+  object-fit: contain;
+}
 </style>
 
 <docs lang="mdx">
@@ -87,26 +88,26 @@ _Here you can see how the `Promoted` component is rendered._
 </template>
 
 <script>
-  import { Promoted } from '@empathyco/x-components/search';
+import { Promoted } from '@empathyco/x-components/search'
 
-  export default {
-    name: 'PromotedDemo',
-    components: {
-      Promoted
-    },
-    data() {
-      return {
-        promoted: {
-          modelName: 'Promoted',
-          id: 'promoted-example',
-          url: 'https://my-website.com/summer-shirts',
-          image: 'https://my-website.com/images/summer-shirts.jpg',
-          title: 'Trendy summer shirts',
-          position: 1
-        }
-      };
+export default {
+  name: 'PromotedDemo',
+  components: {
+    Promoted,
+  },
+  data() {
+    return {
+      promoted: {
+        modelName: 'Promoted',
+        id: 'promoted-example',
+        url: 'https://my-website.com/summer-shirts',
+        image: 'https://my-website.com/images/summer-shirts.jpg',
+        title: 'Trendy summer shirts',
+        position: 1,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -120,26 +121,26 @@ The `titleClass` prop can be used to add classes to the promoted title.
 </template>
 
 <script>
-  import { Promoted } from '@empathyco/x-components/search';
+import { Promoted } from '@empathyco/x-components/search'
 
-  export default {
-    name: 'PromotedDemo',
-    components: {
-      Promoted
-    },
-    data() {
-      return {
-        promoted: {
-          modelName: 'Promoted',
-          id: 'promoted-example',
-          url: 'https://my-website.com/summer-shirts',
-          image: 'https://my-website.com/images/summer-shirts.jpg',
-          title: 'Trendy summer shirts',
-          position: 1
-        }
-      };
+export default {
+  name: 'PromotedDemo',
+  components: {
+    Promoted,
+  },
+  data() {
+    return {
+      promoted: {
+        modelName: 'Promoted',
+        id: 'promoted-example',
+        url: 'https://my-website.com/summer-shirts',
+        image: 'https://my-website.com/images/summer-shirts.jpg',
+        title: 'Trendy summer shirts',
+        position: 1,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

@@ -1,5 +1,5 @@
-import { BooleanFilter } from './boolean-filter.model';
-import { Filter } from './filter.model';
+import type { BooleanFilter } from './boolean-filter.model'
+import type { Filter } from './filter.model'
 
 /**
  * A type of filter used in {@link SimpleFacet} and extends from {@link Filter}.
@@ -9,7 +9,7 @@ import { Filter } from './filter.model';
  */
 export interface SimpleFilter extends BooleanFilter {
   /** Model name to indicate the filter type. */
-  modelName: 'SimpleFilter';
+  modelName: 'SimpleFilter'
 }
 
 /**
@@ -22,5 +22,5 @@ export interface SimpleFilter extends BooleanFilter {
  * @public
  */
 export function isSimpleFilter(filter: Filter): filter is SimpleFilter {
-  return filter.modelName === 'SimpleFilter';
+  return filter.modelName === 'SimpleFilter'
 }

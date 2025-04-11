@@ -1,111 +1,111 @@
-import { Schema } from '../types';
+import type { Schema } from '../types'
 
 describe('schema tests', () => {
   interface Source {
-    q: string;
-    count: number;
-    list: string[];
+    q: string
+    count: number
+    list: string[]
   }
 
   interface Target {
-    query: string;
-    rows: number;
+    query: string
+    rows: number
   }
 
   interface ComposedSource {
-    response: Source;
+    response: Source
   }
 
   interface ComposedTarget {
-    request: Target;
-    filter: string;
+    request: Target
+    filter: string
   }
 
-  describe('Using schema with paths', () => {
-    it('Renames source properties matching type paths', () => {
+  describe('using schema with paths', () => {
+    it('renames source properties matching type paths', () => {
       const schema: Schema<Source, Target> = {
         query: 'q',
-        // @ts-expect-error
-        rows: 'q'
-      };
+        // @ts-expect-error Type "q" is not assignable to type SchemaTransformer<Source, Target, "rows">
+        rows: 'q',
+      }
 
-      expect(typeof schema.query).toBe('string');
-    });
+      expect(typeof schema.query).toBe('string')
+    })
 
-    it('Allows to use path to access an array', () => {
+    it('allows to use path to access an array', () => {
       const schema: Schema<Source, Target> = {
         query: 'list.0',
-        rows: 'count'
-      };
+        rows: 'count',
+      }
 
-      expect(typeof schema.rows).toBe('string');
-    });
-  });
+      expect(typeof schema.rows).toBe('string')
+    })
+  })
 
-  describe('Using schema with functions', () => {
-    it('Allows to use function returning matching type', () => {
+  describe('using schema with functions', () => {
+    it('allows to use function returning matching type', () => {
       const schema: Schema<Source, Target> = {
         rows: ({ q }) => Number(q),
-        // @ts-expect-error
-        query: () => 5
-      };
+        // @ts-expect-error Type () => number is not assignable to type SchemaTransformer<Source, Target, "query">
+        query: () => 5,
+      }
 
-      expect(typeof schema.rows).toBe('function');
-    });
-  });
+      expect(typeof schema.rows).toBe('function')
+    })
+  })
 
-  describe('Using schema with composed types', () => {
-    it('Allows to use paths to inner properties', () => {
+  describe('using schema with composed types', () => {
+    it('allows to use paths to inner properties', () => {
       const schema: Schema<ComposedSource, ComposedTarget> = {
         request: {
           query: 'response.q',
-          // @ts-expect-error
-          rows: 'count'
+          // @ts-expect-error Type "count" is not assignable to type
+          rows: 'count',
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
-      expect(typeof schema.request).toBe('object');
-    });
-  });
+      expect(typeof schema.request).toBe('object')
+    })
+  })
 
-  describe('Using subSchema with composed types', () => {
-    it('Allows to use paths to inner properties', () => {
+  describe('using subSchema with composed types', () => {
+    it('allows to use paths to inner properties', () => {
       const subSchema: Schema<Source, Target> = {
         query: 'q',
-        rows: 'count'
-      };
+        rows: 'count',
+      }
 
       const schema: Schema<ComposedSource, ComposedTarget> = {
         request: {
           $path: 'response',
-          $subSchema: subSchema
+          $subSchema: subSchema,
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
       interface Pepe {
-        pepe: number;
+        pepe: number
       }
       interface Maria {
-        maria: string;
+        maria: string
       }
       const wrongSubSchema: Schema<Pepe, Maria> = {
-        maria: ({ pepe }) => String(pepe)
-      };
+        maria: ({ pepe }) => String(pepe),
+      }
 
       const otherSchema: Schema<ComposedSource, ComposedTarget> = {
         request: {
-          // @ts-expect-error
+          // @ts-expect-error Type "response" is not assignable to type "response.list
           $path: 'response',
-          // @ts-expect-error
-          $subSchema: wrongSubSchema
+          // @ts-expect-error Type Schema<Pepe, Maria> is not assignable to type "$self" | ((source: ComposedSource) => never
+          $subSchema: wrongSubSchema,
         },
-        filter: 'response.list.0'
-      };
+        filter: 'response.list.0',
+      }
 
-      expect(typeof schema.request).toBe('object');
-      expect(typeof otherSchema.request).toBe('object');
-    });
-  });
-});
+      expect(typeof schema.request).toBe('object')
+      expect(typeof otherSchema.request).toBe('object')
+    })
+  })
+})

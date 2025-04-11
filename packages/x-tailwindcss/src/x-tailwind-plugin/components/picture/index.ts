@@ -1,8 +1,8 @@
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { pictureDefault } from './default';
-import { overlay } from './overlay';
-import { zoom } from './zoom';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
+import { pictureDefault } from './default'
+import { overlay } from './overlay'
+import { zoom } from './zoom'
 
 /**
  * Returns the component `picture` CSS.
@@ -17,12 +17,12 @@ export function picture(helpers: TailwindHelpers) {
       ...rename(
         {
           ...zoom(),
-          ...overlay(helpers)
+          ...overlay(helpers),
         },
         {
-          prefix: '&-'
-        }
-      )
-    }
-  };
+          prefix: '&-',
+        },
+      ),
+    },
+  }
 }

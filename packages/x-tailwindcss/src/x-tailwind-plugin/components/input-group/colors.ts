@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../../../types';
-import { inputColors } from '../input/colors';
+import type { TailwindHelpers } from '../../../types'
+import { inputColors } from '../input/colors'
 
 /**
  * Returns the `colors` variants for component `input-group`.
@@ -8,5 +8,5 @@ import { inputColors } from '../input/colors';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function inputGroupColors(helpers: TailwindHelpers) {
-  return inputColors(helpers);
+  return inputColors(helpers)
 }

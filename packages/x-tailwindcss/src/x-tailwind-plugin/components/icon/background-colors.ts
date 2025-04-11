@@ -1,6 +1,6 @@
-import { map, rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `background color` variants for component `icon`.
@@ -18,14 +18,14 @@ export function iconBackgroundColors(helpers: TailwindHelpers) {
           ...rename(
             map(color, (shadeName, shadeColor) => ({
               '[stroke="#fff"]': { stroke: shadeColor },
-              '[fill="#fff"]': { fill: shadeColor }
+              '[fill="#fff"]': { fill: shadeColor },
             })),
-            { prefix: '&-' }
-          )
+            { prefix: '&-' },
+          ),
         }),
-        helpers
+        helpers,
       ),
-      { prefix: '&-' }
-    )
-  };
+      { prefix: '&-' },
+    ),
+  }
 }

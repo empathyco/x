@@ -19,161 +19,162 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { Suggestion, Facet } from '@empathyco/x-types';
-  import { isArrayEmpty } from '../../utils/array';
-  import { AnimationProp } from '../../types';
+import type { Facet, Suggestion } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { AnimationProp } from '../../types'
+import { isArrayEmpty } from '../../utils/array'
 
-  /**
-   * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
-   * in the default slot for working.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseSuggestions',
-    props: {
-      /**
-       * The list of suggestions to render.
-       *
-       * @public
-       */
-      suggestions: {
-        type: Array as PropType<Suggestion[]>,
-        required: true
-      },
-      /**
-       * Animation component that will be used to animate the suggestion.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /**
-       * Number of suggestions to be rendered.
-       *
-       * @public
-       */
-      maxItemsToRender: Number,
-      /**
-       * Boolean value to indicate if the facets should be rendered.
-       *
-       * @public
-       */
-      showFacets: {
-        type: Boolean,
-        default: false
-      },
-      /**
-       * When `showFacets` property of `BaseSuggestions` component is true, it indicates if the suggestion without
-       * filter should be rendered.
-       *
-       * @public
-       */
-      showPlainSuggestion: {
-        type: Boolean,
-        default: false
-      },
-      /** Class inherited by content element. */
-      suggestionItemClass: String
+/**
+ * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
+ * in the default slot for working.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseSuggestions',
+  props: {
+    /**
+     * The list of suggestions to render.
+     *
+     * @public
+     */
+    suggestions: {
+      type: Array as PropType<Suggestion[]>,
+      required: true,
     },
-    setup: function (props) {
-      /**
-       * Creates a suggestion for each one of the filter inside each facet.
-       *
-       * @param suggestion - Suggestion to expand.
-       * @returns A list of suggestions, each one with a single filter.
-       *
-       * @internal
-       */
-      const expandSuggestionFilters = (suggestion: Suggestion): Suggestion[] => {
-        return (
-          suggestion.facets?.flatMap(facet =>
-            facet.filters.map(filter => ({
-              ...suggestion,
-              facets: [{ ...facet, filters: [filter] }]
-            }))
-          ) ?? []
-        );
-      };
-
-      /**
-       * Creates a list of suggestions to render based on the configuration of this component.
-       *
-       * @returns - The list of suggestions to be rendered by this component.
-       *
-       * @internal
-       */
-      const suggestionsToRender = computed(() =>
-        props.suggestions
-          .flatMap(suggestion =>
-            props.showFacets && suggestion.facets?.length
-              ? props.showPlainSuggestion
-                ? [{ ...suggestion, facets: [] }, ...expandSuggestionFilters(suggestion)]
-                : expandSuggestionFilters(suggestion)
-              : { ...suggestion, facets: [] }
-          )
-          .slice(0, props.maxItemsToRender)
-      );
-
-      /**
-       * Generates a string from the given facet.
-       *
-       * @param facet - The facet to reduce to a string.
-       * @returns - A string representing the facet.
-       * @internal
-       */
-      const getFacetKey = (facet: Facet) => facet.filters.map(filter => filter.id).join('&');
-
-      /**
-       * Generates a string from the given facets.
-       *
-       * @param facets - The list of facets to reduce to a string.
-       * @returns - A string representing the list of facets.
-       * @internal
-       */
-      const getFacetsKey = (facets: Facet[]) => facets.map(getFacetKey).join('&');
-
-      /**
-       * An array with the unique keys for each suggestion. Required by the `v-for` loop.
-       *
-       * @returns An array with the unique keys of the suggestions.
-       * @internal
-       */
-      const suggestionsKeys = computed(() =>
-        suggestionsToRender.value.map(suggestion =>
-          isArrayEmpty(suggestion.facets)
-            ? suggestion.query
-            : `${suggestion.query}-in-${getFacetsKey(suggestion.facets)}`
-        )
-      );
-
-      /**
-       * Returns the filter contained by the suggestion.
-       *
-       * @param suggestion - Suggestion containing the filter.
-       * @returns The suggestion filter.
-       * @internal
-       */
-      const getSuggestionFilter = (suggestion: Suggestion) => suggestion.facets?.[0]?.filters[0];
-
-      return { suggestionsToRender, suggestionsKeys, getSuggestionFilter };
+    /**
+     * Animation component that will be used to animate the suggestion.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
+    },
+    /**
+     * Number of suggestions to be rendered.
+     *
+     * @public
+     */
+    maxItemsToRender: Number,
+    /**
+     * Boolean value to indicate if the facets should be rendered.
+     *
+     * @public
+     */
+    showFacets: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * When `showFacets` property of `BaseSuggestions` component is true, it indicates if the suggestion without
+     * filter should be rendered.
+     *
+     * @public
+     */
+    showPlainSuggestion: {
+      type: Boolean,
+      default: false,
+    },
+    /** Class inherited by content element. */
+    suggestionItemClass: String,
+  },
+  setup(props) {
+    /**
+     * Creates a suggestion for each one of the filter inside each facet.
+     *
+     * @param suggestion - Suggestion to expand.
+     * @returns A list of suggestions, each one with a single filter.
+     *
+     * @internal
+     */
+    const expandSuggestionFilters = (suggestion: Suggestion): Suggestion[] => {
+      return (
+        suggestion.facets?.flatMap(facet =>
+          facet.filters.map(filter => ({
+            ...suggestion,
+            facets: [{ ...facet, filters: [filter] }],
+          })),
+        ) ?? []
+      )
     }
-  });
+
+    /**
+     * Creates a list of suggestions to render based on the configuration of this component.
+     *
+     * @returns - The list of suggestions to be rendered by this component.
+     *
+     * @internal
+     */
+    const suggestionsToRender = computed(() =>
+      props.suggestions
+        .flatMap(suggestion =>
+          props.showFacets && suggestion.facets?.length
+            ? props.showPlainSuggestion
+              ? [{ ...suggestion, facets: [] }, ...expandSuggestionFilters(suggestion)]
+              : expandSuggestionFilters(suggestion)
+            : { ...suggestion, facets: [] },
+        )
+        .slice(0, props.maxItemsToRender),
+    )
+
+    /**
+     * Generates a string from the given facet.
+     *
+     * @param facet - The facet to reduce to a string.
+     * @returns - A string representing the facet.
+     * @internal
+     */
+    const getFacetKey = (facet: Facet) => facet.filters.map(filter => filter.id).join('&')
+
+    /**
+     * Generates a string from the given facets.
+     *
+     * @param facets - The list of facets to reduce to a string.
+     * @returns - A string representing the list of facets.
+     * @internal
+     */
+    const getFacetsKey = (facets: Facet[]) => facets.map(getFacetKey).join('&')
+
+    /**
+     * An array with the unique keys for each suggestion. Required by the `v-for` loop.
+     *
+     * @returns An array with the unique keys of the suggestions.
+     * @internal
+     */
+    const suggestionsKeys = computed(() =>
+      suggestionsToRender.value.map(suggestion =>
+        isArrayEmpty(suggestion.facets)
+          ? suggestion.query
+          : `${suggestion.query}-in-${getFacetsKey(suggestion.facets)}`,
+      ),
+    )
+
+    /**
+     * Returns the filter contained by the suggestion.
+     *
+     * @param suggestion - Suggestion containing the filter.
+     * @returns The suggestion filter.
+     * @internal
+     */
+    const getSuggestionFilter = (suggestion: Suggestion) => suggestion.facets?.[0]?.filters[0]
+
+    return { suggestionsToRender, suggestionsKeys, getSuggestionFilter }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-suggestions {
-    list-style-type: none;
-  }
+.x-suggestions {
+  list-style-type: none;
+}
 
-  .x-suggestions,
-  .x-suggestions__item {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.x-suggestions,
+.x-suggestions__item {
+  display: flex;
+  flex-flow: column nowrap;
+}
 </style>
 
 <docs lang="mdx">
@@ -200,15 +201,15 @@ Following the previous example, the component options object could be something 
 ```js
 export default {
   computed: {
-    ...mapGetters(['x', 'querySuggestions'], { suggestions: 'suggestions' })
+    ...mapGetters(['x', 'querySuggestions'], { suggestions: 'suggestions' }),
   },
   methods: {
     emitSuggestionSelected(event, suggestion) {
-      this.$x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target });
-      this.$x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target });
-    }
-  }
-};
+      this.$x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target })
+      this.$x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target })
+    },
+  },
+}
 ```
 
 ### Play with props
@@ -222,28 +223,28 @@ another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { BaseSuggestions } from '@empathyco/x-components';
+import { BaseSuggestions } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSuggestionsDemo',
-    components: {
-      BaseSuggestions
-    },
-    data() {
-      return {
-        suggestions: [
-          {
-            facets: [],
-            key: 'chips',
-            query: 'Chips',
-            totalResults: 10,
-            results: [],
-            modelName: 'PopularSearch'
-          }
-        ]
-      };
+export default {
+  name: 'BaseSuggestionsDemo',
+  components: {
+    BaseSuggestions,
+  },
+  data() {
+    return {
+      suggestions: [
+        {
+          facets: [],
+          key: 'chips',
+          query: 'Chips',
+          totalResults: 10,
+          results: [],
+          modelName: 'PopularSearch',
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -263,44 +264,44 @@ This will render:
 </template>
 
 <script>
-  import { BaseSuggestions } from '@empathyco/x-components';
+import { BaseSuggestions } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSuggestionsDemo',
-    components: {
-      BaseSuggestions
-    },
-    data() {
-      return {
-        suggestions: [
-          {
-            facets: [
-              {
-                id: 'exampleFacet',
-                label: 'exampleFacet',
-                modelName: 'SimpleFacet',
-                filters: [
-                  {
-                    facetId: 'exampleFacet',
-                    id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
-                    label: 'EXAMPLE',
-                    selected: false,
-                    totalResults: 10,
-                    modelName: 'SimpleFilter'
-                  }
-                ]
-              }
-            ],
-            key: 'chips',
-            query: 'Chips',
-            totalResults: 10,
-            results: [],
-            modelName: 'PopularSearch'
-          }
-        ]
-      };
+export default {
+  name: 'BaseSuggestionsDemo',
+  components: {
+    BaseSuggestions,
+  },
+  data() {
+    return {
+      suggestions: [
+        {
+          facets: [
+            {
+              id: 'exampleFacet',
+              label: 'exampleFacet',
+              modelName: 'SimpleFacet',
+              filters: [
+                {
+                  facetId: 'exampleFacet',
+                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+                  label: 'EXAMPLE',
+                  selected: false,
+                  totalResults: 10,
+                  modelName: 'SimpleFilter',
+                },
+              ],
+            },
+          ],
+          key: 'chips',
+          query: 'Chips',
+          totalResults: 10,
+          results: [],
+          modelName: 'PopularSearch',
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -312,28 +313,28 @@ In this example, the `contentClass` prop can be used to add classes to the sugge
 </template>
 
 <script>
-  import { BaseSuggestions } from '@empathyco/x-components';
+import { BaseSuggestions } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSuggestionsDemo',
-    components: {
-      BaseSuggestions
-    },
-    data() {
-      return {
-        suggestions: [
-          {
-            facets: [],
-            key: 'chips',
-            query: 'Chips',
-            totalResults: 10,
-            results: [],
-            modelName: 'PopularSearch'
-          }
-        ]
-      };
+export default {
+  name: 'BaseSuggestionsDemo',
+  components: {
+    BaseSuggestions,
+  },
+  data() {
+    return {
+      suggestions: [
+        {
+          facets: [],
+          key: 'chips',
+          query: 'Chips',
+          totalResults: 10,
+          results: [],
+          modelName: 'PopularSearch',
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

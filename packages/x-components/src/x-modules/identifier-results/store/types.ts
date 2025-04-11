@@ -1,11 +1,11 @@
-import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { IdentifierResultsConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import type { IdentifierResultsRequest, Result } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { StatusMutations, StatusState } from '../../../store/utils/status-store.utils'
+import type { QueryOrigin, QueryOriginInit } from '../../../types/origin'
+import type { IdentifierResultsConfig } from '../config.types'
 
 /**
  * IdentifierResults store state.
@@ -14,13 +14,13 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  */
 export interface IdentifierResultsState extends StatusState, QueryState {
   /** The configuration of the identifier results module. */
-  config: IdentifierResultsConfig;
+  config: IdentifierResultsConfig
   /** The list of the identifier results, related to the `query` property of the state. */
-  identifierResults: Result[];
+  identifierResults: Result[]
   /** The origin property of the request. */
-  origin: QueryOrigin | null;
+  origin: QueryOrigin | null
   /** The extra params property of the state. */
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
 }
 
 /**
@@ -33,14 +33,14 @@ export interface IdentifierResultsGetters {
    * The adapter request object for retrieving the identifier suggestions, or null if there is not
    * valid data to create a request.
    */
-  identifierResultsRequest: IdentifierResultsRequest | null;
+  identifierResultsRequest: IdentifierResultsRequest | null
   /** The RegExp to test against the query. */
-  identifierDetectionRegexp: RegExp;
+  identifierDetectionRegexp: RegExp
   /**
    * The RegExp with the current query from the state adding the separatorChars after each
    * matching character.
    */
-  identifierHighlightRegexp: RegExp;
+  identifierHighlightRegexp: RegExp
 }
 
 /**
@@ -57,20 +57,20 @@ export interface IdentifierResultsMutations
    *
    * @param identifierResults - The new identifier results to save to the state.
    */
-  setIdentifierResults(identifierResults: Result[]): void;
+  setIdentifierResults: (identifierResults: Result[]) => void
   /**
    * Sets the origin of the module.
    *
    * @param origin - The new origin.
    *
    */
-  setOrigin(origin: QueryOrigin | undefined | null): void;
+  setOrigin: (origin: QueryOrigin | undefined | null) => void
   /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
 }
 
 /**
@@ -83,27 +83,27 @@ export interface IdentifierResultsActions {
    * Cancels / interrupt {@link IdentifierResultsActions.fetchAndSaveIdentifierResults} synchronous
    * promise.
    */
-  cancelFetchAndSaveIdentifierResults(): void;
+  cancelFetchAndSaveIdentifierResults: () => void
   /**
    * Requests a new set of identifier results for the module query, and returns them.
    *
    * @returns An array of identifier results.
    */
-  fetchIdentifierResults(request: IdentifierResultsRequest | null): Result[];
+  fetchIdentifierResults: (request: IdentifierResultsRequest | null) => Result[]
   /**
    * Requests a new set of identifier results and stores them in the module.
    */
-  fetchAndSaveIdentifierResults(request: IdentifierResultsRequest | null): void;
+  fetchAndSaveIdentifierResults: (request: IdentifierResultsRequest | null) => void
   /**
    * Creates a {@link QueryOrigin} and saves it.
    *
    * @param originInit - The object to create the origin with.
    */
-  saveOrigin(originInit: QueryOriginInit): void;
+  saveOrigin: (originInit: QueryOriginInit) => void
   /**
    * Stores the query in the module if it matches the regex.
    */
-  saveQuery(query: string): void;
+  saveQuery: (query: string) => void
 }
 
 /**
@@ -116,7 +116,7 @@ export type IdentifierResultsXStoreModule = XStoreModule<
   IdentifierResultsGetters,
   IdentifierResultsMutations,
   IdentifierResultsActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link IdentifierResultsXStoreModule}.
@@ -128,4 +128,4 @@ export type IdentifierResultsActionsContext = XActionContext<
   IdentifierResultsGetters,
   IdentifierResultsMutations,
   IdentifierResultsActions
->;
+>

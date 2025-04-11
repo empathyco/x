@@ -1,24 +1,24 @@
-import { SearchRequest, SearchResponse } from '@empathyco/x-types';
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { InternalSearchRequest } from '../../types';
-import { SearchActionContext, SearchState } from '../types';
+import type { SearchRequest, SearchResponse } from '@empathyco/x-types'
+import type { InternalSearchRequest } from '../../types'
+import type { SearchActionContext, SearchState } from '../types'
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
   InternalSearchRequest | null,
   SearchResponse | null
 >({
-  fetch({ dispatch, state }, request) {
+  async fetch({ dispatch, state }, request) {
     return request
       ? dispatch('fetchSearchResponse', enrichRequest(request, state))
-      : Promise.resolve(null);
+      : Promise.resolve(null)
   },
   onSuccess({ dispatch }, response) {
     if (response !== null) {
-      dispatch('saveSearchResponse', response);
+      void dispatch('saveSearchResponse', response)
     }
-  }
-});
+  },
+})
 
 /**
  * Enriches the {@link SearchRequest} object with the origin and page properties taken from the
@@ -31,28 +31,28 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  * @internal
  */
 function enrichRequest(request: InternalSearchRequest, state: SearchState): SearchRequest {
-  const { page, ...restRequest } = request;
+  const { page, ...restRequest } = request
   const {
     config: { pageSize, pageMode },
     origin,
-    results
-  } = state;
+    results,
+  } = state
 
-  let start;
+  let start
   if (pageMode === 'infinite_scroll') {
-    start = page === 1 ? 0 : results.length;
+    start = page === 1 ? 0 : results.length
   } else {
-    start = state.config.pageSize * (page - 1);
+    start = state.config.pageSize * (page - 1)
   }
 
-  const rows = pageMode === 'infinite_scroll' ? pageSize * page - start : pageSize;
+  const rows = pageMode === 'infinite_scroll' ? pageSize * page - start : pageSize
 
   return {
     ...restRequest,
     ...(origin && { origin }),
     start,
-    rows
-  };
+    rows,
+  }
 }
 
 /**
@@ -60,11 +60,11 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
  *
  * @public
  */
-export const fetchAndSaveSearchResponse = fetchAndSave;
+export const fetchAndSaveSearchResponse = fetchAndSave
 
 /**
  * Default implementation for {@link SearchActions.cancelFetchAndSaveSearchResponse} action.
  *
  * @public
  */
-export const cancelFetchAndSaveSearchResponse = cancelPrevious;
+export const cancelFetchAndSaveSearchResponse = cancelPrevious

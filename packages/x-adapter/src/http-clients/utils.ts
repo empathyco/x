@@ -1,5 +1,6 @@
-import { Dictionary, forEach } from '@empathyco/x-utils';
-import { RequestError } from './errors/request-error';
+import type { Dictionary } from '@empathyco/x-utils'
+import { forEach } from '@empathyco/x-utils'
+import { RequestError } from './errors/request-error'
 
 /**
  * Formats a response object to JSON.
@@ -11,11 +12,11 @@ import { RequestError } from './errors/request-error';
  *
  * @public
  */
-export function toJson(response: Response): Promise<any> {
+export async function toJson(response: Response): Promise<any> {
   if (response.ok) {
-    return response.text().then(text => (text ? JSON.parse(text) : {}));
+    return response.text().then(text => (text ? JSON.parse(text) : {}))
   } else {
-    throw new RequestError('Request failed', response);
+    throw new RequestError('Request failed', response)
   }
 }
 
@@ -30,11 +31,11 @@ export function toJson(response: Response): Promise<any> {
  * @public
  */
 export function buildUrl(endpoint: string, params: Dictionary<unknown> = {}): URL['href'] {
-  const url = new URL(endpoint);
+  const url = new URL(endpoint)
   forEach(params, (key, value) =>
     (Array.isArray(value) ? value : [value]).forEach(arrayItemValue =>
-      url.searchParams.append(key, String(arrayItemValue))
-    )
-  );
-  return url.href;
+      url.searchParams.append(key, String(arrayItemValue)),
+    ),
+  )
+  return url.href
 }

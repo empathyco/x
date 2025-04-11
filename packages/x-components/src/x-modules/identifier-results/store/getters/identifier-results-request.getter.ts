@@ -1,4 +1,4 @@
-import { IdentifierResultsXStoreModule } from '../types';
+import type { IdentifierResultsXStoreModule } from '../types'
 /**
  * Default implementation for the {@link IdentifierResultsGetters.identifierResultsRequest} getter.
  *
@@ -8,7 +8,7 @@ import { IdentifierResultsXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const identifierResultsRequest: IdentifierResultsXStoreModule['getters']['identifierResultsRequest'] =
   ({ config, query, params }) => {
     return query.trim()
@@ -16,7 +16,7 @@ export const identifierResultsRequest: IdentifierResultsXStoreModule['getters'][
           query,
           rows: config.maxItemsToRequest,
           start: 0,
-          extraParams: params
+          extraParams: params,
         }
-      : null;
-  };
+      : null
+  }

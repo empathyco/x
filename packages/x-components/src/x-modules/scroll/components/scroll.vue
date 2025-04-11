@@ -1,137 +1,138 @@
 <template>
   <BaseScroll
+    :id="id"
     ref="scrollRef"
     @scroll="emitScroll"
     @scroll:direction-change="emitScrollDirectionChange"
     @scroll:at-start="emitScrollAtStart"
     @scroll:almost-at-end="emitScrollAlmostAtEnd"
     @scroll:at-end="emitScrollAtEnd"
-    :id="id"
   >
     <slot />
   </BaseScroll>
 </template>
 
 <script lang="ts">
-  import { ComponentPublicInstance, defineComponent, ref } from 'vue';
-  import { WireMetadata } from '../../../wiring/wiring.types';
-  import BaseScroll from '../../../components/scroll/base-scroll.vue';
-  import { ScrollDirection } from '../../../components/scroll/scroll.types';
-  import { scrollXModule } from '../x-module';
-  import { use$x } from '../../../composables/use-$x';
-  import { MainScrollId } from './scroll.const';
+import type { ComponentPublicInstance } from 'vue'
+import type { ScrollDirection } from '../../../components/scroll/scroll.types'
+import type { WireMetadata } from '../../../wiring/wiring.types'
+import { defineComponent, ref } from 'vue'
+import BaseScroll from '../../../components/scroll/base-scroll.vue'
+import { use$x } from '../../../composables/use-$x'
+import { scrollXModule } from '../x-module'
+import { MainScrollId } from './scroll.const'
 
-  /**
-   * Scrollable container that emits scroll related X Events. It exposes all the listeners
-   * and props from the {@link BaseScroll} component.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Scroll',
-    xModule: scrollXModule.name,
-    components: { BaseScroll },
-    props: {
-      /**
-       * Id to identify the component.
-       *
-       * @public
-       */
-      id: {
-        type: String,
-        default: MainScrollId
-      }
+/**
+ * Scrollable container that emits scroll related X Events. It exposes all the listeners
+ * and props from the {@link BaseScroll} component.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Scroll',
+  xModule: scrollXModule.name,
+  components: { BaseScroll },
+  props: {
+    /**
+     * Id to identify the component.
+     *
+     * @public
+     */
+    id: {
+      type: String,
+      default: MainScrollId,
     },
-    setup(props) {
-      const $x = use$x();
+  },
+  setup(props) {
+    const $x = use$x()
 
-      const scrollRef = ref<ComponentPublicInstance>();
+    const scrollRef = ref<ComponentPublicInstance>()
 
-      /**
-       * Creates a {@link WireMetadata} metadata object for all the emitted events.
-       *
-       * @internal
-       * @returns A new {@link WireMetadata} object.
-       */
-      const createEventMetadata = (): Partial<WireMetadata> => {
-        return {
-          target: scrollRef.value?.$el as HTMLElement,
-          id: props.id
-        };
-      };
-
-      /**
-       * Emits the `UserScrolled` event.
-       *
-       * @param position - The new position of scroll.
-       * @internal
-       */
-      const emitScroll = (position: number) => {
-        $x.emit('UserScrolled', position, createEventMetadata());
-      };
-
-      /**
-       * Emits the `UserChangedScrollDirection` event when the scrolling direction has changed.
-       *
-       * @param direction - The new direction of scroll.
-       * @internal
-       */
-      const emitScrollDirectionChange = (direction: ScrollDirection) => {
-        $x.emit('UserChangedScrollDirection', direction, createEventMetadata());
-      };
-
-      /**
-       * Emits the 'UserReachedScrollStart' event when the user reaches the start.
-       *
-       * @param isAtStart - A boolean indicating if the scroll is at the ending position.
-       * @internal
-       */
-      const emitScrollAtStart = (isAtStart: boolean) => {
-        $x.emit('UserReachedScrollStart', isAtStart, createEventMetadata());
-      };
-
-      /**
-       * Emits the 'UserAlmostReachedScrollEnd' event when the user is about to reach to end.
-       *
-       * @param isAlmostAtEnd - A boolean indicating if the scroll is almost at its ending position.
-       * @internal
-       */
-      const emitScrollAlmostAtEnd = (isAlmostAtEnd: boolean) => {
-        $x.emit('UserAlmostReachedScrollEnd', isAlmostAtEnd, createEventMetadata());
-      };
-
-      /**
-       * Emits the 'UserReachedScrollEnd' event when the user is about to reach to end.
-       *
-       * @param isAtEnd - A boolean indicating if the scroll is at the ending position.
-       * @internal
-       */
-      const emitScrollAtEnd = (isAtEnd: boolean) => {
-        $x.emit('UserReachedScrollEnd', isAtEnd, createEventMetadata());
-      };
-
-      /**
-       * Scrolls to initial position when the user has clicked the scroll to top button.
-       *
-       * @param scrollId - {@link XEventsTypes.UserClickedScrollToTop}.
-       * @internal
-       */
-      $x.on('UserClickedScrollToTop', false).subscribe((scrollId: string) => {
-        if (scrollId === props.id && scrollRef.value) {
-          (scrollRef.value.$el as HTMLElement).scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-
+    /**
+     * Creates a {@link WireMetadata} metadata object for all the emitted events.
+     *
+     * @internal
+     * @returns A new {@link WireMetadata} object.
+     */
+    const createEventMetadata = (): Partial<WireMetadata> => {
       return {
-        scrollRef,
-        emitScrollAtEnd,
-        emitScrollAlmostAtEnd,
-        emitScrollAtStart,
-        emitScrollDirectionChange,
-        emitScroll
-      };
+        target: scrollRef.value?.$el as HTMLElement,
+        id: props.id,
+      }
     }
-  });
+
+    /**
+     * Emits the `UserScrolled` event.
+     *
+     * @param position - The new position of scroll.
+     * @internal
+     */
+    const emitScroll = (position: number) => {
+      $x.emit('UserScrolled', position, createEventMetadata())
+    }
+
+    /**
+     * Emits the `UserChangedScrollDirection` event when the scrolling direction has changed.
+     *
+     * @param direction - The new direction of scroll.
+     * @internal
+     */
+    const emitScrollDirectionChange = (direction: ScrollDirection) => {
+      $x.emit('UserChangedScrollDirection', direction, createEventMetadata())
+    }
+
+    /**
+     * Emits the 'UserReachedScrollStart' event when the user reaches the start.
+     *
+     * @param isAtStart - A boolean indicating if the scroll is at the ending position.
+     * @internal
+     */
+    const emitScrollAtStart = (isAtStart: boolean) => {
+      $x.emit('UserReachedScrollStart', isAtStart, createEventMetadata())
+    }
+
+    /**
+     * Emits the 'UserAlmostReachedScrollEnd' event when the user is about to reach to end.
+     *
+     * @param isAlmostAtEnd - A boolean indicating if the scroll is almost at its ending position.
+     * @internal
+     */
+    const emitScrollAlmostAtEnd = (isAlmostAtEnd: boolean) => {
+      $x.emit('UserAlmostReachedScrollEnd', isAlmostAtEnd, createEventMetadata())
+    }
+
+    /**
+     * Emits the 'UserReachedScrollEnd' event when the user is about to reach to end.
+     *
+     * @param isAtEnd - A boolean indicating if the scroll is at the ending position.
+     * @internal
+     */
+    const emitScrollAtEnd = (isAtEnd: boolean) => {
+      $x.emit('UserReachedScrollEnd', isAtEnd, createEventMetadata())
+    }
+
+    /**
+     * Scrolls to initial position when the user has clicked the scroll to top button.
+     *
+     * @param scrollId - {@link XEventsTypes.UserClickedScrollToTop}.
+     * @internal
+     */
+    $x.on('UserClickedScrollToTop', false).subscribe((scrollId: string) => {
+      if (scrollId === props.id && scrollRef.value) {
+        ;(scrollRef.value.$el as HTMLElement).scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    })
+
+    return {
+      scrollRef,
+      emitScrollAtEnd,
+      emitScrollAlmostAtEnd,
+      emitScrollAtStart,
+      emitScrollDirectionChange,
+      emitScroll,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -172,14 +173,14 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components/scroll';
+import { Scroll } from '@empathyco/x-components/scroll'
 
-  export default {
-    name: 'ScrollIdTest',
-    components: {
-      Scroll
-    }
-  };
+export default {
+  name: 'ScrollIdTest',
+  components: {
+    Scroll,
+  },
+}
 </script>
 ```
 
@@ -205,31 +206,31 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components/scroll';
+import { Scroll } from '@empathyco/x-components/scroll'
 
-  export default {
-    name: 'ScrollIdTest',
-    components: {
-      Scroll
+export default {
+  name: 'ScrollIdTest',
+  components: {
+    Scroll,
+  },
+  methods: {
+    scroll(position) {
+      console.log('scroll', position)
     },
-    methods: {
-      scroll(position) {
-        console.log('scroll', position);
-      },
-      scrollDirectionChange(direction) {
-        console.log('scroll:direction-change', direction);
-      },
-      scrollAtStart(isAtStart) {
-        console.log('scroll:at-start', isAtStart);
-      },
-      scrollAlmostAtEnd(isAlmostAtEnd) {
-        console.log('scroll:almost-at-end', isAlmostAtEnd);
-      },
-      scrollAtEnd(isAtEnd) {
-        console.log('scroll:at-end', isAtEnd);
-      }
-    }
-  };
+    scrollDirectionChange(direction) {
+      console.log('scroll:direction-change', direction)
+    },
+    scrollAtStart(isAtStart) {
+      console.log('scroll:at-start', isAtStart)
+    },
+    scrollAlmostAtEnd(isAlmostAtEnd) {
+      console.log('scroll:almost-at-end', isAlmostAtEnd)
+    },
+    scrollAtEnd(isAtEnd) {
+      console.log('scroll:at-end', isAtEnd)
+    },
+  },
+}
 </script>
 ```
 
@@ -248,31 +249,31 @@ You can use the XEvents subscribing to them.
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components/scroll';
+import { Scroll } from '@empathyco/x-components/scroll'
 
-  export default {
-    name: 'ScrollIdTest',
-    components: {
-      Scroll
-    },
-    mounted() {
-      this.$x.on('UserScrolled').subscribe(distance => {
-        console.log(distance);
-      });
-      this.$x.on('UserChangedScrollDirection').subscribe(direction => {
-        console.log(direction);
-      });
-      this.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
-        console.log(isAtStart);
-      });
-      this.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
-        console.log(isAlmostAtEnd);
-      });
-      this.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
-        console.log(isAtEnd);
-      });
-    }
-  };
+export default {
+  name: 'ScrollIdTest',
+  components: {
+    Scroll,
+  },
+  mounted() {
+    this.$x.on('UserScrolled').subscribe(distance => {
+      console.log(distance)
+    })
+    this.$x.on('UserChangedScrollDirection').subscribe(direction => {
+      console.log(direction)
+    })
+    this.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
+      console.log(isAtStart)
+    })
+    this.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
+      console.log(isAlmostAtEnd)
+    })
+    this.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
+      console.log(isAtEnd)
+    })
+  },
+}
 </script>
 ```
 </docs>

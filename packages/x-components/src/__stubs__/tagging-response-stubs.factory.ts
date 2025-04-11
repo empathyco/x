@@ -1,4 +1,4 @@
-import { TaggingRequest } from '@empathyco/x-types';
+import type { TaggingRequest } from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#TaggingRequest | tagging response} stub.
@@ -13,8 +13,8 @@ export function getTaggingResponseStub(): TaggingRequest {
       q: 'lego',
       totalHits: '789',
       lang: 'es',
-      follow: false
+      follow: false,
     },
-    url: 'https://api.empathybroker.com/tagging/v1/track/query'
-  };
+    url: 'https://api.empathybroker.com/tagging/v1/track/query',
+  }
 }

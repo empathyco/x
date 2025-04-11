@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { SimpleFilter } from '@empathyco/x-types';
-import { PlatformFilter } from '../../../types/models/facet.model';
+import type { SimpleFilter } from '@empathyco/x-types'
+import type { PlatformFilter } from '../../../types/models/facet.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the SimpleFilterSchema.
@@ -13,5 +13,5 @@ export const simpleFilterSchema = createMutableSchema<PlatformFilter, SimpleFilt
   id: 'filter',
   totalResults: 'count',
   selected: () => false,
-  modelName: () => 'SimpleFilter'
-});
+  modelName: () => 'SimpleFilter',
+})

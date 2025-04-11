@@ -1,21 +1,23 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { forEach, Dictionary } from '@empathyco/x-utils';
-import { App } from 'vue';
-import { createStore, Module, Store } from 'vuex';
-import { XComponentsAdapter } from '@empathyco/x-types';
-import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
-import { Observable } from 'rxjs';
-import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
-import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
-import { RootXStoreModule } from '../store/x.module';
-import { XEvent, XEventsTypes } from '../wiring/events.types';
-import { AnyWire, WireMetadata } from '../wiring/wiring.types';
-import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
-import { sendWiringToDevtools } from './devtools/wiring.devtools';
-import { bus } from './x-bus';
-import { registerStoreEmitters } from './x-emitters';
-import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
-import { assertXPluginOptionsAreValid } from './x-plugin.utils';
+import type { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus'
+import type { XComponentsAdapter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Observable } from 'rxjs'
+import type { App } from 'vue'
+import type { Module, Store } from 'vuex'
+import type { AnyXStoreModule, RootXStoreState } from '../store/store.types'
+import type { XEvent, XEventsTypes } from '../wiring/events.types'
+import type { AnyWire, WireMetadata } from '../wiring/wiring.types'
+import type { AnyXModule, XModuleName } from '../x-modules/x-modules.types'
+import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { forEach } from '@empathyco/x-utils'
+import { createStore } from 'vuex'
+import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
+import { RootXStoreModule } from '../store/x.module'
+import { sendWiringToDevtools } from './devtools/wiring.devtools'
+import { bus } from './x-bus'
+import { registerStoreEmitters } from './x-emitters'
+import { assertXPluginOptionsAreValid } from './x-plugin.utils'
 
 /**
  * Vue plugin that initializes the properties needed by the x-components, and exposes the events bus
@@ -25,8 +27,8 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin {
   /**
-   * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
-   * between the components and our API where data can be mapped to client needs.
+   * XComponentsAdapter Is the middleware between the components and our API where data can be
+   * mapped to client needs.
    * This property is only available after installing the plugin.
    *
    * @returns The installed adapter.
@@ -34,11 +36,11 @@ export class XPlugin {
    * @public
    */
   public static get adapter(): XComponentsAdapter {
-    return this.getInstance().adapter;
+    return this.getInstance().adapter
   }
 
   /**
-   * Exposed {@link @empathyco/x-bus#XBus}, so any kind of application can subscribe to
+   * Exposed XBus, so any kind of application can subscribe to
    * {@link XEventsTypes} without having to pass through a component.
    * This property is only available after installing the plugin.
    *
@@ -47,7 +49,7 @@ export class XPlugin {
    * @public
    */
   public static get bus(): XBus<XEventsTypes, WireMetadata> {
-    return this.getInstance().bus;
+    return this.getInstance().bus
   }
 
   /**
@@ -59,7 +61,7 @@ export class XPlugin {
    * @public
    */
   public static get store(): Store<RootXStoreState> {
-    return this.getInstance().store;
+    return this.getInstance().store
   }
 
   /**
@@ -71,9 +73,9 @@ export class XPlugin {
    */
   protected static getInstance(): XPlugin {
     if (!this.instance) {
-      throw Error("XPlugin must be installed before accessing it's API.");
+      throw new Error("XPlugin must be installed before accessing it's API.")
     }
-    return this.instance;
+    return this.instance
   }
 
   /**
@@ -81,46 +83,46 @@ export class XPlugin {
    *
    * @internal
    */
-  protected static pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
+  protected static pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {}
 
   /**
    * Instance of the installed plugin. Used to expose the bus and the adapter.
    *
    * @internal
    */
-  protected static instance?: XPlugin;
+  protected static instance?: XPlugin
 
-  public wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>> = {};
+  public wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>> = {}
   /**
    * Bus for retrieving the observables when registering the wiring.
    *
    * @internal
    */
-  protected bus: XBus<XEventsTypes, WireMetadata>;
+  protected bus: XBus<XEventsTypes, WireMetadata>
 
   /**
    * Adapter for the API, responsible for transforming requests and responses.
    *
    * @internal
    */
-  protected adapter!: XComponentsAdapter;
+  protected adapter!: XComponentsAdapter
 
   /**
-   * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
+   * Set of the already installed XModules to avoid re-registering them.
    *
    * @internal
    */
-  protected installedXModules = new Set<string>();
+  protected installedXModules = new Set<string>()
 
   /**
    * True if the plugin has been installed in a Vue instance, in this case
-   * {@link XModule |Xmodules} will be installed immediately. False otherwise, in this case
-   * {@link XModule | XModules} will be installed lazily when the {@link XPlugin#install} method
+   * XModules will be installed immediately. False otherwise, in this case
+   * XModules will be installed lazily when the {@link XPlugin#install} method
    * is called.
    *
    * @internal
    */
-  protected isInstalled = false;
+  protected isInstalled = false
 
   /**
    * The installation options of the plugin, where all the customization of
@@ -128,7 +130,7 @@ export class XPlugin {
    *
    * @internal
    */
-  protected options!: XPluginOptions;
+  protected options!: XPluginOptions
 
   /**
    * The Vuex store, to pass to the wires for its registration, and to register the store
@@ -136,24 +138,24 @@ export class XPlugin {
    *
    * @internal
    */
-  protected store!: Store<any>;
+  protected store!: Store<any>
 
   /**
    * The Vue application instance, passed by the installation method.
    *
    * @internal
    */
-  protected app!: App;
+  protected app!: App
 
   /**
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
-   * @param bus - The {@link @empathyco/x-bus#XBus} implementation to use for the plugin.
+   * @param bus - The XBus implementation to use for the plugin.
    *
    * @public
    */
   public constructor(bus: XBus<XEventsTypes, WireMetadata>) {
-    this.bus = bus;
+    this.bus = bus
   }
 
   /**
@@ -166,9 +168,9 @@ export class XPlugin {
    */
   static registerXModule(xModule: AnyXModule): void {
     if (this.instance) {
-      this.instance.registerXModule(xModule);
+      this.instance.registerXModule(xModule)
     } else {
-      this.lazyRegisterXModule(xModule);
+      this.lazyRegisterXModule(xModule)
     }
   }
 
@@ -180,8 +182,8 @@ export class XPlugin {
    * @internal
    */
   static resetInstance(): void {
-    cleanGettersProxyCache();
-    this.instance = undefined;
+    cleanGettersProxyCache()
+    this.instance = undefined
   }
 
   /**
@@ -193,7 +195,7 @@ export class XPlugin {
    * @internal
    */
   protected static lazyRegisterXModule(xModule: AnyXModule): void {
-    this.pendingXModules[xModule.name] = xModule;
+    this.pendingXModules[xModule.name] = xModule
   }
 
   /**
@@ -207,17 +209,17 @@ export class XPlugin {
    */
   install(app: App, options?: XPluginOptions): void {
     if (this.isInstalled) {
-      throw new Error('XPlugin has already been installed');
+      throw new Error('XPlugin has already been installed')
     }
-    assertXPluginOptionsAreValid(options);
-    XPlugin.instance = this;
-    this.app = app;
-    this.options = options;
-    this.adapter = options.adapter;
-    this.registerStore();
-    this.registerInitialModules();
-    this.registerPendingXModules();
-    this.isInstalled = true;
+    assertXPluginOptionsAreValid(options)
+    XPlugin.instance = this
+    this.app = app
+    this.options = options
+    this.adapter = options.adapter
+    this.registerStore()
+    this.registerInitialModules()
+    this.registerPendingXModules()
+    this.isInstalled = true
   }
 
   /**
@@ -229,14 +231,14 @@ export class XPlugin {
    */
   protected registerXModule(xModule: AnyXModule): void {
     if (!this.installedXModules.has(xModule.name)) {
-      const customizedXModule = this.customizeXModule(xModule);
-      this.registerStoreModule(customizedXModule);
-      this.registerStoreEmitters(customizedXModule);
-      this.registerWiring(customizedXModule);
+      const customizedXModule = this.customizeXModule(xModule)
+      this.registerStoreModule(customizedXModule)
+      this.registerStoreEmitters(customizedXModule)
+      this.registerWiring(customizedXModule)
       // The wiring must be registered after the store emitters
       // to allow lazy loaded modules work properly.
-      this.installedXModules.add(xModule.name);
-      this.bus.emit('ModuleRegistered', xModule.name);
+      this.installedXModules.add(xModule.name)
+      void this.bus.emit('ModuleRegistered', xModule.name)
     }
   }
 
@@ -245,7 +247,6 @@ export class XPlugin {
    *
    * @param xModule - The module to customize.
    * @returns The customized xModule.
-   *
    * @internal
    */
   protected customizeXModule({
@@ -256,20 +257,22 @@ export class XPlugin {
     ...restXModule
   }: AnyXModule): AnyXModule {
     const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
-      this.options.xModules?.[name] ?? {};
+      this.options.xModules?.[name] ?? {}
 
     const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
-      this.options.__PRIVATE__xModules?.[name] ?? {};
+      this.options.__PRIVATE__xModules?.[name] ?? {}
 
     return {
       name,
+      // eslint-disable-next-line ts/no-unsafe-assignment
       wiring: wiringOptions ? deepMerge({}, wiring, wiringOptions) : wiring,
       storeModule: this.customizeStoreModule(storeModule, storeModuleOptions ?? {}, config),
+      // eslint-disable-next-line ts/no-unsafe-assignment
       storeEmitters: emittersOptions
         ? deepMerge({}, storeEmitters, emittersOptions)
         : storeEmitters,
-      ...restXModule
-    };
+      ...restXModule,
+    }
   }
 
   /**
@@ -277,33 +280,31 @@ export class XPlugin {
    * executing each wire.
    *
    * @param xModule - The {@link XModule} to register its wiring.
-   *
    * @internal
    */
   protected registerWiring({ wiring, name }: AnyXModule): void {
-    sendWiringToDevtools(name, wiring);
+    sendWiringToDevtools(name, wiring)
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
       const observable = this.bus.on(event, true) as unknown as Observable<
         SubjectPayload<EventPayload<XEventsTypes, typeof event>, WireMetadata>
-      >;
+      >
       // Register event wires
       forEach(wires, (_, wire) => {
-        wire(observable, this.store as Store<RootXStoreState>, this.bus.on.bind(this.bus));
-      });
-    });
+        wire(observable, this.store as Store<RootXStoreState>, this.bus.on.bind(this.bus))
+      })
+    })
   }
 
   /**
    * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
    * @param xModule - The {@link XModule} to register its Store Module.
-   *
    * @internal
    */
   protected registerStoreModule({ name, storeModule }: AnyXModule): void {
-    (storeModule as Module<any, any>).namespaced = true;
-    this.store.registerModule(['x', name], storeModule);
+    ;(storeModule as Module<any, any>).namespaced = true
+    this.store.registerModule(['x', name], storeModule)
   }
 
   /**
@@ -318,18 +319,20 @@ export class XPlugin {
    * @param moduleOptions - The state, actions, mutations and getters to override the defaultModule.
    * @param configOptions - The state config to override the moduleOptions.
    * @returns The {@link XStoreModule} customized.
-   *
    * @internal
    */
   protected customizeStoreModule(
     { state: defaultState, ...actionsGettersMutations }: AnyXStoreModule,
     { state: xModuleState, ...newActionsGettersMutations }: AnyXStoreModuleOption,
-    configOptions: unknown
+    configOptions: unknown,
   ): AnyXStoreModule {
-    const configOptionsObject = configOptions ? { config: configOptions } : {};
-    const customizedModule = deepMerge({}, actionsGettersMutations, newActionsGettersMutations);
-    customizedModule.state = deepMerge(defaultState(), xModuleState, configOptionsObject);
-    return customizedModule;
+    const configOptionsObject = configOptions ? { config: configOptions } : {}
+    // eslint-disable-next-line ts/no-unsafe-assignment
+    const customizedModule = deepMerge({}, actionsGettersMutations, newActionsGettersMutations)
+    // eslint-disable-next-line ts/no-unsafe-assignment,ts/no-unsafe-member-access
+    customizedModule.state = deepMerge(defaultState(), xModuleState, configOptionsObject)
+    // eslint-disable-next-line ts/no-unsafe-return
+    return customizedModule
   }
 
   /**
@@ -337,11 +340,10 @@ export class XPlugin {
    * changes.
    *
    * @param xModule - The {@link XModule} to register its Store Emitters.
-   *
    * @internal
    */
   protected registerStoreEmitters(xModule: AnyXModule): void {
-    registerStoreEmitters(xModule, this.bus, this.store);
+    registerStoreEmitters(xModule, this.bus, this.store)
   }
 
   /**
@@ -353,9 +355,9 @@ export class XPlugin {
    * @internal
    */
   protected registerStore(): void {
-    this.store = this.options.store ?? createStore({});
-    this.app.use(this.store);
-    this.store.registerModule('x', RootXStoreModule);
+    this.store = this.options.store ?? createStore({})
+    this.app.use(this.store)
+    this.store.registerModule('x', RootXStoreModule)
   }
   /**
    * Registers the initial {@link XModule | XModules} during the {@link XPlugin} installation.
@@ -364,8 +366,8 @@ export class XPlugin {
    */
   protected registerInitialModules(): void {
     this.options.initialXModules?.forEach(xModule => {
-      this.registerXModule(xModule);
-    });
+      this.registerXModule(xModule)
+    })
   }
 
   /**
@@ -376,9 +378,9 @@ export class XPlugin {
    */
   protected registerPendingXModules(): void {
     forEach(XPlugin.pendingXModules, (_, xModule) => {
-      this.registerXModule(xModule);
-    });
-    XPlugin.pendingXModules = {};
+      this.registerXModule(xModule)
+    })
+    XPlugin.pendingXModules = {}
   }
 }
 
@@ -406,4 +408,4 @@ export class XPlugin {
  * ```
  * @public
  */
-export const xPlugin = new XPlugin(bus);
+export const xPlugin = new XPlugin(bus)

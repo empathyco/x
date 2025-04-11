@@ -1,4 +1,4 @@
-import { XStoreModule } from '../../../store';
+import type { XStoreModule } from '../../../store'
 
 /**
  * Device store state.
@@ -11,7 +11,7 @@ export interface DeviceState {
    *
    * @public
    */
-  name: string | null;
+  name: string | null
 }
 
 /**
@@ -32,7 +32,7 @@ export interface DeviceMutations {
    *
    * @param device - The new device state to set.
    */
-  setName(device: string | null): void;
+  setName: (device: string | null) => void
 }
 
 /**
@@ -52,4 +52,4 @@ export type DeviceXStoreModule = XStoreModule<
   DeviceGetters,
   DeviceMutations,
   DeviceActions
->;
+>

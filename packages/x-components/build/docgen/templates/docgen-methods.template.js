@@ -1,4 +1,4 @@
 function createDocsMethodsEmptySection() {
-  return '';
+  return ''
 }
-module.exports = createDocsMethodsEmptySection;
+module.exports = createDocsMethodsEmptySection

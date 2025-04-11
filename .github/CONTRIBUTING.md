@@ -60,10 +60,6 @@ evolves.
   this monorepo.
 - **[@empathyco/x-deep-merge](/packages/deep-merge)** - This package clones an array of objects into
   another object.
-- **[@empathyco/eslint-plugin-x](/packages/eslint-plugin-x)** - Customized version for the Interface
-  X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript
-  linting utility. It also includes a style formatter and best practices beyond the ESLint plugin,
-  such as [prettier](https://prettier.io/).
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
 - **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
 - **[@empathyco/x-adapter](/packages/x-adapter)** - A set of tools to manage trough schemas API
@@ -160,7 +156,7 @@ specification.
 ### JavaScript style guide
 
 All JavaScript code is linted using the
-[@empathyco/eslint-plugin-x](https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x)
+[@empathyco/eslint-config](https://github.com/empathyco/eslint-config)
 package.
 
 In addition, follow the [naming guide](contributing/base-naming.md) in every package inside this

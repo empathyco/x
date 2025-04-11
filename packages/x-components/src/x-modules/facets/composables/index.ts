@@ -1,2 +1,2 @@
-export * from './use-facets';
-export * from './use-filters-injection';
+export * from './use-facets'
+export * from './use-filters-injection'

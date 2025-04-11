@@ -1,10 +1,10 @@
 <template>
   <transition
+    name="x-collapse-width-"
+    :appear="appear"
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
-    name="x-collapse-width-"
-    :appear="appear"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -12,39 +12,39 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useCollapseAnimation } from './use-collapse-animation';
+import { defineComponent } from 'vue'
+import { useCollapseAnimation } from './use-collapse-animation'
 
-  /**
-   * Renders a transition wrapping the element passed in the default slot and animating
-   * it with a width animation.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'CollapseWidth',
-    props: {
-      /**
-       * Indicates if the transition must be applied on the initial render of the node.
-       */
-      appear: {
-        type: Boolean,
-        default: true
-      }
+/**
+ * Renders a transition wrapping the element passed in the default slot and animating
+ * it with a width animation.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'CollapseWidth',
+  props: {
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    appear: {
+      type: Boolean,
+      default: true,
     },
-    setup: function () {
-      return useCollapseAnimation('width');
-    }
-    // TODO Add support for extending enter, after-enter and leave transitions
-  });
+  },
+  setup() {
+    return useCollapseAnimation('width')
+  },
+  // TODO Add support for extending enter, after-enter and leave transitions
+})
 </script>
 
 <style lang="css">
-  .x-collapse-width--enter-active,
-  .x-collapse-width--leave-active {
-    transition: width 0.3s ease-out;
-    overflow: hidden;
-  }
+.x-collapse-width--enter-active,
+.x-collapse-width--leave-active {
+  transition: width 0.3s ease-out;
+  overflow: hidden;
+}
 </style>
 
 <docs lang="mdx">

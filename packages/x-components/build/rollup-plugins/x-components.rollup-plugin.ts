@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import { forEach } from '@empathyco/x-utils';
-import { Plugin } from 'rollup';
-import { ensureFilePathExists } from '../build.utils';
+import type { Plugin } from 'rollup'
+import fs from 'node:fs'
+import path from 'node:path'
+import { forEach } from '@empathyco/x-utils'
+import { ensureFilePathExists } from '../build.utils'
 
 /**
  * Type alias of a reducer function that will generate a `Record` where the key is the chunk name,
@@ -10,16 +10,16 @@ import { ensureFilePathExists } from '../build.utils';
  */
 type ReducerFunctionOfEntryPoints = (
   files: Record<string, string[]>,
-  line: string
-) => Record<string, string[]>;
+  line: string,
+) => Record<string, string[]>
 
 export interface GenerateEntryFilesOptions {
   /** The path where the build will go. */
-  buildPath: string;
+  buildPath: string
   /** The path to the directory where generated js files are stored. */
-  jsOutputDir: string;
+  jsOutputDir: string
   /** The path to the directory where generated .d.ts files are stored. */
-  typesOutputDir: string;
+  typesOutputDir: string
 }
 
 /**
@@ -44,17 +44,17 @@ export function generateEntryFiles(options: GenerateEntryFilesOptions): Plugin {
      * - 1 Typings file per entry point.
      */
     writeBundle() {
-      generateEntryPoints(options.buildPath, options.jsOutputDir, 'js');
-      generateEntryPoints(options.buildPath, options.typesOutputDir, 'd.ts');
-      copyIndexSourcemap(options.buildPath, options.jsOutputDir);
-    }
-  };
+      generateEntryPoints(options.buildPath, options.jsOutputDir, 'js')
+      generateEntryPoints(options.buildPath, options.typesOutputDir, 'd.ts')
+      copyIndexSourcemap(options.buildPath, options.jsOutputDir)
+    },
+  }
 }
 
 /** Regex to split a read file per lines, supporting both Unix and Windows systems. */
-const BY_LINES = /\r?\n/;
+const BY_LINES = /\r?\n/
 /** Name of the x-modules folder. */
-const X_MODULES_DIR_NAME = 'x-modules';
+const X_MODULES_DIR_NAME = 'x-modules'
 
 /**
  * Generates an entry point for each x-component, and another one for the shared code.
@@ -64,12 +64,12 @@ const X_MODULES_DIR_NAME = 'x-modules';
  * @param extension - The type of files to generate the entry points (i.e. `d.ts`, `js`).
  */
 function generateEntryPoints(buildPath: string, outputDirectory: string, extension: string): void {
-  const jsEntry = fs.readFileSync(path.join(outputDirectory, `index.${extension}`), 'utf8');
+  const jsEntry = fs.readFileSync(path.join(outputDirectory, `index.${extension}`), 'utf8')
   const jsEntryPoints = jsEntry
     .split(BY_LINES)
     .filter(emptyLines)
-    .reduce(generateEntryPointsRecord(buildPath, outputDirectory, extension), {});
-  forEach(jsEntryPoints, writeEntryFile(buildPath, extension));
+    .reduce(generateEntryPointsRecord(buildPath, outputDirectory, extension), {})
+  forEach(jsEntryPoints, writeEntryFile(buildPath, extension))
 }
 
 /**
@@ -81,8 +81,8 @@ function generateEntryPoints(buildPath: string, outputDirectory: string, extensi
  * @param outputDirectory - Directory where storing the index source map.
  */
 function copyIndexSourcemap(buildPath: string, outputDirectory: string): void {
-  const fileName = 'index.js.map';
-  fs.copyFileSync(path.join(outputDirectory, fileName), path.join(buildPath, 'core', fileName));
+  const fileName = 'index.js.map'
+  fs.copyFileSync(path.join(outputDirectory, fileName), path.join(buildPath, 'core', fileName))
 }
 
 /**
@@ -98,27 +98,27 @@ function copyIndexSourcemap(buildPath: string, outputDirectory: string): void {
 function generateEntryPointsRecord(
   buildPath: string,
   outputDirectory: string,
-  extension: string
+  extension: string,
 ): ReducerFunctionOfEntryPoints {
-  const relativeOutputDirectory = `../${path.relative(buildPath, outputDirectory)}/`;
-  const getXModuleNameFromExport = extractXModuleFromExport(outputDirectory, extension);
+  const relativeOutputDirectory = `../${path.relative(buildPath, outputDirectory)}/`
+  const getXModuleNameFromExport = extractXModuleFromExport(outputDirectory, extension)
 
   return (files: Record<string, string[]>, line: string): Record<string, string[]> => {
-    const xModuleFileName = getXModuleNameFromExport(line);
-    const adjustedExport = adjustExport(relativeOutputDirectory, line);
+    const xModuleFileName = getXModuleNameFromExport(line)
+    const adjustedExport = adjustExport(relativeOutputDirectory, line)
     if (xModuleFileName) {
       // If it is a file from a x-module, we adjust the export, and add it to an array with the
       // x module name
-      files[xModuleFileName] = files[xModuleFileName] || [];
-      files[xModuleFileName].push(adjustedExport);
+      files[xModuleFileName] = files[xModuleFileName] || []
+      files[xModuleFileName].push(adjustedExport)
     } else {
       // If it is not an export from a x-module, we keep that export on the core file, adjusting
       // its location
-      files.core = files.core || [];
-      files.core.push(adjustedExport);
+      files.core = files.core || []
+      files.core.push(adjustedExport)
     }
-    return files;
-  };
+    return files
+  }
 }
 
 /**
@@ -129,7 +129,7 @@ function generateEntryPointsRecord(
  * @returns String with the new location adjusted to the line export.
  */
 function adjustExport(location: string, line: string): string {
-  return line.replace('./', location);
+  return line.replace('./', location)
 }
 
 /**
@@ -144,18 +144,18 @@ function adjustExport(location: string, line: string): string {
  */
 function extractXModuleFromExport(outputDirectory: string, extension: string) {
   return (line: string): string | null => {
-    const anyExportFromXModulesDirectoryRegex = new RegExp(`/${X_MODULES_DIR_NAME}/([^';/]+)`);
-    const [, xModuleName] = anyExportFromXModulesDirectoryRegex.exec(line) ?? [];
+    const anyExportFromXModulesDirectoryRegex = new RegExp(`/${X_MODULES_DIR_NAME}/([^';/]+)`)
+    const [, xModuleName] = anyExportFromXModulesDirectoryRegex.exec(line) ?? []
     if (!xModuleName) {
-      return null;
+      return null
     } else {
-      const xModuleFileName = addExtension(xModuleName, extension);
+      const xModuleFileName = addExtension(xModuleName, extension)
       const isFile = fs.existsSync(
-        path.join(outputDirectory, `${X_MODULES_DIR_NAME}/${xModuleFileName}`)
-      );
-      return isFile ? null : xModuleName;
+        path.join(outputDirectory, `${X_MODULES_DIR_NAME}/${xModuleFileName}`),
+      )
+      return isFile ? null : xModuleName
     }
-  };
+  }
 }
 
 /**
@@ -166,7 +166,7 @@ function extractXModuleFromExport(outputDirectory: string, extension: string) {
  * @returns The file name with the extension added.
  */
 function addExtension(fileName: string, extension: string): string {
-  return fileName.endsWith(`.${extension}`) ? fileName : `${fileName}.${extension}`;
+  return fileName.endsWith(`.${extension}`) ? fileName : `${fileName}.${extension}`
 }
 
 /**
@@ -176,7 +176,7 @@ function addExtension(fileName: string, extension: string): string {
  * @returns True if the line is empty or false in the opposite case.
  */
 function emptyLines(line: string): boolean {
-  return !!line.trim();
+  return !!line.trim()
 }
 
 /**
@@ -189,9 +189,9 @@ function emptyLines(line: string): boolean {
  */
 function writeEntryFile(buildPath: string, extension: string) {
   return (fileName: string, fileContents: string[]): string => {
-    const filePath = path.join(buildPath, `/${fileName}/index.${extension}`);
-    ensureFilePathExists(filePath);
-    fs.writeFileSync(filePath, fileContents.join('\n'));
-    return filePath;
-  };
+    const filePath = path.join(buildPath, `/${fileName}/index.${extension}`)
+    ensureFilePathExists(filePath)
+    fs.writeFileSync(filePath, fileContents.join('\n'))
+    return filePath
+  }
 }

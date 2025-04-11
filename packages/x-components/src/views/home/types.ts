@@ -1,27 +1,27 @@
 export interface HomeControls {
   searchInput: {
-    instant: boolean;
-    instantDebounceInMs: number;
-  };
+    instant: boolean
+    instantDebounceInMs: number
+  }
   popularSearches: {
-    maxItemsToRender: number;
-  };
+    maxItemsToRender: number
+  }
   slicedFilters: {
-    max: number;
-  };
+    max: number
+  }
   historyQueries: {
-    maxItemsToRender: number;
-  };
+    maxItemsToRender: number
+  }
   nextQueriesPreview: {
-    maxItemsToRender: number;
-  };
+    maxItemsToRender: number
+  }
   nextQueriesList: {
-    showOnlyAfterOffset: boolean;
-  };
+    showOnlyAfterOffset: boolean
+  }
   relatedPromptsList: {
-    showOnlyAfterOffset: boolean;
-  };
+    showOnlyAfterOffset: boolean
+  }
   adapter: {
-    useE2EAdapter: boolean;
-  };
+    useE2EAdapter: boolean
+  }
 }

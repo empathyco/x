@@ -2,10 +2,10 @@ module.exports = {
   preset: 'ts-jest',
   transform: {
     '^.+\\.vue$': '@vue/vue3-jest',
-    '^.+\\.scss$': 'jest-scss-transform'
+    '^.+\\.scss$': 'jest-scss-transform',
   },
   moduleNameMapper: {
-    'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs'
+    'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs',
   },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
@@ -18,9 +18,9 @@ module.exports = {
         compilerOptions: {
           // Set whitespace to 'condense' to have a more similar behavior to browsers
           // https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#options
-          whitespace: 'condense'
-        }
-      }
-    }
-  }
-};
+          whitespace: 'condense',
+        },
+      },
+    },
+  },
+}

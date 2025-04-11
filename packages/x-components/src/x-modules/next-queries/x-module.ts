@@ -1,16 +1,16 @@
-import { XPlugin } from '../../plugins/x-plugin';
-import { XModule } from '../x-modules.types';
-import { nextQueriesEmitters } from './store/emitters';
-import { nextQueriesXStoreModule } from './store/module';
-import { NextQueriesXStoreModule } from './store/types';
-import { nextQueriesWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { NextQueriesXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { nextQueriesEmitters } from './store/emitters'
+import { nextQueriesXStoreModule } from './store/module'
+import { nextQueriesWiring } from './wiring'
 
 /**
  * NextQueries {@link XModule} alias.
  *
  * @public
  */
-export type NextQueriesXModule = XModule<NextQueriesXStoreModule>;
+export type NextQueriesXModule = XModule<NextQueriesXStoreModule>
 
 /**
  * Next queries {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const nextQueriesXModule: NextQueriesXModule = {
   name: 'nextQueries',
   storeModule: nextQueriesXStoreModule,
   storeEmitters: nextQueriesEmitters,
-  wiring: nextQueriesWiring
-};
+  wiring: nextQueriesWiring,
+}
 
-XPlugin.registerXModule(nextQueriesXModule);
+XPlugin.registerXModule(nextQueriesXModule)

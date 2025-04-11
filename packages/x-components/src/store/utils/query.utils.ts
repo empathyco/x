@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathyco/x-types';
+import type { RelatedTag } from '@empathyco/x-types'
 
 /**
  * Query state type, containing a property to hold the current query of the module.
@@ -7,7 +7,7 @@ import { RelatedTag } from '@empathyco/x-types';
  */
 export interface QueryState {
   /** The query of the module. Different modules may have queries that differ in value or time. */
-  query: string;
+  query: string
 }
 
 /**
@@ -21,7 +21,7 @@ export interface QueryMutations {
    *
    * @param query - The new query.
    */
-  setQuery(query: string): void;
+  setQuery: (query: string) => void
 }
 
 /**
@@ -37,7 +37,7 @@ export interface CreateRelatedTagsQueryGetterOptions<State, Getters> {
    * @param getters - The getters of the module.
    * @returns The list of selected related tags.
    */
-  getRelatedTags: (state: State, getters: Getters) => RelatedTag[];
+  getRelatedTags: (state: State, getters: Getters) => RelatedTag[]
 }
 
 /**
@@ -48,7 +48,7 @@ export interface CreateRelatedTagsQueryGetterOptions<State, Getters> {
  * @public
  */
 export function setQuery(state: QueryState, query: string): void {
-  state.query = query;
+  state.query = query
 }
 
 /**
@@ -59,15 +59,15 @@ export function setQuery(state: QueryState, query: string): void {
  * @public
  */
 export function createRelatedTagsQueryGetter<State extends QueryState, Getters>({
-  getRelatedTags
+  getRelatedTags,
 }: CreateRelatedTagsQueryGetterOptions<State, Getters>): (
   state: State,
-  getters: Getters
+  getters: Getters,
 ) => string {
   return function relatedTagsQuery(state, getters) {
-    const query = state.query.trim();
-    return query ? getRelatedTags(state, getters).reduce(concatRelatedTag, query).trim() : '';
-  };
+    const query = state.query.trim()
+    return query ? getRelatedTags(state, getters).reduce(concatRelatedTag, query).trim() : ''
+  }
 }
 
 /**
@@ -80,7 +80,7 @@ export function createRelatedTagsQueryGetter<State extends QueryState, Getters>(
  */
 function concatRelatedTag(
   partialQuery: string,
-  { tag, query: relatedTagQuery }: RelatedTag
+  { tag, query: relatedTagQuery }: RelatedTag,
 ): string {
-  return relatedTagQuery.startsWith(tag) ? `${tag} ${partialQuery}` : `${partialQuery} ${tag}`;
+  return relatedTagQuery.startsWith(tag) ? `${tag} ${partialQuery}` : `${partialQuery} ${tag}`
 }

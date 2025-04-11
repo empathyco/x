@@ -1,10 +1,10 @@
-import { Filter, HistoryQuery } from '@empathyco/x-types';
-import { XActionContext, XStoreModule } from '../../../store';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { UrlParams } from '../../../types/url-params';
-import { HistoryQueriesConfig } from '../config.types';
-import { InternalSearchResponse } from '../../search/index';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import type { Filter, HistoryQuery } from '@empathyco/x-types'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { UrlParams } from '../../../types/url-params'
+import type { InternalSearchResponse } from '../../search/index'
+import type { HistoryQueriesConfig } from '../config.types'
 
 /**
  * HistoryQueries store state.
@@ -15,21 +15,21 @@ export interface HistoryQueriesState extends QueryState {
   /**
    * Configuration for the `HistoryQueries` module.
    */
-  config: HistoryQueriesConfig;
+  config: HistoryQueriesConfig
   /**
    * Timestamp that indicates when the current search session has started.
    */
-  sessionTimeStampInMs: number;
+  sessionTimeStampInMs: number
   /**
    * The full list of queries made by the user. This list is persisted along different
    * search sessions.
    */
-  historyQueries: HistoryQuery[];
+  historyQueries: HistoryQuery[]
 
   /**
    * Whether the history queries are enabled or disabled.
    */
-  isEnabled: boolean;
+  isEnabled: boolean
 }
 
 /**
@@ -43,23 +43,23 @@ export interface HistoryQueriesGetters {
    * query property is not empty, this list will only contain
    * suggestions whose query matches with it.
    */
-  historyQueries: HistoryQuery[];
+  historyQueries: HistoryQuery[]
   /** The normalized module's query. */
-  normalizedQuery: string;
+  normalizedQuery: string
   /**
    * A sub-set of the {@link HistoryQueriesGetters.historyQueries} including only the queries with
    * results at the moment they were requested.
    */
-  historyQueriesWithResults: HistoryQuery[];
+  historyQueriesWithResults: HistoryQuery[]
   /**
    * A list of the queries that have been made in the last period of time specified by
    * {@link HistoryQueriesConfig.sessionTTLInMs}.
    */
-  sessionHistoryQueries: HistoryQuery[];
+  sessionHistoryQueries: HistoryQuery[]
   /**
    * The key for saving the {@link HistoryQueriesState.historyQueries} in the browser storage.
    */
-  storageKey: string;
+  storageKey: string
 }
 /**
  * HistoryQueries store mutations.
@@ -74,25 +74,25 @@ export interface HistoryQueriesMutations
    *
    * @param historyQueries - The new {@link HistoryQueriesState.historyQueries}.
    */
-  setHistoryQueries(historyQueries: HistoryQuery[]): void;
+  setHistoryQueries: (historyQueries: HistoryQuery[]) => void
   /**
    * Sets the {@link HistoryQueriesState.sessionTimeStampInMs } property.
    *
    * @param timeStamp - The new {@link HistoryQueriesState.sessionTimeStampInMs }.
    */
-  setSessionTimeStamp(timeStamp: number): void;
+  setSessionTimeStamp: (timeStamp: number) => void
   /**
    * Sets the {@link HistoryQueriesState.isEnabled } property.
    *
    * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.
    */
-  setIsEnabled(isEnabled: boolean): void;
+  setIsEnabled: (isEnabled: boolean) => void
   /**
    * Sets the {@link HistoryQueriesState.historyQueries } filters property.
    *
    * @param filters - The new {@link HistoryQueriesState.historyQueries } filters.
    */
-  setSearchSelectedFilters(filters: Filter[]): void;
+  setSearchSelectedFilters: (filters: Filter[]) => void
 }
 /**
  * HistoryQueries store actions.
@@ -144,22 +144,22 @@ export interface HistoryQueriesActions {
    *
    * @param query - The query to add to the history.
    */
-  addQueryToHistory(query: string): void;
+  addQueryToHistory: (query: string) => void
   /**
    * Loads the {@link HistoryQueriesState.historyQueries | historyQueries} property from the browser
    * storage.
    */
-  loadHistoryQueriesFromBrowserStorage(): void;
+  loadHistoryQueriesFromBrowserStorage: () => void
   /**
    * Refreshes the current search session, updating its TTL.
    */
-  refreshSession(): void;
+  refreshSession: () => void
   /**
    * Removes a single query from the history, synchronizing it with the browser storage.
    *
    * @param historyQuery - The `HistoryQuery` to remove.
    */
-  removeFromHistory(historyQuery: HistoryQuery): void;
+  removeFromHistory: (historyQuery: HistoryQuery) => void
   /**
    * Sets the history queries, synchronizing them with the browser storage. It also removes the
    * oldest query if the history queries length is bigger than the
@@ -167,26 +167,26 @@ export interface HistoryQueriesActions {
    *
    * @param historyQueries - The new history queries to save to the state and the browser storage.
    */
-  setHistoryQueries(historyQueries: HistoryQuery[]): void;
+  setHistoryQueries: (historyQueries: HistoryQuery[]) => void
   /**
    * Checks if the url has a query on it and then updates the state with that value.
    *
    * @param urlParams - List of params from the url.
    */
-  setUrlParams(urlParams: UrlParams): void;
+  setUrlParams: (urlParams: UrlParams) => void
   /**
    * Toggles the history queries and stores the state in the browser storage. It also cleans the
    * history queries when disabling them.
    *
    * @param isEnabled - Whether to enable or disable the history queries.
    */
-  toggleHistoryQueries(isEnabled: boolean): void;
+  toggleHistoryQueries: (isEnabled: boolean) => void
   /**
    * Updates the history queries with the relevant info included in a search response.
    *
    * @param searchResponse - The search response to update history queries with.
    */
-  updateHistoryQueriesWithSearchResponse(searchResponse: InternalSearchResponse): void;
+  updateHistoryQueriesWithSearchResponse: (searchResponse: InternalSearchResponse) => void
 }
 /**
  * HistoryQueries type safe store module.
@@ -198,7 +198,7 @@ export type HistoryQueriesXStoreModule = XStoreModule<
   HistoryQueriesGetters,
   HistoryQueriesMutations,
   HistoryQueriesActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link HistoryQueriesXStoreModule}.
@@ -210,4 +210,4 @@ export type HistoryQueriesActionContext = XActionContext<
   HistoryQueriesGetters,
   HistoryQueriesMutations,
   HistoryQueriesActions
->;
+>

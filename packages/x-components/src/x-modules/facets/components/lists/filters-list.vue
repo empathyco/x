@@ -23,101 +23,102 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { Filter } from '@empathyco/x-types';
-  import { VueCSSClasses } from '../../../../utils/types';
-  import { facetsXModule } from '../../x-module';
-  import { AnimationProp } from '../../../../types/animation-prop';
-  import { useFiltersInjection } from '../../composables/use-filters-injection';
+import type { Filter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { VueCSSClasses } from '../../../../utils/types'
+import { computed, defineComponent } from 'vue'
+import { AnimationProp } from '../../../../types/animation-prop'
+import { useFiltersInjection } from '../../composables/use-filters-injection'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Renders a list with a list item per each
-   * {@link @empathyco/x-types#BooleanFilter} in the filters prop array.
-   * Each list item has a scoped slot, passing the filter as slot prop.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'FiltersList',
-    xModule: facetsXModule.name,
-    props: {
-      /**
-       * The list of filters to be rendered as slots.
-       *
-       * @public
-       */
-      filters: Array as PropType<Filter[]>,
+/**
+ * Renders a list with a list item per each
+ * {@link @empathyco/x-types#BooleanFilter} in the filters prop array.
+ * Each list item has a scoped slot, passing the filter as slot prop.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'FiltersList',
+  xModule: facetsXModule.name,
+  props: {
+    /**
+     * The list of filters to be rendered as slots.
+     *
+     * @public
+     */
+    filters: Array as PropType<Filter[]>,
 
-      /**
-       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
-       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       *
-       * @public
-       */
-      parentId: {
-        type: String as PropType<Filter['id']>,
-        required: false
-      },
-
-      /**
-       * Animation component that will be used to animate the base filters.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      }
+    /**
+     * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+     * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+     *
+     * @public
+     */
+    parentId: {
+      type: String as PropType<Filter['id']>,
+      required: false,
     },
-    setup(props) {
-      const renderedFilters = useFiltersInjection(props);
 
-      /**
-       * It handles if the filters should be rendered.
-       *
-       * @returns True if there are filters.
-       *
-       * @public
-       */
-      const hasFiltersToRender = computed(() => {
-        return renderedFilters?.value.length > 0;
-      });
+    /**
+     * Animation component that will be used to animate the base filters.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
+    },
+  },
+  setup(props) {
+    const renderedFilters = useFiltersInjection(props)
 
-      /**
-       * Checks if at least one filter is selected.
-       *
-       * @returns True if at least one filter is selected. False otherwise.
-       * @internal
-       */
-      const hasSelectedFilters = computed(() => {
-        return !!renderedFilters?.value.some(filter => filter.selected);
-      });
+    /**
+     * It handles if the filters should be rendered.
+     *
+     * @returns True if there are filters.
+     *
+     * @public
+     */
+    const hasFiltersToRender = computed(() => {
+      return renderedFilters?.value.length > 0
+    })
 
-      /**
-       * Dynamic CSS classes for the root element of this component.
-       *
-       * @returns An object containing the dynamic CSS classes and a boolean indicating if they should
-       * be added or not.
-       */
-      const cssClasses = computed((): VueCSSClasses => {
-        return {
-          'x-filters--has-selected-filters': hasSelectedFilters.value
-        };
-      });
+    /**
+     * Checks if at least one filter is selected.
+     *
+     * @returns True if at least one filter is selected. False otherwise.
+     * @internal
+     */
+    const hasSelectedFilters = computed(() => {
+      return !!renderedFilters?.value.some(filter => filter.selected)
+    })
 
+    /**
+     * Dynamic CSS classes for the root element of this component.
+     *
+     * @returns An object containing the dynamic CSS classes and a boolean indicating if they should
+     * be added or not.
+     */
+    const cssClasses = computed((): VueCSSClasses => {
       return {
-        hasFiltersToRender,
-        cssClasses,
-        renderedFilters
-      };
+        'x-filters--has-selected-filters': hasSelectedFilters.value,
+      }
+    })
+
+    return {
+      hasFiltersToRender,
+      cssClasses,
+      renderedFilters,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-filters {
-    list-style-type: none;
-  }
+.x-filters {
+  list-style-type: none;
+}
 </style>
 
 <docs lang="mdx">

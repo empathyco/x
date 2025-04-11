@@ -1,4 +1,4 @@
-import { ScrollDirection } from '../../components/scroll/scroll.types';
+import type { ScrollDirection } from '../../components/scroll/scroll.types'
 
 /**
  * Dictionary of the events of Scroll XModule, where each key is the event name, and the value is
@@ -9,45 +9,45 @@ import { ScrollDirection } from '../../components/scroll/scroll.types';
 export interface ScrollXEvents {
   /**
    * The scroll position has been restored successfully.
-   * * Payload: none.
+   * Payload: none.
    */
-  ScrollRestoreSucceeded: void;
+  ScrollRestoreSucceeded: void
   /**
    * The scroll position has failed to be restored.
-   * * Payload: none.
+   * Payload: none.
    */
-  ScrollRestoreFailed: void;
+  ScrollRestoreFailed: void
   /**
    * The user has almost reached the scroll end.
-   * * Payload: True if the user has almost reached the scroll end, false if it is no longer close
+   * Payload: True if the user has almost reached the scroll end, false if it is no longer close
    * to the end.
    */
-  UserAlmostReachedScrollEnd: boolean;
+  UserAlmostReachedScrollEnd: boolean
   /**
    * The user has changed the direction of scroll.
-   * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
+   * Payload: The new {@link ScrollDirection} when user changes scroll direction.
    */
-  UserChangedScrollDirection: ScrollDirection;
+  UserChangedScrollDirection: ScrollDirection
   /**
    * The user has reached the scroll end.
-   * * Payload: True if the user has reached the ending position of the scroll. False if he is
+   * Payload: True if the user has reached the ending position of the scroll. False if he is
    * no longer in that position.
    */
-  UserReachedScrollEnd: boolean;
+  UserReachedScrollEnd: boolean
   /**
    * The user has reached the scroll start.
-   * * Payload: True if the user has reached the starting position of the scroll. False if he is no
+   * Payload: True if the user has reached the starting position of the scroll. False if he is no
    * longer in that position.
    */
-  UserReachedScrollStart: boolean;
+  UserReachedScrollStart: boolean
   /**
    * The user has scrolled.
-   * * Payload: The new position of scroll.
+   * Payload: The new position of scroll.
    */
-  UserScrolled: number;
+  UserScrolled: number
   /**
    * The user has scrolled to an element with the given id.
-   * * Payload: The scroll identifier of the element.
+   * Payload: The scroll identifier of the element.
    */
-  UserScrolledToElement: string;
+  UserScrolledToElement: string
 }

@@ -1,6 +1,6 @@
-import { SearchRequest } from '@empathyco/x-types';
-import { QueryPreviewItem } from '../x-modules/queries-preview/store/types';
-import { getResultsStub } from './results-stubs.factory';
+import type { SearchRequest } from '@empathyco/x-types'
+import type { QueryPreviewItem } from '../x-modules/queries-preview/store/types'
+import { getResultsStub } from './results-stubs.factory'
 
 /**
  * Creates a {@link QueryPreviewItem} stub.
@@ -13,18 +13,18 @@ import { getResultsStub } from './results-stubs.factory';
  */
 export const createQueryPreviewItem: (
   query: string,
-  queryPreviewItem?: Partial<QueryPreviewItem>
+  queryPreviewItem?: Partial<QueryPreviewItem>,
 ) => QueryPreviewItem = (query, queryPreviewItem) => {
-  const results = getResultsStub();
+  const results = getResultsStub()
   return {
-    results: results,
+    results,
     totalResults: results.length,
     instances: 1,
     status: 'success',
     request: getQueryPreviewRequest(query),
-    ...queryPreviewItem
-  };
-};
+    ...queryPreviewItem,
+  }
+}
 
 /**
  * Creates a queries preview search request stub.
@@ -39,7 +39,7 @@ export function getQueryPreviewRequest(query: string): SearchRequest {
     query,
     rows: 3,
     extraParams: {
-      extraParam: 'extra param'
-    }
-  };
+      extraParam: 'extra param',
+    },
+  }
 }

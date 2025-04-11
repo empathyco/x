@@ -1,9 +1,10 @@
-import { reduce, Dictionary } from '@empathyco/x-utils';
-import { ExtractGetters, XModuleName } from '../../x-modules/x-modules.types';
-import { AnyXStoreModule } from '../store.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ExtractGetters, XModuleName } from '../../x-modules/x-modules.types'
+import type { AnyXStoreModule } from '../store.types'
+import { reduce } from '@empathyco/x-utils'
 
-type Getters = { [ModuleName in XModuleName]?: ExtractGetters<ModuleName> };
-let cache: Getters = {};
+type Getters = { [ModuleName in XModuleName]?: ExtractGetters<ModuleName> }
+let cache: Getters = {}
 /**
  * Creates or return a proxy object of the getters of the storeModule passed.
  *
@@ -25,22 +26,22 @@ let cache: Getters = {};
 export function getGettersProxyFromModule<ModuleName extends XModuleName>(
   getters: Dictionary,
   moduleName: ModuleName,
-  storeModule: AnyXStoreModule
+  storeModule: AnyXStoreModule,
 ): ExtractGetters<ModuleName> {
   /* TODO: Review why TS is not able to exclude undefined types from the Getters cache */
-  const cachedGetter = cache[moduleName];
+  const cachedGetter = cache[moduleName]
   if (isCacheGetterDefined<ModuleName>(cachedGetter)) {
-    return cachedGetter;
+    return cachedGetter
   }
-  const modulePath = `x/${moduleName}/`;
+  const modulePath = `x/${moduleName}/`
   const safeGetters = reduce(
     storeModule.getters as Dictionary,
     (safeGettersProxy, getterName) =>
       defineGetterProxy(safeGettersProxy, getterName, `${modulePath}${getterName}`, getters),
-    {} as ExtractGetters<ModuleName>
-  );
-  cache[moduleName] = safeGetters as unknown as Getters[ModuleName];
-  return safeGetters;
+    {} as ExtractGetters<ModuleName>,
+  )
+  cache[moduleName] = safeGetters as unknown as Getters[ModuleName]
+  return safeGetters
 }
 
 /**
@@ -57,23 +58,23 @@ export function getGettersProxyFromModule<ModuleName extends XModuleName>(
  */
 export function getGettersProxy<ModuleName extends XModuleName>(
   getters: Dictionary,
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): ExtractGetters<ModuleName> {
   /* TODO: Review why TS is not able to exclude undefined types from the Getters cache */
-  const cachedGetter = cache[moduleName];
+  const cachedGetter = cache[moduleName]
   if (isCacheGetterDefined<ModuleName>(cachedGetter)) {
-    return cachedGetter;
+    return cachedGetter
   }
-  const modulePath = `x/${moduleName}/`;
+  const modulePath = `x/${moduleName}/`
   const getterKeys: string[] = Object.keys(getters).filter(getterKey =>
-    getterKey.startsWith(modulePath)
-  );
+    getterKey.startsWith(modulePath),
+  )
   const safeGetters = getterKeys.reduce((safeGettersProxy, fullPathGetterName) => {
-    const getterName = fullPathGetterName.replace(modulePath, '');
-    return defineGetterProxy(safeGettersProxy, getterName, fullPathGetterName, getters);
-  }, {} as ExtractGetters<ModuleName>);
-  cache[moduleName] = safeGetters as unknown as Getters[ModuleName];
-  return safeGetters;
+    const getterName = fullPathGetterName.replace(modulePath, '')
+    return defineGetterProxy(safeGettersProxy, getterName, fullPathGetterName, getters)
+  }, {} as ExtractGetters<ModuleName>)
+  cache[moduleName] = safeGetters as unknown as Getters[ModuleName]
+  return safeGetters
 }
 
 /**
@@ -92,14 +93,15 @@ function defineGetterProxy<ModuleName extends XModuleName>(
   safeGettersProxy: ExtractGetters<ModuleName>,
   getterName: string,
   fullPathGetterName: string,
-  getters: Dictionary
+  getters: Dictionary,
 ): ExtractGetters<ModuleName> {
   return Object.defineProperty(safeGettersProxy, getterName, {
     get() {
-      return getters[fullPathGetterName];
+      // eslint-disable-next-line ts/no-unsafe-return
+      return getters[fullPathGetterName]
     },
-    enumerable: true
-  });
+    enumerable: true,
+  })
 }
 
 /**
@@ -108,7 +110,7 @@ function defineGetterProxy<ModuleName extends XModuleName>(
  * @internal
  */
 export function cleanGettersProxyCache(): void {
-  cache = {};
+  cache = {}
 }
 
 /**
@@ -120,7 +122,7 @@ export function cleanGettersProxyCache(): void {
  * @internal
  */
 function isCacheGetterDefined<ModuleName extends XModuleName>(
-  cachedGetter: ExtractGetters<ModuleName> | undefined | unknown
+  cachedGetter: ExtractGetters<ModuleName> | undefined | unknown,
 ): cachedGetter is ExtractGetters<ModuleName> {
-  return cachedGetter !== undefined;
+  return cachedGetter !== undefined
 }

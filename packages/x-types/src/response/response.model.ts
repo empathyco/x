@@ -1,4 +1,4 @@
-import { TaggingRequest } from '../request/tagging-request.model';
+import type { TaggingRequest } from '../request/tagging-request.model'
 
 /**
  * Response to be implemented by all responses that contain a part to track the show event.
@@ -6,5 +6,5 @@ import { TaggingRequest } from '../request/tagging-request.model';
  * @public
  */
 export interface TrackableShowResponse {
-  showTagging: TaggingRequest;
+  showTagging: TaggingRequest
 }

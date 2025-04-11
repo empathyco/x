@@ -1,12 +1,12 @@
-import {
+import type {
   AnyFunction,
   DeepPartial,
   ExtractPath,
   ExtractPathByType,
   ExtractType,
-  Primitive
-} from '@empathyco/x-utils';
-import { MapperContext } from '../mappers/types';
+  Primitive,
+} from '@empathyco/x-utils'
+import type { MapperContext } from '../mappers/types'
 
 // TODO: EX-5830 - Enhance Schema type to support optional properties in the Source object
 /**
@@ -44,8 +44,8 @@ import { MapperContext } from '../mappers/types';
  * @public
  */
 export type Schema<Source = any, Target = any> = {
-  [TargetKey in keyof Target]: SchemaTransformer<Source, Target, TargetKey>;
-};
+  [TargetKey in keyof Target]: SchemaTransformer<Source, Target, TargetKey>
+}
 
 /**
  * A {@link Schema | schema} with extended functionality to: completely replace
@@ -61,20 +61,19 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * @param newSchema - The {@link Schema | schema} to use instead of the original one.
    * @returns The new {@link Schema | schema} that will be used.
    */
-  $replace<NewSource, NewTarget>(
-    newSchema: Schema<NewSource, NewTarget>
-  ): MutableSchema<NewSource, NewTarget>;
+  $replace: <NewSource, NewTarget>(
+    newSchema: Schema<NewSource, NewTarget>,
+  ) => MutableSchema<NewSource, NewTarget>
   /**
    * Merges the original {@link Schema | schema} with the given one.
    *
    * @param newSchema - The {@link Schema | schema} to use to merge with the original one.
    * @returns The {@link Schema | schema} returned by the merge.
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  $override<NewSource, NewTarget = {}>(
+  $override: <NewSource, NewTarget = object>(
     newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
-      Schema<Source & NewSource, NewTarget>
-  ): MutableSchema<Source & NewSource, Target & NewTarget>;
+      Schema<Source & NewSource, NewTarget>,
+  ) => MutableSchema<Source & NewSource, Target & NewTarget>
   /**
    * Creates a new {@link Schema | schema} using the original one as starting point.
    * The original {@link Schema | schema} will remain unchanged.
@@ -83,15 +82,14 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * Both schema's Target and Source can be unique or also be extending from another one.
    * @returns The {@link Schema | schema} created.
    */
-  $extends<NewSource extends Source, NewTarget extends Target>(
+  $extends: (<NewSource extends Source, NewTarget extends Target>(
     newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
-      Schema<Source & NewSource, Omit<NewTarget, keyof Target>>
-  ): MutableSchema<Source & NewSource, Target & NewTarget>;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  $extends<NewSource, NewTarget = {}>(
-    newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
-      Schema<Source & NewSource, NewTarget>
-  ): MutableSchema<Source & NewSource, Target & NewTarget>;
+      Schema<Source & NewSource, Omit<NewTarget, keyof Target>>,
+  ) => MutableSchema<Source & NewSource, Target & NewTarget>) &
+    (<NewSource, NewTarget = object>(
+      newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
+        Schema<Source & NewSource, NewTarget>,
+    ) => MutableSchema<Source & NewSource, Target & NewTarget>)
   /**
    * Returns a string representing of the {@link Schema | schema}.
    *
@@ -99,8 +97,8 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * the internal methods. Disabled by default.
    * @returns The string representation.
    */
-  toString(includeInternalMethods?: boolean): string;
-};
+  toString: (includeInternalMethods?: boolean) => string
+}
 /**
  * The possible transformers to apply to the target key.
  *
@@ -113,7 +111,7 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
   | PathTransformer<Source, Target[TargetKey]>
   | FunctionTransformer<Source, Target[TargetKey]>
   | SubSchemaTransformer<Source, Target[TargetKey]>
-  | Schema<Source, Exclude<Target[TargetKey], AnyFunction | Primitive>>;
+  | Schema<Source, Exclude<Target[TargetKey], AnyFunction | Primitive>>
 
 /**
  * A function with the source object and mapper context as parameters that returns the value of a
@@ -146,7 +144,7 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  * ```
  * @public
  */
-export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
+export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>
 
 /**
  * A function with the source object and mapper context as parameters that returns the value of a
@@ -177,8 +175,8 @@ export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
  */
 export type FunctionTransformer<Source, Target> = (
   source: Source,
-  context?: MapperContext
-) => Target;
+  context?: MapperContext,
+) => Target
 
 /**
  * An object containing a schema narrowing its source object based on the given path.
@@ -217,14 +215,14 @@ export type FunctionTransformer<Source, Target> = (
  */
 export type SubSchemaTransformer<Source, Target> = {
   [Path in ExtractPath<Source>]: {
-    $context?: MapperContext;
-    $path: Path;
+    $context?: MapperContext
+    $path: Path
     $subSchema:
       | SubSchema<Source, Target, Path>
       | '$self'
-      | ((source: Source) => SubSchema<Source, Target, Path>);
-  };
-}[ExtractPath<Source>];
+      | ((source: Source) => SubSchema<Source, Target, Path>)
+  }
+}[ExtractPath<Source>]
 
 /**
  * A {@link Schema | schema} that will be applied to an inner path of an object.
@@ -234,13 +232,11 @@ export type SubSchemaTransformer<Source, Target> = {
  * @param Path - The path where the schema will be applied.
  * @public
  */
-export type SubSchema<Source, Target, Path extends ExtractPath<Source>> = ExtractType<
-  Source,
-  Path
-> extends (infer SourceArrayType)[]
-  ? Target extends (infer TargetArrayType)[]
-    ? Schema<SourceArrayType, TargetArrayType>
-    : never
-  : Target extends []
-  ? never
-  : Schema<ExtractType<Source, Path>, Target>;
+export type SubSchema<Source, Target, Path extends ExtractPath<Source>> =
+  ExtractType<Source, Path> extends (infer SourceArrayType)[]
+    ? Target extends (infer TargetArrayType)[]
+      ? Schema<SourceArrayType, TargetArrayType>
+      : never
+    : Target extends []
+      ? never
+      : Schema<ExtractType<Source, Path>, Target>

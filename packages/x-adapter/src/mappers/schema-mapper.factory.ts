@@ -1,17 +1,16 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
+import type { Dictionary, ExtractPath } from '@empathyco/x-utils'
+import type { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types'
+import type { Mapper, MapperContext } from './types'
+import { deepMerge } from '@empathyco/x-deep-merge'
 import {
-  Dictionary,
-  ExtractPath,
   getSafePropertyChain,
   isArray,
   isFunction,
   isObject,
   isPath,
-  reduce
-} from '@empathyco/x-utils';
-import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types';
-import { createMutableSchema, isInternalMethod } from '../schemas/utils';
-import { Mapper, MapperContext } from './types';
+  reduce,
+} from '@empathyco/x-utils'
+import { createMutableSchema, isInternalMethod } from '../schemas/utils'
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -22,11 +21,11 @@ import { Mapper, MapperContext } from './types';
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
-  schema: Schema<Source, Target> | MutableSchema<Source, Target>
+  schema: Schema<Source, Target> | MutableSchema<Source, Target>,
 ): Mapper<Source, Target> {
   return function mapper(source: Source, context: MapperContext): Target {
-    return mapSchema(source, schema, context);
-  };
+    return mapSchema(source, schema, context)
+  }
 }
 
 /**
@@ -42,21 +41,20 @@ export function schemaMapperFactory<Source, Target>(
 function mapSchema<Source, Target>(
   source: Source,
   schema: Schema<Source, Target>,
-  context: MapperContext
+  context: MapperContext,
 ): Target {
   if (!source) {
-    //eslint-disable-next-line no-console
-    console.warn('This schema cannot be applied', createMutableSchema(schema));
-    return undefined as any;
+    console.warn('This schema cannot be applied', createMutableSchema(schema))
+    return undefined as any
   }
   return reduce(
     schema,
     (target, key, transformer) => {
-      type TargetKey = Target[keyof Target];
+      type TargetKey = Target[keyof Target]
       if (typeof transformer === 'string' && isPath(source, transformer)) {
-        target[key] = getSafePropertyChain(source, transformer) as TargetKey;
+        target[key] = getSafePropertyChain(source, transformer) as TargetKey
       } else if (isFunction(transformer) && !isInternalMethod(transformer.name)) {
-        target[key] = transformer(source, context);
+        target[key] = transformer(source, context)
       } else if (isObject(transformer)) {
         const value =
           '$subSchema' in transformer
@@ -64,18 +62,18 @@ function mapSchema<Source, Target>(
                 source,
                 transformer as SubSchemaTransformer<Source, TargetKey>,
                 context,
-                schema as unknown as Schema<Source, TargetKey>
+                schema as unknown as Schema<Source, TargetKey>,
               ) as TargetKey)
-            : mapSchema<Source, TargetKey>(source, transformer, context);
+            : mapSchema<Source, TargetKey>(source, transformer, context)
 
         if (value) {
-          target[key] = value;
+          target[key] = value
         }
       }
-      return target;
+      return target
     },
-    {} as Target
-  );
+    {} as Target,
+  )
 }
 
 /**
@@ -87,8 +85,8 @@ function mapSchema<Source, Target>(
  * and $context options.
  * @param subSchemaTransformer.$path
  * @param subSchemaTransformer.$subSchema
- * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
  * @param subSchemaTransformer.$context
+ * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
  * @param schema - The {@link Schema} to apply.
  * @returns The result of calling `mapSchema()` with the source, schema and context arguments.
  * @internal
@@ -97,40 +95,40 @@ function applySubSchemaTransformer<Source, Target>(
   source: Source,
   { $subSchema, $path, $context }: SubSchemaTransformer<Source, Target>,
   rawContext: MapperContext,
-  schema: Schema<Source, Target>
+  schema: Schema<Source, Target>,
 ): Target | Target[] | undefined {
-  const subSource = getSafePropertyChain(source, $path);
+  const subSource = getSafePropertyChain(source, $path)
 
   if (!subSource) {
-    return;
+    return
   }
 
-  const extendedContext: Dictionary = {};
+  const extendedContext: Dictionary = {}
   if ($context) {
     Object.entries($context).forEach(([key, value]) => {
       if (['requestParameters', 'endpoint', 'mappedValue'].includes(key)) {
-        return;
+        return
       }
       extendedContext[key] = isFunction(value)
         ? value(source)
-        : getSafePropertyChain(source, value as ExtractPath<typeof source>);
-    });
+        : getSafePropertyChain(source, value as ExtractPath<typeof source>)
+    })
   }
 
-  const context = deepMerge({}, rawContext, $context, extendedContext);
-  let subSchema: typeof $subSchema | typeof schema;
+  const context = deepMerge({}, rawContext, $context, extendedContext)
+  let subSchema: typeof $subSchema | typeof schema
   if ($subSchema === '$self') {
-    subSchema = schema;
+    subSchema = schema
   } else if (isFunction($subSchema)) {
-    subSchema = $subSchema(source);
+    subSchema = $subSchema(source)
   } else {
-    subSchema = $subSchema;
+    subSchema = $subSchema
   }
   return isArray(subSource)
     ? subSource.map(item => mapSchema(item, subSchema, context) as Target)
     : mapSchema<typeof subSource, Target>(
         subSource,
         subSchema as Schema<typeof subSource, Target>,
-        context
-      );
+        context,
+      )
 }

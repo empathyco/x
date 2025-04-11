@@ -4,6 +4,6 @@
  * @public
  */
 export interface PlatformSemanticQuery {
-  query: string;
-  distance: number;
+  query: string
+  distance: number
 }

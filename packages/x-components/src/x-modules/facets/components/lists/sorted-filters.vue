@@ -1,60 +1,62 @@
 <script lang="ts">
-  import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, provide } from 'vue';
-  import { isArrayEmpty } from '../../../../utils';
-  import { facetsXModule } from '../../x-module';
-  import { useFiltersInjection } from '../../composables/use-filters-injection';
+import type { BooleanFilter, Filter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { isBooleanFilter } from '@empathyco/x-types'
+import { computed, defineComponent, provide } from 'vue'
+import { isArrayEmpty } from '../../../../utils'
+import { useFiltersInjection } from '../../composables/use-filters-injection'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Component that sorts a list of filters and returns them using the default scoped slot.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'SortedFilters',
-    xModule: facetsXModule.name,
-    props: {
-      /**
-       * The list of filters to be rendered as slots.
-       *
-       * @public
-       */
-      filters: Array as PropType<Filter[]>,
+/**
+ * Component that sorts a list of filters and returns them using the default scoped slot.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'SortedFilters',
+  xModule: facetsXModule.name,
+  props: {
+    /**
+     * The list of filters to be rendered as slots.
+     *
+     * @public
+     */
+    filters: Array as PropType<Filter[]>,
 
-      /**
-       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
-       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       *
-       * @public
-       */
-      parentId: {
-        type: String as PropType<Filter['id']>,
-        required: false
-      }
+    /**
+     * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+     * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+     *
+     * @public
+     */
+    parentId: {
+      type: String as PropType<Filter['id']>,
+      required: false,
     },
-    setup(props, { slots }) {
-      const renderedFilters = useFiltersInjection(props);
+  },
+  setup(props, { slots }) {
+    const renderedFilters = useFiltersInjection(props)
 
-      /**
-       * An array of filters with the selected filters at the beginning of the list.
-       *
-       * @returns Array of filters.
-       * @internal
-       */
-      const sortedFilters = computed((): Filter[] => {
-        if (!isArrayEmpty(renderedFilters.value) && isBooleanFilter(renderedFilters.value[0])) {
-          return ([...renderedFilters.value] as BooleanFilter[]).sort(({ selected }) => {
-            return selected ? -1 : 1;
-          });
-        }
+    /**
+     * An array of filters with the selected filters at the beginning of the list.
+     *
+     * @returns Array of filters.
+     * @internal
+     */
+    const sortedFilters = computed((): Filter[] => {
+      if (!isArrayEmpty(renderedFilters.value) && isBooleanFilter(renderedFilters.value[0])) {
+        return ([...renderedFilters.value] as BooleanFilter[]).sort(({ selected }) => {
+          return selected ? -1 : 1
+        })
+      }
 
-        return renderedFilters.value;
-      });
-      provide('filters', sortedFilters);
+      return renderedFilters.value
+    })
+    provide('filters', sortedFilters)
 
-      return () => slots.default?.({ filters: sortedFilters.value })[0] ?? '';
-    }
-  });
+    return () => slots.default?.({ filters: sortedFilters.value })[0] ?? ''
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -88,15 +90,15 @@ returns the result with XProvide.
 </template>
 
 <script>
-  import { Facets, SimpleFilter, Filters } from '@empathyco/x-components';
+import { Facets, SimpleFilter, Filters } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      Facets,
-      Filters,
-      SimpleFilter
-    }
-  };
+export default {
+  components: {
+    Facets,
+    Filters,
+    SimpleFilter,
+  },
+}
 </script>
 ```
 
@@ -114,16 +116,16 @@ returns the result with XProvide.
 </Facets>
 
 <script>
-  import { Facets, FiltersSearch, SimpleFilter, Filters } from '@empathyco/x-components';
+import { Facets, FiltersSearch, SimpleFilter, Filters } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      Facets,
-      FiltersSearch,
-      Filters,
-      SimpleFilter
-    }
-  };
+export default {
+  components: {
+    Facets,
+    FiltersSearch,
+    Filters,
+    SimpleFilter,
+  },
+}
 </script>
 ```
 </docs>

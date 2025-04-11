@@ -1,3 +1,6 @@
+import type { WirePayload } from '../../wiring'
+import type { InternalSearchRequest } from './types'
+import { createRawFilters } from '../../utils'
 import {
   createWiring,
   filterTruthyPayload,
@@ -5,45 +8,42 @@ import {
   namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload,
-  WirePayload
-} from '../../wiring';
-import { createRawFilters } from '../../utils';
-import { InternalSearchRequest } from './types';
+} from '../../wiring'
 
 /**
  * `search` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'search';
+const moduleName = 'search'
 
 /**
  * WireCommit for {@link SearchXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * WireCommit without Payload for {@link SearchXModule}.
  *
  * @internal
  */
-const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName)
 
 /**
  * WireDispatch for {@link SearchXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * WireDispatchWithoutPayload for {@link SearchXModule}.
  *
  * @internal
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName)
 
 /**
  * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
@@ -51,106 +51,106 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
  * @public
  */
 export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveSearchResponse'
-);
+  'cancelFetchAndSaveSearchResponse',
+)
 
 /**
  * Sets the search state `origin`.
  *
  * @public
  */
-export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata);
+export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 
 /**
  * Requests and stores the search response.
  *
  * @public
  */
-export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse');
+export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
  *
  * @public
  */
-export const resetSpellcheckQuery = wireCommit('setSpellcheck', '');
+export const resetSpellcheckQuery = wireCommit('setSpellcheck', '')
 
 /**
  * Sets the search state `relatedTags`.
  *
  * @public
  */
-export const setRelatedTags = wireCommit('setRelatedTags');
+export const setRelatedTags = wireCommit('setRelatedTags')
 
 /**
  * Sets the search state `query`.
  *
  * @public
  */
-export const setSearchQuery = wireCommit('setQuery');
+export const setSearchQuery = wireCommit('setQuery')
 
 /**
  * Clears the search state `query`.
  *
  * @public
  */
-export const clearSearchQuery = wireCommit('setQuery', '');
+export const clearSearchQuery = wireCommit('setQuery', '')
 
 /**
  * Sets the search state `selectedFilters`.
  *
  * @public
  */
-export const setSelectedFilters = wireCommit('setSelectedFilters');
+export const setSelectedFilters = wireCommit('setSelectedFilters')
 
 /**
  * Sets the search state `sort`.
  *
  * @public
  */
-export const setSort = wireCommit('setSort');
+export const setSort = wireCommit('setSort')
 
 /**
  * Sets the search state `query`.
  *
  * @public
  */
-export const setUrlParams = wireDispatch('setUrlParams');
+export const setUrlParams = wireDispatch('setUrlParams')
 
 /**
  * Sets the search state `page`.
  *
  * @public
  */
-export const setSearchPage = wireCommit('setPage');
+export const setSearchPage = wireCommit('setPage')
 
 /**
  * Sets the search state `params`.
  *
  * @public
  */
-export const setSearchExtraParams = wireCommit('setParams');
+export const setSearchExtraParams = wireCommit('setParams')
 
 /**
  * Resets the search state to reload the current search.
  *
  * @public
  */
-export const resetStateForReloadWire = wireCommitWithoutPayload('resetStateForReload');
+export const resetStateForReloadWire = wireCommitWithoutPayload('resetStateForReload')
 
 /**
  * Resets the search state `isNoResults`.
  *
  * @public
  */
-export const resetIsNoResults = wireCommit('setIsNoResults', false);
+export const resetIsNoResults = wireCommit('setIsNoResults', false)
 
 /**
  * Resets the search state `fromNoResultsWithFilters`.
  *
  * @public
  */
-export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false);
+export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false)
 
 /**
  * Increases the current search state `page` by one.
@@ -158,15 +158,15 @@ export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFil
  * @public
  */
 export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
-  'increasePageAppendingResults'
-);
+  'increasePageAppendingResults',
+)
 
 /**
  * Resets the search state `isAppendingResults`.
  *
  * @public
  */
-export const resetAppending = wireCommit('setIsAppendResults', false);
+export const resetAppending = wireCommit('setIsAppendResults', false)
 
 /**
  * Resets the {@link SearchGetters.request} parameters when refining request and before the actual
@@ -178,19 +178,19 @@ export const resetRequestOnRefinementWire = wireDispatch(
   'resetRequestOnRefinement',
   ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
     newRequest,
-    oldRequest: oldValue as InternalSearchRequest
-  })
-);
+    oldRequest: oldValue as InternalSearchRequest,
+  }),
+)
 
 /**
  * Resets the search state when the request is changed to null. See the
- * {@link searchXStoreModule} for details.
+ * {@link SearchXStoreModule} for details.
  *
  * @public
  */
 export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchRequest | null>(
-  wireCommitWithoutPayload('resetState')
-);
+  wireCommitWithoutPayload('resetState'),
+)
 
 /**
  * Sets the search state `query` with the selectedQueryPreview's query.
@@ -199,8 +199,8 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchReque
  */
 export const setSearchQueryFromPreview = wireCommit(
   'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Sets the search state `params` with the selectedQueryPreview's extraParams.
@@ -209,8 +209,8 @@ export const setSearchQueryFromPreview = wireCommit(
  */
 export const setSearchExtraParamsFromPreview = wireCommit(
   'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
+  ({ eventPayload: { extraParams } }) => extraParams,
+)
 
 /**
  * Sets the search state `selectedFilters` with the selectedQueryPreview's filters.
@@ -219,8 +219,8 @@ export const setSearchExtraParamsFromPreview = wireCommit(
  */
 export const setSearchSelectedFiltersFromPreview = wireCommit(
   'setSelectedFilters',
-  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
-);
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : []),
+)
 
 /**
  * Sets the search state `selectedFilters` with a selectedHistoryQuery's filters.
@@ -229,8 +229,8 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
  */
 export const setSearchSelectedFiltersFromHistoryQuery = wireCommit(
   'setSelectedFilters',
-  ({ eventPayload: { selectedFilters } }) => selectedFilters ?? []
-);
+  ({ eventPayload: { selectedFilters } }) => selectedFilters ?? [],
+)
 
 /**
  * Search wiring.
@@ -240,75 +240,75 @@ export const setSearchSelectedFiltersFromHistoryQuery = wireCommit(
 export const searchWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams,
-    saveOriginWire
+    saveOriginWire,
   },
   UserAcceptedAQuery: {
     setSearchQuery,
-    saveOriginWire
+    saveOriginWire,
   },
   UserAcceptedSpellcheckQuery: {
-    resetSpellcheckQuery
+    resetSpellcheckQuery,
   },
   UserClearedQuery: {
     setSearchQuery,
     cancelFetchAndSaveSearchResponseWire,
     resetFromNoResultsWithFilters,
-    resetIsNoResults
+    resetIsNoResults,
   },
   UserClickedASort: {
-    setSort
+    setSort,
   },
   UserPickedARelatedTag: {
-    saveOriginWire
+    saveOriginWire,
   },
   UserReachedResultsListEnd: {
-    increasePageAppendingResultsWire
+    increasePageAppendingResultsWire,
   },
   SearchRequestUpdated: {
     resetStateIfNoRequestWire,
-    fetchAndSaveSearchResponseWire
+    fetchAndSaveSearchResponseWire,
   },
   SearchRequestChanged: {
-    resetRequestOnRefinementWire
+    resetRequestOnRefinementWire,
   },
   SelectedRelatedTagsChanged: {
-    setRelatedTags
+    setRelatedTags,
   },
   SelectedFiltersForRequestChanged: {
-    setSelectedFilters
+    setSelectedFilters,
   },
   ResultsChanged: {
-    resetAppending
+    resetAppending,
   },
   ReloadSearchRequested: {
-    resetStateForReloadWire
+    resetStateForReloadWire,
   },
   SelectedSortProvided: {
-    setSort
+    setSort,
   },
   ExtraParamsChanged: {
-    setSearchExtraParams
+    setSearchExtraParams,
   },
   UserClickedCloseX: {
-    clearSearchQuery
+    clearSearchQuery,
   },
   UserClickedOutOfMainModal: {
-    clearSearchQuery
+    clearSearchQuery,
   },
   UserAcceptedAQueryPreview: {
     setSearchQueryFromPreview,
     setSearchExtraParamsFromPreview,
     setSearchSelectedFiltersFromPreview,
-    saveOriginWire
+    saveOriginWire,
   },
   QueryPreviewUnselected: {
-    setSearchExtraParams
+    setSearchExtraParams,
   },
   UserSelectedAHistoryQuery: {
-    setSearchSelectedFiltersFromHistoryQuery
+    setSearchSelectedFiltersFromHistoryQuery,
   },
   UserSelectedAPage: {
     setSearchPage,
-    resetAppending
-  }
-});
+    resetAppending,
+  },
+})

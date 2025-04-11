@@ -1,79 +1,79 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { Result } from '@empathyco/x-types';
-import { createResultStub } from '../../../__stubs__/results-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { FeatureLocation } from '../../../types/origin';
-import { XEvent, XEventsTypes } from '../../../wiring/events.types';
-import BaseResultLink from '../base-result-link.vue';
-import { WireMetadata } from '../../../wiring/index';
-import { PropsWithType } from '../../../utils/index';
-import { XPlugin } from '../../../plugins/index';
+import type { Result } from '@empathyco/x-types'
+import type { VueWrapper } from '@vue/test-utils'
+import type { FeatureLocation } from '../../../types/origin'
+import type { PropsWithType } from '../../../utils/index'
+import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
+import type { WireMetadata } from '../../../wiring/index'
+import { mount } from '@vue/test-utils'
+import { createResultStub } from '../../../__stubs__/results-stubs.factory'
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { XPlugin } from '../../../plugins/index'
+import BaseResultLink from '../base-result-link.vue'
 
 describe('testing BaseResultLink component', () => {
   const result = createResultStub('Product 001', {
-    images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300']
-  });
-  let resultLinkWrapper: VueWrapper;
-  const template = '<BaseResultLink :result="result"/>';
+    images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300'],
+  })
+  let resultLinkWrapper: VueWrapper
+  const template = '<BaseResultLink :result="result"/>'
   beforeEach(() => {
     resultLinkWrapper = mount(
       {
         components: { BaseResultLink },
         props: ['result'],
-        template
+        template,
       },
       {
         global: { plugins: [installNewXPlugin()] },
-        props: { result }
-      }
-    );
-  });
+        props: { result },
+      },
+    )
+  })
 
-  // eslint-disable-next-line max-len
   it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', async () => {
-    const listener = jest.fn();
-    XPlugin.bus.on('UserClickedAResult').subscribe(listener);
+    const listener = jest.fn()
+    XPlugin.bus.on('UserClickedAResult').subscribe(listener)
 
-    await resultLinkWrapper.trigger('click');
-    expect(listener).toHaveBeenNthCalledWith(1, result);
+    await resultLinkWrapper.trigger('click')
+    expect(listener).toHaveBeenNthCalledWith(1, result)
 
-    await resultLinkWrapper.trigger('click', { button: 1 });
-    expect(listener).toHaveBeenNthCalledWith(2, result);
+    await resultLinkWrapper.trigger('click', { button: 1 })
+    expect(listener).toHaveBeenNthCalledWith(2, result)
 
-    await resultLinkWrapper.trigger('click', { button: 2 });
-    expect(listener).toHaveBeenNthCalledWith(3, result);
+    await resultLinkWrapper.trigger('click', { button: 2 })
+    expect(listener).toHaveBeenNthCalledWith(3, result)
 
-    expect(listener).toHaveBeenCalledTimes(3);
-  });
+    expect(listener).toHaveBeenCalledTimes(3)
+  })
 
   it('emits events provided from parent element with provided location in metadata', async () => {
     const resultLinkWrapper = mount(
       {
         components: { BaseResultLink },
         props: ['result'],
-        template
+        template,
       },
       {
         provide: {
           resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-          location: <FeatureLocation>'no_query'
+          location: <FeatureLocation>'no_query',
         },
-        props: { result }
-      }
-    );
+        props: { result },
+      },
+    )
 
-    const listener = jest.fn();
-    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(listener);
+    const listener = jest.fn()
+    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(listener)
 
-    await resultLinkWrapper.trigger('click');
+    await resultLinkWrapper.trigger('click')
 
     expect(listener).toHaveBeenCalledWith({
       eventPayload: result,
       metadata: expect.objectContaining({
-        location: 'no_query'
-      })
-    });
-  });
+        location: 'no_query',
+      }),
+    })
+  })
 
   it('emits events with the extra metadata provided from parent element', async () => {
     const injectedResultLinkMetadataPerEvent: Partial<
@@ -83,61 +83,61 @@ describe('testing BaseResultLink component', () => {
       >
     > = {
       UserClickedAResult: {
-        ignoreInModules: ['tagging']
+        ignoreInModules: ['tagging'],
       },
       UserClickedResultAddToCart: {
-        replaceable: false
-      }
-    };
+        replaceable: false,
+      },
+    }
 
     const resultLinkWrapper = mount(
       {
         components: { BaseResultLink },
         props: ['result'],
-        template
+        template,
       },
       {
         provide: {
           resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-          resultLinkMetadataPerEvent: injectedResultLinkMetadataPerEvent
+          resultLinkMetadataPerEvent: injectedResultLinkMetadataPerEvent,
         },
 
-        props: { result }
-      }
-    );
+        props: { result },
+      },
+    )
 
-    const resultClickListener = jest.fn();
-    XPlugin.bus.on('UserClickedAResult', true).subscribe(resultClickListener);
+    const resultClickListener = jest.fn()
+    XPlugin.bus.on('UserClickedAResult', true).subscribe(resultClickListener)
 
-    const addToCartClickListener = jest.fn();
-    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(addToCartClickListener);
+    const addToCartClickListener = jest.fn()
+    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(addToCartClickListener)
 
-    await resultLinkWrapper.trigger('click');
+    await resultLinkWrapper.trigger('click')
 
-    expect(resultClickListener).toHaveBeenCalledTimes(1);
+    expect(resultClickListener).toHaveBeenCalledTimes(1)
     expect(resultClickListener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult)
-    });
+      metadata: expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult),
+    })
     expect(resultClickListener).toHaveBeenCalledWith({
       eventPayload: result,
       metadata: expect.not.objectContaining(
-        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart
-      )
-    });
+        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart,
+      ),
+    })
 
-    expect(addToCartClickListener).toHaveBeenCalledTimes(1);
+    expect(addToCartClickListener).toHaveBeenCalledTimes(1)
     expect(addToCartClickListener).toHaveBeenCalledWith({
       eventPayload: result,
       metadata: expect.objectContaining(
-        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart
-      )
-    });
+        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart,
+      ),
+    })
     expect(addToCartClickListener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.not.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult)
-    });
-  });
+      metadata: expect.not.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult),
+    })
+  })
 
   it('renders the content overriding default slot', () => {
     const wrapperComponent = {
@@ -153,22 +153,22 @@ describe('testing BaseResultLink component', () => {
       `,
       props: ['result'],
       components: {
-        BaseResultLink
-      }
-    };
+        BaseResultLink,
+      },
+    }
 
     const customResultLinkWrapper = mount(wrapperComponent, {
-      props: { result }
-    });
-    expect(customResultLinkWrapper.find(getDataTestSelector('result-link')).element).toBeDefined();
+      props: { result },
+    })
+    expect(customResultLinkWrapper.find(getDataTestSelector('result-link')).element).toBeDefined()
     expect(
-      customResultLinkWrapper.find(getDataTestSelector('result-link-image')).element
-    ).toBeDefined();
+      customResultLinkWrapper.find(getDataTestSelector('result-link-image')).element,
+    ).toBeDefined()
     expect(
-      customResultLinkWrapper.find(getDataTestSelector('result-link-image')).attributes('src')
-    ).toEqual(result.images![0]);
+      customResultLinkWrapper.find(getDataTestSelector('result-link-image')).attributes('src'),
+    ).toEqual(result.images![0])
     expect(customResultLinkWrapper.find(getDataTestSelector('result-link-text')).text()).toEqual(
-      result.name
-    );
-  });
-});
+      result.name,
+    )
+  })
+})

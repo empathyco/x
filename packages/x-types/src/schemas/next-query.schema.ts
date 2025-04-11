@@ -1,4 +1,4 @@
-import { NextQuery } from '../query-signals/next-query.model';
+import type { NextQuery } from '../query-signals/next-query.model'
 
 /**
  * Jest schema for validating Next query entities.
@@ -11,5 +11,5 @@ export const NextQuerySchema: NextQuery = {
   query: expect.any(String),
   facets: expect.any(Array),
   totalResults: expect.any(Number),
-  results: expect.any(Array)
-};
+  results: expect.any(Array),
+}

@@ -1,1 +1,1 @@
-export { default as BaseCurrency } from './base-currency.vue';
+export { default as BaseCurrency } from './base-currency.vue'

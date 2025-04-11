@@ -1,6 +1,6 @@
-import { onBeforeUnmount } from 'vue';
-import { debounce } from '../utils/debounce';
-import { DebounceOptions } from '../utils/types';
+import type { DebounceOptions } from '../utils/types'
+import { onBeforeUnmount } from 'vue'
+import { debounce } from '../utils/debounce'
 
 /**
  * Composable which wraps the function passed as parameter into a debounced function and returns it.
@@ -15,13 +15,13 @@ import { DebounceOptions } from '../utils/types';
 export function useDebounce<Params extends any[]>(
   fn: (...args: Params) => void,
   debounceTimeInMs: number,
-  debounceOptions: DebounceOptions = {}
+  debounceOptions: DebounceOptions = {},
 ) {
-  const debouncedFn = debounce(fn, debounceTimeInMs, debounceOptions);
+  const debouncedFn = debounce(fn, debounceTimeInMs, debounceOptions)
 
   onBeforeUnmount(() => {
-    debouncedFn.cancel();
-  });
+    debouncedFn.cancel()
+  })
 
-  return debouncedFn;
+  return debouncedFn
 }

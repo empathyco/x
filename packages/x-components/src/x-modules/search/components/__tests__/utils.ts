@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { searchXStoreModule } from '../../store/module';
-import { SearchState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { SearchState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { searchXStoreModule } from '../../store/module'
 
 /**
  * Reset search x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { SearchState } from '../../store/types';
  */
 export function resetXSearchStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<SearchState>
+  state?: DeepPartial<SearchState>,
 ): void {
-  resetStoreXModuleState(store, 'search', searchXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'search', searchXStoreModule.state(), state)
 }

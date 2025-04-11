@@ -1,5 +1,5 @@
-import { RelatedPrompt } from '../query-signals';
-import { TaggingRequestSchema } from './tagging.schema';
+import type { RelatedPrompt } from '../query-signals'
+import { TaggingRequestSchema } from './tagging.schema'
 
 /**
  * Jest schema for validating Related Prompt entities.
@@ -14,6 +14,6 @@ export const RelatedPromptSchema: RelatedPrompt = {
   tagging: {
     toolingDisplayTagging: TaggingRequestSchema,
     toolingDisplayClickTagging: TaggingRequestSchema,
-    nextQueriesTagging: expect.any(Array)
-  }
-};
+    nextQueriesTagging: expect.any(Array),
+  },
+}

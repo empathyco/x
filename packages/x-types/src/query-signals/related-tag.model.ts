@@ -1,5 +1,5 @@
-import { NamedModel } from '../named-model.model';
-import { Previewable } from '../previewable.model';
+import type { NamedModel } from '../named-model.model'
+import type { Previewable } from '../previewable.model'
 
 /**
  * A related tag is just a term that refines the current query.
@@ -8,7 +8,7 @@ import { Previewable } from '../previewable.model';
  */
 export interface RelatedTag extends NamedModel<'RelatedTag'>, Previewable {
   /** If it's a curated related tag. */
-  isCurated?: boolean;
+  isCurated?: boolean
   /** The term to add to the current query. */
-  tag: string;
+  tag: string
 }

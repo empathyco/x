@@ -1,6 +1,6 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { TailwindHelpers } from '../../../types';
-import { inputDefault } from '../input/default';
+import type { TailwindHelpers } from '../../../types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { inputDefault } from '../input/default'
 
 /**
  * Returns the default styles for component `input-group`.
@@ -9,7 +9,8 @@ import { inputDefault } from '../input/default';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function inputGroupDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
+  // eslint-disable-next-line ts/no-unsafe-return
   return deepMerge(inputDefault(helpers), {
     display: 'flex',
     flexFlow: 'row nowrap',
@@ -22,10 +23,10 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
 
     // padding is simulated with margin to remove it on button primary
     '> :first-child': {
-      marginInlineStart: theme('x.spacing.16')
+      marginInlineStart: theme('x.spacing.16'),
     },
     '> :last-child': {
-      marginInlineEnd: theme('x.spacing.16')
+      marginInlineEnd: theme('x.spacing.16'),
     },
 
     '.x-input, input': {
@@ -37,7 +38,7 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
       color: 'inherit',
       fontSize: 'inherit',
       fontWeight: 'inherit',
-      outline: 'none'
-    }
-  });
+      outline: 'none',
+    },
+  })
 }

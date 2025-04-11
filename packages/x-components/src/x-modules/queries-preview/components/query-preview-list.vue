@@ -6,15 +6,15 @@
       data-test="query-preview-item"
     >
       <QueryPreview
+        :debounce-time-ms="debounceTimeMs"
+        :max-items-to-render="maxItemsToRender"
+        :persist-in-cache="persistInCache"
+        :query-feature="queryFeature"
+        :query-preview-info="queryPreview"
         @load="flagAsLoaded"
         @error="flagAsFailed"
-        :debounceTimeMs="debounceTimeMs"
-        :maxItemsToRender="maxItemsToRender"
-        :persistInCache="persistInCache"
-        :queryFeature="queryFeature"
-        :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in $slots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in $slots" #[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -23,182 +23,184 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref, watch } from 'vue';
-  import { RequestStatus } from '../../../store';
-  import { queriesPreviewXModule } from '../x-module';
-  import { QueryPreviewInfo } from '../store/types';
-  import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { AnimationProp, QueryFeature } from '../../../types';
-  import { useState } from '../../../composables/index';
-  import QueryPreview from './query-preview.vue';
+import type { PropType } from 'vue'
+import type { RequestStatus } from '../../../store'
+import type { QueryFeature } from '../../../types'
+import type { QueryPreviewInfo } from '../store/types'
+import { computed, defineComponent, ref, watch } from 'vue'
+import { useState } from '../../../composables/index'
+import { AnimationProp } from '../../../types'
+import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview'
+import { queriesPreviewXModule } from '../x-module'
+import QueryPreview from './query-preview.vue'
 
-  interface QueryPreviewStatusRecord {
-    [query: string]: RequestStatus;
-  }
+interface QueryPreviewStatusRecord {
+  [query: string]: RequestStatus
+}
 
-  /**
-   * Renders the results previews of a list of objects with the information about the query preview,
-   * and exposes the {@link QueryPreview} slots to modify the content.
-   * The requests are made in sequential order.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'QueryPreviewList',
-    xModule: queriesPreviewXModule.name,
-    components: { QueryPreview },
-    props: {
-      /**
-       * The list of queries preview to render.
-       *
-       * @public
-       */
-      queriesPreviewInfo: {
-        type: Array as PropType<QueryPreviewInfo[]>,
-        required: true
-      },
-      /**
-       * The origin property for the request on each query preview.
-       *
-       * @public
-       */
-      queryFeature: {
-        type: String as PropType<QueryFeature>
-      },
-      /**
-       * Number of query preview results to be rendered on each query preview.
-       *
-       * @public
-       */
-      maxItemsToRender: {
-        type: Number
-      },
-      /**
-       * Debounce time in milliseconds for triggering the search requests
-       * on each query preview.
-       * It will default to 0 to fit the most common use case (pre-search),
-       * and it would work properly with a 250 value inside empathize.
-       */
-      debounceTimeMs: {
-        type: Number,
-        default: 0
-      },
-      /**
-       * Controls whether all the QueryPreview should be removed from the state
-       * when the component is destroyed.
-       *
-       * @public
-       */
-      persistInCache: Boolean,
-      /**
-       * Animation component that will be used to animate the elements.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      }
+/**
+ * Renders the results previews of a list of objects with the information about the query preview,
+ * and exposes the {@link QueryPreview} slots to modify the content.
+ * The requests are made in sequential order.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'QueryPreviewList',
+  xModule: queriesPreviewXModule.name,
+  components: { QueryPreview },
+  props: {
+    /**
+     * The list of queries preview to render.
+     *
+     * @public
+     */
+    queriesPreviewInfo: {
+      type: Array as PropType<QueryPreviewInfo[]>,
+      required: true,
     },
-    setup(props) {
-      const { params } = useState('queriesPreview', ['params']);
+    /**
+     * The origin property for the request on each query preview.
+     *
+     * @public
+     */
+    queryFeature: {
+      type: String as PropType<QueryFeature>,
+    },
+    /**
+     * Number of query preview results to be rendered on each query preview.
+     *
+     * @public
+     */
+    maxItemsToRender: {
+      type: Number,
+    },
+    /**
+     * Debounce time in milliseconds for triggering the search requests
+     * on each query preview.
+     * It will default to 0 to fit the most common use case (pre-search),
+     * and it would work properly with a 250 value inside empathize.
+     */
+    debounceTimeMs: {
+      type: Number,
+      default: 0,
+    },
+    /**
+     * Controls whether all the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     *
+     * @public
+     */
+    persistInCache: Boolean,
+    /**
+     * Animation component that will be used to animate the elements.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
+    },
+  },
+  setup(props) {
+    const { params } = useState('queriesPreview', ['params'])
 
-      /**
-       * Contains the status of the preview requests, indexed by query.
-       */
-      let queriesStatus = ref<QueryPreviewStatusRecord>({});
+    /**
+     * Contains the status of the preview requests, indexed by query.
+     */
+    const queriesStatus = ref<QueryPreviewStatusRecord>({})
 
-      /**
-       * The list of queries to preview.
-       *
-       * @returns The list of queries in the queriesPreviewInfo list.
-       * @internal
-       */
-      const queries = computed((): string[] =>
-        props.queriesPreviewInfo.map(item =>
-          getHashFromQueryPreviewInfo(item, params.value.lang as string)
+    /**
+     * The list of queries to preview.
+     *
+     * @returns The list of queries in the queriesPreviewInfo list.
+     * @internal
+     */
+    const queries = computed((): string[] =>
+      props.queriesPreviewInfo.map(item =>
+        getHashFromQueryPreviewInfo(item, params.value.lang as string),
+      ),
+    )
+
+    /**
+     * Gets all the queries to render, that are those that don't have an `error` status.
+     *
+     * @returns A list of queries.
+     * @internal
+     */
+    const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
+      return props.queriesPreviewInfo.filter(item => {
+        const queryPreviewHash = getHashFromQueryPreviewInfo(item, params.value.lang as string)
+        return (
+          queriesStatus.value[queryPreviewHash] === 'success' ||
+          queriesStatus.value[queryPreviewHash] === 'loading'
         )
-      );
+      })
+    })
 
-      /**
-       * Gets all the queries to render, that are those that don't have an `error` status.
-       *
-       * @returns A list of queries.
-       * @internal
-       */
-      const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
-        return props.queriesPreviewInfo.filter(item => {
-          const queryPreviewHash = getHashFromQueryPreviewInfo(item, params.value.lang as string);
-          return (
-            queriesStatus.value[queryPreviewHash] === 'success' ||
-            queriesStatus.value[queryPreviewHash] === 'loading'
-          );
-        });
-      });
-
-      /**
-       * Tries to load the next query.
-       *
-       * @internal
-       */
-      const loadNext = (): void => {
-        const queryToLoad = queries.value.find(query => !(query in queriesStatus.value));
-        if (queryToLoad) {
-          queriesStatus.value[queryToLoad] = 'loading';
-        }
-      };
-
-      /**
-       * Resets the status of all queries if they change.
-       *
-       * @param newQueries - The new queries.
-       * @param oldQueries - The old queries.
-       * @internal
-       */
-      watch(
-        queries,
-        (newQueries: string[], oldQueries: string[] | undefined) => {
-          if (newQueries.toString() !== oldQueries?.toString()) {
-            for (const key of Object.keys(queriesStatus.value)) {
-              if (!newQueries.includes(key)) {
-                delete queriesStatus.value[key];
-              }
-            }
-            loadNext();
-          }
-        },
-        { immediate: true, deep: true }
-      );
-
-      /**
-       * Sets the status of a given query to `success`.
-       *
-       * @param loadedQuery - The query to flag as loaded.
-       * @internal
-       */
-      const flagAsLoaded = (loadedQuery: string): void => {
-        queriesStatus.value[loadedQuery] = 'success';
-        loadNext();
-      };
-
-      /**
-       * Sets the status of a given query to `error`.
-       *
-       * @param failedQuery - The query to flag as failed.
-       * @internal
-       */
-      const flagAsFailed = (failedQuery: string): void => {
-        queriesStatus.value[failedQuery] = 'error';
-        loadNext();
-      };
-
-      return {
-        renderedQueryPreviews,
-        flagAsFailed,
-        flagAsLoaded
-      };
+    /**
+     * Tries to load the next query.
+     *
+     * @internal
+     */
+    const loadNext = (): void => {
+      const queryToLoad = queries.value.find(query => !(query in queriesStatus.value))
+      if (queryToLoad) {
+        queriesStatus.value[queryToLoad] = 'loading'
+      }
     }
-  });
+
+    /**
+     * Resets the status of all queries if they change.
+     *
+     * @param newQueries - The new queries.
+     * @param oldQueries - The old queries.
+     * @internal
+     */
+    watch(
+      queries,
+      (newQueries: string[], oldQueries: string[] | undefined) => {
+        if (newQueries.toString() !== oldQueries?.toString()) {
+          for (const key of Object.keys(queriesStatus.value)) {
+            if (!newQueries.includes(key)) {
+              delete queriesStatus.value[key]
+            }
+          }
+          loadNext()
+        }
+      },
+      { immediate: true, deep: true },
+    )
+
+    /**
+     * Sets the status of a given query to `success`.
+     *
+     * @param loadedQuery - The query to flag as loaded.
+     * @internal
+     */
+    const flagAsLoaded = (loadedQuery: string): void => {
+      queriesStatus.value[loadedQuery] = 'success'
+      loadNext()
+    }
+
+    /**
+     * Sets the status of a given query to `error`.
+     *
+     * @param failedQuery - The query to flag as failed.
+     * @internal
+     */
+    const flagAsFailed = (failedQuery: string): void => {
+      queriesStatus.value[failedQuery] = 'error'
+      loadNext()
+    }
+
+    return {
+      renderedQueryPreviews,
+      flagAsFailed,
+      flagAsLoaded,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -214,19 +216,19 @@ names of the results.
 </template>
 
 <script>
-  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
+import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
 
-  export default {
-    name: 'QueryPreviewListDemo',
-    components: {
-      QueryPreviewList
-    },
-    data() {
-      return {
-        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
-      };
+export default {
+  name: 'QueryPreviewListDemo',
+  components: {
+    QueryPreviewList,
+  },
+  data() {
+    return {
+      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -257,23 +259,23 @@ In this example, the results will be rendered inside a sliding panel.
 </template>
 
 <script>
-  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
-  import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components';
+import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
+import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'QueryPreviewListDemoOverridingSlot',
-    components: {
-      BaseResultImage,
-      BaseResultLink,
-      QueryPreviewList,
-      SlidingPanel
-    },
-    data() {
-      return {
-        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
-      };
+export default {
+  name: 'QueryPreviewListDemoOverridingSlot',
+  components: {
+    BaseResultImage,
+    BaseResultLink,
+    QueryPreviewList,
+    SlidingPanel,
+  },
+  data() {
+    return {
+      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -296,19 +298,19 @@ In this example, the ID of the results will be rendered along with the name.
 </template>
 
 <script>
-  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
+import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
 
-  export default {
-    name: 'QueryPreviewListDemoOverridingResultSlot',
-    components: {
-      QueryPreviewList
-    },
-    data() {
-      return {
-        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
-      };
+export default {
+  name: 'QueryPreviewListDemoOverridingResultSlot',
+  components: {
+    QueryPreviewList,
+  },
+  data() {
+    return {
+      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

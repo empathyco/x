@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { historyQueriesXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { historyQueriesXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the history-queries module.
@@ -14,6 +14,6 @@ export const historyQueriesEmitters = createStoreEmitters(historyQueriesXStoreMo
   // Used to load history-queries from the browser storage
   HistoryQueriesStorageKeyChanged: {
     immediate: true,
-    selector: (_state, getters) => getters.storageKey
-  }
-});
+    selector: (_state, getters) => getters.storageKey,
+  },
+})

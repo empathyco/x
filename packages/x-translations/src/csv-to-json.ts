@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import path from 'path';
-import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
-import { JSON } from './types';
+import path from 'node:path'
+import { JSON } from './types'
+import { exportToFile, getParams, getSourcePaths, loadFile } from './utils'
 
 if (require.main === module) {
-  getJSONTranslations();
+  getJSONTranslations()
 }
 
 /**
@@ -15,11 +15,11 @@ if (require.main === module) {
  * @returns A string that represents the JSON.
  */
 function generateJSONFile(sourcePath: string): JSON {
-  const csv = loadFile(sourcePath) as string;
-  const json = transformToJson(csv);
-  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.json');
-  exportToFile(outputFile, JSON.stringify(json, null, 2));
-  return json;
+  const csv = loadFile(sourcePath) as string
+  const json = transformToJson(csv)
+  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.json')
+  exportToFile(outputFile, JSON.stringify(json, null, 2))
+  return json
 }
 
 /**
@@ -30,10 +30,10 @@ function generateJSONFile(sourcePath: string): JSON {
  * @returns A JSON object with the contents of the CSV file.
  */
 function transformToJson(csv: string): JSON {
-  const [header, ...rows] = csv.trim().split(/\r?\n|\r/);
-  const [, ...columns] = header.split(';');
+  const [header, ...rows] = csv.trim().split(/\r?\n|\r/)
+  const [, ...columns] = header.split(';')
 
-  return rows.reduce<JSON>(toMessagesObject(columns), {});
+  return rows.reduce<JSON>(toMessagesObject(columns), {})
 }
 
 /**
@@ -46,9 +46,9 @@ function transformToJson(csv: string): JSON {
  */
 function toMessagesObject(devices: string[]): (json: JSON, row: string) => JSON {
   return (json, row) => {
-    const [messageKey, ...deviceMessages] = row.split(';');
-    return deviceMessages.reduce(createMessage(devices, messageKey), json);
-  };
+    const [messageKey, ...deviceMessages] = row.split(';')
+    return deviceMessages.reduce(createMessage(devices, messageKey), json)
+  }
 }
 
 /**
@@ -62,16 +62,16 @@ function toMessagesObject(devices: string[]): (json: JSON, row: string) => JSON 
  */
 function createMessage(
   devices: string[],
-  messageKey: string
+  messageKey: string,
 ): (json: JSON, message: string, index: number) => JSON {
   return (json, message, index) => {
     if (message) {
-      const path = [devices[index], ...messageKey.split('.')];
-      setProperty(json, path, message);
-      return json;
+      const path = [devices[index], ...messageKey.split('.')]
+      setProperty(json, path, message)
+      return json
     }
-    return json;
-  };
+    return json
+  }
 }
 
 /**
@@ -84,13 +84,13 @@ function createMessage(
 function setProperty(
   object: JSON,
   [property, ...remainingProperties]: string[],
-  value: unknown
+  value: unknown,
 ): void {
   if (remainingProperties.length === 0) {
-    object[property] = value;
+    object[property] = value
   } else {
-    object[property] = object[property] ?? {};
-    setProperty(object[property] as JSON, remainingProperties, value);
+    object[property] = object[property] ?? {}
+    setProperty(object[property] as JSON, remainingProperties, value)
   }
 }
 
@@ -100,6 +100,6 @@ function setProperty(
  * @returns The JSON.
  */
 export function getJSONTranslations(): JSON[] {
-  const { sourcePath } = getParams();
-  return getSourcePaths(sourcePath, 'csv').map(generateJSONFile);
+  const { sourcePath } = getParams()
+  return getSourcePaths(sourcePath, 'csv').map(generateJSONFile)
 }

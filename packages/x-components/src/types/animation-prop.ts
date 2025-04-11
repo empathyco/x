@@ -8,4 +8,4 @@
  *
  * @public
  */
-export const AnimationProp = [String, Object, Function];
+export const AnimationProp = [String, Object, Function]

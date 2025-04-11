@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `button`.
@@ -12,8 +12,8 @@ export function buttonColors(helpers: TailwindHelpers) {
     color => ({
       '--button-color-25': color['25'],
       '--button-color-50': color['50'],
-      '--button-color-75': color['75']
+      '--button-color-75': color['75'],
     }),
-    helpers
-  );
+    helpers,
+  )
 }

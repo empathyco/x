@@ -1,17 +1,17 @@
 // XModule
-import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/x-plugin';
-import { searchEmitters } from './store/emitters';
-import { searchXStoreModule } from './store/module';
-import { SearchXStoreModule } from './store/types';
-import { searchWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { SearchXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { searchEmitters } from './store/emitters'
+import { searchXStoreModule } from './store/module'
+import { searchWiring } from './wiring'
 
 /**
  * Search {@link XModule} alias.
  *
  * @public
  */
-export type SearchXModule = XModule<SearchXStoreModule>;
+export type SearchXModule = XModule<SearchXStoreModule>
 
 /**
  * Search {@link XModule} implementation. This module is auto-registered as soon as you
@@ -23,7 +23,7 @@ export const searchXModule: SearchXModule = {
   name: 'search',
   storeModule: searchXStoreModule,
   storeEmitters: searchEmitters,
-  wiring: searchWiring
-};
+  wiring: searchWiring,
+}
 
-XPlugin.registerXModule(searchXModule);
+XPlugin.registerXModule(searchXModule)

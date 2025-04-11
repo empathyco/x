@@ -1,11 +1,11 @@
 <template>
   <BaseSuggestion
+    v-slot="baseScope"
     class="x-popular-search"
     :suggestion="suggestion"
-    :suggestionSelectedEvents="events"
+    :suggestion-selected-events="events"
     data-test="popular-search"
     feature="popular_search"
-    #default="baseScope"
   >
     <!-- eslint-disable max-len -->
     <!--
@@ -18,48 +18,49 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { popularSearchesXModule } from '../x-module';
+import type { Suggestion } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { popularSearchesXModule } from '../x-module'
 
-  /**
-   * Renders a popular search item which receives the suggestion that will be rendered as a prop. It
-   * exposes a default slot to change the popular search content. If the slot is not overridden,
-   * it will render the suggestion query by default.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PopularSearch',
-    xModule: popularSearchesXModule.name,
-    components: { BaseSuggestion },
-    props: {
-      /**
-       * The suggestion to render and use in the default slot.
-       *
-       * @public
-       */
-      suggestion: {
-        type: Object as PropType<Suggestion>,
-        required: true
-      }
+/**
+ * Renders a popular search item which receives the suggestion that will be rendered as a prop. It
+ * exposes a default slot to change the popular search content. If the slot is not overridden,
+ * it will render the suggestion query by default.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PopularSearch',
+  xModule: popularSearchesXModule.name,
+  components: { BaseSuggestion },
+  props: {
+    /**
+     * The suggestion to render and use in the default slot.
+     *
+     * @public
+     */
+    suggestion: {
+      type: Object as PropType<Suggestion>,
+      required: true,
     },
-    setup(props) {
-      /**
-       * Events list which are going to be emitted when a popular search is selected.
-       *
-       * @returns The {@link XEvent} to emit.
-       * @public
-       */
-      const events = computed(
-        (): Partial<XEventsTypes> => ({ UserSelectedAPopularSearch: props.suggestion })
-      );
+  },
+  setup(props) {
+    /**
+     * Events list which are going to be emitted when a popular search is selected.
+     *
+     * @returns The {@link XEvent} to emit.
+     * @public
+     */
+    const events = computed(
+      (): Partial<XEventsTypes> => ({ UserSelectedAPopularSearch: props.suggestion }),
+    )
 
-      return { events };
-    }
-  });
+    return { events }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -84,22 +85,22 @@ content. By default, it renders the suggestion query of the popular search.
 </template>
 
 <script>
-  import { PopularSearch } from '@empathyco/x-components/popular-searches';
-  export default {
-    name: 'PopularSearchDemo',
-    components: {
-      PopularSearch
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'PopularSearch',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+import { PopularSearch } from '@empathyco/x-components/popular-searches'
+export default {
+  name: 'PopularSearchDemo',
+  components: {
+    PopularSearch,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'PopularSearch',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -116,25 +117,25 @@ content. By default, it renders the suggestion query of the popular search.
 </template>
 
 <script>
-  import { PopularSearch } from '@empathyco/x-components/popular-searches';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { PopularSearch } from '@empathyco/x-components/popular-searches'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'PopularSearchDemo',
-    components: {
-      PopularSearch,
-      TrendingIcon
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'PopularSearch',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'PopularSearchDemo',
+  components: {
+    PopularSearch,
+    TrendingIcon,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'PopularSearch',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

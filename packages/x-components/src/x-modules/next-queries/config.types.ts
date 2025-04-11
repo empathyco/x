@@ -7,7 +7,7 @@ export interface NextQueriesConfig {
   /**
    * Number of next queries that will be requested.
    */
-  maxItemsToRequest: number;
+  maxItemsToRequest: number
   /**
    * Hides the next queries if it has been already searched during the session.
    *
@@ -29,13 +29,13 @@ export interface NextQueriesConfig {
    * // Suggests ['t-shirt', 'shorts', 'dress']
    * ```
    */
-  hideSessionQueries: boolean;
+  hideSessionQueries: boolean
   /**
    * Loads the next queries with the last searched query.
    */
-  loadOnInit: boolean;
+  loadOnInit: boolean
   /**
    * Number of results that will be requested to preview the next queries.
    */
-  maxPreviewItemsToRequest: number;
+  maxPreviewItemsToRequest: number
 }

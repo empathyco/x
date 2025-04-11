@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { popularSearchesXStoreModule } from '../module';
-import { PopularSearchesState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { PopularSearchesState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { popularSearchesXStoreModule } from '../module'
 
 /**
  * Reset popular searches module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { PopularSearchesState } from '../types';
  */
 export function resetPopularSearchesStateWith(
   store: Store<PopularSearchesState>,
-  state?: DeepPartial<PopularSearchesState>
+  state?: DeepPartial<PopularSearchesState>,
 ): void {
-  resetStoreModuleState<PopularSearchesState>(store, popularSearchesXStoreModule.state(), state);
+  resetStoreModuleState<PopularSearchesState>(store, popularSearchesXStoreModule.state(), state)
 }

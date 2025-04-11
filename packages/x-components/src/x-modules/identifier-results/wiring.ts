@@ -1,43 +1,46 @@
+import type {
+  NamespacedWireCommit,
+  NamespacedWireDispatch,
+} from '../../wiring/namespaced-wiring.types'
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
-import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+  namespacedWireDispatchWithoutPayload,
+} from '../../wiring/namespaced-wires.factory'
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `identifierResults` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'identifierResults';
+const moduleName = 'identifierResults'
 /**
  * WireCommit for {@link IdentifierResultsXModule}.
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName)
 /**
  * WireDispatch for {@link IdentifierResultsXModule}.
  *
  * @internal
  */
-const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName)
 /**
  * WireDispatchWithoutPayload for {@link IdentifierResultsXModule}.
  *
  * @internal
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName)
 
 /**
  * Sets the identifier-results module query.
  *
  * @public
  */
-export const setIdentifierResultsQuery = wireDispatch('saveQuery');
+export const setIdentifierResultsQuery = wireDispatch('saveQuery')
 
 /**
  * Sets the identifier-results module query from a selectedQueryPreview's query.
@@ -46,29 +49,29 @@ export const setIdentifierResultsQuery = wireDispatch('saveQuery');
  */
 export const setIdentifierResultsQueryFromPreview = wireDispatch(
   'saveQuery',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Clears the identifier-results module query.
  *
  * @public
  */
-export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
+export const clearIdentifierResultsQuery = wireCommit('setQuery', '')
 
 /**
  * Sets the identifier results state `query` from url.
  *
  * @public
  */
-const setUrlParams = wireDispatch('saveQuery', ({ eventPayload: { query } }) => query);
+const setUrlParams = wireDispatch('saveQuery', ({ eventPayload: { query } }) => query)
 
 /**
  * Requests and stores a new set of identifier results for the query.
  *
  * @public
  */
-export const fetchAndSaveIdentifierResultsWire = wireDispatch('fetchAndSaveIdentifierResults');
+export const fetchAndSaveIdentifierResultsWire = wireDispatch('fetchAndSaveIdentifierResults')
 
 /**
  * Cancels the {@link IdentifierResultsActions.fetchAndSaveIdentifierResults} request promise.
@@ -76,8 +79,8 @@ export const fetchAndSaveIdentifierResultsWire = wireDispatch('fetchAndSaveIdent
  * @public
  */
 export const cancelFetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveIdentifierResults'
-);
+  'cancelFetchAndSaveIdentifierResults',
+)
 
 /**
  * Sets the identifier results state `origin`.
@@ -86,20 +89,20 @@ export const cancelFetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayloa
  */
 export const saveIdentifierResultsOriginWire = wireDispatch(
   'saveOrigin',
-  ({ metadata }) => metadata
-);
+  ({ metadata }) => metadata,
+)
 
 /**
  * Sets the identifier result state `params`.
  *
  * @public
  */
-export const setIdentifierResultsExtraParams = wireCommit('setParams');
+export const setIdentifierResultsExtraParams = wireCommit('setParams')
 
 /**
  * Debounce function for the module.
  */
-const moduleDebounce = namespacedDebounce(moduleName);
+const moduleDebounce = namespacedDebounce(moduleName)
 
 /**
  * Default wiring for the {@link IdentifierResultsXModule} module.
@@ -109,37 +112,37 @@ const moduleDebounce = namespacedDebounce(moduleName);
 export const identifierResultsWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams,
-    saveIdentifierResultsOriginWire
+    saveIdentifierResultsOriginWire,
   },
   UserIsTypingAQuery: {
     setIdentifierResultsQueryDebounce: moduleDebounce(
       setIdentifierResultsQuery,
       ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+      { cancelOn: 'UserAcceptedAQuery' },
+    ),
   },
   UserAcceptedAQuery: {
     setIdentifierResultsQuery,
-    saveIdentifierResultsOriginWire
+    saveIdentifierResultsOriginWire,
   },
   UserClearedQuery: {
     clearIdentifierResultsQuery,
-    cancelFetchAndSaveIdentifierResultsWire
+    cancelFetchAndSaveIdentifierResultsWire,
   },
   IdentifierResultsRequestUpdated: {
-    fetchAndSaveIdentifierResultsWire
+    fetchAndSaveIdentifierResultsWire,
   },
   ExtraParamsChanged: {
-    setIdentifierResultsExtraParams
+    setIdentifierResultsExtraParams,
   },
   UserClickedCloseX: {
-    clearIdentifierResultsQuery
+    clearIdentifierResultsQuery,
   },
   UserClickedOutOfMainModal: {
-    clearIdentifierResultsQuery
+    clearIdentifierResultsQuery,
   },
   UserAcceptedAQueryPreview: {
     setIdentifierResultsQueryFromPreview,
-    saveIdentifierResultsOriginWire
-  }
-});
+    saveIdentifierResultsOriginWire,
+  },
+})

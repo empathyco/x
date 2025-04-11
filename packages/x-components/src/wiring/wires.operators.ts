@@ -1,12 +1,12 @@
+import type { XModuleName } from '../x-modules/x-modules.types'
+import type { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiring.types'
 import {
   debounce as debounceRx,
   filter as filterRx,
   map,
-  throttle as throttleRx
-} from 'rxjs/operators';
-import { XModuleName } from '../x-modules/x-modules.types';
-import { createTimer, normalizeTime } from './wires-operators.utils';
-import { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiring.types';
+  throttle as throttleRx,
+} from 'rxjs/operators'
+import { createTimer, normalizeTime } from './wires-operators.utils'
 
 /**
  * Creates a {@link Wire} that is only executed whenever the condition in the filterFn is true.
@@ -20,10 +20,10 @@ import { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiri
  */
 export function filter<Payload>(
   wire: Wire<Payload>,
-  filterFn: (parameters: WireParams<Payload>) => boolean
+  filterFn: (parameters: WireParams<Payload>) => boolean,
 ): Wire<Payload> {
   return (observable, store, on) =>
-    wire(observable.pipe(filterRx(wirePayload => filterFn({ ...wirePayload, store }))), store, on);
+    wire(observable.pipe(filterRx(wirePayload => filterFn({ ...wirePayload, store }))), store, on)
 }
 
 /**
@@ -36,9 +36,9 @@ export function filter<Payload>(
  * @public
  */
 export function filterFalsyPayload<Payload>(
-  wire: Wire<Exclude<Payload, null | undefined | false | 0 | ''>>
+  wire: Wire<Exclude<Payload, null | undefined | false | 0 | ''>>,
 ): Wire<Payload> {
-  return filter(wire, ({ eventPayload }) => !!eventPayload) as Wire<Payload>;
+  return filter(wire, ({ eventPayload }) => !!eventPayload) as Wire<Payload>
 }
 
 /**
@@ -51,7 +51,7 @@ export function filterFalsyPayload<Payload>(
  * @public
  */
 export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
-  return filter(wire, ({ eventPayload }) => !eventPayload);
+  return filter(wire, ({ eventPayload }) => !eventPayload)
 }
 
 /**
@@ -67,10 +67,10 @@ export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload>
  */
 export function filterWhitelistedModules<Payload>(
   wire: Wire<Payload>,
-  whitelist: Array<XModuleName | null>
+  whitelist: Array<XModuleName | null>,
 ): Wire<Payload> {
-  const whitelistSet = new Set(whitelist);
-  return filter(wire, ({ metadata }) => whitelistSet.has(metadata.moduleName));
+  const whitelistSet = new Set(whitelist)
+  return filter(wire, ({ metadata }) => whitelistSet.has(metadata.moduleName))
 }
 
 /**
@@ -86,10 +86,10 @@ export function filterWhitelistedModules<Payload>(
  */
 export function filterBlacklistedModules<Payload>(
   wire: Wire<Payload>,
-  blacklist: Array<XModuleName | null>
+  blacklist: Array<XModuleName | null>,
 ): Wire<Payload> {
-  const blacklistSet = new Set(blacklist);
-  return filter(wire, ({ metadata }) => !blacklistSet.has(metadata.moduleName));
+  const blacklistSet = new Set(blacklist)
+  return filter(wire, ({ metadata }) => !blacklistSet.has(metadata.moduleName))
 }
 
 /**
@@ -107,15 +107,15 @@ export function filterBlacklistedModules<Payload>(
 export function debounce<Payload>(
   wire: Wire<Payload>,
   timeInMs: TimeSelector | number,
-  options: TimedWireOperatorOptions = {}
+  options: TimedWireOperatorOptions = {},
 ): Wire<Payload> {
   return (observable, store, on) => {
     return wire(
       observable.pipe(debounceRx(() => createTimer(normalizeTime(timeInMs, store), options, on))),
       store,
-      on
-    );
-  };
+      on,
+    )
+  }
 }
 
 /**
@@ -133,20 +133,20 @@ export function debounce<Payload>(
 export function throttle<Payload>(
   wire: Wire<Payload>,
   timeInMs: TimeSelector | number,
-  options: TimedWireOperatorOptions = {}
+  options: TimedWireOperatorOptions = {},
 ): Wire<Payload> {
   return (observable, store, on) => {
     return wire(
       observable.pipe(
         throttleRx(() => createTimer(normalizeTime(timeInMs, store), options, on), {
           leading: true,
-          trailing: true
-        })
+          trailing: true,
+        }),
       ),
       store,
-      on
-    );
-  };
+      on,
+    )
+  }
 }
 
 /**
@@ -162,16 +162,16 @@ export function throttle<Payload>(
  */
 export function mapWire<FromPayload, ToPayload>(
   toWire: Wire<ToPayload>,
-  mapFn: (payload: FromPayload) => ToPayload
+  mapFn: (payload: FromPayload) => ToPayload,
 ): Wire<FromPayload> {
   return (observable, ...restWireParams) =>
     toWire(
       observable.pipe(
         map(({ eventPayload, ...restWirePayload }) => ({
           eventPayload: mapFn(eventPayload),
-          ...restWirePayload
-        }))
+          ...restWirePayload,
+        })),
       ),
-      ...restWireParams
-    );
+      ...restWireParams,
+    )
 }

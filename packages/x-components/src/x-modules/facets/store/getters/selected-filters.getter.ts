@@ -1,4 +1,4 @@
-import { FacetsXStoreModule } from '../types';
+import type { FacetsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link FacetsGetters.selectedFilters} getter.
@@ -11,12 +11,12 @@ import { FacetsXStoreModule } from '../types';
  * @public
  */
 export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] = state => {
-  const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
+  const selectedFilters = Object.values(state.filters).filter(filter => filter.selected)
   Object.keys(state.stickyFilters).forEach(stickyFilterId => {
-    const isSelected = selectedFilters.some(selectedFilter => selectedFilter.id === stickyFilterId);
+    const isSelected = selectedFilters.some(selectedFilter => selectedFilter.id === stickyFilterId)
     if (!isSelected) {
-      selectedFilters.push(state.stickyFilters[stickyFilterId]);
+      selectedFilters.push(state.stickyFilters[stickyFilterId])
     }
-  });
-  return selectedFilters;
-};
+  })
+  return selectedFilters
+}

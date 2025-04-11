@@ -1,9 +1,9 @@
-import {
+import type {
   PlatformExtraParamsRequest,
   PlatformPageableRequest,
   PlatformQueryableRequest,
-  PlatformTrackableRequest
-} from './request.types';
+  PlatformTrackableRequest,
+} from './request.types'
 
 /**
  * Request for the `identifier results` endpoint.

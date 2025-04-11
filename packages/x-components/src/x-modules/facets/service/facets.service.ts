@@ -1,14 +1,15 @@
-import { Facet, Filter, isFacetFilter, isHierarchicalFacet } from '@empathyco/x-types';
-import { Store } from 'vuex';
-import { Dictionary } from '@empathyco/x-utils';
-import { XPlugin } from '../../../plugins/index';
-import { RootXStoreState } from '../../../store/index';
-import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
-import { FilterEntityFactory } from '../entities/filter-entity.factory';
-import { FilterEntity } from '../entities/types';
-import { FacetGroupEntry, FacetsGetters } from '../store/types';
-import { flatHierarchicalFilters } from '../utils';
-import { FacetsGroup, FacetsService, FiltersMetadata } from './types';
+import type { Facet, Filter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/index'
+import type { FilterEntity } from '../entities/types'
+import type { FacetGroupEntry, FacetsGetters } from '../store/types'
+import type { FacetsGroup, FacetsService, FiltersMetadata } from './types'
+import { isFacetFilter, isHierarchicalFacet } from '@empathyco/x-types'
+import { XPlugin } from '../../../plugins/index'
+import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index'
+import { FilterEntityFactory } from '../entities/filter-entity.factory'
+import { flatHierarchicalFilters } from '../utils'
 
 /**
  * Default implementation for the {@link FacetsService}.
@@ -19,10 +20,10 @@ export class DefaultFacetsService implements FacetsService {
   /**
    * Global instance of the {@link FacetsService}.
    */
-  public static instance: FacetsService = new DefaultFacetsService();
+  public static instance: FacetsService = new DefaultFacetsService()
 
   public constructor(
-    protected filterEntityFactory: FilterEntityFactory = FilterEntityFactory.instance
+    protected filterEntityFactory: FilterEntityFactory = FilterEntityFactory.instance,
   ) {}
 
   /**
@@ -32,57 +33,57 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected get store(): Store<RootXStoreState> {
-    return XPlugin.store;
+    return XPlugin.store
   }
 
   setFacets(facetsGroup: FacetsGroup): void {
-    const newFilters = this.updateStore(facetsGroup);
+    const newFilters = this.updateStore(facetsGroup)
     /* Ensures that filters are selected with valid values. For example, you can't set a single
      select facet with 2 or more selected filters */
-    this.updateFiltersSelectedState(newFilters);
+    this.updateFiltersSelectedState(newFilters)
   }
 
   updateFacets(facetsGroup: FacetsGroup): void {
-    const selectedFilters = this.getSelectedFilters();
-    const newFilters = this.updateStore(facetsGroup);
-    this.updateFiltersSelectedState(newFilters, selectedFilters);
+    const selectedFilters = this.getSelectedFilters()
+    const newFilters = this.updateStore(facetsGroup)
+    this.updateFiltersSelectedState(newFilters, selectedFilters)
   }
 
   updatePreselectedFilters(filters: Filter[]): void {
-    this.setPreselectedFilter(filters);
+    this.setPreselectedFilter(filters)
   }
 
   selectPreselectedFilters(): void {
-    this.select(this.store.state.x.facets.preselectedFilters);
+    this.select(this.store.state.x.facets.preselectedFilters)
   }
 
   clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
-      .forEach(filter => this.deselect.bind(this)(filter, metadata));
+      .forEach(filter => this.deselect.bind(this)(filter, metadata))
   }
 
   clearFiltersWithMetadata({
     facetIds,
-    metadata
+    metadata,
   }: { facetIds?: Array<Facet['id']>; metadata?: FiltersMetadata } = {}): void {
-    this.clearFilters(facetIds, metadata);
+    this.clearFilters(facetIds, metadata)
   }
 
   deselect(filter: Filter, metadata?: Dictionary): void {
-    this.getFilterEntity(filter).deselect(filter, metadata);
+    this.getFilterEntity(filter).deselect(filter, metadata)
   }
 
   select(filterOrFilters: Filter | Filter[]): void {
-    const filters = Array.isArray(filterOrFilters) ? filterOrFilters : [filterOrFilters];
-    filters.forEach(filter => this.getFilterEntity(filter).select(filter));
+    const filters = Array.isArray(filterOrFilters) ? filterOrFilters : [filterOrFilters]
+    filters.forEach(filter => this.getFilterEntity(filter).select(filter))
   }
 
   toggle(filter: Filter): void {
     if (filter.selected) {
-      this.deselect(filter);
+      this.deselect(filter)
     } else {
-      this.select(filter);
+      this.select(filter)
     }
   }
 
@@ -93,7 +94,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   setQuery(query: string): void {
-    this.store.commit('x/facets/setQuery', query);
+    this.store.commit('x/facets/setQuery', query)
   }
 
   /**
@@ -104,7 +105,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected getFilterEntity(filter: Filter): FilterEntity {
-    return this.filterEntityFactory.getFilterEntity(this.store, filter);
+    return this.filterEntityFactory.getFilterEntity(this.store, filter)
   }
 
   /**
@@ -116,15 +117,15 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected updateStore(facetsGroup: FacetsGroup): Filter[] {
-    this.removeGroupFacets(facetsGroup.id);
-    this.removeGroupFilters(facetsGroup.id);
+    this.removeGroupFacets(facetsGroup.id)
+    this.removeGroupFilters(facetsGroup.id)
     facetsGroup.facets.forEach(facet => {
-      this.setFacetGroup({ facetId: facet.id, groupId: facetsGroup.id });
-      this.setFacet(facet);
-    });
-    const newFilters = this.flatFilters(facetsGroup);
-    this.setFilters(newFilters);
-    return newFilters;
+      this.setFacetGroup({ facetId: facet.id, groupId: facetsGroup.id })
+      this.setFacet(facet)
+    })
+    const newFilters = this.flatFilters(facetsGroup)
+    this.setFilters(newFilters)
+    return newFilters
   }
 
   /**
@@ -141,8 +142,8 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected flatFilters(facetsGroup: FacetsGroup): Filter[] {
     return facetsGroup.facets.flatMap(facet =>
-      isHierarchicalFacet(facet) ? flatHierarchicalFilters(facet.filters) : facet.filters
-    );
+      isHierarchicalFacet(facet) ? flatHierarchicalFilters(facet.filters) : facet.filters,
+    )
   }
 
   /**
@@ -152,7 +153,8 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected getSelectedFilters(): FacetsGetters['selectedFilters'] {
-    return this.store.getters['x/facets/selectedFilters'];
+    // eslint-disable-next-line ts/no-unsafe-member-access,ts/no-unsafe-return
+    return this.store.getters['x/facets/selectedFilters']
   }
 
   /**
@@ -164,15 +166,15 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected updateFiltersSelectedState(newFilters: Filter[], previousFilters?: Filter[]): void {
     if (!isArrayEmpty(newFilters)) {
-      const newStateFiltersMap = arrayToObject(previousFilters ?? newFilters, 'id');
+      const newStateFiltersMap = arrayToObject(previousFilters ?? newFilters, 'id')
       newFilters.forEach(filter => {
-        const filterEntity = this.getFilterEntity(filter);
+        const filterEntity = this.getFilterEntity(filter)
         if (newStateFiltersMap[filter.id]?.selected) {
-          filterEntity.select(filter);
+          filterEntity.select(filter)
         } else {
-          filterEntity.deselect(filter);
+          filterEntity.deselect(filter)
         }
-      });
+      })
     }
   }
 
@@ -190,10 +192,10 @@ export class DefaultFacetsService implements FacetsService {
       groupItemsBy(Object.values(this.store.state.x.facets.filters), filter =>
         isFacetFilter(filter)
           ? this.store.state.x.facets.groups[filter.facetId]
-          : '__unknown-group__'
-      )[groupId] ?? [];
-    this.removeFilters(filtersToRemove);
-    return filtersToRemove;
+          : '__unknown-group__',
+      )[groupId] ?? []
+    this.removeFilters(filtersToRemove)
+    return filtersToRemove
   }
 
   /**
@@ -205,10 +207,10 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected removeGroupFacets(groupId: FacetsGroup['id']): Omit<Facet, 'filters'>[] {
     const facetsToRemove = Object.values(this.store.state.x.facets.facets).filter(
-      facet => this.store.state.x.facets.groups[facet.id] === groupId
-    );
-    facetsToRemove.forEach(this.removeFacet.bind(this));
-    return facetsToRemove;
+      facet => this.store.state.x.facets.groups[facet.id] === groupId,
+    )
+    facetsToRemove.forEach(this.removeFacet.bind(this))
+    return facetsToRemove
   }
 
   /**
@@ -218,18 +220,17 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected setFacetGroup(facetGroup: FacetGroupEntry): void {
-    this.store.commit('x/facets/setFacetGroup', facetGroup);
+    this.store.commit('x/facets/setFacetGroup', facetGroup)
   }
 
   /**
    * Sets the Facet to the store facets record.
    *
    * @param facet - The facet to store.
-   *
    * @internal
    */
   protected setFacet({ filters, ...restFacet }: Facet): void {
-    this.store.commit('x/facets/setFacet', restFacet);
+    this.store.commit('x/facets/setFacet', restFacet)
   }
 
   /**
@@ -239,7 +240,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected removeFacet(facet: Omit<Facet, 'filters'>): void {
-    this.store.commit('x/facets/removeFacet', facet);
+    this.store.commit('x/facets/removeFacet', facet)
   }
 
   /**
@@ -249,7 +250,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected setFilters(filters: Filter[]): void {
-    this.store.commit('x/facets/setFilters', filters);
+    this.store.commit('x/facets/setFilters', filters)
   }
 
   /**
@@ -259,7 +260,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected setPreselectedFilter(filters: Filter[]): void {
-    this.store.commit('x/facets/setPreselectedFilters', filters);
+    this.store.commit('x/facets/setPreselectedFilters', filters)
   }
 
   /**
@@ -269,6 +270,6 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected removeFilters(filters: Filter[]): void {
-    this.store.commit('x/facets/removeFilters', filters);
+    this.store.commit('x/facets/removeFilters', filters)
   }
 }

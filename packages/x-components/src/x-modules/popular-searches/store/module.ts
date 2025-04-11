@@ -1,13 +1,13 @@
-import { setStatus } from '../../../store/utils/status-store.utils';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
+import type { PopularSearchesXStoreModule } from './types'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setStatus } from '../../../store/utils/status-store.utils'
 import {
   cancelFetchAndSaveSuggestions,
-  fetchAndSaveSuggestions
-} from './actions/fetch-and-save-suggestions.action';
-import { fetchSuggestions } from './actions/fetch-suggestions.action';
-import { popularSearches } from './getters/popular-searches.getter';
-import { request } from './getters/request.getter';
-import { PopularSearchesXStoreModule } from './types';
+  fetchAndSaveSuggestions,
+} from './actions/fetch-and-save-suggestions.action'
+import { fetchSuggestions } from './actions/fetch-suggestions.action'
+import { popularSearches } from './getters/popular-searches.getter'
+import { request } from './getters/request.getter'
 
 /**
  * {@link XStoreModule} For the next-queries module.
@@ -21,31 +21,31 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     status: 'initial',
     config: {
       hideSessionQueries: true,
-      maxItemsToRequest: 20
+      maxItemsToRequest: 20,
     },
-    params: {}
+    params: {},
   }),
   getters: {
     request,
-    popularSearches
+    popularSearches,
   },
   mutations: {
     setSuggestions(state, suggestions) {
-      state.popularSearches = suggestions;
+      state.popularSearches = suggestions
     },
     setSearchedQueries(state, searchedQueries) {
-      state.searchedQueries = searchedQueries;
+      state.searchedQueries = searchedQueries
     },
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
     setStatus,
     setConfig,
-    mergeConfig
+    mergeConfig,
   },
   actions: {
     cancelFetchAndSaveSuggestions,
     fetchSuggestions,
-    fetchAndSaveSuggestions
-  }
-};
+    fetchAndSaveSuggestions,
+  },
+}

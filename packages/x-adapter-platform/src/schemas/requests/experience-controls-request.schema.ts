@@ -1,7 +1,7 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { ExperienceControlsRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model';
+import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import type { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the ExperienceControlsRequestSchema.
@@ -12,5 +12,5 @@ export const experienceControlsRequestSchema = createMutableSchema<
   ExperienceControlsRequest,
   PlatformExperienceControlsRequest
 >({
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

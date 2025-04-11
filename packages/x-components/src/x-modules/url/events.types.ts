@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { UrlParams } from '../../types/url-params';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { UrlParams } from '../../types/url-params'
 
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
@@ -10,23 +10,22 @@ import { UrlParams } from '../../types/url-params';
 export interface UrlXEvents {
   /**
    * Url loaded.
-   * * Payload: The new {@link UrlParams} params.
+   * Payload: The new {@link UrlParams} params.
    */
-  ParamsLoadedFromUrl: UrlParams;
+  ParamsLoadedFromUrl: UrlParams
   /**
    * Url loaded.
-   * * Payload: The extra params form URL in form of {@link @empathyco/x-utils#Dictionary
-   * | Dictionary} with `unknown` values.
+   * Payload: The extra params form URL in form of Dictionary with `unknown` values.
    */
-  ExtraParamsLoadedFromUrl: Dictionary<unknown>;
+  ExtraParamsLoadedFromUrl: Dictionary<unknown>
   /**
    * Url state changed with a change to add new entry to browser URL History State.
-   * * Payload: The new URL params.
+   * Payload: The new URL params.
    */
-  PushableUrlStateUpdated: UrlParams;
+  PushableUrlStateUpdated: UrlParams
   /**
    * Url state changed with a change to replace the current entry to browser URL History State.
-   * * Payload: The new URL params.
+   * Payload: The new URL params.
    */
-  ReplaceableUrlStateUpdated: UrlParams;
+  ReplaceableUrlStateUpdated: UrlParams
 }

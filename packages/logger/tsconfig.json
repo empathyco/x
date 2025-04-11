@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "lib": ["dom", "esnext"],
     "module": "commonjs",
-    "outDir": "./dist/cjs",
+    "moduleResolution": "node",
+    "types": ["jest"],
+    "strict": true,
     "declaration": true,
     "declarationDir": "./types",
-    "sourceMap": true,
-    "inlineSources": true,
     "importHelpers": true,
-    "moduleResolution": "node",
-    "strict": true,
-    "types": ["jest"],
-    "lib": ["dom", "esnext"]
+    "inlineSources": true,
+    "outDir": "./dist/cjs",
+    "sourceMap": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/__tests__/**/*.spec.ts"]
+  "include": ["src/**/*.ts"]
 }

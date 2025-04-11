@@ -7,8 +7,8 @@ export function suggestionGroupButtonLighter() {
   return {
     lighter: {
       '&:hover': {
-        transform: 'none'
-      }
-    }
-  };
+        transform: 'none',
+      },
+    },
+  }
 }

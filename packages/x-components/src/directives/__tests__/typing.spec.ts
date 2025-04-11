@@ -1,5 +1,6 @@
-import { mount } from '@vue/test-utils';
-import { TypingOptions, typing } from '../typing';
+import type { TypingOptions } from '../typing'
+import { mount } from '@vue/test-utils'
+import { typing } from '../typing'
 
 function render(typingOptions: TypingOptions) {
   const wrapper = mount(
@@ -7,73 +8,73 @@ function render(typingOptions: TypingOptions) {
       template: `<div v-typing="{text, speed}"></div>`,
       data: () => ({
         text: typingOptions.text,
-        speed: typingOptions.speed
-      })
+        speed: typingOptions.speed,
+      }),
     },
     {
       global: {
         directives: {
-          typing
-        }
-      }
-    }
-  );
-  return wrapper;
+          typing,
+        },
+      },
+    },
+  )
+  return wrapper
 }
 
 describe('typingHtmlDirective', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-  });
+    jest.useFakeTimers()
+  })
 
   afterEach(() => {
-    jest.useRealTimers();
-    jest.clearAllMocks();
-  });
+    jest.useRealTimers()
+    jest.clearAllMocks()
+  })
 
   it('should write the text character by character', () => {
-    const mockHtml = 'Hello, World!';
-    const wrapper = render({ text: mockHtml });
-    const el = wrapper.find('div').element;
+    const mockHtml = 'Hello, World!'
+    const wrapper = render({ text: mockHtml })
+    const el = wrapper.find('div').element
 
-    expect(el.innerHTML).toBe(mockHtml[0]);
+    expect(el.innerHTML).toBe(mockHtml[0])
 
-    jest.runAllTimers();
+    jest.runAllTimers()
 
-    expect(el.innerHTML).toBe(mockHtml);
-  });
+    expect(el.innerHTML).toBe(mockHtml)
+  })
 
   it('should show a console.error if a text is not send', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
 
-    render({ text: '' });
+    render({ text: '' })
 
-    expect(consoleSpy).toHaveBeenCalledWith('v-typing: "text" is required.');
+    expect(consoleSpy).toHaveBeenCalledWith('v-typing: "text" is required.')
 
-    consoleSpy.mockRestore();
-  });
+    consoleSpy.mockRestore()
+  })
 
   it('should call clearTimeout when typing finished', () => {
-    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout');
-    render({ text: 'Hello, World!' });
+    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout')
+    render({ text: 'Hello, World!' })
 
-    jest.runAllTimers();
+    jest.runAllTimers()
 
-    expect(mockClearTimeout).toHaveBeenCalled();
-    expect(mockClearTimeout.mock.calls.length).toBeGreaterThanOrEqual(1);
+    expect(mockClearTimeout).toHaveBeenCalled()
+    expect(mockClearTimeout.mock.calls.length).toBeGreaterThanOrEqual(1)
 
-    mockClearTimeout.mockRestore();
-  });
+    mockClearTimeout.mockRestore()
+  })
 
   it('should call clearTimeout after unmounting directive', () => {
-    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout');
-    const sut = render({ text: 'Hello, World!' });
+    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout')
+    const sut = render({ text: 'Hello, World!' })
 
-    sut.unmount();
+    sut.unmount()
 
-    expect(mockClearTimeout).toHaveBeenCalled();
-    expect(mockClearTimeout.mock.calls.length).toBeGreaterThanOrEqual(1);
+    expect(mockClearTimeout).toHaveBeenCalled()
+    expect(mockClearTimeout.mock.calls.length).toBeGreaterThanOrEqual(1)
 
-    mockClearTimeout.mockRestore();
-  });
-});
+    mockClearTimeout.mockRestore()
+  })
+})

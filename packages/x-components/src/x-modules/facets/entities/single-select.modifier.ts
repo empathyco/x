@@ -1,12 +1,6 @@
-import {
-  isFacetFilter,
-  isHierarchicalFilter,
-  FacetFilter,
-  Facet,
-  Filter,
-  HierarchicalFilter
-} from '@empathyco/x-types';
-import { BaseFilterEntityModifier } from './types';
+import type { Facet, FacetFilter, Filter, HierarchicalFilter } from '@empathyco/x-types'
+import { isFacetFilter, isHierarchicalFilter } from '@empathyco/x-types'
+import { BaseFilterEntityModifier } from './types'
 
 /**
  * Allows only to select only one filter from the same facet at the same time.
@@ -20,8 +14,8 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    * @param filter - The filter to select.
    */
   select(filter: FacetFilter): void {
-    this.getOtherFilters(filter).forEach(filter => this.deselect.bind(this)(filter));
-    this.entity.select(filter);
+    this.getOtherFilters(filter).forEach(filter => this.deselect.bind(this)(filter))
+    this.entity.select(filter)
   }
 
   /**
@@ -40,19 +34,19 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
       `FacetFilter` parameter type is lost, so we should check it to avoid unexpected crashes
       due to a wrong configuration. */
     if (isHierarchicalFilter(filter)) {
-      const ancestorsIds = this.getAncestorsIds(filter);
-      const descendantsIds = this.getDescendantsIds(filter);
+      const ancestorsIds = this.getAncestorsIds(filter)
+      const descendantsIds = this.getDescendantsIds(filter)
       return this.getFacetFilters(filter.facetId).filter(
         storeFilter =>
-          !ancestorsIds.includes(storeFilter.id) && !descendantsIds.includes(storeFilter.id)
-      );
+          !ancestorsIds.includes(storeFilter.id) && !descendantsIds.includes(storeFilter.id),
+      )
     } else if (isFacetFilter(filter)) {
       return this.getFacetFilters(filter.facetId).filter(
-        storeFilter => storeFilter.id !== filter.id && storeFilter.selected
-      );
+        storeFilter => storeFilter.id !== filter.id && storeFilter.selected,
+      )
     } else {
       // TODO Add a warning in case a non facet filter is passed here.
-      return [];
+      return []
     }
   }
 
@@ -66,14 +60,14 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    */
   protected getAncestorsIds(
     filter: HierarchicalFilter,
-    ids: Array<Filter['id']> = [filter.id]
+    ids: Array<Filter['id']> = [filter.id],
   ): Array<Filter['id']> {
     return filter?.parentId
       ? this.getAncestorsIds(
           this.store.state.x.facets.filters[filter.parentId] as HierarchicalFilter,
-          [filter.parentId, ...ids]
+          [filter.parentId, ...ids],
         )
-      : ids;
+      : ids
   }
 
   /**
@@ -87,15 +81,15 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    */
   protected getDescendantsIds(
     filter: HierarchicalFilter,
-    ids: Array<Filter['id']> = [filter.id]
+    ids: Array<Filter['id']> = [filter.id],
   ): Array<Filter['id']> {
     return filter?.children?.length
       ? filter?.children.reduce(
           (descendantIdsList, descendant) =>
             this.getDescendantsIds(descendant, [descendant.id, ...descendantIdsList]),
-          ids
+          ids,
         )
-      : ids;
+      : ids
   }
 
   /**
@@ -107,8 +101,9 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    */
   protected getFacetFilters(facetId: Facet['id']): FacetFilter[] {
     return (
+      // eslint-disable-next-line ts/no-unsafe-member-access
       ((this.store.getters['x/facets/facets'] as Record<Facet['id'], Facet>)[facetId]
         ?.filters as FacetFilter[]) ?? []
-    );
+    )
   }
 }

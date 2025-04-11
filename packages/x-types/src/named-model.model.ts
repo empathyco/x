@@ -16,7 +16,7 @@ export type ModelNameType =
   | 'Redirection'
   | FilterModelName
   | FacetModelName
-  | string;
+  | string
 
 /**
  * Common interface to ease the differentiate between different model types.
@@ -25,7 +25,7 @@ export type ModelNameType =
  */
 export interface NamedModel<T extends ModelNameType = ModelNameType> {
   /** The {@link ModelNameType | model name} value. */
-  readonly modelName: T;
+  readonly modelName: T
 }
 
 /**
@@ -38,7 +38,7 @@ export type FacetModelName =
   | 'SimpleFacet'
   | 'HierarchicalFacet'
   | 'NumberRangeFacet'
-  | 'EditableNumberRangeFacet';
+  | 'EditableNumberRangeFacet'
 
 /**
  * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter
@@ -46,7 +46,7 @@ export type FacetModelName =
  *
  * @public
  */
-export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter' | 'RawFilter';
+export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter' | 'RawFilter'
 
 /**
  * Const to use in the {@link BooleanFilterModelName} Type definition and also in Type Guards.
@@ -56,12 +56,12 @@ export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilte
 export const BooleanFilterModelNames = [
   'SimpleFilter',
   'HierarchicalFilter',
-  'NumberRangeFilter'
-] as const;
+  'NumberRangeFilter',
+] as const
 
 /**
  * Type to ease the usage of a model name in a {@link BooleanFilter} with autocomplete suggestions.
  *
  * @public
  */
-export type BooleanFilterModelName = (typeof BooleanFilterModelNames)[number];
+export type BooleanFilterModelName = (typeof BooleanFilterModelNames)[number]

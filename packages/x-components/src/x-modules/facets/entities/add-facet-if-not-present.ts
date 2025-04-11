@@ -1,6 +1,6 @@
-import { Store } from 'vuex';
-import { Facet, FacetModelName } from '@empathyco/x-types';
-import { RootXStoreState } from '../../../store/store.types';
+import type { Facet, FacetModelName } from '@empathyco/x-types'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/store.types'
 
 /**
  * Adds an {@link Facet} to the store in case it doesn't exist for the passed facetId.
@@ -13,13 +13,13 @@ import { RootXStoreState } from '../../../store/store.types';
 export function addFacetIfNotPresent(
   store: Store<RootXStoreState>,
   facetId: Facet['id'],
-  facetModelName: FacetModelName
+  facetModelName: FacetModelName,
 ): void {
   if (!store.state.x.facets.facets[facetId]) {
     store.commit('x/facets/setFacet', {
       modelName: facetModelName,
       id: facetId,
-      label: facetId
-    } as Omit<Facet, 'filters'>);
+      label: facetId,
+    } as Omit<Facet, 'filters'>)
   }
 }

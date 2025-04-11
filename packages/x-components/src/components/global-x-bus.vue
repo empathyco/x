@@ -1,39 +1,40 @@
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { XEventListeners } from '../x-installer/api/api.types';
-  import { XEvent } from '../wiring/events.types';
-  import { useXBus } from '../composables/use-x-bus';
+import type { PropType } from 'vue'
+import type { XEvent } from '../wiring/events.types'
+import type { XEventListeners } from '../x-installer/api/api.types'
+import { defineComponent } from 'vue'
+import { useXBus } from '../composables/use-x-bus'
 
-  /**
-   * This component helps to subscribe to any {@link XEvent} with custom callbacks using Vue
-   * listeners API.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'GlobalXBus',
-    props: {
-      listeners: {
-        type: Object as PropType<XEventListeners>,
-        required: true
-      }
+/**
+ * This component helps to subscribe to any {@link XEvent} with custom callbacks using Vue
+ * listeners API.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'GlobalXBus',
+  props: {
+    listeners: {
+      type: Object as PropType<XEventListeners>,
+      required: true,
     },
-    setup(props) {
-      const xBus = useXBus();
+  },
+  setup(props) {
+    const xBus = useXBus()
 
-      /**
-       * Handles a subscription to all the events provided in the listeners with the function that
-       * will execute the callback.
-       */
-      Object.entries(props.listeners as XEventListeners).forEach(([eventName, callback]) => {
-        xBus.on(eventName as XEvent, true).subscribe(({ eventPayload, metadata }) => {
-          callback(eventPayload as never, metadata);
-        });
-      });
+    /**
+     * Handles a subscription to all the events provided in the listeners with the function that
+     * will execute the callback.
+     */
+    Object.entries(props.listeners as XEventListeners).forEach(([eventName, callback]) => {
+      xBus.on(eventName as XEvent, true).subscribe(({ eventPayload, metadata }) => {
+        callback(eventPayload as never, metadata)
+      })
+    })
 
-      return () => '';
-    }
-  });
+    return () => ''
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -52,19 +53,19 @@ Event by using the prop `listeners`
 </template>
 
 <script>
-  import { GlobalXBus } from '@empathyco/x-components';
-  export default {
-    name: 'GlobalXBusTest',
-    components: {
-      GlobalXBus
+import { GlobalXBus } from '@empathyco/x-components'
+export default {
+  name: 'GlobalXBusTest',
+  components: {
+    GlobalXBus,
+  },
+  methods: {
+    printQuery(query, metadata) {
+      console.log('My new query is:', query)
+      console.log('And has been triggered by this DOM element:', metadata.target)
     },
-    methods: {
-      printQuery(query, metadata) {
-        console.log('My new query is:', query);
-        console.log('And has been triggered by this DOM element:', metadata.target);
-      }
-    }
-  };
+  },
+}
 </script>
 ```
 </docs>

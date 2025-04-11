@@ -1,22 +1,23 @@
-import { isFacetFilter, Stats } from '@empathyco/x-types';
-import { setQuery } from '../../../store/utils/query.utils';
-import { setStatus } from '../../../store';
-import { groupItemsBy } from '../../../utils/array';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
-import { UNKNOWN_FACET_KEY } from '../../facets/store/constants';
+import type { Stats } from '@empathyco/x-types'
+import type { SearchXStoreModule } from './types'
+import { isFacetFilter } from '@empathyco/x-types'
+import { setStatus } from '../../../store'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setQuery } from '../../../store/utils/query.utils'
+import { groupItemsBy } from '../../../utils/array'
+import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse,
   fetchSearchResponse,
   increasePageAppendingResults,
   resetRequestOnRefinement,
-  saveSearchResponse
-} from './actions';
-import { saveOrigin } from './actions/save-origin.action';
-import { setUrlParams } from './actions/set-url-params.action';
-import { query } from './getters/query.getter';
-import { request } from './getters/request.getter';
-import { SearchXStoreModule } from './types';
+  saveSearchResponse,
+} from './actions'
+import { saveOrigin } from './actions/save-origin.action'
+import { setUrlParams } from './actions/set-url-params.action'
+import { query } from './getters/query.getter'
+import { request } from './getters/request.getter'
 
 /**
  * {@link XStoreModule} For the search module.
@@ -30,99 +31,99 @@ export const searchXStoreModule: SearchXStoreModule = {
     params: {},
     config: {
       pageSize: 24,
-      pageMode: 'infinite_scroll'
+      pageMode: 'infinite_scroll',
     },
     status: 'initial',
     isNoResults: false,
-    fromNoResultsWithFilters: false
+    fromNoResultsWithFilters: false,
   }),
   getters: {
     request,
-    query
+    query,
   },
   mutations: {
     appendResults(state, results) {
-      state.results = [...state.results, ...results];
+      state.results = [...state.results, ...results]
     },
     resetState(state) {
-      Object.assign(state, resettableState());
+      Object.assign(state, resettableState())
     },
     resetStateForReload(state) {
-      const { query, facets, sort, page, ...resettable } = resettableState();
-      Object.assign(state, resettable);
+      const { query, facets, sort, page, ...resettable } = resettableState()
+      Object.assign(state, resettable)
     },
     setQuery,
     setResults(state, results) {
-      state.results = results;
+      state.results = results
     },
     setPartialResults(state, partialResults) {
-      state.partialResults = partialResults;
+      state.partialResults = partialResults
     },
     setFacets(state, facets) {
-      state.facets = facets;
+      state.facets = facets
     },
     setRelatedTags(state, relatedTags) {
-      state.relatedTags = relatedTags;
+      state.relatedTags = relatedTags
     },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
-        isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY
-      );
+        isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
+      )
     },
     setBanners(state, banners) {
-      state.banners = banners;
+      state.banners = banners
     },
     setPromoteds(state, promoteds) {
-      state.promoteds = promoteds;
+      state.promoteds = promoteds
     },
     setSpellcheck(state, spellcheckedQuery) {
-      state.spellcheckedQuery = spellcheckedQuery;
+      state.spellcheckedQuery = spellcheckedQuery
     },
     setTotalResults(state, totalResults) {
-      state.totalResults = totalResults;
+      state.totalResults = totalResults
     },
     setSort(state, sort) {
-      state.sort = sort;
+      state.sort = sort
     },
     setPage(state, page) {
-      state.page = page;
+      state.page = page
     },
     setConfig,
     mergeConfig,
     setIsAppendResults(state, isAppendResults) {
-      state.isAppendResults = isAppendResults;
+      state.isAppendResults = isAppendResults
     },
     setIsNoResults(state, isNoResults) {
-      state.isNoResults = isNoResults;
+      state.isNoResults = isNoResults
     },
     setFromNoResultsWithFilters(state, fromNoResultsWithFilters) {
-      state.fromNoResultsWithFilters = fromNoResultsWithFilters;
+      state.fromNoResultsWithFilters = fromNoResultsWithFilters
     },
     setStatus,
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
     setOrigin(state, origin = null) {
-      state.origin = origin;
+      state.origin = origin
     },
     setRedirections(state, redirections) {
-      state.redirections = redirections;
+      state.redirections = redirections
     },
     setQueryTagging(state, queryTagging) {
-      state.queryTagging = queryTagging;
+      state.queryTagging = queryTagging
     },
     setDisplayTagging(state, displayTagging) {
-      state.displayTagging = displayTagging;
+      state.displayTagging = displayTagging
     },
     updateResult(state, result) {
-      const stateResult = state.results.find(stateResult => result.id === stateResult.id);
+      const stateResult = state.results.find(stateResult => result.id === stateResult.id)
       if (stateResult) {
-        Object.assign(stateResult, result);
+        Object.assign(stateResult, result)
       }
     },
     setStats(state, stats) {
-      state.stats = stats;
-    }
+      state.stats = stats
+    },
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
@@ -132,9 +133,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     resetRequestOnRefinement,
     saveSearchResponse,
     setUrlParams,
-    saveOrigin
-  }
-};
+    saveOrigin,
+  },
+}
 
 /**
  * Function to return the "resettable" part of the state. This will be used in the `resetState`
@@ -162,12 +163,12 @@ export function resettableState() {
     redirections: [],
     queryTagging: {
       url: '',
-      params: {}
+      params: {},
     },
     displayTagging: {
       url: '',
-      params: {}
+      params: {},
     },
-    stats: {} as Stats
-  };
+    stats: {} as Stats,
+  }
 }

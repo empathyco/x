@@ -1,4 +1,4 @@
-import { NextQuery } from '@empathyco/x-types';
+import type { NextQuery } from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#NextQuery | next queries} stub.
@@ -9,8 +9,8 @@ import { NextQuery } from '@empathyco/x-types';
  */
 export function getNextQueriesStub(amount = 3): NextQuery[] {
   return Array.from<number, NextQuery>({ length: amount }, (_, index) =>
-    createNextQueryStub(`Next query ${index + 1}`)
-  );
+    createNextQueryStub(`Next query ${index + 1}`),
+  )
 }
 
 /**
@@ -29,6 +29,6 @@ export function createNextQueryStub(query: string, nextQuery?: Partial<NextQuery
     results: [],
     modelName: 'NextQuery',
     isCurated: false,
-    ...nextQuery
-  };
+    ...nextQuery,
+  }
 }

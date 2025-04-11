@@ -4,8 +4,8 @@
  * @public
  */
 export interface PlatformRelatedTag {
-  query: string;
-  tag: string;
-  source: 'ORGANIC' | 'CURATED';
-  position: number;
+  query: string
+  tag: string
+  source: 'ORGANIC' | 'CURATED'
+  position: number
 }

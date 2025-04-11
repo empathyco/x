@@ -1,4 +1,4 @@
-import { ScrollXStoreModule } from './types';
+import type { ScrollXStoreModule } from './types'
 
 /**
  * {@link XStoreModule} For the scroll module.
@@ -8,7 +8,7 @@ import { ScrollXStoreModule } from './types';
 export const scrollXStoreModule: ScrollXStoreModule = {
   state: () => ({
     data: {},
-    pendingScrollTo: ''
+    pendingScrollTo: '',
   }),
   getters: {},
   mutations: {
@@ -19,14 +19,14 @@ export const scrollXStoreModule: ScrollXStoreModule = {
           hasAlmostReachedEnd: false,
           hasReachedEnd: false,
           position: 0,
-          direction: 'UP'
-        };
+          direction: 'UP',
+        }
       }
-      Object.assign(state.data[id], newState);
+      Object.assign(state.data[id], newState)
     },
     setPendingScrollTo(state, pendingScrollTo) {
-      state.pendingScrollTo = pendingScrollTo;
-    }
+      state.pendingScrollTo = pendingScrollTo
+    },
   },
-  actions: {}
-};
+  actions: {},
+}

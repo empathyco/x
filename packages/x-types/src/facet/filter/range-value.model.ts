@@ -5,7 +5,7 @@
  */
 export interface RangeValue {
   /** The minimum value allowed. `null` means unset. */
-  min: number | null;
+  min: number | null
   /** The maximum value allowed. `null` means unset. */
-  max: number | null;
+  max: number | null
 }

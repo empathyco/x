@@ -1,4 +1,4 @@
-import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
+import type { IdentifierResultsRequest, Result } from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of IdentifierResults XModule, where each key is the event name, and the
@@ -11,16 +11,16 @@ export interface IdentifierResultsXEvents {
    * Identifier results have been changed.
    * Payload: The new {@link @empathyco/x-types#Result | identifier results}.
    */
-  IdentifierResultsChanged: Result[];
+  IdentifierResultsChanged: Result[]
   /**
    * Any property of the identifier results request has changed.
    * Payload: The new {@link @empathyco/x-types#IdentifierResultsRequest | identifier  result
    * request} or `null` if there is not enough data in the state nto conform a valid request.
    */
-  IdentifierResultsRequestUpdated: IdentifierResultsRequest | null;
+  IdentifierResultsRequestUpdated: IdentifierResultsRequest | null
   /**
    * A identifier result has been clicked.
    * Payload: The {@link @empathyco/x-types#Result | result}.
    */
-  UserClickedAIdentifierResult: Result;
+  UserClickedAIdentifierResult: Result
 }

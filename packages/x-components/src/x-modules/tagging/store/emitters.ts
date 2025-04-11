@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
-import { taggingXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils'
+import { taggingXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the tagging module.
@@ -11,6 +11,6 @@ export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
   SearchTaggingReceived: state => state.queryTaggingInfo!,
   ResultURLTrackingEnabled: {
     selector: state => state.config.storageKey!,
-    filter: newValue => newValue === 'url'
-  }
-});
+    filter: newValue => newValue === 'url',
+  },
+})

@@ -6,7 +6,7 @@
  * @public
  */
 export function isStringEmpty(str?: string | null): boolean {
-  return !str || str.length === 0;
+  return !str || str.length === 0
 }
 
 /**
@@ -27,7 +27,7 @@ export function toKebabCase(str: string): string {
   return str
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .replace(/\s+|_/g, '-')
-    .toLowerCase();
+    .toLowerCase()
 }
 
 /**
@@ -43,5 +43,5 @@ export function toKebabCase(str: string): string {
  * @public
  */
 export function capitalize<StrType extends string>(str: StrType): Capitalize<StrType> {
-  return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<StrType>;
+  return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<StrType>
 }

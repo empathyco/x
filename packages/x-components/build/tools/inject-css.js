@@ -6,10 +6,10 @@
  */
 function injectCss(css) {
   if (document) {
-    const el = document.createElement('style');
-    el.textContent = css;
-    document.head.appendChild(el);
+    const el = document.createElement('style')
+    el.textContent = css
+    document.head.appendChild(el)
   }
 }
 
-export default injectCss;
+export default injectCss

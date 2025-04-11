@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils';
-import FadeAndSlide from '../fade-and-slide.vue';
+import { mount } from '@vue/test-utils'
+import FadeAndSlide from '../fade-and-slide.vue'
 
 describe('testing Fade and Slide component', () => {
   it('renders the animation component with the expected tag wrapping all slotted elements', () => {
@@ -12,13 +12,13 @@ describe('testing Fade and Slide component', () => {
         </FadeAndSlide>
       `,
       components: {
-        FadeAndSlide
-      }
-    };
+        FadeAndSlide,
+      },
+    }
 
-    const fadeAndSlideWrapper = mount(fadeAndSlideComponent);
+    const fadeAndSlideWrapper = mount(fadeAndSlideComponent)
 
-    expect(fadeAndSlideWrapper.find('div')).toBeTruthy();
-    expect(fadeAndSlideWrapper.findAll('p')).toHaveLength(3);
-  });
-});
+    expect(fadeAndSlideWrapper.find('div')).toBeTruthy()
+    expect(fadeAndSlideWrapper.findAll('p')).toHaveLength(3)
+  })
+})

@@ -1,4 +1,4 @@
-import { Facet, Filter } from '@empathyco/x-types';
+import type { Facet, Filter } from '@empathyco/x-types'
 
 /**
  * An object containing a list of facets, and the group they belong to.
@@ -14,9 +14,9 @@ import { Facet, Filter } from '@empathyco/x-types';
  */
 export interface FacetsGroup {
   /** The list of facets that belong to the group. */
-  facets: Facet[];
+  facets: Facet[]
   /** The group unique identifier. */
-  id: string;
+  id: string
 }
 
 /**
@@ -26,7 +26,7 @@ export interface FacetsGroup {
  */
 export interface FiltersMetadata {
   /** Flag to prevent the clearing of sticky filters. */
-  keepSticky?: boolean;
+  keepSticky?: boolean
 }
 
 /**
@@ -41,7 +41,7 @@ export interface FacetsService {
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    * @param metadata - An optional object with the event metadata.
    */
-  clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void;
+  clearFilters: (facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata) => void
 
   /**
    * Deselects the selected filters. This is intended to be used from the wiring where currently
@@ -50,17 +50,17 @@ export interface FacetsService {
    * @param payload - The event payload that can contain the list of facets ids from whom deselect
    * the filters and the event metadata.
    */
-  clearFiltersWithMetadata(payload?: {
-    facetIds?: Array<Facet['id']>;
-    metadata?: FiltersMetadata;
-  }): void;
+  clearFiltersWithMetadata: (payload?: {
+    facetIds?: Array<Facet['id']>
+    metadata?: FiltersMetadata
+  }) => void
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
    * @param filter - The filter to deselect.
    * @param metadata - An optional object with the event metadata.
    */
-  deselect(filter: Filter, metadata?: FiltersMetadata): void;
+  deselect: (filter: Filter, metadata?: FiltersMetadata) => void
   /**
    * Replaces the facets of the group with the new ones. It ignores the provided filters selected
    * state, replacing it with the previous selected filter.
@@ -68,18 +68,18 @@ export interface FacetsService {
    * @param facetsGroup - An object containing the id of the facets group, and the list of new
    * facets to store.
    */
-  updateFacets(facetsGroup: FacetsGroup): void;
+  updateFacets: (facetsGroup: FacetsGroup) => void
   /**
    * Selects preselected filter/filters, adding it/them to the store if it/they are not present.
    *
    */
-  selectPreselectedFilters(): void;
+  selectPreselectedFilters: () => void
   /**
    * Replaces the preselected filters with the new ones.
    *
    * @param filters - An array of filters.
    */
-  updatePreselectedFilters(filters: Filter[]): void;
+  updatePreselectedFilters: (filters: Filter[]) => void
   /**
    * Sets the facets of the group. This method just replaces the facets, and keeps the given facet's
    * filters selected state as it is.
@@ -87,24 +87,24 @@ export interface FacetsService {
    * @param facetsGroup - An object containing the id of the facets group, and the list of new
    * facets to store.
    */
-  setFacets(facetsGroup: FacetsGroup): void;
+  setFacets: (facetsGroup: FacetsGroup) => void
   /**
    * Selects filter/filters, adding it/them to the store if it/they was not present.
    *
    * @param filter - The filter/filters to select.
    */
-  select(filter: Filter | Filter[]): void;
+  select: (filter: Filter | Filter[]) => void
   /**
    * Sets the query.
    *
    * @param query - The query searched.
    */
-  setQuery(query: string): void;
+  setQuery: (query: string) => void
   /**
    * Selects a deselected filter, and deselects a selected filter, adding them to the store
    * in both cases.
    *
    * @param filter - The filter to toggle.
    */
-  toggle(filter: Filter): void;
+  toggle: (filter: Filter) => void
 }

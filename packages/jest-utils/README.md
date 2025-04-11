@@ -19,13 +19,13 @@ option from your Jest config file.
 // File jest.config.js
 module.exports = {
   setupFilesAfterEnv: ['./tests.setup.js'],
-  testMatch: ['<rootDir>/**/*.spec.js']
-};
+  testMatch: ['<rootDir>/**/*.spec.js'],
+}
 ```
 
 ```js
 // File tests.setup.js
-import '@empathyco/x-jest-utils';
+import '@empathyco/x-jest-utils'
 ```
 
 If you want to find out all the matchers, check the

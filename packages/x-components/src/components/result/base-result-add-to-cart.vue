@@ -11,74 +11,75 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, inject } from 'vue';
-  import { XEventsTypes } from '../../wiring/events.types';
-  import BaseEventButton from '../base-event-button.vue';
-  import { PropsWithType } from '../../utils/index';
-  import { WireMetadata } from '../../wiring/index';
+import type { Result } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { PropsWithType } from '../../utils/index'
+import type { XEventsTypes } from '../../wiring/events.types'
+import type { WireMetadata } from '../../wiring/index'
+import { computed, defineComponent, inject } from 'vue'
+import BaseEventButton from '../base-event-button.vue'
 
-  /**
-   * Renders a button with a default slot. It receives the result with the data and emits
-   * {@link XEventsTypes.UserClickedResultAddToCart} to the bus on click mouse event.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: { BaseEventButton },
-    props: {
-      /**
-       * (Required) The {@link @empathyco/x-types#Result} information.
-       *
-       * @public
-       */
-      result: {
-        type: Object as PropType<Result>,
-        required: true
-      }
+/**
+ * Renders a button with a default slot. It receives the result with the data and emits
+ * {@link XEventsTypes.UserClickedResultAddToCart} to the bus on click mouse event.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: { BaseEventButton },
+  props: {
+    /**
+     * (Required) The {@link @empathyco/x-types#Result} information.
+     *
+     * @public
+     */
+    result: {
+      type: Object as PropType<Result>,
+      required: true,
     },
-    setup(props) {
-      /**
-       * The list of additional events to be emitted by the component when user clicks the add2cart button.
-       *
-       * @internal
-       */
-      const resultAddToCartExtraEvents = inject<PropsWithType<XEventsTypes, Result>[]>(
-        'resultAddToCartExtraEvents',
-        []
-      );
+  },
+  setup(props) {
+    /**
+     * The list of additional events to be emitted by the component when user clicks the add2cart button.
+     *
+     * @internal
+     */
+    const resultAddToCartExtraEvents = inject<PropsWithType<XEventsTypes, Result>[]>(
+      'resultAddToCartExtraEvents',
+      [],
+    )
 
-      /**
-       * The metadata to be injected in the events emitted by the component.
-       */
-      const metadata = inject<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>(
-        'resultAddToCartExtraEventsMetadata',
-        {}
-      );
+    /**
+     * The metadata to be injected in the events emitted by the component.
+     */
+    const metadata = inject<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>(
+      'resultAddToCartExtraEventsMetadata',
+      {},
+    )
 
-      /**
-       * The events to be emitted by the button.
-       *
-       * @returns Events {@link XEventsTypes} to emit.
-       *
-       * @public
-       */
-      const events = computed(() => {
-        return resultAddToCartExtraEvents.reduce(
-          (acc, event) => {
-            acc[event] = props.result;
-            return acc;
-          },
-          { UserClickedResultAddToCart: props.result } as Partial<XEventsTypes>
-        );
-      });
+    /**
+     * The events to be emitted by the button.
+     *
+     * @returns Events {@link XEventsTypes} to emit.
+     *
+     * @public
+     */
+    const events = computed(() => {
+      return resultAddToCartExtraEvents.reduce(
+        (acc, event) => {
+          acc[event] = props.result
+          return acc
+        },
+        { UserClickedResultAddToCart: props.result } as Partial<XEventsTypes>,
+      )
+    })
 
-      return {
-        events,
-        metadata
-      };
+    return {
+      events,
+      metadata,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">

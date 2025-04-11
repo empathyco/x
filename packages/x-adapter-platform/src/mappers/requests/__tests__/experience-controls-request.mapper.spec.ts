@@ -1,5 +1,5 @@
-import { ExperienceControlsRequest } from '@empathyco/x-types';
-import { experienceControlsRequestMapper } from '../experience-controls-request.mapper';
+import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import { experienceControlsRequestMapper } from '../experience-controls-request.mapper'
 
 describe('experienceControlsRequestMapper tests', () => {
   it('should map the request', () => {
@@ -9,9 +9,9 @@ describe('experienceControlsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(experienceControlsRequestMapper(request, {})).toStrictEqual({
       extraParams: {
@@ -19,8 +19,8 @@ describe('experienceControlsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

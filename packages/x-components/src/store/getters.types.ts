@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { AnyXStoreModule, RootXStoreState } from './store.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { AnyXStoreModule, RootXStoreState } from './store.types'
 
 /**
  * Type safe getters definition type. An object with this type is what it is needed to define
@@ -14,15 +14,15 @@ export type GettersTree<State extends Dictionary, Getters extends Dictionary> = 
     state: State,
     getters: Getters,
     rootState: RootXStoreState,
-    rootGetters: any
-  ) => Getters[Key];
-};
+    rootGetters: any,
+  ) => Getters[Key]
+}
 /**
  * Alias for any getters tree. Use only when you don't care about the type.
  *
  * @public
  */
-export type AnyGettersTree = GettersTree<Dictionary, Dictionary>;
+export type AnyGettersTree = GettersTree<Dictionary, Dictionary>
 
 /**
  * Type for implementing getters for a module with a class.
@@ -30,4 +30,4 @@ export type AnyGettersTree = GettersTree<Dictionary, Dictionary>;
  * @param Module - The module this getters belong to.
  * @public
  */
-export type GettersClass<Module extends AnyXStoreModule> = Partial<Module['getters']>;
+export type GettersClass<Module extends AnyXStoreModule> = Partial<Module['getters']>

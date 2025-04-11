@@ -1,5 +1,5 @@
-import { SearchRequest, SearchResponse } from '@empathyco/x-types';
-import { RequestStatus } from '../../store/utils/status-store.utils';
+import type { SearchRequest, SearchResponse } from '@empathyco/x-types'
+import type { RequestStatus } from '../../store/utils/status-store.utils'
 
 /**
  * An internal search request containing the page used to calculate the start and rows properties of
@@ -9,7 +9,7 @@ import { RequestStatus } from '../../store/utils/status-store.utils';
  */
 export interface InternalSearchRequest extends SearchRequest {
   /** The page number. */
-  page: number;
+  page: number
 }
 
 /**
@@ -19,8 +19,8 @@ export interface InternalSearchRequest extends SearchRequest {
  * @public
  */
 export interface WatchedInternalSearchRequest {
-  newRequest: InternalSearchRequest;
-  oldRequest: InternalSearchRequest;
+  newRequest: InternalSearchRequest
+  oldRequest: InternalSearchRequest
 }
 
 /**
@@ -31,7 +31,7 @@ export interface WatchedInternalSearchRequest {
  */
 export interface InternalSearchResponse extends SearchResponse {
   /** The search request. */
-  request: InternalSearchRequest;
+  request: InternalSearchRequest
   /** The response status. */
-  status: RequestStatus;
+  status: RequestStatus
 }

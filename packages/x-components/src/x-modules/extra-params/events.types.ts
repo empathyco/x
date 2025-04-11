@@ -1,4 +1,4 @@
-import { Dictionary } from '@empathyco/x-utils';
+import type { Dictionary } from '@empathyco/x-utils'
 
 /**
  * Dictionary of the events of {@link ExtraParamsXModule}, where each key is the event name,
@@ -9,22 +9,22 @@ import { Dictionary } from '@empathyco/x-utils';
 export interface ExtraParamsXEvents {
   /**
    * The user changed the extra params.
-   * * Payload: The new extra params dictionary.
+   * Payload: The new extra params dictionary.
    */
-  UserChangedExtraParams: Dictionary<unknown>;
+  UserChangedExtraParams: Dictionary<unknown>
   /**
    * The Extra Params have been changed.
-   * * Payload: The new extra params dictionary.
+   * Payload: The new extra params dictionary.
    */
-  ExtraParamsChanged: Dictionary<unknown>;
+  ExtraParamsChanged: Dictionary<unknown>
   /**
    * The Extra Params have been provided.
-   * * Payload: The new extra params dictionary.
+   * Payload: The new extra params dictionary.
    */
-  ExtraParamsProvided: Dictionary<unknown>;
+  ExtraParamsProvided: Dictionary<unknown>
   /**
    * The Initial Extra Params have been loaded into the state.
-   * * Payload: The new extra params dictionary.
+   * Payload: The new extra params dictionary.
    */
-  ExtraParamsInitialized: Dictionary<unknown>;
+  ExtraParamsInitialized: Dictionary<unknown>
 }

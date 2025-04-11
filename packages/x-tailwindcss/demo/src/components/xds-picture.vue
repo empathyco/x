@@ -1,17 +1,17 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, copyCssClassesToClipboard }"
     title="Picture"
     :sections="sections"
   >
     <div
       :key="cssClass"
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
       style="width: 200px"
       class="bg-white/60"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
     >
       <img
         src="https://assets.empathy.co/images-demo/2885.jpg"
@@ -24,41 +24,41 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
-  import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-picture',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-picture'
-      },
-      zoom: {
-        type: String,
-        default: 'x-picture-zoom'
-      },
-      overlay: {
-        type: String,
-        default: 'x-picture-overlay'
+    zoom: {
+      type: String,
+      default: 'x-picture-zoom',
+    },
+    overlay: {
+      type: String,
+      default: 'x-picture-overlay',
+    },
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        Default: [addParentClasses(this.base)(this.zoom)],
+        Overlay: [addParentClasses(this.base)(this.overlay)],
       }
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          Default: [addParentClasses(this.base)(this.zoom)],
-          Overlay: [addParentClasses(this.base)(this.overlay)]
-        };
-      }
+  },
+  methods: {
+    copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
     },
-    methods: {
-      copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      }
-    }
-  });
+  },
+})
 </script>

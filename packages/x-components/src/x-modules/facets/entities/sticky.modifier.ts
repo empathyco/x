@@ -1,11 +1,11 @@
-import { Filter } from '@empathyco/x-types';
-import { BaseFilterEntityModifier } from './types';
+import type { Filter } from '@empathyco/x-types'
+import { BaseFilterEntityModifier } from './types'
 
 /**
  * A dictionary with information about whether to keep or remove sticky filters.
  */
 interface Metadata {
-  keepSticky: boolean;
+  keepSticky: boolean
 }
 
 /**
@@ -24,8 +24,8 @@ export class StickyModifier extends BaseFilterEntityModifier<Metadata> {
    */
   deselect(filter: Filter, metadata?: Metadata): void {
     if (!metadata?.keepSticky) {
-      super.deselect(filter, metadata);
-      this.store.commit('x/facets/removeStickyFilter', filter);
+      super.deselect(filter, metadata)
+      this.store.commit('x/facets/removeStickyFilter', filter)
     }
   }
 
@@ -35,7 +35,7 @@ export class StickyModifier extends BaseFilterEntityModifier<Metadata> {
    * @param filter - The filter to select.
    */
   select(filter: Filter): void {
-    super.select(filter);
-    this.store.commit('x/facets/setStickyFilter', filter);
+    super.select(filter)
+    this.store.commit('x/facets/setStickyFilter', filter)
   }
 }

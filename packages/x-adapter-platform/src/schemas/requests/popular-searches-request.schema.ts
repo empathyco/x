@@ -1,7 +1,7 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { PopularSearchesRequest } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model';
+import type { PopularSearchesRequest } from '@empathyco/x-types'
+import type { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the PopularSearchesRequestSchema.
@@ -14,5 +14,5 @@ export const popularSearchesRequestSchema = createMutableSchema<
 >({
   start: 'start',
   rows: 'rows',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

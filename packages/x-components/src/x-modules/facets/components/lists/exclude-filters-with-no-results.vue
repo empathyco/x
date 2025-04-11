@@ -1,52 +1,52 @@
 <script lang="ts">
-  import { Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, provide } from 'vue';
-  import { facetsXModule } from '../../x-module';
-  import { useFiltersInjection } from '../../composables/use-filters-injection';
+import type { Filter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { isBooleanFilter } from '@empathyco/x-types'
+import { computed, defineComponent, provide } from 'vue'
+import { useFiltersInjection } from '../../composables/use-filters-injection'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * The `ExcludeFiltersWithNoResults` component filters the provided list of filters, excluding
-   * those which have the `totalResults` property exactly equal to `0`. It won't remove filters with
-   * no `totalResults` property.
-   *
-   * The new list of filters is bound to the default scoped slot. As this component does not render
-   * no root element, this default slot must contain a single root node.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'ExcludeFiltersWithNoResults',
-    xModule: facetsXModule.name,
-    props: {
-      /** The list of filters to be rendered as slots. */
-      filters: Array as PropType<Filter[]>,
+/**
+ * The `ExcludeFiltersWithNoResults` component filters the provided list of filters, excluding
+ * those which have the `totalResults` property exactly equal to `0`. It won't remove filters with
+ * no `totalResults` property.
+ *
+ * The new list of filters is bound to the default scoped slot. As this component does not render
+ * no root element, this default slot must contain a single root node.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'ExcludeFiltersWithNoResults',
+  xModule: facetsXModule.name,
+  props: {
+    /** The list of filters to be rendered as slots. */
+    filters: Array as PropType<Filter[]>,
 
-      /**
-       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
-       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       */
-      parentId: {
-        type: String as PropType<Filter['id']>
-      }
+    /**
+     * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+     * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+     */
+    parentId: {
+      type: String as PropType<Filter['id']>,
     },
-    setup(props, { slots }) {
-      const renderedFilters = useFiltersInjection(props);
+  },
+  setup(props, { slots }) {
+    const renderedFilters = useFiltersInjection(props)
 
-      /**
-       * Removes the filters that have exactly 0 results associated.
-       *
-       * @returns A sublist of the filters prop, excluding the ones with no results.
-       */
-      const filtersWithResults = computed(() =>
-        renderedFilters.value.filter(
-          filter => !isBooleanFilter(filter) || filter.totalResults !== 0
-        )
-      );
-      provide('filters', filtersWithResults);
+    /**
+     * Removes the filters that have exactly 0 results associated.
+     *
+     * @returns A sublist of the filters prop, excluding the ones with no results.
+     */
+    const filtersWithResults = computed(() =>
+      renderedFilters.value.filter(filter => !isBooleanFilter(filter) || filter.totalResults !== 0),
+    )
+    provide('filters', filtersWithResults)
 
-      return () => slots.default?.({ filters: filtersWithResults.value })[0] ?? '';
-    }
-  });
+    return () => slots.default?.({ filters: filtersWithResults.value })[0] ?? ''
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -77,44 +77,44 @@ filters list to their children, it is mandatory to send it as prop.
 </template>
 
 <script>
-  import { ExcludeFiltersWithNoResults } from '@empathyco/x-components/facets';
+import { ExcludeFiltersWithNoResults } from '@empathyco/x-components/facets'
 
-  export default {
-    components: {
-      ExcludeFiltersWithNoResults
-    },
-    data() {
-      return {
-        filters: [
-          {
-            // This is the only filter that will be removed.
-            facetId: 'category',
-            id: 'category:men',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Men',
-            totalResults: 0
-          },
-          {
-            facetId: 'category',
-            id: 'category:women',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Women',
-            totalResults: 10
-          },
-          {
-            facetId: 'category',
-            id: 'category:kids',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Kids',
-            totalResults: undefined
-          }
-        ]
-      };
+export default {
+  components: {
+    ExcludeFiltersWithNoResults,
+  },
+  data() {
+    return {
+      filters: [
+        {
+          // This is the only filter that will be removed.
+          facetId: 'category',
+          id: 'category:men',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Men',
+          totalResults: 0,
+        },
+        {
+          facetId: 'category',
+          id: 'category:women',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Women',
+          totalResults: 10,
+        },
+        {
+          facetId: 'category',
+          id: 'category:kids',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Kids',
+          totalResults: undefined,
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -135,52 +135,52 @@ filters list to their children, it is mandatory to send it as prop.
 </template>
 
 <script>
-  import {
+import {
+  ExcludeFiltersWithNoResults,
+  FiltersSearch,
+  Filters,
+  SimpleFilter,
+} from '@empathyco/x-components/facets'
+
+export default {
+  components: {
     ExcludeFiltersWithNoResults,
     FiltersSearch,
     Filters,
-    SimpleFilter
-  } from '@empathyco/x-components/facets';
-
-  export default {
-    components: {
-      ExcludeFiltersWithNoResults,
-      FiltersSearch,
-      Filters,
-      SimpleFilter
-    },
-    data() {
-      return {
-        filters: [
-          {
-            // This is the only filter that will be removed.
-            facetId: 'category',
-            id: 'category:men',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Men',
-            totalResults: 0
-          },
-          {
-            facetId: 'category',
-            id: 'category:women',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Women',
-            totalResults: 10
-          },
-          {
-            facetId: 'category',
-            id: 'category:kids',
-            modelName: 'SimpleFilter',
-            selected: false,
-            label: 'Kids',
-            totalResults: undefined
-          }
-        ]
-      };
+    SimpleFilter,
+  },
+  data() {
+    return {
+      filters: [
+        {
+          // This is the only filter that will be removed.
+          facetId: 'category',
+          id: 'category:men',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Men',
+          totalResults: 0,
+        },
+        {
+          facetId: 'category',
+          id: 'category:women',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Women',
+          totalResults: 10,
+        },
+        {
+          facetId: 'category',
+          id: 'category:kids',
+          modelName: 'SimpleFilter',
+          selected: false,
+          label: 'Kids',
+          totalResults: undefined,
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

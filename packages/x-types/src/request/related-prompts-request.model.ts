@@ -1,4 +1,4 @@
-import { ExtraParamsRequest, QueryableRequest } from './request.model';
+import type { ExtraParamsRequest, QueryableRequest } from './request.model'
 
 /**
  * Request for Related Prompts endpoint.

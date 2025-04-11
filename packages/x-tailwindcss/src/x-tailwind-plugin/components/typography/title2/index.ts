@@ -1,7 +1,7 @@
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
-import { titleDefault } from './default';
-import { titleSizes } from './sizes';
+import type { TailwindHelpers } from '../../../../types'
+import { rename } from '@empathyco/x-utils'
+import { titleDefault } from './default'
+import { titleSizes } from './sizes'
 
 /**
  * Returns the component `title2` CSS.
@@ -15,10 +15,10 @@ export function title2(helpers: TailwindHelpers) {
       ...titleDefault(helpers),
       ...rename(
         {
-          ...titleSizes(helpers)
+          ...titleSizes(helpers),
         },
-        { prefix: '&-' }
-      )
-    }
-  };
+        { prefix: '&-' },
+      ),
+    },
+  }
 }

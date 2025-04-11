@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `ghost` styles for component `tag`.
@@ -7,7 +7,7 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function tagGhost(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   // Ghost & Ghost Selected common styles
   const disabledStyles = {
@@ -15,9 +15,9 @@ export function tagGhost(helpers: TailwindHelpers) {
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       color: theme('x.colors.neutral.25'),
-      fontWeight: theme('x.fontWeight.regular')
-    }
-  };
+      fontWeight: theme('x.fontWeight.regular'),
+    },
+  }
 
   return {
     ghost: {
@@ -28,7 +28,7 @@ export function tagGhost(helpers: TailwindHelpers) {
       '&:hover,&:focus,&:active': {
         backgroundColor: theme('x.colors.neutral.10'),
         borderColor: theme('x.colors.neutral.10'),
-        color: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`
+        color: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
       },
 
       ...disabledStyles,
@@ -39,11 +39,11 @@ export function tagGhost(helpers: TailwindHelpers) {
         fontWeight: theme('x.fontWeight.bold'),
 
         '&:hover,&:focus,&:active': {
-          borderColor: theme('x.colors.neutral.10')
+          borderColor: theme('x.colors.neutral.10'),
         },
 
-        ...disabledStyles
-      }
-    }
-  };
+        ...disabledStyles,
+      },
+    },
+  }
 }

@@ -1,5 +1,5 @@
-import { PartialResult } from '@empathyco/x-types';
-import { createResultStub } from './results-stubs.factory';
+import type { PartialResult } from '@empathyco/x-types'
+import { createResultStub } from './results-stubs.factory'
 
 /**
  * Function to create partial results stub.
@@ -12,13 +12,13 @@ export function getPartialResultsStub(): PartialResult[] {
       facets: [],
       query: 'lego camion',
       totalResults: 10,
-      results: [createResultStub('lego camion')]
+      results: [createResultStub('lego camion')],
     },
     {
       facets: [],
       query: 'camion rojo',
       totalResults: 8,
-      results: [createResultStub('camion rojo')]
-    }
-  ];
+      results: [createResultStub('camion rojo')],
+    },
+  ]
 }

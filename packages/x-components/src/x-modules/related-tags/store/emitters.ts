@@ -1,6 +1,6 @@
-import { createStoreEmitters } from '../../../store';
-import { createEmitterArrayFilter } from '../../../utils/array';
-import { relatedTagsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { createEmitterArrayFilter } from '../../../utils/array'
+import { relatedTagsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the related-tags module.
@@ -12,6 +12,6 @@ export const relatedTagsEmitters = createStoreEmitters(relatedTagsXStoreModule, 
   RelatedTagsRequestUpdated: (_, getters) => getters.request,
   SelectedRelatedTagsChanged: {
     selector: state => state.selectedRelatedTags,
-    filter: createEmitterArrayFilter('tag')
-  }
-});
+    filter: createEmitterArrayFilter('tag'),
+  },
+})

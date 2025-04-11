@@ -1,5 +1,5 @@
-import { NextQuery } from '@empathyco/x-types';
-import { ListItem } from '../../utils';
+import type { NextQuery } from '@empathyco/x-types'
+import type { ListItem } from '../../utils'
 
 /**
  * Next queries group interface for the NextQueries.
@@ -7,6 +7,6 @@ import { ListItem } from '../../utils';
  * @public
  */
 export interface NextQueriesGroup extends ListItem {
-  modelName: 'NextQueriesGroup';
-  nextQueries: NextQuery[];
+  modelName: 'NextQueriesGroup'
+  nextQueries: NextQuery[]
 }

@@ -1,4 +1,4 @@
-import { PlatformSemanticQuery } from '../models';
+import type { PlatformSemanticQuery } from '../models'
 
 /**
  * Response for the `semantic queries` endoint.
@@ -7,6 +7,6 @@ import { PlatformSemanticQuery } from '../models';
  */
 export interface PlatformSemanticQueriesResponse {
   data: {
-    candidates: PlatformSemanticQuery[];
-  };
+    candidates: PlatformSemanticQuery[]
+  }
 }

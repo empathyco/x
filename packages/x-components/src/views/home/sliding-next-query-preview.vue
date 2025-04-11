@@ -1,15 +1,15 @@
 <template>
   <NextQueryPreview
-    :suggestion="suggestion"
-    #default="{ results, totalResults, suggestion }"
+    v-slot="{ results, totalResults, suggestion: nextQuerySuggestion }"
+    :suggestion="nextQuerySuggestion"
     class="x-flex x-flex-col x-gap-8"
   >
     <h1 class="x-title2">Others clients have searched</h1>
-    <NextQuery class="x-suggestion x-text1 x-text1-lg" :suggestion="suggestion">
-      <span class="x-font-bold">{{ suggestion.query }}</span>
+    <NextQuery class="x-suggestion x-text1 x-text1-lg" :suggestion="nextQuerySuggestion">
+      <span class="x-font-bold">{{ nextQuerySuggestion.query }}</span>
       ({{ totalResults }})
     </NextQuery>
-    <SlidingPanel :resetOnContentChange="false">
+    <SlidingPanel :reset-on-content-change="false">
       <div class="x-flex x-flex-col x-gap-8">
         <Result
           v-for="result in results"
@@ -23,26 +23,27 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { NextQuery as NextQueryModel } from '@empathyco/x-types';
-  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
-  import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
-  import SlidingPanel from '../../components/sliding-panel.vue';
-  import Result from './result.vue';
+import type { NextQuery as NextQueryModel } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import SlidingPanel from '../../components/sliding-panel.vue'
+import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue'
+import NextQuery from '../../x-modules/next-queries/components/next-query.vue'
+import Result from './result.vue'
 
-  export default defineComponent({
-    name: 'SlidingNextQueryPreview',
-    components: {
-      NextQueryPreview,
-      NextQuery,
-      SlidingPanel,
-      Result
+export default defineComponent({
+  name: 'SlidingNextQueryPreview',
+  components: {
+    NextQueryPreview,
+    NextQuery,
+    SlidingPanel,
+    Result,
+  },
+  props: {
+    suggestion: {
+      type: Object as PropType<NextQueryModel>,
+      required: true,
     },
-    props: {
-      suggestion: {
-        type: Object as PropType<NextQueryModel>,
-        required: true
-      }
-    }
-  });
+  },
+})
 </script>

@@ -7,5 +7,5 @@
  * @public
  */
 export function identityMapper<Something>(value: Something): Something {
-  return value;
+  return value
 }

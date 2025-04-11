@@ -1,1 +1,1 @@
-export * from './interpolate';
+export * from './interpolate'

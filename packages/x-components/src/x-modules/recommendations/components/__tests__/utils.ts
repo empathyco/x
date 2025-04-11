@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { recommendationsXStoreModule } from '../../store/module';
-import { RecommendationsState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { RecommendationsState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { recommendationsXStoreModule } from '../../store/module'
 
 /**
  * Reset popular searches x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { RecommendationsState } from '../../store/types';
  */
 export function resetXRecommendationsStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<RecommendationsState>
+  state?: DeepPartial<RecommendationsState>,
 ): void {
-  resetStoreXModuleState(store, 'recommendations', recommendationsXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'recommendations', recommendationsXStoreModule.state(), state)
 }

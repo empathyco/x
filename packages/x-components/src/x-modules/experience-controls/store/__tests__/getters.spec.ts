@@ -1,26 +1,26 @@
-import { ExperienceControlsRequest } from '@empathyco/x-types';
-import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
+import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils'
 
 describe('testing experience controls module getters', () => {
-  const store = createExperienceControlsStore();
+  const store = createExperienceControlsStore()
 
   beforeEach(() => {
-    resetExperienceControlsStateWith(store);
-  });
+    resetExperienceControlsStateWith(store)
+  })
 
   describe(`request getter`, () => {
     it('should return a request object', () => {
       resetExperienceControlsStateWith(store, {
         params: {
-          store: 'es'
-        }
-      });
+          store: 'es',
+        },
+      })
 
       expect(store.getters.experienceControlsRequest).toEqual<ExperienceControlsRequest>({
         extraParams: {
-          store: 'es'
-        }
-      });
-    });
-  });
-});
+          store: 'es',
+        },
+      })
+    })
+  })
+})

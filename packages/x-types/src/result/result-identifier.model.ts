@@ -5,5 +5,5 @@
  */
 export interface ResultIdentifier {
   /** Result identifier value. */
-  value: string;
+  value: string
 }

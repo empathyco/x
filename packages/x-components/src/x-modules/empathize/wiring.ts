@@ -1,19 +1,19 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
-import { createWiring } from '../../wiring/wiring.utils';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * Sets the empathize state `isOpen` to true.
  *
  * @public
  */
-const setIsOpen = namespacedWireCommit('empathize')('setIsOpen', true);
+const setIsOpen = namespacedWireCommit('empathize')('setIsOpen', true)
 
 /**
  * Sets the empathize state `isOpen` to false.
  *
  * @public
  */
-const setIsNotOpen = namespacedWireCommit('empathize')('setIsOpen', false);
+const setIsNotOpen = namespacedWireCommit('empathize')('setIsOpen', false)
 
 /**
  * Wiring configuration for the {@link EmpathizeXModule | empathize module}.
@@ -22,9 +22,9 @@ const setIsNotOpen = namespacedWireCommit('empathize')('setIsOpen', false);
  */
 export const empathizeWiring = createWiring({
   EmpathizeOpened: {
-    setIsOpen
+    setIsOpen,
   },
   EmpathizeClosed: {
-    setIsNotOpen
-  }
-});
+    setIsNotOpen,
+  },
+})

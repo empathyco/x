@@ -6,29 +6,29 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-  /**
-   * Renders a transition wrapping an element passed in the default slot and animating its width.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'AnimateWidth'
-  });
+/**
+ * Renders a transition wrapping an element passed in the default slot and animating its width.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'AnimateWidth',
+})
 </script>
 
 <style lang="css">
-  .x-animate-width--enter-active,
-  .x-animate-width--leave-active {
-    transition: width 0.3s ease-out;
-    overflow-x: hidden;
-  }
+.x-animate-width--enter-active,
+.x-animate-width--leave-active {
+  transition: width 0.3s ease-out;
+  overflow-x: hidden;
+}
 
-  .x-animate-width--enter-from,
-  .x-animate-width--leave-to {
-    width: 0 !important;
-  }
+.x-animate-width--enter-from,
+.x-animate-width--leave-to {
+  width: 0 !important;
+}
 </style>
 
 <docs lang="mdx">
@@ -45,15 +45,15 @@ Used as a prop in an animatable component:
 </template>
 
 <script>
-  import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue';
+import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue'
 
-  export default {
-    data() {
-      return {
-        AnimateWidth
-      };
+export default {
+  data() {
+    return {
+      AnimateWidth,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -70,15 +70,15 @@ Used as a regular Transition:
 </template>
 
 <script>
-  import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue';
+import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue'
 
-  export default {
-    data() {
-      return {
-        visible: true
-      };
+export default {
+  data() {
+    return {
+      visible: true,
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

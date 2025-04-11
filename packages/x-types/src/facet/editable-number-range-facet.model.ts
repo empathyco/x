@@ -1,5 +1,5 @@
-import { Facet } from './facet.model';
-import { EditableNumberRangeFilter } from './filter';
+import type { Facet } from './facet.model'
+import type { EditableNumberRangeFilter } from './filter'
 
 /**
  * Editable Number Range Facet is a trait for filtering results using
@@ -12,9 +12,9 @@ import { EditableNumberRangeFilter } from './filter';
  */
 export interface EditableNumberRangeFacet extends Facet {
   /** Model name to indicate the facet type. */
-  modelName: 'EditableNumberRangeFacet';
+  modelName: 'EditableNumberRangeFacet'
   /** Filters available for the facet. */
-  filters: EditableNumberRangeFilter[];
+  filters: EditableNumberRangeFilter[]
 }
 
 /**
@@ -27,5 +27,5 @@ export interface EditableNumberRangeFacet extends Facet {
  * @public
  */
 export function isEditableNumberRangeFacet(facet: Facet): facet is EditableNumberRangeFacet {
-  return facet.modelName === 'EditableNumberRangeFacet';
+  return facet.modelName === 'EditableNumberRangeFacet'
 }

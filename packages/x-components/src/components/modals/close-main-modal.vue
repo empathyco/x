@@ -2,39 +2,39 @@
   <BaseEventsModalClose
     class="x-close-main-modal"
     data-test="close-main-modal"
-    :closingEvent="closingEvent"
+    :closing-event="closingEvent"
   >
     <slot />
   </BaseEventsModalClose>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { XEvent } from '../../wiring/events.types';
-  import BaseEventsModalClose from './base-events-modal-close.vue';
+import type { XEvent } from '../../wiring/events.types'
+import { defineComponent } from 'vue'
+import BaseEventsModalClose from './base-events-modal-close.vue'
 
-  /**
-   * Button to close the {@link MainModal}.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseEventsModalClose
-    },
-    setup() {
-      /**
-       * Event to be emitted to close the {@link MainModal}.
-       *
-       * @internal
-       */
-      const closingEvent: XEvent = 'UserClickedCloseX';
+/**
+ * Button to close the {@link MainModal}.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseEventsModalClose,
+  },
+  setup() {
+    /**
+     * Event to be emitted to close the {@link MainModal}.
+     *
+     * @internal
+     */
+    const closingEvent: XEvent = 'UserClickedCloseX'
 
-      return {
-        closingEvent
-      };
+    return {
+      closingEvent,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -59,16 +59,16 @@ Here you have a basic example of how the close main modal button works.
 </template>
 
 <script>
-  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
 
-  export default {
-    name: 'XModalDemo',
-    components: {
-      MainModal,
-      CloseMainModal,
-      OpenMainModal
-    }
-  };
+export default {
+  name: 'XModalDemo',
+  components: {
+    MainModal,
+    CloseMainModal,
+    OpenMainModal,
+  },
+}
 </script>
 ```
 </docs>

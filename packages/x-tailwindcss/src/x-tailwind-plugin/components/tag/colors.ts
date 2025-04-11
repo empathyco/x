@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../utils/map-colors';
+import type { TailwindHelpers } from '../../../types'
+import { mapColors } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `tag`.
@@ -8,7 +8,7 @@ import { mapColors } from '../../utils/map-colors';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function tagColors(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return mapColors(
     color => ({
       '--tag-color-25': color['25'],
@@ -20,9 +20,9 @@ export function tagColors(helpers: TailwindHelpers) {
 
       '&:hover,&:focus,&:active': {
         borderColor: 'var(--tag-color-50)',
-        color: theme('x.colors.neutral.90')
-      }
+        color: theme('x.colors.neutral.90'),
+      },
     }),
-    helpers
-  );
+    helpers,
+  )
 }

@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { relatedPromptsXStoreModule } from '../module';
-import { RelatedPromptsState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RelatedPromptsState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { relatedPromptsXStoreModule } from '../module'
 
 /**
  * Reset related prompt module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { RelatedPromptsState } from '../types';
  */
 export function resetRelatedPromptsStateWith(
   store: Store<RelatedPromptsState>,
-  state?: DeepPartial<RelatedPromptsState>
+  state?: DeepPartial<RelatedPromptsState>,
 ): void {
-  resetStoreModuleState<RelatedPromptsState>(store, relatedPromptsXStoreModule.state(), state);
+  resetStoreModuleState<RelatedPromptsState>(store, relatedPromptsXStoreModule.state(), state)
 }

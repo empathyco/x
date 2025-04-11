@@ -1,4 +1,4 @@
-import { ExtraParamsXStoreModule } from './types';
+import type { ExtraParamsXStoreModule } from './types'
 
 /**
  * {@link XStoreModule} For the ExtraParams module.
@@ -7,13 +7,13 @@ import { ExtraParamsXStoreModule } from './types';
  */
 export const extraParamsXStoreModule: ExtraParamsXStoreModule = {
   state: () => ({
-    params: {}
+    params: {},
   }),
   getters: {},
   mutations: {
     setParams(state, params) {
-      state.params = { ...state.params, ...params };
-    }
+      state.params = { ...state.params, ...params }
+    },
   },
-  actions: {}
-};
+  actions: {},
+}

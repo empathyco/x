@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../types';
+import type { TailwindHelpers } from '../types'
 
 /**
  * Default dynamic utility styles.
@@ -13,9 +13,9 @@ export default function dynamicUtilities({ theme }: TailwindHelpers) {
     // TODO: replace this example styles with actual design styles
     'font-util': {
       styles: (value: any) => ({
-        fontSize: value
+        fontSize: value,
       }),
-      values: theme('x.spacing')
-    }
-  };
+      values: theme('x.spacing'),
+    },
+  }
 }

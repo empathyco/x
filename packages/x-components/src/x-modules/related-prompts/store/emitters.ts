@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { relatedPromptsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { relatedPromptsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the related-prompts module.
@@ -8,5 +8,5 @@ import { relatedPromptsXStoreModule } from './module';
  */
 export const relatedPromptsStoreEmitters = createStoreEmitters(relatedPromptsXStoreModule, {
   RelatedPromptsRequestUpdated: (_, getters) => getters.request,
-  SelectedRelatedPromptChanged: state => state.selectedPrompt
-});
+  SelectedRelatedPromptChanged: state => state.selectedPrompt,
+})

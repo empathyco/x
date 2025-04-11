@@ -1,34 +1,36 @@
-import { defineComponent } from 'vue';
-import { mount, VueWrapper } from '@vue/test-utils';
-import { Store } from 'vuex';
-import { AnyXStoreModule } from '../../store/index';
-import { UseAliasAPI, useAliasApi, UseAliasQueryAPI, UseAliasStatusAPI } from '../use-alias-api';
-import { searchBoxXStoreModule } from '../../x-modules/search-box/index';
-import { nextQueriesXStoreModule } from '../../x-modules/next-queries/index';
-import { querySuggestionsXStoreModule } from '../../x-modules/query-suggestions/index';
-import { relatedTagsXStoreModule } from '../../x-modules/related-tags/index';
-import { searchXStoreModule } from '../../x-modules/search/index';
-import { facetsXStoreModule } from '../../x-modules/facets/index';
-import { identifierResultsXStoreModule } from '../../x-modules/identifier-results/index';
-import { popularSearchesXStoreModule } from '../../x-modules/popular-searches/index';
-import { recommendationsXStoreModule } from '../../x-modules/recommendations/index';
-import { historyQueriesXStoreModule } from '../../x-modules/history-queries/index';
-import { installNewXPlugin } from '../../__tests__/utils';
+import type { VueWrapper } from '@vue/test-utils'
+import type { AnyXStoreModule } from '../../store/index'
+import type { UseAliasAPI, UseAliasQueryAPI, UseAliasStatusAPI } from '../use-alias-api'
+import { mount } from '@vue/test-utils'
+import { defineComponent } from 'vue'
+import { Store } from 'vuex'
+import { installNewXPlugin } from '../../__tests__/utils'
+import { facetsXStoreModule } from '../../x-modules/facets/index'
+import { historyQueriesXStoreModule } from '../../x-modules/history-queries/index'
+import { identifierResultsXStoreModule } from '../../x-modules/identifier-results/index'
+import { nextQueriesXStoreModule } from '../../x-modules/next-queries/index'
+import { popularSearchesXStoreModule } from '../../x-modules/popular-searches/index'
+import { querySuggestionsXStoreModule } from '../../x-modules/query-suggestions/index'
+import { recommendationsXStoreModule } from '../../x-modules/recommendations/index'
+import { relatedTagsXStoreModule } from '../../x-modules/related-tags/index'
+import { searchBoxXStoreModule } from '../../x-modules/search-box/index'
+import { searchXStoreModule } from '../../x-modules/search/index'
+import { useAliasApi } from '../use-alias-api'
 
 const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAPI => {
   const testComponent = defineComponent({
     setup() {
-      const xAliasAPI = useAliasApi();
-      const query = xAliasAPI.query;
-      const status = xAliasAPI.status;
+      const xAliasAPI = useAliasApi()
+      const query = xAliasAPI.query
+      const status = xAliasAPI.status
       return {
         query,
         status,
-        xAliasAPI
-      };
+        xAliasAPI,
+      }
     },
-    template: '<div></div>'
-  });
+    template: '<div></div>',
+  })
 
   const store = new Store({
     modules: {
@@ -40,48 +42,48 @@ const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAP
               nextQueries: { namespaced: true, ...nextQueriesXStoreModule } as AnyXStoreModule,
               querySuggestions: {
                 namespaced: true,
-                ...querySuggestionsXStoreModule
+                ...querySuggestionsXStoreModule,
               } as AnyXStoreModule,
               relatedTags: { namespaced: true, ...relatedTagsXStoreModule } as AnyXStoreModule,
               search: { namespaced: true, ...searchXStoreModule } as AnyXStoreModule,
               facets: { namespaced: true, ...facetsXStoreModule } as AnyXStoreModule,
               historyQueries: {
                 namespaced: true,
-                ...historyQueriesXStoreModule
+                ...historyQueriesXStoreModule,
               } as AnyXStoreModule,
               identifierResults: {
                 namespaced: true,
-                ...identifierResultsXStoreModule
+                ...identifierResultsXStoreModule,
               } as AnyXStoreModule,
               popularSearches: {
                 namespaced: true,
-                ...popularSearchesXStoreModule
+                ...popularSearchesXStoreModule,
               } as AnyXStoreModule,
               recommendations: {
                 namespaced: true,
-                ...recommendationsXStoreModule
-              } as AnyXStoreModule
+                ...recommendationsXStoreModule,
+              } as AnyXStoreModule,
             }
-          : {}
-      }
-    }
-  });
+          : {},
+      },
+    },
+  })
 
   const wrapper = mount(testComponent, {
-    global: { plugins: [installNewXPlugin(), store] }
-  });
+    global: { plugins: [installNewXPlugin(), store] },
+  })
 
   return {
     store,
     wrapper,
     query: (wrapper.vm as any).query,
     status: (wrapper.vm as any).status,
-    xAliasAPI: (wrapper.vm as any).xAliasAPI
-  };
-};
+    xAliasAPI: (wrapper.vm as any).xAliasAPI,
+  }
+}
 describe('testing useAliasApi composable', () => {
   it('returns default values when no module is registered', () => {
-    const { xAliasAPI } = renderUseAliasApiTest(false);
+    const { xAliasAPI } = renderUseAliasApiTest(false)
 
     const defaultValues = {
       query: {
@@ -90,7 +92,7 @@ describe('testing useAliasApi composable', () => {
         nextQueries: '',
         querySuggestions: '',
         relatedTags: '',
-        search: ''
+        search: '',
       },
       status: {
         identifierResults: undefined,
@@ -99,7 +101,7 @@ describe('testing useAliasApi composable', () => {
         querySuggestions: undefined,
         recommendations: undefined,
         relatedTags: undefined,
-        search: undefined
+        search: undefined,
       },
       device: null,
       facets: {},
@@ -127,12 +129,12 @@ describe('testing useAliasApi composable', () => {
       semanticQueries: [],
       spellcheckedQuery: null,
       totalResults: 0,
-      selectedSort: ''
-    };
-    expect(xAliasAPI).toMatchObject(defaultValues);
-  });
+      selectedSort: '',
+    }
+    expect(xAliasAPI).toMatchObject(defaultValues)
+  })
   it('updates the query values when the module is registered', () => {
-    const { store, query } = renderUseAliasApiTest();
+    const { store, query } = renderUseAliasApiTest()
 
     expect(query).toEqual({
       searchBox: '',
@@ -140,16 +142,16 @@ describe('testing useAliasApi composable', () => {
       querySuggestions: '',
       relatedTags: '',
       search: '',
-      facets: ''
-    });
+      facets: '',
+    })
 
-    store.commit('x/searchBox/setQuery', 'salchichón');
-    store.commit('x/nextQueries/setQuery', 'chorizo');
-    store.commit('x/querySuggestions/setQuery', 'lomo');
-    store.commit('x/relatedTags/setQuery', 'jamón');
-    store.commit('x/search/setQuery', 'cecina');
-    store.commit('x/facets/setQuery', 'mortadela');
-    store.commit('x/historyQueries/setQuery', 'queso');
+    store.commit('x/searchBox/setQuery', 'salchichón')
+    store.commit('x/nextQueries/setQuery', 'chorizo')
+    store.commit('x/querySuggestions/setQuery', 'lomo')
+    store.commit('x/relatedTags/setQuery', 'jamón')
+    store.commit('x/search/setQuery', 'cecina')
+    store.commit('x/facets/setQuery', 'mortadela')
+    store.commit('x/historyQueries/setQuery', 'queso')
 
     expect(query).toEqual({
       searchBox: 'salchichón',
@@ -157,12 +159,12 @@ describe('testing useAliasApi composable', () => {
       querySuggestions: 'lomo',
       relatedTags: 'jamón',
       search: 'cecina',
-      facets: 'mortadela'
-    });
-  });
+      facets: 'mortadela',
+    })
+  })
   it('updates the status values when the module is registered', () => {
-    const REQUEST_STATUS_REGEX = /success|loading|error|initial/;
-    const { status } = renderUseAliasApiTest();
+    const REQUEST_STATUS_REGEX = /success|loading|error|initial/
+    const { status } = renderUseAliasApiTest()
 
     expect(status).toEqual({
       identifierResults: expect.stringMatching(REQUEST_STATUS_REGEX),
@@ -171,19 +173,19 @@ describe('testing useAliasApi composable', () => {
       nextQueries: expect.stringMatching(REQUEST_STATUS_REGEX),
       querySuggestions: expect.stringMatching(REQUEST_STATUS_REGEX),
       relatedTags: expect.stringMatching(REQUEST_STATUS_REGEX),
-      search: expect.stringMatching(REQUEST_STATUS_REGEX)
-    });
-  });
-  it('reacts dynamically to referenced values changing', () => {
-    const { store, xAliasAPI } = renderUseAliasApiTest();
-    expect(xAliasAPI.historyQueries[0]).toBeUndefined();
+      search: expect.stringMatching(REQUEST_STATUS_REGEX),
+    })
+  })
+  it('reacts dynamically to referenced values changing', async () => {
+    const { store, xAliasAPI } = renderUseAliasApiTest()
+    expect(xAliasAPI.historyQueries[0]).toBeUndefined()
 
-    store.dispatch('x/historyQueries/addQueryToHistory', 'chorizo');
+    await store.dispatch('x/historyQueries/addQueryToHistory', 'chorizo')
 
-    expect(xAliasAPI.historyQueries[0].query).toEqual('chorizo');
-  });
+    expect(xAliasAPI.historyQueries[0].query).toEqual('chorizo')
+  })
   it('has every property defined as a getter', () => {
-    const { xAliasAPI } = renderUseAliasApiTest();
+    const { xAliasAPI } = renderUseAliasApiTest()
     /**
      * Checks that every property defined by the object and keys is a getter or an object that
      * only contains getters.
@@ -195,33 +197,32 @@ describe('testing useAliasApi composable', () => {
      */
     function isJSGetterOrDictionaryOfJSGetters(
       // object and string[] are the parameters used by getOwnPropertyDescriptor.
-      // eslint-disable-next-line @typescript-eslint/ban-types
       obj: object,
-      keys: string[]
+      keys: string[],
     ): boolean {
       return keys.every(key => {
-        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
-        const value = obj[key as keyof typeof obj];
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key)
+        const value = obj[key as keyof typeof obj]
         return (
           (descriptor?.set === undefined &&
             descriptor?.value === undefined &&
             descriptor?.get !== undefined) ||
           (typeof value === 'object' &&
             isJSGetterOrDictionaryOfJSGetters(value, Object.keys(value)))
-        );
-      });
+        )
+      })
     }
 
-    const aliasKeys = Object.keys(xAliasAPI);
+    const aliasKeys = Object.keys(xAliasAPI)
 
-    expect(isJSGetterOrDictionaryOfJSGetters(xAliasAPI, aliasKeys)).toEqual(true);
-  });
-});
+    expect(isJSGetterOrDictionaryOfJSGetters(xAliasAPI, aliasKeys)).toEqual(true)
+  })
+})
 
-type renderUseAliasApiTestAPI = {
-  store: Store<any>;
-  wrapper: VueWrapper;
-  query: UseAliasQueryAPI;
-  status: UseAliasStatusAPI;
-  xAliasAPI: UseAliasAPI;
-};
+interface renderUseAliasApiTestAPI {
+  store: Store<any>
+  wrapper: VueWrapper
+  query: UseAliasQueryAPI
+  status: UseAliasStatusAPI
+  xAliasAPI: UseAliasAPI
+}

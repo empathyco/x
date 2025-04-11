@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "lib": ["dom", "esnext"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "esnext",
-    "outDir": "./dist",
-    "strict": true,
     "moduleResolution": "node",
+    "types": ["jest", "@empathyco/x-jest-utils"],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["jest", "@empathyco/x-jest-utils"],
-    "lib": ["dom", "esnext"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "outDir": "./dist",
+    "esModuleInterop": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules"]

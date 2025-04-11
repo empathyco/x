@@ -1,105 +1,106 @@
 <template>
   <div
     ref="baseScrollEl"
-    @scroll="throttledStoreScrollData"
     class="x-scroll x-base-scroll"
     data-test="base-scroll"
+    @scroll="throttledStoreScrollData"
   >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref, SetupContext } from 'vue';
-  import { XEvent } from '../../wiring/events.types';
-  import { useScroll } from './use-scroll';
+import type { PropType, SetupContext } from 'vue'
+import type { XEvent } from '../../wiring/events.types'
+import { defineComponent, ref } from 'vue'
+import { useScroll } from './use-scroll'
 
-  /**
-   * Base scroll component that depending on the user interactivity emits different events for
-   * knowing when the user scrolls, the direction of scroll and if user reaches the start or end.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseScroll',
-    props: {
-      /**
-       * Distance to the end of the scroll that when reached will emit the
-       * `scroll:about-to-end` event.
-       *
-       * @public
-       */
-      distanceToBottom: {
-        type: Number,
-        default: 100
-      },
-      /**
-       * Positive vertical distance to still consider that the element is the first one visible.
-       * For example, if set to 100, after scrolling 100 pixels, the first rendered element
-       * will still be considered the first one.
-       */
-      firstElementThresholdPx: {
-        type: Number,
-        default: 100
-      },
-      /**
-       * Time duration to ignore the subsequent scroll events after an emission.
-       * Higher values will decrease events precision but can prevent performance issues.
-       *
-       * @public
-       */
-      throttleMs: {
-        type: Number,
-        default: 100
-      },
-      /**
-       * If true (default), sets the scroll position to the top when certain events are emitted.
-       *
-       * @public
-       */
-      resetOnChange: {
-        type: Boolean,
-        default: true
-      },
-      /**
-       * List of events that should reset the scroll when emitted.
-       *
-       * @public
-       */
-      resetOn: {
-        type: [String, Array] as PropType<XEvent | XEvent[]>,
-        default: () => [
-          'SearchBoxQueryChanged',
-          'SortChanged',
-          'SelectedFiltersChanged',
-          'SelectedFiltersForRequestChanged',
-          'SelectedRelatedTagsChanged',
-          'UserChangedExtraParams'
-        ]
-      }
+/**
+ * Base scroll component that depending on the user interactivity emits different events for
+ * knowing when the user scrolls, the direction of scroll and if user reaches the start or end.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseScroll',
+  props: {
+    /**
+     * Distance to the end of the scroll that when reached will emit the
+     * `scroll:about-to-end` event.
+     *
+     * @public
+     */
+    distanceToBottom: {
+      type: Number,
+      default: 100,
     },
-    emits: [
-      'scroll',
-      'scroll:at-start',
-      'scroll:almost-at-end',
-      'scroll:at-end',
-      'scroll:direction-change'
-    ],
-    setup(props, context) {
-      const baseScrollEl = ref<HTMLElement>();
+    /**
+     * Positive vertical distance to still consider that the element is the first one visible.
+     * For example, if set to 100, after scrolling 100 pixels, the first rendered element
+     * will still be considered the first one.
+     */
+    firstElementThresholdPx: {
+      type: Number,
+      default: 100,
+    },
+    /**
+     * Time duration to ignore the subsequent scroll events after an emission.
+     * Higher values will decrease events precision but can prevent performance issues.
+     *
+     * @public
+     */
+    throttleMs: {
+      type: Number,
+      default: 100,
+    },
+    /**
+     * If true (default), sets the scroll position to the top when certain events are emitted.
+     *
+     * @public
+     */
+    resetOnChange: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * List of events that should reset the scroll when emitted.
+     *
+     * @public
+     */
+    resetOn: {
+      type: [String, Array] as PropType<XEvent | XEvent[]>,
+      default: () => [
+        'SearchBoxQueryChanged',
+        'SortChanged',
+        'SelectedFiltersChanged',
+        'SelectedFiltersForRequestChanged',
+        'SelectedRelatedTagsChanged',
+        'UserChangedExtraParams',
+      ],
+    },
+  },
+  emits: [
+    'scroll',
+    'scroll:at-start',
+    'scroll:almost-at-end',
+    'scroll:at-end',
+    'scroll:direction-change',
+  ],
+  setup(props, context) {
+    const baseScrollEl = ref<HTMLElement>()
 
-      const { throttledStoreScrollData } = useScroll(
-        props,
-        context as SetupContext<any>,
-        baseScrollEl
-      );
+    const { throttledStoreScrollData } = useScroll(
+      props,
+      context as SetupContext<any>,
+      baseScrollEl,
+    )
 
-      return {
-        throttledStoreScrollData,
-        baseScrollEl
-      };
+    return {
+      throttledStoreScrollData,
+      baseScrollEl,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -131,31 +132,31 @@ depending of movement that realize the user:
 </template>
 
 <script>
-  import { BaseScroll } from '@empathyco/x-components';
+import { BaseScroll } from '@empathyco/x-components'
 
-  export default {
-    name: 'ScrollTest',
-    components: {
-      BaseScroll
+export default {
+  name: 'ScrollTest',
+  components: {
+    BaseScroll,
+  },
+  methods: {
+    scroll(position) {
+      console.log('scroll', position)
     },
-    methods: {
-      scroll(position) {
-        console.log('scroll', position);
-      },
-      scrollDirectionChange(direction) {
-        console.log('scroll:direction-change', direction);
-      },
-      scrollAtStart() {
-        console.log('scroll:at-start');
-      },
-      scrollAlmostAtEnd(distance) {
-        console.log('scroll:almost-at-end', distance);
-      },
-      scrollAtEnd() {
-        console.log('scroll:at-end');
-      }
-    }
-  };
+    scrollDirectionChange(direction) {
+      console.log('scroll:direction-change', direction)
+    },
+    scrollAtStart() {
+      console.log('scroll:at-start')
+    },
+    scrollAlmostAtEnd(distance) {
+      console.log('scroll:almost-at-end', distance)
+    },
+    scrollAtEnd() {
+      console.log('scroll:at-end')
+    },
+  },
+}
 </script>
 ```
 
@@ -176,19 +177,19 @@ Set to false the reset scroll on query change feature which is true by default.
 </template>
 
 <script>
-  import { BaseScroll } from '@empathyco/x-components';
+import { BaseScroll } from '@empathyco/x-components'
 
-  export default {
-    name: 'ScrollTest',
-    components: {
-      BaseScroll
+export default {
+  name: 'ScrollTest',
+  components: {
+    BaseScroll,
+  },
+  methods: {
+    scroll(position) {
+      console.log('scroll', position)
     },
-    methods: {
-      scroll(position) {
-        console.log('scroll', position);
-      }
-    }
-  };
+  },
+}
 </script>
 ```
 
@@ -209,24 +210,24 @@ You can configure which events reset the scroll position using the `resetOn` pro
 </template>
 
 <script>
-  import { BaseScroll } from '@empathyco/x-components';
+import { BaseScroll } from '@empathyco/x-components'
 
-  export default {
-    name: 'ScrollTest',
-    components: {
-      BaseScroll
-    },
-    data() {
-      return {
-        resetScrollEvents: ['UserAcceptedAQuery']
-      };
-    },
-    methods: {
-      scroll(position) {
-        console.log('scroll', position);
-      }
+export default {
+  name: 'ScrollTest',
+  components: {
+    BaseScroll,
+  },
+  data() {
+    return {
+      resetScrollEvents: ['UserAcceptedAQuery'],
     }
-  };
+  },
+  methods: {
+    scroll(position) {
+      console.log('scroll', position)
+    },
+  },
+}
 </script>
 ```
 

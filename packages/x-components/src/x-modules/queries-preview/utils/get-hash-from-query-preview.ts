@@ -1,5 +1,5 @@
-import { md5 } from 'js-md5';
-import { QueryPreviewInfo, QueryPreviewItem } from '../store/index';
+import type { QueryPreviewInfo, QueryPreviewItem } from '../store/index'
+import { md5 } from 'js-md5'
 
 /**
  * Creates a query hash to store a QueryPreview, so the same query
@@ -11,17 +11,17 @@ import { QueryPreviewInfo, QueryPreviewItem } from '../store/index';
  */
 export const getHashFromQueryPreviewItem = (
   queryPreview: QueryPreviewItem,
-  lang: string
+  lang: string,
 ): string => {
   const queryPreviewFilters = queryPreview.request.filters
     ? Object.values(queryPreview.request.filters)
         .flat()
         .map(filter => filter.id.toString())
         .join('-')
-    : '';
+    : ''
 
-  return md5(queryPreview.request.query.concat(queryPreviewFilters).concat(lang));
-};
+  return md5(queryPreview.request.query.concat(queryPreviewFilters).concat(lang))
+}
 
 /**
  * Creates a query hash to check if a QueryPreview has already been saved in the state.
@@ -32,9 +32,9 @@ export const getHashFromQueryPreviewItem = (
  */
 export const getHashFromQueryPreviewInfo = (
   queryPreviewInfo: QueryPreviewInfo,
-  lang: string
+  lang: string,
 ): string => {
-  const queryPreviewFilters = queryPreviewInfo.filters ? queryPreviewInfo.filters.join('-') : '';
+  const queryPreviewFilters = queryPreviewInfo.filters ? queryPreviewInfo.filters.join('-') : ''
 
-  return md5(queryPreviewInfo.query.concat(queryPreviewFilters).concat(lang));
-};
+  return md5(queryPreviewInfo.query.concat(queryPreviewFilters).concat(lang))
+}

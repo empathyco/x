@@ -1,4 +1,4 @@
-import { SemanticQueriesXStoreModule } from '../types';
+import type { SemanticQueriesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link SemanticQueriesActions.fetchAndSaveSemanticQuery}.
@@ -10,15 +10,14 @@ import { SemanticQueriesXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const fetchAndSaveSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchAndSaveSemanticQuery'] =
-  ({ dispatch, commit }, request) => {
+  async ({ dispatch, commit }, request) => {
     return dispatch('fetchSemanticQuery', request)
       .then(response => {
-        commit('setSemanticQueries', response?.semanticQueries ?? []);
+        commit('setSemanticQueries', response?.semanticQueries ?? [])
       })
       .catch(error => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      });
-  };
+        console.error(error)
+      })
+  }

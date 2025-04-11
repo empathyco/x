@@ -1,4 +1,4 @@
-import { slidingPanelButtons } from './buttons';
+import { slidingPanelButtons } from './buttons'
 
 /**
  * Returns the default styles for the component `sliding panel`.
@@ -11,6 +11,6 @@ export function slidingPanelDefault() {
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    ...slidingPanelButtons()
-  };
+    ...slidingPanelButtons(),
+  }
 }

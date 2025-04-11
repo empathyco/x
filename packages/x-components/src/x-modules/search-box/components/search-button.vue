@@ -1,10 +1,10 @@
 <template>
   <button
     ref="buttonRef"
-    @click="emitEvents"
     class="x-search-button x-button"
     :class="dynamicClasses"
     data-test="search-button"
+    @click="emitEvents"
   >
     <!-- @slot _Required_. Button content (text, icon, or both) -->
     <slot><span class="x-icon">⌕</span></slot>
@@ -12,71 +12,72 @@
 </template>
 
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, ref } from 'vue';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { WireMetadata } from '../../../wiring/wiring.types';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { searchBoxXModule } from '../x-module';
+import type { ComputedRef } from 'vue'
+import type { VueCSSClasses } from '../../../utils/types'
+import type { WireMetadata } from '../../../wiring/wiring.types'
+import { computed, defineComponent, ref } from 'vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { searchBoxXModule } from '../x-module'
 
-  /**
-   * This component renders a button to submit the query.
-   *
-   * @remarks
-   * If query is not empty, it emits {@link XEventsTypes.UserAcceptedAQuery} and
-   * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload.
-   * It also adds `x-search-button--has-empty-query` as class when there is no query.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'SearchButton',
-    xModule: searchBoxXModule.name,
-    setup: function () {
-      const $x = use$x();
+/**
+ * This component renders a button to submit the query.
+ *
+ * @remarks
+ * If query is not empty, it emits {@link XEventsTypes.UserAcceptedAQuery} and
+ * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload.
+ * It also adds `x-search-button--has-empty-query` as class when there is no query.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'SearchButton',
+  xModule: searchBoxXModule.name,
+  setup() {
+    const $x = use$x()
 
-      const buttonRef = ref<HTMLElement | null>(null);
+    const buttonRef = ref<HTMLElement | null>(null)
 
-      const query: ComputedRef<string> = useState('searchBox', ['query']).query;
+    const query: ComputedRef<string> = useState('searchBox', ['query']).query
 
-      const isQueryEmpty = computed(() => query.value.length === 0);
+    const isQueryEmpty = computed(() => query.value.length === 0)
 
-      const dynamicClasses = computed<VueCSSClasses>(() => ({
-        'x-search-button--has-empty-query': isQueryEmpty.value
-      }));
+    const dynamicClasses = computed<VueCSSClasses>(() => ({
+      'x-search-button--has-empty-query': isQueryEmpty.value,
+    }))
 
-      /**
-       * Generates the {@link WireMetadata} object omitting the moduleName.
-       *
-       * @returns The {@link WireMetadata} object omitting the moduleName.
-       * @internal
-       */
-      function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
-        return {
-          target: buttonRef.value,
-          feature: 'search_box'
-        };
-      }
-
-      /**
-       * Emits events when the button is clicked.
-       *
-       * @public
-       */
-      function emitEvents() {
-        if (!isQueryEmpty.value) {
-          $x.emit('UserAcceptedAQuery', query.value, createEventMetadata());
-          $x.emit('UserPressedSearchButton', query.value, createEventMetadata());
-        }
-      }
-
+    /**
+     * Generates the {@link WireMetadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
-        dynamicClasses,
-        buttonRef,
-        emitEvents
-      };
+        target: buttonRef.value,
+        feature: 'search_box',
+      }
     }
-  });
+
+    /**
+     * Emits events when the button is clicked.
+     *
+     * @public
+     */
+    function emitEvents() {
+      if (!isQueryEmpty.value) {
+        $x.emit('UserAcceptedAQuery', query.value, createEventMetadata())
+        $x.emit('UserPressedSearchButton', query.value, createEventMetadata())
+      }
+    }
+
+    return {
+      dynamicClasses,
+      buttonRef,
+      emitEvents,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -110,14 +111,14 @@ _Click the Search button to try it out!_
 </template>
 
 <script>
-  import { SearchButton } from '@empathyco/x-components/search-box';
+import { SearchButton } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'SearchButtonDemo',
-    components: {
-      SearchButton
-    }
-  };
+export default {
+  name: 'SearchButtonDemo',
+  components: {
+    SearchButton,
+  },
+}
 </script>
 ```
 
@@ -133,14 +134,14 @@ _Click the icon button to try it out!_
 </template>
 
 <script>
-  import { SearchButton } from '@empathyco/x-components/search-box';
+import { SearchButton } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'SearchButtonDemo',
-    components: {
-      SearchButton
-    }
-  };
+export default {
+  name: 'SearchButtonDemo',
+  components: {
+    SearchButton,
+  },
+}
 </script>
 ```
 
@@ -159,7 +160,7 @@ _Type any term in the input field and then click the Search button to try it out
       <SearchButton
         @UserPressedSearchButton="
           query => {
-            message = query;
+            message = query
           }
         "
       />
@@ -169,20 +170,20 @@ _Type any term in the input field and then click the Search button to try it out
 </template>
 
 <script>
-  import { SearchInput, SearchButton } from '@empathyco/x-components/search-box';
+import { SearchInput, SearchButton } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'SearchButtonDemo',
-    components: {
-      SearchInput,
-      SearchButton
-    },
-    data() {
-      return {
-        message: ''
-      };
+export default {
+  name: 'SearchButtonDemo',
+  components: {
+    SearchInput,
+    SearchButton,
+  },
+  data() {
+    return {
+      message: '',
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -206,20 +207,20 @@ _Type any term in the input field and then click the Search button to try it out
 </template>
 
 <script>
-  import { SearchButton, SearchInput } from '@empathyco/x-components/search-box';
+import { SearchButton, SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'SearchButtonDemo',
-    components: {
-      SearchButton,
-      SearchInput
-    },
-    data() {
-      return {
-        message: ''
-      };
+export default {
+  name: 'SearchButtonDemo',
+  components: {
+    SearchButton,
+    SearchInput,
+  },
+  data() {
+    return {
+      message: '',
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

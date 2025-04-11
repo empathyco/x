@@ -1,9 +1,9 @@
-import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
-import { RecommendationsRequest, RecommendationsResponse } from '@empathyco/x-types';
-import { recommendationsRequestMapper } from '../mappers/requests/recommendations-request.mapper';
-// eslint-disable-next-line max-len
-import { recommendationsResponseMapper } from '../mappers/responses/recommendations-response.mapper';
-import { getSearchServiceUrl } from './utils';
+import type { RecommendationsRequest, RecommendationsResponse } from '@empathyco/x-types'
+import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
+import { recommendationsRequestMapper } from '../mappers/requests/recommendations-request.mapper'
+
+import { recommendationsResponseMapper } from '../mappers/responses/recommendations-response.mapper'
+import { getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the recommendations' endpoint.
@@ -21,7 +21,7 @@ export const recommendationsEndpointAdapter = endpointAdapterFactory<
   defaultRequestOptions: {
     id: 'recommendations',
     parameters: {
-      internal: true
-    }
-  }
-});
+      internal: true,
+    },
+  },
+})

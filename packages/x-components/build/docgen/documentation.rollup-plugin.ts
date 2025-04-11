@@ -1,23 +1,25 @@
-import { exec } from 'child_process';
-import fs from 'fs';
-import path from 'path';
+import type {
+  ExtractorMessage,
+  ExtractorResult,
+  IExtractorInvokeOptions,
+} from '@microsoft/api-extractor'
+import type { Plugin } from 'rollup'
+import { exec } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
 import {
   ConsoleMessageId,
   Extractor,
   ExtractorConfig,
   ExtractorLogLevel,
-  ExtractorMessage,
-  ExtractorResult,
-  IExtractorInvokeOptions
-} from '@microsoft/api-extractor';
-import { Plugin } from 'rollup';
-import { ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
+} from '@microsoft/api-extractor'
+import { ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils'
 
-const rootDir = path.resolve(__dirname, '../../');
+const rootDir = path.resolve(__dirname, '../../')
 
 interface APIDocumentationPluginOptions {
   /** The path where the build will go. */
-  buildPath: string;
+  buildPath: string
 }
 
 /**
@@ -30,25 +32,24 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
   return {
     name: 'API-Documentation',
     async generateBundle() {
-      const reportFolder = path.join(options.buildPath, 'report');
-      ensureDirectoryPathExists(reportFolder);
-      copyThirdPartyDocModel(reportFolder, 'x-types');
-      copyThirdPartyDocModel(reportFolder, 'x-adapter-platform');
+      const reportFolder = path.join(options.buildPath, 'report')
+      ensureDirectoryPathExists(reportFolder)
+      copyThirdPartyDocModel(reportFolder, 'x-types')
+      copyThirdPartyDocModel(reportFolder, 'x-adapter-platform')
 
-      const apiExtractorJsonPath: string = path.join(rootDir, 'build/api-extractor.json');
-      const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
-      generateEmptyReportFile(extractorConfig.reportFilePath);
-      const extractorResult = Extractor.invoke(extractorConfig, getExtractorInvokeOptions());
-      assertExtractorSucceeded(extractorResult);
-      copyReportFile(extractorConfig.reportFilePath);
+      const apiExtractorJsonPath: string = path.join(rootDir, 'build/api-extractor.json')
+      const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath)
+      generateEmptyReportFile(extractorConfig.reportFilePath)
+      const extractorResult = Extractor.invoke(extractorConfig, getExtractorInvokeOptions())
+      assertExtractorSucceeded(extractorResult)
+      copyReportFile(extractorConfig.reportFilePath)
       try {
-        await generateDocumentation();
+        await generateDocumentation()
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
+        console.error(error)
       }
-    }
-  };
+    },
+  }
 }
 
 /**
@@ -59,21 +60,21 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
  * @param packageName - Empathy package name which contains the doc model of the dependency.
  */
 function copyThirdPartyDocModel(buildPath: string, packageName: string): void {
-  const docModelName = `${packageName}.api.json`;
+  const docModelName = `${packageName}.api.json`
 
   let originalLocationPath = path.join(
     rootDir,
-    `node_modules/@empathyco/${packageName}/report/${docModelName}`
-  );
+    `node_modules/@empathyco/${packageName}/report/${docModelName}`,
+  )
   if (!fs.existsSync(originalLocationPath)) {
     originalLocationPath = path.join(
       rootDir,
       '../../',
-      `node_modules/@empathyco/${packageName}/report/${docModelName}`
-    );
+      `node_modules/@empathyco/${packageName}/report/${docModelName}`,
+    )
   }
-  const destinationLocationPath = path.join(buildPath, docModelName);
-  fs.copyFileSync(originalLocationPath, destinationLocationPath);
+  const destinationLocationPath = path.join(buildPath, docModelName)
+  fs.copyFileSync(originalLocationPath, destinationLocationPath)
 }
 
 /**
@@ -83,8 +84,8 @@ function copyThirdPartyDocModel(buildPath: string, packageName: string): void {
  * @param reportFilePath - The full path where the report file should be created.
  */
 function generateEmptyReportFile(reportFilePath: string): void {
-  ensureFilePathExists(reportFilePath);
-  fs.writeFileSync(reportFilePath, '');
+  ensureFilePathExists(reportFilePath)
+  fs.writeFileSync(reportFilePath, '')
 }
 
 /**
@@ -96,9 +97,8 @@ function generateEmptyReportFile(reportFilePath: string): void {
 function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
   if (!extractorResult.succeeded) {
     throw new Error(
-      // eslint-disable-next-line max-len
-      `API Extractor found ${extractorResult.errorCount} errors and ${extractorResult.warningCount} warnings`
-    );
+      `API Extractor found ${extractorResult.errorCount} errors and ${extractorResult.warningCount} warnings`,
+    )
   }
 }
 
@@ -108,8 +108,8 @@ function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
  * @param reportFilePath - The full path where the report file should be created.
  */
 function copyReportFile(reportFilePath: string): void {
-  const tempReportFile = path.join(rootDir, 'temp/x-components.api.md');
-  fs.copyFileSync(tempReportFile, reportFilePath);
+  const tempReportFile = path.join(rootDir, 'temp/x-components.api.md')
+  fs.copyFileSync(tempReportFile, reportFilePath)
 }
 
 /**
@@ -122,10 +122,10 @@ function getExtractorInvokeOptions(): IExtractorInvokeOptions {
   return {
     messageCallback: (message: ExtractorMessage) => {
       if (message.messageId === ConsoleMessageId.ApiReportNotCopied) {
-        message.logLevel = ExtractorLogLevel.None;
+        message.logLevel = ExtractorLogLevel.None
       }
-    }
-  };
+    },
+  }
 }
 
 /**
@@ -133,13 +133,13 @@ function getExtractorInvokeOptions(): IExtractorInvokeOptions {
  *
  * @returns Promise - A promise that resolves when the documentation command finishes.
  */
-function generateDocumentation(): Promise<void> {
+async function generateDocumentation(): Promise<void> {
   return new Promise((resolve, reject) => {
     exec('pnpm run gen:docs', error => {
       if (error) {
-        reject(error);
+        reject(error)
       }
-      resolve();
-    });
-  });
+      resolve()
+    })
+  })
 }

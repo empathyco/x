@@ -1,16 +1,16 @@
-import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/x-plugin';
-import { deviceEmitters } from './store/emitters';
-import { deviceXStoreModule } from './store/module';
-import { DeviceXStoreModule } from './store/types';
-import { deviceWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { DeviceXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { deviceEmitters } from './store/emitters'
+import { deviceXStoreModule } from './store/module'
+import { deviceWiring } from './wiring'
 
 /**
  * Device {@link XModule} alias.
  *
  * @public
  */
-export type DeviceXModule = XModule<DeviceXStoreModule>;
+export type DeviceXModule = XModule<DeviceXStoreModule>
 
 /**
  * Device {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const deviceXModule: DeviceXModule = {
   name: 'device',
   storeModule: deviceXStoreModule,
   storeEmitters: deviceEmitters,
-  wiring: deviceWiring
-};
+  wiring: deviceWiring,
+}
 
-XPlugin.registerXModule(deviceXModule);
+XPlugin.registerXModule(deviceXModule)

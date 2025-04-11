@@ -1,4 +1,4 @@
-import { IdentifierResultsXStoreModule } from '../types';
+import type { IdentifierResultsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link IdentifierResultsGetters.identifierHighlightRegexp} getter.
@@ -9,7 +9,7 @@ import { IdentifierResultsXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const identifierHighlightRegexp: IdentifierResultsXStoreModule['getters']['identifierHighlightRegexp'] =
   ({ query, config }) => {
     /* Escape each character to avoid creating a regex like [/- ] where the hyphen acts as delimiter
@@ -17,8 +17,8 @@ export const identifierHighlightRegexp: IdentifierResultsXStoreModule['getters']
     const separatorChars = config.separatorChars
       .split('')
       .map(char => `\\${char}`)
-      .join('');
-    const queryWithoutSeparators = query.replace(new RegExp(`[${separatorChars}]`, 'g'), '');
-    const highlightQueryRegexValue = queryWithoutSeparators.split('').join(`[${separatorChars}]*`);
-    return new RegExp(`(${highlightQueryRegexValue})`, 'i');
-  };
+      .join('')
+    const queryWithoutSeparators = query.replace(new RegExp(`[${separatorChars}]`, 'g'), '')
+    const highlightQueryRegexValue = queryWithoutSeparators.split('').join(`[${separatorChars}]*`)
+    return new RegExp(`(${highlightQueryRegexValue})`, 'i')
+  }

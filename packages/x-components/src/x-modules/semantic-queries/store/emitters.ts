@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
-import { semanticQueriesXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils'
+import { semanticQueriesXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the semantic-queries module.
@@ -8,5 +8,5 @@ import { semanticQueriesXStoreModule } from './module';
  */
 export const semanticQueriesEmitters = createStoreEmitters(semanticQueriesXStoreModule, {
   SemanticQueryRequestUpdated: (_, getters) => getters.request,
-  SemanticQueriesResponseChanged: state => state.semanticQueries
-});
+  SemanticQueriesResponseChanged: state => state.semanticQueries,
+})

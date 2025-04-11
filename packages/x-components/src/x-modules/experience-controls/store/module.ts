@@ -1,13 +1,11 @@
-/* eslint-disable max-len */
-import { setStatus } from '../../../store/utils/status-store.utils';
+import type { ExperienceControlsXStoreModule } from './types'
+import { setStatus } from '../../../store/utils/status-store.utils'
 import {
   cancelFetchAndSaveControls,
-  fetchAndSaveExperienceControlsResponse
-} from './actions/fetch-and-save-experience-controls.action';
-import { fetchExperienceControlsResponse } from './actions/fetch-experience-controls.action';
-import { experienceControlsRequest } from './getters/experience-controls-results-request.getter';
-import { ExperienceControlsXStoreModule } from './types';
-/* eslint-enable max-len */
+  fetchAndSaveExperienceControlsResponse,
+} from './actions/fetch-and-save-experience-controls.action'
+import { fetchExperienceControlsResponse } from './actions/fetch-experience-controls.action'
+import { experienceControlsRequest } from './getters/experience-controls-results-request.getter'
 
 /**.
  * {@link XStoreModule} For the experience-controls module.
@@ -19,26 +17,26 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
     controls: {},
     events: {},
     status: 'initial',
-    params: {}
+    params: {},
   }),
   getters: {
-    experienceControlsRequest
+    experienceControlsRequest,
   },
   mutations: {
     setControls(state, controls) {
-      state.controls = controls;
+      state.controls = controls
     },
     setEvents(state, events) {
-      state.events = events;
+      state.events = events
     },
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
-    setStatus
+    setStatus,
   },
   actions: {
     fetchExperienceControlsResponse,
     fetchAndSaveExperienceControlsResponse,
-    cancelFetchAndSaveControls
-  }
-};
+    cancelFetchAndSaveControls,
+  },
+}

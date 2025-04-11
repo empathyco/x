@@ -1,19 +1,19 @@
-import { setQuery } from '../../../store/utils/query.utils';
-import { setStatus } from '../../../store/utils/status-store.utils';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
+import type { NextQueriesXStoreModule } from './types'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setQuery } from '../../../store/utils/query.utils'
+import { setStatus } from '../../../store/utils/status-store.utils'
 import {
   cancelFetchAndSaveNextQueries,
-  fetchAndSaveNextQueries
-} from './actions/fetch-and-save-next-queries.action';
-import { fetchNextQueries } from './actions/fetch-next-queries.action';
-import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
-import { setUrlParams } from './actions/set-url-params.action';
-import { fetchNextQueryPreview } from './actions/fetch-next-query-preview.action';
-import { fetchAndSaveNextQueryPreview } from './actions/fetch-and-save-next-query-preview.action';
-import { nextQueries } from './getters/next-queries.getter';
-import { query } from './getters/next-queries-query.getter';
-import { request } from './getters/request.getter';
-import { NextQueriesXStoreModule } from './types';
+  fetchAndSaveNextQueries,
+} from './actions/fetch-and-save-next-queries.action'
+import { fetchAndSaveNextQueryPreview } from './actions/fetch-and-save-next-query-preview.action'
+import { fetchNextQueries } from './actions/fetch-next-queries.action'
+import { fetchNextQueryPreview } from './actions/fetch-next-query-preview.action'
+import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action'
+import { setUrlParams } from './actions/set-url-params.action'
+import { query } from './getters/next-queries-query.getter'
+import { nextQueries } from './getters/next-queries.getter'
+import { request } from './getters/request.getter'
 
 /**
  * {@link XStoreModule} For the next-queries module.
@@ -31,39 +31,39 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
       loadOnInit: true,
-      maxPreviewItemsToRequest: 8
+      maxPreviewItemsToRequest: 8,
     },
     params: {},
-    resultsPreview: {}
+    resultsPreview: {},
   }),
   getters: {
     request,
     nextQueries,
-    query
+    query,
   },
   mutations: {
     setQuery,
     setNextQueries(state, nextQueries) {
-      state.nextQueries = nextQueries;
+      state.nextQueries = nextQueries
     },
     setSearchedQueries(state, searchedQueries) {
-      state.searchedQueries = searchedQueries;
+      state.searchedQueries = searchedQueries
     },
     setRelatedTags(state, relatedTags) {
-      state.relatedTags = relatedTags;
+      state.relatedTags = relatedTags
     },
     setStatus,
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
     setResultsPreview(state, resultsPreview) {
-      state.resultsPreview = { ...state.resultsPreview, ...resultsPreview };
+      state.resultsPreview = { ...state.resultsPreview, ...resultsPreview }
     },
     resetResultsPreview(state) {
-      state.resultsPreview = {};
+      state.resultsPreview = {}
     },
     setConfig,
-    mergeConfig
+    mergeConfig,
   },
   actions: {
     cancelFetchAndSaveNextQueries,
@@ -72,6 +72,6 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setQueryFromLastHistoryQuery,
     setUrlParams,
     fetchNextQueryPreview,
-    fetchAndSaveNextQueryPreview
-  }
-};
+    fetchAndSaveNextQueryPreview,
+  },
+}

@@ -1,11 +1,12 @@
-import { Filter } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
-import { nextTick } from 'vue';
-import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../../__tests__/utils';
-import FiltersSearch from '../filters-search.vue';
+import type { Filter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
+import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
+import { getDataTestSelector } from '../../../../../__tests__/utils'
+import { getXComponentXModuleName, isXComponent } from '../../../../../components'
+import FiltersSearch from '../filters-search.vue'
 
 const filtersMock: Filter[] = [
   'Lego city',
@@ -15,8 +16,8 @@ const filtersMock: Filter[] = [
   'Lego batman 2',
   'LEGO Construcción',
   'Lego Coleccionista',
-  'Lego Españita'
-].map(label => getSimpleFilterStub({ label }));
+  'Lego Españita',
+].map(label => getSimpleFilterStub({ label }))
 
 const queries: Dictionary<number> = {
   '   ConsTRUCcióN  ': 1,
@@ -25,12 +26,12 @@ const queries: Dictionary<number> = {
   lego: 8,
   'go c': 4,
   '"': 1,
-  ñ: 5
-};
+  ñ: 5,
+}
 
 function renderFiltersSearch(
   dataTestInputSelector = 'filters-search-input',
-  template?: string
+  template?: string,
 ): FiltersSearchAPI {
   const wrapper = mount(
     {
@@ -46,79 +47,79 @@ function renderFiltersSearch(
               </ul>
             </template>
           </FiltersSearch>
-        `
+        `,
     },
     {
       props: {
-        filters: filtersMock
-      }
-    }
-  );
+        filters: filtersMock,
+      },
+    },
+  )
 
-  const filterWrapper = wrapper.findComponent(FiltersSearch);
+  const filterWrapper = wrapper.findComponent(FiltersSearch)
 
   return {
     wrapper,
     filterWrapper,
     componentWrapper: wrapper.find(getDataTestSelector('filters-search')),
     inputWrapper: wrapper.find(getDataTestSelector(dataTestInputSelector)),
-    getFiltersWrapper: () => wrapper.findAll(getDataTestSelector('filters-search-list-item'))
-  };
+    getFiltersWrapper: () => wrapper.findAll(getDataTestSelector('filters-search-list-item')),
+  }
 }
 
 describe('testing FiltersSearch', () => {
-  beforeAll(jest.useFakeTimers);
-  afterEach(jest.clearAllTimers);
+  beforeAll(jest.useFakeTimers)
+  afterEach(jest.clearAllTimers)
 
   it('is an x-component', () => {
-    const { filterWrapper } = renderFiltersSearch();
+    const { filterWrapper } = renderFiltersSearch()
 
-    expect(isXComponent(filterWrapper.vm)).toEqual(true);
-  });
+    expect(isXComponent(filterWrapper.vm)).toEqual(true)
+  })
 
   it('belongs to the `facets` x-module', () => {
-    const { filterWrapper } = renderFiltersSearch();
+    const { filterWrapper } = renderFiltersSearch()
 
-    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
-  });
+    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets')
+  })
 
   it('renders the search input and provided filters', () => {
-    const { wrapper, componentWrapper, inputWrapper, getFiltersWrapper } = renderFiltersSearch();
+    const { wrapper, componentWrapper, inputWrapper, getFiltersWrapper } = renderFiltersSearch()
 
-    expect(componentWrapper.element).toBeDefined();
-    expect(inputWrapper.element).toBeDefined();
-    expect(wrapper.classes()).not.toContain('x-filters-search--is-sifted');
-    expect(getFiltersWrapper()).toHaveLength(filtersMock.length);
-  });
+    expect(componentWrapper.element).toBeDefined()
+    expect(inputWrapper.element).toBeDefined()
+    expect(wrapper.classes()).not.toContain('x-filters-search--is-sifted')
+    expect(getFiltersWrapper()).toHaveLength(filtersMock.length)
+  })
 
   it('sifts provided filters with the input query', async () => {
-    const filtersSearch = renderFiltersSearch();
+    const filtersSearch = renderFiltersSearch()
 
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectFiltersSearch(filtersSearch, query, occurrences);
-      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, occurrences)
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted')
     }
-  });
+  })
 
   it('allows changing the debounce time', async () => {
-    const filtersSearch = renderFiltersSearch();
+    const filtersSearch = renderFiltersSearch()
 
-    await filtersSearch.wrapper.setProps({ debounceInMs: 2000 });
+    await filtersSearch.wrapper.setProps({ debounceInMs: 2000 })
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectFiltersSearch(filtersSearch, query, filtersMock.length);
-      expect(filtersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, filtersMock.length)
+      expect(filtersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted')
 
-      jest.advanceTimersByTime(1800);
-      await nextTick();
-      expect(filtersSearch.getFiltersWrapper()).toHaveLength(occurrences);
-      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      jest.advanceTimersByTime(1800)
+      await nextTick()
+      expect(filtersSearch.getFiltersWrapper()).toHaveLength(occurrences)
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted')
 
-      await filtersSearch.inputWrapper.setValue('');
-      jest.advanceTimersByTime(2000);
-      await nextTick();
-      expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
+      await filtersSearch.inputWrapper.setValue('')
+      jest.advanceTimersByTime(2000)
+      await nextTick()
+      expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length)
     }
-  });
+  })
 
   it('replaces the search slot content by a custom one', async () => {
     const filtersSearch = renderFiltersSearch(
@@ -138,38 +139,38 @@ describe('testing FiltersSearch', () => {
           </ul>
         </template>
       </FiltersSearch>
-      `
-    );
+      `,
+    )
 
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectFiltersSearch(filtersSearch, query, occurrences);
-      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, occurrences)
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted')
     }
 
-    const clearButton = filtersSearch.wrapper.find(getDataTestSelector('custom-clear-button'));
-    await clearButton.trigger('click');
-    expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
-    expect((filtersSearch.inputWrapper.element as HTMLInputElement).value).toEqual('');
-  });
-});
+    const clearButton = filtersSearch.wrapper.find(getDataTestSelector('custom-clear-button'))
+    await clearButton.trigger('click')
+    expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length)
+    expect((filtersSearch.inputWrapper.element as HTMLInputElement).value).toEqual('')
+  })
+})
 
 async function expectFiltersSearch(
   { inputWrapper, getFiltersWrapper }: FiltersSearchAPI,
   query: string,
-  occurrences: number
+  occurrences: number,
 ): Promise<void> {
-  await inputWrapper.setValue(query);
-  expect((inputWrapper.element as HTMLInputElement).value).toEqual(query);
-  jest.advanceTimersByTime(200);
-  await nextTick();
-  expect((inputWrapper.element as HTMLInputElement).value).toEqual(query);
-  expect(getFiltersWrapper()).toHaveLength(occurrences);
+  await inputWrapper.setValue(query)
+  expect((inputWrapper.element as HTMLInputElement).value).toEqual(query)
+  jest.advanceTimersByTime(200)
+  await nextTick()
+  expect((inputWrapper.element as HTMLInputElement).value).toEqual(query)
+  expect(getFiltersWrapper()).toHaveLength(occurrences)
 }
 
 interface FiltersSearchAPI {
-  wrapper: VueWrapper;
-  filterWrapper: VueWrapper;
-  componentWrapper: DOMWrapper<Element>;
-  inputWrapper: DOMWrapper<Element>;
-  getFiltersWrapper: () => DOMWrapper<Element>[];
+  wrapper: VueWrapper
+  filterWrapper: VueWrapper
+  componentWrapper: DOMWrapper<Element>
+  inputWrapper: DOMWrapper<Element>
+  getFiltersWrapper: () => DOMWrapper<Element>[]
 }

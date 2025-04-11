@@ -1,7 +1,7 @@
-import { Identifiable } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { ScrollDirection } from '../../../components/scroll/scroll.types';
-import { XStoreModule } from '../../../store';
+import type { Identifiable } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ScrollDirection } from '../../../components/scroll/scroll.types'
+import type { XStoreModule } from '../../../store'
 
 /**
  * Scroll store state.
@@ -12,11 +12,11 @@ export interface ScrollState {
   /**
    * State data of the scroll components.
    */
-  data: Dictionary<ScrollComponentState>;
+  data: Dictionary<ScrollComponentState>
   /**
    * The `[data-scroll]` value of the pending to restore scroll.
    */
-  pendingScrollTo: string;
+  pendingScrollTo: string
 }
 
 /**
@@ -28,23 +28,23 @@ export interface ScrollComponentState {
   /**
    * The position in pixels the user has scrolled down.
    */
-  position: number;
+  position: number
   /**
    * The direction the user is scrolling.
    */
-  direction: ScrollDirection;
+  direction: ScrollDirection
   /**
    * True if the user has almost reached the end of the scroll panel.
    */
-  hasAlmostReachedEnd: boolean;
+  hasAlmostReachedEnd: boolean
   /**
    * True if the user has already reached the end of the scroll panel.
    */
-  hasReachedEnd: boolean;
+  hasReachedEnd: boolean
   /**
    * True if the scroll position is 0.
    */
-  hasReachedStart: boolean;
+  hasReachedStart: boolean
 }
 
 /**
@@ -66,13 +66,13 @@ export interface ScrollMutations {
    * @param pendingScrollTo - The identifier of the element that should be scrolled into view
    * whenever it is loaded.
    */
-  setPendingScrollTo(pendingScrollTo: string): void;
+  setPendingScrollTo: (pendingScrollTo: string) => void
   /**
    * Sets the scroll position of a certain panel.
    *
    * @param partialState - An object with the fields to modify.
    */
-  setScrollComponentState(partialState: ScrollStatePayload): void;
+  setScrollComponentState: (partialState: ScrollStatePayload) => void
 }
 
 /**
@@ -84,7 +84,7 @@ export interface ScrollStatePayload extends Identifiable<string> {
   /**
    * A partial {@link ScrollComponentState} update to perform to the targeted panel.
    */
-  newState: Partial<ScrollComponentState>;
+  newState: Partial<ScrollComponentState>
 }
 
 /**
@@ -104,4 +104,4 @@ export type ScrollXStoreModule = XStoreModule<
   ScrollGetters,
   ScrollMutations,
   ScrollActions
->;
+>

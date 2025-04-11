@@ -11,40 +11,41 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { PropsWithType } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
-  import BaseEventButton from '../base-event-button.vue';
+import type { PropType } from 'vue'
+import type { PropsWithType } from '../../utils/types'
+import type { XEventsTypes } from '../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseEventButton from '../base-event-button.vue'
 
-  /**
-   * Component contains an event button that emits {@link XEventsTypes.UserClickedOpenEventsModal}
-   * when clicked. It has a default slot to customize its contents.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseEventButton
+/**
+ * Component contains an event button that emits {@link XEventsTypes.UserClickedOpenEventsModal}
+ * when clicked. It has a default slot to customize its contents.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseEventButton,
+  },
+  props: {
+    /**
+     * Event name to use for opening the modal.
+     *
+     * @public
+     */
+    openingEvent: {
+      type: String as PropType<PropsWithType<XEventsTypes, void>>,
+      default: 'UserClickedOpenEventsModal',
     },
-    props: {
-      /**
-       * Event name to use for opening the modal.
-       *
-       * @public
-       */
-      openingEvent: {
-        type: String as PropType<PropsWithType<XEventsTypes, void>>,
-        default: 'UserClickedOpenEventsModal'
-      }
-    },
-    setup(props) {
-      const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }));
+  },
+  setup(props) {
+    const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }))
 
-      return {
-        events
-      };
+    return {
+      events,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -74,14 +75,14 @@ of them...
 </template>
 
 <script>
-  import { BaseEventsModalOpen } from '@empathyco/x-components';
+import { BaseEventsModalOpen } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseEventsModalOpenTest',
-    components: {
-      BaseEventsModalOpen
-    }
-  };
+export default {
+  name: 'BaseEventsModalOpenTest',
+  components: {
+    BaseEventsModalOpen,
+  },
+}
 </script>
 ```
 
@@ -99,14 +100,14 @@ This event can be changed using the `openingEvent` prop, but remember to change 
 </template>
 
 <script>
-  import { BaseEventsModalOpen } from '@empathyco/x-components';
+import { BaseEventsModalOpen } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseEventsModalOpenTest',
-    components: {
-      BaseEventsModalOpen
-    }
-  };
+export default {
+  name: 'BaseEventsModalOpenTest',
+  components: {
+    BaseEventsModalOpen,
+  },
+}
 </script>
 ```
 </docs>

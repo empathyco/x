@@ -8,38 +8,38 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { AnimationProp } from '../../types/animation-prop';
+import { defineComponent } from 'vue'
+import { AnimationProp } from '../../types/animation-prop'
 
-  /**
-   * Simple panel that receives its open state via prop, which is responsible of rendering
-   * default slot inside a configurable transition.
-   *
-   * @public
-   */
-  export default defineComponent({
-    props: {
-      /**
-       * Handles if the panel is rendered. It is used with v-if instead of v-show to get better
-       * performance.
-       *
-       * @public
-       */
-      open: {
-        type: Boolean,
-        required: true
-      },
-      /**
-       * Animation component that will be used to animate the panel content.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'div'
-      }
-    }
-  });
+/**
+ * Simple panel that receives its open state via prop, which is responsible of rendering
+ * default slot inside a configurable transition.
+ *
+ * @public
+ */
+export default defineComponent({
+  props: {
+    /**
+     * Handles if the panel is rendered. It is used with v-if instead of v-show to get better
+     * performance.
+     *
+     * @public
+     */
+    open: {
+      type: Boolean,
+      required: true,
+    },
+    /**
+     * Animation component that will be used to animate the panel content.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'div',
+    },
+  },
+})
 </script>
 
 <docs lang="mdx">

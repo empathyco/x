@@ -3,4 +3,4 @@
  *
  * @public
  */
-export type Sort = string;
+export type Sort = string

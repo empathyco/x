@@ -6,59 +6,61 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useDisableAnimation } from './use-disable-animation';
+import { defineComponent } from 'vue'
+import { useDisableAnimation } from './use-disable-animation'
 
-  /**
-   * Renders a transition group wrapping the elements passed in the default slot and animating
-   * them with a fade and slide animation.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'FadeAndSlide',
-    props: {
-      /**
-       * HTML Element that the transition-group children will be wrapped in.
-       */
-      tag: String,
-      /**
-       * Indicates if the transition must be applied on the initial render of the node.
-       */
-      appear: {
-        type: Boolean,
-        default: true
-      }
+/**
+ * Renders a transition group wrapping the elements passed in the default slot and animating
+ * them with a fade and slide animation.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'FadeAndSlide',
+  props: {
+    /**
+     * HTML Element that the transition-group children will be wrapped in.
+     */
+    tag: String,
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    appear: {
+      type: Boolean,
+      default: true,
     },
-    setup: function () {
-      /**
-       * The name of the animation.
-       */
-      const animationName = 'x-fade-and-slide-';
+  },
+  setup() {
+    /**
+     * The name of the animation.
+     */
+    const animationName = 'x-fade-and-slide-'
 
-      const { name } = useDisableAnimation(animationName);
+    const { name } = useDisableAnimation(animationName)
 
-      return { name };
-    }
-  });
+    return { name }
+  },
+})
 </script>
 
 <style lang="css">
-  .x-fade-and-slide--move,
-  .x-fade-and-slide--enter-active,
-  .x-fade-and-slide--leave-active {
-    transition: opacity 0.2s ease-out, transform 0.3s ease-out;
-  }
+.x-fade-and-slide--move,
+.x-fade-and-slide--enter-active,
+.x-fade-and-slide--leave-active {
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.3s ease-out;
+}
 
-  .x-fade-and-slide--enter-from,
-  .x-fade-and-slide--leave-to {
-    transform: translate(-20%, 0);
-    opacity: 0;
-  }
+.x-fade-and-slide--enter-from,
+.x-fade-and-slide--leave-to {
+  transform: translate(-20%, 0);
+  opacity: 0;
+}
 
-  .x-fade-and-slide--leave-active {
-    position: absolute;
-  }
+.x-fade-and-slide--leave-active {
+  position: absolute;
+}
 </style>
 
 <docs lang="mdx">

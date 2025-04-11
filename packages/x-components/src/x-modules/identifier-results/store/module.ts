@@ -1,17 +1,17 @@
-import { setQuery } from '../../../store/utils/query.utils';
-import { setStatus } from '../../../store/utils/status-store.utils';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
+import type { IdentifierResultsXStoreModule } from './types'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setQuery } from '../../../store/utils/query.utils'
+import { setStatus } from '../../../store/utils/status-store.utils'
 import {
   cancelFetchAndSaveIdentifierResults,
-  fetchAndSaveIdentifierResults
-} from './actions/fetch-and-save-identifier-results.action';
-import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
-import { saveOrigin } from './actions/save-origin.action';
-import { saveQuery } from './actions/save-query.action';
-import { identifierDetectionRegexp } from './getters/identifier-detection-regexp.getter';
-import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp.getter';
-import { identifierResultsRequest } from './getters/identifier-results-request.getter';
-import { IdentifierResultsXStoreModule } from './types';
+  fetchAndSaveIdentifierResults,
+} from './actions/fetch-and-save-identifier-results.action'
+import { fetchIdentifierResults } from './actions/fetch-identifier-results.action'
+import { saveOrigin } from './actions/save-origin.action'
+import { saveQuery } from './actions/save-query.action'
+import { identifierDetectionRegexp } from './getters/identifier-detection-regexp.getter'
+import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp.getter'
+import { identifierResultsRequest } from './getters/identifier-results-request.getter'
 
 /**
  * {@link XStoreModule} For the identifier results module.
@@ -24,39 +24,39 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
       debounceInMs: 600,
       maxItemsToRequest: 10,
       identifierDetectionRegexp: '^[0-9]{2,}$',
-      separatorChars: '-/ '
+      separatorChars: '-/ ',
     },
     identifierResults: [],
     origin: null,
     query: '',
     params: {},
-    status: 'initial'
+    status: 'initial',
   }),
   getters: {
     identifierResultsRequest,
     identifierHighlightRegexp,
-    identifierDetectionRegexp
+    identifierDetectionRegexp,
   },
   mutations: {
     setIdentifierResults(state, identifierResults) {
-      state.identifierResults = identifierResults;
+      state.identifierResults = identifierResults
     },
     setOrigin(state, origin = null) {
-      state.origin = origin;
+      state.origin = origin
     },
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
     setQuery,
     setStatus,
     setConfig,
-    mergeConfig
+    mergeConfig,
   },
   actions: {
     cancelFetchAndSaveIdentifierResults,
     fetchIdentifierResults,
     fetchAndSaveIdentifierResults,
     saveOrigin,
-    saveQuery
-  }
-};
+    saveQuery,
+  },
+}

@@ -1,5 +1,5 @@
-import './animate-clip-path.style.scss';
-import { createDirectionalAnimationFactory } from '../create-directional-animation-factory';
+import { createDirectionalAnimationFactory } from '../create-directional-animation-factory'
+import './animate-clip-path.style.scss'
 
 /**
  * Returns a transition component to wrap an element passed in the default slot and animating its
@@ -12,4 +12,4 @@ import { createDirectionalAnimationFactory } from '../create-directional-animati
  *
  * @public
  */
-export const animateClipPath = createDirectionalAnimationFactory('animate-clip-path');
+export const animateClipPath = createDirectionalAnimationFactory('animate-clip-path')

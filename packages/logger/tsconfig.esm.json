@@ -5,8 +5,8 @@
     "module": "esnext",
     "declaration": false,
     "declarationDir": null,
-    "sourceMap": true,
     "inlineSources": true,
-    "outDir": "./dist/esm"
+    "outDir": "./dist/esm",
+    "sourceMap": true
   }
 }

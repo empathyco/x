@@ -1,9 +1,9 @@
-import { Identifiable } from '../identifiable.model';
-import { NamedModel } from '../named-model.model';
-import { Taggable } from '../tagging.model';
-import { ResultIdentifier } from './result-identifier.model';
-import { ResultPrice } from './result-price.model';
-import { ResultRating } from './result-rating.model';
+import type { Identifiable } from '../identifiable.model'
+import type { NamedModel } from '../named-model.model'
+import type { Taggable } from '../tagging.model'
+import type { ResultIdentifier } from './result-identifier.model'
+import type { ResultPrice } from './result-price.model'
+import type { ResultRating } from './result-rating.model'
 
 /**
  * A search result.
@@ -12,23 +12,23 @@ import { ResultRating } from './result-rating.model';
  */
 export interface Result extends NamedModel<'Result'>, Identifiable, Taggable {
   /** The type of the result: product, article, pack, etc... */
-  type?: string;
+  type?: string
   /** Images of the result. It should be the URLs. */
-  images?: string[];
+  images?: string[]
   /** Result name. */
-  name?: string;
+  name?: string
   /** {@link ResultPrice | Result price}.  */
-  price?: ResultPrice;
+  price?: ResultPrice
   /** {@link ResultRating | Result rating}.  */
-  rating?: ResultRating;
+  rating?: ResultRating
   /** {@link ResultIdentifier | Result identifier}.  */
-  identifier?: ResultIdentifier;
+  identifier?: ResultIdentifier
   /** Result URL to redirect to PDP.  */
-  url?: string;
+  url?: string
   /** Flag if the results has been added to the wishlist or not. */
-  isWishlisted?: boolean;
+  isWishlisted?: boolean
   /** {@link ResultVariant | Variants of the result}.  */
-  variants?: ResultVariant[];
+  variants?: ResultVariant[]
 }
 
 /**

@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `sizes` variants for component `tag`.
@@ -12,19 +12,19 @@ export function tagSizes({ theme }: TailwindHelpers) {
       minHeight: theme('x.spacing.24'),
       fontSize: theme('x.fontSize.sm'),
       paddingInlineStart: theme('x.spacing.8'),
-      paddingInlineEnd: theme('x.spacing.8')
+      paddingInlineEnd: theme('x.spacing.8'),
     },
     md: {
       minHeight: theme('x.spacing.32'),
       fontSize: theme('x.fontSize.sm'),
       paddingInlineStart: theme('x.spacing.12'),
-      paddingInlineEnd: theme('x.spacing.12')
+      paddingInlineEnd: theme('x.spacing.12'),
     },
     lg: {
       minHeight: theme('x.spacing.40'),
       fontSize: theme('x.fontSize.md'),
       paddingInlineStart: theme('x.spacing.16'),
-      paddingInlineEnd: theme('x.spacing.16')
-    }
-  };
+      paddingInlineEnd: theme('x.spacing.16'),
+    },
+  }
 }

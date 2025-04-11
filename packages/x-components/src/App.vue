@@ -11,24 +11,24 @@
 </template>
 
 <style lang="css">
-  html,
-  body {
-    margin: 0;
-    height: 100%;
-  }
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
 </style>
 
 <style lang="css" scoped>
-  .app {
-    min-height: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-  }
-  .link {
-    display: inline-block;
-    margin: 0.5em 1em 1em 0;
-    color: darkgrey;
-    text-decoration: none;
-    font-family: sans-serif;
-  }
+.app {
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.link {
+  display: inline-block;
+  margin: 0.5em 1em 1em 0;
+  color: darkgrey;
+  text-decoration: none;
+  font-family: sans-serif;
+}
 </style>

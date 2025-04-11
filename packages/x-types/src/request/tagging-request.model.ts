@@ -5,7 +5,7 @@
  */
 export interface TaggingRequest {
   /** Tagging URL. */
-  url: string;
+  url: string
   /** Params of the tagging URL. */
-  params: Record<string, string | number | boolean>;
+  params: Record<string, string | number | boolean>
 }

@@ -1,14 +1,14 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard }"
+    v-slot="{ cssClass, copyCssClassesToClipboard }"
     title="Scroll"
     :sections="sections"
   >
     <div
-      @keydown="copyCssClassesToClipboard"
-      @click="copyCssClassesToClipboard"
       :class="cssClass"
       class="h-[200px] w-[200px] bg-amber-400"
+      @keydown="copyCssClassesToClipboard"
+      @click="copyCssClassesToClipboard"
     >
       <div :key="cssClass" class="h-[1000px]"></div>
     </div>
@@ -16,31 +16,31 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { ShowcaseSections } from '../types/types';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-scroll',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-scroll'
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        Default: [this.base],
       }
     },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          Default: [this.base]
-        };
-      }
+  },
+  methods: {
+    copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
     },
-    methods: {
-      copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      }
-    }
-  });
+  },
+})
 </script>

@@ -7,65 +7,66 @@
     :events="events"
     :class="cssClasses"
   >
-    <slot :selectedFilters="selectedFilters">Clear Filters ({{ selectedFilters.length }})</slot>
+    <slot :selected-filters="selectedFilters">Clear Filters ({{ selectedFilters.length }})</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { Facet } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseEventButton from '../../../components/base-event-button.vue';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { useFacets } from '../composables/use-facets';
-  import { facetsXModule } from '../x-module';
+import type { Facet } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { VueCSSClasses } from '../../../utils/types'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent } from 'vue'
+import BaseEventButton from '../../../components/base-event-button.vue'
+import { useFacets } from '../composables/use-facets'
+import { facetsXModule } from '../x-module'
 
-  /**
-   * Renders a simple button, emitting the needed events when clicked.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'ClearFilters',
-    xModule: facetsXModule.name,
-    components: { BaseEventButton },
-    props: {
-      /** Array of facets ids used to get the selected filters for those facets. */
-      facetsIds: Array as PropType<Array<Facet['id']>>,
-      /** Flag to render the component even if there are no filters selected. */
-      alwaysVisible: Boolean
-    },
-    setup: function (props) {
-      const { selectedFilters, hasSelectedFilters, isVisible } = useFacets(props);
+/**
+ * Renders a simple button, emitting the needed events when clicked.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'ClearFilters',
+  xModule: facetsXModule.name,
+  components: { BaseEventButton },
+  props: {
+    /** Array of facets ids used to get the selected filters for those facets. */
+    facetsIds: Array as PropType<Array<Facet['id']>>,
+    /** Flag to render the component even if there are no filters selected. */
+    alwaysVisible: Boolean,
+  },
+  setup(props) {
+    const { selectedFilters, hasSelectedFilters, isVisible } = useFacets(props)
 
-      /**
-       * The events that will be emitted when the button clear filters is clicked.
-       *
-       * @returns The events to be emitted when the button clear filters is clicked.
-       */
-      const events = computed<Partial<XEventsTypes>>(() => ({
-        UserClickedClearAllFilters: props.facetsIds
-      }));
+    /**
+     * The events that will be emitted when the button clear filters is clicked.
+     *
+     * @returns The events to be emitted when the button clear filters is clicked.
+     */
+    const events = computed<Partial<XEventsTypes>>(() => ({
+      UserClickedClearAllFilters: props.facetsIds,
+    }))
 
-      /**
-       * Dynamic CSS classes to apply to the component.
-       *
-       * @returns The dynamic CSS classes to apply to the component.
-       */
-      const cssClasses = computed<VueCSSClasses>(() => ({
-        'x-clear-filters--has-not-selected-filters': !hasSelectedFilters.value,
-        'x-clear-filters--has-selected-filters': hasSelectedFilters.value
-      }));
+    /**
+     * Dynamic CSS classes to apply to the component.
+     *
+     * @returns The dynamic CSS classes to apply to the component.
+     */
+    const cssClasses = computed<VueCSSClasses>(() => ({
+      'x-clear-filters--has-not-selected-filters': !hasSelectedFilters.value,
+      'x-clear-filters--has-selected-filters': hasSelectedFilters.value,
+    }))
 
-      return {
-        selectedFilters,
-        hasSelectedFilters,
-        isVisible,
-        events,
-        cssClasses
-      };
+    return {
+      selectedFilters,
+      hasSelectedFilters,
+      isVisible,
+      events,
+      cssClasses,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">

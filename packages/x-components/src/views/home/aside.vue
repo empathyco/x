@@ -1,10 +1,10 @@
 <template>
   <div class="x-flex x-flex-col x-gap-24">
-    <FacetsProvider :facets="staticFacets" groupId="price" />
+    <FacetsProvider :facets="staticFacets" group-id="price" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" :cssClasses="['x-facet-filter-success']">
+        <SimpleFilter :filter="filter" :css-classes="['x-facet-filter-success']">
           <template #label>{{ filter.label ?? filter.id }}</template>
         </SimpleFilter>
       </template>
@@ -29,7 +29,7 @@
 
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -40,7 +40,7 @@
               <HierarchicalFilter
                 :filter="filter"
                 :data-test="`${facet.label}-filter`"
-                childrenFiltersClass="x-ml-16"
+                children-filters-class="x-ml-16"
               />
             </FiltersList>
           </SlicedFilters>
@@ -49,7 +49,7 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -61,7 +61,7 @@
                 :max="controls.slicedFilters.max"
                 :data-test="`${facet.label}-sliced-filters`"
               >
-                <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
+                <SelectedFilters v-slot="{ selectedFilters }" :facets-ids="[facet.id]">
                   <span :data-test="`${facet.label}-selected-filters`">
                     {{ selectedFilters.length }}
                   </span>
@@ -73,8 +73,8 @@
                         v-if="facet.id === 'price'"
                         :filter="filter"
                         format="ii.dd €"
-                        lessThan="Less than {max}"
-                        fromTo="From {min} to {max}"
+                        less-than="Less than {max}"
+                        from-to="From {min} to {max}"
                         from="More than {min}"
                       />
                     </template>
@@ -88,7 +88,7 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-py-8 x-gap-8">
+        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-py-8 x-gap-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
@@ -106,14 +106,14 @@
                   <FiltersList
                     v-slot="{
                       // eslint-disable-next-line vue/no-unused-vars
-                      filter
+                      filter,
                     }"
                   >
                     <SimpleFilter :filter="filter" :data-test="`${facet.label}-filter`">
-                      <template #label="{ filter }">
-                        {{ filter.label }}
+                      <template #label="{ filter: labelFilter }">
+                        {{ labelFilter.label }}
                         <span :data-test="`${facet.label}-filter-total-results`">
-                          {{ filter.totalResults }}
+                          {{ labelFilter.totalResults }}
                         </span>
                       </template>
                     </SimpleFilter>
@@ -129,89 +129,89 @@
 </template>
 
 <script lang="ts">
-  /* eslint-disable max-len */
-  import {
-    EditableNumberRangeFacet,
-    EditableNumberRangeFilter,
-    Facet,
-    SimpleFilter as SimpleFilterModel
-  } from '@empathyco/x-types';
-  import { defineComponent, inject, Ref } from 'vue';
-  import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
-  import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue';
-  import ChevronDown from '../../components/icons/chevron-down.vue';
-  import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue';
-  import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
-  import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
-  import Facets from '../../x-modules/facets/components/facets/facets.vue';
-  import HierarchicalFilter from '../../x-modules/facets/components/filters/hierarchical-filter.vue';
-  import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue';
-  import ExcludeFiltersWithNoResults from '../../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
-  import FiltersList from '../../x-modules/facets/components/lists/filters-list.vue';
-  import FiltersSearch from '../../x-modules/facets/components/lists/filters-search.vue';
-  import SelectedFiltersList from '../../x-modules/facets/components/lists/selected-filters-list.vue';
-  import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
-  import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
-  import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
-  import { HomeControls } from './types';
-  /* eslint-enable max-len */
+import type {
+  EditableNumberRangeFacet,
+  EditableNumberRangeFilter,
+  Facet,
+  SimpleFilter as SimpleFilterModel,
+} from '@empathyco/x-types'
+import type { Ref } from 'vue'
+import type { HomeControls } from './types'
+import { defineComponent, inject } from 'vue'
+import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue'
+import ChevronDown from '../../components/icons/chevron-down.vue'
+import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue'
+import ClearFilters from '../../x-modules/facets/components/clear-filters.vue'
+import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue'
+import Facets from '../../x-modules/facets/components/facets/facets.vue'
+import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue'
+import HierarchicalFilter from '../../x-modules/facets/components/filters/hierarchical-filter.vue'
+import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue'
+import ExcludeFiltersWithNoResults from '../../x-modules/facets/components/lists/exclude-filters-with-no-results.vue'
+import FiltersList from '../../x-modules/facets/components/lists/filters-list.vue'
+import FiltersSearch from '../../x-modules/facets/components/lists/filters-search.vue'
+import SelectedFiltersList from '../../x-modules/facets/components/lists/selected-filters-list.vue'
+import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue'
+import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue'
+import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue'
 
-  export default defineComponent({
-    name: 'Aside',
-    components: {
-      BaseHeaderTogglePanel,
-      BasePriceFilterLabel,
-      ChevronDown,
-      ClearFilters,
-      EditableNumberPriceRangeFilter,
-      ExcludeFiltersWithNoResults,
-      Facets,
-      FacetsProvider,
-      FiltersList,
-      FiltersSearch,
-      HierarchicalFilter,
-      SimpleFilter,
-      SelectedFilters,
-      SelectedFiltersList,
-      SlicedFilters,
-      SortedFilters
-    },
-    setup() {
-      const controls = inject<Ref<HomeControls>>('controls')?.value;
-      const editableNumberRangeFilter: EditableNumberRangeFilter = {
-        facetId: 'salePrice',
-        selected: false,
-        id: 'price:0-*',
-        modelName: 'EditableNumberRangeFilter',
-        range: {
-          min: null,
-          max: null
-        }
-      };
-      const staticFacets: Facet[] = [
-        {
-          modelName: 'SimpleFacet',
-          label: 'Offer',
-          id: 'offer',
-          filters: [
-            {
-              facetId: 'offer',
-              modelName: 'SimpleFilter',
-              id: 'price:0-10',
-              selected: false,
-              label: 'price:0-10'
-            } as SimpleFilterModel
-          ]
-        },
-        {
-          modelName: 'EditableNumberRangeFacet',
-          label: 'Price range',
-          id: 'salePrice',
-          filters: [editableNumberRangeFilter]
-        } as EditableNumberRangeFacet
-      ];
-
-      return { controls, staticFacets };
+export default defineComponent({
+  // eslint-disable-next-line vue/no-reserved-component-names
+  name: 'Aside',
+  components: {
+    BaseHeaderTogglePanel,
+    BasePriceFilterLabel,
+    ChevronDown,
+    ClearFilters,
+    EditableNumberPriceRangeFilter,
+    ExcludeFiltersWithNoResults,
+    Facets,
+    FacetsProvider,
+    FiltersList,
+    FiltersSearch,
+    HierarchicalFilter,
+    SimpleFilter,
+    SelectedFilters,
+    SelectedFiltersList,
+    SlicedFilters,
+    SortedFilters,
+  },
+  setup() {
+    const controls = inject<Ref<HomeControls>>('controls')?.value
+    const editableNumberRangeFilter: EditableNumberRangeFilter = {
+      facetId: 'salePrice',
+      selected: false,
+      id: 'price:0-*',
+      modelName: 'EditableNumberRangeFilter',
+      range: {
+        min: null,
+        max: null,
+      },
     }
-  });
+    const staticFacets: Facet[] = [
+      {
+        modelName: 'SimpleFacet',
+        label: 'Offer',
+        id: 'offer',
+        filters: [
+          {
+            facetId: 'offer',
+            modelName: 'SimpleFilter',
+            id: 'price:0-10',
+            selected: false,
+            label: 'price:0-10',
+          } as SimpleFilterModel,
+        ],
+      },
+      {
+        modelName: 'EditableNumberRangeFacet',
+        label: 'Price range',
+        id: 'salePrice',
+        filters: [editableNumberRangeFilter],
+      } as EditableNumberRangeFacet,
+    ]
+
+    return { controls, staticFacets }
+  },
+})
 </script>

@@ -1,4 +1,4 @@
-import { RelatedPrompt } from '../query-signals/related-prompt.model';
+import type { RelatedPrompt } from '../query-signals/related-prompt.model'
 
 /**
  * Response for the related prompts endpoint.
@@ -6,5 +6,5 @@ import { RelatedPrompt } from '../query-signals/related-prompt.model';
  * @public
  */
 export interface RelatedPromptsResponse {
-  relatedPrompts: RelatedPrompt[];
+  relatedPrompts: RelatedPrompt[]
 }

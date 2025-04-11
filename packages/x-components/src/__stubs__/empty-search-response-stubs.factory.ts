@@ -1,4 +1,4 @@
-import { SearchResponse } from '@empathyco/x-types';
+import type { SearchResponse } from '@empathyco/x-types'
 
 /**
  * Creates an empty {@link @empathyco/x-types#SearchResponse | search response} stub.
@@ -15,15 +15,15 @@ export function getEmptySearchResponseStub(): SearchResponse {
     promoteds: [],
     queryTagging: {
       params: {},
-      url: ''
+      url: '',
     },
     displayTagging: {
       params: {},
-      url: ''
+      url: '',
     },
     redirections: [],
     results: [],
     spellcheck: '',
-    totalResults: 0
-  };
+    totalResults: 0,
+  }
 }

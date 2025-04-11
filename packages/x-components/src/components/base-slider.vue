@@ -7,7 +7,7 @@
         the selected range without an specific slot implementation.
             @binding {number[]} rangeSelected - The selected range values. Min position 0, Max position 1.
       -->
-      <slot :rangeSelected="rangeSelected">
+      <slot :range-selected="rangeSelected">
         <p class="x-base-slider__selected-min">
           <span>min value</span>
           <span>
@@ -25,167 +25,169 @@
   </div>
 </template>
 <script lang="ts">
-  import { API, create } from 'nouislider';
-  import { computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import type { API } from 'nouislider'
+import type { PropType } from 'vue'
+import { create } from 'nouislider'
+import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 
-  /**
-   * This component implements a range slider and prints the selected values.
-   * It receives a threshold prop to set the limits and uses v-model to get and set
-   * the selected values.
-   *
-   * It makes use of the nouslider library @see https://refreshless.com/nouislider/
-   * for the slider implementation.
-   *
-   */
-  export default defineComponent({
-    name: 'BaseSlider',
-    props: {
-      /** The threshold prop sets the limits for the slider. */
-      threshold: {
-        type: Object as PropType<{ min: number; max: number }>,
-        default: () => ({ min: 0, max: Number.MAX_SAFE_INTEGER })
-      },
-      /** The modelValue prop sets the initial values for the slider. */
-      modelValue: {
-        type: Object as PropType<{ min: number; max: number }>,
-        required: true
-      },
-      /** Class to be able to customize slider styles. */
-      contentClass: {
-        type: String,
-        default: ''
-      }
+/**
+ * This component implements a range slider and prints the selected values.
+ * It receives a threshold prop to set the limits and uses v-model to get and set
+ * the selected values.
+ *
+ * It makes use of the nouslider library @see https://refreshless.com/nouislider/
+ * for the slider implementation.
+ *
+ */
+export default defineComponent({
+  name: 'BaseSlider',
+  props: {
+    /** The threshold prop sets the limits for the slider. */
+    threshold: {
+      type: Object as PropType<{ min: number; max: number }>,
+      default: () => ({ min: 0, max: Number.MAX_SAFE_INTEGER }),
     },
+    /** The modelValue prop sets the initial values for the slider. */
+    modelValue: {
+      type: Object as PropType<{ min: number; max: number }>,
+      required: true,
+    },
+    /** Class to be able to customize slider styles. */
+    contentClass: {
+      type: String,
+      default: '',
+    },
+  },
+  /**
+   * The component emits an event with the selected values whenever
+   * the user changes the slider.
+   */
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    /** The nouislider instance. */
+    let sliderInstance: API
+    /** The nouislider element reference. */
+    const slider = ref<HTMLElement>()
+
+    /** The selected min value. */
+    const minSelected = ref(props.modelValue?.min ?? props.threshold.min)
+    /** The selected max value. */
+    const maxSelected = ref(props.modelValue?.max ?? props.threshold.max)
+
+    /** The selected range as an array. */
+    const rangeSelected = computed(() => [minSelected.value, maxSelected.value])
+    /** The range for the nouislider. */
+    const slideRange = computed(() => ({ min: props.threshold.min, max: props.threshold.max }))
+
+    onMounted(() => {
+      // Create the slider instance
+      sliderInstance = create(slider.value!, {
+        start: rangeSelected.value,
+        range: slideRange.value,
+        step: 1,
+        connect: true,
+        margin: 1,
+      })
+
+      // Update the selected values when the slider update its values
+      sliderInstance.on('update', ([min, max]) => {
+        minSelected.value = Number(min)
+        maxSelected.value = Number(max)
+      })
+
+      // Emits the selected values when the slider values change
+      sliderInstance.on('change', () =>
+        emit('update:modelValue', { min: minSelected.value, max: maxSelected.value }),
+      )
+    })
+
+    onUnmounted(() => {
+      // Waiting to finish the collapse animation before destroying it
+      setTimeout(sliderInstance.destroy.bind(sliderInstance), 600)
+    })
+
     /**
-     * The component emits an event with the selected values whenever
-     * the user changes the slider.
+     * Watch the threshold prop to update the slider state and emit the selected values.
      */
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-      /** The nouislider instance. */
-      let sliderInstance: API;
-      /** The nouislider element reference. */
-      const slider = ref<HTMLElement>();
+    watch(
+      () => props.threshold,
+      ({ min, max }) => {
+        sliderInstance.updateOptions({ range: slideRange.value, start: [min, max] }, false)
+        emit('update:modelValue', { min, max })
+      },
+    )
 
-      /** The selected min value. */
-      const minSelected = ref(props.modelValue?.min ?? props.threshold.min);
-      /** The selected max value. */
-      const maxSelected = ref(props.modelValue?.max ?? props.threshold.max);
+    /**
+     * Watch the modelValue prop to update the slider state.
+     *
+     * @remarks It only update the values if the values are corrects. It means,
+     * values within the threshold limits and not equal to the current values.
+     *
+     * @returns Undefined.
+     */
+    watch([() => props.modelValue.min, () => props.modelValue.max], ([min, max]) => {
+      // Check if the values are the same
+      if (min === minSelected.value && max === maxSelected.value) {
+        return
+      }
 
-      /** The selected range as an array. */
-      const rangeSelected = computed(() => [minSelected.value, maxSelected.value]);
-      /** The range for the nouislider. */
-      const slideRange = computed(() => ({ min: props.threshold.min, max: props.threshold.max }));
+      // Validate the values
+      const minValidated = min < props.threshold.min ? props.threshold.min : min
+      const maxValidated = max > props.threshold.max ? props.threshold.max : max
 
-      onMounted(() => {
-        // Create the slider instance
-        sliderInstance = create(slider.value!, {
-          start: rangeSelected.value,
-          range: slideRange.value,
-          step: 1,
-          connect: true,
-          margin: 1
-        });
+      // Update the nouislider values
+      sliderInstance.set([minValidated, maxValidated])
 
-        // Update the selected values when the slider update its values
-        sliderInstance.on('update', ([min, max]) => {
-          minSelected.value = Number(min);
-          maxSelected.value = Number(max);
-        });
+      // Emit the selected values
+      if (minValidated !== min || maxValidated !== max) {
+        emit('update:modelValue', { min: minValidated, max: maxValidated })
+      }
+    })
 
-        // Emits the selected values when the slider values change
-        sliderInstance.on('change', () =>
-          emit('update:modelValue', { min: minSelected.value, max: maxSelected.value })
-        );
-      });
-
-      onUnmounted(() => {
-        // Waiting to finish the collapse animation before destroying it
-        setTimeout(sliderInstance.destroy.bind(sliderInstance), 600);
-      });
-
-      /**
-       * Watch the threshold prop to update the slider state and emit the selected values.
-       */
-      watch(
-        () => props.threshold,
-        ({ min, max }) => {
-          sliderInstance.updateOptions({ range: slideRange.value, start: [min, max] }, false);
-          emit('update:modelValue', { min, max });
-        }
-      );
-
-      /**
-       * Watch the modelValue prop to update the slider state.
-       *
-       * @remarks It only update the values if the values are corrects. It means,
-       * values within the threshold limits and not equal to the current values.
-       *
-       * @returns Undefined.
-       */
-      watch([() => props.modelValue.min, () => props.modelValue.max], ([min, max]) => {
-        // Check if the values are the same
-        if (min === minSelected.value && max === maxSelected.value) {
-          return;
-        }
-
-        // Validate the values
-        const minValidated = min < props.threshold.min ? props.threshold.min : min;
-        const maxValidated = max > props.threshold.max ? props.threshold.max : max;
-
-        // Update the nouislider values
-        sliderInstance.set([minValidated, maxValidated]);
-
-        // Emit the selected values
-        if (minValidated !== min || maxValidated !== max) {
-          emit('update:modelValue', { min: minValidated, max: maxValidated });
-        }
-      });
-
-      return {
-        slider,
-        rangeSelected
-      };
+    return {
+      slider,
+      rangeSelected,
     }
-  });
+  },
+})
 </script>
 <style lang="css">
-  @import 'nouislider/dist/nouislider.css';
-  /** Customize nouislider styles: https://refreshless.com/nouislider/examples/#section-styling */
+@import 'nouislider/dist/nouislider.css';
+/** Customize nouislider styles: https://refreshless.com/nouislider/examples/#section-styling */
 
-  .x-base-slider {
-    gap: 16px;
-  }
+.x-base-slider {
+  gap: 16px;
+}
 
-  .x-base-slider,
-  .x-base-slider__selected-min,
-  .x-base-slider__selected-max {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.x-base-slider,
+.x-base-slider__selected-min,
+.x-base-slider__selected-max {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-  .x-base-slider__selected {
-    display: inline-flex;
-  }
+.x-base-slider__selected {
+  display: inline-flex;
+}
 
-  .x-base-slider__selected-min,
-  .x-base-slider__selected-max {
-    flex: 50%;
-  }
+.x-base-slider__selected-min,
+.x-base-slider__selected-max {
+  flex: 50%;
+}
 
-  .x-base-slider__nouislider {
-    margin: 16px 0;
-    padding: 0 16px;
-  }
+.x-base-slider__nouislider {
+  margin: 16px 0;
+  padding: 0 16px;
+}
 
-  .x-base-slider__nouislider .noUi-handle {
-    box-shadow: none;
-  }
+.x-base-slider__nouislider .noUi-handle {
+  box-shadow: none;
+}
 
-  .x-base-slider__nouislider .noUi-handle:before,
-  .x-base-slider__nouislider .noUi-handle:after {
-    content: none;
-  }
+.x-base-slider__nouislider .noUi-handle:before,
+.x-base-slider__nouislider .noUi-handle:after {
+  content: none;
+}
 </style>
 <docs lang="mdx">
 ## Examples
@@ -205,21 +207,21 @@ It is required to send the value prop which holds the selected values.
 </template>
 
 <script>
-  import { BaseSlider } from '@empathyco/x-components';
+import { BaseSlider } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSliderDemo',
-    components: {
-      BaseSlider
-    },
-    setup() {
-      const selectedRange = ref({ min: 0, max: 1000 });
+export default {
+  name: 'BaseSliderDemo',
+  components: {
+    BaseSlider,
+  },
+  setup() {
+    const selectedRange = ref({ min: 0, max: 1000 })
 
-      return {
-        selectedRange
-      };
+    return {
+      selectedRange,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -231,23 +233,23 @@ It is required to send the value prop which holds the selected values.
 </template>
 
 <script>
-  import { BaseSlider } from '@empathyco/x-components';
+import { BaseSlider } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSliderDemo',
-    components: {
-      BaseSliderDemo
-    },
-    setup() {
-      const threshold = ref({ min: 0, max: 1000 });
-      const selectedRange = ref(threshold.value);
+export default {
+  name: 'BaseSliderDemo',
+  components: {
+    BaseSliderDemo,
+  },
+  setup() {
+    const threshold = ref({ min: 0, max: 1000 })
+    const selectedRange = ref(threshold.value)
 
-      return {
-        selectedRange,
-        threshold
-      };
+    return {
+      selectedRange,
+      threshold,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -276,23 +278,23 @@ It is possible to override the default slot to customize the layout for the sele
 </template>
 
 <script>
-  import { BaseSlider } from '@empathyco/x-components';
+import { BaseSlider } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSliderDemo',
-    components: {
-      BaseSliderDemo
-    },
-    setup() {
-      const threshold = ref({ min: 0, max: 1000 });
-      const selectedRange = ref(threshold.value);
+export default {
+  name: 'BaseSliderDemo',
+  components: {
+    BaseSliderDemo,
+  },
+  setup() {
+    const threshold = ref({ min: 0, max: 1000 })
+    const selectedRange = ref(threshold.value)
 
-      return {
-        selectedRange,
-        threshold
-      };
+    return {
+      selectedRange,
+      threshold,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -324,23 +326,23 @@ manually.
 </template>
 
 <script>
-  import { BaseSlider } from '@empathyco/x-components';
+import { BaseSlider } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseSliderDemo',
-    components: {
-      BaseSliderDemo
-    },
-    setup() {
-      const threshold = ref({ min: 0, max: 1000 });
-      const selectedRange = ref(threshold.value);
+export default {
+  name: 'BaseSliderDemo',
+  components: {
+    BaseSliderDemo,
+  },
+  setup() {
+    const threshold = ref({ min: 0, max: 1000 })
+    const selectedRange = ref(threshold.value)
 
-      return {
-        selectedRange,
-        threshold
-      };
+    return {
+      selectedRange,
+      threshold,
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

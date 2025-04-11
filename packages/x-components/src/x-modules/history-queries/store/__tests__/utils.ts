@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { historyQueriesXStoreModule } from '../module';
-import { HistoryQueriesState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { HistoryQueriesState } from '../types'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { historyQueriesXStoreModule } from '../module'
 
 /**
  * Reset history queries module state with its original state and the partial state passes as
@@ -15,7 +15,7 @@ import { HistoryQueriesState } from '../types';
  */
 export function resetHistoryQueriesStateWith(
   store: Store<HistoryQueriesState>,
-  state?: DeepPartial<HistoryQueriesState>
+  state?: DeepPartial<HistoryQueriesState>,
 ): void {
-  resetStoreModuleState<HistoryQueriesState>(store, historyQueriesXStoreModule.state(), state);
+  resetStoreModuleState<HistoryQueriesState>(store, historyQueriesXStoreModule.state(), state)
 }

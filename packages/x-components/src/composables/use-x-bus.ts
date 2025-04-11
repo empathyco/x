@@ -1,22 +1,16 @@
-import { Subscription } from 'rxjs';
-import {
-  ComponentPublicInstance,
-  getCurrentInstance,
-  inject,
-  isRef,
-  onBeforeUnmount,
-  Ref
-} from 'vue';
-import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
-import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
-import { WireMetadata } from '../wiring/wiring.types';
-import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
-import { FeatureLocation } from '../types/origin';
-import { XPlugin } from '../plugins/x-plugin';
-import { bus as xBus } from '../plugins/x-bus';
+import type { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus'
+import type { ComponentPublicInstance, Ref } from 'vue'
+import type { FeatureLocation } from '../types/origin'
+import type { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types'
+import type { WireMetadata } from '../wiring/wiring.types'
+import { Subscription } from 'rxjs'
+import { getCurrentInstance, inject, isRef, onBeforeUnmount } from 'vue'
+import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils'
+import { bus as xBus } from '../plugins/x-bus'
+import { XPlugin } from '../plugins/x-plugin'
 
 interface PrivateExtendedVueComponent extends ComponentPublicInstance {
-  xComponent?: ComponentPublicInstance;
+  xComponent?: ComponentPublicInstance
 }
 
 /**
@@ -31,52 +25,53 @@ interface PrivateExtendedVueComponent extends ComponentPublicInstance {
  * @public
  */
 export function useXBus() {
-  const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
+  const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none')
 
-  const component = getCurrentInstance()?.proxy as PrivateExtendedVueComponent;
-  const xComponent = getRootXComponent(component ?? null);
+  const component = getCurrentInstance()?.proxy as PrivateExtendedVueComponent
+  const xComponent = getRootXComponent(component ?? null)
   if (component && xComponent) {
-    component.xComponent = xComponent;
+    component.xComponent = xComponent
   }
 
-  let bus: XBus<XEventsTypes, WireMetadata>;
+  let bus: XBus<XEventsTypes, WireMetadata>
   try {
-    bus = XPlugin.bus;
-  } catch (error) {
-    bus = xBus;
+    bus = XPlugin.bus
+    // eslint-disable-next-line unused-imports/no-unused-vars
+  } catch (_error) {
+    bus = xBus
   }
 
-  const subscription = new Subscription();
+  const subscription = new Subscription()
   onBeforeUnmount(() => {
-    subscription.unsubscribe();
-  });
+    subscription.unsubscribe()
+  })
 
   return {
     on: <Event extends XEvent, Metadata extends boolean>(event: Event, withMetadata: Metadata) => {
-      type Payload = EventPayload<XEventsTypes, Event>;
-      const observable = bus.on(event, withMetadata);
+      type Payload = EventPayload<XEventsTypes, Event>
+      const observable = bus.on(event, withMetadata)
 
       return {
         subscribe: (
           callback: (
-            payload: Metadata extends true ? SubjectPayload<Payload, WireMetadata> : Payload
-          ) => void
+            payload: Metadata extends true ? SubjectPayload<Payload, WireMetadata> : Payload,
+          ) => void,
           // Cast to any because bus.on doesn't infer conditional type referencing `withMetadata`
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        ) => subscription.add(observable.subscribe(callback as any))
-      };
+          // eslint-disable-next-line ts/no-unsafe-argument
+        ) => subscription.add(observable.subscribe(callback as any)),
+      }
     },
-    emit: <Event extends XEvent>(
+    emit: async <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
-      metadata: Omit<WireMetadata, 'moduleName'> = {}
+      metadata: Omit<WireMetadata, 'moduleName'> = {},
     ) => {
-      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
+      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation
 
-      xComponent?.$emit(event, payload); // TODO - Pending to deprecate
-      return bus.emit(event, payload!, createWireMetadata(metadata, component, location));
-    }
-  };
+      xComponent?.$emit(event, payload) // TODO - Pending to deprecate
+      return bus.emit(event, payload!, createWireMetadata(metadata, component, location))
+    },
+  }
 }
 
 /**
@@ -91,22 +86,22 @@ export function useXBus() {
 function createWireMetadata(
   metadata: Partial<WireMetadata>,
   component?: PrivateExtendedVueComponent,
-  location?: FeatureLocation
+  location?: FeatureLocation,
 ): WireMetadata {
   return Object.defineProperties(
     {
       replaceable: true,
       moduleName: component ? getXComponentXModuleName(component.xComponent) : null,
       location,
-      ...metadata
+      ...metadata,
     },
     {
       component: {
         value: component,
         /* TODO: defining component as a non-enumerable property to ease tests changes due to
          * cyclic dependencies in Vue component instances. */
-        enumerable: false
-      }
-    }
-  );
+        enumerable: false,
+      },
+    },
+  )
 }

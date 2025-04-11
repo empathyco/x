@@ -1,4 +1,5 @@
-import { DefineComponent, defineComponent, h, Transition } from 'vue';
+import type { DefineComponent } from 'vue'
+import { defineComponent, h, Transition } from 'vue'
 
 export type AnimationOrigin =
   | 'top'
@@ -8,7 +9,7 @@ export type AnimationOrigin =
   | 'left'
   | 'right'
   | 'left-to-right'
-  | 'right-to-left';
+  | 'right-to-left'
 
 /**
  * Abstract Factory to create animations Factory. The returned animation factory uses the
@@ -20,7 +21,7 @@ export type AnimationOrigin =
  * @internal
  */
 export function createDirectionalAnimationFactory(
-  animationName: string
+  animationName: string,
 ): (animationOrigin?: AnimationOrigin) => DefineComponent {
   return (animationOrigin = 'top') =>
     defineComponent({
@@ -30,11 +31,11 @@ export function createDirectionalAnimationFactory(
           h(
             Transition,
             {
-              name: `x-${animationName}--${animationOrigin} x-${animationName}-`
+              name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
             },
             // Vue recommends using function for better performance.
-            () => slots.default?.() ?? ''
-          );
-      }
-    });
+            () => slots.default?.() ?? '',
+          )
+      },
+    })
 }

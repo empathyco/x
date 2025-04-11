@@ -1,16 +1,16 @@
-import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/x-plugin';
-import { identifierResultsEmitters } from './store/emitters';
-import { identifierResultsXStoreModule } from './store/module';
-import { IdentifierResultsXStoreModule } from './store/types';
-import { identifierResultsWiring } from './wiring';
+import type { XModule } from '../x-modules.types'
+import type { IdentifierResultsXStoreModule } from './store/types'
+import { XPlugin } from '../../plugins/x-plugin'
+import { identifierResultsEmitters } from './store/emitters'
+import { identifierResultsXStoreModule } from './store/module'
+import { identifierResultsWiring } from './wiring'
 
 /**
  * IdentifierResults {@link XModule} alias.
  *
  * @public
  */
-export type IdentifierResultsXModule = XModule<IdentifierResultsXStoreModule>;
+export type IdentifierResultsXModule = XModule<IdentifierResultsXStoreModule>
 
 /**
  * IdentifierResults {@link XModule} implementation. This module is auto-registered as soon as you
@@ -22,7 +22,7 @@ export const identifierResultsXModule: IdentifierResultsXModule = {
   name: 'identifierResults',
   storeModule: identifierResultsXStoreModule,
   storeEmitters: identifierResultsEmitters,
-  wiring: identifierResultsWiring
-};
+  wiring: identifierResultsWiring,
+}
 
-XPlugin.registerXModule(identifierResultsXModule);
+XPlugin.registerXModule(identifierResultsXModule)

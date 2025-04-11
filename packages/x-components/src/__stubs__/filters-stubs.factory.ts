@@ -1,11 +1,11 @@
-import {
+import type {
   EditableNumberRangeFilter,
   HierarchicalFilter,
   NumberRangeFilter,
   RangeValue,
+  RawFilter,
   SimpleFilter,
-  RawFilter
-} from '@empathyco/x-types';
+} from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
@@ -23,10 +23,10 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
       modelName: 'SimpleFilter',
       selected: false,
       label: 'Test',
-      totalResults: 10
+      totalResults: 10,
     },
-    filter
-  );
+    filter,
+  )
 }
 
 /**
@@ -38,7 +38,7 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
  * @internal
  */
 export function getNumberRangeFilterStub(
-  filter: Partial<NumberRangeFilter> = {}
+  filter: Partial<NumberRangeFilter> = {},
 ): NumberRangeFilter {
   return Object.assign<NumberRangeFilter, Partial<NumberRangeFilter>>(
     {
@@ -49,12 +49,12 @@ export function getNumberRangeFilterStub(
       label: 'Test',
       range: {
         min: 1,
-        max: 10
+        max: 10,
       },
-      totalResults: 10
+      totalResults: 10,
     },
-    filter
-  );
+    filter,
+  )
 }
 
 /**
@@ -66,7 +66,7 @@ export function getNumberRangeFilterStub(
  * @internal
  */
 export function getHierarchicalFilterStub(
-  filter: Partial<HierarchicalFilter> = {}
+  filter: Partial<HierarchicalFilter> = {},
 ): HierarchicalFilter {
   return Object.assign<HierarchicalFilter, Partial<HierarchicalFilter>>(
     {
@@ -77,10 +77,10 @@ export function getHierarchicalFilterStub(
       selected: false,
       label: 'Test',
       totalResults: 10,
-      children: []
+      children: [],
     },
-    filter
-  );
+    filter,
+  )
 }
 
 /**
@@ -93,8 +93,8 @@ export function createRawFilter(id: string): RawFilter {
   return {
     id,
     modelName: 'RawFilter',
-    selected: true
-  };
+    selected: true,
+  }
 }
 
 /**
@@ -110,7 +110,7 @@ export function createSimpleFilter(
   facetId: string,
   label: string,
   selected = false,
-  totalResults = 10
+  totalResults = 10,
 ): SimpleFilter {
   return {
     id: `${facetId}:${label}`,
@@ -118,8 +118,8 @@ export function createSimpleFilter(
     facetId,
     label,
     selected,
-    totalResults
-  };
+    totalResults,
+  }
 }
 
 /**
@@ -135,7 +135,7 @@ export function createHierarchicalFilter(
   facetId: string,
   label: string,
   selected = false,
-  children: HierarchicalFilter[] = []
+  children: HierarchicalFilter[] = [],
 ): HierarchicalFilter {
   return {
     facetId,
@@ -145,8 +145,8 @@ export function createHierarchicalFilter(
     modelName: 'HierarchicalFilter',
     parentId: null,
     totalResults: 10,
-    children
-  };
+    children,
+  }
 }
 
 /**
@@ -161,7 +161,7 @@ export function createHierarchicalFilter(
 export function createNumberRangeFilter(
   facetId: string,
   range: RangeValue = { min: null, max: null },
-  selected = false
+  selected = false,
 ): NumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
@@ -169,8 +169,8 @@ export function createNumberRangeFilter(
     label: `From ${String(range.min)} to ${String(range.max)}`,
     facetId,
     range,
-    selected
-  };
+    selected,
+  }
 }
 
 /**
@@ -185,15 +185,15 @@ export function createNumberRangeFilter(
 export function createEditableNumberRangeFilter(
   facetId: string,
   range: RangeValue = { min: null, max: null },
-  selected?: boolean
+  selected?: boolean,
 ): EditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
     facetId,
     range,
     modelName: 'EditableNumberRangeFilter',
-    selected: selected ?? (range.min !== null || range.max !== null)
-  };
+    selected: selected ?? (range.min !== null || range.max !== null),
+  }
 }
 
 /**
@@ -204,8 +204,8 @@ export function createEditableNumberRangeFilter(
 export type CreateHierarchicalFilter = (
   label: string,
   selected?: boolean,
-  createChildren?: (createChildren: CreateHierarchicalFilter) => HierarchicalFilter[]
-) => HierarchicalFilter;
+  createChildren?: (createChildren: CreateHierarchicalFilter) => HierarchicalFilter[],
+) => HierarchicalFilter
 
 /**
  * Creates a factory of
@@ -218,14 +218,14 @@ export type CreateHierarchicalFilter = (
  */
 export function createHierarchicalFilterFactory(
   facetId: string,
-  parentId: HierarchicalFilter['id'] | null = null
+  parentId: HierarchicalFilter['id'] | null = null,
 ): CreateHierarchicalFilter {
   return (label, selected, createChildren): HierarchicalFilter => {
-    const filter = createHierarchicalFilter(facetId, label, selected);
+    const filter = createHierarchicalFilter(facetId, label, selected)
     filter.children = createChildren
       ? createChildren(createHierarchicalFilterFactory(facetId, filter.id))
-      : [];
-    filter.parentId = parentId;
-    return filter;
-  };
+      : []
+    filter.parentId = parentId
+    return filter
+  }
 }

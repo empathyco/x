@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { NextQuery } from '@empathyco/x-types';
-import { PlatformNextQuery } from '../../types/models/next-query.model';
+import type { NextQuery } from '@empathyco/x-types'
+import type { PlatformNextQuery } from '../../types/models/next-query.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the NextQuerySchema.
@@ -13,5 +13,5 @@ export const nextQuerySchema = createMutableSchema<PlatformNextQuery, NextQuery>
   facets: () => [],
   modelName: () => 'NextQuery',
   totalResults: () => 0,
-  isCurated: ({ source }) => source === 'CURATED'
-});
+  isCurated: ({ source }) => source === 'CURATED',
+})

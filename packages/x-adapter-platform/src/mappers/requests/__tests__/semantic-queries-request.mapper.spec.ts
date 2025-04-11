@@ -1,5 +1,5 @@
-import { SemanticQueriesRequest } from '@empathyco/x-types';
-import { semanticQueriesRequestMapper } from '../semantic-queries-request.mapper';
+import type { SemanticQueriesRequest } from '@empathyco/x-types'
+import { semanticQueriesRequestMapper } from '../semantic-queries-request.mapper'
 
 describe('semanticQueriesRequestMapper tests', () => {
   it('should map the request', () => {
@@ -7,16 +7,16 @@ describe('semanticQueriesRequestMapper tests', () => {
       query: 'test',
       extraParams: {
         instance: 'empathy',
-        lang: 'en'
-      }
-    };
+        lang: 'en',
+      },
+    }
 
     expect(semanticQueriesRequestMapper(internalRequest, {})).toStrictEqual({
       q: 'test',
       extraParams: {
         instance: 'empathy',
-        lang: 'en'
-      }
-    });
-  });
-});
+        lang: 'en',
+      },
+    })
+  })
+})

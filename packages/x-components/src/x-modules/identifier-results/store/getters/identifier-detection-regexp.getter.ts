@@ -1,4 +1,4 @@
-import { IdentifierResultsXStoreModule } from '../types';
+import type { IdentifierResultsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link IdentifierResultsGetters.identifierDetectionRegexp} getter.
@@ -9,8 +9,8 @@ import { IdentifierResultsXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const identifierDetectionRegexp: IdentifierResultsXStoreModule['getters']['identifierDetectionRegexp'] =
   ({ config }) => {
-    return new RegExp(config.identifierDetectionRegexp);
-  };
+    return new RegExp(config.identifierDetectionRegexp)
+  }

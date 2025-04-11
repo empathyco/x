@@ -8,11 +8,11 @@ export interface QuerySuggestionsConfig {
    * Debounce time measured in milliseconds used to store the query suggestions module query while
    * the user is typing a query.
    */
-  debounceInMs: number;
+  debounceInMs: number
   /**
    * Maximum number of query suggestions to request.
    */
-  maxItemsToRequest: number;
+  maxItemsToRequest: number
   /**
    * Hides the suggestion if it is equal to the current query.
    *
@@ -32,7 +32,7 @@ export interface QuerySuggestionsConfig {
    * // Suggests ['trousers', 'trousers skinny', 'trousers straight']
    * ```
    */
-  hideIfEqualsQuery: boolean;
+  hideIfEqualsQuery: boolean
   /**
    * Hides the query suggestions if it has been already searched during the session.
    *
@@ -54,5 +54,5 @@ export interface QuerySuggestionsConfig {
    * // Suggests ['t-shirt', 'shorts', 'dress']
    * ```
    */
-  hideSessionQueries: boolean;
+  hideSessionQueries: boolean
 }

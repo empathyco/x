@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { Observable, Subject } from 'rxjs';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Observable, Subject } from 'rxjs'
 
 /**
  * Alias representing a positive number to represent the priority of an event in an
@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
  *
  * @internal
  */
-export type Priority = number;
+export type Priority = number
 
 /**
  * Extracts the payload type of the event.
@@ -18,8 +18,8 @@ export type Priority = number;
  */
 export type EventPayload<
   SomeEvents extends Dictionary,
-  SomeEvent extends keyof SomeEvents
-> = SomeEvents[SomeEvent] extends void ? undefined : SomeEvents[SomeEvent];
+  SomeEvent extends keyof SomeEvents,
+> = SomeEvents[SomeEvent] extends void ? undefined : SomeEvents[SomeEvent]
 
 /**
  * Represents an object including an eventPayload, which type is extracted using
@@ -30,9 +30,9 @@ export type EventPayload<
  */
 export interface SubjectPayload<SomePayload, SomeEventMetadata extends Dictionary> {
   /** The payload of the event. */
-  eventPayload: SomePayload;
+  eventPayload: SomePayload
   /** Extra data of the event. */
-  metadata: SomeEventMetadata;
+  metadata: SomeEventMetadata
 }
 
 /**
@@ -44,8 +44,8 @@ export interface SubjectPayload<SomePayload, SomeEventMetadata extends Dictionar
 export type Emitter<
   SomeEvents extends Dictionary,
   SomeEvent extends keyof SomeEvents,
-  SomeEventMetadata extends Dictionary
-> = Subject<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>;
+  SomeEventMetadata extends Dictionary,
+> = Subject<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
 
 /**
  * Represents a dictionary where the key is an event name and its value is an {@link Emitter}.
@@ -53,8 +53,8 @@ export type Emitter<
  * @public
  */
 export type Emitters<SomeEvents extends Dictionary, SomeEventMetadata extends Dictionary> = {
-  [SomeEvent in keyof SomeEvents]?: Emitter<SomeEvents, SomeEvent, SomeEventMetadata>;
-};
+  [SomeEvent in keyof SomeEvents]?: Emitter<SomeEvents, SomeEvent, SomeEventMetadata>
+}
 
 /**
  * Represents an object containing the data emitted by an event.
@@ -64,20 +64,20 @@ export type Emitters<SomeEvents extends Dictionary, SomeEventMetadata extends Di
 export interface EmittedData<
   SomeEvents extends Dictionary,
   SomeEvent extends keyof SomeEvents,
-  SomeEventMetadata extends Dictionary
+  SomeEventMetadata extends Dictionary,
 > {
   /**
    * The event name.
    */
-  event: SomeEvent;
+  event: SomeEvent
   /**
    * The event payload.
    */
-  eventPayload: EventPayload<SomeEvents, SomeEvent>;
+  eventPayload: EventPayload<SomeEvents, SomeEvent>
   /**
    * The event extra data.
    */
-  metadata: SomeEventMetadata;
+  metadata: SomeEventMetadata
 }
 
 /**
@@ -87,22 +87,22 @@ export interface EmittedData<
  */
 export interface XPriorityQueueNodeData<
   SomeEvents extends Dictionary,
-  SomeEventMetadata extends Dictionary
+  SomeEventMetadata extends Dictionary,
 > {
   /**
    * The event payload.
    */
-  eventPayload: EventPayload<SomeEvents, keyof SomeEvents>;
+  eventPayload: EventPayload<SomeEvents, keyof SomeEvents>
   /**
    * The event metadata.
    */
-  eventMetadata: SomeEventMetadata;
+  eventMetadata: SomeEventMetadata
   /**
    * Flag determining if an event is replaceable or not. If a node is replaceable, and an event
    * with the same key is inserted, then, the replaceable event is removed from the key, and the
    * new one is inserted at its corresponding position.
    */
-  replaceable: boolean;
+  replaceable: boolean
   /**
    * The resolve function of the {@link Promise} to be called the moment the event is emitted.
    *
@@ -111,8 +111,8 @@ export interface XPriorityQueueNodeData<
   resolve: <SomeEvent extends keyof SomeEvents>(
     value:
       | EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>
-      | PromiseLike<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>
-  ) => void;
+      | PromiseLike<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>,
+  ) => void
 }
 
 /**
@@ -128,23 +128,15 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
    *
    * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit<SomeEvent extends keyof SomeEvents>(
-    event: SomeEvent
-  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
-  /**
-   * Emits an event with a non-void payload.
-   *
-   * @param event - The event name.
-   * @param payload - The payload of the event.
-   * @param metadata - The extra data of the event.
-   *
-   * @returns A promise that is resolved whenever the event is emitted.
-   */
-  emit<SomeEvent extends keyof SomeEvents>(
-    event: SomeEvent,
-    payload: EventPayload<SomeEvents, SomeEvent>,
-    metadata?: SomeEventMetadata
-  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
+  emit:
+    | (<SomeEvent extends keyof SomeEvents>(
+        event: SomeEvent,
+      ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>)
+    | (<SomeEvent extends keyof SomeEvents>(
+        event: SomeEvent,
+        payload: EventPayload<SomeEvents, SomeEvent>,
+        metadata?: SomeEventMetadata,
+      ) => Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>)
 
   /**
    * Retrieves an observable for an event.
@@ -157,10 +149,10 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
    * @returns If `withMetadata` is `true`, an Observable of type {@link SubjectPayload}. Otherwise,
    * an observable of type {@link EventPayload}.
    */
-  on<SomeEvent extends keyof SomeEvents>(
+  on: <SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
-    withMetadata?: boolean
-  ): typeof withMetadata extends true
+    withMetadata?: boolean,
+  ) => typeof withMetadata extends true
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
-    : Observable<EventPayload<SomeEvents, SomeEvent>>;
+    : Observable<EventPayload<SomeEvents, SomeEvent>>
 }

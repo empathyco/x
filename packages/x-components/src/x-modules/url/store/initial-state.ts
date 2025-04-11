@@ -1,4 +1,4 @@
-import { UrlParams } from '../../../types/url-params';
+import type { UrlParams } from '../../../types/url-params'
 
 /**
  * The initial state of the Url store module. This is exported and used in other parts of the code
@@ -13,5 +13,5 @@ export const initialUrlState: Readonly<UrlParams> = {
   sort: '',
   scroll: '',
   tag: [],
-  prompt: -1
-};
+  prompt: -1,
+}

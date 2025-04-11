@@ -1,7 +1,7 @@
-import { createStoreEmitters } from '../../../store';
-import { UrlParams } from '../../../types/url-params';
-import { urlXStoreModule } from './module';
-import { UrlParamKey } from './types';
+import type { UrlParams } from '../../../types/url-params'
+import type { UrlParamKey } from './types'
+import { createStoreEmitters } from '../../../store'
+import { urlXStoreModule } from './module'
 
 /**
  * The params from {@link UrlParams} that provokes a replace instead of a push in the browser URL
@@ -9,7 +9,7 @@ import { UrlParamKey } from './types';
  *
  * @internal
  */
-export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
+export const replaceableParams: UrlParamKey[] = ['scroll', 'page']
 
 /**
  * Compares new and old {@link UrlParams} to know if not replaceable params have changed.
@@ -21,10 +21,10 @@ export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
  */
 function shouldPushUrl(
   newParams: Partial<UrlParams> = {},
-  oldParams: Partial<UrlParams> = {}
+  oldParams: Partial<UrlParams> = {},
 ): boolean {
-  const keys = Object.keys({ ...oldParams, ...newParams });
-  return keys.some(key => !replaceableParams.includes(key) && oldParams[key] !== newParams[key]);
+  const keys = Object.keys({ ...oldParams, ...newParams })
+  return keys.some(key => !replaceableParams.includes(key) && oldParams[key] !== newParams[key])
 }
 
 /**
@@ -37,13 +37,13 @@ function shouldPushUrl(
  */
 function shouldReplaceUrl(
   newParams: Partial<UrlParams> = {},
-  oldParams: Partial<UrlParams> = {}
+  oldParams: Partial<UrlParams> = {},
 ): boolean {
-  const keys = Object.keys({ ...oldParams, ...newParams });
+  const keys = Object.keys({ ...oldParams, ...newParams })
   return (
     keys.some(key => replaceableParams.includes(key) && oldParams[key] !== newParams[key]) &&
     !shouldPushUrl(newParams, oldParams)
-  );
+  )
 }
 
 /**
@@ -55,11 +55,11 @@ export const urlEmitters = createStoreEmitters(urlXStoreModule, {
   PushableUrlStateUpdated: {
     selector: (_, getters) => getters.urlParams,
     filter: shouldPushUrl,
-    metadata: { replaceable: false }
+    metadata: { replaceable: false },
   },
   ReplaceableUrlStateUpdated: {
     selector: (_, getters) => getters.urlParams,
     filter: shouldReplaceUrl,
-    metadata: { replaceable: false }
-  }
-});
+    metadata: { replaceable: false },
+  },
+})

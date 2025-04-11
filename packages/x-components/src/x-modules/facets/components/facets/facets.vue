@@ -16,7 +16,7 @@
         v-if="hasSlot(slotNameById)"
         v-bind="{
           facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || []
+          selectedFilters: selectedFiltersByFacet[facetId] || [],
         }"
         :name="slotNameById"
       />
@@ -30,7 +30,7 @@
         v-else-if="hasSlot(slotNameByModelName)"
         v-bind="{
           facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || []
+          selectedFilters: selectedFiltersByFacet[facetId] || [],
         }"
         :name="slotNameByModelName"
       />
@@ -44,7 +44,7 @@
         v-else
         v-bind="{
           facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || []
+          selectedFilters: selectedFiltersByFacet[facetId] || [],
         }"
       >
         This is the {{ facet.label }} facet. Pass something into its slot to display content.
@@ -54,170 +54,170 @@
 </template>
 
 <script lang="ts">
-  import { Facet } from '@empathyco/x-types';
-  import { Dictionary, map, objectFilter } from '@empathyco/x-utils';
-  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
-  import { useGetter } from '../../../../composables/use-getter';
-  import { toKebabCase } from '../../../../utils/string';
-  import { useFacets } from '../../composables/use-facets';
-  import { facetsXModule } from '../../x-module';
-  import { AnimationProp } from '../../../../types';
+import type { Facet } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ComputedRef, PropType } from 'vue'
+import { map, objectFilter } from '@empathyco/x-utils'
+import { computed, defineComponent } from 'vue'
+import { useGetter } from '../../../../composables/use-getter'
+import { AnimationProp } from '../../../../types'
+import { toKebabCase } from '../../../../utils/string'
+import { useFacets } from '../../composables/use-facets'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Custom interface to provide a slot name to a Facet.
-   *
-   * @internal
-   */
-  interface RenderFacet {
-    slotNameById: string;
-    slotNameByModelName: string;
-    facet: Facet;
-  }
+/**
+ * Custom interface to provide a slot name to a Facet.
+ *
+ * @internal
+ */
+interface RenderFacet {
+  slotNameById: string
+  slotNameByModelName: string
+  facet: Facet
+}
 
-  /**
-   * This component renders the list of facets stored in the Facets module. Facets can be rendered
-   * differently based on their purpose and this can be achieved using the exposed slots:
-   * - A default and required slot.
-   * - A custom slot for each facet with the facetId as its name. This allows each facet to be
-   * rendered differently based on its needs.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Facets',
-    xModule: facetsXModule.name,
-    props: {
-      /** Array of facets ids used to get the selected filters for those facets. */
-      facetsIds: Array as PropType<Array<Facet['id']>>,
-      /** Flag to render the component even if there are no filters selected. */
-      alwaysVisible: Boolean,
-      /** Animation component that will be used to animate the facets. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /**
-       * Discriminates the facets rendered by this component. It expects a string containing facets
-       * ids, comma separated. This property will include or exclude facets based on its value.
-       * The default value is an empty string and the component will render all existing facets.
-       *
-       * @remarks
-       * To behave as a `include`, simply set the facets ids, comma separated:
-       * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
-       * `renderableFacets="brand, category"`
-       *
-       * The component will render brand and category facets.
-       *
-       * On the other hand, to simulate an `exclude` behaviour and exclude a facet from being
-       * rendered, append a '!' before its id:
-       * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
-       * `renderableFacets="!brand,!price"`
-       *
-       * The component will render category and color facets.
-       */
-      renderableFacets: String
+/**
+ * This component renders the list of facets stored in the Facets module. Facets can be rendered
+ * differently based on their purpose and this can be achieved using the exposed slots:
+ * - A default and required slot.
+ * - A custom slot for each facet with the facetId as its name. This allows each facet to be
+ * rendered differently based on its needs.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Facets',
+  xModule: facetsXModule.name,
+  props: {
+    /** Array of facets ids used to get the selected filters for those facets. */
+    facetsIds: Array as PropType<Array<Facet['id']>>,
+    /** Flag to render the component even if there are no filters selected. */
+    alwaysVisible: Boolean,
+    /** Animation component that will be used to animate the facets. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup: function (props, { slots }) {
-      const { selectedFiltersByFacet } = useFacets(props);
+    /**
+     * Discriminates the facets rendered by this component. It expects a string containing facets
+     * ids, comma separated. This property will include or exclude facets based on its value.
+     * The default value is an empty string and the component will render all existing facets.
+     *
+     * @remarks
+     * To behave as a `include`, simply set the facets ids, comma separated:
+     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+     * `renderableFacets="brand, category"`
+     *
+     * The component will render brand and category facets.
+     *
+     * On the other hand, to simulate an `exclude` behaviour and exclude a facet from being
+     * rendered, append a '!' before its id:
+     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+     * `renderableFacets="!brand,!price"`
+     *
+     * The component will render category and color facets.
+     */
+    renderableFacets: String,
+  },
+  setup(props, { slots }) {
+    const { selectedFiltersByFacet } = useFacets(props)
 
-      const { facets } = useGetter('facets', ['facets']) as {
-        /** Dictionary of facets in the state. */
-        facets: ComputedRef<Record<Facet['id'], Facet>>;
-      };
-
-      /**
-       * The facets to be rendered after filtering {@link Facets.facets} by
-       * {@link Facets.renderableFacets} content.
-       *
-       * @returns The list of facets to be rendered.
-       */
-      const facetsToRender = computed<Dictionary<Facet>>(() => {
-        if (!props.renderableFacets) {
-          return facets.value;
-        } else {
-          const excludedRegExp = /^!/;
-          const facetIds: string[] = props.renderableFacets
-            .split(',')
-            .map(facetId => facetId.trim());
-          const included: string[] = [];
-          const excluded: string[] = [];
-          facetIds.forEach(facetId => {
-            if (excludedRegExp.test(facetId)) {
-              excluded.push(facetId.replace(excludedRegExp, ''));
-            } else {
-              included.push(facetId);
-            }
-          });
-
-          return filterFacetsToRender(included, excluded);
-        }
-      });
-
-      /**
-       * Transforms a dictionary of Facets including the slot name.
-       *
-       * @returns A dictionary of facets with the slot name.
-       */
-      const mappedFacets = computed<Dictionary<RenderFacet>>(() => {
-        return map(facetsToRender.value, (facetId, facet) => ({
-          slotNameById: toKebabCase(facetId),
-          slotNameByModelName: toKebabCase(facet.modelName),
-          facet
-        }));
-      });
-
-      /**
-       * Indicates if there are facets available to show.
-       *
-       * @returns True if there are facets available and false otherwise.
-       */
-      const hasFacets = computed<boolean>(() => !!Object.keys(facetsToRender.value).length);
-
-      /**
-       * Filter facets dictionary retrieving those included and/or removing excluded.
-       *
-       * @param included - List of facets to render.
-       * @param excluded - List of not renderable facets.
-       *
-       * @returns The filtered list of facets to render.
-       */
-      function filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
-        const hasAnyFacetIncluded = included.length > 0;
-        return objectFilter(facets.value, facetKey => {
-          const isIncluded = included.includes(String(facetKey));
-          const isExcluded = excluded.includes(String(facetKey));
-
-          return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
-        });
-      }
-
-      /**
-       * Whether the slot is present in the template or not.
-       *
-       * @param name - The slot name.
-       *
-       * @returns True is the slot is present in the template. False otherwise.
-       */
-      function hasSlot(name: string): boolean {
-        return !!slots[name];
-      }
-
-      return {
-        selectedFiltersByFacet,
-        hasFacets,
-        mappedFacets,
-        hasSlot
-      };
+    const { facets } = useGetter('facets', ['facets']) as {
+      /** Dictionary of facets in the state. */
+      facets: ComputedRef<Record<Facet['id'], Facet>>
     }
-  });
+
+    /**
+     * The facets to be rendered after filtering {@link Facets.facets} by
+     * {@link Facets.renderableFacets} content.
+     *
+     * @returns The list of facets to be rendered.
+     */
+    const facetsToRender = computed<Dictionary<Facet>>(() => {
+      if (!props.renderableFacets) {
+        return facets.value
+      } else {
+        const excludedRegExp = /^!/
+        const facetIds: string[] = props.renderableFacets.split(',').map(facetId => facetId.trim())
+        const included: string[] = []
+        const excluded: string[] = []
+        facetIds.forEach(facetId => {
+          if (excludedRegExp.test(facetId)) {
+            excluded.push(facetId.replace(excludedRegExp, ''))
+          } else {
+            included.push(facetId)
+          }
+        })
+
+        return filterFacetsToRender(included, excluded)
+      }
+    })
+
+    /**
+     * Transforms a dictionary of Facets including the slot name.
+     *
+     * @returns A dictionary of facets with the slot name.
+     */
+    const mappedFacets = computed<Dictionary<RenderFacet>>(() => {
+      return map(facetsToRender.value, (facetId, facet) => ({
+        slotNameById: toKebabCase(facetId),
+        slotNameByModelName: toKebabCase(facet.modelName),
+        facet,
+      }))
+    })
+
+    /**
+     * Indicates if there are facets available to show.
+     *
+     * @returns True if there are facets available and false otherwise.
+     */
+    const hasFacets = computed<boolean>(() => !!Object.keys(facetsToRender.value).length)
+
+    /**
+     * Filter facets dictionary retrieving those included and/or removing excluded.
+     *
+     * @param included - List of facets to render.
+     * @param excluded - List of not renderable facets.
+     *
+     * @returns The filtered list of facets to render.
+     */
+    function filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
+      const hasAnyFacetIncluded = included.length > 0
+      return objectFilter(facets.value, facetKey => {
+        const isIncluded = included.includes(String(facetKey))
+        const isExcluded = excluded.includes(String(facetKey))
+
+        return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded
+      })
+    }
+
+    /**
+     * Whether the slot is present in the template or not.
+     *
+     * @param name - The slot name.
+     *
+     * @returns True is the slot is present in the template. False otherwise.
+     */
+    function hasSlot(name: string): boolean {
+      return !!slots[name]
+    }
+
+    return {
+      selectedFiltersByFacet,
+      hasFacets,
+      mappedFacets,
+      hasSlot,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-facets-list {
-    display: flex;
-    flex-flow: column nowrap;
-    list-style-type: none;
-  }
+.x-facets-list {
+  display: flex;
+  flex-flow: column nowrap;
+  list-style-type: none;
+}
 </style>
 
 <docs lang="mdx">
@@ -254,13 +254,13 @@ rendered as specified in the default slot.
 </template>
 
 <script>
-  import { Facets } from '@empathyco/x-components/facets';
+import { Facets } from '@empathyco/x-components/facets'
 
-  export default {
-    components: {
-      Facets
-    }
-  };
+export default {
+  components: {
+    Facets,
+  },
+}
 </script>
 ```
 
@@ -318,13 +318,13 @@ with the facet id.
 </template>
 
 <script>
-  import { Facets } from '@empathyco/x-components/facets';
+import { Facets } from '@empathyco/x-components/facets'
 
-  export default {
-    components: {
-      Facets
-    }
-  };
+export default {
+  components: {
+    Facets,
+  },
+}
 </script>
 ```
 
@@ -352,13 +352,13 @@ ones. In the following example, the component will only render color and categor
 </template>
 
 <script>
-  import { Facets } from '@empathyco/x-components/facets';
+import { Facets } from '@empathyco/x-components/facets'
 
-  export default {
-    components: {
-      Facets
-    }
-  };
+export default {
+  components: {
+    Facets,
+  },
+}
 </script>
 ```
 
@@ -383,13 +383,13 @@ render every facet except color and price.
 </template>
 
 <script>
-  import { Facets } from '@empathyco/x-components/facets';
+import { Facets } from '@empathyco/x-components/facets'
 
-  export default {
-    components: {
-      Facets
-    }
-  };
+export default {
+  components: {
+    Facets,
+  },
+}
 </script>
 ```
 
@@ -431,30 +431,30 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
 </template>
 
 <script>
-  import {
+import {
+  Facets,
+  Filters,
+  FiltersSearch,
+  HierarchicalFilter,
+  MultiSelectFilters,
+  NumberRangeFilter,
+  SimpleFilter,
+} from '@empathyco/x-components/facets'
+
+import { BasePriceFilterLabel } from '@empathyco/x-components'
+
+export default {
+  components: {
     Facets,
-    Filters,
-    FiltersSearch,
-    HierarchicalFilter,
     MultiSelectFilters,
+    FiltersSearch,
+    SimpleFilter,
+    Filters,
+    HierarchicalFilter,
     NumberRangeFilter,
-    SimpleFilter
-  } from '@empathyco/x-components/facets';
-
-  import { BasePriceFilterLabel } from '@empathyco/x-components';
-
-  export default {
-    components: {
-      Facets,
-      MultiSelectFilters,
-      FiltersSearch,
-      SimpleFilter,
-      Filters,
-      HierarchicalFilter,
-      NumberRangeFilter,
-      BasePriceFilterLabel
-    }
-  };
+    BasePriceFilterLabel,
+  },
+}
 </script>
 ```
 </docs>

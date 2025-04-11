@@ -4,7 +4,7 @@
  * @public
  */
 export interface PlatformNextQuery {
-  query: string;
-  source: 'ORGANIC' | 'CURATED';
-  position: number;
+  query: string
+  source: 'ORGANIC' | 'CURATED'
+  position: number
 }

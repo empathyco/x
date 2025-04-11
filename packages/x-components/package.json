@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-components#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-components"
+  },
   "keywords": [
     "apache",
     "components",
@@ -23,9 +28,6 @@
     "ux",
     "vue"
   ],
-  "main": "./core/index.js",
-  "module": "./core/index.js",
-  "types": "./core/index.d.ts",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
@@ -34,13 +36,11 @@
     "**/*vue[0-9].js",
     "**/*.vue"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/x-components"
-  },
+  "main": "./core/index.js",
+  "module": "./core/index.js",
+  "types": "./core/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "serve": "vite",
@@ -51,7 +51,11 @@
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
-    "lint": "eslint . --ext .ts,.vue",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:unit": "jest --silent",
     "test:unit-jest": "jest",
     "test:unit-coverage": "jest --coverage",
@@ -67,6 +71,10 @@
     "cypress:open:component": "cypress open --component --browser chrome",
     "cypress:open:component:firefox": "cypress open --component --browser firefox",
     "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.12",
+    "vuex": "4.0.2"
   },
   "dependencies": {
     "@empathyco/x-adapter": "^8.1.0-alpha.2",
@@ -85,10 +93,6 @@
     "tslib": "~2.6.0",
     "vue-global-events": "~3.0.1"
   },
-  "peerDependencies": {
-    "vue": "^3.5.12",
-    "vuex": "4.0.2"
-  },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "20.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
@@ -106,7 +110,7 @@
     "@vue/vue3-jest": "27.0.0",
     "autoprefixer": "10.4.4",
     "convert-source-map": "2.0.0",
-    "cypress": "13.6.0",
+    "cypress": "14.3.0",
     "esbuild": "0.20.0",
     "glob": "10.3.0",
     "jest": "27.5.0",
@@ -114,6 +118,7 @@
     "postcss": "8.4.12",
     "postcss-dir-pseudo-class": "7.0.0",
     "postcss-logical": "4.0.2",
+    "prettier-plugin-tailwindcss": "0.6.11",
     "rimraf": "3.0.2",
     "rollup": "4.9.1",
     "rollup-plugin-copy": "3.5.0",

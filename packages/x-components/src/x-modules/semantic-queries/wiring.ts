@@ -1,46 +1,43 @@
-import {
-  namespacedWireCommit,
-  namespacedWireDispatch
-} from '../../wiring/namespaced-wires.factory';
-import { createWiring } from '../../wiring/wiring.utils';
-import { mapWire } from '../../wiring/wires.operators';
-import { SearchXEvents } from '../search/events.types';
-import { ExtractMutationPayload } from '../../store/store.types';
+import type { ExtractMutationPayload } from '../../store/store.types'
+import type { SearchXEvents } from '../search/events.types'
+import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
+import { mapWire } from '../../wiring/wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `semanticQueries` {@link XModuleName | name}.
  *
  * @internal
  */
-const moduleName = 'semanticQueries';
+const moduleName = 'semanticQueries'
 
 /**
  * WireCommit for {@link SemanticQueriesXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * WireDispatch for {@link SemanticQueriesXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * Requests and stores the semantic query results.
  *
  * @public
  */
-export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQuery');
+export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQuery')
 
 /**
  * Sets the query.
  *
  * @public
  */
-export const setQueryWire = wireCommit('setQuery');
+export const setQueryWire = wireCommit('setQuery')
 
 /**
  * Sets the query taking the {@link SearchXEvents.SearchResponseChanged} payload.
@@ -50,24 +47,24 @@ export const setQueryWire = wireCommit('setQuery');
 export const setQueryFromSearchResponseChangedWire = mapWire<
   SearchXEvents['SearchResponseChanged'],
   ExtractMutationPayload<'semanticQueries', 'setQuery'>
->(setQueryWire, ({ request: { query } }) => query);
+>(setQueryWire, ({ request: { query } }) => query)
 
 /**
  * Clears the query.
  *
  * @public
  */
-export const clearQueryWire = wireCommit('setQuery', '');
+export const clearQueryWire = wireCommit('setQuery', '')
 
 /**
  * Sets the total results.
  *
  * @public
  */
-export const setTotalResultsWire = wireCommit('setTotalResults');
+export const setTotalResultsWire = wireCommit('setTotalResults')
 
 /** Sets the related prompts state `relatedTags`. */
-const setSemanticQueriesRelatedTags = wireCommit('setSemanticQueriesRelatedTags');
+const setSemanticQueriesRelatedTags = wireCommit('setSemanticQueriesRelatedTags')
 
 /**
  * Sets the total results taking the {@link SearchXEvents.SearchResponseChanged} payload.
@@ -77,14 +74,14 @@ const setSemanticQueriesRelatedTags = wireCommit('setSemanticQueriesRelatedTags'
 export const setTotalResultsFromSearchResponseChangedWire = mapWire<
   SearchXEvents['SearchResponseChanged'],
   ExtractMutationPayload<'semanticQueries', 'setTotalResults'>
->(setTotalResultsWire, ({ totalResults }) => totalResults);
+>(setTotalResultsWire, ({ totalResults }) => totalResults)
 
 /**
  * Sets the semantic queries state `params`.
  *
  * @public
  */
-export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
+export const setSemanticQueriesExtraParamsWire = wireCommit('setParams')
 
 /**
  * Wiring configuration for the {@link SemanticQueriesXModule | semanticQueries module}.
@@ -93,19 +90,19 @@ export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
  */
 export const semanticQueriesWiring = createWiring({
   UserClearedQuery: {
-    clearQueryWire
+    clearQueryWire,
   },
   SemanticQueryRequestUpdated: {
-    fetchAndSaveSemanticQueryWire
+    fetchAndSaveSemanticQueryWire,
   },
   ExtraParamsChanged: {
-    setSemanticQueriesExtraParamsWire
+    setSemanticQueriesExtraParamsWire,
   },
   SearchResponseChanged: {
     setQueryFromSearchResponseChangedWire,
-    setTotalResultsFromSearchResponseChangedWire
+    setTotalResultsFromSearchResponseChangedWire,
   },
   SelectedRelatedTagsChanged: {
-    setSemanticQueriesRelatedTags
-  }
-});
+    setSemanticQueriesRelatedTags,
+  },
+})

@@ -1,8 +1,8 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { RootXStoreState, StoreModuleStateAndGetters } from '../store/store.types';
-import { getGettersProxy } from '../store/utils/getters-proxy.utils';
-import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
-import { Wiring } from './wiring.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { RootXStoreState, StoreModuleStateAndGetters } from '../store/store.types'
+import type { ExtractState, XModuleName } from '../x-modules/x-modules.types'
+import type { Wiring } from './wiring.types'
+import { getGettersProxy } from '../store/utils/getters-proxy.utils'
 
 /**
  * Util function to generate type-safe wiring.
@@ -14,7 +14,7 @@ import { Wiring } from './wiring.types';
  * @public
  */
 export function createWiring<T extends Partial<Wiring>>(wiring: T): T {
-  return wiring;
+  return wiring
 }
 
 /**
@@ -32,10 +32,10 @@ export function createWiring<T extends Partial<Wiring>>(wiring: T): T {
 export function getStateAndGettersFromModule<ModuleName extends XModuleName>(
   state: RootXStoreState,
   getters: Dictionary,
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): StoreModuleStateAndGetters<ModuleName> {
   return {
     state: state.x[moduleName] as unknown as ExtractState<ModuleName>,
-    getters: getGettersProxy(getters, moduleName)
-  };
+    getters: getGettersProxy(getters, moduleName),
+  }
 }

@@ -4,6 +4,6 @@ module.exports = {
     require('tailwindcss/nesting'),
     require('autoprefixer'),
     require('postcss-logical'),
-    require('postcss-dir-pseudo-class')
-  ]
-};
+    require('postcss-dir-pseudo-class'),
+  ],
+}

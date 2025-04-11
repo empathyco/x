@@ -1,1 +1,1 @@
-export { default as oldDsPlugin } from './plugin';
+export { default as oldDsPlugin } from './plugin'

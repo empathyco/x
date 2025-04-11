@@ -77,45 +77,45 @@ passed.
 ```ts
 // API models
 interface ApiRequest {
-  q?: string;
-  id?: number;
+  q?: string
+  id?: number
 }
 interface ApiSearchResponse {
-  products: ApiProduct[];
-  total: number;
+  products: ApiProduct[]
+  total: number
 }
 interface ApiProduct {
-  id: number;
-  title: string;
-  price: number;
+  id: number
+  title: string
+  price: number
 }
 
 // App models
 interface AppSearchRequest {
-  query: string;
+  query: string
 }
 interface AppSearchResponse {
-  products: AppProduct[];
-  total: number;
+  products: AppProduct[]
+  total: number
 }
 interface AppProduct {
-  id: string;
-  name: string;
-  price: number;
+  id: string
+  name: string
+  price: number
 }
 ```
 
 ###### Adapter's factory function implementation
 
 ```ts
-import { endpointAdapterFactory } from '@empathyco/x-adapter';
+import { endpointAdapterFactory } from '@empathyco/x-adapter'
 
 export const searchProducts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/products/search',
   requestMapper({ query }: Readonly<AppSearchRequest>): ApiRequest {
     return {
-      q: query // the request will be triggered as https://dummyjson.com/products/search?q=phone
-    };
+      q: query, // the request will be triggered as https://dummyjson.com/products/search?q=phone
+    }
   },
   responseMapper({ products, total }: Readonly<ApiSearchResponse>): AppSearchResponse {
     return {
@@ -123,18 +123,18 @@ export const searchProducts = endpointAdapterFactory({
         return {
           id: product.id.toString(),
           name: product.title,
-          price: product.price
-        };
+          price: product.price,
+        }
       }),
-      total: total
-    };
-  }
-});
+      total,
+    }
+  },
+})
 
 // Function call
 async function searchOnClick() {
-  const response = await searchProducts({ query: 'phone' });
-  console.log('products', response.products);
+  const response = await searchProducts({ query: 'phone' })
+  console.log('products', response.products)
 }
 ```
 
@@ -148,12 +148,12 @@ parameter is not found inside the request, an empty string will be used.
 
 ```ts
 export const getItemById = endpointAdapterFactory({
-  endpoint: 'https://dummyjson.com/{section}/{id}'
+  endpoint: 'https://dummyjson.com/{section}/{id}',
   // ... rest of options to configure
-});
-getItemById({ section: 'products', id: 1 }); // 'https://dummyjson.com/products/1'
-getItemById({ section: 'quotes', id: 3 }); // 'https://dummyjson.com/quotes/3'
-getItemById({ section: 'quotes' }); // 'https://dummyjson.com/quotes/'
+})
+getItemById({ section: 'products', id: 1 }) // 'https://dummyjson.com/products/1'
+getItemById({ section: 'quotes', id: 3 }) // 'https://dummyjson.com/quotes/3'
+getItemById({ section: 'quotes' }) // 'https://dummyjson.com/quotes/'
 ```
 
 For more complex use cases, you can use a mapper function. This function receives the request, and
@@ -161,9 +161,9 @@ must return the URL string.
 
 ```ts
 export const getProductById = endpointAdapterFactory({
-  endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id
+  endpoint: ({ id }: GetProductByIdRequest) => `https://dummyjson.com/products/${id}`,
   // ... rest of options to configure
-});
+})
 ```
 
 Additionally, you can also overwrite your adapter's endpoint definition using the
@@ -174,10 +174,10 @@ Additionally, you can also overwrite your adapter's endpoint definition using th
 export const getItemById = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/quotes/{id}',
   // ... rest of options to configure
-});
+})
 
 // You would pass the new endpoint in the function call
-getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
+getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}' })
 ```
 
 <br>
@@ -194,39 +194,39 @@ object to make the request with.
 ```ts
 // HTTP Client
 const axiosHttpClient: HttpClient = (endpoint, options) =>
-  axios.get(endpoint, { params: options?.parameters }).then(response => response.data);
+  axios.get(endpoint, { params: options?.parameters }).then(response => response.data)
 
 // Request Mapper
 const customRequestMapper: Mapper<AppSearchRequest, ApiRequest> = ({ query }) => {
   return {
-    q: query
-  };
-};
+    q: query,
+  }
+}
 
 // Response Mapper
 const customResponseMapper: Mapper<ApiSearchResponse, AppSearchResponse> = ({
   products,
-  total
+  total,
 }) => {
   return {
     products: products.map(product => {
       return {
         id: product.id.toString(),
         name: product.title,
-        price: product.price
-      };
+        price: product.price,
+      }
     }),
-    total: total
-  };
-};
+    total,
+  }
+}
 
 // Adapter factory function implementation
 export const searchProducts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/products/search',
   httpClient: axiosHttpClient,
   requestMapper: customRequestMapper,
-  responseMapper: customResponseMapper
-});
+  responseMapper: customResponseMapper,
+})
 ```
 
 <br>
@@ -246,28 +246,28 @@ the value somehow.
 ```ts
 // API models
 interface ApiUserRequest {
-  q: string;
+  q: string
 }
 interface ApiUserResponse {
-  users: ApiUser[];
-  total: number;
+  users: ApiUser[]
+  total: number
 }
 interface ApiUser {
-  id: number;
-  firstName: string;
+  id: number
+  firstName: string
 }
 
 // App models
 interface AppUserRequest {
-  query: string;
+  query: string
 }
 interface AppUserResponse {
-  people: AppUser[];
-  total: number;
+  people: AppUser[]
+  total: number
 }
 interface AppUser {
-  id: string;
-  name: string;
+  id: string
+  name: string
 }
 ```
 
@@ -276,25 +276,25 @@ interface AppUser {
 ```ts
 // Map both the request and the response to connect your model with the API you are working with.
 const userSearchRequestMapper = schemaMapperFactory<AppUserRequest, ApiUserRequest>({
-  q: 'query'
-});
+  q: 'query',
+})
 const userSearchResponseMapper = schemaMapperFactory<ApiUserResponse, AppUserResponse>({
   people: ({ users }) =>
     users.map(user => {
       return {
         id: user.id.toString(),
-        name: user.firstName
-      };
+        name: user.firstName,
+      }
     }),
-  total: 'total'
-});
+  total: 'total',
+})
 
 // Use the mappers in the Endpoint's adapter factory function
 export const searchUsers = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/users/search',
   requestMapper: userSearchRequestMapper,
-  responseMapper: userSearchResponseMapper
-});
+  responseMapper: userSearchResponseMapper,
+})
 ```
 
 <br>
@@ -310,46 +310,46 @@ them you just have to provide with the `Path` of the data to map, and the `Schem
 ```ts
 // API models
 interface ApiRequest {
-  q: string;
+  q: string
 }
 interface ApiResponse {
-  users: ApiUser[];
-  total: number;
+  users: ApiUser[]
+  total: number
 }
 interface ApiUser {
-  id: number;
-  email: string;
-  phone: string;
-  address: ApiAddress;
-  company: ApiAddress;
+  id: number
+  email: string
+  phone: string
+  address: ApiAddress
+  company: ApiAddress
 }
 interface ApiAddress {
-  address: string;
-  city: string;
-  postalCode: string;
+  address: string
+  city: string
+  postalCode: string
 }
 
 // App models
 interface AppRequest {
-  query: string;
+  query: string
 }
 interface AppResponse {
-  people: AppUser[];
-  count: number;
+  people: AppUser[]
+  count: number
 }
 interface AppUser {
-  id: number;
+  id: number
   contact: {
-    email: string;
-    phone: string;
-    homeAddress: AppAddress;
-    companyAddress: AppAddress;
-  };
+    email: string
+    phone: string
+    homeAddress: AppAddress
+    companyAddress: AppAddress
+  }
 }
 interface AppAddress {
-  displayName: string;
-  postalCode: number;
-  city: string;
+  displayName: string
+  postalCode: number
+  city: string
 }
 ```
 
@@ -360,8 +360,8 @@ interface AppAddress {
 const addressSchema: Schema<ApiAddress, AppUserAddress> = {
   displayName: source => `${source.address}, ${source.postalCode} - ${source.city}`,
   city: 'city',
-  postalCode: source => parseInt(source.postalCode)
-};
+  postalCode: source => Number.parseInt(source.postalCode),
+}
 
 // User Schema definition with a subSchema
 const userSchema: Schema<ApiUser, AppUser> = {
@@ -371,14 +371,14 @@ const userSchema: Schema<ApiUser, AppUser> = {
     phone: 'phone',
     homeAddress: {
       $subSchema: addressSchema,
-      $path: 'address'
+      $path: 'address',
     },
     companyAddress: {
       $subSchema: addressSchema,
-      $path: 'address'
-    }
-  }
-};
+      $path: 'address',
+    },
+  },
+}
 ```
 
 ###### Schema's mapper factory function implementation with subSchemas
@@ -388,21 +388,21 @@ const userSchema: Schema<ApiUser, AppUser> = {
 const responseMapper = schemaMapperFactory<ApiSearchUsersResponse, AppSearchUsersResponse>({
   people: {
     $subSchema: userSchema,
-    $path: 'users'
+    $path: 'users',
   },
-  count: 'total'
-});
+  count: 'total',
+})
 
 const requestMapper = schemaMapperFactory<SearchUsersRequest, ApiSearchUsersRequest>({
-  q: 'query'
-});
+  q: 'query',
+})
 
 // Endpoint Adapter Factory function implementation
 export const searchUsersWithContactInfo = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/users/search',
   requestMapper,
-  responseMapper
-});
+  responseMapper,
+})
 ```
 
 <br>
@@ -423,21 +423,21 @@ for different endpoint calls.
 ```ts
 // API models
 export interface ApiBaseObject {
-  id: number;
-  body: string;
+  id: number
+  body: string
 }
 
 // APP models
 export interface AppBaseObject {
-  id: string;
-  text: string;
+  id: string
+  text: string
 }
 
 // Mutable Schema
 export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject>({
   id: ({ id }) => id.toString(),
-  text: 'body'
-});
+  text: 'body',
+})
 ```
 
 Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
@@ -458,71 +458,71 @@ Once we have the `MutableSchema`, we can use the following methods to fit our di
 ###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
-import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types'
 
 // Api models
 interface ApiPost extends ApiBaseObject {
-  title: string;
+  title: string
 }
 interface ApiPostsResponse {
-  posts: ApiPost[];
+  posts: ApiPost[]
 }
 
 interface ApiComment extends ApiBaseObject {
-  postId: number;
+  postId: number
 }
 interface ApiCommentsResponse {
-  comments: ApiComment[];
+  comments: ApiComment[]
 }
 
 // App models
 interface AppPost extends AppBaseObject {
-  postTitle: string;
+  postTitle: string
 }
 interface AppPostsResponse {
-  posts: AppPost[];
+  posts: AppPost[]
 }
 
 interface AppComment extends AppBaseObject {
-  postId: number;
+  postId: number
 }
 interface AppCommentsResponse {
-  comments: AppComment[];
+  comments: AppComment[]
 }
 
 // Extend for posts endpoint
 const postSchema = baseObjectSchema.$extends<ApiPost, AppPost>({
-  postTitle: 'title'
-});
+  postTitle: 'title',
+})
 
 const postsResponse = schemaMapperFactory<ApiPostsResponse, AppPostsResponse>({
   posts: {
     $subSchema: postSchema,
-    $path: 'posts'
-  }
-});
+    $path: 'posts',
+  },
+})
 
 export const searchPosts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/posts',
-  responseMapper: postsResponse
-});
+  responseMapper: postsResponse,
+})
 
 // Extend for comments endpoint
 const commentSchema = baseObjectSchema.$extends<ApiComment, AppComment>({
-  postId: 'postId'
-});
+  postId: 'postId',
+})
 
 const commentsResponse = schemaMapperFactory<ApiCommentsResponse, AppCommentsResponse>({
   comments: {
     $subSchema: commentSchema,
-    $path: 'comments'
-  }
-});
+    $path: 'comments',
+  },
+})
 
 export const searchComments = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/comments',
-  responseMapper: commentsResponse
-});
+  responseMapper: commentsResponse,
+})
 ```
 
 ###### Override a MutableSchema to add more fields
@@ -532,50 +532,50 @@ that doesn't differ too much against the one used in our "base project". That me
 most of the types and schemas definitions, so we would only add a few new fields from the new API.
 
 ```ts
-import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types'
 
 // Api models
 interface ApiTodo {
-  completed: boolean;
-  todo: string;
-  userId: number;
+  completed: boolean
+  todo: string
+  userId: number
 }
 
 interface ApiTodosResponse {
-  todos: ApiBaseObject[];
+  todos: ApiBaseObject[]
 }
 
 // App models
 interface AppTodo {
-  completed: boolean;
-  text: string;
-  userId: string;
+  completed: boolean
+  text: string
+  userId: string
 }
 
 interface AppTodosResponse {
-  todos: AppBaseObject[];
+  todos: AppBaseObject[]
 }
 
 // Response mapper
 const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
   todos: {
     $subSchema: baseObjectSchema,
-    $path: 'todos'
-  }
-});
+    $path: 'todos',
+  },
+})
 
 // Endpoint Adapter
 export const searchTodos = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/todos',
-  responseMapper: todosResponse
-});
+  responseMapper: todosResponse,
+})
 
 // Override the original Schema. The Schema changes to map: 'id', 'completed', 'text' and 'userId''
 baseObjectSchema.$override<ApiTodo, AppTodo>({
   completed: 'completed',
   text: 'todo',
-  userId: ({ userId }) => userId.toString()
-});
+  userId: ({ userId }) => userId.toString(),
+})
 ```
 
 ###### Replace a MutableSchema to completely change it
@@ -585,50 +585,50 @@ whole adapter from scratch, as there are other parts of the API that aren't chan
 should replace some `endpointAdapter`'s schemas.
 
 ```ts
-import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types'
 
 // Api models
 interface ApiQuote {
-  id: number;
-  quote: string;
-  author: string;
+  id: number
+  quote: string
+  author: string
 }
 
 interface ApiQuotesResponse {
-  quotes: ApiBaseObject[];
+  quotes: ApiBaseObject[]
 }
 
 // App models
 interface AppQuote {
-  quoteId: string;
-  quote: string;
-  author: string;
+  quoteId: string
+  quote: string
+  author: string
 }
 
 interface AppQuotesResponse {
-  quotes: AppBaseObject[];
+  quotes: AppBaseObject[]
 }
 
 // Response mapper
 const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>({
   quotes: {
     $subSchema: baseObjectSchema,
-    $path: 'quotes'
-  }
-});
+    $path: 'quotes',
+  },
+})
 
 // Endpoint Adapter
 export const searchQuotes = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/quotes',
-  responseMapper: quotesResponse
-});
+  responseMapper: quotesResponse,
+})
 
 // Replace the original Schema
 baseObjectSchema.$replace<ApiQuote, AppQuote>({
   quoteId: ({ id }) => id.toString(),
   quote: 'quote',
-  author: 'author'
-});
+  author: 'author',
+})
 ```
 
 <br>
@@ -642,9 +642,9 @@ you have built an adapter instance as a configuration object that contains all o
 ```ts
 export const adapter = {
   searchItem: getItemById,
-  searchList: searchComments
+  searchList: searchComments,
   // Any endpoint adapter you are using to communicate with your API
-};
+}
 
 adapter.searchList = searchComments.extends({
   endpoint: 'https://dummyjson.com/comments/',
@@ -654,10 +654,10 @@ adapter.searchList = searchComments.extends({
   defaultRequestOptions: {
     parameters: {
       limit: 10,
-      skip: 10
-    }
-  }
-});
+      skip: 10,
+    },
+  },
+})
 ```
 
 For further detail, you can check the

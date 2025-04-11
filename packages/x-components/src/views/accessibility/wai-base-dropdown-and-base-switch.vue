@@ -31,30 +31,30 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted } from 'vue';
-  // eslint-disable-next-line max-len
-  import BaseColumnPickerDropdown from '../../components/column-picker/base-column-picker-dropdown.vue';
-  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
-  // eslint-disable-next-line max-len
-  import HistoryQueriesSwitch from '../../x-modules/history-queries/components/history-queries-switch.vue';
-  import { useXBus } from '../../composables/use-x-bus';
+import { defineComponent, onMounted } from 'vue'
 
-  export default defineComponent({
-    name: 'AccessibilityCheck',
-    components: {
-      BaseColumnPickerDropdown,
-      HistoryQueriesSwitch,
-      SortDropdown
-    },
-    setup() {
-      const bus = useXBus();
-      onMounted(() => {
-        bus.emit('UserClickedASort', 'default');
-        bus.emit('UserClickedEnableHistoryQueries');
-      });
-      return {
-        sortValues: ['default', 'price asc', 'price desc']
-      };
+import BaseColumnPickerDropdown from '../../components/column-picker/base-column-picker-dropdown.vue'
+import { useXBus } from '../../composables/use-x-bus'
+
+import HistoryQueriesSwitch from '../../x-modules/history-queries/components/history-queries-switch.vue'
+import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue'
+
+export default defineComponent({
+  name: 'AccessibilityCheck',
+  components: {
+    BaseColumnPickerDropdown,
+    HistoryQueriesSwitch,
+    SortDropdown,
+  },
+  setup() {
+    const bus = useXBus()
+    onMounted(() => {
+      bus.emit('UserClickedASort', 'default')
+      bus.emit('UserClickedEnableHistoryQueries')
+    })
+    return {
+      sortValues: ['default', 'price asc', 'price desc'],
     }
-  });
+  },
+})
 </script>

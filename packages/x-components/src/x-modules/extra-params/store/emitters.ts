@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { extraParamsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { extraParamsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the {@link ExtraParamsXModule}.
@@ -9,6 +9,6 @@ import { extraParamsXStoreModule } from './module';
 export const extraParamsEmitters = createStoreEmitters(extraParamsXStoreModule, {
   ExtraParamsChanged: {
     selector: state => state.params,
-    metadata: { priority: 9 }
-  }
-});
+    metadata: { priority: 9 },
+  },
+})
