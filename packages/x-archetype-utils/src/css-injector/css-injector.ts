@@ -1,4 +1,10 @@
 import type { WindowWithInjector, XCSSInjector } from './css-injector.types'
+/**
+ * The style interface that will be used to inject styles into the host element.
+ */
+interface Style {
+  source: string
+}
 
 /**
  * Instance of the injector that will be used across all the initializations.
@@ -11,8 +17,8 @@ let instance: CssInjector | null = null
  * @public
  */
 export class CssInjector implements XCSSInjector {
-  protected host!: Element | ShadowRoot
-  protected stylesQueue: string[] = []
+  protected host: Element | ShadowRoot | undefined
+  protected stylesQueue: Style[] = []
 
   /**
    * Initializes the instance of the injector if it's not already initialized and sets it in the
@@ -39,16 +45,15 @@ export class CssInjector implements XCSSInjector {
    * @param styles - The styles to be added.
    * @param styles.source - Styles source.
    */
-  addStyle(styles: { source: string }): void {
-    this.stylesQueue.push(styles.source)
-    if (this.host) {
-      this.stylesQueue.forEach(styles => {
-        const styleTag = document.createElement('style')
-        styleTag.textContent = styles
-        this.host.appendChild(styleTag)
-      })
-      this.stylesQueue = []
+  addStyle(styles: Style): void {
+    if (!this.host) {
+      this.stylesQueue.push(styles)
+      return
     }
+
+    const styleTag = document.createElement('style')
+    styleTag.textContent = styles.source
+    this.host.appendChild(styleTag)
   }
 
   /**
@@ -58,6 +63,9 @@ export class CssInjector implements XCSSInjector {
    */
   setHost(host: Element | ShadowRoot): void {
     this.host = host
+    // Add all pending styles to the host element
+    this.stylesQueue.forEach(style => this.addStyle(style))
+    this.stylesQueue = []
   }
 
   /**
