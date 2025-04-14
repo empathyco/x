@@ -22,14 +22,8 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
-      # Install pnpm because it is not included in our container image
-      - name: install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
-        with:
-          version: 9.15.9
-
-      - name: install dependencies
-        run: pnpm install
+      - name: Install
+        uses: ./.github/actions/install
 
       - name: lint packages
         run: pnpm run lint:check
