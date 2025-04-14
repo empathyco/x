@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.0-alpha.61",
+  "version": "6.0.0-alpha.62",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -77,14 +77,14 @@
     "vuex": "4.0.2"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.2",
-    "@empathyco/x-adapter-platform": "^1.1.0-alpha.14",
-    "@empathyco/x-bus": "^1.0.3-alpha.2",
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.3",
+    "@empathyco/x-adapter": "^8.1.0-alpha.3",
+    "@empathyco/x-adapter-platform": "^1.1.0-alpha.15",
+    "@empathyco/x-bus": "^1.0.3-alpha.3",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.4",
     "@empathyco/x-logger": "^1.2.0-alpha.11",
-    "@empathyco/x-storage-service": "^2.0.3-alpha.1",
-    "@empathyco/x-types": "^10.1.0-alpha.11",
-    "@empathyco/x-utils": "^1.0.3-alpha.2",
+    "@empathyco/x-storage-service": "^2.0.3-alpha.2",
+    "@empathyco/x-types": "^10.1.0-alpha.12",
+    "@empathyco/x-utils": "^1.0.3-alpha.3",
     "@vue/devtools-api": "~6.5.0",
     "@vueuse/core": "~10.7.1",
     "js-md5": "~0.8.3",
@@ -96,7 +96,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "20.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-    "@empathyco/x-tailwindcss": "2.0.0-alpha.4",
+    "@empathyco/x-tailwindcss": "^2.0.0-alpha.5",
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.39.0",
     "@testing-library/jest-dom": "5.17.0",
