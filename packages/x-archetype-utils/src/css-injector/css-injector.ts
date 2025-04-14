@@ -40,19 +40,19 @@ export class CssInjector implements XCSSInjector {
   }
 
   /**
-   * Adds the styles to the host element.
+   * Adds the style to the host element.
    *
-   * @param styles - The styles to be added.
-   * @param styles.source - Styles source.
+   * @param style - The styles to be added.
+   * @param style.source - Styles source.
    */
-  addStyle(styles: Style): void {
+  addStyle(style: Style): void {
     if (!this.host) {
-      this.stylesQueue.push(styles)
+      this.stylesQueue.push(style)
       return
     }
 
     const styleTag = document.createElement('style')
-    styleTag.textContent = styles.source
+    styleTag.textContent = style.source
     this.host.appendChild(styleTag)
   }
 
