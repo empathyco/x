@@ -324,7 +324,7 @@ importers:
         version: 2.2.0(esbuild@0.20.0)
       '@empathyco/x-tailwindcss':
         specifier: 2.0.0-alpha.4
-        version: 2.0.0-alpha.4
+        version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.23.0
         version: 7.23.0(@types/node@18.19.0)
@@ -1061,10 +1061,6 @@ packages:
 
   '@empathyco/x-storage-service@2.0.3-alpha.1':
     resolution: {integrity: sha512-OchioTvvFy2VL4ZU2KPCFa0FXTM96Y0v0TgWygLm5/S74ifZihp/mJUvzVZk4Ui6abVNCUq2OYC0+yxntjgXXA==}
-    engines: {node: '>=18'}
-
-  '@empathyco/x-tailwindcss@2.0.0-alpha.4':
-    resolution: {integrity: sha512-g9S/P4Or4C84KvFe3+8AHMigudFUba6j/C5eMWRnPU649tC0bKc/1h+yOfq3qZAljmU1knnXunBmh4js9FoRSQ==}
     engines: {node: '>=18'}
 
   '@empathyco/x-types@10.1.0-alpha.11':
@@ -8355,12 +8351,6 @@ snapshots:
   '@empathyco/x-storage-service@2.0.3-alpha.1':
     dependencies:
       '@empathyco/x-logger': 1.2.0-alpha.11
-      tslib: 2.6.3
-
-  '@empathyco/x-tailwindcss@2.0.0-alpha.4':
-    dependencies:
-      '@empathyco/x-deep-merge': 2.0.3-alpha.3
-      '@empathyco/x-utils': 1.0.3-alpha.2
       tslib: 2.6.3
 
   '@empathyco/x-types@10.1.0-alpha.11':
