@@ -7,7 +7,7 @@
 export interface DeviceXEvents {
   /**
    * The device that has been provided.
-   * * Payload: The name of the device, or `null` if the detection failed.
+   * Payload: The name of the device, or `null` if the detection failed.
    */
-  DeviceProvided: string | null;
+  DeviceProvided: string | null
 }

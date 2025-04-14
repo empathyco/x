@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { ExtractPayload } from './store.types';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ExtractPayload } from './store.types'
 
 /**
  * Util type for being used on generic constraints which will only accept an object containing
@@ -14,7 +14,7 @@ import { ExtractPayload } from './store.types';
  * ```
  * @public
  */
-export type MutationsDictionary<Mutations> = Record<keyof Mutations, (payload?: any) => void>;
+export type MutationsDictionary<Mutations> = Record<keyof Mutations, (payload?: any) => void>
 
 /**
  * Type-safe mutations definition type. An object with this type is what it is needed to define
@@ -26,14 +26,14 @@ export type MutationsDictionary<Mutations> = Record<keyof Mutations, (payload?: 
  */
 export type MutationsTree<
   State extends Dictionary,
-  Mutations extends MutationsDictionary<Mutations>
+  Mutations extends MutationsDictionary<Mutations>,
 > = {
-  [Key in keyof Mutations]: (state: State, payload: ExtractPayload<Mutations[Key]>) => void;
-};
+  [Key in keyof Mutations]: (state: State, payload: ExtractPayload<Mutations[Key]>) => void
+}
 
 /**
  * Alias for any mutations tree. Use only when the concrete type does not matter.
  *
  * @public
  */
-export type AnyMutationsTree = MutationsTree<Dictionary, MutationsDictionary<any>>;
+export type AnyMutationsTree = MutationsTree<Dictionary, MutationsDictionary<any>>

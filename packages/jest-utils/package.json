@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/jest-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/jest-utils"
+  },
   "keywords": [
     "jest",
     "test"
@@ -14,19 +19,18 @@
   "files": [
     "dist/**/*"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/jest-utils"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { SearchRequest } from '@empathyco/x-types';
-import { searchRequestSchema } from '../../schemas/requests/search-request.schema';
-import { PlatformSearchRequest } from '../../types/requests/search-request.model';
+import type { SearchRequest } from '@empathyco/x-types'
+import type { PlatformSearchRequest } from '../../types/requests/search-request.model'
+import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { searchRequestSchema } from '../../schemas/requests/search-request.schema'
 
 /**
  * Default implementation for the SearchRequestMapper.
@@ -9,5 +9,5 @@ import { PlatformSearchRequest } from '../../types/requests/search-request.model
  * @public
  */
 export const searchRequestMapper = schemaMapperFactory<SearchRequest, PlatformSearchRequest>(
-  searchRequestSchema
-);
+  searchRequestSchema,
+)

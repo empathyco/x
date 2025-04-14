@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import type { Suggestion } from '@empathyco/x-types'
 
 /**
  * Creates a list of generic popular searches.
@@ -9,8 +9,8 @@ import { Suggestion } from '@empathyco/x-types';
  */
 export function getPopularSearchesStub(amount = 3): Suggestion[] {
   return Array.from({ length: amount }, (_, index) =>
-    createPopularSearch(`Popular search ${index}`)
-  );
+    createPopularSearch(`Popular search ${index}`),
+  )
 }
 
 /**
@@ -29,6 +29,6 @@ export function createPopularSearch(query: string, suggestion?: Partial<Suggesti
     totalResults: 10,
     results: [],
     modelName: 'PopularSearch',
-    ...suggestion
-  };
+    ...suggestion,
+  }
 }

@@ -1,3 +1,3 @@
-export * from './old-ds-plugin';
-export * from './x-tailwind-plugin';
-export * from './types';
+export * from './old-ds-plugin'
+export * from './types'
+export * from './x-tailwind-plugin'

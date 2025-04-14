@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `outlined` styles for component `tag`.
@@ -7,22 +7,22 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function tagOutlined(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   // Outlined & Outlined Selected common styles
   const disabledStyles = {
     '&:disabled': {
       backgroundColor: 'transparent',
       borderColor: theme('x.colors.neutral.25'),
-      color: theme('x.colors.neutral.25')
-    }
-  };
+      color: theme('x.colors.neutral.25'),
+    },
+  }
   const hoverStyles = {
     '&:hover,&:focus,&:active': {
       borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
-      color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`
-    }
-  };
+      color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
+    },
+  }
 
   return {
     outlined: {
@@ -40,8 +40,8 @@ export function tagOutlined(helpers: TailwindHelpers) {
         color: theme('x.colors.neutral.90'),
 
         ...hoverStyles,
-        ...disabledStyles
-      }
-    }
-  };
+        ...disabledStyles,
+      },
+    },
+  }
 }

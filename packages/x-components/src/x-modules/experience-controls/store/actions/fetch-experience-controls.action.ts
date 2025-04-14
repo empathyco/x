@@ -1,6 +1,6 @@
-import { ExperienceControlsResponse } from '@empathyco/x-types';
-import { ExperienceControlsXStoreModule } from '../types';
-import { XPlugin } from '../../../../plugins/x-plugin';
+import type { ExperienceControlsResponse } from '@empathyco/x-types'
+import type { ExperienceControlsXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link ExperienceControlsActions.fetchExperienceControlsResponse}.
@@ -12,10 +12,10 @@ import { XPlugin } from '../../../../plugins/x-plugin';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const fetchExperienceControlsResponse: ExperienceControlsXStoreModule['actions']['fetchExperienceControlsResponse'] =
-  (_context, request) => {
+  async (_context, request) => {
     return request
       ? XPlugin.adapter.experienceControls(request).then(response => response)
-      : ({} as ExperienceControlsResponse);
-  };
+      : ({} as ExperienceControlsResponse)
+  }

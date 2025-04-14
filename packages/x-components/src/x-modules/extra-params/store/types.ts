@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { XStoreModule } from '../../../store';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XStoreModule } from '../../../store'
 
 /**
  * ExtraParams store state.
@@ -7,7 +7,7 @@ import { XStoreModule } from '../../../store';
  * @public
  */
 export interface ExtraParamsState {
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
 }
 
 /**
@@ -23,7 +23,7 @@ export interface ExtraParamsGetters {}
  * @public
  */
 export interface ExtraParamsMutations {
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
 }
 
 /**
@@ -43,4 +43,4 @@ export type ExtraParamsXStoreModule = XStoreModule<
   ExtraParamsGetters,
   ExtraParamsMutations,
   ExtraParamsActions
->;
+>

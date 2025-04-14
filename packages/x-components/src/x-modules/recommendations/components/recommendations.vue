@@ -22,88 +22,89 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, provide, ComputedRef } from 'vue';
-  import { useState } from '../../../composables';
-  import { PropsWithType } from '../../../utils';
-  import { XEventsTypes } from '../../../wiring';
-  import { recommendationsXModule } from '../x-module';
-  import { AnimationProp } from '../../../types';
+import type { Result } from '@empathyco/x-types'
+import type { ComputedRef } from 'vue'
+import type { PropsWithType } from '../../../utils'
+import type { XEventsTypes } from '../../../wiring'
+import { computed, defineComponent, provide } from 'vue'
+import { useState } from '../../../composables'
+import { AnimationProp } from '../../../types'
+import { recommendationsXModule } from '../x-module'
 
-  /**
-   * It renders a list of recommendations from the
-   * {@link RecommendationsState.recommendations} state by default.
-   * The component provides the slot layout which wraps the whole component with the
-   * recommendations bounded. It also provides the default slot to customize the item, which is
-   * within the layout slot, with the recommendation bounded. Each recommendation should be
-   * represented by a {@link BaseResultLink} component besides any other component.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Recommendations',
-    xModule: recommendationsXModule.name,
-    props: {
-      /** Animation component that will be used to animate the recommendations. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /** Number of recommendations to be rendered. */
-      maxItemsToRender: Number
+/**
+ * It renders a list of recommendations from the
+ * {@link RecommendationsState.recommendations} state by default.
+ * The component provides the slot layout which wraps the whole component with the
+ * recommendations bounded. It also provides the default slot to customize the item, which is
+ * within the layout slot, with the recommendation bounded. Each recommendation should be
+ * represented by a {@link BaseResultLink} component besides any other component.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Recommendations',
+  xModule: recommendationsXModule.name,
+  props: {
+    /** Animation component that will be used to animate the recommendations. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props, { slots }) {
-      /** The module's list of recommendations. */
-      const storedRecommendations: ComputedRef<Result[]> = useState('recommendations', [
-        'recommendations'
-      ]).recommendations;
+    /** Number of recommendations to be rendered. */
+    maxItemsToRender: Number,
+  },
+  setup(props, { slots }) {
+    /** The module's list of recommendations. */
+    const storedRecommendations: ComputedRef<Result[]> = useState('recommendations', [
+      'recommendations',
+    ]).recommendations
 
-      /** The additional events to be emitted by the mandatory {@link BaseResultLink} component. */
-      provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
-        'UserClickedARecommendation'
-      ]);
+    /** The additional events to be emitted by the mandatory {@link BaseResultLink} component. */
+    provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
+      'UserClickedARecommendation',
+    ])
 
-      /**
-       * Slices the recommendations from the state.
-       *
-       * @returns - The list of recommendations slice by the number of items to render.
-       */
-      const recommendations = computed<Result[]>(() =>
-        storedRecommendations.value.slice(0, props.maxItemsToRender)
-      );
+    /**
+     * Slices the recommendations from the state.
+     *
+     * @returns - The list of recommendations slice by the number of items to render.
+     */
+    const recommendations = computed<Result[]>(() =>
+      storedRecommendations.value.slice(0, props.maxItemsToRender),
+    )
 
-      /**
-       * Render function to execute the `layout` slot, binding `slotsProps` and getting only the
-       * first `vNode` to avoid Fragments and Text root nodes.
-       * If there are no recommendations, nothing is rendered.
-       *
-       * @remarks `slotProps` must be values without Vue reactivity and located inside the
-       * render-function to update the binding data properly.
-       *
-       * @returns The root `vNode` of the `layout` slot or empty string if there are
-       * no recommendations.
-       */
-      function renderLayoutSlot() {
-        const slotProps = {
-          animation: props.animation,
-          recommendations: recommendations.value
-        };
-        return recommendations.value.length ? slots.layout?.(slotProps)[0] : '';
+    /**
+     * Render function to execute the `layout` slot, binding `slotsProps` and getting only the
+     * first `vNode` to avoid Fragments and Text root nodes.
+     * If there are no recommendations, nothing is rendered.
+     *
+     * @remarks `slotProps` must be values without Vue reactivity and located inside the
+     * render-function to update the binding data properly.
+     *
+     * @returns The root `vNode` of the `layout` slot or empty string if there are
+     * no recommendations.
+     */
+    function renderLayoutSlot() {
+      const slotProps = {
+        animation: props.animation,
+        recommendations: recommendations.value,
       }
-
-      /* Hack to render through a render-function, the `layout` slot or, in its absence,
-       the component itself. It is the alternative for the NoElement antipattern. */
-      const componentProps = { recommendations };
-      return (slots.layout ? renderLayoutSlot : componentProps) as typeof componentProps;
+      return recommendations.value.length ? slots.layout?.(slotProps)[0] : ''
     }
-  });
+
+    /* Hack to render through a render-function, the `layout` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+    const componentProps = { recommendations }
+    return (slots.layout ? renderLayoutSlot : componentProps) as typeof componentProps
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-recommendations {
-    display: flex;
-    list-style-type: none;
-  }
+.x-recommendations {
+  display: flex;
+  list-style-type: none;
+}
 </style>
 
 <docs lang="mdx">
@@ -139,17 +140,17 @@ modules such like the `tagging` one.
   </Recommendations>
 </template>
 <script>
-  import { Recommendations } from '@empathyco/x-components/recommendations';
-  import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components';
+import { Recommendations } from '@empathyco/x-components/recommendations'
+import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
 
-  export default {
-    name: 'RecommendationsDemo',
-    components: {
-      Recommendations,
-      BaseResultLink,
-      BaseResultAddToCart
-    }
-  };
+export default {
+  name: 'RecommendationsDemo',
+  components: {
+    Recommendations,
+    BaseResultLink,
+    BaseResultAddToCart,
+  },
+}
 </script>
 ```
 
@@ -173,19 +174,19 @@ In this example, the component will render a maximum of 4 result recommendations
   </Recommendations>
 </template>
 <script>
-  import Vue from 'vue';
-  import { Recommendations } from '@empathyco/x-components/recommendations';
-  import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components';
+import Vue from 'vue'
+import { Recommendations } from '@empathyco/x-components/recommendations'
+import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
 
-  Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
-  export default {
-    name: 'RecommendationsDemo',
-    components: {
-      Recommendations,
-      BaseResultLink,
-      BaseResultAddToCart
-    }
-  };
+Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
+export default {
+  name: 'RecommendationsDemo',
+  components: {
+    Recommendations,
+    BaseResultLink,
+    BaseResultAddToCart,
+  },
+}
 </script>
 ```
 
@@ -214,17 +215,17 @@ limitations you will only be allowed to render a single element inside the `layo
   </Recommendations>
 </template>
 <script>
-  import { Recommendations } from '@empathyco/x-components/recommendations';
-  import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components';
+import { Recommendations } from '@empathyco/x-components/recommendations'
+import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
 
-  export default {
-    name: 'RecommendationsDemo',
-    components: {
-      Recommendations,
-      BaseResultLink,
-      BaseResultAddToCart
-    }
-  };
+export default {
+  name: 'RecommendationsDemo',
+  components: {
+    Recommendations,
+    BaseResultLink,
+    BaseResultAddToCart,
+  },
+}
 </script>
 ```
 </docs>

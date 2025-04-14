@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { nextQueriesXStoreModule } from '../../store/module';
-import { NextQueriesState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { NextQueriesState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { nextQueriesXStoreModule } from '../../store/module'
 
 /**
  * Reset next queries x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { NextQueriesState } from '../../store/types';
  */
 export function resetXNextQueriesStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<NextQueriesState>
+  state?: DeepPartial<NextQueriesState>,
 ): void {
-  resetStoreXModuleState(store, 'nextQueries', nextQueriesXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'nextQueries', nextQueriesXStoreModule.state(), state)
 }

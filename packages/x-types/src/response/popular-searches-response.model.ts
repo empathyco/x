@@ -1,4 +1,4 @@
-import { Suggestion } from '../suggestion.model';
+import type { Suggestion } from '../suggestion.model'
 
 /**
  * Response for the popular searches endpoint.
@@ -6,5 +6,5 @@ import { Suggestion } from '../suggestion.model';
  * @public
  */
 export interface PopularSearchesResponse {
-  suggestions: Suggestion[];
+  suggestions: Suggestion[]
 }

@@ -1,6 +1,6 @@
-import { XBus } from '@empathyco/x-bus';
-import { WireMetadata, XEventsTypes } from '../../wiring/index';
-import { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types';
+import type { XBus } from '@empathyco/x-bus'
+import type { WireMetadata, XEventsTypes } from '../../wiring/index'
+import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types'
 
 /**
  * Default implementation for {@link XAPI}.
@@ -13,14 +13,14 @@ export class BaseXAPI implements XAPI {
    *
    * @internal
    */
-  protected isXInitialized = false;
+  protected isXInitialized = false
 
   /**
    * Bus for emitting and listening events.
    *
    * @internal
    */
-  protected bus!: XBus<XEventsTypes, WireMetadata>;
+  protected bus!: XBus<XEventsTypes, WireMetadata>
 
   /**
    * The callback to call from the init method. The logic of initialization is out of this API
@@ -28,7 +28,7 @@ export class BaseXAPI implements XAPI {
    *
    * @internal
    */
-  protected initCallback!: (config: SnippetConfig) => any;
+  protected initCallback!: (config: SnippetConfig) => any
 
   /**
    * Getter for the snippet config object.
@@ -37,7 +37,7 @@ export class BaseXAPI implements XAPI {
    *
    * @public
    */
-  public getSnippetConfig!: () => SnippetConfig;
+  public getSnippetConfig!: () => SnippetConfig
 
   /**
    * Callback that allows to update the snippet config. The logic of initialization is out of this
@@ -45,7 +45,7 @@ export class BaseXAPI implements XAPI {
    *
    * @internal
    */
-  protected snippetCallback!: (config: Partial<SnippetConfig>) => void;
+  protected snippetCallback!: (config: Partial<SnippetConfig>) => void
 
   /**
    * Tracks that a product was added to cart from PDP.
@@ -53,18 +53,18 @@ export class BaseXAPI implements XAPI {
    * @param productId - The product id that was added to cart.
    */
   addProductToCart(productId?: string): void {
-    this.bus?.emit('UserClickedPDPAddToCart', productId);
+    void this.bus?.emit('UserClickedPDPAddToCart', productId)
   }
 
   /**
-   * Setter for the {@link @empathyco/x-bus#XBus}.
+   * Setter for the XBus.
    *
-   * @param bus - The {@link @empathyco/x-bus#XBus} received to emit events.
+   * @param bus - The XBus received to emit events.
    *
    * @internal
    */
   setBus(bus: XBus<XEventsTypes, WireMetadata>): void {
-    this.bus = bus;
+    this.bus = bus
   }
 
   /**
@@ -73,7 +73,7 @@ export class BaseXAPI implements XAPI {
    * @param initCallback - The callback to call.
    */
   setInitCallback(initCallback: (config: SnippetConfig) => any): void {
-    this.initCallback = initCallback;
+    this.initCallback = initCallback
   }
 
   /**
@@ -84,7 +84,7 @@ export class BaseXAPI implements XAPI {
    * @internal
    */
   setSnippetConfigCallback(snippetCallback: (config: Partial<SnippetConfig>) => void): void {
-    this.snippetCallback = snippetCallback;
+    this.snippetCallback = snippetCallback
   }
 
   /**
@@ -95,7 +95,7 @@ export class BaseXAPI implements XAPI {
    * @internal
    */
   setSnippetConfigGetter(snippetConfigGetter: () => NormalisedSnippetConfig): void {
-    this.getSnippetConfig = snippetConfigGetter;
+    this.getSnippetConfig = snippetConfigGetter
   }
 
   /**
@@ -106,7 +106,7 @@ export class BaseXAPI implements XAPI {
    * @public
    */
   setSnippetConfig(config: Partial<SnippetConfig>): void {
-    this?.snippetCallback(config);
+    this?.snippetCallback(config)
   }
 
   /**
@@ -118,9 +118,9 @@ export class BaseXAPI implements XAPI {
    */
   search(query?: string): void {
     if (query) {
-      this.bus?.emit('UserAcceptedAQuery', query);
+      void this.bus?.emit('UserAcceptedAQuery', query)
     }
-    this.bus?.emit('UserClickedOpenX');
+    void this.bus?.emit('UserClickedOpenX')
   }
 
   /**
@@ -134,11 +134,10 @@ export class BaseXAPI implements XAPI {
    */
   async init(config: SnippetConfig): Promise<void> {
     if (!this.isXInitialized) {
-      this.isXInitialized = true;
-      await this?.initCallback(config);
+      this.isXInitialized = true
+      await this?.initCallback(config)
     } else {
-      //eslint-disable-next-line no-console
-      console.warn('We know X is awesome, but you only need to initialize it once.');
+      console.warn('We know X is awesome, but you only need to initialize it once.')
     }
   }
 
@@ -148,6 +147,6 @@ export class BaseXAPI implements XAPI {
    * @public
    */
   close(): void {
-    this.bus?.emit('UserClickedCloseX');
+    void this.bus?.emit('UserClickedCloseX')
   }
 }

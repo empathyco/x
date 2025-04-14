@@ -13,9 +13,9 @@
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...baseScope }">
         <PopularSearch
+          v-slot="popularSearchScope"
           :suggestion="baseScope.suggestion"
           class="x-popular-searches__suggestion x-suggestion"
-          #default="popularSearchScope"
         >
           <!-- eslint-disable max-len -->
           <!--
@@ -31,38 +31,38 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { popularSearchesXModule } from '../x-module';
-  import { useGetter } from '../../../composables/use-getter';
-  import PopularSearch from './popular-search.vue';
+import { defineComponent } from 'vue'
+import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { popularSearchesXModule } from '../x-module'
+import PopularSearch from './popular-search.vue'
 
-  /**
-   * Simple popular-searches component that renders a list of suggestions, allowing the user to
-   * select one of them, and emitting the needed events.
-   * A popular search is just a query that has been searched a lot in a certain period and may
-   * optionally have associated a set of filters.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PopularSearches',
-    xModule: popularSearchesXModule.name,
-    components: {
-      PopularSearch,
-      BaseSuggestions
-    },
-    setup() {
-      /**
-       * The list of popular searches.
-       *
-       * @internal
-       */
-      const { popularSearches } = useGetter('popularSearches', ['popularSearches']);
+/**
+ * Simple popular-searches component that renders a list of suggestions, allowing the user to
+ * select one of them, and emitting the needed events.
+ * A popular search is just a query that has been searched a lot in a certain period and may
+ * optionally have associated a set of filters.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PopularSearches',
+  xModule: popularSearchesXModule.name,
+  components: {
+    PopularSearch,
+    BaseSuggestions,
+  },
+  setup() {
+    /**
+     * The list of popular searches.
+     *
+     * @internal
+     */
+    const { popularSearches } = useGetter('popularSearches', ['popularSearches'])
 
-      return { popularSearches };
-    }
-  });
+    return { popularSearches }
+  },
+})
 </script>
 
 <!--eslint-disable max-len -->
@@ -90,13 +90,13 @@ searches it will show them.
 </template>
 
 <script>
-  import { PopularSearches } from '@empathyco/x-components/popular-searches';
-  export default {
-    name: 'PopularSearchesDemo',
-    components: {
-      PopularSearches
-    }
-  };
+import { PopularSearches } from '@empathyco/x-components/popular-searches'
+export default {
+  name: 'PopularSearchesDemo',
+  components: {
+    PopularSearches,
+  },
+}
 </script>
 ```
 
@@ -109,19 +109,19 @@ The component has two optional props. `animation` to render the component with a
 </template>
 
 <script>
-  import Vue from 'vue';
-  import { PopularSearches } from '@empathyco/x-components/popular-searches';
-  import FadeAndSlide from '@empathyco/x-components';
+import Vue from 'vue'
+import { PopularSearches } from '@empathyco/x-components/popular-searches'
+import FadeAndSlide from '@empathyco/x-components'
 
-  // Registering the animation as a global component
-  Vue.component('FadeAndSlide', FadeAndSlide);
-  export default {
-    name: 'PopularSearchesDemo',
-    components: {
-      PopularSearches,
-      FadeAndSlide
-    }
-  };
+// Registering the animation as a global component
+Vue.component('FadeAndSlide', FadeAndSlide)
+export default {
+  name: 'PopularSearchesDemo',
+  components: {
+    PopularSearches,
+    FadeAndSlide,
+  },
+}
 </script>
 ```
 
@@ -142,16 +142,16 @@ query of the Popular Search's suggestion.
 </template>
 
 <script>
-  import { PopularSearches } from '@empathyco/x-components/popular-searches';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { PopularSearches } from '@empathyco/x-components/popular-searches'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'PopularSearchesDemo',
-    components: {
-      PopularSearches,
-      TrendingIcon
-    }
-  };
+export default {
+  name: 'PopularSearchesDemo',
+  components: {
+    PopularSearches,
+    TrendingIcon,
+  },
+}
 </script>
 ```
 
@@ -179,17 +179,17 @@ Search component.
 </template>
 
 <script>
-  import { PopularSearches, PopularSearch } from '@empathyco/x-components/popular-searches';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { PopularSearches, PopularSearch } from '@empathyco/x-components/popular-searches'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'PopularSearchesDemo',
-    components: {
-      PopularSearches,
-      PopularSearch,
-      TrendingIcon
-    }
-  };
+export default {
+  name: 'PopularSearchesDemo',
+  components: {
+    PopularSearches,
+    PopularSearch,
+    TrendingIcon,
+  },
+}
 </script>
 ```
 </docs>

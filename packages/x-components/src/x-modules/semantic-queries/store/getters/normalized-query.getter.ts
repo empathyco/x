@@ -1,5 +1,5 @@
-import { SemanticQueriesXStoreModule } from '../types';
-import { normalizeString } from '../../../../utils/normalize';
+import type { SemanticQueriesXStoreModule } from '../types'
+import { normalizeString } from '../../../../utils/normalize'
 
 /**
  * Default implementacion for the {@link SemanticQueriesGetters.normalizedQuery} getter.
@@ -12,5 +12,5 @@ import { normalizeString } from '../../../../utils/normalize';
  * @public
  */
 export const normalizedQuery: SemanticQueriesXStoreModule['getters']['normalizedQuery'] = ({
-  query
-}) => normalizeString(query);
+  query,
+}) => normalizeString(query)

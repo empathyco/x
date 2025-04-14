@@ -1,16 +1,16 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import {
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type {
   AnyXModule,
   ExtractGetters,
   ExtractState,
   XModule,
   XModuleName,
-  XModulesTree
-} from '../x-modules/x-modules.types';
-import { ActionsDictionary, ActionsTree } from './actions.types';
-import { GettersTree } from './getters.types';
-import { MutationsDictionary, MutationsTree } from './mutations.types';
+  XModulesTree,
+} from '../x-modules/x-modules.types'
+import type { ActionsDictionary, ActionsTree } from './actions.types'
+import type { GettersTree } from './getters.types'
+import type { MutationsDictionary, MutationsTree } from './mutations.types'
 
 /**
  * Base X store state type. All {@link XStoreModule} are nested under the `x` module for safe
@@ -20,8 +20,8 @@ import { MutationsDictionary, MutationsTree } from './mutations.types';
  */
 export interface RootXStoreState {
   x: {
-    [Module in XModuleName]: ExtractState<Module>;
-  };
+    [Module in XModuleName]: ExtractState<Module>
+  }
 }
 
 /**
@@ -30,8 +30,8 @@ export interface RootXStoreState {
  * @public
  */
 export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state'> & {
-  getters: Dictionary;
-};
+  getters: Dictionary
+}
 
 /**
  * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.
@@ -40,10 +40,10 @@ export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state'> & {
  *
  * @public
  */
-export type StoreModuleStateAndGetters<ModuleName extends XModuleName> = {
-  state: ExtractState<ModuleName>;
-  getters: ExtractGetters<ModuleName>;
-};
+export interface StoreModuleStateAndGetters<ModuleName extends XModuleName> {
+  state: ExtractState<ModuleName>
+  getters: ExtractGetters<ModuleName>
+}
 
 /**
  * Type safe {@link https://vuex.vuejs.org/ | Vuex} store module.
@@ -100,12 +100,12 @@ export interface XStoreModule<
   State extends Record<keyof State, any>,
   Getters extends Record<keyof Getters, any>,
   Mutations extends MutationsDictionary<Mutations>,
-  Actions extends ActionsDictionary<Actions>
+  Actions extends ActionsDictionary<Actions>,
 > {
-  actions: ActionsTree<State, Getters, Mutations, Actions>;
-  getters: GettersTree<State, Getters>;
-  mutations: MutationsTree<State, Mutations>;
-  state: () => State;
+  actions: ActionsTree<State, Getters, Mutations, Actions>
+  getters: GettersTree<State, Getters>
+  mutations: MutationsTree<State, Mutations>
+  state: () => State
 }
 
 /**
@@ -114,7 +114,7 @@ export interface XStoreModule<
  *
  * @public
  */
-export type AnyXStoreModule = XStoreModule<any, any, any, any>;
+export type AnyXStoreModule = XStoreModule<any, any, any, any>
 
 /**
  * Extracts the mutations type from a XStoreModule.
@@ -122,11 +122,8 @@ export type AnyXStoreModule = XStoreModule<any, any, any, any>;
  * @param Module - The {@link XStoreModule} to extract its {@link MutationsDictionary}.
  * @public
  */
-export type ExtractMutations<Module extends AnyXModule> = Module extends XModule<
-  XStoreModule<any, any, infer Mutations, any>
->
-  ? Mutations
-  : never;
+export type ExtractMutations<Module extends AnyXModule> =
+  Module extends XModule<XStoreModule<any, any, infer Mutations, any>> ? Mutations : never
 
 /**
  * Extracts the actions type from a XStoreModule.
@@ -134,11 +131,8 @@ export type ExtractMutations<Module extends AnyXModule> = Module extends XModule
  * @param Module - The {@link XStoreModule} to extract its {@link ActionsDictionary}.
  * @public
  */
-export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
-  XStoreModule<any, any, any, infer Actions>
->
-  ? Actions
-  : never;
+export type ExtractActions<Module extends AnyXModule> =
+  Module extends XModule<XStoreModule<any, any, any, infer Actions>> ? Actions : never
 
 /**
  * Extracts the payload from any function with a single parameter.
@@ -148,7 +142,7 @@ export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
  */
 export type ExtractPayload<SomeFunction> = SomeFunction extends (payload?: any) => any
   ? Parameters<SomeFunction>[0]
-  : never;
+  : never
 
 /**
  * Returns the mutation names for a given module. They are the namespaced mutations.
@@ -158,7 +152,7 @@ export type ExtractPayload<SomeFunction> = SomeFunction extends (payload?: any) 
  */
 export type MutationNamesFor<ModuleName extends XModuleName> = keyof ExtractMutations<
   XModulesTree[ModuleName]
->;
+>
 
 /**
  * Returns the payload for a mutation given the module name and the mutation name.
@@ -169,8 +163,8 @@ export type MutationNamesFor<ModuleName extends XModuleName> = keyof ExtractMuta
  */
 export type ExtractMutationPayload<
   ModuleName extends XModuleName,
-  MutationName extends MutationNamesFor<ModuleName>
-> = ExtractPayload<ExtractMutations<XModulesTree[ModuleName]>[MutationName]>;
+  MutationName extends MutationNamesFor<ModuleName>,
+> = ExtractPayload<ExtractMutations<XModulesTree[ModuleName]>[MutationName]>
 
 /**
  * Returns the action names for a given module. They are the namespaced actions.
@@ -180,7 +174,7 @@ export type ExtractMutationPayload<
  */
 export type ActionNamesFor<ModuleName extends XModuleName> = keyof ExtractActions<
   XModulesTree[ModuleName]
->;
+>
 
 /**
  * Returns the payload for an action given the module name and the action name.
@@ -191,5 +185,5 @@ export type ActionNamesFor<ModuleName extends XModuleName> = keyof ExtractAction
  */
 export type ExtractActionPayload<
   ModuleName extends XModuleName,
-  ActionName extends ActionNamesFor<ModuleName>
-> = ExtractPayload<ExtractActions<XModulesTree[ModuleName]>[ActionName]>;
+  ActionName extends ActionNamesFor<ModuleName>,
+> = ExtractPayload<ExtractActions<XModulesTree[ModuleName]>[ActionName]>

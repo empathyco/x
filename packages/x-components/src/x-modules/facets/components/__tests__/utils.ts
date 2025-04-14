@@ -1,11 +1,12 @@
-import { Facet } from '@empathyco/x-types';
-import { DeepPartial, map } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { RootXStoreState } from '../../../../store/store.types';
-import { arrayToObject } from '../../../../utils/array';
-import { facetsXStoreModule as facetsXStoreModule } from '../../store/module';
-import { GroupId } from '../../store/types';
+import type { Facet } from '@empathyco/x-types'
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { GroupId } from '../../store/types'
+import { map } from '@empathyco/x-utils'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { arrayToObject } from '../../../../utils/array'
+import { facetsXStoreModule } from '../../store/module'
 
 /**
  * Reset facets x-module state with its original state and the partial state passes as
@@ -20,17 +21,17 @@ import { GroupId } from '../../store/types';
 export function resetXFacetsStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
   facets: Record<Facet['id'], Facet> = {},
-  groupId: GroupId = 'search'
+  groupId: GroupId = 'search',
 ): void {
   const filters = arrayToObject(
     Object.values(facets).flatMap(facet => facet.filters),
-    'id'
-  );
-  const groups = map(facets, () => groupId);
+    'id',
+  )
+  const groups = map(facets, () => groupId)
 
   resetStoreXModuleState(store, 'facets', facetsXStoreModule.state(), {
     facets,
     filters,
-    groups
-  });
+    groups,
+  })
 }

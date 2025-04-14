@@ -1,7 +1,7 @@
-import { Identifiable, NamedModel } from '@empathyco/x-types';
-import { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import { XEventsTypes } from '../wiring/events.types';
-import { XModuleName } from '../x-modules/x-modules.types';
+import type { Identifiable, NamedModel } from '@empathyco/x-types'
+import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
+import type { XEventsTypes } from '../wiring/events.types'
+import type { XModuleName } from '../x-modules/x-modules.types'
 
 /**
  * Extracts a sub-type with the properties of `SomeObject` that have the `TargetPropertyType` type.
@@ -23,8 +23,8 @@ import { XModuleName } from '../x-modules/x-modules.types';
 export type SubObject<SomeObject, TargetPropertyType> = {
   [Key in keyof SomeObject as SomeObject[Key] extends TargetPropertyType
     ? Key
-    : never]: TargetPropertyType & SomeObject[Key];
-};
+    : never]: TargetPropertyType & SomeObject[Key]
+}
 
 /**
  * Extracts the name of the properties of an object that match a type.
@@ -44,28 +44,28 @@ export type SubObject<SomeObject, TargetPropertyType> = {
  * @public
  */
 export type PropsWithType<SomeObject, TargetItem> = keyof SomeObject &
-  keyof SubObject<SomeObject, TargetItem>;
+  keyof SubObject<SomeObject, TargetItem>
 
 /**
  * A function with no parameters that can return anything.
  *
  * @public
  */
-export type NiladicFunction = () => any;
+export type NiladicFunction = () => any
 
 /**
  * A function with a single parameter that can return anything.
  *
  * @public
  */
-export type MonadicFunction = (someParam: any) => any;
+export type MonadicFunction = (someParam: any) => any
 
 /**
  * Alias to retrieve the first parameter type of a function.
  *
  * @public
  */
-export type FirstParameter<SomeFunction extends AnyFunction> = Parameters<SomeFunction>[0];
+export type FirstParameter<SomeFunction extends AnyFunction> = Parameters<SomeFunction>[0]
 
 /**
  * Extracts the return type of each property of the T object.
@@ -74,8 +74,8 @@ export type FirstParameter<SomeFunction extends AnyFunction> = Parameters<SomeFu
  * @public
  */
 export type Returns<T extends Dictionary<AnyFunction>> = {
-  [K in keyof T]: ReturnType<T[K]>;
-};
+  [K in keyof T]: ReturnType<T[K]>
+}
 
 /**
  * Creates a decorator that will only work for properties of the type passed. The decorator will
@@ -86,29 +86,29 @@ export type Returns<T extends Dictionary<AnyFunction>> = {
  */
 export type DecoratorFor<Type> = <Key extends string, Target extends Record<Key, Type>>(
   target: Target,
-  key: Key
-) => void;
+  key: Key,
+) => void
 
 /**
  * Union type containing the existing arrow keys.
  *
  * @public
  */
-export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';
+export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft'
 
 /**
  * Union type containing supported Vue dynamic classes.
  *
  * @public
  */
-export type VueCSSClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[];
+export type VueCSSClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[]
 
 /**
  * Represents a pair of values of the same type in an array.
  *
  * @public
  */
-export type Pair<Type> = [Type, Type];
+export type Pair<Type> = [Type, Type]
 
 /**
  * Represents when to take control of the navigation.
@@ -118,11 +118,11 @@ export type Pair<Type> = [Type, Type];
  *
  * @public
  */
-export type TakeNavigationControl = {
-  xEvent: PropsWithType<XEventsTypes, ArrowKey>;
-  moduleName: XModuleName;
-  direction: ArrowKey;
-};
+export interface TakeNavigationControl {
+  xEvent: PropsWithType<XEventsTypes, ArrowKey>
+  moduleName: XModuleName
+  direction: ArrowKey
+}
 
 /**
  * Events to emit when reaching the {@link ArrowKey | direction} limit.
@@ -130,8 +130,8 @@ export type TakeNavigationControl = {
  * @public
  */
 export type EventsForDirectionLimit = {
-  [key in ArrowKey]: PropsWithType<XEventsTypes, void>;
-};
+  [key in ArrowKey]: PropsWithType<XEventsTypes, void>
+}
 
 /**
  * Type representing a grid item. It has to be an
@@ -140,7 +140,7 @@ export type EventsForDirectionLimit = {
  *
  * @public
  */
-export type ListItem = Identifiable & NamedModel;
+export type ListItem = Identifiable & NamedModel
 
 /**
  * The type returned by the {@link debounce} function. Basically is the function the
@@ -151,8 +151,8 @@ export type ListItem = Identifiable & NamedModel;
  * @public
  */
 export interface DebouncedFunction<Params extends any[]> {
-  (...args: Params): void;
-  cancel(): void;
+  (...args: Params): void
+  cancel: () => void
 }
 
 /**
@@ -161,8 +161,8 @@ export interface DebouncedFunction<Params extends any[]> {
  * @public
  */
 export interface DebounceOptions {
-  leading?: boolean;
-  trailing?: boolean;
+  leading?: boolean
+  trailing?: boolean
 }
 
 /**
@@ -174,7 +174,7 @@ export interface DebounceOptions {
  * @public
  */
 export interface ThrottleFunction<Params extends any[]> {
-  (...args: Params): void;
+  (...args: Params): void
 }
 
 /**
@@ -182,4 +182,4 @@ export interface ThrottleFunction<Params extends any[]> {
  *
  * @public
  */
-export type MaybeArray<Something> = Something | Array<Something>;
+export type MaybeArray<Something> = Something | Array<Something>

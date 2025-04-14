@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `circle` variant for component `badge`.
@@ -17,11 +17,11 @@ export function badgeCircle({ theme }: TailwindHelpers) {
       width: theme('x.spacing.24'),
 
       '&.badge-sm': {
-        width: theme('x.spacing.20')
+        width: theme('x.spacing.20'),
       },
       '&.badge-md': {
-        width: theme('x.spacing.24')
-      }
-    }
-  };
+        width: theme('x.spacing.24'),
+      },
+    },
+  }
 }

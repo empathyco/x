@@ -1,8 +1,8 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { RelatedPromptsResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { PlatformRelatedPromptsResponse } from '../../types/responses/related-prompts-response.model';
-import { relatedPromptSchema } from '../models/related-prompt.schema';
+import type { RelatedPromptsResponse } from '@empathyco/x-types'
+import type { PlatformRelatedPromptsResponse } from '../../types/responses/related-prompts-response.model'
+
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { relatedPromptSchema } from '../models/related-prompt.schema'
 
 /**
  * Default implementation for the RelatedPromptsResponseSchema.
@@ -15,6 +15,6 @@ export const relatedPromptsResponseSchema = createMutableSchema<
 >({
   relatedPrompts: {
     $path: 'data.relatedprompts',
-    $subSchema: relatedPromptSchema
-  }
-});
+    $subSchema: relatedPromptSchema,
+  },
+})

@@ -1,22 +1,23 @@
 <script lang="ts">
-  import { defineComponent, PropType, provide } from 'vue';
-  import { TaggingRequest } from '@empathyco/x-types';
+import type { TaggingRequest } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent, provide } from 'vue'
 
-  export default defineComponent({
-    name: 'DisplayResultProvider',
-    props: {
-      queryTagging: Object as PropType<TaggingRequest>
-    },
-    setup(props, { slots }) {
-      provide('resultClickExtraEvents', ['UserClickedADisplayResult']);
+export default defineComponent({
+  name: 'DisplayResultProvider',
+  props: {
+    queryTagging: Object as PropType<TaggingRequest>,
+  },
+  setup(props, { slots }) {
+    provide('resultClickExtraEvents', ['UserClickedADisplayResult'])
 
-      provide('resultLinkMetadataPerEvent', {
-        UserClickedADisplayResult: {
-          queryTagging: props.queryTagging
-        }
-      });
+    provide('resultLinkMetadataPerEvent', {
+      UserClickedADisplayResult: {
+        queryTagging: props.queryTagging,
+      },
+    })
 
-      return () => slots.default?.()[0] ?? '';
-    }
-  });
+    return () => slots.default?.()[0] ?? ''
+  },
+})
 </script>

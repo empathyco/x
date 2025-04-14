@@ -2,16 +2,14 @@
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
+    class="x-result-picture x-picture"
+    data-test="result-picture"
     @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
-    class="x-result-picture x-picture"
-    data-test="result-picture"
   >
     <img
       v-if="shouldLoadNextImage"
-      @load="flagImageLoaded"
-      @error="flagImageAsFailed"
       loading="lazy"
       :src="pendingImages[0]"
       :style="loaderStyles"
@@ -19,6 +17,8 @@
       data-test="result-picture-loader"
       alt=""
       role="presentation"
+      @load="flagImageLoaded"
+      @error="flagImageAsFailed"
     />
     <component :is="animation" class="x-picture-image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
@@ -40,195 +40,194 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
-  import { NoAnimation } from '../animations';
-  import { AnimationProp } from '../../types';
+import type { Result } from '@empathyco/x-types'
+import type { PropType, Ref } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
+import { AnimationProp } from '../../types'
+import { NoAnimation } from '../animations'
 
-  /**
-   * Component to be reused that renders an `<img>`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseResultImage',
-    props: {
-      /** (Required) The {@link @empathyco/x-types#Result} information. */
-      result: {
-        type: Object as PropType<Result>,
-        required: true
-      },
-      /**
-       * Animation to use when switching between the placeholder, the loaded image, or the failed
-       * image fallback.
-       */
-      loadAnimation: {
-        type: AnimationProp,
-        default: () => NoAnimation
-      },
-      /** Animation to use when switching between the loaded image and the hover image. */
-      hoverAnimation: {
-        type: AnimationProp
-      },
-      /**
-       * Indicates if the next valid image should be displayed on hover.
-       *
-       * @public
-       */
-      showNextImageOnHover: {
-        type: Boolean,
-        default: false
-      }
+/**
+ * Component to be reused that renders an `<img>`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseResultImage',
+  props: {
+    /** (Required) The {@link @empathyco/x-types#Result} information. */
+    result: {
+      type: Object as PropType<Result>,
+      required: true,
     },
-    setup(props) {
-      /**
-       * Copy of the images of the result.
-       *
-       * It is used as a queue of images to load, once an image loads/fails to load, it is removed
-       * from this array.
-       *
-       * @internal
-       */
-      const pendingImages: Ref<string[]> = ref([]);
+    /**
+     * Animation to use when switching between the placeholder, the loaded image, or the failed
+     * image fallback.
+     */
+    loadAnimation: {
+      type: AnimationProp,
+      default: () => NoAnimation,
+    },
+    /** Animation to use when switching between the loaded image and the hover image. */
+    hoverAnimation: {
+      type: AnimationProp,
+    },
+    /**
+     * Indicates if the next valid image should be displayed on hover.
+     *
+     * @public
+     */
+    showNextImageOnHover: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    /**
+     * Copy of the images of the result.
+     *
+     * It is used as a queue of images to load, once an image loads/fails to load, it is removed
+     * from this array.
+     *
+     * @internal
+     */
+    const pendingImages: Ref<string[]> = ref([])
 
-      /**
-       * Contains the images that have been loaded successfully.
-       *
-       * @internal
-       */
-      const loadedImages: Ref<string[]> = ref([]);
+    /**
+     * Contains the images that have been loaded successfully.
+     *
+     * @internal
+     */
+    const loadedImages: Ref<string[]> = ref([])
 
-      /**
-       * Indicates if the user is hovering the image.
-       *
-       * @internal
-       */
-      const isHovering = ref(false);
+    /**
+     * Indicates if the user is hovering the image.
+     *
+     * @internal
+     */
+    const isHovering = ref(false)
 
-      /**
-       * Indicates if the user has hovered the image.
-       *
-       * @internal
-       */
-      const userHasHoveredImage = ref(false);
+    /**
+     * Indicates if the user has hovered the image.
+     *
+     * @internal
+     */
+    const userHasHoveredImage = ref(false)
 
-      /**.
-       * Styles to use inline in the image loader, to prevent override from CSS
-       *
-       * @internal
-       */
-      const loaderStyles: Partial<CSSStyleDeclaration> = {
-        position: 'absolute !important',
-        top: '0 !important',
-        left: '0 !important',
-        width: '100% !important',
-        height: '100% !important',
-        pointerEvents: 'none !important',
-        visibility: 'hidden !important'
-      };
-
-      /**
-       * Initializes images state and resets when the result's images change.
-       *
-       * @internal
-       */
-      watch(
-        () => props.result.images,
-        () => {
-          pendingImages.value = [...(props.result.images ?? [])];
-          loadedImages.value = pendingImages.value.filter(image =>
-            loadedImages.value.includes(image)
-          );
-        },
-        { immediate: true }
-      );
-
-      /**
-       * Animation to be used.
-       *
-       * @returns The animation to be used, taking into account if the user has hovered the image.
-       *
-       * @internal
-       */
-      const animation = computed(() => {
-        return userHasHoveredImage.value
-          ? props.hoverAnimation ?? props.loadAnimation
-          : props.loadAnimation;
-      });
-
-      /**
-       * Gets the src from the result image.
-       *
-       * @returns The result image src.
-       *
-       * @internal
-       */
-      const imageSrc = computed(() => {
-        return loadedImages.value[
-          !props.showNextImageOnHover || !isHovering.value ? 0 : loadedImages.value.length - 1
-        ];
-      });
-
-      /**
-       * Indicates if the loader should try to load the next image.
-       *
-       * @returns True if it should try to load the next image.
-       *
-       * @internal
-       */
-      const shouldLoadNextImage = computed(() => {
-        const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage.value ? 2 : 1;
-        return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad;
-      });
-
-      /**
-       * Sets an image as failed.
-       *
-       * @internal
-       */
-      const flagImageAsFailed = () => {
-        pendingImages.value.shift();
-      };
-
-      /**
-       * Sets an image as loaded.
-       *
-       * @internal
-       */
-      const flagImageLoaded = () => {
-        const image = pendingImages.value.shift();
-        if (image) {
-          loadedImages.value.push(image);
-        }
-      };
-
-      return {
-        pendingImages,
-        loadedImages,
-        isHovering,
-        userHasHoveredImage,
-        loaderStyles,
-        animation,
-        imageSrc,
-        shouldLoadNextImage,
-        flagImageAsFailed,
-        flagImageLoaded
-      };
+    /**.
+     * Styles to use inline in the image loader, to prevent override from CSS
+     *
+     * @internal
+     */
+    const loaderStyles: Partial<CSSStyleDeclaration> = {
+      position: 'absolute !important',
+      top: '0 !important',
+      left: '0 !important',
+      width: '100% !important',
+      height: '100% !important',
+      pointerEvents: 'none !important',
+      visibility: 'hidden !important',
     }
-  });
+
+    /**
+     * Initializes images state and resets when the result's images change.
+     *
+     * @internal
+     */
+    watch(
+      () => props.result.images,
+      () => {
+        pendingImages.value = [...(props.result.images ?? [])]
+        loadedImages.value = pendingImages.value.filter(image => loadedImages.value.includes(image))
+      },
+      { immediate: true },
+    )
+
+    /**
+     * Animation to be used.
+     *
+     * @returns The animation to be used, taking into account if the user has hovered the image.
+     *
+     * @internal
+     */
+    const animation = computed(() => {
+      return userHasHoveredImage.value
+        ? (props.hoverAnimation ?? props.loadAnimation)
+        : props.loadAnimation
+    })
+
+    /**
+     * Gets the src from the result image.
+     *
+     * @returns The result image src.
+     *
+     * @internal
+     */
+    const imageSrc = computed(() => {
+      return loadedImages.value[
+        !props.showNextImageOnHover || !isHovering.value ? 0 : loadedImages.value.length - 1
+      ]
+    })
+
+    /**
+     * Indicates if the loader should try to load the next image.
+     *
+     * @returns True if it should try to load the next image.
+     *
+     * @internal
+     */
+    const shouldLoadNextImage = computed(() => {
+      const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage.value ? 2 : 1
+      return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad
+    })
+
+    /**
+     * Sets an image as failed.
+     *
+     * @internal
+     */
+    const flagImageAsFailed = () => {
+      pendingImages.value.shift()
+    }
+
+    /**
+     * Sets an image as loaded.
+     *
+     * @internal
+     */
+    const flagImageLoaded = () => {
+      const image = pendingImages.value.shift()
+      if (image) {
+        loadedImages.value.push(image)
+      }
+    }
+
+    return {
+      pendingImages,
+      loadedImages,
+      isHovering,
+      userHasHoveredImage,
+      loaderStyles,
+      animation,
+      imageSrc,
+      shouldLoadNextImage,
+      flagImageAsFailed,
+      flagImageLoaded,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-result-picture {
-    position: relative;
-    min-width: 1px;
-    min-height: 1px;
-  }
+.x-result-picture {
+  position: relative;
+  min-width: 1px;
+  min-height: 1px;
+}
 
-  .x-result-picture-image {
-    max-width: 100%;
-    max-height: 100%;
-  }
+.x-result-picture-image {
+  max-width: 100%;
+  max-height: 100%;
+}
 </style>
 
 <docs lang="mdx">
@@ -295,25 +294,25 @@ The `hoverAnimation` is used to transition between the image and the hover image
 </template>
 
 <script>
-  import { BaseResultImage } from '@empathyco/x-components';
-  import { CrossFade, CollapseHeight } from '@empathyco/x-components/animations';
+import { BaseResultImage } from '@empathyco/x-components'
+import { CrossFade, CollapseHeight } from '@empathyco/x-components/animations'
 
-  export default {
-    name: 'BaseResultImageAnimations',
-    components: {
-      BaseResultImage
-    },
-    data() {
-      return {
-        loadAnimation: CrossFade,
-        hoverAnimation: CollapseHeight,
-        result: {
-          name: 'jacket',
-          images: ['https://some-image', 'https://some-image-2']
-        }
-      };
+export default {
+  name: 'BaseResultImageAnimations',
+  components: {
+    BaseResultImage,
+  },
+  data() {
+    return {
+      loadAnimation: CrossFade,
+      hoverAnimation: CollapseHeight,
+      result: {
+        name: 'jacket',
+        images: ['https://some-image', 'https://some-image-2'],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

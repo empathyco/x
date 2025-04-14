@@ -7,5 +7,5 @@ export interface RecommendationsConfig {
   /**
    * Number of result recommendations that will be requested.
    */
-  maxItemsToRequest: number;
+  maxItemsToRequest: number
 }

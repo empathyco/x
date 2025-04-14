@@ -1,18 +1,19 @@
-import { forEach, isFunction } from '@empathyco/x-utils';
-import { App, createApp, reactive, Plugin } from 'vue';
-import { XBus } from '@empathyco/x-bus';
-import { XPlugin } from '../../plugins/x-plugin';
-import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
-import { BaseXAPI } from '../api/base-api';
-import { WireMetadata, XEventsTypes } from '../../wiring/index';
-import { bus } from '../../plugins/x-bus';
-import { InitWrapper, InstallXOptions } from './types';
+import type { XBus } from '@empathyco/x-bus'
+import type { App, Plugin } from 'vue'
+import type { XPluginOptions } from '../../plugins/x-plugin.types'
+import type { WireMetadata, XEventsTypes } from '../../wiring/index'
+import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types'
+import type { InitWrapper, InstallXOptions } from './types'
+import { forEach, isFunction } from '@empathyco/x-utils'
+import { createApp, reactive } from 'vue'
+import { bus } from '../../plugins/x-bus'
+import { XPlugin } from '../../plugins/x-plugin'
+import { BaseXAPI } from '../api/base-api'
 
 declare global {
   interface Window {
-    InterfaceX?: XAPI;
-    initX?: (() => SnippetConfig) | SnippetConfig;
+    InterfaceX?: XAPI
+    initX?: (() => SnippetConfig) | SnippetConfig
   }
 }
 
@@ -88,15 +89,15 @@ declare global {
  * @public
  */
 export class XInstaller {
-  private app!: App;
-  private api?: XAPI;
+  private app!: App
+  private api?: XAPI
 
   /**
    * The configuration coming from the snippet {@link SnippetConfig}.
    *
    * @internal
    */
-  protected snippetConfig?: NormalisedSnippetConfig;
+  protected snippetConfig?: NormalisedSnippetConfig
 
   /**
    * Receives the {@link InstallXOptions} and merges it with the default fallback options. Also
@@ -111,7 +112,7 @@ export class XInstaller {
    * @public
    */
   public constructor(protected readonly options: InstallXOptions) {
-    this.createAPI();
+    this.createAPI()
   }
 
   /**
@@ -122,13 +123,14 @@ export class XInstaller {
    * @internal
    */
   protected createAPI(): void {
-    const { api } = this.options;
+    const { api } = this.options
     if (api !== false) {
-      this.api = api ?? new BaseXAPI();
-      this.api.setInitCallback(this.init.bind(this));
-      this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this));
-      this.api.setSnippetConfigGetter(this.getSnippetConfig.bind(this));
-      window.InterfaceX = this.api;
+      this.api = api ?? new BaseXAPI()
+      // eslint-disable-next-line ts/no-misused-promises
+      this.api.setInitCallback(this.init.bind(this))
+      this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this))
+      this.api.setSnippetConfigGetter(this.getSnippetConfig.bind(this))
+      window.InterfaceX = this.api
     }
   }
 
@@ -141,9 +143,9 @@ export class XInstaller {
    */
   private retrieveSnippetConfig(): SnippetConfig | undefined {
     if (typeof window.initX === 'function') {
-      return window.initX();
+      return window.initX()
     } else if (typeof window.initX === 'object') {
-      return window.initX;
+      return window.initX
     }
   }
 
@@ -154,33 +156,33 @@ export class XInstaller {
    * @param snippetConfig - The {@link SnippetConfig} that receives from snippet integration.
    *
    * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
-   * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link XPlugin}
+   * returns an object with the {@link XAPI}, the XBus, the {@link XPlugin}
    * and the Vue application instance. Else, a rejected promise is returned.
    *
    * @public
    */
-  init(snippetConfig: SnippetConfig): Promise<InitWrapper>;
-  init(): Promise<InitWrapper | void>;
+  init(snippetConfig: SnippetConfig): Promise<InitWrapper>
+  init(): Promise<InitWrapper | void>
   async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
     if (snippetConfig) {
-      this.snippetConfig = reactive(this.normaliseSnippetConfig(snippetConfig));
-      this.createApp();
-      const bus = this.createBus();
-      const pluginOptions = this.getPluginOptions();
-      const plugin = this.installPlugin(pluginOptions, bus);
-      await this.installExtraPlugins(bus);
-      this.api?.setBus(bus);
-      this.app.mount(this.getMountingTarget(this.options.domElement));
+      this.snippetConfig = reactive(this.normaliseSnippetConfig(snippetConfig))
+      this.createApp()
+      const bus = this.createBus()
+      const pluginOptions = this.getPluginOptions()
+      const plugin = this.installPlugin(pluginOptions, bus)
+      await this.installExtraPlugins(bus)
+      this.api?.setBus(bus)
+      this.app.mount(this.getMountingTarget(this.options.domElement))
 
       return {
         api: this.api,
         app: this.app,
         bus,
-        plugin
-      };
+        plugin,
+      }
     }
 
-    return Promise.resolve();
+    return Promise.resolve()
   }
 
   /**
@@ -191,14 +193,14 @@ export class XInstaller {
    * @internal
    */
   protected getPluginOptions(): XPluginOptions {
-    const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options;
+    const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options
     return {
       adapter,
       store,
       xModules,
       initialXModules,
-      __PRIVATE__xModules
-    };
+      __PRIVATE__xModules,
+    }
   }
 
   /**
@@ -211,7 +213,7 @@ export class XInstaller {
    * @internal
    */
   protected createBus(): XBus<XEventsTypes, WireMetadata> {
-    return this.options.bus ?? bus;
+    return this.options.bus ?? bus
   }
 
   /**
@@ -221,18 +223,18 @@ export class XInstaller {
    *
    * @param pluginOptions - The {@link XPluginOptions} to passed as parameter to the install method
    * of the plugin.
-   * @param bus - The {@link @empathyco/x-bus#XBus} to be used to create the XPlugin.
+   * @param bus - The XBus to be used to create the XPlugin.
    *
    * @returns Plugin<XPluginOption> - The plugin instance.
    * @internal
    */
   protected installPlugin(
     pluginOptions: XPluginOptions,
-    bus: XBus<XEventsTypes, WireMetadata>
+    bus: XBus<XEventsTypes, WireMetadata>,
   ): Plugin<XPluginOptions> {
-    const plugin = this.options.plugin ?? new XPlugin(bus);
-    this.app.use(plugin, pluginOptions);
-    return plugin;
+    const plugin = this.options.plugin ?? new XPlugin(bus)
+    this.app.use(plugin, pluginOptions)
+    return plugin
   }
 
   /**
@@ -243,10 +245,10 @@ export class XInstaller {
    * @returns An empty promise.
    * @internal
    */
-  protected installExtraPlugins(bus: XBus<XEventsTypes, WireMetadata>): Promise<void> {
+  protected async installExtraPlugins(bus: XBus<XEventsTypes, WireMetadata>): Promise<void> {
     return Promise.resolve(
-      this.options.installExtraPlugins?.({ app: this.app, snippet: this.snippetConfig!, bus })
-    );
+      this.options.installExtraPlugins?.({ app: this.app, snippet: this.snippetConfig!, bus }),
+    )
   }
 
   /**
@@ -257,14 +259,14 @@ export class XInstaller {
    */
   protected createApp(): void {
     if (this.options.rootComponent !== undefined) {
-      this.app = createApp(this.options.rootComponent);
-      this.app.provide('snippetConfig', this.snippetConfig);
-      this.options.onCreateApp?.(this.app);
+      this.app = createApp(this.options.rootComponent)
+      this.app.provide('snippetConfig', this.snippetConfig)
+      this.options.onCreateApp?.(this.app)
     }
   }
 
-  protected normaliseSnippetConfig(snippetConfig: SnippetConfig): NormalisedSnippetConfig;
-  protected normaliseSnippetConfig(snippetConfig: Partial<SnippetConfig>): Partial<SnippetConfig>;
+  protected normaliseSnippetConfig(snippetConfig: SnippetConfig): NormalisedSnippetConfig
+  protected normaliseSnippetConfig(snippetConfig: Partial<SnippetConfig>): Partial<SnippetConfig>
   /**
    * Transforms the snippet configuration.
    * - If `lang` is provided and `uiLang` is not, it sets `uiLang=lang`.
@@ -274,12 +276,12 @@ export class XInstaller {
    * @internal
    */
   protected normaliseSnippetConfig(
-    snippetConfig: SnippetConfig | Partial<SnippetConfig>
+    snippetConfig: SnippetConfig | Partial<SnippetConfig>,
   ): NormalisedSnippetConfig | Partial<SnippetConfig> {
     if (snippetConfig.lang) {
-      snippetConfig.uiLang ??= snippetConfig.lang;
+      snippetConfig.uiLang ??= snippetConfig.lang
     }
-    return snippetConfig;
+    return snippetConfig
   }
 
   /**
@@ -297,18 +299,18 @@ export class XInstaller {
    */
   protected getMountingTarget(domElement?: InstallXOptions['domElement']): Element | ShadowRoot {
     if (isFunction(domElement)) {
-      domElement = domElement(this.snippetConfig!);
+      domElement = domElement(this.snippetConfig!)
     }
     if (typeof domElement === 'string') {
-      const target = document.querySelector(domElement);
+      const target = document.querySelector(domElement)
       if (!target) {
-        throw Error(
-          `XComponents app couldn't be mounted: Element "${domElement}" couldn't be found`
-        );
+        throw new Error(
+          `XComponents app couldn't be mounted: Element "${domElement}" couldn't be found`,
+        )
       }
-      return target;
+      return target
     }
-    return domElement ?? document.body.appendChild(document.createElement('div'));
+    return domElement ?? document.body.appendChild(document.createElement('div'))
   }
 
   /**
@@ -320,11 +322,11 @@ export class XInstaller {
    */
   protected updateSnippetConfig(newSnippetConfig: Partial<SnippetConfig>): void {
     if (!this.snippetConfig) {
-      return;
+      return
     }
     forEach(this.normaliseSnippetConfig(newSnippetConfig), (name, value) => {
-      this.snippetConfig![name] = value;
-    });
+      this.snippetConfig![name] = value
+    })
   }
 
   /**
@@ -335,6 +337,6 @@ export class XInstaller {
    * @public
    */
   protected getSnippetConfig(): NormalisedSnippetConfig {
-    return this.snippetConfig!;
+    return this.snippetConfig!
   }
 }

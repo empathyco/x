@@ -1,6 +1,7 @@
-import { setupDevtoolsPlugin, App } from '@vue/devtools-api';
-import { setupTimelinePlugin } from './timeline.devtools';
-import { setupWiringDevtools } from './wiring.devtools';
+import type { App } from '@vue/devtools-api'
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
+import { setupTimelinePlugin } from './timeline.devtools'
+import { setupWiringDevtools } from './wiring.devtools'
 
 /**
  * Setups a plugin for the Vue's devtools adding:
@@ -19,13 +20,14 @@ export function setupDevtools(app: App): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      app
+      // eslint-disable-next-line ts/no-unsafe-assignment
+      app,
     },
     api => {
       if (api) {
-        setupTimelinePlugin(api);
-        setupWiringDevtools(api);
+        setupTimelinePlugin(api)
+        setupWiringDevtools(api)
       }
-    }
-  );
+    },
+  )
 }

@@ -1,11 +1,11 @@
 <template>
   <BaseSuggestion
+    v-slot="baseScope"
     :query="query"
     :suggestion="suggestion"
-    :suggestionSelectedEvents="suggestionSelectedEvents"
+    :suggestion-selected-events="suggestionSelectedEvents"
     feature="semantics"
     data-test="semantic-query"
-    #default="baseScope"
   >
     <!-- eslint-disable max-len -->
     <!--
@@ -18,46 +18,47 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { SemanticQuery } from '@empathyco/x-types';
-  import { semanticQueriesXModule } from '../x-module';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { useGetter } from '../../../composables/use-getter';
+import type { SemanticQuery } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { semanticQueriesXModule } from '../x-module'
 
-  /**
-   * This component renders a semantic query. A semantic query is a recommended query
-   * that is similar in its meaning to another one.
-   * It contains the query and the distance, which indicates how similar the query is
-   * compared to the searched query.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'SemanticQuery',
-    xModule: semanticQueriesXModule.name,
-    components: { BaseSuggestion },
-    props: {
-      /** The {@link @empathyco/x-types#SemanticQuery} to render. */
-      suggestion: {
-        type: Object as PropType<SemanticQuery>,
-        required: true
-      }
+/**
+ * This component renders a semantic query. A semantic query is a recommended query
+ * that is similar in its meaning to another one.
+ * It contains the query and the distance, which indicates how similar the query is
+ * compared to the searched query.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'SemanticQuery',
+  xModule: semanticQueriesXModule.name,
+  components: { BaseSuggestion },
+  props: {
+    /** The {@link @empathyco/x-types#SemanticQuery} to render. */
+    suggestion: {
+      type: Object as PropType<SemanticQuery>,
+      required: true,
     },
-    setup(props) {
-      /** The normalized query of the semantic queries module. */
-      const query = useGetter('semanticQueries', ['normalizedQuery']).normalizedQuery;
+  },
+  setup(props) {
+    /** The normalized query of the semantic queries module. */
+    const query = useGetter('semanticQueries', ['normalizedQuery']).normalizedQuery
 
-      /** The list of events that are going to be emitted when the button is pressed. */
-      const suggestionSelectedEvents = {
-        UserSelectedASemanticQuery: props.suggestion
-      };
-
-      return {
-        query,
-        suggestionSelectedEvents
-      };
+    /** The list of events that are going to be emitted when the button is pressed. */
+    const suggestionSelectedEvents = {
+      UserSelectedASemanticQuery: props.suggestion,
     }
-  });
+
+    return {
+      query,
+      suggestionSelectedEvents,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -79,23 +80,23 @@ Here you can see that the semantic query query is rendered.
 </template>
 
 <script>
-  import { SemanticQuery } from '@empathyco/x-components/semantic-queries';
+import { SemanticQuery } from '@empathyco/x-components/semantic-queries'
 
-  export default {
-    name: 'SemanticQueryDemo',
-    components: {
-      SemanticQuery
-    },
-    data() {
-      return {
-        semanticQuery: {
-          modelName: 'SemanticQuery',
-          query: 'jacket',
-          distance: 2
-        }
-      };
+export default {
+  name: 'SemanticQueryDemo',
+  components: {
+    SemanticQuery,
+  },
+  data() {
+    return {
+      semanticQuery: {
+        modelName: 'SemanticQuery',
+        query: 'jacket',
+        distance: 2,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -112,23 +113,23 @@ In this example, we add the distance of the semantic query next to the query.
 </template>
 
 <script>
-  import { SemanticQuery } from '@empathyco/x-components/semantic-queries';
+import { SemanticQuery } from '@empathyco/x-components/semantic-queries'
 
-  export default {
-    name: 'SemanticQueryDemoDefaultSlot',
-    components: {
-      SemanticQuery
-    },
-    data() {
-      return {
-        semanticQuery: {
-          modelName: 'SemanticQuery',
-          query: 'jacket',
-          distance: 2
-        }
-      };
+export default {
+  name: 'SemanticQueryDemoDefaultSlot',
+  components: {
+    SemanticQuery,
+  },
+  data() {
+    return {
+      semanticQuery: {
+        modelName: 'SemanticQuery',
+        query: 'jacket',
+        distance: 2,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

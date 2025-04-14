@@ -6,7 +6,7 @@
  * @public
  */
 export const getURLParameter = (param: string): string | null => {
-  const regex = new RegExp(`[?|&]${param}=([^&;]+?)(&|#|;|$)`);
-  const paramValue = regex.exec(window.location.href);
-  return paramValue ? decodeURIComponent(paramValue[1].replace(/\+/g, '%20')) : null;
-};
+  const regex = new RegExp(`[?|&]${param}=([^&;]+?)(&|#|;|$)`)
+  const paramValue = regex.exec(window.location.href)
+  return paramValue ? decodeURIComponent(paramValue[1].replace(/\+/g, '%20')) : null
+}

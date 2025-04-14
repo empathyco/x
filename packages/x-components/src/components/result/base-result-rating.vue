@@ -2,11 +2,11 @@
   <component
     :is="link ? 'a' : 'div'"
     v-if="result.rating && result.rating.value"
-    ref="el"
-    @click="emitClickedEvent"
+    :ref="el"
     :href="link"
     class="x-result-rating"
     data-test="result-rating"
+    @click="emitClickedEvent"
   >
     <!--
       @slot To override the whole content
@@ -32,69 +32,72 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue';
-  import { Result } from '@empathyco/x-types';
-  import BaseRating from '../base-rating.vue';
-  import { use$x } from '../../composables/index';
+import type { Result } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { use$x } from '../../composables/index'
+import BaseRating from '../base-rating.vue'
 
-  /**
-   * This component renders a {@link BaseRating} for a result passed as prop.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseRating
+/**
+ * This component renders a {@link BaseRating} for a result passed as prop.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseRating,
+  },
+  inheritAttrs: false,
+  props: {
+    /**
+     * The {@link @empathyco/x-types#Result} to render its rating.
+     *
+     * @public
+     */
+    result: {
+      type: Object as PropType<Result>,
+      required: true,
     },
-    inheritAttrs: false,
-    props: {
-      /**
-       * The {@link @empathyco/x-types#Result} to render its rating.
-       *
-       * @public
-       */
-      result: {
-        type: Object as PropType<Result>,
-        required: true
-      },
 
-      /**
-       * A link to redirect when rating is clicked.
-       *
-       * @public
-       */
-      link: {
-        type: String
-      }
+    /**
+     * A link to redirect when rating is clicked.
+     *
+     * @public
+     */
+    link: {
+      type: String,
     },
-    setup(props) {
-      const $x = use$x();
+  },
+  setup(props) {
+    const $x = use$x()
 
-      /**
-       * Emits the `UserClickedAResultRating` event when user clicks this component, with the
-       * {@link @empathyco/x-types#Result} as payload.
-       *
-       * @internal
-       */
-      const emitClickedEvent = (): void => {
-        const el = ref<HTMLElement | null>(null);
-        $x.emit('UserClickedAResultRating', props.result, {
-          target: el.value!
-        });
-      };
+    const el = ref<HTMLElement | null>()
 
-      return {
-        emitClickedEvent
-      };
+    /**
+     * Emits the `UserClickedAResultRating` event when user clicks this component, with the
+     * {@link @empathyco/x-types#Result} as payload.
+     *
+     * @internal
+     */
+    const emitClickedEvent = (): void => {
+      $x.emit('UserClickedAResultRating', props.result, {
+        target: el.value!,
+      })
     }
-  });
+
+    return {
+      el,
+      emitClickedEvent,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-result-rating {
-    color: inherit;
-    text-decoration: none;
-  }
+.x-result-rating {
+  color: inherit;
+  text-decoration: none;
+}
 </style>
 
 <docs lang="mdx">
@@ -114,23 +117,23 @@ Here you have a basic example of how the result rating is rendered.
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -144,23 +147,23 @@ In this example, the result rating has been configured to 6 as maximum value usi
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -172,23 +175,23 @@ In this example, the result rating has been configured with a link to redirect w
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -202,28 +205,28 @@ In this example, a message has been added to be shown when the result rating is 
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
-    },
-    methods: {
-      logUserClickedRating(result) {
-        console.log('User clickedRating of this result:', result);
-      }
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+  methods: {
+    logUserClickedRating(result) {
+      console.log('User clickedRating of this result:', result)
+    },
+  },
+}
 </script>
 ```
 
@@ -241,23 +244,23 @@ states (filled and empty), must have the same size make component work properly.
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -273,23 +276,23 @@ link and event behaviour:
 </template>
 
 <script>
-  import { BaseResultRating } from '@empathyco/x-components';
+import { BaseResultRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -304,24 +307,24 @@ Even it is possible to reuse our rating component:
 </template>
 
 <script>
-  import { BaseResultRating, BaseRating } from '@empathyco/x-components';
+import { BaseResultRating, BaseRating } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultRatingDemo',
-    components: {
-      BaseResultRating,
-      BaseRating
-    },
-    data() {
-      return {
-        result: {
-          id: 1,
-          name: 'Result with rating',
-          rating: { value: 3 }
-        }
-      };
+export default {
+  name: 'ResultRatingDemo',
+  components: {
+    BaseResultRating,
+    BaseRating,
+  },
+  data() {
+    return {
+      result: {
+        id: 1,
+        name: 'Result with rating',
+        rating: { value: 3 },
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

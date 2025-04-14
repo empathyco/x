@@ -6,36 +6,36 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-  /**
-   * Renders a transition wrapping the element passed in the default slot. The animation just fades
-   * in/out the element by changing its opacity.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Fade',
-    props: {
-      /** Indicates if the transition must be applied on the initial render of the node. */
-      appear: {
-        type: Boolean,
-        default: true
-      }
-    }
-  });
+/**
+ * Renders a transition wrapping the element passed in the default slot. The animation just fades
+ * in/out the element by changing its opacity.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Fade',
+  props: {
+    /** Indicates if the transition must be applied on the initial render of the node. */
+    appear: {
+      type: Boolean,
+      default: true,
+    },
+  },
+})
 </script>
 
 <style lang="css">
-  .x-fade--enter-active,
-  .x-fade--leave-active {
-    transition: opacity 0.25s ease-in-out;
-  }
+.x-fade--enter-active,
+.x-fade--leave-active {
+  transition: opacity 0.25s ease-in-out;
+}
 
-  .x-fade--leave-to,
-  .x-fade--enter-from {
-    opacity: 0 !important;
-  }
+.x-fade--leave-to,
+.x-fade--enter-from {
+  opacity: 0 !important;
+}
 </style>
 
 <docs lang="mdx">
@@ -56,18 +56,18 @@ Wrapping a component:
   </div>
 </template>
 <script>
-  import { Fade } from '@empathyco/x-components';
-  export default {
-    name: 'FadeAnimationDemo',
-    components: {
-      Fade
-    },
-    data() {
-      return {
-        shouldRender: false
-      };
+import { Fade } from '@empathyco/x-components'
+export default {
+  name: 'FadeAnimationDemo',
+  components: {
+    Fade,
+  },
+  data() {
+    return {
+      shouldRender: false,
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

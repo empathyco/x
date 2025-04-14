@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { ExperienceControlsResponse } from '@empathyco/x-types';
-import { PlatformExperienceControlsResponse } from '../../types';
+import type { ExperienceControlsResponse } from '@empathyco/x-types'
+import type { PlatformExperienceControlsResponse } from '../../types'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the ExperienceControlsResponseSchema.
@@ -12,5 +12,5 @@ export const experienceControlsResponseSchema = createMutableSchema<
   ExperienceControlsResponse
 >({
   controls: response => response,
-  events: {}
-});
+  events: {},
+})

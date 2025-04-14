@@ -1,5 +1,5 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { PopularSearchesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { PopularSearchesXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link PopularSearchesGetters.popularSearches} getter.
@@ -8,16 +8,15 @@ import { PopularSearchesXStoreModule } from '../types';
  * popular searches module.
  * @returns The popular searches, filtered by the searched queries or not, depending of the
  * `hideSessionQueries` config.
- *
  * @public
  */
 export const popularSearches: PopularSearchesXStoreModule['getters']['popularSearches'] = ({
   popularSearches,
   searchedQueries,
-  config
+  config,
 }) => {
-  const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query);
+  const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query)
   return config.hideSessionQueries
     ? popularSearches.filter(({ query }) => !queriesToFilter.includes(query))
-    : popularSearches;
-};
+    : popularSearches
+}

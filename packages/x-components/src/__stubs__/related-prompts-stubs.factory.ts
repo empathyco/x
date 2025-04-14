@@ -1,5 +1,5 @@
-import { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types';
-import { getTaggingResponseStub } from './tagging-response-stubs.factory';
+import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types'
+import { getTaggingResponseStub } from './tagging-response-stubs.factory'
 
 /**
  * Creates a {@link @empathyco/x-types#RelatedPrompt | related prompts} stub.
@@ -12,8 +12,8 @@ import { getTaggingResponseStub } from './tagging-response-stubs.factory';
  */
 export function getRelatedPromptsStub(amount = 12): RelatedPrompt[] {
   return Array.from({ length: amount }, (_, index) =>
-    createRelatedPromptStub(`Related Prompt ${index + 1}`)
-  );
+    createRelatedPromptStub(`Related Prompt ${index + 1}`),
+  )
 }
 
 /**
@@ -30,8 +30,8 @@ export function createRelatedPromptStub(suggestionText: string): RelatedPrompt {
     modelName: 'RelatedPrompt',
     type: 'SYNTHETIC',
     nextQueries: createNextQueriesArrayStub(10),
-    toolingDisplayTagging: getTaggingResponseStub()
-  };
+    toolingDisplayTagging: getTaggingResponseStub(),
+  }
 }
 
 /**
@@ -49,9 +49,9 @@ function createNextQueriesTaggingArrayStub(amount: number): RelatedPromptNextQue
         query: `Next query ${index + 1}`,
         toolingDisplayTagging: getTaggingResponseStub(),
         toolingDisplayAdd2CartTagging: getTaggingResponseStub(),
-        toolingDisplayClickTagging: getTaggingResponseStub()
-      } as RelatedPromptNextQuery)
-  );
+        toolingDisplayClickTagging: getTaggingResponseStub(),
+      }) as RelatedPromptNextQuery,
+  )
 }
 
 /**
@@ -62,5 +62,5 @@ function createNextQueriesTaggingArrayStub(amount: number): RelatedPromptNextQue
  * @returns Array of next queries.
  */
 function createNextQueriesArrayStub(amount: number): string[] {
-  return Array.from({ length: amount }, (_, index) => `Next query ${index + 1}`);
+  return Array.from({ length: amount }, (_, index) => `Next query ${index + 1}`)
 }

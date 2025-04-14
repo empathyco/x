@@ -1,4 +1,4 @@
-import { PlatformSuggestion } from '../models/suggestion.model';
+import type { PlatformSuggestion } from '../models/suggestion.model'
 
 /**
  * Response for the `popular searches` endpoint.
@@ -7,6 +7,6 @@ import { PlatformSuggestion } from '../models/suggestion.model';
  */
 export interface PlatformPopularSearchesResponse {
   topTrends: {
-    content: PlatformSuggestion[];
-  };
+    content: PlatformSuggestion[]
+  }
 }

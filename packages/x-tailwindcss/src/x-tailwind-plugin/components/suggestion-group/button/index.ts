@@ -1,10 +1,10 @@
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
-import { suggestionGroupButtonDefault } from './default';
-import { suggestionGroupButtonGhost } from './ghost';
-import { suggestionGroupButtonRectangle } from './rectangle';
-import { suggestionGroupLighterColors } from './lighter-colors';
-import { suggestionGroupButtonLighter } from './lighter';
+import type { TailwindHelpers } from '../../../../types'
+import { rename } from '@empathyco/x-utils'
+import { suggestionGroupButtonDefault } from './default'
+import { suggestionGroupButtonGhost } from './ghost'
+import { suggestionGroupButtonLighter } from './lighter'
+import { suggestionGroupLighterColors } from './lighter-colors'
+import { suggestionGroupButtonRectangle } from './rectangle'
 
 /**
  * Returns the component `suggestion group button` CSS.
@@ -20,11 +20,11 @@ export function suggestionGroupButton(helpers: TailwindHelpers) {
         {
           ...suggestionGroupButtonGhost(helpers),
           ...suggestionGroupButtonRectangle(helpers),
-          ...suggestionGroupButtonLighter()
+          ...suggestionGroupButtonLighter(),
         },
-        { prefix: '&-' }
-      )
+        { prefix: '&-' },
+      ),
     },
-    ...suggestionGroupLighterColors(helpers)
-  };
+    ...suggestionGroupLighterColors(helpers),
+  }
 }

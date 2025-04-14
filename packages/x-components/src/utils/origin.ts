@@ -1,4 +1,4 @@
-import { QueryOrigin, QueryOriginInit, ResultOrigin } from '../types/origin';
+import type { QueryOrigin, QueryOriginInit, ResultOrigin } from '../types/origin'
 
 /**
  * Creates a {@link QueryOrigin} or a {@link ResultOrigin} string given a {@link QueryFeature} and
@@ -7,17 +7,15 @@ import { QueryOrigin, QueryOriginInit, ResultOrigin } from '../types/origin';
  *
  * @param originInit - An object containing the needed properties to create a {@link QueryOrigin} or
  * a {@link ResultOrigin}.
- *
  * @returns The composed origin, or `null` if it is not able to create the origin.
- *
  * @internal
  */
 export function createOrigin({
   feature,
-  location
+  location,
 }: QueryOriginInit): QueryOrigin | ResultOrigin | null {
   if (feature) {
-    return `${feature}:${location ?? 'none'}`;
+    return `${feature}:${location ?? 'none'}`
   }
-  return null;
+  return null
 }

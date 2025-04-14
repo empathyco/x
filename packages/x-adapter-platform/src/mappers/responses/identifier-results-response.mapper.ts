@@ -1,9 +1,9 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { IdentifierResultsResponse } from '@empathyco/x-types';
-// eslint-disable-next-line max-len
-import { identifierResultsResponseSchema } from '../../schemas/responses/identifier-results-response.schema';
-// eslint-disable-next-line max-len
-import { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model';
+import type { IdentifierResultsResponse } from '@empathyco/x-types'
+import type { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model'
+
+import { schemaMapperFactory } from '@empathyco/x-adapter'
+
+import { identifierResultsResponseSchema } from '../../schemas/responses/identifier-results-response.schema'
 
 /**
  * Default implementation for the IdentifierResultsResponseMapper.
@@ -13,4 +13,4 @@ import { PlatformIdentifierResultsResponse } from '../../types/responses/identif
 export const identifierResultsResponseMapper = schemaMapperFactory<
   PlatformIdentifierResultsResponse,
   IdentifierResultsResponse
->(identifierResultsResponseSchema);
+>(identifierResultsResponseSchema)

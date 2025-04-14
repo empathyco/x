@@ -1,4 +1,4 @@
-import { Filter } from './filter.model';
+import type { Filter } from './filter.model'
 
 /**
  * A filter which id is the value of the filter. It can be selected or not.
@@ -7,11 +7,11 @@ import { Filter } from './filter.model';
  */
 export interface RawFilter extends Filter {
   /** The value of the filter. */
-  id: string;
+  id: string
   /** Model name to indicate the filter type. */
-  modelName: 'RawFilter';
+  modelName: 'RawFilter'
   /** Force {@link Filter | Filter} `selected` property to true. */
-  selected: true;
+  selected: true
 }
 
 /**
@@ -24,5 +24,5 @@ export interface RawFilter extends Filter {
  * @public
  */
 export function isRawFilter(filter: Filter): filter is RawFilter {
-  return filter.modelName === 'RawFilter';
+  return filter.modelName === 'RawFilter'
 }

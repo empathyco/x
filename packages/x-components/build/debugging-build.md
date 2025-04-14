@@ -24,6 +24,6 @@ comment the following lines in the `documentation.rollup-plugin.ts` file:
 
 ```javascript
 if (stderr) {
-  reject(stderr);
+  reject(stderr)
 }
 ```

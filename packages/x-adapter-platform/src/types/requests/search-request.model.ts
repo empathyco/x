@@ -1,11 +1,11 @@
-import {
+import type {
   PlatformExtraParamsRequest,
   PlatformFilterableRequest,
   PlatformPageableRequest,
   PlatformQueryableRequest,
   PlatformSortableRequest,
-  PlatformTrackableRequest
-} from './request.types';
+  PlatformTrackableRequest,
+} from './request.types'
 
 /**
  * Request for the `search` endpoint.

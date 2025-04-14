@@ -1,4 +1,4 @@
-import { Result } from '../result/result.model';
+import type { Result } from '../result/result.model'
 
 /**
  * Response for the recommendations endpoint.
@@ -6,5 +6,5 @@ import { Result } from '../result/result.model';
  * @public
  */
 export interface RecommendationsResponse {
-  results: Result[];
+  results: Result[]
 }

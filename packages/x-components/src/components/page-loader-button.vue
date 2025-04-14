@@ -7,7 +7,7 @@
       -->
     <slot v-bind="{ resultsLength, totalResults }">
       <!-- @slot Rendered count with a text and the number of results displayed & remaining. -->
-      <slot name="textContent" :resultsLength="resultsLength" :totalResults="totalResults">
+      <slot name="textContent" :results-length="resultsLength" :total-results="totalResults">
         <p class="x-page-loader__text-content" data-test="text-content">
           You are seeing {{ resultsLength }} of {{ totalResults }} results
         </p>
@@ -27,76 +27,77 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { VueCSSClasses } from '../utils/types';
-  import { use$x } from '../composables';
-  import { XEventsTypes } from '../wiring';
-  import BaseEventButton from './base-event-button.vue';
+import type { PropType } from 'vue'
+import type { VueCSSClasses } from '../utils/types'
+import type { XEventsTypes } from '../wiring'
+import { computed, defineComponent } from 'vue'
+import { use$x } from '../composables'
+import BaseEventButton from './base-event-button.vue'
 
-  /**
-   * Component that renders a text with the number of rendered results and
-   * the remaining ones and a `<BaseEventButton>` with the logic of emitting
-   * the event "UserReachedResultsListEnd" to load more results on click.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PageLoaderButton',
-    components: { BaseEventButton },
-    props: {
-      /**
-       * CSS classes to customize the loader button.
-       *
-       * @internal
-       */
-      buttonClasses: {
-        type: String as PropType<VueCSSClasses>,
-        default: ''
-      },
-      /**
-       * Events to customize what will be emitted by the loader button.
-       *
-       * @internal
-       */
-      buttonEvents: {
-        type: Object as PropType<Partial<XEventsTypes>>
-      }
+/**
+ * Component that renders a text with the number of rendered results and
+ * the remaining ones and a `<BaseEventButton>` with the logic of emitting
+ * the event "UserReachedResultsListEnd" to load more results on click.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PageLoaderButton',
+  components: { BaseEventButton },
+  props: {
+    /**
+     * CSS classes to customize the loader button.
+     *
+     * @internal
+     */
+    buttonClasses: {
+      type: String as PropType<VueCSSClasses>,
+      default: '',
     },
-    setup(props) {
-      const $x = use$x();
-      const resultsLength = computed(() => $x.results.length);
-      const totalResults = computed(() => $x.totalResults);
+    /**
+     * Events to customize what will be emitted by the loader button.
+     *
+     * @internal
+     */
+    buttonEvents: {
+      type: Object as PropType<Partial<XEventsTypes>>,
+    },
+  },
+  setup(props) {
+    const $x = use$x()
+    const resultsLength = computed(() => $x.results.length)
+    const totalResults = computed(() => $x.totalResults)
 
-      /**
-       * The events that will be emitted when clicking on the loader button.
-       *
-       * @returns The {@link XEvent} to emit.
-       * @public
-       */
-      const events = computed<Partial<XEventsTypes>>(() => {
-        return { UserReachedResultsListEnd: undefined, ...props.buttonEvents };
-      });
+    /**
+     * The events that will be emitted when clicking on the loader button.
+     *
+     * @returns The {@link XEvent} to emit.
+     * @public
+     */
+    const events = computed<Partial<XEventsTypes>>(() => {
+      return { UserReachedResultsListEnd: undefined, ...props.buttonEvents }
+    })
 
-      return {
-        resultsLength,
-        totalResults,
-        events
-      };
+    return {
+      resultsLength,
+      totalResults,
+      events,
     }
-  });
+  },
+})
 </script>
 
 <style scoped>
-  .x-page-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 32px 0;
-  }
+.x-page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+}
 
-  .x-page-loader__text-content {
-    padding: 16px 0;
-  }
+.x-page-loader__text-content {
+  padding: 16px 0;
+}
 </style>
 
 <docs lang="mdx">
@@ -111,14 +112,14 @@ buttonEvents prop:
 </template>
 
 <script>
-  import { PageLoaderButton } from '@empathyco/x-components';
+import { PageLoaderButton } from '@empathyco/x-components'
 
-  export default {
-    name: 'PageLoaderButtonDemo',
-    components: {
-      PageLoaderButton
-    }
-  };
+export default {
+  name: 'PageLoaderButtonDemo',
+  components: {
+    PageLoaderButton,
+  },
+}
 </script>
 ```
 
@@ -132,14 +133,14 @@ Here you have a basic example of how the page loader component is rendered.
 </template>
 
 <script>
-  import { PageLoaderButton } from '@empathyco/x-components';
+import { PageLoaderButton } from '@empathyco/x-components'
 
-  export default {
-    name: 'PageLoaderButtonDemo',
-    components: {
-      PageLoaderButton
-    }
-  };
+export default {
+  name: 'PageLoaderButtonDemo',
+  components: {
+    PageLoaderButton,
+  },
+}
 </script>
 ```
 
@@ -169,14 +170,14 @@ This component has a default slot which allows to customise the entire layout.
 </template>
 
 <script>
-  import { PageLoaderButton } from '@empathyco/x-components';
+import { PageLoaderButton } from '@empathyco/x-components'
 
-  export default {
-    name: 'PageLoaderButtonDemo',
-    components: {
-      PageLoaderButton
-    }
-  };
+export default {
+  name: 'PageLoaderButtonDemo',
+  components: {
+    PageLoaderButton,
+  },
+}
 </script>
 ```
 
@@ -201,19 +202,19 @@ content inside and customizing its style using the buttonClasses prop.
 </template>
 
 <script>
-  import { PageLoaderButton } from '@empathyco/x-components';
+import { PageLoaderButton } from '@empathyco/x-components'
 
-  export default {
-    name: 'PageLoaderButtonDemo',
-    components: {
-      PageLoaderButton
-    },
-    data() {
-      return {
-        buttonClasses: 'x-rounded-full'
-      };
+export default {
+  name: 'PageLoaderButtonDemo',
+  components: {
+    PageLoaderButton,
+  },
+  data() {
+    return {
+      buttonClasses: 'x-rounded-full',
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

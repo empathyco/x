@@ -1,9 +1,10 @@
-import { Store } from 'vuex';
-import { Result } from '@empathyco/x-types';
-import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
-import { RootXStoreState } from '../../../store/index';
-import { XPlugin } from '../../../plugins/index';
-import { ExternalTaggingService } from './types';
+import type { StorageService } from '@empathyco/x-storage-service'
+import type { Result } from '@empathyco/x-types'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/index'
+import type { ExternalTaggingService } from './types'
+import { BrowserStorageService } from '@empathyco/x-storage-service'
+import { XPlugin } from '../../../plugins/index'
 
 /**
  * Default implementation for the {@link ExternalTaggingService}.
@@ -16,35 +17,38 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    *
    * @public
    */
-  public static readonly RESULT_CLICKED_ID_KEY = 'add-to-cart';
+  public static readonly RESULT_CLICKED_ID_KEY = 'add-to-cart'
 
   /**
    * Session id key to use as key in the storage for add to carts.
    *
    * @public
    */
-  public static readonly ADD_TO_CART_ID_KEY = 'checkout';
+  public static readonly ADD_TO_CART_ID_KEY = 'checkout'
 
   /**
    * Global instance of the {@link ExternalTaggingService}.
    */
-  public static instance: ExternalTaggingService = new DefaultExternalTaggingService();
+  public static instance: ExternalTaggingService = new DefaultExternalTaggingService()
 
   public constructor(
     protected localStorageService: StorageService = new BrowserStorageService(localStorage, 'x'),
-    protected sessionStorageService: StorageService = new BrowserStorageService(sessionStorage, 'x')
+    protected sessionStorageService: StorageService = new BrowserStorageService(
+      sessionStorage,
+      'x',
+    ),
   ) {}
 
   protected get store(): Store<RootXStoreState> {
-    return XPlugin.store;
+    return XPlugin.store
   }
 
   protected get storageKey(): string {
-    return this.store.state.x.tagging.config.storageKey as string;
+    return this.store.state.x.tagging.config.storageKey as string
   }
 
   protected get storageTTLMs(): number {
-    return this.store.state.x.tagging.config.storageTTLMs as number;
+    return this.store.state.x.tagging.config.storageTTLMs as number
   }
 
   /**
@@ -56,10 +60,10 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    * @public
    */
   storeResultClicked(result: Result): void {
-    const key = result[this.storageKey as keyof Result] as string;
-    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, key);
+    const key = result[this.storageKey as keyof Result] as string
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, key)
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
+      this.localStorageService.setItem(storageId, result, this.storageTTLMs)
     }
   }
 
@@ -73,10 +77,10 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    * @public
    */
   storeAddToCart(result: Result): void {
-    const key = result[this.storageKey as keyof Result] as string;
-    const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key);
+    const key = result[this.storageKey as keyof Result] as string
+    const storageId = this.getStorageId(DefaultExternalTaggingService.ADD_TO_CART_ID_KEY, key)
     if (storageId) {
-      this.localStorageService.setItem(storageId, result, this.storageTTLMs);
+      this.localStorageService.setItem(storageId, result, this.storageTTLMs)
     }
   }
 
@@ -89,11 +93,12 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    * @public
    */
   moveToSessionStorage(id?: string): void {
-    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
+    const storageId = this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id)
     if (storageId) {
-      const result = this.localStorageService.removeItem(storageId);
+      // eslint-disable-next-line ts/no-unsafe-assignment
+      const result = this.localStorageService.removeItem(storageId)
       if (result) {
-        this.sessionStorageService.setItem(storageId, result);
+        this.sessionStorageService.setItem(storageId, result)
       }
     }
   }
@@ -111,17 +116,17 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
     const storageId =
       this.storageKey === 'url'
         ? this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY)
-        : this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id);
+        : this.getStorageId(DefaultExternalTaggingService.RESULT_CLICKED_ID_KEY, id)
     if (storageId) {
-      const result = this.sessionStorageService.getItem<Result>(storageId);
+      const result = this.sessionStorageService.getItem<Result>(storageId)
       if (result?.tagging?.add2cart) {
-        result.tagging.add2cart.params.location = 'pdp';
-        this.store.dispatch('x/tagging/track', result.tagging.add2cart);
+        result.tagging.add2cart.params.location = 'pdp'
+        void this.store.dispatch('x/tagging/track', result.tagging.add2cart)
         /**
          * Done after tracking the add to cart to avoid tracking the checkout without
          * an add to cart, in case the tracking fails.
          */
-        this.storeAddToCart(result);
+        this.storeAddToCart(result)
       }
     }
   }
@@ -138,15 +143,15 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    */
   protected getStorageId(keyPrefix: string, id?: string): string | null {
     if (this.storageKey === 'url') {
-      let url = id ?? window.location.href;
-      url = url.replace(/\s|\+/g, '%20');
-      const pathName = this.getPathName(url);
-      return `${keyPrefix}-${pathName}`;
+      let url = id ?? window.location.href
+      url = url.replace(/\s|\+/g, '%20')
+      const pathName = this.getPathName(url)
+      return `${keyPrefix}-${pathName}`
     } else if (id) {
-      return `${keyPrefix}-${id}`;
+      return `${keyPrefix}-${id}`
     } else {
-      this.showWarningMessage();
-      return null;
+      this.showWarningMessage()
+      return null
     }
   }
 
@@ -158,8 +163,8 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
   protected showWarningMessage(): void {
     if (this.storageKey !== 'url') {
       //TODO: add here logger
-      //eslint-disable-next-line no-console
-      console.warn('No product id was provided but the storage was not configured to use the url');
+
+      console.warn('No product id was provided but the storage was not configured to use the url')
     }
   }
 
@@ -173,20 +178,22 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    * @internal
    */
   protected getPathName(url: string): string {
-    let urlObject: URL;
+    let urlObject: URL
     try {
       // Check if the url is relative or absolute path
+      // eslint-disable-next-line regexp/no-unused-capturing-group
       if (/^(\.\.\/|\.\/|\/)/.test(url)) {
-        urlObject = new URL(url, location.origin);
+        urlObject = new URL(url, location.origin)
       } else {
-        urlObject = new URL(url);
+        urlObject = new URL(url)
       }
-      return urlObject.pathname;
-    } catch (e) {
+      return urlObject.pathname
+      // eslint-disable-next-line unused-imports/no-unused-vars
+    } catch (_error) {
       //TODO: add here logger
-      //eslint-disable-next-line no-console
-      console.warn(`There was a problem with url ${url}`);
-      return url;
+
+      console.warn(`There was a problem with url ${url}`)
+      return url
     }
   }
 }

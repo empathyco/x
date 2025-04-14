@@ -1,10 +1,10 @@
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { suggestionGroupDefault } from './default';
-import { suggestionGroupColors } from './colors';
-import { suggestionGroupSizes } from './sizes';
-import { suggestionGroupOutlined } from './outlined';
-import { suggestionGroupGhost } from './ghost';
+import type { TailwindHelpers } from '../../../types'
+import { rename } from '@empathyco/x-utils'
+import { suggestionGroupColors } from './colors'
+import { suggestionGroupDefault } from './default'
+import { suggestionGroupGhost } from './ghost'
+import { suggestionGroupOutlined } from './outlined'
+import { suggestionGroupSizes } from './sizes'
 
 /**
  * Returns the component `suggestion group` CSS.
@@ -21,10 +21,10 @@ export function suggestionGroup(helpers: TailwindHelpers) {
           ...suggestionGroupColors(helpers),
           ...suggestionGroupSizes(helpers),
           ...suggestionGroupGhost(helpers),
-          ...suggestionGroupOutlined(helpers)
+          ...suggestionGroupOutlined(helpers),
         },
-        { prefix: '&-' }
-      )
-    }
-  };
+        { prefix: '&-' },
+      ),
+    },
+  }
 }

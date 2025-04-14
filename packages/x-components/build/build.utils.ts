@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
  * Asserts a directory exist recursively, creating it if it does not.
@@ -8,7 +8,7 @@ import path from 'path';
  */
 export function ensureDirectoryPathExists(directoryPath: string) {
   if (!fs.existsSync(directoryPath)) {
-    fs.mkdirSync(directoryPath, { recursive: true });
+    fs.mkdirSync(directoryPath, { recursive: true })
   }
 }
 
@@ -18,8 +18,8 @@ export function ensureDirectoryPathExists(directoryPath: string) {
  * @param filePath - The full path to the file, that may or may not exist.
  */
 export function ensureFilePathExists(filePath: string) {
-  const dirName = path.dirname(filePath);
-  ensureDirectoryPathExists(dirName);
+  const dirName = path.dirname(filePath)
+  ensureDirectoryPathExists(dirName)
 }
 
 /**
@@ -30,17 +30,17 @@ export function ensureFilePathExists(filePath: string) {
  */
 export function copyFolderSync(sourceFolder: string, targetFolder: string) {
   if (!fs.existsSync(targetFolder)) {
-    fs.mkdirSync(targetFolder);
+    fs.mkdirSync(targetFolder)
   }
   fs.readdirSync(sourceFolder).forEach(element => {
-    const sourceElement = path.join(sourceFolder, element);
-    const targetElement = path.join(targetFolder, element);
+    const sourceElement = path.join(sourceFolder, element)
+    const targetElement = path.join(targetFolder, element)
     if (fs.lstatSync(sourceElement).isFile()) {
-      fs.copyFileSync(sourceElement, targetElement);
+      fs.copyFileSync(sourceElement, targetElement)
     } else {
-      copyFolderSync(sourceElement, targetElement);
+      copyFolderSync(sourceElement, targetElement)
     }
-  });
+  })
 }
 
 /**
@@ -50,5 +50,5 @@ export function copyFolderSync(sourceFolder: string, targetFolder: string) {
  * @returns A normalized path.
  */
 export function normalizePath(path: string) {
-  return path.replace(/\\/g, '/');
+  return path.replace(/\\/g, '/')
 }

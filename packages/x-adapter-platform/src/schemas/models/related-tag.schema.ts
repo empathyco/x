@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { RelatedTag } from '@empathyco/x-types';
-import { PlatformRelatedTag } from '../../types/models/related-tag.model';
+import type { RelatedTag } from '@empathyco/x-types'
+import type { PlatformRelatedTag } from '../../types/models/related-tag.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the RelatedTagSchema.
@@ -11,5 +11,5 @@ export const relatedTagSchema = createMutableSchema<PlatformRelatedTag, RelatedT
   query: 'query',
   tag: 'tag',
   modelName: () => 'RelatedTag',
-  isCurated: ({ source }) => source === 'CURATED'
-});
+  isCurated: ({ source }) => source === 'CURATED',
+})

@@ -1,8 +1,7 @@
-import { Filter } from '@empathyco/x-types';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HistoryQueriesActions, HistoryQueriesXStoreModule } from '../types';
-import { InternalSearchResponse } from '../../../search/index';
-import { UNKNOWN_FACET_KEY } from '../../../facets/store/constants';
+import type { Filter } from '@empathyco/x-types'
+import type { InternalSearchResponse } from '../../../search/index'
+import type { HistoryQueriesXStoreModule } from '../types'
+import { UNKNOWN_FACET_KEY } from '../../../facets/store/constants'
 
 /**
  * Default implementation for the
@@ -15,40 +14,37 @@ import { UNKNOWN_FACET_KEY } from '../../../facets/store/constants';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- *
  * @param searchResponse - The search response to update history queries with.
- *
  * @returns A `void` promise that resolves when the history query finishes updating.
- *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule['actions']['updateHistoryQueriesWithSearchResponse'] =
-  ({ state, dispatch }, searchResponse) => {
+  async ({ state, dispatch }, searchResponse) => {
     if (searchResponse.status === 'success') {
       const indexOfHistoryQuery = state.historyQueries.findIndex(
-        ({ query }) => query === searchResponse.request.query
-      );
+        ({ query }) => query === searchResponse.request.query,
+      )
       if (indexOfHistoryQuery >= 0) {
-        const historyQuery = state.historyQueries[indexOfHistoryQuery];
-        const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
+        const historyQuery = state.historyQueries[indexOfHistoryQuery]
+        const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs
         if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
           const filters = getHistoryQueriesFiltersList(
             searchResponse.facets,
-            searchResponse.request.filters
-          );
+            searchResponse.request.filters,
+          )
 
-          const newHistoryQueries = state.historyQueries.slice();
+          const newHistoryQueries = state.historyQueries.slice()
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
             totalResults: searchResponse.totalResults,
-            selectedFilters: filters
-          };
-          return dispatch('setHistoryQueries', newHistoryQueries);
+            selectedFilters: filters,
+          }
+          return dispatch('setHistoryQueries', newHistoryQueries)
         }
       }
     }
-  };
+  }
 
 /**
  * Creates a selected filters list by comparing request filters and response facets.
@@ -62,28 +58,28 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
  */
 function getHistoryQueriesFiltersList(
   responseFacets: InternalSearchResponse['facets'],
-  requestFilters: InternalSearchResponse['request']['filters']
+  requestFilters: InternalSearchResponse['request']['filters'],
 ): Filter[] {
   if (!requestFilters || !responseFacets) {
-    return [];
+    return []
   } else {
     return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
       const matchingFacet =
-        facetId !== UNKNOWN_FACET_KEY ? responseFacets.find(facet => facet.id === facetId) : null;
+        facetId !== UNKNOWN_FACET_KEY ? responseFacets.find(facet => facet.id === facetId) : null
 
       return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
         const matchingFilter = matchingFacet
           ? matchingFacet.filters.find(filter => filter.id === requestFilter.id)
           : responseFacets
               .flatMap(facet => facet.filters)
-              .find(filter => filter.id === requestFilter.id);
+              .find(filter => filter.id === requestFilter.id)
 
         if (matchingFilter) {
-          accFilters.push({ ...matchingFilter, selected: requestFilter.selected });
+          accFilters.push({ ...matchingFilter, selected: requestFilter.selected })
         }
 
-        return accFilters;
-      }, []);
-    });
+        return accFilters
+      }, [])
+    })
   }
 }

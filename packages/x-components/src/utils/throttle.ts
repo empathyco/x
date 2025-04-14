@@ -1,4 +1,4 @@
-import { ThrottleFunction } from './types';
+import type { ThrottleFunction } from './types'
 
 /**
  * Util function that returns a throttled version of the function passed as parameter.
@@ -12,20 +12,20 @@ import { ThrottleFunction } from './types';
 
 export const throttle = <Params extends any[]>(
   fn: (...args: Params) => void,
-  throttleTimeMs: number
+  throttleTimeMs: number,
 ): ThrottleFunction<Params> => {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-  let params: Params;
+  let timeout: ReturnType<typeof setTimeout> | undefined
+  let params: Params
 
   const throttleFn: ThrottleFunction<Params> = (...args) => {
-    params = args;
+    params = args
     if (!timeout) {
       timeout = setTimeout(() => {
-        fn(...params);
-        timeout = undefined;
-      }, throttleTimeMs);
+        fn(...params)
+        timeout = undefined
+      }, throttleTimeMs)
     }
-  };
+  }
 
-  return throttleFn;
-};
+  return throttleFn
+}

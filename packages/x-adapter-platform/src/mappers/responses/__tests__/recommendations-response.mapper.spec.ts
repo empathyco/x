@@ -1,19 +1,18 @@
-// eslint-disable-next-line max-len
-import { platformRecommendationsResponse } from '../../../__tests__/__fixtures__/recommendations.response';
-// eslint-disable-next-line max-len
-import { PlatformRecommendationsResponse } from '../../../types/responses/recommendations-response.model';
-import { recommendationsResponseMapper } from '../recommendations-response.mapper';
+import type { PlatformRecommendationsResponse } from '../../../types/responses/recommendations-response.model'
+
+import { platformRecommendationsResponse } from '../../../__tests__/__fixtures__/recommendations.response'
+import { recommendationsResponseMapper } from '../recommendations-response.mapper'
 
 describe('recommendationsResponseMapper tests', () => {
   it('should map the response', () => {
-    const response = platformRecommendationsResponse as unknown as PlatformRecommendationsResponse;
+    const response = platformRecommendationsResponse as unknown as PlatformRecommendationsResponse
 
     expect(recommendationsResponseMapper(response, {})).toStrictEqual({
       results: [
         {
           id: '31335-U',
           identifier: {
-            value: '31335-U'
+            value: '31335-U',
           },
           images: ['https://assets.empathy.co/images-demo/31335.jpg'],
           isWishlisted: false,
@@ -23,15 +22,15 @@ describe('recommendationsResponseMapper tests', () => {
             hasDiscount: false,
             originalValue: 10,
             futureValue: 10,
-            value: 10
+            value: 10,
           },
           rating: {
-            value: null
+            value: null,
           },
           type: 'Default',
-          url: 'https://assets.empathy.co/images-demo/31335.jpg'
-        }
-      ]
-    });
-  });
-});
+          url: 'https://assets.empathy.co/images-demo/31335.jpg',
+        },
+      ],
+    })
+  })
+})

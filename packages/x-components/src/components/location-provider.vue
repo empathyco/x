@@ -1,33 +1,34 @@
 <script lang="ts">
-  import { defineComponent, PropType, provide, toRef } from 'vue';
-  import { FeatureLocation } from '../types';
+import type { PropType } from 'vue'
+import type { FeatureLocation } from '../types'
+import { defineComponent, provide, toRef } from 'vue'
 
-  /**
-   * Location Provider component.
-   * This component injects the location with value passed as prop.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'LocationProvider',
-    props: {
-      /**
-       * The {@link FeatureLocation} to provide.
-       *
-       * @public
-       */
-      location: {
-        type: String as PropType<FeatureLocation>,
-        required: true
-      }
+/**
+ * Location Provider component.
+ * This component injects the location with value passed as prop.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'LocationProvider',
+  props: {
+    /**
+     * The {@link FeatureLocation} to provide.
+     *
+     * @public
+     */
+    location: {
+      type: String as PropType<FeatureLocation>,
+      required: true,
     },
-    setup(props, { slots }) {
-      const featureLocation = toRef(props, 'location');
-      provide('location', featureLocation);
+  },
+  setup(props, { slots }) {
+    const featureLocation = toRef(props, 'location')
+    provide('location', featureLocation)
 
-      return () => slots.default?.()[0] ?? '';
-    }
-  });
+    return () => slots.default?.()[0] ?? ''
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -50,15 +51,15 @@ different tools that generate the query.
   </LocationProvider>
 </template>
 <script>
-  import { LocationProvider } from '@empathyco/x-components';
-  import { NextQueries } from '@empathyco/x-components/next-queries';
-  export default {
-    name: 'LocationProviderDemo',
-    components: {
-      LocationProvider,
-      NextQueries
-    }
-  };
+import { LocationProvider } from '@empathyco/x-components'
+import { NextQueries } from '@empathyco/x-components/next-queries'
+export default {
+  name: 'LocationProviderDemo',
+  components: {
+    LocationProvider,
+    NextQueries,
+  },
+}
 </script>
 ```
 </docs>

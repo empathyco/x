@@ -1,7 +1,7 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { Banner } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformBanner } from '../../types/models/banner.model';
+import type { Banner } from '@empathyco/x-types'
+import type { PlatformBanner } from '../../types/models/banner.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 
 /**
  * Default implementation for the BannerSchema.
@@ -16,6 +16,6 @@ export const bannerSchema = createMutableSchema<PlatformBanner, Banner>({
   position: 'position',
   modelName: () => 'Banner',
   tagging: {
-    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
-  }
-});
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? ''),
+  },
+})

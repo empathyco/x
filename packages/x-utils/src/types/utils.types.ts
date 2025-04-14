@@ -3,28 +3,20 @@
  *
  * @public
  */
-export type AnyFunction<ReturnType = any> = (...args: any[]) => ReturnType;
+export type AnyFunction<ReturnType = any> = (...args: any[]) => ReturnType
 /**
  * TypeScript type non-primitives. Array or Record with all possible types.
  *
  * @public
  */
-export type NonPrimitive = Array<any> | Record<any, any>;
+export type NonPrimitive = Array<any> | Record<any, any>
 
 /**
  * TypeScript type primitives. Basically every type possible except objects or arrays.
  *
  * @public
  */
-export type Primitive =
-  | string
-  | number
-  | boolean
-  | bigint
-  | undefined
-  | null
-  | symbol
-  | AnyFunction;
+export type Primitive = string | number | boolean | bigint | undefined | null | symbol | AnyFunction
 
 /**
  * Retrieves the keys of a determinate type from a provided interface.
@@ -34,7 +26,7 @@ export type Primitive =
  *
  * @internal
  */
-export type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
+export type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>
 
 /**
  * Object where all its properties are strings, and the value of them is defined by the type of
@@ -43,7 +35,7 @@ export type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
  * @param T - The type of the properties of the object.
  * @public
  */
-export type Dictionary<T = any> = Record<string, T>;
+export type Dictionary<T = any> = Record<string, T>
 
 /**
  * Makes all the properties of the T type optional in depth.
@@ -56,5 +48,5 @@ export type DeepPartial<T> = {
     ? T[P] extends AnyFunction
       ? T[P]
       : DeepPartial<T[P]>
-    : T[P];
-};
+    : T[P]
+}

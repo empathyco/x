@@ -1,5 +1,5 @@
-import { Result, ResultVariant } from '@empathyco/x-types';
-import { ListItem } from '../../utils/types';
+import type { Result, ResultVariant } from '@empathyco/x-types'
+import type { ListItem } from '../../utils/types'
 
 /**
  * Type of the key passed to `provide` and `inject` to be type-safe. With this type
@@ -11,7 +11,7 @@ import { ListItem } from '../../utils/types';
  *
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line unused-imports/no-unused-vars,ts/no-wrapper-object-types
 export interface XInjectKey<Type> extends String {}
 
 /**
@@ -19,42 +19,42 @@ export interface XInjectKey<Type> extends String {}
  *
  * @internal
  */
-export const DISABLE_ANIMATIONS_KEY: XInjectKey<boolean | undefined> = 'disable-animations';
+export const DISABLE_ANIMATIONS_KEY: XInjectKey<boolean | undefined> = 'disable-animations'
 
 /**
  * It's used to identify the provided and injected `items`.
  *
  * @internal
  */
-export const LIST_ITEMS_KEY: XInjectKey<ListItem[] | undefined> = 'listItems';
+export const LIST_ITEMS_KEY: XInjectKey<ListItem[] | undefined> = 'listItems'
 
 /**
  * It's used to identify the provided and injected `query`.
  *
  * @internal
  */
-export const QUERY_KEY: XInjectKey<string | undefined> = 'query';
+export const QUERY_KEY: XInjectKey<string | undefined> = 'query'
 
 /**
  * It's used to identify the provided and injected `hasMoreItems`.
  *
  * @internal
  */
-export const HAS_MORE_ITEMS_KEY: XInjectKey<boolean | undefined> = 'hasMoreItems';
+export const HAS_MORE_ITEMS_KEY: XInjectKey<boolean | undefined> = 'hasMoreItems'
 
 /**
  * It's used to identify the provided and injected `result`.
  *
  * @internal
  */
-export const RESULT_WITH_VARIANTS_KEY: XInjectKey<Result> = 'resultWithVariants';
+export const RESULT_WITH_VARIANTS_KEY: XInjectKey<Result> = 'resultWithVariants'
 
 /**
  * It's used to identify the provided and injected `selectedVariants` of a result.
  *
  * @internal
  */
-export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVariants';
+export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVariants'
 
 /**
  * It's used to identify the provided and injected `selectResultVariant` callback.
@@ -63,4 +63,4 @@ export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVaria
  */
 export const SELECT_RESULT_VARIANT_KEY: XInjectKey<
   (variant: ResultVariant, level?: number) => void
-> = 'selectResultVariant';
+> = 'selectResultVariant'

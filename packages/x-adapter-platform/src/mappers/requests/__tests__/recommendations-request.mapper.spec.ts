@@ -1,5 +1,5 @@
-import { RecommendationsRequest } from '@empathyco/x-types';
-import { recommendationsRequestMapper } from '../recommendations-request.mapper';
+import type { RecommendationsRequest } from '@empathyco/x-types'
+import { recommendationsRequestMapper } from '../recommendations-request.mapper'
 
 describe('recommendationsRequestMapper tests', () => {
   it('should map the request', () => {
@@ -12,9 +12,9 @@ describe('recommendationsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    };
+        scope: 'mobile',
+      },
+    }
 
     expect(recommendationsRequestMapper(internalRequest, {})).toStrictEqual({
       rows: 2,
@@ -25,8 +25,8 @@ describe('recommendationsRequestMapper tests', () => {
         env: 'test',
         lang: 'en',
         device: 'mobile',
-        scope: 'mobile'
-      }
-    });
-  });
-});
+        scope: 'mobile',
+      },
+    })
+  })
+})

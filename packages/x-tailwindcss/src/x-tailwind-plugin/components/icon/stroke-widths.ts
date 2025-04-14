@@ -1,5 +1,5 @@
-import { map, rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
+import { map, rename } from '@empathyco/x-utils'
 
 /**
  * Returns the `stroke-width` variants for component `icon`.
@@ -11,9 +11,9 @@ export function iconStrokeWidths({ theme }: TailwindHelpers) {
   return {
     'stroke-width': rename(
       map(theme('x.strokeWidth'), (width, value) => ({
-        '*': { strokeWidth: value }
+        '*': { strokeWidth: value },
       })),
-      { prefix: '&-' }
-    )
-  };
+      { prefix: '&-' },
+    ),
+  }
 }

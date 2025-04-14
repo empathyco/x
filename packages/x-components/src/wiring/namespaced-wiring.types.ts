@@ -1,4 +1,4 @@
-import {
+import type {
   ActionNamesFor,
   ExtractActionPayload,
   ExtractActions,
@@ -6,11 +6,11 @@ import {
   ExtractMutations,
   ExtractPayload,
   MutationNamesFor,
-  StoreModuleStateAndGetters
-} from '../store/store.types';
-import { PropsWithType } from '../utils/types';
-import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
-import { AnyWire, TimedWireOperatorOptions, Wire, WireMetadata } from './wiring.types';
+  StoreModuleStateAndGetters,
+} from '../store/store.types'
+import type { PropsWithType } from '../utils/types'
+import type { XModuleName, XModulesTree } from '../x-modules/x-modules.types'
+import type { AnyWire, TimedWireOperatorOptions, Wire, WireMetadata } from './wiring.types'
 
 /**
  * Function type which receives the State and the Getters of the namespace {@link XStoreModule}
@@ -22,8 +22,8 @@ import { AnyWire, TimedWireOperatorOptions, Wire, WireMetadata } from './wiring.
  * @public
  */
 export type NamespacedTimeSelector<ModuleName extends XModuleName> = (
-  storeModule: StoreModuleStateAndGetters<ModuleName>
-) => number;
+  storeModule: StoreModuleStateAndGetters<ModuleName>,
+) => number
 
 /**
  * Function type which receives the wire to modify and the {@link NamespacedTimeSelector} to
@@ -42,8 +42,8 @@ export type NamespacedTimeSelector<ModuleName extends XModuleName> = (
 export type NamespacedTimeWireOperator<ModuleName extends XModuleName> = <Payload>(
   wire: Wire<Payload>,
   timeInMs: NamespacedTimeSelector<ModuleName>,
-  options?: TimedWireOperatorOptions
-) => Wire<Payload>;
+  options?: TimedWireOperatorOptions,
+) => Wire<Payload>
 
 /**
  * Namespaced payload to commit a mutation. Either a function that receives the
@@ -57,12 +57,12 @@ export type NamespacedTimeWireOperator<ModuleName extends XModuleName> = <Payloa
  */
 export type NamespacedWireCommitPayload<
   ModuleName extends XModuleName,
-  MutationName extends MutationNamesFor<ModuleName>
+  MutationName extends MutationNamesFor<ModuleName>,
 > =
   | ExtractMutationPayload<ModuleName, MutationName>
   | ((
-      wiringData: NamespacedWiringData<ModuleName>
-    ) => ExtractMutationPayload<ModuleName, MutationName>);
+      wiringData: NamespacedWiringData<ModuleName>,
+    ) => ExtractMutationPayload<ModuleName, MutationName>)
 
 /**
  * Namespaced type for the {@link (wireCommit:1)} which creates a wire with its payload
@@ -77,13 +77,13 @@ export type NamespacedWireCommitPayload<
  * @public
  */
 export interface NamespacedWireCommit<ModuleName extends XModuleName> {
-  <MutationName extends MutationNamesFor<ModuleName>>(mutation: MutationName): Wire<
-    ExtractMutationPayload<ModuleName, MutationName>
-  >;
   <MutationName extends MutationNamesFor<ModuleName>>(
     mutation: MutationName,
-    payload: NamespacedWireCommitPayload<ModuleName, MutationName>
-  ): AnyWire;
+  ): Wire<ExtractMutationPayload<ModuleName, MutationName>>
+  <MutationName extends MutationNamesFor<ModuleName>>(
+    mutation: MutationName,
+    payload: NamespacedWireCommitPayload<ModuleName, MutationName>,
+  ): AnyWire
 }
 
 /**
@@ -95,10 +95,10 @@ export interface NamespacedWireCommit<ModuleName extends XModuleName> {
  * @public
  */
 export type NamespacedWireCommitWithoutPayload<ModuleName extends XModuleName> = <
-  MutationName extends PropsWithType<ExtractMutations<XModulesTree[ModuleName]>, () => any>
+  MutationName extends PropsWithType<ExtractMutations<XModulesTree[ModuleName]>, () => any>,
 >(
-  mutation: MutationName
-) => AnyWire;
+  mutation: MutationName,
+) => AnyWire
 
 /**
  * Namespaced payload to dispatch an action. Either a function that receives the
@@ -112,12 +112,10 @@ export type NamespacedWireCommitWithoutPayload<ModuleName extends XModuleName> =
  */
 export type NamespacedWireDispatchPayload<
   ModuleName extends XModuleName,
-  ActionName extends ActionNamesFor<ModuleName>
+  ActionName extends ActionNamesFor<ModuleName>,
 > =
   | ExtractActionPayload<ModuleName, ActionName>
-  | ((
-      wiringData: NamespacedWiringData<ModuleName>
-    ) => ExtractActionPayload<ModuleName, ActionName>);
+  | ((wiringData: NamespacedWiringData<ModuleName>) => ExtractActionPayload<ModuleName, ActionName>)
 
 /**
  * Namespaced type for the {@link (wireDispatch:1)} which creates a wire with its payload
@@ -132,13 +130,13 @@ export type NamespacedWireDispatchPayload<
  * @public
  */
 export interface NamespacedWireDispatch<ModuleName extends XModuleName> {
-  <ActionName extends ActionNamesFor<ModuleName>>(action: ActionName): Wire<
-    ExtractActionPayload<ModuleName, ActionName>
-  >;
   <ActionName extends ActionNamesFor<ModuleName>>(
     action: ActionName,
-    payload: NamespacedWireDispatchPayload<ModuleName, ActionName>
-  ): AnyWire;
+  ): Wire<ExtractActionPayload<ModuleName, ActionName>>
+  <ActionName extends ActionNamesFor<ModuleName>>(
+    action: ActionName,
+    payload: NamespacedWireDispatchPayload<ModuleName, ActionName>,
+  ): AnyWire
 }
 
 /**
@@ -150,10 +148,10 @@ export interface NamespacedWireDispatch<ModuleName extends XModuleName> {
  * @public
  */
 export type NamespacedWireDispatchWithoutPayload<ModuleName extends XModuleName> = <
-  ActionName extends PropsWithType<ExtractActions<XModulesTree[ModuleName]>, () => any>
+  ActionName extends PropsWithType<ExtractActions<XModulesTree[ModuleName]>, () => any>,
 >(
-  action: ActionName
-) => AnyWire;
+  action: ActionName,
+) => AnyWire
 
 /**
  * Namespaced type safe which allows the access to the State, the Getters, the payload and metadata
@@ -163,6 +161,6 @@ export type NamespacedWireDispatchWithoutPayload<ModuleName extends XModuleName>
  */
 export type NamespacedWiringData<ModuleName extends XModuleName> =
   StoreModuleStateAndGetters<ModuleName> & {
-    eventPayload: ExtractPayload<ModuleName>;
-    metadata: WireMetadata;
-  };
+    eventPayload: ExtractPayload<ModuleName>
+    metadata: WireMetadata
+  }

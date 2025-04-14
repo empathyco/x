@@ -16,7 +16,7 @@
           :suggestion="baseScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
-          suggestionClass="x-suggestion"
+          suggestion-class="x-suggestion"
         >
           <template #default="historyQueryScope">
             <!-- eslint-disable max-len -->
@@ -46,41 +46,39 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { historyQueriesXModule } from '../x-module';
-  import { useGetter } from '../../../composables/use-getter';
-  import HistoryQuery from './history-query.vue';
+import { defineComponent } from 'vue'
+import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { historyQueriesXModule } from '../x-module'
+import HistoryQuery from './history-query.vue'
 
-  /**
-   * This component renders a list of suggestions coming from the user queries history.
-   * Allows the user to select one of them, emitting the needed events. A history query is just
-   * another type of suggestion that contains a query that the user has made in the past.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'HistoryQueries',
-    xModule: historyQueriesXModule.name,
-    components: {
-      BaseSuggestions,
-      HistoryQuery
-    },
-    setup() {
-      /**
-       * The filtered list of history queries.
-       *
-       * @internal
-       */
-      const { historyQueriesWithResults } = useGetter('historyQueries', [
-        'historyQueriesWithResults'
-      ]);
+/**
+ * This component renders a list of suggestions coming from the user queries history.
+ * Allows the user to select one of them, emitting the needed events. A history query is just
+ * another type of suggestion that contains a query that the user has made in the past.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'HistoryQueries',
+  xModule: historyQueriesXModule.name,
+  components: {
+    BaseSuggestions,
+    HistoryQuery,
+  },
+  setup() {
+    /**
+     * The filtered list of history queries.
+     *
+     * @internal
+     */
+    const { historyQueriesWithResults } = useGetter('historyQueries', ['historyQueriesWithResults'])
 
-      return {
-        historyQueriesWithResults
-      };
+    return {
+      historyQueriesWithResults,
     }
-  });
+  },
+})
 </script>
 
 <!--eslint-disable max-len -->
@@ -112,16 +110,16 @@ Here you have a basic example of how the HistoryQueries is rendered.
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries } from '@empathyco/x-components/history-queries'
 
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries
-    }
-  };
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+  },
+}
 </script>
 ```
 
@@ -139,16 +137,16 @@ it is 5).
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries } from '@empathyco/x-components/history-queries'
 
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries
-    }
-  };
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+  },
+}
 </script>
 ```
 
@@ -163,20 +161,20 @@ it is 5).
 </template>
 
 <script>
-  import Vue from 'vue';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
-  import { FadeAndSlide } from '@empathyco/x-components';
+import Vue from 'vue'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries } from '@empathyco/x-components/history-queries'
+import { FadeAndSlide } from '@empathyco/x-components'
 
-  // Registering the animation as a global component
-  Vue.component('FadeAndSlide', FadeAndSlide);
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries
-    }
-  };
+// Registering the animation as a global component
+Vue.component('FadeAndSlide', FadeAndSlide)
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+  },
+}
 </script>
 ```
 
@@ -196,17 +194,17 @@ In this example, the [`HistoryQuery`](./x-components.history-query.md) component
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries'
 
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries,
-      HistoryQuery
-    }
-  };
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+    HistoryQuery,
+  },
+}
 </script>
 ```
 
@@ -227,16 +225,16 @@ passed.
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries } from '@empathyco/x-components/history-queries'
 
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries
-    }
-  };
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+  },
+}
 </script>
 ```
 
@@ -257,18 +255,18 @@ icon to remove the history query.
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
-  import { CrossIcon } from '@empathyco/x-components';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { HistoryQueries } from '@empathyco/x-components/history-queries'
+import { CrossIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      SearchInput,
-      HistoryQueries,
-      CrossIcon
-    }
-  };
+export default {
+  name: 'HistoryQueriesDemo',
+  components: {
+    SearchInput,
+    HistoryQueries,
+    CrossIcon,
+  },
+}
 </script>
 ```
 </docs>

@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-tailwindcss#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-tailwindcss"
+  },
   "keywords": [
     "tailwind",
     "design",
@@ -18,13 +23,8 @@
     "dist",
     "showcase"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-tailwindcss"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "vite serve demo",
@@ -32,7 +32,11 @@
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "rollup -c && vite build demo",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts,.vue",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
@@ -46,6 +50,7 @@
     "autoprefixer": "10.4.4",
     "postcss": "8.4.12",
     "postcss-import": "16.1.0",
+    "prettier-plugin-tailwindcss": "0.6.11",
     "rimraf": "3.0.2",
     "rollup": "4.9.1",
     "rollup-plugin-typescript2": "0.36.0",

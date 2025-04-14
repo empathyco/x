@@ -11,91 +11,92 @@
         @slot The content to render inside the button
             @binding {Facet} Facet - The facet data
       -->
-    <slot :facet="facet" :isSelected="isSelected">all</slot>
+    <slot :facet="facet" :is-selected="isSelected">all</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
-  import { Facet } from '@empathyco/x-types';
-  import { Dictionary } from '@empathyco/x-utils';
-  import BaseEventButton from '../../../../components/base-event-button.vue';
-  import { isArrayEmpty } from '../../../../utils/array';
-  import { XEventsTypes } from '../../../../wiring/events.types';
-  import { FiltersByFacet } from '../../store';
-  import { facetsXModule } from '../../x-module';
-  import { useGetter } from '../../../../composables/use-getter';
+import type { Facet } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { ComputedRef, PropType } from 'vue'
+import type { XEventsTypes } from '../../../../wiring/events.types'
+import type { FiltersByFacet } from '../../store'
+import { computed, defineComponent } from 'vue'
+import BaseEventButton from '../../../../components/base-event-button.vue'
+import { useGetter } from '../../../../composables/use-getter'
+import { isArrayEmpty } from '../../../../utils/array'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * This component receives a required `facet` with
-   * {@link @empathyco/x-types#BooleanFilter} as prop and renders a button, which
-   * on clicked emits the {@link FacetsXEvents.UserClickedAllFilter} event. By default
-   * the rendered button displays a message with the facet label but this content is customizable
-   * through the default slot.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'AllFilter',
-    components: {
-      BaseEventButton
+/**
+ * This component receives a required `facet` with
+ * {@link @empathyco/x-types#BooleanFilter} as prop and renders a button, which
+ * on clicked emits the {@link FacetsXEvents.UserClickedAllFilter} event. By default
+ * the rendered button displays a message with the facet label but this content is customizable
+ * through the default slot.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'AllFilter',
+  components: {
+    BaseEventButton,
+  },
+  xModule: facetsXModule.name,
+  props: {
+    /** The facet data. */
+    facet: {
+      type: Object as PropType<Facet>,
+      required: true,
     },
-    xModule: facetsXModule.name,
-    props: {
-      /** The facet data. */
-      facet: {
-        type: Object as PropType<Facet>,
-        required: true
-      }
-    },
-    setup(props) {
-      /** The getter of the selectedFiltersByFacet. */
-      const { selectedFiltersByFacet }: Dictionary<ComputedRef<FiltersByFacet>> = useGetter(
-        'facets',
-        ['selectedFiltersByFacet']
-      );
+  },
+  setup(props) {
+    /** The getter of the selectedFiltersByFacet. */
+    const { selectedFiltersByFacet }: Dictionary<ComputedRef<FiltersByFacet>> = useGetter(
+      'facets',
+      ['selectedFiltersByFacet'],
+    )
 
-      /**
-       * The event that will be emitted when the all filter button is clicked.
-       *
-       * @returns The event to emit on click.
-       * @internal
-       */
-      const clickEvent = computed((): Partial<XEventsTypes> => {
-        return { UserClickedAllFilter: [props.facet.id] };
-      });
+    /**
+     * The event that will be emitted when the all filter button is clicked.
+     *
+     * @returns The event to emit on click.
+     * @internal
+     */
+    const clickEvent = computed((): Partial<XEventsTypes> => {
+      return { UserClickedAllFilter: [props.facet.id] }
+    })
 
-      /**
-       * Computed to retrieve the selected state of this component.
-       *
-       * @returns True if is selected false otherwise.
-       */
-      const isSelected = computed(() => {
-        return isArrayEmpty(selectedFiltersByFacet.value?.[props.facet.id]);
-      });
+    /**
+     * Computed to retrieve the selected state of this component.
+     *
+     * @returns True if is selected false otherwise.
+     */
+    const isSelected = computed(() => {
+      return isArrayEmpty(selectedFiltersByFacet.value?.[props.facet.id])
+    })
 
-      /**
-       * Dynamic CSS classes to apply to the component.
-       *
-       * @remarks This is only valid considering that in the case of HierarchicalFilters, ancestors
-       * of nested selected filters are also selected.
-       *
-       * @returns The dynamic CSS classes to apply to the component.
-       * @internal
-       */
-      const cssClasses = computed(() => {
-        return {
-          'x-selected x-all-filter--is-selected': isSelected.value
-        };
-      });
-
+    /**
+     * Dynamic CSS classes to apply to the component.
+     *
+     * @remarks This is only valid considering that in the case of HierarchicalFilters, ancestors
+     * of nested selected filters are also selected.
+     *
+     * @returns The dynamic CSS classes to apply to the component.
+     * @internal
+     */
+    const cssClasses = computed(() => {
       return {
-        clickEvent,
-        cssClasses,
-        isSelected
-      };
+        'x-selected x-all-filter--is-selected': isSelected.value,
+      }
+    })
+
+    return {
+      clickEvent,
+      cssClasses,
+      isSelected,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">

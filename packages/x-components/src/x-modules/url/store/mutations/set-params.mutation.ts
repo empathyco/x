@@ -1,5 +1,5 @@
-import { forEach } from '@empathyco/x-utils';
-import { UrlXStoreModule } from '../types';
+import type { UrlXStoreModule } from '../types'
+import { forEach } from '@empathyco/x-utils'
 
 /**
  * Default implementation for the {@link UrlMutations.setParams} mutation.
@@ -13,6 +13,6 @@ import { UrlXStoreModule } from '../types';
  */
 export const setParams: UrlXStoreModule['mutations']['setParams'] = (state, params) => {
   forEach(params, (key, value) => {
-    state[key] = value;
-  });
-};
+    state[key] = value
+  })
+}

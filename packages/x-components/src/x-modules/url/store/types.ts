@@ -1,8 +1,8 @@
-import { Filter, RelatedTag } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { UrlParams } from '../../../types/url-params';
+import type { Filter, RelatedTag } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { UrlParams } from '../../../types/url-params'
 
 /**
  * URL store state.
@@ -10,7 +10,7 @@ import { UrlParams } from '../../../types/url-params';
  * @public
  */
 export interface UrlState extends QueryState, UrlParams {
-  initialExtraParams: Dictionary<unknown>;
+  initialExtraParams: Dictionary<unknown>
 }
 
 /**
@@ -20,7 +20,7 @@ export interface UrlState extends QueryState, UrlParams {
  */
 export interface UrlGetters {
   /** The current params in the url. */
-  urlParams: UrlParams;
+  urlParams: UrlParams
 }
 
 /**
@@ -28,14 +28,14 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = Extract<keyof UrlParams, string>;
+export type UrlParamKey = Extract<keyof UrlParams, string>
 
 /**
  * The allowed values of the parameters to store in the URL.
  *
  * @public
  */
-export type UrlParamValue = string | number | boolean | Array<string | number | boolean>;
+export type UrlParamValue = string | number | boolean | Array<string | number | boolean>
 
 /**
  * URL store mutations.
@@ -48,49 +48,49 @@ export interface UrlMutations extends QueryMutations {
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: Partial<UrlParams>): void;
+  setParams: (params: Partial<UrlParams>) => void
   /**
    * Sets the related tags.
    *
    * @param relatedTags - The new related tags of the url.
    */
-  setRelatedTags(relatedTags: RelatedTag[]): void;
+  setRelatedTags: (relatedTags: RelatedTag[]) => void
   /**
    * Sets the related prompt.
    *
    * @param prompt - The new related prompt index of the URL.
    */
-  setPrompt(prompt: number): void;
+  setPrompt: (prompt: number) => void
   /**
    * Sets the new filter ids.
    *
    * @param filters - The new filter ids of the url.
    */
-  setFilters(filters: Filter[]): void;
+  setFilters: (filters: Filter[]) => void
   /**
    * Sets the new page.
    *
    * @param page - The new page of the url.
    */
-  setPage(page: number): void;
+  setPage: (page: number) => void
   /**
    * Sets the url scroll.
    *
    * @param scroll - The new first element visible in the scroll.
    */
-  setScroll(scroll: string): void;
+  setScroll: (scroll: string) => void
   /**
    * Sets the new sort.
    *
    * @param sort - The new sort of the url.
    */
-  setSort(sort: string): void;
+  setSort: (sort: string) => void
   /**
    * Sets the initial extra params.
    *
    * @param extraParams - The new initial extra params.
    */
-  setInitialExtraParams(extraParams: Dictionary<unknown>): void;
+  setInitialExtraParams: (extraParams: Dictionary<unknown>) => void
 }
 
 /**
@@ -105,11 +105,11 @@ export interface UrlActions {}
  *
  * @public
  */
-export type UrlXStoreModule = XStoreModule<UrlState, UrlGetters, UrlMutations, UrlActions>;
+export type UrlXStoreModule = XStoreModule<UrlState, UrlGetters, UrlMutations, UrlActions>
 
 /**
  * Alias type for actions context of the {@link UrlXStoreModule}.
  *
  * @public
  */
-export type UrlActionContext = XActionContext<UrlState, UrlGetters, UrlMutations, UrlActions>;
+export type UrlActionContext = XActionContext<UrlState, UrlGetters, UrlMutations, UrlActions>

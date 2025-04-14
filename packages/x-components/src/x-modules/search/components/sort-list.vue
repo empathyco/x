@@ -20,81 +20,83 @@
 </template>
 
 <script lang="ts">
-  import { Sort } from '@empathyco/x-types';
-  import Vue, { computed, defineComponent, PropType, watch } from 'vue';
-  import BaseEventButton from '../../../components/base-event-button.vue';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { searchXModule } from '../x-module';
+import type { Sort } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type Vue from 'vue'
+import type { VueCSSClasses } from '../../../utils/types'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent, watch } from 'vue'
+import BaseEventButton from '../../../components/base-event-button.vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { searchXModule } from '../x-module'
 
-  /**
-   * Sort list item options.
-   */
-  interface SortListItem {
-    item: Sort;
-    cssClasses: VueCSSClasses;
-    event: Partial<XEventsTypes>;
-  }
+/**
+ * Sort list item options.
+ */
+interface SortListItem {
+  item: Sort
+  cssClasses: VueCSSClasses
+  event: Partial<XEventsTypes>
+}
 
-  /**
-   * The `SortList` component allows user to select the search results order. This component
-   * also allows to change the selected sort programmatically.
-   */
-  export default defineComponent({
-    name: 'SortList',
-    xModule: searchXModule.name,
-    components: { BaseEventButton },
-    props: {
-      /** The list of possible sort values. */
-      items: {
-        type: Array as PropType<Sort[]>,
-        required: true
-      },
-      /** The transition to use for rendering the list. */
-      animation: {
-        type: [String, Object] as PropType<string | typeof Vue>,
-        default: () => 'ul'
-      }
+/**
+ * The `SortList` component allows user to select the search results order. This component
+ * also allows to change the selected sort programmatically.
+ */
+export default defineComponent({
+  name: 'SortList',
+  xModule: searchXModule.name,
+  components: { BaseEventButton },
+  props: {
+    /** The list of possible sort values. */
+    items: {
+      type: Array as PropType<Sort[]>,
+      required: true,
     },
-    setup(props) {
-      const $x = use$x();
+    /** The transition to use for rendering the list. */
+    animation: {
+      type: [String, Object] as PropType<string | typeof Vue>,
+      default: () => 'ul',
+    },
+  },
+  setup(props) {
+    const $x = use$x()
 
-      const { sort: selectedSort } = useState('search', ['sort']);
+    const { sort: selectedSort } = useState('search', ['sort'])
 
-      watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-        immediate: true
-      });
+    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
+      immediate: true,
+    })
 
-      /**
-       * Sort list items.
-       *
-       * @returns A list of items with their css class and the event associate to it.
-       */
-      const listItems = computed<SortListItem[]>(() =>
-        props.items.map(item => ({
-          item,
-          cssClasses: {
-            'x-sort-list__item--is-selected': item === selectedSort.value,
-            'x-option-list__item--is-selected': item === selectedSort.value
-          },
-          event: { UserClickedASort: item }
-        }))
-      );
+    /**
+     * Sort list items.
+     *
+     * @returns A list of items with their css class and the event associate to it.
+     */
+    const listItems = computed<SortListItem[]>(() =>
+      props.items.map(item => ({
+        item,
+        cssClasses: {
+          'x-sort-list__item--is-selected': item === selectedSort.value,
+          'x-option-list__item--is-selected': item === selectedSort.value,
+        },
+        event: { UserClickedASort: item },
+      })),
+    )
 
-      return {
-        listItems,
-        selectedSort
-      };
+    return {
+      listItems,
+      selectedSort,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-sort-list {
-    list-style-type: none;
-  }
+.x-sort-list {
+  list-style-type: none;
+}
 </style>
 
 <docs lang="mdx">
@@ -137,16 +139,16 @@ This component emits 2 different events:
 </template>
 
 <script>
-  import { SortList } from '@empathyco/x-components/search';
+import { SortList } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      SortList
-    },
-    data() {
-      return { sortValues: ['Relevance', 'Price asc', 'Price desc'] };
-    }
-  };
+export default {
+  components: {
+    SortList,
+  },
+  data() {
+    return { sortValues: ['Relevance', 'Price asc', 'Price desc'] }
+  },
+}
 </script>
 ```
 
@@ -163,19 +165,19 @@ This component emits 2 different events:
 </template>
 
 <script>
-  import { SortList } from '@empathyco/x-components/search';
+import { SortList } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      SortList
-    },
-    data() {
-      return {
-        selectedSort: 'Price asc',
-        sortValues: ['Relevance', 'Price asc', 'Price desc']
-      };
+export default {
+  components: {
+    SortList,
+  },
+  data() {
+    return {
+      selectedSort: 'Price asc',
+      sortValues: ['Relevance', 'Price asc', 'Price desc'],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

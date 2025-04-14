@@ -1,7 +1,7 @@
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../../types';
-import { textDefault } from './default';
-import { textSizes } from './sizes';
+import type { TailwindHelpers } from '../../../../types'
+import { rename } from '@empathyco/x-utils'
+import { textDefault } from './default'
+import { textSizes } from './sizes'
 
 /**
  * Returns the component `text1` CSS.
@@ -15,10 +15,10 @@ export function text1(helpers: TailwindHelpers) {
       ...textDefault(helpers),
       ...rename(
         {
-          ...textSizes(helpers)
+          ...textSizes(helpers),
         },
-        { prefix: '&-' }
-      )
-    }
-  };
+        { prefix: '&-' },
+      ),
+    },
+  }
 }

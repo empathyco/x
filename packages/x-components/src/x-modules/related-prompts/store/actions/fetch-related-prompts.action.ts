@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RelatedPromptsXStoreModule } from '../types';
+import type { RelatedPromptsXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link RelatedPromptsActions.fetchRelatedPrompts}.
@@ -11,11 +11,9 @@ import { RelatedPromptsXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchRelatedPrompts'] = (
-  _,
-  request
-) => {
-  return request
-    ? XPlugin.adapter.relatedPrompts(request).then(({ relatedPrompts }) => relatedPrompts)
-    : null;
-};
+export const fetchRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchRelatedPrompts'] =
+  async (_, request) => {
+    return request
+      ? XPlugin.adapter.relatedPrompts(request).then(({ relatedPrompts }) => relatedPrompts)
+      : null
+  }

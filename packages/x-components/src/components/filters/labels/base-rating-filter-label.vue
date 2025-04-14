@@ -16,58 +16,59 @@
 </template>
 
 <script lang="ts">
-  import { BooleanFilter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseRating from '../../base-rating.vue';
+import type { BooleanFilter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
+import BaseRating from '../../base-rating.vue'
 
-  /**
-   * Renders a label for a rating filter, allowing to override the elements used to paint
-   * the rating.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseRating
+/**
+ * Renders a label for a rating filter, allowing to override the elements used to paint
+ * the rating.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseRating,
+  },
+  props: {
+    /**
+     * The filter data to render.
+     *
+     * @public
+     */
+    filter: {
+      type: Object as PropType<BooleanFilter>,
+      required: true,
     },
-    props: {
-      /**
-       * The filter data to render.
-       *
-       * @public
-       */
-      filter: {
-        type: Object as PropType<BooleanFilter>,
-        required: true
-      },
-      /**
-       * Maximum number of elements to paint.
-       *
-       * @public
-       */
-      max: {
-        type: Number,
-        default: 5
-      }
+    /**
+     * Maximum number of elements to paint.
+     *
+     * @public
+     */
+    max: {
+      type: Number,
+      default: 5,
     },
-    setup(props) {
-      /**
-       * Converts the label string into a number.
-       *
-       * @returns The label as number or 0 if it is not a valid number.
-       *
-       * @internal
-       */
-      const value = computed<number>(() => {
-        const x = parseFloat(props.filter.label) ?? 0;
-        return Number.isNaN(x) ? 0 : x;
-      });
+  },
+  setup(props) {
+    /**
+     * Converts the label string into a number.
+     *
+     * @returns The label as number or 0 if it is not a valid number.
+     *
+     * @internal
+     */
+    const value = computed<number>(() => {
+      const x = Number.parseFloat(props.filter.label) ?? 0
+      return Number.isNaN(x) ? 0 : x
+    })
 
-      return {
-        value
-      };
+    return {
+      value,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">

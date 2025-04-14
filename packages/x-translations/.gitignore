@@ -1,4 +1,6 @@
 .DS_Store
+# Prettier CHANGELOG.md ignore
+/CHANGELOG.md
 /node_modules
 /dist
 /docs

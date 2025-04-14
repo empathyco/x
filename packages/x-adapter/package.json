@@ -5,6 +5,11 @@
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-adapter"
+  },
   "keywords": [
     "search",
     "adapter",
@@ -17,13 +22,8 @@
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-adapter"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
@@ -31,7 +31,11 @@
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest",
     "test:unit": "jest",
     "prepublishOnly": "pnpm run build"

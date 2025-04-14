@@ -1,14 +1,14 @@
-import { setStatus } from '../../../store/utils/status-store.utils';
-import { setQuery } from '../../../store/utils/query.utils';
-import { RelatedPromptsXStoreModule } from './types';
+import type { RelatedPromptsXStoreModule } from './types'
+import { setQuery } from '../../../store/utils/query.utils'
+import { setStatus } from '../../../store/utils/status-store.utils'
 import {
   cancelFetchAndSaveRelatedPrompts,
-  fetchAndSaveRelatedPrompts
-} from './actions/fetch-and-save-related-prompts.action';
-import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
-import { setUrlParams } from './actions/set-url-params.action';
-import { request } from './getters/request.getter';
-import { query } from './getters/related-prompts-query.getter';
+  fetchAndSaveRelatedPrompts,
+} from './actions/fetch-and-save-related-prompts.action'
+import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action'
+import { setUrlParams } from './actions/set-url-params.action'
+import { query } from './getters/related-prompts-query.getter'
+import { request } from './getters/request.getter'
 
 /**
  * {@link XStoreModule} For the related prompt module.
@@ -23,43 +23,43 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     selectedQuery: -1,
     status: 'initial',
     params: {},
-    relatedTags: []
+    relatedTags: [],
   }),
   getters: {
     request,
-    query
+    query,
   },
   mutations: {
     setStatus,
     setQuery,
     setParams(state, params) {
-      state.params = params;
+      state.params = params
     },
     setRelatedPromptsProducts(state, products) {
-      state.relatedPrompts = products;
+      state.relatedPrompts = products
     },
     setSelectedPrompt(state, selectedPrompt) {
-      state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt;
+      state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt
     },
     setSelectedQuery(state, selectedQuery) {
-      state.selectedQuery = selectedQuery;
+      state.selectedQuery = selectedQuery
     },
     resetRelatedPromptsState(state) {
-      state.selectedQuery = -1;
-      state.selectedPrompt = -1;
-      state.relatedPrompts = [];
+      state.selectedQuery = -1
+      state.selectedPrompt = -1
+      state.relatedPrompts = []
     },
     resetSelectedPrompt(state) {
-      state.selectedPrompt = -1;
+      state.selectedPrompt = -1
     },
     setRelatedPromptsRelatedTags(state, relatedTags) {
-      state.relatedTags = relatedTags;
-    }
+      state.relatedTags = relatedTags
+    },
   },
   actions: {
     fetchRelatedPrompts,
     fetchAndSaveRelatedPrompts,
     cancelFetchAndSaveRelatedPrompts,
-    setUrlParams
-  }
-};
+    setUrlParams,
+  },
+}

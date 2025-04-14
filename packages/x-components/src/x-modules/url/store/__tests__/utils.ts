@@ -1,8 +1,8 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { urlXStoreModule } from '../module';
-import { UrlState } from '../types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { UrlState } from '../types'
+import { Store } from 'vuex'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { urlXStoreModule } from '../module'
 
 /**
  * Resets the url module state, optionally modifying its default values.
@@ -13,7 +13,7 @@ import { UrlState } from '../types';
  * @internal
  */
 export function resetUrlStateWith(store: Store<UrlState>, state?: DeepPartial<UrlState>): void {
-  resetStoreModuleState(store, urlXStoreModule.state(), state);
+  resetStoreModuleState(store, urlXStoreModule.state(), state)
 }
 
 /**
@@ -26,8 +26,8 @@ export function resetUrlStateWith(store: Store<UrlState>, state?: DeepPartial<Ur
  * @internal
  */
 export function createUrlStore(state?: Partial<UrlState>): Store<UrlState> {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const store = new Store<UrlState>(urlXStoreModule as any);
-  resetUrlStateWith(store, state);
-  return store;
+  // eslint-disable-next-line ts/no-unsafe-argument
+  const store = new Store<UrlState>(urlXStoreModule as any)
+  resetUrlStateWith(store, state)
+  return store
 }

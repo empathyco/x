@@ -1,10 +1,10 @@
 <template>
   <BaseSuggestion
+    v-slot="baseScope"
     v-bind="{ query, suggestion, suggestionSelectedEvents }"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
-    #default="baseScope"
   >
     <!-- eslint-disable max-len -->
     <!--
@@ -17,48 +17,49 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { Suggestion } from '@empathyco/x-types';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { querySuggestionsXModule } from '../x-module';
-  import { useGetter } from '../../../composables';
+import type { Suggestion } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { useGetter } from '../../../composables'
+import { querySuggestionsXModule } from '../x-module'
 
-  /**
-   * This component renders a suggestion for a query. A query suggestion is a recommended query
-   * based on previous search queries. It contains the query itself and a set of filters associated.
-   * For example, if you're searching for _shirt_, a query suggestion could be _long sleeve shirt_.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'QuerySuggestion',
-    xModule: querySuggestionsXModule.name,
-    components: { BaseSuggestion },
-    props: {
-      /** The suggestion to render. */
-      suggestion: {
-        type: Object as PropType<Suggestion>,
-        required: true
-      }
+/**
+ * This component renders a suggestion for a query. A query suggestion is a recommended query
+ * based on previous search queries. It contains the query itself and a set of filters associated.
+ * For example, if you're searching for _shirt_, a query suggestion could be _long sleeve shirt_.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'QuerySuggestion',
+  xModule: querySuggestionsXModule.name,
+  components: { BaseSuggestion },
+  props: {
+    /** The suggestion to render. */
+    suggestion: {
+      type: Object as PropType<Suggestion>,
+      required: true,
     },
-    setup(props) {
-      /** The normalized query of the query-suggestions module. */
-      const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery;
+  },
+  setup(props) {
+    /** The normalized query of the query-suggestions module. */
+    const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery
 
-      /**
-       * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
-       * payload when selecting the query suggestion.
-       */
-      const suggestionSelectedEvents = {
-        UserSelectedAQuerySuggestion: props.suggestion
-      };
-
-      return {
-        query,
-        suggestionSelectedEvents
-      };
+    /**
+     * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
+     * payload when selecting the query suggestion.
+     */
+    const suggestionSelectedEvents = {
+      UserSelectedAQuerySuggestion: props.suggestion,
     }
-  });
+
+    return {
+      query,
+      suggestionSelectedEvents,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -87,22 +88,22 @@ Here you can see how a single query suggestion is rendered using the `suggestion
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
-  export default {
-    name: 'QuerySuggestionDemo',
-    components: {
-      QuerySuggestion
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'QuerySuggestion',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
+export default {
+  name: 'QuerySuggestionDemo',
+  components: {
+    QuerySuggestion,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'QuerySuggestion',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -119,22 +120,22 @@ In this example, we are adding an emoji next to the suggestion.
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
-  export default {
-    name: 'QuerySuggestionDemo',
-    components: {
-      QuerySuggestion
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'QuerySuggestion',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
+export default {
+  name: 'QuerySuggestionDemo',
+  components: {
+    QuerySuggestion,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'QuerySuggestion',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -149,27 +150,27 @@ the `UserSelectedAQuerySuggestion` event has been triggered.
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
-  export default {
-    name: 'QuerySuggestionDemo',
-    components: {
-      QuerySuggestion
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'QuerySuggestion',
-          query: 'tshirt',
-          facets: []
-        }
-      };
-    },
-    methods: {
-      alertSuggestion(querySuggestion) {
-        alert(`You have clicked the query suggestion: ${querySuggestion.query}`);
-      }
+import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
+export default {
+  name: 'QuerySuggestionDemo',
+  components: {
+    QuerySuggestion,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'QuerySuggestion',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+  methods: {
+    alertSuggestion(querySuggestion) {
+      alert(`You have clicked the query suggestion: ${querySuggestion.query}`)
+    },
+  },
+}
 </script>
 ```
 </docs>

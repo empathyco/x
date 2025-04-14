@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 export const platformIdentifierResultsResponse = {
   catalog: {
     content: [
@@ -14,31 +13,31 @@ export const platformIdentifierResultsResponse = {
           click:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false',
           displayClick:
-            'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false'
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false',
         },
         __id: '12345-U',
         __externalId: '12345-U',
         groupId: '12345',
         __prices: {
           current: {
-            value: 10
-          }
-        }
-      }
+            value: 10,
+          },
+        },
+      },
     ],
     tagging: {
       query:
-        'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=12345&lang=en&scope=desktop&page=1&origin=search_box%3Anone&filtered=false&spellcheck=false'
-    }
-  }
-};
+        'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=12345&lang=en&scope=desktop&page=1&origin=search_box%3Anone&filtered=false&spellcheck=false',
+    },
+  },
+}
 
 export const identifierResultsResponse = {
   results: [
     {
       id: '12345-U',
       identifier: {
-        value: '12345-U'
+        value: '12345-U',
       },
       images: ['https://assets.empathy.co/images-demo/12345.jpg'],
       isWishlisted: false,
@@ -48,10 +47,10 @@ export const identifierResultsResponse = {
         value: 10,
         originalValue: 10,
         futureValue: 10,
-        hasDiscount: false
+        hasDiscount: false,
       },
       rating: {
-        value: null
+        value: null,
       },
       tagging: {
         add2cart: {
@@ -66,9 +65,9 @@ export const identifierResultsResponse = {
             q: '12345',
             scope: 'desktop',
             spellcheck: 'false',
-            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           },
-          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart'
+          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart',
         },
         checkout: {
           params: {
@@ -82,9 +81,9 @@ export const identifierResultsResponse = {
             q: '12345',
             scope: 'desktop',
             spellcheck: 'false',
-            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           },
-          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout'
+          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout',
         },
         click: {
           params: {
@@ -98,9 +97,9 @@ export const identifierResultsResponse = {
             q: '12345',
             scope: 'desktop',
             spellcheck: 'false',
-            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           },
-          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
+          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click',
         },
         displayClick: {
           params: {
@@ -114,12 +113,12 @@ export const identifierResultsResponse = {
             productId: '12345-U',
             scope: 'desktop',
             spellcheck: 'false',
-            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           },
-          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick'
-        }
+          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick',
+        },
       },
-      type: 'Default'
-    }
-  ]
-};
+      type: 'Default',
+    },
+  ],
+}

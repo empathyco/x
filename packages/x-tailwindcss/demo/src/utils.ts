@@ -5,5 +5,5 @@
  * @returns A string with the new list of classes.
  */
 export function addParentClasses(...parentClasses: string[]): (value: string) => string {
-  return cssClass => `${parentClasses.join(' ')} ${cssClass}`;
+  return cssClass => `${parentClasses.join(' ')} ${cssClass}`
 }

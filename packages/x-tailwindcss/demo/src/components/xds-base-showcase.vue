@@ -27,65 +27,66 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue';
-  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
+import type { PropType } from 'vue'
+import type { ShowcaseSections, ShowcaseSectionsClasses } from '../types/types'
+import { defineComponent, ref } from 'vue'
 
-  export default defineComponent({
-    props: {
-      sections: {
-        type: Object as PropType<ShowcaseSections>,
-        required: true
-      },
-      sectionsClasses: {
-        type: Object as PropType<ShowcaseSectionsClasses>,
-        default: () => ({})
-      },
-      title: {
-        type: String,
-        required: true
-      }
+export default defineComponent({
+  props: {
+    sections: {
+      type: Object as PropType<ShowcaseSections>,
+      required: true,
     },
-    setup() {
-      const isMessageVisible = ref(false);
+    sectionsClasses: {
+      type: Object as PropType<ShowcaseSectionsClasses>,
+      default: () => ({}),
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+  },
+  setup() {
+    const isMessageVisible = ref(false)
 
-      /**
-       * Copies the classList of an HTML Element to the clipboard.
-       *
-       * @param event - The MouseEvent to get the HTML Element from.
-       *
-       * @internal
-       */
-      function copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-        showMessage();
-      }
-
-      /**
-       * Shows the message of copied classes to clipboard for 2 seconds.
-       *
-       * @internal
-       */
-      function showMessage(): void {
-        isMessageVisible.value = true;
-        setTimeout(() => (isMessageVisible.value = false), 2000);
-      }
-      /**
-       * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
-       *
-       * @param cssClasses - The class list to remove the prefix from.
-       * @param prefix - The prefix to be removed.
-       * @returns The CSS classes with the prefix removed.
-       *
-       * @internal
-       */
-      function removeClassPrefix(cssClasses: string, prefix: string): string {
-        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
-      }
-      return {
-        copyCssClassesToClipboard,
-        removeClassPrefix,
-        isMessageVisible
-      };
+    /**
+     * Copies the classList of an HTML Element to the clipboard.
+     *
+     * @param event - The MouseEvent to get the HTML Element from.
+     *
+     * @internal
+     */
+    function copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
+      showMessage()
     }
-  });
+
+    /**
+     * Shows the message of copied classes to clipboard for 2 seconds.
+     *
+     * @internal
+     */
+    function showMessage(): void {
+      isMessageVisible.value = true
+      setTimeout(() => (isMessageVisible.value = false), 2000)
+    }
+    /**
+     * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
+     *
+     * @param cssClasses - The class list to remove the prefix from.
+     * @param prefix - The prefix to be removed.
+     * @returns The CSS classes with the prefix removed.
+     *
+     * @internal
+     */
+    function removeClassPrefix(cssClasses: string, prefix: string): string {
+      return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '')
+    }
+    return {
+      copyCssClassesToClipboard,
+      removeClassPrefix,
+      isMessageVisible,
+    }
+  },
+})
 </script>

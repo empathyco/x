@@ -1,13 +1,13 @@
-import { DevtoolsPluginApi } from '@vue/devtools-api';
-import { Dictionary } from '@empathyco/x-utils';
-import { XEvent, XEventPayload } from '../../wiring/events.types';
-import { WirePayload } from '../../wiring/wiring.types';
-import { hslToHex } from './colors.utils';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { DevtoolsPluginApi } from '@vue/devtools-api'
+import type { XEvent, XEventPayload } from '../../wiring/events.types'
+import type { WirePayload } from '../../wiring/wiring.types'
+import { hslToHex } from './colors.utils'
 
 /**
  * Contains the devtools API.
  */
-let devtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined;
+let devtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined
 
 /**
  * List of all the configured timeline layers for {@link XEvent}s.
@@ -16,38 +16,38 @@ const timelineLayers = [
   {
     id: 'x-components-all-events',
     regex: /^$/,
-    label: 'X events'
+    label: 'X events',
   },
   {
     id: 'x-components-module-registered-events',
     regex: /^ModuleRegistered$/,
-    label: 'X registered modules'
+    label: 'X registered modules',
   },
   {
     id: 'x-components-user-events',
     regex: /^User/,
-    label: 'X user events'
+    label: 'X user events',
   },
 
   {
     id: 'x-components-request-events',
     regex: /Request(?:Changed|Updated)$/,
-    label: 'X request events'
+    label: 'X request events',
   },
   {
     id: 'x-components-status-change-events',
     regex: /Changed$/,
-    label: 'X status change events'
+    label: 'X status change events',
   },
   {
     id: 'x-components-miscellanea-events',
     regex: /.*/,
-    label: 'X miscellanea events'
-  }
-];
+    label: 'X miscellanea events',
+  },
+]
 
 /** Set containing the different layer ids. */
-const layerIds = new Set(timelineLayers.map(layer => layer.id));
+const layerIds = new Set(timelineLayers.map(layer => layer.id))
 
 /**
  * Retrieves the timeline layer that an {@link XEvent} belongs to.
@@ -56,7 +56,7 @@ const layerIds = new Set(timelineLayers.map(layer => layer.id));
  * @returns The layer id for the {@link XEvent}.
  */
 function getTimelineLayer(event: XEvent): string {
-  return timelineLayers.find(layer => layer.regex.test(event))!.id;
+  return timelineLayers.find(layer => layer.regex.test(event))!.id
 }
 
 /**
@@ -66,22 +66,22 @@ function getTimelineLayer(event: XEvent): string {
  * @internal
  */
 export function setupTimelinePlugin(api: DevtoolsPluginApi<Dictionary>): void {
-  devtoolsAPI = api;
+  devtoolsAPI = api
   timelineLayers.forEach(layer =>
     api.addTimelineLayer({
       id: layer.id,
       label: layer.label,
-      color: hslToHex(329, 100, 50)
-    })
-  );
+      color: hslToHex(329, 100, 50),
+    }),
+  )
   api.on.inspectTimelineEvent(payload => {
     if (layerIds.has(payload.layerId)) {
-      const component = (<WirePayload<unknown>>payload.event.data).metadata.component;
+      const component = (<WirePayload<unknown>>payload.event.data).metadata.component
       if (component) {
-        api.highlightElement(component);
+        api.highlightElement(component)
       }
     }
-  });
+  })
 }
 
 /**
@@ -93,8 +93,9 @@ export function setupTimelinePlugin(api: DevtoolsPluginApi<Dictionary>): void {
  */
 export function logDevtoolsXEvent<Event extends XEvent>(
   event: Event,
-  value: WirePayload<XEventPayload<Event>>
+  value: WirePayload<XEventPayload<Event>>,
 ): void {
+  // eslint-disable-next-line node/prefer-global/process
   if (process.env.NODE_ENV !== 'production' && devtoolsAPI) {
     const timelineEvent = {
       title: event,
@@ -103,18 +104,18 @@ export function logDevtoolsXEvent<Event extends XEvent>(
         metadata: {
           ...value.metadata,
           // FIX-ME: copying metadata.component as it is defined as a non-enumerable property.
-          component: value.metadata.component
-        }
+          component: value.metadata.component,
+        },
       },
-      time: devtoolsAPI.now()
-    };
+      time: devtoolsAPI.now(),
+    }
     devtoolsAPI.addTimelineEvent({
       event: timelineEvent,
-      layerId: getTimelineLayer(event)
-    });
+      layerId: getTimelineLayer(event),
+    })
     devtoolsAPI.addTimelineEvent({
       event: timelineEvent,
-      layerId: 'x-components-all-events'
-    });
+      layerId: 'x-components-all-events',
+    })
   }
 }

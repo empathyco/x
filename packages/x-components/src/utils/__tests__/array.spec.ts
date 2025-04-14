@@ -4,64 +4,64 @@ import {
   deepFilter,
   deepFlat,
   groupItemsBy,
-  isArrayEmpty
-} from '../array';
+  isArrayEmpty,
+} from '../array'
 
 describe(`testing ${isArrayEmpty.name} utility method`, () => {
   it('returns `true` when the array is `null`, `undefined` or has no elements', () => {
-    expect(isArrayEmpty(undefined)).toEqual(true);
-    expect(isArrayEmpty(null)).toEqual(true);
-    expect(isArrayEmpty([])).toEqual(true);
-  });
+    expect(isArrayEmpty(undefined)).toEqual(true)
+    expect(isArrayEmpty(null)).toEqual(true)
+    expect(isArrayEmpty([])).toEqual(true)
+  })
 
   it('returns `false` when the array contains at least 1 element', () => {
-    expect(isArrayEmpty([null])).toEqual(false);
-  });
-});
+    expect(isArrayEmpty([null])).toEqual(false)
+  })
+})
 
 describe(`testing ${arrayToObject.name} utility method`, () => {
   it('should return an object with the correct format from an array', () => {
     interface ArrayTypeMock {
-      targetKey: string;
-      p1: string;
-      p2: string;
+      targetKey: string
+      p1: string
+      p2: string
     }
 
     const arrayMock: ArrayTypeMock[] = [
       {
         targetKey: 'object1',
         p1: 'value1',
-        p2: 'value2'
+        p2: 'value2',
       },
       {
         targetKey: 'object2',
         p1: 'value3',
-        p2: 'value4'
-      }
-    ];
+        p2: 'value4',
+      },
+    ]
 
     const dictMock: Record<string, ArrayTypeMock> = {
       object1: {
         targetKey: 'object1',
         p1: 'value1',
-        p2: 'value2'
+        p2: 'value2',
       },
       object2: {
         targetKey: 'object2',
         p1: 'value3',
-        p2: 'value4'
-      }
-    };
+        p2: 'value4',
+      },
+    }
 
-    expect(arrayToObject(arrayMock, 'targetKey')).toEqual(dictMock);
-  });
-});
+    expect(arrayToObject(arrayMock, 'targetKey')).toEqual(dictMock)
+  })
+})
 
 describe(`testing ${deepFilter.name} utility method`, () => {
   interface ArrayTypeMock {
-    id: string;
-    condition: boolean;
-    next: this[];
+    id: string
+    condition: boolean
+    next: this[]
   }
 
   it('should return an array with the filtered elements', () => {
@@ -69,33 +69,33 @@ describe(`testing ${deepFilter.name} utility method`, () => {
       {
         id: '1',
         condition: true,
-        next: []
+        next: [],
       },
       {
         id: '2',
         condition: false,
-        next: []
+        next: [],
       },
       {
         id: '3',
         condition: true,
-        next: []
-      }
-    ];
+        next: [],
+      },
+    ]
 
     expect(deepFilter(arrayMock, item => item.condition, 'next')).toEqual([
       {
         id: '1',
         condition: true,
-        next: []
+        next: [],
       },
       {
         id: '3',
         condition: true,
-        next: []
-      }
-    ]);
-  });
+        next: [],
+      },
+    ])
+  })
 
   it('should return an array with the filtered elements (recursively)', () => {
     const arrayMock: ArrayTypeMock[] = [
@@ -106,12 +106,12 @@ describe(`testing ${deepFilter.name} utility method`, () => {
           {
             id: '1-1',
             condition: true,
-            next: []
+            next: [],
           },
           {
             id: '1-2',
             condition: false,
-            next: []
+            next: [],
           },
           {
             id: '1-3',
@@ -120,11 +120,11 @@ describe(`testing ${deepFilter.name} utility method`, () => {
               {
                 id: '1-3-1',
                 condition: true,
-                next: []
-              }
-            ]
-          }
-        ]
+                next: [],
+              },
+            ],
+          },
+        ],
       },
       {
         id: '2',
@@ -137,18 +137,18 @@ describe(`testing ${deepFilter.name} utility method`, () => {
               {
                 id: '2-1-1',
                 condition: true, // not should happen
-                next: []
-              }
-            ]
+                next: [],
+              },
+            ],
           },
           {
             id: '2-2',
             condition: true,
-            next: []
-          }
-        ]
-      }
-    ];
+            next: [],
+          },
+        ],
+      },
+    ]
 
     expect(deepFilter(arrayMock, item => item.condition, 'next')).toStrictEqual([
       {
@@ -158,12 +158,12 @@ describe(`testing ${deepFilter.name} utility method`, () => {
           {
             id: '1-1',
             condition: true,
-            next: []
+            next: [],
           },
           {
             id: '1-2',
             condition: false,
-            next: []
+            next: [],
           },
           {
             id: '1-3',
@@ -172,16 +172,16 @@ describe(`testing ${deepFilter.name} utility method`, () => {
               {
                 id: '1-3-1',
                 condition: true,
-                next: []
-              }
-            ]
-          }
-        ]
+                next: [],
+              },
+            ],
+          },
+        ],
       },
       {
         id: '1-1',
         condition: true,
-        next: []
+        next: [],
       },
       {
         id: '1-3',
@@ -190,28 +190,28 @@ describe(`testing ${deepFilter.name} utility method`, () => {
           {
             id: '1-3-1',
             condition: true,
-            next: []
-          }
-        ]
+            next: [],
+          },
+        ],
       },
       {
         id: '1-3-1',
         condition: true,
-        next: []
-      }
-    ]);
-  });
-});
+        next: [],
+      },
+    ])
+  })
+})
 
 describe(`testing ${deepFlat.name} utility method`, () => {
   interface ArrayTypeMock {
-    id: string;
-    next: this[];
+    id: string
+    next: this[]
   }
 
   it('should return an empty array', () => {
-    expect(deepFlat([] as ArrayTypeMock[], 'next')).toStrictEqual([]);
-  });
+    expect(deepFlat([] as ArrayTypeMock[], 'next')).toStrictEqual([])
+  })
 
   it('should return an array with the elements at the same depth level', () => {
     const arrayMock: ArrayTypeMock[] = [
@@ -220,22 +220,22 @@ describe(`testing ${deepFlat.name} utility method`, () => {
         next: [
           {
             id: '1-1',
-            next: []
+            next: [],
           },
           {
             id: '1-2',
-            next: []
+            next: [],
           },
           {
             id: '1-3',
             next: [
               {
                 id: '1-3-1',
-                next: []
-              }
-            ]
-          }
-        ]
+                next: [],
+              },
+            ],
+          },
+        ],
       },
       {
         id: '2',
@@ -245,17 +245,17 @@ describe(`testing ${deepFlat.name} utility method`, () => {
             next: [
               {
                 id: '2-1-1',
-                next: []
-              }
-            ]
+                next: [],
+              },
+            ],
           },
           {
             id: '2-2',
-            next: []
-          }
-        ]
-      }
-    ];
+            next: [],
+          },
+        ],
+      },
+    ]
 
     expect(deepFlat(arrayMock, 'next')).toStrictEqual([
       {
@@ -263,43 +263,43 @@ describe(`testing ${deepFlat.name} utility method`, () => {
         next: [
           {
             id: '1-1',
-            next: []
+            next: [],
           },
           {
             id: '1-2',
-            next: []
+            next: [],
           },
           {
             id: '1-3',
             next: [
               {
                 id: '1-3-1',
-                next: []
-              }
-            ]
-          }
-        ]
+                next: [],
+              },
+            ],
+          },
+        ],
       },
       {
         id: '1-1',
-        next: []
+        next: [],
       },
       {
         id: '1-2',
-        next: []
+        next: [],
       },
       {
         id: '1-3',
         next: [
           {
             id: '1-3-1',
-            next: []
-          }
-        ]
+            next: [],
+          },
+        ],
       },
       {
         id: '1-3-1',
-        next: []
+        next: [],
       },
       {
         id: '2',
@@ -309,75 +309,75 @@ describe(`testing ${deepFlat.name} utility method`, () => {
             next: [
               {
                 id: '2-1-1',
-                next: []
-              }
-            ]
+                next: [],
+              },
+            ],
           },
           {
             id: '2-2',
-            next: []
-          }
-        ]
+            next: [],
+          },
+        ],
       },
       {
         id: '2-1',
         next: [
           {
             id: '2-1-1',
-            next: []
-          }
-        ]
+            next: [],
+          },
+        ],
       },
       {
         id: '2-1-1',
-        next: []
+        next: [],
       },
       {
         id: '2-2',
-        next: []
-      }
-    ]);
-  });
-});
+        next: [],
+      },
+    ])
+  })
+})
 
 describe(`testing ${groupItemsBy.name} utility method`, () => {
   it('splits the items into multiple groups', () => {
-    const items = [-2, -1, 0, 0, 1, 2];
+    const items = [-2, -1, 0, 0, 1, 2]
 
     const { positive, negative, zero } = groupItemsBy(items, num => {
       if (num < 0) {
-        return 'negative';
+        return 'negative'
       } else if (num > 0) {
-        return 'positive';
+        return 'positive'
       } else {
-        return 'zero';
+        return 'zero'
       }
-    });
+    })
 
-    expect(negative).toEqual([-2, -1]);
-    expect(zero).toEqual([0, 0]);
-    expect(positive).toEqual([1, 2]);
-  });
-});
+    expect(negative).toEqual([-2, -1])
+    expect(zero).toEqual([0, 0])
+    expect(positive).toEqual([1, 2])
+  })
+})
 
 describe(`testing ${createEmitterArrayFilter.name} utility method`, () => {
   it('returns `true` when the arrays are different', () => {
-    const simpleComparator = createEmitterArrayFilter('query');
-    expect(simpleComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
+    const simpleComparator = createEmitterArrayFilter('query')
+    expect(simpleComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true)
     const complexComparator = createEmitterArrayFilter<{ query: string }>(
-      (item1, item2) => item1.query === item2.query
-    );
-    expect(complexComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
-  });
+      (item1, item2) => item1.query === item2.query,
+    )
+    expect(complexComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true)
+  })
 
   it('returns `false` when the arrays equal', () => {
-    const simpleComparator = createEmitterArrayFilter('query');
-    expect(simpleComparator([], [])).toEqual(false);
-    expect(simpleComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
+    const simpleComparator = createEmitterArrayFilter('query')
+    expect(simpleComparator([], [])).toEqual(false)
+    expect(simpleComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false)
     const complexComparator = createEmitterArrayFilter<{ query: string }>(
-      (item1, item2) => item1.query === item2.query
-    );
-    expect(complexComparator([], [])).toEqual(false);
-    expect(complexComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
-  });
-});
+      (item1, item2) => item1.query === item2.query,
+    )
+    expect(complexComparator([], [])).toEqual(false)
+    expect(complexComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false)
+  })
+})

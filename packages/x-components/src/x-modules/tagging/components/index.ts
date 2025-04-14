@@ -1,1 +1,1 @@
-export { default as Tagging } from './tagging.vue';
+export { default as Tagging } from './tagging.vue'

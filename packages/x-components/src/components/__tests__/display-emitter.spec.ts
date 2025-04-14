@@ -1,18 +1,18 @@
-import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
-import { useEmitDisplayEvent } from '../../composables/use-on-display';
-import DisplayEmitter from '../display-emitter.vue';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
+import { getDataTestSelector } from '../../__tests__/utils'
+import { useEmitDisplayEvent } from '../../composables/use-on-display'
+import DisplayEmitter from '../display-emitter.vue'
 
 jest.mock('../../composables/use-on-display', () => ({
-  useEmitDisplayEvent: jest.fn()
-}));
-const unwatchDisplaySpy = jest.fn();
-(useEmitDisplayEvent as jest.Mock).mockReturnValue({ unwatchDisplay: unwatchDisplaySpy });
+  useEmitDisplayEvent: jest.fn(),
+}))
+const unwatchDisplaySpy = jest.fn()
+;(useEmitDisplayEvent as jest.Mock).mockReturnValue({ unwatchDisplay: unwatchDisplaySpy })
 
 function render({
   payload = { url: 'tagging/url', params: { test: 'param' } },
-  eventMetadata = { test: 'param' }
+  eventMetadata = { test: 'param' },
 } = {}) {
   const wrapper = mount({
     components: { DisplayEmitter },
@@ -20,60 +20,60 @@ function render({
       <DisplayEmitter :payload="payload" :eventMetadata="eventMetadata">
         <div data-test="child" />
       </DisplayEmitter>`,
-    data: () => ({ payload, eventMetadata })
-  });
+    data: () => ({ payload, eventMetadata }),
+  })
 
   return {
     wrapper,
     displayEmiter: wrapper.findComponent(DisplayEmitter),
     element: wrapper.find(getDataTestSelector('child')).element,
     payload,
-    eventMetadata
-  };
+    eventMetadata,
+  }
 }
 
 describe('testing DisplayEmitter component', () => {
   beforeEach(() => {
-    (useEmitDisplayEvent as jest.Mock).mockClear();
-    unwatchDisplaySpy.mockClear();
-  });
+    ;(useEmitDisplayEvent as jest.Mock).mockClear()
+    unwatchDisplaySpy.mockClear()
+  })
 
   it('renders everything passed to its default slot', () => {
-    const { displayEmiter } = render();
+    const { displayEmiter } = render()
 
-    expect(displayEmiter.find(getDataTestSelector('child')).exists()).toBeTruthy();
-  });
+    expect(displayEmiter.find(getDataTestSelector('child')).exists()).toBeTruthy()
+  })
 
   it('executes `useEmitDisplayEvent` composable underneath', () => {
-    render();
+    render()
 
-    expect(useEmitDisplayEvent).toHaveBeenCalled();
-  });
+    expect(useEmitDisplayEvent).toHaveBeenCalled()
+  })
 
   it('provides `useEmitDisplayEvent` with the element in the slot to watch', async () => {
-    const { element } = render();
+    const { element } = render()
 
-    await nextTick();
+    await nextTick()
 
-    expect(useEmitDisplayEvent).toHaveBeenCalledWith(expect.objectContaining({ element }));
-  });
+    expect(useEmitDisplayEvent).toHaveBeenCalledWith(expect.objectContaining({ element }))
+  })
 
   it('provides `useEmitDisplayEvent` with the payload and metadata to emit with the display event', async () => {
-    const { payload, eventMetadata } = render();
+    const { payload, eventMetadata } = render()
 
-    await nextTick();
+    await nextTick()
 
     expect(useEmitDisplayEvent).toHaveBeenCalledWith(
-      expect.objectContaining({ taggingRequest: payload, eventMetadata })
-    );
-  });
+      expect.objectContaining({ taggingRequest: payload, eventMetadata }),
+    )
+  })
 
   it('removes the watcher on unmount', async () => {
-    const { wrapper } = render();
+    const { wrapper } = render()
 
-    wrapper.unmount();
-    await nextTick();
+    wrapper.unmount()
+    await nextTick()
 
-    expect(unwatchDisplaySpy).toHaveBeenCalled();
-  });
-});
+    expect(unwatchDisplaySpy).toHaveBeenCalled()
+  })
+})

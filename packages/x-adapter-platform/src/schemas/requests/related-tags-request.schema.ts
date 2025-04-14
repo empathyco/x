@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { RelatedTagsRequest } from '@empathyco/x-types';
-import { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model';
+import type { RelatedTagsRequest } from '@empathyco/x-types'
+import type { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the RelatedTagsRequestSchema.
@@ -12,5 +12,5 @@ export const relatedTagsRequestSchema = createMutableSchema<
   PlatformRelatedTagsRequest
 >({
   query: 'query',
-  extraParams: 'extraParams'
-});
+  extraParams: 'extraParams',
+})

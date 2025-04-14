@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the default styles for component `button-group`.
@@ -7,7 +7,7 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function buttonGroupDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     display: 'inline-flex',
@@ -15,17 +15,17 @@ export function buttonGroupDefault(helpers: TailwindHelpers) {
 
     // We should only remove the left border if the button group doesn't have gap.
     '&:not([class*="gap"]) > .x-button + .x-button': {
-      borderLeft: 'unset'
+      borderLeft: 'unset',
     },
 
     '& > :not(.x-button-circle):first-child': {
       borderTopLeftRadius: 'inherit',
-      borderBottomLeftRadius: 'inherit'
+      borderBottomLeftRadius: 'inherit',
     },
 
     '& > :not(.x-button-circle):last-child': {
       borderTopRightRadius: 'inherit',
-      borderBottomRightRadius: 'inherit'
-    }
-  };
+      borderBottomRightRadius: 'inherit',
+    },
+  }
 }

@@ -1,4 +1,4 @@
-import { PlatformNextQuery } from '../models/next-query.model';
+import type { PlatformNextQuery } from '../models/next-query.model'
 
 /**
  * Response for the `next queries` endpoint.
@@ -7,6 +7,6 @@ import { PlatformNextQuery } from '../models/next-query.model';
  */
 export interface PlatformNextQueriesResponse {
   data: {
-    nextqueries: PlatformNextQuery[];
-  };
+    nextqueries: PlatformNextQuery[]
+  }
 }

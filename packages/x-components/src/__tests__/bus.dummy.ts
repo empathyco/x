@@ -1,26 +1,27 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { EmittedData, EventPayload, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
-import { Subject } from 'rxjs';
-import { WireMetadata, XEventsTypes } from '../wiring';
+import type { EmittedData, EventPayload, SubjectPayload } from '@empathyco/x-bus'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { WireMetadata, XEventsTypes } from '../wiring'
+import { XPriorityBus } from '@empathyco/x-bus'
+import { Subject } from 'rxjs'
 
 export class XDummyBus<
   SomeEvents extends Dictionary = XEventsTypes,
-  SomeMetadata extends Dictionary = WireMetadata
+  SomeMetadata extends Dictionary = WireMetadata,
 > extends XPriorityBus<SomeEvents, SomeMetadata> {
-  emit<SomeEvent extends keyof SomeEvents>(
+  async emit<SomeEvent extends keyof SomeEvents>(
     event: SomeEvent,
     payload?: EventPayload<SomeEvents, SomeEvent>,
-    metadata = {} as SomeMetadata
+    metadata = {} as SomeMetadata,
   ): Promise<EmittedData<SomeEvents, SomeEvent, SomeMetadata>> {
-    const emitter = this.getEmitter(event);
+    const emitter = this.getEmitter(event)
     const emittedPayload = {
       eventPayload: payload as EventPayload<SomeEvents, SomeEvent>,
-      metadata
-    };
+      metadata,
+    }
 
-    emitter.next(emittedPayload);
+    emitter.next(emittedPayload)
 
-    return Promise.resolve({ event, ...emittedPayload });
+    return Promise.resolve({ event, ...emittedPayload })
   }
 }
 
@@ -31,9 +32,11 @@ export class XDummyBus<
  */
 export function dummyCreateEmitter<SomeEvent extends keyof XEventsTypes>(
   this: XPriorityBus<any, any>,
-  event: SomeEvent
+  event: SomeEvent,
 ): void {
+  // TODO - Review casting to any
+  // eslint-disable-next-line ts/no-unsafe-assignment
   this.emitters[event] = new Subject<
     SubjectPayload<EventPayload<XEventsTypes, SomeEvent>, WireMetadata>
-  >();
+  >() as any
 }

@@ -1,13 +1,13 @@
-import {
+import type {
   EditableNumberRangeFilter,
   Facet,
   Filter,
   HierarchicalFilter,
   NumberRangeFilter,
   RawFilter,
-  SimpleFilter
-} from '@empathyco/x-types';
-import { FacetsGroup } from './service/types';
+  SimpleFilter,
+} from '@empathyco/x-types'
+import type { FacetsGroup } from './service/types'
 
 /**
  * Dictionary of the events of Facets XModule, where each key is the event name, and the
@@ -20,32 +20,32 @@ export interface FacetsXEvents {
    * The facets from a group have changed
    * Payload: The group id and the new list of facets for it.
    */
-  FacetsGroupChanged: FacetsGroup;
+  FacetsGroupChanged: FacetsGroup
   /**
    * A new set of facets for the group has been provided.
    * Payload: The group id and the new list of facets for it.
    */
-  FacetsGroupProvided: FacetsGroup;
+  FacetsGroupProvided: FacetsGroup
   /**
    * The selected filters provided in the {@link SnippetConfig}.
    * Payload: the raw filters.
    */
-  PreselectedFiltersProvided: RawFilter[];
+  PreselectedFiltersProvided: RawFilter[]
   /**
    * The selected filters have changed.
    * Payload: the new list of selected filters.
    */
-  SelectedFiltersChanged: Filter[];
+  SelectedFiltersChanged: Filter[]
   /**
    * The selected filters that conform to the filters for request strategy have changed.
    * Payload: the new list of selected filters.
    */
-  SelectedFiltersForRequestChanged: Filter[];
+  SelectedFiltersForRequestChanged: Filter[]
   /**
    * A user action has changed the selected filters.
    * Payload: The new list of selected filters.
    */
-  UserChangedSelectedFilters: Filter[];
+  UserChangedSelectedFilters: Filter[]
   /**
    * The user has clicked any kind of filter.
    * Payload: The clicked filter.
@@ -53,7 +53,7 @@ export interface FacetsXEvents {
    * @remarks This event does not imply changing the selection state of the filter. Business logic
    * can prevent the filter from changing its state.
    */
-  UserClickedAFilter: Filter;
+  UserClickedAFilter: Filter
   /**
    * The user has clicked a filter which is of hierarchical type.
    * Payload: The clicked filter.
@@ -61,7 +61,7 @@ export interface FacetsXEvents {
    * @remarks This event does not imply changing the selection state of the filter. Business logic
    * can prevent the filter from changing its state.
    */
-  UserClickedAHierarchicalFilter: HierarchicalFilter;
+  UserClickedAHierarchicalFilter: HierarchicalFilter
   /**
    * The user has clicked a filter which is of number range type.
    * Payload: The clicked filter.
@@ -69,7 +69,7 @@ export interface FacetsXEvents {
    * @remarks This event does not imply changing the selection state of the filter. Business logic
    * can prevent the filter from changing its state.
    */
-  UserClickedANumberRangeFilter: NumberRangeFilter;
+  UserClickedANumberRangeFilter: NumberRangeFilter
   /**
    * The user has clicked a filter which is of simple type.
    * Payload: The clicked filter.
@@ -77,25 +77,25 @@ export interface FacetsXEvents {
    * @remarks This event does not imply changing the selection state of the filter. Business logic
    * can prevent the filter from changing its state.
    */
-  UserClickedASimpleFilter: SimpleFilter;
+  UserClickedASimpleFilter: SimpleFilter
   /**
    * The user has clicked facet select all filters button.
    * Payload: Facet id.
    */
-  UserClickedAllFilter: [Facet['id']];
+  UserClickedAllFilter: [Facet['id']]
   /**
    * The user has modified a filter which is of editable number range filter type.
    * Payload: An {@link EditableNumberRangeFilter}.
    */
-  UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilter;
+  UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilter
   /**
    * The user has clicked button clear filters.
    * Payload: array the facets ids.
    */
-  UserClickedClearAllFilters: Array<Facet['id']> | undefined;
+  UserClickedClearAllFilters: Array<Facet['id']> | undefined
   /**
    * The query used in the module has changed.
    * Payload: The facets query.
    */
-  FacetsQueryChanged: string;
+  FacetsQueryChanged: string
 }

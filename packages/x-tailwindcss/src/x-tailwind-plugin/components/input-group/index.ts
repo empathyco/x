@@ -1,11 +1,11 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
-import { rename } from '@empathyco/x-utils';
-import { TailwindHelpers } from '../../../types';
-import { inputGroupButtons } from './buttons';
-import { inputGroupColors } from './colors';
-import { inputGroupDefault } from './default';
-import { inputGroupLine } from './line';
-import { inputGroupSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { deepMerge } from '@empathyco/x-deep-merge'
+import { rename } from '@empathyco/x-utils'
+import { inputGroupButtons } from './buttons'
+import { inputGroupColors } from './colors'
+import { inputGroupDefault } from './default'
+import { inputGroupLine } from './line'
+import { inputGroupSizes } from './sizes'
 
 /**
  * Returns the component `input-group` CSS.
@@ -22,12 +22,12 @@ export function inputGroup(helpers: TailwindHelpers) {
           ...inputGroupColors(helpers),
           ...inputGroupSizes(helpers),
           ...inputGroupLine(helpers),
-          ...inputGroupButtons(helpers)
+          ...inputGroupButtons(helpers),
         },
         {
-          prefix: '&-'
-        }
-      )
-    )
-  };
+          prefix: '&-',
+        },
+      ),
+    ),
+  }
 }

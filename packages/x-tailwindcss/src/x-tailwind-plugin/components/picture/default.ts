@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the default styles for component `picture`.
@@ -7,7 +7,7 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function pictureDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     display: 'block',
     aspectRatio: theme('x.aspectRatio.default'),
@@ -16,7 +16,7 @@ export function pictureDefault(helpers: TailwindHelpers) {
       aspectRatio: theme('x.aspectRatio.default'),
       objectFit: 'contain',
       width: '100%',
-      height: '100%'
-    }
-  };
+      height: '100%',
+    },
+  }
 }

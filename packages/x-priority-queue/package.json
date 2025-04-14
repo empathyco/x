@@ -3,26 +3,29 @@
   "version": "1.0.3-alpha.2",
   "description": "A priority queue implementation in typescript allowing cancellable elements",
   "author": "Empathy Systems Corporation S.L.",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-priority-queue#readme",
   "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "keywords": [
-    "priority",
-    "queue",
-    "cancellable"
-  ],
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-priority-queue#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-priority-queue"
   },
+  "bugs": {
+    "url": "https://github.com/empathyco/x/issues"
+  },
+  "keywords": [
+    "priority",
+    "queue",
+    "cancellable"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",
@@ -30,7 +33,11 @@
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest",
     "test:unit": "jest",
     "prepublishOnly": "pnpm run build"
@@ -46,9 +53,6 @@
     "rimraf": "3.0.2",
     "ts-jest": "27.1.0",
     "typescript": "4.9.4"
-  },
-  "bugs": {
-    "url": "https://github.com/empathyco/x/issues"
   },
   "publishConfig": {
     "access": "public"

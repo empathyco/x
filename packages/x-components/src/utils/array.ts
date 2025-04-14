@@ -1,4 +1,4 @@
-import { PropsWithType } from './types';
+import type { PropsWithType } from './types'
 
 /**
  * Returns if the given array is `null`, `undefined`, or has no elements.
@@ -8,7 +8,7 @@ import { PropsWithType } from './types';
  * @public
  */
 export function isArrayEmpty(array: unknown[] | undefined | null): array is undefined | null | [] {
-  return array == null || array.length === 0;
+  return array == null || array.length === 0
 }
 
 /**
@@ -25,7 +25,7 @@ export function isArrayEmpty(array: unknown[] | undefined | null): array is unde
  *
  * @public
  */
-export function arrayToObject(array: string[]): Record<string, string>;
+export function arrayToObject(array: string[]): Record<string, string>
 /**
  * Reduce an array of objects to an object which properties names are the value of each object[key],
  * and the value under that property are each object. 'key' is the the parameter passed to this
@@ -42,8 +42,8 @@ export function arrayToObject(array: string[]): Record<string, string>;
  */
 export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key: PropsWithType<ArrayType, string | number>
-): Record<string, ArrayType>;
+  key: PropsWithType<ArrayType, string | number>,
+): Record<string, ArrayType>
 /**
  * Reduce an array to an object. The type of the object returned depends on the type of the params.
  * If the 'key' is passed then the function returns an object which properties names are the value
@@ -62,16 +62,17 @@ export function arrayToObject<ArrayType>(
  */
 export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key?: PropsWithType<ArrayType, string | number>
+  key?: PropsWithType<ArrayType, string | number>,
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
     if (key) {
-      accumulator[current[key] as any] = current;
+      // eslint-disable-next-line ts/no-unsafe-member-access
+      accumulator[current[key] as any] = current
     } else if (typeof current === 'string') {
-      accumulator[current] = current;
+      accumulator[current] = current
     }
-    return accumulator;
-  }, {});
+    return accumulator
+  }, {})
 }
 
 /**
@@ -86,16 +87,19 @@ export function arrayToObject<ArrayType>(
  */
 export function groupItemsBy<ArrayType, ReturnType extends string | number>(
   array: ArrayType[],
-  groupBy: (item: ArrayType, index: number) => ReturnType
+  groupBy: (item: ArrayType, index: number) => ReturnType,
 ): Record<ReturnType, ArrayType[]> {
-  return array.reduce<Record<ReturnType, ArrayType[]>>((accumulator, current, index) => {
-    const keyValue = groupBy(current, index);
-    if (!accumulator[keyValue]) {
-      accumulator[keyValue] = [];
-    }
-    accumulator[keyValue].push(current);
-    return accumulator;
-  }, {} as Record<ReturnType, ArrayType[]>);
+  return array.reduce<Record<ReturnType, ArrayType[]>>(
+    (accumulator, current, index) => {
+      const keyValue = groupBy(current, index)
+      if (!accumulator[keyValue]) {
+        accumulator[keyValue] = []
+      }
+      accumulator[keyValue].push(current)
+      return accumulator
+    },
+    {} as Record<ReturnType, ArrayType[]>,
+  )
 }
 
 /**
@@ -181,15 +185,15 @@ export function groupItemsBy<ArrayType, ReturnType extends string | number>(
 export function deepFilter<Item extends { [key in Key]?: Item[] }, Key extends keyof Item>(
   array: Item[],
   condition: (item: Item) => boolean,
-  childrenKey: Key
+  childrenKey: Key,
 ): Item[] {
   return array.reduce<Item[]>(function filter(filteredArray, item) {
     if (condition(item)) {
-      filteredArray.push(item);
-      item[childrenKey]?.reduce(filter, filteredArray);
+      filteredArray.push(item)
+      item[childrenKey]?.reduce(filter, filteredArray)
     }
-    return filteredArray;
-  }, []);
+    return filteredArray
+  }, [])
 }
 
 /**
@@ -206,13 +210,13 @@ export function deepFilter<Item extends { [key in Key]?: Item[] }, Key extends k
  */
 export function deepFlat<Item extends { [key in Key]?: Item[] }, Key extends keyof Item>(
   array: Item[],
-  childrenKey: Key
+  childrenKey: Key,
 ): Item[] {
   return array.reduce<Item[]>(function flat(flattenedArray, item) {
-    flattenedArray.push(item);
-    item[childrenKey]?.reduce(flat, flattenedArray);
-    return flattenedArray;
-  }, []);
+    flattenedArray.push(item)
+    item[childrenKey]?.reduce(flat, flattenedArray)
+    return flattenedArray
+  }, [])
 }
 
 /**
@@ -225,16 +229,16 @@ export function deepFlat<Item extends { [key in Key]?: Item[] }, Key extends key
  * @internal
  */
 export function createEmitterArrayFilter<T>(
-  comparator: keyof T | ((item1: T, item2: T) => boolean)
+  comparator: keyof T | ((item1: T, item2: T) => boolean),
 ): (newCollection: Array<T>, oldCollection: Array<T>) => boolean {
   const comparatorFn =
     typeof comparator === 'function'
       ? comparator
-      : (newItem: T, oldItem: T) => newItem[comparator] === oldItem[comparator];
+      : (newItem: T, oldItem: T) => newItem[comparator] === oldItem[comparator]
   return function (newCollection: Array<T>, oldCollection: Array<T>): boolean {
     return (
       newCollection.length !== oldCollection.length ||
       newCollection.some(newItem => !oldCollection.find(oldItem => comparatorFn(newItem, oldItem)))
-    );
-  };
+    )
+  }
 }

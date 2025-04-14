@@ -2,39 +2,39 @@
   <BaseEventsModalOpen
     class="x-open-main-modal"
     data-test="open-main-modal"
-    :openingEvent="openingEvent"
+    :opening-event="openingEvent"
   >
     <slot />
   </BaseEventsModalOpen>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { XEvent } from '../../wiring/events.types';
-  import BaseEventsModalOpen from './base-events-modal-open.vue';
+import type { XEvent } from '../../wiring/events.types'
+import { defineComponent } from 'vue'
+import BaseEventsModalOpen from './base-events-modal-open.vue'
 
-  /**
-   * Button to open the {@link MainModal}.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseEventsModalOpen
-    },
-    setup() {
-      /**
-       * Event to be emitted to open the {@link MainModal}.
-       *
-       * @internal
-       */
-      const openingEvent: XEvent = 'UserClickedOpenX';
+/**
+ * Button to open the {@link MainModal}.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseEventsModalOpen,
+  },
+  setup() {
+    /**
+     * Event to be emitted to open the {@link MainModal}.
+     *
+     * @internal
+     */
+    const openingEvent: XEvent = 'UserClickedOpenX'
 
-      return {
-        openingEvent
-      };
+    return {
+      openingEvent,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -59,16 +59,16 @@ Here you have a basic example of how the open main modal button works.
 </template>
 
 <script>
-  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
 
-  export default {
-    name: 'XModalDemo',
-    components: {
-      MainModal,
-      CloseMainModal,
-      OpenMainModal
-    }
-  };
+export default {
+  name: 'XModalDemo',
+  components: {
+    MainModal,
+    CloseMainModal,
+    OpenMainModal,
+  },
+}
 </script>
 ```
 </docs>
