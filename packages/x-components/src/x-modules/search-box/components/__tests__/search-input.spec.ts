@@ -202,7 +202,7 @@ describe('testing search input component', () => {
     const { input } = renderSearchInput()
     input.blur()
     expect(input).not.toBe(document.activeElement)
-    await XPlugin.bus.emit('UserPressedClearSearchBoxButton')
+    await XPlugin.bus.emit('UserPressedClearSearchBoxButton', undefined)
     expect(input).toBe(document.activeElement)
   })
 })
