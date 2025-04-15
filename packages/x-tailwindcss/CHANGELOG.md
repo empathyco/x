@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.5...@empathyco/x-tailwindcss@2.0.0-alpha.6) (2025-04-15)
+
+
+### Bug Fixes
+
+* **x-components:** fix type error on bus emit (#1751) ([7357693](https://github.com/empathyco/x/commit/7357693bc9ffa5d5fbd60ca40fa7760b33da2782))
+
+
+
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.4...@empathyco/x-tailwindcss@2.0.0-alpha.5) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss

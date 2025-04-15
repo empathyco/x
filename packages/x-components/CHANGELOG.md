@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.62...@empathyco/x-components@6.0.0-alpha.63) (2025-04-15)
+
+
+### Bug Fixes
+
+* **x-components:** fix type error on bus emit (#1751) ([7357693](https://github.com/empathyco/x/commit/7357693bc9ffa5d5fbd60ca40fa7760b33da2782))
+
+
+
 ## [6.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.61...@empathyco/x-components@6.0.0-alpha.62) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-components
