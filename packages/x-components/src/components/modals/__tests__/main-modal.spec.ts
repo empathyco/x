@@ -39,7 +39,7 @@ function renderMainModal({
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click')
     },
     async emit(event) {
-      await XPlugin.bus.emit(event)
+      await XPlugin.bus.emit(event, undefined)
       await nextTick()
     },
     getModalContent() {

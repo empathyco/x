@@ -39,12 +39,12 @@ describe('testing GlobalXBus component', () => {
       },
     })
 
-    await XPlugin.bus.emit('UserClickedColumnPicker')
+    await XPlugin.bus.emit('UserClickedColumnPicker', 1)
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1)
 
     wrapper.unmount()
 
-    await XPlugin.bus.emit('UserClickedColumnPicker')
+    await XPlugin.bus.emit('UserClickedColumnPicker', 1)
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1)
   })
 })

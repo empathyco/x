@@ -44,7 +44,7 @@ function mountBaseEventsModal({
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click')
     },
     async emit(event) {
-      await XPlugin.bus.emit(event)
+      await XPlugin.bus.emit(event, undefined)
     },
     getModalContent() {
       return wrapper.find(getDataTestSelector('modal-content'))

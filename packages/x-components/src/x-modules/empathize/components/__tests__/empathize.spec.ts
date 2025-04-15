@@ -55,7 +55,7 @@ describe('testing empathize component', () => {
     const template = `<Empathize v-bind="$attrs"/>`
     const { wrapper } = render({ template })
 
-    await XPlugin.bus.emit('UserClickedSearchBox')
+    await XPlugin.bus.emit('UserClickedSearchBox', undefined)
 
     expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBeTruthy()
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBeFalsy()
@@ -64,7 +64,7 @@ describe('testing empathize component', () => {
   it('listens to UserOpenedEmpathize and UserClosedEmpathize by default', async () => {
     const { wrapper } = render()
 
-    await XPlugin.bus.emit('UserClickedSearchBox')
+    await XPlugin.bus.emit('UserClickedSearchBox', undefined)
     jest.runAllTimers()
     await nextTick()
 
@@ -74,7 +74,7 @@ describe('testing empathize component', () => {
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBeTruthy()
     expect(wrapper.find(getDataTestSelector('empathize-content')).element).toBeVisible()
 
-    await XPlugin.bus.emit('UserClosedEmpathize')
+    await XPlugin.bus.emit('UserClosedEmpathize', undefined)
     jest.runAllTimers()
     await nextTick()
 
