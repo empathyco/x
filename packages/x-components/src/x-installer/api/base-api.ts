@@ -120,7 +120,7 @@ export class BaseXAPI implements XAPI {
     if (query) {
       void this.bus?.emit('UserAcceptedAQuery', query)
     }
-    void this.bus?.emit('UserClickedOpenX')
+    void this.bus?.emit('UserClickedOpenX', undefined)
   }
 
   /**
@@ -147,6 +147,6 @@ export class BaseXAPI implements XAPI {
    * @public
    */
   close(): void {
-    void this.bus?.emit('UserClickedCloseX')
+    void this.bus?.emit('UserClickedCloseX', undefined)
   }
 }

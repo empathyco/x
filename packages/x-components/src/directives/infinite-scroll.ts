@@ -87,7 +87,7 @@ export const infiniteScroll: Directive<HTMLElement, { margin: number }> = {
     state[id] = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          void xBus.emit('UserReachedResultsListEnd')
+          void xBus.emit('UserReachedResultsListEnd', undefined)
         }
       },
       {
