@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-import type { ComputedRef } from 'vue'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { WireMetadata } from '../../../wiring/wiring.types'
 import { computed, defineComponent, ref } from 'vue'
@@ -38,7 +37,7 @@ export default defineComponent({
 
     const buttonRef = ref<HTMLElement | null>(null)
 
-    const query: ComputedRef<string> = useState('searchBox', ['query']).query
+    const { query } = useState('searchBox')
 
     const isQueryEmpty = computed(() => query.value.length === 0)
 

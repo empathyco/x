@@ -39,7 +39,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { historyQueries } = useState('historyQueries', ['historyQueries'])
+    const { historyQueries } = useState('historyQueries')
 
     /**
      * Returns if the array of history queries is empty.

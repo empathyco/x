@@ -23,7 +23,7 @@ export default defineComponent({
     const xBus = useXBus()
 
     /** A dictionary with the extra params in the store state. */
-    const stateParams = useState('extraParams', ['params']).params
+    const stateParams = useState('extraParams').params
 
     /** It returns the value of the extra param from the store. */
     const extraParam = computed(() => stateParams.value[props.name])

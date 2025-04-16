@@ -114,7 +114,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { historyQueries } = useState('historyQueries', ['historyQueries'])
+    const { historyQueries } = useState('historyQueries')
 
     /**
      * The provided {@link SnippetConfig}.

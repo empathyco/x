@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { Banner } from '@empathyco/x-types'
-import type { ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { FeatureLocation } from '../../../types/origin'
 import type { ListItem } from '../../../utils/types'
 import { computed, defineComponent, h, inject, isRef, provide, ref } from 'vue'
@@ -36,7 +35,7 @@ export default defineComponent({
     const $x = use$x()
 
     /** The banners to render from the state. */
-    const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners
+    const stateItems = useState('search').banners
 
     /** The provided {@link FeatureLocation} for the component. */
     const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location')

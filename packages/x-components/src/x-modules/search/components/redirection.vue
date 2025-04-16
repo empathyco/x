@@ -48,7 +48,7 @@ export default defineComponent({
   setup(props, { slots }) {
     const $x = use$x()
 
-    const { redirections } = useState('search', ['redirections'])
+    const { redirections } = useState('search')
 
     /**
      * List of events to stop the animation.

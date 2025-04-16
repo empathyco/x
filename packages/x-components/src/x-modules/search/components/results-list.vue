@@ -1,6 +1,4 @@
 <script lang="ts">
-import type { Result } from '@empathyco/x-types'
-import type { ComputedRef, Ref } from 'vue'
 import type { RequestStatus } from '../../../store/utils/status-store.utils'
 import { computed, defineComponent, h, provide, ref, watch } from 'vue'
 import {
@@ -43,25 +41,22 @@ export default defineComponent({
      * concatenated with list items from components such as `BannersList`, `PromotedsList`,
      * `BaseGrid` or any component that injects the list.
      */
-    const items: ComputedRef<Result[]> = useState('search', ['results']).results
-    provide<ComputedRef<Result[]>>(LIST_ITEMS_KEY as string, items)
+    const {
+      query: searchQuery,
+      totalResults,
+      results: items,
+      status: searchStatus,
+    } = useState('search')
 
-    /** The total number of results, taken from the state. */
-    const totalResults: ComputedRef<number> = useState('search', ['totalResults']).totalResults
+    provide(LIST_ITEMS_KEY as string, items)
 
     /** This query is updated only when the search request has succeeded. */
     const providedQuery = ref('')
-    provide<Ref<string>>(QUERY_KEY as string, providedQuery)
+    provide(QUERY_KEY as string, providedQuery)
 
     /** Indicates if there are more available results that have not been injected. */
     const hasMoreItems = computed(() => items.value.length < totalResults.value)
-    provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems)
-
-    /** The status of the search request, taken from the state. */
-    const searchStatus: ComputedRef<RequestStatus> = useState('search', ['status']).status
-
-    /** The query of the search request, taken from the state. */
-    const searchQuery: ComputedRef<string> = useState('search', ['query']).query
+    provide(HAS_MORE_ITEMS_KEY as string, hasMoreItems)
 
     /**
      * Updates the query to be provided to the child components

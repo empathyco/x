@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, watch } from 'vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
@@ -23,7 +23,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const params: ComputedRef<Dictionary> = useState('extraParams', ['params']).params
+    const params = useState('extraParams').params
     const $x = use$x()
 
     $x.emit('ExtraParamsInitialized', { ...props.values })

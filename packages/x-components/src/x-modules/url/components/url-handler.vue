@@ -39,7 +39,7 @@ export default defineComponent({
   setup(_, { attrs }) {
     const $x = use$x()
 
-    const initialExtraParams = useState('url', ['initialExtraParams']).initialExtraParams
+    const { initialExtraParams } = useState('url')
 
     /**
      * The {@link SnippetConfig} provided by an ancestor.

@@ -79,8 +79,7 @@
 </template>
 
 <script lang="ts">
-import type { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, ref } from 'vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import SlidingPanel from '../../../components/sliding-panel.vue'
@@ -144,12 +143,7 @@ export default defineComponent({
   },
   setup(props) {
     const x = use$x()
-    const relatedPrompts: ComputedRef<RelatedPromptModel[]> = useState('relatedPrompts', [
-      'relatedPrompts',
-    ]).relatedPrompts
-    const selectedPromptIndex: ComputedRef<number> = useState('relatedPrompts', [
-      'selectedPrompt',
-    ]).selectedPrompt
+    const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts')
 
     const clickedListItemIndex = ref<number | null>(null)
     const initialOffsetLefts: Record<number, number> = {}

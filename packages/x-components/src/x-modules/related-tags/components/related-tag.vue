@@ -18,8 +18,7 @@
 
 <script lang="ts">
 import type { RelatedTag as RelatedTagModel } from '@empathyco/x-types'
-import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { WireMetadata } from '../../../wiring/wiring.types'
 import { computed, defineComponent, ref } from 'vue'
@@ -67,10 +66,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { selectedRelatedTags }: Dictionary<ComputedRef<RelatedTagModel[]>> = useState(
-      'relatedTags',
-      ['selectedRelatedTags'],
-    )
+    const { selectedRelatedTags } = useState('relatedTags')
 
     /**
      * Check if the related tag is selected or not.

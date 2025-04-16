@@ -25,10 +25,7 @@ export default defineComponent({
   name: 'FallbackDisclaimer',
   xModule: searchXModule.name,
   setup() {
-    const { query, fromNoResultsWithFilters } = useState('search', [
-      'query',
-      'fromNoResultsWithFilters',
-    ])
+    const { query, fromNoResultsWithFilters } = useState('search')
 
     return { query, fromNoResultsWithFilters }
   },

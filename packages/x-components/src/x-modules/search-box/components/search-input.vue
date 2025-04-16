@@ -75,7 +75,7 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { query } = useState('searchBox', ['query'])
+    const { query } = useState('searchBox')
 
     const inputElement = ref<HTMLInputElement>()
 
