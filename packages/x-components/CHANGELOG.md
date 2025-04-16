@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.63...@empathyco/x-components@6.0.0-alpha.64) (2025-04-16)
+
+
+### Bug Fixes
+
+* **use-state:** improve type definitions for state paths ([df67d71](https://github.com/empathyco/x/commit/df67d719d1def432ca20a7e321bc3e95d2e38782))
+
+
+### Code Refactoring
+
+* **use-state:** change usages ([aeb0782](https://github.com/empathyco/x/commit/aeb0782f063a12ccf8ec2c437f7beebf98fd4061))
+* **use-state:** simplify state property retrieval using Proxy ([ce21d81](https://github.com/empathyco/x/commit/ce21d817e116b49637b79278f77ab109ffaf2993))
+
+
+
 ## [6.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.62...@empathyco/x-components@6.0.0-alpha.63) (2025-04-15)
 
 
