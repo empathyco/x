@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.64...@empathyco/x-components@6.0.0-alpha.65) (2025-04-17)
+
+
+### Documentation
+
+* update CHANGELOG to reflect breaking change on #1741 (#1752) ([34da8e6](https://github.com/empathyco/x/commit/34da8e6f8132fbd0f5a82aabd5ecee1e36db0c2a))
+
+
+
 ## [6.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.63...@empathyco/x-components@6.0.0-alpha.64) (2025-04-16)
 
 ### ⚠ BREAKING CHANGES
