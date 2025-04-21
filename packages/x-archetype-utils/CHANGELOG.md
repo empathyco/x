@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.7...@empathyco/x-archetype-utils@2.0.0-alpha.8) (2025-04-21)
+
+
+### Bug Fixes
+
+* **x-archetype-utils:** fix rollup config search term in CSS injector replacement (#1756) ([4fe986d](https://github.com/empathyco/x/commit/4fe986d500410cce1dbe666c3812282b19c5d3c4))
+
+
+
 ## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.6...@empathyco/x-archetype-utils@2.0.0-alpha.7) (2025-04-15)
 
 
