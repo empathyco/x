@@ -38,7 +38,7 @@ export function buttonDefault(helpers: TailwindHelpers) {
 
     ...buttonSizes(helpers).md,
 
-    '&.selected': {
+    '&.x-selected': {
       backgroundColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
       borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
 

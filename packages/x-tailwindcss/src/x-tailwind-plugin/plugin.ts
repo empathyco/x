@@ -41,7 +41,7 @@ export default plugin.withOptions(
       /* Add utilities */
       helpers.addUtilities(utilities(helpers), { respectPrefix: false })
       /* Add variant to selected */
-      helpers.addVariant('selected', '&.selected')
+      helpers.addVariant('selected', '&.x-selected')
     }
   },
   () => {

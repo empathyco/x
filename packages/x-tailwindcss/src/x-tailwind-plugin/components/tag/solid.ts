@@ -32,7 +32,7 @@ export function tagSolid(helpers: TailwindHelpers) {
 
       ...disabledStyles,
 
-      '&.selected': {
+      '&.x-selected': {
         backgroundColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
         borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
         color: theme('x.colors.neutral.0'),
