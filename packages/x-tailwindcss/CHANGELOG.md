@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.6...@empathyco/x-tailwindcss@2.0.0-alpha.7) (2025-04-21)
+
+
+### Bug Fixes
+
+* **x-tailwindcss:** rename .selected classes by .x-selected like the rest of plugin classes (#1757) ([41cb4dc](https://github.com/empathyco/x/commit/41cb4dc36bec3f3cec38dea3545e777c16af5de4))
+
+
+
 ## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.5...@empathyco/x-tailwindcss@2.0.0-alpha.6) (2025-04-15)
 
 
