@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent, useId } from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -24,14 +24,18 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const id = useId()
     const parentElement = document.querySelector(props.target)
 
-    const teleportTarget = computed(() => `x-base-teleport--${props.target.replace(/[.#]/g, '')}`)
+    const teleportTarget = computed(() => `x-base-teleport--${id}`)
 
     if (parentElement) {
       const newTeleportElement = document.createElement('div')
       newTeleportElement.classList.add(teleportTarget.value)
       newTeleportElement.classList.add('x-base-teleport')
+      if (props.hideSiblings) {
+        newTeleportElement.classList.add('x-base-teleport--hide-siblings')
+      }
 
       const children = parentElement.children
       const position = props.position ?? -1
@@ -42,13 +46,6 @@ export default defineComponent({
         parentElement.insertBefore(newTeleportElement, children[position])
       }
     }
-    onMounted(() => {
-      const teleportElement = parentElement?.querySelector('.x-base-teleport')
-
-      if (props.hideSiblings) {
-        teleportElement?.classList.add('x-base-teleport--hide-siblings')
-      }
-    })
 
     return {
       teleportTarget,
