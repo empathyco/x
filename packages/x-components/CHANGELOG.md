@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.66...@empathyco/x-components@6.0.0-alpha.67) (2025-04-24)
+
+
+### Features
+
+* add append and inject element approach in BaseTeleport component (#1753) ([34a54d0](https://github.com/empathyco/x/commit/34a54d0995f91803da69ee1703881165fa68fa90))
+
+
+
 ## [6.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.65...@empathyco/x-components@6.0.0-alpha.66) (2025-04-21)
 
 **Note:** Version bump only for package @empathyco/x-components
