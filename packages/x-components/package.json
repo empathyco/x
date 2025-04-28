@@ -94,7 +94,7 @@
     "vue-global-events": "~3.0.1"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "20.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
     "@empathyco/x-tailwindcss": "2.0.0-alpha.8",
     "@microsoft/api-documenter": "7.23.0",
