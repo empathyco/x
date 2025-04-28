@@ -204,7 +204,7 @@ importers:
         specifier: 18.19.0
         version: 18.19.0
       '@vue/test-utils':
-        specifier: ~2.4.6
+        specifier: 2.4.6
         version: 2.4.6
       jest:
         specifier: 27.5.0
@@ -353,7 +353,7 @@ importers:
         specifier: 5.2.1
         version: 5.2.1(vite@4.5.0(@types/node@18.19.0)(sass@1.70.0))(vue@3.4.31(typescript@4.9.4))
       '@vue/test-utils':
-        specifier: ~2.4.6
+        specifier: 2.4.6
         version: 2.4.6
       '@vue/vue3-jest':
         specifier: 27.0.0
@@ -12594,7 +12594,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
 

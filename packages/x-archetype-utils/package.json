@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/jest": "27.5.0",
     "@types/node": "18.19.0",
-    "@vue/test-utils": "~2.4.6",
+    "@vue/test-utils": "2.4.6",
     "jest": "27.5.0",
     "rimraf": "3.0.2",
     "rollup": "4.9.1",
