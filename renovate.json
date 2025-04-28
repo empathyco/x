@@ -3,40 +3,16 @@
   "extends": ["github>empathyco/.github:frontend"],
   "packageRules": [
     {
-      "matchPackageNames": ["@vue/test-utils"],
-      "groupName": null,
-      "allowedVersions": "< 2"
-    },
-    {
-      "matchPackageNames": ["vue"],
-      "allowedVersions": "< 3"
-    },
-    {
       "matchPackageNames": ["vuex"],
-      "allowedVersions": "< 4"
-    },
-    {
-      "matchPackageNames": ["vue-router"],
-      "allowedVersions": "< 4"
-    },
-    {
-      "matchPackageNames": ["vue-global-events"],
-      "allowedVersions": "< 2"
-    },
-    {
-      "matchPackageNames": ["vue-i18n"],
-      "allowedVersions": "< 9"
+      "allowedVersions": "< 4.1",
+      "description": "4.1 has a bug: https://github.com/empathyco/motive-x/pull/640#issuecomment-2714822157"
     },
     {
       "extends": ["monorepo:react"],
       "enabled": false
     },
     {
-      "enabled": false,
-      "matchPackageNames": ["/^@types/react*/"]
-    },
-    {
-      "matchPackageNames": ["prettier-plugin-tailwindcss"],
+      "matchPackageNames": ["/^@types/react*/"],
       "enabled": false
     }
   ]

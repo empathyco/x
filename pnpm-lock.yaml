@@ -388,9 +388,6 @@ importers:
       postcss-logical:
         specifier: 4.0.2
         version: 4.0.2
-      prettier-plugin-tailwindcss:
-        specifier: 0.6.11
-        version: 0.6.11(prettier@3.5.3)
       rimraf:
         specifier: 3.0.2
         version: 3.0.2
@@ -526,9 +523,6 @@ importers:
       postcss-import:
         specifier: 16.1.0
         version: 16.1.0(postcss@8.4.12)
-      prettier-plugin-tailwindcss:
-        specifier: 0.6.11
-        version: 0.6.11(prettier@3.5.3)
       rimraf:
         specifier: 3.0.2
         version: 3.0.2
@@ -8513,7 +8507,7 @@ snapshots:
       '@cucumber/ci-environment': 10.0.1
       '@cucumber/cucumber-expressions': 17.1.0
       '@cucumber/gherkin': 28.0.0
-      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@28.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@24.1.0))(@cucumber/messages@24.1.0)
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@28.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@22.0.0))(@cucumber/messages@24.1.0)
       '@cucumber/gherkin-utils': 9.0.0
       '@cucumber/html-formatter': 21.6.0(@cucumber/messages@24.1.0)
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@24.1.0)
@@ -8553,7 +8547,7 @@ snapshots:
       yaml: 2.7.1
       yup: 1.2.0
 
-  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@28.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@24.1.0))(@cucumber/messages@24.1.0)':
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@28.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@22.0.0))(@cucumber/messages@24.1.0)':
     dependencies:
       '@cucumber/gherkin': 28.0.0
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@24.1.0)
