@@ -11,7 +11,7 @@ let instance: CssInjector | null = null
  * @public
  */
 export class CssInjector implements XCSSInjector {
-  protected host: Element | ShadowRoot | undefined
+  protected hosts = new Set<Element | ShadowRoot>()
   protected stylesQueue: Style[] = []
 
   /**
@@ -40,26 +40,43 @@ export class CssInjector implements XCSSInjector {
    * @param style.source - Styles source.
    */
   addStyle(style: Style): void {
-    if (!this.host) {
-      this.stylesQueue.push(style)
-      return
-    }
-
+    this.stylesQueue.push(style)
     const styleTag = document.createElement('style')
     styleTag.textContent = style.source
-    this.host.appendChild(styleTag)
+    this.hosts.forEach(host => host.appendChild(styleTag.cloneNode()))
   }
 
   /**
-   * Sets the host element.
+   * Sets the host element. Alias of addHost method.
    *
    * @param host - The host element.
    */
   setHost(host: Element | ShadowRoot): void {
-    this.host = host
+    this.addHost(host)
+  }
+
+  /**
+   * Adds the element to the hosts set.
+   *
+   * @param host - The host element.
+   */
+  addHost(host: Element | ShadowRoot): void {
+    this.hosts.add(host)
     // Add all pending styles to the host element
-    this.stylesQueue.forEach(style => this.addStyle(style))
-    this.stylesQueue = []
+    this.stylesQueue.forEach(style => {
+      const styleTag = document.createElement('style')
+      styleTag.textContent = style.source
+      host.appendChild(styleTag.cloneNode())
+    })
+  }
+
+  /**
+   * Removes the element from the hosts set.
+   *
+   * @param host - The host element to remove.
+   */
+  removeHost(host: Element | ShadowRoot): void {
+    this.hosts.delete(host)
   }
 
   /**
