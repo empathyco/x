@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.71...@empathyco/x-components@6.0.0-alpha.72) (2025-04-30)
+
+
+### Features
+
+* **base-teleport:** improve base teleport (#1762) ([f0f53f4](https://github.com/empathyco/x/commit/f0f53f452d5cc7ff3f4dc9baa368057b59ab4a64))
+
+
+
 ## [6.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.70...@empathyco/x-components@6.0.0-alpha.71) (2025-04-30)
 
 
