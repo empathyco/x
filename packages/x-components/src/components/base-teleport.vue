@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -38,13 +38,23 @@ export default defineComponent({
   },
   setup(props) {
     const teleportHost = document.createElement('div')
-    teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
-    const targetElement =
-      typeof props.target === 'string' ? document.querySelector(props.target) : props.target
-    targetElement?.insertAdjacentElement(
-      props.position === 'onlychild' ? 'beforeend' : props.position,
-      teleportHost,
-    )
+
+    watchEffect(() => {
+      if (props.disabled) {
+        teleportHost.remove()
+        return
+      }
+      teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
+      const targetElement =
+        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
+      if (!targetElement) {
+        console.warn(`BaseTeleport: Target element "${props.target}" not found.`)
+        return
+      }
+      const position = props.position === 'onlychild' ? 'beforeend' : props.position
+      targetElement.insertAdjacentElement(position, teleportHost)
+    })
+
     return { teleportHost }
   },
 })
