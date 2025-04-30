@@ -1,8 +1,6 @@
 import type { Style, WindowWithInjector, XCSSInjector } from './css-injector.types'
 
-/**
- * Instance of the injector that will be used across all the initializations.
- */
+/** Singleton instance of the injector that will be used across all the initializations. */
 let instance: CssInjector | null = null
 
 /**
@@ -11,8 +9,8 @@ let instance: CssInjector | null = null
  * @public
  */
 export class CssInjector implements XCSSInjector {
-  protected hosts = new Set<Element | ShadowRoot>()
-  protected stylesQueue: Style[] = []
+  protected hosts = new Set<Document | ShadowRoot>()
+  protected stylesToAdopt: CSSStyleSheet[] = []
 
   /**
    * Initializes the instance of the injector if it's not already initialized and sets it in the
@@ -40,19 +38,10 @@ export class CssInjector implements XCSSInjector {
    * @param style.source - Styles source.
    */
   addStyle(style: Style): void {
-    this.stylesQueue.push(style)
-    const styleTag = document.createElement('style')
-    styleTag.textContent = style.source
-    this.hosts.forEach(host => host.appendChild(styleTag.cloneNode()))
-  }
-
-  /**
-   * Sets the host element. Alias of addHost method.
-   * @deprecated Use `addHost` instead.
-   * @param host - The host element.
-   */
-  setHost(host: Element | ShadowRoot): void {
-    this.addHost(host)
+    const sheet = new CSSStyleSheet()
+    sheet.replaceSync(style.source)
+    this.stylesToAdopt.push(sheet)
+    this.hosts.forEach(host => (host.adoptedStyleSheets = this.stylesToAdopt))
   }
 
   /**
@@ -60,14 +49,9 @@ export class CssInjector implements XCSSInjector {
    *
    * @param host - The host element.
    */
-  addHost(host: Element | ShadowRoot): void {
+  addHost(host: Document | ShadowRoot): void {
     this.hosts.add(host)
-    // Add all pending styles to the host element
-    this.stylesQueue.forEach(style => {
-      const styleTag = document.createElement('style')
-      styleTag.textContent = style.source
-      host.appendChild(styleTag.cloneNode())
-    })
+    host.adoptedStyleSheets = this.stylesToAdopt
   }
 
   /**
@@ -75,7 +59,7 @@ export class CssInjector implements XCSSInjector {
    *
    * @param host - The host element to remove.
    */
-  removeHost(host: Element | ShadowRoot): void {
+  removeHost(host: Document | ShadowRoot): void {
     this.hosts.delete(host)
   }
 
