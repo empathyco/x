@@ -73,6 +73,7 @@ export type FeatureLocation =
   | 'url_history'
   | 'url_history_pdp'
   | 'related_prompts'
+  | 'add2cart'
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.
