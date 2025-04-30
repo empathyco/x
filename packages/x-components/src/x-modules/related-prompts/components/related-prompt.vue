@@ -8,6 +8,7 @@
     <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-related-prompt-icon" />
   </button>
 </template>
+
 <script lang="ts">
 import type { RelatedPrompt } from '@empathyco/x-types'
 import type { PropType } from 'vue'
@@ -59,6 +60,7 @@ export default defineComponent({
 }
 
 .x-related-prompt-icon {
+  height: 24px;
   flex-shrink: 0;
   align-self: start;
 }
