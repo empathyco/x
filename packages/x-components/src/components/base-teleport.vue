@@ -1,60 +1,67 @@
 <template>
-  <Teleport :to="`.${teleportTarget}`">
+  <Teleport :to="teleportHost" :disabled>
     <slot></slot>
   </Teleport>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
   props: {
+    /** The element or css selector to which the component will be teleported. */
     target: {
-      type: String,
+      type: [String, Element] as PropType<string | Element>,
       required: true,
     },
-    hideSiblings: {
-      type: Boolean,
-      default: true,
-    },
+    /**
+     * The position relative to the target
+     * - `beforebegin`: Before the target element.
+     * - `afterbegin`: Inside the target element, before its first child.
+     * - `beforeend`: Inside the target element, after its last child.
+     * - `afterend`: After the target element.
+     * - `onlychild`: Adds it as child and hides all other children of the target element.
+     */
     position: {
-      type: Number,
-      required: false,
+      type: String as PropType<
+        'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend' | 'onlychild'
+      >,
+      default: 'onlychild',
+    },
+    /** If disabled, the slot content will not be teleported */
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
-    const parentElement = document.querySelector(props.target)
+    const teleportHost = document.createElement('div')
 
-    const teleportTarget = computed(() => `x-base-teleport--${props.target.replace(/[.#]/g, '')}`)
-
-    if (parentElement) {
-      const newTeleportElement = document.createElement('div')
-      newTeleportElement.classList.add(teleportTarget.value)
-      newTeleportElement.classList.add('x-base-teleport')
-      if (props.hideSiblings) {
-        newTeleportElement.classList.add('x-base-teleport--hide-siblings')
+    watchEffect(() => {
+      if (props.disabled) {
+        teleportHost.remove()
+        return
       }
-
-      const children = parentElement.children
-      const position = props.position ?? -1
-
-      if (position >= children.length || position === -1) {
-        parentElement.appendChild(newTeleportElement)
-      } else {
-        parentElement.insertBefore(newTeleportElement, children[position])
+      teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
+      const targetElement =
+        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
+      if (!targetElement) {
+        console.warn(`BaseTeleport: Target element "${props.target}" not found.`)
+        return
       }
-    }
+      const position = props.position === 'onlychild' ? 'beforeend' : props.position
+      targetElement.insertAdjacentElement(position, teleportHost)
+    })
 
-    return {
-      teleportTarget,
-    }
+    return { teleportHost }
   },
 })
 </script>
 
 <style lang="css">
-:has(> .x-base-teleport--hide-siblings) > *:not(.x-base-teleport) {
+:has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
   display: none;
 }
 </style>
