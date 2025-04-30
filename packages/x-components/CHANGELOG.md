@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.69...@empathyco/x-components@6.0.0-alpha.70) (2025-04-30)
+
+
+### Features
+
+* add add2cart location to FeatureLocation type (#1764) ([732a0da](https://github.com/empathyco/x/commit/732a0da3c1fdd70c685078663809943a91d72627))
+
+
+
 ## [6.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.68...@empathyco/x-components@6.0.0-alpha.69) (2025-04-28)
 
 **Note:** Version bump only for package @empathyco/x-components
