@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.70...@empathyco/x-components@6.0.0-alpha.71) (2025-04-30)
+
+
+### Bug Fixes
+
+* **related-prompt:** decouple component from x-tailwindcss dep (#1765) ([5f5ac64](https://github.com/empathyco/x/commit/5f5ac6433736e403d04980b79416c9ac3e5e7125))
+
+
+
 ## [6.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.69...@empathyco/x-components@6.0.0-alpha.70) (2025-04-30)
 
 
