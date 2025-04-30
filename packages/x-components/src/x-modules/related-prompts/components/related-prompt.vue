@@ -4,6 +4,7 @@
     <span
       v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"
       class="x-related-prompt-text"
+      :class="{ 'x-related-prompt-text--selected': selected }"
     />
     <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-related-prompt-icon" />
   </button>
@@ -57,6 +58,10 @@ export default defineComponent({
 .x-related-prompt-text {
   text-align: left;
   flex-grow: 1;
+}
+
+.x-related-prompt-text.x-related-prompt-text--selected {
+  text-align: center;
 }
 
 .x-related-prompt-icon {
