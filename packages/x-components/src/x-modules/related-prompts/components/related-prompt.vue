@@ -1,11 +1,11 @@
 <template>
-  <button class="x-related-prompt x-gap-8">
+  <button class="x-related-prompt">
     <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
-    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" class="x-text-left x-grow" />
-    <component
-      :is="selected ? 'CrossTinyIcon' : 'PlusIcon'"
-      class="x-icon-lg x-related-prompt-icon x-shrink-0"
+    <span
+      v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"
+      class="x-related-prompt-text"
     />
+    <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-related-prompt-icon" />
   </button>
 </template>
 <script lang="ts">
@@ -40,6 +40,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
 .x-related-prompt {
   display: flex;
@@ -47,11 +48,18 @@ export default defineComponent({
   justify-content: space-between;
   text-align: start;
   padding: 8px;
+  gap: 8px;
   height: 100%;
   width: 100%;
 }
 
+.x-related-prompt-text {
+  text-align: left;
+  flex-grow: 1;
+}
+
 .x-related-prompt-icon {
+  flex-shrink: 0;
   align-self: start;
 }
 </style>
