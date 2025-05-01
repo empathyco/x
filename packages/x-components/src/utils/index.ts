@@ -16,5 +16,6 @@ export * from './sanitize'
 export * from './storage'
 export * from './string'
 export { throttle as throttleFunction } from './throttle'
-export * from './types'
 export * from './ios-utils'
+export * from './types'
+
