@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.73...@empathyco/x-components@6.0.0-alpha.74) (2025-05-01)
+
+
+### Code Refactoring
+
+* **home:** simplify related prompts queries preview logic ([d8162c3](https://github.com/empathyco/x/commit/d8162c3e3221b87df5ae16fecd6db4a035774f8d))
+
+
+
 ## [6.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.72...@empathyco/x-components@6.0.0-alpha.73) (2025-05-01)
 
 
