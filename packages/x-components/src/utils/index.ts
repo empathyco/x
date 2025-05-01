@@ -18,4 +18,3 @@ export * from './storage'
 export * from './string'
 export { throttle as throttleFunction } from './throttle'
 export * from './types'
-
