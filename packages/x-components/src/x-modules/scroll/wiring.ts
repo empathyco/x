@@ -1,11 +1,11 @@
-import { ScrollDirection } from '../../components/scroll/scroll.types';
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
-import { WirePayload } from '../../wiring/wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+import type { ScrollDirection } from '../../components/scroll/scroll.types'
+import type { WirePayload } from '../../wiring/wiring.types'
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
-const moduleName = 'scroll';
+const moduleName = 'scroll'
 
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * Saves the scroll position of a container to the store.
@@ -16,9 +16,9 @@ export const setScrollPositionWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<number>) => ({
     newState: { position: eventPayload },
-    id: metadata.id as string
-  })
-);
+    id: metadata.id as string,
+  }),
+)
 
 /**
  * Saves the scroll direction of a container to the store.
@@ -29,9 +29,9 @@ export const setScrollDirectionWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<ScrollDirection>) => ({
     newState: { direction: eventPayload },
-    id: metadata.id!
-  })
-);
+    id: metadata.id!,
+  }),
+)
 
 /**
  * Saves a boolean indicating if the scroll has almost reached the end of a container to the store.
@@ -42,9 +42,9 @@ export const setScrollHasAlmostReachedEndWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
     newState: { hasAlmostReachedEnd: eventPayload },
-    id: metadata.id as string
-  })
-);
+    id: metadata.id as string,
+  }),
+)
 
 /**
  * Saves a boolean indicating if the scroll has reached the end of a container to the store.
@@ -55,9 +55,9 @@ export const setScrollHasReachedEndWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
     newState: { hasReachedEnd: eventPayload },
-    id: metadata.id as string
-  })
-);
+    id: metadata.id as string,
+  }),
+)
 
 /**
  * Saves a boolean indicating if the scroll has reached the start of a container to the store.
@@ -68,9 +68,9 @@ export const setScrollHasReachedStartWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
     newState: { hasReachedStart: eventPayload },
-    id: metadata.id as string
-  })
-);
+    id: metadata.id as string,
+  }),
+)
 
 /**
  * Saves the selector of the item that should be scrolled into the view.
@@ -79,15 +79,15 @@ export const setScrollHasReachedStartWire = wireCommit(
  */
 export const setPendingScrollToWire = wireCommit(
   'setPendingScrollTo',
-  ({ eventPayload: { scroll } }) => scroll
-);
+  ({ eventPayload: { scroll } }) => scroll,
+)
 
 /**
  * Resets the selector of the scroll that is pending to restore.
  *
  * @public
  */
-export const clearPendingScrollToWire = wireCommit('setPendingScrollTo', '');
+export const clearPendingScrollToWire = wireCommit('setPendingScrollTo', '')
 
 /**
  * Wiring configuration for the {@link ScrollXModule | scroll module}.
@@ -96,27 +96,27 @@ export const clearPendingScrollToWire = wireCommit('setPendingScrollTo', '');
  */
 export const scrollWiring = createWiring({
   UserScrolled: {
-    setScrollPositionWire
+    setScrollPositionWire,
   },
   UserChangedScrollDirection: {
-    setScrollDirectionWire
+    setScrollDirectionWire,
   },
   UserReachedScrollStart: {
-    setScrollHasReachedStartWire
+    setScrollHasReachedStartWire,
   },
   UserAlmostReachedScrollEnd: {
-    setScrollHasAlmostReachedEndWire
+    setScrollHasAlmostReachedEndWire,
   },
   UserReachedScrollEnd: {
-    setScrollHasReachedEndWire
+    setScrollHasReachedEndWire,
   },
   ParamsLoadedFromUrl: {
-    setPendingScrollToWire
+    setPendingScrollToWire,
   },
   ScrollRestoreSucceeded: {
-    clearPendingScrollToWire
+    clearPendingScrollToWire,
   },
   ScrollRestoreFailed: {
-    clearPendingScrollToWire
-  }
-});
+    clearPendingScrollToWire,
+  },
+})

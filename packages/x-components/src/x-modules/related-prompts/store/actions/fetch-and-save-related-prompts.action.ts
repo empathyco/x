@@ -1,21 +1,21 @@
-import { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types';
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { RelatedPromptsActionContext } from '../types';
+import type { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types'
+import type { RelatedPromptsActionContext } from '../types'
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RelatedPromptsActionContext,
   RelatedPromptsRequest | null,
   RelatedPrompt[] | null
 >({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchRelatedPrompts', request);
+  async fetch({ dispatch }, request) {
+    return dispatch('fetchRelatedPrompts', request)
   },
   onSuccess({ commit }, relatedPrompts) {
     if (relatedPrompts) {
-      commit('setRelatedPromptsProducts', relatedPrompts);
+      commit('setRelatedPromptsProducts', relatedPrompts)
     }
-  }
-});
+  },
+})
 
 /**
  * Default implementation for
@@ -23,7 +23,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  *
  * @public
  */
-export const fetchAndSaveRelatedPrompts = fetchAndSave;
+export const fetchAndSaveRelatedPrompts = fetchAndSave
 
 /**
  * Default implementation for
@@ -31,4 +31,4 @@ export const fetchAndSaveRelatedPrompts = fetchAndSave;
  *
  * @public
  */
-export const cancelFetchAndSaveRelatedPrompts = cancelPrevious;
+export const cancelFetchAndSaveRelatedPrompts = cancelPrevious

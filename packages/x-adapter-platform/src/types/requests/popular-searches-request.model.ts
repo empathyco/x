@@ -1,4 +1,4 @@
-import { PlatformExtraParamsRequest, PlatformPageableRequest } from './request.types';
+import type { PlatformExtraParamsRequest, PlatformPageableRequest } from './request.types'
 
 /**
  * Platform request for the `popular searches` endpoint.

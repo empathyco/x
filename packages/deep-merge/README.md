@@ -19,22 +19,22 @@ You can also import this package as a module:
 - Using `x-deep-merge` in a `TypeScript` file:
 
 ```ts
-import { deepMerge } from '@empathyco/x-deep-merge';
+import { deepMerge } from '@empathyco/x-deep-merge'
 
-const target = {};
-const source1 = { a: 1 };
-const source2 = { b: 2 };
+const target = {}
+const source1 = { a: 1 }
+const source2 = { b: 2 }
 
-deepMerge(target, source1, source2); // target = { a: 1, b: 2 }
+deepMerge(target, source1, source2) // target = { a: 1, b: 2 }
 ```
 
 - Another example
 
 ```ts
-import { deepMerge } from '@empathyco/x-deep-merge';
+import { deepMerge } from '@empathyco/x-deep-merge'
 
-const sources = [{ a: 1 }, { b: 2 }];
-const mergedObject = deepMerge({}, ...sources); // mergedObject = { a: 1, b: 2 }
+const sources = [{ a: 1 }, { b: 2 }]
+const mergedObject = deepMerge({}, ...sources) // mergedObject = { a: 1, b: 2 }
 ```
 
 If you want to find out all the covered use cases, check the `tests` folder.

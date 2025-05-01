@@ -1,5 +1,5 @@
-import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils';
-import { SemanticQueriesXStoreModule } from '../types';
+import type { SemanticQueriesXStoreModule } from '../types'
+import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils'
 
 /**
  * Default implementation for the semantic queries query getter.
@@ -12,5 +12,5 @@ import { SemanticQueriesXStoreModule } from '../types';
  * @public
  */
 export const query: SemanticQueriesXStoreModule['getters']['query'] = createRelatedTagsQueryGetter({
-  getRelatedTags: state => state.relatedTags
-});
+  getRelatedTags: state => state.relatedTags,
+})

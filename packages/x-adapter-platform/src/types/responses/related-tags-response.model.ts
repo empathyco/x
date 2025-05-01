@@ -1,4 +1,4 @@
-import { PlatformRelatedTag } from '../models/related-tag.model';
+import type { PlatformRelatedTag } from '../models/related-tag.model'
 
 /**
  * Response for the `related tags` endpoint.
@@ -7,7 +7,7 @@ import { PlatformRelatedTag } from '../models/related-tag.model';
  */
 export interface PlatformRelatedTagsResponse {
   data: {
-    relatedtags: PlatformRelatedTag[];
-  };
-  status: number;
+    relatedtags: PlatformRelatedTag[]
+  }
+  status: number
 }

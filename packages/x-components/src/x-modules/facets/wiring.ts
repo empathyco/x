@@ -1,46 +1,43 @@
-import { Facet } from '@empathyco/x-types';
-import { UrlParams } from '../../types/url-params';
-import { createRawFilters } from '../../utils/filters';
-import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { filter, mapWire } from '../../wiring/wires.operators';
-import { createWiring } from '../../wiring/wiring.utils';
-import {
-  namespacedWireCommit,
-  namespacedWireCommitWithoutPayload,
-  XEventPayload
-} from '../../wiring/index';
-import { DefaultFacetsService } from './service/facets.service';
+import type { Facet } from '@empathyco/x-types'
+import type { UrlParams } from '../../types/url-params'
+import type { XEventPayload } from '../../wiring/index'
+import { createRawFilters } from '../../utils/filters'
+import { namespacedWireCommit, namespacedWireCommitWithoutPayload } from '../../wiring/index'
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory'
+import { filter, mapWire } from '../../wiring/wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
+import { DefaultFacetsService } from './service/facets.service'
 
 /**
  * `facets` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'facets';
+const moduleName = 'facets'
 
 /**
  * WireCommit for {@link FacetsXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName)
 
 /**
  * WireCommitWithoutPayload for {@link FacetsXModule}.
  *
  * @internal
  */
-const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName)
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
  */
-const wireFacetsService = wireService(DefaultFacetsService.instance);
+const wireFacetsService = wireService(DefaultFacetsService.instance)
 
 /**
  * Wires without payload factory for {@link DefaultFacetsService}.
  */
-const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsService.instance);
+const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsService.instance)
 
 /**
  * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
@@ -52,9 +49,9 @@ const updateFacetsGroupWithSearchFacetsWire = mapWire(
   wireFacetsService('updateFacets'),
   (facets: Facet[]) => ({
     facets,
-    id: 'search'
-  })
-);
+    id: 'search',
+  }),
+)
 
 /**
  * Saves the facets contained in the group, removing the previous ones, and keeping the new filters
@@ -62,14 +59,14 @@ const updateFacetsGroupWithSearchFacetsWire = mapWire(
  *
  * @public
  */
-const setFacetsGroupWire = wireFacetsService('setFacets');
+const setFacetsGroupWire = wireFacetsService('setFacets')
 
 /**
  * Toggles the selected state of a filter.
  *
  * @public
  */
-const toggleFilterWire = wireFacetsService('toggle');
+const toggleFilterWire = wireFacetsService('toggle')
 
 /**
  * Deselects all the filters. Optionally, it can accept a list of facets ids as payload, and it will
@@ -77,14 +74,14 @@ const toggleFilterWire = wireFacetsService('toggle');
  *
  * @public
  */
-const clearFiltersWire = wireFacetsService('clearFilters');
+const clearFiltersWire = wireFacetsService('clearFilters')
 
 /**
  * Deselects all selected filters.
  *
  * @public
  */
-const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
+const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters')
 
 /**
  * Deselects all selected filters but keep the sticky ones.
@@ -93,9 +90,9 @@ const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
  */
 const clearAllFiltersButStickyWire = wireFacetsService('clearFiltersWithMetadata', {
   metadata: {
-    keepSticky: true
-  }
-});
+    keepSticky: true,
+  },
+})
 
 /**
  * Deselects all selected filters only when oldValue is not empty.
@@ -104,15 +101,15 @@ const clearAllFiltersButStickyWire = wireFacetsService('clearFiltersWithMetadata
  */
 const clearAllFiltersOnSecondQuery = filter(
   clearAllFiltersButStickyWire,
-  ({ metadata }) => !!metadata.oldValue
-);
+  ({ metadata }) => !!metadata.oldValue,
+)
 
 /**
  * Selects the filter passed by payload.
  *
  * @public
  */
-const selectFilterWire = wireFacetsService('select');
+const selectFilterWire = wireFacetsService('select')
 
 /**
  * Saves the params from the url.
@@ -120,29 +117,29 @@ const selectFilterWire = wireFacetsService('select');
  * @public
  */
 const setFiltersFromUrl = mapWire(wireFacetsService('select'), ({ filter }: UrlParams) =>
-  createRawFilters(filter)
-);
+  createRawFilters(filter),
+)
 
 /**
  * Saves the preselected filters.
  *
  * @public
  */
-const updatePreselectedFilters = wireFacetsService('updatePreselectedFilters');
+const updatePreselectedFilters = wireFacetsService('updatePreselectedFilters')
 
 /**
  * Selects the preselected filters stored in the state.
  *
  * @public
  */
-const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters');
+const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters')
 
 /**
  * Sets the facets state `query`.
  *
  * @public
  */
-const setQuery = wireFacetsService('setQuery');
+const setQuery = wireFacetsService('setQuery')
 
 /**
  * Removes all the sticky filters from the state.
@@ -152,9 +149,9 @@ const setQuery = wireFacetsService('setQuery');
 const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
   wireCommitWithoutPayload('clearStickyFilters'),
   ({ eventPayload }) => {
-    return eventPayload.totalResults === 0;
-  }
-);
+    return eventPayload.totalResults === 0
+  },
+)
 
 /**
  * Sets the filters of the facets module from a queryPreview's filters.
@@ -163,8 +160,8 @@ const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
  */
 export const setSelectedFiltersFromPreview = wireCommit(
   'setFilters',
-  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
-);
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : []),
+)
 
 /**
  * Sets the filters of the facets module from a selectedHistoryQuery's filters.
@@ -173,15 +170,15 @@ export const setSelectedFiltersFromPreview = wireCommit(
  */
 export const setFiltersFromHistoryQueries = wireCommit(
   'setFilters',
-  ({ eventPayload: { selectedFilters } }) => selectedFilters ?? []
-);
+  ({ eventPayload: { selectedFilters } }) => selectedFilters ?? [],
+)
 
 /**
  * Sets the query of the facets module from a queryPreview.
  *
  * @public
  */
-export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
+export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -192,53 +189,53 @@ export const facetsWiring = createWiring({
   ParamsLoadedFromUrl: {
     // TODO: move this logic to Facets Service
     clearAllFiltersWire,
-    setFiltersFromUrl
+    setFiltersFromUrl,
   },
   PreselectedFiltersProvided: {
-    updatePreselectedFilters
+    updatePreselectedFilters,
   },
   FacetsChanged: {
-    updateFacetsGroupWithSearchFacetsWire
+    updateFacetsGroupWithSearchFacetsWire,
   },
   FacetsGroupProvided: {
-    setFacetsGroupWire
+    setFacetsGroupWire,
   },
   UserAcceptedAQuery: {
-    setQuery
+    setQuery,
   },
   FacetsQueryChanged: {
-    clearAllFiltersOnSecondQuery
+    clearAllFiltersOnSecondQuery,
   },
   UserChangedExtraParams: {
-    clearAllFiltersButStickyWire
+    clearAllFiltersButStickyWire,
   },
   UserClickedAFilter: {
-    toggleFilterWire
+    toggleFilterWire,
   },
   UserClickedClearAllFilters: {
-    clearFiltersWire
+    clearFiltersWire,
   },
   UserModifiedEditableNumberRangeFilter: {
-    selectFilterWire
+    selectFilterWire,
   },
   UserClickedAllFilter: {
-    clearFiltersWire
+    clearFiltersWire,
   },
   UserClearedQuery: {
     clearAllFiltersButStickyWire,
-    setQuery
+    setQuery,
   },
   UserClickedOpenX: {
-    selectPreselectedFilterWire
+    selectPreselectedFilterWire,
   },
   SearchResponseChanged: {
-    clearStickyFilters
+    clearStickyFilters,
   },
   UserAcceptedAQueryPreview: {
     setQueryFromPreview,
-    setSelectedFiltersFromPreview
+    setSelectedFiltersFromPreview,
   },
   UserSelectedAHistoryQuery: {
-    setFiltersFromHistoryQueries
-  }
-});
+    setFiltersFromHistoryQueries,
+  },
+})

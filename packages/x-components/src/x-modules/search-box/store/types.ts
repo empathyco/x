@@ -1,7 +1,7 @@
-import { XStoreModule } from '../../../store';
-import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { UrlParams } from '../../../types/url-params';
-import { XEvent } from '../../../wiring/events.types';
+import type { XStoreModule } from '../../../store'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { UrlParams } from '../../../types/url-params'
+import type { XEvent } from '../../../wiring/events.types'
 
 /**
  * SearchBox store state.
@@ -12,7 +12,7 @@ export interface SearchBoxState extends QueryState {
   /**
    * The status of the search box input based on a state machine.
    */
-  inputStatus: string;
+  inputStatus: string
 }
 
 /**
@@ -22,7 +22,7 @@ export interface SearchBoxState extends QueryState {
  */
 export interface SearchBoxGetters {
   /** The query without initial or ending spaces. */
-  trimmedQuery: string;
+  trimmedQuery: string
 }
 
 /**
@@ -36,7 +36,7 @@ export interface SearchBoxMutations extends QueryMutations {
    *
    * @param inputStatus - The new {@link InputStatus} of the search-box.
    */
-  setInputStatus(inputStatus: InputStatus): void;
+  setInputStatus: (inputStatus: InputStatus) => void
 }
 
 /**
@@ -50,14 +50,14 @@ export interface SearchBoxActions {
    *
    * @param urlParams - List of params from the url.
    */
-  setUrlParams(urlParams: UrlParams): void;
+  setUrlParams: (urlParams: UrlParams) => void
   /**
    * Changes the machine state to a new state and updates the input status in the store
    * with it.
    *
    * @param event - The {@link XEvent} to transition to the new state.
    */
-  setInputStatus(event: XEvent): void;
+  setInputStatus: (event: XEvent) => void
 }
 
 /**
@@ -70,11 +70,11 @@ export type SearchBoxXStoreModule = XStoreModule<
   SearchBoxGetters,
   SearchBoxMutations,
   SearchBoxActions
->;
+>
 
 /**
  * Different status for the search box input.
  *
  * @internal
  */
-export type InputStatus = 'initial' | 'typing' | 'filled' | 'focused' | 'empty';
+export type InputStatus = 'initial' | 'typing' | 'filled' | 'focused' | 'empty'

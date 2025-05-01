@@ -5,142 +5,142 @@
 </template>
 
 <script lang="ts">
-  import { Redirection as RedirectionModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
-  import { searchXModule } from '../x-module';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { XEvent } from '../../../wiring/events.types';
+import type { Redirection as RedirectionModel } from '@empathyco/x-types'
+import type { PropType, Ref } from 'vue'
+import type { XEvent } from '../../../wiring/events.types'
+import { computed, defineComponent, ref, watch } from 'vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { searchXModule } from '../x-module'
 
-  /**
-   * A redirection is a component that sends the user to a link in the website. It is helpful when
-   * there are queries like `help`, `shipping costs`, `my account`, where a link to a section in the
-   * website will be more helpful than the set of results returned.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Redirection',
-    xModule: searchXModule.name,
-    props: {
-      /**
-       * The redirection mode. Auto for auto redirection and manual for an user interaction.
-       *
-       * @public
-       */
-      mode: {
-        type: String as PropType<'auto' | 'manual'>,
-        default: 'auto'
-      },
-      /**
-       * The waiting time in seconds until the redirection is made.
-       *
-       * @remarks this delay only works in auto mode.
-       *
-       * @public
-       */
-      delayInSeconds: {
-        type: Number,
-        default: 0
-      }
+/**
+ * A redirection is a component that sends the user to a link in the website. It is helpful when
+ * there are queries like `help`, `shipping costs`, `my account`, where a link to a section in the
+ * website will be more helpful than the set of results returned.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Redirection',
+  xModule: searchXModule.name,
+  props: {
+    /**
+     * The redirection mode. Auto for auto redirection and manual for an user interaction.
+     *
+     * @public
+     */
+    mode: {
+      type: String as PropType<'auto' | 'manual'>,
+      default: 'auto',
     },
-    setup(props, { slots }) {
-      const $x = use$x();
+    /**
+     * The waiting time in seconds until the redirection is made.
+     *
+     * @remarks this delay only works in auto mode.
+     *
+     * @public
+     */
+    delayInSeconds: {
+      type: Number,
+      default: 0,
+    },
+  },
+  setup(props, { slots }) {
+    const $x = use$x()
 
-      const { redirections } = useState('search', ['redirections']);
+    const { redirections } = useState('search')
 
-      /**
-       * List of events to stop the animation.
-       */
-      const eventsToStopAnimation: XEvent[] = [
-        'UserAcceptedAQuery',
-        'UserClearedQuery',
-        'UserSelectedARelatedTag'
-      ];
+    /**
+     * List of events to stop the animation.
+     */
+    const eventsToStopAnimation: XEvent[] = [
+      'UserAcceptedAQuery',
+      'UserClearedQuery',
+      'UserSelectedARelatedTag',
+    ]
 
-      /**
-       * The timeout id, used to cancel the redirection.
-       *
-       * @internal
-       */
-      const timeoutId: Ref<number> = ref(0);
+    /**
+     * The timeout id, used to cancel the redirection.
+     *
+     * @internal
+     */
+    const timeoutId: Ref<number> = ref(0)
 
-      /**
-       * Boolean flag which indicates if the redirection is running.
-       *
-       * @public
-       */
-      const isRedirecting = ref(true);
+    /**
+     * Boolean flag which indicates if the redirection is running.
+     *
+     * @public
+     */
+    const isRedirecting = ref(true)
 
-      /**
-       * Computed property which returns the first recommendation of the state, if any returns null.
-       *
-       * @returns The first redirection of the state.
-       *
-       * @internal
-       */
-      const redirection = computed((): RedirectionModel | null => redirections?.value[0] ?? null);
+    /**
+     * Computed property which returns the first recommendation of the state, if any returns null.
+     *
+     * @returns The first redirection of the state.
+     *
+     * @internal
+     */
+    const redirection = computed((): RedirectionModel | null => redirections?.value[0] ?? null)
 
-      /**
-       * Stops the animation if the user search another query.
-       *
-       * @internal
-       */
-      const cancelRedirect = () => {
-        clearTimeout(timeoutId.value);
-        isRedirecting.value = false;
-      };
-
-      eventsToStopAnimation.forEach(event => $x.on(event, false).subscribe(cancelRedirect));
-
-      /**
-       * Dispatches the redirection, updating the url.
-       *
-       * @public
-       */
-      const redirect = () => {
-        clearTimeout(timeoutId.value);
-        $x.emit('UserClickedARedirection', redirection.value!);
-        window.location.replace(redirection.value!.url);
-      };
-
-      /**
-       * Stops the redirection, emitting `UserClickedAbortARedirection` event.
-       *
-       * @public
-       */
-      const abortRedirect = () => {
-        cancelRedirect();
-        $x.emit('UserClickedAbortARedirection');
-      };
-
-      /**
-       * Watcher function which adds a setTimeout to the redirect method is the component
-       * is in auto mode and there are redirections.
-       *
-       * @internal
-       */
-      watch(
-        redirections,
-        () => {
-          isRedirecting.value = true;
-          if (props.mode === 'auto' && redirection.value) {
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            timeoutId.value = window.setTimeout(redirect, props.delayInSeconds * 1000);
-          }
-        },
-        { immediate: true }
-      );
-
-      return {
-        redirection,
-        redirect,
-        abortRedirect,
-        isRedirecting,
-        slots
-      };
+    /**
+     * Stops the animation if the user search another query.
+     *
+     * @internal
+     */
+    const cancelRedirect = () => {
+      clearTimeout(timeoutId.value)
+      isRedirecting.value = false
     }
-  });
+
+    eventsToStopAnimation.forEach(event => $x.on(event, false).subscribe(cancelRedirect))
+
+    /**
+     * Dispatches the redirection, updating the url.
+     *
+     * @public
+     */
+    const redirect = () => {
+      clearTimeout(timeoutId.value)
+      $x.emit('UserClickedARedirection', redirection.value!)
+      window.location.replace(redirection.value!.url)
+    }
+
+    /**
+     * Stops the redirection, emitting `UserClickedAbortARedirection` event.
+     *
+     * @public
+     */
+    const abortRedirect = () => {
+      cancelRedirect()
+      $x.emit('UserClickedAbortARedirection')
+    }
+
+    /**
+     * Watcher function which adds a setTimeout to the redirect method is the component
+     * is in auto mode and there are redirections.
+     *
+     * @internal
+     */
+    watch(
+      redirections,
+      () => {
+        isRedirecting.value = true
+        if (props.mode === 'auto' && redirection.value) {
+          timeoutId.value = window.setTimeout(redirect, props.delayInSeconds * 1000)
+        }
+      },
+      { immediate: true },
+    )
+
+    return {
+      redirection,
+      redirect,
+      abortRedirect,
+      isRedirecting,
+      slots,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -181,13 +181,13 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { Redirection } from '@empathyco/x-components/search';
-  export default {
-    name: 'RedirectionDemo',
-    components: {
-      Redirection
-    }
-  };
+import { Redirection } from '@empathyco/x-components/search'
+export default {
+  name: 'RedirectionDemo',
+  components: {
+    Redirection,
+  },
+}
 </script>
 ```
 
@@ -205,18 +205,18 @@ forcing the user to accept the redirection
 </template>
 
 <script>
-  import { Redirection } from '@empathyco/x-components/search';
-  export default {
-    name: 'RedirectionDemo',
-    components: {
-      Redirection
-    },
-    data() {
-      return {
-        mode: 'manual'
-      };
+import { Redirection } from '@empathyco/x-components/search'
+export default {
+  name: 'RedirectionDemo',
+  components: {
+    Redirection,
+  },
+  data() {
+    return {
+      mode: 'manual',
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

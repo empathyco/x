@@ -1,6 +1,6 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { HierarchicalFilter } from '@empathyco/x-types';
-import { PlatformHierarchicalFilter } from '../../../types/models/facet.model';
+import type { HierarchicalFilter } from '@empathyco/x-types'
+import type { PlatformHierarchicalFilter } from '../../../types/models/facet.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the HierarchicalFilterSchema.
@@ -22,7 +22,7 @@ export const hierarchicalFilterSchema = createMutableSchema<
     $path: 'children.values',
     $subSchema: '$self',
     $context: {
-      parentId: 'filter'
-    }
-  }
-});
+      parentId: 'filter',
+    },
+  },
+})

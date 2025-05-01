@@ -1,44 +1,45 @@
 <script lang="ts">
-  import { Dictionary } from '@empathyco/x-utils';
-  import { ComputedRef, defineComponent, PropType, watch } from 'vue';
-  import { extraParamsXModule } from '../x-module';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { PropType } from 'vue'
+import { defineComponent, watch } from 'vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { extraParamsXModule } from '../x-module'
 
-  /**
-   * It emits a {@link ExtraParamsXEvents.ExtraParamsProvided} with the values
-   * received as a prop.
-   *
-   * @public
-   */
+/**
+ * It emits a {@link ExtraParamsXEvents.ExtraParamsProvided} with the values
+ * received as a prop.
+ *
+ * @public
+ */
 
-  export default defineComponent({
-    name: 'ExtraParams',
-    xModule: extraParamsXModule.name,
-    props: {
-      values: {
-        type: Object as PropType<Dictionary<unknown>>,
-        required: true
-      }
+export default defineComponent({
+  name: 'ExtraParams',
+  xModule: extraParamsXModule.name,
+  props: {
+    values: {
+      type: Object as PropType<Dictionary<unknown>>,
+      required: true,
     },
-    setup(props) {
-      const params: ComputedRef<Dictionary> = useState('extraParams', ['params']).params;
-      const $x = use$x();
+  },
+  setup(props) {
+    const params = useState('extraParams').params
+    const $x = use$x()
 
-      $x.emit('ExtraParamsInitialized', { ...props.values });
-      $x.emit('ExtraParamsProvided', { ...params.value, ...props.values });
+    $x.emit('ExtraParamsInitialized', { ...props.values })
+    $x.emit('ExtraParamsProvided', { ...params.value, ...props.values })
 
-      watch(
-        () => props.values,
-        values => {
-          $x.emit('ExtraParamsProvided', { ...values });
-        },
-        { deep: true }
-      );
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      return () => {};
-    }
-  });
+    watch(
+      () => props.values,
+      values => {
+        $x.emit('ExtraParamsProvided', { ...values })
+      },
+      { deep: true },
+    )
+
+    return () => {}
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -56,21 +57,21 @@ _See how the event is triggered when the component is rendered._
 </template>
 
 <script>
-  import { ExtraParams } from '@empathyco/x-components/extra-params';
+import { ExtraParams } from '@empathyco/x-components/extra-params'
 
-  export default {
-    name: 'ExtraParamsDemo',
-    components: {
-      ExtraParams
-    },
-    data() {
-      return {
-        values: {
-          warehouse: 1234
-        }
-      };
+export default {
+  name: 'ExtraParamsDemo',
+  components: {
+    ExtraParams,
+  },
+  data() {
+    return {
+      values: {
+        warehouse: 1234,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

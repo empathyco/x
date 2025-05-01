@@ -1,5 +1,5 @@
-import { PlatformNextQueriesResponse } from '../../../types/responses/next-queries-response.model';
-import { nextQueriesResponseMapper } from '../next-queries-response.mapper';
+import type { PlatformNextQueriesResponse } from '../../../types/responses/next-queries-response.model'
+import { nextQueriesResponseMapper } from '../next-queries-response.mapper'
 
 describe('nextQueriesResponseMapper tests', () => {
   it('should map the response', () => {
@@ -9,16 +9,16 @@ describe('nextQueriesResponseMapper tests', () => {
           {
             query: 'makeup remover',
             source: 'ORGANIC',
-            position: 1000
+            position: 1000,
           },
           {
             query: 'shoes',
             position: 1000,
-            source: 'CURATED'
-          }
-        ]
-      }
-    };
+            source: 'CURATED',
+          },
+        ],
+      },
+    }
 
     expect(nextQueriesResponseMapper(platformNextQueriesResponse, {})).toStrictEqual({
       nextQueries: [
@@ -28,7 +28,7 @@ describe('nextQueriesResponseMapper tests', () => {
           facets: [],
           modelName: 'NextQuery',
           totalResults: 0,
-          isCurated: false
+          isCurated: false,
         },
         {
           query: 'shoes',
@@ -36,9 +36,9 @@ describe('nextQueriesResponseMapper tests', () => {
           facets: [],
           modelName: 'NextQuery',
           totalResults: 0,
-          isCurated: true
-        }
-      ]
-    });
-  });
-});
+          isCurated: true,
+        },
+      ],
+    })
+  })
+})

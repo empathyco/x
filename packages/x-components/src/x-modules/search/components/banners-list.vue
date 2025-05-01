@@ -1,117 +1,117 @@
 <script lang="ts">
-  import { Banner } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, h, inject, isRef, provide, ref, Ref } from 'vue';
-  import ItemsList from '../../../components/items-list.vue';
-  import { FeatureLocation } from '../../../types/origin';
-  import { ListItem } from '../../../utils/types';
-  import { searchXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+import type { Ref } from 'vue'
+import type { FeatureLocation } from '../../../types/origin'
+import type { ListItem } from '../../../utils/types'
+import { computed, defineComponent, h, inject, isRef, provide, ref } from 'vue'
+import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts'
+import ItemsList from '../../../components/items-list.vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { AnimationProp } from '../../../types/animation-prop'
+import { searchXModule } from '../x-module'
 
-  /**
-   * It renders a {@link ItemsList} list of banners from {@link SearchState.banners}.
-   *
-   * The component provides a default slot which wraps the whole component with the `banners`
-   * plus the `injectedListItems` which also contains the injected list items from
-   * the ancestor.
-   *
-   * It also provides the parent slots to customize the items.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BannersList',
-    xModule: searchXModule.name,
-    props: {
-      /** Animation component that will be used to animate the banners. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      }
+/**
+ * It renders a {@link ItemsList} list of banners from {@link SearchState.banners}.
+ *
+ * The component provides a default slot which wraps the whole component with the `banners`
+ * plus the `injectedListItems` which also contains the injected list items from
+ * the ancestor.
+ *
+ * It also provides the parent slots to customize the items.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BannersList',
+  xModule: searchXModule.name,
+  props: {
+    /** Animation component that will be used to animate the banners. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props, { slots }) {
-      const $x = use$x();
+  },
+  setup(props, { slots }) {
+    const $x = use$x()
 
-      /** The banners to render from the state. */
-      const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners;
+    /** The banners to render from the state. */
+    const stateItems = useState('search').banners
 
-      /** The provided {@link FeatureLocation} for the component. */
-      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location');
-      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
+    /** The provided {@link FeatureLocation} for the component. */
+    const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location')
+    const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation
 
-      /** Number of columns the grid is being divided into. */
-      let columnsNumber = ref(0);
+    /** Number of columns the grid is being divided into. */
+    const columnsNumber = ref(0)
 
-      /**
-       * Handler to update the number of columns when it changes.
-       *
-       * @param newColumnsNumber - The new columns value.
-       * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
-       */
-      $x.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
-        if (metadata.location === location) {
-          columnsNumber.value = eventPayload;
+    /**
+     * Handler to update the number of columns when it changes.
+     *
+     * @param newColumnsNumber - The new columns value.
+     * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
+     */
+    $x.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
+      if (metadata.location === location) {
+        columnsNumber.value = eventPayload
+      }
+    })
+
+    /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
+    const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
+
+    /**
+     * The `stateItems` concatenated with the `injectedListItems` if there are.
+     *
+     * @remarks This computed defines the merging strategy of the `stateItems` and the
+     * `injectedListItems`.
+     *
+     * @returns List of {@link ListItem}.
+     */
+    const items = computed(() => {
+      if (!injectedListItems?.value!.length) {
+        return stateItems.value
+      }
+      const items = [...injectedListItems.value]
+      let index = 0
+      let previousBannerRow = -1
+      for (const item of stateItems.value) {
+        const position = item.position ?? 1
+        let row = position - 1
+        if (row <= previousBannerRow) {
+          row = previousBannerRow + 1
         }
-      });
-
-      /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
-      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
-
-      /**
-       * The `stateItems` concatenated with the `injectedListItems` if there are.
-       *
-       * @remarks This computed defines the merging strategy of the `stateItems` and the
-       * `injectedListItems`.
-       *
-       * @returns List of {@link ListItem}.
-       */
-      const items = computed(() => {
-        if (!injectedListItems?.value!.length) {
-          return stateItems.value;
+        const rowsDiff = row - previousBannerRow
+        if (rowsDiff > 1) {
+          index += (rowsDiff - 1) * columnsNumber.value
         }
-        const items = [...injectedListItems.value];
-        let index = 0,
-          previousBannerRow = -1;
-        for (const item of stateItems.value) {
-          const position = item.position ?? 1;
-          let row = position - 1;
-          if (row <= previousBannerRow) {
-            row = previousBannerRow + 1;
-          }
-          const rowsDiff = row - previousBannerRow;
-          if (rowsDiff > 1) {
-            index += (rowsDiff - 1) * columnsNumber.value;
-          }
-          const isIndexInLoadedPages = index <= items.length;
-          const areAllPagesLoaded = $x.results.length === $x.totalResults;
-          if (!isIndexInLoadedPages && !areAllPagesLoaded) {
-            break;
-          }
-          items.splice(index, 0, item);
-          index++;
-          previousBannerRow = row;
+        const isIndexInLoadedPages = index <= items.length
+        const areAllPagesLoaded = $x.results.length === $x.totalResults
+        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+          break
         }
-        return items;
-      });
+        items.splice(index, 0, item)
+        index++
+        previousBannerRow = row
+      }
+      return items
+    })
 
-      /**
-       * The computed list items of the entity that uses the mixin.
-       *
-       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
-       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
-       * @returns An empty array as fallback in case it is not overridden.
-       */
-      provide(LIST_ITEMS_KEY as string, items);
+    /**
+     * The computed list items of the entity that uses the mixin.
+     *
+     * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+     * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+     * @returns An empty array as fallback in case it is not overridden.
+     */
+    provide(LIST_ITEMS_KEY as string, items)
 
-      return () => {
-        const innerProps = { items: items.value, animation: props.animation };
-        // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
-        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots);
-      };
+    return () => {
+      const innerProps = { items: items.value, animation: props.animation }
+      // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
+      return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots)
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -140,16 +140,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { BannersList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { BannersList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'BannersListDemo',
-    components: {
-      SearchInput,
-      BannersList
-    }
-  };
+export default {
+  name: 'BannersListDemo',
+  components: {
+    SearchInput,
+    BannersList,
+  },
+}
 </script>
 ```
 
@@ -164,22 +164,22 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { BannersList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { FadeAndSlide } from '@empathyco/x-components/animations';
+import { BannersList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { FadeAndSlide } from '@empathyco/x-components/animations'
 
-  export default {
-    name: 'BannersListDemo',
-    components: {
-      SearchInput,
-      BannersList
-    },
-    data() {
-      return {
-        fadeAndSlide: FadeAndSlide
-      };
+export default {
+  name: 'BannersListDemo',
+  components: {
+    SearchInput,
+    BannersList,
+  },
+  data() {
+    return {
+      fadeAndSlide: FadeAndSlide,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -203,16 +203,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { BannersList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { BannersList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'BannersListDemo',
-    components: {
-      SearchInput,
-      BannersList
-    }
-  };
+export default {
+  name: 'BannersListDemo',
+  components: {
+    SearchInput,
+    BannersList,
+  },
+}
 </script>
 ```
 
@@ -231,16 +231,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { BannersList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { BannersList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'BannersListDemo',
-    components: {
-      SearchInput,
-      BannersList
-    }
-  };
+export default {
+  name: 'BannersListDemo',
+  components: {
+    SearchInput,
+    BannersList,
+  },
+}
 </script>
 ```
 
@@ -269,17 +269,17 @@ value.
 </template>
 
 <script>
-  import { ResultsList, BannersList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { ResultsList, BannersList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'BannersListDemo',
-    components: {
-      SearchInput,
-      ResultsList,
-      BannersList
-    }
-  };
+export default {
+  name: 'BannersListDemo',
+  components: {
+    SearchInput,
+    ResultsList,
+    BannersList,
+  },
+}
 </script>
 ```
 </docs>

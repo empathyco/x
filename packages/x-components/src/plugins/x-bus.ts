@@ -1,10 +1,10 @@
-import { XPriorityBus } from '@empathyco/x-bus';
-import { XEventsTypes } from '../wiring/events.types';
-import { WireMetadata } from '../wiring/wiring.types';
-import { logDevtoolsXEvent } from './devtools/timeline.devtools';
+import type { XEventsTypes } from '../wiring/events.types'
+import type { WireMetadata } from '../wiring/wiring.types'
+import { XPriorityBus } from '@empathyco/x-bus'
+import { logDevtoolsXEvent } from './devtools/timeline.devtools'
 
 /**
- * Default {@link @empathyco/x-bus#XBus} implementation.
+ * Default XBus implementation.
  *
  * @public
  */
@@ -18,7 +18,7 @@ export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
     Initialized: 64,
     Provided: 128,
     DataReceived: 256,
-    ModuleRegistered: 512
+    ModuleRegistered: 512,
   },
-  emitCallbacks: [logDevtoolsXEvent]
-});
+  emitCallbacks: [logDevtoolsXEvent],
+})

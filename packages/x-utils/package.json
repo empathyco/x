@@ -1,10 +1,15 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.3-alpha.2",
+  "version": "1.0.3-alpha.3",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-utils"
+  },
   "keywords": [
     "search",
     "utils"
@@ -16,13 +21,8 @@
     "dist",
     "types"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-utils"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./types",
@@ -30,11 +30,15 @@
     "test": "jest",
     "test:unit": "jest",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-storage-service": "^2.0.3-alpha.1",
+    "@empathyco/x-storage-service": "^2.0.3-alpha.2",
     "tslib": "~2.6.0"
   },
   "devDependencies": {

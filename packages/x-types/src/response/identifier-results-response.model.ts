@@ -1,4 +1,4 @@
-import { Result } from '../result/result.model';
+import type { Result } from '../result/result.model'
 
 /**
  * Response for the identifier results endpoint.
@@ -6,5 +6,5 @@ import { Result } from '../result/result.model';
  * @public
  */
 export interface IdentifierResultsResponse {
-  results: Result[];
+  results: Result[]
 }

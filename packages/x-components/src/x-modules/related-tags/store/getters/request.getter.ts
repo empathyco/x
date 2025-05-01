@@ -1,4 +1,4 @@
-import { RelatedTagsXStoreModule } from '../types';
+import type { RelatedTagsXStoreModule } from '../types'
 /**
  * Default implementation for the {@link RelatedTagsGetters.request} getter.
  *
@@ -6,21 +6,19 @@ import { RelatedTagsXStoreModule } from '../types';
  * tags module.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * related tags module.
- *
  * @returns The related tags request to fetch data from the API.
- *
  * @public
  */
 export const request: RelatedTagsXStoreModule['getters']['request'] = (
   { config, params },
-  { query }
+  { query },
 ) => {
   return query.trim()
     ? {
         query,
         rows: config.maxItemsToRequest,
         start: 0,
-        extraParams: params
+        extraParams: params,
       }
-    : null;
-};
+    : null
+}

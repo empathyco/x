@@ -14,9 +14,9 @@
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...baseScope, highlightCurated }">
         <NextQuery
-          #default="nextQueryScope"
+          v-slot="nextQueryScope"
           :suggestion="baseScope.suggestion"
-          :highlightCurated="highlightCurated"
+          :highlight-curated="highlightCurated"
           class="x-next-queries__suggestion x-suggestion"
         >
           <!-- eslint-disable max-len -->
@@ -34,64 +34,65 @@
 </template>
 
 <script lang="ts">
-  import { NextQuery as NextQueryModel } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
-  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { nextQueriesXModule } from '../x-module';
-  import { useGetter } from '../../../composables/use-getter';
-  import NextQuery from './next-query.vue';
+import type { NextQuery as NextQueryModel } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
+import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
+import { useGetter } from '../../../composables/use-getter'
+import { nextQueriesXModule } from '../x-module'
+import NextQuery from './next-query.vue'
 
-  /**
-   * Simple next-queries component that renders a list of
-   * [`BaseSuggestions`](./x-components.base-suggestions.md),
-   * allowing the user to select one of them, and emitting the needed events. A next query is a
-   * suggestion for a new search, related to your previous query. I.e. If people normally search
-   * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'NextQueries',
-    xModule: nextQueriesXModule.name,
-    components: {
-      NextQuery,
-      BaseSuggestions
+/**
+ * Simple next-queries component that renders a list of
+ * [`BaseSuggestions`](./x-components.base-suggestions.md),
+ * allowing the user to select one of them, and emitting the needed events. A next query is a
+ * suggestion for a new search, related to your previous query. I.e. If people normally search
+ * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'NextQueries',
+  xModule: nextQueriesXModule.name,
+  components: {
+    NextQuery,
+    BaseSuggestions,
+  },
+  props: {
+    /**
+     * Flag to indicate if the curated next queries should be displayed different.
+     *
+     * @public
+     */
+    highlightCurated: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      /**
-       * Flag to indicate if the curated next queries should be displayed different.
-       *
-       * @public
-       */
-      highlightCurated: {
-        type: Boolean,
-        default: false
-      },
-      /**
-       * NextQueries list to be used instead of state NextQueries.
-       *
-       * @public
-       */
-      suggestions: Array as PropType<NextQueryModel[]>
-    },
-    setup(props) {
-      /**
-       * The list of next queries from the state.
-       *
-       * @internal
-       */
-      const stateNextQueries = useGetter('nextQueries', ['nextQueries']).nextQueries;
+    /**
+     * NextQueries list to be used instead of state NextQueries.
+     *
+     * @public
+     */
+    suggestions: Array as PropType<NextQueryModel[]>,
+  },
+  setup(props) {
+    /**
+     * The list of next queries from the state.
+     *
+     * @internal
+     */
+    const stateNextQueries = useGetter('nextQueries', ['nextQueries']).nextQueries
 
-      /**.
-       * The list of next queries finally rendered
-       *
-       * @internal
-       */
-      const renderedNextQueries = computed(() => props.suggestions ?? stateNextQueries.value);
+    /**.
+     * The list of next queries finally rendered
+     *
+     * @internal
+     */
+    const renderedNextQueries = computed(() => props.suggestions ?? stateNextQueries.value)
 
-      return { renderedNextQueries };
-    }
-  });
+    return { renderedNextQueries }
+  },
+})
 </script>
 
 <!--eslint-disable max-len -->
@@ -122,16 +123,16 @@ queries it will show them
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { NextQueries } from '@empathyco/x-components/next-queries';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { NextQueries } from '@empathyco/x-components/next-queries'
 
-  export default {
-    name: 'NextQueriesDemo',
-    components: {
-      SearchInput,
-      NextQueries
-    }
-  };
+export default {
+  name: 'NextQueriesDemo',
+  components: {
+    SearchInput,
+    NextQueries,
+  },
+}
 </script>
 ```
 
@@ -148,20 +149,20 @@ The component has three optional props. `animation` to render the component with
 </template>
 
 <script>
-  import Vue from 'vue';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { NextQueries } from '@empathyco/x-components/next-queries';
-  import { FadeAndSlide } from '@empathyco/x-components';
+import Vue from 'vue'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { NextQueries } from '@empathyco/x-components/next-queries'
+import { FadeAndSlide } from '@empathyco/x-components'
 
-  // Registering the animation as a global component
-  Vue.component('FadeAndSlide', FadeAndSlide);
-  export default {
-    name: 'NextQueriesDemo',
-    components: {
-      SearchInput,
-      NextQueries
-    }
-  };
+// Registering the animation as a global component
+Vue.component('FadeAndSlide', FadeAndSlide)
+export default {
+  name: 'NextQueriesDemo',
+  components: {
+    SearchInput,
+    NextQueries,
+  },
+}
 </script>
 ```
 
@@ -185,18 +186,18 @@ Next Query suggestion.
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { NextQueries } from '@empathyco/x-components/next-queries';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { NextQueries } from '@empathyco/x-components/next-queries'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'NextQueriesDemo',
-    components: {
-      SearchInput,
-      NextQueries,
-      TrendingIcon
-    }
-  };
+export default {
+  name: 'NextQueriesDemo',
+  components: {
+    SearchInput,
+    NextQueries,
+    TrendingIcon,
+  },
+}
 </script>
 ```
 
@@ -226,19 +227,19 @@ is wrapped in a `span`
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { NextQueries, NextQuery } from '@empathyco/x-components/next-queries';
-  import { TrendingIcon } from '@empathyco/x-components';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { NextQueries, NextQuery } from '@empathyco/x-components/next-queries'
+import { TrendingIcon } from '@empathyco/x-components'
 
-  export default {
-    name: 'NextQueriesDemo',
-    components: {
-      SearchInput,
-      NextQueries,
-      NextQuery,
-      TrendingIcon
-    }
-  };
+export default {
+  name: 'NextQueriesDemo',
+  components: {
+    SearchInput,
+    NextQueries,
+    NextQuery,
+    TrendingIcon,
+  },
+}
 </script>
 ```
 </docs>

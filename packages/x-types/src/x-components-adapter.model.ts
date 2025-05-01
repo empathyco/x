@@ -1,5 +1,5 @@
-import { EndpointAdapter } from '@empathyco/x-adapter';
-import {
+import type { EndpointAdapter } from '@empathyco/x-adapter'
+import type {
   ExperienceControlsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
@@ -10,31 +10,35 @@ import {
   RelatedTagsRequest,
   SearchRequest,
   SemanticQueriesRequest,
-  TaggingRequest
-} from './request';
-import {
+  TaggingRequest,
+} from './request'
+import type {
+  ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
   QuerySuggestionsResponse,
   RecommendationsResponse,
+  RelatedPromptsResponse,
   RelatedTagsResponse,
   SearchResponse,
   SemanticQueriesResponse,
-  ExperienceControlsResponse,
-  RelatedPromptsResponse
-} from './response';
+} from './response'
 
+/**
+ * XComponentsAdapter.
+ * @public
+ */
 export interface XComponentsAdapter {
-  search: EndpointAdapter<SearchRequest, SearchResponse>;
-  popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
-  nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
-  recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
-  querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
-  relatedPrompts: EndpointAdapter<RelatedPromptsRequest, RelatedPromptsResponse>;
-  relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
-  identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
-  tagging: EndpointAdapter<TaggingRequest, void>;
-  semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
-  experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>;
+  search: EndpointAdapter<SearchRequest, SearchResponse>
+  popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>
+  nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>
+  recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>
+  querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>
+  relatedPrompts: EndpointAdapter<RelatedPromptsRequest, RelatedPromptsResponse>
+  relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>
+  identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>
+  tagging: EndpointAdapter<TaggingRequest, void>
+  semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>
+  experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>
 }

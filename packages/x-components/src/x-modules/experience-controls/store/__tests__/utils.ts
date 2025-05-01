@@ -1,14 +1,14 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { experienceControlsXStoreModule } from '../module';
-import {
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { SafeStore } from '../../../../store/__tests__/utils'
+import type {
   ExperienceControlsActions,
   ExperienceControlsGetters,
   ExperienceControlsMutations,
-  ExperienceControlsState
-} from '../types';
-import { SafeStore } from '../../../../store/__tests__/utils';
+  ExperienceControlsState,
+} from '../types'
+import { Store } from 'vuex'
+import { resetStoreModuleState } from '../../../../__tests__/utils'
+import { experienceControlsXStoreModule } from '../module'
 
 /**
  * Resets the experience controls module state, optionally modifying its default values.
@@ -20,9 +20,9 @@ import { SafeStore } from '../../../../store/__tests__/utils';
  */
 export function resetExperienceControlsStateWith(
   store: Store<ExperienceControlsState>,
-  state?: DeepPartial<ExperienceControlsState>
+  state?: DeepPartial<ExperienceControlsState>,
 ): void {
-  resetStoreModuleState(store, experienceControlsXStoreModule.state(), state);
+  resetStoreModuleState(store, experienceControlsXStoreModule.state(), state)
 }
 
 /**
@@ -38,8 +38,8 @@ export function createExperienceControlsStore(): Store<ExperienceControlsState> 
     ExperienceControlsGetters,
     ExperienceControlsMutations,
     ExperienceControlsActions
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  > = new Store(experienceControlsXStoreModule as any);
+    // eslint-disable-next-line ts/no-unsafe-argument
+  > = new Store(experienceControlsXStoreModule as any)
 
-  return store;
+  return store
 }

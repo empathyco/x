@@ -1,4 +1,4 @@
-import { HierarchicalFilter } from '@empathyco/x-types';
+import type { HierarchicalFilter } from '@empathyco/x-types'
 
 /**
  * This function flattens the Hierarchical Filters, returning an array with all filters including
@@ -10,10 +10,10 @@ import { HierarchicalFilter } from '@empathyco/x-types';
  * @public
  */
 export function flatHierarchicalFilters(
-  hierarchicalFilters: HierarchicalFilter[]
+  hierarchicalFilters: HierarchicalFilter[],
 ): HierarchicalFilter[] {
   return hierarchicalFilters.reduce(function flat(flattenedFilters, filter): HierarchicalFilter[] {
-    flattenedFilters.push(filter);
-    return filter?.children?.reduce(flat, flattenedFilters) ?? flattenedFilters;
-  }, [] as HierarchicalFilter[]);
+    flattenedFilters.push(filter)
+    return filter?.children?.reduce(flat, flattenedFilters) ?? flattenedFilters
+  }, [] as HierarchicalFilter[])
 }

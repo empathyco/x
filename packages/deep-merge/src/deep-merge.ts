@@ -1,8 +1,8 @@
-import { isObject } from '@empathyco/x-utils';
+import { isObject } from '@empathyco/x-utils'
 
 enum Behaviour {
   Replace = 'replace',
-  DeepMerge = 'deep-merge'
+  DeepMerge = 'deep-merge',
 }
 
 /**
@@ -17,10 +17,10 @@ enum Behaviour {
  * @returns The target modified.
  */
 export function deepMerge(target: any, ...sources: any[]): any {
-  return sources.reduce(cloneSourcesProperties, target || {});
+  return sources.reduce(cloneSourcesProperties, target || {})
 }
 
-const behaviourMap = new WeakMap();
+const behaviourMap = new WeakMap()
 
 /**
  * When setting replace behaviour to an object, target properties will not be used,
@@ -38,8 +38,8 @@ const behaviourMap = new WeakMap();
  * @returns The same object with the new behaviour.
  */
 export function replaceBehaviour<T extends Record<string, unknown>>(obj: T): T {
-  behaviourMap.set(obj, Behaviour.Replace);
-  return obj;
+  behaviourMap.set(obj, Behaviour.Replace)
+  return obj
 }
 
 /**
@@ -51,8 +51,8 @@ export function replaceBehaviour<T extends Record<string, unknown>>(obj: T): T {
  * @returns The same object with the new behaviour.
  */
 export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T {
-  behaviourMap.set(obj, Behaviour.DeepMerge);
-  return obj;
+  behaviourMap.set(obj, Behaviour.DeepMerge)
+  return obj
 }
 
 /**
@@ -65,9 +65,9 @@ export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T
  */
 function cloneSourcesProperties(target: any, source: any): (source: any) => void {
   if (source) {
-    return Object.entries(source).reduce(cloneObjectProperties, target);
+    return Object.entries(source as Record<any, any>).reduce(cloneObjectProperties, target)
   } else {
-    return target || {};
+    return target || {}
   }
 }
 
@@ -76,20 +76,22 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
  *
  * @param target - The target object to clone in.
  * @param source - Key-Value to clone into the target object.
+ * @param source.0 - Key to clone into the target object.
+ * @param source.1 - Value to clone into the target object.
  *
  * @returns The target object updated with the entry parameter.
  */
 function cloneObjectProperties(target: any, [key, value]: any): any {
   if (value === undefined) {
-    delete target[key];
+    delete target[key]
   } else if (isObject(value)) {
-    mergeObject(target, [key, value]);
+    mergeObject(target, [key, value])
   } else if (Array.isArray(value)) {
-    target[key] = [...value];
+    target[key] = [...value]
   } else {
-    target[key] = value;
+    target[key] = value
   }
-  return target;
+  return target
 }
 
 /**
@@ -97,18 +99,20 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  *
  * @param target - The target object to clone in.
  * @param source - Key-Value to clone into the target object.
+ * @param source.0 - Key to clone into the target object.
+ * @param source.1 - Value to clone into the target object.
  *
  */
 function mergeObject(target: any, [key, value]: any): void {
-  const mergeBehaviour = getMergeBehaviour(target[key], value);
+  const mergeBehaviour = getMergeBehaviour(target[key], value)
   if (mergeBehaviour === Behaviour.Replace) {
-    target[key] = deepMerge({}, value);
-    replaceBehaviour(target[key]);
+    target[key] = deepMerge({}, value)
+    replaceBehaviour(target[key])
   } else if (mergeBehaviour === Behaviour.DeepMerge) {
-    target[key] = deepMerge(target[key] || {}, value);
-    deepMergeBehaviour(target[key]);
+    target[key] = deepMerge(target[key] || {}, value)
+    deepMergeBehaviour(target[key])
   } else {
-    target[key] = deepMerge(isObject(target[key]) ? target[key] : {}, value);
+    target[key] = deepMerge(isObject(target[key]) ? target[key] : {}, value)
   }
 }
 
@@ -121,5 +125,5 @@ function mergeObject(target: any, [key, value]: any): void {
  * @returns The correct behaviour.
  */
 function getMergeBehaviour(targetValue: any, sourceValue: any): Behaviour {
-  return behaviourMap.get(sourceValue) || behaviourMap.get(targetValue);
+  return behaviourMap.get(sourceValue as object) || behaviourMap.get(targetValue as object)
 }

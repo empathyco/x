@@ -1,5 +1,5 @@
 <template>
-  <XdsBaseShowcase #default="{ copyCssClassesToClipboard }" title="Layout" :sections="sections">
+  <XdsBaseShowcase v-slot="{ copyCssClassesToClipboard }" title="Layout" :sections="sections">
     <label for="layout-modal" class="x-button">See layouts</label>
     <input id="layout-modal" type="checkbox" class="modal-toggle" />
 
@@ -21,11 +21,11 @@
           </div>
           <code class="px-4 py-2">{{ cssClass }}</code>
           <div
-            @click="copyCssClassesToClipboard"
-            @keydown="copyCssClassesToClipboard"
             :class="cssClass"
             title="Click me to copy CSS classes"
             class="w-full bg-gray-300"
+            @click="copyCssClassesToClipboard"
+            @keydown="copyCssClassesToClipboard"
           >
             <div class="x-layout-item"><span class="bg-gray-400 p-2">item</span></div>
           </div>
@@ -36,64 +36,65 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { ShowcaseSections } from '../types/types';
-  import { addParentClasses } from '../utils';
-  import XdsBaseShowcase from './xds-base-showcase.vue';
+import type { PropType } from 'vue'
+import type { ShowcaseSections } from '../types/types'
+import { defineComponent } from 'vue'
+import { addParentClasses } from '../utils'
+import XdsBaseShowcase from './xds-base-showcase.vue'
 
-  export default defineComponent({
-    components: {
-      XdsBaseShowcase
+export default defineComponent({
+  components: {
+    XdsBaseShowcase,
+  },
+  props: {
+    base: {
+      type: String,
+      default: 'x-layout-container',
     },
-    props: {
-      base: {
-        type: String,
-        default: 'x-layout-container'
+    maxWidth: {
+      type: Array as PropType<string[]>,
+      default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full'],
+    },
+    minMargin: {
+      type: Array as PropType<string[]>,
+      default: () => [
+        'x-layout-min-margin-12',
+        'x-layout-min-margin-20',
+        'x-layout-min-margin-32',
+        'x-layout-min-margin-48',
+      ],
+    },
+    customAlign: {
+      type: Array as PropType<string[]>,
+      default: () => [
+        'x-layout-container-mx-128',
+        'x-layout-container-mr-128',
+        'x-layout-container-ml-128',
+        'x-layout-container-ml-[375px]',
+      ],
+    },
+  },
+  data() {
+    return {
+      modalContent: {
+        Layout: [this.base],
+        'Max Width': this.maxWidth.map(addParentClasses(this.base)),
+        'Min Width': this.minMargin.map(addParentClasses(this.base)),
+        'Custom Alignment': this.customAlign.map(addParentClasses(this.base)),
       },
-      maxWidth: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
-      },
-      minMargin: {
-        type: Array as PropType<string[]>,
-        default: () => [
-          'x-layout-min-margin-12',
-          'x-layout-min-margin-20',
-          'x-layout-min-margin-32',
-          'x-layout-min-margin-48'
-        ]
-      },
-      customAlign: {
-        type: Array as PropType<string[]>,
-        default: () => [
-          'x-layout-container-mx-128',
-          'x-layout-container-mr-128',
-          'x-layout-container-ml-128',
-          'x-layout-container-ml-[375px]'
-        ]
-      }
-    },
-    data() {
-      return {
-        modalContent: {
-          Layout: [this.base],
-          'Max Width': this.maxWidth.map(addParentClasses(this.base)),
-          'Min Width': this.minMargin.map(addParentClasses(this.base)),
-          'Custom Alignment': this.customAlign.map(addParentClasses(this.base))
-        }
-      };
-    },
-    computed: {
-      sections(): ShowcaseSections {
-        return {
-          '': [this.base]
-        };
-      }
-    },
-    methods: {
-      copyCssClassesToClipboard(event: MouseEvent): void {
-        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      }
     }
-  });
+  },
+  computed: {
+    sections(): ShowcaseSections {
+      return {
+        '': [this.base],
+      }
+    },
+  },
+  methods: {
+    copyCssClassesToClipboard(event: MouseEvent): void {
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value)
+    },
+  },
+})
 </script>

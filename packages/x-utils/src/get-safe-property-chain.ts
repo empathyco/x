@@ -1,4 +1,4 @@
-import { ExtractType, ExtractPath } from './types';
+import type { ExtractPath, ExtractType } from './types'
 
 /**
  * Safely searches for a chain of properties in an object.
@@ -16,8 +16,8 @@ import { ExtractType, ExtractPath } from './types';
 export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeObject>>(
   obj: SomeObject,
   propertyChain: Path,
-  defaultReturn?: ExtractType<SomeObject, Path>
-): ExtractType<SomeObject, Path> | undefined;
+  defaultReturn?: ExtractType<SomeObject, Path>,
+): ExtractType<SomeObject, Path> | undefined
 /**
  * Safely searches for a chain of properties in an object.
  *
@@ -34,8 +34,8 @@ export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeOb
 export function getSafePropertyChain<SomeObject>(
   obj: SomeObject,
   propertyChain: '',
-  defaultReturn?: SomeObject
-): SomeObject;
+  defaultReturn?: SomeObject,
+): SomeObject
 /**
  * Safely searches for a chain of properties in an object.
  *
@@ -50,10 +50,12 @@ export function getSafePropertyChain<SomeObject>(
 export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeObject>>(
   obj: SomeObject,
   propertyChain: Path | '',
-  defaultReturn?: ExtractType<SomeObject, Path>
+  defaultReturn?: ExtractType<SomeObject, Path>,
 ): ExtractType<SomeObject, Path> {
-  const resolved = getChain(obj, ...propertyChain.split('.'));
-  return resolved === undefined ? defaultReturn : resolved;
+  // eslint-disable-next-line ts/no-unsafe-assignment
+  const resolved = getChain(obj, ...propertyChain.split('.'))
+  // eslint-disable-next-line ts/no-unsafe-return
+  return resolved === undefined ? defaultReturn : resolved
 }
 
 /**
@@ -66,9 +68,11 @@ export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeOb
  * defined.
  */
 function getChain<T = any>(obj: any, property = '', ...propertyChain: string[]): T | undefined {
+  // eslint-disable-next-line ts/no-unsafe-return
   return obj == null && property
     ? undefined
     : !property
-    ? obj
-    : getChain(obj[property], ...propertyChain);
+      ? obj
+      : // eslint-disable-next-line ts/no-unsafe-member-access
+        getChain(obj[property], ...propertyChain)
 }

@@ -2,71 +2,72 @@
   <BaseEventsModal
     class="x-main-modal"
     data-test="main-modal"
-    :eventsToOpenModal="openEvents"
-    :eventsToCloseModal="closeEvents"
-    :bodyClickEvent="outOfModalClickEvent"
+    :events-to-open-modal="openEvents"
+    :events-to-close-modal="closeEvents"
+    :body-click-event="outOfModalClickEvent"
     :animation="animation"
-    :focusOnOpen="focusOnOpen"
+    :focus-on-open="focusOnOpen"
   >
     <slot />
   </BaseEventsModal>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { AnimationProp } from '../../types/animation-prop';
-  import { XEvent } from '../../wiring/events.types';
-  import BaseEventsModal from './base-events-modal.vue';
+import type { PropType } from 'vue'
+import type { XEvent } from '../../wiring/events.types'
+import { defineComponent } from 'vue'
+import { AnimationProp } from '../../types/animation-prop'
+import BaseEventsModal from './base-events-modal.vue'
 
-  /**
-   * A specialised version of a modal component, made to contain a full search application.
-   *
-   * @public
-   */
-  export default defineComponent({
-    components: {
-      BaseEventsModal
+/**
+ * A specialised version of a modal component, made to contain a full search application.
+ *
+ * @public
+ */
+export default defineComponent({
+  components: {
+    BaseEventsModal,
+  },
+  props: {
+    /**
+     * Animation to use for opening/closing the modal.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
     },
-    props: {
-      /**
-       * Animation to use for opening/closing the modal.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp
-      },
-      /**
-       * Events to listen for closing the main modal.
-       */
-      closeEvents: {
-        type: Array as PropType<XEvent[]>,
-        default: () => ['UserClickedCloseX', 'UserClickedOutOfMainModal']
-      },
-      /**
-       * Determines if the focused element changes to one inside the modal when it opens. Either the
-       * first element with a positive tabindex or just the first focusable element.
-       */
-      focusOnOpen: {
-        type: Boolean,
-        default: false
-      },
-      /**
-       * Events to listen for opening the main modal.
-       */
-      openEvents: {
-        type: Array as PropType<XEvent[]>,
-        default: () => ['UserClickedOpenX', 'UserOpenXProgrammatically']
-      },
-      /**
-       * Event to be emitted by the modal when clicked out of its content.
-       */
-      outOfModalClickEvent: {
-        type: (String as PropType<XEvent>) || null,
-        default: 'UserClickedOutOfMainModal'
-      }
-    }
-  });
+    /**
+     * Events to listen for closing the main modal.
+     */
+    closeEvents: {
+      type: Array as PropType<XEvent[]>,
+      default: () => ['UserClickedCloseX', 'UserClickedOutOfMainModal'],
+    },
+    /**
+     * Determines if the focused element changes to one inside the modal when it opens. Either the
+     * first element with a positive tabindex or just the first focusable element.
+     */
+    focusOnOpen: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Events to listen for opening the main modal.
+     */
+    openEvents: {
+      type: Array as PropType<XEvent[]>,
+      default: () => ['UserClickedOpenX', 'UserOpenXProgrammatically'],
+    },
+    /**
+     * Event to be emitted by the modal when clicked out of its content.
+     */
+    outOfModalClickEvent: {
+      type: (String as PropType<XEvent>) || null,
+      default: 'UserClickedOutOfMainModal',
+    },
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -91,16 +92,16 @@ Here you have a basic example of how the main modal works.
 </template>
 
 <script>
-  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
 
-  export default {
-    name: 'MainModalDemo',
-    components: {
-      MainModal,
-      CloseMainModal,
-      OpenMainModal
-    }
-  };
+export default {
+  name: 'MainModalDemo',
+  components: {
+    MainModal,
+    CloseMainModal,
+    OpenMainModal,
+  },
+}
 </script>
 ```
 
@@ -119,16 +120,16 @@ The `contentClass` prop can be used to add classes to the modal content.
 </template>
 
 <script>
-  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
 
-  export default {
-    name: 'MainModalDemo',
-    components: {
-      MainModal,
-      CloseMainModal,
-      OpenMainModal
-    }
-  };
+export default {
+  name: 'MainModalDemo',
+  components: {
+    MainModal,
+    CloseMainModal,
+    OpenMainModal,
+  },
+}
 </script>
 ```
 
@@ -158,16 +159,16 @@ that the modal would emit when the user clicks out of the modal.
 </template>
 
 <script>
-  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
 
-  export default {
-    name: 'MainModalDemo',
-    components: {
-      MainModal,
-      CloseMainModal,
-      OpenMainModal
-    }
-  };
+export default {
+  name: 'MainModalDemo',
+  components: {
+    MainModal,
+    CloseMainModal,
+    OpenMainModal,
+  },
+}
 </script>
 ```
 </docs>

@@ -4,5 +4,5 @@
  * @public
  */
 export interface PlatformStats {
-  price: { min: number; max: number };
+  price: { min: number; max: number }
 }

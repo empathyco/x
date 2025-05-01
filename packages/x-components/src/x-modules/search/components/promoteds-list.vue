@@ -1,89 +1,89 @@
 <script lang="ts">
-  import { Promoted } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, h, inject, provide, Ref } from 'vue';
-  import ItemsList from '../../../components/items-list.vue';
-  import { ListItem } from '../../../utils/types';
-  import { searchXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
-  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+import type { Ref } from 'vue'
+import type { ListItem } from '../../../utils/types'
+import { computed, defineComponent, h, inject, provide } from 'vue'
+import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts'
+import ItemsList from '../../../components/items-list.vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { AnimationProp } from '../../../types/animation-prop'
+import { searchXModule } from '../x-module'
 
-  /**
-   * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds}.
-   *
-   * The component provides a default slot which wraps the whole component with the `promoteds`
-   * plus the `injectedListItems` which also contains the injected list items from
-   * the ancestor.
-   *
-   * It also provides the parent slots to customize the items.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PromotedsList',
-    xModule: searchXModule.name,
-    props: {
-      /** Animation component that will be used to animate the promoteds. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      }
+/**
+ * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds}.
+ *
+ * The component provides a default slot which wraps the whole component with the `promoteds`
+ * plus the `injectedListItems` which also contains the injected list items from
+ * the ancestor.
+ *
+ * It also provides the parent slots to customize the items.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PromotedsList',
+  xModule: searchXModule.name,
+  props: {
+    /** Animation component that will be used to animate the promoteds. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props, { slots }) {
-      const $x = use$x();
+  },
+  setup(props, { slots }) {
+    const $x = use$x()
 
-      /** The promoteds to render from the state. */
-      const stateItems: ComputedRef<Promoted[]> = useState('search', ['promoteds']).promoteds;
+    /** The promoteds to render from the state. */
+    const stateItems = useState('search').promoteds
 
-      /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
-      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
+    /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
+    const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
-      /**
-       * The `stateItems` concatenated with the `injectedListItems` if there are.
-       *
-       * @remarks This computed defines the merging strategy of the `stateItems` and the
-       * `injectedListItems`.
-       *
-       * @returns List of {@link ListItem}.
-       */
-      const items = computed(() => {
-        if (!injectedListItems?.value!.length) {
-          return stateItems.value;
+    /**
+     * The `stateItems` concatenated with the `injectedListItems` if there are.
+     *
+     * @remarks This computed defines the merging strategy of the `stateItems` and the
+     * `injectedListItems`.
+     *
+     * @returns List of {@link ListItem}.
+     */
+    const items = computed(() => {
+      if (!injectedListItems?.value!.length) {
+        return stateItems.value
+      }
+      const items = [...injectedListItems.value]
+      for (const item of stateItems.value) {
+        const position = item.position ?? 1
+        let index = position - 1
+        while (items.at(index)?.modelName === 'Promoted') {
+          index++
         }
-        const items = [...injectedListItems.value];
-        for (const item of stateItems.value) {
-          const position = item.position ?? 1;
-          let index = position - 1;
-          while (items.at(index)?.modelName === 'Promoted') {
-            index++;
-          }
-          const isIndexInLoadedPages = index <= items.length;
-          const areAllPagesLoaded = $x.results.length === $x.totalResults;
-          if (!isIndexInLoadedPages && !areAllPagesLoaded) {
-            break;
-          }
-          items.splice(index, 0, item);
+        const isIndexInLoadedPages = index <= items.length
+        const areAllPagesLoaded = $x.results.length === $x.totalResults
+        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+          break
         }
-        return items;
-      });
+        items.splice(index, 0, item)
+      }
+      return items
+    })
 
-      /**
-       * The computed list items of the entity that uses the mixin.
-       *
-       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
-       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
-       * @returns An empty array as fallback in case it is not overridden.
-       */
-      provide(LIST_ITEMS_KEY as string, items);
+    /**
+     * The computed list items of the entity that uses the mixin.
+     *
+     * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+     * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+     * @returns An empty array as fallback in case it is not overridden.
+     */
+    provide(LIST_ITEMS_KEY as string, items)
 
-      return () => {
-        const innerProps = { items: items.value, animation: props.animation };
-        // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
-        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots);
-      };
+    return () => {
+      const innerProps = { items: items.value, animation: props.animation }
+      // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
+      return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots)
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -113,16 +113,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { PromotedsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { PromotedsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'PromotedsListDemo',
-    components: {
-      SearchInput,
-      PromotedsList
-    }
-  };
+export default {
+  name: 'PromotedsListDemo',
+  components: {
+    SearchInput,
+    PromotedsList,
+  },
+}
 </script>
 ```
 
@@ -137,22 +137,22 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { PromotedsList } from '@empathyco/x-components/search';
-  import { FadeAndSlide } from '@empathyco/x-components/animations';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { PromotedsList } from '@empathyco/x-components/search'
+import { FadeAndSlide } from '@empathyco/x-components/animations'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'PromotedsListDemo',
-    components: {
-      SearchInput,
-      PromotedsList
-    },
-    data() {
-      return {
-        fadeAndSlide: FadeAndSlide
-      };
+export default {
+  name: 'PromotedsListDemo',
+  components: {
+    SearchInput,
+    PromotedsList,
+  },
+  data() {
+    return {
+      fadeAndSlide: FadeAndSlide,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -176,18 +176,18 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { PromotedsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { BaseGrid } from '@empathyco/x-components';
+import { PromotedsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { BaseGrid } from '@empathyco/x-components'
 
-  export default {
-    name: 'PromotedsListDemo',
-    components: {
-      SearchInput,
-      PromotedsList,
-      BaseGrid
-    }
-  };
+export default {
+  name: 'PromotedsListDemo',
+  components: {
+    SearchInput,
+    PromotedsList,
+    BaseGrid,
+  },
+}
 </script>
 ```
 
@@ -206,16 +206,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { PromotedsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { PromotedsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'PromotedsListDemo',
-    components: {
-      SearchInput,
-      PromotedsList
-    }
-  };
+export default {
+  name: 'PromotedsListDemo',
+  components: {
+    SearchInput,
+    PromotedsList,
+  },
+}
 </script>
 ```
 
@@ -239,17 +239,17 @@ value.
 </template>
 
 <script>
-  import { ResultsList, PromotedsList } from '@empathyco/x-components/search';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { ResultsList, PromotedsList } from '@empathyco/x-components/search'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'PromotedsListDemo',
-    components: {
-      SearchInput,
-      ResultsList,
-      PromotedsList
-    }
-  };
+export default {
+  name: 'PromotedsListDemo',
+  components: {
+    SearchInput,
+    ResultsList,
+    PromotedsList,
+  },
+}
 </script>
 ```
 </docs>

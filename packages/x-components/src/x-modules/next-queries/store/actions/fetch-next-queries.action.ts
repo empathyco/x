@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { NextQueriesXStoreModule } from '../types';
+import type { NextQueriesXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link NextQueriesActions.fetchNextQueries}.
@@ -12,11 +12,11 @@ import { NextQueriesXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchNextQueries: NextQueriesXStoreModule['actions']['fetchNextQueries'] = (
+export const fetchNextQueries: NextQueriesXStoreModule['actions']['fetchNextQueries'] = async (
   _context,
-  request
+  request,
 ) => {
   return request
     ? XPlugin.adapter.nextQueries(request).then(({ nextQueries }) => nextQueries)
-    : null;
-};
+    : null
+}

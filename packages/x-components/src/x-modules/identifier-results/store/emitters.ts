@@ -1,6 +1,6 @@
-import { createStoreEmitters } from '../../../store';
-import { createEmitterArrayFilter } from '../../../utils/array';
-import { identifierResultsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { createEmitterArrayFilter } from '../../../utils/array'
+import { identifierResultsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the identifier-results module.
@@ -10,7 +10,7 @@ import { identifierResultsXStoreModule } from './module';
 export const identifierResultsEmitters = createStoreEmitters(identifierResultsXStoreModule, {
   IdentifierResultsChanged: {
     selector: state => state.identifierResults,
-    filter: createEmitterArrayFilter('id')
+    filter: createEmitterArrayFilter('id'),
   },
-  IdentifierResultsRequestUpdated: (_, getters) => getters.identifierResultsRequest
-});
+  IdentifierResultsRequestUpdated: (_, getters) => getters.identifierResultsRequest,
+})

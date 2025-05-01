@@ -1,13 +1,14 @@
-import { Facet, FilterModelName, Filter, isFacetFilter } from '@empathyco/x-types';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../store/store.types';
-import { UNKNOWN_FACET_KEY } from '../store/constants';
-import { EditableNumberRangeFilterEntity } from './editable-number-range-filter.entity';
-import { HierarchicalFilterEntity } from './hierarchical-filter.entity';
-import { NumberRangeFilterEntity } from './number-range-filter.entity';
-import { RawFilterEntity } from './raw-filter.entity';
-import { SimpleFilterEntity } from './simple-filter.entity';
-import { FilterEntity, FilterEntityConstructor, FilterEntityModifier } from './types';
+import type { Facet, Filter, FilterModelName } from '@empathyco/x-types'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../store/store.types'
+import type { FilterEntity, FilterEntityConstructor, FilterEntityModifier } from './types'
+import { isFacetFilter } from '@empathyco/x-types'
+import { UNKNOWN_FACET_KEY } from '../store/constants'
+import { EditableNumberRangeFilterEntity } from './editable-number-range-filter.entity'
+import { HierarchicalFilterEntity } from './hierarchical-filter.entity'
+import { NumberRangeFilterEntity } from './number-range-filter.entity'
+import { RawFilterEntity } from './raw-filter.entity'
+import { SimpleFilterEntity } from './simple-filter.entity'
 
 /**
  * Creates {@link FilterEntity | FilterEntities} based on the provided configs.
@@ -21,36 +22,36 @@ export class FilterEntityFactory {
    * @remarks The constructor is not private, so it's possible to create more instances,
    * to simplify the testing.
    */
-  public static instance = new FilterEntityFactory();
+  public static instance = new FilterEntityFactory()
 
   /**
    * The registered entities by default to be used by the Factory.
    */
-  protected entities: FilterEntityConstructor[] = [
+  protected entities = [
     SimpleFilterEntity,
     HierarchicalFilterEntity,
     NumberRangeFilterEntity,
     EditableNumberRangeFilterEntity,
-    RawFilterEntity
-  ];
+    RawFilterEntity,
+  ] as FilterEntityConstructor[]
 
   /**
    * The registered modifiers grouped by the facetId to be applied.
    */
-  protected modifiersByFacetId: Record<Facet['id'], FilterEntityModifier[]> = {};
+  protected modifiersByFacetId: Record<Facet['id'], FilterEntityModifier[]> = {}
 
   /**
    * The registered modifiers grouped by the filter `ModelName` to be applied.
    */
   protected modifiersByFilterModelName: Partial<Record<FilterModelName, FilterEntityModifier[]>> =
-    {};
+    {}
 
   /**
    * Contains the instantiated entities for each facet.
    *
    * @internal
    */
-  protected cache: Record<Facet['id'] | typeof UNKNOWN_FACET_KEY, FilterEntity> = {};
+  protected cache: Record<Facet['id'] | typeof UNKNOWN_FACET_KEY, FilterEntity> = {}
 
   /**
    * Creates a new FilterEntity from a filter.
@@ -62,8 +63,8 @@ export class FilterEntityFactory {
    * @returns The {@link FilterEntity} created by the factory.
    */
   getFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
-    const cacheKey = isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY;
-    return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter));
+    const cacheKey = isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY
+    return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter))
   }
 
   /**
@@ -76,20 +77,22 @@ export class FilterEntityFactory {
    * @internal
    */
   protected createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
-    const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter));
+    const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter))
     if (!filterEntityConstructor) {
-      throw new Error(`Entity configuration for ${filter.modelName} not registered.`);
+      throw new Error(`Entity configuration for ${filter.modelName} not registered.`)
     }
-    const entity = new filterEntityConstructor(store);
+    // eslint-disable-next-line new-cap
+    const entity = new filterEntityConstructor(store)
     const modifiers = isFacetFilter(filter)
-      ? this.modifiersByFacetId[filter.facetId] ??
+      ? (this.modifiersByFacetId[filter.facetId] ??
         this.modifiersByFilterModelName[filter.modelName] ??
-        []
-      : [];
+        [])
+      : []
     return modifiers.reduce(
+      // eslint-disable-next-line new-cap
       (modifiedEntity, modifier) => new modifier(store, modifiedEntity),
-      entity
-    );
+      entity,
+    )
   }
 
   /**
@@ -99,7 +102,7 @@ export class FilterEntityFactory {
    */
   registerFilterEntity(entity: FilterEntityConstructor): void {
     if (!this.entities.includes(entity)) {
-      this.entities.push(entity);
+      this.entities.push(entity)
     }
   }
 
@@ -111,7 +114,7 @@ export class FilterEntityFactory {
    * @param modifiers - The list of modifiers to be registered.
    */
   registerModifierByFacetId(facetId: Facet['id'], ...modifiers: FilterEntityModifier[]): void {
-    this.updateModifiers(this.modifiersByFacetId, facetId, modifiers);
+    this.updateModifiers(this.modifiersByFacetId, facetId, modifiers)
   }
 
   /**
@@ -125,7 +128,7 @@ export class FilterEntityFactory {
     filterModelName: FilterModelName,
     ...modifiers: FilterEntityModifier[]
   ): void {
-    this.updateModifiers(this.modifiersByFilterModelName, filterModelName, modifiers);
+    this.updateModifiers(this.modifiersByFilterModelName, filterModelName, modifiers)
   }
 
   /**
@@ -138,13 +141,13 @@ export class FilterEntityFactory {
   protected updateModifiers(
     modifiersRecord: Record<string, FilterEntityModifier[]>,
     modifierKey: string | number,
-    modifiers: FilterEntityModifier[]
+    modifiers: FilterEntityModifier[],
   ): void {
     if (!modifiersRecord[modifierKey]) {
-      modifiersRecord[modifierKey] = [];
+      modifiersRecord[modifierKey] = []
     }
-    const facetModifiers = modifiersRecord[modifierKey];
-    const newModifiers = modifiers.filter(modifier => !facetModifiers.includes(modifier));
-    facetModifiers.push(...newModifiers);
+    const facetModifiers = modifiersRecord[modifierKey]
+    const newModifiers = modifiers.filter(modifier => !facetModifiers.includes(modifier))
+    facetModifiers.push(...newModifiers)
   }
 }

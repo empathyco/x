@@ -1,10 +1,15 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.8",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-tailwindcss#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-tailwindcss"
+  },
   "keywords": [
     "tailwind",
     "design",
@@ -18,13 +23,8 @@
     "dist",
     "showcase"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-tailwindcss"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "vite serve demo",
@@ -32,12 +32,16 @@
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "rollup -c && vite build demo",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts,.vue",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.3",
-    "@empathyco/x-utils": "^1.0.3-alpha.2",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.4",
+    "@empathyco/x-utils": "^1.0.3-alpha.3",
     "tslib": "~2.6.0"
   },
   "devDependencies": {

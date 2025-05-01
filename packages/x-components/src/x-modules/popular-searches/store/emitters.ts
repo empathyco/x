@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
-import { popularSearchesXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils'
+import { popularSearchesXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the popular-searches module.
@@ -8,6 +8,6 @@ import { popularSearchesXStoreModule } from './module';
  */
 export const popularSearchesEmitters = createStoreEmitters(popularSearchesXStoreModule, {
   PopularSearchesRequestUpdated: {
-    selector: (_, getters) => getters.request
-  }
-});
+    selector: (_, getters) => getters.request,
+  },
+})

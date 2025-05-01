@@ -1,5 +1,5 @@
-import { isHierarchicalFilter } from '@empathyco/x-types';
-import { FacetsXStoreModule } from '../types';
+import type { FacetsXStoreModule } from '../types'
+import { isHierarchicalFilter } from '@empathyco/x-types'
 
 /**
  * Default implementation for the {@link FacetsGetters.selectedFiltersForRequest} getter.
@@ -13,19 +13,19 @@ import { FacetsXStoreModule } from '../types';
  */
 export const selectedFiltersForRequest: FacetsXStoreModule['getters']['selectedFiltersForRequest'] =
   state => {
-    const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
+    const selectedFilters = Object.values(state.filters).filter(filter => filter.selected)
 
     if (state.config.filtersStrategyForRequest === 'leaves-only') {
       return selectedFilters.filter((filter, _, filters) => {
         if (isHierarchicalFilter(filter)) {
-          const childrenIds = filter.children?.map(child => child.id);
+          const childrenIds = filter.children?.map(child => child.id)
 
-          return !filters.some(newFilter => childrenIds?.includes(newFilter.id));
+          return !filters.some(newFilter => childrenIds?.includes(newFilter.id))
         }
 
-        return true;
-      });
+        return true
+      })
     }
 
-    return selectedFilters;
-  };
+    return selectedFilters
+  }

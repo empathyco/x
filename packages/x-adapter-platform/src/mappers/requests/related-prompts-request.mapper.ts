@@ -1,7 +1,7 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { RelatedPromptsRequest } from '@empathyco/x-types';
-import { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model';
-import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prompts-request.schema';
+import type { RelatedPromptsRequest } from '@empathyco/x-types'
+import type { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model'
+import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prompts-request.schema'
 
 /**
  * Default implementation for the RelatedPromptsRequestMapper.
@@ -11,4 +11,4 @@ import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prom
 export const relatedPromptsRequestMapper = schemaMapperFactory<
   RelatedPromptsRequest,
   PlatformRelatedPromptsRequest
->(relatedPromptsRequestSchema);
+>(relatedPromptsRequestSchema)

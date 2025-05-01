@@ -1,16 +1,16 @@
-import { EditableNumberRangeFacet } from '../facet/editable-number-range-facet.model';
-import { Facet } from '../facet/facet.model';
-import { HierarchicalFacet } from '../facet/hierarchical-facet.model';
-import { NumberRangeFacet } from '../facet/number-range-facet.model';
-import { SimpleFacet } from '../facet/simple-facet.model';
+import type { EditableNumberRangeFacet } from '../facet/editable-number-range-facet.model'
+import type { Facet } from '../facet/facet.model'
+import type { HierarchicalFacet } from '../facet/hierarchical-facet.model'
+import type { NumberRangeFacet } from '../facet/number-range-facet.model'
+import type { SimpleFacet } from '../facet/simple-facet.model'
 import {
   EditableNumberRangeFilterSchema,
   FilterSchema,
   HierarchicalFilterSchema,
   NumberRangeFilterSchema,
-  SimpleFilterSchema
-} from './filter.schema';
-import { IdentifiableSchema } from './identifiable.schema';
+  SimpleFilterSchema,
+} from './filter.schema'
+import { IdentifiableSchema } from './identifiable.schema'
 
 /**
  * Jest schema for validating Facet entities.
@@ -21,8 +21,8 @@ export const FacetSchema: Facet = {
   ...IdentifiableSchema,
   label: expect.any(String),
   filters: expect.arrayOfItemsMatching(FilterSchema),
-  modelName: expect.any(String)
-};
+  modelName: expect.any(String),
+}
 
 /**
  * Jest schema for validating SimpleFacet entity.
@@ -32,8 +32,8 @@ export const FacetSchema: Facet = {
 export const SimpleFacetSchema: SimpleFacet = {
   ...FacetSchema,
   filters: expect.arrayOfItemsMatching(SimpleFilterSchema),
-  modelName: 'SimpleFacet'
-};
+  modelName: 'SimpleFacet',
+}
 
 /**
  * Jest schema for validating HierarchicalFacet entity.
@@ -43,8 +43,8 @@ export const SimpleFacetSchema: SimpleFacet = {
 export const HierarchicalFacetSchema: HierarchicalFacet = {
   ...FacetSchema,
   filters: expect.arrayOfItemsMatching(HierarchicalFilterSchema),
-  modelName: 'HierarchicalFacet'
-};
+  modelName: 'HierarchicalFacet',
+}
 
 /**
  * Jest schema for validating NumberRangeFacet entity.
@@ -54,8 +54,8 @@ export const HierarchicalFacetSchema: HierarchicalFacet = {
 export const NumberRangeFacetSchema: NumberRangeFacet = {
   ...FacetSchema,
   filters: expect.arrayOfItemsMatching(NumberRangeFilterSchema),
-  modelName: 'NumberRangeFacet'
-};
+  modelName: 'NumberRangeFacet',
+}
 
 /**
  * Jest schema for validating EditableNumberRangeFacet entity.
@@ -65,5 +65,5 @@ export const NumberRangeFacetSchema: NumberRangeFacet = {
 export const EditableNumberRangeFacetSchema: EditableNumberRangeFacet = {
   ...FacetSchema,
   filters: expect.arrayOfItemsMatching(EditableNumberRangeFilterSchema),
-  modelName: 'EditableNumberRangeFacet'
-};
+  modelName: 'EditableNumberRangeFacet',
+}

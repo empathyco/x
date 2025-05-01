@@ -1,4 +1,4 @@
-import { SearchXStoreModule } from '../types';
+import type { SearchXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link SearchActions.increasePageAppendingResults}.
@@ -8,12 +8,12 @@ import { SearchXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const increasePageAppendingResults: SearchXStoreModule['actions']['increasePageAppendingResults'] =
   ({ commit, state }) => {
-    const newPage = state.page + 1;
+    const newPage = state.page + 1
     if (newPage >= 1 && state.page * state.config.pageSize < state.totalResults) {
-      commit('setPage', newPage);
-      commit('setIsAppendResults', true);
+      commit('setPage', newPage)
+      commit('setIsAppendResults', true)
     }
-  };
+  }

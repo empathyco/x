@@ -1,8 +1,8 @@
-import {
+import type {
   PlatformExtraParamsRequest,
   PlatformPageableRequest,
-  PlatformQueryableRequest
-} from './request.types';
+  PlatformQueryableRequest,
+} from './request.types'
 
 /**
  * Base request for the `query suggestions` endpoint.

@@ -1,7 +1,7 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result">
-      <BaseResultImage :result="result" :loadAnimation="crossFade">
+      <BaseResultImage :result="result" :load-animation="crossFade">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
         </template>
@@ -31,32 +31,33 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { Result } from '@empathyco/x-types';
-  import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
-  import BaseResultImage from '../../components/result/base-result-image.vue';
-  import BaseResultLink from '../../components/result/base-result-link.vue';
-  import BaseResultRating from '../../components/result/base-result-rating.vue';
-  import CrossFade from '../../components/animations/cross-fade.vue';
+import type { Result } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import CrossFade from '../../components/animations/cross-fade.vue'
+import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue'
+import BaseResultImage from '../../components/result/base-result-image.vue'
+import BaseResultLink from '../../components/result/base-result-link.vue'
+import BaseResultRating from '../../components/result/base-result-rating.vue'
 
-  export default defineComponent({
-    name: 'Result',
-    components: {
-      BaseResultAddToCart,
-      BaseResultLink,
-      BaseResultRating,
-      BaseResultImage
+export default defineComponent({
+  name: 'Result',
+  components: {
+    BaseResultAddToCart,
+    BaseResultLink,
+    BaseResultRating,
+    BaseResultImage,
+  },
+  props: {
+    result: {
+      type: Object as PropType<Result>,
+      required: true,
     },
-    props: {
-      result: {
-        type: Object as PropType<Result>,
-        required: true
-      }
-    },
-    setup() {
-      return {
-        crossFade: CrossFade
-      };
+  },
+  setup() {
+    return {
+      crossFade: CrossFade,
     }
-  });
+  },
+})
 </script>

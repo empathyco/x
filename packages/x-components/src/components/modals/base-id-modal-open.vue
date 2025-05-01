@@ -1,8 +1,8 @@
 <template>
   <button
-    @click="openModal"
     class="x-events-modal-id-open-button x-button"
     data-test="open-modal-id"
+    @click="openModal"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -10,45 +10,46 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { use$x } from '../../composables';
+import { defineComponent } from 'vue'
+import { use$x } from '../../composables'
 
-  /**
-   * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
-   * with the modalId as payload. It allows full customization with the 'opening-element' slot and
-   * exposes the 'openModal' function.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseIdModalOpen',
-    props: {
-      /** The modalId of the modal that will be opened. */
-      modalId: {
-        type: String,
-        required: true
-      }
+/**
+ * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
+ * with the modalId as payload. It allows full customization with the 'opening-element' slot and
+ * exposes the 'openModal' function.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseIdModalOpen',
+  props: {
+    /** The modalId of the modal that will be opened. */
+    modalId: {
+      type: String,
+      required: true,
     },
-    setup(props, { slots }) {
-      const $x = use$x();
+  },
+  setup(props, { slots }) {
+    const $x = use$x()
 
-      /**
-       * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
-       *
-       * @param event - The event triggering the function.
-       */
-      function openModal({ target }: Event) {
-        $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement });
-      }
-
-      /* Hack to render through a render-function, the `opening-element` slot or, in its absence,
-       the component itself. It is the alternative for the NoElement antipattern. */
-      const innerProps = { openModal };
-      return (
-        slots['opening-element'] ? () => slots['opening-element']?.(innerProps)[0] : innerProps
-      ) as typeof innerProps;
+    /**
+     * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
+     *
+     * @param event - The event triggering the function.
+     * @param event.target - Event target.
+     */
+    function openModal({ target }: Event) {
+      $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement })
     }
-  });
+
+    /* Hack to render through a render-function, the `opening-element` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+    const innerProps = { openModal }
+    return (
+      slots['opening-element'] ? () => slots['opening-element']?.(innerProps)[0] : innerProps
+    ) as typeof innerProps
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -80,14 +81,14 @@ with modalId `my-modal`.
 </template>
 
 <script>
-  import { BaseIdModalOpen } from '@empathyco/x-components';
+import { BaseIdModalOpen } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseIdModalOpenTest',
-    components: {
-      BaseIdModalOpen
-    }
-  };
+export default {
+  name: 'BaseIdModalOpenTest',
+  components: {
+    BaseIdModalOpen,
+  },
+}
 </script>
 ```
 
@@ -109,14 +110,14 @@ function to open the modal with modalId `my-modal`.
 </template>
 
 <script>
-  import { BaseIdModalOpen } from '@empathyco/x-components';
+import { BaseIdModalOpen } from '@empathyco/x-components'
 
-  export default {
-    name: 'BaseIdModalOpenTest',
-    components: {
-      BaseIdModalOpen
-    }
-  };
+export default {
+  name: 'BaseIdModalOpenTest',
+  components: {
+    BaseIdModalOpen,
+  },
+}
 </script>
 ```
 </docs>

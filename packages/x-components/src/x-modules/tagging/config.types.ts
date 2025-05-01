@@ -7,21 +7,21 @@ export interface TaggingConfig {
   /**
    * Time in milliseconds to track the query.
    */
-  queryTaggingDebounceMs: number;
+  queryTaggingDebounceMs: number
   /**
    * Time in milliseconds to keep the session alive. After this time has passed with no user
    * interaction, the session will be cleared.
    */
-  sessionTTLMs: number;
+  sessionTTLMs: number
 
   /**
    * Time in milliseconds to keep the information for a result.
    */
-  storageTTLMs: number | null;
+  storageTTLMs: number | null
 
   /**
    * Field of the {@link @empathyco/x-types#Result | result} to use as id for storing the
    * information.
    */
-  storageKey: string | null;
+  storageKey: string | null
 }

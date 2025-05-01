@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "lib": ["DOM", "esnext", "DOM.Iterable"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
-    "declaration": true,
-    "outDir": "./dist",
-    "declarationDir": "./dist",
+    "types": ["jest"],
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["jest"],
-    "lib": ["DOM", "esnext", "DOM.Iterable"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "esModuleInterop": true
   },
   "include": ["./src/**/*.ts"]
 }

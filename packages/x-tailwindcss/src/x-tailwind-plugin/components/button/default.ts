@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../../../types';
-import { buttonSizes } from './sizes';
+import type { TailwindHelpers } from '../../../types'
+import { buttonSizes } from './sizes'
 
 /**
  * Returns the default styles for component `button`.
@@ -8,7 +8,7 @@ import { buttonSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function buttonDefault(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     display: 'flex',
     justifyContent: 'center',
@@ -33,19 +33,19 @@ export function buttonDefault(helpers: TailwindHelpers) {
 
     '&:hover,&:active': {
       backgroundColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
-      borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`
+      borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
     },
 
     ...buttonSizes(helpers).md,
 
-    '&.selected': {
+    '&.x-selected': {
       backgroundColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
       borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
 
       '&:hover,&:active': {
         backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
-        borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`
-      }
-    }
-  };
+        borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+      },
+    },
+  }
 }

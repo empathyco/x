@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-import { DebouncedFunction, DebounceOptions } from './types';
+import type { DebouncedFunction, DebounceOptions } from './types'
 
 /**
  * Util function that returns a debounced version of the function passed as parameter. It can use
@@ -8,8 +7,6 @@ import { DebouncedFunction, DebounceOptions } from './types';
  * of the debounce time.
  *
  * @param fn - Function to be debounced.
- * @param debounceTimeInMs - The time of debounce in ms.
- * @param debounceOptions - The options for the debounce strategy.
  * @returns A new function with the debounce.
  *
  * @example Debounce options:
@@ -40,30 +37,30 @@ import { DebouncedFunction, DebounceOptions } from './types';
 export const debounce = <Params extends any[]>(
   fn: (...args: Params) => void,
   debounceTimeInMs: number,
-  { leading = false, trailing = true }: DebounceOptions = {}
+  { leading = false, trailing = true }: DebounceOptions = {},
 ): DebouncedFunction<Params> => {
-  let timer: ReturnType<typeof setTimeout> | undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined
   const debouncedFn: DebouncedFunction<Params> = (...args) => {
-    const isFirstLeadingCall = leading && !timer;
+    const isFirstLeadingCall = leading && !timer
     if (isFirstLeadingCall) {
-      fn(...args);
+      fn(...args)
     }
     const trailingFn = (): void => {
-      timer = undefined;
+      timer = undefined
       if (!isFirstLeadingCall && trailing) {
-        fn(...args);
+        fn(...args)
       }
-    };
-    if (timer) {
-      clearTimeout(timer);
     }
-    timer = setTimeout(() => trailingFn(), debounceTimeInMs);
-  };
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => trailingFn(), debounceTimeInMs)
+  }
 
   debouncedFn.cancel = () => {
     if (timer) {
-      clearTimeout(timer);
+      clearTimeout(timer)
     }
-  };
-  return debouncedFn;
-};
+  }
+  return debouncedFn
+}

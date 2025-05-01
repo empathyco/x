@@ -1,4 +1,4 @@
-import { Banner } from '@empathyco/x-types';
+import type { Banner } from '@empathyco/x-types'
 
 /**
  * Creates a {@link @empathyco/x-types#Banner | banners} stub.
@@ -14,8 +14,8 @@ export function getBannersStub(): Banner[] {
     createBannerStub('3', { position: 3 }),
     createBannerStub('4', { position: 4 }),
     createBannerStub('5', { position: 7 }),
-    createBannerStub('6', { position: 9 })
-  ];
+    createBannerStub('6', { position: 9 }),
+  ]
 }
 
 /**
@@ -35,9 +35,9 @@ export function createBannerStub(identifier: string, banner?: Partial<Banner>): 
     tagging: {
       click: {
         params: {},
-        url: ''
-      }
+        url: '',
+      },
     },
-    ...banner
-  };
+    ...banner,
+  }
 }

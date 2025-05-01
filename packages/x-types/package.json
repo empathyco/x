@@ -1,10 +1,15 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.1.0-alpha.11",
+  "version": "10.1.0-alpha.12",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-types#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-types"
+  },
   "keywords": [
     "search",
     "types",
@@ -16,16 +21,11 @@
   "types": "dist/x-types.d.ts",
   "files": [
     "dist",
-    "schemas",
-    "report"
+    "report",
+    "schemas"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/x-types"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "build": "rollup -c && npm run gen:docs",
@@ -34,11 +34,16 @@
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
     "postbuild": "npm pack",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.2",
-    "@empathyco/x-utils": "^1.0.3-alpha.2",
+    "@empathyco/x-adapter": "^8.1.0-alpha.3",
+    "@empathyco/x-utils": "^1.0.3-alpha.3",
     "tslib": "~2.6.0"
   },
   "devDependencies": {

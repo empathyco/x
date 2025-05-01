@@ -1,17 +1,17 @@
-import { Store } from 'vuex';
-import {
+import type { SafeStore } from '../../../../store/__tests__/utils'
+import type {
   QueriesPreviewActions,
   QueriesPreviewGetters,
   QueriesPreviewMutations,
   QueriesPreviewState,
-  QueryPreviewItem
-} from '../types';
-import { queriesPreviewXStoreModule } from '../module';
-import { installNewXPlugin } from '../../../../__tests__/utils';
-import { getResultsStub } from '../../../../__stubs__';
-import { SafeStore } from '../../../../store/__tests__/utils';
-import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
-import { resetQueriesPreviewStateWith } from './utils';
+  QueryPreviewItem,
+} from '../types'
+import { Store } from 'vuex'
+import { getResultsStub } from '../../../../__stubs__'
+import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory'
+import { installNewXPlugin } from '../../../../__tests__/utils'
+import { queriesPreviewXStoreModule } from '../module'
+import { resetQueriesPreviewStateWith } from './utils'
 
 describe('queries preview module getters', () => {
   const store: SafeStore<
@@ -19,13 +19,13 @@ describe('queries preview module getters', () => {
     QueriesPreviewGetters,
     QueriesPreviewMutations,
     QueriesPreviewActions
-  > = new Store(queriesPreviewXStoreModule as any);
+  > = new Store(queriesPreviewXStoreModule as any)
 
-  installNewXPlugin({ store });
+  installNewXPlugin({ store })
 
   beforeEach(() => {
-    resetQueriesPreviewStateWith(store);
-  });
+    resetQueriesPreviewStateWith(store)
+  })
 
   describe('loaded queries getter', () => {
     it('contains only the queries with results', () => {
@@ -34,23 +34,23 @@ describe('queries preview module getters', () => {
         status: 'success',
         totalResults: getResultsStub().length,
         request: getQueryPreviewRequest('queryWithResults'),
-        instances: 1
-      };
+        instances: 1,
+      }
 
       resetQueriesPreviewStateWith(store, {
         queriesPreview: {
           queryWithResults,
           queryWithNoResults: {
-            results: []
-          }
-        }
-      });
+            results: [],
+          },
+        },
+      })
 
-      const queries = store.getters['loadedQueriesPreview'];
+      const queries = store.getters.loadedQueriesPreview
 
       expect(queries).toEqual({
-        queryWithResults
-      });
-    });
-  });
-});
+        queryWithResults,
+      })
+    })
+  })
+})

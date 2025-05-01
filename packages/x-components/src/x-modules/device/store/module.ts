@@ -1,4 +1,4 @@
-import { DeviceXStoreModule } from './types';
+import type { DeviceXStoreModule } from './types'
 
 /**
  * {@link XStoreModule} For the device module.
@@ -7,13 +7,13 @@ import { DeviceXStoreModule } from './types';
  */
 export const deviceXStoreModule: DeviceXStoreModule = {
   state: () => ({
-    name: null
+    name: null,
   }),
   getters: {},
   mutations: {
     setName(state, name) {
-      state.name = name;
-    }
+      state.name = name
+    },
   },
-  actions: {}
-};
+  actions: {},
+}

@@ -19,11 +19,13 @@
        -->
       <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
         <RelatedTag
-          :highlightCurated="highlightCurated"
-          :relatedTag="relatedTag"
+          :highlight-curated="highlightCurated"
+          :related-tag="relatedTag"
           :class="itemClass"
         >
-          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
+          <template
+            #default="{ relatedTag: relatedTagBinding, isSelected, shouldHighlightCurated }"
+          >
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the RelatedTag default content.
@@ -33,7 +35,7 @@
             -->
             <slot
               name="related-tag-content"
-              v-bind="{ relatedTag, isSelected, shouldHighlightCurated }"
+              v-bind="{ relatedTag: relatedTagBinding, isSelected, shouldHighlightCurated }"
             />
           </template>
         </RelatedTag>
@@ -43,81 +45,82 @@
 </template>
 
 <script lang="ts">
-  import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent } from 'vue';
-  import { relatedTagsXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/index';
-  import { useGetter } from '../../../composables/use-getter';
-  import RelatedTag from './related-tag.vue';
+import type { RelatedTag as RelatedTagModel } from '@empathyco/x-types'
+import type { ComputedRef } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useGetter } from '../../../composables/use-getter'
+import { AnimationProp } from '../../../types/index'
+import { relatedTagsXModule } from '../x-module'
+import RelatedTag from './related-tag.vue'
 
-  /**
-   * This component renders a set of [`RelatedTag`](./x-components.related-tag) components by
-   * default to select from after a query is performed to fine-tune search.
-   * For example, if you are searching for *lego*, different related tags could be *city*,
-   * *friends*, or *harry potter*, refining the search with *lego city*, *lego friends*,
-   * or *lego harry potter*.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'RelatedTags',
-    xModule: relatedTagsXModule.name,
-    components: {
-      RelatedTag
+/**
+ * This component renders a set of [`RelatedTag`](./x-components.related-tag) components by
+ * default to select from after a query is performed to fine-tune search.
+ * For example, if you are searching for *lego*, different related tags could be *city*,
+ * friends*, or *harry potter*, refining the search with *lego city*, *lego friends*,
+ * or *lego harry potter*.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'RelatedTags',
+  xModule: relatedTagsXModule.name,
+  components: {
+    RelatedTag,
+  },
+  props: {
+    /**
+     * Animation component that will be used to animate the suggestion.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    props: {
-      /**
-       * Animation component that will be used to animate the suggestion.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
 
-      /**
-       * Number of related tags to be rendered.
-       *
-       * @public
-       */
-      maxItemsToRender: Number,
+    /**
+     * Number of related tags to be rendered.
+     *
+     * @public
+     */
+    maxItemsToRender: Number,
 
-      /**
-       * Flag to indicate if the curated tags should be displayed different.
-       *
-       * @public
-       */
-      highlightCurated: {
-        type: Boolean,
-        default: false
-      },
-
-      /** Class inherited by content element. */
-      itemClass: String
+    /**
+     * Flag to indicate if the curated tags should be displayed different.
+     *
+     * @public
+     */
+    highlightCurated: {
+      type: Boolean,
+      default: false,
     },
-    setup(props) {
-      const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags', [
-        'relatedTags'
-      ]).relatedTags;
 
-      const relatedTags = computed((): RelatedTagModel[] =>
-        storedRelatedTags.value.slice(0, props.maxItemsToRender)
-      );
+    /** Class inherited by content element. */
+    itemClass: String,
+  },
+  setup(props) {
+    const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags', [
+      'relatedTags',
+    ]).relatedTags
 
-      return {
-        relatedTags
-      };
+    const relatedTags = computed((): RelatedTagModel[] =>
+      storedRelatedTags.value.slice(0, props.maxItemsToRender),
+    )
+
+    return {
+      relatedTags,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-related-tags {
-    display: flex;
-    flex-flow: row nowrap;
-    list-style: none;
-  }
+.x-related-tags {
+  display: flex;
+  flex-flow: row nowrap;
+  list-style: none;
+}
 </style>
 
 <docs lang="mdx">
@@ -142,16 +145,16 @@ _Search for a fashion term like "sandal" or "lipstick"._
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags } from '@empathyco/x-components/related-tags';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags } from '@empathyco/x-components/related-tags'
 
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags
-    }
-  };
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+  },
+}
 </script>
 ```
 
@@ -171,20 +174,20 @@ _Search for a fashion term and see the related tags with the animation effect._
 </template>
 
 <script>
-  import Vue from 'vue';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags } from '@empathyco/x-components/related-tags';
-  import { StaggeredFadeAndSlide } from '@empathyco/x-components';
+import Vue from 'vue'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags } from '@empathyco/x-components/related-tags'
+import { StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  // Registering the animation as a global component
-  Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags
-    }
-  };
+// Registering the animation as a global component
+Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+  },
+}
 </script>
 ```
 
@@ -206,17 +209,17 @@ _Search for a fashion term and see how the related tags can be rendered._
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags, RelatedTag } from '@empathyco/x-components/related-tags';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags, RelatedTag } from '@empathyco/x-components/related-tags'
 
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags,
-      RelatedTag
-    }
-  };
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+    RelatedTag,
+  },
+}
 </script>
 ```
 
@@ -239,16 +242,16 @@ _Search for a fashion term and see how the related tags are rendered._
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags } from '@empathyco/x-components/related-tags';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags } from '@empathyco/x-components/related-tags'
 
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags
-    }
-  };
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+  },
+}
 </script>
 ```
 
@@ -273,18 +276,18 @@ _Search for a fashion term and see how the related tags can be rendered._
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags } from '@empathyco/x-components/related-tags';
-  import { ResultsList } from '@empathyco/x-components/search';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags } from '@empathyco/x-components/related-tags'
+import { ResultsList } from '@empathyco/x-components/search'
 
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags,
-      ResultsList
-    }
-  };
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+    ResultsList,
+  },
+}
 </script>
 ```
 
@@ -303,16 +306,16 @@ The `itemClass` prop can be used to add classes to the related tags.
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { RelatedTags } from '@empathyco/x-components/related-tags';
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { RelatedTags } from '@empathyco/x-components/related-tags'
 
-  export default {
-    name: 'RelatedTagsDemo',
-    components: {
-      SearchInput,
-      RelatedTags
-    }
-  };
+export default {
+  name: 'RelatedTagsDemo',
+  components: {
+    SearchInput,
+    RelatedTags,
+  },
+}
 </script>
 ```
 </docs>

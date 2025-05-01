@@ -4,14 +4,14 @@
       @slot (Required) Sliced filters content.
         @binding {Filter[]} slicedFilters - Sliced filters..
     -->
-    <slot :slicedFilters="slicedFilters" />
+    <slot :sliced-filters="slicedFilters" />
     <template v-if="showButton">
       <button
         v-if="showMoreFilters"
-        @click="toggleShowMoreFilters"
         class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
         :class="buttonClass"
         data-test="sliced-filters-show-more-button"
+        @click="toggleShowMoreFilters"
       >
         <!--
           @slot Button show more filters.
@@ -25,10 +25,10 @@
       </button>
       <button
         v-else
-        @click="toggleShowMoreFilters"
         class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
         :class="buttonClass"
         data-test="sliced-filters-show-less-button"
+        @click="toggleShowMoreFilters"
       >
         <!--
           @slot Button show less filters.
@@ -45,114 +45,115 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, provide, ref } from 'vue';
-  import { VueCSSClasses } from '../../../../utils';
-  import { facetsXModule } from '../../x-module';
-  import { useFiltersInjection } from '../../composables/use-filters-injection';
+import type { Filter } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import type { VueCSSClasses } from '../../../../utils'
+import { computed, defineComponent, provide, ref } from 'vue'
+import { useFiltersInjection } from '../../composables/use-filters-injection'
+import { facetsXModule } from '../../x-module'
 
-  /**
-   * Component that slices a list of filters and returns them using the default scoped slot,
-   * allowing the user to show the full list of them or slicing them again using the
-   * show more/less buttons.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'SlicedFilters',
-    xModule: facetsXModule.name,
-    props: {
-      /**
-       * The list of filters to be rendered as slots.
-       *
-       * @public
-       */
-      filters: Array as PropType<Filter[]>,
-      /**
-       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
-       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       */
-      parentId: {
-        type: String as PropType<Filter['id']>,
-        required: false
-      },
-      /** The maximum number of filters to show. */
-      max: {
-        type: Number,
-        required: true
-      },
-      buttonClass: String
+/**
+ * Component that slices a list of filters and returns them using the default scoped slot,
+ * allowing the user to show the full list of them or slicing them again using the
+ * show more/less buttons.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'SlicedFilters',
+  xModule: facetsXModule.name,
+  props: {
+    /**
+     * The list of filters to be rendered as slots.
+     *
+     * @public
+     */
+    filters: Array as PropType<Filter[]>,
+    /**
+     * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+     * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+     */
+    parentId: {
+      type: String as PropType<Filter['id']>,
+      required: false,
     },
-    emits: ['click:show-less', 'click:show-more'],
-    setup(props, { emit }) {
-      /** For showing the remaining filters. */
-      let showMoreFilters = ref(true);
+    /** The maximum number of filters to show. */
+    max: {
+      type: Number,
+      required: true,
+    },
+    buttonClass: String,
+  },
+  emits: ['click:show-less', 'click:show-more'],
+  setup(props, { emit }) {
+    /** For showing the remaining filters. */
+    const showMoreFilters = ref(true)
 
-      const renderedFilters = useFiltersInjection(props);
+    const renderedFilters = useFiltersInjection(props)
 
-      /**
-       * Show the buttons template when length filters is greater than property max.
-       *
-       * @returns Boolean if length filters is greater than property max.
-       * @internal
-       */
-      const showButton = computed(() => renderedFilters.value.length > props.max);
+    /**
+     * Show the buttons template when length filters is greater than property max.
+     *
+     * @returns Boolean if length filters is greater than property max.
+     * @internal
+     */
+    const showButton = computed(() => renderedFilters.value.length > props.max)
 
-      /**
-       * Sliced the array of filters depends on click button show more.
-       *
-       * @returns Array of sliced filters or all filters.
-       * @internal
-       */
-      const slicedFilters = computed((): Filter[] => {
-        return showMoreFilters.value
-          ? renderedFilters.value.slice(0, props.max)
-          : renderedFilters.value;
-      });
-      provide('filters', slicedFilters);
+    /**
+     * Sliced the array of filters depends on click button show more.
+     *
+     * @returns Array of sliced filters or all filters.
+     * @internal
+     */
+    const slicedFilters = computed((): Filter[] => {
+      return showMoreFilters.value
+        ? renderedFilters.value.slice(0, props.max)
+        : renderedFilters.value
+    })
+    provide('filters', slicedFilters)
 
-      /**
-       * The difference between length filters and max to show.
-       *
-       * @returns Number of remaining filters to show.
-       * @internal
-       */
-      const difference = computed(() => renderedFilters.value.length - props.max);
+    /**
+     * The difference between length filters and max to show.
+     *
+     * @returns Number of remaining filters to show.
+     * @internal
+     */
+    const difference = computed(() => renderedFilters.value.length - props.max)
 
-      /**
-       * Show or hide the remaining filters. It also emits a Vue event based on the clicked button.
-       *
-       * @param event - The click event.
-       *
-       * @internal
-       */
-      const toggleShowMoreFilters = (event: MouseEvent): void => {
-        showMoreFilters.value = !showMoreFilters.value;
-        emit(showMoreFilters.value ? 'click:show-less' : 'click:show-more', event);
-      };
-
-      /**
-       * Adds the dynamic css classes to the component.
-       *
-       * @returns The classes to be added to the component.
-       * @internal
-       */
-      const cssClasses = computed((): VueCSSClasses => {
-        return {
-          'x-sliced-filters--is-sliced': showButton.value
-        };
-      });
-
-      return {
-        cssClasses,
-        toggleShowMoreFilters,
-        showButton,
-        difference,
-        slicedFilters,
-        showMoreFilters
-      };
+    /**
+     * Show or hide the remaining filters. It also emits a Vue event based on the clicked button.
+     *
+     * @param event - The click event.
+     *
+     * @internal
+     */
+    const toggleShowMoreFilters = (event: MouseEvent): void => {
+      showMoreFilters.value = !showMoreFilters.value
+      emit(showMoreFilters.value ? 'click:show-less' : 'click:show-more', event)
     }
-  });
+
+    /**
+     * Adds the dynamic css classes to the component.
+     *
+     * @returns The classes to be added to the component.
+     * @internal
+     */
+    const cssClasses = computed((): VueCSSClasses => {
+      return {
+        'x-sliced-filters--is-sliced': showButton.value,
+      }
+    })
+
+    return {
+      cssClasses,
+      toggleShowMoreFilters,
+      showButton,
+      difference,
+      slicedFilters,
+      showMoreFilters,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -201,17 +202,17 @@ filters list to their children, it is mandatory to send it as prop.
   </Facets>
 </template>
 <script>
-  import { BaseShowMoreFilters } from '@empathyco/x-components';
-  import { Facets, SimpleFilter, Filters } from '@empathyco/x-components';
+import { BaseShowMoreFilters } from '@empathyco/x-components'
+import { Facets, SimpleFilter, Filters } from '@empathyco/x-components'
 
-  export default {
-    components: {
-      Facets,
-      BaseShowMoreFilters,
-      Filters,
-      SimpleFilter
-    }
-  };
+export default {
+  components: {
+    Facets,
+    BaseShowMoreFilters,
+    Filters,
+    SimpleFilter,
+  },
+}
 </script>
 ```
 

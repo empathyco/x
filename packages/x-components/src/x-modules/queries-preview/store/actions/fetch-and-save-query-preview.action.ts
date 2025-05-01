@@ -1,5 +1,5 @@
-import { QueriesPreviewXStoreModule, QueryPreviewItem } from '../types';
-import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-preview';
+import type { QueriesPreviewXStoreModule, QueryPreviewItem } from '../types'
+import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-preview'
 
 /**
  * Default implementation for the {@link QueriesPreviewActions.fetchAndSaveQueryPreview}.
@@ -11,13 +11,13 @@ import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-pre
  *
  * @public
  */
-// eslint-disable-next-line max-len
+
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
-  ({ dispatch, commit }, request) => {
-    const { query } = request;
+  async ({ dispatch, commit }, request) => {
+    const { query } = request
 
     if (!query) {
-      return;
+      return
     }
 
     const queryPreviewItem: QueryPreviewItem = {
@@ -25,10 +25,10 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       results: [],
       status: 'loading',
       totalResults: 0,
-      instances: 1
-    };
+      instances: 1,
+    }
 
-    commit('setQueryPreviewCached', queryPreviewItem);
+    commit('setQueryPreviewCached', queryPreviewItem)
 
     return dispatch('fetchQueryPreview', request)
       .then(response => {
@@ -39,14 +39,13 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           totalResults: response?.totalResults ?? 0,
           instances: 1,
           displayTagging: response?.displayTagging ?? undefined,
-          queryTagging: response?.queryTagging ?? undefined
-        });
+          queryTagging: response?.queryTagging ?? undefined,
+        })
       })
       .catch(error => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        const lang = request.extraParams ? request.extraParams.lang : '';
-        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem, lang as string);
-        commit('setStatus', { queryPreviewHash, status: 'error' });
-      });
-  };
+        console.error(error)
+        const lang = request.extraParams ? request.extraParams.lang : ''
+        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem, lang as string)
+        commit('setStatus', { queryPreviewHash, status: 'error' })
+      })
+  }

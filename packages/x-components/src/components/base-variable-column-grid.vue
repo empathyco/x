@@ -1,6 +1,6 @@
 <template>
   <BaseGrid :animation="animation" :columns="columnsToRender" :items="items">
-    <template v-for="(_, name) in slots" v-slot:[name]="{ item }">
+    <template v-for="(_, name) in slots" #[name]="{ item }">
       <!--
         @slot Customized item rendering. The slot name can either be default or the item's model
          name.
@@ -12,91 +12,92 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref } from 'vue';
-  import { ListItem } from '../utils/types';
-  import { AnimationProp } from '../types/animation-prop';
-  import { useXBus } from '../composables/use-x-bus';
-  import BaseGrid from './base-grid.vue';
+import type { PropType } from 'vue'
+import type { ListItem } from '../utils/types'
+import { computed, defineComponent, ref } from 'vue'
+import { useXBus } from '../composables/use-x-bus'
+import { AnimationProp } from '../types/animation-prop'
+import BaseGrid from './base-grid.vue'
 
-  /**
-   * The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to
-   * the `UserClickedColumnPicker` and the `ColumnsNumberProvided` events and passes the
-   * selected number of columns to the grid. It also allows to customize the grid items using the
-   * available `scopedSlots`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseVariableColumnGrid',
-    components: {
-      BaseGrid
+/**
+ * The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to
+ * the `UserClickedColumnPicker` and the `ColumnsNumberProvided` events and passes the
+ * selected number of columns to the grid. It also allows to customize the grid items using the
+ * available `scopedSlots`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseVariableColumnGrid',
+  components: {
+    BaseGrid,
+  },
+  props: {
+    /**
+     * Animation component that will be used to animate the grid.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    props: {
-      /**
-       * Animation component that will be used to animate the grid.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /**
-       * The list of items to be rendered.
-       *
-       * @remarks The items must have an id property.
-       *
-       * @public
-       */
-      items: Array as PropType<ListItem[]>,
-      /**
-       * The columns to render by default in the grid. This property is used when the user has not
-       * selected any value in the column picker.
-       *
-       * @internal
-       */
-      columns: {
-        type: Number,
-        default: 0
-      }
+    /**
+     * The list of items to be rendered.
+     *
+     * @remarks The items must have an id property.
+     *
+     * @public
+     */
+    items: Array as PropType<ListItem[]>,
+    /**
+     * The columns to render by default in the grid. This property is used when the user has not
+     * selected any value in the column picker.
+     *
+     * @internal
+     */
+    columns: {
+      type: Number,
+      default: 0,
     },
-    setup(props, { slots }) {
-      const bus = useXBus();
-      /**
-       * The number of columns provided by a user interaction.
-       *
-       * @internal
-       */
-      const providedColumns = ref<number | null>(null);
+  },
+  setup(props, { slots }) {
+    const bus = useXBus()
+    /**
+     * The number of columns provided by a user interaction.
+     *
+     * @internal
+     */
+    const providedColumns = ref<number | null>(null)
 
-      /**
-       * The number of columns to render in the grid.
-       *
-       * @returns The number of columns.
-       *
-       * @internal
-       */
-      const columnsToRender = computed(() =>
-        providedColumns.value === null ? props.columns : providedColumns.value
-      );
+    /**
+     * The number of columns to render in the grid.
+     *
+     * @returns The number of columns.
+     *
+     * @internal
+     */
+    const columnsToRender = computed(() =>
+      providedColumns.value === null ? props.columns : providedColumns.value,
+    )
 
-      /**
-       * Handler to update the number of columns when the user selects a new value.
-       *
-       * @param newColumns - The new columns value.
-       *
-       * @internal
-       */
-      bus
-        .on('ColumnsNumberProvided', false)
-        .subscribe(newColumns => (providedColumns.value = newColumns));
+    /**
+     * Handler to update the number of columns when the user selects a new value.
+     *
+     * @param newColumns - The new columns value.
+     *
+     * @internal
+     */
+    bus
+      .on('ColumnsNumberProvided', false)
+      .subscribe(newColumns => (providedColumns.value = newColumns))
 
-      return {
-        columnsToRender,
-        slots
-      };
+    return {
+      columnsToRender,
+      slots,
     }
-  });
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -124,36 +125,36 @@ you to customize the grid items using the available `scopedSlots`.
 </template>
 
 <script>
-  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
+import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultsSection',
-    components: {
-      BaseVariableColumnGrid
-    },
-    data() {
-      return {
-        animation: StaggeredFadeAndSlide,
-        items: [
-          {
-            id: 'res-1',
-            modelName: 'Result',
-            name: 'Product 1'
-          },
-          {
-            id: 'res-2',
-            modelName: 'Result',
-            name: 'Product 2'
-          }
-        ]
-      };
-    },
-    methods: {
-      setColumns(columns) {
-        this.$x.emit('UserClickedColumnPicker', columns);
-      }
+export default {
+  name: 'ResultsSection',
+  components: {
+    BaseVariableColumnGrid,
+  },
+  data() {
+    return {
+      animation: StaggeredFadeAndSlide,
+      items: [
+        {
+          id: 'res-1',
+          modelName: 'Result',
+          name: 'Product 1',
+        },
+        {
+          id: 'res-2',
+          modelName: 'Result',
+          name: 'Product 2',
+        },
+      ],
     }
-  };
+  },
+  methods: {
+    setColumns(columns) {
+      this.$x.emit('UserClickedColumnPicker', columns)
+    },
+  },
+}
 </script>
 ```
 
@@ -180,36 +181,36 @@ Configuring the default columns to be rendered. These columns will be the defaul
 </template>
 
 <script>
-  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
+import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultsSection',
-    components: {
-      BaseVariableColumnGrid
-    },
-    data() {
-      return {
-        animation: StaggeredFadeAndSlide,
-        items: [
-          {
-            id: 'res-1',
-            modelName: 'Result',
-            name: 'Product 1'
-          },
-          {
-            id: 'res-2',
-            modelName: 'Result',
-            name: 'Product 2'
-          }
-        ]
-      };
-    },
-    methods: {
-      setColumns(columns) {
-        this.$x.emit('UserClickedColumnPicker', columns);
-      }
+export default {
+  name: 'ResultsSection',
+  components: {
+    BaseVariableColumnGrid,
+  },
+  data() {
+    return {
+      animation: StaggeredFadeAndSlide,
+      items: [
+        {
+          id: 'res-1',
+          modelName: 'Result',
+          name: 'Product 1',
+        },
+        {
+          id: 'res-2',
+          modelName: 'Result',
+          name: 'Product 2',
+        },
+      ],
     }
-  };
+  },
+  methods: {
+    setColumns(columns) {
+      this.$x.emit('UserClickedColumnPicker', columns)
+    },
+  },
+}
 </script>
 ```
 
@@ -232,31 +233,31 @@ items.
 </template>
 
 <script>
-  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
+import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  export default {
-    name: 'ResultsSection',
-    components: {
-      BaseVariableColumnGrid
-    },
-    data() {
-      return {
-        animation: StaggeredFadeAndSlide,
-        items: [
-          {
-            id: 'res-1',
-            modelName: 'Result',
-            name: 'Product 1'
-          },
-          {
-            id: 'res-2',
-            modelName: 'Result',
-            name: 'Product 2'
-          }
-        ]
-      };
+export default {
+  name: 'ResultsSection',
+  components: {
+    BaseVariableColumnGrid,
+  },
+  data() {
+    return {
+      animation: StaggeredFadeAndSlide,
+      items: [
+        {
+          id: 'res-1',
+          modelName: 'Result',
+          name: 'Product 1',
+        },
+        {
+          id: 'res-2',
+          modelName: 'Result',
+          name: 'Product 2',
+        },
+      ],
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

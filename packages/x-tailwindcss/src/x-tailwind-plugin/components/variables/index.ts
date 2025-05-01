@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the CSS global variables to be used across the components.
@@ -17,16 +17,14 @@ import { TailwindHelpers } from '../../../types';
  *  2. Use the feature flag using var() function followed by a fallback value.
  *  `background: var(--myFeature) red;`: Fallback value will be applied if `--myFeature` is off.
  *
- * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @param _helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line max-len
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
-export function variables(helpers: TailwindHelpers) {
+export function variables(_helpers: TailwindHelpers) {
   return {
     ':root': {
       '--ON': 'initial',
-      '--OFF': ' '
-    }
-  };
+      '--OFF': ' ',
+    },
+  }
 }

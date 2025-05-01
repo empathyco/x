@@ -4,35 +4,32 @@
     class="x-fallback-disclaimer"
     data-test="fallback-disclaimer"
   >
-    <slot v-bind="{ query: query }">
+    <slot v-bind="{ query }">
       No results found for {{ query }} with the selected filters. The filters have been unselected.
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { searchXModule } from '../x-module';
-  import { useState } from '../../../composables/use-state';
+import { defineComponent } from 'vue'
+import { useState } from '../../../composables/use-state'
+import { searchXModule } from '../x-module'
 
-  /**
-   * The `FallbackDisclaimer` component shows a message if the filters have been removed
-   * from the current search because there were no results.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'FallbackDisclaimer',
-    xModule: searchXModule.name,
-    setup() {
-      const { query, fromNoResultsWithFilters } = useState('search', [
-        'query',
-        'fromNoResultsWithFilters'
-      ]);
+/**
+ * The `FallbackDisclaimer` component shows a message if the filters have been removed
+ * from the current search because there were no results.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'FallbackDisclaimer',
+  xModule: searchXModule.name,
+  setup() {
+    const { query, fromNoResultsWithFilters } = useState('search')
 
-      return { query, fromNoResultsWithFilters };
-    }
-  });
+    return { query, fromNoResultsWithFilters }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -57,13 +54,13 @@ its default slot. This component will be rendered if there is a no results with 
 </FallbackDisclaimer>
 
 <script>
-  import { FallbackDisclaimer } from '@empathyco/x-components/search';
+import { FallbackDisclaimer } from '@empathyco/x-components/search'
 
-  export default {
-    components: {
-      FallbackDisclaimer
-    }
-  };
+export default {
+  components: {
+    FallbackDisclaimer,
+  },
+}
 </script>
 ```
 </docs>

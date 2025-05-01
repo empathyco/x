@@ -1,4 +1,4 @@
-import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
+import type { BooleanFilter, Facet, Filter } from '@empathyco/x-types'
 
 /**
  * Facet model for the `platform` API.
@@ -6,9 +6,9 @@ import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
  * @public
  */
 export interface PlatformFacet {
-  facet: string;
-  type: PlatformFacetType;
-  values: PlatformFilter[];
+  facet: string
+  type: PlatformFacetType
+  values: PlatformFilter[]
 }
 
 /**
@@ -16,7 +16,7 @@ export interface PlatformFacet {
  *
  * @public
  */
-export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-range';
+export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-range'
 
 /**
  * Filter model for the `platform` API.
@@ -24,10 +24,10 @@ export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-r
  * @public
  */
 export interface PlatformFilter {
-  count: number;
-  filter: string;
-  id: string;
-  value: string;
+  count: number
+  filter: string
+  id: string
+  value: string
 }
 
 /**
@@ -36,7 +36,7 @@ export interface PlatformFilter {
  * @public
  */
 export interface PlatformHierarchicalFilter extends PlatformFilter {
-  children: PlatformFacet;
+  children: PlatformFacet
 }
 
 /**
@@ -46,9 +46,9 @@ export interface PlatformHierarchicalFilter extends PlatformFilter {
  */
 export interface AdapterHierarchicalFacet extends Facet {
   /** Model name to indicate the facet type. */
-  modelName: 'HierarchicalFacet';
+  modelName: 'HierarchicalFacet'
   /** Filters available for the facet. */
-  filters: AdapterHierarchicalFilter[];
+  filters: AdapterHierarchicalFilter[]
 }
 
 /**
@@ -58,9 +58,9 @@ export interface AdapterHierarchicalFacet extends Facet {
  */
 export interface AdapterHierarchicalFilter extends BooleanFilter {
   /** Model name to indicate the filter type. */
-  modelName: 'HierarchicalFilter';
+  modelName: 'HierarchicalFilter'
   /** A unique id used to reference the parent filter or null if it hasn't. */
-  parentId: Filter['id'] | null;
+  parentId: Filter['id'] | null
   /** Descendants filters. */
-  children?: AdapterHierarchicalFilter[];
+  children?: AdapterHierarchicalFilter[]
 }

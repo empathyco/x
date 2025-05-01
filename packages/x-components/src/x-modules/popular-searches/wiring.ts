@@ -1,50 +1,47 @@
-import {
-  namespacedWireCommit,
-  namespacedWireDispatch
-} from '../../wiring/namespaced-wires.factory';
-import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+import type { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types'
+import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `popularSearches` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'popularSearches';
+const moduleName = 'popularSearches'
 /**
  * WireDispatch for {@link PopularSearchesXModule}.
  *
  * @internal
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * WireCommit for {@link PopularSearchesXModule}.
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName)
 
 /**
  * Requests and stores the popular searches.
  *
  * @public
  */
-const retrievePopularSuggestions = wireDispatch('fetchAndSaveSuggestions');
+const retrievePopularSuggestions = wireDispatch('fetchAndSaveSuggestions')
 
 /**
  * Sets the popular searches state `searchedQueries` with the list of history queries.
  *
  * @public
  */
-export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQueries');
+export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQueries')
 
 /**
  * Sets the popular searches state `params`.
  *
  * @public
  */
-export const setPopularSearchesExtraParams = wireCommit('setParams');
+export const setPopularSearchesExtraParams = wireCommit('setParams')
 
 /**
  * Wiring configuration for the popular searches modules.
@@ -53,12 +50,12 @@ export const setPopularSearchesExtraParams = wireCommit('setParams');
  */
 export const popularSearchesWiring = createWiring({
   PopularSearchesRequestUpdated: {
-    retrievePopularSuggestions
+    retrievePopularSuggestions,
   },
   SessionHistoryQueriesChanged: {
-    setSearchedQueriesInPopularSearches
+    setSearchedQueriesInPopularSearches,
   },
   ExtraParamsChanged: {
-    setPopularSearchesExtraParams
-  }
-});
+    setPopularSearchesExtraParams,
+  },
+})

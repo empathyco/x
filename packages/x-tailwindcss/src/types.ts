@@ -1,7 +1,7 @@
-import { ExtractPath } from '@empathyco/x-utils';
-import { PluginAPI } from 'tailwindcss/types/config';
-import { Config } from 'tailwindcss';
-import Theme from './x-tailwind-plugin/theme';
+import type { ExtractPath } from '@empathyco/x-utils'
+import type { Config } from 'tailwindcss'
+import type { PluginAPI } from 'tailwindcss/types/config'
+import type Theme from './x-tailwind-plugin/theme'
 
 /**
  * Represents a `CSS` variable name.
@@ -13,7 +13,7 @@ import Theme from './x-tailwind-plugin/theme';
  *
  * @internal
  */
-type CssVariable = `--${string}`;
+type CssVariable = `--${string}`
 
 /**
  * Represents a `Css` class selector.
@@ -25,7 +25,7 @@ type CssVariable = `--${string}`;
  *
  * @internal
  */
-type CssClassSelector = `.${string}`;
+type CssClassSelector = `.${string}`
 /**
  * Represents a `CSS` nested selector.
  *
@@ -36,7 +36,7 @@ type CssClassSelector = `.${string}`;
  *
  * @internal
  */
-type CssNestedSelector = `&${string}`;
+type CssNestedSelector = `&${string}`
 /**
  * Represents a `CSS` pseudo selector.
  *
@@ -47,7 +47,7 @@ type CssNestedSelector = `&${string}`;
  *
  * @internal
  */
-type CssPseudoSelector = `:${string}`;
+type CssPseudoSelector = `:${string}`
 
 /**
  * Represents the different `CSS` styling options for a component.
@@ -67,12 +67,12 @@ type CssPseudoSelector = `:${string}`;
  *
  * @public
  */
-export type CssStyleOptions = {
+export interface CssStyleOptions {
   [Key: CssClassSelector | CssNestedSelector | CssPseudoSelector]:
     | CssStyleOptions
-    | Partial<CSSStyleDeclaration>;
-  [Key: CssVariable]: string & Partial<TailwindHelpers>;
-};
+    | Partial<CSSStyleDeclaration>
+  [Key: CssVariable]: string & Partial<TailwindHelpers>
+}
 
 /**
  * All the tailwind helpers provided by the plugin.
@@ -82,6 +82,6 @@ export type CssStyleOptions = {
 export type TailwindHelpers = PluginAPI & {
   theme: <TDefaultValue = Config['theme']>(
     path?: ExtractPath<typeof Theme>,
-    defaultValue?: TDefaultValue
-  ) => TDefaultValue;
-};
+    defaultValue?: TDefaultValue,
+  ) => TDefaultValue
+}

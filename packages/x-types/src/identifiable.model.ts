@@ -5,5 +5,5 @@
  */
 export interface Identifiable<ID = string | number> {
   /** A unique ID that identifies the Object. */
-  id: ID;
+  id: ID
 }

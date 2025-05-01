@@ -1,43 +1,46 @@
+import type {
+  NamespacedWireCommit,
+  NamespacedWireDispatch,
+} from '../../wiring/namespaced-wiring.types'
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
-import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
+  namespacedWireDispatchWithoutPayload,
+} from '../../wiring/namespaced-wires.factory'
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
+import { createWiring } from '../../wiring/wiring.utils'
 
 /**
  * `historyQueries` {@link XModuleName | XModule name}.
  *
  * @internal
  */
-const moduleName = 'historyQueries';
+const moduleName = 'historyQueries'
 /**
  * WireCommit for {@link HistoryQueriesXModule}.
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName)
 /**
  * WireDispatch for {@link HistoryQueriesXModule}.
  *
  * @internal
  */
-const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName)
 /**
  * WireDispatchWithoutPayload for {@link HistoryQueriesXModule}.
  *
  * @internal
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName)
 
 /**
  * Saves a new query into the history queries.
  *
  * @public
  */
-export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
+export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory')
 
 /**
  * Saves the selectedQueryPreview query into the history queries.
@@ -46,15 +49,15 @@ export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
  */
 export const addQueryToHistoryQueriesFromPreview = wireDispatch(
   'addQueryToHistory',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Sets the query of the history queries module. Used for searching into the history queries.
  *
  * @public
  */
-export const setHistoryQueriesQuery = wireCommit('setQuery');
+export const setHistoryQueriesQuery = wireCommit('setQuery')
 
 /**
  * Sets the query of the history queries module from a selectedQueryPreview's query.
@@ -64,22 +67,22 @@ export const setHistoryQueriesQuery = wireCommit('setQuery');
  */
 export const setHistoryQueriesQueryFromPreview = wireCommit(
   'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+  ({ eventPayload: { query } }) => query,
+)
 
 /**
  * Sets the history queries state `query` from url.
  *
  * @public
  */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('setUrlParams')
 
 /**
  * Sets the query of the history queries module to an empty string.
  *
  * @public
  */
-export const clearHistoryQueriesQuery = wireCommit('setQuery', '');
+export const clearHistoryQueriesQuery = wireCommit('setQuery', '')
 
 /**
  * Triggers a session refresh, extending its validity for the time configured in the
@@ -87,7 +90,7 @@ export const clearHistoryQueriesQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const refreshHistoryQueriesSession = wireDispatchWithoutPayload('refreshSession');
+export const refreshHistoryQueriesSession = wireDispatchWithoutPayload('refreshSession')
 
 /**
  * Loads the history queries from the browser storage, saving them to the
@@ -96,36 +99,36 @@ export const refreshHistoryQueriesSession = wireDispatchWithoutPayload('refreshS
  * @public
  */
 export const loadHistoryQueriesFromBrowserStorageWire = wireDispatchWithoutPayload(
-  'loadHistoryQueriesFromBrowserStorage'
-);
+  'loadHistoryQueriesFromBrowserStorage',
+)
 
 /**
  * Clears the history queries.
  *
  * @public
  */
-export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
+export const clearHistoryQueries = wireDispatch('setHistoryQueries', [])
 
 /**
  * Removes a single history query from the history queries.
  *
  * @public
  */
-export const removeHistoryQuery = wireDispatch('removeFromHistory');
+export const removeHistoryQuery = wireDispatch('removeFromHistory')
 
 /**
  * Enables history queries.
  *
  * @public
  */
-export const setHistoryQueriesEnabled = wireDispatch('toggleHistoryQueries', true);
+export const setHistoryQueriesEnabled = wireDispatch('toggleHistoryQueries', true)
 
 /**
  * Disables history queries.
  *
  * @public
  */
-export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', false);
+export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', false)
 
 /**
  * Updates the history queries with the relevant info included in a search response.
@@ -133,8 +136,8 @@ export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', fa
  * @public
  */
 export const updateHistoryQueriesWithSearchResponse = wireDispatch(
-  'updateHistoryQueriesWithSearchResponse'
-);
+  'updateHistoryQueriesWithSearchResponse',
+)
 
 /**
  * Sets the history queries state `filters` with a selectedHistoryQuery's filters.
@@ -143,12 +146,12 @@ export const updateHistoryQueriesWithSearchResponse = wireDispatch(
  */
 export const setSearchSelectedFilters = wireCommit(
   'setSearchSelectedFilters',
-  ({ eventPayload: { filters } }) => filters
-);
+  ({ eventPayload: { filters } }) => filters,
+)
 /**
  * Debounce function for the module.
  */
-const moduleDebounce = namespacedDebounce(moduleName);
+const moduleDebounce = namespacedDebounce(moduleName)
 
 /**
  * Default wiring for the {@link HistoryQueries} module.
@@ -157,54 +160,54 @@ const moduleDebounce = namespacedDebounce(moduleName);
  */
 export const historyQueriesWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
   },
   HistoryQueriesQueryChanged: {
-    refreshHistoryQueriesSession
+    refreshHistoryQueriesSession,
   },
   HistoryQueriesStorageKeyChanged: {
-    loadHistoryQueriesFromBrowserStorageWire
+    loadHistoryQueriesFromBrowserStorageWire,
   },
   UserClearedQuery: {
-    clearHistoryQueriesQuery
+    clearHistoryQueriesQuery,
   },
   UserAcceptedAQuery: {
     setHistoryQueriesQuery,
-    addQueryToHistoryQueries
+    addQueryToHistoryQueries,
   },
   UserSelectedAHistoryQuery: {
-    setSearchSelectedFilters
+    setSearchSelectedFilters,
   },
   UserIsTypingAQuery: {
     setHistoryQueriesQueryDebounce: moduleDebounce(
       setHistoryQueriesQuery,
       ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+      { cancelOn: 'UserAcceptedAQuery' },
+    ),
   },
   UserPressedClearHistoryQueries: {
-    clearHistoryQueries
+    clearHistoryQueries,
   },
   UserPressedRemoveHistoryQuery: {
-    removeHistoryQuery
+    removeHistoryQuery,
   },
   UserClickedEnableHistoryQueries: {
-    setHistoryQueriesEnabled
+    setHistoryQueriesEnabled,
   },
   UserClickedConfirmDisableHistoryQueries: {
-    setHistoryQueriesDisabled
+    setHistoryQueriesDisabled,
   },
   UserClickedCloseX: {
-    clearHistoryQueriesQuery
+    clearHistoryQueriesQuery,
   },
   UserClickedOutOfMainModal: {
-    clearHistoryQueriesQuery
+    clearHistoryQueriesQuery,
   },
   SearchResponseChanged: {
-    updateHistoryQueriesWithSearchResponse
+    updateHistoryQueriesWithSearchResponse,
   },
   UserAcceptedAQueryPreview: {
     setHistoryQueriesQueryFromPreview,
-    addQueryToHistoryQueriesFromPreview
-  }
-});
+    addQueryToHistoryQueriesFromPreview,
+  },
+})

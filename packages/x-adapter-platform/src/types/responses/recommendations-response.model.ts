@@ -1,4 +1,4 @@
-import { PlatformResult } from '../models/result.model';
+import type { PlatformResult } from '../models/result.model'
 
 /**
  * Response for the `recommendations` endpoint.
@@ -7,7 +7,7 @@ import { PlatformResult } from '../models/result.model';
  */
 export interface PlatformRecommendationsResponse {
   topclicked: {
-    content: PlatformResult[];
-    numFound: number;
-  };
+    content: PlatformResult[]
+    numFound: number
+  }
 }

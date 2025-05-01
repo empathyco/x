@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins';
-import { QuerySuggestionsXStoreModule } from '../types';
+import type { QuerySuggestionsXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins'
 
 /**
  * Default implementation for the {@link QuerySuggestionsActions.fetchSuggestions}.
@@ -12,11 +12,11 @@ import { QuerySuggestionsXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSuggestions'] = (
+export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSuggestions'] = async (
   _context,
-  request
+  request,
 ) => {
   return request
     ? XPlugin.adapter.querySuggestions(request).then(({ suggestions }) => suggestions)
-    : [];
-};
+    : []
+}

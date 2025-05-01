@@ -9,7 +9,7 @@
     <slot
       :suggestion="suggestion"
       :results="suggestionResults.items"
-      :totalResults="suggestionResults.totalResults"
+      :total-results="suggestionResults.totalResults"
     >
       <li
         v-for="result in suggestionResults.items"
@@ -30,72 +30,73 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, onMounted, PropType } from 'vue';
-  import { NextQuery, PreviewResults } from '@empathyco/x-types';
-  import { nextQueriesXModule } from '../x-module';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
+import type { NextQuery, PreviewResults } from '@empathyco/x-types'
+import type { PropType } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { nextQueriesXModule } from '../x-module'
 
-  /**
-   * Retrieves a preview of the results of a next query and exposes them in the default slot,
-   * along with the next query and the totalResults of the search request.
-   * By default, it renders the names of the results.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'NextQueryPreview',
-    xModule: nextQueriesXModule.name,
-    props: {
-      /**
-       * The next query to retrieve the results preview.
-       *
-       * @public
-       */
-      suggestion: {
-        type: Object as PropType<NextQuery>,
-        required: true
-      },
-      /**
-       * Number of suggestion results to be rendered.
-       *
-       * @public
-       */
-      maxItemsToRender: Number
+/**
+ * Retrieves a preview of the results of a next query and exposes them in the default slot,
+ * along with the next query and the totalResults of the search request.
+ * By default, it renders the names of the results.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'NextQueryPreview',
+  xModule: nextQueriesXModule.name,
+  props: {
+    /**
+     * The next query to retrieve the results preview.
+     *
+     * @public
+     */
+    suggestion: {
+      type: Object as PropType<NextQuery>,
+      required: true,
     },
-    setup(props) {
-      const $x = use$x();
-      /**
-       * The results preview of the next queries mounted.
-       * It is a dictionary, indexed by the next query query.
-       */
-      const { resultsPreview } = useState('nextQueries', ['resultsPreview']);
+    /**
+     * Number of suggestion results to be rendered.
+     *
+     * @public
+     */
+    maxItemsToRender: Number,
+  },
+  setup(props) {
+    const $x = use$x()
+    /**
+     * The results preview of the next queries mounted.
+     * It is a dictionary, indexed by the next query query.
+     */
+    const { resultsPreview } = useState('nextQueries')
 
-      /**
-       * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview
-       * of the next query.
-       */
-      onMounted(() => $x.emit('NextQueryPreviewMountedHook', props.suggestion.query));
+    /**
+     * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview
+     * of the next query.
+     */
+    onMounted(() => $x.emit('NextQueryPreviewMountedHook', props.suggestion.query))
 
-      /**
-       * Gets from the state the results preview of the next query.
-       *
-       * @returns The results preview of the actual next query.
-       */
-      const suggestionResults = computed((): PreviewResults | undefined => {
-        const previewResults = resultsPreview.value[props.suggestion.query] as PreviewResults;
+    /**
+     * Gets from the state the results preview of the next query.
+     *
+     * @returns The results preview of the actual next query.
+     */
+    const suggestionResults = computed((): PreviewResults | undefined => {
+      const previewResults = resultsPreview.value[props.suggestion.query] as PreviewResults
 
-        return previewResults
-          ? {
-              ...previewResults,
-              items: previewResults.items.slice(0, props.maxItemsToRender)
-            }
-          : undefined;
-      });
+      return previewResults
+        ? {
+            ...previewResults,
+            items: previewResults.items.slice(0, props.maxItemsToRender),
+          }
+        : undefined
+    })
 
-      return { suggestionResults };
-    }
-  });
+    return { suggestionResults }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -117,23 +118,23 @@ names of the results.
 </template>
 
 <script>
-  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+import { NextQueryPreview } from '@empathyco/x-components/next-queries'
 
-  export default {
-    name: 'NextQueryPreviewDemo',
-    components: {
-      NextQueryPreview
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryPreviewDemo',
+  components: {
+    NextQueryPreview,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -166,27 +167,27 @@ In this example, the results will be rendered inside a sliding panel.
 </template>
 
 <script>
-  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
-  import { SlidingPanel, BaseResultLink, BaseResultImage } from '@empathyco/x-components';
+import { NextQueryPreview } from '@empathyco/x-components/next-queries'
+import { SlidingPanel, BaseResultLink, BaseResultImage } from '@empathyco/x-components'
 
-  export default {
-    name: 'NextQueryPreviewDemoOverridingSlot',
-    components: {
-      NextQueryPreview,
-      SlidingPanel,
-      BaseResultLink,
-      BaseResultImage
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryPreviewDemoOverridingSlot',
+  components: {
+    NextQueryPreview,
+    SlidingPanel,
+    BaseResultLink,
+    BaseResultImage,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -205,23 +206,23 @@ In this example, the ID of the results will be rendered along with the name.
 </template>
 
 <script>
-  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+import { NextQueryPreview } from '@empathyco/x-components/next-queries'
 
-  export default {
-    name: 'NextQueryPreviewDemoOverridingResultSlot',
-    components: {
-      NextQueryPreview
-    },
-    data() {
-      return {
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryPreviewDemoOverridingResultSlot',
+  components: {
+    NextQueryPreview,
+  },
+  data() {
+    return {
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -245,28 +246,28 @@ In this example, the suggestions has been limited to render a maximum of 4 items
 </template>
 
 <script>
-  import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
-  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components'
+import { NextQueryPreview } from '@empathyco/x-components/next-queries'
 
-  export default {
-    name: 'NextQueryPreviewDemo',
-    components: {
-      BaseGrid,
-      BaseResultImage,
-      BaseResultLink,
-      NextQueryPreview
-    },
-    data() {
-      return {
-        maxItemsToRender: 4,
-        suggestion: {
-          modelName: 'NextQuery',
-          query: 'tshirt',
-          facets: []
-        }
-      };
+export default {
+  name: 'NextQueryPreviewDemo',
+  components: {
+    BaseGrid,
+    BaseResultImage,
+    BaseResultLink,
+    NextQueryPreview,
+  },
+  data() {
+    return {
+      maxItemsToRender: 4,
+      suggestion: {
+        modelName: 'NextQuery',
+        query: 'tshirt',
+        facets: [],
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

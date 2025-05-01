@@ -1,5 +1,5 @@
-import { NamedModel } from './named-model.model';
-import { Previewable } from './previewable.model';
+import type { NamedModel } from './named-model.model'
+import type { Previewable } from './previewable.model'
 
 /**
  * A suggestion represents a query that has been proposed to the user, due of being popular,
@@ -9,12 +9,12 @@ import { Previewable } from './previewable.model';
  */
 export interface Suggestion extends NamedModel<'QuerySuggestion' | 'PopularSearch'>, Previewable {
   /** If it's a curated suggestion. */
-  isCurated?: boolean;
+  isCurated?: boolean
   /**
    * Unique identifier of the suggestion.
    *
    * @deprecated - The key field should be calculated if needed using the `query` and the
    * `facets` properties.
    */
-  key: string;
+  key: string
 }

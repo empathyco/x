@@ -1,4 +1,4 @@
-import { ExtraParamsRequest } from '@empathyco/x-types';
+import type { ExtraParamsRequest } from '@empathyco/x-types'
 
 /**
  * Gets the Search service URL for the given request.
@@ -12,7 +12,7 @@ import { ExtraParamsRequest } from '@empathyco/x-types';
 export function getSearchServiceUrl(from: ExtraParamsRequest): string {
   return from.extraParams?.env === 'test'
     ? 'https://search.internal.test.empathy.co'
-    : 'https://api.{extraParams.env(.)}empathy.co/search/v1';
+    : 'https://api.{extraParams.env(.)}empathy.co/search/v1'
 }
 
 /**
@@ -27,7 +27,7 @@ export function getSearchServiceUrl(from: ExtraParamsRequest): string {
 export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
   return from.extraParams?.env === 'test'
     ? 'https://beacon-api.internal.test.empathy.co'
-    : 'https://api.{extraParams.env(.)}empathy.co';
+    : 'https://api.{extraParams.env(.)}empathy.co'
 }
 
 /**
@@ -42,7 +42,7 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
 export function getSemanticsServiceUrl(from: ExtraParamsRequest): string {
   return from.extraParams?.env === 'test'
     ? 'https://semantics-api.internal.test.empathy.co'
-    : 'https://api.{extraParams.env(.)}empathy.co/semantics-api';
+    : 'https://api.{extraParams.env(.)}empathy.co/semantics-api'
 }
 
 /**
@@ -57,5 +57,5 @@ export function getSemanticsServiceUrl(from: ExtraParamsRequest): string {
 export function getConfigServiceUrl(from: ExtraParamsRequest): string {
   return from.extraParams?.env === 'test'
     ? 'https://config-service.internal.test.empathy.co'
-    : 'https://api.{extraParams.env(.)}empathy.co/config/v1';
+    : 'https://api.{extraParams.env(.)}empathy.co/config/v1'
 }

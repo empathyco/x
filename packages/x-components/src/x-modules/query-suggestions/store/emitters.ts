@@ -1,5 +1,5 @@
-import { createStoreEmitters } from '../../../store';
-import { querySuggestionsXStoreModule } from './module';
+import { createStoreEmitters } from '../../../store'
+import { querySuggestionsXStoreModule } from './module'
 
 /**
  * {@link StoreEmitters} For the query-suggestions module.
@@ -8,5 +8,5 @@ import { querySuggestionsXStoreModule } from './module';
  */
 export const querySuggestionsEmitters = createStoreEmitters(querySuggestionsXStoreModule, {
   QuerySuggestionsChanged: state => state.suggestions,
-  QuerySuggestionsRequestUpdated: (_, getters) => getters.request
-});
+  QuerySuggestionsRequestUpdated: (_, getters) => getters.request,
+})

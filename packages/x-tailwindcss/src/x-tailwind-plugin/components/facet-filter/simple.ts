@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `simple` variant for component `facet-filter`.
@@ -7,30 +7,30 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function facetFilterSimple(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   return {
     simple: {
       '&:hover': {
         color: theme('x.colors.neutral.90'),
-        opacity: '.6'
+        opacity: '.6',
       },
-      '&.selected': {
+      '&.x-selected': {
         fontWeight: theme('x.fontWeight.regular'),
         letterSpacing: theme('x.letterSpacing.md'),
 
         '&:hover': {
-          color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`
+          color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`,
         },
 
         '&:disabled': {
-          color: theme('x.colors.neutral.25')
-        }
+          color: theme('x.colors.neutral.25'),
+        },
       },
       '&:disabled': {
         color: theme('x.colors.neutral.25'),
-        opacity: '1'
-      }
-    }
-  };
+        opacity: '1',
+      },
+    },
+  }
 }

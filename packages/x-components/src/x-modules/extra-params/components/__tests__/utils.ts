@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { extraParamsXStoreModule } from '../../store/module';
-import { ExtraParamsState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { ExtraParamsState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { extraParamsXStoreModule } from '../../store/module'
 
 /**
  * Reset extra params x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { ExtraParamsState } from '../../store/types';
  */
 export function resetXExtraParamStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<ExtraParamsState>
+  state?: DeepPartial<ExtraParamsState>,
 ): void {
-  resetStoreXModuleState(store, 'extraParams', extraParamsXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'extraParams', extraParamsXStoreModule.state(), state)
 }

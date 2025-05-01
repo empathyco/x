@@ -1,4 +1,4 @@
-import { PageMode } from '../../types/page-mode';
+import type { PageMode } from '../../types/page-mode'
 
 /**
  * Configuration options for the {@link SearchXModule}.
@@ -9,6 +9,6 @@ export interface SearchConfig {
   /**
    * Maximum number of results to request.
    */
-  pageSize: number;
-  pageMode: PageMode;
+  pageSize: number
+  pageMode: PageMode
 }

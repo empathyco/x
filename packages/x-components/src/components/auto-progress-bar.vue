@@ -5,78 +5,79 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, StyleValue } from 'vue';
+import type { StyleValue } from 'vue'
+import { computed, defineComponent } from 'vue'
 
-  /**
-   * The auto progress bar component is useful for displaying a visual indicator of numerical data
-   * in a bar shape.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'AutoProgressBar',
-    props: {
-      /**
-       * A boolean flag indicating if the bar is loading.
-       *
-       * @public
-       */
-      isLoading: {
-        type: Boolean,
-        default: true
-      },
-      /**
-       * The duration in seconds of the progress bar.
-       *
-       * @public
-       */
-      durationInSeconds: {
-        type: Number,
-        default: 5
-      }
+/**
+ * The auto progress bar component is useful for displaying a visual indicator of numerical data
+ * in a bar shape.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'AutoProgressBar',
+  props: {
+    /**
+     * A boolean flag indicating if the bar is loading.
+     *
+     * @public
+     */
+    isLoading: {
+      type: Boolean,
+      default: true,
     },
-    setup(props) {
-      /**
-       * Computed property to calculate the animation's duration.
-       *
-       * @returns The CSS styles of the animation.
-       *
-       * @internal
-       */
-      const cssStyles = computed<StyleValue>(() => ({
-        animationDuration: `${props.durationInSeconds}s`
-      }));
+    /**
+     * The duration in seconds of the progress bar.
+     *
+     * @public
+     */
+    durationInSeconds: {
+      type: Number,
+      default: 5,
+    },
+  },
+  setup(props) {
+    /**
+     * Computed property to calculate the animation's duration.
+     *
+     * @returns The CSS styles of the animation.
+     *
+     * @internal
+     */
+    const cssStyles = computed<StyleValue>(() => ({
+      animationDuration: `${props.durationInSeconds}s`,
+    }))
 
-      return {
-        cssStyles
-      };
+    return {
+      cssStyles,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-progress-bar {
-    display: inline-block;
-    overflow: hidden;
-    background-color: #dbe2e5;
-    border-radius: 4px;
-  }
+.x-progress-bar {
+  display: inline-block;
+  overflow: hidden;
+  background-color: #dbe2e5;
+  border-radius: 4px;
+}
 
-  .x-progress-bar-fill {
-    height: 4px;
-    background-color: #283034;
-    animation: slide linear;
-    transform-origin: left;
-  }
+.x-progress-bar-fill {
+  height: 4px;
+  background-color: #283034;
+  animation: slide linear;
+  transform-origin: left;
+}
 
-  @keyframes slide {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
   }
+  100% {
+    transform: translateX(0);
+  }
+}
 </style>
 
 <docs lang="mdx">
@@ -99,19 +100,19 @@ Here you have a basic example of how the auto progress bar is rendered.
 </template>
 
 <script>
-  import { AutoProgressBar } from '@empathyco/x-components';
-  export default {
-    name: 'AutoProgressBarDemo',
-    components: {
-      AutoProgressBar
-    },
-    data() {
-      return {
-        isLoading: true,
-        durationInSeconds: 100
-      };
+import { AutoProgressBar } from '@empathyco/x-components'
+export default {
+  name: 'AutoProgressBarDemo',
+  components: {
+    AutoProgressBar,
+  },
+  data() {
+    return {
+      isLoading: true,
+      durationInSeconds: 100,
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -126,13 +127,13 @@ to cancel the animation by sending the isLoading prop to false.
 </template>
 
 <script>
-  import { AutoProgressBar } from '@empathyco/x-components';
-  export default {
-    name: 'AutoProgressBarDemo',
-    components: {
-      AutoProgressBar
-    }
-  };
+import { AutoProgressBar } from '@empathyco/x-components'
+export default {
+  name: 'AutoProgressBarDemo',
+  components: {
+    AutoProgressBar,
+  },
+}
 </script>
 ```
 </docs>

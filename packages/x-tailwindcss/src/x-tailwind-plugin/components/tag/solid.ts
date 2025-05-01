@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `solid` styles for component `tag`.
@@ -7,16 +7,16 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function tagSolid(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
 
   // Solid & Solid Selected common styles
   const disabledStyles = {
     '&:disabled': {
       backgroundColor: theme('x.colors.neutral.10'),
       borderColor: theme('x.colors.neutral.10'),
-      color: theme('x.colors.neutral.25')
-    }
-  };
+      color: theme('x.colors.neutral.25'),
+    },
+  }
 
   return {
     solid: {
@@ -27,23 +27,23 @@ export function tagSolid(helpers: TailwindHelpers) {
       '&:hover,&:focus,&:active': {
         backgroundColor: `var(--tag-color-25, ${theme('x.colors.neutral.25')})`,
         borderColor: `var(--tag-color-25, ${theme('x.colors.neutral.25')})`,
-        color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`
+        color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
       },
 
       ...disabledStyles,
 
-      '&.selected': {
+      '&.x-selected': {
         backgroundColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
         borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
         color: theme('x.colors.neutral.0'),
 
         '&:hover,&:focus,&:active': {
           backgroundColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
-          borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
+          borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
         },
 
-        ...disabledStyles
-      }
-    }
-  };
+        ...disabledStyles,
+      },
+    },
+  }
 }

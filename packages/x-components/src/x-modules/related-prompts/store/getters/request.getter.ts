@@ -1,4 +1,4 @@
-import { RelatedPromptsXStoreModule } from '../types';
+import type { RelatedPromptsXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link RelatedPromptsGetters.request} getter.
@@ -13,7 +13,7 @@ import { RelatedPromptsXStoreModule } from '../types';
  */
 export const request: RelatedPromptsXStoreModule['getters']['request'] = (
   { params },
-  { query }
+  { query },
 ) => {
-  return query ? { query, extraParams: params } : null;
-};
+  return query ? { query, extraParams: params } : null
+}

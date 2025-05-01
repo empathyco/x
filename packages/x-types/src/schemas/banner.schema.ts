@@ -1,6 +1,6 @@
-import { Banner } from '../banner.model';
-import { IdentifiableSchema } from './identifiable.schema';
-import { TaggingRequestSchema } from './tagging.schema';
+import type { Banner } from '../banner.model'
+import { IdentifiableSchema } from './identifiable.schema'
+import { TaggingRequestSchema } from './tagging.schema'
 
 /**
  * Jest schema for validating Banner entities.
@@ -10,11 +10,11 @@ import { TaggingRequestSchema } from './tagging.schema';
 export const BannerSchema: Banner = {
   ...IdentifiableSchema,
   tagging: {
-    click: TaggingRequestSchema
+    click: TaggingRequestSchema,
   },
   image: expect.any(String),
   modelName: expect.any(String),
   title: expect.any(String),
   url: expect.any(String),
-  position: expect.undefinedOr(Number)
-};
+  position: expect.undefinedOr(Number),
+}

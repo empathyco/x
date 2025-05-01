@@ -1,4 +1,4 @@
-import { TailwindHelpers } from '../../../types';
+import type { TailwindHelpers } from '../../../types'
 
 /**
  * Returns the `outlined` variant for component `button`.
@@ -7,7 +7,7 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function buttonOutlined(helpers: TailwindHelpers) {
-  const { theme } = helpers;
+  const { theme } = helpers
   return {
     outlined: {
       // Disabled style
@@ -20,19 +20,19 @@ export function buttonOutlined(helpers: TailwindHelpers) {
       '&:hover,&:active': {
         borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
-        color: theme('x.colors.neutral.0')
+        color: theme('x.colors.neutral.0'),
       },
 
-      '&.selected': {
+      '&.x-selected': {
         borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         color: theme('x.colors.neutral.0'),
 
         '&:hover,&:active': {
           backgroundColor: theme('x.colors.neutral.0'),
-          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`
-        }
-      }
-    }
-  };
+          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        },
+      },
+    },
+  }
 }

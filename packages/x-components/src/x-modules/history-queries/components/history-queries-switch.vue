@@ -1,71 +1,66 @@
 <template>
-  <BaseSwitch @update:modelValue="toggle" :modelValue="isEnabled" aria-label="Queries' history" />
+  <BaseSwitch :model-value="isEnabled" aria-label="Queries' history" @update:model-value="toggle" />
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
-  import { HistoryQuery } from '@empathyco/x-types';
-  import BaseSwitch from '../../../components/base-switch.vue';
-  import { historyQueriesXModule } from '../x-module';
-  import { isArrayEmpty } from '../../../utils/array';
-  import { use$x } from '../../../composables/use-$x';
-  import { useState } from '../../../composables/use-state';
+import type { HistoryQuery } from '@empathyco/x-types'
+import { computed, defineComponent } from 'vue'
+import BaseSwitch from '../../../components/base-switch.vue'
+import { use$x } from '../../../composables/use-$x'
+import { useState } from '../../../composables/use-state'
+import { isArrayEmpty } from '../../../utils/array'
+import { historyQueriesXModule } from '../x-module'
 
-  /**
-   * History Queries Switch is a component to activate or deactivate the history queries.
-   * This component emits events depending on the `isEnabled` value.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'HistoryQueriesSwitch',
-    xModule: historyQueriesXModule.name,
-    components: {
-      BaseSwitch
-    },
-    setup() {
-      const $x = use$x();
+/**
+ * History Queries Switch is a component to activate or deactivate the history queries.
+ * This component emits events depending on the `isEnabled` value.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'HistoryQueriesSwitch',
+  xModule: historyQueriesXModule.name,
+  components: {
+    BaseSwitch,
+  },
+  setup() {
+    const $x = use$x()
 
-      /**
-       * An object with the isEnabled value and the history queries coming from the store state.
-       *
-       * @internal
-       */
-      const { isEnabled, historyQueries } = useState('historyQueries', [
-        'isEnabled',
-        'historyQueries'
-      ]);
+    /**
+     * An object with the isEnabled value and the history queries coming from the store state.
+     *
+     * @internal
+     */
+    const { isEnabled, historyQueries } = useState('historyQueries')
 
-      /**
-       * Checks if there are history queries.
-       *
-       * @returns True if there are history queries; false otherwise.
-       */
-      const hasHistoryQueries = computed(
-        () => !isArrayEmpty(historyQueries.value as HistoryQuery[])
-      );
+    /**
+     * Checks if there are history queries.
+     *
+     * @returns True if there are history queries; false otherwise.
+     */
+    const hasHistoryQueries = computed(() => !isArrayEmpty(historyQueries.value as HistoryQuery[]))
 
-      const disableEvent = computed(() =>
-        hasHistoryQueries.value
-          ? 'UserClickedDisableHistoryQueries'
-          : 'UserClickedConfirmDisableHistoryQueries'
-      );
+    const disableEvent = computed(() =>
+      hasHistoryQueries.value
+        ? 'UserClickedDisableHistoryQueries'
+        : 'UserClickedConfirmDisableHistoryQueries',
+    )
 
-      /**
-       * Emits an event based on the switch state.
-       *
-       * @internal
-       */
-      const toggle = (): void => {
-        $x.emit(isEnabled.value ? disableEvent.value : 'UserClickedEnableHistoryQueries');
-      };
-
-      return {
-        toggle,
-        isEnabled
-      };
+    /**
+     * Emits an event based on the switch state.
+     *
+     * @internal
+     */
+    const toggle = (): void => {
+      $x.emit(isEnabled.value ? disableEvent.value : 'UserClickedEnableHistoryQueries')
     }
-  });
+
+    return {
+      toggle,
+      isEnabled,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -94,14 +89,14 @@ _Try clicking it to see how it changes its state_
 </template>
 
 <script>
-  import { HistoryQueriesSwitch } from '@empathyco/x-components';
+import { HistoryQueriesSwitch } from '@empathyco/x-components'
 
-  export default {
-    name: 'HistoryQueriesSwitchDemo',
-    components: {
-      HistoryQueriesSwitch
-    }
-  };
+export default {
+  name: 'HistoryQueriesSwitchDemo',
+  components: {
+    HistoryQueriesSwitch,
+  },
+}
 </script>
 ```
 
@@ -127,32 +122,32 @@ Here you have a more complex example.
 </template>
 
 <script>
-  import { BaseEventButton, BaseEventsModal } from '@empathyco/x-components';
-  import { HistoryQueriesSwitch, HistoryQueries } from '@empathyco/x-components/history-queries';
-  import { SearchInput, SearchButton } from '@empathyco/x-components/search';
-  export default {
-    name: 'HistoryQueriesSwitchDemo',
-    components: {
-      BaseEventButton,
-      BaseEventsModal,
-      HistoryQueriesSwitch,
-      HistoryQueries,
-      SearchInput,
-      SearchButton
-    },
-    data() {
-      return {
-        eventsToOpenModal: ['UserClickedDisableHistoryQueries'],
-        disableEvents: {
-          UserClickedConfirmDisableHistoryQueries: undefined,
-          UserClickedCloseEventsModal: undefined
-        },
-        cancelEvents: {
-          UserClickedCloseEventsModal: undefined
-        }
-      };
+import { BaseEventButton, BaseEventsModal } from '@empathyco/x-components'
+import { HistoryQueriesSwitch, HistoryQueries } from '@empathyco/x-components/history-queries'
+import { SearchInput, SearchButton } from '@empathyco/x-components/search'
+export default {
+  name: 'HistoryQueriesSwitchDemo',
+  components: {
+    BaseEventButton,
+    BaseEventsModal,
+    HistoryQueriesSwitch,
+    HistoryQueries,
+    SearchInput,
+    SearchButton,
+  },
+  data() {
+    return {
+      eventsToOpenModal: ['UserClickedDisableHistoryQueries'],
+      disableEvents: {
+        UserClickedConfirmDisableHistoryQueries: undefined,
+        UserClickedCloseEventsModal: undefined,
+      },
+      cancelEvents: {
+        UserClickedCloseEventsModal: undefined,
+      },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

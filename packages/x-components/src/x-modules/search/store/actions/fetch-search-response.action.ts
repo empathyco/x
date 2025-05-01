@@ -1,5 +1,5 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchXStoreModule } from '../types';
+import type { SearchXStoreModule } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 
 /**
  * Default implementation for the {@link SearchActions.fetchSearchResponse}.
@@ -11,7 +11,7 @@ import { SearchXStoreModule } from '../types';
  *
  * @public
  */
-export const fetchSearchResponse: SearchXStoreModule['actions']['fetchSearchResponse'] = (
+export const fetchSearchResponse: SearchXStoreModule['actions']['fetchSearchResponse'] = async (
   _context,
-  request
-) => XPlugin.adapter.search(request);
+  request,
+) => XPlugin.adapter.search(request)

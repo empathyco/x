@@ -10,88 +10,88 @@
         @slot (Required) Identifier results item content
             @binding {Result} identifierResult - Identifier Result data
       -->
-      <slot :identifierResult="identifierResult" />
+      <slot :identifier-result="identifierResult" />
     </li>
   </component>
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, provide } from 'vue';
-  import { PropsWithType } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import { identifierResultsXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { useState } from '../../../composables/use-state';
+import type { Result } from '@empathyco/x-types'
+import type { PropsWithType } from '../../../utils/types'
+import type { XEventsTypes } from '../../../wiring/events.types'
+import { computed, defineComponent, provide } from 'vue'
+import { useState } from '../../../composables/use-state'
+import { AnimationProp } from '../../../types/animation-prop'
+import { identifierResultsXModule } from '../x-module'
 
-  /**
-   * Paints the list of identifier results stored in the state. Each identifier result should be
-   * represented by a {@link IdentifierResult} component besides any
-   * other component.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'IdentifierResults',
-    xModule: identifierResultsXModule.name,
-    props: {
-      /**
-       * Animation component that will be used to animate the identifier results.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /**
-       * Number of identifier results to render.
-       *
-       * @public
-       */
-      maxItemsToRender: Number
+/**
+ * Paints the list of identifier results stored in the state. Each identifier result should be
+ * represented by a {@link IdentifierResult} component besides any
+ * other component.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'IdentifierResults',
+  xModule: identifierResultsXModule.name,
+  props: {
+    /**
+     * Animation component that will be used to animate the identifier results.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup: function (props) {
-      /**
-       * The module's list of identifier results.
-       *
-       * @public
-       */
-      const { identifierResults } = useState('identifierResults', ['identifierResults']);
+    /**
+     * Number of identifier results to render.
+     *
+     * @public
+     */
+    maxItemsToRender: Number,
+  },
+  setup(props) {
+    /**
+     * The module's list of identifier results.
+     *
+     * @public
+     */
+    const { identifierResults } = useState('identifierResults')
 
-      /**
-       * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
-       *
-       * @public
-       */
-      provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
-        'UserClickedAIdentifierResult'
-      ]);
+    /**
+     * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
+     *
+     * @public
+     */
+    provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
+      'UserClickedAIdentifierResult',
+    ])
 
-      /**
-       * Slices the identifier results from the state.
-       *
-       * @returns - The list of identifier results sliced by the number of items to render.
-       *
-       * @internal
-       */
-      const identifierResultsToRender = computed(() =>
-        (identifierResults.value as Result[]).slice(0, props.maxItemsToRender)
-      );
+    /**
+     * Slices the identifier results from the state.
+     *
+     * @returns - The list of identifier results sliced by the number of items to render.
+     *
+     * @internal
+     */
+    const identifierResultsToRender = computed(() =>
+      (identifierResults.value as Result[]).slice(0, props.maxItemsToRender),
+    )
 
-      return {
-        identifierResults,
-        identifierResultsToRender
-      };
+    return {
+      identifierResults,
+      identifierResultsToRender,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-identifier-results {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.x-identifier-results {
+  display: flex;
+  flex-flow: column nowrap;
+}
 </style>
 
 <docs lang="mdx">
@@ -127,15 +127,15 @@ In this example, the identifier results have been limited to render a maximum of
 </template>
 
 <script>
-  import { IdentifierResults, IdentifierResult } from '@empathyco/x-components';
+import { IdentifierResults, IdentifierResult } from '@empathyco/x-components'
 
-  export default {
-    name: 'IdentifierResultsDemo',
-    components: {
-      IdentifierResults,
-      IdentifierResult
-    }
-  };
+export default {
+  name: 'IdentifierResultsDemo',
+  components: {
+    IdentifierResults,
+    IdentifierResult,
+  },
+}
 </script>
 ```
 </docs>

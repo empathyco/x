@@ -10,13 +10,13 @@ export interface ConfigMutations<T extends { config: T['config'] }> {
    *
    * @param config - The new config.
    */
-  setConfig(config: T['config']): void;
+  setConfig: (config: T['config']) => void
   /**
    * Merges a new config with the current one.
    *
    * @param config - The config to be merged.
    */
-  mergeConfig(config: T['config']): void;
+  mergeConfig: (config: T['config']) => void
 }
 
 /**
@@ -28,7 +28,7 @@ export interface ConfigMutations<T extends { config: T['config'] }> {
  * @public
  */
 export function setConfig<T extends { config: T['config'] }>(state: T, config: T['config']): void {
-  state.config = config;
+  state.config = config
 }
 
 /**
@@ -41,7 +41,7 @@ export function setConfig<T extends { config: T['config'] }>(state: T, config: T
  */
 export function mergeConfig<T extends { config: T['config'] }>(
   state: T,
-  config: Partial<T['config']>
+  config: Partial<T['config']>,
 ): void {
-  Object.assign(<object>state.config, config);
+  Object.assign(<object>state.config, config)
 }

@@ -1,9 +1,9 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
-import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { queriesPreviewXStoreModule } from '../../store/module';
-import { QueriesPreviewState } from '../../store/types';
+import type { DeepPartial } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../../../store/store.types'
+import type { QueriesPreviewState } from '../../store/types'
+import { resetStoreXModuleState } from '../../../../__tests__/utils'
+import { queriesPreviewXStoreModule } from '../../store/module'
 
 /**
  * Reset queries preview x-module state with its original state and the partial state passes as
@@ -16,7 +16,7 @@ import { QueriesPreviewState } from '../../store/types';
  */
 export function resetXQueriesPreviewStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
-  state?: DeepPartial<QueriesPreviewState>
+  state?: DeepPartial<QueriesPreviewState>,
 ): void {
-  resetStoreXModuleState(store, 'queriesPreview', queriesPreviewXStoreModule.state(), state);
+  resetStoreXModuleState(store, 'queriesPreview', queriesPreviewXStoreModule.state(), state)
 }

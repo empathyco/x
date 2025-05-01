@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.7...@empathyco/x-tailwindcss@2.0.0-alpha.8) (2025-04-28)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
+
+## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.6...@empathyco/x-tailwindcss@2.0.0-alpha.7) (2025-04-21)
+
+
+### Bug Fixes
+
+* **x-tailwindcss:** rename .selected classes by .x-selected like the rest of plugin classes (#1757) ([41cb4dc](https://github.com/empathyco/x/commit/41cb4dc36bec3f3cec38dea3545e777c16af5de4))
+
+
+
+## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.5...@empathyco/x-tailwindcss@2.0.0-alpha.6) (2025-04-15)
+
+
+### Bug Fixes
+
+* **x-components:** fix type error on bus emit (#1751) ([7357693](https://github.com/empathyco/x/commit/7357693bc9ffa5d5fbd60ca40fa7760b33da2782))
+
+
+
+## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.4...@empathyco/x-tailwindcss@2.0.0-alpha.5) (2025-04-14)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
+
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.3...@empathyco/x-tailwindcss@2.0.0-alpha.4) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
@@ -35,6 +69,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
 
+```ts
 module.exports = {
   theme: {
     extend: {
@@ -47,8 +82,13 @@ module.exports = {
         colors: {
           neutral: {
             5: '#56ac91'
-          }
-....
+          } 
+        }
+      }
+    }
+  }
+}
+```
 
 To add new components you can do it via https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
 

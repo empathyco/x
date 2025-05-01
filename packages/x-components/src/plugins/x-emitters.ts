@@ -1,53 +1,51 @@
-import { XBus } from '@empathyco/x-bus';
-import { Dictionary, forEach } from '@empathyco/x-utils';
-import { Store } from 'vuex';
-import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
-import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
-import { XEventPayload, XEventsTypes } from '../wiring/events.types';
-import { WireMetadata } from '../wiring/wiring.types';
-import { AnyXModule } from '../x-modules/x-modules.types';
+import type { XBus } from '@empathyco/x-bus'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { Store } from 'vuex'
+import type { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils'
+import type { XEventPayload, XEventsTypes } from '../wiring/events.types'
+import type { WireMetadata } from '../wiring/wiring.types'
+import type { AnyXModule } from '../x-modules/x-modules.types'
+import { forEach } from '@empathyco/x-utils'
+import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils'
 
 /**
  * Registers the store emitters, making them emit the event when the part of the state selected
  * changes.
  *
  * @param xModule - The {@link XModule} to register its Store Emitters.
- * @param bus - The {@link @empathyco/x-bus#XBus} to emit the events by the Emitters.
+ * @param bus - The XBus to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
- *
  * @internal
  */
 export function registerStoreEmitters(
   { name, storeEmitters, storeModule }: AnyXModule,
   bus: XBus<XEventsTypes, WireMetadata>,
-  store: Store<any>
+  store: Store<any>,
 ): void {
-  const safeGettersProxy = getGettersProxyFromModule(
-    store.getters as Dictionary,
-    name,
-    storeModule
-  );
+  const safeGettersProxy = getGettersProxyFromModule(store.getters as Dictionary, name, storeModule)
   forEach(storeEmitters, (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
     const { selector, immediate, filter, metadata, ...options } =
-      normalizeStateSelector(stateSelector);
+      normalizeStateSelector(stateSelector)
 
     const watcherSelector = (): XEventPayload<typeof event> =>
-      selector(store.state.x[name], safeGettersProxy);
+      // eslint-disable-next-line ts/no-unsafe-return,ts/no-unsafe-member-access
+      selector(store.state.x[name], safeGettersProxy)
     const emit: (
       newValue: XEventPayload<typeof event>,
-      oldValue?: XEventPayload<typeof event>
+      oldValue?: XEventPayload<typeof event>,
     ) => void = (newValue, oldValue) => {
+      // eslint-disable-next-line ts/no-unsafe-member-access
       if (filter(newValue, oldValue, store.state.x[name])) {
-        bus.emit(event, newValue, { ...metadata, moduleName: name, oldValue });
+        void bus.emit(event, newValue, { ...metadata, moduleName: name, oldValue })
       }
-    };
+    }
 
-    store.watch(watcherSelector, emit, options);
+    store.watch(watcherSelector, emit, options)
 
     if (immediate) {
-      emit(watcherSelector());
+      emit(watcherSelector())
     }
-  });
+  })
 }
 
 /**
@@ -62,17 +60,17 @@ export function registerStoreEmitters(
 function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyStateSelector) {
   const selectorOptions = isSimpleSelector(stateSelector)
     ? { selector: stateSelector }
-    : stateSelector;
+    : stateSelector
 
   return {
     deep: false,
     immediate: false,
     filter: () => true,
     metadata: {
-      replaceable: true
+      replaceable: true,
     },
-    ...selectorOptions
-  };
+    ...selectorOptions,
+  }
 }
 
 /**
@@ -85,7 +83,7 @@ function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyState
  * @internal
  */
 export function isSimpleSelector(
-  stateSelector: AnySimpleStateSelector | AnyStateSelector
+  stateSelector: AnySimpleStateSelector | AnyStateSelector,
 ): stateSelector is AnySimpleStateSelector {
-  return typeof stateSelector === 'function';
+  return typeof stateSelector === 'function'
 }

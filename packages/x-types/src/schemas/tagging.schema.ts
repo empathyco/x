@@ -1,5 +1,5 @@
-import { TaggingRequest } from '../request/tagging-request.model';
-import { Taggable, Tagging } from '../tagging.model';
+import type { TaggingRequest } from '../request/tagging-request.model'
+import type { Taggable, Tagging } from '../tagging.model'
 
 /**
  * Jest schema for validating TaggingRequest entities.
@@ -8,8 +8,8 @@ import { Taggable, Tagging } from '../tagging.model';
  */
 export const TaggingRequestSchema: TaggingRequest = {
   params: expect.any(Object),
-  url: expect.any(String)
-};
+  url: expect.any(String),
+}
 
 /**
  * Jest schema for validating Tagging entities.
@@ -20,8 +20,8 @@ export const TaggingSchema: Tagging = {
   add2cart: TaggingRequestSchema,
   checkout: TaggingRequestSchema,
   click: TaggingRequestSchema,
-  query: TaggingRequestSchema
-};
+  query: TaggingRequestSchema,
+}
 
 /**
  * Jest schema for validating Taggable entities.
@@ -29,5 +29,5 @@ export const TaggingSchema: Tagging = {
  * @public
  */
 export const TaggableSchema: Taggable = {
-  tagging: TaggingSchema
-};
+  tagging: TaggingSchema,
+}

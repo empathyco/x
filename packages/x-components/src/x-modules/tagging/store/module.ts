@@ -1,7 +1,7 @@
-import { TaggingRequest } from '@empathyco/x-types';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
-import { track } from './actions/track.action';
-import { TaggingXStoreModule } from './types';
+import type { TaggingRequest } from '@empathyco/x-types'
+import type { TaggingXStoreModule } from './types'
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { track } from './actions/track.action'
 
 /**
  * {@link XStoreModule} For the tagging module.
@@ -14,33 +14,33 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       sessionTTLMs: 30 * 60 * 1000,
       queryTaggingDebounceMs: 2000,
       storageKey: null,
-      storageTTLMs: null
+      storageTTLMs: null,
     },
     consent: null,
     noResultsTaggingEnabled: false,
     queryTaggingInfo: null,
     toolingTaggingInfo: {
       toolingDisplayClick: null,
-      toolingDisplayAdd2Cart: null
-    }
+      toolingDisplayAdd2Cart: null,
+    },
   }),
   getters: {},
   mutations: {
     setConsent(state, consent) {
-      state.consent = consent;
+      state.consent = consent
     },
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingRequest) {
-      state.queryTaggingInfo = queryTaggingInfo;
+      state.queryTaggingInfo = queryTaggingInfo
     },
     setNoResultsTaggingEnabled(state, module) {
       if (module === 'semanticQueries') {
-        state.noResultsTaggingEnabled = true;
+        state.noResultsTaggingEnabled = true
       }
     },
     setConfig,
-    mergeConfig
+    mergeConfig,
   },
   actions: {
-    track
-  }
-};
+    track,
+  },
+}

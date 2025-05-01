@@ -1,6 +1,6 @@
-import { HistoryQuery } from '@empathyco/x-types';
-import { isArrayEmpty } from '../../../../utils/array';
-import { NextQueriesXStoreModule } from '../types';
+import type { HistoryQuery } from '@empathyco/x-types'
+import type { NextQueriesXStoreModule } from '../types'
+import { isArrayEmpty } from '../../../../utils/array'
 
 /**
  * Default implementation for the {@link NextQueriesActions.setQueryFromLastHistoryQuery}.
@@ -10,10 +10,10 @@ import { NextQueriesXStoreModule } from '../types';
  * @param historyQueries - The current history queries.
  * @public
  */
-//eslint-disable-next-line max-len
+
 export const setQueryFromLastHistoryQuery: NextQueriesXStoreModule['actions']['setQueryFromLastHistoryQuery'] =
   ({ state, commit }, historyQueries: HistoryQuery[]) => {
     if (!isArrayEmpty(historyQueries) && state.config.loadOnInit) {
-      commit('setQuery', historyQueries[0].query);
+      commit('setQuery', historyQueries[0].query)
     }
-  };
+  }

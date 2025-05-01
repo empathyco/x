@@ -1,10 +1,15 @@
 {
   "name": "@empathyco/x-deep-merge",
-  "version": "2.0.3-alpha.3",
+  "version": "2.0.3-alpha.4",
   "description": "Utility for deep cloning objects.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/deep-merge"
+  },
   "keywords": [
     "deep",
     "merge",
@@ -19,26 +24,25 @@
     "dist",
     "types"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/deep-merge"
-  },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "prebuild": "pnpm run clean",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
     "postbuild": "pnpm pack",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build",
     "test": "jest",
     "test-unit": "jest"
   },
   "dependencies": {
-    "@empathyco/x-utils": "^1.0.3-alpha.2",
+    "@empathyco/x-utils": "^1.0.3-alpha.3",
     "tslib": "~2.6.0"
   },
   "devDependencies": {

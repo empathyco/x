@@ -1,11 +1,11 @@
-import { forEach } from '@empathyco/x-utils';
-import plugin from 'tailwindcss/plugin';
-import { TailwindHelpers } from '../types';
-import components from './components';
-import dynamicComponents from './dynamic-components';
-import dynamicUtilities from './dynamic-utilities';
-import xTheme from './theme';
-import utilities from './utilities';
+import type { TailwindHelpers } from '../types'
+import { forEach } from '@empathyco/x-utils'
+import plugin from 'tailwindcss/plugin'
+import components from './components'
+import dynamicComponents from './dynamic-components'
+import dynamicUtilities from './dynamic-utilities'
+import xTheme from './theme'
+import utilities from './utilities'
 
 /**
  * Defines the x-tailwind plugin as a Tailwind {@link plugin} that can be invoked passing a
@@ -15,7 +15,7 @@ import utilities from './utilities';
  * @public
  */
 export default plugin.withOptions(
-  function () {
+  () => {
     /**
      * Registers the generated CSS for the components and utilities of the plugin to the
      * respective Tailwind layer. It depends on the plugin's theme, affecting
@@ -26,27 +26,27 @@ export default plugin.withOptions(
      */
     return function (helpers: TailwindHelpers) {
       /* Add components */
-      helpers.addComponents(components(helpers), { respectPrefix: false });
+      helpers.addComponents(components(helpers), { respectPrefix: false })
       /* Add dynamic components */
       forEach(dynamicComponents(helpers), (key, { styles, values }) => {
-        helpers.matchComponents({ [key]: styles }, { values: values ?? undefined });
-      });
+        helpers.matchComponents({ [key]: styles }, { values: values ?? undefined })
+      })
       /* Add dynamic utilities */
       forEach(dynamicUtilities(helpers), (key, { styles, values }) => {
         helpers.matchUtilities(
           { [key]: styles },
-          { respectPrefix: false, values: values ?? undefined }
-        );
-      });
+          { respectPrefix: false, values: values ?? undefined },
+        )
+      })
       /* Add utilities */
-      helpers.addUtilities(utilities(helpers), { respectPrefix: false });
+      helpers.addUtilities(utilities(helpers), { respectPrefix: false })
       /* Add variant to selected */
-      helpers.addVariant('selected', '&.selected');
-    };
+      helpers.addVariant('selected', '&.x-selected')
+    }
   },
   () => {
     return {
-      theme: { x: xTheme }
-    };
-  }
-);
+      theme: { x: xTheme },
+    }
+  },
+)

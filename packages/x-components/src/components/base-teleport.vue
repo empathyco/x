@@ -1,27 +1,67 @@
 <template>
-  <Teleport :to="target">
-    <div class="x-base-teleport">
-      <slot></slot>
-    </div>
+  <Teleport :to="teleportHost" :disabled>
+    <slot></slot>
   </Teleport>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+import type { PropType } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
 
-  export default defineComponent({
-    name: 'BaseTeleport',
-    props: {
-      target: {
-        type: String,
-        required: true
+export default defineComponent({
+  name: 'BaseTeleport',
+  props: {
+    /** The element or css selector to which the component will be teleported. */
+    target: {
+      type: [String, Element] as PropType<string | Element>,
+      required: true,
+    },
+    /**
+     * The position relative to the target
+     * - `beforebegin`: Before the target element.
+     * - `afterbegin`: Inside the target element, before its first child.
+     * - `beforeend`: Inside the target element, after its last child.
+     * - `afterend`: After the target element.
+     * - `onlychild`: Adds it as child and hides all other children of the target element.
+     */
+    position: {
+      type: String as PropType<
+        'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend' | 'onlychild'
+      >,
+      default: 'onlychild',
+    },
+    /** If disabled, the slot content will not be teleported */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    const teleportHost = document.createElement('div')
+
+    watchEffect(() => {
+      if (props.disabled) {
+        teleportHost.remove()
+        return
       }
-    }
-  });
+      teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
+      const targetElement =
+        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
+      if (!targetElement) {
+        console.warn(`BaseTeleport: Target element "${props.target}" not found.`)
+        return
+      }
+      const position = props.position === 'onlychild' ? 'beforeend' : props.position
+      targetElement.insertAdjacentElement(position, teleportHost)
+    })
+
+    return { teleportHost }
+  },
+})
 </script>
 
 <style lang="css">
-  :has(> .x-base-teleport) > *:not(.x-base-teleport) {
-    display: none;
-  }
+:has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
+  display: none;
+}
 </style>

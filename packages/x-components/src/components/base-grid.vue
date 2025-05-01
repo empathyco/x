@@ -31,212 +31,200 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    PropType,
-    Ref,
-    ref,
-    watch
-  } from 'vue';
-  import {
-    MaybeComputedElementRef,
-    useResizeObserver,
-    UseResizeObserverReturn
-  } from '@vueuse/core';
-  import { toKebabCase } from '../utils/string';
-  import { ListItem, VueCSSClasses } from '../utils/types';
-  import { AnimationProp } from '../types/animation-prop';
-  import { useXBus } from '../composables/use-x-bus';
-  import { LIST_ITEMS_KEY } from './decorators/injection.consts';
+import type { MaybeComputedElementRef, UseResizeObserverReturn } from '@vueuse/core'
+import type { PropType, Ref } from 'vue'
+import type { ListItem, VueCSSClasses } from '../utils/types'
+import { useResizeObserver } from '@vueuse/core'
+import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useXBus } from '../composables/use-x-bus'
+import { AnimationProp } from '../types/animation-prop'
+import { toKebabCase } from '../utils/string'
+import { LIST_ITEMS_KEY } from './decorators/injection.consts'
 
-  /**
-   * The type returned by the gridItems function. Basically it's a list of items with its CSS
-   * classes and a slotName.
-   */
-  interface GridItem {
-    slotName: string;
-    item: ListItem;
-    cssClass: VueCSSClasses;
-  }
+/**
+ * The type returned by the gridItems function. Basically it's a list of items with its CSS
+ * classes and a slotName.
+ */
+interface GridItem {
+  slotName: string
+  item: ListItem
+  cssClass: VueCSSClasses
+}
 
-  /**
-   * Grid component that is able to render different items based on their modelName value. In order
-   * to achieve this, it exposes a scopedSlot for each different modelName. In case the items used
-   * do not have modelName property, the default slot is used instead. It has a required property:
-   * the `items` to render; and an optional one: the number `columns` the grid is divided in. If the
-   * number of columns is not specified, the grid automatically fills the rows with as many columns
-   * as it can fit.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'BaseGrid',
-    props: {
-      /** Animation component that will be used to animate the base grid. */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-      /**
-       * Number of columns the grid is divided into. By default, its value is 0, setting the grid
-       * columns mode to auto-fill.
-       */
-      columns: {
-        type: Number,
-        default: 0
-      },
-      /**
-       * The list of items to be rendered.
-       *
-       * @remarks The items must have an ID property.
-       */
-      items: {
-        type: Array as PropType<ListItem[]>
-      }
+/**
+ * Grid component that is able to render different items based on their modelName value. In order
+ * to achieve this, it exposes a scopedSlot for each different modelName. In case the items used
+ * do not have modelName property, the default slot is used instead. It has a required property:
+ * the `items` to render; and an optional one: the number `columns` the grid is divided in. If the
+ * number of columns is not specified, the grid automatically fills the rows with as many columns
+ * as it can fit.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'BaseGrid',
+  props: {
+    /** Animation component that will be used to animate the base grid. */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props, { slots }) {
-      type ElementRef = {
-        $el: HTMLElement;
-      };
-
-      const xBus = useXBus();
-
-      /** It injects {@link ListItem} provided by an ancestor. */
-      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
-      const gridEl = ref<ElementRef | HTMLElement>();
-      let renderedColumnsNumber = ref(0);
-
-      /**
-       * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
-       * event whenever the number of columns rendered inside the grid changes.
-       */
-      watch(
-        renderedColumnsNumber,
-        () => xBus.emit('RenderedColumnsNumberChanged', renderedColumnsNumber.value),
-        { immediate: false }
-      );
-
-      /**
-       * It returns the items passed as props or the injected ones.
-       *
-       * @returns List of grid items.
-       */
-      const computedItems = computed<ListItem[] | void>(() => {
-        return (
-          props.items ??
-          injectedListItems?.value ??
-          //TODO: add here logger
-          //eslint-disable-next-line no-console
-          console.warn('It is necessary to pass a prop or inject the list of filters')
-        );
-      });
-
-      /**
-       * CSS class based on the column property value so items inside the grid can fill different
-       * amount of columns or rows based on how many columns the grid is divided into.
-       *
-       * @returns CSS class with the column property value.
-       */
-      const cssClasses = computed(() => `x-base-grid--cols-${props.columns || 'auto'}`);
-
-      /**
-       * CSSStyleDeclaration object specifying the number of columns the grid is divided into based on
-       * the column property value.
-       *
-       * @returns A CSSStyleDeclaration to use as the style attribute.
-       */
-      const style = computed<Partial<CSSStyleDeclaration>>(() => ({
-        gridTemplateColumns: props.columns
-          ? `repeat(${props.columns}, minmax(0, 1fr))`
-          : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), 1fr))'
-      }));
-
-      /**
-       * Maps the item to an object containing: the `item`, its `CSS class` and its slot name.
-       *
-       * @returns An array of objects containing the item and its CSS class.
-       */
-      const gridItems = computed<GridItem[]>(() =>
-        (computedItems.value as ListItem[]).map(item => {
-          const slotName = toKebabCase(item.modelName);
-          return {
-            slotName,
-            item,
-            cssClass: `x-base-grid__${slotName}`
-          };
-        })
-      );
-
-      /**
-       * Checks if a given value is an `ElementRef` object.
-       *
-       * @param value - The value to check.
-       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-       */
-      const isElementRef = (value: any): value is ElementRef => {
-        return value && value.$el instanceof HTMLElement;
-      };
-
-      /** Updates the number of columns rendered inside the grid. */
-      function updateRenderedColumnsNumber() {
-        const { gridTemplateColumns } = getComputedStyle(
-          isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element)
-        );
-        renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
-      }
-
-      /** Initialises the rendered columns number and sets a ResizeObserver to keep it updated. */
-      let resizeObserver: UseResizeObserverReturn;
-      onMounted(() => {
-        resizeObserver = useResizeObserver(
-          gridEl as MaybeComputedElementRef,
-          updateRenderedColumnsNumber
-        );
-      });
-      onBeforeUnmount(() => resizeObserver?.stop());
-
-      return {
-        gridItems,
-        cssClasses,
-        style,
-        gridEl,
-        slots
-      };
+    /**
+     * Number of columns the grid is divided into. By default, its value is 0, setting the grid
+     * columns mode to auto-fill.
+     */
+    columns: {
+      type: Number,
+      default: 0,
+    },
+    /**
+     * The list of items to be rendered.
+     *
+     * @remarks The items must have an ID property.
+     */
+    items: {
+      type: Array as PropType<ListItem[]>,
+    },
+  },
+  setup(props, { slots }) {
+    // eslint-disable-next-line ts/consistent-type-definitions
+    type ElementRef = {
+      $el: HTMLElement
     }
-  });
+
+    const xBus = useXBus()
+
+    /** It injects {@link ListItem} provided by an ancestor. */
+    const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
+    const gridEl = ref<ElementRef | HTMLElement>()
+    const renderedColumnsNumber = ref(0)
+
+    /**
+     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
+     * event whenever the number of columns rendered inside the grid changes.
+     */
+    watch(
+      renderedColumnsNumber,
+      () => xBus.emit('RenderedColumnsNumberChanged', renderedColumnsNumber.value),
+      { immediate: false },
+    )
+
+    /**
+     * It returns the items passed as props or the injected ones.
+     *
+     * @returns List of grid items.
+     */
+    const computedItems = computed<ListItem[] | void>(() => {
+      return (
+        props.items ??
+        injectedListItems?.value ??
+        //TODO: add here logger
+        console.warn('It is necessary to pass a prop or inject the list of filters')
+      )
+    })
+
+    /**
+     * CSS class based on the column property value so items inside the grid can fill different
+     * amount of columns or rows based on how many columns the grid is divided into.
+     *
+     * @returns CSS class with the column property value.
+     */
+    const cssClasses = computed(() => `x-base-grid--cols-${props.columns || 'auto'}`)
+
+    /**
+     * CSSStyleDeclaration object specifying the number of columns the grid is divided into based on
+     * the column property value.
+     *
+     * @returns A CSSStyleDeclaration to use as the style attribute.
+     */
+    const style = computed<Partial<CSSStyleDeclaration>>(() => ({
+      gridTemplateColumns: props.columns
+        ? `repeat(${props.columns}, minmax(0, 1fr))`
+        : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), 1fr))',
+    }))
+
+    /**
+     * Maps the item to an object containing: the `item`, its `CSS class` and its slot name.
+     *
+     * @returns An array of objects containing the item and its CSS class.
+     */
+    const gridItems = computed<GridItem[]>(() =>
+      (computedItems.value as ListItem[]).map(item => {
+        const slotName = toKebabCase(item.modelName)
+        return {
+          slotName,
+          item,
+          cssClass: `x-base-grid__${slotName}`,
+        }
+      }),
+    )
+
+    /**
+     * Checks if a given value is an `ElementRef` object.
+     *
+     * @param value - The value to check.
+     * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
+     */
+    const isElementRef = (value: any): value is ElementRef => {
+      return value && value.$el instanceof HTMLElement
+    }
+
+    /** Updates the number of columns rendered inside the grid. */
+    function updateRenderedColumnsNumber() {
+      const { gridTemplateColumns } = getComputedStyle(
+        isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element),
+      )
+      renderedColumnsNumber.value = gridTemplateColumns.split(' ').length
+    }
+
+    /** Initialises the rendered columns number and sets a ResizeObserver to keep it updated. */
+    let resizeObserver: UseResizeObserverReturn
+    onMounted(() => {
+      resizeObserver = useResizeObserver(
+        gridEl as MaybeComputedElementRef,
+        updateRenderedColumnsNumber,
+      )
+    })
+    onBeforeUnmount(() => resizeObserver?.stop())
+
+    return {
+      gridItems,
+      cssClasses,
+      style,
+      gridEl,
+      slots,
+    }
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-base-grid {
-    display: grid;
-    grid-auto-flow: dense;
-    list-style: none;
-    align-items: stretch;
-  }
+.x-base-grid {
+  display: grid;
+  grid-auto-flow: dense;
+  list-style: none;
+  align-items: stretch;
+}
 
-  .x-base-grid__banner,
-  .x-base-grid__next-queries-group,
-  .x-base-grid__related-prompts-group {
-    grid-column-start: 1;
-    grid-column-end: -1;
-  }
+.x-base-grid__banner,
+.x-base-grid__next-queries-group,
+.x-base-grid__related-prompts-group {
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
 
-  .x-base-grid__item {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.x-base-grid__item {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-  .x-base-grid__item > * {
-    flex-grow: 1;
-  }
+.x-base-grid__item > * {
+  flex-grow: 1;
+}
 
-  .x-base-grid--cols-auto .x-base-grid__item {
-    min-width: var(--x-size-min-width-grid-item);
-  }
+.x-base-grid--cols-auto .x-base-grid__item {
+  min-width: var(--x-size-min-width-grid-item);
+}
 </style>
 
 <docs lang="mdx">

@@ -1,8 +1,12 @@
 <template>
-  <QueryPreview :debounceTimeMs="250" :query="query" #default="{ results, totalResults, query }">
+  <QueryPreview
+    v-slot="{ results, totalResults, query: queryPreview }"
+    :debounce-time-ms="250"
+    :query="query"
+  >
     <div class="x-flex x-gap-8 x-mb-16">
-      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
-      <SlidingPanel :resetOnContentChange="false" scrollContainerClass="x-sliding-panel-fade">
+      <h1 class="x-title2">{{ queryPreview }} ({{ totalResults }})</h1>
+      <SlidingPanel :reset-on-content-change="false" scroll-container-class="x-sliding-panel-fade">
         <div class="x-flex x-flex-row x-gap-8">
           <Result
             v-for="result in results"
@@ -17,23 +21,23 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue';
-  import SlidingPanel from '../../components/sliding-panel.vue';
-  import Result from './result.vue';
+import { defineComponent } from 'vue'
+import SlidingPanel from '../../components/sliding-panel.vue'
+import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue'
+import Result from './result.vue'
 
-  export default defineComponent({
-    name: 'SlidingQueryPreview',
-    components: {
-      QueryPreview,
-      Result,
-      SlidingPanel
+export default defineComponent({
+  name: 'SlidingQueryPreview',
+  components: {
+    QueryPreview,
+    Result,
+    SlidingPanel,
+  },
+  props: {
+    query: {
+      type: String,
+      required: true,
     },
-    props: {
-      query: {
-        type: String,
-        required: true
-      }
-    }
-  });
+  },
+})
 </script>

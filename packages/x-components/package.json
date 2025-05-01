@@ -1,10 +1,15 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.0-alpha.61",
+  "version": "6.0.0-alpha.72",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-components#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-components"
+  },
   "keywords": [
     "apache",
     "components",
@@ -23,9 +28,6 @@
     "ux",
     "vue"
   ],
-  "main": "./core/index.js",
-  "module": "./core/index.js",
-  "types": "./core/index.d.ts",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
@@ -34,13 +36,11 @@
     "**/*vue[0-9].js",
     "**/*.vue"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/x-components"
-  },
+  "main": "./core/index.js",
+  "module": "./core/index.js",
+  "types": "./core/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "serve": "vite",
@@ -51,7 +51,11 @@
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
-    "lint": "eslint . --ext .ts,.vue",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:unit": "jest --silent",
     "test:unit-jest": "jest",
     "test:unit-coverage": "jest --coverage",
@@ -68,15 +72,19 @@
     "cypress:open:component:firefox": "cypress open --component --browser firefox",
     "prepublishOnly": "pnpm run build"
   },
+  "peerDependencies": {
+    "vue": "^3.5.12",
+    "vuex": "4.0.2"
+  },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.2",
-    "@empathyco/x-adapter-platform": "^1.1.0-alpha.14",
-    "@empathyco/x-bus": "^1.0.3-alpha.2",
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.3",
+    "@empathyco/x-adapter": "^8.1.0-alpha.3",
+    "@empathyco/x-adapter-platform": "^1.1.0-alpha.15",
+    "@empathyco/x-bus": "^1.0.3-alpha.3",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.4",
     "@empathyco/x-logger": "^1.2.0-alpha.11",
-    "@empathyco/x-storage-service": "^2.0.3-alpha.1",
-    "@empathyco/x-types": "^10.1.0-alpha.11",
-    "@empathyco/x-utils": "^1.0.3-alpha.2",
+    "@empathyco/x-storage-service": "^2.0.3-alpha.2",
+    "@empathyco/x-types": "^10.1.0-alpha.12",
+    "@empathyco/x-utils": "^1.0.3-alpha.3",
     "@vue/devtools-api": "~6.5.0",
     "@vueuse/core": "~10.7.1",
     "js-md5": "~0.8.3",
@@ -85,14 +93,10 @@
     "tslib": "~2.6.0",
     "vue-global-events": "~3.0.1"
   },
-  "peerDependencies": {
-    "vue": "^3.5.12",
-    "vuex": "4.0.2"
-  },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "20.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-    "@empathyco/x-tailwindcss": "2.0.0-alpha.4",
+    "@empathyco/x-tailwindcss": "^2.0.0-alpha.8",
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.39.0",
     "@testing-library/jest-dom": "5.17.0",
@@ -102,11 +106,11 @@
     "@types/node": "18.19.0",
     "@types/testing-library__jest-dom": "5.14.9",
     "@vitejs/plugin-vue": "5.2.1",
-    "@vue/test-utils": "~2.4.6",
+    "@vue/test-utils": "2.4.6",
     "@vue/vue3-jest": "27.0.0",
     "autoprefixer": "10.4.4",
     "convert-source-map": "2.0.0",
-    "cypress": "13.6.0",
+    "cypress": "14.3.0",
     "esbuild": "0.20.0",
     "glob": "10.3.0",
     "jest": "27.5.0",

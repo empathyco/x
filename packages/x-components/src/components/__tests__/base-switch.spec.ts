@@ -1,5 +1,6 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import BaseSwitch from '../base-switch.vue';
+import type { VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import BaseSwitch from '../base-switch.vue'
 
 function renderBaseSwitch({ template, value }: RenderBaseSwitchOptions): RenderBaseSwitchApi {
   const wrapper = mount(
@@ -7,67 +8,67 @@ function renderBaseSwitch({ template, value }: RenderBaseSwitchOptions): RenderB
       template,
       data() {
         return {
-          value
-        };
-      }
+          value,
+        }
+      },
     },
-    { components: { BaseSwitch } }
-  );
+    { components: { BaseSwitch } },
+  )
 
   return {
-    wrapper
-  };
+    wrapper,
+  }
 }
 
 describe('testing Switch component', () => {
   it('allows toggling the state', async () => {
     const { wrapper } = renderBaseSwitch({
       template: `<BaseSwitch :modelValue="value" @update:modelValue="value = !value" />`,
-      value: false
-    });
+      value: false,
+    })
 
-    expect(wrapper.attributes('role')).toBe('switch');
-    expect(wrapper.attributes('aria-checked')).toBeFalsy();
-    expect(wrapper.classes('x-switch--is-selected')).toBe(false);
-    expect(wrapper.classes('x-selected')).toBe(false);
+    expect(wrapper.attributes('role')).toBe('switch')
+    expect(wrapper.attributes('aria-checked')).toBeFalsy()
+    expect(wrapper.classes('x-switch--is-selected')).toBe(false)
+    expect(wrapper.classes('x-selected')).toBe(false)
 
-    await wrapper.trigger('click');
-    expect(wrapper.attributes('aria-checked')).toBe('true');
-    expect(wrapper.classes('x-switch--is-selected')).toBe(true);
-    expect(wrapper.classes('x-selected')).toBe(true);
-  });
+    await wrapper.trigger('click')
+    expect(wrapper.attributes('aria-checked')).toBe('true')
+    expect(wrapper.classes('x-switch--is-selected')).toBe(true)
+    expect(wrapper.classes('x-selected')).toBe(true)
+  })
 
   it('supports v-model syntax', async () => {
     const { wrapper } = renderBaseSwitch({
       template: `<BaseSwitch v-model="value" />`,
-      value: false
-    });
-    expect(wrapper.attributes('role')).toBe('switch');
-    expect(wrapper.attributes('aria-checked')).toBeFalsy();
-    expect(wrapper.classes('x-switch--is-selected')).toBe(false);
-    expect(wrapper.classes('x-selected')).toBe(false);
+      value: false,
+    })
+    expect(wrapper.attributes('role')).toBe('switch')
+    expect(wrapper.attributes('aria-checked')).toBeFalsy()
+    expect(wrapper.classes('x-switch--is-selected')).toBe(false)
+    expect(wrapper.classes('x-selected')).toBe(false)
 
-    await wrapper.trigger('click');
-    expect(wrapper.attributes('aria-checked')).toBe('true');
-    expect(wrapper.classes('x-switch--is-selected')).toBe(true);
-    expect(wrapper.classes('x-selected')).toBe(true);
-  });
-});
+    await wrapper.trigger('click')
+    expect(wrapper.attributes('aria-checked')).toBe('true')
+    expect(wrapper.classes('x-switch--is-selected')).toBe(true)
+    expect(wrapper.classes('x-selected')).toBe(true)
+  })
+})
 
 interface RenderBaseSwitchOptions {
   /**
    * The template to render the switch with.
    */
-  template: string;
+  template: string
   /**
    * The initial selected value of the switch.
    */
-  value: boolean;
+  value: boolean
 }
 
 interface RenderBaseSwitchApi {
   /**
    * The wrapper testing component instance.
    */
-  wrapper: VueWrapper;
+  wrapper: VueWrapper
 }

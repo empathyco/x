@@ -1,32 +1,32 @@
-import { Facet, Filter } from '@empathyco/x-types';
-import { computed, ComputedRef } from 'vue';
-import { useGetter } from '../../../composables/use-getter';
-import { isArrayEmpty } from '../../../utils/array';
-import { FiltersByFacet } from '../store/types';
+import type { Facet, Filter } from '@empathyco/x-types'
+import type { ComputedRef } from 'vue'
+import type { FiltersByFacet } from '../store/types'
+import { computed } from 'vue'
+import { useGetter } from '../../../composables/use-getter'
+import { isArrayEmpty } from '../../../utils/array'
 
 /**
  * Composable to share Facets logic.
  *
  * @param props - Composable props.
  * @returns Composable.
- *
  * @public
  */
 export function useFacets(props: {
   /** Array of facets ids used to get the selected filters for those facets. */
-  facetsIds?: Array<Facet['id']>;
+  facetsIds?: Array<Facet['id']>
   /** Flag to render the component even if there are no filters selected. */
-  alwaysVisible?: boolean;
+  alwaysVisible?: boolean
 }) {
   const { selectedFiltersByFacet, selectedFilters: selectedFiltersGetter } = useGetter('facets', [
     'selectedFiltersByFacet',
-    'selectedFilters'
+    'selectedFilters',
   ]) as {
     /** Dictionary of filters {@link FiltersByFacet} filtered by facet id. */
-    selectedFiltersByFacet: ComputedRef<FiltersByFacet>;
+    selectedFiltersByFacet: ComputedRef<FiltersByFacet>
     /** Get the selected filters from store. */
-    selectedFilters: ComputedRef<Filter[]>;
-  };
+    selectedFilters: ComputedRef<Filter[]>
+  }
 
   /**
    * Get selected filters.
@@ -42,21 +42,21 @@ export function useFacets(props: {
           ...selectedFilters,
           ...(Array.isArray(selectedFiltersByFacet.value[facetId])
             ? selectedFiltersByFacet.value[facetId]
-            : [])
+            : []),
         ],
-        [] as Filter[]
-      );
+        [] as Filter[],
+      )
     }
 
-    return selectedFiltersGetter.value;
-  });
+    return selectedFiltersGetter.value
+  })
 
   /**
    * Check if there are selected filters.
    *
    * @returns True or false depends on if there are selected filters.
    */
-  const hasSelectedFilters = computed<boolean>(() => !isArrayEmpty(selectedFilters.value));
+  const hasSelectedFilters = computed<boolean>(() => !isArrayEmpty(selectedFilters.value))
 
   /**
    * Flag representing if the component should be visible/rendered or not.
@@ -64,12 +64,12 @@ export function useFacets(props: {
    * @returns True whenever alwaysVisible is true or has selected filters. False
    * otherwise.
    */
-  const isVisible = computed<boolean>(() => !!props.alwaysVisible || hasSelectedFilters.value);
+  const isVisible = computed<boolean>(() => !!props.alwaysVisible || hasSelectedFilters.value)
 
   return {
     selectedFiltersByFacet,
     selectedFilters,
     hasSelectedFilters,
-    isVisible
-  };
+    isVisible,
+  }
 }

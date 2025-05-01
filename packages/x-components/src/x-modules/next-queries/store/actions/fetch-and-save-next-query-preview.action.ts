@@ -1,8 +1,7 @@
-import { NextQueriesXStoreModule } from '../types';
+import type { NextQueriesXStoreModule } from '../types'
 
-// eslint-disable-next-line max-len
 export const fetchAndSaveNextQueryPreview: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueryPreview'] =
-  ({ dispatch, commit }, { query, location }) => {
+  async ({ dispatch, commit }, { query, location }) => {
     return dispatch('fetchNextQueryPreview', { query, location })
       .then(response => {
         if (response) {
@@ -10,13 +9,12 @@ export const fetchAndSaveNextQueryPreview: NextQueriesXStoreModule['actions']['f
             [query]: {
               query,
               totalResults: response.totalResults,
-              items: response.results
-            }
-          });
+              items: response.results,
+            },
+          })
         }
       })
       .catch(error => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      });
-  };
+        console.error(error)
+      })
+  }

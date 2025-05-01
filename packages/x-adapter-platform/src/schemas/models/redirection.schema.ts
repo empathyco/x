@@ -1,7 +1,7 @@
-import { createMutableSchema } from '@empathyco/x-adapter';
-import { Redirection } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
-import { PlatformRedirection } from '../../types/models/redirection.model';
+import type { Redirection } from '@empathyco/x-types'
+import type { PlatformRedirection } from '../../types/models/redirection.model'
+import { createMutableSchema } from '@empathyco/x-adapter'
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 
 /**
  * Default implementation for the RedirectionSchema.
@@ -13,6 +13,6 @@ export const redirectionSchema = createMutableSchema<PlatformRedirection, Redire
   url: 'url',
   modelName: () => 'Redirection',
   tagging: {
-    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
-  }
-});
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? ''),
+  },
+})

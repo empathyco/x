@@ -1,9 +1,9 @@
-import { Result, RecommendationsRequest } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { RecommendationsConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import type { RecommendationsRequest, Result } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XActionContext, XStoreModule } from '../../../store'
+import type { ConfigMutations } from '../../../store/utils/config-store.utils'
+import type { StatusMutations, StatusState } from '../../../store/utils/status-store.utils'
+import type { RecommendationsConfig } from '../config.types'
 
 /**
  * Recommendations store state.
@@ -12,13 +12,13 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  */
 export interface RecommendationsState extends StatusState {
   /** Configuration for the `Recommendations` module. */
-  config: RecommendationsConfig;
+  config: RecommendationsConfig
   /** Param to be sent on the recommendations request. */
-  origin: string;
+  origin: string
   /** The recommendations of the module. */
-  recommendations: Result[];
+  recommendations: Result[]
   /** The extra params property of the state. */
-  params: Dictionary<unknown>;
+  params: Dictionary<unknown>
 }
 
 /**
@@ -28,7 +28,7 @@ export interface RecommendationsState extends StatusState {
  */
 export interface RecommendationsGetters {
   /** The adapter request object for retrieving the recommendations. */
-  request: RecommendationsRequest;
+  request: RecommendationsRequest
 }
 
 /**
@@ -44,20 +44,20 @@ export interface RecommendationsMutations
    *
    * @param recommendations - The recommendations list.
    */
-  setRecommendations(recommendations: Result[]): void;
+  setRecommendations: (recommendations: Result[]) => void
   /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
-  setParams(params: Dictionary<unknown>): void;
+  setParams: (params: Dictionary<unknown>) => void
   /**
    * Updates a recommendation with new fields.
    *
    * @param recommendation - A recommendation containing at least an id
    * and the properties to modify.
    */
-  updateRecommendation(recommendation: Partial<Result> & Pick<Result, 'id'>): void;
+  updateRecommendation: (recommendation: Partial<Result> & Pick<Result, 'id'>) => void
 }
 
 /**
@@ -70,17 +70,17 @@ export interface RecommendationsActions {
    * Cancels / interrupt {@link RecommendationsActions.fetchAndSaveRecommendations} synchronous
    * promise.
    */
-  cancelFetchAndSaveRecommendations(): void;
+  cancelFetchAndSaveRecommendations: () => void
   /**
    * Requests and saves to the state a list of recommendations.
    */
-  fetchAndSaveRecommendations(request: RecommendationsRequest | null): void;
+  fetchAndSaveRecommendations: (request: RecommendationsRequest | null) => void
   /**
    * Requests and returns a list of recommendations based on the module state.
    *
    * @returns A new list of results.
    */
-  fetchRecommendations(request: RecommendationsRequest | null): Result[];
+  fetchRecommendations: (request: RecommendationsRequest | null) => Result[]
 }
 
 /**
@@ -93,7 +93,7 @@ export type RecommendationsXStoreModule = XStoreModule<
   RecommendationsGetters,
   RecommendationsMutations,
   RecommendationsActions
->;
+>
 
 /**
  * Alias type for actions context of the {@link RecommendationsXStoreModule}.
@@ -105,4 +105,4 @@ export type RecommendationsActionContext = XActionContext<
   RecommendationsGetters,
   RecommendationsMutations,
   RecommendationsActions
->;
+>

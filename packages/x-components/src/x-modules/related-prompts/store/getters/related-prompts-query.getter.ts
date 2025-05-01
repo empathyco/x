@@ -1,5 +1,5 @@
-import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils';
-import { RelatedPromptsXStoreModule } from '../types';
+import type { RelatedPromptsXStoreModule } from '../types'
+import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.utils'
 
 /**
  * Default implementation for the related prompts query getter.
@@ -12,5 +12,5 @@ import { RelatedPromptsXStoreModule } from '../types';
  * @public
  */
 export const query: RelatedPromptsXStoreModule['getters']['query'] = createRelatedTagsQueryGetter({
-  getRelatedTags: state => state.relatedTags
-});
+  getRelatedTags: state => state.relatedTags,
+})

@@ -1,8 +1,8 @@
-import { Dictionary } from '@empathyco/x-utils';
-import { XModuleName } from '../x-modules/x-modules.types';
-import { NamespacedTimeWireOperator } from './namespaced-wiring.types';
-import { debounce, throttle } from './wires.operators';
-import { getStateAndGettersFromModule } from './wiring.utils';
+import type { Dictionary } from '@empathyco/x-utils'
+import type { XModuleName } from '../x-modules/x-modules.types'
+import type { NamespacedTimeWireOperator } from './namespaced-wiring.types'
+import { debounce, throttle } from './wires.operators'
+import { getStateAndGettersFromModule } from './wiring.utils'
 
 /**
  * Type safe debounce operator which creates a function which can only access the Module of
@@ -16,9 +16,9 @@ import { getStateAndGettersFromModule } from './wiring.utils';
  * @public
  */
 export function namespacedDebounce<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedTimeWireOperator<ModuleName> {
-  return createNamespacedTimeWireOperator(moduleName, debounce);
+  return createNamespacedTimeWireOperator(moduleName, debounce)
 }
 
 /**
@@ -33,9 +33,9 @@ export function namespacedDebounce<ModuleName extends XModuleName>(
  * @public
  */
 export function namespacedThrottle<ModuleName extends XModuleName>(
-  moduleName: ModuleName
+  moduleName: ModuleName,
 ): NamespacedTimeWireOperator<ModuleName> {
-  return createNamespacedTimeWireOperator(moduleName, throttle);
+  return createNamespacedTimeWireOperator(moduleName, throttle)
 }
 
 /**
@@ -50,13 +50,13 @@ export function namespacedThrottle<ModuleName extends XModuleName>(
  */
 function createNamespacedTimeWireOperator<ModuleName extends XModuleName>(
   moduleName: ModuleName,
-  timingOperator: typeof throttle | typeof debounce
+  timingOperator: typeof throttle | typeof debounce,
 ): NamespacedTimeWireOperator<ModuleName> {
   return (wire, timeSelector, options) =>
     timingOperator(
       wire,
       ({ state, getters }) =>
         timeSelector(getStateAndGettersFromModule(state, getters as Dictionary, moduleName)),
-      options
-    );
+      options,
+    )
 }

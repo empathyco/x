@@ -1,4 +1,4 @@
-import { getSafePropertyChain } from '@empathyco/x-utils';
+import { getSafePropertyChain } from '@empathyco/x-utils'
 
 /**
  * Syntax to detect and extract string parameters. A string parameter contains a property name
@@ -14,7 +14,7 @@ import { getSafePropertyChain } from '@empathyco/x-utils';
  * ```
  * @internal
  */
-const STRING_PARAMETERS = /{([^}]+)}/g;
+const STRING_PARAMETERS = /\{([^}]+)\}/g
 
 /**
  * Shape of the optional head and tail parts of the {@link STRING_PARAMETER_CONTENT} regex.
@@ -22,7 +22,7 @@ const STRING_PARAMETERS = /{([^}]+)}/g;
  *
  * @internal
  */
-const HEAD_OR_TAIL = '(?:\\((.+)\\))?';
+const HEAD_OR_TAIL = '(?:\\((.+)\\))?'
 /**
  * Syntax of a single string parameter. A string parameter shape is composed by
  * the name of the property that should be replaced. This property name can be preceded
@@ -39,7 +39,8 @@ const HEAD_OR_TAIL = '(?:\\((.+)\\))?';
  * ```
  * @internal
  */
-const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TAIL}$`, 'g');
+// eslint-disable-next-line regexp/no-misleading-capturing-group,regexp/no-super-linear-backtracking
+const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TAIL}$`, 'g')
 
 /**
  * Interpolates different parameters into a string.
@@ -95,12 +96,12 @@ export function interpolate(string: string, parameters: Record<string, unknown>)
     propertyToReplace.replace(
       STRING_PARAMETER_CONTENT,
       (_match, head = '', property: string, tail = '') => {
-        const value = getSafePropertyChain(parameters, property);
+        const value = getSafePropertyChain(parameters, property)
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */
-        return value ? `${String(head)}${String(value)}${String(tail)}` : '';
-      }
-    )
-  );
+        return value ? `${String(head)}${String(value)}${String(tail)}` : ''
+      },
+    ),
+  )
 }

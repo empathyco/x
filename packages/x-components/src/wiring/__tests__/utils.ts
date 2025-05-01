@@ -1,9 +1,10 @@
-import { mount } from '@vue/test-utils';
-import { Subject } from 'rxjs';
-import { createStore, Store } from 'vuex';
-import { RootXStoreState } from '../../store/store.types';
-import { XModuleName } from '../../x-modules/x-modules.types';
-import { WireParams, WirePayload } from '../wiring.types';
+import type { Store } from 'vuex'
+import type { RootXStoreState } from '../../store/store.types'
+import type { XModuleName } from '../../x-modules/x-modules.types'
+import type { WireParams, WirePayload } from '../wiring.types'
+import { mount } from '@vue/test-utils'
+import { Subject } from 'rxjs'
+import { createStore } from 'vuex'
 
 /**
  * Create a mocked Vue store for testing purpose with only querySuggestions state and getters.
@@ -18,34 +19,34 @@ export function createQuerySuggestionsStoreMock(): Store<any> {
       x: {
         querySuggestions: {
           query: 'something cool',
-          config: { debounceInMs: 200 }
-        }
-      }
+          config: { debounceInMs: 200 },
+        },
+      },
     }),
     getters: {
       'x/querySuggestions/fakeThrottleInMS': (state: RootXStoreState) =>
         state.x.querySuggestions.config.debounceInMs + 300,
       'x/querySuggestions/fakeTrimmedQuery': (state: RootXStoreState) =>
-        state.x.querySuggestions.query.trim()
-    }
-  });
-  mount({}, { global: { plugins: [store] } });
-  store.commit = jest.fn();
-  store.dispatch = jest.fn();
-  return store;
+        state.x.querySuggestions.query.trim(),
+    },
+  })
+  mount({}, { global: { plugins: [store] } })
+  store.commit = jest.fn()
+  store.dispatch = jest.fn()
+  return store
 }
 
 /**
  * Utility class to handle the subject for testing wiring.
  */
 export class SubjectHandler {
-  public subject: Subject<WirePayload<any>>;
+  public subject: Subject<WirePayload<any>>
 
   /**
    * Creates a new Subject.
    */
   public constructor() {
-    this.subject = new Subject();
+    this.subject = new Subject()
   }
 
   /**
@@ -58,18 +59,19 @@ export class SubjectHandler {
    * @param moduleName - The moduleName which will be emitted to the observable as `metadata` value.
    */
   emit(values: unknown[] | unknown, moduleName: XModuleName | null = null): void {
-    const processedValues = Array.isArray(values) ? values : [values];
+    const processedValues = Array.isArray(values) ? values : [values]
     processedValues.forEach(value => {
-      this.subject.next({ eventPayload: value, metadata: { moduleName } });
-    });
+      // eslint-disable-next-line ts/no-unsafe-assignment
+      this.subject.next({ eventPayload: value, metadata: { moduleName } })
+    })
   }
 
   /**
    * Completes the current Subject and creates a new one.
    */
   reset(): void {
-    this.subject.complete();
-    this.subject = new Subject();
+    this.subject.complete()
+    this.subject = new Subject()
   }
 }
 
@@ -86,11 +88,13 @@ export class SubjectHandler {
 export function getExpectedWirePayload<T>(
   eventPayload: T,
   store: Store<any>,
-  moduleName?: XModuleName | null
+  moduleName?: XModuleName | null,
 ): WireParams<T> {
   return {
     eventPayload,
+    // eslint-disable-next-line ts/no-unsafe-assignment
     metadata: moduleName ? { moduleName } : expect.any(Object),
-    store
-  };
+    // eslint-disable-next-line ts/no-unsafe-assignment
+    store,
+  }
 }

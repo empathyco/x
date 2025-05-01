@@ -1,23 +1,23 @@
-import { reduce } from '@empathyco/x-utils';
-import { CssStyleOptions, TailwindHelpers } from '../../types';
-import pluginTheme from '../theme';
+import type { CssStyleOptions, TailwindHelpers } from '../../types'
+import type pluginTheme from '../theme'
+import { reduce } from '@empathyco/x-utils'
 
 /**
  * Type of the colors from Theme.
  */
-export type ThemeColors = (typeof pluginTheme)['colors'];
+export type ThemeColors = (typeof pluginTheme)['colors']
 
 /**
  * Type of each Theme color.
  */
 export interface ThemeColor {
-  0?: string;
-  10?: string;
-  25: string;
-  50: string;
-  75: string;
-  90?: string;
-  100?: string;
+  0?: string
+  10?: string
+  25: string
+  50: string
+  75: string
+  90?: string
+  100?: string
 }
 
 /**
@@ -47,21 +47,21 @@ export interface ThemeColor {
  */
 export function mapColors<T extends CssStyleOptions>(
   mapperFn: (color: ThemeColor, colorName: string) => T,
-  { theme }: TailwindHelpers
+  { theme }: TailwindHelpers,
 ) {
-  const colors: Omit<ThemeColors, 'transparent' | 'current'> = theme('x.colors');
+  const colors: Omit<ThemeColors, 'transparent' | 'current'> = theme('x.colors')
   return reduce(
     colors,
     (mappedColors, colorName, color) => {
       if (!['transparent', 'current'].includes(colorName)) {
         mappedColors[colorName] = {
-          ...mapperFn(color, colorName)
-        };
+          ...mapperFn(color, colorName),
+        }
       }
-      return mappedColors;
+      return mappedColors
     },
     {} as {
-      -readonly [Key in keyof ThemeColors]: T;
-    }
-  );
+      -readonly [Key in keyof ThemeColors]: T
+    },
+  )
 }

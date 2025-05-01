@@ -3,4 +3,4 @@
  *
  * @public
  */
-export type ScrollDirection = 'UP' | 'DOWN';
+export type ScrollDirection = 'UP' | 'DOWN'

@@ -16,81 +16,78 @@
        @slot (Required) Partial results item content
            @binding {Partial} partialResult - Partial Result data
       -->
-      <slot :partialResult="partialResult" />
+      <slot :partial-result="partialResult" />
     </li>
   </component>
 </template>
 
 <script lang="ts">
-  import { PartialResult } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent } from 'vue';
-  import { searchXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { useState } from '../../../composables/use-state';
+import { computed, defineComponent } from 'vue'
+import { useState } from '../../../composables/use-state'
+import { AnimationProp } from '../../../types/animation-prop'
+import { searchXModule } from '../x-module'
 
-  /**
-   * It renders a list of partial results from {@link SearchState.partialResults} by default.
-   * It also provides the partial result slot to customize the item with the partial result bound.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'PartialResultsList',
-    xModule: searchXModule.name,
-    props: {
-      /**
-       * Animation component that will be used to animate the partial results.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
-
-      /**
-       * Maximum number of partial results to show.
-       *
-       * @public
-       */
-      maxItemsToRender: {
-        type: Number,
-        default: 5
-      }
+/**
+ * It renders a list of partial results from {@link SearchState.partialResults} by default.
+ * It also provides the partial result slot to customize the item with the partial result bound.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'PartialResultsList',
+  xModule: searchXModule.name,
+  props: {
+    /**
+     * Animation component that will be used to animate the partial results.
+     *
+     * @public
+     */
+    animation: {
+      type: AnimationProp,
+      default: 'ul',
     },
-    setup(props) {
-      /**
-       * The partials results from the search state.
-       *
-       * @public
-       */
-      const items: ComputedRef<PartialResult[]> = useState('search', [
-        'partialResults'
-      ]).partialResults;
 
-      /**
-       * A limited number of partial results.
-       *
-       * @returns The partial results sliced by the maxItemsToRender.
-       *
-       * @internal
-       */
-      const partialResults = computed(() => items.value.slice(0, props.maxItemsToRender));
+    /**
+     * Maximum number of partial results to show.
+     *
+     * @public
+     */
+    maxItemsToRender: {
+      type: Number,
+      default: 5,
+    },
+  },
+  setup(props) {
+    /**
+     * The partials results from the search state.
+     *
+     * @public
+     */
+    const items = useState('search').partialResults
 
-      return {
-        partialResults
-      };
+    /**
+     * A limited number of partial results.
+     *
+     * @returns The partial results sliced by the maxItemsToRender.
+     *
+     * @internal
+     */
+    const partialResults = computed(() => items.value.slice(0, props.maxItemsToRender))
+
+    return {
+      partialResults,
     }
-  });
+  },
+})
 </script>
 
 <style lang="css" scoped>
-  .x-partial-results-list {
-    display: flex;
-    flex-flow: column nowrap;
-    list-style-type: none;
-    padding: 0;
-  }
+.x-partial-results-list {
+  display: flex;
+  flex-flow: column nowrap;
+  list-style-type: none;
+  padding: 0;
+}
 </style>
 
 <docs lang="mdx">

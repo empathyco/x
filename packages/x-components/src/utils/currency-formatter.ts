@@ -1,23 +1,23 @@
 /**
  * Regex to detect the format.
  */
-const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(d+)(\?)?)?/;
+const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(d+)(\?)?)?/
 
 /**
  * Configuration for format currency.
  */
 interface CurrencyConfig {
   /** The character between a group of three integer 'i's and the following one. */
-  integerSeparator: string;
+  integerSeparator: string
   /**
    * The character between a group of three integer 'i's and the following one. It also
    * supports more than one single character.
    */
-  decimalSeparator: string;
+  decimalSeparator: string
   /** Length of decimals numbers. It counts the number of 'd's after the integer part. */
-  decimalsNumber: number;
+  decimalsNumber: number
   /** Boolean value to hide or show the decimal part when it has 0. */
-  hideIntegerDecimals: boolean;
+  hideIntegerDecimals: boolean
 }
 
 /**
@@ -25,9 +25,9 @@ interface CurrencyConfig {
  */
 interface NumberParts {
   /** Integer part of the number as string. */
-  integer: string;
+  integer: string
   /** Decimal part of the number as string. */
-  decimal: string;
+  decimal: string
 }
 
 /**
@@ -59,17 +59,17 @@ interface NumberParts {
  * @public
  */
 export function currencyFormatter(value: number, format = 'i.iii,dd'): string {
-  const { integer, decimal } = numberParts(value);
+  const { integer, decimal } = numberParts(value)
   const { decimalSeparator, decimalsNumber, integerSeparator, hideIntegerDecimals } =
-    currencyConfig(format);
+    currencyConfig(format)
 
-  const formattedInteger = formatInteger(integer, integerSeparator);
+  const formattedInteger = formatInteger(integer, integerSeparator)
   const formattedDecimal = formatDecimal(decimal, {
     decimalsNumber,
     hideIntegerDecimals,
-    decimalSeparator
-  });
-  return format.replace(FORMAT_REGEX, `${formattedInteger}${formattedDecimal}`);
+    decimalSeparator,
+  })
+  return format.replace(FORMAT_REGEX, `${formattedInteger}${formattedDecimal}`)
 }
 
 /**
@@ -86,7 +86,7 @@ export function currencyFormatter(value: number, format = 'i.iii,dd'): string {
  * @internal
  */
 function formatInteger(integer: string, integerSeparator: string): string {
-  return integer.replace(/\B(?=(\d{3})+(?!\d))/g, integerSeparator);
+  return integer.replace(/\B(?=(\d{3})+(?!\d))/g, integerSeparator)
 }
 
 /**
@@ -99,6 +99,9 @@ function formatInteger(integer: string, integerSeparator: string): string {
  * @param decimal - Decimal part as a string.
  * @param CurrencyConfig - From which the `decimalsNumber`, `decimalsSeparator` and
  * `hideIntegerDecimals` are obtained.
+ * @param CurrencyConfig.decimalsNumber - decimalsNumber currency config.
+ * @param CurrencyConfig.decimalSeparator - decimalSeparator currency config.
+ * @param CurrencyConfig.hideIntegerDecimals - hideIntegerDecimals currency config.
  *
  * @returns Formatted integer.
  *
@@ -109,12 +112,12 @@ function formatDecimal(
   {
     decimalsNumber,
     decimalSeparator,
-    hideIntegerDecimals
-  }: Omit<CurrencyConfig, 'integerSeparator'>
+    hideIntegerDecimals,
+  }: Omit<CurrencyConfig, 'integerSeparator'>,
 ): string {
   return hideIntegerDecimals && !+decimal
     ? ''
-    : `${decimalSeparator}${decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber)}`;
+    : `${decimalSeparator}${decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber)}`
 }
 
 /**
@@ -135,14 +138,14 @@ function currencyConfig(format: string): CurrencyConfig {
     ,
     decimalSeparator = '',
     decimals = '',
-    hideIntegerDecimals = ''
-  ] = FORMAT_REGEX.exec(format) ?? [];
+    hideIntegerDecimals = '',
+  ] = FORMAT_REGEX.exec(format) ?? []
   return {
     integerSeparator,
     decimalSeparator,
     decimalsNumber: decimals.length,
-    hideIntegerDecimals: !!hideIntegerDecimals
-  };
+    hideIntegerDecimals: !!hideIntegerDecimals,
+  }
 }
 
 /**
@@ -156,9 +159,9 @@ function currencyConfig(format: string): CurrencyConfig {
  * @internal
  */
 function numberParts(value: number): NumberParts {
-  const [integer, decimal = ''] = `${value}`.split('.');
+  const [integer, decimal = ''] = `${value}`.split('.')
   return {
     integer,
-    decimal
-  };
+    decimal,
+  }
 }

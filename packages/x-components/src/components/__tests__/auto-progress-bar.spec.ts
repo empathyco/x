@@ -1,41 +1,41 @@
-import { mount } from '@vue/test-utils';
-import { getDataTestSelector } from '../../__tests__/utils';
-import AutoProgressBar from '../auto-progress-bar.vue';
+import { mount } from '@vue/test-utils'
+import { getDataTestSelector } from '../../__tests__/utils'
+import AutoProgressBar from '../auto-progress-bar.vue'
 
 function render({ durationInSeconds = 1, isLoading = true } = {}) {
   const wrapper = mount({
     components: { AutoProgressBar },
     data: () => ({ durationInSeconds, isLoading }),
-    template: '<AutoProgressBar :durationInSeconds="durationInSeconds" :isLoading="isLoading"/>'
-  });
+    template: '<AutoProgressBar :durationInSeconds="durationInSeconds" :isLoading="isLoading"/>',
+  })
 
   return {
     wrapper,
     getProgressBarEl: () => wrapper.find(getDataTestSelector('progress-bar')),
-    getProgressBarLineEl: () => wrapper.find(getDataTestSelector('progress-bar-line'))
-  };
+    getProgressBarLineEl: () => wrapper.find(getDataTestSelector('progress-bar-line')),
+  }
 }
 
 describe('testing AutoProgressBar component', () => {
   it('renders a progress bar component', () => {
-    const { getProgressBarEl } = render();
+    const { getProgressBarEl } = render()
 
-    expect(getProgressBarEl().exists()).toBe(true);
-  });
+    expect(getProgressBarEl().exists()).toBe(true)
+  })
 
   it("doesn't render a progress bar component when is not loading", async () => {
-    const { wrapper, getProgressBarEl } = render();
+    const { wrapper, getProgressBarEl } = render()
 
-    expect(getProgressBarEl().exists()).toBe(true);
+    expect(getProgressBarEl().exists()).toBe(true)
 
-    await wrapper.setData({ isLoading: false });
+    await wrapper.setData({ isLoading: false })
 
-    expect(getProgressBarEl().exists()).toBe(false);
-  });
+    expect(getProgressBarEl().exists()).toBe(false)
+  })
 
   it('render a progress bar component with an animation', () => {
-    const { getProgressBarLineEl } = render({ durationInSeconds: 2.5 });
+    const { getProgressBarLineEl } = render({ durationInSeconds: 2.5 })
 
-    expect(getProgressBarLineEl().attributes().style).toBe('animation-duration: 2.5s;');
-  });
-});
+    expect(getProgressBarLineEl().attributes().style).toBe('animation-duration: 2.5s;')
+  })
+})

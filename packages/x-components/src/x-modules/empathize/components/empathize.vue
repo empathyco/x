@@ -3,11 +3,11 @@
     <div
       v-show="isOpen && hasContent"
       ref="empathizeRef"
+      class="x-empathize"
+      data-test="empathize"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
-      class="x-empathize"
-      data-test="empathize"
     >
       <!-- @slot (Required) Modal container content -->
       <slot />
@@ -16,103 +16,104 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref, computed } from 'vue';
-  import { NoAnimation } from '../../../components';
-  import { use$x, useDebounce } from '../../../composables';
-  import { AnimationProp } from '../../../types';
-  import { XEvent } from '../../../wiring';
-  import { empathizeXModule } from '../x-module';
-  import { getActiveElement } from '../../../utils/html';
+import type { PropType } from 'vue'
+import type { XEvent } from '../../../wiring'
+import { computed, defineComponent, ref } from 'vue'
+import { NoAnimation } from '../../../components'
+import { use$x, useDebounce } from '../../../composables'
+import { AnimationProp } from '../../../types'
+import { getActiveElement } from '../../../utils/html'
+import { empathizeXModule } from '../x-module'
 
-  /**
-   * Component containing the empathize. It has a required slot to define its content and two props
-   * to define when to open and close it: `eventsToOpenEmpathize` and `eventsToCloseEmpathize`.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'Empathize',
-    xModule: empathizeXModule.name,
-    props: {
-      /** Array of {@link XEvent} to open the empathize. */
-      eventsToOpenEmpathize: {
-        type: Array as PropType<XEvent[]>,
-        default: () => ['UserFocusedSearchBox', 'UserIsTypingAQuery', 'UserClickedSearchBox']
-      },
-      /** Array of {@link XEvent} to close the empathize. */
-      eventsToCloseEmpathize: {
-        type: Array as PropType<XEvent[]>,
-        default: () => [
-          'UserClosedEmpathize',
-          'UserSelectedASuggestion',
-          'UserPressedEnterKey',
-          'UserBlurredSearchBox'
-        ]
-      },
-      /** Animation component that will be used to animate the empathize. */
-      animation: {
-        type: AnimationProp,
-        default: () => NoAnimation
-      }
+/**
+ * Component containing the empathize. It has a required slot to define its content and two props
+ * to define when to open and close it: `eventsToOpenEmpathize` and `eventsToCloseEmpathize`.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'Empathize',
+  xModule: empathizeXModule.name,
+  props: {
+    /** Array of {@link XEvent} to open the empathize. */
+    eventsToOpenEmpathize: {
+      type: Array as PropType<XEvent[]>,
+      default: () => ['UserFocusedSearchBox', 'UserIsTypingAQuery', 'UserClickedSearchBox'],
     },
-    setup(props) {
-      const $x = use$x();
+    /** Array of {@link XEvent} to close the empathize. */
+    eventsToCloseEmpathize: {
+      type: Array as PropType<XEvent[]>,
+      default: () => [
+        'UserClosedEmpathize',
+        'UserSelectedASuggestion',
+        'UserPressedEnterKey',
+        'UserBlurredSearchBox',
+      ],
+    },
+    /** Animation component that will be used to animate the empathize. */
+    animation: {
+      type: AnimationProp,
+      default: () => NoAnimation,
+    },
+  },
+  setup(props) {
+    const $x = use$x()
 
-      const empathizeRef = ref<HTMLDivElement>();
+    const empathizeRef = ref<HTMLDivElement>()
 
-      const isOpen = ref(false);
-      const hasContent = computed(() => !!empathizeRef.value?.children?.length);
+    const isOpen = ref(false)
+    const hasContent = computed(() => !!empathizeRef.value?.children?.length)
 
-      /**
-       * Changes the state of {@link Empathize.isOpen} assigning to it the value of `newOpen`
-       * parameter. Also emits the {@link XEvent} `EmpathizeOpened` or `EmpathizeClosed` if
-       * the state really changes.
-       *
-       * @param newOpen - The new open state to assign to {@link Empathize.isOpen}.
-       */
-      const changeOpen = useDebounce((newOpen: boolean) => {
-        if (isOpen.value !== newOpen) {
-          isOpen.value = newOpen;
-          const empathizeEvent = isOpen.value ? 'EmpathizeOpened' : 'EmpathizeClosed';
-          $x.emit(empathizeEvent, undefined, { target: empathizeRef.value });
-        }
-      }, 0);
-
-      /**
-       * Open empathize. This method will be executed on any event in
-       * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root
-       * element.
-       */
-      function open() {
-        if (hasContent.value) {
-          changeOpen(true);
-        }
+    /**
+     * Changes the state of {@link Empathize.isOpen} assigning to it the value of `newOpen`
+     * parameter. Also emits the {@link XEvent} `EmpathizeOpened` or `EmpathizeClosed` if
+     * the state really changes.
+     *
+     * @param newOpen - The new open state to assign to {@link Empathize.isOpen}.
+     */
+    const changeOpen = useDebounce((newOpen: boolean) => {
+      if (isOpen.value !== newOpen) {
+        isOpen.value = newOpen
+        const empathizeEvent = isOpen.value ? 'EmpathizeOpened' : 'EmpathizeClosed'
+        $x.emit(empathizeEvent, undefined, { target: empathizeRef.value })
       }
+    }, 0)
 
-      /**
-       * Close empathize. This method will be executed on any event in
-       * {@link Empathize.eventsToCloseEmpathize} and on DOM event `focusout` on Empathize root
-       * element.
-       */
-      function close() {
-        const activeElement = getActiveElement();
-        if (!empathizeRef.value?.contains(activeElement)) {
-          changeOpen(false);
-        }
+    /**
+     * Open empathize. This method will be executed on any event in
+     * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root
+     * element.
+     */
+    function open() {
+      if (hasContent.value) {
+        changeOpen(true)
       }
-
-      props.eventsToOpenEmpathize.forEach(event => $x.on(event, false).subscribe(open));
-      props.eventsToCloseEmpathize.forEach(event => $x.on(event, false).subscribe(close));
-
-      return {
-        close,
-        empathizeRef,
-        hasContent,
-        isOpen,
-        open
-      };
     }
-  });
+
+    /**
+     * Close empathize. This method will be executed on any event in
+     * {@link Empathize.eventsToCloseEmpathize} and on DOM event `focusout` on Empathize root
+     * element.
+     */
+    function close() {
+      const activeElement = getActiveElement()
+      if (!empathizeRef.value?.contains(activeElement)) {
+        changeOpen(false)
+      }
+    }
+
+    props.eventsToOpenEmpathize.forEach(event => $x.on(event, false).subscribe(open))
+    props.eventsToCloseEmpathize.forEach(event => $x.on(event, false).subscribe(close))
+
+    return {
+      close,
+      empathizeRef,
+      hasContent,
+      isOpen,
+      open,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">

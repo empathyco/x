@@ -18,299 +18,275 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    ComputedRef,
-    defineComponent,
-    inject,
-    onBeforeUnmount,
-    PropType,
-    provide,
-    Ref,
-    watch
-  } from 'vue';
-  import { SearchRequest, Filter } from '@empathyco/x-types';
-  import { deepEqual, Dictionary } from '@empathyco/x-utils';
-  import { LIST_ITEMS_KEY } from '../../../components';
-  import { QueryFeature, FeatureLocation } from '../../../types';
-  import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
-  import { QueriesPreviewConfig } from '../config.types';
-  import { queriesPreviewXModule } from '../x-module';
-  import {
-    DebouncedFunction,
-    debounceFunction,
-    createOrigin,
-    createRawFilters
-  } from '../../../utils';
-  import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { useXBus, useState } from '../../../composables';
+import type { Filter, SearchRequest } from '@empathyco/x-types'
+import type { PropType, Ref } from 'vue'
+import type { FeatureLocation, QueryFeature } from '../../../types'
+import type { DebouncedFunction } from '../../../utils'
+import type { QueryPreviewInfo } from '../store/types'
+import { deepEqual } from '@empathyco/x-utils'
+import { computed, defineComponent, inject, onBeforeUnmount, provide, watch } from 'vue'
+import { LIST_ITEMS_KEY } from '../../../components'
+import { useState, useXBus } from '../../../composables'
+import { createOrigin, createRawFilters, debounceFunction } from '../../../utils'
+import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview'
+import { queriesPreviewXModule } from '../x-module'
 
-  /**
-   * Retrieves a preview of the results of a query and exposes them in the default slot,
-   * along with the query preview and the totalResults of the search request.
-   * By default, it renders the names of the results.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'QueryPreview',
-    xModule: queriesPreviewXModule.name,
-    props: {
-      /** The information about the request of the query preview. */
-      queryPreviewInfo: {
-        type: Object as PropType<QueryPreviewInfo>,
-        required: true
-      },
-      /** The origin property for the request. */
-      queryFeature: {
-        type: String as PropType<QueryFeature>
-      },
-      /** Number of query preview results to be rendered. */
-      maxItemsToRender: {
-        type: Number
-      },
-      /**
-       * Debounce time in milliseconds for triggering the search requests.
-       * It will default to 0 to fit the most common use case (pre-search),
-       * and it would work properly with a 250 value inside empathize.
-       */
-      debounceTimeMs: {
-        type: Number,
-        default: 0
-      },
-      /**
-       * Controls whether the QueryPreview should be removed from the state
-       * when the component is destroyed.
-       */
-      persistInCache: {
-        type: Boolean,
-        default: false
-      }
+/**
+ * Retrieves a preview of the results of a query and exposes them in the default slot,
+ * along with the query preview and the totalResults of the search request.
+ * By default, it renders the names of the results.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'QueryPreview',
+  xModule: queriesPreviewXModule.name,
+  props: {
+    /** The information about the request of the query preview. */
+    queryPreviewInfo: {
+      type: Object as PropType<QueryPreviewInfo>,
+      required: true,
     },
-    emits: ['load', 'error'],
-    setup(props, { emit, slots }) {
-      const xBus = useXBus();
+    /** The origin property for the request. */
+    queryFeature: {
+      type: String as PropType<QueryFeature>,
+    },
+    /** Number of query preview results to be rendered. */
+    maxItemsToRender: {
+      type: Number,
+    },
+    /**
+     * Debounce time in milliseconds for triggering the search requests.
+     * It will default to 0 to fit the most common use case (pre-search),
+     * and it would work properly with a 250 value inside empathize.
+     */
+    debounceTimeMs: {
+      type: Number,
+      default: 0,
+    },
+    /**
+     * Controls whether the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     */
+    persistInCache: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['load', 'error'],
+  setup(props, { emit, slots }) {
+    const xBus = useXBus()
 
-      const queriesPreviewState = useState('queriesPreview', [
-        'queriesPreview',
-        'params',
-        'config'
-      ]);
+    /**
+     * previewResults: The results preview of the queries preview cacheable mounted.
+     * It is a dictionary, indexed by the query preview query.
+     *
+     * params: As the request is handled in this component, we need
+     * the extra params that will be used in the request.
+     *
+     * config: As the request is handled in this component, we need
+     * the config that will be used in the request.
+     */
+    const { queriesPreview: previewResults, params, config } = useState('queriesPreview')
 
-      /**
-       * The results preview of the queries preview cacheable mounted.
-       * It is a dictionary, indexed by the query preview query.
-       */
-      const previewResults: ComputedRef<Dictionary<QueryPreviewItem>> =
-        queriesPreviewState.queriesPreview;
+    /**
+     * Query Preview key converted into a unique id.
+     *
+     * @returns The query hash.
+     */
+    const queryPreviewHash = computed(() =>
+      getHashFromQueryPreviewInfo(props.queryPreviewInfo, params.value.lang as string),
+    )
 
-      /**
-       * As the request is handled in this component, we need
-       * the extra params that will be used in the request.
-       */
-      const params: ComputedRef<Dictionary<unknown>> = queriesPreviewState.params;
+    provide('queryPreviewHash', queryPreviewHash)
 
-      /**
-       * As the request is handled in this component, we need
-       * the config that will be used in the request.
-       */
-      const config: ComputedRef<QueriesPreviewConfig> = queriesPreviewState.config;
+    /**
+     * Gets from the state the results preview of the query preview.
+     *
+     * @returns The results preview of the actual query preview.
+     */
+    const queryPreviewResults = computed(() => {
+      const resultsPreview = previewResults.value[queryPreviewHash.value]
+      return resultsPreview?.results
+        ? {
+            ...resultsPreview,
+            results: resultsPreview.results.slice(0, props.maxItemsToRender),
+          }
+        : undefined
+    })
 
-      /**
-       * Query Preview key converted into a unique id.
-       *
-       * @returns The query hash.
-       */
-      const queryPreviewHash = computed(() =>
-        getHashFromQueryPreviewInfo(props.queryPreviewInfo, params.value.lang as string)
-      );
+    /**
+     * The results to render from the state.
+     *
+     * @remarks The results list are provided with `items` key. It can be
+     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
+     * `BaseGrid` or any component that injects the list.
+     *
+     * @returns A list of results.
+     */
+    const results = computed(() => queryPreviewResults.value?.results)
+    provide(LIST_ITEMS_KEY as string, results)
 
-      provide('queryPreviewHash', queryPreviewHash);
+    /**
+     * It injects the provided {@link FeatureLocation} of the selected query in the search request.
+     *
+     * @internal
+     */
+    const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none')
+    const location =
+      typeof injectedLocation === 'object' && 'value' in injectedLocation
+        ? injectedLocation.value
+        : injectedLocation
 
-      /**
-       * Gets from the state the results preview of the query preview.
-       *
-       * @returns The results preview of the actual query preview.
-       */
-      const queryPreviewResults = computed(() => {
-        const resultsPreview = previewResults.value[queryPreviewHash.value];
-        return resultsPreview?.results
-          ? {
-              ...resultsPreview,
-              results: resultsPreview.results.slice(0, props.maxItemsToRender)
-            }
-          : undefined;
-      });
-
-      /**
-       * The results to render from the state.
-       *
-       * @remarks The results list are provided with `items` key. It can be
-       * concatenated with list items from components such as `BannersList`, `PromotedsList`,
-       * `BaseGrid` or any component that injects the list.
-       *
-       * @returns A list of results.
-       */
-      const results = computed(() => queryPreviewResults.value?.results);
-      provide(LIST_ITEMS_KEY as string, results);
-
-      /**
-       * It injects the provided {@link FeatureLocation} of the selected query in the search request.
-       *
-       * @internal
-       */
-      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
-      const location =
-        typeof injectedLocation === 'object' && 'value' in injectedLocation
-          ? injectedLocation.value
-          : injectedLocation;
-
-      /**
-       * The computed request object to be used to retrieve the query preview results.
-       *
-       * @returns The search request object.
-       */
-      const queryPreviewRequest = computed<SearchRequest>(() => {
-        const origin = createOrigin({
-          feature: props.queryFeature,
-          location: location
-        });
-        const filters = props.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
-          const facetId = filterId.split(':')[0];
-          const rawFilter = createRawFilters([filterId])[0];
+    /**
+     * The computed request object to be used to retrieve the query preview results.
+     *
+     * @returns The search request object.
+     */
+    const queryPreviewRequest = computed<SearchRequest>(() => {
+      const origin = createOrigin({
+        feature: props.queryFeature,
+        location,
+      })
+      const filters = props.queryPreviewInfo.filters?.reduce(
+        (filtersList, filterId) => {
+          const facetId = filterId.split(':')[0]
+          const rawFilter = createRawFilters([filterId])[0]
           filtersList[facetId] = filtersList[facetId]
             ? filtersList[facetId].concat(rawFilter)
-            : [rawFilter];
+            : [rawFilter]
 
-          return filtersList;
-        }, {} as Record<string, Filter[]>);
+          return filtersList
+        },
+        {} as Record<string, Filter[]>,
+      )
 
-        return {
-          query: props.queryPreviewInfo.query,
-          rows: config.value.maxItemsToRequest,
-          extraParams: {
-            ...params.value,
-            ...props.queryPreviewInfo.extraParams
-          },
-          filters: filters,
-          ...(origin && { origin })
-        };
-      });
-
-      /**
-       * The debounce method to trigger the request after the debounceTimeMs defined
-       * for cacheable queries.
-       *
-       * @returns The search request object.
-       */
-      const emitQueryPreviewRequestUpdated = computed<DebouncedFunction<[SearchRequest]>>(() =>
-        debounceFunction(request => {
-          xBus.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
-        }, props.debounceTimeMs)
-      );
-
-      /**
-       * Initialises watcher to emit debounced requests, and first value for the requests.
-       *
-       * @internal
-       */
-      watch(queryPreviewRequest, (newRequest, oldRequest) => {
-        if (!deepEqual(newRequest, oldRequest)) {
-          emitQueryPreviewRequestUpdated.value(newRequest);
-        }
-      });
-
-      const cachedQueryPreview = previewResults.value[queryPreviewHash.value];
-
-      // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (cachedQueryPreview?.status === 'success') {
-        emit('load', queryPreviewHash.value);
-        xBus.emit('QueryPreviewMounted', queryPreviewHash.value, {
-          priority: 0,
-          replaceable: false
-        });
-      } else {
-        emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value);
+      return {
+        query: props.queryPreviewInfo.query,
+        rows: config.value.maxItemsToRequest,
+        extraParams: {
+          ...params.value,
+          ...props.queryPreviewInfo.extraParams,
+        },
+        filters,
+        ...(origin && { origin }),
       }
+    })
 
-      /**
-       * Cancels the (remaining) requests when the component is destroyed
-       * via the `debounce.cancel()` method.
-       * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
-       * from the state when the component is destroyed.
-       */
-      onBeforeUnmount(() => {
-        emitQueryPreviewRequestUpdated.value.cancel();
-        xBus.emit(
-          'QueryPreviewUnmounted',
-          { queryPreviewHash: queryPreviewHash.value, cache: props.persistInCache },
-          {
-            priority: 0,
-            replaceable: false
-          }
-        );
-      });
+    /**
+     * The debounce method to trigger the request after the debounceTimeMs defined
+     * for cacheable queries.
+     *
+     * @returns The search request object.
+     */
+    const emitQueryPreviewRequestUpdated = computed<DebouncedFunction<[SearchRequest]>>(() =>
+      debounceFunction(request => {
+        xBus.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false })
+      }, props.debounceTimeMs),
+    )
 
-      /**
-       * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
-       * prop changes or there is a request in progress that cancels it).
-       *
-       * @param _new - The new debounced function.
-       * @param old - The previous debounced function.
-       * @internal
-       */
-      watch(
-        emitQueryPreviewRequestUpdated,
-        (_new: DebouncedFunction<[SearchRequest]>, old: DebouncedFunction<[SearchRequest]>) => {
-          old.cancel();
-        }
-      );
-
-      const queryPreviewResultsStatus = computed(() => queryPreviewResults.value?.status);
-
-      /**
-       * Emits an event when the query results are loaded or fail to load.
-       *
-       * @param status - The status of the query preview request.
-       */
-      watch(queryPreviewResultsStatus, () => {
-        if (queryPreviewResultsStatus.value === 'success') {
-          emit(results.value?.length ? 'load' : 'error', queryPreviewHash.value);
-        } else if (queryPreviewResultsStatus.value === 'error') {
-          emit('error', queryPreviewHash.value);
-        }
-      });
-
-      const hasResults = computed(() => (queryPreviewResults.value?.totalResults ?? 0) > 0);
-
-      /**
-       * Render function to execute the `default` slot, binding `slotsProps` and getting only the
-       * first `vNode` to avoid Fragments and Text root nodes.
-       * If there are no results, nothing is rendered.
-       *
-       * @remarks `slotProps` must be values without Vue reactivity and located inside the
-       * render-function to update the binding data properly.
-       *
-       * @returns The root `vNode` of the `default` slot or empty string if there are no results.
-       */
-      function renderDefaultSlot() {
-        const slotProps = {
-          queryPreviewInfo: props.queryPreviewInfo,
-          results: queryPreviewResults.value?.results,
-          totalResults: queryPreviewResults.value?.totalResults,
-          displayTagging: queryPreviewResults.value?.displayTagging,
-          queryTagging: queryPreviewResults.value?.queryTagging
-        };
-
-        return hasResults.value ? slots.default?.(slotProps)[0] : '';
+    /**
+     * Initialises watcher to emit debounced requests, and first value for the requests.
+     *
+     * @internal
+     */
+    watch(queryPreviewRequest, (newRequest, oldRequest) => {
+      if (!deepEqual(newRequest, oldRequest)) {
+        emitQueryPreviewRequestUpdated.value(newRequest)
       }
+    })
 
-      /* Hack to render through a render-function, the `default` slot or, in its absence,
-       the component itself. It is the alternative for the NoElement antipattern. */
-      const componentProps = { hasResults, queryPreviewResults };
-      return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps;
+    const cachedQueryPreview = previewResults.value[queryPreviewHash.value]
+
+    // If the query has been saved it will emit load instead of the emitting the updated request.
+    if (cachedQueryPreview?.status === 'success') {
+      emit('load', queryPreviewHash.value)
+      xBus.emit('QueryPreviewMounted', queryPreviewHash.value, {
+        priority: 0,
+        replaceable: false,
+      })
+    } else {
+      emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value)
     }
-  });
+
+    /**
+     * Cancels the (remaining) requests when the component is destroyed
+     * via the `debounce.cancel()` method.
+     * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
+     * from the state when the component is destroyed.
+     */
+    onBeforeUnmount(() => {
+      emitQueryPreviewRequestUpdated.value.cancel()
+      xBus.emit(
+        'QueryPreviewUnmounted',
+        { queryPreviewHash: queryPreviewHash.value, cache: props.persistInCache },
+        {
+          priority: 0,
+          replaceable: false,
+        },
+      )
+    })
+
+    /**
+     * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
+     * prop changes or there is a request in progress that cancels it).
+     *
+     * @param _new - The new debounced function.
+     * @param old - The previous debounced function.
+     * @internal
+     */
+    watch(
+      emitQueryPreviewRequestUpdated,
+      (_new: DebouncedFunction<[SearchRequest]>, old: DebouncedFunction<[SearchRequest]>) => {
+        old.cancel()
+      },
+    )
+
+    const queryPreviewResultsStatus = computed(() => queryPreviewResults.value?.status)
+
+    /**
+     * Emits an event when the query results are loaded or fail to load.
+     *
+     * @param status - The status of the query preview request.
+     */
+    watch(queryPreviewResultsStatus, () => {
+      if (queryPreviewResultsStatus.value === 'success') {
+        emit(results.value?.length ? 'load' : 'error', queryPreviewHash.value)
+      } else if (queryPreviewResultsStatus.value === 'error') {
+        emit('error', queryPreviewHash.value)
+      }
+    })
+
+    const hasResults = computed(() => (queryPreviewResults.value?.totalResults ?? 0) > 0)
+
+    /**
+     * Render function to execute the `default` slot, binding `slotsProps` and getting only the
+     * first `vNode` to avoid Fragments and Text root nodes.
+     * If there are no results, nothing is rendered.
+     *
+     * @remarks `slotProps` must be values without Vue reactivity and located inside the
+     * render-function to update the binding data properly.
+     *
+     * @returns The root `vNode` of the `default` slot or empty string if there are no results.
+     */
+    function renderDefaultSlot() {
+      const slotProps = {
+        queryPreviewInfo: props.queryPreviewInfo,
+        results: queryPreviewResults.value?.results,
+        totalResults: queryPreviewResults.value?.totalResults,
+        displayTagging: queryPreviewResults.value?.displayTagging,
+        queryTagging: queryPreviewResults.value?.queryTagging,
+      }
+
+      return hasResults.value ? slots.default?.(slotProps)[0] : ''
+    }
+
+    /* Hack to render through a render-function, the `default` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+    const componentProps = { hasResults, queryPreviewResults }
+    return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps
+  },
+})
 </script>
 <docs lang="mdx">
 ## Events
@@ -340,19 +316,19 @@ results.
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+import { QueryPreview } from '@empathyco/x-components/queries-preview'
 
-  export default {
-    name: 'QueryPreviewDemo',
-    components: {
-      QueryPreview
-    },
-    data() {
-      return {
-        queryPreviewInfo: { query: 'sandals' }
-      };
+export default {
+  name: 'QueryPreviewDemo',
+  components: {
+    QueryPreview,
+  },
+  data() {
+    return {
+      queryPreviewInfo: { query: 'sandals' },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -387,23 +363,23 @@ In this example, the results will be rendered inside a sliding panel.
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
-  import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components';
+import { QueryPreview } from '@empathyco/x-components/queries-preview'
+import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
 
-  export default {
-    name: 'QueryPreviewDemoOverridingSlot',
-    components: {
-      BaseResultImage,
-      BaseResultLink,
-      QueryPreview,
-      SlidingPanel
-    },
-    data() {
-      return {
-        queryPreviewInfo: { query: 'flip-flops' }
-      };
+export default {
+  name: 'QueryPreviewDemoOverridingSlot',
+  components: {
+    BaseResultImage,
+    BaseResultLink,
+    QueryPreview,
+    SlidingPanel,
+  },
+  data() {
+    return {
+      queryPreviewInfo: { query: 'flip-flops' },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -422,19 +398,19 @@ In this example, the ID of the results will be rendered along with the name.
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+import { QueryPreview } from '@empathyco/x-components/queries-preview'
 
-  export default {
-    name: 'QueryPreviewDemoOverridingResultSlot',
-    components: {
-      QueryPreview
-    },
-    data() {
-      return {
-        queryPreviewInfo: { query: 'flip-flops' }
-      };
+export default {
+  name: 'QueryPreviewDemoOverridingResultSlot',
+  components: {
+    QueryPreview,
+  },
+  data() {
+    return {
+      queryPreviewInfo: { query: 'flip-flops' },
     }
-  };
+  },
+}
 </script>
 ```
 
@@ -458,24 +434,24 @@ In this example, the query preview has been limited to render a maximum of 4 res
 </template>
 
 <script>
-  import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components'
+import { QueryPreview } from '@empathyco/x-components/queries-preview'
 
-  export default {
-    name: 'QueryPreviewDemo',
-    components: {
-      BaseGrid,
-      BaseResultImage,
-      BaseResultLink,
-      QueryPreview
-    },
-    data() {
-      return {
-        maxItemsToRender: 4,
-        queryPreviewInfo: { query: 'flip-flops' }
-      };
+export default {
+  name: 'QueryPreviewDemo',
+  components: {
+    BaseGrid,
+    BaseResultImage,
+    BaseResultLink,
+    QueryPreview,
+  },
+  data() {
+    return {
+      maxItemsToRender: 4,
+      queryPreviewInfo: { query: 'flip-flops' },
     }
-  };
+  },
+}
 </script>
 ```
 </docs>

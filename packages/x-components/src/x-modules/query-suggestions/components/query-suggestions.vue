@@ -13,9 +13,9 @@
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...baseScope }">
         <QuerySuggestion
+          v-slot="querySuggestionScope"
           :suggestion="baseScope.suggestion"
           class="x-query-suggestions__suggestion x-suggestion"
-          #default="querySuggestionScope"
         >
           <!-- eslint-disable max-len -->
           <!--
@@ -31,30 +31,30 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { useGetter } from '../../../composables';
-  import { querySuggestionsXModule } from '../x-module';
-  import QuerySuggestion from './query-suggestion.vue';
+import { defineComponent } from 'vue'
+import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
+import { useGetter } from '../../../composables'
+import { querySuggestionsXModule } from '../x-module'
+import QuerySuggestion from './query-suggestion.vue'
 
-  /**
-   * This component renders a list of possible search queries to select from as a query is entered
-   * in the input field. By default, this is a list of
-   * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
-   *
-   * @public
-   */
-  export default defineComponent({
-    name: 'QuerySuggestions',
-    xModule: querySuggestionsXModule.name,
-    components: { BaseSuggestions, QuerySuggestion },
-    setup() {
-      /** The module's list of suggestions. */
-      const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions']);
+/**
+ * This component renders a list of possible search queries to select from as a query is entered
+ * in the input field. By default, this is a list of
+ * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
+ *
+ * @public
+ */
+export default defineComponent({
+  name: 'QuerySuggestions',
+  xModule: querySuggestionsXModule.name,
+  components: { BaseSuggestions, QuerySuggestion },
+  setup() {
+    /** The module's list of suggestions. */
+    const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions'])
 
-      return { suggestions: querySuggestions };
-    }
-  });
+    return { suggestions: querySuggestions }
+  },
+})
 </script>
 
 <docs lang="mdx">
@@ -92,16 +92,16 @@ _Type “sandal” or another fashion term in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      QuerySuggestions,
-      SearchInput
-    }
-  };
+export default {
+  name: 'QuerySuggestionsDemo',
+  components: {
+    QuerySuggestions,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -121,20 +121,20 @@ _Type “lipstick” or another fashion term in the input field to try it out!_
 </template>
 
 <script>
-  import Vue from 'vue';
-  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { StaggeredFadeAndSlide } from '@empathyco/x-components';
+import Vue from 'vue'
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-  // Registering the animation as a global component
-  Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      QuerySuggestions,
-      SearchInput
-    }
-  };
+// Registering the animation as a global component
+Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
+export default {
+  name: 'QuerySuggestionsDemo',
+  components: {
+    QuerySuggestions,
+    SearchInput,
+  },
+}
 </script>
 ```
 
@@ -158,15 +158,15 @@ _Type “bag” or another fashion term in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestion, QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+import { QuerySuggestion, QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      QuerySuggestion,
-      QuerySuggestions
-    }
-  };
+export default {
+  name: 'QuerySuggestionsDemo',
+  components: {
+    QuerySuggestion,
+    QuerySuggestions,
+  },
+}
 </script>
 ```
 
@@ -237,18 +237,18 @@ _Type “trousers” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
-  import { SearchInput } from '@empathyco/x-components/search-box';
-  import { Highlight } from '@empathyco/x-components';
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { Highlight } from '@empathyco/x-components'
 
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      SearchInput,
-      QuerySuggestions,
-      Highlight
-    }
-  };
+export default {
+  name: 'QuerySuggestionsDemo',
+  components: {
+    SearchInput,
+    QuerySuggestions,
+    Highlight,
+  },
+}
 </script>
 ```
 
@@ -269,16 +269,16 @@ _Type “pants” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
+import { SearchInput } from '@empathyco/x-components/search-box'
 
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      SearchInput,
-      QuerySuggestions
-    }
-  };
+export default {
+  name: 'QuerySuggestionsDemo',
+  components: {
+    SearchInput,
+    QuerySuggestions,
+  },
+}
 </script>
 ```
 </docs>

@@ -13,14 +13,14 @@ export const platformRecommendationsResponse = {
         __url: 'https://assets.empathy.co/images-demo/31335.jpg',
         _jobProperties: {
           jobId: 'c1aceb24-271b-4270-a684-edebc1f3afa9',
-          _eb_date_: '2022-01-26T11:34:24.868Z'
+          _eb_date_: '2022-01-26T11:34:24.868Z',
         },
         categoryIds: ['78d9b7366', '78d9b7366__8a4e61a33'],
         size: 'U',
         __prices: {
           current: {
-            value: 10
-          }
+            value: 10,
+          },
         },
         popularity: 2,
         __name: 'Locomotive Men Washed Blue Jeans',
@@ -31,10 +31,10 @@ export const platformRecommendationsResponse = {
         indexMetrics: {
           generatedTime: '2022-01-26T11:34:24.744Z',
           readTime: '2022-01-26T11:34:24.744Z',
-          transformedTime: '2022-01-26T11:34:29.636Z'
-        }
-      }
+          transformedTime: '2022-01-26T11:34:29.636Z',
+        },
+      },
     ],
-    numFound: 1
-  }
-};
+    numFound: 1,
+  },
+}
