@@ -555,7 +555,7 @@
 </template>
 
 <script lang="ts">
-import type { RelatedPromptNextQuery, TaggingRequest } from '@empathyco/x-types'
+import type { TaggingRequest } from '@empathyco/x-types'
 import type { ComputedRef } from 'vue'
 import type { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types'
 import type { HomeControls } from './types'
@@ -758,38 +758,22 @@ export default defineComponent({
     const { relatedPrompts, selectedPrompt } = useState('relatedPrompts')
 
     const relatedPromptsQueriesPreviewInfo = computed(() => {
-      if (relatedPrompts.value) {
-        const queries = [] as string[]
-        relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.forEach(
-          (nextQuery: RelatedPromptNextQuery) => queries.push(nextQuery.query),
-        )
-        return queries.map(query => ({ query }))
-      }
-      return []
+      const queries = relatedPrompts.value?.[selectedPrompt.value].relatedPromptNextQueries ?? []
+      return queries.map(({ query }) => ({ query }))
     })
 
     const fallbackTaggingRequest = {} as TaggingRequest
-
-    const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
-      const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
-        (nextQuery: any) => nextQuery.query === queryPreviewInfo.query,
+    const findNextQuery = (queryPreviewInfo: QueryPreviewInfo) =>
+      relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
+        nextQuery => nextQuery.query === queryPreviewInfo.query,
       )
-      return nextQuery?.toolingDisplayTagging ?? fallbackTaggingRequest
-    }
 
-    const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
-      const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
-        (nextQuery: any) => nextQuery.query === queryPreviewInfo.query,
-      )
-      return nextQuery?.toolingDisplayAdd2CartTagging ?? fallbackTaggingRequest
-    }
-
-    const getToolingDisplayClickTagging = (queryPreviewInfo: QueryPreviewInfo): TaggingRequest => {
-      const nextQuery = relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
-        (nextQuery: any) => nextQuery.query === queryPreviewInfo.query,
-      )
-      return nextQuery?.toolingDisplayClickTagging ?? fallbackTaggingRequest
-    }
+    const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+      findNextQuery(queryPreviewInfo)?.toolingDisplayTagging ?? fallbackTaggingRequest
+    const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+      findNextQuery(queryPreviewInfo)?.toolingDisplayAdd2CartTagging ?? fallbackTaggingRequest
+    const getToolingDisplayClickTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+      findNextQuery(queryPreviewInfo)?.toolingDisplayClickTagging ?? fallbackTaggingRequest
 
     const queriesPreviewInfo: QueryPreviewInfo[] = [
       {
