@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.72...@empathyco/x-components@6.0.0-alpha.73) (2025-05-01)
+
+
+### Features
+
+* add ios-utils to x-components (#1766) ([1ffcc56](https://github.com/empathyco/x/commit/1ffcc5688e66d535ff477c334bcd9356b1071c1b))
+
+
+
 ## [6.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.71...@empathyco/x-components@6.0.0-alpha.72) (2025-04-30)
 
 
