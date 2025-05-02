@@ -1,6 +1,14 @@
+/** The style payload interface. */
+export interface Style {
+  /** Css source. */
+  source: string
+}
+
 export interface XCSSInjector {
   /** Function that will add the styles to the host. */
-  addStyle: (styles: { source: string }) => void
+  addStyle: (style: Style) => void
+  /** @deprecated Use addHost method. */
+  setHost: (el: Element | ShadowRoot) => void
   /** Adds the element to the hosts set. */
   addHost: (el: Document | ShadowRoot) => void
   /** Removes the element from the hosts set. */
@@ -11,11 +19,4 @@ export interface XCSSInjector {
   isInWindow: () => boolean
 }
 
-export interface MultiHostXCSSInjector extends XCSSInjector {}
-
 export type WindowWithInjector = Window & { xCSSInjector?: XCSSInjector }
-
-/** The style payload interface that will be used to inject styles into the host element. */
-export interface Style {
-  source: string
-}

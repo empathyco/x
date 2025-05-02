@@ -45,6 +45,16 @@ export class CssInjector implements XCSSInjector {
   }
 
   /**
+   * Sets the host element. Alias of addHost method.
+   *
+   * @param host - The host element.
+   * @deprecated Use addHost instead.
+   */
+  setHost(host: Element | ShadowRoot): void {
+    this.addHost(host instanceof ShadowRoot ? host : document)
+  }
+
+  /**
    * Adds the element to the hosts set.
    *
    * @param host - The host element.
