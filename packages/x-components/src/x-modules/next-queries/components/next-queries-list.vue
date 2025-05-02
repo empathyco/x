@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { NextQuery } from '@empathyco/x-types'
-import type { ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { ListItem } from '../../../utils/types'
 import type { NextQueriesGroup } from '../types'
 import { computed, defineComponent, h, inject, provide } from 'vue'
@@ -61,9 +60,7 @@ export default defineComponent({
     const { query, status } = useState('nextQueries')
 
     /** The state next queries. */
-    const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [
-      'nextQueries',
-    ]).nextQueries
+    const nextQueries = useGetter('nextQueries').nextQueries
 
     /** Injected query, updated when the related request(s) have succeeded. */
     const injectedQuery = inject<Ref<string>>(QUERY_KEY as string)

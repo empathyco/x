@@ -58,7 +58,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { popularSearches } = useGetter('popularSearches', ['popularSearches'])
+    const { popularSearches } = useGetter('popularSearches')
 
     return { popularSearches }
   },

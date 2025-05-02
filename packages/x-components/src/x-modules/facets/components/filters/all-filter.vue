@@ -17,10 +17,8 @@
 
 <script lang="ts">
 import type { Facet } from '@empathyco/x-types'
-import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { XEventsTypes } from '../../../../wiring/events.types'
-import type { FiltersByFacet } from '../../store'
 import { computed, defineComponent } from 'vue'
 import BaseEventButton from '../../../../components/base-event-button.vue'
 import { useGetter } from '../../../../composables/use-getter'
@@ -51,10 +49,7 @@ export default defineComponent({
   },
   setup(props) {
     /** The getter of the selectedFiltersByFacet. */
-    const { selectedFiltersByFacet }: Dictionary<ComputedRef<FiltersByFacet>> = useGetter(
-      'facets',
-      ['selectedFiltersByFacet'],
-    )
+    const { selectedFiltersByFacet } = useGetter('facets')
 
     /**
      * The event that will be emitted when the all filter button is clicked.

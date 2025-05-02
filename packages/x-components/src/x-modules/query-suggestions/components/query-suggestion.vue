@@ -44,7 +44,7 @@ export default defineComponent({
   },
   setup(props) {
     /** The normalized query of the query-suggestions module. */
-    const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery
+    const query = useGetter('querySuggestions').normalizedQuery
 
     /**
      * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as

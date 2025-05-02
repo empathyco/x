@@ -72,7 +72,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const { historyQueriesWithResults } = useGetter('historyQueries', ['historyQueriesWithResults'])
+    const { historyQueriesWithResults } = useGetter('historyQueries')
 
     return {
       historyQueriesWithResults,

@@ -56,7 +56,7 @@
 <script lang="ts">
 import type { Facet } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { map, objectFilter } from '@empathyco/x-utils'
 import { computed, defineComponent } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
@@ -121,11 +121,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const { selectedFiltersByFacet } = useFacets(props)
-
-    const { facets } = useGetter('facets', ['facets']) as {
-      /** Dictionary of facets in the state. */
-      facets: ComputedRef<Record<Facet['id'], Facet>>
-    }
+    const { facets } = useGetter('facets')
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by
