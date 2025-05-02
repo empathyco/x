@@ -110,6 +110,9 @@
         </label>
       </li>
     </ul>
+    <hr class="x-mt-10" />
+    <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Teleport test</h1>
+    <div id="teleport-here"></div>
     <MainModal :animation="modalAnimation" :reference-selector="referenceSelector">
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
@@ -552,6 +555,7 @@
       </MultiColumnMaxWidthLayout>
     </MainModal>
   </div>
+  <BaseTeleport target="#teleport-here">This is the teleport content</BaseTeleport>
 </template>
 
 <script lang="ts">
@@ -560,6 +564,7 @@ import type { ComputedRef } from 'vue'
 import type { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types'
 import type { HomeControls } from './types'
 import { computed, defineComponent, provide, ref } from 'vue'
+import { BaseTeleport } from '../../components'
 import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory'
 import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue'
 import AutoProgressBar from '../../components/auto-progress-bar.vue'
@@ -647,6 +652,7 @@ export default defineComponent({
     BaseDropdown,
     BaseGrid,
     BaseIdTogglePanelButton,
+    BaseTeleport,
     BaseVariableColumnGrid,
     ChevronLeft,
     ChevronRight,
