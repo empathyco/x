@@ -1,12 +1,12 @@
 <template>
-  <Teleport :to="teleportHost" :disabled>
+  <Teleport :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
     <slot></slot>
   </Teleport>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { defineComponent, watchEffect } from 'vue'
+import { defineComponent, getCurrentInstance, onUnmounted, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -38,6 +38,14 @@ export default defineComponent({
   },
   setup(props) {
     const teleportHost = document.createElement('div')
+    const isIsolated = !!getCurrentInstance()?.appContext.app._container?.shadowRoot
+    if (isIsolated) {
+      teleportHost.attachShadow({ mode: 'open' })
+      ;(window as any).xCSSInjector.addHost(teleportHost.shadowRoot)
+      onUnmounted(() => {
+        ;(window as any).xCSSInjector.removeHost(teleportHost.shadowRoot)
+      })
+    }
 
     watchEffect(() => {
       if (props.disabled) {
