@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.75...@empathyco/x-components@6.0.0-alpha.76) (2025-05-05)
+
+
+### Code Refactoring
+
+* **use-getter:** improve type inference while keeping old signature (#1771) ([6d6f380](https://github.com/empathyco/x/commit/6d6f380b4ef6dec0b7e70657cfcee5552ba987d2))
+
+
+
 ## [6.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.74...@empathyco/x-components@6.0.0-alpha.75) (2025-05-05)
 
 
