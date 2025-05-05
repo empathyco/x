@@ -13,7 +13,7 @@ export default defineComponent({
   props: {
     /** The element or css selector to which the component will be teleported. */
     target: {
-      type: [String, Element] as PropType<string | Element>,
+      type: [String, Object] as PropType<string | Element>,
       required: true,
     },
     /**
