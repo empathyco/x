@@ -80,7 +80,7 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref } from 'vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import SlidingPanel from '../../../components/sliding-panel.vue'
 import { use$x, useState } from '../../../composables'
@@ -318,6 +318,10 @@ export default defineComponent({
     // style after it finishes
     x.on('SearchRequestChanged', false).subscribe(() => {
       resetTransitionStyle([])
+    })
+
+    onBeforeUnmount(() => {
+      x.emit('RelatedPromptsUnmounted')
     })
 
     return {

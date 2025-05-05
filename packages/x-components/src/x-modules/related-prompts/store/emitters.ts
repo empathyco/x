@@ -9,4 +9,5 @@ import { relatedPromptsXStoreModule } from './module'
 export const relatedPromptsStoreEmitters = createStoreEmitters(relatedPromptsXStoreModule, {
   RelatedPromptsRequestUpdated: (_, getters) => getters.request,
   SelectedRelatedPromptChanged: state => state.selectedPrompt,
+  RelatedPromptsResponseChanged: state => state.relatedPrompts,
 })

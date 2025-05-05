@@ -236,16 +236,16 @@ export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
 }
 
 /**
- * Performs a track of a query with no results that used semantics as fallback.
- * The totalHits will be changed to -1 if semantic queries are found in order to differentiate
- * it from scenarios where the user encounters a no-results page without any semantic queries.
+ * Performs a track of a query with no results that used related prompts or semantic queries as fallback.
+ * The totalHits will be changed to -1 if related prompts or semantic queries are found in order to differentiate
+ * it from scenarios where the user encounters a no-results page without any related prompts or semantic queries.
  *
  * @public
  */
-export const trackNoResultsQueryWithSemanticsWire = filter(
+export const trackNoResultsQueryWithFallbackWire = filter(
   wireDispatch('track', ({ eventPayload, state }) => {
     const { queryTaggingInfo } = state
-    const totalHits = (eventPayload as SemanticQuery[]).length > 0 ? -1 : 0
+    const totalHits = (eventPayload as RelatedPrompt[] | SemanticQuery[]).length > 0 ? -1 : 0
     return {
       params: { ...queryTaggingInfo?.params, totalHits },
       url: queryTaggingInfo?.url ?? '',
@@ -255,14 +255,14 @@ export const trackNoResultsQueryWithSemanticsWire = filter(
 )
 
 /**.
- * Debounced version of {@link trackNoResultsQueryWithSemanticsWire}
+ * Debounced version of {@link trackNoResultsQueryWithFallbackWire}
  *
  * @public
  */
-export const trackNoResultsQueryWithSemanticsWireDebounced = moduleDebounce(
-  trackNoResultsQueryWithSemanticsWire,
+export const trackNoResultsQueryWithFallbackWireDebounced = moduleDebounce(
+  trackNoResultsQueryWithFallbackWire,
   ({ state }) => state.config.queryTaggingDebounceMs,
-  { cancelOn: 'QueryPreviewUnmounted' },
+  { cancelOn: ['QueryPreviewUnmounted', 'RelatedPromptsUnmounted'] },
 )
 
 /**
@@ -450,7 +450,10 @@ export const taggingWiring = createWiring({
     setQueryTaggingFromQueryPreview,
   },
   SemanticQueriesResponseChanged: {
-    trackNoResultsQueryWithSemanticsWireDebounced,
+    trackNoResultsQueryWithFallbackWireDebounced,
+  },
+  RelatedPromptsResponseChanged: {
+    trackNoResultsQueryWithFallbackWireDebounced,
   },
   ModuleRegistered: {
     setNoResultsTaggingEnabledWire,
