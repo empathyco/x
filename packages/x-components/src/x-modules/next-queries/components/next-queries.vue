@@ -81,7 +81,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const stateNextQueries = useGetter('nextQueries', ['nextQueries']).nextQueries
+    const stateNextQueries = useGetter('nextQueries').nextQueries
 
     /**.
      * The list of next queries finally rendered

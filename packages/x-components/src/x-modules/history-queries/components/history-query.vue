@@ -81,7 +81,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const query = useGetter('historyQueries', ['normalizedQuery']).normalizedQuery
+    const query = useGetter('historyQueries').normalizedQuery
 
     /**
      * The list of events that are going to be emitted when the suggestion button is pressed.

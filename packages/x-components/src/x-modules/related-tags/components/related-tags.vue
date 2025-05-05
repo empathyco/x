@@ -100,9 +100,7 @@ export default defineComponent({
     itemClass: String,
   },
   setup(props) {
-    const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags', [
-      'relatedTags',
-    ]).relatedTags
+    const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags').relatedTags
 
     const relatedTags = computed((): RelatedTagModel[] =>
       storedRelatedTags.value.slice(0, props.maxItemsToRender),

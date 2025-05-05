@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import type { Result } from '@empathyco/x-types'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent } from 'vue'
 import { useGetter } from '../../../composables/use-getter'
 import { useState } from '../../../composables/use-state'
@@ -49,9 +49,7 @@ export default defineComponent({
      *
      * @public
      */
-    const identifierHighlightRegexp: ComputedRef<RegExp> = useGetter('identifierResults', [
-      'identifierHighlightRegexp',
-    ]).identifierHighlightRegexp
+    const identifierHighlightRegexp = useGetter('identifierResults').identifierHighlightRegexp
 
     /**
      * Highlights the matching part of the identifier result with the query from the state.

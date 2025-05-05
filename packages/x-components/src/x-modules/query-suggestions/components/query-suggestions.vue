@@ -50,7 +50,7 @@ export default defineComponent({
   components: { BaseSuggestions, QuerySuggestion },
   setup() {
     /** The module's list of suggestions. */
-    const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions'])
+    const { querySuggestions } = useGetter('querySuggestions')
 
     return { suggestions: querySuggestions }
   },
