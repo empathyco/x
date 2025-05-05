@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.74...@empathyco/x-components@6.0.0-alpha.75) (2025-05-05)
+
+
+### Bug Fixes
+
+* prop type definition in BaseTeleport component ([316a87a](https://github.com/empathyco/x/commit/316a87acee266082b86c0b6a1ad69009610fc0c9))
+
+
+### Code Refactoring
+
+* Update packages/x-components/src/components/base-teleport.vue ([5d53538](https://github.com/empathyco/x/commit/5d5353852613346769c86de34a02c7c1e89e680b))
+
+
+
 ## [6.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.73...@empathyco/x-components@6.0.0-alpha.74) (2025-05-01)
 
 
