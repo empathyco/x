@@ -1,4 +1,4 @@
-import type { RelatedPromptsRequest, Result } from '@empathyco/x-types'
+import type { RelatedPrompt, RelatedPromptsRequest, Result } from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of RelatedPrompts XModule, where each key is the event name,
@@ -38,4 +38,13 @@ export interface RelatedPromptsXEvents {
    * Payload: The result that the user clicked.
    */
   UserClickedARelatedPromptAdd2Cart: Result
+  /**
+   * The response list of related prompts has changed.
+   * Payload: The new related-prompts list.
+   */
+  RelatedPromptsResponseChanged: RelatedPrompt[]
+  /**
+   * The related prompts has been unmounted.
+   */
+  RelatedPromptsUnmounted: void
 }
