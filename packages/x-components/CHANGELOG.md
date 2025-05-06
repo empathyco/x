@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.76...@empathyco/x-components@6.0.0-alpha.77) (2025-05-06)
+
+
+### Features
+
+* sent the correct totalHits value when RPs are displayed in no-r… (#1773) ([227c1ee](https://github.com/empathyco/x/commit/227c1ee07330f59f62f450d70badbd2e048a78f9))
+
+
+
 ## [6.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.75...@empathyco/x-components@6.0.0-alpha.76) (2025-05-05)
 
 
