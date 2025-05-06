@@ -266,6 +266,25 @@ export const trackNoResultsQueryWithFallbackWireDebounced = moduleDebounce(
 )
 
 /**
+ * Performs a track of a query with no results that used semantic queries as fallback.
+ * The totalHits will be changed to -1 if semantic queries are found in order to differentiate
+ * it from scenarios where the user encounters a no-results page without any semantic queries.
+ *
+ * @public
+ * @deprecated - Use {@link trackNoResultsQueryWithFallbackWire} instead.
+ */
+export const trackNoResultsQueryWithSemanticsWire = trackNoResultsQueryWithFallbackWire
+
+/**
+ * Debounced version of {@link trackNoResultsQueryWithFallbackWire}
+ *
+ * @public
+ * @deprecated - Use {@link trackNoResultsQueryWithFallbackWireDebounced} instead.
+ */
+export const trackNoResultsQueryWithSemanticsWireDebounced =
+  trackNoResultsQueryWithFallbackWireDebounced
+
+/**
  * Factory helper to create a wire for the track of the display click.
  *
  * @param property - Key of the tagging object to track.
