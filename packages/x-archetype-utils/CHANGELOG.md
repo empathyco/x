@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.9...@empathyco/x-archetype-utils@2.0.0-alpha.10) (2025-05-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **css-injector:** setHost no longer exist, use addHost. Add host input is DocumentOrShadowRoot
+
+Signed-off-by: davidglezz <davidgg666@gmail.com>
+
+### Features
+
+* add multi-host CSS injector ([3a8a58a](https://github.com/empathyco/x/commit/3a8a58a5ba20212b7f617d8cf4723d54e06e5bb5))
+* **css-injector:** restore setHost method to avoid breaking changes ([5faef47](https://github.com/empathyco/x/commit/5faef47871db86f25cd4dfcf451e2a3126c67573))
+
+
+### Code Refactoring
+
+* **css-injector:** merge Css Injectors ([01a8c0e](https://github.com/empathyco/x/commit/01a8c0ee833120c83849d97127f4edcfa7bc62ac))
+* **css-injector:** use adoptedStyleSheets ([ca6dbfe](https://github.com/empathyco/x/commit/ca6dbfe368e152af84e16f8a7f08d91114d268e9))
+
+
+### Testing
+
+* **css-injector:** update test ([f129d55](https://github.com/empathyco/x/commit/f129d55247c7d2d528416a37377b217ea2d3cc17))
+
+
+
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.8...@empathyco/x-archetype-utils@2.0.0-alpha.9) (2025-04-28)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
