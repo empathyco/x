@@ -1,14 +1,6 @@
-import type { WindowWithInjector, XCSSInjector } from './css-injector.types'
-/**
- * The style interface that will be used to inject styles into the host element.
- */
-interface Style {
-  source: string
-}
+import type { Style, WindowWithInjector, XCSSInjector } from './css-injector.types'
 
-/**
- * Instance of the injector that will be used across all the initializations.
- */
+/** Singleton instance of the injector that will be used across all the initializations. */
 let instance: CssInjector | null = null
 
 /**
@@ -17,8 +9,8 @@ let instance: CssInjector | null = null
  * @public
  */
 export class CssInjector implements XCSSInjector {
-  protected host: Element | ShadowRoot | undefined
-  protected stylesQueue: Style[] = []
+  protected hosts = new Set<Document | ShadowRoot>()
+  protected stylesToAdopt: CSSStyleSheet[] = []
 
   /**
    * Initializes the instance of the injector if it's not already initialized and sets it in the
@@ -46,26 +38,39 @@ export class CssInjector implements XCSSInjector {
    * @param style.source - Styles source.
    */
   addStyle(style: Style): void {
-    if (!this.host) {
-      this.stylesQueue.push(style)
-      return
-    }
-
-    const styleTag = document.createElement('style')
-    styleTag.textContent = style.source
-    this.host.appendChild(styleTag)
+    const sheet = new CSSStyleSheet()
+    sheet.replaceSync(style.source)
+    this.stylesToAdopt.push(sheet)
+    this.hosts.forEach(host => (host.adoptedStyleSheets = this.stylesToAdopt))
   }
 
   /**
-   * Sets the host element.
+   * Sets the host element. Alias of addHost method.
+   *
+   * @param host - The host element.
+   * @deprecated Use addHost instead.
+   */
+  setHost(host: Element | ShadowRoot): void {
+    this.addHost(host instanceof ShadowRoot ? host : document)
+  }
+
+  /**
+   * Adds the element to the hosts set.
    *
    * @param host - The host element.
    */
-  setHost(host: Element | ShadowRoot): void {
-    this.host = host
-    // Add all pending styles to the host element
-    this.stylesQueue.forEach(style => this.addStyle(style))
-    this.stylesQueue = []
+  addHost(host: Document | ShadowRoot): void {
+    this.hosts.add(host)
+    host.adoptedStyleSheets = this.stylesToAdopt
+  }
+
+  /**
+   * Removes the element from the hosts set.
+   *
+   * @param host - The host element to remove.
+   */
+  removeHost(host: Document | ShadowRoot): void {
+    this.hosts.delete(host)
   }
 
   /**
