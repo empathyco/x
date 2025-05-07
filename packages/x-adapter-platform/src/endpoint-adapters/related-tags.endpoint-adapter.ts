@@ -2,7 +2,7 @@ import type { RelatedTagsRequest, RelatedTagsResponse } from '@empathyco/x-types
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { relatedTagsRequestMapper } from '../mappers/requests/related-tags-request.mapper'
 import { relatedTagsResponseMapper } from '../mappers/responses/related-tags-response.mapper'
-import { getBeaconServiceUrl } from './utils'
+import { getBeaconServiceUrl, getDefaultHeaders } from './utils'
 
 /**
  * This endpoint does not support pagination in the request.
@@ -19,6 +19,9 @@ export const relatedTagsEndpointAdapter = endpointAdapterFactory<
   responseMapper: relatedTagsResponseMapper,
   defaultRequestOptions: {
     id: 'related-tags',
+    properties: {
+      headers: getDefaultHeaders(),
+    },
     parameters: {
       internal: true,
     },

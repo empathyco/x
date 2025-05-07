@@ -2,7 +2,7 @@ import type { NextQueriesRequest, NextQueriesResponse } from '@empathyco/x-types
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { nextQueriesRequestMapper } from '../mappers/requests/next-queries-request.mapper'
 import { nextQueriesResponseMapper } from '../mappers/responses/next-queries-response.mapper'
-import { getBeaconServiceUrl } from './utils'
+import { getBeaconServiceUrl, getDefaultHeaders } from './utils'
 
 /**
  * This endpoint does not support pagination in the request.
@@ -19,6 +19,9 @@ export const nextQueriesEndpointAdapter = endpointAdapterFactory<
   responseMapper: nextQueriesResponseMapper,
   defaultRequestOptions: {
     id: 'next-queries',
+    properties: {
+      headers: getDefaultHeaders(),
+    },
     parameters: {
       internal: true,
     },

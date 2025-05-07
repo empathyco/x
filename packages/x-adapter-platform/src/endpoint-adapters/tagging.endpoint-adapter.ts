@@ -1,6 +1,7 @@
 import type { TaggingRequest } from '@empathyco/x-types'
 import { endpointAdapterFactory } from '@empathyco/x-adapter'
 import { taggingRequestMapper } from '../mappers/requests/tagging-request.mapper'
+import { getDefaultHeaders } from './utils'
 
 /**
  * Default adapter for the tagging endpoint.
@@ -13,6 +14,9 @@ export const taggingEndpointAdapter = endpointAdapterFactory<TaggingRequest, voi
   defaultRequestOptions: {
     id: 'tagging',
     cancelable: false,
-    properties: { keepalive: true },
+    properties: {
+      keepalive: true,
+      headers: getDefaultHeaders(),
+    },
   },
 })
