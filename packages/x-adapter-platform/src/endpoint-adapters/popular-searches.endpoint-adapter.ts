@@ -1,8 +1,9 @@
 import type { PopularSearchesRequest, PopularSearchesResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { popularSearchesRequestMapper } from '../mappers/requests/popular-searches-request.mapper'
+
 import { popularSearchesResponseMapper } from '../mappers/responses/popular-searches-response.mapper'
-import { getDefaultHeaders, getSearchServiceUrl } from './utils'
+import { getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the popular searches endpoint.
@@ -19,9 +20,6 @@ export const popularSearchesEndpointAdapter = endpointAdapterFactory<
   responseMapper: popularSearchesResponseMapper,
   defaultRequestOptions: {
     id: 'popular-searches',
-    properties: {
-      headers: getDefaultHeaders(),
-    },
     parameters: {
       internal: true,
     },
