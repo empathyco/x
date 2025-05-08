@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.77...@empathyco/x-components@6.0.0-alpha.78) (2025-05-08)
+
+
+### Features
+
+* **base-teleport:** support shadowRoot ([04c5299](https://github.com/empathyco/x/commit/04c5299756fba1aa332ce083ac27c1e3b7e8c523))
+* **home:** add teleport test section with BaseTeleport component ([a1d34d7](https://github.com/empathyco/x/commit/a1d34d736d7f04144b2b6bb7e69acc41cc330d13))
+
+
+
 ## [6.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.76...@empathyco/x-components@6.0.0-alpha.77) (2025-05-06)
 
 
