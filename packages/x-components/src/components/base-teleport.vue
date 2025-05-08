@@ -57,7 +57,8 @@ export default defineComponent({
       targetRemovedObserver.disconnect()
     })
 
-    const isIsolated = !!getCurrentInstance()?.appContext.app._container?.shadowRoot
+    const isIsolated =
+      getCurrentInstance()?.appContext.app._container?.parentNode instanceof ShadowRoot
     if (isIsolated) {
       teleportHost.attachShadow({ mode: 'open' })
       ;(window as any).xCSSInjector.addHost(teleportHost.shadowRoot)
