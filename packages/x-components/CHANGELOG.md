@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.78...@empathyco/x-components@6.0.0-alpha.79) (2025-05-08)
+
+
+### Bug Fixes
+
+* disable default tagging on related-prompts no-result scenario (#1776) ([61480a6](https://github.com/empathyco/x/commit/61480a6069aa73124d2a16e394b549ee78214d89))
+
+
+
 ## [6.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.77...@empathyco/x-components@6.0.0-alpha.78) (2025-05-08)
 
 
