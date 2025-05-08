@@ -1,3 +1,4 @@
+import type { EndpointAdapterOptions } from '@empathyco/x-adapter'
 import type { PlatformAdapter } from './types/platform-adapter.types'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
@@ -11,21 +12,31 @@ import { searchEndpointAdapter } from './endpoint-adapters/search.endpoint-adapt
 import { semanticQueriesEndpointAdapter } from './endpoint-adapters/semantic-queries.endpoint-adapter'
 import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-adapter'
 
+const endpointAdapterOptions: EndpointAdapterOptions<Request, Response> = {
+  defaultRequestOptions: {
+    properties: {
+      headers: {
+        'x-empathy-origin': location?.origin,
+      },
+    },
+  },
+}
+
 /**
  * Default implementation for the PlatformAdapter.
  *
  * @public
  */
 export const platformAdapter: PlatformAdapter = {
-  search: searchEndpointAdapter,
-  popularSearches: popularSearchesEndpointAdapter,
-  recommendations: recommendationsEndpointAdapter,
-  nextQueries: nextQueriesEndpointAdapter,
-  querySuggestions: querySuggestionsEndpointAdapter,
-  relatedPrompts: relatedPromptsEndpointAdapter,
-  relatedTags: relatedTagsEndpointAdapter,
-  identifierResults: identifierResultsEndpointAdapter,
-  tagging: taggingEndpointAdapter,
-  semanticQueries: semanticQueriesEndpointAdapter,
-  experienceControls: experienceControlsEndpointAdapter,
+  search: searchEndpointAdapter.extends(endpointAdapterOptions),
+  popularSearches: popularSearchesEndpointAdapter.extends(endpointAdapterOptions),
+  recommendations: recommendationsEndpointAdapter.extends(endpointAdapterOptions),
+  nextQueries: nextQueriesEndpointAdapter.extends(endpointAdapterOptions),
+  querySuggestions: querySuggestionsEndpointAdapter.extends(endpointAdapterOptions),
+  relatedPrompts: relatedPromptsEndpointAdapter.extends(endpointAdapterOptions),
+  relatedTags: relatedTagsEndpointAdapter.extends(endpointAdapterOptions),
+  identifierResults: identifierResultsEndpointAdapter.extends(endpointAdapterOptions),
+  tagging: taggingEndpointAdapter.extends(endpointAdapterOptions),
+  semanticQueries: semanticQueriesEndpointAdapter.extends(endpointAdapterOptions),
+  experienceControls: experienceControlsEndpointAdapter.extends(endpointAdapterOptions),
 }
