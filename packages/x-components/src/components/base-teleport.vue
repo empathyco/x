@@ -6,7 +6,14 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { defineComponent, getCurrentInstance, onUnmounted, watchEffect } from 'vue'
+import {
+  defineComponent,
+  getCurrentInstance,
+  onBeforeUnmount,
+  onUnmounted,
+  ref,
+  watchEffect,
+} from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -38,6 +45,43 @@ export default defineComponent({
   },
   setup(props) {
     const teleportHost = document.createElement('div')
+    const targetElement = ref(
+      typeof props.target === 'string' ? document.querySelector(props.target) : props.target,
+    )
+
+    let targetAddedObserver: MutationObserver
+
+    const targetRemovedObserver = new MutationObserver(() => {
+      if (!document.querySelector(props.target as string)) {
+        targetRemovedObserver.disconnect()
+        targetAddedObserver.observe(document.body, { childList: true, subtree: true })
+        targetElement.value = null
+      }
+    })
+
+    targetAddedObserver = new MutationObserver(() => {
+      const target = document.querySelector(props.target as string)
+      if (target) {
+        targetAddedObserver.disconnect()
+        targetRemovedObserver.observe(target.parentElement!, { childList: true })
+        targetElement.value = target
+      }
+    })
+
+    if (targetElement.value) {
+      targetRemovedObserver.observe(targetElement.value.parentElement!, {
+        childList: true,
+      })
+    } else {
+      targetAddedObserver.observe(document.body, { childList: true, subtree: true })
+    }
+
+    onBeforeUnmount(() => {
+      teleportHost.remove()
+      targetAddedObserver.disconnect()
+      targetRemovedObserver.disconnect()
+    })
+
     const isIsolated = !!getCurrentInstance()?.appContext.app._container?.shadowRoot
     if (isIsolated) {
       teleportHost.attachShadow({ mode: 'open' })
@@ -53,14 +97,13 @@ export default defineComponent({
         return
       }
       teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
-      const targetElement =
-        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
-      if (!targetElement) {
+
+      if (!targetElement.value) {
         console.warn(`BaseTeleport: Target element "${props.target}" not found.`)
         return
       }
       const position = props.position === 'onlychild' ? 'beforeend' : props.position
-      targetElement.insertAdjacentElement(position, teleportHost)
+      targetElement.value.insertAdjacentElement(position, teleportHost)
     })
 
     return { teleportHost }
