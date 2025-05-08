@@ -33,7 +33,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       state.queryTaggingInfo = queryTaggingInfo
     },
     setNoResultsTaggingEnabled(state, module) {
-      if (module === 'semanticQueries') {
+      if (module === 'semanticQueries' || module === 'relatedPrompts') {
         state.noResultsTaggingEnabled = true
       }
     },
