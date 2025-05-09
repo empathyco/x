@@ -13,11 +13,6 @@ export interface QuerySuggestionsXEvents {
    */
   QuerySuggestionsChanged: Suggestion[]
   /**
-   * The query suggestions have been displayed.
-   * Payload: The displayed {@link @empathyco/x-types#Suggestion | query suggestions}.
-   */
-  QuerySuggestionsDisplayed: Suggestion[]
-  /**
    * Any property of the query-suggestions request has changed.
    * Payload: The new query suggestions request or `null` if there is not enough data in the state
    * to conform a valid request.
