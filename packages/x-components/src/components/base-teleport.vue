@@ -1,12 +1,12 @@
 <template>
-  <Teleport :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
+  <Teleport v-if="teleportHost" :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
     <slot></slot>
   </Teleport>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { defineComponent, getCurrentInstance, onUnmounted, watchEffect } from 'vue'
+import { defineComponent, getCurrentInstance, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -37,22 +37,31 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const teleportHost = document.createElement('div')
-    const isIsolated = !!getCurrentInstance()?.appContext.app._container?.shadowRoot
-    if (isIsolated) {
-      teleportHost.attachShadow({ mode: 'open' })
-      ;(window as any).xCSSInjector.addHost(teleportHost.shadowRoot)
-      onUnmounted(() => {
-        ;(window as any).xCSSInjector.removeHost(teleportHost.shadowRoot)
-      })
+    const teleportHost = ref<HTMLElement>()
+    const instance = getCurrentInstance()
+    let isIsolated = false
+
+    if (instance?.appContext.app._container?.parentNode) {
+      createHost()
+    } else {
+      afterAppMount(createHost)
     }
 
+    onUnmounted(() => {
+      if (isIsolated && teleportHost.value) {
+        ;(window as any).xCSSInjector.removeHost(teleportHost.value.shadowRoot)
+      }
+    })
+
     watchEffect(() => {
-      if (props.disabled) {
-        teleportHost.remove()
+      if (!teleportHost.value) {
         return
       }
-      teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
+      if (props.disabled) {
+        teleportHost.value.remove()
+        return
+      }
+      teleportHost.value.className = `x-base-teleport x-base-teleport--${props.position}`
       const targetElement =
         typeof props.target === 'string' ? document.querySelector(props.target) : props.target
       if (!targetElement) {
@@ -60,8 +69,22 @@ export default defineComponent({
         return
       }
       const position = props.position === 'onlychild' ? 'beforeend' : props.position
-      targetElement.insertAdjacentElement(position, teleportHost)
+      targetElement.insertAdjacentElement(position, teleportHost.value)
     })
+
+    /** Creates and sets the teleport host element */
+    function createHost() {
+      teleportHost.value = document.createElement('div')
+      isIsolated = instance?.appContext.app._container?.parentNode instanceof ShadowRoot
+      if (isIsolated) {
+        teleportHost.value.attachShadow({ mode: 'open' })
+        ;(window as any).xCSSInjector.addHost(teleportHost.value.shadowRoot)
+      }
+    }
+
+    function afterAppMount(fn: () => void) {
+      onMounted(() => setTimeout(fn, 0))
+    }
 
     return { teleportHost }
   },
