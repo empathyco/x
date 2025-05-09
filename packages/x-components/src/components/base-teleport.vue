@@ -52,7 +52,7 @@ export default defineComponent({
     let targetAddedObserver: MutationObserver
 
     const targetRemovedObserver = new MutationObserver(() => {
-      if (!document.querySelector(props.target as string)) {
+      if (!targetElement.value?.isConnected) {
         targetRemovedObserver.disconnect()
         targetAddedObserver.observe(document.body, { childList: true, subtree: true })
         targetElement.value = null
@@ -60,8 +60,9 @@ export default defineComponent({
     })
 
     targetAddedObserver = new MutationObserver(() => {
-      const target = document.querySelector(props.target as string)
-      if (target) {
+      const target =
+        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
+      if (target?.isConnected) {
         targetAddedObserver.disconnect()
         targetRemovedObserver.observe(target.parentElement!, { childList: true })
         targetElement.value = target
