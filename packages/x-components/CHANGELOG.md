@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.79...@empathyco/x-components@6.0.0-alpha.80) (2025-05-12)
+
+
+### Features
+
+* **base-teleport:** make target prop reactive ([603aaaf](https://github.com/empathyco/x/commit/603aaafe2e3b462f4ecfe3e7ee9ef886ac0d42f4))
+* **base-teleport:** use isConnected ([0a7cef4](https://github.com/empathyco/x/commit/0a7cef4b428c93f6d231d141eae86a022db366d8))
+* implement target presence observable in BaseTeleport ([fa82b66](https://github.com/empathyco/x/commit/fa82b6645434d0e1cedc9f611d8f1856bc3cd1bc))
+
+
+### Bug Fixes
+
+* **base-teleport:** fix isolation check ([55b3e07](https://github.com/empathyco/x/commit/55b3e073bd642fbbe161f5235350fc4bf42defae))
+
+
+
 ## [6.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.78...@empathyco/x-components@6.0.0-alpha.79) (2025-05-08)
 
 
