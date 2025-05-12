@@ -142,10 +142,15 @@ export default defineComponent({
     return { teleportHost }
   },
 })
-</script>
 
-<style lang="css">
-:has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
-  display: none;
-}
-</style>
+/** Teleport host styles should be injected outside our shadowRoots */
+document.addEventListener('DOMContentLoaded', () => {
+  const styleTag = document.createElement('style')
+  styleTag.textContent = `
+    :has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
+      display: none;
+    }
+  `
+  document.head.appendChild(styleTag)
+})
+</script>
