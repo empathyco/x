@@ -47,10 +47,13 @@ export default defineComponent({
   },
   setup(props) {
     const instance = getCurrentInstance()
+    /** Hook where the slot content will be teleported to. */
     const teleportHost = ref<Element>()
+    /** The page element where the teleport host will be inserted. */
     const targetElement = ref<Element>()
     let isIsolated = false
 
+    // Before doing app.mount it is unknown if it will be mounted in a shadow so we need to wait.
     if (instance?.appContext.app._container?.parentNode) {
       createHost()
     } else {
@@ -72,6 +75,7 @@ export default defineComponent({
       teleportHost.value?.remove()
     })
 
+    // Handles target prop changes and init the observers accordingly.
     watch(
       () => props.target,
       newTarget => {
@@ -87,6 +91,7 @@ export default defineComponent({
       { immediate: true },
     )
 
+    // Updates the teleport host when props change.
     watchEffect(() => {
       if (!teleportHost.value) {
         return
@@ -116,7 +121,7 @@ export default defineComponent({
       }
     }
 
-    /** Checks if the target was disconected from the DOM and updates the observers */
+    /** Checks if the target was disconnected from the DOM and updates the observers */
     function targetRemoved() {
       if (!targetElement.value?.isConnected) {
         targetRemovedObserver.disconnect()
