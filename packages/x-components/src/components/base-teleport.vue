@@ -12,6 +12,7 @@ import {
   onBeforeUnmount,
   onUnmounted,
   ref,
+  watch,
   watchEffect,
 } from 'vue'
 
@@ -45,37 +46,10 @@ export default defineComponent({
   },
   setup(props) {
     const teleportHost = document.createElement('div')
-    const targetElement = ref(
-      typeof props.target === 'string' ? document.querySelector(props.target) : props.target,
-    )
+    const targetElement = ref()
 
-    let targetAddedObserver: MutationObserver
-
-    const targetRemovedObserver = new MutationObserver(() => {
-      if (!targetElement.value?.isConnected) {
-        targetRemovedObserver.disconnect()
-        targetAddedObserver.observe(document.body, { childList: true, subtree: true })
-        targetElement.value = null
-      }
-    })
-
-    targetAddedObserver = new MutationObserver(() => {
-      const target =
-        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
-      if (target?.isConnected) {
-        targetAddedObserver.disconnect()
-        targetRemovedObserver.observe(target.parentElement!, { childList: true })
-        targetElement.value = target
-      }
-    })
-
-    if (targetElement.value) {
-      targetRemovedObserver.observe(targetElement.value.parentElement!, {
-        childList: true,
-      })
-    } else {
-      targetAddedObserver.observe(document.body, { childList: true, subtree: true })
-    }
+    const targetAddedObserver = new MutationObserver(targetAdded)
+    const targetRemovedObserver = new MutationObserver(targetRemoved)
 
     onBeforeUnmount(() => {
       teleportHost.remove()
@@ -92,6 +66,21 @@ export default defineComponent({
       })
     }
 
+    watch(
+      () => props.target,
+      newTarget => {
+        targetAddedObserver.disconnect()
+        targetRemovedObserver.disconnect()
+        const target = typeof newTarget === 'string' ? document.querySelector(newTarget) : newTarget
+        if (target?.isConnected) {
+          targetAdded()
+        } else {
+          targetRemoved()
+        }
+      },
+      { immediate: true },
+    )
+
     watchEffect(() => {
       if (props.disabled) {
         teleportHost.remove()
@@ -106,6 +95,26 @@ export default defineComponent({
       const position = props.position === 'onlychild' ? 'beforeend' : props.position
       targetElement.value.insertAdjacentElement(position, teleportHost)
     })
+
+    /** Checks if the target element exists in the DOM and updates the observers */
+    function targetAdded() {
+      const target =
+        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
+      if (target?.isConnected) {
+        targetAddedObserver.disconnect()
+        targetRemovedObserver.observe(target.parentElement!, { childList: true })
+        targetElement.value = target
+      }
+    }
+
+    /** Checks if the target was disconected from the DOM and updates the observers */
+    function targetRemoved() {
+      if (!targetElement.value?.isConnected) {
+        targetRemovedObserver.disconnect()
+        targetAddedObserver.observe(document.body, { childList: true, subtree: true })
+        targetElement.value = undefined
+      }
+    }
 
     return { teleportHost }
   },
