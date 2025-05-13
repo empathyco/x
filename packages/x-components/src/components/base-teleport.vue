@@ -54,7 +54,7 @@ export default defineComponent({
     let isIsolated = false
 
     // Before doing app.mount it is unknown if it will be mounted in a shadow so we need to wait.
-    if (instance?.appContext.app._container?.parentNode) {
+    if (instance?.appContext.app._container) {
       createHost()
     } else {
       afterAppMount(createHost)
@@ -133,7 +133,7 @@ export default defineComponent({
     /** Creates and sets the teleport host element */
     function createHost() {
       teleportHost.value = document.createElement('div')
-      isIsolated = instance?.appContext.app._container?.parentNode instanceof ShadowRoot
+      isIsolated = instance?.appContext.app._container instanceof ShadowRoot
       if (isIsolated) {
         teleportHost.value.attachShadow({ mode: 'open' })
         ;(window as any).xCSSInjector.addHost(teleportHost.value.shadowRoot)
