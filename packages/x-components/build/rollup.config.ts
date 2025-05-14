@@ -84,8 +84,8 @@ export const rollupConfig: RollupOptions = {
       mode: [
         'inject',
         varname => {
-          const pathInjector = path.resolve('./tools/inject-css.js')
-          return `import injectCss from '${pathInjector}';injectCss(${varname});`
+          const pathInjector = path.resolve('../src/utils/css-injector/css-injector.ts')
+          return `import { cssInjector } from '${pathInjector}';cssInjector.addStyle({ source: ${varname} });`
         },
       ],
     }),
