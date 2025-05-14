@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { flushPromises, mount } from '@vue/test-utils'
 import BaseTeleport from '../base-teleport.vue'
 
 /**
@@ -33,8 +33,10 @@ describe('testing BaseTeleport component', () => {
     document.body.appendChild(targetElement)
   })
 
-  it('renders content in the target element', () => {
+  it('renders content in the target element', async () => {
     renderBaseTeleport({ target: '#teleport-target' })
+
+    await flushPromises()
 
     expect(targetElement.querySelector('.x-base-teleport')).not.toBeNull()
     expect(targetElement.textContent).toContain('Teleport Content')

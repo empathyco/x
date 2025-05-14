@@ -1,5 +1,5 @@
 <template>
-  <Teleport :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
+  <Teleport v-if="teleportHost" :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
     <slot></slot>
   </Teleport>
 </template>
@@ -10,6 +10,7 @@ import {
   defineComponent,
   getCurrentInstance,
   onBeforeUnmount,
+  onMounted,
   onUnmounted,
   ref,
   watch,
@@ -45,28 +46,36 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const teleportHost = document.createElement('div')
-    const targetElement = ref()
+    const instance = getCurrentInstance()
+    /** Hook where the slot content will be teleported to. */
+    const teleportHost = ref<Element>()
+    /** The page element where the teleport host will be inserted. */
+    const targetElement = ref<Element>()
+    let isIsolated = false
+
+    // Before doing app.mount it is unknown if it will be mounted in a shadow so we need to wait.
+    if (instance?.appContext.app._container) {
+      createHost()
+    } else {
+      afterAppMount(createHost)
+    }
 
     const targetAddedObserver = new MutationObserver(targetAdded)
     const targetRemovedObserver = new MutationObserver(targetRemoved)
 
-    onBeforeUnmount(() => {
-      teleportHost.remove()
-      targetAddedObserver.disconnect()
-      targetRemovedObserver.disconnect()
+    onUnmounted(() => {
+      if (isIsolated && teleportHost.value) {
+        ;(window as any).xCSSInjector.removeHost(teleportHost.value.shadowRoot)
+      }
     })
 
-    const isIsolated =
-      getCurrentInstance()?.appContext.app._container?.parentNode instanceof ShadowRoot
-    if (isIsolated) {
-      teleportHost.attachShadow({ mode: 'open' })
-      ;(window as any).xCSSInjector.addHost(teleportHost.shadowRoot)
-      onUnmounted(() => {
-        ;(window as any).xCSSInjector.removeHost(teleportHost.shadowRoot)
-      })
-    }
+    onBeforeUnmount(() => {
+      targetAddedObserver.disconnect()
+      targetRemovedObserver.disconnect()
+      teleportHost.value?.remove()
+    })
 
+    // Handles target prop changes and init the observers accordingly.
     watch(
       () => props.target,
       newTarget => {
@@ -82,19 +91,23 @@ export default defineComponent({
       { immediate: true },
     )
 
+    // Updates the teleport host when props change.
     watchEffect(() => {
-      if (props.disabled) {
-        teleportHost.remove()
+      if (!teleportHost.value) {
         return
       }
-      teleportHost.className = `x-base-teleport x-base-teleport--${props.position}`
+      if (props.disabled) {
+        teleportHost.value.remove()
+        return
+      }
+      teleportHost.value.className = `x-base-teleport x-base-teleport--${props.position}`
 
       if (!targetElement.value) {
         console.warn(`BaseTeleport: Target element "${props.target}" not found.`)
         return
       }
       const position = props.position === 'onlychild' ? 'beforeend' : props.position
-      targetElement.value.insertAdjacentElement(position, teleportHost)
+      targetElement.value.insertAdjacentElement(position, teleportHost.value)
     })
 
     /** Checks if the target element exists in the DOM and updates the observers */
@@ -108,7 +121,7 @@ export default defineComponent({
       }
     }
 
-    /** Checks if the target was disconected from the DOM and updates the observers */
+    /** Checks if the target was disconnected from the DOM and updates the observers */
     function targetRemoved() {
       if (!targetElement.value?.isConnected) {
         targetRemovedObserver.disconnect()
@@ -117,13 +130,32 @@ export default defineComponent({
       }
     }
 
+    /** Creates and sets the teleport host element */
+    function createHost() {
+      teleportHost.value = document.createElement('div')
+      isIsolated = instance?.appContext.app._container instanceof ShadowRoot
+      if (isIsolated) {
+        teleportHost.value.attachShadow({ mode: 'open' })
+        ;(window as any).xCSSInjector.addHost(teleportHost.value.shadowRoot)
+      }
+    }
+
+    function afterAppMount(fn: () => void) {
+      onMounted(() => setTimeout(fn, 0))
+    }
+
     return { teleportHost }
   },
 })
-</script>
 
-<style lang="css">
-:has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
-  display: none;
-}
-</style>
+/** Teleport host styles should be injected outside our shadowRoots */
+document.addEventListener('DOMContentLoaded', () => {
+  const styleTag = document.createElement('style')
+  styleTag.textContent = `
+    :has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) {
+      display: none;
+    }
+  `
+  document.head.appendChild(styleTag)
+})
+</script>
