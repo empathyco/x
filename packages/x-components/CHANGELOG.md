@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.82...@empathyco/x-components@6.0.0-alpha.83) (2025-05-14)
+
+
+### Bug Fixes
+
+* **base-teleport:** add style tag after DOMContentLoaded was fired ([1086d37](https://github.com/empathyco/x/commit/1086d37358c50ebf0396193607d1c3075ffdbdfa))
+
+
+
 ## [6.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.81...@empathyco/x-components@6.0.0-alpha.82) (2025-05-14)
 
 **Note:** Version bump only for package @empathyco/x-components
