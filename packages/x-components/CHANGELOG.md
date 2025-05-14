@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.80...@empathyco/x-components@6.0.0-alpha.81) (2025-05-14)
+
+
+### Bug Fixes
+
+* **base-teleport:** fix container element ([e54e755](https://github.com/empathyco/x/commit/e54e755bab06ab0172148a74563e0a3f283bad2d))
+* **base-teleport:** fix shadowRoot support ([d712296](https://github.com/empathyco/x/commit/d712296bb46e58592a3d433f1b3022d0762e740a))
+* **base-teleport:** move teleport host styles to a script tag ([feaaa3d](https://github.com/empathyco/x/commit/feaaa3d43ad5ede1c4e2cf7065fa4c113e5df3ae))
+* remove unused event (#1744) ([e7584e0](https://github.com/empathyco/x/commit/e7584e01d387816021984faf986af27ade2d15b1))
+
+
+### Documentation
+
+* **base-teleport:** add comments for better understanding. ([05efd6d](https://github.com/empathyco/x/commit/05efd6d882021d63f59124d3893bbdc2d771a15e))
+
+
+
 ## [6.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.79...@empathyco/x-components@6.0.0-alpha.80) (2025-05-12)
 
 
