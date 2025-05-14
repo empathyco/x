@@ -68,6 +68,6 @@ export function getConfigServiceUrl(from: ExtraParamsRequest): string {
  */
 export function getDefaultHeaders(): Record<string, string> {
   return {
-    'x-empathy-origin': location?.origin,
+    'x-origin': location?.origin,
   }
 }

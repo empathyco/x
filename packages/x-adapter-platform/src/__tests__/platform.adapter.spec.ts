@@ -115,7 +115,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://search.internal.test.empathy.co/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
     expect(response.totalResults).toBe(0)
     expect(response.facets).toStrictEqual([
@@ -181,7 +186,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -227,7 +237,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -274,7 +289,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -322,7 +342,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/nextqueries/empathy?internal=true&query=makeup&scope=mobile&instance=empathy&device=mobile&env=staging&lang=en',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
     expect(response).toStrictEqual({
       nextQueries: [
@@ -371,7 +396,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/relatedtags/empathy?internal=true&query=jeans&device=mobile&env=staging&lang=en&scope=mobile&instance=empathy',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
     expect(response).toStrictEqual({
       relatedTags: [
@@ -406,7 +436,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?internal=true&query=jeans&origin=search_box%3Anone&start=0&rows=24&instance=empathy&env=staging&lang=en&device=mobile&scope=mobile',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -521,7 +556,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://search.internal.test.empathy.co/query/empathy/topclicked?internal=true&start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -572,7 +612,12 @@ describe('platformAdapter tests', () => {
     })
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
-      { keepalive: true },
+      {
+        keepalive: true,
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
   })
 
@@ -606,7 +651,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&instance=empathy&env=staging',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
 
     expect(response).toStrictEqual({
@@ -645,7 +695,12 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.staging.empathy.co/config/v1/public/configs?service=xcontrols&instance=empathy&env=staging',
-      { signal: expect.anything() },
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
     )
     expect(response).toStrictEqual({
       controls: {
