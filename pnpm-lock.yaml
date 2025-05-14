@@ -322,6 +322,9 @@ importers:
       '@bahmutov/cypress-esbuild-preprocessor':
         specifier: 2.2.0
         version: 2.2.0(esbuild@0.20.0)
+      '@cucumber/messages':
+        specifier: ^27.2.0
+        version: 27.2.0
       '@empathyco/x-tailwindcss':
         specifier: 2.0.0-alpha.8
         version: link:../x-tailwindcss
