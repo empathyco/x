@@ -96,7 +96,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "20.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
-    "@empathyco/x-tailwindcss": "^2.0.0-alpha.8",
+    "@empathyco/x-tailwindcss": "2.0.0-alpha.8",
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.39.0",
     "@testing-library/jest-dom": "5.17.0",
