@@ -7,7 +7,7 @@
         "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
       ]
     },
-    "types": ["node"],
+    "types": ["node", "cypress"],
     "downlevelIteration": true
   },
   "include": ["./**/*.ts"],
