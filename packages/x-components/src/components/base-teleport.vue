@@ -112,18 +112,21 @@ export default defineComponent({
 
     /** Checks if the target element exists in the DOM and updates the observers */
     function targetAdded() {
-      const target =
+      let element =
         typeof props.target === 'string' ? document.querySelector(props.target) : props.target
-      if (target?.isConnected) {
+      if (element?.isConnected) {
         targetAddedObserver.disconnect()
-        targetRemovedObserver.observe(target.parentElement!, { childList: true })
-        targetElement.value = target
+        targetElement.value = element
+        while (element.parentElement) {
+          element = element.parentElement
+          targetRemovedObserver.observe(element, { childList: true })
+        }
       }
     }
 
     /** Checks if the target was disconnected from the DOM and updates the observers */
     function targetRemoved() {
-      if (!targetElement.value?.isConnected) {
+      if (targetElement.value && !targetElement.value.isConnected) {
         targetRemovedObserver.disconnect()
         targetAddedObserver.observe(document.body, { childList: true, subtree: true })
         targetElement.value = undefined
