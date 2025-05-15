@@ -59,3 +59,15 @@ export function getConfigServiceUrl(from: ExtraParamsRequest): string {
     ? 'https://config-service.internal.test.empathy.co'
     : 'https://api.{extraParams.env(.)}empathy.co/config/v1'
 }
+
+/**
+ * Returns the default headers for the endpoint adapters.
+ *
+ * @returns The default headers object.
+ * @public
+ */
+export function getDefaultHeaders(): Record<string, string> {
+  return {
+    'x-empathy-origin': location?.origin,
+  }
+}
