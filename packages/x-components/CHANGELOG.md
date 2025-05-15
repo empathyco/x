@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.84) (2025-05-15)
+
+
+### Bug Fixes
+
+* **base-teleport:** improve target element observation logic ([4304720](https://github.com/empathyco/x/commit/4304720aaf81202f32555a87d04c078cbfb8f122))
+
+
+
 ## [6.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.82...@empathyco/x-components@6.0.0-alpha.83) (2025-05-14)
 
 
