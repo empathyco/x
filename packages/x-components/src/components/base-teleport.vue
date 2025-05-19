@@ -46,6 +46,10 @@ export default defineComponent({
     },
   },
   setup(props) {
+    if (typeof document === 'undefined') {
+      return { teleportHost: ref<Element>() }
+    }
+
     const instance = getCurrentInstance()
     /** Hook where the slot content will be teleported to. */
     const teleportHost = ref<Element>()
@@ -152,8 +156,11 @@ export default defineComponent({
 })
 
 /** Teleport host styles should be injected outside our shadowRoots */
-const css = document.createElement('style')
-css.textContent = ':has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) { display: none; }'
-document.head?.appendChild(css) ||
-  document.addEventListener('DOMContentLoaded', () => document.head.appendChild(css))
+if (typeof document !== 'undefined') {
+  const css = document.createElement('style')
+  css.textContent =
+    ':has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) { display: none; }'
+  document.head?.appendChild(css) ||
+    document.addEventListener('DOMContentLoaded', () => document.head.appendChild(css))
+}
 </script>
