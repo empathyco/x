@@ -2,7 +2,7 @@ import type { RelatedPromptsRequest, RelatedPromptsResponse } from '@empathyco/x
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { relatedPromptsRequestMapper } from '../mappers/index'
 import { relatedPromptsResponseMapper } from '../mappers/responses/related-prompts-response.mapper'
-import { getBeaconServiceUrl } from './utils'
+import { getBeaconServiceUrl, getDefaultHeaders } from './utils'
 
 /**
  * Default adapter for the related prompt endpoint.
@@ -20,6 +20,9 @@ export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
   responseMapper: relatedPromptsResponseMapper,
   defaultRequestOptions: {
     id: 'related-prompts',
+    properties: {
+      headers: getDefaultHeaders(),
+    },
     parameters: {
       internal: true,
     },

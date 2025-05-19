@@ -2,7 +2,7 @@ import type { SearchRequest, SearchResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { searchRequestMapper } from '../mappers/requests/search-request.mapper'
 import { searchResponseMapper } from '../mappers/responses/search-response.mapper'
-import { getSearchServiceUrl } from './utils'
+import { getDefaultHeaders, getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the search endpoint.
@@ -16,6 +16,9 @@ export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, Searc
   responseMapper: searchResponseMapper,
   defaultRequestOptions: {
     id: 'search',
+    properties: {
+      headers: getDefaultHeaders(),
+    },
     parameters: {
       internal: true,
     },
