@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.15...@empathyco/x-adapter-platform@1.1.0-alpha.16) (2025-05-19)
+
+
+### Features
+
+* **x-adapter-platform:** add default headers to endpoint adapters ([d112a64](https://github.com/empathyco/x/commit/d112a64f77563c7ed305210baa19820cc1a851ea))
+
+
+### Testing
+
+* add 'x-empathy-origin' header validation to fetchMock expectations ([ecccdb5](https://github.com/empathyco/x/commit/ecccdb5e6e5828498af7fd5cd96d39c2b4606168))
+
+
+
 ## [1.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.14...@empathyco/x-adapter-platform@1.1.0-alpha.15) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

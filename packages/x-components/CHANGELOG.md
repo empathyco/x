@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.84...@empathyco/x-components@6.0.0-alpha.85) (2025-05-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [6.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.84) (2025-05-15)
 
 
