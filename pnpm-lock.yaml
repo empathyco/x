@@ -274,7 +274,7 @@ importers:
         specifier: ^8.1.0-alpha.3
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.1.0-alpha.17
+        specifier: ^1.1.0-alpha.18
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
         specifier: ^1.0.3-alpha.3

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.17...@empathyco/x-adapter-platform@1.1.0-alpha.18) (2025-05-20)
+
+
+### Features
+
+* **utils:** ensure `getDefaultHeaders` is SSR-friendly and add tests for browser/non-browser behavior ([1768159](https://github.com/empathyco/x/commit/17681593538b879b9e17b49146e1b949d80c845d))
+
+
+
 ## [1.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.16...@empathyco/x-adapter-platform@1.1.0-alpha.17) (2025-05-20)
 
 
