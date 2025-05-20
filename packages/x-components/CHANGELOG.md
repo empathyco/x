@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.88](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.87...@empathyco/x-components@6.0.0-alpha.88) (2025-05-20)
+
+
+### Testing
+
+* **base-teleport:** improve tests ([fbcb3bc](https://github.com/empathyco/x/commit/fbcb3bc05f02589123b383f066ab833ce78d5db9))
+
+
+
 ## [6.0.0-alpha.87](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.86...@empathyco/x-components@6.0.0-alpha.87) (2025-05-20)
 
 **Note:** Version bump only for package @empathyco/x-components
