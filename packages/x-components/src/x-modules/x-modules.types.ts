@@ -1,6 +1,7 @@
 import type { AnyXStoreModule, XStoreModule } from '../store/store.types'
 import type { StoreEmitters } from '../store/utils/store-emitters.utils'
 import type { Wiring } from '../wiring/wiring.types'
+import type { BrowseXModule } from './browse/x-module'
 import type { DeviceXModule } from './device/x-module'
 import type { EmpathizeXModule } from './empathize/x-module'
 import type { ExperienceControlsXModule } from './experience-controls/x-module'
@@ -28,6 +29,7 @@ import type { UrlXModule } from './url'
  * @public
  */
 export interface XModulesTree {
+  browse: BrowseXModule
   device: DeviceXModule
   empathize: EmpathizeXModule
   extraParams: ExtraParamsXModule

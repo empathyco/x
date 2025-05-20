@@ -1,4 +1,5 @@
 import type { PlatformAdapter } from './types/platform-adapter.types'
+import { browseEndpointAdapter } from './endpoint-adapters/browse.endpoint-adapter'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
 import { nextQueriesEndpointAdapter } from './endpoint-adapters/next-queries.endpoint-adapter'
@@ -17,6 +18,7 @@ import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-ada
  * @public
  */
 export const platformAdapter: PlatformAdapter = {
+  browse: browseEndpointAdapter,
   search: searchEndpointAdapter,
   popularSearches: popularSearchesEndpointAdapter,
   recommendations: recommendationsEndpointAdapter,

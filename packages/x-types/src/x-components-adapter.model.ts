@@ -1,5 +1,6 @@
 import type { EndpointAdapter } from '@empathyco/x-adapter'
 import type {
+  BrowseRequest,
   ExperienceControlsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
@@ -13,6 +14,7 @@ import type {
   TaggingRequest,
 } from './request'
 import type {
+  BrowseResponse,
   ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
@@ -30,6 +32,7 @@ import type {
  * @public
  */
 export interface XComponentsAdapter {
+  browse: EndpointAdapter<BrowseRequest, BrowseResponse>
   search: EndpointAdapter<SearchRequest, SearchResponse>
   popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>
   nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>

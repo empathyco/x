@@ -1,5 +1,7 @@
 import type { ExtendableEndpointAdapter } from '@empathyco/x-adapter'
 import type {
+  BrowseRequest,
+  BrowseResponse,
   ExperienceControlsRequest,
   ExperienceControlsResponse,
   IdentifierResultsRequest,
@@ -30,6 +32,7 @@ import type {
  * @public
  */
 export interface PlatformAdapter extends XComponentsAdapter {
+  browse: ExtendableEndpointAdapter<BrowseRequest, BrowseResponse>
   search: ExtendableEndpointAdapter<SearchRequest, SearchResponse>
   popularSearches: ExtendableEndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>
   nextQueries: ExtendableEndpointAdapter<NextQueriesRequest, NextQueriesResponse>
