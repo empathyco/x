@@ -62,12 +62,21 @@ export function getConfigServiceUrl(from: ExtraParamsRequest): string {
 
 /**
  * Returns the default headers for the endpoint adapters.
+ * This function is SSR-friendly and will always include the x-origin header.
+ * In a browser environment, it uses location.origin; otherwise, it uses a fallback string.
  *
  * @returns The default headers object.
  * @public
  */
 export function getDefaultHeaders(): Record<string, string> {
-  return {
-    'x-origin': location?.origin,
+  const headers: Record<string, string> = {}
+
+  // Add x-origin header with location.origin if in browser, otherwise use fallback
+  if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+    headers['x-origin'] = location.origin
+  } else {
+    headers['x-origin'] = 'non-browser'
   }
+
+  return headers
 }
