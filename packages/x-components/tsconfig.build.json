@@ -17,13 +17,19 @@
     "declarationDir": "dist/types",
     "declarationMap": true,
     "importHelpers": true,
-    "noEmit": false,
+    "noEmit": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.vue"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.js"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/__stubs__",
+    "src/**/__tests__"
+  ]
 }
