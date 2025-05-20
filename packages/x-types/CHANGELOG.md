@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.12...@empathyco/x-types@10.1.0-alpha.13) (2025-05-20)
+
+
+### Features
+
+* add suggestionImageUrl as new field in the related-prompts response (#1786) ([2be35ac](https://github.com/empathyco/x/commit/2be35acc10ef17ae6a21fa2815506ba077a75a6b))
+
+
+
 ## [10.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.11...@empathyco/x-types@10.1.0-alpha.12) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-types
