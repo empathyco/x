@@ -8,6 +8,7 @@ import type { Dictionary } from '@empathyco/x-utils'
 export interface PlatformRelatedPrompt {
   nextQueries: string[]
   suggestionText: string
+  suggestionImageUrl: string
   type: 'SYNTHETIC' | 'CURATED'
   tagging: PlatformRelatedPromptTagging
 }

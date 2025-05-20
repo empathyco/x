@@ -47,6 +47,7 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
   },
   nextQueries: 'nextQueries',
   suggestionText: 'suggestionText',
+  suggestionImageUrl: 'suggestionImageUrl',
   type: 'type',
   toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
   tagging: {

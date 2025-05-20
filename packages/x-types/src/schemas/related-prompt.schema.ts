@@ -9,6 +9,7 @@ export const RelatedPromptSchema: RelatedPrompt = {
   nextQueries: expect.any(Array),
   relatedPromptNextQueries: expect.any(Array),
   suggestionText: expect.any(String),
+  suggestionImageUrl: expect.any(String),
   type: expect.any(String),
   toolingDisplayTagging: TaggingRequestSchema,
   tagging: {

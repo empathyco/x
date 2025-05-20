@@ -13,6 +13,8 @@ export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   nextQueries: string[]
   /** The prompt. */
   suggestionText: string
+  /** The prompt image */
+  suggestionImageUrl?: string
   /** The type of the prompt. */
   type: string
   /** The tooling display tagging of the prompt. */
