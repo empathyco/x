@@ -66,7 +66,7 @@ export interface BrowseGetters {
 }
 
 /**
- * An internal browse response containing the {@link BrowseRequest} performed to get a
+ * An internal browse response containing the BrowseRequest performed to get a
  * {@link @empathyco/x-types#BrowseResponse} and its {@link RequestStatus}.
  *
  * @public

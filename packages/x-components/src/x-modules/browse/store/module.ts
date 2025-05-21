@@ -92,6 +92,7 @@ export const browseXStoreModule: BrowseXStoreModule = {
  * mutation to reset to the initial state.
  *
  * @returns The "resettable" part of the Browse state.
+ * @internal
  */
 export function resettableBrowseState(): ReseteableBrowseState {
   return {
