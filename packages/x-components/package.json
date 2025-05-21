@@ -122,7 +122,7 @@
     "rimraf": "3.0.2",
     "rollup": "4.9.1",
     "rollup-plugin-copy": "3.5.0",
-    "rollup-plugin-delete": "2.0.0",
+    "rollup-plugin-delete": "3.0.1",
     "rollup-plugin-styles": "4.0.0",
     "rollup-plugin-typescript2": "0.36.0",
     "rollup-plugin-vue": "6.0.0",
