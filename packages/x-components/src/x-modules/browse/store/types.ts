@@ -18,6 +18,11 @@ import type {
 } from '../../../store/index'
 import type { UrlParams } from '../../../types/index'
 
+/**
+ * Browse store reseteable state.
+ *
+ * @public
+ */
 export interface ReseteableBrowseState {
   selectedCategory: string
   results: Result[]
@@ -31,25 +36,51 @@ export interface ReseteableBrowseState {
   displayTagging: TaggingRequest
 }
 
+/**
+ * Browse store state.
+ *
+ * @public
+ */
 export interface BrowseState extends ReseteableBrowseState, StatusState {
   shouldAppendResults: boolean
   config: BrowseConfig
   params: Dictionary<unknown>
 }
 
+/**
+ * The configuration of the browse module.
+ *
+ * @public
+ */
 export interface BrowseConfig {
   pageSize: number
 }
 
+/**
+ * Browse store getters.
+ *
+ * @public
+ */
 export interface BrowseGetters {
   browseRequest: BrowseRequest | null
 }
 
+/**
+ * An internal browse response containing the {@link BrowseRequest} performed to get a
+ * {@link @empathyco/x-types#BrowseResponse} and its {@link RequestStatus}.
+ *
+ * @public
+ */
 export interface InternalBrowseResponse extends BrowseResponse {
   request: BrowseRequest
   status: RequestStatus
 }
 
+/**
+ * Browse store mutations.
+ *
+ * @public
+ */
 export interface BrowseMutations extends StatusMutations {
   updateResult: (result: Partial<Result> & Pick<Result, 'id'>) => void
   setBrowse: (browse: Browse) => void
@@ -69,6 +100,11 @@ export interface BrowseMutations extends StatusMutations {
   resetState: (_: any) => void
 }
 
+/**
+ * Browse store actions.
+ *
+ * @public
+ */
 export interface BrowseActions {
   browse: (request: BrowseRequest | null) => BrowseResponse
   browseAndSave: (request: BrowseRequest | null) => void
@@ -77,6 +113,11 @@ export interface BrowseActions {
   setUrlParams: (urlParams: UrlParams) => void
 }
 
+/**
+ * Alias type for actions context of the {@link BrowseXStoreModule}.
+ *
+ * @public
+ */
 export type BrowseActionContext = XActionContext<
   BrowseState,
   BrowseGetters,
@@ -84,6 +125,11 @@ export type BrowseActionContext = XActionContext<
   BrowseActions
 >
 
+/**
+ * Browse type safe store module.
+ *
+ * @public
+ */
 export type BrowseXStoreModule = XStoreModule<
   BrowseState,
   BrowseGetters,

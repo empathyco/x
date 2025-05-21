@@ -6,9 +6,14 @@ import { increasePage } from './actions/increase-page.action'
 import { setUrlParams } from './actions/set-url-params'
 import { browseRequest } from './getters/browse-request.getter'
 
+/**
+ * {@link XStoreModule} For the browse module.
+ *
+ * @internal
+ */
 export const browseXStoreModule: BrowseXStoreModule = {
   state: () => ({
-    ...resettableState(),
+    ...resettableBrowseState(),
     shouldAppendResults: false,
     config: {
       pageSize: 45,
@@ -69,7 +74,7 @@ export const browseXStoreModule: BrowseXStoreModule = {
       state.params = params
     },
     resetState(state) {
-      Object.assign(state, resettableState())
+      Object.assign(state, resettableBrowseState())
     },
     setStatus,
   },
@@ -88,7 +93,7 @@ export const browseXStoreModule: BrowseXStoreModule = {
  *
  * @returns The "resettable" part of the Browse state.
  */
-export function resettableState(): ReseteableBrowseState {
+export function resettableBrowseState(): ReseteableBrowseState {
   return {
     selectedCategory: '',
     results: [],
