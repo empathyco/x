@@ -1,4 +1,4 @@
-import type { SearchResponse } from '@empathyco/x-types'
+import type { BrowseResponse, SearchResponse } from '@empathyco/x-types'
 import {
   createHierarchicalFacetStub,
   createNextQueryStub,
@@ -77,6 +77,7 @@ export const mockedResponses = {
       createResultStub('Barbie Sirenas Dreamtopia'),
     ],
   },
+  browse: createBrowseResponse(),
   search: createSearchResponse({
     facets: [
       createSimpleFacetStub('brand_facet', createSimpleFilter => [
@@ -230,6 +231,23 @@ export function createSearchResponse(partial?: Partial<SearchResponse>): SearchR
       params: { page: 1, totalHits: 5 },
     },
     spellcheck: '',
+    ...partial,
+  }
+}
+
+export function createBrowseResponse(partial?: Partial<BrowseResponse>): BrowseResponse {
+  return {
+    results: getResultsStub(),
+    facets: getFacetsStub(),
+    totalResults: 24,
+    browseTagging: {
+      url: `${trackEndpoint}/browseProduct`,
+      params: { page: 1, totalHits: 5 },
+    },
+    displayTagging: {
+      url: `${trackEndpoint}/display`,
+      params: { page: 1, totalHits: 5 },
+    },
     ...partial,
   }
 }

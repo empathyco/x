@@ -46,6 +46,7 @@ export function mockEndpointAdapter<Request, Response>(
 }
 
 export const e2eAdapter: XComponentsAdapter = {
+  browse: mockEndpointAdapter('browse'),
   identifierResults: mockEndpointAdapter('identifier-results'),
   nextQueries: mockEndpointAdapter('next-queries'),
   popularSearches: mockEndpointAdapter('popular-searches'),
