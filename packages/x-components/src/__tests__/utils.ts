@@ -1,4 +1,5 @@
 import type {
+  BrowseResponse,
   ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
@@ -37,6 +38,7 @@ export type MockedXComponentsAdapter = {
  * Interface containing the features responses that can be mocked.
  */
 interface MockedAdapterFeatures {
+  browse: BrowseResponse
   identifierResults: IdentifierResultsResponse
   nextQueries: NextQueriesResponse
   popularSearches: PopularSearchesResponse
@@ -152,7 +154,8 @@ export function getMockedAdapter(
   responseFeatures?: Partial<MockedAdapterFeatures>,
 ): MockedXComponentsAdapter {
   return {
-    /* eslint-disable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
+    /* eslint-disable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain,ts/no-unnecessary-type-assertion */
+    browse: getMockedAdapterFunction(responseFeatures?.browse!),
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
     popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
@@ -164,7 +167,7 @@ export function getMockedAdapter(
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
     experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
-    /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
+    /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain,ts/no-unnecessary-type-assertion */
   }
 }
 
