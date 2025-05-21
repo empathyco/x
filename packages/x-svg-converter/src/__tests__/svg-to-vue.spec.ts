@@ -9,6 +9,7 @@ jest.mock('child_process', () => {
   // eslint-disable-next-line ts/no-unsafe-assignment
   const originalModule = jest.requireActual('child_process')
 
+  // eslint-disable-next-line ts/no-unsafe-return
   return {
     __esModule: true,
     ...originalModule,
