@@ -1,14 +1,12 @@
 import type { Plugin, RollupOptions } from 'rollup'
 import path from 'node:path'
 import vue3 from '@vitejs/plugin-vue'
-import { sync as glob } from 'glob'
 import copy from 'rollup-plugin-copy'
 import del from 'rollup-plugin-delete'
 import styles from 'rollup-plugin-styles'
 import typescript from 'rollup-plugin-typescript2'
 import { dependencies as pkgDeps, peerDependencies as pkgPeerDeps } from '../package.json'
 import { apiDocumentation } from './docgen/documentation.rollup-plugin'
-import { importTokens, omitJsFiles } from './rollup-plugins/design-system.rollup-plugin'
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin'
 
 const rootDir = path.resolve(__dirname, '../')
@@ -107,23 +105,5 @@ export const rollupConfig: RollupOptions = {
       ],
       hook: 'writeBundle',
     }),
-  ],
-}
-
-// Design System CSS generation
-const cssOutputDir = path.join(buildPath, 'design-system')
-
-/** The config to generate one `.css` file with all the deprecated styles. */
-export const cssDeprecatedRollupConfig: RollupOptions = {
-  input: glob('src/design-system-deprecated/**/*.scss'),
-  output: {
-    dir: cssOutputDir,
-    assetFileNames: '[name][extname]',
-    preserveModules: true,
-  },
-  plugins: [
-    importTokens(),
-    styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
-    omitJsFiles(),
   ],
 }

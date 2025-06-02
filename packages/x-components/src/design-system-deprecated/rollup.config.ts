@@ -1,6 +1,24 @@
-import type { Plugin } from 'rollup'
+import type { Plugin, RollupOptions } from 'rollup'
 import fs from 'node:fs'
-import { normalizePath } from '../build.utils'
+import { sync as glob } from 'glob'
+import styles from 'rollup-plugin-styles'
+
+/** The config to generate one `.css` file with all the deprecated styles. */
+const config: RollupOptions = {
+  input: glob('src/design-system-deprecated/**/*.scss'),
+  output: {
+    dir: 'dist/design-system',
+    assetFileNames: '[name][extname]',
+    preserveModules: true,
+  },
+  plugins: [
+    importTokens(),
+    styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
+    omitJsFiles(),
+  ],
+}
+
+export default config
 
 /**
  * This function interpolates the `.tokens` suffix into a file path and checks if exists.
@@ -19,6 +37,16 @@ function getTokensFilePath(file: string) {
 }
 
 /**
+ * Normalizes a string path replacing backslash by forward slashes.
+ *
+ * @param path - The path to normalize.
+ * @returns A normalized path.
+ */
+function normalizePath(path: string) {
+  return path.replace(/\\/g, '/')
+}
+
+/**
  * This function returns a {@link Plugin | RollupJS Plugin} to import the tokens files into the
  * components .scss files. For each `xxx.scss` processed, it looks for the `xxx.tokens.scss` tokens
  * file, and if exists, an import is added.
@@ -26,7 +54,7 @@ function getTokensFilePath(file: string) {
  * @returns The plugin object to use in the Rollup config.
  * @internal
  */
-export function importTokens(): Plugin {
+function importTokens(): Plugin {
   return {
     name: 'importTokens',
     transform(code, id) {
@@ -45,7 +73,7 @@ export function importTokens(): Plugin {
  * @returns The plugin object to use in the Rollup config.
  * @internal
  */
-export function omitJsFiles(): Plugin {
+function omitJsFiles(): Plugin {
   return {
     name: 'omitJsFiles',
     generateBundle(_, bundle): void {
