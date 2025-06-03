@@ -1,5 +1,12 @@
 <template>
-  <a :href="promoted.url" class="x-promoted" data-test="promoted" @click="emitClickEvent">
+  <a
+    :href="promoted.url"
+    class="x-promoted"
+    data-test="promoted"
+    @click="emitUserClickedAPromoted"
+    @click.right="emitUserClickedAPromoted"
+    @click.middle="emitUserClickedAPromoted"
+  >
     <img :src="promoted.image" class="x-promoted__image" :alt="promoted.title" />
     <h2 class="x-promoted__title" :class="titleClass" data-test="promoted-title">
       {{ promoted.title }}
@@ -47,12 +54,12 @@ export default defineComponent({
      *
      * @internal
      */
-    const emitClickEvent = () => {
+    const emitUserClickedAPromoted = () => {
       xBus.emit('UserClickedAPromoted', props.promoted)
     }
 
     return {
-      emitClickEvent,
+      emitUserClickedAPromoted,
     }
   },
 })
