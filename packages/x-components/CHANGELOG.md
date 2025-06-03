@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.93 (2025-06-03)
+
+* chore(deps): pin dependency @cucumber/messages to 27.2.0 ([7f80eb2](https://github.com/empathyco/x/commit/7f80eb2))
+
+
+
+
+
 ## [6.0.0-alpha.92](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.91...@empathyco/x-components@6.0.0-alpha.92) (2025-06-03)
 
 **Note:** Version bump only for package @empathyco/x-components
