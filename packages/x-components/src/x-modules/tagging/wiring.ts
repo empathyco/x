@@ -172,6 +172,13 @@ export const trackResultClickedWire = createTrackWire('click')
 export const trackBannerClickedWire = createTrackWire('click')
 
 /**
+ * Tracks the click on a promoted result.
+ *
+ * @public
+ */
+export const trackPromotedClickedWire = createTrackWire('click')
+
+/**
  * Performs a track of a result added to the cart.
  *
  * @public
@@ -463,6 +470,9 @@ export const taggingWiring = createWiring({
   },
   UserClickedABanner: {
     trackBannerClickedWire,
+  },
+  UserClickedAPromoted: {
+    trackPromotedClickedWire,
   },
   UserClickedADisplayResult: {
     trackDisplayClickedWire,
