@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.91](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.90...@empathyco/x-components@6.0.0-alpha.91) (2025-06-03)
+
+
+### Features
+
+* track by default click on promoted result (#1794) ([9645e49](https://github.com/empathyco/x/commit/9645e49dfb4696e74012966ac6095b04672ed299))
+
+
+
 ## [6.0.0-alpha.90](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.89...@empathyco/x-components@6.0.0-alpha.90) (2025-05-21)
 
 **Note:** Version bump only for package @empathyco/x-components
