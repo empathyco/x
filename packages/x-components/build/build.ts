@@ -1,6 +1,6 @@
 import type { OutputOptions } from 'rollup'
 import { rollup } from 'rollup'
-import { rollupConfig } from './rollup.config'
+import rollupConfig from './rollup.config'
 
 /**
  * Entry point for building the project.
