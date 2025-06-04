@@ -1,9 +1,0 @@
-.x-filter--justified.x-filter,
-.x-filter--justified.x-facet-filter,
-.x-filter--justified .x-filter,
-.x-filter--justified .x-facet-filter {
-  > *:last-child:not(.x-filter__label) {
-    // layout
-    margin-left: auto;
-  }
-}

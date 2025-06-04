@@ -132,7 +132,7 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-@import url('../../design-system-deprecated/utilities/dev-mode.css');
+@import url('../../styles/dev-mode.css');
 
 .x-layout {
   /* custom properties */
