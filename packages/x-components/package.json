@@ -38,7 +38,7 @@
   ],
   "main": "./core/index.js",
   "module": "./core/index.js",
-  "types": "./core/index.d.ts",
+  "types": "./types/index.d.ts",
   "engines": {
     "node": ">=22"
   },
