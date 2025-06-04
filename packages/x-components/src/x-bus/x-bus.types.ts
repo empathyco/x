@@ -81,8 +81,8 @@ export interface EmittedData<
 }
 
 /**
- * Represents the {@link @empathyco/x-priority-queue#XPriorityQueueNode.data | queue node data}
- * in the {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} of a
+ * Represents the {@link x-priority-queue#XPriorityQueueNode.data | queue node data}
+ * in the {@link x-priority-queue#XPriorityQueue | priority queue} of a
  * {@link XPriorityBus}.
  */
 export interface XPriorityQueueNodeData<
