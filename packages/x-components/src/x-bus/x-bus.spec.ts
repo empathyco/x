@@ -1,7 +1,7 @@
 import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
-import type { XBus, XPriorityQueueNodeData } from '../x-bus.types'
-import { BaseXPriorityQueue } from '@empathyco/x-priority-queue'
-import { XPriorityBus } from '../x-bus'
+import type { XBus, XPriorityQueueNodeData } from './x-bus.types'
+import { BaseXPriorityQueue } from '../x-bus/x-priority-queue'
+import { XPriorityBus } from './x-bus'
 
 describe('x-priority-bus scenarios', () => {
   interface TestEvents {
@@ -123,13 +123,13 @@ describe('x-priority-bus scenarios', () => {
       const unsubscribeFromTestEvent2 = bus.on('TestEvent2').subscribe(testEvent2SubscriptionFn)
 
       // When that event is emitted
-      bus.emit('TestEvent1')
-      bus.emit('TestEvent2')
+      void bus.emit('TestEvent1')
+      void bus.emit('TestEvent2')
       jest.runAllTimers()
 
       unsubscribeFromTestEvent2.unsubscribe()
-      bus.emit('TestEvent1')
-      bus.emit('TestEvent2')
+      void bus.emit('TestEvent1')
+      void bus.emit('TestEvent2')
       jest.runAllTimers()
 
       // Then the bus notify its subscriptions
@@ -153,8 +153,8 @@ describe('x-priority-bus scenarios', () => {
       bus.on('TestEvent2', true).subscribe(testEvent2SubscriptionFn)
 
       // When that event is emitted
-      bus.emit('TestEvent1', 'string', { name: 'TestEvent1', isCustom: true })
-      bus.emit('TestEvent2', 0, { name: 'TestEvent2', isCustom: false })
+      void bus.emit('TestEvent1', 'string', { name: 'TestEvent1', isCustom: true })
+      void bus.emit('TestEvent2', 0, { name: 'TestEvent2', isCustom: false })
       jest.runAllTimers()
 
       // Then the bus notify its subscriptions
@@ -193,7 +193,7 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
   const emittedEventsPromise = Promise.all([
     // eslint-disable-next-line array-callback-return
     eventsToEmit.map(([event, payload, metadata]) => {
-      bus.emit(event, payload, metadata).then(pushEmittedEvent)
+      void bus.emit(event, payload, metadata).then(pushEmittedEvent)
     }),
   ])
 

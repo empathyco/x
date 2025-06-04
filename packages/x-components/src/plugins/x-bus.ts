@@ -1,6 +1,6 @@
 import type { XEventsTypes } from '../wiring/events.types'
 import type { WireMetadata } from '../wiring/wiring.types'
-import { XPriorityBus } from '@empathyco/x-bus'
+import { XPriorityBus } from '../x-bus'
 import { logDevtoolsXEvent } from './devtools/timeline.devtools'
 
 /**

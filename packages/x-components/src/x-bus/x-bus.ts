@@ -1,4 +1,3 @@
-import type { XPriorityQueue } from '@empathyco/x-priority-queue'
 import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
 import type { Observable } from 'rxjs'
 import type {
@@ -11,13 +10,14 @@ import type {
   XBus,
   XPriorityQueueNodeData,
 } from './x-bus.types'
-import { BaseXPriorityQueue } from '@empathyco/x-priority-queue'
+import type { XPriorityQueue } from './x-priority-queue'
 import { ReplaySubject } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { BaseXPriorityQueue } from './x-priority-queue'
 
 /**
  * A default {@link XBus} implementation using a
- * {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} as its data structure to
+ * {@link ./x-priority-queue#XPriorityQueue | priority queue} as its data structure to
  * prioritise the emission of events. The priorities are preconfigured based on event naming.
  *
  * @public
@@ -26,7 +26,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   implements XBus<SomeEvents, SomeEventMetadata>
 {
   /**
-   * A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to store the events to
+   * A {@link ./x-priority-queue#XPriorityQueue | priority queue} to store the events to
    * emit.
    *
    * @internal
@@ -89,7 +89,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * Creates a new instance of a {@link XPriorityBus}.
    *
    * @param config - A configuration object to initialise the bus.
-   * @param config.queue - A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to
+   * @param config.queue - A {@link ./x-priority-queue#XPriorityQueue | priority queue} to
    * store the events.
    * @param config.priorities - A Dictionary defining the priorities
    * associated to a given string.
@@ -170,7 +170,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
 
   /**
    * Processes the events stored in the
-   * {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} and resolves each event
+   * {@link ./x-priority-queue#XPriorityQueue | priority queue} and resolves each event
    * whenever it is emitted.
    *
    * @remarks If another 'flushQueue' operation is running, it is discarded and a new one is
@@ -233,8 +233,8 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
     return withMetadata
+    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
