@@ -1,7 +1,0 @@
-@import '../../variables';
-
-@each $size, $size-value in $sizes {
-  .x-row--gap-#{$size} {
-    --x-size-gap-row: var(--x-size-gap-row-#{$size});
-  }
-}

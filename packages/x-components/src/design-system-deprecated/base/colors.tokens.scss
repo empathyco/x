@@ -1,7 +1,0 @@
-@import '../variables';
-
-:root {
-  @each $color-name, $color-value in $colors {
-    --x-color-base-#{$color-name}: #{$color-value};
-  }
-}

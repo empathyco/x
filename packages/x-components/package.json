@@ -47,7 +47,6 @@
     "preview": "vite build && vite preview",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vite build",
-    "build:design-system": "rollup -c src/design-system-deprecated/rollup.config.ts",
     "postbuild": "pnpm pack --pack-destination ..",
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
