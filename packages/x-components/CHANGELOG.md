@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.94 (2025-06-04)
+
+* feat!: remove deprecated design system (#1793) ([97a853d](https://github.com/empathyco/x/commit/97a853d)), closes [#1793](https://github.com/empathyco/x/issues/1793)
+
+
+### BREAKING CHANGE
+
+* remove deprecated-full-theme.css
+
+Signed-off-by: davidglezz <davidg@empathy.co>
+
+* refactor: extract dev mode styles
+
+Signed-off-by: davidglezz <davidg@empathy.co>
+
+
+
+
 ## 6.0.0-alpha.93 (2025-06-03)
 
 * chore(deps): pin dependency @cucumber/messages to 27.2.0 ([7f80eb2](https://github.com/empathyco/x/commit/7f80eb2))
