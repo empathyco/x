@@ -81,9 +81,11 @@ export interface EmittedData<
 }
 
 /**
- * Represents the {@link @empathyco/x-priority-queue#XPriorityQueueNode.data | queue node data}
- * in the {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} of a
+ * Represents the {@link XPriorityQueueNode.data | queue node data}
+ * in the {@link XPriorityQueue | priority queue} of a
  * {@link XPriorityBus}.
+ *
+ * @public
  */
 export interface XPriorityQueueNodeData<
   SomeEvents extends Dictionary,
@@ -104,7 +106,7 @@ export interface XPriorityQueueNodeData<
    */
   replaceable: boolean
   /**
-   * The resolve function of the {@link Promise} to be called the moment the event is emitted.
+   * The resolve function of the promise to be called the moment the event is emitted.
    *
    * @param value - The {@link EmittedData | emitted data}.
    */

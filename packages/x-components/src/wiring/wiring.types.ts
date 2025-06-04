@@ -1,4 +1,3 @@
-import type { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { Observable, Subscription } from 'rxjs'
 import type { Component } from 'vue'
@@ -6,6 +5,7 @@ import type { Store } from 'vuex'
 import type { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types'
 import type { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin'
 import type { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types'
+import type { Priority, SubjectPayload, XPriorityBus } from '../x-bus'
 import type { XModuleName } from '../x-modules/x-modules.types'
 import type { XEvent, XEventPayload, XEventsTypes } from './events.types'
 

@@ -212,40 +212,6 @@ importers:
         specifier: 3.4.31
         version: 3.4.31(typescript@4.9.4)
 
-  packages/x-bus:
-    dependencies:
-      '@empathyco/x-priority-queue':
-        specifier: ^1.0.3-alpha.4
-        version: link:../x-priority-queue
-      '@empathyco/x-utils':
-        specifier: ^1.0.3-alpha.4
-        version: link:../x-utils
-      rxjs:
-        specifier: ~7.8.0
-        version: 7.8.2
-      tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
-    devDependencies:
-      '@types/jest':
-        specifier: 27.5.0
-        version: 27.5.0
-      concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
-      jest:
-        specifier: 27.5.0
-        version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
-      rimraf:
-        specifier: 3.0.2
-        version: 3.0.2
-      ts-jest:
-        specifier: 27.1.0
-        version: 27.1.0(@babel/core@7.26.10)(@types/jest@27.5.0)(babel-jest@27.5.1(@babel/core@7.26.10))(jest@27.5.0)(typescript@4.9.4)
-      typescript:
-        specifier: 4.9.4
-        version: 4.9.4
-
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
@@ -254,9 +220,6 @@ importers:
       '@empathyco/x-adapter-platform':
         specifier: ^1.1.0-alpha.19
         version: link:../x-adapter-platform
-      '@empathyco/x-bus':
-        specifier: ^1.0.3-alpha.4
-        version: link:../x-bus
       '@empathyco/x-deep-merge':
         specifier: ^2.0.3-alpha.5
         version: link:../deep-merge
@@ -424,34 +387,6 @@ importers:
         specifier: 4.0.2
         version: 4.0.2(vue@3.4.31(typescript@4.9.4))
     publishDirectory: dist
-
-  packages/x-priority-queue:
-    dependencies:
-      '@empathyco/x-utils':
-        specifier: ^1.0.3-alpha.4
-        version: link:../x-utils
-      tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
-    devDependencies:
-      '@types/jest':
-        specifier: 27.5.0
-        version: 27.5.0
-      concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
-      jest:
-        specifier: 27.5.0
-        version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
-      rimraf:
-        specifier: 3.0.2
-        version: 3.0.2
-      ts-jest:
-        specifier: 27.1.0
-        version: 27.1.0(@babel/core@7.26.10)(@types/jest@27.5.0)(babel-jest@27.5.1(@babel/core@7.26.10))(jest@27.5.0)(typescript@4.9.4)
-      typescript:
-        specifier: 4.9.4
-        version: 4.9.4
 
   packages/x-svg-converter:
     devDependencies:
@@ -8743,7 +8678,7 @@ snapshots:
       '@cucumber/ci-environment': 10.0.1
       '@cucumber/cucumber-expressions': 18.0.1
       '@cucumber/gherkin': 30.0.4
-      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)
       '@cucumber/gherkin-utils': 9.0.0
       '@cucumber/html-formatter': 21.7.0(@cucumber/messages@27.0.2)
       '@cucumber/junit-xml-formatter': 0.7.1(@cucumber/messages@27.0.2)
@@ -8782,7 +8717,7 @@ snapshots:
       yaml: 2.7.1
       yup: 1.2.0
 
-  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)':
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)':
     dependencies:
       '@cucumber/gherkin': 30.0.4
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@27.0.2)

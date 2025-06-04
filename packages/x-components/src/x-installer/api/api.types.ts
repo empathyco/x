@@ -1,8 +1,8 @@
-import type { XBus } from '@empathyco/x-bus'
 import type { RequiredProperties } from '@empathyco/x-utils'
 import type { DocumentDirection } from '../../plugins/x-plugin.types'
 import type { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types'
 import type { WireMetadata } from '../../wiring/wiring.types'
+import type { XBus } from '../../x-bus'
 import type { QueryPreviewInfo } from '../../x-modules/queries-preview/index'
 
 /**
