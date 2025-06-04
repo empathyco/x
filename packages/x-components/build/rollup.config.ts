@@ -68,13 +68,7 @@ export const rollupConfig: RollupOptions = {
           declarationDir: typesOutputDir,
           target: 'es2020',
         },
-        exclude: [
-          'node_modules',
-          './src/main.ts',
-          '**/__tests__/**',
-          '**/__stubs__/**',
-          './src/design-system-deprecated',
-        ],
+        exclude: ['node_modules', './src/main.ts', '**/__tests__/**', '**/__stubs__/**'],
       },
     }),
     vue3({
