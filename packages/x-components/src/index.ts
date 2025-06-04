@@ -5,18 +5,7 @@
  */
 // TODO Write a complete description.
 
-export * from './components'
-export * from './composables'
-export * from './directives'
-export * from './plugins'
-export * from './services'
-export * from './store'
-export * from './types'
-export * from './utils'
-export * from './wiring'
-export * from './x-bus'
-export * from './x-bus/x-priority-queue'
-export * from './x-installer'
+export * from './core.entry'
 export * from './x-modules/device'
 export * from './x-modules/empathize'
 export * from './x-modules/experience-controls'
