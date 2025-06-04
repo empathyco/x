@@ -1,4 +1,3 @@
-import type { XPriorityQueue } from '@empathyco/x-priority-queue'
 import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
 import type { Observable } from 'rxjs'
 import type {
@@ -11,13 +10,14 @@ import type {
   XBus,
   XPriorityQueueNodeData,
 } from './x-bus.types'
-import { BaseXPriorityQueue } from '@empathyco/x-priority-queue'
+import type { XPriorityQueue } from './x-priority-queue'
 import { ReplaySubject } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { BaseXPriorityQueue } from './x-priority-queue'
 
 /**
  * A default {@link XBus} implementation using a
- * {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} as its data structure to
+ * {@link XPriorityQueue | priority queue} as its data structure to
  * prioritise the emission of events. The priorities are preconfigured based on event naming.
  *
  * @public
@@ -26,7 +26,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   implements XBus<SomeEvents, SomeEventMetadata>
 {
   /**
-   * A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to store the events to
+   * A {@link XPriorityQueue | priority queue} to store the events to
    * emit.
    *
    * @internal
@@ -51,7 +51,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
 
   /**
    * The default value to use as priority for an event that doesn't have defined neither a custom
-   * priority nor its name doesn't match any key of the {@link priorities} dictionary.
+   * priority nor its name doesn't match any key of the {@link XPriorityBus.priorities | priorities} dictionary.
    *
    * @internal
    */
@@ -89,12 +89,10 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * Creates a new instance of a {@link XPriorityBus}.
    *
    * @param config - A configuration object to initialise the bus.
-   * @param config.queue - A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to
-   * store the events.
-   * @param config.priorities - A Dictionary defining the priorities
-   * associated to a given string.
-   @param config.emitCallbacks - A list of functions to execute when an event is emitted.
-   * @param config.defaultEventPriority -  A default priority to assigned to an event.
+   * @param config.queue - A {@link XPriorityQueue | priority queue} to store the events.
+   * @param config.priorities - A Dictionary defining the priorities associated to a given string.
+   * @param config.emitCallbacks - A list of functions to execute when an event is emitted.
+   * @param config.defaultEventPriority - A default priority to assigned to an event.
    */
   public constructor(
     config: {
@@ -113,7 +111,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   }
 
   /**
-   * Emits an event. See {@link XBus.(emit:2)}.
+   * Emits an event. See {@link XBus.emit}.
    *
    * @param event - Event to be emitted.
    * @param payload - Event payload.
@@ -146,7 +144,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * Retrieves the event priority based on:
    * - the defined event metadata priority
    * - the priority associated to the matching preconfigured priority key
-   * - the configured {@link defaultEventPriority} is assigned (by default, the min safe integer).
+   * - the configured {@link XPriorityBus.defaultEventPriority | defaultEventPriority} is assigned (by default, the min safe integer).
    *
    * @param event - The event to get the priority from.
    * @param metadata - The event metadata.
@@ -170,7 +168,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
 
   /**
    * Processes the events stored in the
-   * {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} and resolves each event
+   * {@link XPriorityQueue | priority queue} and resolves each event
    * whenever it is emitted.
    *
    * @remarks If another 'flushQueue' operation is running, it is discarded and a new one is
@@ -219,7 +217,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   }
 
   /**
-   * Retrieves an observable for the event. See {@link XBus.(on:3)}.
+   * Retrieves an observable for the event. See {@link XBus.on}.
    *
    * @param event - Event to retrieve the observable for.
    * @param withMetadata - Option to retrieve an observable with extra data about the event.
@@ -233,8 +231,8 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
     return withMetadata
+    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<

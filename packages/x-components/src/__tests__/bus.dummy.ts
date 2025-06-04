@@ -1,8 +1,8 @@
-import type { EmittedData, EventPayload, SubjectPayload } from '@empathyco/x-bus'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { WireMetadata, XEventsTypes } from '../wiring'
-import { XPriorityBus } from '@empathyco/x-bus'
+import type { EmittedData, EventPayload, SubjectPayload } from '../x-bus'
 import { Subject } from 'rxjs'
+import { XPriorityBus } from '../x-bus'
 
 export class XDummyBus<
   SomeEvents extends Dictionary = XEventsTypes,

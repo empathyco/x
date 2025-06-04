@@ -1,7 +1,7 @@
-import type { XBus } from '@empathyco/x-bus'
 import type { App, Component, Plugin } from 'vue'
 import type { XPluginOptions } from '../../plugins/x-plugin.types'
 import type { WireMetadata, XEventsTypes } from '../../wiring/index'
+import type { XBus } from '../../x-bus'
 import type { NormalisedSnippetConfig, XAPI } from '../api/api.types'
 
 /**

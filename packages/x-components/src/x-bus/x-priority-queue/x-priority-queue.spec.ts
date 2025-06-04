@@ -1,5 +1,5 @@
-import type { XPriorityQueueNode } from '../x-priority-queue.types'
-import { BaseXPriorityQueue } from '../x-priority-queue'
+import type { XPriorityQueueNode } from './x-priority-queue.types'
+import { BaseXPriorityQueue } from './x-priority-queue'
 
 describe('x-priority-queue scenarios', () => {
   interface QueueRecord {

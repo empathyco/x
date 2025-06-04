@@ -80,7 +80,6 @@
   "dependencies": {
     "@empathyco/x-adapter": "^8.1.0-alpha.5",
     "@empathyco/x-adapter-platform": "^1.1.0-alpha.20",
-    "@empathyco/x-bus": "^1.0.3-alpha.5",
     "@empathyco/x-deep-merge": "^2.0.3-alpha.6",
     "@empathyco/x-storage-service": "^2.0.3-alpha.4",
     "@empathyco/x-types": "^10.1.0-alpha.15",
