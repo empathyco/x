@@ -116,7 +116,7 @@ const rollupConfig: RollupOptions = {
     copy({
       targets: [
         { src: ['build/tools'], dest: buildPath },
-        { src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs'], dest: buildPath },
+        { src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs', 'patches'], dest: buildPath },
       ],
       hook: 'writeBundle',
     }),

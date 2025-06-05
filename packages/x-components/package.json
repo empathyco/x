@@ -151,6 +151,7 @@
     "test:unit-coverage": "jest --coverage",
     "test:unit-watch": "jest --watch",
     "test": "pnpm run test:unit",
+    "postinstall": "node patches/vuex.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
