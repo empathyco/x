@@ -158,6 +158,7 @@
     "cypress:open:firefox": "cypress open --e2e --browser firefox",
     "cypress:open:component": "cypress open --component --browser chrome",
     "cypress:open:component:firefox": "cypress open --component --browser firefox",
+    "postinstall": "node patches/vuex.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
