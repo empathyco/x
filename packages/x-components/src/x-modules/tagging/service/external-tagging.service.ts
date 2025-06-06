@@ -162,8 +162,6 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
    */
   protected showWarningMessage(): void {
     if (this.storageKey !== 'url') {
-      //TODO: add here logger
-
       console.warn('No product id was provided but the storage was not configured to use the url')
     }
   }
@@ -190,8 +188,6 @@ export class DefaultExternalTaggingService implements ExternalTaggingService {
       return urlObject.pathname
       // eslint-disable-next-line unused-imports/no-unused-vars
     } catch (_error) {
-      //TODO: add here logger
-
       console.warn(`There was a problem with url ${url}`)
       return url
     }

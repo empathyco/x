@@ -46,7 +46,7 @@ import {
 
 /**
  * Component to show and select the available variants of a product for a given nest level.
- * TODO: Add logger warning on mount when result is not injected.
+ * TODO: Log warning on mount when result is not injected.
  *
  * @public
  */

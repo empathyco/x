@@ -176,11 +176,8 @@ export function useScroll(
     // eslint-disable-next-line ts/no-floating-promises
     nextTick().then(() => {
       if (!scrollEl.value) {
-        // TODO Replace with Empathy's logger
-
         console.warn(
           '[useScroll]',
-
           'Components using this composable must pass `scrollEl` as the HTML node that is scrolling.',
         )
       } else {
