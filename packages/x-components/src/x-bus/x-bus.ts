@@ -236,9 +236,9 @@ export class XPriorityBus<
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
     return withMetadata
-      ? this.getEmitter(event).asObservable()
+      ? // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
+        this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
             SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,

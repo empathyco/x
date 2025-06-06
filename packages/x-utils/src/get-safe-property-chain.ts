@@ -47,15 +47,15 @@ export function getSafePropertyChain<SomeObject>(
  * @returns The value of the chain of properties, or the default return if any of the intermediate
  * values is not defined.
  */
-export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeObject>>(
-  obj: SomeObject,
-  propertyChain: Path | '',
-  defaultReturn?: ExtractType<SomeObject, Path>,
-): ExtractType<SomeObject, Path> {
+export function getSafePropertyChain<
+  SomeObject,
+  Path extends ExtractPath<SomeObject>,
+  T = ExtractType<SomeObject, Path>,
+>(obj: SomeObject, propertyChain: Path | '', defaultReturn?: T): T {
   // eslint-disable-next-line ts/no-unsafe-assignment
   const resolved = getChain(obj, ...propertyChain.split('.'))
   // eslint-disable-next-line ts/no-unsafe-return
-  return resolved === undefined ? defaultReturn : resolved
+  return resolved === undefined ? defaultReturn! : resolved
 }
 
 /**
