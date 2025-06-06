@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.5 (2025-06-06)</small>
+
+**Note:** Version bump only for package @empathyco/x-deep-merge
+
+
+
+
+
 ## [2.0.3-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@2.0.3-alpha.3...@empathyco/x-deep-merge@2.0.3-alpha.4) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge

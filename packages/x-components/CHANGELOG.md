@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.95 (2025-06-06)
+
+* feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
+
+
+
+
+
 ## 6.0.0-alpha.94 (2025-06-04)
 
 * feat!: remove deprecated design system (#1793) ([97a853d](https://github.com/empathyco/x/commit/97a853d)), closes [#1793](https://github.com/empathyco/x/issues/1793)

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.3 (2025-06-06)</small>
+
+* feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
+
+
+
+
+
 ## [2.0.3-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.3-alpha.1...@empathyco/x-storage-service@2.0.3-alpha.2) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-storage-service

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "2.0.0-alpha.8",
+  "version": "2.0.0-alpha.9",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -40,8 +40,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.4",
-    "@empathyco/x-utils": "^1.0.3-alpha.3",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.5",
+    "@empathyco/x-utils": "^1.0.3-alpha.4",
     "tslib": "~2.6.0"
   },
   "devDependencies": {
