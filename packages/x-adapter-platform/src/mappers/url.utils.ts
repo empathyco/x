@@ -70,7 +70,7 @@ export function extractUrlParameters(url: string): {
     }
     // eslint-disable-next-line unused-imports/no-unused-vars
   } catch (_error) {
-    console.warn('Invalid url', url) // TODO Use Empathy's logger
+    console.warn('Invalid url', url)
     return {
       url,
     }

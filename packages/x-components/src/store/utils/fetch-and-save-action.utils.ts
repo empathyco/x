@@ -19,7 +19,6 @@ export function createFetchAndSaveActions<
 >({
   fetch,
   onSuccess,
-  // TODO add logger
   onError = console.error,
   onCancel,
 }: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {

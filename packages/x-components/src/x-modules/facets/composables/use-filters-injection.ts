@@ -38,8 +38,6 @@ export function useFiltersInjection(props: {
     return (
       props.filters ??
       injectedFilters?.value ??
-      //TODO: add here logger
-
       console.warn('It is necessary to pass a prop or inject the list of filters')
     )
   })

@@ -1,6 +1,4 @@
-import type { Logger } from '@empathyco/x-logger'
 import type { StorageService } from './storage-service'
-import { logger } from '@empathyco/x-logger'
 
 /**
  * In browser implementation of the storage service.
@@ -8,14 +6,10 @@ import { logger } from '@empathyco/x-logger'
  * @public
  */
 export class BrowserStorageService implements StorageService {
-  protected logger: Logger
-
   public constructor(
     private storage: Storage = localStorage,
     private prefix: string = 'empathy',
-  ) {
-    this.logger = logger.child(`[StorageService][${prefix}]`)
-  }
+  ) {}
 
   /**
    * Adds a new item in the browser storage.
@@ -28,7 +22,9 @@ export class BrowserStorageService implements StorageService {
    */
   setItem(key: string, item: any, ttlInMs?: number): void {
     if (item === undefined) {
-      this.logger.warn(`Tried to store an undefined object with key ${key}`)
+      console.warn(
+        `[StorageService][${this.prefix}] Tried to store an undefined object with key ${key}`,
+      )
     } else {
       const prefixedKey = this.prefixKey(key)
       const expirableItem = this.createExpirableItem(item, ttlInMs)
@@ -118,8 +114,8 @@ export class BrowserStorageService implements StorageService {
             this.storage.removeItem(key)
           }
         } catch {
-          this.logger.warn(
-            `Item for key ${key} has been removed from storage because it had an invalid JSON value: "${serializedItem}"`,
+          console.warn(
+            `[StorageService][${this.prefix}] Item for key ${key} has been removed from storage because it had an invalid JSON value: "${serializedItem}"`,
           )
           this.storage.removeItem(key)
         }
