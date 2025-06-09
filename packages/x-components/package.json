@@ -51,7 +51,7 @@
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "vue-tsc",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
@@ -90,7 +90,8 @@
     "nouislider": "~15.8.1",
     "rxjs": "~7.8.0",
     "tslib": "~2.8.1",
-    "vue-global-events": "~3.0.1"
+    "vue-global-events": "~3.0.1",
+    "vue-tsc": "~3.0.4"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "22.0.1",
