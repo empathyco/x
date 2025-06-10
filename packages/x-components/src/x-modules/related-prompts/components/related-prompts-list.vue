@@ -189,8 +189,7 @@ This component emits no events.
 
   <!-- prettier-ignore-start -->
 
-:::warning Backend microservice required To use this component, the <b>QuerySignals</b> microservice
-must be implemented.:::
+:::warning Backend microservice required To use this component, the <b>QuerySignals</b> microservice must be implemented.:::
 
   <!-- prettier-ignore-end -->
 
