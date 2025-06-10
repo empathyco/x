@@ -1,5 +1,9 @@
 <template>
   <button class="x-related-prompt">
+    <!--
+     @slot related-prompt-extra-content - The slot to render related prompt extra information.
+     @prop {Object} relatedPrompt - The related prompt object.
+    -->
     <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
     <span
       v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"
@@ -31,10 +35,20 @@ export default defineComponent({
     PlusIcon,
   },
   props: {
+    /**
+     * The related prompt to render.
+     *
+     * @public
+     */
     relatedPrompt: {
       type: Object as PropType<RelatedPrompt>,
       required: true,
     },
+    /**
+     * Indicates if the related prompt is selected.
+     *
+     * @public
+     */
     selected: {
       type: Boolean,
       default: false,
