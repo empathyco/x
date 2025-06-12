@@ -142,7 +142,7 @@ This project is a monorepo that is handled by [Lerna](https://github.com/lerna/l
 [pnpm](https://pnpm.io/) & [Nx](https://nx.dev/). To prepare your development environment, proceed
 as follows:
 
-1. [Install pnpm (v8.6.1)](https://pnpm.io/installation)
+1. [Install pnpm (Recommended v9.15.9)](https://pnpm.io/installation)
 2. Fork the X repository and then clone it to your local environment:
    `git clone https://github.com/empathyco/x.git`.
 3. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
