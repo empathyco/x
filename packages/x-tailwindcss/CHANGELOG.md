@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.10 (2025-06-13)
+
+* fix: dynamic component classes not being generated (#1802) ([2c7e737](https://github.com/empathyco/x/commit/2c7e737)), closes [#1802](https://github.com/empathyco/x/issues/1802)
+
+
+
+
+
 ## 2.0.0-alpha.9 (2025-06-06)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
