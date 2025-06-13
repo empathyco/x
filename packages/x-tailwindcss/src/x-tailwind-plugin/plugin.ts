@@ -29,7 +29,10 @@ export default plugin.withOptions(
       helpers.addComponents(components(helpers), { respectPrefix: false })
       /* Add dynamic components */
       forEach(dynamicComponents(helpers), (key, { styles, values }) => {
-        helpers.matchComponents({ [key]: styles }, { values: values ?? undefined })
+        helpers.matchComponents(
+          { [key]: styles },
+          { respectPrefix: false, values: values ?? undefined },
+        )
       })
       /* Add dynamic utilities */
       forEach(dynamicUtilities(helpers), (key, { styles, values }) => {
