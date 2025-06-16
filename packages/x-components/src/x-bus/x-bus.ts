@@ -8,6 +8,7 @@ import type {
   Priority,
   SubjectPayload,
   XBus,
+  XPriorityBusEventMetadata,
   XPriorityQueueNodeData,
 } from './x-bus.types'
 import type { XPriorityQueue } from './x-priority-queue'
@@ -22,8 +23,10 @@ import { BaseXPriorityQueue } from './x-priority-queue'
  *
  * @public
  */
-export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata extends Dictionary>
-  implements XBus<SomeEvents, SomeEventMetadata>
+export class XPriorityBus<
+  SomeEvents extends Dictionary,
+  SomeEventMetadata extends XPriorityBusEventMetadata,
+> implements XBus<SomeEvents, SomeEventMetadata>
 {
   /**
    * A {@link XPriorityQueue | priority queue} to store the events to
@@ -132,8 +135,8 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
         eventPayload: payload as EventPayload<SomeEvents, SomeEvent>,
         eventMetadata: metadata,
         replaceable: metadata.replaceable || false,
-        // TODO: Fix type.
-        resolve: resolve as any,
+        // @ts-expect-error TODO: Fix type.
+        resolve,
       })
 
       this.flushQueue()
@@ -195,7 +198,9 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
 
           emitter.next(payloadObj)
 
-          this.emitCallbacks.forEach(callback => callback(key, payloadObj))
+          this.emitCallbacks.forEach(callback => {
+            callback(key, payloadObj)
+          })
           resolve({ event: key, ...payloadObj })
 
           this.pendingPopsIds = this.pendingPopsIds.filter(timeoutId => timeoutId !== popTimeoutId)
@@ -231,14 +236,17 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    return withMetadata
     // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
+    return withMetadata
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
             SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,
             EventPayload<SomeEvents, SomeEvent>
-          >(value => value.eventPayload),
+          >(
+            // eslint-disable-next-line ts/no-unsafe-return
+            value => value.eventPayload,
+          ),
         )
   }
 

@@ -10,6 +10,16 @@ import type { Observable, Subject } from 'rxjs'
 export type Priority = number
 
 /**
+ * Metadata for an event in an {@link XPriorityBus}.
+ *
+ * @public
+ */
+export interface XPriorityBusEventMetadata extends Dictionary {
+  priority?: number
+  replaceable?: boolean
+}
+
+/**
  * Extracts the payload type of the event.
  *
  * @remarks If the payload type is void, the returned type is undefined.
@@ -90,11 +100,12 @@ export interface EmittedData<
 export interface XPriorityQueueNodeData<
   SomeEvents extends Dictionary,
   SomeEventMetadata extends Dictionary,
+  SomeEvent extends keyof SomeEvents = keyof SomeEvents,
 > {
   /**
    * The event payload.
    */
-  eventPayload: EventPayload<SomeEvents, keyof SomeEvents>
+  eventPayload: EventPayload<SomeEvents, SomeEvent>
   /**
    * The event metadata.
    */
@@ -110,7 +121,7 @@ export interface XPriorityQueueNodeData<
    *
    * @param value - The {@link EmittedData | emitted data}.
    */
-  resolve: <SomeEvent extends keyof SomeEvents>(
+  resolve: (
     value:
       | EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>
       | PromiseLike<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>,
