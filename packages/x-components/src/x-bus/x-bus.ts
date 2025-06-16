@@ -92,10 +92,10 @@ export class XPriorityBus<
    * Creates a new instance of a {@link XPriorityBus}.
    *
    * @param config - A configuration object to initialise the bus.
-   * @param config.queue - A {@link XPriorityQueue | priority queue} to store the events.
-   * @param config.priorities - A Dictionary defining the priorities associated to a given string.
-   * @param config.emitCallbacks - A list of functions to execute when an event is emitted.
-   * @param config.defaultEventPriority - A default priority to assigned to an event.
+   * - param config.queue - A {@link XPriorityQueue | priority queue} to store the events.
+   * - param config.priorities - A Dictionary defining the priorities associated to a given string.
+   * - param config.emitCallbacks - A list of functions to execute when an event is emitted.
+   * - param config.defaultEventPriority - A default priority to assigned to an event.
    */
   public constructor(
     config: {
