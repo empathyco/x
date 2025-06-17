@@ -62,6 +62,10 @@
               @click="onSelect(index)"
             >
               <template #related-prompt-extra-content>
+                <!--
+                 @slot related-prompt-extra-content - The slot to render related prompt extra information.
+                 @prop {Object} relatedPrompt - The related prompt object.
+                -->
                 <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
               </template>
             </RelatedPrompt>

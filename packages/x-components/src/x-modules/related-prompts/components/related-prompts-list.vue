@@ -187,13 +187,6 @@ This component emits no events.
 
 ## See it in action
 
-  <!-- prettier-ignore-start -->
-
-:::warning Backend microservice required To use this component, the <b>QuerySignals</b> microservice
-must be implemented. :::
-
-  <!-- prettier-ignore-end -->
-
 Usually, this component is going to be used together with the `ResultsList` one. Related prompts
 groups will be inserted between the results, guiding users to discover new searches directly from
 the results list.
@@ -224,14 +217,13 @@ export default {
 </script>
 ```
 
-### Play with the index that related prompts groups are inserted at
+### Play with the position in the index
 
-The component allows to customise where are the related prompts groups inserted. In the following
-example, the first group of related prompts will be inserted at the index `48` (`offset`), and then
-a second group will be inserted at index `120` because of the `frequency` prop configured to `72`.
-Finally, a third group will be inserted at index `192`. Because `maxGroups` is configured to `3`, no
-more groups will be inserted. Each one of this groups will have up to `6` related prompts
-(`maxRelatedPromptsPerGroup`).
+Play with the `offset` and `frequency` props, indicating the indices for inserting groups of related prompts.
+The following example shows that only three groups of related prompts can be added, as the `maxGroups` prop
+is set to `3`. The first group of related prompts is inserted at index `48` using the `offset` prop. Since the
+`frequency` prop is set to `72`, the second and third groups are inserted at indices `120` and `192`, respectively.
+Each group can contain up to `6` related prompts (`maxRelatedPromptsPerGroup`).
 
 ```vue live
 <template>
@@ -264,11 +256,12 @@ export default {
 </script>
 ```
 
-### Showing/hiding first related prompts group when no more items
+### Showing/hiding the first related prompts
 
-By default, the first related prompts group will be inserted when the total number of results is
-smaller than the offset, but this behavior can be deactivated by setting the `showOnlyAfterOffset`
-to `true`.
+By default, the first group of related prompts is inserted when the total number of results is
+smaller than the offset. You can deactivate this behavior by setting the `showOnlyAfterOffset` prop to `true`.
+
+In the following example, related prompts will be displayed regardless of the number of results being over `48`.
 
 ```vue live
 <template>
@@ -301,11 +294,11 @@ export default {
 </script>
 ```
 
-### Customise the layout of the component
+### Customize the component layout
 
-This component will render by default the `id` of each search item, both the injected, and for the
-groups of related prompts generated, but the common case is to integrate it with another layout
-component, for example the `BaseGrid`. To do so, you can use the `default` slot
+By default, this component shows the `id` of each search item, both the injected and the groups of
+related prompts generated. However, it's common to customize it using a layout component such as
+the `BaseGrid` component. To do so, you can use the `default` slot as follows:
 
 ```vue
 <template>
