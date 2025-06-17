@@ -187,12 +187,6 @@ This component emits no events.
 
 ## See it in action
 
-  <!-- prettier-ignore-start -->
-
-:::warning Backend microservice required To use this component, the <b>QuerySignals</b> microservice must be implemented.:::
-
-  <!-- prettier-ignore-end -->
-
 Usually, this component is going to be used together with the `ResultsList` one. Related prompts
 groups will be inserted between the results, guiding users to discover new searches directly from
 the results list.
