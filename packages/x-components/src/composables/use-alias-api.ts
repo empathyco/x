@@ -13,8 +13,8 @@ import type {
 import type { RequestStatus } from '../store/utils/status-store.utils'
 import type { ScrollComponentState } from '../x-modules/scroll/store/types'
 import type { InputStatus } from '../x-modules/search-box/store/types'
+import { useStore } from 'vuex'
 import { getGetterPath } from '../plugins/index'
-import { useStore } from './use-store'
 
 /* eslint-disable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */
 
