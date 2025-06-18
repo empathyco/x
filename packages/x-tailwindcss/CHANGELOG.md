@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.11 (2025-06-18)
+
+* fix: duplicated font-family breaks font fallback order (#1807) ([3c2cc2d](https://github.com/empathyco/x/commit/3c2cc2d)), closes [#1807](https://github.com/empathyco/x/issues/1807)
+
+
+
+
+
 ## 2.0.0-alpha.10 (2025-06-13)
 
 * fix: dynamic component classes not being generated (#1802) ([2c7e737](https://github.com/empathyco/x/commit/2c7e737)), closes [#1802](https://github.com/empathyco/x/issues/1802)

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.98 (2025-06-18)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.97 (2025-06-17)
 
 * fix(docs): fix related prompts documentation (#1801) ([7f9ee87](https://github.com/empathyco/x/commit/7f9ee87)), closes [#1801](https://github.com/empathyco/x/issues/1801)
