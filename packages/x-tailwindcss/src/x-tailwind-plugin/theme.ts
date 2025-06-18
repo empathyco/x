@@ -66,10 +66,10 @@ export default {
     },
   },
   fontFamily: {
-    main: ['Inter', 'sans-serif'],
-    alternative: ['Lora', 'serif'],
-    extra: ['Poppins', 'sans-serif'],
-    special: ['Bree Serif', 'serif'],
+    main: 'Inter, sans-serif',
+    alternative: 'Lora, serif',
+    extra: 'Poppins, sans-serif',
+    special: 'Bree Serif, serif',
     icon: 'font-awesome',
   },
   fontSize: {
