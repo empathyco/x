@@ -1,4 +1,3 @@
-import type { XBus } from '@empathyco/x-bus'
 import type {
   Facet,
   Filter,
@@ -23,6 +22,7 @@ import type { StoreEmitters } from '../store/utils/store-emitters.utils'
 import type { PropsWithType } from '../utils'
 import type { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types'
 import type { WireMetadata, Wiring } from '../wiring/wiring.types'
+import type { XBus } from '../x-bus'
 import type { ScrollComponentState } from '../x-modules/scroll/index'
 import type { InputStatus } from '../x-modules/search-box/store/types'
 import type {

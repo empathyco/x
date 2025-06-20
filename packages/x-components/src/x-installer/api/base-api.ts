@@ -1,5 +1,5 @@
-import type { XBus } from '@empathyco/x-bus'
 import type { WireMetadata, XEventsTypes } from '../../wiring/index'
+import type { XBus } from '../../x-bus'
 import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types'
 
 /**
