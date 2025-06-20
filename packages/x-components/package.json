@@ -51,6 +51,7 @@
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
