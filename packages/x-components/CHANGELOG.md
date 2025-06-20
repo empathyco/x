@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.99 (2025-06-20)
+
+* ci: add typecheck script to package.json (#1806) ([912d163](https://github.com/empathyco/x/commit/912d163)), closes [#1806](https://github.com/empathyco/x/issues/1806)
+
+
+
+
+
 ## 6.0.0-alpha.98 (2025-06-18)
 
 **Note:** Version bump only for package @empathyco/x-components
