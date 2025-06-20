@@ -96,7 +96,6 @@ describe('schema tests', () => {
 
       const otherSchema: Schema<ComposedSource, ComposedTarget> = {
         request: {
-          // @ts-expect-error Type "response" is not assignable to type "response.list
           $path: 'response',
           // @ts-expect-error Type Schema<Pepe, Maria> is not assignable to type "$self" | ((source: ComposedSource) => never
           $subSchema: wrongSubSchema,

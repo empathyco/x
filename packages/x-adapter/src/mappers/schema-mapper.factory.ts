@@ -64,7 +64,11 @@ function mapSchema<Source, Target>(
                 context,
                 schema as unknown as Schema<Source, TargetKey>,
               ) as TargetKey)
-            : mapSchema<Source, TargetKey>(source, transformer, context)
+            : mapSchema<Source, TargetKey>(
+                source,
+                transformer as Schema<Source, TargetKey>,
+                context,
+              )
 
         if (value) {
           target[key] = value
