@@ -301,7 +301,7 @@ importers:
         specifier: 27.2.0
         version: 27.2.0
       '@empathyco/x-tailwindcss':
-        specifier: ^2.0.0-alpha.11
+        specifier: 2.0.0-alpha.11
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.23.0
