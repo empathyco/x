@@ -312,9 +312,6 @@ importers:
       '@testing-library/jest-dom':
         specifier: 5.17.0
         version: 5.17.0
-      '@types/autoprefixer':
-        specifier: 10.2.0
-        version: 10.2.0(postcss@8.4.12)
       '@types/glob':
         specifier: 8.1.0
         version: 8.1.0
@@ -2256,10 +2253,6 @@ packages:
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
-
-  '@types/autoprefixer@10.2.0':
-    resolution: {integrity: sha512-ClU0uw3HhUra890K4xcf2IQxD6w0WOjPIaKb8jrRXYPHvvUW1P5dGufPlDtTo5gtWPWH+4L6tSBAoAKVf93uBQ==}
-    deprecated: This is a stub types definition. autoprefixer provides its own type definitions, so you do not need this installed.
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -10305,12 +10298,6 @@ snapshots:
     optional: true
 
   '@types/argparse@1.0.38': {}
-
-  '@types/autoprefixer@10.2.0(postcss@8.4.12)':
-    dependencies:
-      autoprefixer: 10.4.21(postcss@8.4.12)
-    transitivePeerDependencies:
-      - postcss
 
   '@types/babel__core@7.20.5':
     dependencies:

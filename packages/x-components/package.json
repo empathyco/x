@@ -101,7 +101,6 @@
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.52.8",
     "@testing-library/jest-dom": "5.17.0",
-    "@types/autoprefixer": "10.2.0",
     "@types/glob": "8.1.0",
     "@types/jest": "27.5.0",
     "@types/node": "22.15.29",
