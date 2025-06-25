@@ -4,7 +4,16 @@
      @slot related-prompt-extra-content - The slot to render related prompt extra information.
      @prop {Object} relatedPrompt - The related prompt object.
     -->
-    <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
+    <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt">
+      <img
+        v-if="relatedPrompt.suggestionImageUrl"
+        :width="56"
+        :height="56"
+        :src="relatedPrompt.suggestionImageUrl"
+        :alt="relatedPrompt.nextQueries[0]"
+        class="x-related-prompts-item-image"
+      />
+    </slot>
     <span
       v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"
       class="x-related-prompt-text"
@@ -82,5 +91,14 @@ export default defineComponent({
   height: 24px;
   flex-shrink: 0;
   align-self: start;
+}
+
+.x-related-prompts-item-image {
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: white;
+  object-fit: cover;
 }
 </style>
