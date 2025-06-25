@@ -117,10 +117,9 @@ export class BaseXPriorityQueue<
   }
 
   /**
-   * Inserts the node into the queue in the correct position based on the
-   * {@link comparatorFn | comparator function}.
+   * Inserts the node into the queue in the correct position based on the comparator function.
    *
-   * @param newNode - The {@link XPriorityQueueNode | node} to be inserted.
+   * @param newNode - The node to be inserted.
    *
    * @internal
    */
@@ -199,7 +198,7 @@ export class BaseXPriorityQueue<
   /**
    * Returns a string representation of this collection. The string representation consists of a
    * list of the queue {@link XPriorityQueueNode | nodes} split in multiple lines, one for each
-   * one. Nodes are converted to strings as by {@link XPriorityQueueNode.toString | toString()}.
+   * one. Nodes are converted to strings as by toString().
    *
    * @example
    * ```

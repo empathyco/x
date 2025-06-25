@@ -1,7 +1,7 @@
-import type { XBus } from '@empathyco/x-bus'
 import type { App, Plugin } from 'vue'
 import type { XPluginOptions } from '../../plugins/x-plugin.types'
 import type { WireMetadata, XEventsTypes } from '../../wiring/index'
+import type { XBus } from '../../x-bus'
 import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types'
 import type { InitWrapper, InstallXOptions } from './types'
 import { forEach, isFunction } from '@empathyco/x-utils'
