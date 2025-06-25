@@ -43,11 +43,11 @@
   "dependencies": {
     "@empathyco/x-deep-merge": "^2.0.3-alpha.5",
     "@empathyco/x-utils": "^1.0.3-alpha.4",
-    "tslib": "~2.6.0"
+    "tslib": "~2.8.1"
   },
   "devDependencies": {
     "@types/jest": "27.5.0",
-    "concurrently": "8.2.0",
+    "concurrently": "8.2.2",
     "jest": "27.5.0",
     "rimraf": "3.0.2",
     "ts-jest": "27.1.0",

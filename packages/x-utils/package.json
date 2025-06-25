@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@empathyco/x-storage-service": "^2.0.3-alpha.3",
-    "tslib": "~2.6.0"
+    "tslib": "~2.8.1"
   },
   "devDependencies": {
     "@types/jest": "27.5.0",

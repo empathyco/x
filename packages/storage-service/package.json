@@ -44,7 +44,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "tslib": "~2.6.0"
+    "tslib": "~2.8.1"
   },
   "devDependencies": {
     "@types/jest": "27.5.0",
