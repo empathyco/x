@@ -90,7 +90,7 @@
     "js-md5": "~0.8.3",
     "nouislider": "~15.7.1",
     "rxjs": "~7.8.0",
-    "tslib": "~2.6.0",
+    "tslib": "~2.8.1",
     "vue-global-events": "~3.0.1"
   },
   "devDependencies": {
