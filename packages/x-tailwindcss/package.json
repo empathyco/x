@@ -42,12 +42,12 @@
   "dependencies": {
     "@empathyco/x-deep-merge": "^2.0.3-alpha.5",
     "@empathyco/x-utils": "^1.0.3-alpha.4",
-    "tslib": "~2.6.0"
+    "tslib": "~2.8.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "25.0.7",
     "@vitejs/plugin-vue": "5.2.1",
-    "autoprefixer": "10.4.4",
+    "autoprefixer": "10.4.21",
     "postcss": "8.4.12",
     "postcss-import": "16.1.0",
     "rimraf": "3.0.2",

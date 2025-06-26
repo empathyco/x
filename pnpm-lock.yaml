@@ -73,8 +73,8 @@ importers:
   packages/storage-service:
     dependencies:
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: 27.5.0
@@ -98,15 +98,15 @@ importers:
         specifier: ^1.0.3-alpha.4
         version: link:../x-utils
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
       concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
+        specifier: 8.2.2
+        version: 8.2.2
       jest:
         specifier: 27.5.0
         version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
@@ -139,14 +139,14 @@ importers:
         specifier: 7.23.0
         version: 7.23.0(@types/node@22.15.29)
       '@microsoft/api-extractor':
-        specifier: 7.39.0
-        version: 7.39.0(@types/node@22.15.29)
+        specifier: 7.52.8
+        version: 7.52.8(@types/node@22.15.29)
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
       concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
+        specifier: 8.2.2
+        version: 8.2.2
       jest:
         specifier: 27.5.0
         version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
@@ -169,8 +169,8 @@ importers:
         specifier: workspace:^1.0.3-alpha.4
         version: link:../x-utils
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
       vue-i18n:
         specifier: ~9.14.0
         version: 9.14.4(vue@3.4.31(typescript@4.9.4))
@@ -224,15 +224,15 @@ importers:
         specifier: ~7.8.0
         version: 7.8.2
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
       concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
+        specifier: 8.2.2
+        version: 8.2.2
       jest:
         specifier: 27.5.0
         version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
@@ -279,14 +279,14 @@ importers:
         specifier: ~0.8.3
         version: 0.8.3
       nouislider:
-        specifier: ~15.7.1
-        version: 15.7.2
+        specifier: ~15.8.1
+        version: 15.8.1
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
       vue-global-events:
         specifier: ~3.0.1
         version: 3.0.1(vue@3.4.31(typescript@4.9.4))
@@ -295,8 +295,8 @@ importers:
         specifier: 22.0.1
         version: 22.0.1(@babel/core@7.26.10)(cypress@14.3.0)(typescript@4.9.4)
       '@bahmutov/cypress-esbuild-preprocessor':
-        specifier: 2.2.0
-        version: 2.2.0(esbuild@0.20.0)
+        specifier: 2.2.5
+        version: 2.2.5(esbuild@0.20.0)
       '@cucumber/messages':
         specifier: 27.2.0
         version: 27.2.0
@@ -307,14 +307,11 @@ importers:
         specifier: 7.23.0
         version: 7.23.0(@types/node@22.15.29)
       '@microsoft/api-extractor':
-        specifier: 7.39.0
-        version: 7.39.0(@types/node@22.15.29)
+        specifier: 7.52.8
+        version: 7.52.8(@types/node@22.15.29)
       '@testing-library/jest-dom':
         specifier: 5.17.0
         version: 5.17.0
-      '@types/autoprefixer':
-        specifier: 10.2.0
-        version: 10.2.0(postcss@8.4.12)
       '@types/glob':
         specifier: 8.1.0
         version: 8.1.0
@@ -337,8 +334,8 @@ importers:
         specifier: 27.0.0
         version: 27.0.0(@babel/core@7.26.10)(jest@27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4)))(ts-jest@27.1.0(@babel/core@7.26.10)(@types/jest@27.5.0)(jest@27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4)))(typescript@4.9.4))(typescript@4.9.4)(vue@3.4.31(typescript@4.9.4))
       autoprefixer:
-        specifier: 10.4.4
-        version: 10.4.4(postcss@8.4.12)
+        specifier: 10.4.21
+        version: 10.4.21(postcss@8.4.12)
       convert-source-map:
         specifier: 2.0.0
         version: 2.0.0
@@ -431,15 +428,15 @@ importers:
         specifier: ^1.0.3-alpha.4
         version: link:../x-utils
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
       concurrently:
-        specifier: 8.2.0
-        version: 8.2.0
+        specifier: 8.2.2
+        version: 8.2.2
       jest:
         specifier: 27.5.0
         version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
@@ -483,8 +480,8 @@ importers:
         specifier: ^1.0.3-alpha.4
         version: link:../x-utils
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: 25.0.7
@@ -493,8 +490,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1(vite@4.5.0(@types/node@22.15.29)(sass@1.70.0))(vue@3.5.13(typescript@4.9.4))
       autoprefixer:
-        specifier: 10.4.4
-        version: 10.4.4(postcss@8.4.12)
+        specifier: 10.4.21
+        version: 10.4.21(postcss@8.4.12)
       postcss:
         specifier: 8.4.12
         version: 8.4.12
@@ -554,8 +551,8 @@ importers:
         specifier: ^1.0.3-alpha.4
         version: link:../x-utils
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@empathyco/x-jest-utils':
         specifier: 1.4.0-alpha.11
@@ -564,8 +561,8 @@ importers:
         specifier: 7.23.0
         version: 7.23.0(@types/node@22.15.29)
       '@microsoft/api-extractor':
-        specifier: 7.39.0
-        version: 7.39.0(@types/node@22.15.29)
+        specifier: 7.52.8
+        version: 7.52.8(@types/node@22.15.29)
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
@@ -591,8 +588,8 @@ importers:
         specifier: ^2.0.3-alpha.3
         version: link:../storage-service
       tslib:
-        specifier: ~2.6.0
-        version: 2.6.3
+        specifier: ~2.8.1
+        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: 27.5.0
@@ -624,8 +621,8 @@ packages:
   '@actions/io@1.1.3':
     resolution: {integrity: sha512-wi9JjgKLYS7U/z8PPbco+PvTb/nRWjeoFlJ1Qer83k/3C5PHQi28hiVdeE2kHXmIL99mQFawx8qt/JPjZilJ8Q==}
 
-  '@adobe/css-tools@4.4.2':
-    resolution: {integrity: sha512-baYZExFpsdkBNuvGKTKWCwKH57HRZLVtycZS05WTQNVOiXVSeAki3nU35zlRbToeMW8aHlJfyS+1C4BOv27q0A==}
+  '@adobe/css-tools@4.4.3':
+    resolution: {integrity: sha512-VQKMkwriZbaOgVCby1UDY/LDk5fIjhQicCvVPFqfe+69fWaPWydbWJ3wRt59/YzIwda1I81loas3oCoHxnqvdA==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -905,8 +902,8 @@ packages:
     peerDependencies:
       cypress: ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
 
-  '@bahmutov/cypress-esbuild-preprocessor@2.2.0':
-    resolution: {integrity: sha512-pTvxRi6+OFsXy6uCn/HlO5zi0fUZWbiCtTiLTDf/+kgEfZ/Y8WIxZ2pjuir9MEM8prQenBw60TLcM0wcazh7+Q==}
+  '@bahmutov/cypress-esbuild-preprocessor@2.2.5':
+    resolution: {integrity: sha512-T8jugcaKdK3G470eWTo9fxeLXupnlTHLdWrjcfWuFM9spkHrASkiG20IpmAKiSPUjeXU0+A1EDssD48XMMxaKg==}
     peerDependencies:
       esbuild: '>=0.17.0'
 
@@ -1686,18 +1683,24 @@ packages:
   '@microsoft/api-extractor-model@7.28.0':
     resolution: {integrity: sha512-QIMtUVm1tqiKG+M6ciFgRShcDoovyltaeg+CbyOnyr7SMrp6gg0ojK5/nToMqR9kAvsTS4QVgW4Twl50EoAjcw==}
 
-  '@microsoft/api-extractor-model@7.28.3':
-    resolution: {integrity: sha512-wT/kB2oDbdZXITyDh2SQLzaWwTOFbV326fP0pUwNW00WeliARs0qjmXBWmGWardEzp2U3/axkO3Lboqun6vrig==}
+  '@microsoft/api-extractor-model@7.30.6':
+    resolution: {integrity: sha512-znmFn69wf/AIrwHya3fxX6uB5etSIn6vg4Q4RB/tb5VDDs1rqREc+AvMC/p19MUN13CZ7+V/8pkYPTj7q8tftg==}
 
-  '@microsoft/api-extractor@7.39.0':
-    resolution: {integrity: sha512-PuXxzadgnvp+wdeZFPonssRAj/EW4Gm4s75TXzPk09h3wJ8RS3x7typf95B4vwZRrPTQBGopdUl+/vHvlPdAcg==}
+  '@microsoft/api-extractor@7.52.8':
+    resolution: {integrity: sha512-cszYIcjiNscDoMB1CIKZ3My61+JOhpERGlGr54i6bocvGLrcL/wo9o+RNXMBrb7XgLtKaizZWUpqRduQuHQLdg==}
     hasBin: true
 
   '@microsoft/tsdoc-config@0.16.2':
     resolution: {integrity: sha512-OGiIzzoBLgWWR0UdRJX98oYO+XKGf7tiK4Zk6tQ/E4IJqGCe7dvkTvgDZV5cFJUzLGDOjeAXrnZoA6QkVySuxw==}
 
+  '@microsoft/tsdoc-config@0.17.1':
+    resolution: {integrity: sha512-UtjIFe0C6oYgTnad4q1QP4qXwLhe6tIpNTRStJ2RZEPIkqQPREAwE5spzVxsdn9UaEMUqhh0AqSx3X4nWAKXWw==}
+
   '@microsoft/tsdoc@0.14.2':
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
+
+  '@microsoft/tsdoc@0.15.1':
+    resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
 
   '@napi-rs/wasm-runtime@0.2.8':
     resolution: {integrity: sha512-OBlgKdX7gin7OIq4fadsjpg+cp2ZphvAIKucHsNfTdJiqdOmOEwQd/bHi0VwNrcw5xpBJyUw6cK/QilCqy1BSg==}
@@ -2140,22 +2143,30 @@ packages:
       '@types/node':
         optional: true
 
-  '@rushstack/node-core-library@3.62.0':
-    resolution: {integrity: sha512-88aJn2h8UpSvdwuDXBv1/v1heM6GnBf3RjEy6ZPP7UnzHNCqOHA2Ut+ScYUbXcqIdfew9JlTAe3g+cnX9xQ/Aw==}
+  '@rushstack/node-core-library@5.13.1':
+    resolution: {integrity: sha512-5yXhzPFGEkVc9Fu92wsNJ9jlvdwz4RNb2bMso+/+TH0nMm1jDDDsOIf4l8GAkPxGuwPw5DH24RliWVfSPhlW/Q==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
       '@types/node':
         optional: true
 
-  '@rushstack/rig-package@0.5.1':
-    resolution: {integrity: sha512-pXRYSe29TjRw7rqxD4WS3HN/sRSbfr+tJs4a9uuaSIBAITbUggygdhuG0VrO0EO+QqH91GhYMN4S6KRtOEmGVA==}
+  '@rushstack/rig-package@0.5.3':
+    resolution: {integrity: sha512-olzSSjYrvCNxUFZowevC3uz8gvKr3WTpHQ7BkpjtRpA3wK+T0ybep/SRUMfr195gBzJm5gaXw0ZMgjIyHqJUow==}
+
+  '@rushstack/terminal@0.15.3':
+    resolution: {integrity: sha512-DGJ0B2Vm69468kZCJkPj3AH5nN+nR9SPmC0rFHtzsS4lBQ7/dgOwtwVxYP7W9JPDMuRBkJ4KHmWKr036eJsj9g==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
 
   '@rushstack/ts-command-line@4.16.0':
     resolution: {integrity: sha512-WJKhdR9ThK9Iy7t78O3at7I3X4Ssp5RRZay/IQa8NywqkFy/DQbT3iLouodMMdUwLZD9n8n++xLubVd3dkmpkg==}
 
-  '@rushstack/ts-command-line@4.17.1':
-    resolution: {integrity: sha512-2jweO1O57BYP5qdBGl6apJLB+aRIn5ccIRTPDyULh0KMwVzFqWtw6IZWt1qtUoZD/pD2RNkIOosH6Cq45rIYeg==}
+  '@rushstack/ts-command-line@5.0.1':
+    resolution: {integrity: sha512-bsbUucn41UXrQK7wgM8CNM/jagBytEyJqXw/umtI8d68vFm1Jwxh1OtLrlW7uGZgjCWiiPH6ooUNa1aVsuVr3Q==}
 
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
@@ -2242,10 +2253,6 @@ packages:
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
-
-  '@types/autoprefixer@10.2.0':
-    resolution: {integrity: sha512-ClU0uw3HhUra890K4xcf2IQxD6w0WOjPIaKb8jrRXYPHvvUW1P5dGufPlDtTo5gtWPWH+4L6tSBAoAKVf93uBQ==}
-    deprecated: This is a stub types definition. autoprefixer provides its own type definitions, so you do not need this installed.
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2713,8 +2720,30 @@ packages:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
     engines: {node: '>=8'}
 
+  ajv-draft-04@1.0.0:
+    resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
+    peerDependencies:
+      ajv: ^8.5.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
+
+  ajv-formats@3.0.1:
+    resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
+
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
+
+  ajv@8.12.0:
+    resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
+
+  ajv@8.13.0:
+    resolution: {integrity: sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==}
 
   ansi-colors@4.1.3:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
@@ -2867,8 +2896,8 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
 
-  autoprefixer@10.4.4:
-    resolution: {integrity: sha512-Tm8JxsB286VweiZ5F0anmbyGiNI3v3wGv3mz9W+cxEDYB/6jbnj6GM9H9mK3wIL8ftgl+C07Lcwb8PG5PCCPzA==}
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -3303,8 +3332,8 @@ packages:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
     engines: {'0': node >= 6.0}
 
-  concurrently@8.2.0:
-    resolution: {integrity: sha512-nnLMxO2LU492mTUj9qX/az/lESonSZu81UznYDoXtz1IQf996ixVqPAgHXwvHiHCAef/7S8HIK+fTFK7Ifk8YA==}
+  concurrently@8.2.2:
+    resolution: {integrity: sha512-1dP4gpXFhei8IOtlXRE/T/4H88ElHgTiUzh71YUmtjTEHMSRS2Z/fgOxHSxxusGHogsRfxNq1vyAwxSC+EVyDg==}
     engines: {node: ^14.13.0 || >=16.0.0}
     hasBin: true
 
@@ -3523,6 +3552,15 @@ packages:
 
   debug@4.4.0:
     resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
+  debug@4.4.1:
+    resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
     engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
@@ -5303,6 +5341,9 @@ packages:
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
 
+  json-schema-traverse@1.0.0:
+    resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+
   json-schema@0.4.0:
     resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
 
@@ -5956,8 +5997,8 @@ packages:
     resolution: {integrity: sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==}
     engines: {node: '>=10'}
 
-  nouislider@15.7.2:
-    resolution: {integrity: sha512-Jn1xuJZk0cs7XdzFD2tKucedlvi5/eEAsyewPS70Qqba3a1vcyEey2VZFmp7JiS06QfgkD0kEFk8oMnJrLDWXQ==}
+  nouislider@15.8.1:
+    resolution: {integrity: sha512-93TweAi8kqntHJSPiSWQ1o/uZ29VWOmal9YKb6KKGGlCkugaNfAupT7o1qTHqdJvNQ7S0su5rO6qRFCjP8fxtw==}
 
   npm-bundled@1.1.2:
     resolution: {integrity: sha512-x5DHup0SuyQcmL3s7Rx/YQ8sbw/Hzg0rj48eN0dV7hf5cmQq5PXIeioroH3raV1QC1yh3uTYuMThvEQF3iKgGQ==}
@@ -6963,6 +7004,10 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
+  require-from-string@2.0.2:
+    resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
+    engines: {node: '>=0.10.0'}
+
   requirejs-config-file@4.0.0:
     resolution: {integrity: sha512-jnIre8cbWOyvr8a5F2KuqBnY+SDA4NXr/hzEZJG79Mxm2WiFQz2dzhC8ibtPJS7zkmBEl1mxSwp5HhC1W4qpxw==}
     engines: {node: '>=10.13.0'}
@@ -7765,8 +7810,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.3.3:
-    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -8347,7 +8392,7 @@ snapshots:
 
   '@actions/io@1.1.3': {}
 
-  '@adobe/css-tools@4.4.2': {}
+  '@adobe/css-tools@4.4.3': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -8705,9 +8750,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@bahmutov/cypress-esbuild-preprocessor@2.2.0(esbuild@0.20.0)':
+  '@bahmutov/cypress-esbuild-preprocessor@2.2.5(esbuild@0.20.0)':
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.1
       esbuild: 0.20.0
     transitivePeerDependencies:
       - supports-color
@@ -8743,7 +8788,7 @@ snapshots:
       '@cucumber/ci-environment': 10.0.1
       '@cucumber/cucumber-expressions': 18.0.1
       '@cucumber/gherkin': 30.0.4
-      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)
       '@cucumber/gherkin-utils': 9.0.0
       '@cucumber/html-formatter': 21.7.0(@cucumber/messages@27.0.2)
       '@cucumber/junit-xml-formatter': 0.7.1(@cucumber/messages@27.0.2)
@@ -8782,7 +8827,7 @@ snapshots:
       yaml: 2.7.1
       yup: 1.2.0
 
-  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)':
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)':
     dependencies:
       '@cucumber/gherkin': 30.0.4
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@27.0.2)
@@ -8905,17 +8950,17 @@ snapshots:
   '@emnapi/core@1.4.1':
     dependencies:
       '@emnapi/wasi-threads': 1.0.1
-      tslib: 2.6.3
+      tslib: 2.8.1
     optional: true
 
   '@emnapi/runtime@1.4.1':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
     optional: true
 
   '@emnapi/wasi-threads@1.0.1':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
     optional: true
 
   '@empathyco/eslint-config@1.8.0(@typescript-eslint/utils@8.30.1(eslint@9.21.0(jiti@1.21.7))(typescript@5.8.3))(@vue/compiler-sfc@3.5.13)(jiti@1.21.7)(typescript@5.8.3)(vitest@3.1.1(@types/debug@4.1.12)(@types/node@22.15.29)(jiti@1.21.7)(jsdom@16.7.0)(sass@1.70.0)(tsx@4.19.3)(yaml@2.7.1))':
@@ -9609,28 +9654,29 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor-model@7.28.3(@types/node@22.15.29)':
+  '@microsoft/api-extractor-model@7.30.6(@types/node@22.15.29)':
     dependencies:
-      '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.62.0(@types/node@22.15.29)
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
+      '@rushstack/node-core-library': 5.13.1(@types/node@22.15.29)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.39.0(@types/node@22.15.29)':
+  '@microsoft/api-extractor@7.52.8(@types/node@22.15.29)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.28.3(@types/node@22.15.29)
-      '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.62.0(@types/node@22.15.29)
-      '@rushstack/rig-package': 0.5.1
-      '@rushstack/ts-command-line': 4.17.1
-      colors: 1.2.5
+      '@microsoft/api-extractor-model': 7.30.6(@types/node@22.15.29)
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
+      '@rushstack/node-core-library': 5.13.1(@types/node@22.15.29)
+      '@rushstack/rig-package': 0.5.3
+      '@rushstack/terminal': 0.15.3(@types/node@22.15.29)
+      '@rushstack/ts-command-line': 5.0.1(@types/node@22.15.29)
       lodash: 4.17.21
+      minimatch: 3.0.5
       resolve: 1.22.10
       semver: 7.5.4
       source-map: 0.6.1
-      typescript: 5.3.3
+      typescript: 5.8.2
     transitivePeerDependencies:
       - '@types/node'
 
@@ -9641,7 +9687,16 @@ snapshots:
       jju: 1.4.0
       resolve: 1.19.0
 
+  '@microsoft/tsdoc-config@0.17.1':
+    dependencies:
+      '@microsoft/tsdoc': 0.15.1
+      ajv: 8.12.0
+      jju: 1.4.0
+      resolve: 1.22.10
+
   '@microsoft/tsdoc@0.14.2': {}
+
+  '@microsoft/tsdoc@0.15.1': {}
 
   '@napi-rs/wasm-runtime@0.2.8':
     dependencies:
@@ -9835,7 +9890,7 @@ snapshots:
       nx: 15.9.7
       semver: 7.5.4
       tmp: 0.2.3
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@nrwl/nx-darwin-arm64@15.9.7':
     optional: true
@@ -10110,22 +10165,30 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.15.29
 
-  '@rushstack/node-core-library@3.62.0(@types/node@22.15.29)':
+  '@rushstack/node-core-library@5.13.1(@types/node@22.15.29)':
     dependencies:
-      colors: 1.2.5
-      fs-extra: 7.0.1
+      ajv: 8.13.0
+      ajv-draft-04: 1.0.0(ajv@8.13.0)
+      ajv-formats: 3.0.1(ajv@8.13.0)
+      fs-extra: 11.3.0
       import-lazy: 4.0.0
       jju: 1.4.0
       resolve: 1.22.10
       semver: 7.5.4
-      z-schema: 5.0.5
     optionalDependencies:
       '@types/node': 22.15.29
 
-  '@rushstack/rig-package@0.5.1':
+  '@rushstack/rig-package@0.5.3':
     dependencies:
       resolve: 1.22.10
       strip-json-comments: 3.1.1
+
+  '@rushstack/terminal@0.15.3(@types/node@22.15.29)':
+    dependencies:
+      '@rushstack/node-core-library': 5.13.1(@types/node@22.15.29)
+      supports-color: 8.1.1
+    optionalDependencies:
+      '@types/node': 22.15.29
 
   '@rushstack/ts-command-line@4.16.0':
     dependencies:
@@ -10134,12 +10197,14 @@ snapshots:
       colors: 1.2.5
       string-argv: 0.3.2
 
-  '@rushstack/ts-command-line@4.17.1':
+  '@rushstack/ts-command-line@5.0.1(@types/node@22.15.29)':
     dependencies:
+      '@rushstack/terminal': 0.15.3(@types/node@22.15.29)
       '@types/argparse': 1.0.38
       argparse: 1.0.10
-      colors: 1.2.5
       string-argv: 0.3.2
+    transitivePeerDependencies:
+      - '@types/node'
 
   '@sideway/address@4.1.5':
     dependencies:
@@ -10196,7 +10261,7 @@ snapshots:
 
   '@testing-library/jest-dom@5.17.0':
     dependencies:
-      '@adobe/css-tools': 4.4.2
+      '@adobe/css-tools': 4.4.3
       '@babel/runtime': 7.27.0
       '@types/testing-library__jest-dom': 5.14.9
       aria-query: 5.3.2
@@ -10229,16 +10294,10 @@ snapshots:
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
     optional: true
 
   '@types/argparse@1.0.38': {}
-
-  '@types/autoprefixer@10.2.0(postcss@8.4.12)':
-    dependencies:
-      autoprefixer: 10.4.4(postcss@8.4.12)
-    transitivePeerDependencies:
-      - postcss
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -10740,7 +10799,7 @@ snapshots:
   '@yarnpkg/parsers@3.0.0-rc.46':
     dependencies:
       js-yaml: 3.14.1
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@zkochan/js-yaml@0.0.6':
     dependencies:
@@ -10793,11 +10852,33 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
+  ajv-draft-04@1.0.0(ajv@8.13.0):
+    optionalDependencies:
+      ajv: 8.13.0
+
+  ajv-formats@3.0.1(ajv@8.13.0):
+    optionalDependencies:
+      ajv: 8.13.0
+
   ajv@6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.4.1
+      uri-js: 4.4.1
+
+  ajv@8.12.0:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
+      uri-js: 4.4.1
+
+  ajv@8.13.0:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
       uri-js: 4.4.1
 
   ansi-colors@4.1.3: {}
@@ -10897,7 +10978,7 @@ snapshots:
 
   ast-types@0.16.1:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   astral-regex@2.0.0: {}
 
@@ -10907,7 +10988,7 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
-  autoprefixer@10.4.4(postcss@8.4.12):
+  autoprefixer@10.4.21(postcss@8.4.12):
     dependencies:
       browserslist: 4.24.4
       caniuse-lite: 1.0.30001713
@@ -11167,7 +11248,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
       upper-case-first: 2.0.2
 
   caseless@0.12.0: {}
@@ -11382,7 +11463,7 @@ snapshots:
       readable-stream: 3.6.2
       typedarray: 0.0.6
 
-  concurrently@8.2.0:
+  concurrently@8.2.2:
     dependencies:
       chalk: 4.1.2
       date-fns: 2.30.0
@@ -11702,6 +11783,10 @@ snapshots:
       ms: 2.1.3
     optionalDependencies:
       supports-color: 8.1.1
+
+  debug@4.4.1:
+    dependencies:
+      ms: 2.1.3
 
   decamelize-keys@1.1.1:
     dependencies:
@@ -13943,6 +14028,8 @@ snapshots:
 
   json-schema-traverse@0.4.1: {}
 
+  json-schema-traverse@1.0.0: {}
+
   json-schema@0.4.0: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
@@ -14215,7 +14302,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   lru-cache@10.4.3: {}
 
@@ -14819,7 +14906,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   node-addon-api@3.2.1: {}
 
@@ -14904,7 +14991,7 @@ snapshots:
 
   normalize-url@6.1.0: {}
 
-  nouislider@15.7.2: {}
+  nouislider@15.8.1: {}
 
   npm-bundled@1.1.2:
     dependencies:
@@ -15067,7 +15154,7 @@ snapshots:
       tar-stream: 2.2.0
       tmp: 0.2.3
       tsconfig-paths: 4.2.0
-      tslib: 2.6.3
+      tslib: 2.8.1
       v8-compile-cache: 2.3.0
       yargs: 17.7.2
       yargs-parser: 21.1.1
@@ -15930,7 +16017,7 @@ snapshots:
       esprima: 4.0.1
       source-map: 0.6.1
       tiny-invariant: 1.3.3
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   rechoir@0.6.2:
     dependencies:
@@ -15988,6 +16075,8 @@ snapshots:
       - supports-color
 
   require-directory@2.1.1: {}
+
+  require-from-string@2.0.2: {}
 
   requirejs-config-file@4.0.0:
     dependencies:
@@ -16074,7 +16163,7 @@ snapshots:
       resolve: 1.22.10
       rollup: 4.9.1
       source-map-js: 1.2.1
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   rollup-plugin-typescript2@0.36.0(rollup@4.9.1)(typescript@4.9.4):
     dependencies:
@@ -16083,7 +16172,7 @@ snapshots:
       fs-extra: 10.1.0
       rollup: 4.9.1
       semver: 7.7.1
-      tslib: 2.6.3
+      tslib: 2.8.1
       typescript: 4.9.4
 
   rollup-plugin-vue@6.0.0(@vue/compiler-sfc@3.5.13):
@@ -16154,7 +16243,7 @@ snapshots:
 
   rxjs@7.8.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   safe-buffer@5.1.2: {}
 
@@ -16581,7 +16670,7 @@ snapshots:
   synckit@0.9.2:
     dependencies:
       '@pkgr/core': 0.1.2
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   tailwindcss@3.4.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4)):
     dependencies:
@@ -16879,7 +16968,7 @@ snapshots:
 
   typescript@4.9.4: {}
 
-  typescript@5.3.3: {}
+  typescript@5.8.2: {}
 
   typescript@5.8.3: {}
 
@@ -16974,7 +17063,7 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   uri-js@4.4.1:
     dependencies:
@@ -17033,7 +17122,7 @@ snapshots:
   vite-node@3.1.1(@types/node@22.15.29)(jiti@1.21.7)(sass@1.70.0)(tsx@4.19.3)(yaml@2.7.1):
     dependencies:
       cac: 6.7.14
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.1
       es-module-lexer: 1.6.0
       pathe: 2.0.3
       vite: 6.2.6(@types/node@22.15.29)(jiti@1.21.7)(sass@1.70.0)(tsx@4.19.3)(yaml@2.7.1)
@@ -17099,7 +17188,7 @@ snapshots:
       '@vitest/spy': 3.1.1
       '@vitest/utils': 3.1.1
       chai: 5.2.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.1
       expect-type: 1.2.1
       magic-string: 0.30.17
       pathe: 2.0.3
