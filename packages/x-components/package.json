@@ -135,7 +135,7 @@
     "vite-plugin-vue-inspector": "5.1.2",
     "vue": "3.4.31",
     "vue-docgen-cli": "4.79.0",
-    "vue-router": "4.4.0",
+    "vue-router": "4.5.1",
     "vuex": "4.0.2"
   },
   "publishConfig": {

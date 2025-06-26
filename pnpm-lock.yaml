@@ -172,7 +172,7 @@ importers:
         specifier: ~2.8.1
         version: 2.8.1
       vue-i18n:
-        specifier: ~9.14.0
+        specifier: ~9.14.4
         version: 9.14.4(vue@3.4.31(typescript@4.9.4))
     devDependencies:
       '@types/jest':
@@ -415,8 +415,8 @@ importers:
         specifier: 4.79.0
         version: 4.79.0(vue@3.4.31(typescript@4.9.4))
       vue-router:
-        specifier: 4.4.0
-        version: 4.4.0(vue@3.4.31(typescript@4.9.4))
+        specifier: 4.5.1
+        version: 4.5.1(vue@3.4.31(typescript@4.9.4))
       vuex:
         specifier: 4.0.2
         version: 4.0.2(vue@3.4.31(typescript@4.9.4))
@@ -2591,6 +2591,9 @@ packages:
 
   '@vue/devtools-api@6.5.1':
     resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
+
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
 
   '@vue/reactivity@3.4.31':
     resolution: {integrity: sha512-VGkTani8SOoVkZNds1PfJ/T1SlAIOf8E58PGAhIOUDYPC4GAmFA2u/E14TDAFcf3vVDKunc4QqCe/SHr8xC65Q==}
@@ -8122,8 +8125,8 @@ packages:
     peerDependencies:
       vue: '>=2'
 
-  vue-router@4.4.0:
-    resolution: {integrity: sha512-HB+t2p611aIZraV2aPSRNXf0Z/oLZFrlygJm+sZbdJaW6lcFqEDQwnzUBXn+DApw+/QzDU/I9TeWx9izEjTmsA==}
+  vue-router@4.5.1:
+    resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -8788,7 +8791,7 @@ snapshots:
       '@cucumber/ci-environment': 10.0.1
       '@cucumber/cucumber-expressions': 18.0.1
       '@cucumber/gherkin': 30.0.4
-      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)
       '@cucumber/gherkin-utils': 9.0.0
       '@cucumber/html-formatter': 21.7.0(@cucumber/messages@27.0.2)
       '@cucumber/junit-xml-formatter': 0.7.1(@cucumber/messages@27.0.2)
@@ -8827,7 +8830,7 @@ snapshots:
       yaml: 2.7.1
       yup: 1.2.0
 
-  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)':
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)':
     dependencies:
       '@cucumber/gherkin': 30.0.4
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@27.0.2)
@@ -10704,6 +10707,8 @@ snapshots:
       '@vue/shared': 3.5.13
 
   '@vue/devtools-api@6.5.1': {}
+
+  '@vue/devtools-api@6.6.4': {}
 
   '@vue/reactivity@3.4.31':
     dependencies:
@@ -17283,9 +17288,9 @@ snapshots:
     dependencies:
       vue: 3.4.31(typescript@4.9.4)
 
-  vue-router@4.4.0(vue@3.4.31(typescript@4.9.4)):
+  vue-router@4.5.1(vue@3.4.31(typescript@4.9.4)):
     dependencies:
-      '@vue/devtools-api': 6.5.1
+      '@vue/devtools-api': 6.6.4
       vue: 3.4.31(typescript@4.9.4)
 
   vue@3.4.31(typescript@4.9.4):
