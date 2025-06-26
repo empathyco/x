@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.20 (2025-06-26)
+
+* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
+
+
+
+
+
 ## 1.1.0-alpha.19 (2025-06-06)
 
 * feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)

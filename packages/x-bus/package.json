@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-bus",
-  "version": "1.0.3-alpha.4",
+  "version": "1.0.3-alpha.5",
   "description": "Event bus to help with events orchestration",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -43,8 +43,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-priority-queue": "^1.0.3-alpha.4",
-    "@empathyco/x-utils": "^1.0.3-alpha.4",
+    "@empathyco/x-priority-queue": "^1.0.3-alpha.5",
+    "@empathyco/x-utils": "^1.0.3-alpha.5",
     "rxjs": "~7.8.0",
     "tslib": "~2.8.1"
   },

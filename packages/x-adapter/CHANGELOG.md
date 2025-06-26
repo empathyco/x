@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.5 (2025-06-26)
+
+* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
+
+
+
+
+
 ## 8.1.0-alpha.4 (2025-06-06)
 
 **Note:** Version bump only for package @empathyco/x-adapter
