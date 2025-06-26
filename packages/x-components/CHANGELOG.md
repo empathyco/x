@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.101 (2025-06-26)
+
+* feat(related-prompts): add related prompts images as default (#1811) ([e7e51b4](https://github.com/empathyco/x/commit/e7e51b4)), closes [#1811](https://github.com/empathyco/x/issues/1811)
+
+
+
+
+
 ## 6.0.0-alpha.100 (2025-06-25)
 
 * chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.11 (#1808) ([c614b25](https://github.com/empathyco/x/commit/c614b25)), closes [#1808](https://github.com/empathyco/x/issues/1808)
