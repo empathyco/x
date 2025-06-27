@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.103 (2025-06-27)
+
+* feat: avoid related-prompts animation from top of the serp (#1812) ([e333a98](https://github.com/empathyco/x/commit/e333a98)), closes [#1812](https://github.com/empathyco/x/issues/1812)
+
+
+
+
+
 ## 6.0.0-alpha.102 (2025-06-26)
 
 * chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
