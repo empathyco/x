@@ -212,6 +212,12 @@ export default defineComponent({
   grid-column-end: -1;
 }
 
+.x-base-grid__related-prompts-group.x-staggered-fade-and-slide-leave-active,
+.x-base-grid__related-prompts-group.x-staggered-fade-and-slide-enter-active {
+  transition: none;
+  position: relative;
+}
+
 .x-base-grid__item {
   display: flex;
   flex-flow: column nowrap;
