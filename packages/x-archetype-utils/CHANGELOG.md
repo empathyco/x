@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.14 (2025-06-27)
+
+* chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
+
+
+
+
+
 ## 2.0.0-alpha.13 (2025-06-26)
 
 * chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
