@@ -301,7 +301,7 @@ importers:
         specifier: 27.2.0
         version: 27.2.0
       '@empathyco/x-tailwindcss':
-        specifier: ^2.0.0-alpha.12
+        specifier: 2.0.0-alpha.12
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.23.0
@@ -8791,7 +8791,7 @@ snapshots:
       '@cucumber/ci-environment': 10.0.1
       '@cucumber/cucumber-expressions': 18.0.1
       '@cucumber/gherkin': 30.0.4
-      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)
       '@cucumber/gherkin-utils': 9.0.0
       '@cucumber/html-formatter': 21.7.0(@cucumber/messages@27.0.2)
       '@cucumber/junit-xml-formatter': 0.7.1(@cucumber/messages@27.0.2)
@@ -8830,7 +8830,7 @@ snapshots:
       yaml: 2.7.1
       yup: 1.2.0
 
-  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0))(@cucumber/messages@27.0.2)':
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@30.0.4)(@cucumber/message-streams@4.0.1(@cucumber/messages@27.0.2))(@cucumber/messages@27.0.2)':
     dependencies:
       '@cucumber/gherkin': 30.0.4
       '@cucumber/message-streams': 4.0.1(@cucumber/messages@27.0.2)
