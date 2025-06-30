@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.105 (2025-06-30)
+
+* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.12 (#1814) ([d9a1522](https://github.com/empathyco/x/commit/d9a1522)), closes [#1814](https://github.com/empathyco/x/issues/1814)
+
+
+
+
+
 ## 6.0.0-alpha.104 (2025-06-27)
 
 * chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
