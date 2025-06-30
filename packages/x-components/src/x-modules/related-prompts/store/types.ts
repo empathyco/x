@@ -13,6 +13,8 @@ import type { UrlParams } from '../../../types'
 export interface RelatedPromptsState extends StatusState, QueryState {
   /** The list of the related-prompts, related to the `query` property of the state. */
   relatedPrompts: RelatedPrompt[]
+  /** The list of the filtered related-prompts, related to the `query` property of the state. */
+  relatedPromptsFiltered: RelatedPrompt[]
   /** The index of the selected related-prompt. */
   selectedPrompt: number
   /** The index of the selected next query. */
@@ -56,6 +58,12 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * @param products - The new related prompts to save to the state.
    */
   setRelatedPromptsProducts: (products: RelatedPrompt[]) => void
+  /**
+   * Sets the filtered related prompts of the module.
+   *
+   * @param products - The new related prompts to save to the state.
+   */
+  setFilteredRelatedPromptsProducts: (products: RelatedPrompt[]) => void
   /**
    * Sets the selected related prompt.
    *
