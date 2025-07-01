@@ -19,6 +19,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   state: () => ({
     query: '',
     relatedPrompts: [],
+    relatedPromptsFiltered: [],
     selectedPrompt: -1,
     selectedQuery: -1,
     status: 'initial',
@@ -37,6 +38,9 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     },
     setRelatedPromptsProducts(state, products) {
       state.relatedPrompts = products
+    },
+    setFilteredRelatedPromptsProducts(state, products) {
+      state.relatedPromptsFiltered = products
     },
     setSelectedPrompt(state, selectedPrompt) {
       state.selectedPrompt = state.selectedPrompt === selectedPrompt ? -1 : selectedPrompt

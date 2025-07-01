@@ -1,6 +1,7 @@
 import type { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types'
 import type { RelatedPromptsActionContext } from '../types'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
+import { getRelatedPromptsByQuery } from '../utils/related-prompts.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RelatedPromptsActionContext,
@@ -10,9 +11,13 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   async fetch({ dispatch }, request) {
     return dispatch('fetchRelatedPrompts', request)
   },
-  onSuccess({ commit }, relatedPrompts) {
+  onSuccess({ commit, state }, relatedPrompts) {
     if (relatedPrompts) {
       commit('setRelatedPromptsProducts', relatedPrompts)
+      commit(
+        'setFilteredRelatedPromptsProducts',
+        getRelatedPromptsByQuery(relatedPrompts, state.query),
+      )
     }
   },
 })
