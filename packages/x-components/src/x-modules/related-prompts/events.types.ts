@@ -47,4 +47,8 @@ export interface RelatedPromptsXEvents {
    * The related prompts has been unmounted.
    */
   RelatedPromptsUnmounted: void
+  /**
+   * Reload the current related prompts that have been requested.
+   */
+  ReloadRelatedPromptsRequested: void
 }

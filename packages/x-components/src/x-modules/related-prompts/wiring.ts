@@ -38,6 +38,11 @@ const setRelatedPrompt = wireCommit('setSelectedPrompt')
 const setRelatedPromptsRelatedTags = wireCommit('setRelatedPromptsRelatedTags')
 /** Fetches and saves the related prompts response. */
 const fetchAndSaveRelatedPrompts = wireDispatch('fetchAndSaveRelatedPrompts')
+/** Fetches the same request and saves the related prompts response. */
+const reloadRelatedPromptsRequestWire = wireDispatch(
+  'fetchAndSaveRelatedPrompts',
+  ({ getters }) => getters.request,
+)
 /** Cancels the fetch and save related prompts response. */
 const cancelFetchAndSaveRelatedPrompts = wireDispatchWithoutPayload(
   'cancelFetchAndSaveRelatedPrompts',
@@ -91,5 +96,9 @@ export const relatedPromptsWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedPromptsRelatedTags,
+  },
+  ReloadRelatedPromptsRequested: {
+    resetRelatedPromptsState,
+    reloadRelatedPromptsRequestWire,
   },
 })
