@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.106 (2025-07-01)
+
+* feat: save filtered related prompts in the related prompts state (#1816) ([bded354](https://github.com/empathyco/x/commit/bded354)), closes [#1816](https://github.com/empathyco/x/issues/1816)
+
+
+
+
+
 ## 6.0.0-alpha.105 (2025-06-30)
 
 * chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.12 (#1814) ([d9a1522](https://github.com/empathyco/x/commit/d9a1522)), closes [#1814](https://github.com/empathyco/x/issues/1814)
