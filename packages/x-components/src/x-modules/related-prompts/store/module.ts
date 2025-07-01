@@ -17,11 +17,7 @@ import { request } from './getters/request.getter'
  */
 export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   state: () => ({
-    query: '',
-    relatedPrompts: [],
-    relatedPromptsFiltered: [],
-    selectedPrompt: -1,
-    selectedQuery: -1,
+    ...resettableState(),
     status: 'initial',
     params: {},
     relatedTags: [],
@@ -59,6 +55,10 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
     },
+    resetRelatedPromptsStateForReload(state) {
+      const { query, ...resettable } = resettableState()
+      Object.assign(state, resettable)
+    },
   },
   actions: {
     fetchRelatedPrompts,
@@ -66,4 +66,14 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     cancelFetchAndSaveRelatedPrompts,
     setUrlParams,
   },
+}
+
+function resettableState() {
+  return {
+    query: '',
+    relatedPrompts: [],
+    relatedPromptsFiltered: [],
+    selectedPrompt: -1,
+    selectedQuery: -1,
+  }
 }

@@ -90,6 +90,11 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * Resets the selected related prompt number.
    */
   resetSelectedPrompt: () => void
+  /**
+   * Resets the "resettable" part of the Related Prompts state but
+   * maintains the values required to perform the related prompts request again.
+   */
+  resetRelatedPromptsStateForReload: () => void
 }
 
 /**

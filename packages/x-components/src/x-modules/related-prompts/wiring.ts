@@ -38,6 +38,13 @@ const setRelatedPrompt = wireCommit('setSelectedPrompt')
 const setRelatedPromptsRelatedTags = wireCommit('setRelatedPromptsRelatedTags')
 /** Fetches and saves the related prompts response. */
 const fetchAndSaveRelatedPrompts = wireDispatch('fetchAndSaveRelatedPrompts')
+/** Fetches the same request and saves related prompts response. */
+const reloadRelatedPromptsRequestWire = wireDispatch(
+  'fetchAndSaveRelatedPrompts',
+  ({ getters }) => {
+    return getters.request
+  },
+)
 /** Cancels the fetch and save related prompts response. */
 const cancelFetchAndSaveRelatedPrompts = wireDispatchWithoutPayload(
   'cancelFetchAndSaveRelatedPrompts',
@@ -47,6 +54,11 @@ const cancelFetchAndSaveRelatedPrompts = wireDispatchWithoutPayload(
 const resetRelatedPromptsState = wireCommitWithoutPayload('resetRelatedPromptsState')
 /** Resets the selected related prompt number. */
 const resetRelatedPrompt = wireCommitWithoutPayload('resetSelectedPrompt')
+
+/** Resets the related prompts state to reload the current related prompts. */
+export const resetRelatedPromptsStateForReloadWire = wireCommitWithoutPayload(
+  'resetRelatedPromptsStateForReload',
+)
 
 /**
  * Wiring configuration for the {@link RelatedPromptsXModule | related prompts module}.
@@ -91,5 +103,9 @@ export const relatedPromptsWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedPromptsRelatedTags,
+  },
+  ReloadRelatedPromptsRequested: {
+    resetRelatedPromptsStateForReloadWire,
+    reloadRelatedPromptsRequestWire,
   },
 })
