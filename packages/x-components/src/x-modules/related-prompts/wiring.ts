@@ -56,7 +56,7 @@ const resetRelatedPromptsState = wireCommitWithoutPayload('resetRelatedPromptsSt
 const resetRelatedPrompt = wireCommitWithoutPayload('resetSelectedPrompt')
 
 /** Resets the related prompts state to reload the current related prompts. */
-export const resetRelatedPromptsStateForReloadWire = wireCommitWithoutPayload(
+const resetRelatedPromptsStateForReloadWire = wireCommitWithoutPayload(
   'resetRelatedPromptsStateForReload',
 )
 
