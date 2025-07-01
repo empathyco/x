@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.107 (2025-07-01)
+
+* feat: create ReloadRelatedPromptsRequested event (#1817) ([854c28e](https://github.com/empathyco/x/commit/854c28e)), closes [#1817](https://github.com/empathyco/x/issues/1817)
+
+
+
+
+
 ## 6.0.0-alpha.106 (2025-07-01)
 
 * feat: save filtered related prompts in the related prompts state (#1816) ([bded354](https://github.com/empathyco/x/commit/bded354)), closes [#1816](https://github.com/empathyco/x/issues/1816)
