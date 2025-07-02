@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.108 (2025-07-02)
+
+* docs: add BaseTeleport documentation (#1818) ([080cef1](https://github.com/empathyco/x/commit/080cef1)), closes [#1818](https://github.com/empathyco/x/issues/1818)
+
+
+
+
+
 ## 6.0.0-alpha.107 (2025-07-01)
 
 * feat: create ReloadRelatedPromptsRequested event (#1817) ([854c28e](https://github.com/empathyco/x/commit/854c28e)), closes [#1817](https://github.com/empathyco/x/issues/1817)
