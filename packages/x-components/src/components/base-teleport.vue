@@ -164,3 +164,53 @@ if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => document.head.appendChild(css))
 }
 </script>
+
+<docs lang="mdx">
+## Example
+
+The BaseTeleport component allows you to teleport its slot content to a specified target element in
+the DOM. It provides flexibility in positioning the content relative to the target element and
+supports shadow DOM integration.
+
+### Basic example
+
+Teleport content to a specific element in the DOM:
+
+```vue
+<template>
+  <BaseTeleport target="#my-target">
+    <div>This content will be teleported.</div>
+  </BaseTeleport>
+</template>
+```
+
+### Positioning options
+
+Teleport content inside the target element, before its first child:
+
+```vue
+<template>
+  <BaseTeleport target="#my-target" position="afterbegin">
+    <div>Teleported content at the beginning.</div>
+  </BaseTeleport>
+</template>
+```
+
+### Disabled Teleport
+
+Prevent teleporting the content:
+
+```vue
+<template>
+  <BaseTeleport target="#my-target" :disabled="true">
+    <div>This content will not be teleported.</div>
+  </BaseTeleport>
+</template>
+```
+
+### Notes
+
+- When using the `onlychild` position, all other children of the target element will be hidden.
+- The component supports shadow DOM integration, automatically handling style injection. Anyway, Empathy's custom CSS
+  injector is required. Teleport depends on it to add the styles.
+</docs>
