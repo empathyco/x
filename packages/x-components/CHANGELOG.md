@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.109 (2025-07-03)
+
+* chore(deps): update @vueuse/core to version 10.11.0 ([c37a645](https://github.com/empathyco/x/commit/c37a645))
+
+
+
+
+
 ## 6.0.0-alpha.108 (2025-07-02)
 
 * docs: add BaseTeleport documentation (#1818) ([080cef1](https://github.com/empathyco/x/commit/080cef1)), closes [#1818](https://github.com/empathyco/x/issues/1818)
