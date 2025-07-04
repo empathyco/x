@@ -19,12 +19,12 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-config": "1.8.0",
+    "@empathyco/eslint-config": "1.10.3",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.0.0",
     "cross-env": "7.0.3",
     "husky": "8.0.3",
-    "lerna": "6.6.0"
+    "lerna": "6.6.2"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {
