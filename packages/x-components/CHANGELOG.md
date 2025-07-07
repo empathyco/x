@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.110 (2025-07-07)
+
+* feat!: revert save filtered related prompts in related prompts state ([ccd7065](https://github.com/empathyco/x/commit/ccd7065))
+
+
+### BREAKING CHANGE
+
+* the backend is already filtering the related prompts in their side, so we can remove the filtering on the frontend.
+- Drop use of `useFilteredRelatedPrompts` prop in related-promtps-tag-list.vue component.
+- Drop use of  `relatedPromptsFiltered` array in RelatedPrompts state.
+- Drop use of `setFilteredRelatedPromptsProducts` mutation in RelatedPrompts module.
+- Remove related-prompts.utils.ts utils file.
+
+
+
+
 ## 6.0.0-alpha.109 (2025-07-03)
 
 * chore(deps): update @vueuse/core to version 10.11.0 ([c37a645](https://github.com/empathyco/x/commit/c37a645))
