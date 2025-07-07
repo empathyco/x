@@ -36,12 +36,12 @@
     "test:unit": ""
   },
   "devDependencies": {
-    "@types/jest": "27.5.0",
-    "@types/node": "22.15.29",
-    "jest": "27.5.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "22.16.0",
+    "jest": "27.5.1",
     "rimraf": "3.0.2",
-    "ts-jest": "27.1.0",
-    "typescript": "4.9.4"
+    "ts-jest": "27.1.5",
+    "typescript": "4.9.5"
   },
   "publishConfig": {
     "access": "public"
