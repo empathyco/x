@@ -144,32 +144,15 @@ export default defineComponent({
       type: Number,
       default: 700,
     },
-    /**
-     * The boolean prop to handle if we should use the relatedPromptsFiltered or relatedPrompts.
-     *
-     * @public
-     */
-    useFilteredRelatedPrompts: {
-      type: Boolean,
-      default: false,
-    },
   },
   setup(props) {
     const x = use$x()
-    const {
-      relatedPrompts,
-      relatedPromptsFiltered,
-      selectedPrompt: selectedPromptIndex,
-    } = useState('relatedPrompts')
+    const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts')
 
     const clickedListItemIndex = ref<number | null>(null)
     const initialOffsetLefts: Record<number, number> = {}
     const isAnimating = ref(false)
     const listItems = ref<HTMLElement[]>([])
-
-    const relatedPromptsList = computed(() =>
-      props.useFilteredRelatedPrompts ? relatedPromptsFiltered.value : relatedPrompts.value,
-    )
 
     const sortedListItems = computed<HTMLElement[]>(() =>
       [...listItems.value].sort(
@@ -186,12 +169,12 @@ export default defineComponent({
       () =>
         props.animationDurationInMs /
         (clickedListItemIndex.value !== null
-          ? relatedPromptsList.value.length - 1
-          : relatedPromptsList.value.length),
+          ? relatedPrompts.value.length - 1
+          : relatedPrompts.value.length),
     )
 
     const indexRelatedPrompts = computed(() =>
-      relatedPromptsList.value.map((relatedPrompt, index) => ({ ...relatedPrompt, index })),
+      relatedPrompts.value.map((relatedPrompt, index) => ({ ...relatedPrompt, index })),
     )
 
     const visibleRelatedPrompts = computed(() =>
@@ -255,7 +238,7 @@ export default defineComponent({
         // Synchronize the transition delay of the selected element with the last
         // element to leave
         selected.style.transitionDelay = `${
-          (relatedPromptsList.value.length > 1 ? relatedPromptsList.value.length - 2 : 0) *
+          (relatedPrompts.value.length > 1 ? relatedPrompts.value.length - 2 : 0) *
           singleAnimationDurationInMs.value
         }ms`
 
@@ -284,7 +267,7 @@ export default defineComponent({
       }
 
       x.emit('UserSelectedARelatedPrompt', selectedIndex, {
-        relatedPrompt: relatedPromptsList.value[selectedIndex],
+        relatedPrompt: relatedPrompts.value[selectedIndex],
         selectedPrompt: selectedPromptIndex.value,
       })
     }
