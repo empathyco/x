@@ -48,7 +48,6 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
       state.selectedQuery = -1
       state.selectedPrompt = -1
       state.relatedPrompts = []
-      state.relatedPromptsFiltered = []
     },
     resetSelectedPrompt(state) {
       state.selectedPrompt = -1
