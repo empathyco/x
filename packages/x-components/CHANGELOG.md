@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.111 (2025-07-09)
+
+* docs: fix API Extractor ([137b708](https://github.com/empathyco/x/commit/137b708))
+* fix(x-bus): improve type handling ([009e9ad](https://github.com/empathyco/x/commit/009e9ad))
+* feat(x-bus): expose class ([44750c7](https://github.com/empathyco/x/commit/44750c7))
+* refactor(x-bus): move to x-components ([a2aadcd](https://github.com/empathyco/x/commit/a2aadcd))
+
+
+
+
+
 ## 6.0.0-alpha.110 (2025-07-07)
 
 * feat!: revert save filtered related prompts in related prompts state ([ccd7065](https://github.com/empathyco/x/commit/ccd7065))
