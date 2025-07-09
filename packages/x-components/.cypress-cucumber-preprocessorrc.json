@@ -1,3 +1,6 @@
 {
-  "stepDefinitions": "tests/e2e/**/*.spec.ts"
+  "stepDefinitions": [
+    "tests/e2e/keyboard-navigation/keyboard-navigation.spec.ts",
+    "tests/e2e/**/*.spec.ts"
+  ]
 }
