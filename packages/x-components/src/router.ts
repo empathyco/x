@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import process from 'node:process'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
@@ -15,6 +14,7 @@ const routes: RouteRecordRaw[] = [
   },
 ]
 
+// eslint-disable-next-line node/prefer-global/process
 if (process.env.NODE_ENV !== 'production') {
   routes.push(
     {
