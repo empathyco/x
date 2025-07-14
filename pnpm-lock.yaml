@@ -275,9 +275,6 @@ importers:
       '@testing-library/jest-dom':
         specifier: 5.17.0
         version: 5.17.0
-      '@types/glob':
-        specifier: 8.1.0
-        version: 8.1.0
       '@types/jest':
         specifier: 27.5.0
         version: 27.5.0
@@ -308,9 +305,6 @@ importers:
       esbuild:
         specifier: 0.20.0
         version: 0.20.0
-      glob:
-        specifier: 10.3.0
-        version: 10.3.0
       jest:
         specifier: 27.5.0
         version: 27.5.0(ts-node@10.9.2(@types/node@22.15.29)(typescript@4.9.4))
@@ -2130,9 +2124,6 @@ packages:
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
 
-  '@types/glob@8.1.0':
-    resolution: {integrity: sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==}
-
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
 
@@ -2156,9 +2147,6 @@ packages:
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
-
-  '@types/minimatch@5.1.2':
-    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
 
   '@types/minimatch@6.0.0':
     resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
@@ -10028,11 +10016,6 @@ snapshots:
       '@types/minimatch': 6.0.0
       '@types/node': 22.15.29
 
-  '@types/glob@8.1.0':
-    dependencies:
-      '@types/minimatch': 5.1.2
-      '@types/node': 22.15.29
-
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 22.15.29
@@ -10059,8 +10042,6 @@ snapshots:
       '@types/unist': 3.0.3
 
   '@types/minimatch@3.0.5': {}
-
-  '@types/minimatch@5.1.2': {}
 
   '@types/minimatch@6.0.0':
     dependencies:
