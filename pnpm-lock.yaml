@@ -261,8 +261,8 @@ importers:
         specifier: 2.2.5
         version: 2.2.5(esbuild@0.20.0)
       '@cucumber/messages':
-        specifier: 27.2.0
-        version: 27.2.0
+        specifier: 28.0.0
+        version: 28.0.0
       '@empathyco/x-tailwindcss':
         specifier: 2.0.0-alpha.12
         version: link:../x-tailwindcss
@@ -917,6 +917,9 @@ packages:
 
   '@cucumber/messages@27.2.0':
     resolution: {integrity: sha512-f2o/HqKHgsqzFLdq6fAhfG1FNOQPdBdyMGpKwhb7hZqg0yZtx9BVqkTyuoNk83Fcvk3wjMVfouFXXHNEk4nddA==}
+
+  '@cucumber/messages@28.0.0':
+    resolution: {integrity: sha512-y/DT0uWK1ODrN+PLPWL9/M/9kW9d4Rivw3P4w7QLsb8EGMXeQ84Cn3uH4/a3U/GOA37OvJwKof4KTjBZ+unxQg==}
 
   '@cucumber/pretty-formatter@1.0.1':
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
@@ -7742,6 +7745,10 @@ packages:
     resolution: {integrity: sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==}
     hasBin: true
 
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -8617,6 +8624,13 @@ snapshots:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
       uuid: 11.0.5
+
+  '@cucumber/messages@28.0.0':
+    dependencies:
+      '@types/uuid': 10.0.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.2.2
+      uuid: 11.1.0
 
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@11.3.0)(@cucumber/messages@27.2.0)':
     dependencies:
@@ -16719,6 +16733,8 @@ snapshots:
   uuid@10.0.0: {}
 
   uuid@11.0.5: {}
+
+  uuid@11.1.0: {}
 
   uuid@8.3.2: {}
 
