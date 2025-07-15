@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.114 (2025-07-15)
+
+* feat: add aria label to base modal ([cb1f674](https://github.com/empathyco/x/commit/cb1f674))
+
+
+
+
+
 ## 6.0.0-alpha.113 (2025-07-14)
 
 * chore(deps): remove unused glob dependency ([fee1ff6](https://github.com/empathyco/x/commit/fee1ff6))
