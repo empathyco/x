@@ -12,6 +12,7 @@
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
+        aria-label="Base modal content"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
