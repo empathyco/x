@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.15 (2025-07-16)
+
+* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
+
+
+
+
 ## 2.0.0-alpha.14 (2025-06-27)
 
 * chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)

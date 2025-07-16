@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.5 (2025-07-16)</small>
+
+* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
+
+
+
+
 ## [1.0.3-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.3-alpha.3...@empathyco/x-svg-converter@1.0.3-alpha.4) (2025-06-03)
 
 **Note:** Version bump only for package @empathyco/x-svg-converter

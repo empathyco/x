@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.2 (2025-07-16)</small>
+
+* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
+
+
+
+
 ## [2.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.3-alpha.0...@empathyco/x-jest-utils@2.0.3-alpha.1) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils

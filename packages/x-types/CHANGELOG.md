@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.16 (2025-07-16)
+
+* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
+
+
+
+
 ## 10.1.0-alpha.15 (2025-06-26)
 
 * chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
