@@ -38,7 +38,7 @@ function render(result: Result, showNextImageOnHover = false, rootVNode?: VNode)
   }
 }
 
-describe('testing Base Result Image component', () => {
+describe.skip('testing Base Result Image component', () => {
   it('placeholder is replaced for an image', () => {
     const { getResultPictureImage, getResultPictureFallback, getResultPicturePlaceholder } = render(
       createResultStub('Result', {

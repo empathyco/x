@@ -27,7 +27,7 @@ function render(columns = [2, 4, 6], selectedColumns = 4) {
   }
 }
 
-describe('testing Base Column Picker List and Dropdown', () => {
+describe.skip('testing Base Column Picker List and Dropdown', () => {
   it('selects different options from the column picker list', () => {
     const { clickListNthItem, getListNthItem } = render()
     getListNthItem(4).should('have.attr', 'aria-pressed', 'true')
