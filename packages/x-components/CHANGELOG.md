@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.115 (2025-07-16)
+
+* chore(deps): update vite (#1796) ([6c23bed](https://github.com/empathyco/x/commit/6c23bed)), closes [#1796](https://github.com/empathyco/x/issues/1796)
+
+
+
+
+
 ## 6.0.0-alpha.114 (2025-07-15)
 
 * feat: add aria label to base modal ([cb1f674](https://github.com/empathyco/x/commit/cb1f674))
