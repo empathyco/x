@@ -77,24 +77,24 @@ describe('testing Redirection component', () => {
   beforeEach(() => {
     // @ts-expect-error - TS error
     delete window.location
-    window.location = { ...location, replace: spy }
+    window.location = { ...location, replace: spy } as any
     bus = new XDummyBus()
   })
 
   afterEach(() => {
     jest.clearAllMocks()
     jest.useFakeTimers()
-    window.location = location
+    window.location = location as any
   })
 
   it('is an XComponent', () => {
     const { wrapper } = renderRedirection()
-    expect(isXComponent(wrapper.vm)).toEqual(true)
+    expect(isXComponent(wrapper.vm)).toBe(true)
   })
 
   it('has Search as XModule', () => {
     const { wrapper } = renderRedirection()
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search')
+    expect(getXComponentXModuleName(wrapper.vm)).toBe('search')
   })
 
   it("doesn't render when there are no redirections", () => {
@@ -116,9 +116,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
 
-    expect(wrapper.get(getDataTestSelector('redirection-url')).text()).toEqual(
-      stubRedirections[0].url,
-    )
+    expect(wrapper.get(getDataTestSelector('redirection-url')).text()).toBe(stubRedirections[0].url)
   })
 
   it('redirects and emits the `UserClickedARedirection` event in manual mode when the user click the button', async () => {
