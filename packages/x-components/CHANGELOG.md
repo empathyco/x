@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.117 (2025-07-17)
+
+* refactor(animation): replace 'content-visibility' with standard property access ([bfcdd6d](https://github.com/empathyco/x/commit/bfcdd6d))
+
+
+
+
+
 ## 6.0.0-alpha.116 (2025-07-16)
 
 * chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
