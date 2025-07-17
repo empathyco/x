@@ -27,14 +27,12 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    * @param element - The DOM element that is going to be animated.
    */
   function expand(element: HTMLElement): void {
-    /* eslint-disable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
     element.style[property] = '0'
-    const originalValue = (element.style as any)['content-visibility']
-    ;(element.style as any)['content-visibility'] = 'visible'
+    const originalValue = element.style.contentVisibility
+    element.style.contentVisibility = 'visible'
     element.getBoundingClientRect()
     element.style[property] = `${element[scrollProperty]}px`
-    ;(element.style as any)['content-visibility'] = originalValue
-    /* eslint-enable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
+    element.style.contentVisibility = originalValue
   }
 
   /**
