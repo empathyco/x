@@ -47,9 +47,9 @@
     "tslib": "~2.8.1"
   },
   "devDependencies": {
-    "@types/jest": "27.5.0",
-    "jest": "27.5.0",
-    "ts-jest": "27.1.0",
+    "@types/jest": "27.5.2",
+    "jest": "27.5.1",
+    "ts-jest": "27.1.5",
     "typescript": "5.8.3"
   },
   "publishConfig": {
