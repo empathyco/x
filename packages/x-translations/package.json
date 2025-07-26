@@ -38,10 +38,10 @@
     "@empathyco/x-deep-merge": "^2.0.3-alpha.7"
   },
   "devDependencies": {
-    "@types/jest": "27.5.0",
-    "@types/node": "22.15.29",
-    "jest": "27.5.0",
-    "ts-jest": "27.1.0",
+    "@types/jest": "27.5.2",
+    "@types/node": "22.16.5",
+    "jest": "27.5.1",
+    "ts-jest": "27.1.5",
     "typescript": "5.8.3"
   },
   "publishConfig": {
