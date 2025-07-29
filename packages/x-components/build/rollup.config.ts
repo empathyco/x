@@ -1,4 +1,5 @@
 import type { Plugin, RollupOptions } from 'rollup'
+import fs from 'node:fs'
 import path from 'node:path'
 import vue3 from '@vitejs/plugin-vue'
 import copy from 'rollup-plugin-copy'
@@ -22,29 +23,20 @@ const vueDocs = {
     !/vue&type=docs/.test(id) ? undefined : `export default ''`,
 }
 
+const getXModules = () => {
+  const xModulesPath = path.join(rootDir, 'src', 'x-modules')
+  return Object.fromEntries(
+    fs
+      .readdirSync(xModulesPath)
+      .filter(file => fs.statSync(path.join(xModulesPath, file)).isDirectory())
+      .map(module => [`${module}/index`, r(`src/x-modules/${module}/index.ts`)]),
+  )
+}
+
 const rollupConfig: RollupOptions = {
   input: {
     'core/index': r('src/core.entry.ts'),
-    'device/index': r('src/x-modules/device/index.ts'),
-    'empathize/index': r('src/x-modules/empathize/index.ts'),
-    'experience-controls/index': r('src/x-modules/experience-controls/index.ts'),
-    'extra-params/index': r('src/x-modules/extra-params/index.ts'),
-    'facets/index': r('src/x-modules/facets/index.ts'),
-    'history-queries/index': r('src/x-modules/history-queries/index.ts'),
-    'identifier-results/index': r('src/x-modules/identifier-results/index.ts'),
-    'next-queries/index': r('src/x-modules/next-queries/index.ts'),
-    'popular-searches/index': r('src/x-modules/popular-searches/index.ts'),
-    'queries-preview/index': r('src/x-modules/queries-preview/index.ts'),
-    'query-suggestions/index': r('src/x-modules/query-suggestions/index.ts'),
-    'recommendations/index': r('src/x-modules/recommendations/index.ts'),
-    'related-prompts/index': r('src/x-modules/related-prompts/index.ts'),
-    'related-tags/index': r('src/x-modules/related-tags/index.ts'),
-    'scroll/index': r('src/x-modules/scroll/index.ts'),
-    'search/index': r('src/x-modules/search/index.ts'),
-    'search-box/index': r('src/x-modules/search-box/index.ts'),
-    'semantic-queries/index': r('src/x-modules/semantic-queries/index.ts'),
-    'tagging/index': r('src/x-modules/tagging/index.ts'),
-    'url/index': r('src/x-modules/url/index.ts'),
+    ...getXModules(),
     'x-modules.types/index': r('src/x-modules/x-modules.types.ts'),
   },
   output: {
