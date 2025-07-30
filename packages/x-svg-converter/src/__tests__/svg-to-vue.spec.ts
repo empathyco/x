@@ -7,8 +7,9 @@ import svgStub from './svg-stub'
 // Mock to prevent the prettier from running in test env.
 jest.mock('child_process', () => {
   // eslint-disable-next-line ts/no-unsafe-assignment
-  const originalModule = jest.requireActual('child_process')
+  const originalModule = jest.requireActual('node:child_process')
 
+  // eslint-disable-next-line ts/no-unsafe-return
   return {
     __esModule: true,
     ...originalModule,

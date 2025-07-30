@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`searchResponseMapper tests should map the response 1`] = `
-Object {
-  "banners": Array [
-    Object {
+{
+  "banners": [
+    {
       "id": "61f9223221c06701c2f98c17",
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Banner",
-      "tagging": Object {
-        "click": Object {
-          "params": Object {
+      "tagging": {
+        "click": {
+          "params": {
             "filtered": "false",
             "follow": false,
             "lang": "en",
@@ -30,8 +30,8 @@ Object {
       "url": "https://assets.empathy.co/",
     },
   ],
-  "displayTagging": Object {
-    "params": Object {
+  "displayTagging": {
+    "params": {
       "displayId": "jeans",
       "filtered": "true",
       "follow": false,
@@ -44,16 +44,16 @@ Object {
     },
     "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/display",
   },
-  "facets": Array [
-    Object {
-      "filters": Array [
-        Object {
-          "children": Array [
-            Object {
-              "children": Array [
-                Object {
-                  "children": Array [
-                    Object {
+  "facets": [
+    {
+      "filters": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
                       "facetId": "categoryPaths",
                       "id": "categoryIds:78d9b7366__8a4e61a33_aa_bb",
                       "label": "Added 2",
@@ -80,7 +80,7 @@ Object {
               "selected": false,
               "totalResults": 637,
             },
-            Object {
+            {
               "facetId": "categoryPaths",
               "id": "categoryIds:78d9b7366__e2f94a4ea",
               "label": "Topwear",
@@ -98,7 +98,7 @@ Object {
           "selected": false,
           "totalResults": 736,
         },
-        Object {
+        {
           "facetId": "categoryPaths",
           "id": "categoryIds:b08648dbd",
           "label": "Accessories",
@@ -107,9 +107,9 @@ Object {
           "selected": false,
           "totalResults": 43,
         },
-        Object {
-          "children": Array [
-            Object {
+        {
+          "children": [
+            {
               "facetId": "categoryPaths",
               "id": "categoryIds:ffc61e1e9_aa",
               "label": "Added",
@@ -127,7 +127,7 @@ Object {
           "selected": false,
           "totalResults": 9,
         },
-        Object {
+        {
           "facetId": "categoryPaths",
           "id": "categoryIds:e5eef62d8",
           "label": "Footwear",
@@ -141,110 +141,110 @@ Object {
       "label": "categoryPaths",
       "modelName": "HierarchicalFacet",
     },
-    Object {
-      "filters": Array [
-        Object {
+    {
+      "filters": [
+        {
           "facetId": "price",
           "id": "price:10.0-20.0",
           "label": "10.0-20.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 20,
             "min": 10,
           },
           "selected": false,
           "totalResults": 97,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:20.0-30.0",
           "label": "20.0-30.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 30,
             "min": 20,
           },
           "selected": false,
           "totalResults": 80,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:30.0-40.0",
           "label": "30.0-40.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 40,
             "min": 30,
           },
           "selected": false,
           "totalResults": 85,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:40.0-50.0",
           "label": "40.0-50.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 50,
             "min": 40,
           },
           "selected": false,
           "totalResults": 75,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:50.0-60.0",
           "label": "50.0-60.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 60,
             "min": 50,
           },
           "selected": false,
           "totalResults": 88,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:60.0-70.0",
           "label": "60.0-70.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 70,
             "min": 60,
           },
           "selected": false,
           "totalResults": 62,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:70.0-80.0",
           "label": "70.0-80.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 80,
             "min": 70,
           },
           "selected": false,
           "totalResults": 84,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:80.0-90.0",
           "label": "80.0-90.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 90,
             "min": 80,
           },
           "selected": false,
           "totalResults": 86,
         },
-        Object {
+        {
           "facetId": "price",
           "id": "price:90.0-100.0",
           "label": "90.0-100.0",
           "modelName": "NumberRangeFilter",
-          "range": Object {
+          "range": {
             "max": 100,
             "min": 90,
           },
@@ -256,9 +256,9 @@ Object {
       "label": "price",
       "modelName": "NumberRangeFacet",
     },
-    Object {
-      "filters": Array [
-        Object {
+    {
+      "filters": [
+        {
           "facetId": "gender",
           "id": "gender:men",
           "label": "men",
@@ -266,7 +266,7 @@ Object {
           "selected": false,
           "totalResults": 421,
         },
-        Object {
+        {
           "facetId": "gender",
           "id": "gender:women",
           "label": "women",
@@ -274,7 +274,7 @@ Object {
           "selected": false,
           "totalResults": 247,
         },
-        Object {
+        {
           "facetId": "gender",
           "id": "gender:boys",
           "label": "boys",
@@ -282,7 +282,7 @@ Object {
           "selected": false,
           "totalResults": 35,
         },
-        Object {
+        {
           "facetId": "gender",
           "id": "gender:girls",
           "label": "girls",
@@ -290,7 +290,7 @@ Object {
           "selected": false,
           "totalResults": 28,
         },
-        Object {
+        {
           "facetId": "gender",
           "id": "gender:unisex",
           "label": "unisex",
@@ -304,28 +304,28 @@ Object {
       "modelName": "SimpleFacet",
     },
   ],
-  "partialResults": Array [
-    Object {
+  "partialResults": [
+    {
       "query": "shirt",
-      "results": Array [
-        Object {
+      "results": [
+        {
           "id": "31335-U",
-          "identifier": Object {},
+          "identifier": {},
           "isWishlisted": false,
           "modelName": "Result",
           "name": "Locomotive Men Washed Blue Jeans",
-          "price": Object {
+          "price": {
             "futureValue": 10,
             "hasDiscount": false,
             "originalValue": 10,
             "value": 10,
           },
-          "rating": Object {
+          "rating": {
             "value": null,
           },
-          "tagging": Object {
-            "add2cart": Object {
-              "params": Object {
+          "tagging": {
+            "add2cart": {
+              "params": {
                 "filtered": "false",
                 "follow": false,
                 "lang": "en",
@@ -341,8 +341,8 @@ Object {
               },
               "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart",
             },
-            "checkout": Object {
-              "params": Object {
+            "checkout": {
+              "params": {
                 "filtered": "false",
                 "follow": false,
                 "lang": "en",
@@ -358,8 +358,8 @@ Object {
               },
               "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/checkout",
             },
-            "click": Object {
-              "params": Object {
+            "click": {
+              "params": {
                 "filtered": "false",
                 "follow": false,
                 "lang": "en",
@@ -375,8 +375,8 @@ Object {
               },
               "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/click",
             },
-            "displayClick": Object {
-              "params": Object {
+            "displayClick": {
+              "params": {
                 "displayId": "jeans",
                 "filtered": "false",
                 "follow": false,
@@ -400,14 +400,14 @@ Object {
       "totalResults": 84,
     },
   ],
-  "promoteds": Array [
-    Object {
+  "promoteds": [
+    {
       "id": "61f9223221c06701c2f98c17",
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Promoted",
-      "tagging": Object {
-        "click": Object {
-          "params": Object {
+      "tagging": {
+        "click": {
+          "params": {
             "filtered": "false",
             "follow": false,
             "lang": "en",
@@ -428,8 +428,8 @@ Object {
       "url": "https://assets.empathy.co/",
     },
   ],
-  "queryTagging": Object {
-    "params": Object {
+  "queryTagging": {
+    "params": {
       "filtered": "true",
       "follow": false,
       "lang": "en",
@@ -442,13 +442,13 @@ Object {
     },
     "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/query",
   },
-  "redirections": Array [
-    Object {
+  "redirections": [
+    {
       "id": "bbf9223221c06701c2f98c1a",
       "modelName": "Redirection",
-      "tagging": Object {
-        "click": Object {
-          "params": Object {
+      "tagging": {
+        "click": {
+          "params": {
             "follow": false,
           },
           "url": "",
@@ -457,27 +457,27 @@ Object {
       "url": "https://api.staging.empathy.co",
     },
   ],
-  "results": Array [
-    Object {
+  "results": [
+    {
       "id": "31335-U",
-      "identifier": Object {
+      "identifier": {
         "value": "31335-U",
       },
       "isWishlisted": false,
       "modelName": "Result",
       "name": "Locomotive Men Washed Blue Jeans",
-      "price": Object {
+      "price": {
         "futureValue": 10,
         "hasDiscount": false,
         "originalValue": 10,
         "value": 10,
       },
-      "rating": Object {
+      "rating": {
         "value": null,
       },
-      "tagging": Object {
-        "add2cart": Object {
-          "params": Object {
+      "tagging": {
+        "add2cart": {
+          "params": {
             "filtered": "false",
             "follow": false,
             "lang": "en",
@@ -493,8 +493,8 @@ Object {
           },
           "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart",
         },
-        "checkout": Object {
-          "params": Object {
+        "checkout": {
+          "params": {
             "filtered": "false",
             "follow": false,
             "lang": "en",
@@ -510,8 +510,8 @@ Object {
           },
           "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/checkout",
         },
-        "click": Object {
-          "params": Object {
+        "click": {
+          "params": {
             "filtered": "false",
             "follow": false,
             "lang": "en",
@@ -527,8 +527,8 @@ Object {
           },
           "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/click",
         },
-        "displayClick": Object {
-          "params": Object {
+        "displayClick": {
+          "params": {
             "displayId": "jeans",
             "filtered": "false",
             "follow": false,
