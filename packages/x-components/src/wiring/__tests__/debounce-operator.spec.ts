@@ -3,8 +3,12 @@ import { debounce } from '../wires.operators'
 import { createWire } from './operators-testing-utils'
 
 describe(`testing ${debounce.name} operator`, () => {
-  beforeAll(jest.useFakeTimers)
-  afterAll(jest.useRealTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('discards emitted values that take less than the specified time between output', () => {
     const { wire, callback, emitWireEvent, registerWire } = createWire()

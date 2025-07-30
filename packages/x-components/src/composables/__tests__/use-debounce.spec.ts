@@ -26,10 +26,14 @@ function render(debounceTimeInMs = 200, debounceOptions: DebounceOptions = {}) {
 }
 
 describe('testing useDebounce composable', () => {
-  jest.useFakeTimers()
-
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
   beforeEach(() => {
     fnMock.mockClear()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
   })
 
   it('should debounce the fn with the debounced time', async () => {

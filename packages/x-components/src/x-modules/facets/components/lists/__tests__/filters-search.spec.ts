@@ -68,8 +68,12 @@ function renderFiltersSearch(
 }
 
 describe('testing FiltersSearch', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('is an x-component', () => {
     const { filterWrapper } = renderFiltersSearch()

@@ -62,8 +62,12 @@ async function renderBaseScroll({
 }
 
 describe('testing Base Scroll Component', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('renders default slot contents', async () => {
     const { wrapper } = await renderBaseScroll({
