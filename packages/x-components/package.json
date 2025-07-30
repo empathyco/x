@@ -101,6 +101,7 @@
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.52.8",
     "@testing-library/jest-dom": "6.6.4",
+    "@types/aria-query": "5.0.4",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.29",
     "@vitejs/plugin-vue": "5.2.4",
