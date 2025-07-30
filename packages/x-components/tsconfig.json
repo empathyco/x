@@ -8,7 +8,7 @@
     "rootDir": "src",
     "module": "esnext",
     "moduleResolution": "node",
-    "types": ["jest", "testing-library__jest-dom", "node"],
+    "types": ["jest", "node", "@testing-library/jest-dom"],
     "strict": true,
     "declaration": true,
     "declarationMap": true,
