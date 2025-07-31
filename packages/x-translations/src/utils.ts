@@ -27,12 +27,8 @@ export function loadFile(sourcePath: string): JSON | string {
   if (!fs.existsSync(sourcePath)) {
     throw new Error(`loadFile, file not found ${sourcePath}`)
   }
-  if (path.extname(sourcePath) === '.json') {
-    // eslint-disable-next-line ts/no-require-imports,ts/no-unsafe-return
-    return require(sourcePath)
-  } else {
-    return fs.readFileSync(sourcePath, { encoding: 'utf8' })
-  }
+  const content = fs.readFileSync(sourcePath, { encoding: 'utf8' })
+  return path.extname(sourcePath) === '.json' ? (JSON.parse(content) as JSON) : content
 }
 
 /**

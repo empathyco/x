@@ -2,7 +2,12 @@ import { debounce } from '../debounce'
 import clearAllMocks = jest.clearAllMocks
 
 describe('testing debounce util', () => {
-  beforeAll(jest.useFakeTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('returns a function with cancel method', () => {
     const returnedFn = debounce(() => null, 100)

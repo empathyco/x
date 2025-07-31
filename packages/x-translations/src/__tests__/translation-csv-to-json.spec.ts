@@ -2,20 +2,22 @@ import fs from 'node:fs'
 import path from 'node:path'
 import expectedJson from '../__tests__/json/en.messages.json'
 import { getJSONTranslations } from '../csv-to-json'
+import { loadFile } from '../utils'
 
 describe('transform CSV to a JSON', () => {
   const sourcePath = './src/__tests__/csv/en.messages.csv'
   const csvPath = './src/__tests__/csv'
   const targetPath = './translations'
+  const absoluteTargetPath = path.resolve(process.cwd(), targetPath)
+  const outputPath = path.resolve(process.cwd(), './output')
+  const jsonPath = path.resolve(process.cwd(), './src/__tests__/json')
 
   afterEach(() => {
-    const absoluteTargetPath = path.resolve(process.cwd(), targetPath)
-    const absoluteOutputPath = path.resolve(process.cwd(), './output')
     if (fs.existsSync(absoluteTargetPath)) {
       fs.rmSync(absoluteTargetPath, { recursive: true })
     }
-    if (fs.existsSync(absoluteOutputPath)) {
-      fs.rmSync(absoluteOutputPath, { recursive: true })
+    if (fs.existsSync(outputPath)) {
+      fs.rmSync(outputPath, { recursive: true })
     }
   })
 
@@ -30,11 +32,15 @@ describe('transform CSV to a JSON', () => {
 
     getJSONTranslations()
 
-    expect(fs.existsSync('./output/en.messages.json')).toBe(true)
-    expect(fs.existsSync('./output/es.messages.json')).toBe(true)
+    expect(fs.existsSync(`${outputPath}/en.messages.json`)).toBe(true)
+    expect(fs.existsSync(`${outputPath}/es.messages.json`)).toBe(true)
 
-    expect(require('../../output/en.messages.json')).toEqual(require('./json/en.messages.json'))
-    expect(require('../../output/es.messages.json')).toEqual(require('./json/es.messages.json'))
+    expect(loadFile(`${outputPath}/en.messages.json`)).toEqual(
+      loadFile(`${jsonPath}/en.messages.json`),
+    )
+    expect(loadFile(`${outputPath}/es.messages.json`)).toEqual(
+      loadFile(`${jsonPath}/es.messages.json`),
+    )
   })
 
   it('should check that multiple files are exported in the path given', () => {
@@ -42,14 +48,14 @@ describe('transform CSV to a JSON', () => {
 
     getJSONTranslations()
 
-    expect(fs.existsSync(`${targetPath}/en.messages.json`)).toBe(true)
-    expect(fs.existsSync(`${targetPath}/es.messages.json`)).toBe(true)
+    expect(fs.existsSync(`${absoluteTargetPath}/en.messages.json`)).toBe(true)
+    expect(fs.existsSync(`${absoluteTargetPath}/es.messages.json`)).toBe(true)
 
-    expect(require(`../../${targetPath}/en.messages.json`)).toEqual(
-      require('./json/en.messages.json'),
+    expect(loadFile(`${absoluteTargetPath}/en.messages.json`)).toEqual(
+      loadFile(`${jsonPath}/en.messages.json`),
     )
-    expect(require(`../../${targetPath}/es.messages.json`)).toEqual(
-      require('./json/es.messages.json'),
+    expect(loadFile(`${absoluteTargetPath}/es.messages.json`)).toEqual(
+      loadFile(`${jsonPath}/es.messages.json`),
     )
   })
 })

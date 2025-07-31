@@ -1,8 +1,12 @@
 import { cancellablePromise, CancelSymbol } from '../cancellable-promise'
 
 describe(`testing ${cancellablePromise.name} utility method`, () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it("resolves with the original promise if it's not cancelled", async () => {
     const originalPromiseTimeout = 1000

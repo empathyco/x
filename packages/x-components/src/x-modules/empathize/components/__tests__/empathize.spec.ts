@@ -41,8 +41,12 @@ function render({
 }
 
 describe('testing empathize component', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = render()

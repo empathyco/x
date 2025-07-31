@@ -3,8 +3,12 @@ import { namespacedDebounce, namespacedThrottle } from '../namespaced-wires.oper
 import { createWire } from './operators-testing-utils'
 
 describe('testing namespaced wires operators', () => {
-  beforeAll(jest.useFakeTimers)
-  afterAll(jest.useRealTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   describe(`testing ${namespacedDebounce.name}`, () => {
     it('creates wires with debounced time retrieved from the given store module', () => {

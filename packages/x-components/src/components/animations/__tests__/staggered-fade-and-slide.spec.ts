@@ -30,8 +30,12 @@ function render({ appear = true, tag = 'div', stagger = 25, disableAnimation = f
 }
 
 describe('testing StaggeredFadeAndSlide component', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('renders the TransitionGroup with correct props', () => {
     const appear = false

@@ -49,11 +49,15 @@ function renderSearchInput({
 }
 
 describe('testing search input component', () => {
-  beforeAll(jest.useFakeTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  afterEach(jest.clearAllTimers)
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('is an XComponent', () => {
     const { wrapper } = renderSearchInput()

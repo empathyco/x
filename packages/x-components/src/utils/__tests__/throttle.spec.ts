@@ -1,8 +1,12 @@
 import { throttle } from '../throttle'
 
 describe('testing throttle util', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('only invokes the throttled function once if it is called multiple times', () => {
     const originalFn = jest.fn()
