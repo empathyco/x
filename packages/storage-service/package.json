@@ -31,7 +31,7 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",

@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
