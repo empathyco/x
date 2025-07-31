@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.118 (2025-07-31)
+
+* ci: add typecheck ([94becff](https://github.com/empathyco/x/commit/94becff))
+
+
+
+
+
 ## 6.0.0-alpha.117 (2025-07-17)
 
 * refactor(animation): replace 'content-visibility' with standard property access ([bfcdd6d](https://github.com/empathyco/x/commit/bfcdd6d))
