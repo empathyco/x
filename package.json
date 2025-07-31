@@ -3,9 +3,8 @@
   "license": "Apache-2.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "lerna run build",
-    "postci": "lerna run build",
     "build": "lerna run build",
+    "pack": "lerna run pack",
     "lint": "lerna run lint -- --cache --cache-strategy content",
     "lint:check": "lerna run lint:check -- --quiet --cache --cache-strategy content",
     "format": "lerna run format",

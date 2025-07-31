@@ -26,7 +26,7 @@
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc --project tsconfig.build.json",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
