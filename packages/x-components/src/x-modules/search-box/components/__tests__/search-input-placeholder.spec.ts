@@ -90,11 +90,15 @@ async function renderSearchInputPlaceholder({
 }
 
 describe('testing search input placeholder component', () => {
-  beforeAll(jest.useFakeTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  afterEach(jest.clearAllTimers)
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('is an XComponent part of the SearchBox XModule', async () => {
     const { wrapper } = await renderSearchInputPlaceholder()

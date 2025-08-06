@@ -3,8 +3,12 @@ import { throttle } from '../wires.operators'
 import { createWire } from './operators-testing-utils'
 
 describe(`testing ${throttle.name} operator`, () => {
-  beforeAll(jest.useFakeTimers)
-  afterAll(jest.useRealTimers)
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   it('emits value immediately, then ignores the next values for the defined time', () => {
     const { wire, callback, emitWireEvent, registerWire } = createWire()
