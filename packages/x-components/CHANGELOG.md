@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.119 (2025-08-06)
+
+* chore(deps): add missing type dep ([8ff4322](https://github.com/empathyco/x/commit/8ff4322))
+* chore(deps): pin dependencies ([b1764e7](https://github.com/empathyco/x/commit/b1764e7))
+* chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
+* test: fix timers issue with useFakeTimers params ([037c0f7](https://github.com/empathyco/x/commit/037c0f7))
+* test: update snapshots manually ([3169ee2](https://github.com/empathyco/x/commit/3169ee2))
+
+
+
+
+
 ## 6.0.0-alpha.118 (2025-07-31)
 
 * ci: add typecheck ([94becff](https://github.com/empathyco/x/commit/94becff))

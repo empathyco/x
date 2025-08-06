@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.7 (2025-08-06)</small>
+
+* chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
+
+
+
+
+
 ## <small>1.0.3-alpha.6 (2025-07-16)</small>
 
 * chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
