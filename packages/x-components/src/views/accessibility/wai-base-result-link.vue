@@ -42,7 +42,6 @@ export default defineComponent({
         price: {
           hasDiscount: false,
           originalValue: 11.99,
-          futureValue: 11.99,
           value: 11.99,
         },
         url: 'https://www.lolahome.es/escobilla-zen-ceramica-blanco-gris-29075',

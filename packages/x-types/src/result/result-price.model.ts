@@ -8,7 +8,7 @@ export interface ResultPrice {
   originalValue: number
   /** The current value. */
   value: number
-  /** Pre-warming price. */
+  /** @deprecated It is not a general purpose field. */
   futureValue?: number
   /** Whether this result has discount. */
   hasDiscount: boolean

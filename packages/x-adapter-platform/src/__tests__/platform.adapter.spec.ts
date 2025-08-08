@@ -458,7 +458,6 @@ describe('platformAdapter tests', () => {
           price: {
             value: 10,
             originalValue: 10,
-            futureValue: 10,
             hasDiscount: false,
           },
           rating: {
@@ -578,7 +577,6 @@ describe('platformAdapter tests', () => {
           price: {
             hasDiscount: false,
             originalValue: 10,
-            futureValue: 10,
             value: 10,
           },
           rating: {

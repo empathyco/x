@@ -23,7 +23,8 @@ export const resultSchema = createMutableSchema<PlatformResult, Result>({
     value: '__prices.current.value',
     originalValue: ({ __prices: rawPrices }) =>
       rawPrices.previous?.value ?? rawPrices.current.value,
-    futureValue: ({ __prices: rawPrices }) => rawPrices.future?.value ?? rawPrices.current.value,
+    /** @deprecated It is not a general purpose field. */
+    //futureValue: ({ __prices: rawPrices }) => rawPrices.future?.value ?? rawPrices.current.value,
     hasDiscount: ({ __prices: rawPrices }) =>
       rawPrices.current.value < (rawPrices.previous?.value ?? rawPrices.current.value),
   },

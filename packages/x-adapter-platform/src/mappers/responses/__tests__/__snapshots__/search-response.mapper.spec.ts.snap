@@ -315,7 +315,6 @@ Object {
           "modelName": "Result",
           "name": "Locomotive Men Washed Blue Jeans",
           "price": Object {
-            "futureValue": 10,
             "hasDiscount": false,
             "originalValue": 10,
             "value": 10,
@@ -467,7 +466,6 @@ Object {
       "modelName": "Result",
       "name": "Locomotive Men Washed Blue Jeans",
       "price": Object {
-        "futureValue": 10,
         "hasDiscount": false,
         "originalValue": 10,
         "value": 10,

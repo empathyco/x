@@ -17,7 +17,7 @@ export const ResultSchema: Result = {
   name: expect.any(String),
   price: {
     originalValue: expect.any(Number),
-    futureValue: expect.any(Number),
+    futureValue: expect.nullOrUndefinedOr(Number),
     value: expect.any(Number),
     hasDiscount: expect.any(Boolean),
   },
@@ -50,7 +50,7 @@ export const RecommendationSchema: Result = {
   name: expect.any(String),
   price: {
     originalValue: expect.any(Number),
-    futureValue: expect.any(Number),
+    futureValue: expect.nullOrUndefinedOr(Number),
     value: expect.any(Number),
     hasDiscount: expect.any(Boolean),
   },

@@ -263,7 +263,6 @@ Given('a results API with broken images', () => {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99,
             },
           }),
           createResultStub('Result 2', {
@@ -272,7 +271,6 @@ Given('a results API with broken images', () => {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99,
             },
           }),
           createResultStub('Result 3', {
@@ -286,7 +284,6 @@ Given('a results API with broken images', () => {
               hasDiscount: false,
               originalValue: 59.99,
               value: 59.99,
-              futureValue: 59.99,
             },
           }),
         ],
