@@ -1,7 +1,7 @@
 <template>
   <component :is="animation">
     <div
-      v-show="isOpen && hasContent"
+      v-show="isOpenAndHasContent"
       ref="empathizeRef"
       class="x-empathize"
       data-test="empathize"
@@ -18,7 +18,7 @@
 <script lang="ts">
 import type { PropType, WatchStopHandle } from 'vue'
 import type { XEvent } from '../../../wiring'
-import { defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { NoAnimation } from '../../../components'
 import { use$x, useDebounce } from '../../../composables'
 import { AnimationProp } from '../../../types'
@@ -26,8 +26,7 @@ import { getActiveElement } from '../../../utils'
 import { empathizeXModule } from '../x-module'
 
 /**
- * Component containing the empathize. It has a required slot to define its content and two props
- * to define when to open and close it: `eventsToOpenEmpathize` and `eventsToCloseEmpathize`.
+ * Component containing the empathize. It has a required slot to define its content.
  *
  * @public
  */
@@ -68,56 +67,55 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
+
     const empathizeRef = ref<HTMLDivElement | null>(null)
     const isOpen = ref(false)
+    const isOpenAndHasContent = computed(() => isOpen.value && props.hasContent)
+
+    /** Emit 'EmpathizeOpened' or 'EmpathizeClosed' event when computed changes. */
+    watch(isOpenAndHasContent, () => {
+      // TODO - Remove consoles.
+      /* eslint-disable no-console */
+      console.log('isOpenAndHasContent', isOpenAndHasContent.value)
+      console.log('EVENT', isOpenAndHasContent.value ? 'EmpathizeOpened' : 'EmpathizeClosed')
+
+      const empathizeEvent = isOpenAndHasContent.value ? 'EmpathizeOpened' : 'EmpathizeClosed'
+      $x.emit(empathizeEvent, undefined, { target: empathizeRef.value })
+    })
+
+    /** Debounce function to change the state `isOpen` to the new value. */
+    const changeOpenDebounced = useDebounce((newOpen: boolean) => (isOpen.value = newOpen), 0)
 
     /**
-     * Changes the state of {@link Empathize.isOpen} assigning to it the value of `newOpen`
-     * parameter. Also emits the {@link XEvent} `EmpathizeOpened` or `EmpathizeClosed` if
-     * the state really changes.
-     *
-     * @param newOpen - The new open state to assign to {@link Empathize.isOpen}.
-     */
-    const changeOpen = useDebounce((newOpen: boolean) => {
-      if (isOpen.value !== newOpen) {
-        isOpen.value = newOpen
-        // TODO - review isOpen && hasContent to emit event
-        const empathizeEvent = isOpen.value ? 'EmpathizeOpened' : 'EmpathizeClosed'
-        $x.emit(empathizeEvent, undefined, { target: empathizeRef.value })
-      }
-    }, 0)
-
-    /**
-     * Open empathize. This method will be executed on any event in
-     * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root element.
+     * Open empathize. This function will be executed on any event in
+     * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on the Empathize root
+     * element.
      */
     function open() {
-      changeOpen(true)
+      changeOpenDebounced(true)
     }
 
     /**
-     * Close empathize. This method will be executed on any event in
-     * {@link Empathize.eventsToCloseEmpathize} and on DOM event `focusout` on Empathize root
+     * Close empathize. This function will be executed on any event in
+     * {@link Empathize.eventsToCloseEmpathize} and on DOM event `focusout` on the Empathize root
      * element.
      */
     function close() {
       const activeElement = getActiveElement()
       if (!empathizeRef.value?.contains(activeElement)) {
-        changeOpen(false)
+        changeOpenDebounced(false)
       }
     }
 
+    /** Events subscriptions to open and close empathize. */
     props.eventsToOpenEmpathize.forEach(event => $x.on(event, false).subscribe(open))
     props.eventsToCloseEmpathize.forEach(event => $x.on(event, false).subscribe(close))
 
     let unwatchSearchBoxQuery: WatchStopHandle = () => {}
 
-    /**
-     * This function unwatch the search-box query and also search and close empathize wrapped
-     * under a debounced function.
-     */
+    /** Debounced function to unwatch the search-box query and also search and close empathize */
     const searchAndCloseDebounced = useDebounce(async () => {
-      // eslint-disable-next-line no-console
+      // TODO - Remove console.
       console.log('UserAcceptedAQuery', $x.query.searchBox)
 
       unwatchSearchBoxQuery()
@@ -128,16 +126,15 @@ export default defineComponent({
     /**
      * Watcher triggered when `hasContent` change and the `searchAndCloseOnNoContent` flag is active
      * with the following casuistics:
-     * 1. Empathize has content: cancel debounced search and unwatch the search-box query.
+     * 1. Empathize has content: unwatch the search-box query and cancel debounced search&close.
      * 2. Empathize has NO content: create a watcher for the search-box query. It is to debounce the
      * search fallback when the user types in the search-box during debounced time.
      */
     watch(
       () => props.hasContent,
       () => {
-        // eslint-disable-next-line no-console
+        // TODO - Remove consoles.
         console.log('hasContent', props.hasContent)
-        // eslint-disable-next-line no-console
         console.log('props.closeAndSearchOnNoContent', props.searchAndCloseOnNoContent)
 
         if (props.searchAndCloseOnNoContent) {
@@ -153,7 +150,7 @@ export default defineComponent({
       },
     )
 
-    return { isOpen, close, open }
+    return { empathizeRef, isOpenAndHasContent, open, close }
   },
 })
 </script>
