@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.120 (2025-08-11)
+
+* feat(empathize): implement search and close fallback on no-content state (#1833) ([7a4120c](https://github.com/empathyco/x/commit/7a4120c)), closes [#1833](https://github.com/empathyco/x/issues/1833)
+
+
+
+
+
 ## 6.0.0-alpha.119 (2025-08-06)
 
 * chore(deps): add missing type dep ([8ff4322](https://github.com/empathyco/x/commit/8ff4322))
