@@ -64,6 +64,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /** Debounce time in milliseconds to search and close the empathize when has no-content. */
+    searchAndCloseDebounceInMs: {
+      type: Number,
+      default: 1000,
+    },
   },
   setup(props) {
     const $x = use$x()
@@ -113,7 +118,7 @@ export default defineComponent({
       unwatchSearchBoxQuery()
       await $x.emit('UserAcceptedAQuery', $x.query.searchBox)
       close()
-    }, 1000)
+    }, props.searchAndCloseDebounceInMs)
 
     /**
      * Watcher triggered when `hasContent` change and the `searchAndCloseOnNoContent` flag is active
@@ -212,12 +217,15 @@ The component rendering the query suggestions, popular searches and history quer
 navigation. It also configures `searchAndCloseOnNoContent` to trigger a search and close the empathize
 when has no-content as fallback behaviour. To do that, `hasContent` prop must be reactive to know
 if the empathize has content or not.
+It also configures `searchAndCloseDebounceInMs` to 500ms as debounce time to search and close the
+empathize when has no-content.
 
 ```vue
 <Empathize
   :animation="empathizeAnimation"
   :events-to-close-empathize="empathizeCloseEvents"
   :has-content="showEmpathize"
+  :search-and-close-debounce-in-ms="500"
   search-and-close-on-no-content
 >
   <BaseKeyboardNavigation>

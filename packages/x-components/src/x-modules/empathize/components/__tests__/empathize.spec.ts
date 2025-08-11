@@ -139,4 +139,51 @@ describe('testing empathize component', () => {
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
   })
+
+  it('should respect the custom searchAndCloseDebounceInMs value', async () => {
+    const customDebounceTime = 500
+    const { wrapper, empathizeContainer, emitSpy } = render({
+      hasContent: true,
+      searchAndCloseOnNoContent: true,
+      template: `<Empathize v-bind="$attrs" :searchAndCloseDebounceInMs="${customDebounceTime}"/>`,
+    })
+
+    await empathizeContainer.trigger('focusin')
+    jest.runAllTimers()
+    await nextTick()
+
+    expect(empathizeContainer.exists()).toBeTruthy()
+    expect(empathizeContainer.element).toBeVisible()
+    expect(emitSpy).toHaveBeenCalledWith('EmpathizeOpened', undefined, expect.any(Object))
+
+    // Reset the emit spy to clarify assertions
+    emitSpy.mockClear()
+
+    // Set hasContent too false to trigger the searchAndClose debounce
+    await wrapper.setProps({ hasContent: false } as any)
+
+    // Advance timer by less than the debounce time - nothing should happen yet
+    jest.advanceTimersByTime(customDebounceTime - 100)
+    await nextTick()
+
+    // Verify that UserAcceptedAQuery and EmpathizeClosed have not been emitted yet
+    expect(emitSpy).not.toHaveBeenCalledWith(
+      'UserAcceptedAQuery',
+      expect.any(String),
+      expect.any(Object),
+    )
+    expect(emitSpy).not.toHaveBeenCalledWith(
+      'EmpathizeClosed',
+      expect.any(String),
+      expect.any(Object),
+    )
+
+    // Now advance timer to complete the debounce period
+    jest.advanceTimersByTime(100)
+    await nextTick()
+
+    // Now the events should have been emitted
+    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
+    expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
+  })
 })
