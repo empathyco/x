@@ -74,11 +74,6 @@ export default defineComponent({
 
     /** Emit 'EmpathizeOpened' or 'EmpathizeClosed' event when computed changes. */
     watch(isOpenAndHasContent, () => {
-      // TODO - Remove consoles.
-      /* eslint-disable no-console */
-      console.log('isOpenAndHasContent', isOpenAndHasContent.value)
-      console.log('EVENT', isOpenAndHasContent.value ? 'EmpathizeOpened' : 'EmpathizeClosed')
-
       const empathizeEvent = isOpenAndHasContent.value ? 'EmpathizeOpened' : 'EmpathizeClosed'
       $x.emit(empathizeEvent, undefined, { target: empathizeRef.value })
     })
@@ -113,11 +108,8 @@ export default defineComponent({
 
     let unwatchSearchBoxQuery: WatchStopHandle = () => {}
 
-    /** Debounced function to unwatch the search-box query and also search and close empathize */
+    /** Debounced function to unwatch the search-box query and also search and close empathize. */
     const searchAndCloseDebounced = useDebounce(async () => {
-      // TODO - Remove console.
-      console.log('UserAcceptedAQuery', $x.query.searchBox)
-
       unwatchSearchBoxQuery()
       await $x.emit('UserAcceptedAQuery', $x.query.searchBox)
       close()
@@ -133,10 +125,6 @@ export default defineComponent({
     watch(
       () => props.hasContent,
       () => {
-        // TODO - Remove consoles.
-        console.log('hasContent', props.hasContent)
-        console.log('props.closeAndSearchOnNoContent', props.searchAndCloseOnNoContent)
-
         if (props.searchAndCloseOnNoContent) {
           if (props.hasContent) {
             unwatchSearchBoxQuery()
@@ -161,11 +149,11 @@ export default defineComponent({
 A list of events that the component will emit:
 
 - [`EmpathizeOpened`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted after receiving an event to change the state `isOpen` to `true`. The event
-  payload is undefined and can have a metadata with the module and the element that emitted it.
+  the event is emitted after receiving an event to change the state `isOpen` to `true` and `hasContent` to `true`.
+  The event payload is undefined and can have a metadata with the module and the element that emitted it.
 - [`EmpathizeClosed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted after receiving an event to change the state `isOpen` to `false`. The event
-  payload is undefined and can have a metadata with the module and the element that emitted it.
+  the event is emitted after receiving an event to change the state `isOpen` to `false` and `hasContent` to `true`.
+  The event payload is undefined and can have a metadata with the module and the element that emitted it.
 
 ## Examples
 
@@ -173,9 +161,8 @@ This component will listen to the configured events in `eventsToOpenEmpathize` a
 `eventsToCloseEmpathize` props and open/close itself accordingly. By default, those props values
 are:
 
-- Open: `UserFocusedSearchBox`, `'`UserIsTypingAQuery`, `'`UserClickedSearchBox` and
-- Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnter`,
-  'UserBlurredSearchBox`
+- Open: `UserFocusedSearchBox`, `UserIsTypingAQuery`, `UserClickedSearchBox`
+- Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnter` and 'UserBlurredSearchBox`
 
 ### Basic examples
 
@@ -216,6 +203,28 @@ be a Component with a `Transition` with a slot inside:
   <template #default>
     <PopularSearches/>
   </template>
+</Empathize>
+```
+
+### Advance examples
+
+The component rendering the query suggestions, popular searches and history queries with keyboard
+navigation. It also configures `searchAndCloseOnNoContent` to trigger a search and close the empathize
+when has no-content as fallback behaviour. To do that, `hasContent` prop must be reactive to know
+if the empathize has content or not.
+
+```vue
+<Empathize
+  :animation="empathizeAnimation"
+  :events-to-close-empathize="empathizeCloseEvents"
+  :has-content="showEmpathize"
+  search-and-close-on-no-content
+>
+  <BaseKeyboardNavigation>
+    <QuerySuggestions/>
+    <PopularSearches/>
+    <HistoryQueries/>
+  </BaseKeyboardNavigation>
 </Empathize>
 ```
 </docs>
