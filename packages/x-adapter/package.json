@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter",
-  "version": "8.1.0-alpha.7",
+  "version": "8.1.0-alpha.8",
   "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -41,8 +41,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.8",
-    "@empathyco/x-utils": "^1.0.3-alpha.7",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.9",
+    "@empathyco/x-utils": "^1.0.3-alpha.8",
     "tslib": "~2.8.1"
   },
   "devDependencies": {

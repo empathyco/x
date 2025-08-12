@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.18 (2025-08-12)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
 ## 10.1.0-alpha.17 (2025-08-06)
 
 * chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))

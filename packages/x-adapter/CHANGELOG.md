@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.8 (2025-08-12)
+
+* chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
+
+
+
+
+
 ## 8.1.0-alpha.7 (2025-08-06)
 
 * chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))

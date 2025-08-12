@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.11 (2025-08-12)</small>
+
+* chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
+
+
+
+
+
 ## <small>2.0.3-alpha.10 (2025-08-06)</small>
 
 * test: fix test ([b580a8e](https://github.com/empathyco/x/commit/b580a8e))
