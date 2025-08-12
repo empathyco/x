@@ -30,7 +30,7 @@
     "build": "concurrently \"pnpm run build:*\"",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",

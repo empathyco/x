@@ -18,3 +18,11 @@ runs:
       uses: cypress-io/github-action@v5
       with:
         runTests: false
+
+    - name: Build
+      shell: bash
+      run: pnpm run build
+
+    - name: Pack
+      shell: bash
+      run: pnpm run pack

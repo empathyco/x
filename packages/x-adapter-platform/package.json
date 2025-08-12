@@ -31,7 +31,7 @@
     "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "gen:model-docs": "api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "pnpm run gen:model-docs && pnpm run gen:typescript-docs",

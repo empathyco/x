@@ -31,7 +31,7 @@
     "prebuild": "pnpm run clean",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
