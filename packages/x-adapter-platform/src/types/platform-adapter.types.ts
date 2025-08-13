@@ -45,6 +45,6 @@ export interface PlatformAdapter extends XComponentsAdapter {
     ExperienceControlsResponse
   >
   // TODO - complete interfaces
-  aiQuestions: any
-  aiTasks: any
+  // aiQuestions: any
+  // aiTasks: any
 }
