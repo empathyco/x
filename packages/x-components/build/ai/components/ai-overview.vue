@@ -1,3 +1,4 @@
+/**
 <template>
   <span>TBD</span>
 </template>
@@ -8,3 +9,4 @@
 </script>
 
 <style scoped lang="css"></style>
+*/
