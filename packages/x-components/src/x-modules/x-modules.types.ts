@@ -1,6 +1,7 @@
 import type { AnyXStoreModule, XStoreModule } from '../store/store.types'
 import type { StoreEmitters } from '../store/utils/store-emitters.utils'
 import type { Wiring } from '../wiring/wiring.types'
+import type { AiXModule } from './ai/x-module'
 import type { DeviceXModule } from './device/x-module'
 import type { EmpathizeXModule } from './empathize/x-module'
 import type { ExperienceControlsXModule } from './experience-controls/x-module'
@@ -48,6 +49,7 @@ export interface XModulesTree {
   tagging: TaggingXModule
   url: UrlXModule
   experienceControls: ExperienceControlsXModule
+  ai: AiXModule
 }
 
 /**
