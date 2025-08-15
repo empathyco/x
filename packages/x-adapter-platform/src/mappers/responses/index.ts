@@ -1,3 +1,4 @@
+export * from './ai/questions-response.mapper'
 export * from './experience-controls-response.mapper'
 export * from './identifier-results-response.mapper'
 export * from './next-queries-response.mapper'
