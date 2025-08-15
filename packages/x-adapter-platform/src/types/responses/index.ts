@@ -1,3 +1,4 @@
+export * from './ai/questions-response.model'
 export * from './experience-controls-response.model'
 export * from './identifier-results-response.model'
 export * from './next-queries-response.model'
