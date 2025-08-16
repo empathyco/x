@@ -75,6 +75,7 @@ const rollupConfig: RollupOptions = {
       ],
     }),
     typescript({
+      check: false,
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
