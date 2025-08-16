@@ -36,9 +36,96 @@
     "**/*vue[0-9].js",
     "**/*.vue"
   ],
-  "main": "./core/index.js",
-  "module": "./core/index.js",
-  "types": "./core/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/core.entry.d.ts",
+      "import": "./core/index.js"
+    },
+    "./device": {
+      "types": "./types/x-modules/device/index.d.ts",
+      "import": "./device/index.js"
+    },
+    "./empathize": {
+      "types": "./types/x-modules/empathize/index.d.ts",
+      "import": "./empathize/index.js"
+    },
+    "./experience-controls": {
+      "types": "./types/x-modules/experience-controls/index.d.ts",
+      "import": "./experience-controls/index.js"
+    },
+    "./extra-params": {
+      "types": "./types/x-modules/extra-params/index.d.ts",
+      "import": "./extra-params/index.js"
+    },
+    "./facets": {
+      "types": "./types/x-modules/facets/index.d.ts",
+      "import": "./facets/index.js"
+    },
+    "./history-queries": {
+      "types": "./types/x-modules/history-queries/index.d.ts",
+      "import": "./history-queries/index.js"
+    },
+    "./identifier-results": {
+      "types": "./types/x-modules/identifier-results/index.d.ts",
+      "import": "./identifier-results/index.js"
+    },
+    "./next-queries": {
+      "types": "./types/x-modules/next-queries/index.d.ts",
+      "import": "./next-queries/index.js"
+    },
+    "./popular-searches": {
+      "types": "./types/x-modules/popular-searches/index.d.ts",
+      "import": "./popular-searches/index.js"
+    },
+    "./queries-preview": {
+      "types": "./types/x-modules/queries-preview/index.d.ts",
+      "import": "./queries-preview/index.js"
+    },
+    "./query-suggestions": {
+      "types": "./types/x-modules/query-suggestions/index.d.ts",
+      "import": "./query-suggestions/index.js"
+    },
+    "./recommendations": {
+      "types": "./types/x-modules/recommendations/index.d.ts",
+      "import": "./recommendations/index.js"
+    },
+    "./related-prompts": {
+      "types": "./types/x-modules/related-prompts/index.d.ts",
+      "import": "./related-prompts/index.js"
+    },
+    "./related-tags": {
+      "types": "./types/x-modules/related-tags/index.d.ts",
+      "import": "./related-tags/index.js"
+    },
+    "./scroll": {
+      "types": "./types/x-modules/scroll/index.d.ts",
+      "import": "./scroll/index.js"
+    },
+    "./search-box": {
+      "types": "./types/x-modules/search-box/index.d.ts",
+      "import": "./search-box/index.js"
+    },
+    "./search": {
+      "types": "./types/x-modules/search/index.d.ts",
+      "import": "./search/index.js"
+    },
+    "./semantic-queries": {
+      "types": "./types/x-modules/semantic-queries/index.d.ts",
+      "import": "./semantic-queries/index.js"
+    },
+    "./tagging": {
+      "types": "./types/x-modules/tagging/index.d.ts",
+      "import": "./tagging/index.js"
+    },
+    "./url": {
+      "types": "./types/x-modules/url/index.d.ts",
+      "import": "./url/index.js"
+    },
+    "./types": {
+      "types": "./types/x-modules/x-modules.types.d.ts",
+      "import": "./x-modules.types/index.js"
+    }
+  },
   "engines": {
     "node": ">=22"
   },
@@ -71,10 +158,11 @@
     "cypress:open:firefox": "cypress open --e2e --browser firefox",
     "cypress:open:component": "cypress open --component --browser chrome",
     "cypress:open:component:firefox": "cypress open --component --browser firefox",
+    "postinstall": "node patches/vuex.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "vue": "^3.5.12",
+    "vue": "3.5.18",
     "vuex": "4.0.2"
   },
   "dependencies": {
@@ -133,7 +221,7 @@
     "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-plugin-vue-inspector": "5.2.0",
-    "vue": "3.4.31",
+    "vue": "3.5.18",
     "vue-docgen-cli": "4.79.0",
     "vue-router": "4.5.1",
     "vuex": "4.0.2"
