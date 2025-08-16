@@ -7,6 +7,7 @@ module.exports = {
   },
   moduleNameMapper: {
     'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs',
+    //'@vue/test-utils': '<rootDir>/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js',
   },
   moduleFileExtensions: ['ts', 'vue', 'js', 'mjs'],
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
