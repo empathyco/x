@@ -85,7 +85,7 @@
     "@empathyco/x-types": "^10.1.0-alpha.19",
     "@empathyco/x-utils": "^1.0.3-alpha.8",
     "@vue/devtools-api": "~6.5.0",
-    "@vueuse/core": "~10.11.0",
+    "@vueuse/core": "~13.6.0",
     "js-md5": "~0.8.3",
     "nouislider": "~15.8.1",
     "rxjs": "~7.8.0",
