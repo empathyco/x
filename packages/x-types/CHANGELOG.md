@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.19 (2025-08-18)
+
+* feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+
+
+
+
+
 ## 10.1.0-alpha.18 (2025-08-12)
 
 **Note:** Version bump only for package @empathyco/x-types
