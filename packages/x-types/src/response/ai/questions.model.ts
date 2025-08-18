@@ -1,13 +1,13 @@
-import type { AIQuestion } from '../../ai/question.model'
+import type { AiQuestion } from '../../ai/question.model'
 
-export interface AIQuestionsResponse {
+export interface AiQuestionsResponse {
   context: {
     query?: string
     lang: string
     instance: string
     filters?: Record<string, unknown>
   }
-  items: AIQuestion[]
+  items: AiQuestion[]
   taskId: string
   numItems: number
   totalItems: number

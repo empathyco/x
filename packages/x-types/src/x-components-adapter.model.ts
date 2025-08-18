@@ -1,6 +1,6 @@
 import type { EndpointAdapter } from '@empathyco/x-adapter'
 import type {
-  AIQuestionsRequest,
+  AiQuestionsRequest,
   ExperienceControlsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
@@ -14,7 +14,7 @@ import type {
   TaggingRequest,
 } from './request'
 import type {
-  AIQuestionsResponse,
+  AiQuestionsResponse,
   ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
@@ -43,5 +43,5 @@ export interface XComponentsAdapter {
   tagging: EndpointAdapter<TaggingRequest, void>
   semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>
   experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>
-  aiQuestions: EndpointAdapter<AIQuestionsRequest, AIQuestionsResponse>
+  aiQuestions: EndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
 }

@@ -1,6 +1,6 @@
-import type { AIQuestionsRequest, AIQuestionsResponse } from '@empathyco/x-types'
+import type { AiQuestionsRequest, AiQuestionsResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
-import { AIQuestionsRequestMapper, AIQuestionsResponseMapper } from '../../mappers'
+import { AiQuestionsRequestMapper, AiQuestionsResponseMapper } from '../../mappers'
 import { getBeaconServiceUrl } from '../utils'
 
 /**
@@ -8,17 +8,17 @@ import { getBeaconServiceUrl } from '../utils'
  *
  * @public
  */
-export const AIQuestionsEndpointAdapter = endpointAdapterFactory<
-  AIQuestionsRequest,
-  AIQuestionsResponse
+export const AiQuestionsEndpointAdapter = endpointAdapterFactory<
+  AiQuestionsRequest,
+  AiQuestionsResponse
 >({
   endpoint: from =>
     interpolate(
       `${getBeaconServiceUrl(from)}/questions/{extraParams.instance}/conversational`,
       from,
     ),
-  requestMapper: AIQuestionsRequestMapper,
-  responseMapper: AIQuestionsResponseMapper,
+  requestMapper: AiQuestionsRequestMapper,
+  responseMapper: AiQuestionsResponseMapper,
   defaultRequestOptions: {
     id: 'ai-questions',
     properties: {

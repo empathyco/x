@@ -1,1 +1,1 @@
-export interface AITasksRequest {}
+export interface AiTasksRequest {}

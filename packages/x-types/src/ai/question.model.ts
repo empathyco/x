@@ -1,4 +1,4 @@
-export interface AIQuestion {
+export interface AiQuestion {
   id: string
   type: string
   metadata: {

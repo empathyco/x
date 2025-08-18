@@ -1,3 +1,3 @@
-import type { AIQuestionsResponse } from '@empathyco/x-types'
+import type { AiQuestionsResponse } from '@empathyco/x-types'
 
-export interface PlatformAIQuestionsResponse extends AIQuestionsResponse {}
+export interface PlatformAiQuestionsResponse extends AiQuestionsResponse {}

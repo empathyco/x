@@ -1,10 +1,10 @@
-import type { AIQuestionsRequest } from '@empathyco/x-types'
-import type { PlatformAIQuestionsRequest } from '../../../types'
+import type { AiQuestionsRequest } from '@empathyco/x-types'
+import type { PlatformAiQuestionsRequest } from '../../../types'
 import { createMutableSchema } from '@empathyco/x-adapter'
 
-export const AIQuestionsRequestSchema = createMutableSchema<
-  AIQuestionsRequest,
-  PlatformAIQuestionsRequest
+export const AiQuestionsRequestSchema = createMutableSchema<
+  AiQuestionsRequest,
+  PlatformAiQuestionsRequest
 >({
   context: {
     query: 'query',

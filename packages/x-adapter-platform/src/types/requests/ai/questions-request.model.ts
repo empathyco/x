@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface PlatformAIQuestionsRequest {
+export interface PlatformAiQuestionsRequest {
   context: {
     lang: string
     instance?: string
