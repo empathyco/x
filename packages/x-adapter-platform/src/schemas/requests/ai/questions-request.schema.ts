@@ -2,14 +2,20 @@ import type { AiQuestionsRequest } from '@empathyco/x-types'
 import type { PlatformAiQuestionsRequest } from '../../../types'
 import { createMutableSchema } from '@empathyco/x-adapter'
 
-export const AiQuestionsRequestSchema = createMutableSchema<
+export const aiQuestionsRequestSchema = createMutableSchema<
   AiQuestionsRequest,
   PlatformAiQuestionsRequest
 >({
-  context: {
-    query: 'query',
-    lang: 'lang',
-    instance: 'extraParams.instance',
-    filters: 'extraParams.filters',
+  context: ({ lang, query, extraParams }): PlatformAiQuestionsRequest['context'] => {
+    const context: PlatformAiQuestionsRequest['context'] = { lang, query }
+    if (extraParams && typeof extraParams === 'object') {
+      if ('instance' in extraParams) {
+        context.instance = (extraParams as { instance?: string }).instance
+      }
+      if ('filters' in extraParams) {
+        context.filters = (extraParams as { filters?: Record<string, unknown> }).filters
+      }
+    }
+    return context
   },
 })

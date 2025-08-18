@@ -7,7 +7,7 @@ import { createMutableSchema } from '@empathyco/x-adapter'
  *
  * @public
  */
-export const AiQuestionsSchema = createMutableSchema<
+export const aiQuestionsSchema = createMutableSchema<
   PlatformAiQuestionsResponse,
   AiQuestionsResponse
 >({
