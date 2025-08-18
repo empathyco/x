@@ -1,4 +1,4 @@
-export * from './ai/questions-request.model'
+export * from './ai'
 export * from './experience-controls-request.model'
 export * from './identifier-results-request.model'
 export * from './next-queries-request.model'

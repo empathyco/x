@@ -1,4 +1,4 @@
-export * from './ai/questions-request.schema'
+export * from './ai'
 export * from './experience-controls-request.schema'
 export * from './identifier-results-request.schema'
 export * from './next-queries-request.schema'

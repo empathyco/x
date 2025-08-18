@@ -1,5 +1,6 @@
 import type { PlatformAdapter } from './types/platform-adapter.types'
-import { AiQuestionsEndpointAdapter } from './endpoint-adapters/ai/questions.endpoint-adapter'
+import { aiQuestionsEndpointAdapter } from './endpoint-adapters/ai/questions.endpoint-adapter'
+import { aiTasksEndpointAdapter } from './endpoint-adapters/ai/tasks.endpoint-adapter'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
 import { nextQueriesEndpointAdapter } from './endpoint-adapters/next-queries.endpoint-adapter'
@@ -29,5 +30,6 @@ export const platformAdapter: PlatformAdapter = {
   tagging: taggingEndpointAdapter,
   semanticQueries: semanticQueriesEndpointAdapter,
   experienceControls: experienceControlsEndpointAdapter,
-  aiQuestions: AiQuestionsEndpointAdapter,
+  aiQuestions: aiQuestionsEndpointAdapter,
+  aiTasks: aiTasksEndpointAdapter,
 }
