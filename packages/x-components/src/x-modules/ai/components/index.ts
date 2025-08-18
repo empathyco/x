@@ -1,1 +1,1 @@
-export { default as AiOverview } from './ai-overview.vue'
+export { default as AIOverview } from './ai-overview.vue'

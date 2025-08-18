@@ -1,3 +1,4 @@
+export { default as AIStarIcon } from './ai-star.vue'
 export { default as ArrowDownIcon } from './arrow-down.vue'
 export { default as ArrowLeftIcon } from './arrow-left.vue'
 export { default as ArrowRightIcon } from './arrow-right.vue'
