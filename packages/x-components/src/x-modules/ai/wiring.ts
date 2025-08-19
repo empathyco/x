@@ -22,8 +22,8 @@ const setExtraParams = wireCommit('setParams')
 /** Sets the ai state `query`. */
 const setAiQuery = wireCommit('setQuery')
 
-/** Fetches and saves the related prompts response. */
-const fetchAndSaveAiQuestions = wireDispatch('fetchAndSaveAiQuestions')
+/** Fetches the ai questions response. */
+const fetchAiQuestions = wireDispatch('fetchAiQuestions')
 
 /** Sets the ai state `relatedTags`.*/
 const setAiRelatedTags = wireCommit('setAiRelatedTags')
@@ -51,7 +51,7 @@ export const aiWiring = createWiring({
     resetAiState,
   },
   AiQuestionsRequestUpdated: {
-    fetchAndSaveAiQuestions,
+    fetchAiQuestions,
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTags,

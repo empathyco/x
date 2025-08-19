@@ -93,12 +93,6 @@ export interface AiActions {
    * @param request - The ai request.
    */
   fetchAiQuestions: (request: AiQuestionsRequest | null) => AiQuestion[] | null
-  /**
-   * Requests a new set of questions and stores them in the module.
-   *
-   * @param request - The questions request.
-   */
-  fetchAndSaveAiQuestions: (request: AiQuestionsRequest | null) => void
 
   /**
    * Checks if the URL has params on it and then updates the state with these values.

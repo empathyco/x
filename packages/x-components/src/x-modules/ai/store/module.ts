@@ -9,7 +9,6 @@ import {
   aiQuestionsRequest as request,
 } from '../getters'
 import { fetchAiQuestions } from './actions/fetch-ai-questions.action'
-import { fetchAndSaveAiQuestions } from './actions/fetch-and-save-questions.action'
 import { setUrlParams } from './actions/set-url-params.action'
 /**
  * {@link XStoreModule} For the ai module.
@@ -60,7 +59,6 @@ export const aiXStoreModule: AiXStoreModule = {
   },
   actions: {
     fetchAiQuestions,
-    fetchAndSaveAiQuestions,
     setUrlParams,
   },
 }
