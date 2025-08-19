@@ -1,4 +1,5 @@
 import type { Plugin, RollupOptions } from 'rollup'
+import fs from 'node:fs'
 import path from 'node:path'
 import vue3 from '@vitejs/plugin-vue'
 import copy from 'rollup-plugin-copy'
@@ -7,12 +8,11 @@ import styles from 'rollup-plugin-styles'
 import typescript from 'rollup-plugin-typescript2'
 import { dependencies as pkgDeps, peerDependencies as pkgPeerDeps } from '../package.json'
 import { apiDocumentation } from './docgen/documentation.rollup-plugin'
-import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin'
 
 const rootDir = path.resolve(__dirname, '../')
 const buildPath = path.join(rootDir, 'dist')
+const r = (p: string) => path.join(rootDir, p)
 
-const jsOutputDir = path.join(buildPath, 'js')
 const typesOutputDir = path.join(buildPath, 'types')
 
 const dependencies = new Set(Object.keys(pkgDeps).concat(Object.keys(pkgPeerDeps)))
@@ -23,10 +23,24 @@ const vueDocs = {
     !/vue&type=docs/.test(id) ? undefined : `export default ''`,
 }
 
-export const rollupConfig: RollupOptions = {
-  input: path.join(rootDir, 'src/index.ts'),
+const getXModules = () => {
+  const xModulesPath = path.join(rootDir, 'src', 'x-modules')
+  return Object.fromEntries(
+    fs
+      .readdirSync(xModulesPath)
+      .filter(file => fs.statSync(path.join(xModulesPath, file)).isDirectory())
+      .map(module => [`${module}/index`, r(`src/x-modules/${module}/index.ts`)]),
+  )
+}
+
+const rollupConfig: RollupOptions = {
+  input: {
+    'core/index': r('src/core.entry.ts'),
+    ...getXModules(),
+    'x-modules.types/index': r('src/x-modules/x-modules.types.ts'),
+  },
   output: {
-    dir: jsOutputDir,
+    dir: buildPath,
     format: 'esm',
     sourcemap: true,
     preserveModules: true,
@@ -61,6 +75,7 @@ export const rollupConfig: RollupOptions = {
       ],
     }),
     typescript({
+      check: false,
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
@@ -84,20 +99,21 @@ export const rollupConfig: RollupOptions = {
       mode: [
         'inject',
         varname => {
-          const pathInjector = path.resolve('./tools/inject-css.js')
+          const pathInjector = r('src/utils/inject-css.js')
           return `import injectCss from '${pathInjector}';injectCss(${varname});`
         },
       ],
     }),
     vueDocs,
-    generateEntryFiles({ buildPath, jsOutputDir, typesOutputDir }),
     apiDocumentation({ buildPath }),
     copy({
       targets: [
         { src: ['build/tools'], dest: buildPath },
-        { src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs'], dest: buildPath },
+        { src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs', 'patches'], dest: buildPath },
       ],
       hook: 'writeBundle',
     }),
   ],
 }
+
+export default rollupConfig

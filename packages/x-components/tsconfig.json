@@ -1,23 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es2020",
     "jsx": "preserve",
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "experimentalDecorators": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
     "baseUrl": ".",
     "rootDir": "src",
     "module": "esnext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "declaration": true,
     "declarationMap": true,
     "importHelpers": true,
     "noEmit": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.vue"],
   "exclude": ["node_modules"]
 }
