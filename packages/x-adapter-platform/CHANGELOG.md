@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.25 (2025-08-19)
+
+* feat(ai): implement tasks endpoint ([082153e](https://github.com/empathyco/x/commit/082153e))
+* feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
+* refactor(ai): rename interface for consistent naming ([29a868a](https://github.com/empathyco/x/commit/29a868a))
+* refactor(ai): rename interface for consistent naming ([3633c86](https://github.com/empathyco/x/commit/3633c86))
+* fix(AIQuestions): fix adapter config ([d364194](https://github.com/empathyco/x/commit/d364194))
+
+
+
+
+
+## 1.1.0-alpha.24 (2025-08-18)
+
+* fix: platform adapter interface ([359686c](https://github.com/empathyco/x/commit/359686c))
+* feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+
+
+
+
+
 ## 1.1.0-alpha.23 (2025-08-12)
 
 * chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))

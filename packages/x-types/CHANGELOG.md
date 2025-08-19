@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.20 (2025-08-19)
+
+* feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))
+* feat(ai): implement tasks endpoint ([082153e](https://github.com/empathyco/x/commit/082153e))
+* feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
+* refactor(ai): rename interface for consistent naming ([29a868a](https://github.com/empathyco/x/commit/29a868a))
+* refactor(ai): rename interface for consistent naming ([3633c86](https://github.com/empathyco/x/commit/3633c86))
+
+
+
+
+
+## 10.1.0-alpha.19 (2025-08-18)
+
+* feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+
+
+
+
+
 ## 10.1.0-alpha.18 (2025-08-12)
 
 **Note:** Version bump only for package @empathyco/x-types

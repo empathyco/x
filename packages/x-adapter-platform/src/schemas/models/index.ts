@@ -1,3 +1,4 @@
+export * from './ai'
 export * from './banner.schema'
 export * from './facet.schema'
 export * from './filters'

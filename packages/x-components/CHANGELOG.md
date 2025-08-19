@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.123 (2025-08-19)
+
+* feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))
+* feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
+
+
+
+
+
+## 6.0.0-alpha.122 (2025-08-18)
+
+* test: fix empty test suite ([3fbb6b7](https://github.com/empathyco/x/commit/3fbb6b7))
+* feat(ai): add initial x-module ([189cefe](https://github.com/empathyco/x/commit/189cefe))
+* feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+* fix: move ai dir ([f30ecb2](https://github.com/empathyco/x/commit/f30ecb2))
+
+
+
+
+
 ## 6.0.0-alpha.121 (2025-08-12)
 
 **Note:** Version bump only for package @empathyco/x-components
