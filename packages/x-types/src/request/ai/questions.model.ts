@@ -1,1 +1,6 @@
-export interface AIQuestionsRequest {}
+import type { ExtraParamsRequest } from '../request.model'
+
+export interface AiQuestionsRequest extends ExtraParamsRequest {
+  query?: string
+  lang: string
+}
