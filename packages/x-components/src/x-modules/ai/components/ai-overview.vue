@@ -91,7 +91,7 @@
           data-test="ai-overview-expand-btn"
           @click="open"
         >
-          Show more
+          {{ buttonText }}
           <ChevronDownIcon class="x-icon" />
         </button>
       </div>
@@ -136,6 +136,15 @@ export default defineComponent({
     titleLoading: {
       type: String as PropType<string>,
       default: 'Generating with Empathy AI',
+    },
+    /**
+     * The text displayed on the expand button.
+     *
+     * @public
+     */
+    buttonText: {
+      type: String as PropType<string>,
+      default: 'Show more',
     },
   },
   setup() {

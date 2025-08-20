@@ -126,6 +126,21 @@ describe('ai-overview component', () => {
     expect(sut.slot.text()).toContain(slotText)
   })
 
+  it('should display custom show more button text', async () => {
+    jest.mocked(useGetter).mockReturnValue({
+      currentQuestion: ref(questionStub),
+      currentQuestionLoading: ref(false),
+    } as unknown as ReturnType<typeof useGetter>)
+    const buttonTextStub = 'Show more test'
+    const sut = render({
+      props: {
+        buttonText: buttonTextStub,
+      },
+    })
+
+    expect(sut.expandButton.text()).toBe(buttonTextStub)
+  })
+
   it('should render default slot fallback if no slot is provided', async () => {
     jest.mocked(useGetter).mockReturnValue({
       currentQuestion: ref(questionStub),
