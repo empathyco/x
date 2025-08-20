@@ -6,6 +6,7 @@ import { createAiQuestionStub } from '../../../../__stubs__/index'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import { useGetter } from '../../../../composables'
 import AIOverview from '../ai-overview.vue'
+import AiQuestionResults from '../ai-question-results.vue'
 
 jest.mock('../../../../composables')
 const typingMock = jest.fn()
@@ -16,6 +17,11 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     ...options,
     directives: {
       typing: typingMock,
+    },
+    global: {
+      stubs: {
+        AiQuestionResults: true,
+      },
     },
   })
 
@@ -37,7 +43,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.find(getDataTestSelector('ai-overview-slot'))
     },
     get slotFallback() {
-      return wrapper.find(getDataTestSelector('ai-overview-slot-fallback'))
+      return wrapper.findComponent(AiQuestionResults)
     },
     content: wrapper.find(getDataTestSelector('ai-overview-content')),
   }
