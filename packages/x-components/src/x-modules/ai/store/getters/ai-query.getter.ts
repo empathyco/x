@@ -1,5 +1,5 @@
-import type { AiXStoreModule } from '../store'
-import { createRelatedTagsQueryGetter } from '../../../store'
+import type { AiXStoreModule } from '../types'
+import { createRelatedTagsQueryGetter } from '../../../../store'
 
 /**
  * Default implementation for the related prompts query getter.

@@ -1,4 +1,4 @@
-import type { AiXStoreModule } from '../store'
+import type { AiXStoreModule } from '../types'
 
 /**
  * Default implementation for the {@link AiGetters.request} getter.

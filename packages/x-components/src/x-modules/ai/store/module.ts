@@ -2,14 +2,14 @@ import type { AiQuestion } from '@empathyco/x-types'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { fetchAiQuestions } from './actions/fetch-ai-questions.action'
+import { setUrlParams } from './actions/set-url-params.action'
 import {
   aiCurrentQuestion as currentQuestion,
   aiCurrentQuestionLoading as currentQuestionLoading,
   aiQuery as query,
   aiQuestionsRequest as request,
-} from '../getters'
-import { fetchAiQuestions } from './actions/fetch-ai-questions.action'
-import { setUrlParams } from './actions/set-url-params.action'
+} from './getters'
 /**
  * {@link XStoreModule} For the ai module.
  *
