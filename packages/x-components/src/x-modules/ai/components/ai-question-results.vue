@@ -12,7 +12,7 @@
         <QueryPreviewButton
           :query-preview-info="queryPreviewInfo"
           :metadata="{ feature: 'related_prompts' }"
-          class="x-button-tight x-mx-4 x-pb-4 x-font-bold x-text-gray-900 md:x-mx-8"
+          class="x-button-tight x-mx-8 x-pb-8 x-font-bold x-text-gray-900 md:x-mx-16"
         >
           <template #related-prompt-extra-content>
             <!--
@@ -22,12 +22,12 @@
             <slot name="related-prompt-extra-content" />
           </template>
         </QueryPreviewButton>
-        <SlidingPanel container-css-class="x-px-4 md:x-px-8 x-pb-4 md:x-pb-8">
+        <SlidingPanel scroll-container-class="x-px-8 x-gap-16 md:x-px-16 x-pb-8 md:x-pb-16">
           <Result
             v-for="result in results"
             :key="result.id"
             :result="result"
-            class="x-h-[248px] x-w-[184px] x-shrink-0 md:x-h-[296px] md:x-w-[232px]"
+            class="x-flex x-gap-8 x-flex-col x-shrink-0 x-p-8"
           />
         </SlidingPanel>
       </QueryPreviewList>
