@@ -23,8 +23,32 @@ export function getAiQuestionsStub(amount = 5): AiQuestion[] {
 export function createAiQuestionStub(text: string): AiQuestion {
   return {
     id: `ai-question-${text.replace(/\s+/g, '-').toLowerCase()}`,
-    text,
-    modelName: 'AiQuestion',
-    // Add other properties as needed for your AiQuestion type
+    type: 'default',
+    metadata: {
+      origin: 'stub',
+      source: 'test',
+      createdAt: new Date().toISOString(),
+      generatedWithModel: 'stub-model',
+      generatedWithConfig: 'stub-config',
+    },
+    suggestionText: text,
+    suggestionImageUrl: 'https://example.com/image.png',
+    responseText: `Response for ${text}`,
+    content: {
+      responseText: `Content response for ${text}`,
+      searchQueries: [`search for ${text}`],
+    },
+    expanded: false,
+    tagging: {
+      toolingDisplay: 'display-tag',
+      toolingDisplayClick: 'display-click-tag',
+      searchQueries: {
+        [`search for ${text}`]: {
+          toolingDisplay: 'display-tag',
+          toolingDisplayAdd2Cart: 'add2cart-tag',
+          toolingDisplayClick: 'click-tag',
+        },
+      },
+    },
   }
 }
