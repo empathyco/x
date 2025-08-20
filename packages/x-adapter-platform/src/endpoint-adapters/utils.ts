@@ -52,7 +52,7 @@ export function getQuestionsServiceUrl(from: ExtraParamsRequest): string {
 /**
  * Gets the Tasks service URL for the given request.
  *
- * @param from - The request.t
+ * @param from - The request.
  *
  * @returns The service URL.
  *
