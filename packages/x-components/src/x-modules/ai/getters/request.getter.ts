@@ -12,5 +12,5 @@ import type { AiXStoreModule } from '../store'
  * @public
  */
 export const request: AiXStoreModule['getters']['request'] = ({ params }, { query }) => {
-  return { query, lang: params.lang as string, extraParams: params }
+  return query ? { query, lang: params.lang as string, extraParams: params } : null
 }
