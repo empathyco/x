@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.26 (2025-08-20)
+
+* chore(ai): fix text ([601f19d](https://github.com/empathyco/x/commit/601f19d))
+* feat(ai): wiring, store, emitters for ai module ([48840be](https://github.com/empathyco/x/commit/48840be))
+
+
+
+
+
 ## 1.1.0-alpha.25 (2025-08-19)
 
 * feat(ai): implement tasks endpoint ([082153e](https://github.com/empathyco/x/commit/082153e))

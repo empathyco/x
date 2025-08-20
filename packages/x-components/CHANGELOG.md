@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.124 (2025-08-20)
+
+* test(ai): actions and getters ([ee1aac0](https://github.com/empathyco/x/commit/ee1aac0))
+* test(ai): add AiQuestion stub ([64cf1ba](https://github.com/empathyco/x/commit/64cf1ba))
+* refactor(ai): remove Object assign ([da8f2c4](https://github.com/empathyco/x/commit/da8f2c4))
+* chore(ai): docs ([acd1c3a](https://github.com/empathyco/x/commit/acd1c3a))
+* feat(ai): force questions with quere ([939586f](https://github.com/empathyco/x/commit/939586f))
+* feat(ai): remove fetch and save ([fb36045](https://github.com/empathyco/x/commit/fb36045))
+* feat(ai): wiring, store, emitters for ai module ([48840be](https://github.com/empathyco/x/commit/48840be))
+
+
+
+
+
 ## 6.0.0-alpha.123 (2025-08-19)
 
 * feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))

@@ -218,7 +218,7 @@ importers:
         specifier: ^8.1.0-alpha.8
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.1.0-alpha.25
+        specifier: ^1.1.0-alpha.26
         version: link:../x-adapter-platform
       '@empathyco/x-deep-merge':
         specifier: ^2.0.3-alpha.9
