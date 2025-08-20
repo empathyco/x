@@ -1,4 +1,6 @@
 import type {
+  AiQuestionsResponse,
+  AiTasksResponse,
   ExperienceControlsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
@@ -48,6 +50,8 @@ interface MockedAdapterFeatures {
   semanticQueries: SemanticQueriesResponse
   tagging: void
   experienceControls: ExperienceControlsResponse
+  aiQuestions: AiQuestionsResponse
+  aiTasks: AiTasksResponse
 }
 
 /**
@@ -164,6 +168,8 @@ export function getMockedAdapter(
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
     experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
+    aiQuestions: getMockedAdapterFunction(responseFeatures?.aiQuestions!),
+    aiTasks: getMockedAdapterFunction(responseFeatures?.aiTasks!),
     /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
   }
 }

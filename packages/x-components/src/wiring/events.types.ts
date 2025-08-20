@@ -2,6 +2,7 @@ import type { Result, ResultVariant, Suggestion } from '@empathyco/x-types'
 import type { ComputedRef } from 'vue'
 import type { ExtractPayload } from '../store/store.types'
 import type { ArrowKey, PropsWithType } from '../utils'
+import type { AiXEvents } from '../x-modules/ai'
 import type { DeviceXEvents } from '../x-modules/device'
 import type { EmpathizeXEvents } from '../x-modules/empathize/events.types'
 import type { ExperienceControlsXEvents } from '../x-modules/experience-controls/events.types'
@@ -76,7 +77,8 @@ export interface XEventsTypes
     TaggingXEvents,
     ExperienceControlsXEvents,
     UrlXEvents,
-    RelatedPromptsXEvents {
+    RelatedPromptsXEvents,
+    AiXEvents {
   /**
    * The provided number of columns of a grid has changed.
    * Payload: the columns number.
