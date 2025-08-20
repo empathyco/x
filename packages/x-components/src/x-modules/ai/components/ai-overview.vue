@@ -86,14 +86,13 @@ export default defineComponent({
     CollapseHeight,
     Fade,
   },
-  setup(props) {
+  setup() {
     const { currentQuestionLoading: loading } = useGetter('ai')
     const expanded = ref(false)
 
     return {
       expanded,
       loading,
-      props,
     }
   },
 })
