@@ -41,6 +41,17 @@ export const fetchAiQuestions: AiXStoreModule['actions']['fetchAiQuestions'] = a
   })
 }
 
+/**
+ * Recursive task fetching function that will keep trying to fetch tasks until they are resolved or the maximum number of attempts is reached.
+ * @param taskId - The task id to fetch.
+ * @param questionsState - The questions state to update.
+ * @param request - The ai request to make.
+ * @param commit - The commit function to update the state.
+ * @param attempts - The number of attempts made so far.
+ *
+ * @internal
+ *
+ */
 async function fetchTasks(
   taskId: string,
   questionsState: {

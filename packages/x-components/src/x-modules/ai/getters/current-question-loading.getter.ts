@@ -5,7 +5,7 @@ import type { AiXStoreModule } from '../store'
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the ai
  * module.
- * @returns The ai request to fetch data from the API.
+ * @returns The loading value of the current question.
  *
  * @public
  */
