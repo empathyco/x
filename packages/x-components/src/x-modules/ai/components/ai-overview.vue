@@ -1,75 +1,107 @@
 <template>
-  <div class="x-relative x-rounded-lg" :class="{ 'x-bg-lead-25': expanded }">
-    <div class="x-p-16 x-rounded-lg x-bg-gradient-to-b x-from-lead-25 x-from-85% x-to-transparent">
-      <Fade mode="out-in">
-        <span v-if="loading" class="x-flex x-items-center x-gap-1.5 x-mb-8">
-          <span class="x-size-3 x-animate-pulse x-rounded-full x-bg-lead-50" />
+  <CollapseHeight>
+    <div
+      v-show="loading || question"
+      class="x-relative x-rounded-lg"
+      :class="{ 'x-bg-lead-25': expanded }"
+      data-test="ai-overview-root"
+    >
+      <div
+        class="x-p-16 x-rounded-lg"
+        :class="[
+          loading
+            ? 'x-bg-lead-25'
+            : 'x-bg-gradient-to-b x-from-lead-25 x-from-85% x-to-transparent',
+        ]"
+        data-test="ai-overview-main"
+      >
+        <Fade mode="out-in">
           <span
-            v-typing="{ text: 'Generating with Empathy AI', speed: 50 }"
-            class="animate-pulse x-text-xs"
-          />
-        </span>
-        <span v-else class="x-flex x-text-sm x-font-bold x-gap-4 x-items-center x-mb-8">
-          <AIStarIcon class="x-icon x-text-lead-50" />Empathy AI Overview
-        </span>
-      </Fade>
-      <ChangeHeight>
-        <div v-if="loading" class="x-flex x-w-full x-flex-col x-gap-4 x-animate-pulse">
+            v-if="loading"
+            class="x-flex x-items-center x-gap-1.5 x-mb-8"
+            data-test="ai-overview-loading"
+          >
+            <span class="x-size-3 x-animate-pulse x-rounded-full x-bg-lead-50" />
+            <span
+              v-typing="{ text: titleLoading, speed: 50 }"
+              class="animate-pulse x-text-xs"
+              data-test="ai-overview-title-loading"
+            />
+          </span>
           <span
-            class="x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75"
-          />
-          <span
-            class="x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-lead-75 x-to-lead-50 x-opacity-50"
-          />
-          <span
-            class="x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75"
-          />
-          <span
-            class="x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75 x-opacity-75"
-          />
-        </div>
-        <div v-else>
-          It is a long established fact that a reader will be distracted by the readable content of
-          a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using 'Content here, content
-          here', making it look like readable English. Many desktop publishing packages and web page
-          editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
-          will uncover many web sites still in their infancy. Various versions have evolved over the
-          years, sometimes by accident, sometimes on purpose (injected humour and the like). It is a
-          long established fact that a reader will be distracted by the readable content of a page
-          when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
-          normal distribution of letters, as opposed to using 'Content here, content here', making
-          it look like readable English. Many desktop publishing packages and web page editors now
-          use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover
-          many web sites still in their infancy. Various versions have evolved over the years,
-          sometimes by accident, sometimes on purpose (injected humour and the like).
-        </div>
-      </ChangeHeight>
-    </div>
-    <CollapseHeight>
-      <div v-if="expanded">
-        <slot>
-          It is a long established fact that a reader will be distracted by the readable content of
-          a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using 'Content here, content
-          here', making it look like readable English. Many desktop publishing packages and web page
-          editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
-          will uncover many web sites still in their infancy. Various versions have evolved over the
-          years, sometimes by accident, sometimes on purpose (injected humour and the like).
-        </slot>
+            v-else
+            class="x-flex x-text-sm x-font-bold x-gap-4 x-items-center x-mb-8"
+            data-test="ai-overview-title"
+          >
+            <AIStarIcon class="x-icon x-text-lead-50" />{{ title }}
+          </span>
+        </Fade>
+        <ChangeHeight>
+          <div
+            v-if="loading"
+            class="x-flex x-w-full x-flex-col x-gap-4 x-animate-pulse"
+            data-test="ai-overview-loading-content"
+          >
+            <span
+              class="x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75"
+            />
+            <span
+              class="x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-lead-75 x-to-lead-50 x-opacity-50"
+            />
+            <span
+              class="x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75"
+            />
+            <span
+              class="x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75 x-opacity-75"
+            />
+          </div>
+          <div
+            v-else
+            class="x-flex x-flex-col x-text-left x-leading-5 x-gap-2"
+            data-test="ai-overview-content"
+          >
+            <h2 class="x-font-medium">
+              {{ question?.suggestionText }}
+            </h2>
+            <p>
+              {{ question?.content.responseText }}
+            </p>
+          </div>
+        </ChangeHeight>
       </div>
-    </CollapseHeight>
-    <div v-if="!expanded" class="x-flex">
-      <button class="x-button x-button-outlined x-rounded-full x-w-full" @click="expanded = true">
-        Show more
-        <ChevronDownIcon class="x-icon" />
-      </button>
+      <CollapseHeight>
+        <div v-if="expanded" data-test="ai-overview-slot">
+          <slot>
+            <span data-test="ai-overview-slot-fallback">
+              It is a long established fact that a reader will be distracted by the readable content
+              of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+              more-or-less normal distribution of letters, as opposed to using 'Content here,
+              content here', making it look like readable English. Many desktop publishing packages
+              and web page editors now use Lorem Ipsum as their default model text, and a search for
+              'lorem ipsum' will uncover many web sites still in their infancy. Various versions
+              have evolved over the years, sometimes by accident, sometimes on purpose (injected
+              humour and the like).
+            </span>
+          </slot>
+        </div>
+      </CollapseHeight>
+      <div v-if="!loading && !expanded" class="x-flex">
+        <button
+          class="x-button x-button-outlined x-rounded-full x-w-full"
+          data-test="ai-overview-expand-btn"
+          @click="open"
+        >
+          Show more
+          <ChevronDownIcon class="x-icon" />
+        </button>
+      </div>
     </div>
-  </div>
+  </CollapseHeight>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { ChangeHeight, CollapseHeight, Fade } from '../../../components'
 import { AIStarIcon, ChevronDownIcon } from '../../../components/icons'
 import { useGetter } from '../../../composables'
@@ -86,12 +118,45 @@ export default defineComponent({
     CollapseHeight,
     Fade,
   },
+  props: {
+    /**
+     * The text displayed when the question ended loading
+     *
+     * @public
+     */
+    title: {
+      type: String as PropType<string>,
+      default: 'Empathy AI Overview',
+    },
+    /**
+     * The text displayed when the question is loading.
+     *
+     * @public
+     */
+    titleLoading: {
+      type: String as PropType<string>,
+      default: 'Generating with Empathy AI',
+    },
+  },
   setup() {
-    const { currentQuestionLoading: loading } = useGetter('ai')
+    const { currentQuestion: question, currentQuestionLoading: loading } = useGetter('ai')
+
     const expanded = ref(false)
+
+    function open() {
+      expanded.value = true
+    }
+
+    watch(loading, () => {
+      if (loading.value) {
+        expanded.value = false
+      }
+    })
 
     return {
       expanded,
+      question,
+      open,
       loading,
     }
   },
