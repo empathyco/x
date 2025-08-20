@@ -74,9 +74,6 @@ import { ChangeHeight, CollapseHeight, Fade } from '../../../components'
 import { AIStarIcon, ChevronDownIcon } from '../../../components/icons'
 import { typing } from '../../../directives'
 
-//TODO define prop for loadingText
-//subscribirme al useracceptedA query
-//action y llamar a
 export default defineComponent({
   directives: {
     typing,

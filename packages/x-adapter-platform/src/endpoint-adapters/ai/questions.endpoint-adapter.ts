@@ -13,10 +13,7 @@ export const aiQuestionsEndpointAdapter = endpointAdapterFactory<
   AiQuestionsResponse
 >({
   endpoint: from =>
-    interpolate(
-      `${getQuestionsServiceUrl(from)}/questions/{extraParams.instance}/conversational`,
-      from,
-    ),
+    interpolate(`${getQuestionsServiceUrl(from)}/{extraParams.instance}/conversational`, from),
   requestMapper: aiQuestionsRequestMapper,
   responseMapper: aiQuestionsResponseMapper,
   defaultRequestOptions: {

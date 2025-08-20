@@ -1,3 +1,4 @@
+export * from './ai-stubs.factory'
 export * from './banners-stubs.factory'
 export * from './empty-search-response-stubs.factory'
 export * from './facets-stubs.factory'
