@@ -45,7 +45,7 @@ export const aiXStoreModule: AiXStoreModule = {
           loading: true,
         }
       }
-      Object.assign(state.questionsByQuery[params.query], params.state)
+      state.questionsByQuery[params.query] = params.state
     },
     setParams(state, params) {
       state.params = params
