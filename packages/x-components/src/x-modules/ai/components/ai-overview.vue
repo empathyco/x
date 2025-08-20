@@ -72,6 +72,7 @@
 import { defineComponent, ref } from 'vue'
 import { ChangeHeight, CollapseHeight, Fade } from '../../../components'
 import { AIStarIcon, ChevronDownIcon } from '../../../components/icons'
+import { useGetter } from '../../../composables'
 import { typing } from '../../../directives'
 
 export default defineComponent({
@@ -86,12 +87,8 @@ export default defineComponent({
     Fade,
   },
   setup(props) {
+    const { currentQuestionLoading: loading } = useGetter('ai')
     const expanded = ref(false)
-    const loading = ref(true)
-
-    setTimeout(() => {
-      loading.value = false
-    }, 3000)
 
     return {
       expanded,
