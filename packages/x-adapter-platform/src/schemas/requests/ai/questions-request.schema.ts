@@ -2,6 +2,11 @@ import type { AiQuestionsRequest } from '@empathyco/x-types'
 import type { PlatformAiQuestionsRequest } from '../../../types'
 import { createMutableSchema } from '@empathyco/x-adapter'
 
+/**
+ * Default implementation for the AiQuestionsRequestSchema.
+ *
+ * @public
+ */
 export const aiQuestionsRequestSchema = createMutableSchema<
   AiQuestionsRequest,
   PlatformAiQuestionsRequest
