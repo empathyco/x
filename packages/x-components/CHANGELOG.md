@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.127 (2025-08-21)
+
+* fix(ai): register module to use ai overview ([59cfbd7](https://github.com/empathyco/x/commit/59cfbd7))
+* fix(ai): remove AiOverview from home ([b9ebdce](https://github.com/empathyco/x/commit/b9ebdce))
+
+
+
+
+
 ## 6.0.0-alpha.126 (2025-08-21)
 
 * fix: applied format ([713c3ab](https://github.com/empathyco/x/commit/713c3ab))
