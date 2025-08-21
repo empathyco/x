@@ -1,4 +1,5 @@
 export * from './ai/questions.endpoint-adapter'
+export * from './ai/tasks.endpoint-adapter'
 export * from './experience-controls.endpoint-adapter'
 export * from './identifier-results.endpoint-adapter'
 export * from './next-queries.endpoint-adapter'
