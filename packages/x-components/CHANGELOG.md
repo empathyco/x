@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.125 (2025-08-21)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.124 (2025-08-20)
 
 * test(ai): actions and getters ([ee1aac0](https://github.com/empathyco/x/commit/ee1aac0))
