@@ -1,6 +1,6 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-6 md:x-gap-8">
-    <div class="x-flex x-min-h-[248px] x-shrink-0 x-flex-col md:x-min-h-[296px]">
+  <div class="x-ai-question-results-wrapper">
+    <div class="x-ai-question-results-wrapper-content">
       <QueryPreviewList
         v-slot="{ queryPreviewInfo, results }"
         :max-items-to-render="10"
@@ -12,7 +12,7 @@
         <QueryPreviewButton
           :query-preview-info="queryPreviewInfo"
           :metadata="{ feature: 'related_prompts' }"
-          class="x-button-tight x-mx-8 x-pb-8 x-font-bold x-text-gray-900 md:x-mx-16"
+          class="x-ai-question-results-preview-button"
         >
           <template #related-prompt-extra-content>
             <!--
@@ -27,7 +27,7 @@
             v-for="result in results"
             :key="result.id"
             :result="result"
-            class="x-flex x-gap-8 x-flex-col x-shrink-0 x-p-8"
+            class="x-ai-question-results-result-card"
           />
         </SlidingPanel>
       </QueryPreviewList>
@@ -69,3 +69,21 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="css">
+.x-ai-question-results-wrapper {
+  @apply x-flex x-flex-col x-gap-6 md:x-gap-8;
+}
+
+.x-ai-question-results-wrapper-content {
+  @apply x-flex x-min-h-[248px] x-shrink-0 x-flex-col md:x-min-h-[296px];
+}
+
+.x-ai-question-results-preview-button {
+  @apply x-button-tight x-mx-8 x-pb-8 x-font-bold x-text-gray-900 md:x-mx-16;
+}
+
+.x-ai-question-results-result-card {
+  @apply x-flex x-gap-8 x-flex-col x-shrink-0 x-p-8;
+}
+</style>
