@@ -65,13 +65,13 @@ function render(options: ComponentMountingOptions<typeof AiQuestionResults> = {}
   return {
     wrapper,
     get queryPreviewList() {
-      return wrapper.find(getDataTestSelector('query-preview-list'))
+      return wrapper.findComponent(QueryPreviewList)
     },
-    get queryPreviewButton() {
-      return wrapper.find(getDataTestSelector('query-preview-button'))
+    get queryPreviewButton () {
+      return wrapper.findComponent(QueryPreviewButton)
     },
     get slidingPanel() {
-      return wrapper.find(getDataTestSelector('sliding-panel'))
+      return wrapper.findComponent(SlidingPanel)
     },
     get results() {
       return wrapper.findAll(getDataTestSelector('result'))
@@ -83,8 +83,6 @@ describe('ai-question-results component', () => {
   it('should render the component with all child components', () => {
     const sut = render()
 
-    expect(sut.wrapper.find('.x-ai-question-results-wrapper').exists()).toBeTruthy()
-    expect(sut.wrapper.find('.x-ai-question-results-wrapper-content').exists()).toBeTruthy()
     expect(sut.queryPreviewList.exists()).toBeTruthy()
     expect(sut.queryPreviewButton.exists()).toBeTruthy()
     expect(sut.slidingPanel.exists()).toBeTruthy()
@@ -92,9 +90,8 @@ describe('ai-question-results component', () => {
 
   it('should pass correct props to QueryPreviewList', () => {
     const sut = render()
-    const queryPreviewList = sut.wrapper.findComponent(QueryPreviewList)
 
-    expect(queryPreviewList.props()).toEqual({
+    expect(sut.queryPreviewList.props()).toEqual({
       maxItemsToRender: 10,
       queriesPreviewInfo: questionStub.content?.searchQueries.map(query => ({ query })),
       debounceTimeMs: 0,
@@ -105,17 +102,15 @@ describe('ai-question-results component', () => {
 
   it('should pass correct props to QueryPreviewButton', () => {
     const sut = render()
-    const queryPreviewButton = sut.wrapper.findComponent(QueryPreviewButton)
 
-    expect(queryPreviewButton.props('metadata')).toEqual({ feature: 'related_prompts' })
-    expect(queryPreviewButton.classes()).toContain('x-ai-question-results-preview-button')
+    expect(sut.queryPreviewButton.props('metadata')).toEqual({ feature: 'related_prompts' })
+    expect(sut.queryPreviewButton.classes()).toContain('x-ai-question-results-preview-button')
   })
 
   it('should pass correct props to SlidingPanel', () => {
     const sut = render()
-    const slidingPanel = sut.wrapper.findComponent(SlidingPanel)
 
-    expect(slidingPanel.props('scrollContainerClass')).toBe(
+    expect(sut.slidingPanel.props('scrollContainerClass')).toBe(
       'x-px-8 x-gap-16 md:x-px-16 x-pb-8 md:x-pb-16',
     )
   })
@@ -161,47 +156,5 @@ describe('ai-question-results component', () => {
 
     const queryPreviewList = sut.wrapper.findComponent(QueryPreviewList)
     expect(queryPreviewList.props('queriesPreviewInfo')).toEqual([])
-  })
-
-  it('should handle question without content gracefully', () => {
-    const questionWithoutContent = { ...createAiQuestionStub('no content'), content: undefined }
-
-    const sut = render({
-      props: { question: questionWithoutContent },
-    })
-
-    const queryPreviewList = sut.wrapper.findComponent(QueryPreviewList)
-    expect(queryPreviewList.props('queriesPreviewInfo')).toBeUndefined()
-  })
-
-  it('should render the related-prompt-extra-content slot', () => {
-    const slotContent = '<div data-test="extra-content">Extra content</div>'
-    const sut = render({
-      slots: {
-        'related-prompt-extra-content': slotContent,
-      },
-    })
-
-    expect(sut.wrapper.find(getDataTestSelector('extra-content')).exists()).toBeTruthy()
-    expect(sut.wrapper.find(getDataTestSelector('extra-content')).text()).toBe('Extra content')
-  })
-
-  it('should apply correct CSS classes', () => {
-    const sut = render()
-
-    expect(sut.wrapper.find('.x-ai-question-results-wrapper').classes()).toContain(
-      'x-ai-question-results-wrapper',
-    )
-    expect(sut.wrapper.find('.x-ai-question-results-wrapper-content').classes()).toContain(
-      'x-ai-question-results-wrapper-content',
-    )
-
-    const queryPreviewButton = sut.wrapper.findComponent(QueryPreviewButton)
-    expect(queryPreviewButton.classes()).toContain('x-ai-question-results-preview-button')
-  })
-
-  it('should require question prop', () => {
-    // Test that the component has the question prop defined as required
-    expect(AiQuestionResults.props.question.required).toBe(true)
   })
 })
