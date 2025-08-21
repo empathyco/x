@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.28 (2025-08-21)
+
+* docs(ai): schemas ([7ac1b11](https://github.com/empathyco/x/commit/7ac1b11))
+
+
+
+
+
 ## 1.1.0-alpha.27 (2025-08-21)
 
 * fix(ai): export task endpoint adapter ([6697839](https://github.com/empathyco/x/commit/6697839))

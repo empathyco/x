@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.21 (2025-08-21)
+
+* docs(ai): models ([d9f6ef9](https://github.com/empathyco/x/commit/d9f6ef9))
+
+
+
+
+
 ## 10.1.0-alpha.20 (2025-08-19)
 
 * feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))

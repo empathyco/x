@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.126 (2025-08-21)
+
+* fix: applied format ([713c3ab](https://github.com/empathyco/x/commit/713c3ab))
+* fix: applied some fixes mentioned in the comments ([69e9cd2](https://github.com/empathyco/x/commit/69e9cd2))
+* fix(ai): apply styles ([15c2358](https://github.com/empathyco/x/commit/15c2358))
+* fix(ai): integrate AIOverview in Home.vue ([2558948](https://github.com/empathyco/x/commit/2558948))
+* fix(ai): set query when clicking on a query preview ([93090c5](https://github.com/empathyco/x/commit/93090c5))
+* feat: implemented AiOverview default slot ([aa94a07](https://github.com/empathyco/x/commit/aa94a07))
+* feat(ai): AI Overview component ([cf43216](https://github.com/empathyco/x/commit/cf43216))
+* feat(ai): AiOverview custom button Text ([0e15561](https://github.com/empathyco/x/commit/0e15561))
+* feat(ai): AiOverview header implementation ([3e9df81](https://github.com/empathyco/x/commit/3e9df81))
+* feat(ai): bind question to slot default ([2d14717](https://github.com/empathyco/x/commit/2d14717))
+* feat(ai): integrate AIOverview in Home.vue ([22a2176](https://github.com/empathyco/x/commit/22a2176))
+* test(ai-question-results): added test and migrate the tailwind to css ([8e6d559](https://github.com/empathyco/x/commit/8e6d559))
+* test(ai): slot fallback ([acdf20a](https://github.com/empathyco/x/commit/acdf20a))
+* styles(ai): gradient ([abba0e2](https://github.com/empathyco/x/commit/abba0e2))
+* style: added some styles to sliding panel ([b517493](https://github.com/empathyco/x/commit/b517493))
+
+
+
+
+
 ## 6.0.0-alpha.125 (2025-08-21)
 
 **Note:** Version bump only for package @empathyco/x-components
