@@ -27,17 +27,14 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
 
   return {
     wrapper,
-    get expandButton() {
-      return wrapper.find(getDataTestSelector('ai-overview-expand-btn'))
+    get titleLoading() {
+      return wrapper.find(getDataTestSelector('ai-overview-title-loading'))
     },
-    get loading() {
-      return wrapper.find(getDataTestSelector('ai-overview-loading'))
+    get titleLoadingText() {
+      return wrapper.find(getDataTestSelector('ai-overview-title-loading-text'))
     },
     get title() {
       return wrapper.find(getDataTestSelector('ai-overview-title'))
-    },
-    get titleLoading() {
-      return wrapper.find(getDataTestSelector('ai-overview-title-loading'))
     },
     get slot() {
       return wrapper.find(getDataTestSelector('ai-overview-slot'))
@@ -46,6 +43,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.findComponent(AiQuestionResults)
     },
     content: wrapper.find(getDataTestSelector('ai-overview-content')),
+    get expandButton() {
+      return wrapper.find(getDataTestSelector('ai-overview-expand-btn'))
+    },
   }
 }
 
@@ -66,8 +66,8 @@ describe('ai-overview component', () => {
 
     const sut = render()
 
-    expect(sut.loading.exists()).toBeTruthy()
     expect(sut.titleLoading.exists()).toBeTruthy()
+    expect(sut.titleLoadingText.exists()).toBeTruthy()
     expect(sut.title.exists()).toBeFalsy()
     expect(sut.expandButton.exists()).toBeFalsy()
     // Simulate loading finished
@@ -76,9 +76,9 @@ describe('ai-overview component', () => {
     await nextTick()
 
     expect(sut.expandButton.exists()).toBeTruthy()
-    expect(sut.loading.exists()).toBeFalsy()
-    expect(sut.title.exists()).toBeTruthy()
     expect(sut.titleLoading.exists()).toBeFalsy()
+    expect(sut.title.exists()).toBeTruthy()
+    expect(sut.titleLoadingText.exists()).toBeFalsy()
   })
 
   it('should render custom title when loaded', async () => {
@@ -102,14 +102,14 @@ describe('ai-overview component', () => {
       currentQuestionLoading: ref(true),
     } as unknown as ReturnType<typeof useGetter>)
 
-    const titleLoadingStub = 'Custom loading AI Overview'
+    const titleLoadingTextStub = 'Custom loading AI Overview'
     const sut = render({
-      props: { titleLoading: titleLoadingStub },
+      props: { titleLoading: titleLoadingTextStub },
     })
 
-    expect(sut.titleLoading.exists()).toBeTruthy()
+    expect(sut.titleLoadingText.exists()).toBeTruthy()
     expect(typingMock.mock.calls[0][1].value).toStrictEqual({
-      text: titleLoadingStub,
+      text: titleLoadingTextStub,
       speed: 50,
     })
   })
