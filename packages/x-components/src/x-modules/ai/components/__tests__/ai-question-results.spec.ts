@@ -67,7 +67,7 @@ function render(options: ComponentMountingOptions<typeof AiQuestionResults> = {}
     get queryPreviewList() {
       return wrapper.findComponent(QueryPreviewList)
     },
-    get queryPreviewButton () {
+    get queryPreviewButton() {
       return wrapper.findComponent(QueryPreviewButton)
     },
     get slidingPanel() {
