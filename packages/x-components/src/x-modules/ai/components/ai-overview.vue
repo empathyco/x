@@ -61,12 +61,14 @@ import { ChangeHeight, CollapseHeight, Fade } from '../../../components'
 import { AIStarIcon, ChevronDownIcon } from '../../../components/icons'
 import { useGetter } from '../../../composables'
 import { typing } from '../../../directives'
+import { aiXModule } from '../x-module'
 import AiQuestionResults from './ai-question-results.vue'
 
 export default defineComponent({
   directives: {
     typing,
   },
+  xModule: aiXModule.name,
   components: {
     AiQuestionResults,
     ChangeHeight,

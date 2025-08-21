@@ -230,7 +230,6 @@
         </template>
 
         <template #main-body>
-          <AiOverview class="x-w-[650px]"></AiOverview>
           <!--  Redirection  -->
           <Redirection
             v-slot="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
@@ -593,7 +592,6 @@ import SnippetCallbacks from '../../components/snippet-callbacks.vue'
 import { use$x } from '../../composables/use-$x'
 import { useState } from '../../composables/use-state'
 import { infiniteScroll } from '../../directives/infinite-scroll'
-import { AiOverview } from '../../x-modules/ai'
 import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue'
 import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue'
 import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue'
@@ -642,7 +640,6 @@ export default defineComponent({
     infiniteScroll,
   },
   components: {
-    AiOverview,
     DisplayClickProvider,
     // eslint-disable-next-line vue/no-reserved-component-names
     Aside,
