@@ -138,7 +138,7 @@ export default defineComponent({
 }
 
 .x-ai-overview-main {
-  @apply x-p-16 x-rounded-lg x-bg-gradient-to-b x-from-lead-25 x-from-85% x-to-transparent;
+  @apply x-p-16 x-rounded-lg x-bg-gradient-to-b x-from-lead-25 x-from-85% x-to-transparent x-to-100%;
 }
 
 .x-ai-overview-title-loading {
