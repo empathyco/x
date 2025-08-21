@@ -39,7 +39,7 @@
       </div>
       <CollapseHeight>
         <div v-if="expanded" data-test="ai-overview-slot">
-          <slot>
+          <slot :question="question">
             <AiQuestionResults v-if="question" :question="question" />
           </slot>
         </div>
