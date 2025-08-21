@@ -22,6 +22,9 @@ const setExtraParams = wireCommit('setParams')
 /** Sets the ai state `query`. */
 const setAiQuery = wireCommit('setQuery')
 
+/** Sets the ai state `query` from a query preview's query'. */
+const setAiQueryFromQueryPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
+
 /** Fetches the ai questions response. */
 const fetchAiQuestions = wireDispatch('fetchAiQuestions')
 
@@ -49,6 +52,9 @@ export const aiWiring = createWiring({
   UserClearedQuery: {
     setAiQuery,
     resetAiState,
+  },
+  UserAcceptedAQueryPreview: {
+    setAiQueryFromQueryPreview,
   },
   AiQuestionsRequestUpdated: {
     fetchAiQuestions,
