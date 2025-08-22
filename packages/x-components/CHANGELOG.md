@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.128 (2025-08-22)
+
+* fix: fixed test ([e202a8d](https://github.com/empathyco/x/commit/e202a8d))
+* test: AIOverview tested gradient div ([2f7b634](https://github.com/empathyco/x/commit/2f7b634))
+* style(ai-overview): improved gradient in AiOverview ([42bb328](https://github.com/empathyco/x/commit/42bb328))
+* feat(ai): AIOverview reset on query change ([cd11378](https://github.com/empathyco/x/commit/cd11378))
+* feat(ai): AIOverview slot expansion transition ([c87e086](https://github.com/empathyco/x/commit/c87e086))
+
+
+
+
+
 ## 6.0.0-alpha.127 (2025-08-21)
 
 * fix(ai): register module to use ai overview ([59cfbd7](https://github.com/empathyco/x/commit/59cfbd7))
