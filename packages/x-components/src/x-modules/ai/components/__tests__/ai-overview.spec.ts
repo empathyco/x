@@ -15,6 +15,7 @@ const questionStub = createAiQuestionStub('test')
 function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
   const wrapper = mount(AIOverview, {
     ...options,
+    attachTo: document.body,
     directives: {
       typing: typingMock,
     },
@@ -148,10 +149,11 @@ describe('ai-overview component', () => {
       slots: { default: slotText },
     })
 
-    expect(sut.slot.exists()).toBeFalsy()
+    expect(sut.slot.isVisible()).toBeFalsy()
 
     await sut.expandButton.trigger('click')
 
+    expect(sut.slot.isVisible()).toBeTruthy()
     expect(sut.slot.text()).toContain(slotText)
   })
 
@@ -181,5 +183,25 @@ describe('ai-overview component', () => {
     await sut.expandButton.trigger('click')
 
     expect(sut.slotFallback.exists()).toBeTruthy()
+  })
+
+  it('should collapse when changing the query', async () => {
+    const queryStub = ref('test query')
+    jest.mocked(useGetter).mockReturnValue({
+      query: queryStub,
+      currentQuestion: ref(questionStub),
+      currentQuestionLoading: ref(false),
+    } as unknown as ReturnType<typeof useGetter>)
+
+    const sut = render()
+
+    await sut.expandButton.trigger('click')
+
+    expect(sut.slotFallback.exists()).toBeTruthy()
+
+    queryStub.value = 'new query'
+    await nextTick()
+
+    expect(sut.slotFallback.exists()).toBeFalsy()
   })
 })

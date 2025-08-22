@@ -37,8 +37,13 @@
           </div>
         </ChangeHeight>
       </div>
-      <CollapseHeight>
-        <div v-if="expanded" data-test="ai-overview-slot">
+      <CollapseHeight
+        v-if="question?.content.searchQueries.length"
+        :style="{
+          '--x-collapse-height-transition-duration': `${300 * question.content.searchQueries.length}ms`,
+        }"
+      >
+        <div v-show="expanded" data-test="ai-overview-slot">
           <slot :question="question">
             <AiQuestionResults v-if="question" :question="question" />
           </slot>
@@ -110,7 +115,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const { currentQuestion: question, currentQuestionLoading: loading } = useGetter('ai')
+    const { currentQuestion: question, currentQuestionLoading: loading, query } = useGetter('ai')
 
     const expanded = ref(false)
 
@@ -118,11 +123,7 @@ export default defineComponent({
       expanded.value = true
     }
 
-    watch(loading, () => {
-      if (loading.value) {
-        expanded.value = false
-      }
-    })
+    watch(query, () => (expanded.value = false))
 
     return {
       expanded,
