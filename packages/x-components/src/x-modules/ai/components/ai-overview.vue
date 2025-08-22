@@ -49,12 +49,15 @@
           </slot>
         </div>
       </CollapseHeight>
-      <div v-if="!loading && !expanded" class="x-ai-overview-expand-wrapper">
-        <button class="x-ai-overview-expand-btn" data-test="ai-overview-expand-btn" @click="open">
-          {{ buttonText }}
-          <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
-        </button>
-      </div>
+      <template v-if="!loading && !expanded">
+        <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
+        <div class="x-ai-overview-expand-wrapper">
+          <button class="x-ai-overview-expand-btn" data-test="ai-overview-expand-btn" @click="open">
+            {{ buttonText }}
+            <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
+          </button>
+        </div>
+      </template>
     </div>
   </CollapseHeight>
 </template>
@@ -133,15 +136,15 @@ export default defineComponent({
 </script>
 <style lang="css">
 .x-ai-overview {
-  @apply x-relative x-rounded-lg;
+  @apply x-relative x-rounded-lg x-bg-lead-25;
 }
-.x-ai-overview--expanded,
-.x-ai-overview--loading .x-ai-overview-main {
-  @apply x-bg-lead-25;
+
+.x-ai-overview:not(.x-ai-overview--loading, .x-ai-overview--expanded) {
+  @apply x-rounded-b-3xl;
 }
 
 .x-ai-overview-main {
-  @apply x-p-16 x-rounded-lg x-bg-gradient-to-b x-from-lead-25 x-from-85% x-to-transparent x-to-100%;
+  @apply x-p-16 x-rounded-lg;
 }
 
 .x-ai-overview-title-loading {
@@ -184,8 +187,12 @@ export default defineComponent({
   @apply x-font-medium;
 }
 
+.x-ai-overview-gradient {
+  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-transparent x-to-lead-25;
+}
+
 .x-ai-overview-expand-wrapper {
-  @apply x-flex;
+  @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-expand-btn {
   @apply x-button x-button-outlined x-rounded-full x-w-full;
