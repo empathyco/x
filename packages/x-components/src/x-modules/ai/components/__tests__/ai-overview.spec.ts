@@ -43,6 +43,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.findComponent(AiQuestionResults)
     },
     content: wrapper.find(getDataTestSelector('ai-overview-content')),
+    get gradientBottom() {
+      return wrapper.find(getDataTestSelector('ai-overview-gradient'))
+    },
     get expandButton() {
       return wrapper.find(getDataTestSelector('ai-overview-expand-btn'))
     },
@@ -69,6 +72,7 @@ describe('ai-overview component', () => {
     expect(sut.titleLoading.exists()).toBeTruthy()
     expect(sut.titleLoadingText.exists()).toBeTruthy()
     expect(sut.title.exists()).toBeFalsy()
+    expect(sut.gradientBottom.exists()).toBeFalsy()
     expect(sut.expandButton.exists()).toBeFalsy()
     // Simulate loading finished
     currentQuestionLoadingStub.value = false
@@ -76,6 +80,7 @@ describe('ai-overview component', () => {
     await nextTick()
 
     expect(sut.expandButton.exists()).toBeTruthy()
+    expect(sut.gradientBottom.exists()).toBeTruthy()
     expect(sut.titleLoading.exists()).toBeFalsy()
     expect(sut.title.exists()).toBeTruthy()
     expect(sut.titleLoadingText.exists()).toBeFalsy()
@@ -112,6 +117,24 @@ describe('ai-overview component', () => {
       text: titleLoadingTextStub,
       speed: 50,
     })
+  })
+
+  it('should expand when clicking on gradient element', async () => {
+    jest.mocked(useGetter).mockReturnValue({
+      currentQuestion: ref(questionStub),
+      currentQuestionLoading: ref(false),
+    } as unknown as ReturnType<typeof useGetter>)
+
+    const slotText = 'Custom slot content'
+    const sut = render({
+      slots: { default: slotText },
+    })
+
+    expect(sut.slot.exists()).toBeFalsy()
+
+    await sut.gradientBottom.trigger('click')
+
+    expect(sut.slot.text()).toContain(slotText)
   })
 
   it('should expand when clicking on show more button', async () => {

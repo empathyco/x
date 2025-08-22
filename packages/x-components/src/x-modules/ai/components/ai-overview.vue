@@ -45,7 +45,7 @@
         </div>
       </CollapseHeight>
       <template v-if="!loading && !expanded">
-        <div class="x-ai-overview-gradient" @click="open" />
+        <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
         <div class="x-ai-overview-expand-wrapper">
           <button class="x-ai-overview-expand-btn" data-test="ai-overview-expand-btn" @click="open">
             {{ buttonText }}
