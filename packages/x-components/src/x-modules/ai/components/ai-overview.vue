@@ -37,8 +37,13 @@
           </div>
         </ChangeHeight>
       </div>
-      <CollapseHeight>
-        <div v-if="expanded" data-test="ai-overview-slot">
+      <CollapseHeight
+        v-if="question?.content.searchQueries.length"
+        :style="{
+          '--x-collapse-height-transition-duration': `${300 * question.content.searchQueries.length}ms`,
+        }"
+      >
+        <div v-show="expanded" data-test="ai-overview-slot">
           <slot :question="question">
             <AiQuestionResults v-if="question" :question="question" />
           </slot>
