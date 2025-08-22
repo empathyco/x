@@ -42,7 +42,7 @@ export default defineComponent({
 <style lang="css">
 .x-collapse-height--enter-active,
 .x-collapse-height--leave-active {
-  transition: height 0.3s ease-out;
+  transition: height var(--x-collapse-height-transition-duration, 0.3s) ease-out;
   overflow: hidden;
 }
 </style>

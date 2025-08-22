@@ -15,6 +15,7 @@ const questionStub = createAiQuestionStub('test')
 function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
   const wrapper = mount(AIOverview, {
     ...options,
+    attachTo: document.body,
     directives: {
       typing: typingMock,
     },
@@ -125,10 +126,11 @@ describe('ai-overview component', () => {
       slots: { default: slotText },
     })
 
-    expect(sut.slot.exists()).toBeFalsy()
+    expect(sut.slot.isVisible()).toBeFalsy()
 
     await sut.expandButton.trigger('click')
 
+    expect(sut.slot.isVisible()).toBeTruthy()
     expect(sut.slot.text()).toContain(slotText)
   })
 
