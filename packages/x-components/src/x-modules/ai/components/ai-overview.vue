@@ -105,7 +105,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const { currentQuestion: question, currentQuestionLoading: loading } = useGetter('ai')
+    const { currentQuestion: question, currentQuestionLoading: loading, query } = useGetter('ai')
 
     const expanded = ref(false)
 
@@ -113,11 +113,7 @@ export default defineComponent({
       expanded.value = true
     }
 
-    watch(loading, () => {
-      if (loading.value) {
-        expanded.value = false
-      }
-    })
+    watch(query, () => (expanded.value = false))
 
     return {
       expanded,
