@@ -131,10 +131,11 @@ describe('ai-overview component', () => {
       slots: { default: slotText },
     })
 
-    expect(sut.slot.exists()).toBeFalsy()
+    expect(sut.slot.isVisible()).toBeFalsy()
 
     await sut.gradientBottom.trigger('click')
 
+    expect(sut.slot.isVisible()).toBeTruthy()
     expect(sut.slot.text()).toContain(slotText)
   })
 
@@ -202,6 +203,6 @@ describe('ai-overview component', () => {
     queryStub.value = 'new query'
     await nextTick()
 
-    expect(sut.slotFallback.exists()).toBeFalsy()
+    expect(sut.slotFallback.isVisible()).toBeFalsy()
   })
 })
