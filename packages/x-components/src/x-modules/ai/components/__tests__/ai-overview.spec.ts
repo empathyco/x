@@ -161,4 +161,24 @@ describe('ai-overview component', () => {
 
     expect(sut.slotFallback.exists()).toBeTruthy()
   })
+
+  it('should collapse when changing the query', async () => {
+    const queryStub = ref('test query')
+    jest.mocked(useGetter).mockReturnValue({
+      query: queryStub,
+      currentQuestion: ref(questionStub),
+      currentQuestionLoading: ref(false),
+    } as unknown as ReturnType<typeof useGetter>)
+
+    const sut = render()
+
+    await sut.expandButton.trigger('click')
+
+    expect(sut.slotFallback.exists()).toBeTruthy()
+
+    queryStub.value = 'new query'
+    await nextTick()
+
+    expect(sut.slotFallback.exists()).toBeFalsy()
+  })
 })
