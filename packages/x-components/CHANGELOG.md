@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.129 (2025-08-25)
+
+* fix(ai): AIOverview gradient missing properties ([2c87386](https://github.com/empathyco/x/commit/2c87386))
+
+
+
+
+
 ## 6.0.0-alpha.128 (2025-08-22)
 
 * fix: fixed test ([e202a8d](https://github.com/empathyco/x/commit/e202a8d))
