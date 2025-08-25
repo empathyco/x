@@ -168,16 +168,16 @@ export default defineComponent({
   @apply x-flex x-w-full x-flex-col x-gap-4 x-animate-pulse;
 }
 .x-ai-overview-loading-content > span:first-child {
-  @apply x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75;
+  @apply x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75;
 }
 .x-ai-overview-loading-content > span:nth-child(2) {
-  @apply x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-lead-75 x-to-lead-50 x-opacity-50;
+  @apply x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-75 x-to-100% x-to-lead-50 x-opacity-50;
 }
 .x-ai-overview-loading-content > span:nth-child(3) {
-  @apply x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75;
+  @apply x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75;
 }
 .x-ai-overview-loading-content > span:nth-child(4) {
-  @apply x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-lead-50 x-to-lead-75 x-opacity-75;
+  @apply x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75 x-opacity-75;
 }
 
 .x-ai-overview-content {
@@ -188,7 +188,7 @@ export default defineComponent({
 }
 
 .x-ai-overview-gradient {
-  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-transparent x-to-lead-25;
+  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-lead-25;
 }
 
 .x-ai-overview-expand-wrapper {
