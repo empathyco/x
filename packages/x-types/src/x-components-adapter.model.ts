@@ -47,4 +47,8 @@ export interface XComponentsAdapter {
   experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>
   aiQuestions: EndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: EndpointAdapter<AiTasksRequest, AiTasksResponse>
+  aiOverviewSuggestions: EndpointAdapter<
+    AiQuestionsRequest,
+    ReadableStream<Uint8Array<ArrayBufferLike>> | null
+  >
 }

@@ -1,25 +1,12 @@
 import type { Dictionary } from '@empathyco/x-utils'
-import type { HttpClient } from './types'
+import type { HttpClient, RequestOptions } from './types'
 import { cleanEmpty, flatObject } from '@empathyco/x-utils'
 import { buildUrl, toJson } from './utils'
 
-/**
- * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
- *
- * @param endpoint - The endpoint to make the request to.
- * @param options - The request options.
- * @param options.cancelable - Cancelable option.
- * @param options.id - ID option.
- * @param options.parameters - Parameters option.
- * @param options.properties - Properties option.
- * @param options.sendEmptyParams - SendEmptyParams option.
- * @param options.sendParamsInBody - SendParamsInBody option.
- *
- * @returns A `Promise` object.
- *
- * @public
- */
-export const fetchHttpClient: HttpClient = async (
+const rawFetch: (
+  endpoint: string,
+  options?: Omit<RequestOptions, 'endpoint'>,
+) => Promise<Readonly<Response>> = async (
   endpoint,
   {
     id = endpoint,
@@ -42,6 +29,63 @@ export const fetchHttpClient: HttpClient = async (
     ...properties,
     ...bodyParameters,
     ...signal,
+  })
+}
+/**
+ * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
+ *
+ * @param endpoint - The endpoint to make the request to.
+ * @param options - The request options.
+ * @param options.cancelable - Cancelable option.
+ * @param options.id - ID option.
+ * @param options.parameters - Parameters option.
+ * @param options.properties - Properties option.
+ * @param options.sendEmptyParams - SendEmptyParams option.
+ * @param options.sendParamsInBody - SendParamsInBody option.
+ *
+ * @returns A `Promise` object.
+ *
+ * @public
+ */
+export const streamHttpClient: HttpClient = async (
+  endpoint,
+  {
+    id = endpoint,
+    cancelable = true,
+    parameters = {},
+    properties,
+    sendParamsInBody = false,
+    sendEmptyParams = false,
+  } = {},
+) => {
+  return rawFetch(endpoint, {
+    id,
+    cancelable,
+    parameters,
+    properties,
+    sendParamsInBody,
+    sendEmptyParams,
+  }).then(response => response.body) as unknown as Promise<any>
+}
+
+export const fetchHttpClient: HttpClient = async (
+  endpoint,
+  {
+    id = endpoint,
+    cancelable = true,
+    parameters = {},
+    properties,
+    sendParamsInBody = false,
+    sendEmptyParams = false,
+  } = {},
+) => {
+  return rawFetch(endpoint, {
+    id,
+    cancelable,
+    parameters,
+    properties,
+    sendParamsInBody,
+    sendEmptyParams,
   }).then(toJson)
 }
 

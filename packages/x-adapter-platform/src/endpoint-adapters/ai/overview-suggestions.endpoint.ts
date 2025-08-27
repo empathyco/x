@@ -1,6 +1,6 @@
-import type { AiQuestionsRequest, AiQuestionsResponse } from '@empathyco/x-types'
-import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
-import { aiQuestionsRequestMapper, aiQuestionsResponseMapper } from '../../mappers'
+import type { AiQuestionsRequest } from '@empathyco/x-types'
+import { endpointAdapterFactory, interpolate, streamHttpClient } from '@empathyco/x-adapter'
+import { aiQuestionsRequestMapper } from '../../mappers'
 import { getDefaultHeaders, getOverviewSuggestionsServiceUrl } from '../utils'
 
 /**
@@ -10,15 +10,16 @@ import { getDefaultHeaders, getOverviewSuggestionsServiceUrl } from '../utils'
  */
 export const aiOverviewSuggestionsEndpointAdapter = endpointAdapterFactory<
   AiQuestionsRequest,
-  AiQuestionsResponse
+  ReadableStream<Uint8Array<ArrayBufferLike>> | null
 >({
   endpoint: from =>
     interpolate(
       `${getOverviewSuggestionsServiceUrl(from)}/{extraParams.instance}/suggestions`,
       from,
     ),
+  // eslint-disable-next-line ts/no-unsafe-assignment
+  httpClient: streamHttpClient,
   requestMapper: aiQuestionsRequestMapper,
-  responseMapper: aiQuestionsResponseMapper,
   defaultRequestOptions: {
     id: 'ai-overview-suggestions',
     properties: {
