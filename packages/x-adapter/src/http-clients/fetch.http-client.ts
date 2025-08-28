@@ -1,12 +1,9 @@
 import type { Dictionary } from '@empathyco/x-utils'
-import type { HttpClient, RequestOptions } from './types'
+import type { HttpClient } from './types'
 import { cleanEmpty, flatObject } from '@empathyco/x-utils'
 import { buildUrl, toJson } from './utils'
 
-const rawFetch: (
-  endpoint: string,
-  options?: Omit<RequestOptions, 'endpoint'>,
-) => Promise<Readonly<Response>> = async (
+export const rawFetchHttpClient: HttpClient = async (
   endpoint,
   {
     id = endpoint,
@@ -47,27 +44,6 @@ const rawFetch: (
  *
  * @public
  */
-export const streamHttpClient: HttpClient = async (
-  endpoint,
-  {
-    id = endpoint,
-    cancelable = true,
-    parameters = {},
-    properties,
-    sendParamsInBody = false,
-    sendEmptyParams = false,
-  } = {},
-) => {
-  return rawFetch(endpoint, {
-    id,
-    cancelable,
-    parameters,
-    properties,
-    sendParamsInBody,
-    sendEmptyParams,
-  }).then(response => response.body) as unknown as Promise<any>
-}
-
 export const fetchHttpClient: HttpClient = async (
   endpoint,
   {
@@ -79,7 +55,7 @@ export const fetchHttpClient: HttpClient = async (
     sendEmptyParams = false,
   } = {},
 ) => {
-  return rawFetch(endpoint, {
+  return rawFetchHttpClient(endpoint, {
     id,
     cancelable,
     parameters,

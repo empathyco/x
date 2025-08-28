@@ -50,8 +50,5 @@ export interface PlatformAdapter extends XComponentsAdapter {
   >
   aiQuestions: ExtendableEndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: ExtendableEndpointAdapter<AiTasksRequest, AiTasksResponse>
-  aiOverviewSuggestions: ExtendableEndpointAdapter<
-    AiQuestionsRequest,
-    ReadableStream<Uint8Array<ArrayBufferLike>> | null
-  >
+  aiOverviewSuggestions: ExtendableEndpointAdapter<AiQuestionsRequest, Response>
 }
