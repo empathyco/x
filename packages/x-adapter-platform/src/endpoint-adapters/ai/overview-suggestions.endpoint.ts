@@ -17,7 +17,6 @@ export const aiOverviewSuggestionsEndpointAdapter = endpointAdapterFactory<
       `${getOverviewSuggestionsServiceUrl(from)}/{extraParams.instance}/suggestions`,
       from,
     ),
-  // eslint-disable-next-line ts/no-unsafe-assignment
   httpClient: streamHttpClient,
   requestMapper: aiQuestionsRequestMapper,
   defaultRequestOptions: {
