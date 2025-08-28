@@ -31,6 +31,25 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
 }
 
 /**
+ * Gets the Overview suggestions service URL for the given request.
+ *
+ * @param from - The request.
+ *
+ * @returns The service URL.
+ *
+ * @internal
+ */
+export function getOverviewSuggestionsServiceUrl(from: ExtraParamsRequest): string {
+  if (from.extraParams?.env === 'test') {
+    return 'https://questions.internal.test.empathy.co'
+  }
+  if (from.extraParams?.env === 'staging') {
+    return 'https://questions.staging.empathy.co/v1/overview'
+  }
+  return 'https://api.{extraParams.env(.)}empathy.co/overview'
+}
+
+/**
  * Gets the Questions service URL for the given request.
  *
  * @param from - The request.

@@ -1,5 +1,7 @@
 import type { ExtendableEndpointAdapter } from '@empathyco/x-adapter'
 import type {
+  AiOverviewSuggestionsSearchRequest,
+  AiOverviewSuggestionsSearchResponse,
   AiQuestionsRequest,
   AiQuestionsResponse,
   AiTasksRequest,
@@ -47,6 +49,10 @@ export interface PlatformAdapter extends XComponentsAdapter {
   experienceControls: ExtendableEndpointAdapter<
     ExperienceControlsRequest,
     ExperienceControlsResponse
+  >
+  aiOverviewSuggestionsSearch: ExtendableEndpointAdapter<
+    AiOverviewSuggestionsSearchRequest,
+    AiOverviewSuggestionsSearchResponse
   >
   aiQuestions: ExtendableEndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: ExtendableEndpointAdapter<AiTasksRequest, AiTasksResponse>
