@@ -1,6 +1,4 @@
-export * from './ai/overview-suggestions-search.model'
-export * from './ai/questions.model'
-export * from './ai/tasks.model'
+export * from './ai'
 export * from './experience-controls-response.model'
 export * from './identifier-results-response.model'
 export * from './next-queries-response.model'
