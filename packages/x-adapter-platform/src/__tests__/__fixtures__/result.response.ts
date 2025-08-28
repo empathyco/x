@@ -13,27 +13,27 @@ export const platformResult: PlatformResult = {
     },
   },
   tagging: {
-    add2cart: 'https://add2cartTagging',
-    checkout: 'https://checkoutTagging',
-    click: 'https://clickTagging',
-    displayClick: 'https://displayClickTagging',
+    add2cart: 'https://add2carttagging/',
+    checkout: 'https://checkouttagging/',
+    click: 'https://clicktagging/',
+    displayClick: 'https://displayclicktagging/',
   },
 }
 
 export const result: Result = {
-  id: '31335-U',
+  id: platformResult.__id,
   identifier: {
-    value: '31335-U',
+    value: platformResult.__externalId,
   },
-  images: ['https://assets.empathy.co/images-demo/31335.jpg'],
+  images: platformResult.__images,
   isWishlisted: false,
   modelName: 'Result',
-  name: 'Locomotive Men Washed Blue Jeans',
+  name: platformResult.__name,
   price: {
     hasDiscount: false,
-    originalValue: 10,
-    futureValue: 10,
-    value: 10,
+    originalValue: platformResult.__prices.current.value,
+    futureValue: platformResult.__prices.current.value,
+    value: platformResult.__prices.current.value,
   },
   rating: {
     value: null,
@@ -43,28 +43,28 @@ export const result: Result = {
       params: {
         follow: false,
       },
-      url: 'https://add2carttagging/',
+      url: platformResult.tagging.add2cart,
     },
     checkout: {
       params: {
         follow: false,
       },
-      url: 'https://checkouttagging/',
+      url: platformResult.tagging.checkout,
     },
     click: {
       params: {
         follow: false,
       },
-      url: 'https://clicktagging/',
+      url: platformResult.tagging.click,
     },
     displayClick: {
       params: {
         displayId: 'no_query',
         follow: false,
       },
-      url: 'https://displayclicktagging/',
+      url: platformResult.tagging.displayClick,
     },
   },
   type: 'Default',
-  url: 'https://assets.empathy.co/images-demo/31335.jpg',
+  url: platformResult.__url,
 }
