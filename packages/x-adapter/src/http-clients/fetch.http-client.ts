@@ -3,6 +3,22 @@ import type { HttpClient } from './types'
 import { cleanEmpty, flatObject } from '@empathyco/x-utils'
 import { buildUrl, toJson } from './utils'
 
+/**
+ * The `rawFetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
+ *
+ * @param endpoint - The endpoint to make the request to.
+ * @param options - The request options.
+ * @param options.cancelable - Cancelable option.
+ * @param options.id - ID option.
+ * @param options.parameters - Parameters option.
+ * @param options.properties - Properties option.
+ * @param options.sendEmptyParams - SendEmptyParams option.
+ * @param options.sendParamsInBody - SendParamsInBody option.
+ *
+ * @returns A `Promise` object.
+ *
+ * @public
+ */
 export const rawFetchHttpClient: HttpClient = async (
   endpoint,
   {
@@ -28,42 +44,20 @@ export const rawFetchHttpClient: HttpClient = async (
     ...signal,
   })
 }
+
 /**
- * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
+ * The `fetchHttpClient()` function is wrapper of `rawFetchHttpClient()` function that parses
+ * the response with `toJson` function.
  *
  * @param endpoint - The endpoint to make the request to.
  * @param options - The request options.
- * @param options.cancelable - Cancelable option.
- * @param options.id - ID option.
- * @param options.parameters - Parameters option.
- * @param options.properties - Properties option.
- * @param options.sendEmptyParams - SendEmptyParams option.
- * @param options.sendParamsInBody - SendParamsInBody option.
  *
  * @returns A `Promise` object.
  *
  * @public
  */
-export const fetchHttpClient: HttpClient = async (
-  endpoint,
-  {
-    id = endpoint,
-    cancelable = true,
-    parameters = {},
-    properties,
-    sendParamsInBody = false,
-    sendEmptyParams = false,
-  } = {},
-) => {
-  return rawFetchHttpClient(endpoint, {
-    id,
-    cancelable,
-    parameters,
-    properties,
-    sendParamsInBody,
-    sendEmptyParams,
-  }).then(toJson)
-}
+export const fetchHttpClient: HttpClient = async (endpoint, options = {}) =>
+  rawFetchHttpClient(endpoint, options).then(toJson)
 
 /**
  * Dictionary with the request id as key and an `AbortController` as value.

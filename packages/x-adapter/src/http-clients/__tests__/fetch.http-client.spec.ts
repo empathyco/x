@@ -235,7 +235,7 @@ describe('fetch httpClient testing', () => {
     const toJsonSpy = jest.spyOn(httpClientUtils, 'toJson')
 
     it('exectutes toJson and rawFetchHttpClient with the correct parameters', async () => {
-      const params = {
+      const optionsStub = {
         parameters: {
           q: 'shirt',
           filter: ['long sleeve', 'dotted', 'white'],
@@ -243,17 +243,9 @@ describe('fetch httpClient testing', () => {
         },
       }
 
-      await fetchHttpClient(endpoint, params)
+      await fetchHttpClient(endpoint, optionsStub)
 
-      expect(rawFetchHttpClientSpy).toHaveBeenCalledWith(endpoint, {
-        id: 'https://api.empathy.co/search',
-        cancelable: true,
-        ...params,
-        properties: undefined,
-        sendParamsInBody: false,
-        sendEmptyParams: false,
-      })
-
+      expect(rawFetchHttpClientSpy).toHaveBeenCalledWith(endpoint, optionsStub)
       expect(toJsonSpy).toHaveBeenCalledTimes(1)
     })
   })
