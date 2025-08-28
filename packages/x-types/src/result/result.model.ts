@@ -36,4 +36,4 @@ export interface Result extends NamedModel<'Result'>, Identifiable, Taggable {
  *
  * @public
  */
-export interface ResultVariant extends Omit<Result, 'id' | 'modelName' | 'tagging' | 'variants'> {}
+export interface ResultVariant extends Omit<Result, 'id' | 'modelName' | 'tagging'> {}

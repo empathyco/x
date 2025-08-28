@@ -1,4 +1,4 @@
-import type { Result } from '../../result'
+import type { Result } from '../../result/result.model'
 
 /**
  * Response for the overview suggestions search endpoint.
