@@ -47,5 +47,6 @@ export interface XComponentsAdapter {
   experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>
   aiQuestions: EndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: EndpointAdapter<AiTasksRequest, AiTasksResponse>
-  aiOverviewSuggestions: EndpointAdapter<AiQuestionsRequest, Response>
+  // TODO: Change Response type to AiSuggestionsResponse when it is implemented
+  aiSuggestions: EndpointAdapter<AiQuestionsRequest, Response>
 }

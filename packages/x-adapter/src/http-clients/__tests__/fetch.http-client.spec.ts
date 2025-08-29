@@ -11,11 +11,11 @@ describe('fetch httpClient testing', () => {
     jest.resetModules()
   })
 
-  describe('rawFetchHttpClient', () => {
-    const rawFetchHttpClient = httpClient.rawFetchHttpClient
+  describe('fetchRawHttpClient', () => {
+    const fetchRawHttpClient = httpClient.fetchRawHttpClient
 
     it('creates well formed and valid URLs', async () => {
-      await rawFetchHttpClient(endpoint, {
+      await fetchRawHttpClient(endpoint, {
         parameters: {
           q: 'shirt',
           filter: ['long sleeve', 'dotted', 'white'],
@@ -29,7 +29,7 @@ describe('fetch httpClient testing', () => {
 
     it('allows to pass headers to the request', async () => {
       const headers = { instance: 'A1B1' }
-      await rawFetchHttpClient(endpoint, {
+      await fetchRawHttpClient(endpoint, {
         properties: {
           headers,
         },
@@ -39,7 +39,7 @@ describe('fetch httpClient testing', () => {
     })
 
     it('allows URLs which already have parameters', async () => {
-      await rawFetchHttpClient(`${endpoint}?additionalParam=true`, {
+      await fetchRawHttpClient(`${endpoint}?additionalParam=true`, {
         parameters: {
           q: 'shirt',
         },
@@ -48,7 +48,7 @@ describe('fetch httpClient testing', () => {
     })
 
     it('does not map empty values', async () => {
-      await rawFetchHttpClient(endpoint, {
+      await fetchRawHttpClient(endpoint, {
         parameters: {
           q: undefined,
           r: '',
@@ -61,7 +61,7 @@ describe('fetch httpClient testing', () => {
     })
 
     it('maps empty values if configured to do so', async () => {
-      await rawFetchHttpClient(endpoint, {
+      await fetchRawHttpClient(endpoint, {
         sendEmptyParams: true,
         parameters: {
           q: undefined,
@@ -77,14 +77,14 @@ describe('fetch httpClient testing', () => {
     it('cancels equal endpoint requests if no requestId parameter is passed', async () => {
       await Promise.all([
         expect(
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             parameters: {
               q: 'shirt',
             },
           }),
         ).rejects.toHaveProperty('code', DOMException.ABORT_ERR),
         expect(
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             parameters: {
               q: 'jeans',
             },
@@ -96,13 +96,13 @@ describe('fetch httpClient testing', () => {
     it('does not cancel equal endpoint requests if a cancelable=false parameter is passed', async () => {
       expect(
         await Promise.all([
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             cancelable: false,
             parameters: {
               q: 'shirt',
             },
           }),
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             parameters: {
               q: 'jeans',
             },
@@ -114,18 +114,18 @@ describe('fetch httpClient testing', () => {
     it('does not cancel equal endpoint requests if a different requestId parameter is passed', async () => {
       expect(
         await Promise.all([
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             id: 'unique-id',
             parameters: {
               q: 'shirt',
             },
           }),
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             parameters: {
               q: 'shirt',
             },
           }),
-          rawFetchHttpClient(endpoint, {
+          fetchRawHttpClient(endpoint, {
             id: 'another-unique-id',
             parameters: {
               q: 'shirt',
@@ -137,7 +137,7 @@ describe('fetch httpClient testing', () => {
 
     describe('when `sendParamsInBody` is `true`', () => {
       it('sends the data in the body', async () => {
-        await rawFetchHttpClient(endpoint, {
+        await fetchRawHttpClient(endpoint, {
           sendParamsInBody: true,
           parameters: {
             q: 'shirt',
@@ -161,7 +161,7 @@ describe('fetch httpClient testing', () => {
       })
 
       it('does not send empty values in the body', async () => {
-        await rawFetchHttpClient(endpoint, {
+        await fetchRawHttpClient(endpoint, {
           sendParamsInBody: true,
           parameters: {
             q: 'shirt',
@@ -190,7 +190,7 @@ describe('fetch httpClient testing', () => {
       })
 
       it('sends empty values in the body if configured to do so', async () => {
-        await rawFetchHttpClient(endpoint, {
+        await fetchRawHttpClient(endpoint, {
           sendParamsInBody: true,
           sendEmptyParams: true,
           parameters: {
@@ -231,10 +231,10 @@ describe('fetch httpClient testing', () => {
   describe('fetchHttpClient function', () => {
     const fetchHttpClient = httpClient.fetchHttpClient
 
-    const rawFetchHttpClientSpy = jest.spyOn(httpClient, 'rawFetchHttpClient')
+    const fetchRawHttpClientSpy = jest.spyOn(httpClient, 'fetchRawHttpClient')
     const toJsonSpy = jest.spyOn(httpClientUtils, 'toJson')
 
-    it('exectutes toJson and rawFetchHttpClient with the correct parameters', async () => {
+    it('exectutes toJson and fetchRawHttpClient with the correct parameters', async () => {
       const optionsStub = {
         parameters: {
           q: 'shirt',
@@ -245,7 +245,7 @@ describe('fetch httpClient testing', () => {
 
       await fetchHttpClient(endpoint, optionsStub)
 
-      expect(rawFetchHttpClientSpy).toHaveBeenCalledWith(endpoint, optionsStub)
+      expect(fetchRawHttpClientSpy).toHaveBeenCalledWith(endpoint, optionsStub)
       expect(toJsonSpy).toHaveBeenCalledTimes(1)
     })
   })

@@ -1,5 +1,5 @@
 import type { AiQuestionsRequest } from '@empathyco/x-types'
-import { endpointAdapterFactory, interpolate, rawFetchHttpClient } from '@empathyco/x-adapter'
+import { endpointAdapterFactory, fetchRawHttpClient, interpolate } from '@empathyco/x-adapter'
 import { aiQuestionsRequestMapper } from '../../mappers'
 import { getDefaultHeaders, getOverviewSuggestionsServiceUrl } from '../utils'
 
@@ -8,16 +8,13 @@ import { getDefaultHeaders, getOverviewSuggestionsServiceUrl } from '../utils'
  *
  * @public
  */
-export const aiOverviewSuggestionsEndpointAdapter = endpointAdapterFactory<
-  AiQuestionsRequest,
-  Response
->({
+export const aiSuggestionsEndpointAdapter = endpointAdapterFactory<AiQuestionsRequest, Response>({
   endpoint: from =>
     interpolate(
       `${getOverviewSuggestionsServiceUrl(from)}/{extraParams.instance}/suggestions`,
       from,
     ),
-  httpClient: rawFetchHttpClient,
+  httpClient: fetchRawHttpClient,
   requestMapper: aiQuestionsRequestMapper,
   defaultRequestOptions: {
     id: 'ai-overview-suggestions',
