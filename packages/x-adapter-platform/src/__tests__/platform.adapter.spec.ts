@@ -1,8 +1,8 @@
 import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
 import type {
-  PlatformAiOverviewSuggestionsSearchResponse,
   PlatformAiQuestionsResponse,
+  PlatformAiSuggestionsSearchResponse,
   PlatformAiTasksResponse,
   PlatformExperienceControlsResponse,
 } from '../types'
@@ -782,11 +782,10 @@ describe('platformAdapter tests', () => {
     expect(response).toStrictEqual(aiTasksResponse)
   })
 
-  it('should call the ai overview suggestions search endpoint', async () => {
-    const platformAiOverviewSuggestionsSearchResponse: PlatformAiOverviewSuggestionsSearchResponse =
-      {
-        items: [{ query: 'test', results: [platformResult] }],
-      }
+  it('should call the ai suggestions search endpoint', async () => {
+    const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchResponse = {
+      items: [{ query: 'test', results: [platformResult] }],
+    }
     const instanceStub = 'empathy'
     const langStub = 'en'
     const queriesStub = [
@@ -796,10 +795,10 @@ describe('platformAdapter tests', () => {
       },
     ]
 
-    const fetchMock = jest.fn(getFetchMock(platformAiOverviewSuggestionsSearchResponse))
+    const fetchMock = jest.fn(getFetchMock(platformAiSuggestionsSearchResponse))
     window.fetch = fetchMock as any
 
-    const response = await platformAdapter.aiOverviewSuggestionsSearch({
+    const response = await platformAdapter.aiSuggestionsSearch({
       lang: langStub,
       queries: queriesStub,
       extraParams: {
@@ -829,10 +828,10 @@ describe('platformAdapter tests', () => {
       },
     )
 
-    const aiOverviewSuggestionsSearchResponse = {
+    const aiSuggestionsSearchResponse = {
       items: [{ query: 'test', results: [result] }],
     }
     // Ensure the response matches AiOverviewSuggestionsSearch interface
-    expect(response).toStrictEqual(aiOverviewSuggestionsSearchResponse)
+    expect(response).toStrictEqual(aiSuggestionsSearchResponse)
   })
 })

@@ -1,10 +1,10 @@
 import type { PlatformResult } from '../../models/result.model'
 
 /**
- * Response for the `overview suggestions search` endpoint.
+ * Response for the `AI suggestions search` endpoint.
  *
  * @public
  */
-export interface PlatformAiOverviewSuggestionsSearchResponse {
+export interface PlatformAiSuggestionsSearchResponse {
   items: { query: string; results: PlatformResult[] }[]
 }

@@ -31,7 +31,7 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
 }
 
 /**
- * Gets the Overview suggestions service URL for the given request.
+ * Gets the AI suggestions service URL for the given request.
  *
  * @param from - The request.
  *
@@ -39,7 +39,7 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
  *
  * @internal
  */
-export function getOverviewSuggestionsServiceUrl(from: ExtraParamsRequest): string {
+export function getAiSuggestionsServiceUrl(from: ExtraParamsRequest): string {
   if (from.extraParams?.env === 'test') {
     return 'https://questions.internal.test.empathy.co'
   }

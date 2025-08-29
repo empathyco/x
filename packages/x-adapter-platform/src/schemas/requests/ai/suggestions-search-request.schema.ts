@@ -1,5 +1,5 @@
-import type { AiOverviewSuggestionsSearchRequest } from '@empathyco/x-types'
-import type { PlatformAiOverviewSuggestionsSearchRequest } from '../../../types'
+import type { AiSuggestionsSearchRequest } from '@empathyco/x-types'
+import type { PlatformAiSuggestionsSearchRequest } from '../../../types'
 import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
@@ -7,12 +7,12 @@ import { createMutableSchema } from '@empathyco/x-adapter'
  *
  * @public
  */
-export const aiOverviewSuggestionsSearchRequestSchema = createMutableSchema<
-  AiOverviewSuggestionsSearchRequest,
-  PlatformAiOverviewSuggestionsSearchRequest
+export const aiSuggestionsSearchRequestSchema = createMutableSchema<
+  AiSuggestionsSearchRequest,
+  PlatformAiSuggestionsSearchRequest
 >({
-  context: ({ lang, extraParams }): PlatformAiOverviewSuggestionsSearchRequest['context'] => {
-    const context: PlatformAiOverviewSuggestionsSearchRequest['context'] = { lang }
+  context: ({ lang, extraParams }): PlatformAiSuggestionsSearchRequest['context'] => {
+    const context: PlatformAiSuggestionsSearchRequest['context'] = { lang }
     if (extraParams && typeof extraParams === 'object') {
       if ('instance' in extraParams) {
         context.instance = (extraParams as { instance?: string }).instance

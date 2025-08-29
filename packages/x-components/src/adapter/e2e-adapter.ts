@@ -66,7 +66,7 @@ export const e2eAdapter: XComponentsAdapter = {
     },
   }),
   experienceControls: mockEndpointAdapter('experience-controls'),
-  aiOverviewSuggestionsSearch: mockEndpointAdapter('overview-suggestions-search'),
+  aiSuggestionsSearch: mockEndpointAdapter('suggestions-search'),
   aiQuestions: mockEndpointAdapter('ai-questions'),
   aiTasks: mockEndpointAdapter('ai-tasks'),
 }

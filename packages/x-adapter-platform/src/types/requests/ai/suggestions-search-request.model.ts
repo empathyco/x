@@ -1,9 +1,9 @@
 /**
- * Request for the `Overview suggestions search` endpoint.
+ * Request for the `AI suggestions search` endpoint.
  *
  * @public
  */
-export interface PlatformAiOverviewSuggestionsSearchRequest {
+export interface PlatformAiSuggestionsSearchRequest {
   context: {
     lang: string
     instance?: string
