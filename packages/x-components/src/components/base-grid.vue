@@ -31,11 +31,11 @@
 </template>
 
 <script lang="ts">
-import type { MaybeComputedElementRef, UseResizeObserverReturn } from '@vueuse/core'
+import type { MaybeElement } from '@vueuse/core'
 import type { PropType, Ref } from 'vue'
 import type { ListItem, VueCSSClasses } from '../utils/types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
 import { useXBus } from '../composables/use-x-bus'
 import { AnimationProp } from '../types/animation-prop'
 import { toKebabCase } from '../utils/string'
@@ -87,16 +87,11 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    // eslint-disable-next-line ts/consistent-type-definitions
-    type ElementRef = {
-      $el: HTMLElement
-    }
-
     const xBus = useXBus()
 
     /** It injects {@link ListItem} provided by an ancestor. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
-    const gridEl = ref<ElementRef | HTMLElement>()
+    const gridEl = ref<MaybeElement>()
     const renderedColumnsNumber = ref(0)
 
     /**
@@ -158,33 +153,11 @@ export default defineComponent({
       }),
     )
 
-    /**
-     * Checks if a given value is an `ElementRef` object.
-     *
-     * @param value - The value to check.
-     * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-     */
-    const isElementRef = (value: any): value is ElementRef => {
-      return value && value.$el instanceof HTMLElement
-    }
-
-    /** Updates the number of columns rendered inside the grid. */
-    function updateRenderedColumnsNumber() {
-      const { gridTemplateColumns } = getComputedStyle(
-        isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element),
-      )
-      renderedColumnsNumber.value = gridTemplateColumns.split(' ').length
-    }
-
     /** Initialises the rendered columns number and sets a ResizeObserver to keep it updated. */
-    let resizeObserver: UseResizeObserverReturn
-    onMounted(() => {
-      resizeObserver = useResizeObserver(
-        gridEl as MaybeComputedElementRef,
-        updateRenderedColumnsNumber,
-      )
+    useResizeObserver(gridEl, entries => {
+      const { gridTemplateColumns } = getComputedStyle(entries[0].target)
+      renderedColumnsNumber.value = gridTemplateColumns.split(' ').length
     })
-    onBeforeUnmount(() => resizeObserver?.stop())
 
     return {
       gridItems,
