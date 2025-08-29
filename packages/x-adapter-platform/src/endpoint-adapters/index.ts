@@ -1,5 +1,5 @@
-export * from './ai/overview-suggestions.endpoint'
 export * from './ai/questions.endpoint-adapter'
+export * from './ai/suggestions.endpoint'
 export * from './ai/tasks.endpoint-adapter'
 export * from './experience-controls.endpoint-adapter'
 export * from './identifier-results.endpoint-adapter'

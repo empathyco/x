@@ -8,10 +8,10 @@ import type { Dictionary } from '@empathyco/x-utils'
  * @returns A promise wrapped object containing the response.
  * @public
  */
-export type HttpClient = <Response = unknown>(
+export type HttpClient = (
   endpoint: string,
   options?: Omit<RequestOptions, 'endpoint'>,
-) => Promise<Readonly<Response>>
+) => Promise<any>
 
 /**
  * A record of options to make the request with.
