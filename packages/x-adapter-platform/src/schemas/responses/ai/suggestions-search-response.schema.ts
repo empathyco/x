@@ -8,7 +8,6 @@ import { aiSuggestionsSearchSchema } from '../../models/ai/suggestions-search.sc
  *
  * @public
  */
-
 export const aiSuggestionsSearchResponseSchema = createMutableSchema<
   PlatformAiSuggestionsSearchResponse,
   AiSuggestionsSearchResponse

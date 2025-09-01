@@ -12,7 +12,7 @@ export const aiSuggestionsSearchSchema = createMutableSchema<
   PlatformAiSuggestionsSearchResponse,
   AiSuggestionsSearchResponse
 >({
-  items: ({ items }: PlatformAiSuggestionsSearchResponse) =>
+  suggestions: ({ items }: PlatformAiSuggestionsSearchResponse) =>
     items.map(item => ({
       query: item.query,
       results: item.results.map(result => schemaMapperFactory(resultSchema)(result, {})),

@@ -829,7 +829,7 @@ describe('platformAdapter tests', () => {
     )
 
     const aiSuggestionsSearchResponse = {
-      items: [{ query: 'test', results: [result] }],
+      suggestions: [{ query: 'test', results: [result] }],
     }
     // Ensure the response matches AiOverviewSuggestionsSearch interface
     expect(response).toStrictEqual(aiSuggestionsSearchResponse)

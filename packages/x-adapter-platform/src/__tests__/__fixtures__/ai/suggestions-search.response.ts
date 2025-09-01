@@ -10,7 +10,7 @@ export const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchRes
 }
 
 export const aiSuggestionsSearchResponse: AiSuggestionsSearchResponse = {
-  items: [
+  suggestions: [
     { query: 'test', results: [result] },
     { query: 'test2', results: [result] },
   ],
