@@ -1,7 +1,7 @@
 import type { PlatformAdapter } from './types/platform-adapter.types'
 import { aiQuestionsEndpointAdapter } from './endpoint-adapters/ai/questions.endpoint-adapter'
-import { aiSuggestionsEndpointAdapter } from './endpoint-adapters/ai/suggestions.endpoint'
 import { aiSuggestionsSearchEndpointAdapter } from './endpoint-adapters/ai/suggestions-search.endpoint-adapter'
+import { aiSuggestionsEndpointAdapter } from './endpoint-adapters/ai/suggestions.endpoint-adapter'
 import { aiTasksEndpointAdapter } from './endpoint-adapters/ai/tasks.endpoint-adapter'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
