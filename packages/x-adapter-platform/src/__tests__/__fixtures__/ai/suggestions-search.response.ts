@@ -1,6 +1,6 @@
 import type { AiSuggestionsSearchResponse } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsSearchResponse } from '../../../types'
-import { platformResult, result } from '../result.response'
+import { platformResult, result } from '../result'
 
 export const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchResponse = {
   items: [

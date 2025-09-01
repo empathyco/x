@@ -1,4 +1,4 @@
-import { platformResult } from './result.response'
+import { platformResult } from './result'
 
 export const platformRecommendationsResponse = {
   topclicked: {

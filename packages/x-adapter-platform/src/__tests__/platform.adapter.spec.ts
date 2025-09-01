@@ -15,7 +15,7 @@ import type { PlatformSemanticQueriesResponse } from '../types/responses/semanti
 import { platformAdapter } from '../platform.adapter'
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response'
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response'
-import { platformResult, result } from './__fixtures__/result.response'
+import { platformResult, result } from './__fixtures__/result'
 import { getFetchMock } from './__mocks__/fetch.mock'
 
 const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
