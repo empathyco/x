@@ -9,5 +9,8 @@ export interface PlatformAiSuggestionsSearchRequest {
     instance?: string
     filters?: Record<string, unknown>
   }
-  queries: { query: string; categories: string[] }[]
+  queries: {
+    query: string
+    categories: string[]
+  }[]
 }

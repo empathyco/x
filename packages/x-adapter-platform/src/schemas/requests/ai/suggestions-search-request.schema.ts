@@ -11,17 +11,10 @@ export const aiSuggestionsSearchRequestSchema = createMutableSchema<
   AiSuggestionsSearchRequest,
   PlatformAiSuggestionsSearchRequest
 >({
-  context: ({ lang, extraParams }): PlatformAiSuggestionsSearchRequest['context'] => {
-    const context: PlatformAiSuggestionsSearchRequest['context'] = { lang }
-    if (extraParams && typeof extraParams === 'object') {
-      if ('instance' in extraParams) {
-        context.instance = (extraParams as { instance?: string }).instance
-      }
-      if ('filters' in extraParams) {
-        context.filters = (extraParams as { filters?: Record<string, unknown> }).filters
-      }
-    }
-    return context
-  },
+  context: ({ extraParams }) => ({
+    lang: (extraParams?.lang as string | undefined) ?? '',
+    instance: extraParams?.instance as string | undefined,
+    filters: extraParams?.filters as Record<string, unknown> | undefined,
+  }),
   queries: 'queries',
 })

@@ -6,5 +6,8 @@ import type { PlatformResult } from '../../models/result.model'
  * @public
  */
 export interface PlatformAiSuggestionsSearchResponse {
-  items: { query: string; results: PlatformResult[] }[]
+  items: {
+    query: string
+    results: PlatformResult[]
+  }[]
 }
