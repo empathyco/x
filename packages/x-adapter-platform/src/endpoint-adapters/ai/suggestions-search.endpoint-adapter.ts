@@ -21,6 +21,7 @@ export const aiSuggestionsSearchEndpointAdapter = endpointAdapterFactory<
   responseMapper: aiSuggestionsSearchResponseMapper,
   defaultRequestOptions: {
     id: 'ai-suggestions-search',
+    sendParamsInBody: true,
     properties: {
       method: 'POST',
       headers: {
@@ -31,6 +32,5 @@ export const aiSuggestionsSearchEndpointAdapter = endpointAdapterFactory<
     parameters: {
       internal: true,
     },
-    sendParamsInBody: true,
   },
 })
