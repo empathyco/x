@@ -3,6 +3,8 @@ import type {
   AiQuestionsRequest,
   AiQuestionsResponse,
   AiSuggestionsRequest,
+  AiSuggestionsSearchRequest,
+  AiSuggestionsSearchResponse,
   AiTasksRequest,
   AiTasksResponse,
   ExperienceControlsRequest,
@@ -48,6 +50,10 @@ export interface PlatformAdapter extends XComponentsAdapter {
   experienceControls: ExtendableEndpointAdapter<
     ExperienceControlsRequest,
     ExperienceControlsResponse
+  >
+  aiSuggestionsSearch: ExtendableEndpointAdapter<
+    AiSuggestionsSearchRequest,
+    AiSuggestionsSearchResponse
   >
   aiQuestions: ExtendableEndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: ExtendableEndpointAdapter<AiTasksRequest, AiTasksResponse>

@@ -1,2 +1,1 @@
-export * from './question.model'
 export * from './suggestion-search.model'

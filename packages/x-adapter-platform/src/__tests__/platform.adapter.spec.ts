@@ -2,6 +2,7 @@ import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/
 import type { DeepPartial } from '@empathyco/x-utils'
 import type {
   PlatformAiQuestionsResponse,
+  PlatformAiSuggestionsSearchResponse,
   PlatformAiTasksResponse,
   PlatformExperienceControlsResponse,
 } from '../types'
@@ -14,6 +15,7 @@ import type { PlatformSemanticQueriesResponse } from '../types/responses/semanti
 import { platformAdapter } from '../platform.adapter'
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response'
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response'
+import { platformResult, result } from './__fixtures__/result'
 import { getFetchMock } from './__mocks__/fetch.mock'
 
 const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
@@ -583,29 +585,7 @@ describe('platformAdapter tests', () => {
     )
 
     expect(response).toStrictEqual({
-      results: [
-        {
-          id: '31335-U',
-          identifier: {
-            value: '31335-U',
-          },
-          images: ['https://assets.empathy.co/images-demo/31335.jpg'],
-          isWishlisted: false,
-          modelName: 'Result',
-          name: 'Locomotive Men Washed Blue Jeans',
-          price: {
-            hasDiscount: false,
-            originalValue: 10,
-            futureValue: 10,
-            value: 10,
-          },
-          rating: {
-            value: null,
-          },
-          type: 'Default',
-          url: 'https://assets.empathy.co/images-demo/31335.jpg',
-        },
-      ],
+      results: [result],
     })
   })
 
@@ -800,5 +780,58 @@ describe('platformAdapter tests', () => {
 
     // Ensure the response matches AiTaskResponse interface
     expect(response).toStrictEqual(aiTasksResponse)
+  })
+
+  it('should call the ai suggestions search endpoint', async () => {
+    const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchResponse = {
+      items: [{ query: 'test', results: [platformResult] }],
+    }
+    const instanceStub = 'empathy'
+    const langStub = 'en'
+    const queriesStub = [
+      {
+        query: 'test',
+        categories: ['test'],
+      },
+    ]
+
+    const fetchMock = jest.fn(getFetchMock(platformAiSuggestionsSearchResponse))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.aiSuggestionsSearch({
+      queries: queriesStub,
+      extraParams: {
+        lang: langStub,
+        instance: instanceStub,
+        env: 'staging',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      `https://questions.staging.empathy.co/v1/overview/${instanceStub}/suggestions/search`,
+      {
+        method: 'POST',
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          internal: true,
+          context: {
+            lang: langStub,
+            instance: instanceStub,
+          },
+          queries: queriesStub,
+        }),
+      },
+    )
+
+    const aiSuggestionsSearchResponse = {
+      suggestions: [{ query: 'test', results: [result] }],
+    }
+    // Ensure the response matches AiOverviewSuggestionsSearch interface
+    expect(response).toStrictEqual(aiSuggestionsSearchResponse)
   })
 })

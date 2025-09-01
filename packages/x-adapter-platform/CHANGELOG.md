@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.29 (2025-09-01)
+
+* fix: improve schemas ([da24f29](https://github.com/empathyco/x/commit/da24f29))
+* fix: make lang as part of the extraParams ([d29499d](https://github.com/empathyco/x/commit/d29499d))
+* fix: reorder ([af58e9a](https://github.com/empathyco/x/commit/af58e9a))
+* fix: replace items by suggestion in internal model ([10ddccc](https://github.com/empathyco/x/commit/10ddccc))
+* fix: unit tests ([3e9755b](https://github.com/empathyco/x/commit/3e9755b))
+* fix(e2e): mock adapter ([74ac6a5](https://github.com/empathyco/x/commit/74ac6a5))
+* fix(Result): infinite loop regression ([9b4712b](https://github.com/empathyco/x/commit/9b4712b))
+* test: rename fixture ([4f31639](https://github.com/empathyco/x/commit/4f31639))
+* test(overview-suggestions-search): request mapper & response mapper ([bd1df55](https://github.com/empathyco/x/commit/bd1df55))
+* test(overview-suggestions-search): test ([78b60f4](https://github.com/empathyco/x/commit/78b60f4))
+* refactor(result): align models ([90023ab](https://github.com/empathyco/x/commit/90023ab))
+* refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+* feat(x-platform-adapter): overview-suggestions-search ([ac379da](https://github.com/empathyco/x/commit/ac379da))
+
+
+
+
+
 ## 1.1.0-alpha.28 (2025-08-21)
 
 * docs(ai): schemas ([7ac1b11](https://github.com/empathyco/x/commit/7ac1b11))
