@@ -4,9 +4,9 @@ import { aiSuggestionsSearchRequestMapper } from '../../ai/suggestions-search-re
 describe('aiSuggestionsSearchRequestMapper tests', () => {
   it('should map the request', () => {
     const request: AiSuggestionsSearchRequest = {
-      lang: 'es',
       queries: [],
       extraParams: {
+        lang: 'es',
         instance: 'empathy',
         env: 'test',
       },
@@ -15,8 +15,9 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
     expect(aiSuggestionsSearchRequestMapper(request, {})).toStrictEqual({
       queries: [],
       context: {
-        instance: 'empathy',
         lang: 'es',
+        instance: 'empathy',
+        filters: undefined,
       },
     })
   })

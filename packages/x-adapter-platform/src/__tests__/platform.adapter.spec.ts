@@ -799,9 +799,9 @@ describe('platformAdapter tests', () => {
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.aiSuggestionsSearch({
-      lang: langStub,
       queries: queriesStub,
       extraParams: {
+        lang: langStub,
         instance: instanceStub,
         env: 'staging',
       },
