@@ -5,7 +5,6 @@ import { aiSuggestionsSearchSchema } from '../../models/ai/suggestions-search.sc
 
 /**
  * Default implementation for the AIOverviewSuggestionsSearchResponseSchema.
- *
  * @public
  */
 export const aiSuggestionsSearchResponseSchema = createMutableSchema<

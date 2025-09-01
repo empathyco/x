@@ -5,7 +5,6 @@ import { aiSuggestionsSearchResponseSchema } from '../../../schemas'
 
 /**
  * Default implementation for the AiSuggestionsSearchResponseMapper.
- *
  * @public
  */
 export const aiSuggestionsSearchResponseMapper = schemaMapperFactory<
