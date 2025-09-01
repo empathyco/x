@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.22 (2025-09-01)
+
+* fix: avoid unnecessary export ([9322cd1](https://github.com/empathyco/x/commit/9322cd1))
+* fix: improve schemas ([da24f29](https://github.com/empathyco/x/commit/da24f29))
+* fix: make lang as part of the extraParams ([d29499d](https://github.com/empathyco/x/commit/d29499d))
+* fix: replace items by suggestion in internal model ([10ddccc](https://github.com/empathyco/x/commit/10ddccc))
+* fix(Result): infinite loop regression ([9b4712b](https://github.com/empathyco/x/commit/9b4712b))
+* fix(Result): infinite loop regression ([6ad37b0](https://github.com/empathyco/x/commit/6ad37b0))
+* refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+* refactor(types): barrels ([315c81f](https://github.com/empathyco/x/commit/315c81f))
+* feat(x-platform-adapter): overview-suggestions-search ([ac379da](https://github.com/empathyco/x/commit/ac379da))
+
+
+
+
+
 ## 10.1.0-alpha.21 (2025-08-21)
 
 * docs(ai): models ([d9f6ef9](https://github.com/empathyco/x/commit/d9f6ef9))

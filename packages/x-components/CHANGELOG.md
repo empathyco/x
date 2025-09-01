@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.130 (2025-09-01)
+
+* refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+* fix(e2e): mock adapter ([74ac6a5](https://github.com/empathyco/x/commit/74ac6a5))
+
+
+
+
+
 ## 6.0.0-alpha.129 (2025-08-25)
 
 * fix(ai): AIOverview gradient missing properties ([2c87386](https://github.com/empathyco/x/commit/2c87386))
