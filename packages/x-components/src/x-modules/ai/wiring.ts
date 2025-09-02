@@ -28,8 +28,8 @@ const setAiQueryFromQueryPreview = wireCommit('setQuery', ({ eventPayload: { que
 /** Fetches the ai questions response. */
 const fetchAiSuggestions = wireDispatch('fetchAiSuggestions')
 
-/** Fetches the ai questions response. */
-const fetchAiSuggestionsSearch = wireDispatch('fetchAiSuggestionsSearch')
+/** Fetches and save the ai suggestions search response. */
+const fetchAndSaveAiSuggestionsSearch = wireDispatch('fetchAndSaveAiSuggestionsSearch')
 
 /** Sets the ai state `relatedTags`.*/
 const setAiRelatedTags = wireCommit('setAiRelatedTags')
@@ -65,7 +65,7 @@ export const aiWiring = createWiring({
     fetchAiSuggestions,
   },
   AiSuggestionsQueriesUpdated: {
-    fetchAiSuggestionsSearch,
+    fetchAndSaveAiSuggestionsSearch,
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTags,

@@ -1,4 +1,4 @@
-import type { AiSuggestionsRequest } from '@empathyco/x-types'
+import type { AiSuggestionsRequest, AiSuggestionsSearchRequest } from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of AI XModule, where each key is the event name, and the value is
@@ -8,8 +8,5 @@ import type { AiSuggestionsRequest } from '@empathyco/x-types'
  */
 export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
-  AiSuggestionsQueriesUpdated: {
-    query: string
-    categories: string[]
-  }[]
+  AiSuggestionsQueriesUpdated: AiSuggestionsSearchRequest | null
 }

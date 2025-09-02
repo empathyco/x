@@ -6,18 +6,18 @@ import { XPlugin } from '../../../../plugins'
  *
  * @param _ - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param queries - The queries suggested.
+ * @param request - The request.
  * @returns The AI response.
  *
  * @public
  */
 export const fetchAiSuggestionsSearch: AiXStoreModule['actions']['fetchAiSuggestionsSearch'] =
-  async ({ getters }, queries) => {
-    if (!queries) {
+  async ({ commit }, request) => {
+    if (!request || !request.queries.length) {
       return null
     }
-    return XPlugin.adapter.aiSuggestionsSearch({
-      queries,
-      extraParams: getters.request?.extraParams,
+    commit('setSuggestionsSearchLoading', true)
+    return XPlugin.adapter.aiSuggestionsSearch(request).finally(() => {
+      commit('setSuggestionsSearchLoading', false)
     })
   }

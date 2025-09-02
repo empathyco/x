@@ -9,5 +9,8 @@ import { aiXStoreModule } from './module'
  */
 export const aiEmitters = createStoreEmitters(aiXStoreModule, {
   AiSuggestionsRequestUpdated: (_, getters) => getters.request,
-  AiSuggestionsQueriesUpdated: state => state.queries,
+  AiSuggestionsQueriesUpdated: (state, getters) => ({
+    queries: state.queries,
+    extraParams: getters.request?.extraParams,
+  }),
 })

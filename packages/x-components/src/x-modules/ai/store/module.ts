@@ -1,8 +1,10 @@
+import type { AiSuggestionSearch } from '@empathyco/x-types'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { fetchAiSuggestionsSearch } from './actions/fetch-ai-suggestions-search.action'
 import { fetchAiSuggestions } from './actions/fetch-ai-suggestions.action'
+import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
 import { setUrlParams } from './actions/set-url-params.action'
 import { aiQuery as query, aiQuestionsRequest as request } from './getters'
 /**
@@ -20,6 +22,7 @@ export const aiXStoreModule: AiXStoreModule = {
   }),
   getters: {
     request,
+    loading: state => state.suggestionsLoading || state.suggestionsSearchLoading,
     query,
   },
   mutations: {
@@ -37,6 +40,15 @@ export const aiXStoreModule: AiXStoreModule = {
       state.taggings = taggings
     },
     /* END Streamed fields */
+    setSuggestionsSearch: (state, suggestionsSearch: AiSuggestionSearch[]) => {
+      state.suggestionsSearch = suggestionsSearch
+    },
+    setSuggestionsLoading: (state, value) => {
+      state.suggestionsLoading = value
+    },
+    setSuggestionsSearchLoading: (state, value) => {
+      state.suggestionsSearchLoading = value
+    },
     setConfig,
     mergeConfig,
     setQuery: (state: QueryState, query: string) => {
@@ -55,6 +67,7 @@ export const aiXStoreModule: AiXStoreModule = {
   actions: {
     fetchAiSuggestions,
     fetchAiSuggestionsSearch,
+    fetchAndSaveAiSuggestionsSearch,
     setUrlParams,
   },
 }
@@ -74,5 +87,7 @@ function resettableAiState() {
     queries: [],
     taggings: [],
     suggestionsSearch: [],
+    suggestionsLoading: false,
+    suggestionsSearchLoading: false,
   }
 }

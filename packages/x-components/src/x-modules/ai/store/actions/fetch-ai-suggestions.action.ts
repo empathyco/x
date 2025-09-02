@@ -24,6 +24,7 @@ export const fetchAiSuggestions: AiXStoreModule['actions']['fetchAiSuggestions']
   if (!request) {
     return null
   }
+  commit('setSuggestionsLoading', true)
   return (
     XPlugin.adapter
       /*.aiSuggestions({
@@ -89,5 +90,8 @@ function readAnswer(
       if (error.code !== 20) {
         console.error(error)
       }
+    })
+    .finally(() => {
+      commit('setSuggestionsLoading', false)
     })
 }
