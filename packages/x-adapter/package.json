@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter",
-  "version": "8.1.0-alpha.8",
+  "version": "8.1.0-alpha.9",
   "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",

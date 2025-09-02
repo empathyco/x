@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.131 (2025-09-02)
+
+* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+
+
+
+
+
 ## 6.0.0-alpha.130 (2025-09-01)
 
 * refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))

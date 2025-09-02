@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.30 (2025-09-02)
+
+* chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+* chore: fix linter issues ([5018b7c](https://github.com/empathyco/x/commit/5018b7c))
+* chore: pr review ([8d9dded](https://github.com/empathyco/x/commit/8d9dded))
+* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+* chore(x-adapter): remove unnecessary eslint comment ([e6c611a](https://github.com/empathyco/x/commit/e6c611a))
+* tests(request-mapper): add unit test to aiSuggestionsRequestMapper ([e0036dc](https://github.com/empathyco/x/commit/e0036dc))
+* feat: add ai suggestions request type ([9d92ae7](https://github.com/empathyco/x/commit/9d92ae7))
+* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+* feat(x-platform-adapter): overview-suggestions ([55f7dd0](https://github.com/empathyco/x/commit/55f7dd0))
+
+
+
+
+
 ## 1.1.0-alpha.29 (2025-09-01)
 
 * fix: improve schemas ([da24f29](https://github.com/empathyco/x/commit/da24f29))
