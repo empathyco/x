@@ -13,8 +13,8 @@ export const aiSuggestionsRequestSchema = createMutableSchema<
 >({
   context: ({ query, extraParams }) => ({
     query,
-    lang: extraParams?.lang as string,
-    instance: extraParams?.instance as string,
+    lang: (extraParams?.lang as string | undefined) ?? '',
+    instance: extraParams?.instance as string | undefined,
     filters: extraParams?.filters as Record<string, unknown> | undefined,
   }),
 })

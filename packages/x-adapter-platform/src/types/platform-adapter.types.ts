@@ -57,6 +57,5 @@ export interface PlatformAdapter extends XComponentsAdapter {
   >
   aiQuestions: ExtendableEndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: ExtendableEndpointAdapter<AiTasksRequest, AiTasksResponse>
-  // TODO: Change Response type to AiSuggestionsResponse when it is implemented
   aiSuggestions: ExtendableEndpointAdapter<AiSuggestionsRequest, Response>
 }

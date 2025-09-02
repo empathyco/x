@@ -41,7 +41,7 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
  */
 export function getAiSuggestionsServiceUrl(from: ExtraParamsRequest): string {
   if (from.extraParams?.env === 'test') {
-    return 'https://questions.internal.test.empathy.co'
+    return 'https://questions.internal.test.empathy.co/overview'
   }
   if (from.extraParams?.env === 'staging') {
     return 'https://questions.staging.empathy.co/v1/overview'
@@ -66,25 +66,6 @@ export function getQuestionsServiceUrl(from: ExtraParamsRequest): string {
     return 'https://questions.staging.empathy.co/v1/questions'
   }
   return 'https://api.{extraParams.env(.)}empathy.co/questions'
-}
-
-/**
- * Gets the Questions service URL for the given request.
- *
- * @param from - The request.
- *
- * @returns The service URL.
- *
- * @internal
- */
-export function getOverviewSuggestionsServiceUrl(from: ExtraParamsRequest): string {
-  if (from.extraParams?.env === 'test') {
-    return 'https://questions.internal.test.empathy.co/v1/overview'
-  }
-  if (from.extraParams?.env === 'staging') {
-    return 'https://questions.staging.empathy.co/v1/overview'
-  }
-  return 'https://api.{extraParams.env(.)}empathy.co/overview'
 }
 
 /**
