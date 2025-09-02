@@ -5,7 +5,7 @@
       class="x-ai-overview"
       :class="{ 'x-ai-overview--expanded': expanded, 'x-ai-overview--loading': loading }"
     >
-      <div class="x-ai-overview-main">
+      <!-- <div class="x-ai-overview-main">
         <Fade mode="out-in">
           <span
             v-if="loading"
@@ -57,7 +57,7 @@
             <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
           </button>
         </div>
-      </template>
+      </template>-->
     </div>
   </CollapseHeight>
 </template>
@@ -65,12 +65,10 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { defineComponent, ref, watch } from 'vue'
-import { ChangeHeight, CollapseHeight, Fade } from '../../../components'
-import { AIStarIcon, ChevronDownIcon } from '../../../components/icons'
+import { CollapseHeight } from '../../../components'
 import { useGetter } from '../../../composables'
 import { typing } from '../../../directives'
 import { aiXModule } from '../x-module'
-import AiQuestionResults from './ai-question-results.vue'
 
 export default defineComponent({
   directives: {
@@ -78,12 +76,7 @@ export default defineComponent({
   },
   xModule: aiXModule.name,
   components: {
-    AiQuestionResults,
-    ChangeHeight,
-    AIStarIcon,
-    ChevronDownIcon,
     CollapseHeight,
-    Fade,
   },
   props: {
     /**
@@ -115,8 +108,10 @@ export default defineComponent({
     },
   },
   setup() {
-    const { currentQuestion: question, currentQuestionLoading: loading, query } = useGetter('ai')
+    const { query } = useGetter('ai')
 
+    const question = ref(undefined)
+    const loading = ref(false)
     const expanded = ref(false)
 
     function open() {

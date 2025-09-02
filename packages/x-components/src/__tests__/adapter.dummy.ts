@@ -12,4 +12,8 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   semanticQueries: jest.fn(),
   tagging: jest.fn(),
   experienceControls: jest.fn(),
+  aiSuggestions: jest.fn(),
+  aiSuggestionsSearch: jest.fn(),
+  aiQuestions: jest.fn(),
+  aiTasks: jest.fn(),
 }

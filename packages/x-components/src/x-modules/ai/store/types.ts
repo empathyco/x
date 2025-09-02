@@ -1,4 +1,10 @@
-import type { AiQuestion, AiQuestionsRequest, RelatedTag } from '@empathyco/x-types'
+import type {
+  AiQuestion,
+  AiSuggestionSearch,
+  AiSuggestionsRequest,
+  AiSuggestionsSearchResponse,
+  RelatedTag,
+} from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type {
   ConfigMutations,
@@ -16,7 +22,15 @@ import type { AiConfig } from '../config.types'
  * @public
  */
 export interface AiState extends QueryState {
-  questionsByQuery: Record<string, { questions: AiQuestion[]; loading: boolean }>
+  /** The streamed field from suggestion response.*/
+  responseText: string
+  suggestionText: string
+  queries: { query: string; categories: string[] }[]
+  taggings: AiQuestion['tagging'][]
+
+  /** The results per query retrieved by the suggestion search endpoint */
+  suggestionsSearch: AiSuggestionSearch[]
+
   /* The config of the `AI` module. */
   config: AiConfig
 
@@ -37,16 +51,10 @@ export interface AiGetters {
    * Request object to retrieve the questions using the ai questions adapter, or null if there is
    * no valid data to conform a valid request.
    */
-  request: AiQuestionsRequest | null
+  request: AiSuggestionsRequest | null
 
   /** The combination of the query and the selected related tags. */
   query: string
-
-  /** The current question of the ai module. */
-  currentQuestion: AiQuestion | undefined
-
-  /** The current question loading of the ai module. */
-  currentQuestionLoading: boolean
 }
 
 /**
@@ -56,18 +64,39 @@ export interface AiGetters {
  */
 export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   /**
+   * Sets the responseText from the streamed response.
+   *
+   * @param responseText - The new responseText.
+   */
+  setResponseText: (responseText: string) => void
+
+  /**
+   * Sets the suggestionText from the streamed response.
+   *
+   * @param responseText - The new suggestionText.
+   */
+  setSuggestionText: (suggestionText: string) => void
+
+  /**
+   * Sets the queries from the streamed response.
+   *
+   * @param queries - The new queries.
+   */
+  setQueries: (queries: { query: string; categories: string[] }[]) => Promise<void>
+
+  /**
+   * Sets the taggings from the streamed response.
+   *
+   * @param tagging - The new tagging.
+   */
+  setTaggings: (taggings: AiQuestion['tagging'][]) => void
+
+  /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
   setParams: (params: Dictionary<unknown>) => void
-  /**
-   * Set ai questions by query
-   */
-  setQuestionsByQuery: (params: {
-    query: string
-    state: { questions: AiQuestion[]; loading: boolean }
-  }) => void
 
   /**
    * Resets the ai state.
@@ -88,11 +117,20 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
  */
 export interface AiActions {
   /**
-   * Requests a new set of questions for the module ai, and returns them.
+   * Requests suggestions for the module ai.
    *
    * @param request - The ai request.
    */
-  fetchAiQuestions: (request: AiQuestionsRequest | null) => AiQuestion[] | null
+  fetchAiSuggestions: (request: AiSuggestionsRequest | null) => void | null
+
+  /**
+   * Requests suggestions search for the module ai.
+   *
+   * @param request - The ai request.
+   */
+  fetchAiSuggestionsSearch: (
+    queries: { query: string; categories: string[] }[],
+  ) => AiSuggestionsSearchResponse | null
 
   /**
    * Checks if the URL has params on it and then updates the state with these values.

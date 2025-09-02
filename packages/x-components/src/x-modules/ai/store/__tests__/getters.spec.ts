@@ -1,4 +1,4 @@
-import type { AiQuestionsRequest } from '@empathyco/x-types'
+import type { AiSuggestionsRequest } from '@empathyco/x-types'
 import type { AiState } from '../types'
 import { map } from '@empathyco/x-utils'
 import { Store } from 'vuex'
@@ -20,7 +20,7 @@ describe('testing ai module getters', () => {
         params: { catalog: 'en' },
       })
 
-      expect(store.getters[gettersKeys.request]).toEqual<AiQuestionsRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<AiSuggestionsRequest>({
         query: 'ai cheese',
         extraParams: { catalog: 'en' },
       })
