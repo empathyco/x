@@ -41,7 +41,7 @@ export function getBeaconServiceUrl(from: ExtraParamsRequest): string {
  */
 export function getAiSuggestionsServiceUrl(from: ExtraParamsRequest): string {
   if (from.extraParams?.env === 'test') {
-    return 'https://questions.internal.test.empathy.co'
+    return 'https://questions.internal.test.empathy.co/overview'
   }
   if (from.extraParams?.env === 'staging') {
     return 'https://questions.staging.empathy.co/v1/overview'

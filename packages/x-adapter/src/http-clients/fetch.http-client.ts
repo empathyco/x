@@ -4,7 +4,9 @@ import { cleanEmpty, flatObject } from '@empathyco/x-utils'
 import { buildUrl, toJson } from './utils'
 
 /**
- * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
+ * The `fetchRawHttpClient()` function is a http client implementation using the `fetch` WebAPI.
+ *
+ * @remarks This fucntion will replace the current `fetchHttpClient` in a possible future breaking change.
  *
  * @param endpoint - The endpoint to make the request to.
  * @param options - The request options.
@@ -19,7 +21,7 @@ import { buildUrl, toJson } from './utils'
  *
  * @public
  */
-export const fetchHttpClient: HttpClient = async (
+export const fetchRawHttpClient: HttpClient = async (
   endpoint,
   {
     id = endpoint,
@@ -42,8 +44,22 @@ export const fetchHttpClient: HttpClient = async (
     ...properties,
     ...bodyParameters,
     ...signal,
-  }).then(toJson)
+  })
 }
+
+/**
+ * The `fetchHttpClient()` function is wrapper of `fetchRawHttpClient()` function that parses
+ * the response with `toJson` function.
+ *
+ * @param endpoint - The endpoint to make the request to.
+ * @param options - The request options.
+ *
+ * @returns A `Promise` object.
+ *
+ * @public
+ */
+export const fetchHttpClient: HttpClient = async (endpoint, options = {}) =>
+  fetchRawHttpClient(endpoint, options).then(toJson)
 
 /**
  * Dictionary with the request id as key and an `AbortController` as value.
