@@ -6,7 +6,11 @@ import { fetchAiSuggestionsSearch } from './actions/fetch-ai-suggestions-search.
 import { fetchAiSuggestions } from './actions/fetch-ai-suggestions.action'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
 import { setUrlParams } from './actions/set-url-params.action'
-import { aiQuery as query, aiQuestionsRequest as request } from './getters'
+import {
+  aiQuery as query,
+  aiSuggestionsRequest as suggestionsRequest,
+  aiSuggestionsSearchRequest as suggestionsSearchRequest,
+} from './getters'
 /**
  * {@link XStoreModule} For the ai module.
  *
@@ -21,7 +25,8 @@ export const aiXStoreModule: AiXStoreModule = {
     relatedTags: [],
   }),
   getters: {
-    request,
+    suggestionsRequest,
+    suggestionsSearchRequest,
     loading: state => state.suggestionsLoading || state.suggestionsSearchLoading,
     query,
   },

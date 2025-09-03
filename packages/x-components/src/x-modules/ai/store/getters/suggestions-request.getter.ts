@@ -1,7 +1,7 @@
 import type { AiXStoreModule } from '../types'
 
 /**
- * Default implementation for the {@link AiGetters.request} getter.
+ * Default implementation for the {@link AiGetters.suggestionsRequest} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the ai
  * module.
@@ -11,6 +11,9 @@ import type { AiXStoreModule } from '../types'
  *
  * @public
  */
-export const request: AiXStoreModule['getters']['request'] = ({ params }, { query }) => {
+export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest'] = (
+  { params },
+  { query },
+) => {
   return query ? { query, lang: params.lang as string, extraParams: params } : null
 }

@@ -13,7 +13,7 @@ import { XPlugin } from '../../../../plugins'
  */
 export const fetchAiSuggestionsSearch: AiXStoreModule['actions']['fetchAiSuggestionsSearch'] =
   async ({ commit }, request) => {
-    if (!request || !request.queries.length) {
+    if (!request) {
       return null
     }
     commit('setSuggestionsSearchLoading', true)

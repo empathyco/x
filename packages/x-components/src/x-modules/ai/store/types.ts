@@ -55,10 +55,16 @@ export interface AiState extends QueryState {
  */
 export interface AiGetters {
   /**
-   * Request object to retrieve the questions using the ai questions adapter, or null if there is
-   * no valid data to conform a valid request.
+   * Request object to retrieve the streaming response using the ai suggestions adapter, or null if there is
+   * no valid query to conform a valid request.
    */
-  request: AiSuggestionsRequest | null
+  suggestionsRequest: AiSuggestionsRequest | null
+
+  /**
+   * Request object to retrieve the suggestions search based on queries or null if there is
+   * no valid queries to conform a valid request.
+   */
+  suggestionsSearchRequest: AiSuggestionsSearchRequest | null
 
   /** The combination of the query and the selected related tags. */
   query: string
