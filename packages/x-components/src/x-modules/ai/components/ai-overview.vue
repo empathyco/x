@@ -1,11 +1,11 @@
 <template>
   <CollapseHeight>
     <div
-      v-show="loading || question"
       class="x-ai-overview"
       :class="{ 'x-ai-overview--expanded': expanded, 'x-ai-overview--loading': loading }"
+      data-test="ai-overview-container"
     >
-      <!-- <div class="x-ai-overview-main">
+      <div class="x-ai-overview-main">
         <Fade mode="out-in">
           <span
             v-if="loading"
@@ -29,35 +29,60 @@
             class="x-ai-overview-loading-content"
             data-test="ai-overview-loading-content"
           >
-            <span v-for="i in 4" :key="i" />
+            <span v-for="i in 4" :key="i" data-test="ai-overview-loading-item" />
           </div>
           <div v-else class="x-ai-overview-content" data-test="ai-overview-content">
-            <span>{{ question?.suggestionText }}</span>
-            <p>{{ question?.content.responseText }}</p>
+            <span>{{ suggestionText }}</span>
+            <p>{{ responseText }}</p>
           </div>
         </ChangeHeight>
       </div>
       <CollapseHeight
-        v-if="question?.content.searchQueries.length"
+        v-if="suggestionsSearch.length"
         :style="{
-          '--x-collapse-height-transition-duration': `${300 * question.content.searchQueries.length}ms`,
+          '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
         }"
+        data-test="ai-overview-collapse-height-suggestions"
       >
-        <div v-show="expanded" data-test="ai-overview-slot">
-          <slot :question="question">
-            <AiQuestionResults v-if="question" :question="question" />
+        <div v-show="expanded" data-test="ai-overview-suggestions-container">
+          <slot :suggestions-search="suggestionsSearch">
+            <div class="x-ai-overview-suggestions">
+              <div
+                v-for="{ query, results } in suggestionsSearch"
+                :key="query"
+                class="x-ai-overview-suggestion"
+              >
+                <QueryPreviewButton
+                  class="x-ai-overview-suggestion-query-btn"
+                  :query-preview-info="{ query }"
+                >
+                  {{ query }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+                </QueryPreviewButton>
+                <SlidingPanel :reset-on-content-change="false">
+                  <ul class="x-ai-overview-suggestion-results">
+                    <li v-for="result in results" :key="result.id">
+                      <Result :result="result" class="x-ai-overview-suggestion-result" />
+                    </li>
+                  </ul>
+                </SlidingPanel>
+              </div>
+            </div>
           </slot>
         </div>
       </CollapseHeight>
       <template v-if="!loading && !expanded">
         <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
         <div class="x-ai-overview-expand-wrapper">
-          <button class="x-ai-overview-expand-btn" data-test="ai-overview-expand-btn" @click="open">
+          <button
+            class="x-ai-overview-expand-btn"
+            data-test="ai-overview-expand-button"
+            @click="open"
+          >
             {{ buttonText }}
             <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
           </button>
         </div>
-      </template>-->
+      </template>
     </div>
   </CollapseHeight>
 </template>
@@ -65,9 +90,17 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { defineComponent, ref, watch } from 'vue'
-import { CollapseHeight } from '../../../components'
-import { useGetter } from '../../../composables'
+import {
+  AIStarIcon,
+  ArrowRightIcon,
+  ChevronDownIcon,
+  CollapseHeight,
+  SlidingPanel,
+} from '../../../components'
+import { useGetter, useState } from '../../../composables'
 import { typing } from '../../../directives'
+import Result from '../../../views/home/result.vue'
+import { QueryPreviewButton } from '../../queries-preview'
 import { aiXModule } from '../x-module'
 
 export default defineComponent({
@@ -76,7 +109,13 @@ export default defineComponent({
   },
   xModule: aiXModule.name,
   components: {
+    AIStarIcon,
+    ArrowRightIcon,
+    ChevronDownIcon,
     CollapseHeight,
+    QueryPreviewButton,
+    SlidingPanel,
+    Result,
   },
   props: {
     /**
@@ -108,10 +147,9 @@ export default defineComponent({
     },
   },
   setup() {
-    const { query } = useGetter('ai')
+    const { query, loading } = useGetter('ai')
+    const { suggestionText, responseText, suggestionsSearch } = useState('ai')
 
-    const question = ref(undefined)
-    const loading = ref(false)
     const expanded = ref(false)
 
     function open() {
@@ -122,9 +160,11 @@ export default defineComponent({
 
     return {
       expanded,
-      question,
       open,
       loading,
+      suggestionText,
+      responseText,
+      suggestionsSearch,
     }
   },
 })
@@ -194,5 +234,23 @@ export default defineComponent({
 }
 .x-ai-overview-expand-btn-icon {
   @apply x-icon;
+}
+.x-ai-overview-suggestion-query-btn {
+  @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;
+}
+.x-ai-overview-suggestion-query-btn-icon {
+  @apply x-icon-md;
+}
+.x-ai-overview-suggestions {
+  @apply x-flex x-flex-col x-gap-16;
+}
+.x-ai-overview-suggestion {
+  @apply x-flex x-flex-col x-gap-8;
+}
+.x-ai-overview-suggestion-results {
+  @apply x-flex x-gap-16 x-px-16;
+}
+.x-ai-overview-suggestion-result {
+  @apply x-w-[150px];
 }
 </style>
