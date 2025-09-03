@@ -82,7 +82,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   /**
    * Sets the suggestionText from the streamed response.
    *
-   * @param responseText - The new suggestionText.
+   * @param suggestionText - The new suggestionText.
    */
   setSuggestionText: (suggestionText: string) => void
 
@@ -96,7 +96,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   /**
    * Sets the taggings from the streamed response.
    *
-   * @param tagging - The new tagging.
+   * @param taggings - The new taggings.
    */
   setTaggings: (taggings: AiQuestion['tagging'][]) => void
 
@@ -149,14 +149,14 @@ export interface AiActions {
   /**
    * Requests suggestions for the module ai.
    *
-   * @param request - The ai request.
+   * @param request - The ai suggestions request.
    */
   fetchAiSuggestions: (request: AiSuggestionsRequest | null) => void | null
 
   /**
    * Requests suggestions search for the module ai.
    *
-   * @param request - The ai request.
+   * @param request - The ai suggestions search request.
    */
   fetchAiSuggestionsSearch: (
     request: AiSuggestionsSearchRequest | null,

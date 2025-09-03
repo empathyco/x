@@ -1,5 +1,4 @@
 import { createStoreEmitters } from '../../../store'
-
 import { aiXStoreModule } from './module'
 
 /**

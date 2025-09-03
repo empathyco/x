@@ -25,7 +25,7 @@ const setAiQuery = wireCommit('setQuery')
 /** Sets the ai state `query` from a query preview's query'. */
 const setAiQueryFromQueryPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
-/** Fetches the ai questions response. */
+/** Fetches the AI suggestions streaming response. */
 const fetchAiSuggestions = wireDispatch('fetchAiSuggestions')
 
 /** Fetches and save the ai suggestions search response. */
