@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.24 (2025-09-03)
+
+* refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
+* feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
+
+
+
+
+
 ## 10.1.0-alpha.23 (2025-09-02)
 
 * chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
