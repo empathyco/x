@@ -1,4 +1,4 @@
-import type { AiSuggestionSearch } from '@empathyco/x-types'
+import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
@@ -33,8 +33,8 @@ export const aiXStoreModule: AiXStoreModule = {
     setSuggestionText: (state, suggestionText: string) => {
       state.suggestionText = state.suggestionText.concat(suggestionText)
     },
-    setQueries: (state, queries: { query: string; categories: string[] }[]) => {
-      state.queries = [...state.queries, ...queries]
+    setQueries: (state, queries: AiSuggestionQuery[]) => {
+      state.queries = state.queries.concat(queries)
     },
     setTaggings: (state, taggings) => {
       state.taggings = taggings

@@ -1,11 +1,11 @@
-import type { AiQuestion } from '@empathyco/x-types'
+import type { AiQuestion, AiSuggestionQuery } from '@empathyco/x-types'
 import type { AiActionContext, AiXStoreModule } from '../types'
 import { XPlugin } from '../../../../plugins'
 
 type AnswerChunk =
   | { responseText: string }
   | { suggestionText: string }
-  | { queries: { query: string; categories: string[] }[] }
+  | { queries: AiSuggestionQuery[] }
   | { taggings: AiQuestion['tagging'][] }
 /**
  * Default implementation for the {@link AiActions.fetchAiSuggestions}.
@@ -25,28 +25,15 @@ export const fetchAiSuggestions: AiXStoreModule['actions']['fetchAiSuggestions']
     return null
   }
   commit('setSuggestionsLoading', true)
-  return (
-    XPlugin.adapter
-      /*.aiSuggestions({
-        query: 'toner',
-        extraParams: {
-          lang: 'es',
-          env: 'staging',
-          instance: 'mymotivemarketplace',
-          filters: { store: 'chupatintas-s-l', city: 'oviedo' },
-        },
-      })*/
-      .aiSuggestions(request)
-      .then(({ body, status }) => {
-        if (status !== 200) {
-          return null
-        }
-        if (body) {
-          const reader = body.getReader()
-          readAnswer(reader, commit)
-        }
-      })
-  )
+  return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
+    if (status !== 200) {
+      return null
+    }
+    if (body) {
+      const reader = body.getReader()
+      readAnswer(reader, commit)
+    }
+  })
 }
 
 function readAnswer(

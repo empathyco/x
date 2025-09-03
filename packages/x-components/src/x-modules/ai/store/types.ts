@@ -1,5 +1,6 @@
 import type {
   AiQuestion,
+  AiSuggestionQuery,
   AiSuggestionSearch,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
@@ -26,7 +27,7 @@ export interface AiState extends QueryState {
   /** The streamed field from suggestion response.*/
   responseText: string
   suggestionText: string
-  queries: { query: string; categories: string[] }[]
+  queries: AiSuggestionQuery[]
   taggings: AiQuestion['tagging'][]
 
   /** Loading state for the suggestions response */
@@ -91,7 +92,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param queries - The new queries.
    */
-  setQueries: (queries: { query: string; categories: string[] }[]) => Promise<void>
+  setQueries: (queries: AiSuggestionQuery[]) => void
 
   /**
    * Sets the taggings from the streamed response.
