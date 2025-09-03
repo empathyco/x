@@ -2,9 +2,8 @@ import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
-import { fetchAiSuggestionsSearch } from './actions/fetch-ai-suggestions-search.action'
-import { fetchAiSuggestions } from './actions/fetch-ai-suggestions.action'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
+import { fetchAndSaveAiSuggestions } from './actions/fetch-and-save-ai-suggestions.action'
 import { setUrlParams } from './actions/set-url-params.action'
 import {
   aiQuery as query,
@@ -70,8 +69,7 @@ export const aiXStoreModule: AiXStoreModule = {
     },
   },
   actions: {
-    fetchAiSuggestions,
-    fetchAiSuggestionsSearch,
+    fetchAndSaveAiSuggestions,
     fetchAndSaveAiSuggestionsSearch,
     setUrlParams,
   },

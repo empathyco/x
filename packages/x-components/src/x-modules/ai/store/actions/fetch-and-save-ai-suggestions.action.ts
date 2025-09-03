@@ -8,7 +8,7 @@ type AnswerChunk =
   | { queries: AiSuggestionQuery[] }
   | { taggings: AiQuestion['tagging'][] }
 /**
- * Default implementation for the {@link AiActions.fetchAiSuggestions}.
+ * Default implementation for the {@link AiActions.fetchAndSaveAiSuggestions}.
  *
  * @param _ - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -17,24 +17,22 @@ type AnswerChunk =
  *
  * @public
  */
-export const fetchAiSuggestions: AiXStoreModule['actions']['fetchAiSuggestions'] = async (
-  { commit },
-  request,
-) => {
-  if (!request) {
-    return null
+export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveAiSuggestions'] =
+  async ({ commit }, request) => {
+    if (!request) {
+      return
+    }
+    commit('setSuggestionsLoading', true)
+    return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
+      if (status !== 200) {
+        return
+      }
+      if (body) {
+        const reader = body.getReader()
+        readAnswer(reader, commit)
+      }
+    })
   }
-  commit('setSuggestionsLoading', true)
-  return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
-    if (status !== 200) {
-      return null
-    }
-    if (body) {
-      const reader = body.getReader()
-      readAnswer(reader, commit)
-    }
-  })
-}
 
 function readAnswer(
   reader: ReadableStreamDefaultReader<Uint8Array>,

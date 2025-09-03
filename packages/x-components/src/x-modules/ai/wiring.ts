@@ -26,7 +26,7 @@ const setAiQuery = wireCommit('setQuery')
 const setAiQueryFromQueryPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
 /** Fetches the AI suggestions streaming response. */
-const fetchAiSuggestions = wireDispatch('fetchAiSuggestions')
+const fetchAndSaveAiSuggestions = wireDispatch('fetchAndSaveAiSuggestions')
 
 /** Fetches and save the ai suggestions search response. */
 const fetchAndSaveAiSuggestionsSearch = wireDispatch('fetchAndSaveAiSuggestionsSearch')
@@ -62,7 +62,7 @@ export const aiWiring = createWiring({
     resetAiState,
   },
   AiSuggestionsRequestUpdated: {
-    fetchAiSuggestions,
+    fetchAndSaveAiSuggestions,
   },
   AiSuggestionsSearchRequestUpdated: {
     fetchAndSaveAiSuggestionsSearch,

@@ -4,7 +4,6 @@ import type {
   AiSuggestionSearch,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
-  AiSuggestionsSearchResponse,
   RelatedTag,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
@@ -158,21 +157,12 @@ export interface AiActions {
    *
    * @param request - The ai suggestions request.
    */
-  fetchAiSuggestions: (request: AiSuggestionsRequest | null) => void | null
+  fetchAndSaveAiSuggestions: (request: AiSuggestionsRequest | null) => void
 
   /**
    * Requests suggestions search for the module ai.
    *
    * @param request - The ai suggestions search request.
-   */
-  fetchAiSuggestionsSearch: (
-    request: AiSuggestionsSearchRequest | null,
-  ) => AiSuggestionsSearchResponse | null
-
-  /**
-   * Requests suggestions search for the module ai.
-   *
-   * @param request - The ai request.
    */
   fetchAndSaveAiSuggestionsSearch: (request: AiSuggestionsSearchRequest | null) => void
 

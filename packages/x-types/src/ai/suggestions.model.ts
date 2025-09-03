@@ -1,6 +1,7 @@
 /**
- * Response data for each query suggested.
- * @public
+ * Data for each query suggested.
+ *
+ * @internal
  */
 export interface AiSuggestionQuery {
   query: string
