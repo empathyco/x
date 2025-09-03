@@ -51,7 +51,8 @@ function readAnswer(
         let data: AnswerChunk
 
         for (const line of lines) {
-          if (line.startsWith('data:')) {
+          // line.length check to avoid empty data chunks
+          if (line.startsWith('data:') && line.length > 5) {
             data = JSON.parse(line.slice(5).trim()) as AnswerChunk
             if ('responseText' in data) {
               commit('setResponseText', data.responseText)
