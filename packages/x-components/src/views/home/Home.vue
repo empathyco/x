@@ -114,12 +114,6 @@
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Teleport test</h1>
     <div id="teleport-here"></div>
     <MainModal :animation="modalAnimation" :reference-selector="referenceSelector">
-      <AiOverview
-        title="AI Overview Title"
-        title-loading="AI Overview Loading Title"
-        button-text="Show more"
-        class="x-mb-28"
-      />
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
           <div
@@ -313,6 +307,8 @@
                 </QueryPreviewList>
               </LocationProvider>
             </template>
+
+            <AiOverview class="x-mb-28" />
 
             <!-- Results -->
             <LocationProvider location="results">
