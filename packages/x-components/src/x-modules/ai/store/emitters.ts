@@ -7,5 +7,6 @@ import { aiXStoreModule } from './module'
  * @internal
  */
 export const aiEmitters = createStoreEmitters(aiXStoreModule, {
-  AiQuestionsRequestUpdated: (_, getters) => getters.request,
+  AiSuggestionsRequestUpdated: (_, getters) => getters.suggestionsRequest,
+  AiSuggestionsSearchRequestUpdated: (_, getters) => getters.suggestionsSearchRequest,
 })

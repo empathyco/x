@@ -25,8 +25,11 @@ const setAiQuery = wireCommit('setQuery')
 /** Sets the ai state `query` from a query preview's query'. */
 const setAiQueryFromQueryPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
-/** Fetches the ai questions response. */
-const fetchAiQuestions = wireDispatch('fetchAiQuestions')
+/** Fetches the AI suggestions streaming response. */
+const fetchAndSaveAiSuggestions = wireDispatch('fetchAndSaveAiSuggestions')
+
+/** Fetches and save the ai suggestions search response. */
+const fetchAndSaveAiSuggestionsSearch = wireDispatch('fetchAndSaveAiSuggestionsSearch')
 
 /** Sets the ai state `relatedTags`.*/
 const setAiRelatedTags = wireCommit('setAiRelatedTags')
@@ -48,6 +51,7 @@ export const aiWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setAiQuery,
+    resetAiState,
   },
   UserClearedQuery: {
     setAiQuery,
@@ -55,9 +59,13 @@ export const aiWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     setAiQueryFromQueryPreview,
+    resetAiState,
   },
-  AiQuestionsRequestUpdated: {
-    fetchAiQuestions,
+  AiSuggestionsRequestUpdated: {
+    fetchAndSaveAiSuggestions,
+  },
+  AiSuggestionsSearchRequestUpdated: {
+    fetchAndSaveAiSuggestionsSearch,
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTags,

@@ -13,6 +13,7 @@ import type {
   SemanticQueriesResponse,
   XComponentsAdapter,
 } from '@empathyco/x-types'
+import type { AiSuggestionsSearchResponse } from '@empathyco/x-types/dist'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { Store } from 'vuex'
@@ -52,6 +53,8 @@ interface MockedAdapterFeatures {
   experienceControls: ExperienceControlsResponse
   aiQuestions: AiQuestionsResponse
   aiTasks: AiTasksResponse
+  aiSuggestions: Response
+  aiSuggestionsSearch: AiSuggestionsSearchResponse
 }
 
 /**
@@ -168,6 +171,8 @@ export function getMockedAdapter(
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
     experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
+    aiSuggestions: getMockedAdapterFunction(responseFeatures?.aiSuggestions),
+    aiSuggestionsSearch: getMockedAdapterFunction(responseFeatures?.aiSuggestionsSearch),
     aiQuestions: getMockedAdapterFunction(responseFeatures?.aiQuestions!),
     aiTasks: getMockedAdapterFunction(responseFeatures?.aiTasks!),
     /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */

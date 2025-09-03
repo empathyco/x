@@ -1,4 +1,11 @@
-import type { AiQuestion, AiQuestionsRequest, RelatedTag } from '@empathyco/x-types'
+import type {
+  AiQuestion,
+  AiSuggestionQuery,
+  AiSuggestionSearch,
+  AiSuggestionsRequest,
+  AiSuggestionsSearchRequest,
+  RelatedTag,
+} from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type {
   ConfigMutations,
@@ -16,7 +23,20 @@ import type { AiConfig } from '../config.types'
  * @public
  */
 export interface AiState extends QueryState {
-  questionsByQuery: Record<string, { questions: AiQuestion[]; loading: boolean }>
+  /** The streamed field from suggestion response.*/
+  responseText: string
+  suggestionText: string
+  queries: AiSuggestionQuery[]
+  taggings: AiQuestion['tagging'][]
+
+  /** Loading state for the suggestions response */
+  suggestionsLoading: boolean
+  /** Loading state for the suggestions search response */
+  suggestionsSearchLoading: boolean
+
+  /** The results per query retrieved by the suggestion search endpoint */
+  suggestionsSearch: AiSuggestionSearch[]
+
   /* The config of the `AI` module. */
   config: AiConfig
 
@@ -34,19 +54,22 @@ export interface AiState extends QueryState {
  */
 export interface AiGetters {
   /**
-   * Request object to retrieve the questions using the ai questions adapter, or null if there is
-   * no valid data to conform a valid request.
+   * Request object to retrieve the streaming response using the ai suggestions adapter, or null if there is
+   * no valid query to conform a valid request.
    */
-  request: AiQuestionsRequest | null
+  suggestionsRequest: AiSuggestionsRequest | null
+
+  /**
+   * Request object to retrieve the suggestions search based on queries or null if there is
+   * no valid queries to conform a valid request.
+   */
+  suggestionsSearchRequest: AiSuggestionsSearchRequest | null
 
   /** The combination of the query and the selected related tags. */
   query: string
 
-  /** The current question of the ai module. */
-  currentQuestion: AiQuestion | undefined
-
-  /** The current question loading of the ai module. */
-  currentQuestionLoading: boolean
+  /** The combination of the suggestions stream loading and the suggestions search response loading. */
+  loading: boolean
 }
 
 /**
@@ -56,18 +79,60 @@ export interface AiGetters {
  */
 export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   /**
+   * Sets the responseText from the streamed response.
+   *
+   * @param responseText - The new responseText.
+   */
+  setResponseText: (responseText: string) => void
+
+  /**
+   * Sets the suggestionText from the streamed response.
+   *
+   * @param suggestionText - The new suggestionText.
+   */
+  setSuggestionText: (suggestionText: string) => void
+
+  /**
+   * Sets the queries from the streamed response.
+   *
+   * @param queries - The new queries.
+   */
+  setQueries: (queries: AiSuggestionQuery[]) => void
+
+  /**
+   * Sets the taggings from the streamed response.
+   *
+   * @param taggings - The new taggings.
+   */
+  setTaggings: (taggings: AiQuestion['tagging'][]) => void
+
+  /**
+   * Sets the loading for the suggestions response.
+   *
+   * @param tagging - The new tagging.
+   */
+  setSuggestionsLoading: (value: boolean) => void
+
+  /**
+   * Sets the loading fot the suggestions search response.
+   *
+   * @param tagging - The new tagging.
+   */
+  setSuggestionsSearchLoading: (value: boolean) => void
+
+  /**
+   * Sets the suggestions search from the suggestions search response.
+   *
+   * @param tagging - The new tagging.
+   */
+  setSuggestionsSearch: (suggestionsSearch: AiSuggestionSearch[]) => void
+
+  /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
    */
   setParams: (params: Dictionary<unknown>) => void
-  /**
-   * Set ai questions by query
-   */
-  setQuestionsByQuery: (params: {
-    query: string
-    state: { questions: AiQuestion[]; loading: boolean }
-  }) => void
 
   /**
    * Resets the ai state.
@@ -88,11 +153,18 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
  */
 export interface AiActions {
   /**
-   * Requests a new set of questions for the module ai, and returns them.
+   * Requests suggestions for the module ai.
    *
-   * @param request - The ai request.
+   * @param request - The ai suggestions request.
    */
-  fetchAiQuestions: (request: AiQuestionsRequest | null) => AiQuestion[] | null
+  fetchAndSaveAiSuggestions: (request: AiSuggestionsRequest | null) => void
+
+  /**
+   * Requests suggestions search for the module ai.
+   *
+   * @param request - The ai suggestions search request.
+   */
+  fetchAndSaveAiSuggestionsSearch: (request: AiSuggestionsSearchRequest | null) => void
 
   /**
    * Checks if the URL has params on it and then updates the state with these values.
