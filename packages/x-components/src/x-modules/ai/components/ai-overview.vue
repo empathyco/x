@@ -71,21 +71,19 @@
         </slot>
       </div>
     </CollapseHeight>
-    <Fade>
-      <div v-show="suggestionsSearch.length && !expanded">
-        <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
-        <div class="x-ai-overview-expand-wrapper">
-          <button
-            class="x-ai-overview-expand-btn"
-            data-test="ai-overview-expand-button"
-            @click="open"
-          >
-            {{ buttonText }}
-            <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
-          </button>
-        </div>
+    <div v-show="suggestionsSearch.length && !expanded">
+      <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
+      <div class="x-ai-overview-expand-wrapper">
+        <button
+          class="x-ai-overview-expand-btn"
+          data-test="ai-overview-expand-button"
+          @click="open"
+        >
+          {{ buttonText }}
+          <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
+        </button>
       </div>
-    </Fade>
+    </div>
   </div>
 </template>
 
