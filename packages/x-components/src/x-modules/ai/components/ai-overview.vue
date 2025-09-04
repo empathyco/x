@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="x-ai-overview"
-    :class="{ 'x-ai-overview--expanded': expanded, 'x-ai-overview--loading': loading }"
-    data-test="ai-overview-container"
-  >
+  <div class="x-ai-overview">
     <div class="x-ai-overview-main">
       <Fade mode="out-in">
         <span
-          v-if="loading"
+          v-if="suggestionsLoading"
           class="x-ai-overview-title-loading"
           data-test="ai-overview-title-loading"
         >
@@ -24,7 +20,7 @@
       </Fade>
       <ChangeHeight>
         <div
-          v-if="loading"
+          v-if="suggestionsLoading"
           class="x-ai-overview-loading-content"
           data-test="ai-overview-loading-content"
         >
@@ -75,7 +71,7 @@
         </slot>
       </div>
     </CollapseHeight>
-    <template v-if="!loading && !expanded">
+    <div v-show="suggestionsSearch.length && !expanded">
       <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
       <div class="x-ai-overview-expand-wrapper">
         <button
@@ -87,7 +83,7 @@
           <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
         </button>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -153,8 +149,8 @@ export default defineComponent({
     },
   },
   setup() {
-    const { query, loading } = useGetter('ai')
-    const { suggestionText, responseText, suggestionsSearch } = useState('ai')
+    const { query } = useGetter('ai')
+    const { suggestionText, responseText, suggestionsSearch, suggestionsLoading } = useState('ai')
 
     const expanded = ref(false)
 
@@ -165,12 +161,12 @@ export default defineComponent({
     watch(query, () => (expanded.value = false))
 
     return {
-      expanded,
       open,
-      loading,
-      suggestionText,
+      expanded,
       responseText,
+      suggestionText,
       suggestionsSearch,
+      suggestionsLoading,
     }
   },
 })
@@ -184,11 +180,7 @@ export default defineComponent({
     color-mix(in srgb, var(--color) 75%, white)
   );
 
-  @apply x-relative x-rounded-lg x-bg-[var(--color-lighter)];
-}
-
-.x-ai-overview:not(.x-ai-overview--loading, .x-ai-overview--expanded) {
-  @apply x-rounded-b-3xl;
+  @apply x-relative x-rounded-3xl x-bg-[var(--color-lighter)];
 }
 
 .x-ai-overview-main {
@@ -255,7 +247,7 @@ export default defineComponent({
   @apply x-icon-md;
 }
 .x-ai-overview-suggestions {
-  @apply x-flex x-flex-col x-gap-16;
+  @apply x-flex x-flex-col x-gap-16 x-pb-16;
 }
 .x-ai-overview-suggestion {
   @apply x-flex x-flex-col x-gap-8;
