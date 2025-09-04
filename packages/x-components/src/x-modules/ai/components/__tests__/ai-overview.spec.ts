@@ -4,10 +4,15 @@ import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
-import { AIStarIcon, ArrowRightIcon, ChevronDownIcon, SlidingPanel } from '../../../../components'
+import {
+  AIStarIcon,
+  ArrowRightIcon,
+  BaseEventButton,
+  ChevronDownIcon,
+  SlidingPanel,
+} from '../../../../components'
 import { useGetter, useState } from '../../../../composables'
 import Result from '../../../../views/home/result.vue'
-import { QueryPreviewButton } from '../../../queries-preview'
 import AIOverview from '../ai-overview.vue'
 
 jest.mock('../../../../composables')
@@ -24,6 +29,7 @@ const useStateStub = {
     { query: 'suggestion 2', results: getResultsStub() },
     { query: 'suggestion 3', results: getResultsStub() },
   ]),
+  params: ref({ param1: 'value1', param2: 'value2' }),
 }
 const useGettersMock = jest.fn(() => useGettersStub)
 const useStateMock = jest.fn(() => useStateStub)
@@ -44,6 +50,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
         el.innerHTML = binding.value.text
       },
     },
+    global: { stubs: { Result: true } },
   })
 
   return {
@@ -81,8 +88,8 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get suggestions() {
       return wrapper.findAll(getDataTestSelector('ai-overview-suggestion'))
     },
-    get queryPreviewButtons() {
-      return wrapper.findAllComponents(QueryPreviewButton)
+    get baseEventButtons() {
+      return wrapper.findAllComponents(BaseEventButton)
     },
     get arrowRightIcons() {
       return wrapper.findAllComponents(ArrowRightIcon)
@@ -128,12 +135,18 @@ describe('ai-overview component', () => {
       `--x-collapse-height-transition-duration: ${300 * useStateStub.suggestionsSearch.value.length}ms;`,
     )
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.queryPreviewButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.arrowRightIcons).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
     useStateStub.suggestionsSearch.value.forEach((suggestionSearch, index) => {
-      expect(sut.queryPreviewButtons[index].text()).toBe(suggestionSearch.query)
+      expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
+      expect(sut.baseEventButtons[index].props('events')).toStrictEqual({
+        UserAcceptedAQueryPreview: {
+          query: suggestionSearch.query,
+          extraParams: useStateStub.params.value,
+        },
+      })
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
 
       const results = sut.slidingPanels[index].findAllComponents(Result)
