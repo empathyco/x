@@ -308,6 +308,12 @@
               </LocationProvider>
             </template>
 
+            <AiOverview v-if="x.query.search" class="x-mb-28">
+              <template #result="{ result }">
+                <Result :result="result" class="x-w-[150px]" />
+              </template>
+            </AiOverview>
+
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList
@@ -592,6 +598,7 @@ import SnippetCallbacks from '../../components/snippet-callbacks.vue'
 import { use$x } from '../../composables/use-$x'
 import { useState } from '../../composables/use-state'
 import { infiniteScroll } from '../../directives/infinite-scroll'
+import AiOverview from '../../x-modules/ai/components/ai-overview.vue'
 import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue'
 import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue'
 import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue'
@@ -643,6 +650,7 @@ export default defineComponent({
     DisplayClickProvider,
     // eslint-disable-next-line vue/no-reserved-component-names
     Aside,
+    AiOverview,
     AutoProgressBar,
     ArrowRightIcon,
     Banner,
