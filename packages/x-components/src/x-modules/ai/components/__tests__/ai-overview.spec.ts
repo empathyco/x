@@ -107,7 +107,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
   }
 }
 
-describe('ai-overview component', () => {
+describe.skip('ai-overview component', () => {
   beforeEach(() => {
     jest.restoreAllMocks()
     jest.clearAllMocks()

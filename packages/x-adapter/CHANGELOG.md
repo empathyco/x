@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.9 (2025-09-02)
+
+* chore: code improvement ([5d7346d](https://github.com/empathyco/x/commit/5d7346d))
+* chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+* test(x-adapter): add unit tests for httpClient functions ([f57556f](https://github.com/empathyco/x/commit/f57556f))
+* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+
+
+
+
+
 ## 8.1.0-alpha.8 (2025-08-12)
 
 * chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.132 (2025-09-03)
+
+* test: fix unit tests ([604b2a1](https://github.com/empathyco/x/commit/604b2a1))
+* feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
+* feat(ai): add loading flag to both suggestions connections ([365a073](https://github.com/empathyco/x/commit/365a073))
+* feat(ai): add suggestionsSearchRequest in store ([16383d0](https://github.com/empathyco/x/commit/16383d0))
+* feat(ai): avoid crashes on streaming parsing ([b847b69](https://github.com/empathyco/x/commit/b847b69))
+* feat(ai): questions to suggestions ([574cd62](https://github.com/empathyco/x/commit/574cd62))
+* refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
+* fix(ai): PR suggestions ([7c77c1a](https://github.com/empathyco/x/commit/7c77c1a))
+
+
+
+
+
+## 6.0.0-alpha.131 (2025-09-02)
+
+* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+
+
+
+
+
 ## 6.0.0-alpha.130 (2025-09-01)
 
 * refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))

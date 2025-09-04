@@ -8,5 +8,5 @@ import type { AiSuggestionsRequest, AiSuggestionsSearchRequest } from '@empathyc
  */
 export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
-  AiSuggestionsQueriesUpdated: AiSuggestionsSearchRequest | null
+  AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
 }

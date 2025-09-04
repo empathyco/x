@@ -1,12 +1,15 @@
-import type { AiSuggestionSearch } from '@empathyco/x-types'
+import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
-import { fetchAiSuggestionsSearch } from './actions/fetch-ai-suggestions-search.action'
-import { fetchAiSuggestions } from './actions/fetch-ai-suggestions.action'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
+import { fetchAndSaveAiSuggestions } from './actions/fetch-and-save-ai-suggestions.action'
 import { setUrlParams } from './actions/set-url-params.action'
-import { aiQuery as query, aiQuestionsRequest as request } from './getters'
+import {
+  aiQuery as query,
+  aiSuggestionsRequest as suggestionsRequest,
+  aiSuggestionsSearchRequest as suggestionsSearchRequest,
+} from './getters'
 /**
  * {@link XStoreModule} For the ai module.
  *
@@ -21,7 +24,8 @@ export const aiXStoreModule: AiXStoreModule = {
     relatedTags: [],
   }),
   getters: {
-    request,
+    suggestionsRequest,
+    suggestionsSearchRequest,
     loading: state => state.suggestionsLoading || state.suggestionsSearchLoading,
     query,
   },
@@ -33,8 +37,8 @@ export const aiXStoreModule: AiXStoreModule = {
     setSuggestionText: (state, suggestionText: string) => {
       state.suggestionText = state.suggestionText.concat(suggestionText)
     },
-    setQueries: (state, queries: { query: string; categories: string[] }[]) => {
-      state.queries = [...state.queries, ...queries]
+    setQueries: (state, queries: AiSuggestionQuery[]) => {
+      state.queries = state.queries.concat(queries)
     },
     setTaggings: (state, taggings) => {
       state.taggings = taggings
@@ -65,8 +69,7 @@ export const aiXStoreModule: AiXStoreModule = {
     },
   },
   actions: {
-    fetchAiSuggestions,
-    fetchAiSuggestionsSearch,
+    fetchAndSaveAiSuggestions,
     fetchAndSaveAiSuggestionsSearch,
     setUrlParams,
   },

@@ -22,8 +22,8 @@ const setExtraParams = wireCommit('setParams')
 /** Sets the ai state `query`. */
 const setAiQuery = wireCommit('setQuery')
 
-/** Fetches the ai questions response. */
-const fetchAiSuggestions = wireDispatch('fetchAiSuggestions')
+/** Fetches the AI suggestions streaming response. */
+const fetchAndSaveAiSuggestions = wireDispatch('fetchAndSaveAiSuggestions')
 
 /** Fetches and save the ai suggestions search response. */
 const fetchAndSaveAiSuggestionsSearch = wireDispatch('fetchAndSaveAiSuggestionsSearch')
@@ -55,9 +55,9 @@ export const aiWiring = createWiring({
     resetAiState,
   },
   AiSuggestionsRequestUpdated: {
-    fetchAiSuggestions,
+    fetchAndSaveAiSuggestions,
   },
-  AiSuggestionsQueriesUpdated: {
+  AiSuggestionsSearchRequestUpdated: {
     fetchAndSaveAiSuggestionsSearch,
   },
   SelectedRelatedTagsChanged: {

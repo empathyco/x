@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.24 (2025-09-03)
+
+* refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
+* feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
+
+
+
+
+
+## 10.1.0-alpha.23 (2025-09-02)
+
+* chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+* chore: fix linter issues ([5018b7c](https://github.com/empathyco/x/commit/5018b7c))
+* chore: pr review ([8d9dded](https://github.com/empathyco/x/commit/8d9dded))
+* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+* feat: add ai suggestions request type ([9d92ae7](https://github.com/empathyco/x/commit/9d92ae7))
+* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+
+
+
+
+
 ## 10.1.0-alpha.22 (2025-09-01)
 
 * fix: avoid unnecessary export ([9322cd1](https://github.com/empathyco/x/commit/9322cd1))

@@ -53,7 +53,7 @@ interface MockedAdapterFeatures {
   experienceControls: ExperienceControlsResponse
   aiQuestions: AiQuestionsResponse
   aiTasks: AiTasksResponse
-  aiSuggestions: any
+  aiSuggestions: Response
   aiSuggestionsSearch: AiSuggestionsSearchResponse
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.1.0-alpha.22",
+  "version": "10.1.0-alpha.24",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.8",
+    "@empathyco/x-adapter": "^8.1.0-alpha.9",
     "@empathyco/x-utils": "^1.0.3-alpha.8",
     "tslib": "~2.8.1"
   },

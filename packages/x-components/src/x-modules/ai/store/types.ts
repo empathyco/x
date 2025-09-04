@@ -1,9 +1,9 @@
 import type {
   AiQuestion,
+  AiSuggestionQuery,
   AiSuggestionSearch,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
-  AiSuggestionsSearchResponse,
   RelatedTag,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
@@ -26,7 +26,7 @@ export interface AiState extends QueryState {
   /** The streamed field from suggestion response.*/
   responseText: string
   suggestionText: string
-  queries: { query: string; categories: string[] }[]
+  queries: AiSuggestionQuery[]
   taggings: AiQuestion['tagging'][]
 
   /** Loading state for the suggestions response */
@@ -54,10 +54,16 @@ export interface AiState extends QueryState {
  */
 export interface AiGetters {
   /**
-   * Request object to retrieve the questions using the ai questions adapter, or null if there is
-   * no valid data to conform a valid request.
+   * Request object to retrieve the streaming response using the ai suggestions adapter, or null if there is
+   * no valid query to conform a valid request.
    */
-  request: AiSuggestionsRequest | null
+  suggestionsRequest: AiSuggestionsRequest | null
+
+  /**
+   * Request object to retrieve the suggestions search based on queries or null if there is
+   * no valid queries to conform a valid request.
+   */
+  suggestionsSearchRequest: AiSuggestionsSearchRequest | null
 
   /** The combination of the query and the selected related tags. */
   query: string
@@ -82,7 +88,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   /**
    * Sets the suggestionText from the streamed response.
    *
-   * @param responseText - The new suggestionText.
+   * @param suggestionText - The new suggestionText.
    */
   setSuggestionText: (suggestionText: string) => void
 
@@ -91,12 +97,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param queries - The new queries.
    */
-  setQueries: (queries: { query: string; categories: string[] }[]) => Promise<void>
+  setQueries: (queries: AiSuggestionQuery[]) => void
 
   /**
    * Sets the taggings from the streamed response.
    *
-   * @param tagging - The new tagging.
+   * @param taggings - The new taggings.
    */
   setTaggings: (taggings: AiQuestion['tagging'][]) => void
 
@@ -149,23 +155,14 @@ export interface AiActions {
   /**
    * Requests suggestions for the module ai.
    *
-   * @param request - The ai request.
+   * @param request - The ai suggestions request.
    */
-  fetchAiSuggestions: (request: AiSuggestionsRequest | null) => void | null
+  fetchAndSaveAiSuggestions: (request: AiSuggestionsRequest | null) => void
 
   /**
    * Requests suggestions search for the module ai.
    *
-   * @param request - The ai request.
-   */
-  fetchAiSuggestionsSearch: (
-    request: AiSuggestionsSearchRequest | null,
-  ) => AiSuggestionsSearchResponse | null
-
-  /**
-   * Requests suggestions search for the module ai.
-   *
-   * @param request - The ai request.
+   * @param request - The ai suggestions search request.
    */
   fetchAndSaveAiSuggestionsSearch: (request: AiSuggestionsSearchRequest | null) => void
 

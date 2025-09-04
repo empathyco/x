@@ -30,17 +30,20 @@ describe('testing ai module actions', () => {
     resetAiStateWith(store)
   })
 
-  describe('fetchAiSuggestions', () => {
+  describe('fetchAndSaveAiSuggestions', () => {
     it('should return ai questions', async () => {
       resetAiStateWith(store, { query: 'ai test' })
 
       await expect(
-        store.dispatch('fetchAiSuggestions', store.getters.request),
+        store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest),
       ).resolves.toBeUndefined()
     })
-    it('should return null if there is no request', async () => {
-      const response = await store.dispatch('fetchAiSuggestions', store.getters.request)
-      expect(response).toBeNull()
+    it('should return undefined if there is no request', async () => {
+      const response = await store.dispatch(
+        'fetchAndSaveAiSuggestions',
+        store.getters.suggestionsRequest,
+      )
+      expect(response).toBeUndefined()
     })
   })
 })
