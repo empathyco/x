@@ -67,9 +67,6 @@ export interface AiGetters {
 
   /** The combination of the query and the selected related tags. */
   query: string
-
-  /** The combination of the suggestions stream loading and the suggestions search response loading. */
-  loading: boolean
 }
 
 /**

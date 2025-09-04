@@ -26,7 +26,6 @@ export const aiXStoreModule: AiXStoreModule = {
   getters: {
     suggestionsRequest,
     suggestionsSearchRequest,
-    loading: state => state.suggestionsLoading || state.suggestionsSearchLoading,
     query,
   },
   mutations: {
