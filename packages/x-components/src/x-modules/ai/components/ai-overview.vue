@@ -177,7 +177,14 @@ export default defineComponent({
 </script>
 <style lang="css">
 .x-ai-overview {
-  @apply x-relative x-rounded-lg x-bg-lead-25;
+  --color: var(--x-ai-overview-color, #bbc9cf);
+  --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
+  --color-lightest: var(
+    --x-ai-overview-color-lightest,
+    color-mix(in srgb, var(--color) 75%, white)
+  );
+
+  @apply x-relative x-rounded-lg x-bg-[var(--color-lighter)];
 }
 
 .x-ai-overview:not(.x-ai-overview--loading, .x-ai-overview--expanded) {
@@ -192,7 +199,7 @@ export default defineComponent({
   @apply x-flex x-items-center x-gap-1.5 x-mb-8;
 }
 .x-ai-overview-title-loading-indicator {
-  @apply x-size-3 x-animate-pulse x-rounded-full x-bg-lead-50;
+  @apply x-size-3 x-animate-pulse x-rounded-full x-bg-[var(--color)];
 }
 .x-ai-overview-title-loading-text {
   @apply x-animate-pulse x-text-xs;
@@ -202,23 +209,23 @@ export default defineComponent({
   @apply x-flex x-text-sm x-font-bold x-gap-4 x-items-center x-mb-8;
 }
 .x-ai-overview-title-icon {
-  @apply x-icon x-text-lead-50;
+  @apply x-icon x-text-[var(--color)];
 }
 
 .x-ai-overview-loading-content {
   @apply x-flex x-w-full x-flex-col x-gap-4 x-animate-pulse;
 }
 .x-ai-overview-loading-content > span:first-child {
-  @apply x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75;
+  @apply x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)];
 }
 .x-ai-overview-loading-content > span:nth-child(2) {
-  @apply x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-75 x-to-100% x-to-lead-50 x-opacity-50;
+  @apply x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color-lightest)] x-to-100% x-to-[var(--color)] x-opacity-50;
 }
 .x-ai-overview-loading-content > span:nth-child(3) {
-  @apply x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75;
+  @apply x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)];
 }
 .x-ai-overview-loading-content > span:nth-child(4) {
-  @apply x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-lead-50 x-to-100% x-to-lead-75 x-opacity-75;
+  @apply x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)] x-opacity-75;
 }
 
 .x-ai-overview-content {
@@ -229,7 +236,7 @@ export default defineComponent({
 }
 
 .x-ai-overview-gradient {
-  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-lead-25;
+  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-[var(--color-lighter)];
 }
 
 .x-ai-overview-expand-wrapper {
