@@ -54,17 +54,19 @@
             >
               <BaseEventButton
                 class="x-ai-overview-suggestion-query-btn"
-                :events="{ UserAcceptedAQueryPreview: { query, extraParams } }"
+                :events="{ UserAcceptedAQuery: query }"
               >
                 {{ query }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
               </BaseEventButton>
               <SlidingPanel :reset-on-content-change="false">
                 <ul class="x-ai-overview-suggestion-results">
-                  <li v-for="result in results" :key="result.id">
-                    <!-- @slot result card -->
-                    <slot name="result" :result="result">
-                      <Result :result="result" class="x-ai-overview-suggestion-result" />
-                    </slot>
+                  <li
+                    v-for="result in results"
+                    :key="result.id"
+                    data-test="ai-overview-suggestion-result"
+                  >
+                    <!-- @slot (required) result card -->
+                    <slot name="result" :result="result" />
                   </li>
                 </ul>
               </SlidingPanel>
@@ -104,7 +106,6 @@ import {
 } from '../../../components'
 import { useGetter, useState } from '../../../composables'
 import { typing } from '../../../directives'
-import Result from '../../../views/home/result.vue'
 import { aiXModule } from '../x-module'
 
 export default defineComponent({
@@ -121,7 +122,6 @@ export default defineComponent({
     ChangeHeight,
     Fade,
     SlidingPanel,
-    Result,
   },
   props: {
     /**
@@ -154,7 +154,7 @@ export default defineComponent({
   },
   setup() {
     const { query, loading } = useGetter('ai')
-    const { suggestionText, responseText, suggestionsSearch, params: extraParams } = useState('ai')
+    const { suggestionText, responseText, suggestionsSearch } = useState('ai')
 
     const expanded = ref(false)
 
@@ -171,7 +171,6 @@ export default defineComponent({
       suggestionText,
       responseText,
       suggestionsSearch,
-      extraParams,
     }
   },
 })
@@ -256,8 +255,5 @@ export default defineComponent({
 }
 .x-ai-overview-suggestion-results {
   @apply x-flex x-gap-16 x-px-16;
-}
-.x-ai-overview-suggestion-result {
-  @apply x-w-[150px];
 }
 </style>

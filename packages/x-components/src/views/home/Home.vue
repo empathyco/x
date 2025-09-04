@@ -308,7 +308,11 @@
               </LocationProvider>
             </template>
 
-            <AiOverview class="x-mb-28" />
+            <AiOverview v-if="x.query.search" class="x-mb-28">
+              <template #result="{ result }">
+                <Result :result="result" class="x-w-[150px]" />
+              </template>
+            </AiOverview>
 
             <!-- Results -->
             <LocationProvider location="results">

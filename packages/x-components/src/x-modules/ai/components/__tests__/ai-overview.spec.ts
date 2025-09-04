@@ -12,7 +12,6 @@ import {
   SlidingPanel,
 } from '../../../../components'
 import { useGetter, useState } from '../../../../composables'
-import Result from '../../../../views/home/result.vue'
 import AIOverview from '../ai-overview.vue'
 
 jest.mock('../../../../composables')
@@ -50,7 +49,6 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
         el.innerHTML = binding.value.text
       },
     },
-    global: { stubs: { Result: true } },
   })
 
   return {
@@ -142,19 +140,15 @@ describe('ai-overview component', () => {
     useStateStub.suggestionsSearch.value.forEach((suggestionSearch, index) => {
       expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
       expect(sut.baseEventButtons[index].props('events')).toStrictEqual({
-        UserAcceptedAQueryPreview: {
-          query: suggestionSearch.query,
-          extraParams: useStateStub.params.value,
-        },
+        UserAcceptedAQuery: suggestionSearch.query,
       })
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
 
-      const results = sut.slidingPanels[index].findAllComponents(Result)
+      const results = sut.slidingPanels[index].findAll(
+        getDataTestSelector('ai-overview-suggestion-result'),
+      )
 
       expect(results).toHaveLength(suggestionSearch.results.length)
-      suggestionSearch.results.forEach((result, resultIndex) => {
-        expect(results[resultIndex].props('result')).toStrictEqual(result)
-      })
     })
 
     expect(sut.gradientBottom.exists()).toBeTruthy()
