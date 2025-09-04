@@ -417,6 +417,10 @@ export default defineComponent({
   overflow-y: scroll;
 }
 
+.x-layout__main-body {
+  overflow-x: hidden;
+}
+
 .x-layout__scroll-to-top {
   /* layout */
   grid-area: scroll-to-top;
