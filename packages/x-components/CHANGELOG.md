@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.133 (2025-09-04)
+
+* feat(AiOverview): component implementation (#1861) ([17b6535](https://github.com/empathyco/x/commit/17b6535)), closes [#1861](https://github.com/empathyco/x/issues/1861)
+
+
+
+
+
 ## 6.0.0-alpha.132 (2025-09-03)
 
 * test: fix unit tests ([604b2a1](https://github.com/empathyco/x/commit/604b2a1))
