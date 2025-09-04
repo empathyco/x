@@ -18,7 +18,6 @@ jest.mock('../../../../composables')
 
 const useGettersStub = {
   query: ref('query text'),
-  loading: ref(false),
 }
 const useStateStub = {
   suggestionText: ref('suggestion text'),
@@ -29,6 +28,7 @@ const useStateStub = {
     { query: 'suggestion 3', results: getResultsStub() },
   ]),
   params: ref({ param1: 'value1', param2: 'value2' }),
+  suggestionsLoading: ref(false),
 }
 const useGettersMock = jest.fn(() => useGettersStub)
 const useStateMock = jest.fn(() => useStateStub)
@@ -53,9 +53,6 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
 
   return {
     wrapper,
-    get container() {
-      return wrapper.find(getDataTestSelector('ai-overview-container'))
-    },
     get titleLoading() {
       return wrapper.find(getDataTestSelector('ai-overview-title-loading'))
     },
@@ -107,7 +104,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
   }
 }
 
-describe.skip('ai-overview component', () => {
+describe('ai-overview component', () => {
   beforeEach(() => {
     jest.restoreAllMocks()
     jest.clearAllMocks()
@@ -118,8 +115,6 @@ describe.skip('ai-overview component', () => {
   it('should render the component by default', () => {
     const sut = render()
 
-    expect(sut.container.classes()).not.toContain('x-ai-overview--loading')
-    expect(sut.container.classes()).not.toContain('x-ai-overview--expanded')
     expect(sut.titleLoading.exists()).toBeFalsy()
     expect(sut.title.exists()).toBeTruthy()
     expect(sut.title.text()).toBe(propsStub.title)
@@ -151,43 +146,39 @@ describe.skip('ai-overview component', () => {
       expect(results).toHaveLength(suggestionSearch.results.length)
     })
 
-    expect(sut.gradientBottom.exists()).toBeTruthy()
-    expect(sut.expandButton.exists()).toBeTruthy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.expandButton.isVisible()).toBeTruthy()
     expect(sut.expandButton.text()).toBe(propsStub.buttonText)
     expect(sut.chevronDownIcon.exists()).toBeTruthy()
   })
 
   it('should render with loading state correctly', () => {
-    jest.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, loading: ref(true) }))
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: ref(true) }))
 
     const sut = render()
 
-    expect(sut.container.isVisible()).toBeTruthy()
-    expect(sut.container.classes()).toContain('x-ai-overview--loading')
     expect(sut.titleLoading.exists()).toBeTruthy()
     expect(sut.titleLoading.text()).toBe(propsStub.titleLoading)
     expect(sut.title.exists()).toBeFalsy()
     expect(sut.content.exists()).toBeFalsy()
     expect(sut.loadingContent.exists()).toBeTruthy()
     expect(sut.loadingItems).toHaveLength(4)
-    expect(sut.gradientBottom.exists()).toBeFalsy()
-    expect(sut.expandButton.exists()).toBeFalsy()
   })
 
   it('should render with expanded state correctly', async () => {
     const sut = render()
 
-    expect(sut.container.classes()).not.toContain('x-ai-overview--expanded')
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.exists()).toBeTruthy()
-    expect(sut.expandButton.exists()).toBeTruthy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.expandButton.isVisible()).toBeTruthy()
 
     await sut.expandButton.trigger('click')
 
-    expect(sut.container.classes()).toContain('x-ai-overview--expanded')
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.exists()).toBeFalsy()
-    expect(sut.expandButton.exists()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeFalsy()
+    expect(sut.expandButton.isVisible()).toBeFalsy()
   })
 
   it('should collapse the suggestions when the query changes', async () => {
@@ -195,17 +186,27 @@ describe.skip('ai-overview component', () => {
 
     await sut.expandButton.trigger('click')
 
-    expect(sut.container.classes()).toContain('x-ai-overview--expanded')
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.exists()).toBeFalsy()
-    expect(sut.expandButton.exists()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeFalsy()
+    expect(sut.expandButton.isVisible()).toBeFalsy()
 
     useGettersStub.query.value = 'new query text'
     await sut.wrapper.vm.$nextTick()
 
-    expect(sut.container.classes()).not.toContain('x-ai-overview--expanded')
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.exists()).toBeTruthy()
-    expect(sut.expandButton.exists()).toBeTruthy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.expandButton.isVisible()).toBeTruthy()
+  })
+
+  it('should render correctly if suggestionsSearch is empty', () => {
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsSearch: ref([]) }))
+
+    const sut = render()
+
+    expect(sut.suggestionsContainer.exists()).toBeFalsy()
+    expect(sut.expandButton.isVisible()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeFalsy()
   })
 })
