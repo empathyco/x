@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.134 (2025-09-04)
+
+* chore: minor adjustment ([ae27549](https://github.com/empathyco/x/commit/ae27549))
+* chore(ai-store): remove unused getter ([1ea4ff3](https://github.com/empathyco/x/commit/1ea4ff3))
+* feat(AiOverview): adjust style ([db7653f](https://github.com/empathyco/x/commit/db7653f))
+
+
+
+
+
 ## 6.0.0-alpha.133 (2025-09-04)
 
 * feat(AiOverview): component implementation (#1861) ([17b6535](https://github.com/empathyco/x/commit/17b6535)), closes [#1861](https://github.com/empathyco/x/issues/1861)
