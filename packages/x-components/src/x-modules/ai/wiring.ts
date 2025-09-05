@@ -48,13 +48,12 @@ export const aiWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setAiQuery,
-    resetAiState,
   },
   UserClearedQuery: {
     setAiQuery,
-    resetAiState,
   },
   AiSuggestionsRequestUpdated: {
+    resetAiState,
     fetchAndSaveAiSuggestions,
   },
   AiSuggestionsSearchRequestUpdated: {
