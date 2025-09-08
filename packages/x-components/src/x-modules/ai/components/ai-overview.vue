@@ -33,7 +33,7 @@
       </ChangeHeight>
     </div>
     <CollapseHeight
-      v-if="suggestionsSearch.length"
+      v-if="queries.length"
       :style="{
         '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
       }"
@@ -41,55 +41,70 @@
     >
       <div v-show="expanded" data-test="ai-overview-suggestions-container">
         <!-- @slot suggestions-search content -->
-        <slot :suggestions-search="suggestionsSearch">
+        <slot :suggestions-search="suggestionsSearch" :queries="queries">
           <div class="x-ai-overview-suggestions">
-            <div
-              v-for="{ query, results } in suggestionsSearch"
-              :key="query"
-              class="x-ai-overview-suggestion"
-            >
+            <div v-for="{ query } in queries" :key="query" class="x-ai-overview-suggestion">
               <BaseEventButton
                 class="x-ai-overview-suggestion-query-btn"
                 :events="{ UserAcceptedAQuery: query }"
               >
                 {{ query }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
               </BaseEventButton>
-              <SlidingPanel :reset-on-content-change="false">
-                <ul class="x-ai-overview-suggestion-results">
-                  <li
-                    v-for="result in results"
-                    :key="result.id"
-                    data-test="ai-overview-suggestion-result"
-                  >
-                    <!-- @slot (required) result card -->
-                    <slot name="result" :result="result" />
-                  </li>
-                </ul>
-              </SlidingPanel>
+              <!-- @slot suggestion query result list -->
+              <slot name="query-results" :query-results="queriesResults[query]">
+                <SlidingPanel v-if="queriesResults[query]" :reset-on-content-change="false">
+                  <ul class="x-ai-overview-suggestion-results">
+                    <li
+                      v-for="result in queriesResults[query]"
+                      :key="result.id"
+                      data-test="ai-overview-suggestion-result"
+                    >
+                      <!-- @slot (required) result card -->
+                      <slot name="result" :result="result" />
+                    </li>
+                  </ul>
+                </SlidingPanel>
+              </slot>
             </div>
           </div>
         </slot>
       </div>
     </CollapseHeight>
-    <div v-show="suggestionsSearch.length && !expanded">
-      <div class="x-ai-overview-gradient" data-test="ai-overview-gradient" @click="open" />
-      <div class="x-ai-overview-expand-wrapper">
-        <button
-          class="x-ai-overview-expand-btn"
-          data-test="ai-overview-expand-button"
-          @click="open"
-        >
-          {{ buttonText }}
-          <ChevronDownIcon class="x-ai-overview-expand-btn-icon" />
-        </button>
+    <div v-show="queries.length">
+      <div
+        v-show="!expanded"
+        class="x-ai-overview-gradient"
+        data-test="ai-overview-gradient"
+        @click="toggleVisibility"
+      />
+      <div class="x-ai-overview-toggle-wrapper">
+        <!-- @slot toggle button -->
+        <slot name="toggle-button" :toggle-visibility="toggleVisibility">
+          <button
+            class="x-ai-overview-toggle-btn"
+            data-test="ai-overview-toggle-button"
+            @click="toggleVisibility"
+          >
+            {{ buttonText }}
+            <ChevronDownIcon
+              class="x-ai-overview-toggle-btn-icon"
+              :class="
+                expanded
+                  ? 'x-ai-overview-toggle-btn-icon-expanded'
+                  : 'x-ai-overview-toggle-btn-icon-collapsed'
+              "
+            />
+          </button>
+        </slot>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import type { AiSuggestionSearch } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -139,34 +154,59 @@ export default defineComponent({
       default: 'Generating with Empathy AI',
     },
     /**
-     * The text displayed on the expand button.
+     * The text displayed on the toggle button when collapsed.
      *
      * @public
      */
-    buttonText: {
+    expandText: {
       type: String as PropType<string>,
       default: 'Show more',
     },
+    /**
+     * The text displayed on the toggle button when expanded.
+     *
+     * @public
+     */
+    collapseText: {
+      type: String as PropType<string>,
+      default: 'Show less',
+    },
   },
-  setup() {
+  setup(props) {
     const { query } = useGetter('ai')
-    const { suggestionText, responseText, suggestionsSearch, suggestionsLoading } = useState('ai')
+    const { suggestionText, responseText, queries, suggestionsSearch, suggestionsLoading } =
+      useState('ai')
 
     const expanded = ref(false)
 
-    function open() {
-      expanded.value = true
+    const queriesResults = computed(() => {
+      return suggestionsSearch.value.reduce(
+        (acc: Record<string, AiSuggestionSearch['results']>, { query, results }) => {
+          acc[query] = results
+          return acc
+        },
+        {},
+      )
+    })
+
+    const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
+
+    function toggleVisibility() {
+      expanded.value = !expanded.value
     }
 
     watch(query, () => (expanded.value = false))
 
     return {
-      open,
+      buttonText,
       expanded,
+      queries,
       responseText,
-      suggestionText,
-      suggestionsSearch,
       suggestionsLoading,
+      queriesResults,
+      suggestionsSearch,
+      suggestionText,
+      toggleVisibility,
     }
   },
 })
@@ -231,14 +271,20 @@ export default defineComponent({
   @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-[var(--color-lighter)];
 }
 
-.x-ai-overview-expand-wrapper {
+.x-ai-overview-toggle-wrapper {
   @apply x-flex x-relative x-z-[1];
 }
-.x-ai-overview-expand-btn {
+.x-ai-overview-toggle-btn {
   @apply x-button x-button-outlined x-rounded-full x-w-full;
 }
-.x-ai-overview-expand-btn-icon {
-  @apply x-icon;
+.x-ai-overview-toggle-btn-icon {
+  @apply x-icon x-transition-all x-duration-300;
+}
+.x-ai-overview-toggle-btn-icon-expanded {
+  @apply x-rotate-0;
+}
+.x-ai-overview-toggle-btn-icon-collapsed {
+  @apply x-rotate-180;
 }
 .x-ai-overview-suggestion-query-btn {
   @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;

@@ -27,6 +27,7 @@ const useStateStub = {
     { query: 'suggestion 2', results: getResultsStub() },
     { query: 'suggestion 3', results: getResultsStub() },
   ]),
+  queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
 }
@@ -36,7 +37,8 @@ const useStateMock = jest.fn(() => useStateStub)
 const propsStub = {
   title: 'Empathy AI Overview',
   titleLoading: 'Loading AI Overview',
-  buttonText: 'Show more',
+  expandText: 'Show more',
+  collapseText: 'Show less',
 }
 
 function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
@@ -95,8 +97,8 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get gradientBottom() {
       return wrapper.find(getDataTestSelector('ai-overview-gradient'))
     },
-    get expandButton() {
-      return wrapper.find(getDataTestSelector('ai-overview-expand-button'))
+    get toggleButton() {
+      return wrapper.find(getDataTestSelector('ai-overview-toggle-button'))
     },
     get chevronDownIcon() {
       return wrapper.findComponent(ChevronDownIcon)
@@ -147,9 +149,10 @@ describe('ai-overview component', () => {
     })
 
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.expandButton.isVisible()).toBeTruthy()
-    expect(sut.expandButton.text()).toBe(propsStub.buttonText)
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
     expect(sut.chevronDownIcon.exists()).toBeTruthy()
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
   it('should render with loading state correctly', () => {
@@ -172,41 +175,47 @@ describe('ai-overview component', () => {
 
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.expandButton.isVisible()).toBeTruthy()
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
 
-    await sut.expandButton.trigger('click')
+    await sut.toggleButton.trigger('click')
 
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.expandButton.isVisible()).toBeFalsy()
+    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-collapsed')
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
   it('should collapse the suggestions when the query changes', async () => {
     const sut = render()
 
-    await sut.expandButton.trigger('click')
+    await sut.toggleButton.trigger('click')
 
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.expandButton.isVisible()).toBeFalsy()
+    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-collapsed')
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
 
     useGettersStub.query.value = 'new query text'
     await sut.wrapper.vm.$nextTick()
 
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.expandButton.isVisible()).toBeTruthy()
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
-  it('should render correctly if suggestionsSearch is empty', () => {
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, suggestionsSearch: ref([]) }))
+  it('should render correctly if suggestion queries is empty', () => {
+    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, queries: ref([]) }))
 
     const sut = render()
 
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
-    expect(sut.expandButton.isVisible()).toBeFalsy()
+    expect(sut.toggleButton.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
   })
 })
