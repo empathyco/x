@@ -16,4 +16,5 @@ export const aiSuggestionSearchSchema = createMutableSchema<
     $path: 'results',
     $subSchema: resultSchema,
   },
+  numFound: 'numFound',
 })

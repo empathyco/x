@@ -7,4 +7,5 @@ import type { PlatformResult } from '../result.model'
 export interface PlatformAiSuggestionSearch {
   query: string
   results: PlatformResult[]
+  numFound: number
 }

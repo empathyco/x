@@ -55,7 +55,7 @@
                 <SlidingPanel v-if="queriesResults[query]" :reset-on-content-change="false">
                   <ul class="x-ai-overview-suggestion-results">
                     <li
-                      v-for="result in queriesResults[query]"
+                      v-for="result in queriesResults[query].results"
                       :key="result.id"
                       data-test="ai-overview-suggestion-result"
                     >
@@ -181,8 +181,11 @@ export default defineComponent({
 
     const queriesResults = computed(() => {
       return suggestionsSearch.value.reduce(
-        (acc: Record<string, AiSuggestionSearch['results']>, { query, results }) => {
-          acc[query] = results
+        (
+          acc: Record<string, { results: AiSuggestionSearch['results']; numFound: number }>,
+          { query, results, numFound },
+        ) => {
+          acc[query] = { results, numFound }
           return acc
         },
         {},
