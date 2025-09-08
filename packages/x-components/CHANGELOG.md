@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.137 (2025-09-08)
+
+* feat(AiOverview): minor component adjustments (#1867) ([554cd79](https://github.com/empathyco/x/commit/554cd79)), closes [#1867](https://github.com/empathyco/x/issues/1867)
+
+
+
+
+
 ## 6.0.0-alpha.136 (2025-09-05)
 
 * fix(ai): reset state handling (#1864) ([29aa62c](https://github.com/empathyco/x/commit/29aa62c)), closes [#1864](https://github.com/empathyco/x/issues/1864)
