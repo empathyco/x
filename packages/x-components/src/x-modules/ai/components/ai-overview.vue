@@ -79,7 +79,7 @@
       />
       <div class="x-ai-overview-toggle-wrapper">
         <!-- @slot toggle button -->
-        <slot name="toggle-button" :toggle-visibility="toggleVisibility">
+        <slot name="toggle-button" v-bind="{ expanded, toggleVisibility, buttonText }">
           <button
             class="x-ai-overview-toggle-btn"
             data-test="ai-overview-toggle-button"
