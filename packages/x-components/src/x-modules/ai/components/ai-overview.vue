@@ -261,10 +261,10 @@ export default defineComponent({
   @apply x-icon x-transition-all x-duration-300;
 }
 .x-ai-overview-toggle-btn-icon-expanded {
-  @apply x-rotate-0;
+  @apply x-rotate-180;
 }
 .x-ai-overview-toggle-btn-icon-collapsed {
-  @apply x-rotate-180;
+  @apply x-rotate-0;
 }
 .x-ai-overview-suggestion-query-btn {
   @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;
