@@ -1,12 +1,9 @@
-import type { Result } from '../../result/result.model'
+import type { AiSuggestionSearch } from '../../ai'
 
 /**
  * Response for the AI suggestions search endpoint.
  * @public
  */
 export interface AiSuggestionsSearchResponse {
-  suggestions: {
-    query: string
-    results: Result[]
-  }[]
+  suggestions: AiSuggestionSearch[]
 }
