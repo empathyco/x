@@ -2,7 +2,6 @@ import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/
 import type { DeepPartial } from '@empathyco/x-utils'
 import type {
   PlatformAiQuestionsResponse,
-  PlatformAiSuggestionsSearchResponse,
   PlatformAiTasksResponse,
   PlatformExperienceControlsResponse,
 } from '../types'
@@ -13,9 +12,13 @@ import type { PlatformRelatedTagsResponse } from '../types/responses/related-tag
 import type { PlatformSearchResponse } from '../types/responses/search-response.model'
 import type { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model'
 import { platformAdapter } from '../platform.adapter'
+import {
+  aiSuggestionsSearchResponse,
+  platformAiSuggestionsSearchResponse,
+} from './__fixtures__/ai/suggestions-search.response'
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response'
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response'
-import { platformResult, result } from './__fixtures__/result'
+import { result } from './__fixtures__/result'
 import { getFetchMock } from './__mocks__/fetch.mock'
 
 const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
@@ -783,9 +786,6 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the ai suggestions search endpoint', async () => {
-    const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchResponse = {
-      items: [{ query: 'test', results: [platformResult] }],
-    }
     const instanceStub = 'empathy'
     const langStub = 'en'
     const queriesStub = [
@@ -828,10 +828,6 @@ describe('platformAdapter tests', () => {
       },
     )
 
-    const aiSuggestionsSearchResponse = {
-      suggestions: [{ query: 'test', results: [result] }],
-    }
-    // Ensure the response matches AiOverviewSuggestionsSearch interface
     expect(response).toStrictEqual(aiSuggestionsSearchResponse)
   })
 })
