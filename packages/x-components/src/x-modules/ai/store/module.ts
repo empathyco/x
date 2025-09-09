@@ -31,13 +31,13 @@ export const aiXStoreModule: AiXStoreModule = {
   mutations: {
     /* Streamed fields */
     setResponseText: (state, responseText: string) => {
-      state.responseText = state.responseText.concat(responseText)
+      state.responseText = responseText
     },
     setSuggestionText: (state, suggestionText: string) => {
-      state.suggestionText = state.suggestionText.concat(suggestionText)
+      state.suggestionText = suggestionText
     },
     setQueries: (state, queries: AiSuggestionQuery[]) => {
-      state.queries = state.queries.concat(queries)
+      state.queries = queries
     },
     setTaggings: (state, taggings) => {
       state.taggings = taggings
