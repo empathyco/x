@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.25 (2025-09-09)
+
+* chore: adapt AiSuggestionsSearchResponse type ([8fd6215](https://github.com/empathyco/x/commit/8fd6215))
+* feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
+
+
+
+
+
 ## 10.1.0-alpha.24 (2025-09-03)
 
 * refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
