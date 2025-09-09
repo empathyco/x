@@ -7,4 +7,5 @@ import type { Result } from '../result'
 export interface AiSuggestionSearch {
   query: string
   results: Result[]
+  numFound: number
 }

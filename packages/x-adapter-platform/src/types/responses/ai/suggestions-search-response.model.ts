@@ -9,5 +9,6 @@ export interface PlatformAiSuggestionsSearchResponse {
   items: {
     query: string
     results: PlatformResult[]
+    numFound: number
   }[]
 }
