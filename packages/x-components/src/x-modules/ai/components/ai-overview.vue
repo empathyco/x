@@ -19,14 +19,7 @@
         </span>
       </Fade>
       <ChangeHeight>
-        <div
-          v-if="suggestionsLoading"
-          class="x-ai-overview-loading-content"
-          data-test="ai-overview-loading-content"
-        >
-          <span v-for="i in 4" :key="i" data-test="ai-overview-loading-item" />
-        </div>
-        <div v-else class="x-ai-overview-content" data-test="ai-overview-content">
+        <div class="x-ai-overview-content" data-test="ai-overview-content">
           <span>{{ suggestionText }}</span>
           <p>{{ responseText }}</p>
         </div>
@@ -218,10 +211,6 @@ export default defineComponent({
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
   --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
-  --color-lightest: var(
-    --x-ai-overview-color-lightest,
-    color-mix(in srgb, var(--color) 75%, white)
-  );
 
   @apply x-relative x-rounded-3xl x-bg-[var(--color-lighter)];
 }
@@ -247,22 +236,6 @@ export default defineComponent({
   @apply x-icon x-text-[var(--color)];
 }
 
-.x-ai-overview-loading-content {
-  @apply x-flex x-w-full x-flex-col x-gap-4 x-animate-pulse;
-}
-.x-ai-overview-loading-content > span:first-child {
-  @apply x-h-16 x-w-full x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)];
-}
-.x-ai-overview-loading-content > span:nth-child(2) {
-  @apply x-h-16 x-w-3/4 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color-lightest)] x-to-100% x-to-[var(--color)] x-opacity-50;
-}
-.x-ai-overview-loading-content > span:nth-child(3) {
-  @apply x-h-16 x-w-11/12 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)];
-}
-.x-ai-overview-loading-content > span:nth-child(4) {
-  @apply x-h-16 x-w-1/2 x-rounded-full x-bg-gradient-to-r x-from-0% x-from-[var(--color)] x-to-100% x-to-[var(--color-lightest)] x-opacity-75;
-}
-
 .x-ai-overview-content {
   @apply x-flex x-flex-col x-text-left x-leading-5 x-gap-2;
 }
@@ -284,10 +257,10 @@ export default defineComponent({
   @apply x-icon x-transition-all x-duration-300;
 }
 .x-ai-overview-toggle-btn-icon-expanded {
-  @apply x-rotate-0;
+  @apply x-rotate-180;
 }
 .x-ai-overview-toggle-btn-icon-collapsed {
-  @apply x-rotate-180;
+  @apply x-rotate-0;
 }
 .x-ai-overview-suggestion-query-btn {
   @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;

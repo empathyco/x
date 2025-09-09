@@ -67,12 +67,6 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get aiStarIcon() {
       return wrapper.findComponent(AIStarIcon)
     },
-    get loadingContent() {
-      return wrapper.find(getDataTestSelector('ai-overview-loading-content'))
-    },
-    get loadingItems() {
-      return wrapper.findAll(getDataTestSelector('ai-overview-loading-item'))
-    },
     get content() {
       return wrapper.find(getDataTestSelector('ai-overview-content'))
     },
@@ -121,8 +115,6 @@ describe('ai-overview component', () => {
     expect(sut.title.exists()).toBeTruthy()
     expect(sut.title.text()).toBe(propsStub.title)
     expect(sut.aiStarIcon.exists()).toBeTruthy()
-    expect(sut.loadingContent.exists()).toBeFalsy()
-    expect(sut.content.exists()).toBeTruthy()
     expect(sut.content.text()).toContain(useStateStub.suggestionText.value)
     expect(sut.content.text()).toContain(useStateStub.responseText.value)
     expect(sut.collapseHeightSuggestions.exists()).toBeTruthy()
@@ -165,9 +157,6 @@ describe('ai-overview component', () => {
     expect(sut.titleLoading.exists()).toBeTruthy()
     expect(sut.titleLoading.text()).toBe(propsStub.titleLoading)
     expect(sut.title.exists()).toBeFalsy()
-    expect(sut.content.exists()).toBeFalsy()
-    expect(sut.loadingContent.exists()).toBeTruthy()
-    expect(sut.loadingItems).toHaveLength(4)
   })
 
   it('should render with expanded state correctly', async () => {
