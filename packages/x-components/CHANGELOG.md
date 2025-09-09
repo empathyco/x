@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.139 (2025-09-09)
+
+* chore: pr review ([d30c56f](https://github.com/empathyco/x/commit/d30c56f))
+* style(AiOverview): minor adjustment ([7728c9f](https://github.com/empathyco/x/commit/7728c9f))
+* feat(AiOverview): remove the skeleton to display the incremental content from the store ([1d41ee5](https://github.com/empathyco/x/commit/1d41ee5))
+
+
+
+
+
 ## 6.0.0-alpha.138 (2025-09-09)
 
 * feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
