@@ -211,10 +211,6 @@ export default defineComponent({
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
   --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
-  --color-lightest: var(
-    --x-ai-overview-color-lightest,
-    color-mix(in srgb, var(--color) 75%, white)
-  );
 
   @apply x-relative x-rounded-3xl x-bg-[var(--color-lighter)];
 }
