@@ -215,7 +215,7 @@ export default defineComponent({
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
     function setExpanded(newValue: boolean) {
-      $x.emit('UserClickedAiOverviewButton', expanded.value, {
+      $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
         suggestionText: suggestionText.value,
         toolingDisplayClick: tagging.value?.toolingDisplayClick,
       })

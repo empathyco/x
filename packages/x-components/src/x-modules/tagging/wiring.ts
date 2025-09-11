@@ -517,7 +517,7 @@ export const taggingWiring = createWiring({
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
   },
-  UserClickedAiOverviewButton: {
+  UserClickedAiOverviewExpandButton: {
     trackAiOverviewButtonClickedWire,
   },
 })

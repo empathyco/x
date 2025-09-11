@@ -223,7 +223,7 @@ describe('ai-overview component', () => {
 
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
 
-    expect(emitMock).toHaveBeenNthCalledWith(1, 'UserClickedAiOverviewButton', false, {
+    expect(emitMock).toHaveBeenNthCalledWith(1, 'UserClickedAiOverviewExpandButton', false, {
       suggestionText: useStateStub.suggestionText.value,
       toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
     })
