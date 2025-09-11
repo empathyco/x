@@ -36,7 +36,13 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../utils/types'
-import { useElementBounding, useMutationObserver, useScroll } from '@vueuse/core'
+import {
+  useElementBounding,
+  useElementVisibility,
+  useMutationObserver,
+  useScroll,
+  whenever,
+} from '@vueuse/core'
 import { computed, defineComponent, ref } from 'vue'
 
 /**
@@ -79,8 +85,13 @@ export default defineComponent({
     const scrollContainerRef = ref<HTMLDivElement>()
 
     const { width: slotContainerWidth } = useElementBounding(scrollContainerRef)
+    const isVisible = useElementVisibility(scrollContainerRef)
 
-    const { x: xScroll, arrivedState } = useScroll(scrollContainerRef, {
+    const {
+      x: xScroll,
+      arrivedState,
+      measure,
+    } = useScroll(scrollContainerRef, {
       behavior: 'smooth',
     })
 
@@ -106,6 +117,9 @@ export default defineComponent({
         },
       )
     }
+    //ensure positions are right calculated as soon as the sliding panel is shown
+    whenever(isVisible, measure)
+
     return {
       arrivedState,
       cssClasses,
