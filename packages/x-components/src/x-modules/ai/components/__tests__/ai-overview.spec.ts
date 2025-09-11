@@ -43,6 +43,8 @@ const propsStub = {
   titleLoading: 'Loading AI Overview',
   expandText: 'Show more',
   collapseText: 'Show less',
+  slidingPanelsClasses: 'scroll-x',
+  slidingPanelContainersClasses: 'mx-auto',
 }
 
 function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
@@ -149,7 +151,10 @@ describe('ai-overview component', () => {
         UserAcceptedAQuery: suggestionSearch.query,
       })
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
-
+      expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
+        propsStub.slidingPanelContainersClasses,
+      )
+      expect(sut.slidingPanels[index].classes()).toContain(propsStub.slidingPanelsClasses)
       const results = sut.slidingPanels[index].findAll(
         getDataTestSelector('ai-overview-suggestion-result'),
       )
