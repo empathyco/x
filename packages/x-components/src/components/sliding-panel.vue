@@ -1,45 +1,43 @@
 <template>
   <div v-if="slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
-    <button
-      v-if="showButtons"
-      class="x-sliding-panel__button x-button x-sliding-panel-button-left"
-      :class="buttonClass"
-      data-test="sliding-panel-left-button"
-      @click="scrollLeft"
-    >
-      <!-- @slot Left button content -->
-      <slot name="sliding-panel-left-button">ᐸ</slot>
-    </button>
     <div
       ref="scrollContainerRef"
       :class="scrollContainerClass"
       class="x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
-      @scroll="debouncedUpdateScroll"
-      @transitionend="debouncedUpdateScroll"
-      @animationend="debouncedUpdateScroll"
     >
       <!-- @slot (Required) Sliding panel content -->
       <slot />
     </div>
-    <button
-      v-if="showButtons"
-      class="x-sliding-panel__button x-button x-sliding-panel-button-right"
-      :class="buttonClass"
-      data-test="sliding-panel-right-button"
-      @click="scrollRight"
-    >
-      <!-- @slot Right button content -->
-      <slot name="sliding-panel-right-button">ᐳ</slot>
-    </button>
+    <slot name="sliding-panel-addons" :arrived-state="arrivedState" :scroll="xScroll" />
+    <template v-if="showButtons">
+      <button
+        class="x-sliding-panel__button x-button x-sliding-panel-button-left"
+        :class="buttonClass"
+        data-test="sliding-panel-left-button"
+        @click="xScroll -= slotContainerWidth * scrollFactor"
+      >
+        <!-- @slot Left button content -->
+        <slot name="sliding-panel-left-button">ᐸ</slot>
+      </button>
+      <button
+        class="x-sliding-panel__button x-button x-sliding-panel-button-right"
+        :class="buttonClass"
+        data-test="sliding-panel-right-button"
+        @click="xScroll += slotContainerWidth * scrollFactor"
+      >
+        <!-- @slot Right button content -->
+        <slot name="sliding-panel-right-button">ᐳ</slot>
+      </button>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../utils/types'
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useDebounce } from '../composables/use-debounce'
+import { useElementBounding, useMutationObserver, useScroll } from '@vueuse/core'
+import { computed, defineComponent, ref } from 'vue'
 
 /**
  * This component allows for any other component or element inside it to be horizontally
@@ -78,115 +76,42 @@ export default defineComponent({
     scrollContainerClass: { type: [String, Object, Array] as PropType<VueCSSClasses> },
   },
   setup(props, { slots }) {
-    /** Indicates if the scroll is at the start of the sliding panel. */
-    const isScrollAtStart = ref(true)
-    /** Indicates if the scroll is at the end of the sliding panel. */
-    const isScrollAtEnd = ref(true)
     const scrollContainerRef = ref<HTMLDivElement>()
 
-    /**
-     * Updates the values of the scroll positions to show or hide the buttons depending on it.
-     *
-     * @remarks The 2px extra is to fix some cases in some resolutions where the scroll + client
-     * size is less than the scroll width even when the scroll is at the end.
-     */
-    function updateScrollPosition() {
-      if (scrollContainerRef.value) {
-        const { scrollLeft, clientWidth, scrollWidth } = scrollContainerRef.value
-        isScrollAtStart.value = !scrollLeft
-        isScrollAtEnd.value = scrollLeft + clientWidth + 2 >= scrollWidth
-      }
-    }
+    const { width: slotContainerWidth } = useElementBounding(scrollContainerRef)
 
-    /**
-     * Debounced version of the {@link SlidingPanel.updateScrollPosition} method.
-     */
-    const debouncedUpdateScroll = useDebounce(updateScrollPosition, 50, { leading: true })
-
-    /**
-     * Resets the scroll and updates the values of the scroll for the buttons to react.
-     */
-    const debouncedRestoreAndUpdateScroll = useDebounce(
-      () => {
-        scrollContainerRef.value!.scroll({ left: 0, behavior: 'smooth' })
-        updateScrollPosition()
-      },
-      50,
-      { leading: true },
-    )
-
-    /**
-     * Scrolls the wrapper element towards the provided scroll value.
-     *
-     * @param scrollValue - The value the scroll will go towards.
-     */
-    function scrollTo(scrollValue: number) {
-      scrollContainerRef.value!.scrollBy({
-        left: scrollValue * props.scrollFactor,
-        behavior: 'smooth',
-      })
-    }
-
-    /** Scrolls the wrapper element to the left. */
-    function scrollLeft() {
-      scrollTo(-scrollContainerRef.value!.clientWidth)
-    }
-
-    /** Scrolls the wrapper element to the right. */
-    function scrollRight() {
-      scrollTo(scrollContainerRef.value!.clientWidth)
-    }
+    const { x: xScroll, arrivedState } = useScroll(scrollContainerRef, {
+      behavior: 'smooth',
+    })
 
     /** CSS classes to apply based on the scroll position. */
     const cssClasses = computed(() => ({
-      'x-sliding-panel-at-start': isScrollAtStart.value,
-      'x-sliding-panel-at-end': isScrollAtEnd.value,
+      'x-sliding-panel-at-start': arrivedState.left,
+      'x-sliding-panel-at-end': arrivedState.right,
     }))
 
-    let resizeObserver: ResizeObserver
-    let contentChangedObserver: MutationObserver
-
-    /**
-     * Initialises browser platform code:
-     * - Creates a mutation observer to detect content changes and reset scroll position.
-     * - Stores initial size and scroll position values.
-     */
-    onMounted(() => {
-      resizeObserver = new ResizeObserver(debouncedUpdateScroll)
-      resizeObserver.observe(scrollContainerRef.value!)
-      contentChangedObserver = new MutationObserver(debouncedRestoreAndUpdateScroll)
-
-      watch(
-        () => props.resetOnContentChange,
-        shouldReset => {
-          if (shouldReset) {
-            contentChangedObserver.observe(scrollContainerRef.value!, {
-              subtree: true,
-              childList: true,
-              attributes: false,
-              characterData: false,
-            })
-          } else {
-            contentChangedObserver.disconnect()
+    if (props.resetOnContentChange) {
+      useMutationObserver(
+        scrollContainerRef,
+        mutations => {
+          if (mutations.length > 0) {
+            xScroll.value = 0
           }
         },
-        { immediate: true },
+        {
+          subtree: true,
+          childList: true,
+          attributes: false,
+          characterData: false,
+        },
       )
-
-      updateScrollPosition()
-    })
-
-    onBeforeUnmount(() => {
-      contentChangedObserver.disconnect()
-      resizeObserver.disconnect()
-    })
-
+    }
     return {
+      arrivedState,
       cssClasses,
-      debouncedUpdateScroll,
       scrollContainerRef,
-      scrollLeft,
-      scrollRight,
+      slotContainerWidth,
+      xScroll,
       slots,
     }
   },
