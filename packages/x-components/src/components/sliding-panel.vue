@@ -148,10 +148,10 @@ export default defineComponent({
   z-index: 2; /* To overlay the design system gradient with z-index:1 */
 }
 .x-sliding-panel-button-left {
-  left: 0;
+  left: var(--x-sliding-panel-buttons-distance, 0);
 }
 .x-sliding-panel-button-right {
-  right: 0;
+  right: var(--x-sliding-panel-buttons-distance, 0);
 }
 
 .x-sliding-panel__scroll {
