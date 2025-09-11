@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.33 (2025-09-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
 ## 1.1.0-alpha.32 (2025-09-09)
 
 * test: fix unit tests ([9571c05](https://github.com/empathyco/x/commit/9571c05))

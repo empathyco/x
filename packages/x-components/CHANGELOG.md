@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.140 (2025-09-11)
+
+* refactor(sliding-panel): simplify scrolling logic and enhance reactivity (#1870) ([c659e00](https://github.com/empathyco/x/commit/c659e00)), closes [#1870](https://github.com/empathyco/x/issues/1870)
+* chore: pr review ([6a1d503](https://github.com/empathyco/x/commit/6a1d503))
+* feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
+* feat(AiOverview): add toolingDisplayClick tagging ([42f1fd4](https://github.com/empathyco/x/commit/42f1fd4))
+
+
+
+
+
 ## 6.0.0-alpha.139 (2025-09-09)
 
 * chore: pr review ([d30c56f](https://github.com/empathyco/x/commit/d30c56f))

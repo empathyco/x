@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.26 (2025-09-11)
+
+* feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
+
+
+
+
+
 ## 10.1.0-alpha.25 (2025-09-09)
 
 * chore: adapt AiSuggestionsSearchResponse type ([8fd6215](https://github.com/empathyco/x/commit/8fd6215))
