@@ -43,42 +43,48 @@
       data-test="ai-overview-collapse-height-suggestions"
     >
       <div v-show="expanded" data-test="ai-overview-suggestions-container">
-        <!-- @slot suggestions-search content -->
-        <slot :suggestions-search="suggestionsSearch" :queries="queries">
-          <div class="x-ai-overview-suggestions">
-            <div
-              v-for="{ query: suggestionQuery } in queries"
-              :key="suggestionQuery"
-              class="x-ai-overview-suggestion"
+        <div class="x-ai-overview-suggestions">
+          <div
+            v-for="{ query: suggestionQuery } in queries"
+            :key="suggestionQuery"
+            class="x-ai-overview-suggestion"
+          >
+            <BaseEventButton
+              class="x-ai-overview-suggestion-query-btn"
+              :events="{ UserAcceptedAQuery: suggestionQuery }"
             >
-              <BaseEventButton
-                class="x-ai-overview-suggestion-query-btn"
-                :events="{ UserAcceptedAQuery: suggestionQuery }"
-              >
-                {{ suggestionQuery
-                }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
-              </BaseEventButton>
-              <!-- @slot suggestion query result list -->
-              <slot name="query-results" :query-results="queriesResults[suggestionQuery]">
-                <SlidingPanel
-                  v-if="queriesResults[suggestionQuery]"
-                  :reset-on-content-change="false"
+              {{ suggestionQuery
+              }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+            </BaseEventButton>
+
+            <SlidingPanel
+              v-if="queriesResults[suggestionQuery]"
+              :class="slidingPanelsClasses"
+              :scroll-container-class="slidingPanelContainersClasses"
+              :reset-on-content-change="false"
+            >
+              <template #sliding-panel-addons="{ arrivedState }">
+                <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+              </template>
+              <template #sliding-panel-left-button>
+                <slot name="sliding-panels-left-button" />
+              </template>
+              <template #sliding-panel-right-button>
+                <slot name="sliding-panels-right-button" />
+              </template>
+              <ul class="x-ai-overview-suggestion-results">
+                <li
+                  v-for="result in queriesResults[suggestionQuery].results"
+                  :key="result.id"
+                  data-test="ai-overview-suggestion-result"
                 >
-                  <ul class="x-ai-overview-suggestion-results">
-                    <li
-                      v-for="result in queriesResults[suggestionQuery].results"
-                      :key="result.id"
-                      data-test="ai-overview-suggestion-result"
-                    >
-                      <!-- @slot (required) result card -->
-                      <slot name="result" :result="result" />
-                    </li>
-                  </ul>
-                </SlidingPanel>
-              </slot>
-            </div>
+                  <!-- @slot (required) result card -->
+                  <slot name="result" :result="result" />
+                </li>
+              </ul>
+            </SlidingPanel>
           </div>
-        </slot>
+        </div>
       </div>
     </CollapseHeight>
     <div v-show="queries.length">
@@ -183,6 +189,23 @@ export default defineComponent({
     collapseText: {
       type: String as PropType<string>,
       default: 'Show less',
+    },
+
+    /**
+     * The classes added to each sliding panel for each query.
+     *
+     * @public
+     */
+    slidingPanelsClasses: {
+      type: String as PropType<string>,
+    },
+    /**
+     * The classes added to each sliding panel container of each query.
+     *
+     * @public
+     */
+    slidingPanelContainersClasses: {
+      type: String as PropType<string>,
     },
   },
   setup(props) {
