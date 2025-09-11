@@ -86,24 +86,15 @@
         v-show="!expanded"
         class="x-ai-overview-gradient"
         data-test="ai-overview-gradient"
-        @click="toggleVisibility"
+        @click="setExpanded(!expanded)"
       />
       <div class="x-ai-overview-toggle-wrapper">
         <!-- @slot toggle button -->
-        <slot name="toggle-button" v-bind="{ expanded, toggleVisibility, buttonText }">
-          <!-- <DisplayClickProvider
-            result-feature="overview"
-            :tooling-display-tagging="tagging?.toolingDisplayClick"
-            :event-metadata="{
-              feature: 'overview',
-              displayOriginalQuery: query,
-              replaceable: false,
-            }"
-          > -->
+        <slot name="toggle-button" v-bind="{ expanded, setExpanded, buttonText }">
           <button
             class="x-ai-overview-toggle-btn"
             data-test="ai-overview-toggle-button"
-            @click="toggleVisibility"
+            @click="setExpanded(!expanded)"
           >
             {{ buttonText }}
             <ChevronDownIcon
@@ -115,7 +106,6 @@
               "
             />
           </button>
-          <!-- </DisplayClickProvider> -->
         </slot>
       </div>
     </div>
@@ -136,9 +126,8 @@ import {
   Fade,
   SlidingPanel,
 } from '../../../components'
-// import DisplayClickProvider from '../../../components/display-click-provider.vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
-import { useGetter, useState } from '../../../composables'
+import { use$x, useGetter, useState } from '../../../composables'
 import { typing } from '../../../directives'
 import { aiXModule } from '../x-module'
 
@@ -157,7 +146,6 @@ export default defineComponent({
     Fade,
     SlidingPanel,
     DisplayEmitter,
-    // DisplayClickProvider,
   },
   props: {
     /**
@@ -198,6 +186,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const $x = use$x()
     const { query } = useGetter('ai')
     const {
       suggestionText,
@@ -225,8 +214,12 @@ export default defineComponent({
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
-    function toggleVisibility() {
-      expanded.value = !expanded.value
+    function setExpanded(newValue: boolean) {
+      $x.emit('UserClickedAiOverviewButton', expanded.value, {
+        suggestionText: suggestionText.value,
+        toolingDisplayClick: tagging.value?.toolingDisplayClick,
+      })
+      expanded.value = newValue
     }
 
     watch(query, () => (expanded.value = false))
@@ -240,7 +233,7 @@ export default defineComponent({
       queriesResults,
       suggestionsSearch,
       suggestionText,
-      toggleVisibility,
+      setExpanded,
       query,
       tagging,
     }

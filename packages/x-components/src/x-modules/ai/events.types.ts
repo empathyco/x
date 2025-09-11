@@ -9,4 +9,5 @@ import type { AiSuggestionsRequest, AiSuggestionsSearchRequest } from '@empathyc
 export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
+  UserClickedAiOverviewButton: boolean
 }

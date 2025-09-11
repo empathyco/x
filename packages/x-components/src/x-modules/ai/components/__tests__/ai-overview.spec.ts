@@ -9,9 +9,10 @@ import {
   ArrowRightIcon,
   BaseEventButton,
   ChevronDownIcon,
+  DisplayEmitter,
   SlidingPanel,
 } from '../../../../components'
-import { useGetter, useState } from '../../../../composables'
+import { use$x, useGetter, useState } from '../../../../composables'
 import AIOverview from '../ai-overview.vue'
 
 jest.mock('../../../../composables')
@@ -30,9 +31,12 @@ const useStateStub = {
   queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
+  tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
 }
+const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
 const useStateMock = jest.fn(() => useStateStub)
+const use$xMock = jest.fn(() => ({ emit: emitMock }))
 
 const propsStub = {
   title: 'Empathy AI Overview',
@@ -97,6 +101,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get chevronDownIcon() {
       return wrapper.findComponent(ChevronDownIcon)
     },
+    get displayEmitter() {
+      return wrapper.findComponent(DisplayEmitter)
+    },
   }
 }
 
@@ -106,12 +113,22 @@ describe('ai-overview component', () => {
     jest.clearAllMocks()
     jest.mocked(useGetter).mockImplementation(useGettersMock)
     jest.mocked(useState).mockImplementation(useStateMock)
+    jest.mocked(use$x).mockImplementation(use$xMock)
   })
 
   it('should render the component by default', () => {
     const sut = render()
 
     expect(sut.titleLoading.exists()).toBeFalsy()
+    expect(sut.displayEmitter.exists()).toBeTruthy()
+    expect(sut.displayEmitter.props().payload).toStrictEqual(
+      useStateStub.tagging.value.toolingDisplay,
+    )
+    expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
+      feature: 'overview',
+      displayOriginalQuery: useGettersStub.query.value,
+      replaceable: false,
+    })
     expect(sut.title.exists()).toBeTruthy()
     expect(sut.title.text()).toBe(propsStub.title)
     expect(sut.aiStarIcon.exists()).toBeTruthy()
@@ -157,6 +174,7 @@ describe('ai-overview component', () => {
     expect(sut.titleLoading.exists()).toBeTruthy()
     expect(sut.titleLoading.text()).toBe(propsStub.titleLoading)
     expect(sut.title.exists()).toBeFalsy()
+    expect(sut.displayEmitter.exists()).toBeFalsy()
   })
 
   it('should render with expanded state correctly', async () => {
@@ -196,6 +214,19 @@ describe('ai-overview component', () => {
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
     expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
+  })
+
+  it('should emit event when toggle button is clicked and suggestions are not expanded', async () => {
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+
+    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
+
+    expect(emitMock).toHaveBeenNthCalledWith(1, 'UserClickedAiOverviewButton', false, {
+      suggestionText: useStateStub.suggestionText.value,
+      toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
+    })
   })
 
   it('should render correctly if suggestion queries is empty', () => {
