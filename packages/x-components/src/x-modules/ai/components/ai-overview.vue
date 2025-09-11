@@ -14,9 +14,19 @@
             data-test="ai-overview-title-loading-text"
           />
         </span>
-        <span v-else class="x-ai-overview-title" data-test="ai-overview-title">
-          <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
-        </span>
+        <DisplayEmitter
+          v-else
+          :payload="tagging?.toolingDisplay ?? {}"
+          :event-metadata="{
+            feature: 'overview',
+            displayOriginalQuery: query,
+            replaceable: false,
+          }"
+        >
+          <span class="x-ai-overview-title" data-test="ai-overview-title">
+            <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
+          </span>
+        </DisplayEmitter>
       </Fade>
       <ChangeHeight>
         <div class="x-ai-overview-content" data-test="ai-overview-content">
@@ -36,19 +46,27 @@
         <!-- @slot suggestions-search content -->
         <slot :suggestions-search="suggestionsSearch" :queries="queries">
           <div class="x-ai-overview-suggestions">
-            <div v-for="{ query } in queries" :key="query" class="x-ai-overview-suggestion">
+            <div
+              v-for="{ query: suggestionQuery } in queries"
+              :key="suggestionQuery"
+              class="x-ai-overview-suggestion"
+            >
               <BaseEventButton
                 class="x-ai-overview-suggestion-query-btn"
-                :events="{ UserAcceptedAQuery: query }"
+                :events="{ UserAcceptedAQuery: suggestionQuery }"
               >
-                {{ query }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+                {{ suggestionQuery
+                }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
               </BaseEventButton>
               <!-- @slot suggestion query result list -->
-              <slot name="query-results" :query-results="queriesResults[query]">
-                <SlidingPanel v-if="queriesResults[query]" :reset-on-content-change="false">
+              <slot name="query-results" :query-results="queriesResults[suggestionQuery]">
+                <SlidingPanel
+                  v-if="queriesResults[suggestionQuery]"
+                  :reset-on-content-change="false"
+                >
                   <ul class="x-ai-overview-suggestion-results">
                     <li
-                      v-for="result in queriesResults[query].results"
+                      v-for="result in queriesResults[suggestionQuery].results"
                       :key="result.id"
                       data-test="ai-overview-suggestion-result"
                     >
@@ -68,15 +86,15 @@
         v-show="!expanded"
         class="x-ai-overview-gradient"
         data-test="ai-overview-gradient"
-        @click="toggleVisibility"
+        @click="setExpanded(!expanded)"
       />
       <div class="x-ai-overview-toggle-wrapper">
         <!-- @slot toggle button -->
-        <slot name="toggle-button" v-bind="{ expanded, toggleVisibility, buttonText }">
+        <slot name="toggle-button" v-bind="{ expanded, setExpanded, buttonText }">
           <button
             class="x-ai-overview-toggle-btn"
             data-test="ai-overview-toggle-button"
-            @click="toggleVisibility"
+            @click="setExpanded(!expanded)"
           >
             {{ buttonText }}
             <ChevronDownIcon
@@ -108,7 +126,8 @@ import {
   Fade,
   SlidingPanel,
 } from '../../../components'
-import { useGetter, useState } from '../../../composables'
+import DisplayEmitter from '../../../components/display-emitter.vue'
+import { use$x, useGetter, useState } from '../../../composables'
 import { typing } from '../../../directives'
 import { aiXModule } from '../x-module'
 
@@ -126,6 +145,7 @@ export default defineComponent({
     ChangeHeight,
     Fade,
     SlidingPanel,
+    DisplayEmitter,
   },
   props: {
     /**
@@ -166,9 +186,16 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const $x = use$x()
     const { query } = useGetter('ai')
-    const { suggestionText, responseText, queries, suggestionsSearch, suggestionsLoading } =
-      useState('ai')
+    const {
+      suggestionText,
+      responseText,
+      queries,
+      suggestionsSearch,
+      suggestionsLoading,
+      tagging,
+    } = useState('ai')
 
     const expanded = ref(false)
 
@@ -187,8 +214,12 @@ export default defineComponent({
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
-    function toggleVisibility() {
-      expanded.value = !expanded.value
+    function setExpanded(newValue: boolean) {
+      $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
+        suggestionText: suggestionText.value,
+        toolingDisplayClick: tagging.value?.toolingDisplayClick,
+      })
+      expanded.value = newValue
     }
 
     watch(query, () => (expanded.value = false))
@@ -202,7 +233,9 @@ export default defineComponent({
       queriesResults,
       suggestionsSearch,
       suggestionText,
-      toggleVisibility,
+      setExpanded,
+      query,
+      tagging,
     }
   },
 })

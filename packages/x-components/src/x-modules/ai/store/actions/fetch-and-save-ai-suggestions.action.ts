@@ -1,12 +1,18 @@
-import type { AiQuestion, AiSuggestionQuery } from '@empathyco/x-types'
+import type { AiSuggestionQuery } from '@empathyco/x-types'
 import type { AiActionContext, AiXStoreModule } from '../types'
+import { getTaggingInfoFromUrl } from '@empathyco/x-adapter-platform'
 import { XPlugin } from '../../../../plugins'
 
 type AnswerChunk =
   | { responseText: string }
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
-  | { taggings: AiQuestion['tagging'][] }
+  | {
+      taggings: {
+        toolingDisplay: string
+        toolingDisplayClick: string
+      }[]
+    }
 /**
  * Default implementation for the {@link AiActions.fetchAndSaveAiSuggestions}.
  *
@@ -64,7 +70,13 @@ function readAnswer(
               commit('setQueries', data.queries)
             }
             if ('taggings' in data) {
-              commit('setTaggings', data.taggings)
+              const { toolingDisplay, toolingDisplayClick } = data.taggings[0]
+              const tagging = {
+                toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+                toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+              }
+
+              commit('setTagging', tagging)
             }
           }
         }

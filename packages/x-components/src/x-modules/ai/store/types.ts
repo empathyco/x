@@ -1,9 +1,9 @@
 import type {
-  AiQuestion,
   AiSuggestionQuery,
   AiSuggestionSearch,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
+  AiSuggestionTagging,
   RelatedTag,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
@@ -27,7 +27,7 @@ export interface AiState extends QueryState {
   responseText: string
   suggestionText: string
   queries: AiSuggestionQuery[]
-  taggings: AiQuestion['tagging'][]
+  tagging: AiSuggestionTagging | undefined
 
   /** Loading state for the suggestions response */
   suggestionsLoading: boolean
@@ -97,11 +97,11 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   setQueries: (queries: AiSuggestionQuery[]) => void
 
   /**
-   * Sets the taggings from the streamed response.
+   * Sets the tagging from the streamed response.
    *
-   * @param taggings - The new taggings.
+   * @param tagging - The new tagging.
    */
-  setTaggings: (taggings: AiQuestion['tagging'][]) => void
+  setTagging: (tagging: AiSuggestionTagging) => void
 
   /**
    * Sets the loading for the suggestions response.
