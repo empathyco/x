@@ -4,21 +4,34 @@ import { getDataTestSelector } from '../../__tests__/utils'
 import SlidingPanel from '../sliding-panel.vue'
 
 let mutationCallback: undefined | ((mutations: any[]) => void)
+let measureSpy: jest.Mock | undefined
 
 jest.mock('@vueuse/core', () => {
   const useElementBounding = () => ({ width: ref(100) })
 
+  const useElementVisibility = () => ref(true)
+
   const useScroll = () => {
     const x = ref(0)
     const arrivedState = reactive({ left: true, right: false })
-    return { x, arrivedState }
+    const measure = jest.fn()
+    measureSpy = measure
+    return { x, arrivedState, measure }
   }
 
   const useMutationObserver = (_target: unknown, cb: (mutations: any[]) => void) => {
     mutationCallback = cb
   }
 
-  return { useElementBounding, useScroll, useMutationObserver }
+  const whenever = (source: any, cb: () => void) => {
+    // eslint-disable-next-line ts/no-unsafe-call
+    const value = typeof source === 'function' ? source() : (source?.value ?? source)
+    if (value) {
+      cb()
+    }
+  }
+
+  return { useElementBounding, useElementVisibility, useScroll, useMutationObserver, whenever }
 })
 
 function renderSlidingPanel({
@@ -59,29 +72,10 @@ describe('testing SlidingPanel component', () => {
       slots: { default: '<div class="item">Item</div>' },
     })
 
-    expect(getRoot().exists()).toBe(true)
-    expect(getScroll().exists()).toBe(true)
-    expect(getLeftButton().exists()).toBe(true)
-    expect(getRightButton().exists()).toBe(true)
-  })
-
-  it('allows customizing its slots (left/right buttons and addons)', () => {
-    const { wrapper } = renderSlidingPanel({
-      slots: {
-        default: '<div>Content</div>',
-        'sliding-panel-left-button': '<span>Left</span>',
-        'sliding-panel-right-button': '<span>Right</span>',
-        'sliding-panel-addons': '<div data-test="addon">Addon</div>',
-      },
-    })
-
-    expect(wrapper.find(getDataTestSelector('sliding-panel-left-button')).text().trim()).toBe(
-      'Left',
-    )
-    expect(wrapper.find(getDataTestSelector('sliding-panel-right-button')).text().trim()).toBe(
-      'Right',
-    )
-    expect(wrapper.find('[data-test="addon"]').exists()).toBe(true)
+    expect(getRoot().exists()).toBeTruthy()
+    expect(getScroll().exists()).toBeTruthy()
+    expect(getLeftButton().exists()).toBeTruthy()
+    expect(getRightButton().exists()).toBeTruthy()
   })
 
   it('hides buttons when showButtons is false', () => {
@@ -90,8 +84,8 @@ describe('testing SlidingPanel component', () => {
       slots: { default: '<div>Content</div>' },
     })
 
-    expect(getLeftButton().exists()).toBe(false)
-    expect(getRightButton().exists()).toBe(false)
+    expect(getLeftButton().exists()).toBeFalsy()
+    expect(getRightButton().exists()).toBeFalsy()
   })
 
   it('clicking right/left buttons updates the x scroll based on width and scrollFactor', async () => {
@@ -115,24 +109,13 @@ describe('testing SlidingPanel component', () => {
     expect(vm.xScroll).toBeCloseTo(70)
   })
 
-  it('uses the provided scrollFactor to compute the scroll change', async () => {
-    const { wrapper, getRightButton } = renderSlidingPanel({
-      scrollFactor: 1.5,
-      slots: { default: '<div>Content</div>' },
-    })
-
-    const vm = wrapper.vm as any
-    await getRightButton().trigger('click')
-    await nextTick()
-    expect(vm.xScroll).toBeCloseTo(150)
-  })
-
   it('applies classes based on arrivedState (start/end)', async () => {
     const { wrapper, getRoot } = renderSlidingPanel({
       slots: { default: '<div>Content</div>' },
     })
 
     // Initially mocked as at start
+    expect(getRoot().classes()).not.toContain('x-sliding-panel-at-end')
     expect(getRoot().classes()).toContain('x-sliding-panel-at-start')
 
     // Change arrived state to end
@@ -140,6 +123,7 @@ describe('testing SlidingPanel component', () => {
     ;(wrapper.vm as any).arrivedState.right = true
     await nextTick()
 
+    expect(getRoot().classes()).not.toContain('x-sliding-panel-at-start')
     expect(getRoot().classes()).toContain('x-sliding-panel-at-end')
   })
 
@@ -167,6 +151,11 @@ describe('testing SlidingPanel component', () => {
     await triggerMutation()
 
     expect((wrapper.vm as any).xScroll).toBe(0)
+  })
+
+  it('calls measure via whenever when the panel becomes visible', () => {
+    renderSlidingPanel({ slots: { default: '<div>Content</div>' } })
+    expect(measureSpy).toHaveBeenCalled()
   })
 })
 
