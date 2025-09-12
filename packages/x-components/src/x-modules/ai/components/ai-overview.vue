@@ -92,13 +92,13 @@
         v-show="!expanded"
         class="x-ai-overview-gradient"
         data-test="ai-overview-gradient"
-        @click="onExpandedButtonClick(!expanded)"
+        @click="onExpandButtonClick(!expanded)"
       />
       <div class="x-ai-overview-toggle-wrapper">
         <button
           class="x-ai-overview-toggle-btn"
           data-test="ai-overview-toggle-button"
-          @click="onExpandedButtonClick(!expanded)"
+          @click="onExpandButtonClick(!expanded)"
         >
           {{ buttonText }}
           <ChevronDownIcon
@@ -234,7 +234,7 @@ export default defineComponent({
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
-    function onExpandedButtonClick(newValue: boolean) {
+    function onExpandButtonClick(newValue: boolean) {
       $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
         suggestionText: suggestionText.value,
         toolingDisplayClick: tagging.value?.toolingDisplayClick,
@@ -258,7 +258,7 @@ export default defineComponent({
       suggestionsSearch,
       suggestionText,
       setExpanded,
-      onExpandedButtonClick,
+      onExpandButtonClick,
       query,
       tagging,
     }
