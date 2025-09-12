@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.144 (2025-09-12)
+
+* refactor(ai): remove unused titleLoadingText in ai-overview tests ([c09e07d](https://github.com/empathyco/x/commit/c09e07d))
+* refactor(ai): rename onExpandedButtonClick to onExpandButtonClick and update references ([13f2ad6](https://github.com/empathyco/x/commit/13f2ad6))
+* refactor(ai): rename setExpanded to onExpandedButtonClick and update usage ([0713e3c](https://github.com/empathyco/x/commit/0713e3c))
+
+
+
+
+
 ## 6.0.0-alpha.143 (2025-09-12)
 
 * refactor(ai): remove null safety from suggestionsRequest (#1874) ([7245431](https://github.com/empathyco/x/commit/7245431)), closes [#1874](https://github.com/empathyco/x/issues/1874)
