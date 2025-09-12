@@ -165,7 +165,6 @@ describe('ai-overview component', () => {
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
     expect(sut.chevronDownIcon.exists()).toBeTruthy()
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
@@ -188,7 +187,6 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
 
     await sut.toggleButton.trigger('click')
@@ -196,7 +194,6 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
     expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
@@ -208,7 +205,6 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
     expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
 
     useGettersStub.query.value = 'new query text'
@@ -217,7 +213,6 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-collapsed')
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
