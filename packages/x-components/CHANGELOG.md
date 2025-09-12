@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.143 (2025-09-12)
+
+* refactor(ai): remove null safety from suggestionsRequest (#1874) ([7245431](https://github.com/empathyco/x/commit/7245431)), closes [#1874](https://github.com/empathyco/x/issues/1874)
+
+
+
+
+
 ## 6.0.0-alpha.142 (2025-09-12)
 
 * refactor(ai): simplify toggle button chevron classes and styles (#1873) ([59419eb](https://github.com/empathyco/x/commit/59419eb)), closes [#1873](https://github.com/empathyco/x/issues/1873)
