@@ -61,6 +61,7 @@
               v-if="queriesResults[suggestionQuery]"
               :class="slidingPanelsClasses"
               :scroll-container-class="slidingPanelContainersClasses"
+              :button-class="slidingPanelButtonsClasses"
               :reset-on-content-change="false"
             >
               <template #sliding-panel-addons="{ arrivedState }">
@@ -198,6 +199,14 @@ export default defineComponent({
      * @public
      */
     slidingPanelContainersClasses: {
+      type: String as PropType<string>,
+    },
+    /**
+     * The classes added to each sliding panel buttons of each query.
+     *
+     * @public
+     */
+    slidingPanelButtonsClasses: {
       type: String as PropType<string>,
     },
   },

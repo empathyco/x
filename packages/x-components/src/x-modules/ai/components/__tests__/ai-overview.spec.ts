@@ -45,6 +45,7 @@ const propsStub = {
   collapseText: 'Show less',
   slidingPanelsClasses: 'scroll-x',
   slidingPanelContainersClasses: 'mx-auto',
+  slidingPanelButtonsClasses: 'mx-8',
 }
 
 function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
@@ -150,6 +151,9 @@ describe('ai-overview component', () => {
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
       expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
         propsStub.slidingPanelContainersClasses,
+      )
+      expect(sut.slidingPanels[index].props('buttonClass')).toBe(
+        propsStub.slidingPanelButtonsClasses,
       )
       expect(sut.slidingPanels[index].classes()).toContain(propsStub.slidingPanelsClasses)
       const results = sut.slidingPanels[index].findAll(
