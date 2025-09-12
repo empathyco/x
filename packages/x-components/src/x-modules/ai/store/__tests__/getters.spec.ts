@@ -14,7 +14,7 @@ describe('testing ai module getters', () => {
   })
 
   describe(`${gettersKeys.suggestionsRequest} getter`, () => {
-    it('should return a request object if there is a query', () => {
+    it('should return a request object', () => {
       resetAiStateWith(store, {
         query: 'ai cheese',
         params: { catalog: 'en' },
@@ -24,10 +24,6 @@ describe('testing ai module getters', () => {
         query: 'ai cheese',
         extraParams: { catalog: 'en' },
       })
-    })
-
-    it('should return null when there is no query', () => {
-      expect(store.getters[gettersKeys.suggestionsRequest]).toBeNull()
     })
   })
 })

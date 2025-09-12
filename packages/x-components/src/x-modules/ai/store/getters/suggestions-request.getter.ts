@@ -15,5 +15,5 @@ export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest']
   { params },
   { query },
 ) => {
-  return query ? { query, lang: params.lang as string, extraParams: params } : null
+  return { query, lang: params.lang as string, extraParams: params }
 }
