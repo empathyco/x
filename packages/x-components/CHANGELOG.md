@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.145 (2025-09-12)
+
+* feat(AiOverview): allow customisation of SlidingPanel buttons through props (#1876) ([f923ef1](https://github.com/empathyco/x/commit/f923ef1)), closes [#1876](https://github.com/empathyco/x/issues/1876)
+
+
+
+
+
 ## 6.0.0-alpha.144 (2025-09-12)
 
 * refactor(ai): remove unused titleLoadingText in ai-overview tests ([c09e07d](https://github.com/empathyco/x/commit/c09e07d))
