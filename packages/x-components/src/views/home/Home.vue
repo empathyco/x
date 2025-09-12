@@ -266,6 +266,11 @@
               </p>
               <p>You may be interested in these:</p>
             </div>
+            <AiOverview class="x-mb-28">
+              <template #result="{ result }">
+                <Result :result="result" class="x-w-[150px]" />
+              </template>
+            </AiOverview>
             <template v-if="!x.query.searchBox">
               <!-- Brand Recommendations -->
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
@@ -307,12 +312,6 @@
                 </QueryPreviewList>
               </LocationProvider>
             </template>
-
-            <AiOverview v-if="x.query.search" class="x-mb-28">
-              <template #result="{ result }">
-                <Result :result="result" class="x-w-[150px]" />
-              </template>
-            </AiOverview>
 
             <!-- Results -->
             <LocationProvider location="results">

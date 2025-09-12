@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.142 (2025-09-12)
+
+* refactor(ai): simplify toggle button chevron classes and styles (#1873) ([59419eb](https://github.com/empathyco/x/commit/59419eb)), closes [#1873](https://github.com/empathyco/x/issues/1873)
+
+
+
+
+
 ## 6.0.0-alpha.141 (2025-09-11)
 
 * feat(ai): enhance sliding panel customization (#1872) ([199a6cc](https://github.com/empathyco/x/commit/199a6cc)), closes [#1872](https://github.com/empathyco/x/issues/1872)

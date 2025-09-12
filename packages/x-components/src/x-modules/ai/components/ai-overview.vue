@@ -103,11 +103,7 @@
           {{ buttonText }}
           <ChevronDownIcon
             class="x-ai-overview-toggle-btn-icon"
-            :class="
-              expanded
-                ? 'x-ai-overview-toggle-btn-icon-expanded'
-                : 'x-ai-overview-toggle-btn-icon-collapsed'
-            "
+            :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
           />
         </button>
       </div>
@@ -309,17 +305,15 @@ export default defineComponent({
   @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full;
+  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
 }
 .x-ai-overview-toggle-btn-icon {
-  @apply x-icon x-transition-all x-duration-300;
+  @apply x-rotate-0 x-icon x-transition-all x-duration-300;
 }
 .x-ai-overview-toggle-btn-icon-expanded {
   @apply x-rotate-180;
 }
-.x-ai-overview-toggle-btn-icon-collapsed {
-  @apply x-rotate-0;
-}
+
 .x-ai-overview-suggestion-query-btn {
   @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;
 }
