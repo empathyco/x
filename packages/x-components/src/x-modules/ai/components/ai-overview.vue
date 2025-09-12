@@ -92,23 +92,20 @@
         v-show="!expanded"
         class="x-ai-overview-gradient"
         data-test="ai-overview-gradient"
-        @click="setExpanded(!expanded)"
+        @click="onExpandButtonClick(!expanded)"
       />
       <div class="x-ai-overview-toggle-wrapper">
-        <!-- @slot toggle button -->
-        <slot name="toggle-button" v-bind="{ expanded, setExpanded, buttonText }">
-          <button
-            class="x-ai-overview-toggle-btn"
-            data-test="ai-overview-toggle-button"
-            @click="setExpanded(!expanded)"
-          >
-            {{ buttonText }}
-            <ChevronDownIcon
-              class="x-ai-overview-toggle-btn-icon"
-              :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
-            />
-          </button>
-        </slot>
+        <button
+          class="x-ai-overview-toggle-btn"
+          data-test="ai-overview-toggle-button"
+          @click="onExpandButtonClick(!expanded)"
+        >
+          {{ buttonText }}
+          <ChevronDownIcon
+            class="x-ai-overview-toggle-btn-icon"
+            :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+          />
+        </button>
       </div>
     </div>
   </div>
@@ -233,11 +230,15 @@ export default defineComponent({
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
-    function setExpanded(newValue: boolean) {
+    function onExpandButtonClick(newValue: boolean) {
       $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
         suggestionText: suggestionText.value,
         toolingDisplayClick: tagging.value?.toolingDisplayClick,
       })
+      setExpanded(newValue)
+    }
+
+    function setExpanded(newValue: boolean) {
       expanded.value = newValue
     }
 
@@ -253,6 +254,7 @@ export default defineComponent({
       suggestionsSearch,
       suggestionText,
       setExpanded,
+      onExpandButtonClick,
       query,
       tagging,
     }

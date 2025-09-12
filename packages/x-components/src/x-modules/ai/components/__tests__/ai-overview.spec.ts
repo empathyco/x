@@ -64,9 +64,6 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get titleLoading() {
       return wrapper.find(getDataTestSelector('ai-overview-title-loading'))
     },
-    get titleLoadingText() {
-      return wrapper.find(getDataTestSelector('ai-overview-title-loading-text'))
-    },
     get title() {
       return wrapper.find(getDataTestSelector('ai-overview-title'))
     },
