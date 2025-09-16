@@ -8,11 +8,9 @@
           data-test="ai-overview-title-loading"
         >
           <span class="x-ai-overview-title-loading-indicator" />
-          <span
-            v-typing="{ text: titleLoading, speed: 50 }"
-            class="x-ai-overview-title-loading-text"
-            data-test="ai-overview-title-loading-text"
-          />
+          <span class="x-ai-overview-title-loading-text" data-test="ai-overview-title-loading-text">
+            {{ titleLoading }}
+          </span>
         </span>
         <DisplayEmitter
           v-else
@@ -88,27 +86,30 @@
         </div>
       </div>
     </CollapseHeight>
-    <div v-show="queries.length">
-      <div
-        v-show="!expanded"
-        class="x-ai-overview-gradient"
-        data-test="ai-overview-gradient"
-        @click="onExpandButtonClick(!expanded)"
-      />
-      <div class="x-ai-overview-toggle-wrapper">
-        <button
-          class="x-ai-overview-toggle-btn"
-          data-test="ai-overview-toggle-button"
+
+    <Fade>
+      <div v-show="queries.length">
+        <div
+          v-show="!expanded"
+          class="x-ai-overview-gradient"
+          data-test="ai-overview-gradient"
           @click="onExpandButtonClick(!expanded)"
-        >
-          {{ buttonText }}
-          <ChevronDownIcon
-            class="x-ai-overview-toggle-btn-icon"
-            :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
-          />
-        </button>
+        />
+        <div class="x-ai-overview-toggle-wrapper">
+          <button
+            class="x-ai-overview-toggle-btn"
+            data-test="ai-overview-toggle-button"
+            @click="onExpandButtonClick(!expanded)"
+          >
+            {{ buttonText }}
+            <ChevronDownIcon
+              class="x-ai-overview-toggle-btn-icon"
+              :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </Fade>
   </div>
 </template>
 
@@ -314,7 +315,7 @@ export default defineComponent({
   @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
+  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
 }
 .x-ai-overview-toggle-btn-icon {
   @apply x-rotate-0 x-icon x-transition-all x-duration-300;
