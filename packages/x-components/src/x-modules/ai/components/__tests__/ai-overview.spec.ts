@@ -296,4 +296,32 @@ describe('ai-overview component', () => {
     const buttonTexts = sut.baseEventButtons.map(b => b.text())
     expect(buttonTexts).not.toContain('orphan query (no results)')
   })
+
+  it('should animate the suggestion group once', async () => {
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).toContain('x-animate-fade-in')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).toContain('x-animate-fade-in')
+        })
+    })
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).not.toContain('x-animate-fade-in')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).not.toContain('x-animate-fade-in')
+        })
+    })
+  })
 })
