@@ -22,6 +22,7 @@
             displayOriginalQuery: query,
             replaceable: false,
           }"
+          data-test="ai-overview-display-emitter"
         >
           <span class="x-ai-overview-title" data-test="ai-overview-title">
             <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
@@ -65,6 +66,7 @@
                 displayOriginalQuery: query,
                 replaceable: false,
               }"
+              data-test="ai-overview-query-display-emitter"
             >
               <SlidingPanel
                 v-if="queriesResults[suggestionQuery]"

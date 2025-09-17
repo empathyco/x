@@ -1,5 +1,7 @@
+import type { AiSuggestionTagging } from '@empathyco/x-types'
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
+import type { DisplayEmitter } from '../../../../components'
 import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
@@ -9,7 +11,6 @@ import {
   ArrowRightIcon,
   BaseEventButton,
   ChevronDownIcon,
-  DisplayEmitter,
   SlidingPanel,
 } from '../../../../components'
 import { use$x, useGetter, useState } from '../../../../composables'
@@ -31,7 +32,48 @@ const useStateStub = {
   queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
-  tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
+  tagging: ref<AiSuggestionTagging>({
+    toolingDisplayClick: {
+      url: 'toolingDisplayClick',
+      params: { param1: 'value1', param2: 'value2' },
+    },
+    toolingDisplay: {
+      url: 'toolingDisplay',
+      params: { param1: 'value1', param2: 'value2' },
+    },
+    searchQueries: {
+      'suggestion 1': {
+        toolingDisplay: {
+          url: 'query1TaggingRequest',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+        toolingDisplayClick: {
+          url: 'query1TaggingClick',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+      },
+      'suggestion 2': {
+        toolingDisplay: {
+          url: 'query2TaggingRequest',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+        toolingDisplayClick: {
+          url: 'query2TaggingClick',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+      },
+      'suggestion 3': {
+        toolingDisplay: {
+          url: 'query3TaggingRequest',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+        toolingDisplayClick: {
+          url: 'query3TaggingClick',
+          params: { param1: 'value1', param2: 'value2' },
+        },
+      },
+    },
+  }),
 }
 const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
@@ -56,6 +98,14 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     directives: {
       typing: (el: HTMLElement, binding: Ref<{ text: string }>) => {
         el.innerHTML = binding.value.text
+      },
+    },
+    global: {
+      stubs: {
+        DisplayEmitter: {
+          template: '<div v-bind="$attrs"><slot /></div>',
+          props: ['payload', 'eventMetadata'],
+        },
       },
     },
   })
@@ -102,7 +152,14 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.findComponent(ChevronDownIcon)
     },
     get displayEmitter() {
-      return wrapper.findComponent(DisplayEmitter)
+      return wrapper.findComponent<typeof DisplayEmitter>(
+        getDataTestSelector('ai-overview-display-emitter'),
+      )
+    },
+    get queryDisplayEmitters() {
+      return wrapper.findAllComponents<typeof DisplayEmitter>(
+        getDataTestSelector('ai-overview-query-display-emitter'),
+      )
     },
   }
 }
@@ -141,13 +198,18 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    expect(sut.queryDisplayEmitters).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.arrowRightIcons).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
     useStateStub.suggestionsSearch.value.forEach((suggestionSearch, index) => {
-      expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
-      expect(sut.baseEventButtons[index].props('events')).toStrictEqual({
-        UserAcceptedAQuery: suggestionSearch.query,
+      expect(sut.queryDisplayEmitters[index].props().eventMetadata).toStrictEqual({
+        feature: 'overview',
+        displayOriginalQuery: useGettersStub.query.value,
+        replaceable: false,
       })
+      expect(sut.queryDisplayEmitters[index].props().payload).toStrictEqual(
+        useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplay,
+      )
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
       expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
         propsStub.slidingPanelContainersClasses,
