@@ -36,16 +36,20 @@
       </ChangeHeight>
     </div>
     <CollapseHeight
-      v-if="queries.length"
       :style="{
         '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
       }"
       data-test="ai-overview-collapse-height-suggestions"
     >
-      <div v-show="expanded" data-test="ai-overview-suggestions-container">
-        <div class="x-ai-overview-suggestions">
+      <div v-show="expanded">
+        <SpinnerIcon
+          v-if="!suggestionsSearch.length"
+          class="x-m-auto x-size-10 x-animate-spin"
+          data-test="ai-overview-suggestions-loading"
+        />
+        <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
           <div
-            v-for="{ query: suggestionQuery } in queries"
+            v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
             :key="suggestionQuery"
             class="x-ai-overview-suggestion"
           >
@@ -58,7 +62,7 @@
             </BaseEventButton>
 
             <SlidingPanel
-              v-if="queriesResults[suggestionQuery]"
+              v-if="queriesResults"
               :class="slidingPanelsClasses"
               :scroll-container-class="slidingPanelContainersClasses"
               :button-class="slidingPanelButtonsClasses"
@@ -75,7 +79,7 @@
               </template>
               <ul class="x-ai-overview-suggestion-results">
                 <li
-                  v-for="result in queriesResults[suggestionQuery].results"
+                  v-for="result in queriesResults"
                   :key="result.id"
                   data-test="ai-overview-suggestion-result"
                 >
@@ -88,18 +92,13 @@
         </div>
       </div>
     </CollapseHeight>
-    <div v-show="queries.length">
-      <div
-        v-show="!expanded"
-        class="x-ai-overview-gradient"
-        data-test="ai-overview-gradient"
-        @click="onExpandButtonClick(!expanded)"
-      />
-      <div class="x-ai-overview-toggle-wrapper">
+    <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
+      <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
+      <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
         <button
           class="x-ai-overview-toggle-btn"
           data-test="ai-overview-toggle-button"
-          @click="onExpandButtonClick(!expanded)"
+          @click.stop="onExpandButtonClick(!expanded)"
         >
           {{ buttonText }}
           <ChevronDownIcon
@@ -113,7 +112,6 @@
 </template>
 
 <script lang="ts">
-import type { AiSuggestionSearch } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import { computed, defineComponent, ref, watch } from 'vue'
 import {
@@ -125,6 +123,7 @@ import {
   CollapseHeight,
   Fade,
   SlidingPanel,
+  SpinnerIcon,
 } from '../../../components'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useGetter, useState } from '../../../composables'
@@ -145,6 +144,7 @@ export default defineComponent({
     ChangeHeight,
     Fade,
     SlidingPanel,
+    SpinnerIcon,
     DisplayEmitter,
   },
   props: {
@@ -224,19 +224,6 @@ export default defineComponent({
 
     const expanded = ref(false)
 
-    const queriesResults = computed(() => {
-      return suggestionsSearch.value.reduce(
-        (
-          acc: Record<string, { results: AiSuggestionSearch['results']; numFound: number }>,
-          { query, results, numFound },
-        ) => {
-          acc[query] = { results, numFound }
-          return acc
-        },
-        {},
-      )
-    })
-
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
     function onExpandButtonClick(newValue: boolean) {
@@ -259,10 +246,8 @@ export default defineComponent({
       queries,
       responseText,
       suggestionsLoading,
-      queriesResults,
       suggestionsSearch,
       suggestionText,
-      setExpanded,
       onExpandButtonClick,
       query,
       tagging,
