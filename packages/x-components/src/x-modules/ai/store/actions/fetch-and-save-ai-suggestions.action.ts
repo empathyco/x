@@ -8,9 +8,16 @@ type AnswerChunk =
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
   | {
-      taggings: {
+      tagging: {
         toolingDisplay: string
         toolingDisplayClick: string
+        searchQueries: Record<
+          string,
+          {
+            toolingDisplay: string
+            toolingDisplayClick: string
+          }
+        >
       }[]
     }
 /**
@@ -48,6 +55,7 @@ function readAnswer(
     .read()
     .then(({ value, done }) => {
       if (done) {
+        commit('setSuggestionsLoading', false)
         return
       }
       const result = new TextDecoder().decode(value, { stream: true })
@@ -69,11 +77,22 @@ function readAnswer(
             if ('queries' in data) {
               commit('setQueries', data.queries)
             }
-            if ('taggings' in data) {
-              const { toolingDisplay, toolingDisplayClick } = data.taggings[0]
+            if ('tagging' in data) {
+              const { toolingDisplay, toolingDisplayClick, searchQueries } = data.tagging[0]
               const tagging = {
                 toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
                 toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+                searchQueries: Object.fromEntries(
+                  Object.entries(searchQueries).map(
+                    ([query, { toolingDisplay, toolingDisplayClick }]) => [
+                      query,
+                      {
+                        toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+                        toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+                      },
+                    ],
+                  ),
+                ),
               }
 
               commit('setTagging', tagging)
@@ -84,12 +103,10 @@ function readAnswer(
       readAnswer(reader, commit)
     })
     .catch((error: { code: number }) => {
+      commit('setSuggestionsLoading', false)
       // AbortError code === 20
       if (error.code !== 20) {
         console.error(error)
       }
-    })
-    .finally(() => {
-      commit('setSuggestionsLoading', false)
     })
 }
