@@ -54,7 +54,6 @@
             class="x-ai-overview-suggestion"
           >
             <BaseEventButton
-              v-if="queriesResults"
               class="x-ai-overview-suggestion-query-btn"
               :events="{ UserAcceptedAQuery: suggestionQuery }"
             >
@@ -62,7 +61,7 @@
               <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
             </BaseEventButton>
 
-            <slot v-if="queriesResults" name="sliding-panel" :results="queriesResults">
+            <slot name="sliding-panel" :results="queriesResults">
               <SlidingPanel
                 :class="slidingPanelsClasses"
                 :scroll-container-class="slidingPanelContainersClasses"
@@ -157,7 +156,6 @@ export default defineComponent({
      */
     title: {
       type: String as PropType<string>,
-      default: 'Empathy AI Overview',
     },
     /**
      * The text displayed when the question is loading.
