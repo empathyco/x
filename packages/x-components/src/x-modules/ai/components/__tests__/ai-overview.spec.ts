@@ -1,7 +1,7 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import {
@@ -263,22 +263,17 @@ describe('ai-overview component', () => {
   })
 
   it('should show suggestionText as title when title prop is empty, and hide the suggestionText span in content', async () => {
-    // Use empty title to trigger fallback in title and hide content span
-    const sut = render({ props: { ...propsStub, title: '' as unknown as string } })
+    const sut = render({ props: { ...propsStub, title: undefined } })
 
-    // Title should display suggestionText instead of empty title
     expect(sut.title.text()).toBe(useStateStub.suggestionText.value)
 
-    // Content span with suggestionText should not be rendered when title is falsy
     const contentSpan = sut.content.find('span')
-    expect(contentSpan.exists()).toBe(false)
+    expect(contentSpan.exists()).toBeFalsy()
 
-    // Response text should still be visible
     expect(sut.content.text()).toContain(useStateStub.responseText.value)
   })
 
   it('should not render query button nor sliding panel for queries without results', async () => {
-    // Add a query not present in suggestionsSearch so queriesResults lacks that key
     const queriesWithOrphan = ref([
       { query: 'suggestion 1' },
       { query: 'suggestion 2' },
@@ -292,15 +287,12 @@ describe('ai-overview component', () => {
 
     const sut = render()
 
-    // Expand to render the suggestions content
     await sut.toggleButton.trigger('click')
-    await sut.wrapper.vm.$nextTick()
+    await nextTick()
 
-    // Buttons and panels should match only existing suggestionsSearch (3), not queries (4)
     expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
-    // Ensure none of the rendered buttons corresponds to the orphan query
     const buttonTexts = sut.baseEventButtons.map(b => b.text())
     expect(buttonTexts).not.toContain('orphan query (no results)')
   })
