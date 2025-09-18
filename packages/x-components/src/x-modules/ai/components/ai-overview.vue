@@ -16,7 +16,7 @@
         </span>
         <DisplayEmitter
           v-else
-          :payload="tagging?.toolingDisplay ?? {}"
+          :payload="tagging?.toolingDisplay ?? { url: '', params: {} }"
           :event-metadata="{
             feature: 'overview',
             displayOriginalQuery: query,
@@ -24,13 +24,13 @@
           }"
         >
           <span class="x-ai-overview-title" data-test="ai-overview-title">
-            <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
+            <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
           </span>
         </DisplayEmitter>
       </Fade>
       <ChangeHeight>
         <div class="x-ai-overview-content" data-test="ai-overview-content">
-          <span>{{ suggestionText }}</span>
+          <span v-if="title">{{ suggestionText }}</span>
           <p>{{ responseText }}</p>
         </div>
       </ChangeHeight>
@@ -44,7 +44,7 @@
       <div v-show="expanded">
         <SpinnerIcon
           v-if="!suggestionsSearch.length"
-          class="x-m-auto x-size-10 x-animate-spin"
+          class="ai-overview-suggestions-loading"
           data-test="ai-overview-suggestions-loading"
         />
         <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
@@ -54,40 +54,42 @@
             class="x-ai-overview-suggestion"
           >
             <BaseEventButton
+              v-if="queriesResults"
               class="x-ai-overview-suggestion-query-btn"
               :events="{ UserAcceptedAQuery: suggestionQuery }"
             >
-              {{ suggestionQuery
-              }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+              {{ suggestionQuery }}
+              <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
             </BaseEventButton>
 
-            <SlidingPanel
-              v-if="queriesResults"
-              :class="slidingPanelsClasses"
-              :scroll-container-class="slidingPanelContainersClasses"
-              :button-class="slidingPanelButtonsClasses"
-              :reset-on-content-change="false"
-            >
-              <template #sliding-panel-addons="{ arrivedState }">
-                <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-              </template>
-              <template #sliding-panel-left-button>
-                <slot name="sliding-panels-left-button" />
-              </template>
-              <template #sliding-panel-right-button>
-                <slot name="sliding-panels-right-button" />
-              </template>
-              <ul class="x-ai-overview-suggestion-results">
-                <li
-                  v-for="result in queriesResults"
-                  :key="result.id"
-                  data-test="ai-overview-suggestion-result"
-                >
-                  <!-- @slot (required) result card -->
-                  <slot name="result" :result="result" />
-                </li>
-              </ul>
-            </SlidingPanel>
+            <slot v-if="queriesResults" name="sliding-panel" :results="queriesResults">
+              <SlidingPanel
+                :class="slidingPanelsClasses"
+                :scroll-container-class="slidingPanelContainersClasses"
+                :button-class="slidingPanelButtonsClasses"
+                :reset-on-content-change="false"
+              >
+                <template #sliding-panel-addons="{ arrivedState }">
+                  <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                </template>
+                <template #sliding-panel-left-button>
+                  <slot name="sliding-panels-left-button" />
+                </template>
+                <template #sliding-panel-right-button>
+                  <slot name="sliding-panels-right-button" />
+                </template>
+                <ul class="x-ai-overview-suggestion-results">
+                  <li
+                    v-for="result in queriesResults"
+                    :key="result.id"
+                    data-test="ai-overview-suggestion-result"
+                  >
+                    <!-- @slot (required) result card -->
+                    <slot name="result" :result="result" />
+                  </li>
+                </ul>
+              </SlidingPanel>
+            </slot>
           </div>
         </div>
       </div>
@@ -316,5 +318,18 @@ export default defineComponent({
 }
 .x-ai-overview-suggestion-results {
   @apply x-flex x-gap-16 x-px-16;
+}
+
+.ai-overview-suggestions-loading {
+  width: 2.5rem /* 40px */;
+  height: 2.5rem /* 40px */;
+  margin: auto;
+  animation: x-spin 1s linear infinite;
+
+  @keyframes x-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 </style>
