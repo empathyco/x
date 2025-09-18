@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.x-animate-fade-in {
+  opacity: 0;
+  animation: fade 0.3s ease-in-out forwards;
+}

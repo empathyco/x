@@ -43,9 +43,13 @@
       <div v-show="expanded" data-test="ai-overview-suggestions-container">
         <div class="x-ai-overview-suggestions">
           <div
-            v-for="{ query: suggestionQuery } in queries"
+            v-for="({ query: suggestionQuery }, indexSuggestion) in queries"
             :key="suggestionQuery"
             class="x-ai-overview-suggestion"
+            :class="{
+              'x-animate-fade-in': hasSuggestionAnimation,
+            }"
+            :style="{ animationDelay: `${indexSuggestion * 300}ms` }"
           >
             <BaseEventButton
               class="x-ai-overview-suggestion-query-btn"
@@ -73,9 +77,13 @@
               </template>
               <ul class="x-ai-overview-suggestion-results">
                 <li
-                  v-for="result in queriesResults[suggestionQuery].results"
+                  v-for="(result, indexResult) in queriesResults[suggestionQuery].results"
                   :key="result.id"
                   data-test="ai-overview-suggestion-result"
+                  :class="{
+                    'x-animate-fade-in': hasSuggestionAnimation,
+                  }"
+                  :style="{ animationDelay: `${indexSuggestion * 300 + indexResult * 300}ms` }"
                 >
                   <!-- @slot (required) result card -->
                   <slot name="result" :result="result" />
@@ -224,6 +232,7 @@ export default defineComponent({
     } = useState('ai')
 
     const expanded = ref(false)
+    const hasSuggestionAnimation = ref(true)
 
     const queriesResults = computed(() => {
       return suggestionsSearch.value.reduce(
@@ -250,9 +259,13 @@ export default defineComponent({
 
     function setExpanded(newValue: boolean) {
       expanded.value = newValue
+      !expanded.value && (hasSuggestionAnimation.value = false)
     }
 
-    watch(query, () => (expanded.value = false))
+    watch(query, () => {
+      expanded.value = false
+      hasSuggestionAnimation.value = true
+    })
 
     return {
       buttonText,
@@ -265,6 +278,7 @@ export default defineComponent({
       suggestionText,
       setExpanded,
       onExpandButtonClick,
+      hasSuggestionAnimation,
       query,
       tagging,
     }
