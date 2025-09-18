@@ -1,4 +1,8 @@
-import type { AiSuggestionsRequest, AiSuggestionsSearchRequest } from '@empathyco/x-types'
+import type {
+  AiSuggestionsRequest,
+  AiSuggestionsSearchRequest,
+  TaggingRequest,
+} from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of AI XModule, where each key is the event name, and the value is
@@ -10,4 +14,5 @@ export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
   UserClickedAiOverviewExpandButton: boolean
+  UserClickedAiOverviewQuery: { toolingDisplayClick: TaggingRequest; query: string }
 }

@@ -19,7 +19,7 @@
           :payload="tagging?.toolingDisplay ?? {}"
           :event-metadata="{
             feature: 'overview',
-            displayOriginalQuery: query,
+            displayOriginalQuery: query || 'overview-without-query',
             replaceable: false,
           }"
           data-test="ai-overview-display-emitter"
@@ -52,7 +52,13 @@
           >
             <BaseEventButton
               class="x-ai-overview-suggestion-query-btn"
-              :events="{ UserAcceptedAQuery: suggestionQuery }"
+              :events="{
+                UserAcceptedAQuery: suggestionQuery,
+                UserClickedAiOverviewQuery: {
+                  toolingDisplayClick: tagging?.toolingDisplayClick ?? {},
+                  query: suggestionQuery,
+                },
+              }"
             >
               {{ suggestionQuery }}
               <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
@@ -63,7 +69,7 @@
               :payload="tagging?.searchQueries[suggestionQuery].toolingDisplay ?? {}"
               :event-metadata="{
                 feature: 'overview',
-                displayOriginalQuery: query,
+                displayOriginalQuery: query || 'overview-without-query',
                 replaceable: false,
               }"
               data-test="ai-overview-query-display-emitter"

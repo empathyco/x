@@ -58,45 +58,47 @@ function readAnswer(
         commit('setSuggestionsLoading', false)
         return
       }
+
       const result = new TextDecoder().decode(value, { stream: true })
       const parts = result.split('\n\n')
       for (const part of parts) {
         const lines = part.split('\n')
-        let data: AnswerChunk
 
         for (const line of lines) {
-          // line.length check to avoid empty data chunks
-          if (line.startsWith('data:') && line.length > 5) {
-            data = JSON.parse(line.slice(5).trim()) as AnswerChunk
-            if ('responseText' in data) {
-              commit('setResponseText', data.responseText)
-            }
-            if ('suggestionText' in data) {
-              commit('setSuggestionText', data.suggestionText)
-            }
-            if ('queries' in data) {
-              commit('setQueries', data.queries)
-            }
-            if ('tagging' in data) {
-              const { toolingDisplay, toolingDisplayClick, searchQueries } = data.tagging[0]
-              const tagging = {
-                toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
-                toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
-                searchQueries: Object.fromEntries(
-                  Object.entries(searchQueries).map(
-                    ([query, { toolingDisplay, toolingDisplayClick }]) => [
-                      query,
-                      {
-                        toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
-                        toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
-                      },
-                    ],
-                  ),
-                ),
-              }
+          // line.length check to avoid event lines or empty lines
+          if (line.length <= 5 || line.startsWith('event:')) continue
 
-              commit('setTagging', tagging)
+          const raw = line.startsWith('data:') ? line.slice(5).trim() : line.trim()
+          const data = JSON.parse(raw) as AnswerChunk
+
+          if ('responseText' in data) {
+            commit('setResponseText', data.responseText)
+          }
+          if ('suggestionText' in data) {
+            commit('setSuggestionText', data.suggestionText)
+          }
+          if ('queries' in data) {
+            commit('setQueries', data.queries)
+          }
+          if ('tagging' in data) {
+            const { toolingDisplay, toolingDisplayClick, searchQueries } = data.tagging[0]
+            const tagging = {
+              toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+              toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+              searchQueries: Object.fromEntries(
+                Object.entries(searchQueries).map(
+                  ([query, { toolingDisplay, toolingDisplayClick }]) => [
+                    query,
+                    {
+                      toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+                      toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+                    },
+                  ],
+                ),
+              ),
             }
+
+            commit('setTagging', tagging)
           }
         }
       }

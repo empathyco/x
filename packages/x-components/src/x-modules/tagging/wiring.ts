@@ -313,6 +313,28 @@ export const trackAiOverviewButtonClickedWire = filterTruthyPayload(
 )
 
 /**
+ * Performs a track of clicking an AI overview query
+ *
+ * @public
+ */
+export const trackAiOverviewQueryClickedWire = wireDispatch(
+  'track',
+  ({ eventPayload: { toolingDisplayClick, query } }) => {
+    const taggingInfo = {
+      ...(toolingDisplayClick as TaggingRequest),
+      params: {
+        ...(toolingDisplayClick as TaggingRequest).params,
+        productId: 'none',
+        title: query as string,
+        url: 'none',
+      },
+    }
+
+    return taggingInfo
+  },
+)
+
+/**
  * Factory helper to create a wire for the track of the display click.
  *
  * @param property - Key of the tagging object to track.
@@ -519,5 +541,8 @@ export const taggingWiring = createWiring({
   },
   UserClickedAiOverviewExpandButton: {
     trackAiOverviewButtonClickedWire,
+  },
+  UserClickedAiOverviewQuery: {
+    trackAiOverviewQueryClickedWire,
   },
 })

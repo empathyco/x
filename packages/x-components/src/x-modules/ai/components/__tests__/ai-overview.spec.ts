@@ -210,6 +210,14 @@ describe('ai-overview component', () => {
       expect(sut.queryDisplayEmitters[index].props().payload).toStrictEqual(
         useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplay,
       )
+      expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
+      expect(sut.baseEventButtons[index].props().events).toStrictEqual({
+        UserAcceptedAQuery: suggestionSearch.query,
+        UserClickedAiOverviewQuery: {
+          toolingDisplayClick: useStateStub.tagging.value.toolingDisplayClick,
+          query: suggestionSearch.query,
+        },
+      })
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
       expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
         propsStub.slidingPanelContainersClasses,
@@ -300,5 +308,25 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
     expect(sut.toggleButton.isVisible()).toBeFalsy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
+  })
+
+  it('should pass the correct props to DisplayEmitter component when there is no query', () => {
+    jest.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, query: ref('') }))
+
+    const sut = render()
+
+    expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
+      feature: 'overview',
+      displayOriginalQuery: 'overview-without-query',
+      replaceable: false,
+    })
+
+    sut.queryDisplayEmitters.forEach(queryDisplayEmitter => {
+      expect(queryDisplayEmitter.props().eventMetadata).toStrictEqual({
+        feature: 'overview',
+        displayOriginalQuery: 'overview-without-query',
+        replaceable: false,
+      })
+    })
   })
 })
