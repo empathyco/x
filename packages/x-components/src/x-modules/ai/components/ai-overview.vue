@@ -213,14 +213,8 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
     const { query } = useGetter('ai')
-    const {
-      suggestionText,
-      responseText,
-      queries,
-      suggestionsSearch,
-      suggestionsLoading,
-      tagging,
-    } = useState('ai')
+    const { suggestionText, responseText, suggestionsSearch, suggestionsLoading, tagging } =
+      useState('ai')
 
     const expanded = ref(false)
 
@@ -243,7 +237,6 @@ export default defineComponent({
     return {
       buttonText,
       expanded,
-      queries,
       responseText,
       suggestionsLoading,
       suggestionsSearch,

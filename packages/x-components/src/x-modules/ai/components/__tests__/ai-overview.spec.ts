@@ -28,7 +28,6 @@ const useStateStub = {
     { query: 'suggestion 2', results: getResultsStub() },
     { query: 'suggestion 3', results: getResultsStub() },
   ]),
-  queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
   tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
