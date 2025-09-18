@@ -19,9 +19,10 @@
           :payload="tagging?.toolingDisplay ?? {}"
           :event-metadata="{
             feature: 'overview',
-            displayOriginalQuery: query,
+            displayOriginalQuery: query || 'overview-without-query',
             replaceable: false,
           }"
+          data-test="ai-overview-display-emitter"
         >
           <span class="x-ai-overview-title" data-test="ai-overview-title">
             <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
@@ -51,39 +52,56 @@
           >
             <BaseEventButton
               class="x-ai-overview-suggestion-query-btn"
-              :events="{ UserAcceptedAQuery: suggestionQuery }"
+              :events="{
+                UserAcceptedAQuery: suggestionQuery,
+                UserClickedAiOverviewQuery: {
+                  toolingDisplayClick: tagging?.toolingDisplayClick ?? {},
+                  query: suggestionQuery,
+                },
+              }"
             >
-              {{ suggestionQuery
-              }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+              {{ suggestionQuery }}
+              <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
             </BaseEventButton>
 
-            <SlidingPanel
+            <DisplayEmitter
               v-if="queriesResults[suggestionQuery]"
-              :class="slidingPanelsClasses"
-              :scroll-container-class="slidingPanelContainersClasses"
-              :button-class="slidingPanelButtonsClasses"
-              :reset-on-content-change="false"
+              :payload="tagging?.searchQueries[suggestionQuery].toolingDisplay ?? {}"
+              :event-metadata="{
+                feature: 'overview',
+                displayOriginalQuery: query || 'overview-without-query',
+                replaceable: false,
+              }"
+              data-test="ai-overview-query-display-emitter"
             >
-              <template #sliding-panel-addons="{ arrivedState }">
-                <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-              </template>
-              <template #sliding-panel-left-button>
-                <slot name="sliding-panels-left-button" />
-              </template>
-              <template #sliding-panel-right-button>
-                <slot name="sliding-panels-right-button" />
-              </template>
-              <ul class="x-ai-overview-suggestion-results">
-                <li
-                  v-for="result in queriesResults[suggestionQuery].results"
-                  :key="result.id"
-                  data-test="ai-overview-suggestion-result"
-                >
-                  <!-- @slot (required) result card -->
-                  <slot name="result" :result="result" />
-                </li>
-              </ul>
-            </SlidingPanel>
+              <SlidingPanel
+                v-if="queriesResults[suggestionQuery]"
+                :class="slidingPanelsClasses"
+                :scroll-container-class="slidingPanelContainersClasses"
+                :button-class="slidingPanelButtonsClasses"
+                :reset-on-content-change="false"
+              >
+                <template #sliding-panel-addons="{ arrivedState }">
+                  <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                </template>
+                <template #sliding-panel-left-button>
+                  <slot name="sliding-panels-left-button" />
+                </template>
+                <template #sliding-panel-right-button>
+                  <slot name="sliding-panels-right-button" />
+                </template>
+                <ul class="x-ai-overview-suggestion-results">
+                  <li
+                    v-for="result in queriesResults[suggestionQuery].results"
+                    :key="result.id"
+                    data-test="ai-overview-suggestion-result"
+                  >
+                    <!-- @slot (required) result card -->
+                    <slot name="result" :result="result" />
+                  </li>
+                </ul>
+              </SlidingPanel>
+            </DisplayEmitter>
           </div>
         </div>
       </div>
