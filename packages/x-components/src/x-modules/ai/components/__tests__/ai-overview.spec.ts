@@ -1,7 +1,7 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import {
@@ -118,7 +118,7 @@ describe('ai-overview component', () => {
     jest.clearAllMocks()
     jest.mocked(useGetter).mockImplementation(useGettersMock)
     jest.mocked(useState).mockImplementation(useStateMock)
-    jest.mocked(use$x).mockImplementation(use$xMock)
+    jest.mocked(use$x).mockImplementation(use$xMock as any)
   })
 
   it('should render the component by default', () => {
@@ -260,5 +260,40 @@ describe('ai-overview component', () => {
 
     expect(sut.suggestionsLoading.exists()).toBeTruthy()
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
+  })
+
+  it('should show suggestionText as title when title prop is empty, and hide the suggestionText span in content', async () => {
+    const sut = render({ props: { ...propsStub, title: undefined } })
+
+    expect(sut.title.text()).toBe(useStateStub.suggestionText.value)
+
+    const contentSpan = sut.content.find('span')
+    expect(contentSpan.exists()).toBeFalsy()
+
+    expect(sut.content.text()).toContain(useStateStub.responseText.value)
+  })
+
+  it('should not render query button nor sliding panel for queries without results', async () => {
+    const queriesWithOrphan = ref([
+      { query: 'suggestion 1' },
+      { query: 'suggestion 2' },
+      { query: 'suggestion 3' },
+      { query: 'orphan query (no results)' },
+    ])
+
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, queries: queriesWithOrphan }))
+
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
+
+    const buttonTexts = sut.baseEventButtons.map(b => b.text())
+    expect(buttonTexts).not.toContain('orphan query (no results)')
   })
 })
