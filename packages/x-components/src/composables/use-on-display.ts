@@ -20,7 +20,7 @@ export function useOnDisplay({
   callback,
   triggerOnce = true,
 }: UseOnDisplayOptions): UseOnDisplayReturn {
-  const isElementVisible = useElementVisibility(element)
+  const isElementVisible = useElementVisibility(element, { threshold: 0.1 })
 
   const unwatchDisplay = watch(isElementVisible, newValue => {
     if (newValue) {
