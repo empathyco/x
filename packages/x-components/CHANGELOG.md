@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.147 (2025-09-18)
+
+* fix(ai-overview): expose setExpanded function ([30baae2](https://github.com/empathyco/x/commit/30baae2))
+
+
+
+
+
 ## 6.0.0-alpha.146 (2025-09-18)
 
 * feat(AiOverview): add SpinnerIcon component and update ai-overview for loading state (#1881) ([e4b03b1](https://github.com/empathyco/x/commit/e4b03b1)), closes [#1881](https://github.com/empathyco/x/issues/1881)
