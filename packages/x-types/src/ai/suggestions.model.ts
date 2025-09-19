@@ -23,6 +23,7 @@ export interface AiSuggestionTagging {
     {
       toolingDisplay: TaggingRequest
       toolingDisplayClick: TaggingRequest
+      toolingDisplayAdd2Cart: TaggingRequest
     }
   >
 }

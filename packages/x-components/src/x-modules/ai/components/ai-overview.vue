@@ -54,10 +54,6 @@
               class="x-ai-overview-suggestion-query-btn"
               :events="{
                 UserAcceptedAQuery: suggestionQuery,
-                UserClickedAiOverviewQuery: {
-                  toolingDisplayClick: tagging?.toolingDisplayClick ?? {},
-                  query: suggestionQuery,
-                },
               }"
             >
               {{ suggestionQuery }}
@@ -74,33 +70,44 @@
               }"
               data-test="ai-overview-query-display-emitter"
             >
-              <SlidingPanel
-                v-if="queriesResults[suggestionQuery]"
-                :class="slidingPanelsClasses"
-                :scroll-container-class="slidingPanelContainersClasses"
-                :button-class="slidingPanelButtonsClasses"
-                :reset-on-content-change="false"
+              <DisplayClickProvider
+                :query-tagging="tagging?.searchQueries[suggestionQuery].toolingDisplay ?? {}"
+                :tooling-display-tagging="
+                  tagging?.searchQueries[suggestionQuery].toolingDisplayClick ?? {}
+                "
+                :tooling-add2-cart-tagging="
+                  tagging?.searchQueries[suggestionQuery].toolingDisplayAdd2Cart ?? {}
+                "
+                result-feature="overview"
               >
-                <template #sliding-panel-addons="{ arrivedState }">
-                  <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-                </template>
-                <template #sliding-panel-left-button>
-                  <slot name="sliding-panels-left-button" />
-                </template>
-                <template #sliding-panel-right-button>
-                  <slot name="sliding-panels-right-button" />
-                </template>
-                <ul class="x-ai-overview-suggestion-results">
-                  <li
-                    v-for="result in queriesResults[suggestionQuery].results"
-                    :key="result.id"
-                    data-test="ai-overview-suggestion-result"
-                  >
-                    <!-- @slot (required) result card -->
-                    <slot name="result" :result="result" />
-                  </li>
-                </ul>
-              </SlidingPanel>
+                <SlidingPanel
+                  v-if="queriesResults[suggestionQuery]"
+                  :class="slidingPanelsClasses"
+                  :scroll-container-class="slidingPanelContainersClasses"
+                  :button-class="slidingPanelButtonsClasses"
+                  :reset-on-content-change="false"
+                >
+                  <template #sliding-panel-addons="{ arrivedState }">
+                    <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                  </template>
+                  <template #sliding-panel-left-button>
+                    <slot name="sliding-panels-left-button" />
+                  </template>
+                  <template #sliding-panel-right-button>
+                    <slot name="sliding-panels-right-button" />
+                  </template>
+                  <ul class="x-ai-overview-suggestion-results">
+                    <li
+                      v-for="result in queriesResults[suggestionQuery].results"
+                      :key="result.id"
+                      data-test="ai-overview-suggestion-result"
+                    >
+                      <!-- @slot (required) result card -->
+                      <slot name="result" :result="result" />
+                    </li>
+                  </ul>
+                </SlidingPanel>
+              </DisplayClickProvider>
             </DisplayEmitter>
           </div>
         </div>
@@ -141,6 +148,7 @@ import {
   ChangeHeight,
   ChevronDownIcon,
   CollapseHeight,
+  DisplayClickProvider,
   Fade,
   SlidingPanel,
 } from '../../../components'
@@ -164,6 +172,7 @@ export default defineComponent({
     Fade,
     SlidingPanel,
     DisplayEmitter,
+    DisplayClickProvider,
   },
   props: {
     /**

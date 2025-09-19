@@ -24,12 +24,13 @@ const useGettersStub = {
 const useStateStub = {
   suggestionText: ref('suggestion text'),
   responseText: ref('response text'),
-  suggestionsSearch: ref([
-    { query: 'suggestion 1', results: getResultsStub() },
-    { query: 'suggestion 2', results: getResultsStub() },
-    { query: 'suggestion 3', results: getResultsStub() },
-  ]),
-  queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
+  suggestionsSearch: ref(
+    ['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({
+      query,
+      results: getResultsStub(),
+    })),
+  ),
+  queries: ref(['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({ query }))),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
   tagging: ref<AiSuggestionTagging>({
@@ -41,38 +42,25 @@ const useStateStub = {
       url: 'toolingDisplay',
       params: { param1: 'value1', param2: 'value2' },
     },
-    searchQueries: {
-      'suggestion 1': {
-        toolingDisplay: {
-          url: 'query1TaggingRequest',
-          params: { param1: 'value1', param2: 'value2' },
+    searchQueries: Object.fromEntries(
+      ['suggestion 1', 'suggestion 2', 'suggestion 3'].map((query, index) => [
+        query,
+        {
+          toolingDisplay: {
+            url: `query${index + 1}TaggingRequest`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
+          toolingDisplayClick: {
+            url: `query${index + 1}TaggingClick`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
+          toolingDisplayAdd2Cart: {
+            url: `query${index + 1}TaggingAdd2Cart`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
         },
-        toolingDisplayClick: {
-          url: 'query1TaggingClick',
-          params: { param1: 'value1', param2: 'value2' },
-        },
-      },
-      'suggestion 2': {
-        toolingDisplay: {
-          url: 'query2TaggingRequest',
-          params: { param1: 'value1', param2: 'value2' },
-        },
-        toolingDisplayClick: {
-          url: 'query2TaggingClick',
-          params: { param1: 'value1', param2: 'value2' },
-        },
-      },
-      'suggestion 3': {
-        toolingDisplay: {
-          url: 'query3TaggingRequest',
-          params: { param1: 'value1', param2: 'value2' },
-        },
-        toolingDisplayClick: {
-          url: 'query3TaggingClick',
-          params: { param1: 'value1', param2: 'value2' },
-        },
-      },
-    },
+      ]),
+    ),
   }),
 }
 const emitMock = jest.fn()
@@ -104,6 +92,10 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       stubs: {
         DisplayEmitter: {
           template: '<div v-bind="$attrs"><slot /></div>',
+          props: ['payload', 'eventMetadata'],
+        },
+        DisplayClickProvider: {
+          template: '<div><slot /></div>',
           props: ['payload', 'eventMetadata'],
         },
       },
@@ -164,6 +156,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
   }
 }
 
+//TODO: Add the remaining tests
 describe('ai-overview component', () => {
   beforeEach(() => {
     jest.restoreAllMocks()
@@ -213,10 +206,6 @@ describe('ai-overview component', () => {
       expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
       expect(sut.baseEventButtons[index].props().events).toStrictEqual({
         UserAcceptedAQuery: suggestionSearch.query,
-        UserClickedAiOverviewQuery: {
-          toolingDisplayClick: useStateStub.tagging.value.toolingDisplayClick,
-          query: suggestionSearch.query,
-        },
       })
       expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
       expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(

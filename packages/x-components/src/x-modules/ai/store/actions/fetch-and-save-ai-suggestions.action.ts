@@ -16,6 +16,7 @@ type AnswerChunk =
           {
             toolingDisplay: string
             toolingDisplayClick: string
+            toolingDisplayAdd2Cart: string
           }
         >
       }[]
@@ -87,11 +88,12 @@ function readAnswer(
               toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
               searchQueries: Object.fromEntries(
                 Object.entries(searchQueries).map(
-                  ([query, { toolingDisplay, toolingDisplayClick }]) => [
+                  ([query, { toolingDisplay, toolingDisplayClick, toolingDisplayAdd2Cart }]) => [
                     query,
                     {
                       toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
                       toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+                      toolingDisplayAdd2Cart: getTaggingInfoFromUrl(toolingDisplayAdd2Cart),
                     },
                   ],
                 ),
