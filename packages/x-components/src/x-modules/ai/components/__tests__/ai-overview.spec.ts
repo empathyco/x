@@ -1,7 +1,7 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import {
@@ -28,7 +28,6 @@ const useStateStub = {
     { query: 'suggestion 2', results: getResultsStub() },
     { query: 'suggestion 3', results: getResultsStub() },
   ]),
-  queries: ref([{ query: 'suggestion 1' }, { query: 'suggestion 2' }, { query: 'suggestion 3' }]),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
   tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
@@ -77,6 +76,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get collapseHeightSuggestions() {
       return wrapper.findComponent(getDataTestSelector('ai-overview-collapse-height-suggestions'))
     },
+    get suggestionsLoading() {
+      return wrapper.find(getDataTestSelector('ai-overview-suggestions-loading'))
+    },
     get suggestionsContainer() {
       return wrapper.find(getDataTestSelector('ai-overview-suggestions-container'))
     },
@@ -91,6 +93,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     },
     get slidingPanels() {
       return wrapper.findAllComponents(SlidingPanel)
+    },
+    get toggleButtonWrapper() {
+      return wrapper.find(getDataTestSelector('ai-overview-toggle-button-wrapper'))
     },
     get gradientBottom() {
       return wrapper.find(getDataTestSelector('ai-overview-gradient'))
@@ -113,7 +118,7 @@ describe('ai-overview component', () => {
     jest.clearAllMocks()
     jest.mocked(useGetter).mockImplementation(useGettersMock)
     jest.mocked(useState).mockImplementation(useStateMock)
-    jest.mocked(use$x).mockImplementation(use$xMock)
+    jest.mocked(use$x).mockImplementation(use$xMock as any)
   })
 
   it('should render the component by default', () => {
@@ -143,24 +148,30 @@ describe('ai-overview component', () => {
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.arrowRightIcons).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
-    useStateStub.suggestionsSearch.value.forEach((suggestionSearch, index) => {
-      expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
-      expect(sut.baseEventButtons[index].props('events')).toStrictEqual({
+    useStateStub.suggestionsSearch.value.forEach((suggestionSearch, suggestionIndex) => {
+      expect(sut.baseEventButtons[suggestionIndex].text()).toBe(suggestionSearch.query)
+      expect(sut.baseEventButtons[suggestionIndex].props('events')).toStrictEqual({
         UserAcceptedAQuery: suggestionSearch.query,
       })
-      expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
-      expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
+      expect(sut.slidingPanels[suggestionIndex].props('resetOnContentChange')).toBeFalsy()
+      expect(sut.slidingPanels[suggestionIndex].props('scrollContainerClass')).toBe(
         propsStub.slidingPanelContainersClasses,
       )
-      expect(sut.slidingPanels[index].props('buttonClass')).toBe(
+      expect(sut.slidingPanels[suggestionIndex].props('buttonClass')).toBe(
         propsStub.slidingPanelButtonsClasses,
       )
-      expect(sut.slidingPanels[index].classes()).toContain(propsStub.slidingPanelsClasses)
-      const results = sut.slidingPanels[index].findAll(
+      expect(sut.slidingPanels[suggestionIndex].classes()).toContain(propsStub.slidingPanelsClasses)
+      const results = sut.slidingPanels[suggestionIndex].findAll(
         getDataTestSelector('ai-overview-suggestion-result'),
       )
 
       expect(results).toHaveLength(suggestionSearch.results.length)
+
+      results.forEach((result, resultIndex) => {
+        expect(result.attributes().style).toBe(
+          `animation-delay: ${suggestionIndex * 300 + resultIndex * 300}ms;`,
+        )
+      })
     })
 
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
@@ -182,7 +193,7 @@ describe('ai-overview component', () => {
     expect(sut.displayEmitter.exists()).toBeFalsy()
   })
 
-  it('should render with expanded state correctly', async () => {
+  it('should render with expanded state correctly when clicking on toggle button', async () => {
     const sut = render()
 
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
@@ -191,6 +202,22 @@ describe('ai-overview component', () => {
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
 
     await sut.toggleButton.trigger('click')
+
+    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
+    expect(sut.gradientBottom.isVisible()).toBeFalsy()
+    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
+  })
+
+  it('should render with expanded state correctly when clicking on toggle button wrapper', async () => {
+    const sut = render()
+
+    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
+
+    await sut.toggleButtonWrapper.trigger('click')
 
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
     expect(sut.gradientBottom.isVisible()).toBeFalsy()
@@ -230,13 +257,77 @@ describe('ai-overview component', () => {
     })
   })
 
-  it('should render correctly if suggestion queries is empty', () => {
-    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, queries: ref([]) }))
+  it('should render correctly if suggestion is loading', () => {
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsSearch: ref([]) }))
 
     const sut = render()
 
+    expect(sut.suggestionsLoading.exists()).toBeTruthy()
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
-    expect(sut.toggleButton.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeFalsy()
+  })
+
+  it('should show suggestionText as title when title prop is empty, and hide the suggestionText span in content', async () => {
+    const sut = render({ props: { ...propsStub, title: undefined } })
+
+    expect(sut.title.text()).toBe(useStateStub.suggestionText.value)
+
+    const contentSpan = sut.content.find('span')
+    expect(contentSpan.exists()).toBeFalsy()
+
+    expect(sut.content.text()).toContain(useStateStub.responseText.value)
+  })
+
+  it('should not render query button nor sliding panel for queries without results', async () => {
+    const queriesWithOrphan = ref([
+      { query: 'suggestion 1' },
+      { query: 'suggestion 2' },
+      { query: 'suggestion 3' },
+      { query: 'orphan query (no results)' },
+    ])
+
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, queries: queriesWithOrphan }))
+
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
+
+    const buttonTexts = sut.baseEventButtons.map(b => b.text())
+    expect(buttonTexts).not.toContain('orphan query (no results)')
+  })
+
+  it('should animate the suggestion group once', async () => {
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).toContain('x-ai-overview-result-animation')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).toContain('x-ai-overview-result-animation')
+        })
+    })
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).not.toContain('x-ai-overview-result-animation')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).not.toContain('x-ai-overview-result-animation')
+        })
+    })
   })
 })

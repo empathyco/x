@@ -14,7 +14,7 @@
         </span>
         <DisplayEmitter
           v-else
-          :payload="tagging?.toolingDisplay ?? {}"
+          :payload="tagging?.toolingDisplay ?? { url: '', params: {} }"
           :event-metadata="{
             feature: 'overview',
             displayOriginalQuery: query,
@@ -22,66 +22,82 @@
           }"
         >
           <span class="x-ai-overview-title" data-test="ai-overview-title">
-            <AIStarIcon class="x-ai-overview-title-icon" />{{ title }}
+            <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
           </span>
         </DisplayEmitter>
       </Fade>
       <ChangeHeight>
         <div class="x-ai-overview-content" data-test="ai-overview-content">
-          <span>{{ suggestionText }}</span>
+          <span v-if="title">{{ suggestionText }}</span>
           <p>{{ responseText }}</p>
         </div>
       </ChangeHeight>
     </div>
     <CollapseHeight
-      v-if="queries.length"
       :style="{
         '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
       }"
       data-test="ai-overview-collapse-height-suggestions"
     >
-      <div v-show="expanded" data-test="ai-overview-suggestions-container">
-        <div class="x-ai-overview-suggestions">
+      <div v-show="expanded">
+        <SpinnerIcon
+          v-if="!suggestionsSearch.length"
+          class="x-ai-overview-suggestions-loading"
+          data-test="ai-overview-suggestions-loading"
+        />
+        <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
           <div
-            v-for="{ query: suggestionQuery } in queries"
+            v-for="(
+              { query: suggestionQuery, results: queriesResults }, suggestionIndex
+            ) in suggestionsSearch"
             :key="suggestionQuery"
             class="x-ai-overview-suggestion"
+            data-test="ai-overview-suggestion"
+            :class="{
+              'x-ai-overview-result-animation': shouldAnimateSuggestion,
+            }"
+            :style="{ animationDelay: `${suggestionIndex * 300}ms` }"
           >
             <BaseEventButton
               class="x-ai-overview-suggestion-query-btn"
               :events="{ UserAcceptedAQuery: suggestionQuery }"
             >
-              {{ suggestionQuery
-              }}<ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+              {{ suggestionQuery }}
+              <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
             </BaseEventButton>
 
-            <SlidingPanel
-              v-if="queriesResults[suggestionQuery]"
-              :class="slidingPanelsClasses"
-              :scroll-container-class="slidingPanelContainersClasses"
-              :button-class="slidingPanelButtonsClasses"
-              :reset-on-content-change="false"
-            >
-              <template #sliding-panel-addons="{ arrivedState }">
-                <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-              </template>
-              <template #sliding-panel-left-button>
-                <slot name="sliding-panels-left-button" />
-              </template>
-              <template #sliding-panel-right-button>
-                <slot name="sliding-panels-right-button" />
-              </template>
-              <ul class="x-ai-overview-suggestion-results">
-                <li
-                  v-for="result in queriesResults[suggestionQuery].results"
-                  :key="result.id"
-                  data-test="ai-overview-suggestion-result"
-                >
-                  <!-- @slot (required) result card -->
-                  <slot name="result" :result="result" />
-                </li>
-              </ul>
-            </SlidingPanel>
+            <slot name="sliding-panel" :results="queriesResults">
+              <SlidingPanel
+                :class="slidingPanelsClasses"
+                :scroll-container-class="slidingPanelContainersClasses"
+                :button-class="slidingPanelButtonsClasses"
+                :reset-on-content-change="false"
+              >
+                <template #sliding-panel-addons="{ arrivedState }">
+                  <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                </template>
+                <template #sliding-panel-left-button>
+                  <slot name="sliding-panels-left-button" />
+                </template>
+                <template #sliding-panel-right-button>
+                  <slot name="sliding-panels-right-button" />
+                </template>
+                <ul class="x-ai-overview-suggestion-results">
+                  <li
+                    v-for="(result, resultIndex) in queriesResults"
+                    :key="result.id"
+                    data-test="ai-overview-suggestion-result"
+                    :class="{
+                      'x-ai-overview-result-animation': shouldAnimateSuggestion,
+                    }"
+                    :style="{ animationDelay: `${suggestionIndex * 300 + resultIndex * 300}ms` }"
+                  >
+                    <!-- @slot (required) result card -->
+                    <slot name="result" :result="result" />
+                  </li>
+                </ul>
+              </SlidingPanel>
+            </slot>
           </div>
         </div>
       </div>
@@ -99,7 +115,7 @@
           <button
             class="x-ai-overview-toggle-btn"
             data-test="ai-overview-toggle-button"
-            @click="onExpandButtonClick(!expanded)"
+            @click.stop="onExpandButtonClick(!expanded)"
           >
             {{ buttonText }}
             <ChevronDownIcon
@@ -114,7 +130,6 @@
 </template>
 
 <script lang="ts">
-import type { AiSuggestionSearch } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import { computed, defineComponent, ref, watch } from 'vue'
 import {
@@ -126,6 +141,7 @@ import {
   CollapseHeight,
   Fade,
   SlidingPanel,
+  SpinnerIcon,
 } from '../../../components'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useGetter, useState } from '../../../composables'
@@ -146,6 +162,7 @@ export default defineComponent({
     ChangeHeight,
     Fade,
     SlidingPanel,
+    SpinnerIcon,
     DisplayEmitter,
   },
   props: {
@@ -156,7 +173,6 @@ export default defineComponent({
      */
     title: {
       type: String as PropType<string>,
-      default: 'Empathy AI Overview',
     },
     /**
      * The text displayed when the question is loading.
@@ -217,26 +233,14 @@ export default defineComponent({
     const {
       suggestionText,
       responseText,
-      queries,
       suggestionsSearch,
       suggestionsLoading,
       tagging,
+      queries,
     } = useState('ai')
 
     const expanded = ref(false)
-
-    const queriesResults = computed(() => {
-      return suggestionsSearch.value.reduce(
-        (
-          acc: Record<string, { results: AiSuggestionSearch['results']; numFound: number }>,
-          { query, results, numFound },
-        ) => {
-          acc[query] = { results, numFound }
-          return acc
-        },
-        {},
-      )
-    })
+    const shouldAnimateSuggestion = ref(true)
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -250,27 +254,32 @@ export default defineComponent({
 
     function setExpanded(newValue: boolean) {
       expanded.value = newValue
+      !expanded.value && (shouldAnimateSuggestion.value = false)
     }
 
-    watch(query, () => (expanded.value = false))
+    watch(query, () => {
+      expanded.value = false
+      shouldAnimateSuggestion.value = true
+    })
 
     return {
       buttonText,
       expanded,
-      queries,
       responseText,
       suggestionsLoading,
-      queriesResults,
       suggestionsSearch,
       suggestionText,
       setExpanded,
       onExpandButtonClick,
+      shouldAnimateSuggestion,
+      queries,
       query,
       tagging,
     }
   },
 })
 </script>
+
 <style lang="css">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
@@ -338,5 +347,32 @@ export default defineComponent({
 }
 .x-ai-overview-suggestion-results {
   @apply x-flex x-gap-16 x-px-16;
+}
+
+.x-ai-overview-suggestions-loading {
+  width: 2.5rem /* 40px */;
+  height: 2.5rem /* 40px */;
+  margin: auto;
+  animation: x-spin 1s linear infinite;
+
+  @keyframes x-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.x-ai-overview-result-animation {
+  opacity: 0;
+  animation: x-fade 0.3s ease-in-out forwards;
+
+  @keyframes x-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 </style>
