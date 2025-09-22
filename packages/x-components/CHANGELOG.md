@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.149 (2025-09-22)
+
+* style(ai-overview): fade animation to show results (#1880) ([84ee675](https://github.com/empathyco/x/commit/84ee675)), closes [#1880](https://github.com/empathyco/x/issues/1880)
+
+
+
+
+
 ## 6.0.0-alpha.148 (2025-09-18)
 
 * feat(ai-overview): make component more configurable (#1884) ([8b4b579](https://github.com/empathyco/x/commit/8b4b579)), closes [#1884](https://github.com/empathyco/x/issues/1884)

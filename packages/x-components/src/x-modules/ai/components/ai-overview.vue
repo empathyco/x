@@ -10,10 +10,11 @@
           >
             <span class="x-ai-overview-title-loading-indicator" />
             <span
-              v-typing="{ text: titleLoading, speed: 50 }"
               class="x-ai-overview-title-loading-text"
               data-test="ai-overview-title-loading-text"
-            />
+            >
+              {{ titleLoading }}
+            </span>
           </span>
           <DisplayEmitter
             v-else
@@ -45,7 +46,7 @@
         <div v-show="expanded">
           <SpinnerIcon
             v-if="!suggestionsSearch.length"
-            class="ai-overview-suggestions-loading"
+            class="x-ai-overview-suggestions-loading"
             data-test="ai-overview-suggestions-loading"
           />
           <div
@@ -54,9 +55,16 @@
             data-test="ai-overview-suggestions-container"
           >
             <div
-              v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
+              v-for="(
+                { query: suggestionQuery, results: queriesResults }, suggestionIndex
+              ) in suggestionsSearch"
               :key="suggestionQuery"
               class="x-ai-overview-suggestion"
+              data-test="ai-overview-suggestion"
+              :class="{
+                'x-ai-overview-result-animation': shouldAnimateSuggestion,
+              }"
+              :style="{ animationDelay: `${suggestionIndex * 300}ms` }"
             >
               <BaseEventButton
                 class="x-ai-overview-suggestion-query-btn"
@@ -84,9 +92,13 @@
                   </template>
                   <ul class="x-ai-overview-suggestion-results">
                     <li
-                      v-for="result in queriesResults"
+                      v-for="(result, resultIndex) in queriesResults"
                       :key="result.id"
                       data-test="ai-overview-suggestion-result"
+                      :class="{
+                        'x-ai-overview-result-animation': shouldAnimateSuggestion,
+                      }"
+                      :style="{ animationDelay: `${suggestionIndex * 300 + resultIndex * 300}ms` }"
                     >
                       <!-- @slot (required) result card -->
                       <slot name="result" :result="result" />
@@ -98,22 +110,25 @@
           </div>
         </div>
       </CollapseHeight>
-      <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
-        <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
-        <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
-          <button
-            class="x-ai-overview-toggle-btn"
-            data-test="ai-overview-toggle-button"
-            @click.stop="onExpandButtonClick(!expanded)"
-          >
-            {{ buttonText }}
-            <ChevronDownIcon
-              class="x-ai-overview-toggle-btn-icon"
-              :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
-            />
-          </button>
+
+      <Fade>
+        <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
+          <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
+          <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
+            <button
+              class="x-ai-overview-toggle-btn"
+              data-test="ai-overview-toggle-button"
+              @click.stop="onExpandButtonClick(!expanded)"
+            >
+              {{ buttonText }}
+              <ChevronDownIcon
+                class="x-ai-overview-toggle-btn-icon"
+                :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+              />
+            </button>
+          </div>
         </div>
-      </div>
+      </Fade>
     </div>
   </CollapseHeight>
 </template>
@@ -229,6 +244,7 @@ export default defineComponent({
     } = useState('ai')
 
     const expanded = ref(false)
+    const shouldAnimateSuggestion = ref(true)
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -242,9 +258,13 @@ export default defineComponent({
 
     function setExpanded(newValue: boolean) {
       expanded.value = newValue
+      !expanded.value && (shouldAnimateSuggestion.value = false)
     }
 
-    watch(query, () => (expanded.value = false))
+    watch(query, () => {
+      expanded.value = false
+      shouldAnimateSuggestion.value = true
+    })
 
     return {
       buttonText,
@@ -255,6 +275,7 @@ export default defineComponent({
       suggestionText,
       setExpanded,
       onExpandButtonClick,
+      shouldAnimateSuggestion,
       query,
       tagging,
       noResults,
@@ -262,6 +283,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
@@ -306,7 +328,7 @@ export default defineComponent({
   @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
+  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
 }
 .x-ai-overview-toggle-btn-icon {
   @apply x-rotate-0 x-icon x-transition-all x-duration-300;
@@ -331,7 +353,7 @@ export default defineComponent({
   @apply x-flex x-gap-16 x-px-16;
 }
 
-.ai-overview-suggestions-loading {
+.x-ai-overview-suggestions-loading {
   width: 2.5rem /* 40px */;
   height: 2.5rem /* 40px */;
   margin: auto;
@@ -340,6 +362,20 @@ export default defineComponent({
   @keyframes x-spin {
     to {
       transform: rotate(360deg);
+    }
+  }
+}
+
+.x-ai-overview-result-animation {
+  opacity: 0;
+  animation: x-fade 0.3s ease-in-out forwards;
+
+  @keyframes x-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 }
