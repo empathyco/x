@@ -72,11 +72,12 @@ function readAnswer(
           const raw = line.startsWith('data:') ? line.slice(5).trim() : line.trim()
           const data = JSON.parse(raw) as AnswerChunk
 
+          if ('suggestionText' in data) {
+            commit('setIsNoResults', false)
+            commit('setSuggestionText', data.suggestionText)
+          }
           if ('responseText' in data) {
             commit('setResponseText', data.responseText)
-          }
-          if ('suggestionText' in data) {
-            commit('setSuggestionText', data.suggestionText)
           }
           if ('queries' in data) {
             commit('setQueries', data.queries)

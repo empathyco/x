@@ -45,6 +45,9 @@ export interface AiState extends QueryState {
 
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[]
+
+  /** Flag to indicate that the AI response has no results */
+  isNoResults: boolean
 }
 
 /**
@@ -140,6 +143,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param relatedTags - The new related tags to save to the state.
    */
   setAiRelatedTags: (relatedTags: RelatedTag[]) => void
+  /**
+   * Sets the no results flag of the module.
+   *
+   * @param isNoResults - The new no results value.
+   */
+  setIsNoResults: (isNoResults: boolean) => void
 }
 
 /**

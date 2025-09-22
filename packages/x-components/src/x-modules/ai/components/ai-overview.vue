@@ -1,137 +1,167 @@
 <template>
-  <div class="x-ai-overview">
-    <div class="x-ai-overview-main">
-      <Fade mode="out-in">
-        <span
-          v-if="suggestionsLoading"
-          class="x-ai-overview-title-loading"
-          data-test="ai-overview-title-loading"
-        >
-          <span class="x-ai-overview-title-loading-indicator" />
+  <CollapseHeight>
+    <div v-if="!isNoResults" class="x-ai-overview" data-test="ai-overview-wrapper">
+      <div class="x-ai-overview-main">
+        <Fade mode="out-in">
           <span
-            v-typing="{ text: titleLoading, speed: 50 }"
-            class="x-ai-overview-title-loading-text"
-            data-test="ai-overview-title-loading-text"
-          />
-        </span>
-        <DisplayEmitter
-          v-else
-          :payload="tagging?.toolingDisplay ?? emptyTaggingRequest"
-          :event-metadata="{
-            feature: 'overview',
-            displayOriginalQuery: query || 'overview-without-query',
-            replaceable: false,
-          }"
-          data-test="ai-overview-display-emitter"
-        >
-          <span class="x-ai-overview-title" data-test="ai-overview-title">
-            <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
+            v-if="suggestionsLoading"
+            class="x-ai-overview-title-loading"
+            data-test="ai-overview-title-loading"
+          >
+            <span class="x-ai-overview-title-loading-indicator" />
+            <span
+              class="x-ai-overview-title-loading-text"
+              data-test="ai-overview-title-loading-text"
+            >
+              {{ titleLoading }}
+            </span>
           </span>
-        </DisplayEmitter>
-      </Fade>
-      <ChangeHeight>
-        <div class="x-ai-overview-content" data-test="ai-overview-content">
-          <span v-if="title">{{ suggestionText }}</span>
-          <p>{{ responseText }}</p>
-        </div>
-      </ChangeHeight>
-    </div>
-    <CollapseHeight
-      :style="{
-        '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
-      }"
-      data-test="ai-overview-collapse-height-suggestions"
-    >
-      <div v-show="expanded">
-        <SpinnerIcon
-          v-if="!suggestionsSearch.length"
-          class="ai-overview-suggestions-loading"
-          data-test="ai-overview-suggestions-loading"
-        />
-        <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
           <DisplayEmitter
-            v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
-            :key="suggestionQuery"
-            :payload="tagging?.searchQueries[suggestionQuery].toolingDisplay ?? emptyTaggingRequest"
+            v-else
+            :payload="tagging?.toolingDisplay ?? emptyTaggingRequest"
             :event-metadata="{
               feature: 'overview',
               displayOriginalQuery: query || 'overview-without-query',
               replaceable: false,
             }"
-            data-test="ai-overview-query-display-emitter"
+            data-test="ai-overview-display-emitter"
           >
-            <div class="x-ai-overview-suggestion">
-              <BaseEventButton
-                class="x-ai-overview-suggestion-query-btn"
-                :events="{
-                  UserAcceptedAQuery: suggestionQuery,
-                }"
-              >
-                {{ suggestionQuery }}
-                <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
-              </BaseEventButton>
-
-              <DisplayClickProvider
-                :query-tagging="tagging?.searchQueries[suggestionQuery].toolingDisplay"
-                :tooling-display-tagging="
-                  tagging?.searchQueries[suggestionQuery].toolingDisplayClick
-                "
-                :tooling-add2-cart-tagging="
-                  tagging?.searchQueries[suggestionQuery].toolingDisplayAdd2Cart
-                "
-                result-feature="overview"
-              >
-                <slot name="sliding-panel" :results="queriesResults">
-                  <SlidingPanel
-                    :class="slidingPanelsClasses"
-                    :scroll-container-class="slidingPanelContainersClasses"
-                    :button-class="slidingPanelButtonsClasses"
-                    :reset-on-content-change="false"
-                  >
-                    <template #sliding-panel-addons="{ arrivedState }">
-                      <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-                    </template>
-                    <template #sliding-panel-left-button>
-                      <slot name="sliding-panels-left-button" />
-                    </template>
-                    <template #sliding-panel-right-button>
-                      <slot name="sliding-panels-right-button" />
-                    </template>
-                    <ul class="x-ai-overview-suggestion-results">
-                      <li
-                        v-for="result in queriesResults"
-                        :key="result.id"
-                        data-test="ai-overview-suggestion-result"
-                      >
-                        <!-- @slot (required) result card -->
-                        <slot name="result" :result="result" />
-                      </li>
-                    </ul>
-                  </SlidingPanel>
-                </slot>
-              </DisplayClickProvider>
-            </div>
+            <span class="x-ai-overview-title" data-test="ai-overview-title">
+              <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
+            </span>
           </DisplayEmitter>
-        </div>
+        </Fade>
+        <ChangeHeight>
+          <div class="x-ai-overview-content" data-test="ai-overview-content">
+            <span v-if="title">{{ suggestionText }}</span>
+            <p>{{ responseText }}</p>
+          </div>
+        </ChangeHeight>
       </div>
-    </CollapseHeight>
-    <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
-      <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
-      <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
-        <button
-          class="x-ai-overview-toggle-btn"
-          data-test="ai-overview-toggle-button"
-          @click.stop="onExpandButtonClick(!expanded)"
-        >
-          {{ buttonText }}
-          <ChevronDownIcon
-            class="x-ai-overview-toggle-btn-icon"
-            :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+      <CollapseHeight
+        :style="{
+          '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
+        }"
+        data-test="ai-overview-collapse-height-suggestions"
+      >
+        <div v-show="expanded">
+          <SpinnerIcon
+            v-if="!suggestionsSearch.length"
+            class="x-ai-overview-suggestions-loading"
+            data-test="ai-overview-suggestions-loading"
           />
-        </button>
-      </div>
+          <div
+            v-else
+            class="x-ai-overview-suggestions"
+            data-test="ai-overview-suggestions-container"
+          >
+            <DisplayEmitter
+              v-for="(
+                { query: suggestionQuery, results: queriesResults }, suggestionIndex
+              ) in suggestionsSearch"
+              :key="suggestionQuery"
+              :payload="
+                tagging?.searchQueries[suggestionQuery].toolingDisplay ?? emptyTaggingRequest
+              "
+              :event-metadata="{
+                feature: 'overview',
+                displayOriginalQuery: query || 'overview-without-query',
+                replaceable: false,
+              }"
+              data-test="ai-overview-query-display-emitter"
+            >
+              <div
+                class="x-ai-overview-suggestion"
+                data-test="ai-overview-suggestion"
+                :class="{
+                  'x-ai-overview-result-animation': shouldAnimateSuggestion,
+                }"
+                :style="{ animationDelay: `${suggestionIndex * 300}ms` }"
+              >
+                <BaseEventButton
+                  class="x-ai-overview-suggestion-query-btn"
+                  :events="{ UserAcceptedAQuery: suggestionQuery }"
+                >
+                  {{ suggestionQuery }}
+                  <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+                </BaseEventButton>
+
+                <DisplayClickProvider
+                  :query-tagging="tagging?.searchQueries[suggestionQuery].toolingDisplay"
+                  :tooling-display-tagging="
+                    tagging?.searchQueries[suggestionQuery].toolingDisplayClick
+                  "
+                  :tooling-add2-cart-tagging="
+                    tagging?.searchQueries[suggestionQuery].toolingDisplayAdd2Cart
+                  "
+                  result-feature="overview"
+                >
+                  <slot name="sliding-panel" :results="queriesResults">
+                    <SlidingPanel
+                      :class="slidingPanelsClasses"
+                      :scroll-container-class="slidingPanelContainersClasses"
+                      :button-class="slidingPanelButtonsClasses"
+                      :reset-on-content-change="false"
+                    >
+                      <template #sliding-panel-addons="{ arrivedState }">
+                        <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                      </template>
+                      <template #sliding-panel-left-button>
+                        <slot name="sliding-panels-left-button" />
+                      </template>
+                      <template #sliding-panel-right-button>
+                        <slot name="sliding-panels-right-button" />
+                      </template>
+                      <ul class="x-ai-overview-suggestion-results">
+                        <li
+                          v-for="(result, resultIndex) in queriesResults"
+                          :key="result.id"
+                          data-test="ai-overview-suggestion-result"
+                          :class="{
+                            'x-ai-overview-result-animation': shouldAnimateSuggestion,
+                          }"
+                          :style="{
+                            animationDelay: `${suggestionIndex * 300 + resultIndex * 300}ms`,
+                          }"
+                        >
+                          <!-- @slot (required) result card -->
+                          <slot name="result" :result="result" />
+                        </li>
+                      </ul>
+                    </SlidingPanel>
+                  </slot>
+                </DisplayClickProvider>
+              </div>
+            </DisplayEmitter>
+          </div>
+        </div>
+      </CollapseHeight>
+
+      <Fade>
+        <div
+          v-if="queries.length"
+          class="x-cursor-pointer"
+          data-test="ai-overview-toggle-button-wrapper"
+          @click="onExpandButtonClick(!expanded)"
+        >
+          <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
+          <div class="x-ai-overview-toggle-wrapper">
+            <button
+              class="x-ai-overview-toggle-btn"
+              data-test="ai-overview-toggle-button"
+              @click.stop="onExpandButtonClick(!expanded)"
+            >
+              {{ buttonText }}
+              <ChevronDownIcon
+                class="x-ai-overview-toggle-btn-icon"
+                :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+              />
+            </button>
+          </div>
+        </div>
+      </Fade>
     </div>
-  </div>
+  </CollapseHeight>
 </template>
 
 <script lang="ts">
@@ -237,12 +267,20 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
     const { query } = useGetter('ai')
-    const { suggestionText, responseText, suggestionsSearch, suggestionsLoading, tagging } =
-      useState('ai')
+    const {
+      suggestionText,
+      responseText,
+      suggestionsSearch,
+      suggestionsLoading,
+      tagging,
+      isNoResults,
+      queries,
+    } = useState('ai')
 
     const emptyTaggingRequest = { url: '', params: {} }
 
     const expanded = ref(false)
+    const shouldAnimateSuggestion = ref(true)
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -256,9 +294,13 @@ export default defineComponent({
 
     function setExpanded(newValue: boolean) {
       expanded.value = newValue
+      !expanded.value && (shouldAnimateSuggestion.value = false)
     }
 
-    watch(query, () => (expanded.value = false))
+    watch(query, () => {
+      expanded.value = false
+      shouldAnimateSuggestion.value = true
+    })
 
     return {
       buttonText,
@@ -270,12 +312,16 @@ export default defineComponent({
       suggestionText,
       setExpanded,
       onExpandButtonClick,
+      shouldAnimateSuggestion,
       query,
       tagging,
+      isNoResults,
+      queries,
     }
   },
 })
 </script>
+
 <style lang="css">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
@@ -320,7 +366,7 @@ export default defineComponent({
   @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
+  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
 }
 .x-ai-overview-toggle-btn-icon {
   @apply x-rotate-0 x-icon x-transition-all x-duration-300;
@@ -345,7 +391,7 @@ export default defineComponent({
   @apply x-flex x-gap-16 x-px-16;
 }
 
-.ai-overview-suggestions-loading {
+.x-ai-overview-suggestions-loading {
   width: 2.5rem /* 40px */;
   height: 2.5rem /* 40px */;
   margin: auto;
@@ -354,6 +400,20 @@ export default defineComponent({
   @keyframes x-spin {
     to {
       transform: rotate(360deg);
+    }
+  }
+}
+
+.x-ai-overview-result-animation {
+  opacity: 0;
+  animation: x-fade 0.3s ease-in-out forwards;
+
+  @keyframes x-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 }
