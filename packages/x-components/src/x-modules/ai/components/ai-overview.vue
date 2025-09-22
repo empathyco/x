@@ -48,7 +48,7 @@
         <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
           <div
             v-for="(
-              { query: suggestionQuery, results: queriesResults }, indexSuggestion
+              { query: suggestionQuery, results: queriesResults }, suggestionIndex
             ) in suggestionsSearch"
             :key="suggestionQuery"
             class="x-ai-overview-suggestion"
@@ -56,7 +56,7 @@
             :class="{
               'x-animate-fade-in': shouldAnimateSuggestion,
             }"
-            :style="{ animationDelay: `${indexSuggestion * 300}ms` }"
+            :style="{ animationDelay: `${suggestionIndex * 300}ms` }"
           >
             <BaseEventButton
               class="x-ai-overview-suggestion-query-btn"
@@ -84,13 +84,13 @@
                 </template>
                 <ul class="x-ai-overview-suggestion-results">
                   <li
-                    v-for="(result, indexResult) in queriesResults"
+                    v-for="(result, resultIndex) in queriesResults"
                     :key="result.id"
                     data-test="ai-overview-suggestion-result"
                     :class="{
                       'x-animate-fade-in': shouldAnimateSuggestion,
                     }"
-                    :style="{ animationDelay: `${indexSuggestion * 300 + indexResult * 300}ms` }"
+                    :style="{ animationDelay: `${suggestionIndex * 300 + resultIndex * 300}ms` }"
                   >
                     <!-- @slot (required) result card -->
                     <slot name="result" :result="result" />
