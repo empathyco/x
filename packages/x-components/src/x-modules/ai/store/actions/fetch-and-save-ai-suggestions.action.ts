@@ -60,11 +60,12 @@ function readAnswer(
           // line.length check to avoid empty data chunks
           if (line.startsWith('data:') && line.length > 5) {
             data = JSON.parse(line.slice(5).trim()) as AnswerChunk
+            if ('suggestionText' in data) {
+              commit('setIsNoResults', false)
+              commit('setSuggestionText', data.suggestionText)
+            }
             if ('responseText' in data) {
               commit('setResponseText', data.responseText)
-            }
-            if ('suggestionText' in data) {
-              commit('setSuggestionText', data.suggestionText)
             }
             if ('queries' in data) {
               commit('setQueries', data.queries)
