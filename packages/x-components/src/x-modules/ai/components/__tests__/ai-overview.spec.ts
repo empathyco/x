@@ -34,7 +34,7 @@ const useStateStub = {
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
   tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
-  noResults: ref(false),
+  isNoResults: ref(false),
 }
 const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
@@ -311,8 +311,8 @@ describe('ai-overview component', () => {
     expect(buttonTexts).not.toContain('orphan query (no results)')
   })
 
-  it('should not render the component if noResults is true', async () => {
-    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, noResults: ref(true) }))
+  it('should not render the component if isNoResults is true', async () => {
+    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, isNoResults: ref(true) }))
 
     const sut = render()
 

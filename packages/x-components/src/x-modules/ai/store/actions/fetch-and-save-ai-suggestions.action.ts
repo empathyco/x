@@ -61,7 +61,7 @@ function readAnswer(
           if (line.startsWith('data:') && line.length > 5) {
             data = JSON.parse(line.slice(5).trim()) as AnswerChunk
             if ('suggestionText' in data) {
-              commit('setNoResults', false)
+              commit('setIsNoResults', false)
               commit('setSuggestionText', data.suggestionText)
             }
             if ('responseText' in data) {

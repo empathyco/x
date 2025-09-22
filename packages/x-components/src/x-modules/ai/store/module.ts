@@ -66,8 +66,8 @@ export const aiXStoreModule: AiXStoreModule = {
     setAiRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
     },
-    setNoResults(state, noResults: boolean) {
-      state.noResults = noResults
+    setIsNoResults(state, isNoResults: boolean) {
+      state.isNoResults = isNoResults
     },
   },
   actions: {
@@ -94,6 +94,6 @@ function resettableAiState() {
     suggestionsSearch: [],
     suggestionsLoading: false,
     suggestionsSearchLoading: false,
-    noResults: true,
+    isNoResults: true,
   }
 }

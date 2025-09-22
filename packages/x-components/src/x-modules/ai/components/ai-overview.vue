@@ -1,6 +1,6 @@
 <template>
   <CollapseHeight>
-    <div v-if="!noResults" class="x-ai-overview" data-test="ai-overview-wrapper">
+    <div v-if="!isNoResults" class="x-ai-overview" data-test="ai-overview-wrapper">
       <div class="x-ai-overview-main">
         <Fade mode="out-in">
           <span
@@ -245,7 +245,7 @@ export default defineComponent({
       suggestionsSearch,
       suggestionsLoading,
       tagging,
-      noResults,
+      isNoResults,
       queries,
     } = useState('ai')
 
@@ -284,7 +284,7 @@ export default defineComponent({
       shouldAnimateSuggestion,
       query,
       tagging,
-      noResults,
+      isNoResults,
       queries,
     }
   },
