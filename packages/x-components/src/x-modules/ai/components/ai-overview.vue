@@ -112,9 +112,14 @@
       </CollapseHeight>
 
       <Fade>
-        <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
+        <div
+          v-if="queries.length"
+          class="x-cursor-pointer"
+          data-test="ai-overview-toggle-button-wrapper"
+          @click="onExpandButtonClick(!expanded)"
+        >
           <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
-          <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
+          <div class="x-ai-overview-toggle-wrapper">
             <button
               class="x-ai-overview-toggle-btn"
               data-test="ai-overview-toggle-button"
@@ -241,6 +246,7 @@ export default defineComponent({
       suggestionsLoading,
       tagging,
       noResults,
+      queries,
     } = useState('ai')
 
     const expanded = ref(false)
@@ -279,6 +285,7 @@ export default defineComponent({
       query,
       tagging,
       noResults,
+      queries,
     }
   },
 })
