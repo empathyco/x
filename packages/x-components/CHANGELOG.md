@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.150 (2025-09-22)
+
+* feat(AiOverview): handle new noResult chunk in AiOverview (#1886) ([2c41469](https://github.com/empathyco/x/commit/2c41469)), closes [#1886](https://github.com/empathyco/x/issues/1886)
+
+
+
+
+
 ## 6.0.0-alpha.149 (2025-09-22)
 
 * style(ai-overview): fade animation to show results (#1880) ([84ee675](https://github.com/empathyco/x/commit/84ee675)), closes [#1880](https://github.com/empathyco/x/issues/1880)
