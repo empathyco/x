@@ -31,6 +31,7 @@ const useStateStub = {
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
   tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
+  noResults: ref(false),
 }
 const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
@@ -61,6 +62,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
 
   return {
     wrapper,
+    get overviewWrapper() {
+      return wrapper.find(getDataTestSelector('ai-overview-wrapper'))
+    },
     get titleLoading() {
       return wrapper.find(getDataTestSelector('ai-overview-title-loading'))
     },
@@ -124,6 +128,7 @@ describe('ai-overview component', () => {
   it('should render the component by default', () => {
     const sut = render()
 
+    expect(sut.overviewWrapper.exists()).toBeTruthy()
     expect(sut.titleLoading.exists()).toBeFalsy()
     expect(sut.displayEmitter.exists()).toBeTruthy()
     expect(sut.displayEmitter.props().payload).toStrictEqual(
@@ -295,5 +300,13 @@ describe('ai-overview component', () => {
 
     const buttonTexts = sut.baseEventButtons.map(b => b.text())
     expect(buttonTexts).not.toContain('orphan query (no results)')
+  })
+
+  it('should not render the component if noResults is true', async () => {
+    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, noResults: ref(true) }))
+
+    const sut = render()
+
+    expect(sut.overviewWrapper.exists()).toBeFalsy()
   })
 })

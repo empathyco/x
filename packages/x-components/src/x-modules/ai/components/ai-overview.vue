@@ -1,115 +1,121 @@
 <template>
-  <div class="x-ai-overview">
-    <div class="x-ai-overview-main">
-      <Fade mode="out-in">
-        <span
-          v-if="suggestionsLoading"
-          class="x-ai-overview-title-loading"
-          data-test="ai-overview-title-loading"
-        >
-          <span class="x-ai-overview-title-loading-indicator" />
+  <CollapseHeight>
+    <div v-if="!noResults" class="x-ai-overview" data-test="ai-overview-wrapper">
+      <div class="x-ai-overview-main">
+        <Fade mode="out-in">
           <span
-            v-typing="{ text: titleLoading, speed: 50 }"
-            class="x-ai-overview-title-loading-text"
-            data-test="ai-overview-title-loading-text"
-          />
-        </span>
-        <DisplayEmitter
-          v-else
-          :payload="tagging?.toolingDisplay ?? { url: '', params: {} }"
-          :event-metadata="{
-            feature: 'overview',
-            displayOriginalQuery: query,
-            replaceable: false,
-          }"
-        >
-          <span class="x-ai-overview-title" data-test="ai-overview-title">
-            <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
-          </span>
-        </DisplayEmitter>
-      </Fade>
-      <ChangeHeight>
-        <div class="x-ai-overview-content" data-test="ai-overview-content">
-          <span v-if="title">{{ suggestionText }}</span>
-          <p>{{ responseText }}</p>
-        </div>
-      </ChangeHeight>
-    </div>
-    <CollapseHeight
-      :style="{
-        '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
-      }"
-      data-test="ai-overview-collapse-height-suggestions"
-    >
-      <div v-show="expanded">
-        <SpinnerIcon
-          v-if="!suggestionsSearch.length"
-          class="ai-overview-suggestions-loading"
-          data-test="ai-overview-suggestions-loading"
-        />
-        <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
-          <div
-            v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
-            :key="suggestionQuery"
-            class="x-ai-overview-suggestion"
+            v-if="suggestionsLoading"
+            class="x-ai-overview-title-loading"
+            data-test="ai-overview-title-loading"
           >
-            <BaseEventButton
-              class="x-ai-overview-suggestion-query-btn"
-              :events="{ UserAcceptedAQuery: suggestionQuery }"
+            <span class="x-ai-overview-title-loading-indicator" />
+            <span
+              v-typing="{ text: titleLoading, speed: 50 }"
+              class="x-ai-overview-title-loading-text"
+              data-test="ai-overview-title-loading-text"
+            />
+          </span>
+          <DisplayEmitter
+            v-else
+            :payload="tagging?.toolingDisplay ?? { url: '', params: {} }"
+            :event-metadata="{
+              feature: 'overview',
+              displayOriginalQuery: query,
+              replaceable: false,
+            }"
+          >
+            <span class="x-ai-overview-title" data-test="ai-overview-title">
+              <AIStarIcon class="x-ai-overview-title-icon" />{{ !!title ? title : suggestionText }}
+            </span>
+          </DisplayEmitter>
+        </Fade>
+        <ChangeHeight>
+          <div class="x-ai-overview-content" data-test="ai-overview-content">
+            <span v-if="title">{{ suggestionText }}</span>
+            <p>{{ responseText }}</p>
+          </div>
+        </ChangeHeight>
+      </div>
+      <CollapseHeight
+        :style="{
+          '--x-collapse-height-transition-duration': `${300 * suggestionsSearch.length}ms`,
+        }"
+        data-test="ai-overview-collapse-height-suggestions"
+      >
+        <div v-show="expanded">
+          <SpinnerIcon
+            v-if="!suggestionsSearch.length"
+            class="ai-overview-suggestions-loading"
+            data-test="ai-overview-suggestions-loading"
+          />
+          <div
+            v-else
+            class="x-ai-overview-suggestions"
+            data-test="ai-overview-suggestions-container"
+          >
+            <div
+              v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
+              :key="suggestionQuery"
+              class="x-ai-overview-suggestion"
             >
-              {{ suggestionQuery }}
-              <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
-            </BaseEventButton>
-
-            <slot name="sliding-panel" :results="queriesResults">
-              <SlidingPanel
-                :class="slidingPanelsClasses"
-                :scroll-container-class="slidingPanelContainersClasses"
-                :button-class="slidingPanelButtonsClasses"
-                :reset-on-content-change="false"
+              <BaseEventButton
+                class="x-ai-overview-suggestion-query-btn"
+                :events="{ UserAcceptedAQuery: suggestionQuery }"
               >
-                <template #sliding-panel-addons="{ arrivedState }">
-                  <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-                </template>
-                <template #sliding-panel-left-button>
-                  <slot name="sliding-panels-left-button" />
-                </template>
-                <template #sliding-panel-right-button>
-                  <slot name="sliding-panels-right-button" />
-                </template>
-                <ul class="x-ai-overview-suggestion-results">
-                  <li
-                    v-for="result in queriesResults"
-                    :key="result.id"
-                    data-test="ai-overview-suggestion-result"
-                  >
-                    <!-- @slot (required) result card -->
-                    <slot name="result" :result="result" />
-                  </li>
-                </ul>
-              </SlidingPanel>
-            </slot>
+                {{ suggestionQuery }}
+                <ArrowRightIcon class="x-ai-overview-suggestion-query-btn-icon" />
+              </BaseEventButton>
+
+              <slot name="sliding-panel" :results="queriesResults">
+                <SlidingPanel
+                  :class="slidingPanelsClasses"
+                  :scroll-container-class="slidingPanelContainersClasses"
+                  :button-class="slidingPanelButtonsClasses"
+                  :reset-on-content-change="false"
+                >
+                  <template #sliding-panel-addons="{ arrivedState }">
+                    <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                  </template>
+                  <template #sliding-panel-left-button>
+                    <slot name="sliding-panels-left-button" />
+                  </template>
+                  <template #sliding-panel-right-button>
+                    <slot name="sliding-panels-right-button" />
+                  </template>
+                  <ul class="x-ai-overview-suggestion-results">
+                    <li
+                      v-for="result in queriesResults"
+                      :key="result.id"
+                      data-test="ai-overview-suggestion-result"
+                    >
+                      <!-- @slot (required) result card -->
+                      <slot name="result" :result="result" />
+                    </li>
+                  </ul>
+                </SlidingPanel>
+              </slot>
+            </div>
           </div>
         </div>
-      </div>
-    </CollapseHeight>
-    <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
-      <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
-      <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
-        <button
-          class="x-ai-overview-toggle-btn"
-          data-test="ai-overview-toggle-button"
-          @click.stop="onExpandButtonClick(!expanded)"
-        >
-          {{ buttonText }}
-          <ChevronDownIcon
-            class="x-ai-overview-toggle-btn-icon"
-            :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
-          />
-        </button>
+      </CollapseHeight>
+      <div v-if="responseText" class="x-cursor-pointer" @click="onExpandButtonClick(!expanded)">
+        <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
+        <div class="x-ai-overview-toggle-wrapper" data-test="ai-overview-toggle-button-wrapper">
+          <button
+            class="x-ai-overview-toggle-btn"
+            data-test="ai-overview-toggle-button"
+            @click.stop="onExpandButtonClick(!expanded)"
+          >
+            {{ buttonText }}
+            <ChevronDownIcon
+              class="x-ai-overview-toggle-btn-icon"
+              :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
+            />
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </CollapseHeight>
 </template>
 
 <script lang="ts">
@@ -213,8 +219,14 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
     const { query } = useGetter('ai')
-    const { suggestionText, responseText, suggestionsSearch, suggestionsLoading, tagging } =
-      useState('ai')
+    const {
+      suggestionText,
+      responseText,
+      suggestionsSearch,
+      suggestionsLoading,
+      tagging,
+      noResults,
+    } = useState('ai')
 
     const expanded = ref(false)
 
@@ -245,6 +257,7 @@ export default defineComponent({
       onExpandButtonClick,
       query,
       tagging,
+      noResults,
     }
   },
 })
