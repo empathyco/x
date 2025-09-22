@@ -148,24 +148,30 @@ describe('ai-overview component', () => {
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.arrowRightIcons).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
-    useStateStub.suggestionsSearch.value.forEach((suggestionSearch, index) => {
-      expect(sut.baseEventButtons[index].text()).toBe(suggestionSearch.query)
-      expect(sut.baseEventButtons[index].props('events')).toStrictEqual({
+    useStateStub.suggestionsSearch.value.forEach((suggestionSearch, suggestionIndex) => {
+      expect(sut.baseEventButtons[suggestionIndex].text()).toBe(suggestionSearch.query)
+      expect(sut.baseEventButtons[suggestionIndex].props('events')).toStrictEqual({
         UserAcceptedAQuery: suggestionSearch.query,
       })
-      expect(sut.slidingPanels[index].props('resetOnContentChange')).toBeFalsy()
-      expect(sut.slidingPanels[index].props('scrollContainerClass')).toBe(
+      expect(sut.slidingPanels[suggestionIndex].props('resetOnContentChange')).toBeFalsy()
+      expect(sut.slidingPanels[suggestionIndex].props('scrollContainerClass')).toBe(
         propsStub.slidingPanelContainersClasses,
       )
-      expect(sut.slidingPanels[index].props('buttonClass')).toBe(
+      expect(sut.slidingPanels[suggestionIndex].props('buttonClass')).toBe(
         propsStub.slidingPanelButtonsClasses,
       )
-      expect(sut.slidingPanels[index].classes()).toContain(propsStub.slidingPanelsClasses)
-      const results = sut.slidingPanels[index].findAll(
+      expect(sut.slidingPanels[suggestionIndex].classes()).toContain(propsStub.slidingPanelsClasses)
+      const results = sut.slidingPanels[suggestionIndex].findAll(
         getDataTestSelector('ai-overview-suggestion-result'),
       )
 
       expect(results).toHaveLength(suggestionSearch.results.length)
+
+      results.forEach((result, resultIndex) => {
+        expect(result.attributes().style).toBe(
+          `animation-delay: ${suggestionIndex * 300 + resultIndex * 300}ms;`,
+        )
+      })
     })
 
     expect(sut.gradientBottom.isVisible()).toBeTruthy()
@@ -295,5 +301,33 @@ describe('ai-overview component', () => {
 
     const buttonTexts = sut.baseEventButtons.map(b => b.text())
     expect(buttonTexts).not.toContain('orphan query (no results)')
+  })
+
+  it('should animate the suggestion group once', async () => {
+    const sut = render()
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).toContain('x-ai-overview-result-animation')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).toContain('x-ai-overview-result-animation')
+        })
+    })
+
+    await sut.toggleButton.trigger('click')
+    await nextTick()
+
+    useStateStub.suggestionsSearch.value.forEach((_, index) => {
+      expect(sut.suggestions[index].classes()).not.toContain('x-ai-overview-result-animation')
+      sut.slidingPanels[index]
+        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
+        .forEach(result => {
+          expect(result.classes()).not.toContain('x-ai-overview-result-animation')
+        })
+    })
   })
 })
