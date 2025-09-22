@@ -4,7 +4,6 @@ import { getTaggingInfoFromUrl } from '@empathyco/x-adapter-platform'
 import { XPlugin } from '../../../../plugins'
 
 type AnswerChunk =
-  | { noResults: boolean }
   | { responseText: string }
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
@@ -61,12 +60,12 @@ function readAnswer(
           // line.length check to avoid empty data chunks
           if (line.startsWith('data:') && line.length > 5) {
             data = JSON.parse(line.slice(5).trim()) as AnswerChunk
+            if ('suggestionText' in data) {
+              commit('setNoResults', false)
+              commit('setSuggestionText', data.suggestionText)
+            }
             if ('responseText' in data) {
               commit('setResponseText', data.responseText)
-              commit('setNoResults', false)
-            }
-            if ('suggestionText' in data) {
-              commit('setSuggestionText', data.suggestionText)
             }
             if ('queries' in data) {
               commit('setQueries', data.queries)
