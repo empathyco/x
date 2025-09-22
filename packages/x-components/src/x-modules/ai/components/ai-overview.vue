@@ -42,7 +42,7 @@
       <div v-show="expanded">
         <SpinnerIcon
           v-if="!suggestionsSearch.length"
-          class="ai-overview-suggestions-loading"
+          class="x-ai-overview-suggestions-loading"
           data-test="ai-overview-suggestions-loading"
         />
         <div v-else class="x-ai-overview-suggestions" data-test="ai-overview-suggestions-container">
@@ -54,7 +54,7 @@
             class="x-ai-overview-suggestion"
             data-test="ai-overview-suggestion"
             :class="{
-              'x-animate-fade-in': shouldAnimateSuggestion,
+              'x-ai-overview-result-animation': shouldAnimateSuggestion,
             }"
             :style="{ animationDelay: `${suggestionIndex * 300}ms` }"
           >
@@ -88,7 +88,7 @@
                     :key="result.id"
                     data-test="ai-overview-suggestion-result"
                     :class="{
-                      'x-animate-fade-in': shouldAnimateSuggestion,
+                      'x-ai-overview-result-animation': shouldAnimateSuggestion,
                     }"
                     :style="{ animationDelay: `${suggestionIndex * 300 + resultIndex * 300}ms` }"
                   >
@@ -268,6 +268,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
@@ -337,7 +338,7 @@ export default defineComponent({
   @apply x-flex x-gap-16 x-px-16;
 }
 
-.ai-overview-suggestions-loading {
+.x-ai-overview-suggestions-loading {
   width: 2.5rem /* 40px */;
   height: 2.5rem /* 40px */;
   margin: auto;
@@ -346,6 +347,20 @@ export default defineComponent({
   @keyframes x-spin {
     to {
       transform: rotate(360deg);
+    }
+  }
+}
+
+.x-ai-overview-result-animation {
+  opacity: 0;
+  animation: x-fade 0.3s ease-in-out forwards;
+
+  @keyframes x-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 }

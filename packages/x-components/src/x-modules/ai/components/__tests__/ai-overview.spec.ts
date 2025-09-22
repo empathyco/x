@@ -310,11 +310,11 @@ describe('ai-overview component', () => {
     await nextTick()
 
     useStateStub.suggestionsSearch.value.forEach((_, index) => {
-      expect(sut.suggestions[index].classes()).toContain('x-animate-fade-in')
+      expect(sut.suggestions[index].classes()).toContain('x-ai-overview-result-animation')
       sut.slidingPanels[index]
         .findAll(getDataTestSelector('ai-overview-suggestion-result'))
         .forEach(result => {
-          expect(result.classes()).toContain('x-animate-fade-in')
+          expect(result.classes()).toContain('x-ai-overview-result-animation')
         })
     })
 
@@ -322,11 +322,11 @@ describe('ai-overview component', () => {
     await nextTick()
 
     useStateStub.suggestionsSearch.value.forEach((_, index) => {
-      expect(sut.suggestions[index].classes()).not.toContain('x-animate-fade-in')
+      expect(sut.suggestions[index].classes()).not.toContain('x-ai-overview-result-animation')
       sut.slidingPanels[index]
         .findAll(getDataTestSelector('ai-overview-suggestion-result'))
         .forEach(result => {
-          expect(result.classes()).not.toContain('x-animate-fade-in')
+          expect(result.classes()).not.toContain('x-ai-overview-result-animation')
         })
     })
   })
