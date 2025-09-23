@@ -18,4 +18,12 @@ export interface AiSuggestionQuery {
 export interface AiSuggestionTagging {
   toolingDisplay: TaggingRequest
   toolingDisplayClick: TaggingRequest
+  searchQueries: Record<
+    string,
+    {
+      toolingDisplay: TaggingRequest
+      toolingDisplayClick: TaggingRequest
+      toolingDisplayAdd2Cart: TaggingRequest
+    }
+  >
 }

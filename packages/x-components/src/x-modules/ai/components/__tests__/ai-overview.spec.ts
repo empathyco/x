@@ -1,5 +1,7 @@
+import type { AiSuggestionTagging } from '@empathyco/x-types'
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
+import type { DisplayEmitter } from '../../../../components'
 import { mount } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
@@ -9,7 +11,6 @@ import {
   ArrowRightIcon,
   BaseEventButton,
   ChevronDownIcon,
-  DisplayEmitter,
   SlidingPanel,
 } from '../../../../components'
 import { use$x, useGetter, useState } from '../../../../composables'
@@ -23,17 +24,44 @@ const useGettersStub = {
 const useStateStub = {
   suggestionText: ref('suggestion text'),
   responseText: ref('response text'),
-  suggestionsSearch: ref([
-    { query: 'suggestion 1', results: getResultsStub() },
-    { query: 'suggestion 2', results: getResultsStub() },
-    { query: 'suggestion 3', results: getResultsStub() },
-  ]),
-  queries: ref(
-    ['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({ query, categories: [] })),
+  suggestionsSearch: ref(
+    ['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({
+      query,
+      results: getResultsStub(),
+    })),
   ),
+  queries: ref(['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({ query }))),
   params: ref({ param1: 'value1', param2: 'value2' }),
   suggestionsLoading: ref(false),
-  tagging: ref({ toolingDisplayClick: 'toolingDisplayClick', toolingDisplay: 'toolingDisplay' }),
+  tagging: ref<AiSuggestionTagging>({
+    toolingDisplayClick: {
+      url: 'toolingDisplayClick',
+      params: { param1: 'value1', param2: 'value2' },
+    },
+    toolingDisplay: {
+      url: 'toolingDisplay',
+      params: { param1: 'value1', param2: 'value2' },
+    },
+    searchQueries: Object.fromEntries(
+      ['suggestion 1', 'suggestion 2', 'suggestion 3'].map((query, index) => [
+        query,
+        {
+          toolingDisplay: {
+            url: `query${index + 1}TaggingRequest`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
+          toolingDisplayClick: {
+            url: `query${index + 1}TaggingClick`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
+          toolingDisplayAdd2Cart: {
+            url: `query${index + 1}TaggingAdd2Cart`,
+            params: { param1: 'value1', param2: 'value2' },
+          },
+        },
+      ]),
+    ),
+  }),
   isNoResults: ref(false),
 }
 const emitMock = jest.fn()
@@ -59,6 +87,18 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     directives: {
       typing: (el: HTMLElement, binding: Ref<{ text: string }>) => {
         el.innerHTML = binding.value.text
+      },
+    },
+    global: {
+      stubs: {
+        DisplayEmitter: {
+          template: '<div v-bind="$attrs"><slot /></div>',
+          props: ['payload', 'eventMetadata'],
+        },
+        DisplayClickProvider: {
+          template: '<div><slot /></div>',
+          props: ['payload', 'eventMetadata'],
+        },
       },
     },
   })
@@ -114,11 +154,19 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.findComponent(ChevronDownIcon)
     },
     get displayEmitter() {
-      return wrapper.findComponent(DisplayEmitter)
+      return wrapper.findComponent<typeof DisplayEmitter>(
+        getDataTestSelector('ai-overview-display-emitter'),
+      )
+    },
+    get queryDisplayEmitters() {
+      return wrapper.findAllComponents<typeof DisplayEmitter>(
+        getDataTestSelector('ai-overview-query-display-emitter'),
+      )
     },
   }
 }
 
+//TODO: Add the remaining tests
 describe('ai-overview component', () => {
   beforeEach(() => {
     jest.restoreAllMocks()
@@ -154,11 +202,20 @@ describe('ai-overview component', () => {
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    expect(sut.queryDisplayEmitters).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.arrowRightIcons).toHaveLength(useStateStub.suggestionsSearch.value.length)
 
     useStateStub.suggestionsSearch.value.forEach((suggestionSearch, suggestionIndex) => {
+      expect(sut.queryDisplayEmitters[suggestionIndex].props().eventMetadata).toStrictEqual({
+        feature: 'overview',
+        displayOriginalQuery: useGettersStub.query.value,
+        replaceable: false,
+      })
+      expect(sut.queryDisplayEmitters[suggestionIndex].props().payload).toStrictEqual(
+        useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplay,
+      )
       expect(sut.baseEventButtons[suggestionIndex].text()).toBe(suggestionSearch.query)
-      expect(sut.baseEventButtons[suggestionIndex].props('events')).toStrictEqual({
+      expect(sut.baseEventButtons[suggestionIndex].props().events).toStrictEqual({
         UserAcceptedAQuery: suggestionSearch.query,
       })
       expect(sut.slidingPanels[suggestionIndex].props('resetOnContentChange')).toBeFalsy()
@@ -309,6 +366,26 @@ describe('ai-overview component', () => {
 
     const buttonTexts = sut.baseEventButtons.map(b => b.text())
     expect(buttonTexts).not.toContain('orphan query (no results)')
+  })
+
+  it('should pass the correct props to DisplayEmitter component when there is no query', () => {
+    jest.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, query: ref('') }))
+
+    const sut = render()
+
+    expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
+      feature: 'overview',
+      displayOriginalQuery: 'overview-without-query',
+      replaceable: false,
+    })
+
+    sut.queryDisplayEmitters.forEach(queryDisplayEmitter => {
+      expect(queryDisplayEmitter.props().eventMetadata).toStrictEqual({
+        feature: 'overview',
+        displayOriginalQuery: 'overview-without-query',
+        replaceable: false,
+      })
+    })
   })
 
   it('should not render the component if isNoResults is true', async () => {

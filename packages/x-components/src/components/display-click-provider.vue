@@ -45,17 +45,28 @@ export default defineComponent({
       toolingAdd2CartTagging: props.toolingAdd2CartTagging,
     }))
 
-    provide('resultAddToCartExtraEvents', ['UserClickedARelatedPromptAdd2Cart'])
+    const resultAddToCartExtraEventsMap: Partial<Record<ResultFeature, string>> = {
+      related_prompts: 'UserClickedARelatedPromptAdd2Cart',
+      overview: 'UserClickedAnAiOverviewAdd2Cart',
+    }
+
+    const resultClickExtraEventsMap: Partial<Record<ResultFeature, string>> = {
+      related_prompts: 'UserClickedARelatedPromptResult',
+      overview: 'UserClickedAnAiOverviewResult',
+    }
+
+    provide('resultAddToCartExtraEvents', [resultAddToCartExtraEventsMap[props.resultFeature]])
     provide('resultAddToCartExtraEventsMetadata', {
       toolingAdd2CartTagging: props.toolingAdd2CartTagging,
     })
 
     provide('resultClickExtraEvents', [
-      'UserClickedARelatedPromptResult',
+      resultClickExtraEventsMap[props.resultFeature],
       'UserClickedADisplayResult',
     ])
     provide('resultLinkMetadataPerEvent', {
       UserClickedARelatedPromptResult: displayClickMetadata.value,
+      UserClickedAnAiOverviewResult: displayClickMetadata.value,
       UserClickedADisplayResult: displayClickMetadata.value,
       ...(props.ignoreResultClickEvent && {
         UserClickedAResult: {

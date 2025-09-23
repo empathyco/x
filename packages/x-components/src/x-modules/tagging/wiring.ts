@@ -520,4 +520,10 @@ export const taggingWiring = createWiring({
   UserClickedAiOverviewExpandButton: {
     trackAiOverviewButtonClickedWire,
   },
+  UserClickedAnAiOverviewResult: {
+    trackToolingDisplayClickedWire,
+  },
+  UserClickedAnAiOverviewAdd2Cart: {
+    trackToolingAdd2CartWire,
+  },
 })
