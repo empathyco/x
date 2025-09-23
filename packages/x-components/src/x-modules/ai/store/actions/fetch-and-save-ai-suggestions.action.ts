@@ -23,6 +23,7 @@ type AnswerData =
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
   | TaggingData
+
 /**
  * Default implementation for the {@link AiActions.fetchAndSaveAiSuggestions}.
  *
