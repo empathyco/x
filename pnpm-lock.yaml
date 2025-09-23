@@ -126,7 +126,7 @@ importers:
         specifier: ^8.1.0-alpha.9
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: ^10.1.0-alpha.26
+        specifier: ^10.1.0-alpha.27
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.8
@@ -218,7 +218,7 @@ importers:
         specifier: ^8.1.0-alpha.9
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.1.0-alpha.33
+        specifier: ^1.1.0-alpha.34
         version: link:../x-adapter-platform
       '@empathyco/x-deep-merge':
         specifier: ^2.0.3-alpha.9
@@ -227,7 +227,7 @@ importers:
         specifier: ^2.0.3-alpha.7
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: ^10.1.0-alpha.26
+        specifier: ^10.1.0-alpha.27
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.8
@@ -1880,6 +1880,7 @@ packages:
   '@lerna/legacy-package-management@6.6.0':
     resolution: {integrity: sha512-vGkQv7nuZNhjs1+Arm1m+CKyBblig4oSv/PakyNnqTnRNryIgdXqYFn8DGGkUsA3qXLlouY41Sz5xEY/7hjNEA==}
     engines: {node: ^14.15.0 || >=16.0.0}
+    deprecated: In v9 of lerna, released in September 2025, the `lerna bootstrap`, `lerna add` and `lerna link` commands were finally fully removed after over 2 years of being deprecated. If you are still using these commands, please migrate to using your package manager's long-supported `workspaces` feature. You may find https://lerna.js.org/docs/legacy-package-management useful for this transition.
 
   '@microsoft/api-documenter@7.23.0':
     resolution: {integrity: sha512-fEScQLW29+tgP4hxNS0NretEC0UFNVHj7H5C4FjapkNlcNcy/rVa/2v7LybTL5E7ilCsbEftmso8wyzFjg0Dvw==}

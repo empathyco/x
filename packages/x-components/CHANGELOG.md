@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.151 (2025-09-23)
+
+* Add tagging to ai overview search queries (#1882) ([4a7b9fc](https://github.com/empathyco/x/commit/4a7b9fc)), closes [#1882](https://github.com/empathyco/x/issues/1882)
+
+
+
+
+
 ## 6.0.0-alpha.150 (2025-09-22)
 
 * feat(AiOverview): handle new noResult chunk in AiOverview (#1886) ([2c41469](https://github.com/empathyco/x/commit/2c41469)), closes [#1886](https://github.com/empathyco/x/issues/1886)

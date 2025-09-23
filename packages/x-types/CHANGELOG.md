@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.27 (2025-09-23)
+
+* Add tagging to ai overview search queries (#1882) ([4a7b9fc](https://github.com/empathyco/x/commit/4a7b9fc)), closes [#1882](https://github.com/empathyco/x/issues/1882)
+
+
+
+
+
 ## 10.1.0-alpha.26 (2025-09-11)
 
 * feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
