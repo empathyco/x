@@ -1,26 +1,28 @@
-import type { AiSuggestionQuery } from '@empathyco/x-types'
+import type { AiSuggestionQuery, AiSuggestionTagging } from '@empathyco/x-types'
 import type { AiActionContext, AiXStoreModule } from '../types'
 import { getTaggingInfoFromUrl } from '@empathyco/x-adapter-platform'
 import { XPlugin } from '../../../../plugins'
 
-type AnswerChunk =
+interface TaggingData {
+  tagging: {
+    toolingDisplay: string
+    toolingDisplayClick: string
+    searchQueries: Record<
+      string,
+      {
+        toolingDisplay: string
+        toolingDisplayClick: string
+        toolingDisplayAdd2Cart: string
+      }
+    >
+  }[]
+}
+
+type AnswerData =
   | { responseText: string }
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
-  | {
-      tagging: {
-        toolingDisplay: string
-        toolingDisplayClick: string
-        searchQueries: Record<
-          string,
-          {
-            toolingDisplay: string
-            toolingDisplayClick: string
-            toolingDisplayAdd2Cart: string
-          }
-        >
-      }[]
-    }
+  | TaggingData
 /**
  * Default implementation for the {@link AiActions.fetchAndSaveAiSuggestions}.
  *
@@ -48,6 +50,28 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
     })
   }
 
+function mapTaggingData(tangingData: TaggingData): AiSuggestionTagging {
+  const { toolingDisplay, toolingDisplayClick, searchQueries } = tangingData.tagging[0]
+  // TODO: Using the getTaggingInfoFromUrl util here is a temporary solution.
+  // It creates a dependency with the x-adapter-platform project that should be avoided.
+  return {
+    toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+    toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+    searchQueries: Object.fromEntries(
+      Object.entries(searchQueries).map(
+        ([query, { toolingDisplay, toolingDisplayClick, toolingDisplayAdd2Cart }]) => [
+          query,
+          {
+            toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
+            toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
+            toolingDisplayAdd2Cart: getTaggingInfoFromUrl(toolingDisplayAdd2Cart),
+          },
+        ],
+      ),
+    ),
+  }
+}
+
 function readAnswer(
   reader: ReadableStreamDefaultReader<Uint8Array>,
   commit: AiActionContext['commit'],
@@ -70,7 +94,7 @@ function readAnswer(
           if (line.length <= 5 || line.startsWith('event:')) continue
 
           const raw = line.startsWith('data:') ? line.slice(5).trim() : line.trim()
-          const data = JSON.parse(raw) as AnswerChunk
+          const data = JSON.parse(raw) as AnswerData
 
           if ('suggestionText' in data) {
             commit('setIsNoResults', false)
@@ -83,25 +107,7 @@ function readAnswer(
             commit('setQueries', data.queries)
           }
           if ('tagging' in data) {
-            const { toolingDisplay, toolingDisplayClick, searchQueries } = data.tagging[0]
-            const tagging = {
-              toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
-              toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
-              searchQueries: Object.fromEntries(
-                Object.entries(searchQueries).map(
-                  ([query, { toolingDisplay, toolingDisplayClick, toolingDisplayAdd2Cart }]) => [
-                    query,
-                    {
-                      toolingDisplay: getTaggingInfoFromUrl(toolingDisplay),
-                      toolingDisplayClick: getTaggingInfoFromUrl(toolingDisplayClick),
-                      toolingDisplayAdd2Cart: getTaggingInfoFromUrl(toolingDisplayAdd2Cart),
-                    },
-                  ],
-                ),
-              ),
-            }
-
-            commit('setTagging', tagging)
+            commit('setTagging', mapTaggingData(data))
           }
         }
       }
