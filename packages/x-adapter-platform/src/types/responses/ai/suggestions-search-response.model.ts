@@ -1,4 +1,4 @@
-import type { PlatformResult } from '../../models/result.model'
+import type { PlatformAiSuggestionSearch } from '../../models/ai/suggestion-search.model'
 
 /**
  * Response for the `AI suggestions search` endpoint.
@@ -6,12 +6,5 @@ import type { PlatformResult } from '../../models/result.model'
  * @public
  */
 export interface PlatformAiSuggestionsSearchResponse {
-  items: {
-    query: string
-    results: PlatformResult[]
-    numFound: number
-    tagging: {
-      query: string
-    }
-  }[]
+  items: PlatformAiSuggestionSearch[]
 }
