@@ -1,3 +1,4 @@
+import type { TaggingRequest } from '../request'
 import type { Result } from '../result'
 
 /**
@@ -8,4 +9,7 @@ export interface AiSuggestionSearch {
   query: string
   results: Result[]
   numFound: number
+  tagging: {
+    query: TaggingRequest
+  }
 }

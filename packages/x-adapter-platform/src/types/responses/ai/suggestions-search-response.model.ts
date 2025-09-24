@@ -10,5 +10,8 @@ export interface PlatformAiSuggestionsSearchResponse {
     query: string
     results: PlatformResult[]
     numFound: number
+    tagging: {
+      query: string
+    }
   }[]
 }

@@ -8,4 +8,5 @@ export interface PlatformAiSuggestionSearch {
   query: string
   results: PlatformResult[]
   numFound: number
+  tagging: { query: string }
 }
