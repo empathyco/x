@@ -57,7 +57,8 @@
           >
             <DisplayEmitter
               v-for="(
-                { query: suggestionQuery, results: queriesResults }, suggestionIndex
+                { query: suggestionQuery, results: queriesResults, tagging: suggestionTagging },
+                suggestionIndex
               ) in suggestionsSearch"
               :key="suggestionQuery"
               :payload="
@@ -87,6 +88,7 @@
                 </BaseEventButton>
 
                 <DisplayClickProvider
+                  :query-tagging="suggestionTagging.query"
                   :tooling-display-tagging="
                     tagging?.searchQueries[suggestionQuery].toolingDisplayClick
                   "

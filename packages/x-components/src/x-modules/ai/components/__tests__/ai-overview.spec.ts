@@ -11,6 +11,7 @@ import {
   ArrowRightIcon,
   BaseEventButton,
   ChevronDownIcon,
+  DisplayClickProvider,
   SlidingPanel,
 } from '../../../../components'
 import { use$x, useGetter, useState } from '../../../../composables'
@@ -28,6 +29,12 @@ const useStateStub = {
     ['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({
       query,
       results: getResultsStub(),
+      tagging: {
+        query: {
+          url: `${query}TaggingQuery`,
+          params: { param1: 'value1', param2: 'value2' },
+        },
+      },
     })),
   ),
   queries: ref(['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({ query }))),
@@ -97,7 +104,12 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
         },
         DisplayClickProvider: {
           template: '<div><slot /></div>',
-          props: ['payload', 'eventMetadata'],
+          props: [
+            'queryTagging',
+            'toolingDisplayTagging',
+            'toolingAdd2CartTagging',
+            'resultFeature',
+          ],
         },
       },
     },
@@ -163,6 +175,9 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
         getDataTestSelector('ai-overview-query-display-emitter'),
       )
     },
+    get displayClickProviders() {
+      return wrapper.findAllComponents(DisplayClickProvider)
+    },
   }
 }
 
@@ -213,6 +228,16 @@ describe('ai-overview component', () => {
       })
       expect(sut.queryDisplayEmitters[suggestionIndex].props().payload).toStrictEqual(
         useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplay,
+      )
+      expect(sut.displayClickProviders[suggestionIndex].props().resultFeature).toBe('overview')
+      expect(sut.displayClickProviders[suggestionIndex].props().queryTagging).toBe(
+        useStateStub.suggestionsSearch.value[suggestionIndex].tagging.query,
+      )
+      expect(sut.displayClickProviders[suggestionIndex].props().toolingDisplayTagging).toBe(
+        useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplayClick,
+      )
+      expect(sut.displayClickProviders[suggestionIndex].props().toolingAdd2CartTagging).toBe(
+        useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplayAdd2Cart,
       )
       expect(sut.baseEventButtons[suggestionIndex].text()).toBe(suggestionSearch.query)
       expect(sut.baseEventButtons[suggestionIndex].props().events).toStrictEqual({
