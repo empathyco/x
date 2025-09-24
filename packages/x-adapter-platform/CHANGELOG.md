@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.35 (2025-09-24)
+
+* feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
+
+
+
+
+
 ## 1.1.0-alpha.34 (2025-09-23)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
