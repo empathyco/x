@@ -13,7 +13,7 @@
               class="x-ai-overview-title-loading-text"
               data-test="ai-overview-title-loading-text"
             >
-              <slot name="titleLoading">
+              <slot name="title-loading">
                 {{ titleLoading }}
               </slot>
             </span>
@@ -367,7 +367,7 @@ export default defineComponent({
 }
 
 .x-ai-overview-toggle-wrapper {
-  @apply x-flex x-relative;
+  @apply x-flex x-relative x-z-[1];
 }
 .x-ai-overview-toggle-btn {
   @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];

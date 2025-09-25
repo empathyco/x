@@ -290,7 +290,7 @@ describe('ai-overview component', () => {
 
     const customText = 'Custom Loading Title from Slot'
     const sut = render({
-      slots: { titleLoading: customText },
+      slots: { 'title-loading': customText },
     })
 
     expect(sut.titleLoading.exists()).toBeTruthy()
