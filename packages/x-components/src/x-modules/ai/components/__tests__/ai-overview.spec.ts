@@ -283,6 +283,22 @@ describe('ai-overview component', () => {
     expect(sut.displayEmitter.exists()).toBeFalsy()
   })
 
+  it('should render titleLoading via slot when provided', () => {
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: ref(true) }))
+
+    const customText = 'Custom Loading Title from Slot'
+    const sut = render({
+      slots: { titleLoading: customText },
+    })
+
+    expect(sut.titleLoading.exists()).toBeTruthy()
+    expect(sut.titleLoading.text()).toBe(customText)
+    expect(sut.title.exists()).toBeFalsy()
+    expect(sut.displayEmitter.exists()).toBeFalsy()
+  })
+
   it('should render with expanded state correctly when clicking on toggle button', async () => {
     const sut = render()
 
