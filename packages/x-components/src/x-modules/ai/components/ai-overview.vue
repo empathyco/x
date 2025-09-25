@@ -324,7 +324,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="css">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
   --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
@@ -332,142 +332,164 @@ export default defineComponent({
   position: relative;
   border-radius: 1.5rem;
   background-color: var(--color-lighter);
+}
 
-  &-main {
-    padding: 1rem;
-    border-radius: 0.5rem;
+.x-ai-overview-main {
+  padding: 1rem;
+}
+
+.x-ai-overview-title {
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 700;
+  gap: 0.25rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.x-ai-overview-title-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.x-ai-overview-title-loading-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 9999px;
+  background-color: var(--color);
+}
+
+.x-ai-overview-title-loading-text {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  font-size: 0.75rem;
+}
+
+.x-ai-overview-title-icon {
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  color: var(--color);
+}
+
+.x-ai-overview-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25rem;
+  gap: 0.5rem;
+}
+
+.x-ai-overview-content span {
+  font-weight: 500;
+}
+
+.x-ai-overview-gradient {
+  border-radius: 1.5rem;
+  cursor: pointer;
+  content: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, transparent 0%, var(--color-lighter) 100%);
+}
+
+.x-ai-overview-toggle-wrapper {
+  display: flex;
+  position: relative;
+}
+
+.x-ai-overview-toggle-btn {
+  border-color: var(--button-color-50, #283034);
+  background-color: #ffffff;
+  color: var(--button-color-50, #283034);
+  border-radius: 9999px;
+  width: 100%;
+  margin: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  font-weight: 700;
+  min-height: 2.5rem;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.x-ai-overview-toggle-btn:hover {
+  border-color: var(--button-color-50, #283034);
+  background-color: var(--button-color-50, #283034);
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .x-ai-overview-toggle-btn {
+    transition-property: all;
+    transition-duration: 500ms;
+    transform: translateY(50%);
+    width: var(--expand-button-width, 200px);
   }
+}
 
-  &-title {
-    display: flex;
-    font-size: 0.875rem;
-    font-weight: 700;
-    gap: 0.25rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
+.x-ai-overview-toggle-btn-icon {
+  transform: rotate(0deg);
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  transition-property: all;
+  transition-duration: 300ms;
+}
 
-    &-loading {
-      display: flex;
-      align-items: center;
-      gap: 0.375rem;
-      margin-bottom: 0.5rem;
+.x-ai-overview-toggle-btn-icon-expanded {
+  transform: rotate(180deg);
+}
 
-      &-indicator {
-        width: 0.75rem;
-        height: 0.75rem;
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        border-radius: 9999px;
-        background-color: var(--color);
-      }
+.x-ai-overview-suggestion-query-btn {
+  border-color: transparent;
+  background-color: transparent;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-weight: 700;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-      &-text {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        font-size: 0.75rem;
-      }
-    }
+.x-ai-overview-suggestion-query-btn-icon {
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+}
 
-    &-icon {
-      @apply x-icon;
-      color: var(--color);
-    }
-  }
+.x-ai-overview-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+}
 
-  &-content {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    line-height: 1.25rem;
-    gap: 0.5rem;
+.x-ai-overview-suggestions-loading {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: auto;
+  animation: x-spin 1s linear infinite;
+}
 
-    span {
-      font-weight: 500;
-    }
-  }
+.x-ai-overview-suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-  &-gradient {
-    cursor: pointer;
-    content: none;
-    position: absolute;
-    width: 100%;
-    height: 5rem;
-    bottom: 1.25rem;
-    background-image: linear-gradient(to bottom, transparent 0%, var(--color-lighter) 100%);
-  }
-
-  &-toggle-wrapper {
-    display: flex;
-    position: relative;
-  }
-
-  &-toggle-btn {
-    @apply x-button x-button-outlined;
-    border-radius: 9999px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-
-    @media (min-width: 640px) {
-      transition-property: all;
-      transition-duration: 500ms;
-      transform: translateY(50%);
-      width: var(--expand-button-width, 200px);
-    }
-
-    &-icon {
-      transform: rotate(0deg);
-      @apply x-icon;
-      transition-property: all;
-      transition-duration: 300ms;
-
-      &-expanded {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  &-suggestion-query-btn {
-    @apply x-button-tight;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    font-weight: 700;
-    color: rgb(17 24 39);
-    width: fit-content;
-    min-height: fit-content;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-
-    &-icon {
-      @apply x-icon-md;
-    }
-  }
-
-  &-suggestions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-bottom: 1rem;
-
-    &-loading {
-      width: 0.625rem;
-      height: 0.625rem;
-      margin: auto;
-      animation: x-spin 1s linear infinite;
-    }
-  }
-
-  &-suggestion {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    &-results {
-      display: flex;
-      gap: 1rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
+.x-ai-overview-suggestion-results {
+  display: flex;
+  gap: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @keyframes x-spin {
@@ -475,6 +497,7 @@ export default defineComponent({
     transform: rotate(360deg);
   }
 }
+
 @keyframes pulse {
   50% {
     opacity: 0.5;
