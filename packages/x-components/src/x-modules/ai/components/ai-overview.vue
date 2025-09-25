@@ -13,7 +13,9 @@
               class="x-ai-overview-title-loading-text"
               data-test="ai-overview-title-loading-text"
             >
-              {{ titleLoading }}
+              <slot name="title-loading">
+                {{ titleLoading }}
+              </slot>
             </span>
           </span>
           <DisplayEmitter
