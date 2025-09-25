@@ -324,99 +324,160 @@ export default defineComponent({
 })
 </script>
 
-<style lang="css">
+<style lang="scss">
 .x-ai-overview {
   --color: var(--x-ai-overview-color, #bbc9cf);
   --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
 
-  @apply x-relative x-rounded-3xl x-bg-[var(--color-lighter)];
-}
+  position: relative;
+  border-radius: 1.5rem;
+  background-color: var(--color-lighter);
 
-.x-ai-overview-main {
-  @apply x-p-16 x-rounded-lg;
-}
+  &-main {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
 
-.x-ai-overview-title-loading {
-  @apply x-flex x-items-center x-gap-1.5 x-mb-8;
-}
-.x-ai-overview-title-loading-indicator {
-  @apply x-size-3 x-animate-pulse x-rounded-full x-bg-[var(--color)];
-}
-.x-ai-overview-title-loading-text {
-  @apply x-animate-pulse x-text-xs;
-}
+  &-title {
+    display: flex;
+    font-size: 0.875rem;
+    font-weight: 700;
+    gap: 0.25rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
 
-.x-ai-overview-title {
-  @apply x-flex x-text-sm x-font-bold x-gap-4 x-items-center x-mb-8;
-}
-.x-ai-overview-title-icon {
-  @apply x-icon x-text-[var(--color)];
-}
+    &-loading {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      margin-bottom: 0.5rem;
 
-.x-ai-overview-content {
-  @apply x-flex x-flex-col x-text-left x-leading-5 x-gap-2;
-}
-.x-ai-overview-content span {
-  @apply x-font-medium;
-}
+      &-indicator {
+        width: 0.75rem;
+        height: 0.75rem;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        border-radius: 9999px;
+        background-color: var(--color);
+      }
 
-.x-ai-overview-gradient {
-  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-[var(--color-lighter)];
-}
+      &-text {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        font-size: 0.75rem;
+      }
+    }
 
-.x-ai-overview-toggle-wrapper {
-  @apply x-flex x-relative x-z-[1];
-}
-.x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
-}
-.x-ai-overview-toggle-btn-icon {
-  @apply x-rotate-0 x-icon x-transition-all x-duration-300;
-}
-.x-ai-overview-toggle-btn-icon-expanded {
-  @apply x-rotate-180;
-}
+    &-icon {
+      @apply x-icon;
+      color: var(--color);
+    }
+  }
 
-.x-ai-overview-suggestion-query-btn {
-  @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;
-}
-.x-ai-overview-suggestion-query-btn-icon {
-  @apply x-icon-md;
-}
-.x-ai-overview-suggestions {
-  @apply x-flex x-flex-col x-gap-16 x-pb-16;
-}
-.x-ai-overview-suggestion {
-  @apply x-flex x-flex-col x-gap-8;
-}
-.x-ai-overview-suggestion-results {
-  @apply x-flex x-gap-16 x-px-16;
-}
+  &-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.25rem;
+    gap: 0.5rem;
 
-.x-ai-overview-suggestions-loading {
-  width: 2.5rem /* 40px */;
-  height: 2.5rem /* 40px */;
-  margin: auto;
-  animation: x-spin 1s linear infinite;
+    span {
+      font-weight: 500;
+    }
+  }
 
-  @keyframes x-spin {
-    to {
-      transform: rotate(360deg);
+  &-gradient {
+    cursor: pointer;
+    content: none;
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    bottom: 1.25rem;
+    background-image: linear-gradient(to bottom, transparent 0%, var(--color-lighter) 100%);
+  }
+
+  &-toggle-wrapper {
+    display: flex;
+    position: relative;
+  }
+
+  &-toggle-btn {
+    @apply x-button x-button-outlined;
+    border-radius: 9999px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 640px) {
+      transition-property: all;
+      transition-duration: 500ms;
+      transform: translateY(50%);
+      width: var(--expand-button-width, 200px);
+    }
+
+    &-icon {
+      transform: rotate(0deg);
+      @apply x-icon;
+      transition-property: all;
+      transition-duration: 300ms;
+
+      &-expanded {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &-suggestion-query-btn {
+    @apply x-button-tight;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-weight: 700;
+    color: rgb(17 24 39);
+    width: fit-content;
+    min-height: fit-content;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    &-icon {
+      @apply x-icon-md;
+    }
+  }
+
+  &-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+
+    &-loading {
+      width: 0.625rem;
+      height: 0.625rem;
+      margin: auto;
+      animation: x-spin 1s linear infinite;
+    }
+  }
+
+  &-suggestion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &-results {
+      display: flex;
+      gap: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 }
 
-.x-ai-overview-result-animation {
-  opacity: 0;
-  animation: x-fade 0.3s ease-in-out forwards;
-
-  @keyframes x-fade {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes x-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
   }
 }
 </style>
