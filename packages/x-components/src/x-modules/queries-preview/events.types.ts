@@ -1,6 +1,6 @@
 import type { SearchRequest } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
-import type { QueryPreviewInfo } from './store/index'
+import type { QueryPreviewInfo, QueryPreviewItem } from './store'
 
 /**
  * Dictionary of the events of QueriesPreview XModule, where each key is the event name, and the
@@ -36,4 +36,9 @@ export interface QueriesPreviewXEvents {
    * Payload: The query preview's unique id (query hash) and its cache value.
    */
   QueryPreviewUnmounted: { queryPreviewHash: string; cache: boolean }
+  /**
+   * The query preview has been changed.
+   * Payload: The query preview item.
+   */
+  QueriesPreviewChanged: Dictionary<QueryPreviewItem>
 }

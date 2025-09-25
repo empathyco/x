@@ -10,6 +10,7 @@ export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreMo
   QueryPreviewUnselected: {
     selector: state =>
       !state.selectedQueryPreview ? state.params : state.selectedQueryPreview.extraParams!,
-    filter: (newValue, oldValue, state) => !state.selectedQueryPreview,
+    filter: (_newValue, _oldValue, state) => !state.selectedQueryPreview,
   },
+  QueriesPreviewChanged: (_state, getters) => getters.loadedQueriesPreview,
 })
