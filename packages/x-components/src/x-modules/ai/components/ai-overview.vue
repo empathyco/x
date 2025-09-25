@@ -331,94 +331,178 @@ export default defineComponent({
   --color: var(--x-ai-overview-color, #bbc9cf);
   --color-lighter: var(--x-ai-overview-color-lighter, color-mix(in srgb, var(--color) 25%, white));
 
-  @apply x-relative x-rounded-3xl x-bg-[var(--color-lighter)];
+  position: relative;
+  border-radius: 1.5rem;
+  background-color: var(--color-lighter);
 }
 
 .x-ai-overview-main {
-  @apply x-p-16 x-rounded-lg;
-}
-
-.x-ai-overview-title-loading {
-  @apply x-flex x-items-center x-gap-1.5 x-mb-8;
-}
-.x-ai-overview-title-loading-indicator {
-  @apply x-size-3 x-animate-pulse x-rounded-full x-bg-[var(--color)];
-}
-.x-ai-overview-title-loading-text {
-  @apply x-animate-pulse x-text-xs;
+  padding: 1rem;
 }
 
 .x-ai-overview-title {
-  @apply x-flex x-text-sm x-font-bold x-gap-4 x-items-center x-mb-8;
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 700;
+  gap: 0.25rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
+
+.x-ai-overview-title-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.x-ai-overview-title-loading-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 9999px;
+  background-color: var(--color);
+}
+
+.x-ai-overview-title-loading-text {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  font-size: 0.75rem;
+}
+
 .x-ai-overview-title-icon {
-  @apply x-icon x-text-[var(--color)];
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  color: var(--color);
 }
 
 .x-ai-overview-content {
-  @apply x-flex x-flex-col x-text-left x-leading-5 x-gap-2;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25rem;
+  gap: 0.5rem;
 }
+
 .x-ai-overview-content span {
-  @apply x-font-medium;
+  font-weight: 500;
 }
 
 .x-ai-overview-gradient {
-  @apply x-cursor-pointer x-content-none x-absolute x-w-full x-h-80 x-bottom-5 x-bg-gradient-to-b x-from-0% x-from-transparent x-to-100% x-to-[var(--color-lighter)];
+  border-radius: 1.5rem;
+  cursor: pointer;
+  content: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, transparent 0%, var(--color-lighter) 100%);
 }
 
 .x-ai-overview-toggle-wrapper {
-  @apply x-flex x-relative x-z-[1];
+  display: flex;
+  position: relative;
 }
+
 .x-ai-overview-toggle-btn {
-  @apply x-button x-button-outlined x-rounded-full x-w-full x-mx-auto sm:x-transition-all sm:x-duration-500 sm:x-translate-y-1/2 sm:x-w-[var(--expand-button-width,200px)];
-}
-.x-ai-overview-toggle-btn-icon {
-  @apply x-rotate-0 x-icon x-transition-all x-duration-300;
-}
-.x-ai-overview-toggle-btn-icon-expanded {
-  @apply x-rotate-180;
-}
-
-.x-ai-overview-suggestion-query-btn {
-  @apply x-button-tight x-mx-16 x-font-bold x-text-gray-900 x-w-fit x-min-h-fit x-flex x-gap-16 x-items-center;
-}
-.x-ai-overview-suggestion-query-btn-icon {
-  @apply x-icon-md;
-}
-.x-ai-overview-suggestions {
-  @apply x-flex x-flex-col x-gap-16 x-pb-16;
-}
-.x-ai-overview-suggestion {
-  @apply x-flex x-flex-col x-gap-8;
-}
-.x-ai-overview-suggestion-results {
-  @apply x-flex x-gap-16 x-px-16;
-}
-
-.x-ai-overview-suggestions-loading {
-  width: 2.5rem /* 40px */;
-  height: 2.5rem /* 40px */;
+  border-color: var(--button-color-50, #283034);
+  background-color: #ffffff;
+  color: var(--button-color-50, #283034);
+  border-radius: 9999px;
+  width: 100%;
   margin: auto;
-  animation: x-spin 1s linear infinite;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  font-weight: 700;
+  min-height: 2.5rem;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
 
-  @keyframes x-spin {
-    to {
-      transform: rotate(360deg);
-    }
+.x-ai-overview-toggle-btn:hover {
+  border-color: var(--button-color-50, #283034);
+  background-color: var(--button-color-50, #283034);
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .x-ai-overview-toggle-btn {
+    transition-property: all;
+    transition-duration: 500ms;
+    transform: translateY(50%);
+    width: var(--expand-button-width, 200px);
   }
 }
 
-.x-ai-overview-result-animation {
-  opacity: 0;
-  animation: x-fade 0.3s ease-in-out forwards;
+.x-ai-overview-toggle-btn-icon {
+  transform: rotate(0deg);
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  transition-property: all;
+  transition-duration: 300ms;
+}
 
-  @keyframes x-fade {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+.x-ai-overview-toggle-btn-icon-expanded {
+  transform: rotate(180deg);
+}
+
+.x-ai-overview-suggestion-query-btn {
+  border-color: transparent;
+  background-color: transparent;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-weight: 700;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.x-ai-overview-suggestion-query-btn-icon {
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+}
+
+.x-ai-overview-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.x-ai-overview-suggestions-loading {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: auto;
+  animation: x-spin 1s linear infinite;
+}
+
+.x-ai-overview-suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.x-ai-overview-suggestion-results {
+  display: flex;
+  gap: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@keyframes x-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
   }
 }
 </style>
