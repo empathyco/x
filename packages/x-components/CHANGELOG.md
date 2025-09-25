@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.154 (2025-09-25)
+
+* refactor(AiOverview): transform tailwind classes into css (#1888) ([0d2297a](https://github.com/empathyco/x/commit/0d2297a)), closes [#1888](https://github.com/empathyco/x/issues/1888)
+* `query-preview` trade off (#1890) ([c990dbc](https://github.com/empathyco/x/commit/c990dbc)), closes [#1890](https://github.com/empathyco/x/issues/1890)
+
+
+### BREAKING-CHANGE
+
+* The `updateAQueryPreviewResult` mutation payload now accepts a results array and a hash of string instead of computed of string
+
+
+
+
 ## 6.0.0-alpha.153 (2025-09-25)
 
 * refactor(ai): remove unused test for `title-loading` slot in ai-overview ([c3a0513](https://github.com/empathyco/x/commit/c3a0513))
