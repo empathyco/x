@@ -59,7 +59,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       }
     },
     updateAQueryPreviewResult(state, { result, queryPreviewHash }) {
-      const queryPreviewResult = state.queriesPreview[queryPreviewHash.value]?.results.find(
+      const queryPreviewResult = state.queriesPreview[queryPreviewHash]?.results.find(
         resultPreview => resultPreview.id === result.id,
       )
       if (queryPreviewResult) {

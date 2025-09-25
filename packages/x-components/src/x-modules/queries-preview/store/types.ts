@@ -1,6 +1,5 @@
 import type { Result, SearchRequest, SearchResponse, TaggingRequest } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
-import type { ComputedRef } from 'vue'
 import type { XActionContext } from '../../../store/actions.types'
 import type { XStoreModule } from '../../../store/store.types'
 import type { ConfigMutations } from '../../../store/utils/config-store.utils'
@@ -147,7 +146,7 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
     queryPreviewHash,
   }: {
     result: Result
-    queryPreviewHash: ComputedRef<string>
+    queryPreviewHash: string
   }) => void
 }
 
