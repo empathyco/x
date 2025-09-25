@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.153 (2025-09-25)
+
+* refactor(ai): remove unused test for `title-loading` slot in ai-overview ([c3a0513](https://github.com/empathyco/x/commit/c3a0513))
+* fix(ai): rename slot `titleLoading` to `title-loading` in ai-overview and update test ([3d40bd4](https://github.com/empathyco/x/commit/3d40bd4))
+* feat(ai): add slot support for titleLoading in ai-overview component and update test ([2c08fdd](https://github.com/empathyco/x/commit/2c08fdd))
+
+
+
+
+
 ## 6.0.0-alpha.152 (2025-09-24)
 
 * feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
