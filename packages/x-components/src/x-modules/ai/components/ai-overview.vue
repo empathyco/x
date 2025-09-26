@@ -1,6 +1,11 @@
 <template>
   <CollapseHeight>
-    <div v-if="!isNoResults" class="x-ai-overview" data-test="ai-overview-wrapper">
+    <div
+      v-if="!isNoResults"
+      ref="aiOverviewRef"
+      class="x-ai-overview"
+      data-test="ai-overview-wrapper"
+    >
       <div class="x-ai-overview-main">
         <Fade mode="out-in">
           <span
@@ -280,6 +285,7 @@ export default defineComponent({
       isNoResults,
       queries,
     } = useState('ai')
+    const aiOverviewRef = ref<HTMLDivElement | null>(null)
 
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
@@ -298,7 +304,10 @@ export default defineComponent({
 
     function setExpanded(newValue: boolean) {
       expanded.value = newValue
-      !expanded.value && (shouldAnimateSuggestion.value = false)
+      if (!expanded.value) {
+        aiOverviewRef.value?.scrollIntoView({ behavior: 'smooth' })
+        shouldAnimateSuggestion.value = false
+      }
     }
 
     watch(query, () => {
@@ -307,6 +316,7 @@ export default defineComponent({
     })
 
     return {
+      aiOverviewRef,
       buttonText,
       emptyTaggingRequest,
       expanded,

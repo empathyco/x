@@ -183,12 +183,19 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
 
 //TODO: Add the remaining tests
 describe('ai-overview component', () => {
+  const originalScrollIntoView = (Element.prototype as any).scrollIntoView
+
   beforeEach(() => {
     jest.restoreAllMocks()
     jest.clearAllMocks()
+    ;(Element.prototype as any).scrollIntoView = jest.fn()
     jest.mocked(useGetter).mockImplementation(useGettersMock)
     jest.mocked(useState).mockImplementation(useStateMock)
     jest.mocked(use$x).mockImplementation(use$xMock as any)
+  })
+
+  afterAll(() => {
+    ;(Element.prototype as any).scrollIntoView = originalScrollIntoView
   })
 
   it('should render the component by default', () => {
@@ -420,6 +427,22 @@ describe('ai-overview component', () => {
 
     expect(sut.overviewWrapper.exists()).toBeFalsy()
   })
+
+  it('should call scrollIntoView when collapsing after being expanded (and not on expand)', async () => {
+    const sut = render()
+
+    const scrollSpy = jest.fn()
+    ;(Element.prototype as any).scrollIntoView = scrollSpy
+
+    await sut.toggleButton.trigger('click')
+    expect(scrollSpy).toHaveBeenCalledTimes(0)
+
+    // Collapse
+    await sut.toggleButton.trigger('click')
+    expect(scrollSpy).toHaveBeenCalledTimes(1)
+    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth' })
+  })
+
   it('should animate the suggestion group once', async () => {
     const sut = render()
 
