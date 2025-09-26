@@ -373,6 +373,7 @@ export default defineComponent({
   height: 1rem;
   aspect-ratio: 1 / 1;
   color: var(--color);
+  flex-shrink: 0;
 }
 
 .x-ai-overview-content {
