@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.155 (2025-09-26)
+
+* style(ai): prevent content shrinking by adding `flex-shrink: 0` to overview icon (#1891) ([368ca3a](https://github.com/empathyco/x/commit/368ca3a)), closes [#1891](https://github.com/empathyco/x/issues/1891)
+
+
+
+
+
 ## 6.0.0-alpha.154 (2025-09-25)
 
 * refactor(AiOverview): transform tailwind classes into css (#1888) ([0d2297a](https://github.com/empathyco/x/commit/0d2297a)), closes [#1888](https://github.com/empathyco/x/issues/1888)
