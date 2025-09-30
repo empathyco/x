@@ -17,7 +17,7 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
       context: {
         lang: 'es',
         instance: 'empathy',
-        filters: undefined,
+        filters: { env: 'test' },
       },
     })
   })
