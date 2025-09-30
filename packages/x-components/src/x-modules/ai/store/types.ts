@@ -14,7 +14,7 @@ import type {
   XActionContext,
   XStoreModule,
 } from '../../../store'
-import type { UrlParams } from '../../../types'
+import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
 import type { AiConfig } from '../config.types'
 
 /**
@@ -48,6 +48,9 @@ export interface AiState extends QueryState {
 
   /** Flag to indicate that the AI response has no results */
   isNoResults: boolean
+
+  /** The origin property of the request. */
+  origin: QueryOrigin | null
 }
 
 /**
@@ -149,6 +152,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param isNoResults - The new no results value.
    */
   setIsNoResults: (isNoResults: boolean) => void
+  /**
+   * Sets the origin of the module.
+   *
+   * @param origin - The new origin.
+   */
+  setOrigin: (origin: QueryOrigin | undefined | null) => void
 }
 
 /**
@@ -177,6 +186,12 @@ export interface AiActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams: (urlParams: UrlParams) => void
+  /**
+   * Creates a {@link QueryOrigin} and saves it.
+   *
+   * @param originInit - The object to create the origin with.
+   */
+  saveOrigin: (originInit: QueryOriginInit) => void
 }
 
 /**

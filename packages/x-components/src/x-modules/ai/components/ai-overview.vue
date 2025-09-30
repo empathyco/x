@@ -174,8 +174,9 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
-import type { PropType } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import type { PropType, Ref } from 'vue'
+import type { FeatureLocation, QueryOriginInit } from '../../../types'
+import { computed, defineComponent, inject, isRef, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -285,14 +286,20 @@ export default defineComponent({
       isNoResults,
       queries,
     } = useState('ai')
-    const aiOverviewRef = ref<HTMLDivElement | null>(null)
 
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
+    const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none')
+
+    const aiOverviewRef = ref<HTMLDivElement | null>(null)
     const expanded = ref(false)
     const shouldAnimateSuggestion = ref(true)
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
+    const origin = computed<QueryOriginInit>(() => ({
+      feature: 'overview',
+      location: isRef(injectedLocation) ? injectedLocation.value : injectedLocation,
+    }))
 
     function onExpandButtonClick(newValue: boolean) {
       $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
@@ -313,6 +320,10 @@ export default defineComponent({
     watch(query, () => {
       expanded.value = false
       shouldAnimateSuggestion.value = true
+    })
+
+    onMounted(() => {
+      $x.emit('AiOverviewMounted', undefined, origin.value)
     })
 
     return {

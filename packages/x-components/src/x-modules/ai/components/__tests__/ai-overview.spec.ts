@@ -341,14 +341,14 @@ describe('ai-overview component', () => {
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
-  it('should emit event when toggle button is clicked and suggestions are not expanded', async () => {
+  it('should emit event when toggle button is clicked', async () => {
     const sut = render()
 
     await sut.toggleButton.trigger('click')
 
     expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
 
-    expect(emitMock).toHaveBeenNthCalledWith(1, 'UserClickedAiOverviewExpandButton', false, {
+    expect(emitMock).toHaveBeenCalledWith('UserClickedAiOverviewExpandButton', false, {
       suggestionText: useStateStub.suggestionText.value,
       toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
     })
@@ -468,6 +468,15 @@ describe('ai-overview component', () => {
         .forEach(result => {
           expect(result.classes()).not.toContain('x-ai-overview-result-animation')
         })
+    })
+  })
+
+  it('should emit AiOverviewMounted event on mounted', () => {
+    render()
+
+    expect(emitMock).toHaveBeenCalledWith('AiOverviewMounted', undefined, {
+      feature: 'overview',
+      location: 'none',
     })
   })
 })
