@@ -35,7 +35,7 @@ const setAiRelatedTags = wireCommit('setAiRelatedTags')
 const resetAiState = wireCommitWithoutPayload('resetAiState')
 
 /** Sets the origin for the AI requests. */
-export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
+const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
@@ -66,6 +66,6 @@ export const aiWiring = createWiring({
     setAiRelatedTags,
   },
   AiOverviewMounted: {
-    saveOriginWire,
+    saveAiOriginWire,
   },
 })
