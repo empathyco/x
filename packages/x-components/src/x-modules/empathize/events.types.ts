@@ -20,4 +20,9 @@ export interface EmpathizeXEvents {
    * Payload: none.
    */
   UserClosedEmpathize: void
+  /**
+   * The user closed the empathize.
+   * Payload: The search box query at the time of the event.
+   */
+  EmpathizeGotNoContent: string
 }

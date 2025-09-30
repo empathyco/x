@@ -116,7 +116,7 @@ export default defineComponent({
     /** Debounced function to unwatch the search-box query and also search and close empathize. */
     const searchAndCloseDebounced = useDebounce(async () => {
       unwatchSearchBoxQuery()
-      await $x.emit('UserAcceptedAQuery', $x.query.searchBox)
+      await $x.emit('EmpathizeGotNoContent', $x.query.searchBox)
       close()
     }, props.searchAndCloseDebounceInMs)
 
