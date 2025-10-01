@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.159 (2025-10-01)
+
+* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.16 (#1834) ([69e6d9b](https://github.com/empathyco/x/commit/69e6d9b)), closes [#1834](https://github.com/empathyco/x/issues/1834)
+
+
+
+
+
 ## 6.0.0-alpha.158 (2025-10-01)
 
 * feat(base-teleport): support dynamic host styles and improve type safety (#1839) ([0713104](https://github.com/empathyco/x/commit/0713104)), closes [#1839](https://github.com/empathyco/x/issues/1839)
