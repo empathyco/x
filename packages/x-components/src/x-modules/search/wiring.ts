@@ -246,7 +246,7 @@ export const searchWiring = createWiring({
     setSearchQuery,
     saveOriginWire,
   },
-  EmpathizeHasNoContent: {
+  EmpathizeGotNoContent: {
     setSearchQuery,
     saveOriginWire,
   },
