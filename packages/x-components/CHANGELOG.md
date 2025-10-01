@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.158 (2025-10-01)
+
+* feat(base-teleport): support dynamic host styles and improve type safety (#1839) ([0713104](https://github.com/empathyco/x/commit/0713104)), closes [#1839](https://github.com/empathyco/x/issues/1839)
+* chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v23 (#1885) ([5af25a4](https://github.com/empathyco/x/commit/5af25a4)), closes [#1885](https://github.com/empathyco/x/issues/1885)
+
+
+
+
+
 ## 6.0.0-alpha.157 (2025-10-01)
 
 * fix: selected tag being removed (#1894) ([287cb48](https://github.com/empathyco/x/commit/287cb48)), closes [#1894](https://github.com/empathyco/x/issues/1894)
