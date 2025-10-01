@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   transform: {
-    '^.+\\.(m|c)?(t|j)sx?$': ['ts-jest', { isolatedModules: true }],
+    '^.+\\.(m|c)?(t|j)sx?$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }],
     '^.+\\.vue$': '@vue/vue3-jest',
     '^.+\\.scss$': 'jest-scss-transform',
   },
