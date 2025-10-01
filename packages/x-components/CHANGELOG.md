@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.157 (2025-10-01)
+
+* fix: selected tag being removed (#1894) ([287cb48](https://github.com/empathyco/x/commit/287cb48)), closes [#1894](https://github.com/empathyco/x/issues/1894)
+
+
+
+
+
 ## 6.0.0-alpha.156 (2025-09-26)
 
 * feat(ai): smoothly scroll to AI overview on collapse and add relevant test ([45e8133](https://github.com/empathyco/x/commit/45e8133))
