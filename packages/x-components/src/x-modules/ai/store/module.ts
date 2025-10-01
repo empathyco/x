@@ -22,6 +22,7 @@ export const aiXStoreModule: AiXStoreModule = {
     query: '',
     config: {},
     params: {},
+    origin: null,
     relatedTags: [],
   }),
   getters: {
@@ -100,6 +101,5 @@ function resettableAiState() {
     suggestionsLoading: false,
     suggestionsSearchLoading: false,
     isNoResults: true,
-    origin: null,
   }
 }

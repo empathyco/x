@@ -50,7 +50,7 @@ export interface AiState extends QueryState {
   isNoResults: boolean
 
   /** The origin property of the request. */
-  origin: QueryOrigin | null
+  origin: QueryOrigin | undefined
 }
 
 /**
