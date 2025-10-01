@@ -136,7 +136,7 @@ describe('testing empathize component', () => {
     jest.runAllTimers()
     await nextTick()
 
-    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
+    expect(emitSpy).toHaveBeenCalledWith('EmpathizeGotNoContent', '', expect.any(Object))
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
   })
 
@@ -166,9 +166,9 @@ describe('testing empathize component', () => {
     jest.advanceTimersByTime(customDebounceTime - 100)
     await nextTick()
 
-    // Verify that UserAcceptedAQuery and EmpathizeClosed have not been emitted yet
+    // Verify that EmpathizeGotNoContent and EmpathizeClosed have not been emitted yet
     expect(emitSpy).not.toHaveBeenCalledWith(
-      'UserAcceptedAQuery',
+      'EmpathizeGotNoContent',
       expect.any(String),
       expect.any(Object),
     )
@@ -183,7 +183,7 @@ describe('testing empathize component', () => {
     await nextTick()
 
     // Now the events should have been emitted
-    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
+    expect(emitSpy).toHaveBeenCalledWith('EmpathizeGotNoContent', '', expect.any(Object))
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
   })
 })
