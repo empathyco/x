@@ -822,6 +822,7 @@ describe('platformAdapter tests', () => {
           context: {
             lang: langStub,
             instance: instanceStub,
+            filters: { env: 'staging' },
           },
           queries: queriesStub,
         }),
