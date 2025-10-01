@@ -14,5 +14,5 @@ export const saveOrigin: AiXStoreModule['actions']['saveOrigin'] = (
   { commit },
   queryOriginInit,
 ) => {
-  commit('setOrigin', createOrigin(queryOriginInit) as QueryOrigin | null)
+  commit('setOrigin', createOrigin(queryOriginInit) as QueryOrigin)
 }

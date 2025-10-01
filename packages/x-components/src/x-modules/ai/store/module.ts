@@ -22,7 +22,7 @@ export const aiXStoreModule: AiXStoreModule = {
     query: '',
     config: {},
     params: {},
-    origin: null,
+    origin: undefined,
     relatedTags: [],
   }),
   getters: {
@@ -62,7 +62,7 @@ export const aiXStoreModule: AiXStoreModule = {
     setParams(state, params) {
       state.params = params
     },
-    setOrigin(state, origin = null) {
+    setOrigin(state, origin) {
       state.origin = origin
     },
     resetAiState(state) {

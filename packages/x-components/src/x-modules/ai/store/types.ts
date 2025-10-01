@@ -157,7 +157,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param origin - The new origin.
    */
-  setOrigin: (origin: QueryOrigin | undefined | null) => void
+  setOrigin: (origin: QueryOrigin | undefined) => void
 }
 
 /**
