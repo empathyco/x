@@ -476,7 +476,6 @@ describe('ai-overview component', () => {
 
     expect(emitMock).toHaveBeenCalledWith('AiOverviewMounted', undefined, {
       feature: 'overview',
-      location: 'none',
     })
   })
 })

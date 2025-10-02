@@ -50,7 +50,7 @@ export interface AiState extends QueryState {
   isNoResults: boolean
 
   /** The origin property of the request. */
-  origin: QueryOrigin | undefined
+  origin: QueryOrigin | null
 }
 
 /**
@@ -157,7 +157,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param origin - The new origin.
    */
-  setOrigin: (origin: QueryOrigin | undefined) => void
+  setOrigin: (origin: QueryOrigin | undefined | null) => void
 }
 
 /**

@@ -15,5 +15,5 @@ export const suggestionsSearchRequest: AiXStoreModule['getters']['suggestionsSea
   queries,
   origin,
 }) => {
-  return queries.length ? { queries, extraParams: params, origin } : null
+  return queries.length ? { queries, extraParams: params, origin: origin ?? undefined } : null
 }
