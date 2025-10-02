@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.36 (2025-10-02)
+
+* feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
+
+
+
+
+
 ## 1.1.0-alpha.35 (2025-09-24)
 
 * feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)

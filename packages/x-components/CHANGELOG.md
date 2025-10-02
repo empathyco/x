@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.160 (2025-10-02)
+
+* feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
+
+
+
+
+
 ## 6.0.0-alpha.159 (2025-10-01)
 
 * chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.16 (#1834) ([69e6d9b](https://github.com/empathyco/x/commit/69e6d9b)), closes [#1834](https://github.com/empathyco/x/issues/1834)
