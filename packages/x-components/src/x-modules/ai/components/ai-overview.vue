@@ -175,7 +175,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -285,10 +285,10 @@ export default defineComponent({
       isNoResults,
       queries,
     } = useState('ai')
-    const aiOverviewRef = ref<HTMLDivElement | null>(null)
 
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
+    const aiOverviewRef = ref<HTMLDivElement | null>(null)
     const expanded = ref(false)
     const shouldAnimateSuggestion = ref(true)
 
@@ -313,6 +313,10 @@ export default defineComponent({
     watch(query, () => {
       expanded.value = false
       shouldAnimateSuggestion.value = true
+    })
+
+    onMounted(() => {
+      $x.emit('AiOverviewMounted', undefined, { feature: 'overview' })
     })
 
     return {

@@ -12,8 +12,8 @@ import type { AiXStoreModule } from '../types'
  * @public
  */
 export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest'] = (
-  { params },
+  { params, origin },
   { query },
 ) => {
-  return { query, lang: params.lang as string, extraParams: params }
+  return { query, extraParams: params, ...(origin && { origin }) }
 }

@@ -10,6 +10,7 @@ describe('aiSuggestionsRequestMapper', () => {
         instance: 'empathy',
         env: 'test',
       },
+      origin: 'origin',
     }
 
     expect(aiSuggestionsRequestMapper(request, {})).toStrictEqual({
@@ -17,7 +18,7 @@ describe('aiSuggestionsRequestMapper', () => {
         query: 'test',
         lang: 'es',
         instance: 'empathy',
-        filters: undefined,
+        filters: { env: 'test', origin: 'origin' },
       },
     })
   })

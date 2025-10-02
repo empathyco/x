@@ -34,6 +34,9 @@ const setAiRelatedTags = wireCommit('setAiRelatedTags')
 /** Resets the related prompts state. */
 const resetAiState = wireCommitWithoutPayload('resetAiState')
 
+/** Sets the origin for the AI requests. */
+const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
+
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
  *
@@ -61,5 +64,8 @@ export const aiWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTags,
+  },
+  AiOverviewMounted: {
+    saveAiOriginWire,
   },
 })

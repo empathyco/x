@@ -4,6 +4,7 @@ import type { AiXStoreModule } from './types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
 import { fetchAndSaveAiSuggestions } from './actions/fetch-and-save-ai-suggestions.action'
+import { saveOrigin } from './actions/save-origin.action'
 import { setUrlParams } from './actions/set-url-params.action'
 import {
   aiQuery as query,
@@ -21,6 +22,7 @@ export const aiXStoreModule: AiXStoreModule = {
     query: '',
     config: {},
     params: {},
+    origin: null,
     relatedTags: [],
   }),
   getters: {
@@ -60,6 +62,9 @@ export const aiXStoreModule: AiXStoreModule = {
     setParams(state, params) {
       state.params = params
     },
+    setOrigin(state, origin = null) {
+      state.origin = origin
+    },
     resetAiState(state) {
       Object.assign(state, resettableAiState())
     },
@@ -74,6 +79,7 @@ export const aiXStoreModule: AiXStoreModule = {
     fetchAndSaveAiSuggestions,
     fetchAndSaveAiSuggestionsSearch,
     setUrlParams,
+    saveOrigin,
   },
 }
 
