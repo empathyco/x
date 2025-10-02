@@ -15,5 +15,5 @@ export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest']
   { params, origin },
   { query },
 ) => {
-  return { query, extraParams: params, origin: origin ?? undefined }
+  return { query, extraParams: params, ...(origin && { origin }) }
 }
