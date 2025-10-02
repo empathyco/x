@@ -246,10 +246,6 @@ export const searchWiring = createWiring({
     setSearchQuery,
     saveOriginWire,
   },
-  EmpathizeGotNoContent: {
-    setSearchQuery,
-    saveOriginWire,
-  },
   UserAcceptedSpellcheckQuery: {
     resetSpellcheckQuery,
   },
