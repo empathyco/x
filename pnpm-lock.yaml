@@ -267,8 +267,8 @@ importers:
         specifier: 2.2.5
         version: 2.2.5(esbuild@0.20.0)
       '@cucumber/messages':
-        specifier: 28.0.0
-        version: 28.0.0
+        specifier: 29.0.1
+        version: 29.0.1
       '@empathyco/x-tailwindcss':
         specifier: 2.0.0-alpha.16
         version: link:../x-tailwindcss
@@ -1303,9 +1303,6 @@ packages:
 
   '@cucumber/messages@27.2.0':
     resolution: {integrity: sha512-f2o/HqKHgsqzFLdq6fAhfG1FNOQPdBdyMGpKwhb7hZqg0yZtx9BVqkTyuoNk83Fcvk3wjMVfouFXXHNEk4nddA==}
-
-  '@cucumber/messages@28.0.0':
-    resolution: {integrity: sha512-y/DT0uWK1ODrN+PLPWL9/M/9kW9d4Rivw3P4w7QLsb8EGMXeQ84Cn3uH4/a3U/GOA37OvJwKof4KTjBZ+unxQg==}
 
   '@cucumber/messages@28.1.0':
     resolution: {integrity: sha512-2LzZtOwYKNlCuNf31ajkrekoy2M4z0Z1QGiPH40n4gf5t8VOUFb7m1ojtR4LmGvZxBGvJZP8voOmRqDWzBzYKA==}
@@ -9396,11 +9393,11 @@ snapshots:
 
   '@cucumber/gherkin@34.0.0':
     dependencies:
-      '@cucumber/messages': 28.0.0
+      '@cucumber/messages': 28.1.0
 
   '@cucumber/gherkin@35.1.0':
     dependencies:
-      '@cucumber/messages': 28.0.0
+      '@cucumber/messages': 29.0.1
 
   '@cucumber/html-formatter@21.13.0(@cucumber/messages@29.0.1)':
     dependencies:
@@ -9439,13 +9436,6 @@ snapshots:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
       uuid: 11.0.5
-
-  '@cucumber/messages@28.0.0':
-    dependencies:
-      '@types/uuid': 10.0.0
-      class-transformer: 0.5.1
-      reflect-metadata: 0.2.2
-      uuid: 11.1.0
 
   '@cucumber/messages@28.1.0':
     dependencies:
