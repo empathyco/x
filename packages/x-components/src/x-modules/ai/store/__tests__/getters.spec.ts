@@ -23,6 +23,7 @@ describe('testing ai module getters', () => {
       expect(store.getters[gettersKeys.suggestionsRequest]).toEqual<AiSuggestionsRequest>({
         query: 'ai cheese',
         extraParams: { catalog: 'en' },
+        filters: {},
       })
     })
   })
