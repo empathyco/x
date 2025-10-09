@@ -11,9 +11,10 @@ import type { AiXStoreModule } from '../types'
  * @public
  */
 export const suggestionsSearchRequest: AiXStoreModule['getters']['suggestionsSearchRequest'] = ({
-  params,
+  params: extraParams,
+  selectedFilters: filters,
   queries,
   origin,
 }) => {
-  return queries.length ? { queries, extraParams: params, ...(origin && { origin }) } : null
+  return queries.length ? { queries, extraParams, filters, ...(origin && { origin }) } : null
 }
