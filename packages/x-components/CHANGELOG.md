@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.162 (2025-10-13)
+
+* feat(ai): add `suggestions-extra-content` slot to ai-overview component ([350a7c1](https://github.com/empathyco/x/commit/350a7c1))
+
+
+
+
+
 ## 6.0.0-alpha.161 (2025-10-02)
 
 * fix: fire search only if Empathise is open (#1895) ([2412415](https://github.com/empathyco/x/commit/2412415)), closes [#1895](https://github.com/empathyco/x/issues/1895) [#1894](https://github.com/empathyco/x/issues/1894)
