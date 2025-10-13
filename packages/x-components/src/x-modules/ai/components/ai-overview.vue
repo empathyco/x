@@ -141,6 +141,7 @@
                 </DisplayClickProvider>
               </div>
             </DisplayEmitter>
+            <slot name="suggestions-extra-content" />
           </div>
         </div>
       </CollapseHeight>
