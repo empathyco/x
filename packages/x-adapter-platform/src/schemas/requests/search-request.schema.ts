@@ -14,6 +14,6 @@ export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSe
   start: 'start',
   rows: 'rows',
   sort: 'sort',
-  filter: ({ filters }) => mapFilters(filters ?? {}),
+  filter: ({ filters }) => mapFilters(filters),
   extraParams: 'extraParams',
 })

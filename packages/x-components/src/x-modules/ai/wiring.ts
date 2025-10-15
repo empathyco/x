@@ -5,7 +5,7 @@ import {
   namespacedWireDispatch,
 } from '../../wiring'
 
-/** `ai` XModule name. */
+/** AI XModule name. */
 const moduleName = 'ai'
 /** WireCommit for AiXModule. */
 const wireCommit = namespacedWireCommit(moduleName)
@@ -14,21 +14,21 @@ const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName)
 /** WireDispatch for AiXModule.*/
 const wireDispatch = namespacedWireDispatch(moduleName)
 
-/** Sets the ai state from URL data. */
+/** Sets the AI state from URL data. */
 const setUrlParamsWire = wireDispatch('setUrlParams')
-/** Sets the ai state `params`. */
+/** Sets the AI state `params`. */
 const setExtraParamsWire = wireCommit('setParams')
 
-/** Sets the ai state `query`. */
+/** Sets the AI state `query`. */
 const setAiQueryWire = wireCommit('setQuery')
 
 /** Fetches the AI suggestions streaming response. */
 const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
 
-/** Fetches and save the ai suggestions search response. */
+/** Fetches and save the AI suggestions search response. */
 const fetchAndSaveAiSuggestionsSearchWire = wireDispatch('fetchAndSaveAiSuggestionsSearch')
 
-/** Sets the ai state `relatedTags`.*/
+/** Sets the AI state `relatedTags`.*/
 const setAiRelatedTagsWire = wireCommit('setAiRelatedTags')
 
 /** Resets the related prompts state. */

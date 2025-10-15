@@ -47,7 +47,7 @@ export interface AiState extends QueryState {
   origin: QueryOrigin | null
   /**
    * The dictionary of selected filters, used to perform the AI requests.
-   * The key is the facet id, and the value the list of filters for that facet.
+   * The key is the facet ID, and the value the list of filters for that facet.
    */
   selectedFilters: Dictionary<Filter[]>
 }

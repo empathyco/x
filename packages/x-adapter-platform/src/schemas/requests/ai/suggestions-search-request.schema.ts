@@ -16,9 +16,13 @@ export const aiSuggestionsSearchRequestSchema = createMutableSchema<
     const { lang, instance, ...restExtraParams } = extraParams ?? {}
 
     return {
-      lang: (lang as string | undefined) ?? '',
-      instance: (instance as string | undefined) ?? '',
-      filters: { ...restExtraParams, ...(filters && { filters: mapFilters(filters) }), origin },
+      lang: (lang ?? '') as string,
+      instance: (instance ?? '') as string,
+      filters: {
+        ...restExtraParams,
+        ...(filters && { filters: mapFilters(filters) }),
+        origin,
+      },
     }
   },
   queries: 'queries',

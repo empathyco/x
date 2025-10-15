@@ -1,6 +1,17 @@
-import { aiSuggestionsRequestStub } from '../../../../__tests__/__fixtures__/ai/suggestions.request'
-import { mappedFiltersStub } from '../../../../__tests__/__fixtures__/filter'
+import type { AiSuggestionsRequest } from '@empathyco/x-types'
+import { filtersStub, mappedFiltersStub } from '../../../../__tests__/__fixtures__/filter'
 import { aiSuggestionsRequestMapper } from '../../ai'
+
+export const aiSuggestionsRequestStub: AiSuggestionsRequest = {
+  query: 'test',
+  extraParams: {
+    lang: 'es',
+    instance: 'empathy',
+    env: 'test',
+  },
+  filters: filtersStub,
+  origin: 'origin',
+}
 
 describe('aiSuggestionsRequestMapper', () => {
   it('should map the request correctly with all params', () => {

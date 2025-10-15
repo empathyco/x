@@ -6,11 +6,12 @@ import { reduce } from '@empathyco/x-utils'
  * Converts the filters to the shape the Platform's API is expecting.
  *
  * @param filters - The filters from our internal request.
- * @param filters.filters - The filters from our internal request.
+ * @returns The filters ready to be consumed for the API.
+ *
  * @example
  * ```ts
  * const filters = {
- *     offer: [
+ *   offer: [
  *     {
  *       facetId: 'offer',
  *       modelName: 'SimpleFilter',
@@ -19,7 +20,7 @@ import { reduce } from '@empathyco/x-utils'
  *       label: 'In Offer'
  *     } as SimpleFilter
  *   ],
- *     categoryPaths: [
+ *   categoryPaths: [
  *     {
  *       facetId: 'categoryPaths',
  *       id: 'categoryIds:ffc61e1e9__be257cb26',
@@ -47,31 +48,30 @@ import { reduce } from '@empathyco/x-utils'
  *       parentId: null,
  *       selected: true,
  *       totalResults: 1
- *     }]
+ *     }
+ *   ]
  * };
  *
  * const mappedFilters = mapFilters({ filters });
- * // mappedFilters is [
- * //      'price:[0 TO 10]',
- * //        'categoryIds:ffc61e1e9__be257cb26',
- * //        'categoryIds:ffc61e1e9__fa5ef54f2'
- * //      ];
- *
+ * mappedFilters is [
+ *     'price:[0 TO 10]',
+ *     'categoryIds:ffc61e1e9__be257cb26',
+ *     'categoryIds:ffc61e1e9__fa5ef54f2'
+ * ];
  * ```
- * @returns The filters ready for the API.
  */
-export function mapFilters(filters: Record<string, Filter[]>): string[] {
+export function mapFilters(filters?: Record<string, Filter[]>) {
   return reduce(
     filters,
-    (accumulator, _, filters) => [
-      ...accumulator,
+    (acc, _, filters) => [
+      ...acc,
       ...filters
         .filter(
           filter =>
             !isHierarchicalFilter(filter) ||
             !filters.some(child => isHierarchicalFilter(child) && child.parentId === filter.id),
         )
-        .map(filter => filter.id.toString()),
+        .map(({ id }) => id.toString()),
     ],
     [] as string[],
   )

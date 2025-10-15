@@ -12,7 +12,7 @@ import type { AiXStoreModule } from '../types'
  * @public
  */
 export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest'] = (
-  { params: extraParams, origin, selectedFilters: filters },
+  { params: extraParams, selectedFilters: filters, origin },
   { query },
 ) => {
   return { query, extraParams, filters, ...(origin && { origin }) }
