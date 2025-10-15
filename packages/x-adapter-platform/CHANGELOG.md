@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.37 (2025-10-15)
+
+* fix: minor improvements in implementation ([454fb8c](https://github.com/empathyco/x/commit/454fb8c))
+* feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
+
+
+
+
+
 ## 1.1.0-alpha.36 (2025-10-02)
 
 * feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)

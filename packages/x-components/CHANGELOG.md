@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.163 (2025-10-15)
+
+* fix: minor improvements in implementation ([454fb8c](https://github.com/empathyco/x/commit/454fb8c))
+* feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
+
+
+
+
+
 ## 6.0.0-alpha.162 (2025-10-13)
 
 * feat(ai): add `suggestions-extra-content` slot to ai-overview component ([350a7c1](https://github.com/empathyco/x/commit/350a7c1))
