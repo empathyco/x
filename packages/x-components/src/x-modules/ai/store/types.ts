@@ -4,6 +4,7 @@ import type {
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
   AiSuggestionTagging,
+  Filter,
   RelatedTag,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
@@ -28,29 +29,27 @@ export interface AiState extends QueryState {
   suggestionText: string
   queries: AiSuggestionQuery[]
   tagging: AiSuggestionTagging | undefined
-
   /** Loading state for the suggestions response */
   suggestionsLoading: boolean
   /** Loading state for the suggestions search response */
   suggestionsSearchLoading: boolean
-
   /** The results per query retrieved by the suggestion search endpoint */
   suggestionsSearch: AiSuggestionSearch[]
-
   /* The config of the `AI` module. */
   config: AiConfig
-
   /** The extra params property of the state. */
   params: Dictionary<unknown>
-
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[]
-
   /** Flag to indicate that the AI response has no results */
   isNoResults: boolean
-
   /** The origin property of the request. */
   origin: QueryOrigin | null
+  /**
+   * The dictionary of selected filters, used to perform the AI requests.
+   * The key is the facet ID, and the value the list of filters for that facet.
+   */
+  selectedFilters: Dictionary<Filter[]>
 }
 
 /**
@@ -158,6 +157,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param origin - The new origin.
    */
   setOrigin: (origin: QueryOrigin | undefined | null) => void
+  /**
+   * Sets the selected filters of the module.
+   *
+   * @param selectedFilters - The new selected filters to save to the state.
+   */
+  setSelectedFilters: (selectedFilters: Filter[]) => void
 }
 
 /**
