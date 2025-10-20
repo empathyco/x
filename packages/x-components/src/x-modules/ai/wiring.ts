@@ -22,6 +22,9 @@ const setExtraParamsWire = wireCommit('setParams')
 /** Sets the AI state `query`. */
 const setAiQueryWire = wireCommit('setQuery')
 
+/** Sets the AI state `query` with the selectedQueryPreview's query. */
+const setAiQueryFromPreviewWire = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
+
 /** Fetches the AI suggestions streaming response. */
 const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
 
@@ -54,6 +57,9 @@ export const aiWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setAiQueryWire,
+  },
+  UserAcceptedAQueryPreview: {
+    setAiQueryFromPreviewWire,
   },
   UserClearedQuery: {
     setAiQueryWire,
