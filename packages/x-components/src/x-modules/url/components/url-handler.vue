@@ -36,6 +36,7 @@ export default defineComponent({
     GlobalEvents,
   },
   xModule: urlXModule.name,
+  inheritAttrs: false,
   setup(_, { attrs }) {
     const $x = use$x()
 
