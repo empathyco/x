@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.165 (2025-10-22)
+
+* fix(url-handler): disable attribute inheritance to avoid error with GlobalEvents ([dfa0979](https://github.com/empathyco/x/commit/dfa0979))
+
+
+
+
+
 ## 6.0.0-alpha.164 (2025-10-20)
 
 * feat(ai): connect query preview selection with ai module (#1904) ([400bacb](https://github.com/empathyco/x/commit/400bacb)), closes [#1904](https://github.com/empathyco/x/issues/1904)
