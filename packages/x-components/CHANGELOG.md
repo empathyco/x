@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.166 (2025-10-24)
+
+* fix(ai): export missing store things (#1907) ([ac5f37a](https://github.com/empathyco/x/commit/ac5f37a)), closes [#1907](https://github.com/empathyco/x/issues/1907)
+
+
+
+
+
 ## 6.0.0-alpha.165 (2025-10-22)
 
 * fix(url-handler): disable attribute inheritance to avoid error with GlobalEvents ([dfa0979](https://github.com/empathyco/x/commit/dfa0979))
