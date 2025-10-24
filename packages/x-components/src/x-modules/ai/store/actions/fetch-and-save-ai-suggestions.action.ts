@@ -31,7 +31,6 @@ type AnswerData =
  * provided by Vuex.
  * @param request - The AI request to make.
  * @returns The AI response.
- *
  * @public
  */
 export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveAiSuggestions'] =
