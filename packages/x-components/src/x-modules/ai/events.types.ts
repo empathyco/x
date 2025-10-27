@@ -1,4 +1,9 @@
-import type { AiSuggestionsRequest, AiSuggestionsSearchRequest, Result } from '@empathyco/x-types'
+import type {
+  AiSuggestionSearch,
+  AiSuggestionsRequest,
+  AiSuggestionsSearchRequest,
+  Result,
+} from '@empathyco/x-types'
 
 /**
  * Dictionary of the events of AI XModule, where each key is the event name, and the value is
@@ -9,6 +14,7 @@ import type { AiSuggestionsRequest, AiSuggestionsSearchRequest, Result } from '@
 export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
+  SuggestionsSearchChanged: AiSuggestionSearch[]
   UserClickedAiOverviewExpandButton: boolean
   UserClickedAnAiOverviewResult: Result
   AiOverviewMounted: void

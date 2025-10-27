@@ -330,7 +330,6 @@ export default defineComponent({
       suggestionsLoading,
       suggestionsSearch,
       suggestionText,
-      setExpanded,
       onExpandButtonClick,
       shouldAnimateSuggestion,
       query,
