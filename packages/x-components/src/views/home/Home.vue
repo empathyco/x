@@ -271,6 +271,11 @@
                 <template #result="{ result }">
                   <Result :result="result" class="x-w-[150px]" />
                 </template>
+                <template #extra-content>
+                  <button class="x-bg-lead-50 x-absolute x-bottom-0 x-right-0 x-translate-y-full">
+                    extra content
+                  </button>
+                </template>
               </AiOverview>
             </LocationProvider>
             <template v-if="!x.query.searchBox">
