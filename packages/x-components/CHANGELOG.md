@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.168 (2025-10-27)
+
+* feat(ai): add `extra-content` slot to ai-overview and use in home view ([4a51932](https://github.com/empathyco/x/commit/4a51932))
+
+
+
+
+
 ## 6.0.0-alpha.167 (2025-10-27)
 
 * chore(deps): update dependency @cucumber/messages to v30 (#1909) ([d450cf2](https://github.com/empathyco/x/commit/d450cf2)), closes [#1909](https://github.com/empathyco/x/issues/1909)
