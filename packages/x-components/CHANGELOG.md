@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.167 (2025-10-27)
+
+* chore(deps): update dependency @cucumber/messages to v30 (#1909) ([d450cf2](https://github.com/empathyco/x/commit/d450cf2)), closes [#1909](https://github.com/empathyco/x/issues/1909)
+
+
+
+
+
 ## 6.0.0-alpha.166 (2025-10-24)
 
 * fix(ai): export missing store things (#1907) ([ac5f37a](https://github.com/empathyco/x/commit/ac5f37a)), closes [#1907](https://github.com/empathyco/x/issues/1907)
