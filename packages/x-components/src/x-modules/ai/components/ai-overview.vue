@@ -44,6 +44,7 @@
             <p>{{ responseText }}</p>
           </div>
         </ChangeHeight>
+        <slot name="extra-content" />
       </div>
       <CollapseHeight
         :style="{
