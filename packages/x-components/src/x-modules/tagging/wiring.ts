@@ -1,4 +1,5 @@
 import type {
+  AiSuggestionSearch,
   RelatedPrompt,
   Result,
   SemanticQuery,
@@ -448,6 +449,14 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
 }
 
 /**
+ * Tracks query tagging of the AI suggestions-search.
+ * @public
+ */
+export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayload }) =>
+  (eventPayload as AiSuggestionSearch[]).map(({ tagging }) => tagging.query),
+)
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -516,6 +525,9 @@ export const taggingWiring = createWiring({
   },
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
+  },
+  AiSuggestionsSearchChanged: {
+    trackAiSuggestionsSearchWire,
   },
   UserClickedAiOverviewExpandButton: {
     trackAiOverviewButtonClickedWire,

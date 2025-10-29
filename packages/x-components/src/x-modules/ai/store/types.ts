@@ -177,14 +177,12 @@ export interface AiActions {
    * @param request - The ai suggestions request.
    */
   fetchAndSaveAiSuggestions: (request: AiSuggestionsRequest | null) => void
-
   /**
-   * Requests suggestions search for the module ai.
+   * Requests suggestions search for the module AI.
    *
-   * @param request - The ai suggestions search request.
+   * @param expanded - The expanded state of the AI overview.
    */
-  fetchAndSaveAiSuggestionsSearch: (request: AiSuggestionsSearchRequest | null) => void
-
+  fetchAndSaveAiSuggestionsSearch: (expanded: boolean) => void
   /**
    * Checks if the URL has params on it and then updates the state with these values.
    *

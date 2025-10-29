@@ -74,7 +74,8 @@ const useStateStub = {
 const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
 const useStateMock = jest.fn(() => useStateStub)
-const use$xMock = jest.fn(() => ({ emit: emitMock }))
+const xInstance = { emit: emitMock, noResults: false }
+const use$xMock = jest.fn(() => xInstance)
 
 const propsStub = {
   title: 'Empathy AI Overview',
@@ -192,6 +193,7 @@ describe('ai-overview component', () => {
     jest.mocked(useGetter).mockImplementation(useGettersMock)
     jest.mocked(useState).mockImplementation(useStateMock)
     jest.mocked(use$x).mockImplementation(use$xMock as any)
+    xInstance.noResults = false
   })
 
   afterAll(() => {
@@ -477,5 +479,56 @@ describe('ai-overview component', () => {
     expect(emitMock).toHaveBeenCalledWith('AiOverviewMounted', undefined, {
       feature: 'overview',
     })
+  })
+
+  it('auto-expands when autoExpandInSearchNoResults is true and suggestions finish loading with no results', async () => {
+    const suggestionsLoadingRef = ref(true)
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: suggestionsLoadingRef }))
+
+    const sut = render()
+
+    // Initially collapsed
+    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
+
+    // Set global noResults and finish loading to trigger the watch
+    xInstance.noResults = true
+    suggestionsLoadingRef.value = false
+    await nextTick()
+
+    // Should be expanded automatically
+    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
+    expect(sut.gradientBottom.isVisible()).toBeFalsy()
+    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
+    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
+
+    // It emits the click event with the previous expanded state (false)
+    expect(emitMock).toHaveBeenCalledWith('UserClickedAiOverviewExpandButton', false, {
+      suggestionText: useStateStub.suggestionText.value,
+      toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
+    })
+  })
+
+  it('does not auto-expand when autoExpandInSearchNoResults is false even with no results', async () => {
+    const suggestionsLoadingRef = ref(true)
+    jest
+      .mocked(useState)
+      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: suggestionsLoadingRef }))
+
+    const sut = render({ props: { ...propsStub, autoExpandInSearchNoResults: false } })
+
+    // Make conditions true except the prop
+    xInstance.noResults = true
+    suggestionsLoadingRef.value = false
+    await nextTick()
+
+    // Should remain collapsed
+    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
+    expect(sut.gradientBottom.isVisible()).toBeTruthy()
+    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
+    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 })
