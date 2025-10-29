@@ -152,14 +152,14 @@
           v-if="queries.length"
           class="x-cursor-pointer"
           data-test="ai-overview-toggle-button-wrapper"
-          @click="onExpandButtonClick(!expanded)"
+          @click="emitAndSetExpand(!expanded)"
         >
           <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
           <div class="x-ai-overview-toggle-wrapper">
             <button
               class="x-ai-overview-toggle-btn"
               data-test="ai-overview-toggle-button"
-              @click.stop="onExpandButtonClick(!expanded)"
+              @click.stop="emitAndSetExpand(!expanded)"
             >
               {{ buttonText }}
               <ChevronDownIcon
@@ -176,7 +176,6 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
-import type { PropType } from 'vue'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
@@ -214,65 +213,41 @@ export default defineComponent({
     DisplayClickProvider,
   },
   props: {
-    /**
-     * The text displayed when the question ended loading
-     *
-     * @public
-     */
+    /* The text displayed when the question ended loading */
     title: {
-      type: String as PropType<string>,
+      type: String,
     },
-    /**
-     * The text displayed when the question is loading.
-     *
-     * @public
-     */
+    /* The text displayed when the question is loading. */
     titleLoading: {
-      type: String as PropType<string>,
+      type: String,
       default: 'Generating with Empathy AI',
     },
-    /**
-     * The text displayed on the toggle button when collapsed.
-     *
-     * @public
-     */
+    /* The text displayed on the toggle button when collapsed. */
     expandText: {
-      type: String as PropType<string>,
+      type: String,
       default: 'Show more',
     },
-    /**
-     * The text displayed on the toggle button when expanded.
-     *
-     * @public
-     */
+    /* The text displayed on the toggle button when expanded. */
     collapseText: {
-      type: String as PropType<string>,
+      type: String,
       default: 'Show less',
     },
-
-    /**
-     * The classes added to each sliding panel for each query.
-     *
-     * @public
-     */
+    /* Auto expand the AI Overview when there are queries in AI and no-results in search. */
+    autoExpandInSearchNoResults: {
+      type: Boolean,
+      default: true,
+    },
+    /* The classes added to each sliding panel for each query. */
     slidingPanelsClasses: {
-      type: String as PropType<string>,
+      type: String,
     },
-    /**
-     * The classes added to each sliding panel container of each query.
-     *
-     * @public
-     */
+    /* The classes added to each sliding panel container of each query. */
     slidingPanelContainersClasses: {
-      type: String as PropType<string>,
+      type: String,
     },
-    /**
-     * The classes added to each sliding panel buttons of each query.
-     *
-     * @public
-     */
+    /* The classes added to each sliding panel button of each query. */
     slidingPanelButtonsClasses: {
-      type: String as PropType<string>,
+      type: String,
     },
   },
   setup(props) {
@@ -296,21 +271,31 @@ export default defineComponent({
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
-    function onExpandButtonClick(newValue: boolean) {
+    function emitAndSetExpand(isExpanded: boolean) {
       $x.emit('UserClickedAiOverviewExpandButton', expanded.value, {
         suggestionText: suggestionText.value,
         toolingDisplayClick: tagging.value?.toolingDisplayClick,
       })
-      setExpanded(newValue)
-    }
 
-    function setExpanded(newValue: boolean) {
-      expanded.value = newValue
+      expanded.value = isExpanded
       if (!expanded.value) {
         aiOverviewRef.value?.scrollIntoView({ behavior: 'smooth' })
         shouldAnimateSuggestion.value = false
       }
     }
+
+    /* Expand AIOverview programmatically when the `autoExpandInSearchNoResults` prop is active,
+    the request for suggestions has ended; there are queries in AI and no-results in search. */
+    watch([suggestionsLoading, () => $x.noResults], () => {
+      if (
+        props.autoExpandInSearchNoResults &&
+        !suggestionsLoading.value &&
+        queries.value.length &&
+        $x.noResults
+      ) {
+        emitAndSetExpand(true)
+      }
+    })
 
     watch(query, () => {
       expanded.value = false
@@ -330,7 +315,7 @@ export default defineComponent({
       suggestionsLoading,
       suggestionsSearch,
       suggestionText,
-      onExpandButtonClick,
+      emitAndSetExpand,
       shouldAnimateSuggestion,
       query,
       tagging,
