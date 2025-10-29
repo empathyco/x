@@ -14,7 +14,7 @@ import type {
 export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
-  SuggestionsSearchChanged: AiSuggestionSearch[]
+  AiSuggestionsSearchChanged: AiSuggestionSearch[]
   UserClickedAiOverviewExpandButton: boolean
   UserClickedAnAiOverviewResult: Result
   AiOverviewMounted: void

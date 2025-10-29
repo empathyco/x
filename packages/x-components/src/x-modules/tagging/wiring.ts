@@ -449,10 +449,10 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
 }
 
 /**
- * Tracks query tagging of the suggestions-search.
+ * Tracks query tagging of the AI suggestions-search.
  * @public
  */
-export const trackSuggestionsSearchWire = wireDispatch('track', ({ eventPayload }) =>
+export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayload }) =>
   (eventPayload as AiSuggestionSearch[]).map(({ tagging }) => tagging.query),
 )
 
@@ -526,8 +526,8 @@ export const taggingWiring = createWiring({
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
   },
-  SuggestionsSearchChanged: {
-    trackSuggestionsSearchWire,
+  AiSuggestionsSearchChanged: {
+    trackAiSuggestionsSearchWire,
   },
   UserClickedAiOverviewExpandButton: {
     trackAiOverviewButtonClickedWire,
