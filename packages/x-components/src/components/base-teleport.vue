@@ -1,6 +1,6 @@
 <template>
   <Teleport v-if="teleportHost" :to="teleportHost.shadowRoot ?? teleportHost" :disabled>
-    <slot></slot>
+    <slot />
   </Teleport>
 </template>
 
@@ -20,7 +20,7 @@ import {
 export default defineComponent({
   name: 'BaseTeleport',
   props: {
-    /** The element or css selector to which the component will be teleported. */
+    /** The element or CSS selector to which the component will be teleported. */
     target: {
       type: [String, Object] as PropType<string | Element>,
       required: true,
@@ -46,6 +46,11 @@ export default defineComponent({
     },
     /** Styles for the teleport (content container) */
     hostStyle: Object as PropType<string | CSSStyleDeclaration>,
+    /** Wait until a window `load` event fires to connect the observer. */
+    teleportAfterPageLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     if (typeof document === 'undefined') {
@@ -59,7 +64,7 @@ export default defineComponent({
     const targetElement = ref<HTMLElement>()
     let isIsolated = false
 
-    // Before doing app.mount it is unknown if it will be mounted in a shadow so we need to wait.
+    // Before doing app.mount it is unknown if it will be mounted in a shadow, so we need to wait.
     if (instance?.appContext.app._container) {
       createHost()
     } else {
@@ -81,17 +86,24 @@ export default defineComponent({
       teleportHost.value?.remove()
     })
 
+    function connect(newTarget: string | Element) {
+      targetAddedObserver.disconnect()
+      targetRemovedObserver.disconnect()
+
+      const target = typeof newTarget === 'string' ? document.querySelector(newTarget) : newTarget
+      target?.isConnected ? targetAdded() : targetRemoved()
+    }
+
     // Handles target prop changes and init the observers accordingly.
     watch(
       () => props.target,
       newTarget => {
-        targetAddedObserver.disconnect()
-        targetRemovedObserver.disconnect()
-        const target = typeof newTarget === 'string' ? document.querySelector(newTarget) : newTarget
-        if (target?.isConnected) {
-          targetAdded()
+        if (props.teleportAfterPageLoading) {
+          window.addEventListener('load', () => {
+            connect(newTarget)
+          })
         } else {
-          targetRemoved()
+          connect(newTarget)
         }
       },
       { immediate: true },
