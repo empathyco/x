@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.169 (2025-10-29)
+
+* fix: doc ([b5b7f16](https://github.com/empathyco/x/commit/b5b7f16))
+* fix: raname some variables ([4db954b](https://github.com/empathyco/x/commit/4db954b))
+* feat(ai-overview): add support to auto expand in search no results ([e2682e0](https://github.com/empathyco/x/commit/e2682e0))
+* feat(ai): perform suggestions search on expand and track queries ([76133f4](https://github.com/empathyco/x/commit/76133f4))
+
+
+
+
+
 ## 6.0.0-alpha.168 (2025-10-27)
 
 * feat(ai): add `extra-content` slot to ai-overview and use in home view ([4a51932](https://github.com/empathyco/x/commit/4a51932))
