@@ -19,6 +19,8 @@ import { queriesPreviewXModule } from '../../x-module'
 import QueryPreview from '../query-preview.vue'
 import { resetXQueriesPreviewStateWith } from './utils'
 
+const requestParams = { instance: 'empathy', lang: 'en' }
+
 async function render({
   template = `<QueryPreview :queryPreviewInfo="queryPreviewInfo" :queryFeature="queryFeature" :maxItemsToRender="maxItemsToRender" :debounceTimeMs="debounceTimeMs" :persistInCache="persistInCache"/>`,
   queryPreviewInfo = { query: 'milk' } as QueryPreviewInfo,
@@ -64,12 +66,12 @@ async function render({
     },
   )
 
-  const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+  const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
   queryPreviewInState.request = { query: queryPreviewInfo.query }
   resetXQueriesPreviewStateWith(store, {
     queriesPreview: { [queryPreviewInfoHash]: queryPreviewInState },
   })
-  store.commit('x/queriesPreview/setParams', { lang: 'en' })
+  store.commit('x/queriesPreview/setParams', requestParams)
   await nextTick()
 
   const queryPreviewRequestUpdatedSpy = jest.fn()
@@ -119,7 +121,7 @@ describe('query preview', () => {
         filters: ['fit:regular'],
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     expect(queryPreviewWrapper.emitted('load')?.length).toEqual(1)
@@ -159,7 +161,7 @@ describe('query preview', () => {
     await wrapper.setProps({
       queryPreviewInfo: {
         query: 'shoes',
-        extraParams: { directory: 'Magrathea' },
+        extraParams: { directory: 'Magrathea', ...requestParams },
         filters: ['fit:regular'],
       },
     })
@@ -170,6 +172,7 @@ describe('query preview', () => {
       extraParams: {
         directory: 'Magrathea',
         lang: 'en',
+        instance: 'empathy',
       },
       filters: {
         fit: [{ id: 'fit:regular', modelName: 'RawFilter', selected: true }],
@@ -189,6 +192,7 @@ describe('query preview', () => {
       extraParams: {
         directory: 'Magrathea',
         lang: 'en',
+        instance: 'empathy',
       },
       filters: {
         fit: [{ id: 'fit:regular', modelName: 'RawFilter', selected: true }],
@@ -204,6 +208,8 @@ describe('query preview', () => {
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
       extraParams: {
         directory: 'Magrathea',
+        lang: 'en',
+        instance: 'empathy',
         store: 'Uganda',
       },
       filters: {
@@ -237,7 +243,7 @@ describe('query preview', () => {
     jest.advanceTimersToNextTimer()
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
-      extraParams: { lang: 'en' },
+      extraParams: { lang: 'en', instance: 'empathy' },
       filters: undefined,
       origin: 'query_suggestion:predictive_layer',
       query: 'shoes',
@@ -333,7 +339,7 @@ describe('query preview', () => {
         totalResults: 100,
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
 
     await flushPromises()
 
@@ -355,7 +361,7 @@ describe('query preview', () => {
         instances: 1,
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
 
     await flushPromises()
 
@@ -378,7 +384,7 @@ describe('query preview', () => {
         totalResults: 100,
       },
     })
-    const query = getHashFromQueryPreviewInfo({ query: 'milk' }, 'en')
+    const query = getHashFromQueryPreviewInfo({ query: 'milk' }, requestParams)
 
     await flushPromises()
 
@@ -399,7 +405,7 @@ describe('query preview', () => {
 
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
-        extraParams: { lang: 'en' },
+        extraParams: { lang: 'en', instance: 'empathy' },
         query: 'bull',
         rows: 24,
       })
@@ -417,7 +423,7 @@ describe('query preview', () => {
       jest.advanceTimersByTime(1) // 250ms since mounting the component, the debounce tested
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
-        extraParams: { lang: 'en' },
+        extraParams: { lang: 'en', instance: 'empathy' },
         query: 'bull',
         rows: 24,
       })
@@ -439,7 +445,7 @@ describe('query preview', () => {
       jest.advanceTimersByTime(251)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(2)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
-        extraParams: { lang: 'en' },
+        extraParams: { lang: 'en', instance: 'empathy' },
         query: 'secallona',
         rows: 24,
       })

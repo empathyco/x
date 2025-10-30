@@ -44,8 +44,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       })
       .catch(error => {
         console.error(error)
-        const lang = request.extraParams ? request.extraParams.lang : ''
-        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem, lang as string)
+        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem)
         commit('setStatus', { queryPreviewHash, status: 'error' })
       })
   }
