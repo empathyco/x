@@ -39,7 +39,9 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
       return
     }
     commit('setSuggestionsLoading', true)
-    return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
+    return XPlugin.adapter[
+      request.query.split(/\s+/).filter(Boolean).length >= 2 ? 'aiSuggestions' : 'aiSummarize'
+    ](request).then(({ body, status }) => {
       if (status !== 200) {
         return
       }
@@ -101,6 +103,7 @@ function readAnswer(
             commit('setSuggestionText', data.suggestionText)
           }
           if ('responseText' in data) {
+            commit('setIsNoResults', false)
             commit('setResponseText', data.responseText)
           }
           if ('queries' in data) {

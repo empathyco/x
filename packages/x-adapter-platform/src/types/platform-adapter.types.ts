@@ -58,4 +58,5 @@ export interface PlatformAdapter extends XComponentsAdapter {
   aiQuestions: ExtendableEndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: ExtendableEndpointAdapter<AiTasksRequest, AiTasksResponse>
   aiSuggestions: ExtendableEndpointAdapter<AiSuggestionsRequest, Response>
+  aiSummarize: ExtendableEndpointAdapter<AiSuggestionsRequest, Response>
 }
