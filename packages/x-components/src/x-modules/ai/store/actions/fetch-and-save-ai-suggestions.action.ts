@@ -39,9 +39,15 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
       return
     }
     commit('setSuggestionsLoading', true)
-    return XPlugin.adapter[
-      request.query.split(/\s+/).filter(Boolean).length >= 2 ? 'aiSuggestions' : 'aiSummarize'
-    ](request).then(({ body, status }) => {
+
+    const queryWords = request.query.split(/\s+/).filter(Boolean).length
+
+    const response =
+      queryWords >= 2
+        ? XPlugin.adapter.aiSuggestions(request)
+        : XPlugin.adapter.aiSummarize(request)
+
+    return response.then(({ body, status }) => {
       if (status !== 200) {
         return
       }

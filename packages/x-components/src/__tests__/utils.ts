@@ -55,6 +55,7 @@ interface MockedAdapterFeatures {
   aiTasks: AiTasksResponse
   aiSuggestions: Response
   aiSuggestionsSearch: AiSuggestionsSearchResponse
+  aiSummarize: Response
 }
 
 /**
@@ -171,8 +172,9 @@ export function getMockedAdapter(
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
     experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
-    aiSuggestions: getMockedAdapterFunction(responseFeatures?.aiSuggestions),
+    aiSuggestions: getMockedAdapterFunction(responseFeatures?.aiSuggestions!),
     aiSuggestionsSearch: getMockedAdapterFunction(responseFeatures?.aiSuggestionsSearch),
+    aiSummarize: getMockedAdapterFunction(responseFeatures?.aiSummarize!),
     aiQuestions: getMockedAdapterFunction(responseFeatures?.aiQuestions!),
     aiTasks: getMockedAdapterFunction(responseFeatures?.aiTasks!),
     /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
