@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.170 (2025-10-30)
+
+* fix(AiOverview): Collapse AiOverview when AiSuggestions request changes ([a5bb16c](https://github.com/empathyco/x/commit/a5bb16c))
+
+
+
+
+
 ## 6.0.0-alpha.169 (2025-10-29)
 
 * fix: doc ([b5b7f16](https://github.com/empathyco/x/commit/b5b7f16))
