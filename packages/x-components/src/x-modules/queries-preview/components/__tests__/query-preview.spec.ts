@@ -117,7 +117,6 @@ describe('query preview', () => {
       persistInCache: true,
       queryPreviewInfo: {
         query: 'shoes',
-        extraParams: { directory: 'Magrathea' },
         filters: ['fit:regular'],
       },
     })
