@@ -71,10 +71,16 @@ const useStateStub = {
   }),
   isNoResults: ref(false),
 }
+let subscribeCb = () => {}
+const onMock = jest.fn(() => ({
+  subscribe: (cb: () => void) => {
+    subscribeCb = cb
+  },
+}))
 const emitMock = jest.fn()
 const useGettersMock = jest.fn(() => useGettersStub)
 const useStateMock = jest.fn(() => useStateStub)
-const xInstance = { emit: emitMock, noResults: false }
+const xInstance = { emit: emitMock, on: onMock, noResults: false }
 const use$xMock = jest.fn(() => xInstance)
 
 const propsStub = {
@@ -277,6 +283,8 @@ describe('ai-overview component', () => {
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
     expect(sut.chevronDownIcon.exists()).toBeTruthy()
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
+
+    expect(onMock).toHaveBeenCalledWith('AiSuggestionsRequestUpdated', false)
   })
 
   it('should render with loading state correctly', () => {
@@ -324,7 +332,7 @@ describe('ai-overview component', () => {
     expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
 
-  it('should collapse the suggestions when the query changes', async () => {
+  it('should collapse the suggestions when the ai suggestion request changes', async () => {
     const sut = render()
 
     await sut.toggleButton.trigger('click')
@@ -334,7 +342,7 @@ describe('ai-overview component', () => {
     expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
     expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
 
-    useGettersStub.query.value = 'new query text'
+    subscribeCb()
     await sut.wrapper.vm.$nextTick()
 
     expect(sut.suggestionsContainer.isVisible()).toBeFalsy()

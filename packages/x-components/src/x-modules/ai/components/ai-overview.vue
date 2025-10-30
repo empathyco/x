@@ -297,7 +297,7 @@ export default defineComponent({
       }
     })
 
-    watch(query, () => {
+    $x.on('AiSuggestionsRequestUpdated', false).subscribe(() => {
       expanded.value = false
       shouldAnimateSuggestion.value = true
     })
