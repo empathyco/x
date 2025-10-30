@@ -95,7 +95,10 @@ export default defineComponent({
      * @returns The query hash.
      */
     const queryPreviewHash = computed(() =>
-      getHashFromQueryPreviewInfo(props.queryPreviewInfo, params.value.lang as string),
+      getHashFromQueryPreviewInfo(props.queryPreviewInfo, {
+        ...params.value,
+        ...props.queryPreviewInfo.extraParams,
+      }),
     )
 
     provide('queryPreviewHash', queryPreviewHash)
