@@ -83,6 +83,12 @@ const useStateMock = jest.fn(() => useStateStub)
 const xInstance = { emit: emitMock, on: onMock, noResults: false }
 const use$xMock = jest.fn(() => xInstance)
 
+jest.mock('marked', () => ({
+  marked: {
+    parse: jest.fn((markdown: string) => markdown),
+  },
+}))
+
 const propsStub = {
   title: 'Empathy AI Overview',
   titleLoading: 'Loading AI Overview',

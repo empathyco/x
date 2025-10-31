@@ -12,6 +12,10 @@ describe('testing ai module actions', () => {
       body: { getReader: () => ({ read: async () => Promise.resolve({ done: true }) }) },
       status: 200,
     } as unknown as Response,
+    aiSummarize: {
+      body: { getReader: () => ({ read: async () => Promise.resolve({ done: true }) }) },
+      status: 200,
+    } as unknown as Response,
   })
 
   const store: SafeStore<AiState, AiGetters, AiMutations, AiActions> = new Store(
@@ -38,6 +42,7 @@ describe('testing ai module actions', () => {
         store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest),
       ).resolves.toBeUndefined()
     })
+
     it('should return undefined if there is no request', async () => {
       const response = await store.dispatch(
         'fetchAndSaveAiSuggestions',

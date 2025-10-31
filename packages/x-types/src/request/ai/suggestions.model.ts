@@ -1,4 +1,9 @@
-import type { ExtraParamsRequest, FilterableRequest, TrackableRequest } from '../request.model'
+import type {
+  ExtraParamsRequest,
+  FilterableRequest,
+  QueryableRequest,
+  TrackableRequest,
+} from '../request.model'
 
 /**
  * Request for the ai suggestions endpoint.
@@ -8,6 +13,5 @@ import type { ExtraParamsRequest, FilterableRequest, TrackableRequest } from '..
 export interface AiSuggestionsRequest
   extends ExtraParamsRequest,
     TrackableRequest,
-    FilterableRequest {
-  query?: string
-}
+    FilterableRequest,
+    QueryableRequest {}
