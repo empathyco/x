@@ -43,15 +43,15 @@
   },
   "dependencies": {
     "@empathyco/x-utils": "^1.0.3-alpha.8",
-    "tslib": "~2.6.0"
+    "tslib": "~2.8.1"
   },
   "devDependencies": {
     "@types/jest": "29.5.14",
     "jest": "29.7.0",
     "rimraf": "3.0.2",
-    "ts-jest": "29.4.0",
+    "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "typescript": "5.9.3"
   },
   "publishConfig": {
     "access": "public"
