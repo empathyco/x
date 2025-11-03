@@ -41,7 +41,7 @@
         <ChangeHeight>
           <div class="x-ai-overview-content" data-test="ai-overview-content">
             <span v-if="title">{{ suggestionText }}</span>
-            <p>{{ responseText }}</p>
+            <div v-html="parsedResponseText" />
           </div>
         </ChangeHeight>
         <slot name="extra-content" />
@@ -174,6 +174,7 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
+import { marked } from 'marked'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
@@ -266,6 +267,7 @@ export default defineComponent({
     const aiOverviewRef = ref<HTMLDivElement | null>(null)
     const expanded = ref(false)
     const shouldAnimateSuggestion = ref(true)
+    const parsedResponseText = computed(() => marked.parse(responseText.value))
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -309,7 +311,7 @@ export default defineComponent({
       buttonText,
       emptyTaggingRequest,
       expanded,
-      responseText,
+      parsedResponseText,
       suggestionsLoading,
       suggestionsSearch,
       suggestionText,

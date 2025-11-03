@@ -52,4 +52,5 @@ export interface XComponentsAdapter {
   aiQuestions: EndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
   aiTasks: EndpointAdapter<AiTasksRequest, AiTasksResponse>
   aiSuggestions: EndpointAdapter<AiSuggestionsRequest, Response>
+  aiSummarize: EndpointAdapter<AiSuggestionsRequest, Response>
 }

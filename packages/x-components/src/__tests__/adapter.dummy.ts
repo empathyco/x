@@ -16,4 +16,5 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   aiSuggestionsSearch: jest.fn(),
   aiQuestions: jest.fn(),
   aiTasks: jest.fn(),
+  aiSummarize: jest.fn(),
 }
