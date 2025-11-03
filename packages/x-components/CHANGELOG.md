@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.172 (2025-11-03)
+
+* fix(AiOverview): remove query when clicking a product ([4028e81](https://github.com/empathyco/x/commit/4028e81))
+
+
+
+
+
 ## 6.0.0-alpha.171 (2025-10-30)
 
 * chore(deps): install marked in x-component to parse markdown ([cf90867](https://github.com/empathyco/x/commit/cf90867))
