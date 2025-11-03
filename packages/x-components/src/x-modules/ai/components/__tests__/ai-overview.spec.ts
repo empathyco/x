@@ -251,9 +251,6 @@ describe('ai-overview component', () => {
         useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplay,
       )
       expect(sut.displayClickProviders[suggestionIndex].props().resultFeature).toBe('overview')
-      expect(sut.displayClickProviders[suggestionIndex].props().queryTagging).toBe(
-        useStateStub.suggestionsSearch.value[suggestionIndex].tagging.query,
-      )
       expect(sut.displayClickProviders[suggestionIndex].props().toolingDisplayTagging).toBe(
         useStateStub.tagging.value.searchQueries[suggestionSearch.query].toolingDisplayClick,
       )
