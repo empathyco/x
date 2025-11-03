@@ -42,12 +42,10 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
 
     const queryWords = request.query.split(/\s+/).filter(Boolean).length
 
-    const response =
-      queryWords >= 2
-        ? XPlugin.adapter.aiSuggestions(request)
-        : XPlugin.adapter.aiSummarize(request)
+    const endpointAdapterFn =
+      queryWords >= 2 ? XPlugin.adapter.aiSuggestions : XPlugin.adapter.aiSummarize
 
-    return response.then(({ body, status }) => {
+    return endpointAdapterFn(request).then(({ body, status }) => {
       if (status !== 200) {
         return
       }
