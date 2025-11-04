@@ -39,13 +39,13 @@
           </DisplayEmitter>
         </Fade>
         <ChangeHeight>
-          <div
-            class="x-ai-overview-content"
-            :class="contentClasses"
-            data-test="ai-overview-content"
-          >
-            <span v-if="title">{{ suggestionText }}</span>
-            <div v-html="parsedResponseText" />
+          <div class="x-ai-overview-content-wrapper">
+            <span v-if="title" data-test="ai-overview-content-title">{{ suggestionText }}</span>
+            <div
+              :class="contentClasses"
+              data-test="ai-overview-content"
+              v-html="parsedResponseText"
+            />
           </div>
         </ChangeHeight>
         <slot name="extra-content" />
@@ -386,7 +386,7 @@ export default defineComponent({
   flex-shrink: 0;
 }
 
-.x-ai-overview-content {
+.x-ai-overview-content-wrapper {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -394,7 +394,7 @@ export default defineComponent({
   gap: 0.5rem;
 }
 
-.x-ai-overview-content span {
+.x-ai-overview-content-wrapper > span {
   font-weight: 500;
 }
 
