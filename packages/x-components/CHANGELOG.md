@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.175 (2025-11-04)
+
+* feat(ai): add `contentClasses` prop and styling improvements to ai-overview component ([6f887c9](https://github.com/empathyco/x/commit/6f887c9))
+
+
+
+
+
 ## 6.0.0-alpha.174 (2025-11-04)
 
 **Note:** Version bump only for package @empathyco/x-components
