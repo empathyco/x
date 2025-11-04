@@ -40,7 +40,12 @@
         </Fade>
         <ChangeHeight>
           <div class="x-ai-overview-content-wrapper">
-            <span v-if="title" data-test="ai-overview-content-title">{{ suggestionText }}</span>
+            <span
+              v-if="title"
+              class="x-ai-overview-content-title"
+              data-test="ai-overview-content-title"
+              >{{ suggestionText }}
+            </span>
             <div
               :class="contentClasses"
               data-test="ai-overview-content"
@@ -391,11 +396,11 @@ export default defineComponent({
   flex-direction: column;
   text-align: left;
   line-height: 1.25rem;
-  gap: 0.5rem;
 }
 
-.x-ai-overview-content-wrapper > span {
+.x-ai-overview-content-title {
   font-weight: 500;
+  margin-bottom: 8px;
 }
 
 .x-ai-overview-gradient {
