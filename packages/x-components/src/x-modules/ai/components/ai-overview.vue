@@ -39,7 +39,11 @@
           </DisplayEmitter>
         </Fade>
         <ChangeHeight>
-          <div class="x-ai-overview-content" data-test="ai-overview-content">
+          <div
+            class="x-ai-overview-content"
+            :class="contentClasses"
+            data-test="ai-overview-content"
+          >
             <span v-if="title">{{ suggestionText }}</span>
             <div v-html="parsedResponseText" />
           </div>
@@ -236,6 +240,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    /* The classes added to the parsed response text container. */
+    contentClasses: {
+      type: String,
+    },
     /* The classes added to each sliding panel for each query. */
     slidingPanelsClasses: {
       type: String,
@@ -338,6 +346,8 @@ export default defineComponent({
 
 .x-ai-overview-main {
   padding: 1rem;
+  max-width: var(--x-ai-overview-main-max-width, none);
+  margin: 0 auto;
 }
 
 .x-ai-overview-title {

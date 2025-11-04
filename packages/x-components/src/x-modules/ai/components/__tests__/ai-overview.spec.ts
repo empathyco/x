@@ -94,6 +94,7 @@ const propsStub = {
   titleLoading: 'Loading AI Overview',
   expandText: 'Show more',
   collapseText: 'Show less',
+  contentClasses: 'prose',
   slidingPanelsClasses: 'scroll-x',
   slidingPanelContainersClasses: 'mx-auto',
   slidingPanelButtonsClasses: 'mx-8',
@@ -231,6 +232,7 @@ describe('ai-overview component', () => {
     expect(sut.aiStarIcon.exists()).toBeTruthy()
     expect(sut.content.text()).toContain(useStateStub.suggestionText.value)
     expect(sut.content.text()).toContain(useStateStub.responseText.value)
+    expect(sut.content.classes()).toContain(propsStub.contentClasses)
     expect(sut.collapseHeightSuggestions.exists()).toBeTruthy()
     expect(sut.collapseHeightSuggestions.attributes().style).toBe(
       `--x-collapse-height-transition-duration: ${300 * useStateStub.suggestionsSearch.value.length}ms;`,
