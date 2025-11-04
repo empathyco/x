@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.174 (2025-11-04)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.173 (2025-11-03)
 
 * feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
