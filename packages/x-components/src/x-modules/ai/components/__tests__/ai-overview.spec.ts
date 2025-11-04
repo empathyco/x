@@ -144,7 +144,7 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
       return wrapper.findComponent(AIStarIcon)
     },
     get content() {
-      return wrapper.find(getDataTestSelector('ai-overview-content'))
+      return wrapper.find(getDataTestSelector('ai-overview-content-wrapper'))
     },
     get collapseHeightSuggestions() {
       return wrapper.findComponent(getDataTestSelector('ai-overview-collapse-height-suggestions'))
