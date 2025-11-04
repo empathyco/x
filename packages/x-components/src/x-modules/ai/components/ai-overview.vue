@@ -39,9 +39,13 @@
           </DisplayEmitter>
         </Fade>
         <ChangeHeight>
-          <div class="x-ai-overview-content-wrapper" data-test="ai-overview-content-wrapper">
-            <span v-if="title">{{ suggestionText }}</span>
-            <div :class="contentClasses" v-html="parsedResponseText" />
+          <div class="x-ai-overview-content-wrapper">
+            <span v-if="title" data-test="ai-overview-content-title">{{ suggestionText }}</span>
+            <div
+              :class="contentClasses"
+              data-test="ai-overview-content"
+              v-html="parsedResponseText"
+            />
           </div>
         </ChangeHeight>
         <slot name="extra-content" />

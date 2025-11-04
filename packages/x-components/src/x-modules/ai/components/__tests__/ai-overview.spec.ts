@@ -143,8 +143,11 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get aiStarIcon() {
       return wrapper.findComponent(AIStarIcon)
     },
+    get contentTitle() {
+      return wrapper.find(getDataTestSelector('ai-overview-content-title'))
+    },
     get content() {
-      return wrapper.find(getDataTestSelector('ai-overview-content-wrapper'))
+      return wrapper.find(getDataTestSelector('ai-overview-content'))
     },
     get collapseHeightSuggestions() {
       return wrapper.findComponent(getDataTestSelector('ai-overview-collapse-height-suggestions'))
@@ -230,7 +233,7 @@ describe('ai-overview component', () => {
     expect(sut.title.exists()).toBeTruthy()
     expect(sut.title.text()).toBe(propsStub.title)
     expect(sut.aiStarIcon.exists()).toBeTruthy()
-    expect(sut.content.text()).toContain(useStateStub.suggestionText.value)
+    expect(sut.contentTitle.text()).toContain(useStateStub.suggestionText.value)
     expect(sut.content.text()).toContain(useStateStub.responseText.value)
     expect(sut.content.classes()).toContain(propsStub.contentClasses)
     expect(sut.collapseHeightSuggestions.exists()).toBeTruthy()
