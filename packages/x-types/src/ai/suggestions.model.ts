@@ -1,4 +1,5 @@
 import type { TaggingRequest } from '../request'
+import type { Result } from '../result'
 
 /**
  * Data for each query suggested.
@@ -8,6 +9,17 @@ import type { TaggingRequest } from '../request'
 export interface AiSuggestionQuery {
   query: string
   categories: string[]
+}
+
+/**
+ * Interface for the AI suggestion source.
+ *
+ * @internal
+ */
+export interface AiSuggestionSource {
+  index: number
+  type: string
+  data: Result
 }
 
 /**

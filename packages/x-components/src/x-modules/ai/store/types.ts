@@ -1,6 +1,7 @@
 import type {
   AiSuggestionQuery,
   AiSuggestionSearch,
+  AiSuggestionSource,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
   AiSuggestionTagging,
@@ -29,6 +30,7 @@ export interface AiState extends QueryState {
   suggestionText: string
   queries: AiSuggestionQuery[]
   tagging: AiSuggestionTagging | undefined
+  sources: AiSuggestionSource[]
   /** Loading state for the suggestions response */
   suggestionsLoading: boolean
   /** Loading state for the suggestions search response */
@@ -106,6 +108,13 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param tagging - The new tagging.
    */
   setTagging: (tagging: AiSuggestionTagging) => void
+
+  /**
+   * Sets the sources from the streamed response.
+   *
+   * @param sources - The new sources.
+   */
+  setSources: (sources: AiSuggestionSource[]) => void
 
   /**
    * Sets the loading for the suggestions response.
