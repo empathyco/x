@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.177 (2025-11-05)
+
+* feat(ai): refactor title styling and add margin to content title in ai-overview component ([9d8dc8d](https://github.com/empathyco/x/commit/9d8dc8d))
+
+
+
+
+
 ## 6.0.0-alpha.176 (2025-11-04)
 
 * refactor(ai): rename `x-ai-overview-content` to `x-ai-overview-conten… (#1922) ([3908d74](https://github.com/empathyco/x/commit/3908d74)), closes [#1922](https://github.com/empathyco/x/issues/1922)
