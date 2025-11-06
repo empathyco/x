@@ -46,11 +46,9 @@
               data-test="ai-overview-content-title"
               >{{ suggestionText }}
             </span>
-            <div
-              :class="contentClasses"
-              data-test="ai-overview-content"
-              v-html="parsedResponseText"
-            />
+            <Suspense>
+              <MDCRenderer v-if="ast?.body" :body="ast.body" :data="ast.data" />
+            </Suspense>
           </div>
         </ChangeHeight>
         <slot name="extra-content" />
@@ -183,7 +181,8 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
-import { marked } from 'marked'
+import type { MDCParserResult } from '@nuxtjs/mdc/module'
+import MDCRenderer from '@nuxtjs/mdc/runtime/components/MDCRenderer.vue'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
@@ -201,6 +200,7 @@ import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useGetter, useState } from '../../../composables'
 import { typing } from '../../../directives'
 import { aiXModule } from '../x-module'
+import useMarkdownParser from './use-markdown-parser'
 
 export default defineComponent({
   directives: {
@@ -208,6 +208,7 @@ export default defineComponent({
   },
   xModule: aiXModule.name,
   components: {
+    MDCRenderer,
     AIStarIcon,
     ArrowRightIcon,
     BaseEventButton,
@@ -280,7 +281,6 @@ export default defineComponent({
     const aiOverviewRef = ref<HTMLDivElement | null>(null)
     const expanded = ref(false)
     const shouldAnimateSuggestion = ref(true)
-    const parsedResponseText = computed(() => marked.parse(responseText.value))
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -319,15 +319,29 @@ export default defineComponent({
       $x.emit('AiOverviewMounted', undefined, { feature: 'overview' })
     })
 
+    const ast = ref<MDCParserResult | null>(null)
+    const parse = useMarkdownParser()
+
+    watch(
+      () => responseText,
+      async () => {
+        //console.log(responseText)
+        ast.value = await parse(responseText.value)
+        //  console.log(ast.value)
+      },
+      { immediate: true },
+    )
+
     return {
+      ast,
       aiOverviewRef,
       buttonText,
       emptyTaggingRequest,
       expanded,
-      parsedResponseText,
       suggestionsLoading,
       suggestionsSearch,
       suggestionText,
+      responseText,
       emitAndSetExpand,
       shouldAnimateSuggestion,
       query,
