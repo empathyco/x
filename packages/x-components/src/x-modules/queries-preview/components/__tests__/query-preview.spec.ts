@@ -19,7 +19,7 @@ import { queriesPreviewXModule } from '../../x-module'
 import QueryPreview from '../query-preview.vue'
 import { resetXQueriesPreviewStateWith } from './utils'
 
-const requestParams = { instance: 'empathy', lang: 'en' }
+const extraParams = { instance: 'empathy', lang: 'en' }
 
 async function render({
   template = `<QueryPreview :queryPreviewInfo="queryPreviewInfo" :queryFeature="queryFeature" :maxItemsToRender="maxItemsToRender" :debounceTimeMs="debounceTimeMs" :persistInCache="persistInCache"/>`,
@@ -66,12 +66,12 @@ async function render({
     },
   )
 
-  const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
+  const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
   queryPreviewInState.request = { query: queryPreviewInfo.query }
   resetXQueriesPreviewStateWith(store, {
     queriesPreview: { [queryPreviewInfoHash]: queryPreviewInState },
   })
-  store.commit('x/queriesPreview/setParams', requestParams)
+  store.commit('x/queriesPreview/setParams', extraParams)
   await nextTick()
 
   const queryPreviewRequestUpdatedSpy = jest.fn()
@@ -120,7 +120,7 @@ describe('query preview', () => {
         filters: ['fit:regular'],
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     expect(queryPreviewWrapper.emitted('load')?.length).toEqual(1)
@@ -160,7 +160,7 @@ describe('query preview', () => {
     await wrapper.setProps({
       queryPreviewInfo: {
         query: 'shoes',
-        extraParams: { directory: 'Magrathea', ...requestParams },
+        extraParams: { directory: 'Magrathea', ...extraParams },
         filters: ['fit:regular'],
       },
     })
@@ -338,7 +338,7 @@ describe('query preview', () => {
         totalResults: 100,
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     await flushPromises()
 
@@ -360,7 +360,7 @@ describe('query preview', () => {
         instances: 1,
       },
     })
-    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     await flushPromises()
 
@@ -383,7 +383,7 @@ describe('query preview', () => {
         totalResults: 100,
       },
     })
-    const query = getHashFromQueryPreviewInfo({ query: 'milk' }, requestParams)
+    const query = getHashFromQueryPreviewInfo({ query: 'milk' }, extraParams)
 
     await flushPromises()
 

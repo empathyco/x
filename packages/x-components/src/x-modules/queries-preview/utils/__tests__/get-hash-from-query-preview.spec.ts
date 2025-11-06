@@ -22,7 +22,7 @@ import {
   getHashFromQueryPreviewItem,
 } from '../get-hash-from-query-preview'
 
-const requestParams = { instance: 'empathy', lang: 'en' }
+const extraParams = { instance: 'empathy', lang: 'en' }
 
 const store: SafeStore<
   QueriesPreviewState,
@@ -74,7 +74,7 @@ describe('testing queries preview module utils', () => {
           ],
         },
         rows: 3,
-        extraParams: requestParams,
+        extraParams,
       },
     }
     const queryHash = getHashFromQueryPreviewItem(queryPreviewItem)
@@ -87,7 +87,7 @@ describe('testing queries preview module utils', () => {
   it('should check if a query hash from a QueryPreviewInfo is created correctly', () => {
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] }
 
-    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo, requestParams)
+    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     expect(queryPreviewHash).toBe('9072526d15ae91731b4c8764aeeaf95e')
   })
@@ -110,13 +110,14 @@ describe('testing queries preview module utils', () => {
             },
           ],
         },
+        extraParams,
         rows: 3,
       },
     }
     const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem)
 
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] }
-    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, {})
+    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     expect(queryPreviewItemHash).toBe(queryPreviewInfoHash)
   })

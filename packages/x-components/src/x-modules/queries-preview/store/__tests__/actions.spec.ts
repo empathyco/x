@@ -21,7 +21,7 @@ import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-pre
 import { queriesPreviewXModule } from '../../x-module'
 import { queriesPreviewXStoreModule } from '../module'
 
-const requestParams = { instance: 'empathy', lang: 'en' }
+const extraParams = { instance: 'empathy', lang: 'en' }
 
 const store: SafeStore<
   QueriesPreviewState,
@@ -140,10 +140,10 @@ describe('testing queries preview module actions', () => {
     })
 
     it('should send multiple requests if the queries are different', async () => {
-      const extraParams = { extraParam: 'extra param', ...requestParams }
+      const customExtraParams = { extraParam: 'extra param', ...extraParams }
       const { store } = renderQueryPreviewActions()
-      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' }, extraParams)
-      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' }, extraParams)
+      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' }, customExtraParams)
+      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' }, customExtraParams)
 
       const firstRequest = store.dispatch('fetchAndSaveQueryPreview', {
         query: 'milk',
