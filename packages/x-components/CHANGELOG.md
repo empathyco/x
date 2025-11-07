@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.178 (2025-11-07)
+
+* refactor(queries-preview): include whole extraParams object in queries preview hash generation (#191 ([df7a373](https://github.com/empathyco/x/commit/df7a373)), closes [#1916](https://github.com/empathyco/x/issues/1916)
+
+
+
+
+
 ## 6.0.0-alpha.177 (2025-11-05)
 
 * feat(ai): refactor title styling and add margin to content title in ai-overview component ([9d8dc8d](https://github.com/empathyco/x/commit/9d8dc8d))
