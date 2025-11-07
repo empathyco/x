@@ -1,5 +1,5 @@
 name: EPDocs - Dynamic Content PR creation
-on: [workflow_dispatch, pull_request]
+on: [workflow_dispatch]
 jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
