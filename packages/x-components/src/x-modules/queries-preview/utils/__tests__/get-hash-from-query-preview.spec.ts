@@ -22,6 +22,8 @@ import {
   getHashFromQueryPreviewItem,
 } from '../get-hash-from-query-preview'
 
+const extraParams = { instance: 'empathy', lang: 'en' }
+
 const store: SafeStore<
   QueriesPreviewState,
   QueriesPreviewGetters,
@@ -72,12 +74,10 @@ describe('testing queries preview module utils', () => {
           ],
         },
         rows: 3,
-        extraParams: {
-          lang: 'en',
-        },
+        extraParams,
       },
     }
-    const queryHash = getHashFromQueryPreviewItem(queryPreviewItem, 'en')
+    const queryHash = getHashFromQueryPreviewItem(queryPreviewItem)
 
     await store.dispatch('fetchAndSaveQueryPreview', queryPreviewItem.request)
 
@@ -87,9 +87,9 @@ describe('testing queries preview module utils', () => {
   it('should check if a query hash from a QueryPreviewInfo is created correctly', () => {
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] }
 
-    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
-    expect(queryPreviewHash).toBe('3ed535c606cfe71ff84ebd2c4271fb9c')
+    expect(queryPreviewHash).toBe('9072526d15ae91731b4c8764aeeaf95e')
   })
 
   it('should check if a query hash from a QueryPreviewInfo and from a QueryPreviewItem is the same', () => {
@@ -110,13 +110,14 @@ describe('testing queries preview module utils', () => {
             },
           ],
         },
+        extraParams,
         rows: 3,
       },
     }
-    const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem, 'en')
+    const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem)
 
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] }
-    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en')
+    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
     expect(queryPreviewItemHash).toBe(queryPreviewInfoHash)
   })

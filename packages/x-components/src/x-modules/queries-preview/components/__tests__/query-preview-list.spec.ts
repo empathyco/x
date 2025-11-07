@@ -9,12 +9,14 @@ import { queriesPreviewXModule } from '../../x-module'
 import QueryPreviewList from '../query-preview-list.vue'
 import QueryPreview from '../query-preview.vue'
 
+const extraParams = { instance: 'empathy', lang: 'en' }
+
 function renderQueryPreviewList({
   template = `
     <QueryPreviewList #default="{ queryPreviewInfo, results }">
       {{ queryPreviewInfo.query }} - {{results[0].name}}
     </QueryPreviewList>`,
-  queriesPreviewInfo = [{ query: 'milk' }] as QueryPreviewInfo[],
+  queriesPreviewInfo = [{ query: 'milk', extraParams }] as QueryPreviewInfo[],
   results = { milk: getResultsStub(1) } as Record<string, Result[]>,
   debounceTimeMs = 0,
   persistInCache = true,
@@ -62,7 +64,7 @@ function renderQueryPreviewList({
 describe('testing QueryPreviewList', () => {
   it('renders a list of queries one by one', async () => {
     const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
-      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
+      queriesPreviewInfo: [{ query: 'shirt', extraParams }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
     })
 
@@ -91,7 +93,7 @@ describe('testing QueryPreviewList', () => {
     const queryFeatureStub: QueryFeature = 'history_query'
     const maxItemsToRenderStub = 2
     const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
-      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
+      queriesPreviewInfo: [{ query: 'shirt', extraParams }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
       debounceTimeMs: debounceTimeMsStub,
       persistInCache: persistInCacheStub,
@@ -104,7 +106,7 @@ describe('testing QueryPreviewList', () => {
     const queryPreviews = getQueryPreviewItemWrappers()
 
     queryPreviews.forEach(queryPreview => {
-      const queryPreviewProps = queryPreview.props() as typeof QueryPreview
+      const queryPreviewProps = queryPreview.props() as unknown as typeof QueryPreview
       expect(queryPreviewProps.debounceTimeMs).toEqual(debounceTimeMsStub)
       expect(queryPreviewProps.persistInCache).toEqual(persistInCacheStub)
       expect(queryPreviewProps.queryFeature).toEqual(queryFeatureStub)
@@ -114,7 +116,7 @@ describe('testing QueryPreviewList', () => {
 
   it('hides queries with no results', async () => {
     const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
-      queriesPreviewInfo: [{ query: 'noResults' }, { query: 'shoes' }],
+      queriesPreviewInfo: [{ query: 'noResults', extraParams }, { query: 'shoes' }],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] },
     })
 
@@ -132,7 +134,7 @@ describe('testing QueryPreviewList', () => {
 
   it('hides queries that failed', async () => {
     const { adapter, getQueryPreviewItemWrappers } = renderQueryPreviewList({
-      queriesPreviewInfo: [{ query: 'willFail' }, { query: 'shoes' }],
+      queriesPreviewInfo: [{ query: 'willFail', extraParams }, { query: 'shoes' }],
       results: {
         willFail: [createResultStub('Will fail')],
         shoes: [createResultStub('Crazy shoes')],
@@ -155,7 +157,7 @@ describe('testing QueryPreviewList', () => {
 
   it('load next batch when it contains duplicates', async () => {
     const { getQueryPreviewItemWrappers, wrapper } = renderQueryPreviewList({
-      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
+      queriesPreviewInfo: [{ query: 'shirt', extraParams }, { query: 'jeans' }],
       results: {
         shirt: [createResultStub('Cool shirt')],
         jeans: [createResultStub('Sick jeans')],
@@ -168,7 +170,7 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews).toHaveLength(2)
 
     await wrapper.setProps({
-      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }],
+      queriesPreviewInfo: [{ query: 'shirt', extraParams }, { query: 'jeans' }, { query: 'dress' }],
     } as any)
     await flushPromises()
 

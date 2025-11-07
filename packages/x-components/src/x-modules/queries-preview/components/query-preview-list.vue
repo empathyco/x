@@ -118,7 +118,7 @@ export default defineComponent({
      */
     const queries = computed((): string[] =>
       props.queriesPreviewInfo.map(item =>
-        getHashFromQueryPreviewInfo(item, params.value.lang as string),
+        getHashFromQueryPreviewInfo(item, { ...params.value, ...item.extraParams }),
       ),
     )
 
@@ -130,7 +130,10 @@ export default defineComponent({
      */
     const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
       return props.queriesPreviewInfo.filter(item => {
-        const queryPreviewHash = getHashFromQueryPreviewInfo(item, params.value.lang as string)
+        const queryPreviewHash = getHashFromQueryPreviewInfo(item, {
+          ...params.value,
+          ...item.extraParams,
+        })
         return (
           queriesStatus.value[queryPreviewHash] === 'success' ||
           queriesStatus.value[queryPreviewHash] === 'loading'

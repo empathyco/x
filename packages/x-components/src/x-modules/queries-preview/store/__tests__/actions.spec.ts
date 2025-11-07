@@ -21,6 +21,8 @@ import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-pre
 import { queriesPreviewXModule } from '../../x-module'
 import { queriesPreviewXStoreModule } from '../module'
 
+const extraParams = { instance: 'empathy', lang: 'en' }
+
 const store: SafeStore<
   QueriesPreviewState,
   QueriesPreviewGetters,
@@ -86,7 +88,7 @@ describe('testing queries preview module actions', () => {
       const request = getQueryPreviewRequest(queryPreview.query)
       await nextTick()
       const stateResults = store.state.queriesPreview
-      const queryId = getHashFromQueryPreviewInfo(queryPreview, request.extraParams?.lang as string)
+      const queryId = getHashFromQueryPreviewInfo(queryPreview, request.extraParams!)
       const expectedResults: QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
@@ -131,21 +133,24 @@ describe('testing queries preview module actions', () => {
       adapter.search.mockRejectedValueOnce('Generic error')
       const queryPreview: QueryPreviewInfo = { query: 'sandals' }
       const request = getQueryPreviewRequest(queryPreview.query)
-      const queryId = getHashFromQueryPreviewInfo(queryPreview, request.extraParams?.lang as string)
+      const queryId = getHashFromQueryPreviewInfo(queryPreview, request.extraParams!)
 
       await store.dispatch('fetchAndSaveQueryPreview', request)
       expect(store.state.queriesPreview[queryId].status).toEqual('error')
     })
 
     it('should send multiple requests if the queries are different', async () => {
+      const customExtraParams = { extraParam: 'extra param', ...extraParams }
       const { store } = renderQueryPreviewActions()
-      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' }, 'en')
-      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' }, 'en')
+      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' }, customExtraParams)
+      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' }, customExtraParams)
+
       const firstRequest = store.dispatch('fetchAndSaveQueryPreview', {
         query: 'milk',
         rows: 3,
         extraParams: {
           extraParam: 'extra param',
+          instance: 'empathy',
           lang: 'en',
         },
       })
@@ -154,6 +159,7 @@ describe('testing queries preview module actions', () => {
         rows: 3,
         extraParams: {
           extraParam: 'extra param',
+          instance: 'empathy',
           lang: 'en',
         },
       })

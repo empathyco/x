@@ -423,12 +423,12 @@
                                 </DisplayEmitter>
                               </template>
                             </RelatedPromptsTagList>
-                            <LocationProvider location="related-prompts">
+                            <LocationProvider location="related_prompts">
                               <QueryPreviewList
                                 v-if="selectedPrompt !== -1"
                                 v-slot="{ queryPreviewInfo, totalResults, results }"
                                 :queries-preview-info="relatedPromptsQueriesPreviewInfo"
-                                query-feature="related-prompts"
+                                query-feature="related_prompts"
                               >
                                 <div class="x-flex x-flex-col x-gap-8 x-mb-16">
                                   <QueryPreviewButton
@@ -448,6 +448,7 @@
                                   >
                                     <SlidingPanel :reset-on-content-change="false">
                                       <DisplayClickProvider
+                                        result-feature="related_prompts"
                                         :tooling-display-tagging="
                                           getToolingDisplayClickTagging(queryPreviewInfo)
                                         "
