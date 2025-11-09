@@ -49,6 +49,9 @@ export const aiXStoreModule: AiXStoreModule = {
     setTagging: (state, tagging) => {
       state.tagging = tagging
     },
+    setSources: (state, sources) => {
+      state.sources = sources
+    },
     /* END Streamed fields */
     setSuggestionsSearch: (state, suggestionsSearch: AiSuggestionSearch[]) => {
       state.suggestionsSearch = suggestionsSearch
@@ -107,6 +110,7 @@ function resettableAiState() {
     suggestionText: '',
     queries: [],
     tagging: undefined,
+    sources: [],
     suggestionsSearch: [],
     suggestionsLoading: false,
     suggestionsSearchLoading: false,
