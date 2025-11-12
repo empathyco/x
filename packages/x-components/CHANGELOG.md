@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.179 (2025-11-12)
+
+* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.17 (#1926) ([0ea2e89](https://github.com/empathyco/x/commit/0ea2e89)), closes [#1926](https://github.com/empathyco/x/issues/1926)
+
+
+
+
+
 ## 6.0.0-alpha.178 (2025-11-07)
 
 * refactor(queries-preview): include whole extraParams object in queries preview hash generation (#191 ([df7a373](https://github.com/empathyco/x/commit/df7a373)), closes [#1916](https://github.com/empathyco/x/issues/1916)
