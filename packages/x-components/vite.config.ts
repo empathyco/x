@@ -15,6 +15,8 @@ export default defineConfig({
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue'),
+      '#mdc-imports': resolve(__dirname, './src/__stubs__/stub-mdc-imports.js'),
+      '#mdc-configs': resolve(__dirname, './src/__stubs__/stub-mdc-imports.js'),
     },
   },
   server: {
