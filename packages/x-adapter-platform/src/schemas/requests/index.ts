@@ -1,5 +1,6 @@
 export * from './ai'
 export * from './experience-controls-request.schema'
+export * from './facets-request.schema'
 export * from './identifier-results-request.schema'
 export * from './next-queries-request.schema'
 export * from './popular-searches-request.schema'

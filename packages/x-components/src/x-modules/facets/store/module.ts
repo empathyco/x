@@ -1,8 +1,16 @@
 import type { Facet } from '@empathyco/x-types'
 import type { FacetGroupEntry, FacetsXStoreModule } from './types'
+import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setQuery } from '../../../store/utils/query.utils'
+import {
+  cancelFetchAndSaveFacetsResponse,
+  fetchAndSaveFacetsResponse,
+} from './actions/fetch-and-save-facets-response.action'
+import { fetchFacetsResponse } from './actions/fetch-facets-response.action'
+import { saveOrigin } from './actions/save-origin.action'
 import { facets } from './getters/facets.getter'
+import { request } from './getters/request.getter'
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter'
 import { selectedFiltersForRequest } from './getters/selected-filters-for-request.getter'
 import { selectedFilters } from './getters/selected-filters.getter'
@@ -23,12 +31,16 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     config: {
       filtersStrategyForRequest: 'all',
     },
+    status: 'initial',
+    origin: null,
+    params: {},
   }),
   getters: {
     selectedFilters,
     selectedFiltersForRequest,
     selectedFiltersByFacet,
     facets,
+    request,
   },
   mutations: {
     mutateFilter(state, { filter, newFilterState }) {
@@ -59,6 +71,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setConfig,
     mergeConfig,
     setQuery,
+    setStatus,
     setStickyFilter(state, filter) {
       if (!state.stickyFilters[filter.id]) {
         state.stickyFilters[filter.id] = filter
@@ -70,6 +83,17 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     clearStickyFilters(state) {
       state.stickyFilters = {}
     },
+    setOrigin(state, origin = null) {
+      state.origin = origin
+    },
+    setParams(state, params) {
+      state.params = params
+    },
   },
-  actions: {},
+  actions: {
+    fetchFacetsResponse,
+    fetchAndSaveFacetsResponse,
+    cancelFetchAndSaveFacetsResponse,
+    saveOrigin,
+  },
 }

@@ -5,6 +5,7 @@ import type {
   AiSuggestionsSearchRequest,
   AiTasksRequest,
   ExperienceControlsRequest,
+  FacetsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
   PopularSearchesRequest,
@@ -21,6 +22,7 @@ import type {
   AiSuggestionsSearchResponse,
   AiTasksResponse,
   ExperienceControlsResponse,
+  FacetsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
@@ -53,4 +55,5 @@ export interface XComponentsAdapter {
   aiTasks: EndpointAdapter<AiTasksRequest, AiTasksResponse>
   aiSuggestions: EndpointAdapter<AiSuggestionsRequest, Response>
   aiSummarize: EndpointAdapter<AiSuggestionsRequest, Response>
+  facets: EndpointAdapter<FacetsRequest, FacetsResponse>
 }

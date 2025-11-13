@@ -5,6 +5,7 @@ import { aiSuggestionsEndpointAdapter } from './endpoint-adapters/ai/suggestions
 import { aiSummarizeEndpointAdapter } from './endpoint-adapters/ai/summarize.endpoint-adapter'
 import { aiTasksEndpointAdapter } from './endpoint-adapters/ai/tasks.endpoint-adapter'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
+import { facetsEndpointAdapter } from './endpoint-adapters/facets.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
 import { nextQueriesEndpointAdapter } from './endpoint-adapters/next-queries.endpoint-adapter'
 import { popularSearchesEndpointAdapter } from './endpoint-adapters/popular-searches.endpoint-adapter'
@@ -15,6 +16,7 @@ import { relatedTagsEndpointAdapter } from './endpoint-adapters/related-tags.end
 import { searchEndpointAdapter } from './endpoint-adapters/search.endpoint-adapter'
 import { semanticQueriesEndpointAdapter } from './endpoint-adapters/semantic-queries.endpoint-adapter'
 import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-adapter'
+
 /**
  * Default implementation for the PlatformAdapter.
  *
@@ -37,4 +39,5 @@ export const platformAdapter: PlatformAdapter = {
   aiSuggestionsSearch: aiSuggestionsSearchEndpointAdapter,
   aiQuestions: aiQuestionsEndpointAdapter,
   aiTasks: aiTasksEndpointAdapter,
+  facets: facetsEndpointAdapter,
 }
