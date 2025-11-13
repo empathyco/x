@@ -16,6 +16,7 @@ import {
   aiSuggestionsSearchResponse,
   platformAiSuggestionsSearchResponse,
 } from './__fixtures__/ai/suggestions-search.response'
+import { platformFacetsResponse } from './__fixtures__/facets.response'
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response'
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response'
 import { result } from './__fixtures__/result'
@@ -830,5 +831,146 @@ describe('platformAdapter tests', () => {
     )
 
     expect(response).toStrictEqual(aiSuggestionsSearchResponse)
+  })
+
+  it('should call the facets endpoint', async () => {
+    const fetchMock = jest.fn(getFetchMock(platformFacetsResponse))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.facets({
+      query: 'books',
+      filters: {
+        editorial: [
+          {
+            facetId: 'editorial',
+            id: 'editorial:ALFAGUARA',
+            label: 'ALFAGUARA',
+            modelName: 'SimpleFilter',
+            selected: true,
+            totalResults: 1005,
+          } as Filter,
+        ],
+      },
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'es',
+        device: 'desktop',
+        scope: 'desktop',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://search.internal.test.empathy.co/query/empathy/facets?query=books&origin=search_box%3Anone&filter=editorial%3AALFAGUARA&instance=empathy&env=test&lang=es&device=desktop&scope=desktop',
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
+    )
+
+    expect(response).toStrictEqual({
+      facets: [
+        {
+          filters: [
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:DEBOLSILLO',
+              label: 'DEBOLSILLO',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 1149,
+            },
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:ALFAGUARA',
+              label: 'ALFAGUARA',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 1005,
+            },
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:PLANETA',
+              label: 'PLANETA',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 786,
+            },
+          ],
+          id: 'facetEditorial',
+          label: 'facetEditorial',
+          modelName: 'SimpleFacet',
+        },
+        {
+          filters: [
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Best Seller',
+              label: 'Best Seller',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 265,
+            },
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Jovenes lectores',
+              label: 'Jovenes lectores',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 238,
+            },
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Ficcion',
+              label: 'Ficcion',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 204,
+            },
+          ],
+          id: 'facetColecciondilve',
+          label: 'facetColecciondilve',
+          modelName: 'SimpleFacet',
+        },
+        {
+          filters: [
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:121000000',
+              label: 'Literatura',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 28672,
+            },
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:415000000',
+              label: 'Libro antiguo y de ocasion',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 14165,
+            },
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:117000000',
+              label: 'Infantil',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 10903,
+            },
+          ],
+          id: 'facetHierarchicalCategories',
+          label: 'facetHierarchicalCategories',
+          modelName: 'HierarchicalFacet',
+        },
+      ],
+    })
   })
 })
