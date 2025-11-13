@@ -71,4 +71,5 @@ export const e2eAdapter: XComponentsAdapter = {
   aiTasks: mockEndpointAdapter('ai-tasks'),
   aiSuggestions: mockEndpointAdapter('ai-overview-suggestions'),
   aiSummarize: mockEndpointAdapter('ai-overview-summarize'),
+  facets: mockEndpointAdapter('facets'),
 }

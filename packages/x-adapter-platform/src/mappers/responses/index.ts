@@ -1,5 +1,6 @@
 export * from './ai'
 export * from './experience-controls-response.mapper'
+export * from './facets-response.mapper'
 export * from './identifier-results-response.mapper'
 export * from './next-queries-response.mapper'
 export * from './popular-searches-response.mapper'
