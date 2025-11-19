@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.180 (2025-11-19)
+
+* chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
+
+
+
+
+
 ## 6.0.0-alpha.179 (2025-11-12)
 
 * chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.17 (#1926) ([0ea2e89](https://github.com/empathyco/x/commit/0ea2e89)), closes [#1926](https://github.com/empathyco/x/issues/1926)

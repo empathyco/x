@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.12 (2025-11-19)</small>
+
+* chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
+
+
+
+
+
 ## <small>2.0.3-alpha.11 (2025-08-12)</small>
 
 * chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
