@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.39 (2025-11-20)
+
+* feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
+
+
+
+
+
 ## 1.1.0-alpha.38 (2025-11-03)
 
 * feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
