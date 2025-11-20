@@ -22,6 +22,14 @@ import { facetsXStoreModule } from '../module'
 import { resetFacetsStateWith } from './utils'
 
 describe('testing facets module getters', () => {
+  const store: SafeStore<FacetsState, FacetsGetters, FacetsMutations, FacetsActions> = new Store(
+    facetsXStoreModule as any,
+  )
+
+  beforeEach(() => {
+    resetFacetsStateWith(store)
+  })
+
   function createFacetsStore(
     filters: Filter[],
     facets: Omit<Facet, 'filters'>[] = [],
@@ -368,6 +376,33 @@ describe('testing facets module getters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')])
 
       expect(store.getters.facets).toEqual({})
+    })
+  })
+
+  describe('request getter', () => {
+    it('should return a request object if there is a query with module properties', () => {
+      resetFacetsStateWith(store, {
+        query: 'doraemon',
+        origin: 'search_box:external',
+        params: {
+          instance: 'empathy',
+          env: 'staging',
+        },
+      })
+
+      expect(store.getters.request).toEqual({
+        query: 'doraemon',
+        origin: 'search_box:external',
+        filters: {},
+        extraParams: {
+          instance: 'empathy',
+          env: 'staging',
+        },
+      })
+    })
+
+    it('should return null when there is not query', () => {
+      expect(store.getters.request).toBeNull()
     })
   })
 })

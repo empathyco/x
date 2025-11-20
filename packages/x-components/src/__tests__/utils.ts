@@ -1,7 +1,9 @@
 import type {
   AiQuestionsResponse,
+  AiSuggestionsSearchResponse,
   AiTasksResponse,
   ExperienceControlsResponse,
+  FacetsResponse,
   IdentifierResultsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
@@ -13,7 +15,6 @@ import type {
   SemanticQueriesResponse,
   XComponentsAdapter,
 } from '@empathyco/x-types'
-import type { AiSuggestionsSearchResponse } from '@empathyco/x-types/dist'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { Store } from 'vuex'
@@ -56,6 +57,7 @@ interface MockedAdapterFeatures {
   aiSuggestions: Response
   aiSuggestionsSearch: AiSuggestionsSearchResponse
   aiSummarize: Response
+  facets: FacetsResponse
 }
 
 /**
@@ -173,10 +175,11 @@ export function getMockedAdapter(
     tagging: getMockedAdapterFunction(undefined),
     experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!),
     aiSuggestions: getMockedAdapterFunction(responseFeatures?.aiSuggestions!),
-    aiSuggestionsSearch: getMockedAdapterFunction(responseFeatures?.aiSuggestionsSearch),
+    aiSuggestionsSearch: getMockedAdapterFunction(responseFeatures?.aiSuggestionsSearch!),
     aiSummarize: getMockedAdapterFunction(responseFeatures?.aiSummarize!),
     aiQuestions: getMockedAdapterFunction(responseFeatures?.aiQuestions!),
     aiTasks: getMockedAdapterFunction(responseFeatures?.aiTasks!),
+    facets: getMockedAdapterFunction(responseFeatures?.facets!),
     /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
   }
 }

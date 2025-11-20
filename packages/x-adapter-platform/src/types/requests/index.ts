@@ -1,5 +1,6 @@
 export * from './ai'
 export * from './experience-controls-request.model'
+export * from './facets-request.model'
 export * from './identifier-results-request.model'
 export * from './next-queries-request.model'
 export * from './popular-searches-request.model'

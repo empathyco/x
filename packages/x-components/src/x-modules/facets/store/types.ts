@@ -1,18 +1,18 @@
-import type { Facet, Filter, RawFilter } from '@empathyco/x-types'
-import type { XActionContext, XStoreModule } from '../../../store'
+import type { Facet, FacetsRequest, FacetsResponse, Filter, RawFilter } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
+import type { StatusMutations, StatusState, XActionContext, XStoreModule } from '../../../store'
 import type { ConfigMutations } from '../../../store/utils/config-store.utils'
-import type { QueryMutations } from '../../../store/utils/query.utils'
+import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
+import type { QueryOrigin, QueryOriginInit } from '../../../types'
 
 /**
  * Facets store state.
  *
  * @public
  */
-export interface FacetsState {
+export interface FacetsState extends StatusState, QueryState {
   /** The current facets config {@link FacetsState.config}. */
   config: FacetsConfig
-  /** The current query {@link FacetsState.query}. */
-  query: string
   /** Record of all available filters indexed by its id. */
   filters: Record<Filter['id'], Filter>
   /** Record specifying the group each facet belongs to. */
@@ -23,6 +23,10 @@ export interface FacetsState {
   preselectedFilters: RawFilter[]
   /** Record of sticky filters indexed by its id. */
   stickyFilters: Record<Filter['id'], Filter>
+  /** The origin property of the request. */
+  origin: QueryOrigin | null
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>
 }
 
 /**
@@ -47,6 +51,11 @@ export interface FacetsGetters {
    * List of all facets with their filters.
    */
   facets: Record<Facet['id'], Facet>
+  /**
+   * The adapter request object for retrieving the facets, or null if there is no
+   * valid data to create a request.
+   */
+  request: FacetsRequest | null
 }
 
 /**
@@ -54,7 +63,10 @@ export interface FacetsGetters {
  *
  * @public
  */
-export interface FacetsMutations extends QueryMutations, ConfigMutations<FacetsState> {
+export interface FacetsMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<FacetsState> {
   /**
    * Updates the state of a filter.
    *
@@ -122,6 +134,18 @@ export interface FacetsMutations extends QueryMutations, ConfigMutations<FacetsS
    *
    */
   clearStickyFilters: () => void
+  /**
+   * Sets the origin of the module.
+   *
+   * @param origin - The new origin.
+   */
+  setOrigin: (origin: QueryOrigin | undefined | null) => void
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams: (params: Dictionary<unknown>) => void
 }
 
 /**
@@ -129,7 +153,28 @@ export interface FacetsMutations extends QueryMutations, ConfigMutations<FacetsS
  *
  * @public
  */
-export interface FacetsActions {}
+export interface FacetsActions {
+  /**
+   * Cancels / interrupt {@link FacetsActions.cancelFetchAndSaveFacetsResponse} synchronous promise.
+   */
+  cancelFetchAndSaveFacetsResponse: () => void
+  /**
+   * Fetches a new facets response and stores them in the module state.
+   */
+  fetchAndSaveFacetsResponse: (request: FacetsRequest | null) => void
+  /**
+   * Fetches the facets response and returns them.
+   *
+   * @returns The new search response.
+   */
+  fetchFacetsResponse: (request: FacetsRequest) => FacetsResponse
+  /**
+   * Creates a {@link QueryOrigin} and saves it.
+   *
+   * @param originInit - The object to create the origin with.
+   */
+  saveOrigin: (originInit: QueryOriginInit) => void
+}
 
 /**
  * The type of the context object for the facets module actions.
