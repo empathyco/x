@@ -42,5 +42,16 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   },
 })
 
+/**
+ * Default implementation for {@link FacetsActions.fetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const fetchAndSaveFacetsResponse = fetchAndSave
+
+/**
+ * Default implementation for {@link FacetsActions.cancelFetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const cancelFetchAndSaveFacetsResponse = cancelPrevious
