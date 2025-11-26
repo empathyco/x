@@ -2,7 +2,11 @@ import type { Facet } from '@empathyco/x-types'
 import type { UrlParams } from '../../types/url-params'
 import type { XEventPayload } from '../../wiring/index'
 import { createRawFilters } from '../../utils/filters'
-import { namespacedWireCommit, namespacedWireCommitWithoutPayload } from '../../wiring/index'
+import {
+  namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
+  namespacedWireDispatch,
+} from '../../wiring'
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory'
 import { filter, mapWire } from '../../wiring/wires.operators'
 import { createWiring } from '../../wiring/wiring.utils'
@@ -28,6 +32,13 @@ const wireCommit = namespacedWireCommit(moduleName)
  * @internal
  */
 const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName)
+
+/**
+ * WireDispatch for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName)
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -141,6 +152,11 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
  */
 const setQuery = wireFacetsService('setQuery')
 
+const setQueryFromUrlWire = wireCommit(
+  'setQuery',
+  ({ eventPayload }: { eventPayload: UrlParams }) => eventPayload.query,
+)
+
 /**
  * Removes all the sticky filters from the state.
  *
@@ -181,6 +197,30 @@ export const setFiltersFromHistoryQueries = wireCommit(
 export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
 
 /**
+ * Sets the facets state `params`.
+ *
+ * @public
+ */
+export const setFacetsExtraParams = wireCommit('setParams')
+
+/**
+ * Requests and stores the facets response.
+ *
+ * @public
+ */
+export const fetchAndSaveFacetsResponseWire = wireDispatch('fetchAndSaveFacetsResponse')
+
+/**
+ * Filtered version of fetchAndSaveFacetsResponseWire that only executes when separateFacets are enabled.
+ *
+ * @internal
+ */
+const fetchAndSaveFacetsResponseWireIfEnabled = filter(
+  fetchAndSaveFacetsResponseWire,
+  ({ store }) => !!store.state.x.facets.params.separateFacets,
+)
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -189,6 +229,7 @@ export const facetsWiring = createWiring({
   ParamsLoadedFromUrl: {
     // TODO: move this logic to Facets Service
     clearAllFiltersWire,
+    setQueryFromUrlWire,
     setFiltersFromUrl,
   },
   PreselectedFiltersProvided: {
@@ -237,5 +278,14 @@ export const facetsWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     setFiltersFromHistoryQueries,
+  },
+  ExtraParamsChanged: {
+    setFacetsExtraParams,
+  },
+  UserOpenedFacetsAside: {
+    fetchAndSaveFacetsResponseWireIfEnabled,
+  },
+  FacetsRequestUpdated: {
+    fetchAndSaveFacetsResponseWireIfEnabled,
   },
 })
