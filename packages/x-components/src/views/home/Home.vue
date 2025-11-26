@@ -724,7 +724,7 @@ export default defineComponent({
   setup() {
     const x = use$x()
     const stores = ['Spain', 'Portugal', 'Italy']
-    const initialExtraParams = { store: 'Portugal' }
+    const initialExtraParams = { store: 'Portugal', separateFacets: false }
     const searchInputPlaceholderMessages = [
       'Find shirts',
       'Find shoes',

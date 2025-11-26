@@ -9,18 +9,14 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   FacetsRequest | null,
   FacetsResponse | null
 >({
-  async fetch({ dispatch, getters }) {
-    return getters.request
-      ? dispatch('fetchFacetsResponse', getters.request)
-      : Promise.resolve(null)
+  async fetch({ dispatch }, request) {
+    return request ? dispatch('fetchFacetsResponse', request) : Promise.resolve(null)
   },
   onSuccess({ commit, getters }, response) {
     if (response !== null) {
       const selectedFilters = getters.selectedFilters
       const selectedIds = new Set(
-        Object.values(selectedFilters ?? {})
-          .filter((f: Filter) => f.selected)
-          .map((f: Filter) => f.id),
+        selectedFilters.filter((f: Filter) => f.selected).map((f: Filter) => f.id),
       )
       const facetsWithSelectedFilters: Facet[] = []
 
@@ -42,5 +38,16 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   },
 })
 
+/**
+ * Default implementation for {@link FacetsActions.fetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const fetchAndSaveFacetsResponse = fetchAndSave
+
+/**
+ * Default implementation for {@link FacetsActions.cancelFetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const cancelFetchAndSaveFacetsResponse = cancelPrevious

@@ -28,19 +28,19 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets: {},
     preselectedFilters: [],
     stickyFilters: {},
+    origin: null,
+    params: {},
     config: {
       filtersStrategyForRequest: 'all',
     },
     status: 'initial',
-    origin: null,
-    params: {},
   }),
   getters: {
+    facets,
+    request,
     selectedFilters,
     selectedFiltersForRequest,
     selectedFiltersByFacet,
-    facets,
-    request,
   },
   mutations: {
     mutateFilter(state, { filter, newFilterState }) {
