@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.182 (2025-11-26)
+
+* chore(deps): upgrade cypress version to 14.5.4 (#1933) ([83b93e8](https://github.com/empathyco/x/commit/83b93e8)), closes [#1933](https://github.com/empathyco/x/issues/1933)
+
+
+
+
+
 ## 6.0.0-alpha.181 (2025-11-20)
 
 * feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
