@@ -1,4 +1,4 @@
-import type { AiSuggestionQuery, AiSuggestionTagging } from '@empathyco/x-types'
+import type { AiSuggestionQuery, AiSuggestionSource, AiSuggestionTagging } from '@empathyco/x-types'
 import type { AiActionContext, AiXStoreModule } from '../types'
 import { getTaggingInfoFromUrl } from '@empathyco/x-adapter-platform'
 import { XPlugin } from '../../../../plugins'
@@ -22,6 +22,7 @@ type AnswerData =
   | { responseText: string }
   | { suggestionText: string }
   | { queries: AiSuggestionQuery[] }
+  | { sources: AiSuggestionSource[] }
   | TaggingData
 
 /**
@@ -115,6 +116,9 @@ function readAnswer(
           }
           if ('tagging' in data) {
             commit('setTagging', mapTaggingData(data))
+          }
+          if ('sources' in data) {
+            commit('setSources', data.sources)
           }
         }
       }
