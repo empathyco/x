@@ -134,11 +134,12 @@ describe('platformAdapter tests', () => {
         lang: 'es',
         device: 'mobile',
         scope: 'mobile',
+        facets: true,
       },
     })
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://search.internal.test.empathy.co/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
+      'https://search.internal.test.empathy.co/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile&facets=true',
       {
         signal: expect.anything(),
         headers: {
