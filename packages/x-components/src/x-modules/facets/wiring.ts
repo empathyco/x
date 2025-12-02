@@ -204,6 +204,13 @@ export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { que
 export const setFacetsExtraParams = wireCommit('setParams')
 
 /**
+ * Sets the search state `selectedFiltersDictionary`.
+ *
+ * @public
+ */
+export const setSelectedFiltersDictionaryWire = wireCommit('setSelectedFiltersDictionary')
+
+/**
  * Requests and stores the facets response.
  *
  * @public
@@ -287,5 +294,8 @@ export const facetsWiring = createWiring({
   },
   FacetsRequestUpdated: {
     fetchAndSaveFacetsResponseWireIfEnabled,
+  },
+  SelectedFiltersForRequestChanged: {
+    setSelectedFiltersDictionaryWire,
   },
 })

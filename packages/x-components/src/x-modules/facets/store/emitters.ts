@@ -31,4 +31,10 @@ export const facetsEmitters = createStoreEmitters(facetsXStoreModule, {
     selector: (_, getters) => getters.request,
     filter: areRequestsDifferent,
   },
+  FacetsChanged: {
+    selector: state => state.rawFacets,
+    filter(newValue, oldValue): boolean {
+      return newValue.length !== 0 || oldValue.length !== 0
+    },
+  },
 })
