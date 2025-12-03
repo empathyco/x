@@ -136,13 +136,13 @@ export interface SnippetConfig {
   /** List of queries to preview. */
   queriesPreview?: QueryPreviewInfo[]
   /** Selector for the search box element in the teleport feature. */
-  searchBoxSelector: string
+  searchBoxSelector?: string
   /** Selector for the results element in the teleport feature. */
-  resultsSelector: string
+  resultsSelector?: string
   /** Selector for positioning search layer under it. */
-  layerSelector: string
+  layerSelector?: string
   /** View mode of the search experience. */
-  viewMode: 'fullScreen' | 'embedded'
+  viewMode?: 'fullScreen' | 'embedded'
   /** Any extra param to send in all backend calls. */
   [extra: string]: unknown
 }
