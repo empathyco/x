@@ -135,21 +135,6 @@ export interface SnippetConfig {
   filters?: string[]
   /** List of queries to preview. */
   queriesPreview?: QueryPreviewInfo[]
-  /** Selector for the container where the search box element will be embedded with the teleport feature. */
-  searchBoxSelector?: string
-  /** Selector for the container where the results element will be embedded with the teleport feature. */
-  resultsSelector?: string
-  /** Selector of the element the search layer is positioned right below. */
-  layerSelector?: string
-  /**
-   * View mode of the search experience.
-   *
-   * fullScreen: The search experience is displayed as a full screen modal, this mode includes the
-   * possibility to specify a layerSelector.
-   * embedded: The search experience consists of components embedded in the customer's website.
-   * This mode includes the possibility to specify the searchBoxSelector and resultsSelector selectors.
-   */
-  viewMode?: 'fullScreen' | 'embedded'
   /** Any extra param to send in all backend calls. */
   [extra: string]: unknown
 }
