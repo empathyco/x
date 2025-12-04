@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.19 (2025-12-04)
+
+* feat: update snippetConfig type and add data-attributes in home templ… (#1938) ([7e81241](https://github.com/empathyco/x/commit/7e81241)), closes [#1938](https://github.com/empathyco/x/issues/1938)
+
+
+
+
+
 ## 2.0.0-alpha.18 (2025-11-19)
 
 * chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
