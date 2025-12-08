@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.183 (2025-12-08)
+
+* chore(deps): update cypress-related dependencies (#1941) ([3c751ef](https://github.com/empathyco/x/commit/3c751ef)), closes [#1941](https://github.com/empathyco/x/issues/1941)
+
+
+
+
+
 ## 6.0.0-alpha.182 (2025-11-26)
 
 * chore(deps): upgrade cypress version to 14.5.4 (#1933) ([83b93e8](https://github.com/empathyco/x/commit/83b93e8)), closes [#1933](https://github.com/empathyco/x/issues/1933)
