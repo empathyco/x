@@ -132,7 +132,7 @@
     "ts-jest": "29.4.0",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
-    "vite": "6.3.5",
+    "vite": "7.2.6",
     "vite-plugin-vue-inspector": "5.2.0",
     "vue": "3.4.31",
     "vue-docgen-cli": "4.79.0",
