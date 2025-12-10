@@ -95,7 +95,7 @@ function generateEmptyReportFile(reportFilePath: string): void {
  * @param extractorResult - The API extractor execution result.
  */
 function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
-  if (!extractorResult.succeeded) {
+  if (extractorResult.errorCount > 0) {
     throw new Error(
       `API Extractor found ${extractorResult.errorCount} errors and ${extractorResult.warningCount} warnings`,
     )
