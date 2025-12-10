@@ -75,7 +75,13 @@ function getRoot(element: HTMLElement, id: string): HTMLElement | null {
  * @public
  */
 export const infiniteScroll: Directive<HTMLElement, { margin: number }> = {
-  mounted(element, { arg: id = VIEWPORT_ID, value: { margin = 200 } = {} }) {
+  mounted(
+    element,
+    {
+      arg: id = VIEWPORT_ID,
+      value: { margin = 200 } = {},
+    }: { arg?: string; value?: { margin?: number } },
+  ) {
     /*
      * This hack allows the root element to always contain the observed element.
      * Not overpass the top margin more than 1700000 because it doesn't work in Android chrome
@@ -99,7 +105,7 @@ export const infiniteScroll: Directive<HTMLElement, { margin: number }> = {
 
     state[id].observe(element)
   },
-  unmounted(_, { arg: id = VIEWPORT_ID }) {
+  unmounted(_, { arg: id = VIEWPORT_ID }: { arg?: string }) {
     if (state[id]) {
       state[id].disconnect()
       delete state[id]
