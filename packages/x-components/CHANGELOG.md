@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.185 (2025-12-11)
+
+* chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
+
+
+
+
+
 ## 6.0.0-alpha.184 (2025-12-11)
 
 * chore(tests): upgrade cypress and enable e2e tests (#1942) ([b6ad1dd](https://github.com/empathyco/x/commit/b6ad1dd)), closes [#1942](https://github.com/empathyco/x/issues/1942)

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.18 (2025-12-11)
+
+* chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
+
+
+
+
+
 ## 2.0.0-alpha.17 (2025-11-04)
 
 * chore(deps): update dependency @rollup/plugin-commonjs to v29 ([a59e41c](https://github.com/empathyco/x/commit/a59e41c))

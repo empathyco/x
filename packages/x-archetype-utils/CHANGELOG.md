@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.20 (2025-12-11)
+
+* chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
+
+
+
+
+
 ## 2.0.0-alpha.19 (2025-12-04)
 
 * feat: update snippetConfig type and add data-attributes in home templ… (#1938) ([7e81241](https://github.com/empathyco/x/commit/7e81241)), closes [#1938](https://github.com/empathyco/x/issues/1938)
