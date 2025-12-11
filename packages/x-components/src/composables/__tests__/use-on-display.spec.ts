@@ -53,7 +53,7 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
   it('uses a provided element for useElementVisibility to watch', () => {
     const element = document.createElement('div')
     renderUseOnDisplayTester({ element })
-    expect(useElementVisibility).toHaveBeenCalledWith(element)
+    expect(useElementVisibility).toHaveBeenCalledWith(element, { threshold: 0.1 })
   })
 
   it('triggers callback when the element changes from not visible to visible', async () => {
@@ -156,7 +156,7 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
   it('uses a provided element for useElementVisibility to watch', () => {
     const element = document.createElement('div')
     renderUseEmitDisplayEvent({ element })
-    expect(useElementVisibility).toHaveBeenCalledWith(element)
+    expect(useElementVisibility).toHaveBeenCalledWith(element, { threshold: 0.1 })
   })
 
   it('emits `TrackableElementDisplayed` when the element is visible with the provided tagging request converted to display taggable', async () => {
