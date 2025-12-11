@@ -6,7 +6,7 @@ runs:
 
   steps:
     - name: Cypress run X Components
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       with:
         install: false
         browser: chrome
@@ -14,7 +14,7 @@ runs:
         working-directory: packages/x-components
 
     - name: Cypress run X Components component
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       with:
         install: false
         browser: chrome

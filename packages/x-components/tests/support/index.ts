@@ -234,3 +234,15 @@ Cypress.Commands.add('mount', (component, options = {}) => {
 
   return mount(component, options)
 })
+
+// TODO: Mock properly the AI overview endpoints
+beforeEach(() => {
+  cy.intercept('POST', 'https://api.empathy.co/ai-overview-summarize', {
+    statusCode: 200,
+    body: { success: true },
+  })
+  cy.intercept('POST', 'https://api.empathy.co/ai-overview-suggestions', {
+    statusCode: 200,
+    body: { success: true },
+  })
+})
