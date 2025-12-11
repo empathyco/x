@@ -1,6 +1,6 @@
 import type { TailwindHelpers } from '../types'
 import { forEach } from '@empathyco/x-utils'
-import plugin from 'tailwindcss/plugin'
+
 import components from './components'
 import dynamicComponents from './dynamic-components'
 import dynamicUtilities from './dynamic-utilities'
@@ -8,48 +8,45 @@ import xTheme from './theme'
 import utilities from './utilities'
 
 /**
- * Defines the x-tailwind plugin as a Tailwind {@link plugin} that can be invoked passing a
- * configuration object to customize it. The plugin is bundled with generated static and dynamic
- * components and utilities, all based on the plugin's theme.
- *
- * @public
+ * Tailwind CSS 4 plugin for x-tailwind.
  */
-export default plugin.withOptions(
-  () => {
-    /**
-     * Registers the generated CSS for the components and utilities of the plugin to the
-     * respective Tailwind layer. It depends on the plugin's theme, affecting
-     * the color, spacing, etc... Of the styles generated in this step.
-     *
-     * @param helpers - The {@link TailwindHelpers}.
-     * @internal
-     */
-    return function (helpers: TailwindHelpers) {
-      /* Add components */
-      helpers.addComponents(components(helpers), { respectPrefix: false })
-      /* Add dynamic components */
-      forEach(dynamicComponents(helpers), (key, { styles, values }) => {
-        helpers.matchComponents(
-          { [key]: styles },
-          { respectPrefix: false, values: values ?? undefined },
-        )
-      })
-      /* Add dynamic utilities */
-      forEach(dynamicUtilities(helpers), (key, { styles, values }) => {
-        helpers.matchUtilities(
-          { [key]: styles },
-          { respectPrefix: false, values: values ?? undefined },
-        )
-      })
-      /* Add utilities */
-      helpers.addUtilities(utilities(helpers), { respectPrefix: false })
-      /* Add variant to selected */
-      helpers.addVariant('selected', '&.x-selected')
-    }
+export default {
+  theme: {
+    x: xTheme,
   },
-  () => {
-    return {
-      theme: { x: xTheme },
-    }
+
+  /**
+   * Tailwind v4 plugin handler.
+   */
+  handler(
+    helpers: TailwindHelpers & {
+      addBase: (rules: Record<string, any>) => void
+      addComponents: (rules: Record<string, any>) => void
+      addUtilities: (rules: Record<string, any>) => void
+      addVariant: (name: string, selector: string) => void
+    },
+  ) {
+    /* Static components */
+    helpers.addComponents(components(helpers))
+
+    /* Dynamic components — now flattened into static output */
+    forEach(dynamicComponents(helpers), (key, { styles }) => {
+      helpers.addComponents({
+        [key]: styles,
+      })
+    })
+
+    /* Dynamic utilities — now static */
+    forEach(dynamicUtilities(helpers), (key, { styles }) => {
+      helpers.addUtilities({
+        [key]: styles,
+      })
+    })
+
+    /* Utilities */
+    helpers.addUtilities(utilities(helpers))
+
+    /* Variant */
+    helpers.addVariant('selected', '&.x-selected')
   },
-)
+}

@@ -7,7 +7,7 @@ import type { TailwindHelpers } from '../../../types'
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function badgeBright(helpers: TailwindHelpers) {
-  const { theme } = helpers
+  const theme: (path?: string, defaultValue?: any) => any = helpers.theme
 
   return {
     bright: {

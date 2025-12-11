@@ -1,4 +1,3 @@
-import type { CSSRuleObject } from 'tailwindcss/types/config'
 import type { TailwindHelpers } from '../types'
 import { attach } from './components/attach'
 import { badge } from './components/badge'
@@ -20,6 +19,17 @@ import { suggestionGroupButton } from './components/suggestion-group/button'
 import { tag } from './components/tag'
 import { typography } from './components/typography'
 import { variables } from './components/variables'
+
+export interface CSSRuleValue {
+  [key: string]: string | number | CSSRuleValue | undefined
+}
+
+/**
+ * Minimal replacement for Tailwind v3's CSSRuleObject.
+ */
+export interface CSSRuleObject {
+  [selector: string]: CSSRuleValue | string | number | undefined
+}
 
 /**
  * Default component styles.

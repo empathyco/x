@@ -1,5 +1,15 @@
-import type { CSSRuleObject } from 'tailwindcss/types/config'
 import type { TailwindHelpers } from '../types'
+
+export interface CSSRuleValue {
+  [key: string]: string | number | CSSRuleValue | undefined
+}
+
+/**
+ * Minimal replacement for Tailwind v3's CSSRuleObject.
+ */
+export interface CSSRuleObject {
+  [selector: string]: CSSRuleValue | string | number | undefined
+}
 
 /**
  * Default utility styles.

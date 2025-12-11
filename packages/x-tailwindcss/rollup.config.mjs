@@ -10,7 +10,7 @@ export default {
     { format: 'esm', dir: resolve(__dirname, 'dist/esm'), preserveModules: true },
     { format: 'cjs', dir: resolve(__dirname, 'dist/cjs'), preserveModules: true, exports: 'auto' },
   ],
-  external: ['@empathyco/x-deep-merge', '@empathyco/x-utils', 'tailwindcss', 'tailwindcss/plugin'],
+  external: ['@empathyco/x-deep-merge', '@empathyco/x-utils', 'tailwindcss'],
   plugins: [
     commonjs(),
     typescript({
