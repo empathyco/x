@@ -3,8 +3,8 @@ import type { InstallXOptions } from '../x-installer/x-installer/types'
 import { adapter } from './adapter'
 
 export const baseSnippetConfig: SnippetConfig = {
-  instance: 'empathy',
-  lang: 'en',
+  instance: 'cdl',
+  lang: 'es',
   env: 'staging',
   scope: 'x-components-development',
 }
