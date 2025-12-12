@@ -20,7 +20,7 @@
   "devDependencies": {
     "@empathyco/eslint-config": "1.8.0",
     "colors": "1.4.0",
-    "conventional-changelog-conventionalcommits": "9.0.0",
+    "conventional-changelog-conventionalcommits": "9.1.0",
     "cross-env": "7.0.3",
     "husky": "8.0.3",
     "lerna": "6.6.0"
