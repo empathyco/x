@@ -190,12 +190,11 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
 ): Promise<any[]> {
   const pushEmittedEvent: AnyFunction = ({ event }: { event: keyof SomeRecord }) =>
     emittedEvents.push(event)
-  const emittedEventsPromise = Promise.all([
-    // eslint-disable-next-line array-callback-return
-    eventsToEmit.map(([event, payload, metadata]) => {
-      void bus.emit(event, payload, metadata).then(pushEmittedEvent)
+  const emittedEventsPromise = Promise.all(
+    eventsToEmit.map(async ([event, payload, metadata]) => {
+      return bus.emit(event, payload, metadata).then(pushEmittedEvent)
     }),
-  ])
+  )
 
   jest.runAllTimers()
 
