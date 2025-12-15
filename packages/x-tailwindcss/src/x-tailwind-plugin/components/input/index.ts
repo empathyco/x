@@ -23,7 +23,7 @@ export function input(helpers: TailwindHelpers) {
           ...inputLine(helpers),
         },
         {
-          prefix: '&-',
+          prefix: '&.x-input-',
         },
       ),
     ),

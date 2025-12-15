@@ -16,7 +16,7 @@ export function iconColors(helpers: TailwindHelpers) {
         map(color, (shadeName, shadeColor) => ({
           color: shadeColor,
         })),
-        { prefix: '&-' },
+        { prefix: `&.x-icon-` },
       ),
     }),
     helpers,

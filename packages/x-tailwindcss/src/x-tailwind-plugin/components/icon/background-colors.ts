@@ -20,12 +20,12 @@ export function iconBackgroundColors(helpers: TailwindHelpers) {
               '[stroke="#fff"]': { stroke: shadeColor },
               '[fill="#fff"]': { fill: shadeColor },
             })),
-            { prefix: '&-' },
+            { prefix: `&.x-icon-bg-` },
           ),
         }),
         helpers,
       ),
-      { prefix: '&-' },
+      { prefix: `&.x-icon-` },
     ),
   }
 }

@@ -23,7 +23,7 @@ export function suggestion(helpers: TailwindHelpers) {
           ...suggestionOutlined(helpers),
           ...suggestionGhost(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-suggestion-' },
       ),
     },
   }

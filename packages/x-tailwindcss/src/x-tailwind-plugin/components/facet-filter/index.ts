@@ -26,7 +26,7 @@ export function facetFilter(helpers: TailwindHelpers) {
           ...facetFilterGhost(helpers),
           ...facetFilterSimple(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-facet-filter-' },
       ),
     ),
   }

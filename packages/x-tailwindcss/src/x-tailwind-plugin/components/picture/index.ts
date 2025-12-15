@@ -20,7 +20,7 @@ export function picture(helpers: TailwindHelpers) {
           ...overlay(helpers),
         },
         {
-          prefix: '&-',
+          prefix: '&.x-picture-',
         },
       ),
     },

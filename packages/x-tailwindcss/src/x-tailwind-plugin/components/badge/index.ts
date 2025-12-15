@@ -28,7 +28,7 @@ export function badge(helpers: TailwindHelpers) {
           ...badgeBright(helpers),
         },
         {
-          prefix: '&-',
+          prefix: '&.x-badge-',
         },
       ),
     },

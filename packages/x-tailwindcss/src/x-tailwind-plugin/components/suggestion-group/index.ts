@@ -23,7 +23,7 @@ export function suggestionGroup(helpers: TailwindHelpers) {
           ...suggestionGroupGhost(helpers),
           ...suggestionGroupOutlined(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-suggestion-group-' },
       ),
     },
   }

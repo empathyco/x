@@ -9,9 +9,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-      // eslint-disable-next-line ts/no-unsafe-argument
+    // eslint-disable-next-line ts/no-unsafe-argument
     tailwindcss({
       config: resolve(__dirname, './tailwind.config.ts'),
-    } as any)
+    } as any),
   ],
 })

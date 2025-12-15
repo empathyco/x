@@ -18,7 +18,6 @@ import { suggestionGroup } from './components/suggestion-group'
 import { suggestionGroupButton } from './components/suggestion-group/button'
 import { tag } from './components/tag'
 import { typography } from './components/typography'
-import { variables } from './components/variables'
 
 export interface CSSRuleValue {
   [key: string]: string | number | CSSRuleValue | undefined
@@ -40,27 +39,28 @@ export interface CSSRuleObject {
  * @public
  */
 export default function components(helpers: TailwindHelpers) {
-  return {
-    ...variables(helpers),
+  const cssObject = {
+    ...attach(helpers),
+    ...badge(helpers),
     ...button(helpers),
     ...buttonGroup(helpers),
-    ...icon(helpers),
-    ...suggestion(helpers),
+    ...facetFilter(helpers),
     ...highlight(helpers),
-    ...typography(helpers),
+    ...icon(helpers),
     ...input(helpers),
     ...inputGroup(helpers),
-    ...typography(helpers),
+    ...layout(helpers),
+    ...picture(helpers),
+    ...progressBar(helpers),
+    ...scroll(helpers),
+    ...slidingPanel(helpers),
+    ...suggestion(helpers),
     ...suggestionGroup(helpers),
     ...suggestionGroupButton(helpers),
-    ...slidingPanel(helpers),
-    ...picture(helpers),
-    ...layout(helpers),
-    ...scroll(helpers),
     ...tag(helpers),
-    ...badge(helpers),
-    ...facetFilter(helpers),
-    ...progressBar(helpers),
-    ...attach(helpers),
+    ...typography(helpers),
   } as unknown as CSSRuleObject
+
+  // console.log(cssObject)
+  return cssObject
 }

@@ -17,7 +17,7 @@ export function text1(helpers: TailwindHelpers) {
         {
           ...textSizes(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-text1-' },
       ),
     },
   }

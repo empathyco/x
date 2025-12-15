@@ -25,30 +25,26 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
       ),
     },
     '&.x-sliding-panel-at-start': {
-      '.x-sliding-panel-fade': {
-        ...startSizes.md,
-        ...rename(
-          {
-            ...startSizes,
-          },
-          {
-            prefix: '&-',
-          },
-        ),
-      },
+      ...startSizes.md,
+      ...rename(
+        {
+          ...startSizes,
+        },
+        {
+          prefix: '&.x-sliding-panel-fade-',
+        },
+      ),
     },
     '&.x-sliding-panel-at-end': {
-      '.x-sliding-panel-fade': {
-        ...endSizes.md,
-        ...rename(
-          {
-            ...endSizes,
-          },
-          {
-            prefix: '&-',
-          },
-        ),
-      },
+      ...endSizes.md,
+      ...rename(
+        {
+          ...endSizes,
+        },
+        {
+          prefix: '&.x-sliding-panel-fade-',
+        },
+      ),
     },
     '&.x-sliding-panel-at-start.x-sliding-panel-at-end': {
       '.x-sliding-panel-fade': {

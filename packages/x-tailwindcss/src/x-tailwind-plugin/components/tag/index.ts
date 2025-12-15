@@ -27,7 +27,7 @@ export function tag(helpers: TailwindHelpers) {
           ...tagGhost(helpers),
           ...tagTight(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-tag-' },
       ),
     },
   }

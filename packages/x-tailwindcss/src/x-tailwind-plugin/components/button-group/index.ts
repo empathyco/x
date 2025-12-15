@@ -13,7 +13,7 @@ export function buttonGroup(helpers: TailwindHelpers) {
   return {
     '.x-button-group': {
       ...buttonGroupDefault(helpers),
-      ...rename(buttonGroupDivider(helpers), { prefix: '&-' }),
+      ...rename(buttonGroupDivider(helpers), { prefix: '&.x-button-group-' }),
     },
   }
 }

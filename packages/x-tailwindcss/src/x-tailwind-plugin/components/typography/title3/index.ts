@@ -17,7 +17,7 @@ export function title3(helpers: TailwindHelpers) {
         {
           ...titleSizes(helpers),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-title3-' },
       ),
     },
   }
