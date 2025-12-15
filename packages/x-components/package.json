@@ -99,7 +99,7 @@
     "@badeball/cypress-cucumber-preprocessor": "23.2.1",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.8",
     "@cucumber/messages": "30.1.0",
-    "@empathyco/x-tailwindcss": "^2.0.0-alpha.18",
+    "@empathyco/x-tailwindcss": "2.0.0-alpha.18",
     "@microsoft/api-documenter": "7.23.0",
     "@microsoft/api-extractor": "7.52.8",
     "@testing-library/jest-dom": "6.6.4",
