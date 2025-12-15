@@ -45,9 +45,9 @@
     "tslib": "~2.8.1"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "29.0.0",
     "@tailwindcss/postcss": "4.1.17",
     "@tailwindcss/vite": "4.1.17",
-    "@rollup/plugin-commonjs": "29.0.0",
     "@vitejs/plugin-vue": "5.2.4",
     "autoprefixer": "10.4.14",
     "postcss": "8.4.35",

@@ -33,7 +33,7 @@ type PrefixObject<SomeObject extends Dictionary, Prefix extends string> = {
 /**
  * Integrates tailwind theme with the old design system tokens.
  */
-// eslint-disable-next-line ts/unbound-method
+
 export default {
   handler: (helpers: TailwindHelpers) => {
     const addBase = helpers.addBase as (rules: Record<string, any>) => void

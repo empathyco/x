@@ -1,6 +1,3 @@
-import type { ExtractPath } from '@empathyco/x-utils'
-import type Theme from './x-tailwind-plugin/theme'
-
 /**
  * Represents a `CSS` variable name.
  */
