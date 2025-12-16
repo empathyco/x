@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.21 (2025-12-16)
+
+* chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)
+
+
+
+
+
 ## 2.0.0-alpha.20 (2025-12-11)
 
 * chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
