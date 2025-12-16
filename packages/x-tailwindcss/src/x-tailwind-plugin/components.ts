@@ -39,7 +39,7 @@ export interface CSSRuleObject {
  * @public
  */
 export default function components(helpers: TailwindHelpers) {
-  const cssObject = {
+  return {
     ...attach(helpers),
     ...badge(helpers),
     ...button(helpers),
@@ -60,7 +60,4 @@ export default function components(helpers: TailwindHelpers) {
     ...tag(helpers),
     ...typography(helpers),
   } as unknown as CSSRuleObject
-
-  // console.log(cssObject)
-  return cssObject
 }

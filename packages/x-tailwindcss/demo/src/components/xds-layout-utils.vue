@@ -21,7 +21,7 @@
         <div v-for="cssClass in sectionClasses" :key="cssClass" class="flex flex-col pb-3">
           <code class="px-4 py-2">{{ cssClass }}</code>
           <div
-            class="x-layout-container x-layout-min-margin-256 x-layout-max-width-md min-h-[80px] w-full bg-gray-200"
+            class="x-layout-container x-layout-min-margin-256 x-layout-max-width-md h-[80px] w-full bg-gray-200"
           >
             <template v-if="sectionName === 'Overlap'">
               <div v-if="cssClass.split(' ')[1] === 'x-layout-overlap'" class="x-layout-item">

@@ -1,6 +1,5 @@
 import type { TailwindHelpers } from '../../../types'
-import { map, rename } from '@empathyco/x-utils'
-import { mapColors } from '../../utils/map-colors'
+import { mapColorsFlat } from '../../utils/map-colors'
 
 /**
  * Returns the `background color` variants for component `icon`.
@@ -9,23 +8,22 @@ import { mapColors } from '../../utils/map-colors'
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function iconBackgroundColors(helpers: TailwindHelpers) {
-  return {
-    bg: rename(
-      mapColors(
-        color => ({
-          '[stroke="#fff"]': { stroke: color['50'] },
-          '[fill="#fff"]': { fill: color['50'] },
-          ...rename(
-            map(color, (shadeName, shadeColor) => ({
-              '[stroke="#fff"]': { stroke: shadeColor },
-              '[fill="#fff"]': { fill: shadeColor },
-            })),
-            { prefix: `&.x-icon-bg-` },
-          ),
-        }),
-        helpers,
+  return mapColorsFlat((color, colorName) => {
+    return {
+      [`bg-${colorName}`]: {
+        '[stroke="#fff"]': { stroke: color['50'] },
+        '[fill="#fff"]': { fill: color['50'] },
+      },
+
+      ...Object.fromEntries(
+        Object.entries(color).map(([shadeName, shadeColor]) => [
+          `bg-${colorName}-${shadeName}`,
+          {
+            '[stroke="#fff"]': { stroke: shadeColor },
+            '[fill="#fff"]': { fill: shadeColor },
+          },
+        ]),
       ),
-      { prefix: `&.x-icon-` },
-    ),
-  }
+    }
+  }, helpers)
 }

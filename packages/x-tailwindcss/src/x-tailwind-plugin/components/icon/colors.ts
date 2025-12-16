@@ -1,6 +1,5 @@
 import type { TailwindHelpers } from '../../../types'
-import { map, rename } from '@empathyco/x-utils'
-import { mapColors } from '../../utils/map-colors'
+import { mapColorsFlat } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `icon`.
@@ -9,16 +8,20 @@ import { mapColors } from '../../utils/map-colors'
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function iconColors(helpers: TailwindHelpers) {
-  return mapColors(
-    color => ({
-      color: color[50],
-      ...rename(
-        map(color, (shadeName, shadeColor) => ({
-          color: shadeColor,
-        })),
-        { prefix: `&.x-icon-` },
+  return mapColorsFlat((color, colorName) => {
+    return {
+      [`${colorName}`]: {
+        color: color[50],
+      },
+
+      ...Object.fromEntries(
+        Object.entries(color).map(([shadeName, shadeColor]) => [
+          `${colorName}-${shadeName}`,
+          {
+            color: shadeColor,
+          },
+        ]),
       ),
-    }),
-    helpers,
-  )
+    }
+  }, helpers)
 }

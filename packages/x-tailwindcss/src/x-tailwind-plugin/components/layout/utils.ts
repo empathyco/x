@@ -25,7 +25,7 @@ export function utils(_helpers: TailwindHelpers) {
       },
     },
 
-    '.x-layout-expand': {
+    '.x-layout-item .x-layout-expand': {
       height: '100%',
       flex: '1 1 0',
       minHeight: '0',
