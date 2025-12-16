@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "rootDir": "src",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "strict": true,
     "declaration": true,
