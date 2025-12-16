@@ -4,6 +4,7 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "bundler",
+    "types": ["tailwindcss"],
     "strict": true,
     "declaration": true,
     "importHelpers": true,
