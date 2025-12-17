@@ -182,7 +182,7 @@ Then('related results have changed', () => {
     .should('be.visible')
     .should($results => {
       const compoundResultsList = $results.toArray().map(resultElement => resultElement.textContent)
-      expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false)
+      expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false)
     })
 })
 
