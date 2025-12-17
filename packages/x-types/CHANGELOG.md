@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.33 (2025-12-17)
+
+* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+
+
+
+
 ## 10.1.0-alpha.32 (2025-11-20)
 
 * feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)

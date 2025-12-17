@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.10 (2025-12-17)
+
+* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+
+
+
+
 ## 8.1.0-alpha.9 (2025-09-02)
 
 * chore: code improvement ([5d7346d](https://github.com/empathyco/x/commit/5d7346d))

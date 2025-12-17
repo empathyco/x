@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.9 (2025-12-17)</small>
+
+* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+
+
+
+
 ## <small>1.0.3-alpha.8 (2025-11-19)</small>
 
 * chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)

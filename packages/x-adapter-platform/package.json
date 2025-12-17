@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.1.0-alpha.39",
+  "version": "1.1.0-alpha.40",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -45,9 +45,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.9",
-    "@empathyco/x-types": "^10.1.0-alpha.32",
-    "@empathyco/x-utils": "^1.0.3-alpha.8",
+    "@empathyco/x-adapter": "^8.1.0-alpha.10",
+    "@empathyco/x-types": "^10.1.0-alpha.33",
+    "@empathyco/x-utils": "^1.0.3-alpha.9",
     "tslib": "~2.8.1"
   },
   "devDependencies": {

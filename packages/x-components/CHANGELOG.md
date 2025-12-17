@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.187 (2025-12-17)
+
+* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+
+
+
+
 ## 6.0.0-alpha.186 (2025-12-16)
 
 * chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)

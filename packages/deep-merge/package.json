@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-deep-merge",
-  "version": "2.0.3-alpha.9",
+  "version": "2.0.3-alpha.10",
   "description": "Utility for deep cloning objects.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
     "test-unit": "jest"
   },
   "dependencies": {
-    "@empathyco/x-utils": "^1.0.3-alpha.8",
+    "@empathyco/x-utils": "^1.0.3-alpha.9",
     "tslib": "~2.8.1"
   },
   "devDependencies": {
