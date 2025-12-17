@@ -10,15 +10,17 @@ import type { FacetsXStoreModule } from '../types'
  * @returns The facets request to fetch data from the API.
  * @public
  */
-export const request: FacetsXStoreModule['getters']['request'] = (
-  { query, origin, params },
-  { selectedFiltersByFacet },
-) => {
+export const request: FacetsXStoreModule['getters']['request'] = ({
+  query,
+  origin,
+  selectedFiltersDictionary,
+  params,
+}) => {
   return query
     ? {
         query,
         origin: origin === null ? undefined : origin,
-        filters: selectedFiltersByFacet,
+        filters: selectedFiltersDictionary,
         extraParams: params,
       }
     : null
