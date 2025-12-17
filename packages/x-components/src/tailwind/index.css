@@ -1,4 +1,5 @@
 @import 'tailwindcss';
 
+@config './tailwind.config.ts';
+
 @plugin "@empathyco/x-tailwindcss/plugin";
-@plugin "@empathyco/x-tailwindcss/old-ds-plugin";
