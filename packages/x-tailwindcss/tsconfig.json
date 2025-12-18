@@ -4,17 +4,17 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
-    "types": ["tailwindcss"],
+    "paths": {
+      "tailwindcss/plugin": ["./node_modules/tailwindcss/dist/plugin.d.mts"]
+    },
+    "types": [],
     "strict": true,
     "declaration": true,
     "importHelpers": true,
     "inlineSources": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "paths": {
-      "tailwindcss/plugin": ["./node_modules/tailwindcss/dist/plugin.d.mts"]
-    }
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts"]
 }

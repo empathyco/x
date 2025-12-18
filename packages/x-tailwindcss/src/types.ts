@@ -1,6 +1,3 @@
-import type { Config, PluginAPI, Theme } from 'tailwindcss/plugin'
-import { ExtractPath } from '@empathyco/x-utils'
-
 /**
  * Represents a `CSS` variable name.
  */
@@ -36,9 +33,6 @@ export interface CSSRuleValue {
   [key: string]: string | number | CSSRuleValue | undefined
 }
 
-/**
- * Minimal replacement for Tailwind v3's CSSRuleObject.
- */
 export interface CSSRuleObject {
   [selector: string]: CSSRuleValue | string | number | undefined
 }
@@ -48,9 +42,10 @@ export interface CSSRuleObject {
  * Tailwind CSS 4 no longer exposes `PluginAPI`,
  * so we recreate the pieces we need.
  */
-export type TailwindHelpers = PluginAPI & {
-  theme: <TDefaultValue = Config['theme']>(
-    path?: ExtractPath<typeof Theme>,
-    defaultValue?: TDefaultValue,
-  ) => TDefaultValue
+export interface TailwindHelpers {
+  theme: (path?: string, defaultValue?: any) => any
+  addUtilities: (utilities: Record<string, any>) => void
+  addComponents: (components: Record<string, any>) => void
+  addBase: (base: Record<string, any>) => void
+  addVariant: (name: string, definition: any) => void
 }
