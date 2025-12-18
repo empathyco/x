@@ -152,11 +152,11 @@ This component has a default slot which allows to customise the entire layout.
 <template>
   <PageLoaderButton>
     <template #default="{ resultsLength, totalResults }">
-      <div class="x-flex x-flex-col">
-        <div class="x-flex x-gap-4 x-text">
-          <span class="x-text-accent-50 x-font-bold">{{ resultsLength }}</span>
+      <div class="flex flex-col">
+        <div class="flex gap-4 x-text">
+          <span class="text-accent-50 font-bold">{{ resultsLength }}</span>
           <span>of</span>
-          <span class="x-text-accent-50">{{ totalResults }}</span>
+          <span class="text-accent-50">{{ totalResults }}</span>
         </div>
         <button
           @click="$x.emit('UserReachedResultsListEnd', undefined)"

@@ -2,15 +2,15 @@
   <NextQueryPreview
     v-slot="{ results, totalResults, suggestion: nextQuerySuggestion }"
     :suggestion="nextQuerySuggestion"
-    class="x-flex x-flex-col x-gap-8"
+    class="flex flex-col gap-8"
   >
     <h1 class="x-title2">Others clients have searched</h1>
     <NextQuery class="x-suggestion x-text1 x-text1-lg" :suggestion="nextQuerySuggestion">
-      <span class="x-font-bold">{{ nextQuerySuggestion.query }}</span>
+      <span class="font-bold">{{ nextQuerySuggestion.query }}</span>
       ({{ totalResults }})
     </NextQuery>
     <SlidingPanel :reset-on-content-change="false">
-      <div class="x-flex x-flex-col x-gap-8">
+      <div class="flex flex-col gap-8">
         <Result
           v-for="result in results"
           :key="result.id"

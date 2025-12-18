@@ -8,8 +8,9 @@ export default {
     './node_modules/@empathyco/x-tailwindcss/showcase/**/*.js',
   ],
   theme: {
+    // eslint-disable-next-line ts/no-unsafe-assignment
     extend: {
-      ...tailwind,
+      ...tailwind.theme,
     },
   },
 } satisfies Config
