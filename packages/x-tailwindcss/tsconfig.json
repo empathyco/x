@@ -3,8 +3,11 @@
     "target": "es2019",
     "lib": ["esnext", "dom"],
     "module": "esnext",
-    "moduleResolution": "bundler",
-    "types": ["tailwindcss"],
+    "moduleResolution": "node",
+    "types": [],
+    "paths": {
+      "tailwindcss/plugin": ["./node_modules/tailwindcss/dist/plugin.d.mts"]
+    },
     "strict": true,
     "declaration": true,
     "importHelpers": true,
