@@ -207,7 +207,7 @@ The `contentClass` prop can be used to add classes to the modal content.
 <template>
   <div>
     <BaseEventsModalOpen>Open</BaseEventsModalOpen>
-    <BaseEventsModal contentClass="x-bg-neutral-75">
+    <BaseEventsModal contentClass="bg-neutral-75">
       <BaseEventsModalClose>Close</BaseEventsModalClose>
       <img src="success.png" />
     </BaseEventsModal>

@@ -391,7 +391,7 @@ The `queriesListClass` prop can be used to add classes to the suggestions list.
 
 ```vue live
 <template>
-  <MyHistory #date="{ date }" queriesListClass="x-gap-16" />
+  <MyHistory #date="{ date }" queriesListClass="gap-16" />
 </template>
 
 <script>

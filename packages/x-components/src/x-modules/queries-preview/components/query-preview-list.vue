@@ -245,10 +245,10 @@ In this example, the results will be rendered inside a sliding panel.
     :queriesPreviewInfo="queriesPreviewInfo"
     #default="{ queryPreviewInfo, totalResults, results }"
   >
-    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+    <div class="flex flex-col gap-8 mb-16">
       <h1 class="x-title2">{{ queryPreviewInfo.query }} ({{ totalResults }})</h1>
       <SlidingPanel :resetOnContentChange="false">
-        <div class="x-flex x-gap-8">
+        <div class="flex gap-8">
           <Result
             v-for="result in results"
             :key="result.id"
@@ -291,11 +291,11 @@ In this example, the ID of the results will be rendered along with the name.
 ```vue
 <template>
   <QueryPreviewList
-    class="x-flex x-gap-8"
+    class="flex gap-8"
     :queriesPreviewInfo="queriesPreviewInfo"
     #result="{ result }"
   >
-    <span class="x-font-bold">{{ result.id }}:</span>
+    <span class="font-bold">{{ result.id }}:</span>
     <span>{{ result.name }}</span>
   </QueryPreviewList>
 </template>

@@ -47,9 +47,7 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
       ),
     },
     '&.x-sliding-panel-at-start.x-sliding-panel-at-end': {
-      '.x-sliding-panel-fade': {
-        mask: 'none',
-      },
+      mask: 'none',
     },
   }
 }

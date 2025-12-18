@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-24">
+  <div class="flex flex-col gap-24">
     <FacetsProvider :facets="staticFacets" group-id="price" />
     <ClearFilters />
     <SelectedFiltersList>
@@ -11,7 +11,7 @@
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-gap-24">
+    <Facets class="gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
         <BaseHeaderTogglePanel
@@ -19,7 +19,7 @@
           class="x-border-0 x-border-b x-border-neutral-10"
         >
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -29,9 +29,9 @@
 
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="w-full flex justify-between py-8">
           <template #header-content>
-            <span class="x-truncate">{{ facet.label }}</span>
+            <span class="truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -40,7 +40,7 @@
               <HierarchicalFilter
                 :filter="filter"
                 :data-test="`${facet.label}-filter`"
-                children-filters-class="x-ml-16"
+                children-filters-class="ml-16"
               />
             </FiltersList>
           </SlicedFilters>
@@ -49,9 +49,9 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="w-full flex justify-between py-8">
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -88,11 +88,11 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-py-8 x-gap-8">
+        <BaseHeaderTogglePanel header-class="w-full flex py-8 gap-8">
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDown class="x-ml-auto" />
+            <ChevronDown class="ml-auto" />
           </template>
 
           <!-- Filters -->

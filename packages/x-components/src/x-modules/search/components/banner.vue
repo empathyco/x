@@ -155,7 +155,7 @@ The `titleClass` prop can be used to add classes to the banner title.
 
 ```vue
 <template>
-  <Banner :banner="banner" titleClass="x-bg-neutral-50" />
+  <Banner :banner="banner" titleClass="bg-neutral-50" />
 </template>
 
 <script>

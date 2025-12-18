@@ -124,7 +124,7 @@ The `titleClass` prop can be used to add classes to the promoted title.
 
 ```vue
 <template>
-  <Promoted :promoted="promoted" titleClass="x-bg-neutral-50" />
+  <Promoted :promoted="promoted" titleClass="bg-neutral-50" />
 </template>
 
 <script>

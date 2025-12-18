@@ -248,7 +248,7 @@ In this example the default slot is used to customize the list.
     <ResultVariantSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
       <div>
         <p v-if="selectedVariant">Selected variant: {{ selectedVariant.name }}</p>
-        <ul class="x-flex">
+        <ul class="flex">
           <li v-for="(variant, index) in variants" :key="index">
             <button @click="selectVariant(variant)">{{ variant.name }}</button>
           </li>

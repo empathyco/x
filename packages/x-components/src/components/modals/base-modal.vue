@@ -342,7 +342,7 @@ The `contentClass` prop can be used to add classes to the modal content.
       :open="open"
       @click:overlay="open = false"
       referenceSelector=".header"
-      contentClass="x-bg-neutral-75"
+      contentClass="bg-neutral-75"
     >
       <h1>Hello</h1>
       <p>The modal is working</p>
@@ -383,7 +383,7 @@ The `overlayClass` prop can be used to add classes to the modal overlay.
       :open="open"
       @click:overlay="open = false"
       referenceSelector=".header"
-      overlayClass="x-bg-neutral-75"
+      overlayClass="bg-neutral-75"
     >
       <h1>Hello</h1>
       <p>The modal is working</p>

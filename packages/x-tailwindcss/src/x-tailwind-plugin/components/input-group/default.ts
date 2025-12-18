@@ -39,6 +39,9 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
       fontSize: 'inherit',
       fontWeight: 'inherit',
       outline: 'none',
+      '&:focus,&:focus-within': {
+        outline: 'none',
+      },
     },
   })
 }

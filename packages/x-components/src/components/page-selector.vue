@@ -236,10 +236,10 @@ This component allows to customise its content using slots.
     :item-classes="
       (isSelected: boolean) =>
         isSelected
-          ? 'x-button-lead x-text-neutral-10'
-          : 'x-text-neutral-90 x-button-outlined'
+          ? 'x-button-lead text-neutral-10'
+          : 'text-neutral-90 x-button-outlined'
     "
-    :buttonClasses="['x-rounded-md']"
+    :buttonClasses="['rounded-md']"
   >
     <template #previous-page-button>
       <span>Back</span>

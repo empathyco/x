@@ -310,9 +310,9 @@ export default {
 <template>
   <BaseTabsPanel
     activeTabClass="x-button-auxiliary"
-    contentClass="x-p-12 x-bg-auxiliary-25"
+    contentClass="p-12 bg-auxiliary-25"
     tabClass="x-button-ghost"
-    tabListClass="x-flex-col"
+    tabListClass="flex-col"
   >
     <template #summer>
       <div>Summer Top Sales</div>

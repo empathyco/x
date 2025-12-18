@@ -69,11 +69,11 @@ describe('testing PageLoaderButton component', () => {
   it('renders a base event button with custom button classes if passed as props', async () => {
     const { wrapper } = renderPageLoaderButton()
 
-    await wrapper.setProps({ buttonClasses: 'x-rounded-full' })
+    await wrapper.setProps({ buttonClasses: 'rounded-full' })
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true)
-    expect(wrapper.find('.x-rounded-full').exists()).toBe(true)
+    expect(wrapper.find('.rounded-full').exists()).toBe(true)
   })
 
   it('emits the event UserReachedResultsListEnd when the button is clicked', async () => {
