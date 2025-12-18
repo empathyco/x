@@ -16,9 +16,21 @@
     "system",
     "empathy"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./plugin": {
+      "import": "./dist/esm/x-tailwind-plugin/plugin.js",
+      "require": "./dist/cjs/x-tailwind-plugin/plugin.js"
+    },
+    "./old-ds-plugin": {
+      "import": "./dist/esm/old-ds-plugin/plugin.js",
+      "require": "./dist/cjs/old-ds-plugin/plugin.js"
+    }
+  },
   "files": [
     "dist",
     "showcase"
