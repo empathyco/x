@@ -16,15 +16,15 @@ export function suggestion(helpers: TailwindHelpers) {
   return {
     '.x-suggestion': {
       ...suggestionDefault(helpers),
-      ...rename(
-        {
-          ...suggestionColors(helpers),
-          ...suggestionSizes(helpers),
-          ...suggestionOutlined(helpers),
-          ...suggestionGhost(helpers),
-        },
-        { prefix: '&-' },
-      ),
     },
+    ...rename(
+      {
+        ...suggestionColors(helpers),
+        ...suggestionSizes(helpers),
+        ...suggestionOutlined(helpers),
+        ...suggestionGhost(helpers),
+      },
+      { prefix: '&.x-suggestion-' },
+    ),
   }
 }

@@ -16,10 +16,10 @@ export function badgeCircle({ theme }: TailwindHelpers) {
       padding: '0',
       width: theme('x.spacing.24'),
 
-      '&.badge-sm': {
+      '&.x-badge-sm': {
         width: theme('x.spacing.20'),
       },
-      '&.badge-md': {
+      '&.x-badge-md': {
         width: theme('x.spacing.24'),
       },
     },

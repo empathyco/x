@@ -14,15 +14,15 @@ export function picture(helpers: TailwindHelpers) {
   return {
     '.x-picture': {
       ...pictureDefault(helpers),
-      ...rename(
-        {
-          ...zoom(),
-          ...overlay(helpers),
-        },
-        {
-          prefix: '&-',
-        },
-      ),
     },
+    ...rename(
+      {
+        ...zoom(),
+        ...overlay(helpers),
+      },
+      {
+        prefix: '&.x-picture-',
+      },
+    ),
   }
 }

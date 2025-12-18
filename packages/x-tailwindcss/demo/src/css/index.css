@@ -1,8 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@layer components {
+@import 'tailwindcss';
+
+@plugin "../../../src/x-tailwind-plugin/plugin";
+
+/*@layer components {
   .x-custom-button {
     @apply x-button x-button-outlined x-button-highlight x-button-lg x-transition-colors;
   }
 }
+*/

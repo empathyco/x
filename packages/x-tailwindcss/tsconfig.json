@@ -11,7 +11,10 @@
     "inlineSources": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "tailwindcss/plugin": ["./node_modules/tailwindcss/dist/plugin.d.mts"]
+    }
   },
   "include": ["src/**/*.ts"]
 }

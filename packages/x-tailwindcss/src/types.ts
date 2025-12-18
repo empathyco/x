@@ -1,83 +1,52 @@
-import type { ExtractPath } from '@empathyco/x-utils'
-import type { Config } from 'tailwindcss'
-import type { PluginAPI } from 'tailwindcss/types/config'
-import type Theme from './x-tailwind-plugin/theme'
+import type { Config, PluginAPI, Theme } from 'tailwindcss/plugin'
+import { ExtractPath } from '@empathyco/x-utils'
 
 /**
  * Represents a `CSS` variable name.
- *
- * @example
- * ```typescript
- * const leadColor: CssVariable = '--color-lead';
- * ```
- *
- * @internal
  */
 type CssVariable = `--${string}`
 
 /**
- * Represents a `Css` class selector.
- *
- * @example
- * ```typescript
- * const btnClass: CssClassSelector = '.x-btn';
- * ```
- *
- * @internal
+ * Represents a `CSS` class selector.
  */
 type CssClassSelector = `.${string}`
+
 /**
  * Represents a `CSS` nested selector.
- *
- * @example
- * ```typescript
- * const nestedSelector: CssNestedSelector = '&--lead';
- * ```
- *
- * @internal
  */
 type CssNestedSelector = `&${string}`
+
 /**
  * Represents a `CSS` pseudo selector.
- *
- * @example
- * ```typescript
- * const rootSelector: CssPseudoSelector = ':root';
- * ```
- *
- * @internal
  */
 type CssPseudoSelector = `:${string}`
 
 /**
- * Represents the different `CSS` styling options for a component.
- *
- * @example
- * ```typescript
- * const cssOptions: CssStyleOptions = {
- *   '--color-lead': 'blue',
- *   '.x-btn': {
- *     '&--lead': {
- *       color: 'var(--color-lead)',
- *       gap: theme('x.spacing.2')
- *     }
- *   }
- * }
- * ```
- *
- * @public
+ * Represents the different CSS styling options for a component.
  */
 export interface CssStyleOptions {
-  [Key: CssClassSelector | CssNestedSelector | CssPseudoSelector]:
+  [key: CssClassSelector | CssNestedSelector | CssPseudoSelector]:
     | CssStyleOptions
-    | Partial<CSSStyleDeclaration>
-  [Key: CssVariable]: string & Partial<TailwindHelpers>
+    | Record<string, any>
+
+  [key: CssVariable]: string
+}
+
+export interface CSSRuleValue {
+  [key: string]: string | number | CSSRuleValue | undefined
 }
 
 /**
- * All the tailwind helpers provided by the plugin.
- *
- * @public
+ * Minimal replacement for Tailwind v3's CSSRuleObject.
+ */
+export interface CSSRuleObject {
+  [selector: string]: CSSRuleValue | string | number | undefined
+}
+
+/**
+ * The helpers provided internally by our Tailwind plugin.
+ * Tailwind CSS 4 no longer exposes `PluginAPI`,
+ * so we recreate the pieces we need.
  */
 export type TailwindHelpers = PluginAPI & {
   theme: <TDefaultValue = Config['theme']>(

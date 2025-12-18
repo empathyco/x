@@ -31,10 +31,10 @@ export function utils(_helpers: TailwindHelpers) {
       minHeight: '0',
     },
 
-    '.x-layout-on-margin-left': {
+    '.x-layout-item > .x-layout-on-margin-left': {
       gridColumn: '1 / 2',
     },
-    '.x-layout-on-margin-right': {
+    '.x-layout-item > .x-layout-on-margin-right': {
       gridColumn: '-2 / -1',
     },
 
@@ -51,19 +51,19 @@ export function utils(_helpers: TailwindHelpers) {
       alignContent: 'flex-start',
     },
 
-    '.x-layout-no-margin-left': {
+    '.x-layout-item.x-layout-no-margin-left': {
       '--x-margin-left': '0px',
     },
-    '.x-layout-no-margin-right': {
+    '.x-layout-item.x-layout-no-margin-right': {
       '--x-margin-right': '0px',
     },
-    '.x-layout-no-margin': {
+    '.x-layout-item.x-layout-no-margin': {
       '--x-margin-left': '0px',
       '--x-margin-right': '0px',
     },
 
-    '@media (hover: hover) and (pointer: fine)': {
-      '.x-scroll > .x-layout-item:not(.x-layout-no-margin-right)': {
+    '.x-scroll > .x-layout-item:not(.x-layout-no-margin-right)': {
+      '@media (hover: hover) and (pointer: fine)': {
         '--x-layout-scroll-width': '17px',
       },
     },

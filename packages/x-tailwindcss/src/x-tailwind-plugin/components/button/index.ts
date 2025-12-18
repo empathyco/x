@@ -19,21 +19,18 @@ import { buttonTight } from './tight'
  */
 export function button(helpers: TailwindHelpers) {
   return {
-    '.x-button': deepMerge(
-      buttonDefault(helpers),
-      rename(
-        {
-          ...buttonColors(helpers),
-          ...buttonSizes(helpers),
-          ...buttonLayouts(helpers),
-          ...buttonOutlined(helpers),
-          ...buttonLink(helpers),
-          ...buttonGhost(helpers),
-          ...buttonTight(helpers),
-        },
-        { prefix: '&-' },
-      ),
-      buttonDisabled(helpers),
+    '.x-button': deepMerge(buttonDefault(helpers), buttonDisabled(helpers)),
+    ...rename(
+      {
+        ...buttonColors(helpers),
+        ...buttonSizes(helpers),
+        ...buttonLayouts(helpers),
+        ...buttonOutlined(helpers),
+        ...buttonLink(helpers),
+        ...buttonGhost(helpers),
+        ...buttonTight(helpers),
+      },
+      { prefix: '&.x-button-' },
     ),
   }
 }

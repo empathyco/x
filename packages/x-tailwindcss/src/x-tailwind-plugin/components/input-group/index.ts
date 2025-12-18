@@ -15,19 +15,24 @@ import { inputGroupSizes } from './sizes'
  */
 export function inputGroup(helpers: TailwindHelpers) {
   return {
-    '.x-input-group': deepMerge(
-      inputGroupDefault(helpers),
-      rename(
-        {
-          ...inputGroupColors(helpers),
-          ...inputGroupSizes(helpers),
-          ...inputGroupLine(helpers),
-          ...inputGroupButtons(helpers),
-        },
-        {
-          prefix: '&-',
-        },
-      ),
+    '.x-input-group': deepMerge(inputGroupDefault(helpers)),
+    ...rename(
+      {
+        ...inputGroupColors(helpers),
+        ...inputGroupSizes(helpers),
+        ...inputGroupLine(helpers),
+      },
+      {
+        prefix: '&.x-input-group-',
+      },
+    ),
+    ...rename(
+      {
+        ...inputGroupButtons(helpers),
+      },
+      {
+        prefix: '& > .x-input-group-',
+      },
     ),
   }
 }

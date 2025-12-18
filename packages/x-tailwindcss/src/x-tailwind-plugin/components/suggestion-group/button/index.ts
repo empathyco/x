@@ -22,7 +22,7 @@ export function suggestionGroupButton(helpers: TailwindHelpers) {
           ...suggestionGroupButtonRectangle(helpers),
           ...suggestionGroupButtonLighter(),
         },
-        { prefix: '&-' },
+        { prefix: '&.x-suggestion-group-button-' },
       ),
     },
     ...suggestionGroupLighterColors(helpers),
