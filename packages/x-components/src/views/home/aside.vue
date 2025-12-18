@@ -11,12 +11,12 @@
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-gap-24">
+    <Facets class="gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
         <BaseHeaderTogglePanel
           :data-test="facet.label"
-          class="x-border-0 x-border-b x-border-neutral-10"
+          class="border-0 border-b border-neutral-10"
         >
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
@@ -31,7 +31,7 @@
       <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel header-class="w-full flex justify-between py-8">
           <template #header-content>
-            <span class="x-truncate">{{ facet.label }}</span>
+            <span class="truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->

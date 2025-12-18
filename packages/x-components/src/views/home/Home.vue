@@ -190,7 +190,7 @@
             <span class="x-text1">{{ x.totalResults }} Results</span>
             <BaseColumnPickerList
               :model-value="selectedColumns"
-              class="x-gap-4"
+              class="gap-4"
               :columns="columnPickerValues"
               @update:model-value="(col: any) => (selectedColumns = col)"
             >
