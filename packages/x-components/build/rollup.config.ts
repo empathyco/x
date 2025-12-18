@@ -61,7 +61,6 @@ export const rollupConfig: RollupOptions = {
       ],
     }),
     typescript({
-      //check: false,
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
@@ -69,7 +68,7 @@ export const rollupConfig: RollupOptions = {
           declarationDir: typesOutputDir,
           target: 'es2020',
         },
-        exclude: ['node_modules', './src/main.ts', '**/__tests__/**', '**/__stubs__/**'],
+        exclude: ['node_modules', './src/main.ts', '**/__tests__/**', '**/__stubs__/**', './src/tailwind/tailwind.config.ts'],
       },
     }),
     vue3({
