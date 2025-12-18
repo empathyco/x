@@ -30,7 +30,7 @@ export function button(helpers: TailwindHelpers) {
         ...buttonGhost(helpers),
         ...buttonTight(helpers),
       },
-      { prefix: '&.x-button-' },
+      { prefix: '.x-button-' },
     ),
   }
 }

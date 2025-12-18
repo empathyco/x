@@ -19,7 +19,7 @@ export function progressBar(helpers: TailwindHelpers) {
         ...progressBarColors(helpers),
         ...progressBarSizes(helpers),
       },
-      { prefix: '&.x-progress-bar-' },
+      { prefix: '.x-progress-bar-' },
     ),
   }
 }

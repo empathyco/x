@@ -24,7 +24,7 @@ export function icon(helpers: TailwindHelpers) {
         ...iconSharp(helpers),
         ...iconStrokeWidths(helpers),
       },
-      { prefix: '&.x-icon-' },
+      { prefix: '.x-icon-' },
     ),
   }
 }

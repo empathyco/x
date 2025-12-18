@@ -14,16 +14,18 @@ import { inputSizes } from './sizes'
  */
 export function input(helpers: TailwindHelpers) {
   return {
-    '.x-input': deepMerge(inputDefault(helpers)),
-    ...rename(
-      {
-        ...inputColors(helpers),
-        ...inputSizes(helpers),
-        ...inputLine(helpers),
-      },
-      {
-        prefix: '&.x-input-',
-      },
+    '.x-input': deepMerge(
+      inputDefault(helpers),
+      rename(
+        {
+          ...inputColors(helpers),
+          ...inputSizes(helpers),
+          ...inputLine(helpers),
+        },
+        {
+          prefix: '&.x-input-',
+        },
+      ),
     ),
   }
 }

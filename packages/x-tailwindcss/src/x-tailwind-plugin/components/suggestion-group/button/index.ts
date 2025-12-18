@@ -16,15 +16,15 @@ export function suggestionGroupButton(helpers: TailwindHelpers) {
   return {
     '.x-suggestion-group-button': {
       ...suggestionGroupButtonDefault(),
-      ...rename(
-        {
-          ...suggestionGroupButtonGhost(helpers),
-          ...suggestionGroupButtonRectangle(helpers),
-          ...suggestionGroupButtonLighter(),
-        },
-        { prefix: '&.x-suggestion-group-button-' },
-      ),
     },
+    ...rename(
+      {
+        ...suggestionGroupButtonGhost(helpers),
+        ...suggestionGroupButtonRectangle(helpers),
+        ...suggestionGroupButtonLighter(),
+      },
+      { prefix: '.x-suggestion-group-button-' },
+    ),
     ...suggestionGroupLighterColors(helpers),
   }
 }

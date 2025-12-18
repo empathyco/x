@@ -14,6 +14,6 @@ export function buttonGroup(helpers: TailwindHelpers) {
     '.x-button-group': {
       ...buttonGroupDefault(helpers),
     },
-    ...rename(buttonGroupDivider(helpers), { prefix: '&.x-button-group-' }),
+    ...rename(buttonGroupDivider(helpers), { prefix: '.x-button-group-' }),
   }
 }
