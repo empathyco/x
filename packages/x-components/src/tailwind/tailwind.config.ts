@@ -10,6 +10,7 @@ export default {
   theme: {
     // eslint-disable-next-line ts/no-unsafe-assignment
     extend: {
+      // eslint-disable-next-line ts/no-unsafe-member-access
       ...tailwind.theme,
     },
   },

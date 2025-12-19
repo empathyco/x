@@ -14,10 +14,7 @@
     <Facets class="gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel
-          :data-test="facet.label"
-          class="border-0 border-b border-neutral-10"
-        >
+        <BaseHeaderTogglePanel :data-test="facet.label" class="border-0 border-b border-neutral-10">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />

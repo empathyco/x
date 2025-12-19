@@ -12,10 +12,14 @@ export const vueDocsPlugin = {
 }
 
 export default defineConfig({
-  plugins: [vue(), vueDocsPlugin, Inspector(),
+  plugins: [
+    vue(),
+    vueDocsPlugin,
+    Inspector(),
     tailwindcss({
       config: resolve(__dirname, './tailwind.config.ts'),
-    } as any),],
+    } as any),
+  ],
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue'),
