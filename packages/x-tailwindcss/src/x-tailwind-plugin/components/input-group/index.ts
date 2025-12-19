@@ -22,10 +22,17 @@ export function inputGroup(helpers: TailwindHelpers) {
           ...inputGroupColors(helpers),
           ...inputGroupSizes(helpers),
           ...inputGroupLine(helpers),
+        },
+        {
+          prefix: '&.x-input-group-',
+        },
+      ),
+      rename(
+        {
           ...inputGroupButtons(helpers),
         },
         {
-          prefix: '&-',
+          prefix: '& > .x-input-group-',
         },
       ),
     ),

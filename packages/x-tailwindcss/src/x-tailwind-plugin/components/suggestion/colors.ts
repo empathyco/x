@@ -1,6 +1,5 @@
 import type { TailwindHelpers } from '../../../types'
-import { map, rename } from '@empathyco/x-utils'
-import { mapColors } from '../../utils/map-colors'
+import { mapColorsFlat } from '../../utils/map-colors'
 
 /**
  * Returns the `color` variants for component `suggestion`.
@@ -9,16 +8,20 @@ import { mapColors } from '../../utils/map-colors'
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function suggestionColors(helpers: TailwindHelpers) {
-  return mapColors(
-    color => ({
-      color: color['75'],
-      ...rename(
-        map(color, (shadeName, shadeColor) => ({
-          color: shadeColor,
-        })),
-        { prefix: '&-' },
+  return mapColorsFlat((color, colorName) => {
+    return {
+      [`${colorName}`]: {
+        color: color['75'],
+      },
+
+      ...Object.fromEntries(
+        Object.entries(color).map(([shadeName, shadeColor]) => [
+          `${colorName}-${shadeName}`,
+          {
+            color: shadeColor,
+          },
+        ]),
       ),
-    }),
-    helpers,
-  )
+    }
+  }, helpers)
 }

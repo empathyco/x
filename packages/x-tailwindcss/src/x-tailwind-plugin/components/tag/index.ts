@@ -18,17 +18,17 @@ export function tag(helpers: TailwindHelpers) {
   return {
     '.x-tag': {
       ...tagDefault(helpers),
-      ...rename(
-        {
-          ...tagSizes(helpers),
-          ...tagColors(helpers),
-          ...tagOutlined(helpers),
-          ...tagSolid(helpers),
-          ...tagGhost(helpers),
-          ...tagTight(helpers),
-        },
-        { prefix: '&-' },
-      ),
     },
+    ...rename(
+      {
+        ...tagSizes(helpers),
+        ...tagColors(helpers),
+        ...tagOutlined(helpers),
+        ...tagSolid(helpers),
+        ...tagGhost(helpers),
+        ...tagTight(helpers),
+      },
+      { prefix: '.x-tag-' },
+    ),
   }
 }

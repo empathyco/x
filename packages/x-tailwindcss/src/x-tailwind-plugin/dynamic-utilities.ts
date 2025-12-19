@@ -11,7 +11,7 @@ import type { TailwindHelpers } from '../types'
 export default function dynamicUtilities({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
-    'font-util': {
+    '.font-util': {
       styles: (value: any) => ({
         fontSize: value,
       }),

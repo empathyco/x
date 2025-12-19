@@ -1,5 +1,4 @@
-import type { CSSRuleObject } from 'tailwindcss/types/config'
-import type { TailwindHelpers } from '../types'
+import type { CSSRuleValue, TailwindHelpers } from '../types'
 import { attach } from './components/attach'
 import { badge } from './components/badge'
 import { button } from './components/button'
@@ -19,7 +18,10 @@ import { suggestionGroup } from './components/suggestion-group'
 import { suggestionGroupButton } from './components/suggestion-group/button'
 import { tag } from './components/tag'
 import { typography } from './components/typography'
-import { variables } from './components/variables'
+
+export interface CSSRuleObject {
+  [selector: string]: CSSRuleValue | string | number | undefined
+}
 
 /**
  * Default component styles.
@@ -31,26 +33,24 @@ import { variables } from './components/variables'
  */
 export default function components(helpers: TailwindHelpers) {
   return {
-    ...variables(helpers),
+    ...attach(helpers),
+    ...badge(helpers),
     ...button(helpers),
     ...buttonGroup(helpers),
-    ...icon(helpers),
-    ...suggestion(helpers),
+    ...facetFilter(helpers),
     ...highlight(helpers),
-    ...typography(helpers),
+    ...icon(helpers),
     ...input(helpers),
     ...inputGroup(helpers),
-    ...typography(helpers),
+    ...layout(helpers),
+    ...picture(helpers),
+    ...progressBar(helpers),
+    ...scroll(helpers),
+    ...slidingPanel(helpers),
+    ...suggestion(helpers),
     ...suggestionGroup(helpers),
     ...suggestionGroupButton(helpers),
-    ...slidingPanel(helpers),
-    ...picture(helpers),
-    ...layout(helpers),
-    ...scroll(helpers),
     ...tag(helpers),
-    ...badge(helpers),
-    ...facetFilter(helpers),
-    ...progressBar(helpers),
-    ...attach(helpers),
+    ...typography(helpers),
   } as unknown as CSSRuleObject
 }

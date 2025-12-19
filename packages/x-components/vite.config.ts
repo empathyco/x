@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
+import tailwindcss from '@tailwindcss/vite'
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
@@ -11,7 +12,14 @@ export const vueDocsPlugin = {
 }
 
 export default defineConfig({
-  plugins: [vue(), vueDocsPlugin, Inspector()],
+  plugins: [
+    vue(),
+    vueDocsPlugin,
+    Inspector(),
+    tailwindcss({
+      config: resolve(__dirname, './tailwind.config.ts'),
+    } as any),
+  ],
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue'),

@@ -10,7 +10,7 @@ export function highlightDefault(helpers: TailwindHelpers) {
   const { theme } = helpers
   return {
     fontWeight: theme('x.fontWeight.bold'),
-    '&-match': {
+    '& > .x-highlight-text-match': {
       fontWeight: theme('x.fontWeight.regular'),
     },
   }

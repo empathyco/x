@@ -13,12 +13,12 @@ export function title3(helpers: TailwindHelpers) {
   return {
     '.x-title3': {
       ...titleDefault(helpers),
-      ...rename(
-        {
-          ...titleSizes(helpers),
-        },
-        { prefix: '&-' },
-      ),
     },
+    ...rename(
+      {
+        ...titleSizes(helpers),
+      },
+      { prefix: '.x-title3-' },
+    ),
   }
 }

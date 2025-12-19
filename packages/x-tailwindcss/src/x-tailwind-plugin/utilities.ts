@@ -1,5 +1,4 @@
-import type { CSSRuleObject } from 'tailwindcss/types/config'
-import type { TailwindHelpers } from '../types'
+import type { CSSRuleObject, TailwindHelpers } from '../types'
 
 /**
  * Default utility styles.

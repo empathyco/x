@@ -13,12 +13,12 @@ export function text2(helpers: TailwindHelpers) {
   return {
     '.x-text2': {
       ...textDefault(helpers),
-      ...rename(
-        {
-          ...textSizes(helpers),
-        },
-        { prefix: '&-' },
-      ),
     },
+    ...rename(
+      {
+        ...textSizes(helpers),
+      },
+      { prefix: '&.x-text2-' },
+    ),
   }
 }

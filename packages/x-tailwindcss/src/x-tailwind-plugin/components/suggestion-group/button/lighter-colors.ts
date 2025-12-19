@@ -18,6 +18,6 @@ export function suggestionGroupLighterColors(helpers: TailwindHelpers) {
       }),
       helpers,
     ),
-    { prefix: '.x-suggestion-group-' },
+    { prefix: '.x-suggestion-group-lighter-' },
   )
 }

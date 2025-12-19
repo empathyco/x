@@ -65,3 +65,20 @@ export function mapColors<T extends CssStyleOptions>(
     },
   )
 }
+
+export function mapColorsFlat<T extends CssStyleOptions>(
+  mapperFn: (color: ThemeColor, colorName: string) => Record<string, T>,
+  { theme }: TailwindHelpers,
+) {
+  const colors: Omit<ThemeColors, 'transparent' | 'current'> = theme('x.colors')
+
+  return Object.entries(colors).reduce(
+    (acc, [colorName, color]) => {
+      if (!['transparent', 'current'].includes(colorName)) {
+        Object.assign(acc, mapperFn(color as ThemeColor, colorName))
+      }
+      return acc
+    },
+    {} as Record<string, T>,
+  )
+}

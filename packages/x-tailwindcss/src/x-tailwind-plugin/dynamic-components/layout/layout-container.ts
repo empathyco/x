@@ -32,7 +32,7 @@ export function dynamicLayoutContainer(helpers: TailwindHelpers) {
               },
             }),
           },
-          { prefix: 'x-layout-container-' },
+          { prefix: '.x-layout-container-' },
         ),
       },
       (name, styles) => {
