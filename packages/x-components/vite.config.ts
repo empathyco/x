@@ -18,7 +18,7 @@ export default defineConfig({
     Inspector(),
     tailwindcss({
       config: resolve(__dirname, './tailwind.config.ts'),
-    } as any)
+    } as any),
   ],
   resolve: {
     alias: {
