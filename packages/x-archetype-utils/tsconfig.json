@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "ES2020",
     "lib": ["dom", "esnext"],
+    "rootDir": "./src",
     "module": "ESNext",
     "moduleResolution": "node",
     "types": ["jest"],
     "strict": true,
     "declaration": true,
-    "declarationDir": "./dist/types",
-    "importHelpers": true,
-    "inlineSources": true,
-    "noEmit": true,
-    "outDir": "./dist/cjs",
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true
