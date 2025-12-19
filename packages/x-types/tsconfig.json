@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "esnext"],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
+    "target": "ES2020",
+    "lib": ["ESNext"],
+    "rootDir": "./src",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "types": ["jest", "@empathyco/x-jest-utils"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -14,6 +12,8 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "outDir": "./dist",
     "esModuleInterop": true
   },
