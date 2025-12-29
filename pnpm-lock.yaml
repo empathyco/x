@@ -242,8 +242,8 @@ importers:
         specifier: ~0.8.3
         version: 0.8.3
       marked:
-        specifier: ~16.4.1
-        version: 16.4.1
+        specifier: ~17.0.1
+        version: 17.0.1
       nouislider:
         specifier: ~15.8.1
         version: 15.8.1
@@ -5901,8 +5901,8 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  marked@16.4.1:
-    resolution: {integrity: sha512-ntROs7RaN3EvWfy3EZi14H4YxmT6A5YvywfhO+0pm+cH/dnSQRmdAmoFIc3B9aiwTehyk7pESH4ofyBY+V5hZg==}
+  marked@17.0.1:
+    resolution: {integrity: sha512-boeBdiS0ghpWcSwoNm/jJBwdpFaMnZWRzjA6SkUMYb40SVaN1x7mmfGKp0jvexGcx+7y2La5zRZsYFZI6Qpypg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -8435,6 +8435,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -15054,7 +15055,7 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  marked@16.4.1: {}
+  marked@17.0.1: {}
 
   math-intrinsics@1.1.0: {}
 
