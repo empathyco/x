@@ -84,7 +84,7 @@
     "@empathyco/x-storage-service": "^2.0.3-alpha.8",
     "@empathyco/x-types": "^10.1.0-alpha.33",
     "@empathyco/x-utils": "^1.0.3-alpha.9",
-    "@vue/devtools-api": "~6.6.4",
+    "@vue/devtools-api": "~8.0.5",
     "@vueuse/core": "~12.8.2",
     "js-md5": "~0.8.3",
     "marked": "~16.4.1",
