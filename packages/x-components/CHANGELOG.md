@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.188 (2026-01-07)
+
+* chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
+
+
+
+
+
 ## 6.0.0-alpha.187 (2025-12-17)
 
 * chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
