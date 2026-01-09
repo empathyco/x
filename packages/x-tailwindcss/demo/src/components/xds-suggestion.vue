@@ -11,7 +11,7 @@
       title="Click me to copy CSS classes"
       @click="copyCssClassesToClipboard"
     >
-      <CuratedIcon class="x-icon" />
+      <CuratedIcon class="icon" />
       <template v-if="section === 'Default'">
         very long default suggestion to test line wrap alignment
       </template>
@@ -36,40 +36,40 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-suggestion',
+      default: 'suggestion',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-suggestion-sm', 'x-suggestion-md', 'x-suggestion-lg'],
+      default: () => ['suggestion-sm', 'suggestion-md', 'suggestion-lg'],
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-suggestion-neutral',
-        'x-suggestion-lead',
-        'x-suggestion-auxiliary',
-        'x-suggestion-accent',
-        'x-suggestion-highlight',
-        'x-suggestion-success',
-        'x-suggestion-warning',
-        'x-suggestion-error',
+        'suggestion-neutral',
+        'suggestion-lead',
+        'suggestion-auxiliary',
+        'suggestion-accent',
+        'suggestion-highlight',
+        'suggestion-success',
+        'suggestion-warning',
+        'suggestion-error',
       ],
     },
     outlined: {
       type: String,
-      default: 'x-suggestion-outlined',
+      default: 'suggestion-outlined',
     },
     ghost: {
       type: String,
-      default: 'x-suggestion-ghost',
+      default: 'suggestion-ghost',
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-suggestion x-suggestion-success x-suggestion-md',
-        'x-suggestion x-suggestion-auxiliary x-suggestion-md',
-        'x-suggestion-tag x-suggestion-error-50 x-suggestion-lg',
+        'suggestion suggestion-success suggestion-md',
+        'suggestion suggestion-auxiliary suggestion-md',
+        'suggestion-tag suggestion-error-50 suggestion-lg',
       ],
     },
   },

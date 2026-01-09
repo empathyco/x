@@ -4,27 +4,27 @@
     title="Layout utilities"
     :sections="sections"
   >
-    <label for="layout-utils-modal" class="x-button">See layout utils</label>
+    <label for="layout-utils-modal" class="button">See layout utils</label>
     <input id="layout-utils-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-white">
       <div class="flex p-4">
-        <div class="x-title2">Layout utilities</div>
-        <label for="layout-utils-modal" class="x-button x-button-link ml-auto">Close</label>
+        <div class="title2">Layout utilities</div>
+        <label for="layout-utils-modal" class="button button-link ml-auto">Close</label>
       </div>
 
       <div v-for="(sectionClasses, sectionName) in modalContent" :key="sectionName">
-        <div class="x-title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
+        <div class="title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
         <div class="mb-4 px-4 text-xl">
           {{ sectionDescriptions[sectionName] }}
         </div>
         <div v-for="cssClass in sectionClasses" :key="cssClass" class="flex flex-col pb-3">
           <code class="px-4 py-2">{{ cssClass }}</code>
           <div
-            class="x-layout-container x-layout-min-margin-256 x-layout-max-width-md h-[80px] w-full bg-gray-200"
+            class="layout-container layout-min-margin-256 layout-max-width-md h-[80px] w-full bg-gray-200"
           >
             <template v-if="sectionName === 'Overlap'">
-              <div v-if="cssClass.split(' ')[1] === 'x-layout-overlap'" class="x-layout-item">
+              <div v-if="cssClass.split(' ')[1] === 'layout-overlap'" class="layout-item">
                 <span class="h-[60px] bg-gray-300 p-2">item</span>
               </div>
 
@@ -38,16 +38,14 @@
                 <span class="w-[80%] justify-self-center bg-gray-400 p-2">This is overlapping</span>
               </div>
 
-              <div v-if="cssClass.includes('x-layout-overlap-from-top')" class="x-layout-item">
+              <div v-if="cssClass.includes('layout-overlap-from-top')" class="layout-item">
                 <span class="h-[60px] bg-gray-300 p-2">item</span>
               </div>
             </template>
 
             <template v-else-if="sectionName === 'On margin'">
-              <div class="x-layout-item">
-                <div v-if="cssClass === 'x-layout-on-margin-right'" class="bg-gray-300 p-2">
-                  item
-                </div>
+              <div class="layout-item">
+                <div v-if="cssClass === 'layout-on-margin-right'" class="bg-gray-300 p-2">item</div>
                 <div
                   :key="cssClass"
                   :class="cssClass"
@@ -59,9 +57,7 @@
                     {{ cssClass }}
                   </div>
                 </div>
-                <div v-if="cssClass === 'x-layout-on-margin-left'" class="bg-gray-300 p-2">
-                  item
-                </div>
+                <div v-if="cssClass === 'layout-on-margin-left'" class="bg-gray-300 p-2">item</div>
               </div>
             </template>
 
@@ -96,23 +92,23 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-layout-item',
+      default: 'layout-item',
     },
     noMargin: {
       type: Array as PropType<string[]>,
-      default: () => ['x-layout-no-margin', 'x-layout-no-margin-left', 'x-layout-no-margin-right'],
+      default: () => ['layout-no-margin', 'layout-no-margin-left', 'layout-no-margin-right'],
     },
     onMargin: {
       type: Array as PropType<string[]>,
-      default: () => ['x-layout-on-margin-left', 'x-layout-on-margin-right'],
+      default: () => ['layout-on-margin-left', 'layout-on-margin-right'],
     },
     overlap: {
       type: Array as PropType<string[]>,
-      default: () => ['x-layout-overlap', 'x-layout-overlap-from-top'],
+      default: () => ['layout-overlap', 'layout-overlap-from-top'],
     },
     expand: {
       type: Array as PropType<string[]>,
-      default: () => ['x-layout-expand'],
+      default: () => ['layout-expand'],
     },
   },
   data() {

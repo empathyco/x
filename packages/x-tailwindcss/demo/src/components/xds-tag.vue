@@ -12,7 +12,7 @@
       @click="copyCssClassesToClipboard"
     >
       {{ removeClassPrefix(cssClass, base) }} tag
-      <PlusIcon class="x-icon" />
+      <PlusIcon class="icon" />
     </button>
   </XdsBaseShowcase>
 </template>
@@ -33,54 +33,54 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-tag',
+      default: 'tag',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-tag-sm', 'x-tag-md', 'x-tag-lg'],
+      default: () => ['tag-sm', 'tag-md', 'tag-lg'],
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-tag-neutral',
-        'x-tag-lead',
-        'x-tag-auxiliary',
-        'x-tag-accent',
-        'x-tag-highlight',
-        'x-tag-success',
-        'x-tag-warning',
-        'x-tag-error',
+        'tag-neutral',
+        'tag-lead',
+        'tag-auxiliary',
+        'tag-accent',
+        'tag-highlight',
+        'tag-success',
+        'tag-warning',
+        'tag-error',
       ],
     },
     selected: {
       type: String,
-      default: 'x-selected',
+      default: 'selected',
     },
     outlined: {
       type: String,
-      default: 'x-tag-outlined',
+      default: 'tag-outlined',
     },
     solid: {
       type: String,
-      default: 'x-tag-solid',
+      default: 'tag-solid',
     },
     ghost: {
       type: String,
-      default: 'x-tag-ghost',
+      default: 'tag-ghost',
     },
     tight: {
       type: String,
-      default: 'x-tag-tight',
+      default: 'tag-tight',
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-tag-lead x-tag-sm',
-        'x-tag-auxiliary x-tag-outlined x-tag-lg x-selected',
-        'x-tag-highlight x-tag-solid x-tag-lg x-selected',
-        'x-tag-success x-tag-tight x-tag-sm x-selected',
-        'x-tag-warning x-tag-ghost x-selected',
+        'tag-lead tag-sm',
+        'tag-auxiliary tag-outlined tag-lg selected',
+        'tag-highlight tag-solid tag-lg selected',
+        'tag-success tag-tight tag-sm selected',
+        'tag-warning tag-ghost selected',
       ],
     },
   },

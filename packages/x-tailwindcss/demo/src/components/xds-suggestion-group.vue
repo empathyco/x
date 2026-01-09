@@ -12,8 +12,8 @@
       @click="copyCssClassesToClipboard"
       @keydown="copyCssClassesToClipboard"
     >
-      <button class="x-suggestion">
-        <CuratedIcon class="x-icon" />
+      <button class="suggestion">
+        <CuratedIcon class="icon" />
         <template v-if="section === 'Default'">
           very long default suggestion to test line wrap alignment
         </template>
@@ -21,16 +21,16 @@
       </button>
       <button
         v-if="section === 'Combinations layer'"
-        class="x-suggestion-group-button x-suggestion-group-button-rectangle"
+        class="suggestion-group-button suggestion-group-button-rectangle"
         :class="{
-          'x-suggestion-group-button-lighter': cssClass.includes('x-suggestion-group-success'),
-          'x-suggestion-group-button-ghost': !cssClass.includes('x-suggestion-group-success'),
+          'suggestion-group-button-lighter': cssClass.includes('suggestion-group-success'),
+          'suggestion-group-button-ghost': !cssClass.includes('suggestion-group-success'),
         }"
       >
         clear
       </button>
-      <button v-if="section !== 'Combinations layer'" class="x-suggestion-group-button">
-        <CrossIcon class="x-icon" />
+      <button v-if="section !== 'Combinations layer'" class="suggestion-group-button">
+        <CrossIcon class="icon" />
       </button>
     </div>
   </XdsBaseShowcase>
@@ -54,40 +54,40 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-suggestion-group',
+      default: 'suggestion-group',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-suggestion-group-sm', 'x-suggestion-group-md', 'x-suggestion-group-lg'],
+      default: () => ['suggestion-group-sm', 'suggestion-group-md', 'suggestion-group-lg'],
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-suggestion-group-neutral',
-        'x-suggestion-group-lead',
-        'x-suggestion-group-auxiliary',
-        'x-suggestion-group-accent',
-        'x-suggestion-group-highlight',
-        'x-suggestion-group-success',
-        'x-suggestion-group-warning',
-        'x-suggestion-group-error',
+        'suggestion-group-neutral',
+        'suggestion-group-lead',
+        'suggestion-group-auxiliary',
+        'suggestion-group-accent',
+        'suggestion-group-highlight',
+        'suggestion-group-success',
+        'suggestion-group-warning',
+        'suggestion-group-error',
       ],
     },
     outlined: {
       type: String,
-      default: 'x-suggestion-group-outlined',
+      default: 'suggestion-group-outlined',
     },
     ghost: {
       type: String,
-      default: 'x-suggestion-group-ghost',
+      default: 'suggestion-group-ghost',
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-suggestion-group-success x-suggestion-group-sm',
-        'x-suggestion-group-outlined x-suggestion-group-auxiliary x-suggestion-group-md ',
-        'x-suggestion-group-ghost x-suggestion-group-lg',
+        'suggestion-group-success suggestion-group-sm',
+        'suggestion-group-outlined suggestion-group-auxiliary suggestion-group-md ',
+        'suggestion-group-ghost suggestion-group-lg',
       ],
     },
   },

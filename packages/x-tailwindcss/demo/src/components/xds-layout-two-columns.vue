@@ -1,42 +1,42 @@
 <template>
   <XdsBaseShowcase v-slot="{ cssClass }" title="Layout two columns" :sections="sections">
-    <label for="layout-two-columns-modal" class="x-button">Open layout example</label>
+    <label for="layout-two-columns-modal" class="button">Open layout example</label>
     <input id="layout-two-columns-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-gray-100">
-      <div class="x-layout-min-margin-48" :class="cssClass">
-        <div class="x-layout-item border-b-1 border-gray-300 bg-white">
+      <div class="layout-min-margin-48" :class="cssClass">
+        <div class="layout-item border-b-1 border-gray-300 bg-white">
           <div class="flex items-center justify-between py-2">
-            <span class="x-title3">TWO COLUMNS LAYOUT</span>
-            <label for="layout-two-columns-modal" class="x-button x-button-ghost ml-auto">
+            <span class="title3">TWO COLUMNS LAYOUT</span>
+            <label for="layout-two-columns-modal" class="button button-ghost ml-auto">
               Close
             </label>
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 border-gray-300">
+        <div class="layout-item border-b-1 border-gray-300">
           <div class="flex items-center justify-between py-4">
-            <div class="x-title3">HEADER START</div>
-            <div class="x-title2">HEADER MIDDLE</div>
-            <div class="x-title3">HEADER END</div>
+            <div class="title3">HEADER START</div>
+            <div class="title2">HEADER MIDDLE</div>
+            <div class="title3">HEADER END</div>
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 border-gray-300">
-          <div class="x-title3 flex justify-center p-4">SUB HEADER</div>
+        <div class="layout-item border-b-1 border-gray-300">
+          <div class="title3 flex justify-center p-4">SUB HEADER</div>
         </div>
 
-        <div class="x-layout-item x-layout-no-margin-right x-layout-expand mb-4 mt-4">
-          <div class="x-layout-expand flex gap-6">
-            <div class="x-scroll w-[128px]">
+        <div class="layout-item layout-no-margin-right layout-expand mb-4 mt-4">
+          <div class="layout-expand flex gap-6">
+            <div class="scroll w-[128px]">
               <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
                 <span>ASIDE</span>
                 <span class="place-self-end">ASIDE BOTTOM</span>
               </div>
             </div>
 
-            <div class="x-scroll x-layout-expand">
-              <div class="x-layout-item x-layout-no-margin-left">
+            <div class="scroll layout-expand">
+              <div class="layout-item layout-no-margin-left">
                 <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
                   <section>MAIN</section>
                   <span class="place-self-end">MAIN BOTTOM</span>
@@ -46,9 +46,9 @@
           </div>
         </div>
 
-        <div class="x-layout-item x-layout-overlap">
+        <div class="layout-item layout-overlap">
           <button
-            class="x-layout-on-margin-right x-button x-button-sm x-button-circle mb-4 self-end justify-self-start"
+            class="layout-on-margin-right button button-sm button-circle mb-4 self-end justify-self-start"
           >
             ▲
           </button>
@@ -70,7 +70,7 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-layout-container x-layout-max-width-md',
+      default: 'layout-container layout-mawidth-md',
     },
   },
   computed: {

@@ -10,9 +10,9 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button">BUTTON 1</button>
-        <button class="x-button">BUTTON 2</button>
-        <button class="x-button">BUTTON 3</button>
+        <button class="button">BUTTON 1</button>
+        <button class="button">BUTTON 2</button>
+        <button class="button">BUTTON 3</button>
       </div>
 
       <div
@@ -21,11 +21,11 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button">BUTTON 1</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button">BUTTON 2</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button">BUTTON 3</button>
+        <button class="button">BUTTON 1</button>
+        <span class="button-group-divider" />
+        <button class="button">BUTTON 2</button>
+        <span class="button-group-divider" />
+        <button class="button">BUTTON 3</button>
       </div>
 
       <div
@@ -33,20 +33,9 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-outlined">BUTTON 1</button>
-        <button class="x-button x-button-outlined">BUTTON 2</button>
-        <button class="x-button">BUTTON 3</button>
-      </div>
-
-      <div
-        :class="cssClass"
-        class="gap-2"
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
-      >
-        <button class="x-button x-button-outlined">BUTTON 1</button>
-        <button class="x-button x-button-outlined">BUTTON 2</button>
-        <button class="x-button">BUTTON 3</button>
+        <button class="button button-outlined">BUTTON 1</button>
+        <button class="button button-outlined">BUTTON 2</button>
+        <button class="button">BUTTON 3</button>
       </div>
 
       <div
@@ -55,11 +44,22 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-outlined">BUTTON 1</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button x-button-outlined">BUTTON 2</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button">BUTTON 3</button>
+        <button class="button button-outlined">BUTTON 1</button>
+        <button class="button button-outlined">BUTTON 2</button>
+        <button class="button">BUTTON 3</button>
+      </div>
+
+      <div
+        :class="cssClass"
+        class="gap-2"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
+      >
+        <button class="button button-outlined">BUTTON 1</button>
+        <span class="button-group-divider" />
+        <button class="button button-outlined">BUTTON 2</button>
+        <span class="button-group-divider" />
+        <button class="button">BUTTON 3</button>
       </div>
 
       <div
@@ -68,11 +68,11 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-ghost">BUTTON 1</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button x-button-ghost">BUTTON 2</button>
-        <span class="x-button-group-divider" />
-        <button class="x-button x-button-ghost x-button-warning">BUTTON 3</button>
+        <button class="button button-ghost">BUTTON 1</button>
+        <span class="button-group-divider" />
+        <button class="button button-ghost">BUTTON 2</button>
+        <span class="button-group-divider" />
+        <button class="button button-ghost button-warning">BUTTON 3</button>
       </div>
 
       <div
@@ -81,9 +81,9 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-tight">BUTTON 1</button>
-        <button class="x-button x-button-tight">BUTTON 2</button>
-        <button class="x-button x-button-tight x-button-warning">BUTTON 3</button>
+        <button class="button button-tight">BUTTON 1</button>
+        <button class="button button-tight">BUTTON 2</button>
+        <button class="button button-tight button-warning">BUTTON 3</button>
       </div>
 
       <div
@@ -92,11 +92,11 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-highlight x-button-circle">
-          <PlusIcon class="x-icon" />
+        <button class="button button-highlight button-circle">
+          <PlusIcon class="icon" />
         </button>
-        <button class="x-button x-button-ghost x-button-success x-button-square">
-          <PlusIcon class="x-icon" />
+        <button class="button button-ghost button-success button-square">
+          <PlusIcon class="icon" />
         </button>
       </div>
 
@@ -106,11 +106,11 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
       >
-        <button class="x-button x-button-highlight x-button-square">
-          <PlusIcon class="x-icon" />
+        <button class="button button-highlight button-square">
+          <PlusIcon class="icon" />
         </button>
-        <button class="x-button x-button-ghost x-button-success x-button-square">
-          <PlusIcon class="x-icon" />
+        <button class="button button-ghost button-success button-square">
+          <PlusIcon class="icon" />
         </button>
       </div>
     </div>
@@ -130,11 +130,11 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-button-group',
+      default: 'button-group',
     },
     rounded: {
       type: Array as PropType<string[]>,
-      default: () => ['x-rounded-md'],
+      default: () => ['rounded-md'],
     },
   },
   computed: {

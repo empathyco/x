@@ -11,7 +11,7 @@
       @click="copyCssClassesToClipboard"
     >
       <span>{{ section.substring(0, 3) }}</span>
-      <span class="x-highlight-text-match">{{ section.substring(3) }}</span>
+      <span class="highlight-text-match">{{ section.substring(3) }}</span>
     </button>
   </XdsBaseShowcase>
 </template>
@@ -28,7 +28,7 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-highlight-text',
+      default: 'highlight-text',
     },
   },
   computed: {

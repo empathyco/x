@@ -1,22 +1,22 @@
 <template>
   <XdsBaseShowcase v-slot="{ copyCssClassesToClipboard }" title="Layout" :sections="sections">
-    <label for="layout-modal" class="x-button">See layouts</label>
+    <label for="layout-modal" class="button">See layouts</label>
     <input id="layout-modal" type="checkbox" class="modal-toggle" />
 
     <div class="modal bg-white">
       <div class="flex p-4">
-        <div class="x-title2">Layouts</div>
-        <label for="layout-modal" class="x-button x-button-link ml-auto">Close</label>
+        <div class="title2">Layouts</div>
+        <label for="layout-modal" class="button button-link ml-auto">Close</label>
       </div>
 
       <div v-for="(sectionClasses, sectionName) in modalContent" :key="sectionName">
-        <div class="x-title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
+        <div class="title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
         <div v-for="cssClass in sectionClasses" :key="cssClass" class="flex flex-col pb-3">
-          <div v-if="cssClass.includes('x-layout-min-margin-12')" class="mb-4 px-4 text-xl">
+          <div v-if="cssClass.includes('layout-min-margin-12')" class="mb-4 px-4 text-xl">
             There are as many classes as spacing variables declared in the Tailwind theme:
-            <code>x-layout-min-margin-[spacing-value]</code>
+            <code>layout-min-margin-[spacing-value]</code>
           </div>
-          <div v-if="cssClass.includes('x-layout-container-mx-128')" class="mb-4 px-4 text-xl">
+          <div v-if="cssClass.includes('layout-container-mx-128')" class="mb-4 px-4 text-xl">
             Custom alignment is available with Tailwind spacing classes or arbitrary values:
           </div>
           <code class="px-4 py-2">{{ cssClass }}</code>
@@ -27,7 +27,7 @@
             @click="copyCssClassesToClipboard"
             @keydown="copyCssClassesToClipboard"
           >
-            <div class="x-layout-item"><span class="bg-gray-400 p-2">item</span></div>
+            <div class="layout-item"><span class="bg-gray-400 p-2">item</span></div>
           </div>
         </div>
       </div>
@@ -49,28 +49,28 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-layout-container',
+      default: 'layout-container',
     },
     maxWidth: {
       type: Array as PropType<string[]>,
-      default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full'],
+      default: () => ['layout-max-width-md', 'layout-max-width-lg', 'layout-max-width-full'],
     },
     minMargin: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-layout-min-margin-12',
-        'x-layout-min-margin-20',
-        'x-layout-min-margin-32',
-        'x-layout-min-margin-48',
+        'layout-min-margin-12',
+        'layout-min-margin-20',
+        'layout-min-margin-32',
+        'layout-min-margin-48',
       ],
     },
     customAlign: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-layout-container-mx-128',
-        'x-layout-container-mr-128',
-        'x-layout-container-ml-128',
-        'x-layout-container-ml-[375px]',
+        'layout-container-mx-128',
+        'layout-container-mr-128',
+        'layout-container-ml-128',
+        'layout-container-ml-[375px]',
       ],
     },
   },
