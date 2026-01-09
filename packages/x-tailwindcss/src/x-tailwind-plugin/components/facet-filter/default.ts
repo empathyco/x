@@ -37,7 +37,7 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
       color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`,
     },
 
-    '&.x-selected': {
+    '&.selected': {
       fontWeight: theme('x.fontWeight.bold'),
       letterSpacing: theme('x.letterSpacing.xs'),
       color: `var(--filter-color-50, ${theme('x.colors.neutral.90')})`,

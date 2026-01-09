@@ -19,7 +19,7 @@ import { buttonTight } from './tight'
  */
 export function button(helpers: TailwindHelpers) {
   return {
-    '.x-button': deepMerge(buttonDefault(helpers), buttonDisabled(helpers)),
+    '.button': deepMerge(buttonDefault(helpers), buttonDisabled(helpers)),
     ...rename(
       {
         ...buttonColors(helpers),
@@ -30,7 +30,7 @@ export function button(helpers: TailwindHelpers) {
         ...buttonGhost(helpers),
         ...buttonTight(helpers),
       },
-      { prefix: '.x-button-' },
+      { prefix: '.button-' },
     ),
   }
 }

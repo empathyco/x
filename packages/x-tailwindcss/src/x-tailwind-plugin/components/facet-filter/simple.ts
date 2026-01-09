@@ -15,7 +15,7 @@ export function facetFilterSimple(helpers: TailwindHelpers) {
         color: theme('x.colors.neutral.90'),
         opacity: '.6',
       },
-      '&.x-selected': {
+      '&.selected': {
         fontWeight: theme('x.fontWeight.regular'),
         letterSpacing: theme('x.letterSpacing.md'),
 

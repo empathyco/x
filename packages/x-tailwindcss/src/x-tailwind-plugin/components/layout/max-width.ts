@@ -14,7 +14,7 @@ export function maxWidth(helpers: TailwindHelpers) {
       map(theme('x.layoutMaxWidth'), (maxWidthName, maxWidthValue) => ({
         '--x-layout-max-width': maxWidthValue,
       })),
-      { prefix: '.x-layout-max-width-' },
+      { prefix: '.layout-max-width-' },
     ),
   }
 }

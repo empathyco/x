@@ -33,7 +33,7 @@ export function tagGhost(helpers: TailwindHelpers) {
 
       ...disabledStyles,
 
-      '&.x-selected': {
+      '&.selected': {
         borderColor: 'transparent',
         color: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
         fontWeight: theme('x.fontWeight.bold'),

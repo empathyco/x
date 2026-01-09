@@ -6,7 +6,7 @@
 export function zoom() {
   return {
     zoom: {
-      '.x-picture-image': {
+      '.picture-image': {
         transition: 'transform 0.3s ease-out',
         '&:hover': {
           transform: 'scale(1.1)',

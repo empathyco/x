@@ -29,7 +29,7 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
       marginInlineEnd: theme('x.spacing.16'),
     },
 
-    '.x-input, input': {
+    '.input, input': {
       flex: '1 1 auto',
       minWidth: '0',
       padding: '0',

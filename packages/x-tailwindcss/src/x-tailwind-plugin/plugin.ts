@@ -32,7 +32,7 @@ const _xTailwindPlugin = plugin(
 
     helpers.addUtilities(utilities(helpers))
 
-    helpers.addVariant('selected', '&.x-selected')
+    helpers.addVariant('selected', '&.selected')
   },
   {
     theme: {

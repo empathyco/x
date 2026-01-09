@@ -23,7 +23,7 @@ export function buttonLink(helpers: TailwindHelpers) {
       ...noHorizontalPadding(helpers),
       ...noBackground(helpers),
 
-      '&.x-selected': {
+      '&.selected': {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
         color: `var(--button-color-75,${theme('x.colors.neutral.100')})`,

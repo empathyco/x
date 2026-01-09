@@ -13,13 +13,13 @@ import { progressBarSizes } from './sizes'
  */
 export function progressBar(helpers: TailwindHelpers) {
   return {
-    '.x-progress-bar': deepMerge(progressBarDefault(helpers)),
+    '.progress-bar': deepMerge(progressBarDefault(helpers)),
     ...rename(
       {
         ...progressBarColors(helpers),
         ...progressBarSizes(helpers),
       },
-      { prefix: '.x-progress-bar-' },
+      { prefix: '.progress-bar-' },
     ),
   }
 }

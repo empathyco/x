@@ -8,30 +8,30 @@ import type { TailwindHelpers } from '../../../types'
  */
 export function attach(_helpers: TailwindHelpers) {
   return {
-    '.x-attach-container': {
+    '.attach-container': {
       position: 'relative',
-      '& > .x-attach-to-top-left': {
+      '& > .attach-to-top-left': {
         position: 'absolute',
         top: 0,
         left: 0,
         transform: 'translate(calc(var(--attach-horizontal-offset, 50%) * -1), -50%)',
       },
 
-      '& > .x-attach-to-top-right': {
+      '& > .attach-to-top-right': {
         position: 'absolute',
         top: 0,
         right: 0,
         transform: 'translate(var(--attach-horizontal-offset, 50%), -50%)',
       },
 
-      '& > .x-attach-to-bottom-right': {
+      '& > .attach-to-bottom-right': {
         position: 'absolute',
         bottom: 0,
         right: 0,
         transform: 'translate( var(--attach-horizontal-offset, 50%), 50%)',
       },
 
-      '& > .x-attach-to-bottom-left': {
+      '& > .attach-to-bottom-left': {
         position: 'absolute',
         bottom: 0,
         left: 0,

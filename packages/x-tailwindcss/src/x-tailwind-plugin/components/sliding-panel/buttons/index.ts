@@ -9,11 +9,11 @@ import { slidingPanelButtonsPositions } from './positions'
  */
 export function slidingPanelButtons() {
   return {
-    '.x-sliding-panel-button-left': {
+    '.sliding-panel-button-left': {
       ...slidingPanelButtonsDefault(),
       left: 0,
     },
-    '.x-sliding-panel-button-right': {
+    '.sliding-panel-button-right': {
       ...slidingPanelButtonsDefault(),
       right: 0,
     },

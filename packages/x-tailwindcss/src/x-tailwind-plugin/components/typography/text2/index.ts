@@ -11,14 +11,14 @@ import { textSizes } from './sizes'
  */
 export function text2(helpers: TailwindHelpers) {
   return {
-    '.x-text2': {
+    '.text2': {
       ...textDefault(helpers),
     },
     ...rename(
       {
         ...textSizes(helpers),
       },
-      { prefix: '&.x-text2-' },
+      { prefix: '&.text2-' },
     ),
   }
 }

@@ -23,7 +23,7 @@ export function buttonOutlined(helpers: TailwindHelpers) {
         color: theme('x.colors.neutral.0'),
       },
 
-      '&.x-selected': {
+      '&.selected': {
         borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
         color: theme('x.colors.neutral.0'),

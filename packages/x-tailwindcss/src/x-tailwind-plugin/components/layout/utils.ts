@@ -8,7 +8,7 @@ import type { TailwindHelpers } from '../../../types'
  */
 export function utils(_helpers: TailwindHelpers) {
   return {
-    '.x-layout-stack': {
+    '.layout-stack': {
       display: 'grid',
       gridTemplateRows: '1fr',
       gridTemplateColumns: '1fr',
@@ -25,44 +25,44 @@ export function utils(_helpers: TailwindHelpers) {
       },
     },
 
-    '.x-layout-expand': {
+    '.layout-expand': {
       height: '100%',
       flex: '1 1 0',
       minHeight: '0',
     },
 
-    '.x-layout-item > .x-layout-on-margin-left': {
+    '.layout-item > .layout-on-margin-left': {
       gridColumn: '1 / 2',
     },
-    '.x-layout-item > .x-layout-on-margin-right': {
+    '.layout-item > .layout-on-margin-right': {
       gridColumn: '-2 / -1',
     },
 
-    '.x-layout-overlap': {
+    '.layout-overlap': {
       height: '0',
       overflow: 'visible',
       alignContent: 'flex-end',
       zIndex: '1',
     },
-    '.x-layout-overlap-from-top': {
+    '.layout-overlap-from-top': {
       height: '0',
       overflow: 'visible',
       zIndex: '1',
       alignContent: 'flex-start',
     },
 
-    '.x-layout-item.x-layout-no-margin-left': {
+    '.layout-item.x-layout-no-margin-left': {
       '--x-margin-left': '0px',
     },
-    '.x-layout-item.x-layout-no-margin-right': {
+    '.layout-item.x-layout-no-margin-right': {
       '--x-margin-right': '0px',
     },
-    '.x-layout-item.x-layout-no-margin': {
+    '.layout-item.x-layout-no-margin': {
       '--x-margin-left': '0px',
       '--x-margin-right': '0px',
     },
 
-    '.x-scroll > .x-layout-item:not(.x-layout-no-margin-right)': {
+    '.scroll > .layout-item:not(.layout-no-margin-right)': {
       '@media (hover: hover) and (pointer: fine)': {
         '--x-layout-scroll-width': '17px',
       },

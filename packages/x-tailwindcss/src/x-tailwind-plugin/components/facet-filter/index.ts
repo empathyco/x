@@ -16,7 +16,7 @@ import { facetFilterUnderline } from './underline'
  */
 export function facetFilter(helpers: TailwindHelpers) {
   return {
-    '.x-facet-filter': deepMerge(facetFilterDefault(helpers)),
+    '.facet-filter': deepMerge(facetFilterDefault(helpers)),
     ...rename(
       {
         ...facetFilterSizes(helpers),
@@ -25,7 +25,7 @@ export function facetFilter(helpers: TailwindHelpers) {
         ...facetFilterGhost(helpers),
         ...facetFilterSimple(helpers),
       },
-      { prefix: '.x-facet-filter-' },
+      { prefix: '.facet-filter-' },
     ),
   }
 }

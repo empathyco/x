@@ -20,7 +20,7 @@ export function layout(helpers: TailwindHelpers) {
         ...container(helpers),
         ...item(helpers),
       },
-      { prefix: '.x-layout-' },
+      { prefix: '.layout-' },
     ),
     ...minMargin(helpers),
     ...maxWidth(helpers),

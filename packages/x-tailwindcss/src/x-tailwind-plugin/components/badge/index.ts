@@ -16,7 +16,7 @@ import { badgeSizes } from './sizes'
  */
 export function badge(helpers: TailwindHelpers) {
   return {
-    '.x-badge': {
+    '.badge': {
       ...badgeDefault(helpers),
     },
     ...rename(

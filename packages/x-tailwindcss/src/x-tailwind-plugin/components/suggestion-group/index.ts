@@ -14,7 +14,7 @@ import { suggestionGroupSizes } from './sizes'
  */
 export function suggestionGroup(helpers: TailwindHelpers) {
   return {
-    '.x-suggestion-group': {
+    '.suggestion-group': {
       ...suggestionGroupDefault(helpers),
     },
     ...rename(
@@ -24,7 +24,7 @@ export function suggestionGroup(helpers: TailwindHelpers) {
         ...suggestionGroupGhost(helpers),
         ...suggestionGroupOutlined(helpers),
       },
-      { prefix: '.x-suggestion-group-' },
+      { prefix: '.suggestion-group-' },
     ),
   }
 }

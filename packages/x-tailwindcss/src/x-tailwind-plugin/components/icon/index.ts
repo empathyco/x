@@ -15,7 +15,7 @@ import { iconStrokeWidths } from './stroke-widths'
  */
 export function icon(helpers: TailwindHelpers) {
   return {
-    '.x-icon': Object.assign(iconDefault(helpers)),
+    '.icon': Object.assign(iconDefault(helpers)),
     ...rename(
       {
         ...iconColors(helpers),
@@ -24,7 +24,7 @@ export function icon(helpers: TailwindHelpers) {
         ...iconSharp(helpers),
         ...iconStrokeWidths(helpers),
       },
-      { prefix: '.x-icon-' },
+      { prefix: '.icon-' },
     ),
   }
 }

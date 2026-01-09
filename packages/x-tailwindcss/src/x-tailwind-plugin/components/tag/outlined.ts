@@ -33,7 +33,7 @@ export function tagOutlined(helpers: TailwindHelpers) {
       ...hoverStyles,
       ...disabledStyles,
 
-      '&.x-selected': {
+      '&.selected': {
         backgroundColor: `var(--tag-color-25, ${theme('x.colors.neutral.10')})`,
         borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
         borderWidth: theme('x.spacing.1'),

@@ -16,23 +16,23 @@ export function dynamicLayoutContainer(helpers: TailwindHelpers) {
         ...rename(
           {
             mx: (value: any) => ({
-              '& > .x-layout-item': {
+              '& > .layout-item': {
                 '--x-margin-left': value,
                 '--x-margin-right': value,
               },
             }),
             ml: (value: any) => ({
-              '& > .x-layout-item': {
+              '& > .layout-item': {
                 '--x-margin-left': value,
               },
             }),
             mr: (value: any) => ({
-              '& > .x-layout-item': {
+              '& > .layout-item': {
                 '--x-margin-right': value,
               },
             }),
           },
-          { prefix: '.x-layout-container-' },
+          { prefix: '.layout-container-' },
         ),
       },
       (name, styles) => {

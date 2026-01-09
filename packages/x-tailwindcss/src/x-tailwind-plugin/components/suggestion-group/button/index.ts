@@ -14,7 +14,7 @@ import { suggestionGroupButtonRectangle } from './rectangle'
  */
 export function suggestionGroupButton(helpers: TailwindHelpers) {
   return {
-    '.x-suggestion-group-button': {
+    '.suggestion-group-button': {
       ...suggestionGroupButtonDefault(),
     },
     ...rename(
@@ -23,7 +23,7 @@ export function suggestionGroupButton(helpers: TailwindHelpers) {
         ...suggestionGroupButtonRectangle(helpers),
         ...suggestionGroupButtonLighter(),
       },
-      { prefix: '.x-suggestion-group-button-' },
+      { prefix: '.suggestion-group-button-' },
     ),
     ...suggestionGroupLighterColors(helpers),
   }

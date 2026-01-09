@@ -5,33 +5,33 @@
  */
 export function slidingPanelButtonsHover() {
   return {
-    '&.x-sliding-panel-at-start': {
-      '.x-sliding-panel-button-left': {
+    '&.sliding-panel-at-start': {
+      '.sliding-panel-button-left': {
         opacity: 0,
         pointerEvents: 'none',
       },
     },
-    '&.x-sliding-panel-at-end': {
-      '.x-sliding-panel-button-right': {
+    '&.sliding-panel-at-end': {
+      '.sliding-panel-button-right': {
         opacity: 0,
         pointerEvents: 'none',
       },
     },
-    '&.x-sliding-panel-show-buttons-on-hover': {
-      '.x-sliding-panel-button-left': {
+    '&.sliding-panel-show-buttons-on-hover': {
+      '.sliding-panel-button-left': {
         opacity: 0,
       },
-      '.x-sliding-panel-button-right': {
+      '.sliding-panel-button-right': {
         opacity: 0,
       },
-      '&:not(.x-sliding-panel-at-start):hover': {
-        '.x-sliding-panel-button-left': {
+      '&:not(.sliding-panel-at-start):hover': {
+        '.sliding-panel-button-left': {
           opacity: 1,
           pointerEvents: 'all',
         },
       },
-      '&:not(.x-sliding-panel-at-end):hover': {
-        '.x-sliding-panel-button-right': {
+      '&:not(.sliding-panel-at-end):hover': {
+        '.sliding-panel-button-right': {
           opacity: 1,
           pointerEvents: 'all',
         },

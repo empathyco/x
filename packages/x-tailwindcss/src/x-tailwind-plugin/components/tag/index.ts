@@ -16,7 +16,7 @@ import { tagTight } from './tight'
  */
 export function tag(helpers: TailwindHelpers) {
   return {
-    '.x-tag': {
+    '.tag': {
       ...tagDefault(helpers),
     },
     ...rename(
@@ -28,7 +28,7 @@ export function tag(helpers: TailwindHelpers) {
         ...tagGhost(helpers),
         ...tagTight(helpers),
       },
-      { prefix: '.x-tag-' },
+      { prefix: '.tag-' },
     ),
   }
 }
