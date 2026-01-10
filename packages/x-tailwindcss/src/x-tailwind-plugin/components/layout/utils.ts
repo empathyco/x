@@ -51,13 +51,13 @@ export function utils(_helpers: TailwindHelpers) {
       alignContent: 'flex-start',
     },
 
-    '.layout-item.x-layout-no-margin-left': {
+    '.layout-item.layout-no-margin-left': {
       '--x-margin-left': '0px',
     },
-    '.layout-item.x-layout-no-margin-right': {
+    '.layout-item.layout-no-margin-right': {
       '--x-margin-right': '0px',
     },
-    '.layout-item.x-layout-no-margin': {
+    '.layout-item.layout-no-margin': {
       '--x-margin-left': '0px',
       '--x-margin-right': '0px',
     },
