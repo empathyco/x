@@ -35,6 +35,6 @@ Then(
   function (simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
       .contains(this[`clickedChildFilter${simpleFilterIndex}`])
-      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected')
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'xds:selected')
   },
 )

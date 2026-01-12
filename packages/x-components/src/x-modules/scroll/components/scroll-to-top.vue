@@ -2,7 +2,7 @@
   <component :is="animation">
     <BaseEventButton
       v-if="isVisible"
-      class="x-scroll-to-top x-button"
+      class="x-scroll-to-top xds:button"
       data-test="scroll-to-top"
       aria-label="Scroll to top"
       :events="events"

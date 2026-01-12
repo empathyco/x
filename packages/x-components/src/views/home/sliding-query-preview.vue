@@ -4,10 +4,10 @@
     :debounce-time-ms="250"
     :query="query"
   >
-    <div class="flex gap-8 mb-16">
-      <h1 class="x-title2">{{ queryPreview }} ({{ totalResults }})</h1>
+    <div class="xds:flex xds:gap-8 xds:mb-16">
+      <h1 class="xds:title2">{{ queryPreview }} ({{ totalResults }})</h1>
       <SlidingPanel :reset-on-content-change="false" scroll-container-class="x-sliding-panel-fade">
-        <div class="flex flex-row gap-8">
+        <div class="xds:flex xds:flex-row xds:gap-8">
           <Result
             v-for="result in results"
             :key="result.id"

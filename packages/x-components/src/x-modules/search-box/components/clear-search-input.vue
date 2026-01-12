@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-clear-search-input x-button"
+    class="x-clear-search-input xds:button"
     :class="dynamicClasses"
     :events="clearSearchInputEvents"
     data-test="clear-search-input"

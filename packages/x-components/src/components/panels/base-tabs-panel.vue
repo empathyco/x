@@ -21,7 +21,7 @@
         <button
           :id="`base-tabs-panel-${tab}`"
           :key="tab"
-          class="x-tabs-panel__list-item x-tabs-panel__button x-button"
+          class="x-tabs-panel__list-item x-tabs-panel__button xds:button"
           :class="tabIsSelected(tab) ? activeTabClass : tabClass"
           :aria-selected="tabIsSelected(tab).toString()"
           data-test="base-tabs-panel-button"
@@ -309,9 +309,9 @@ export default {
 ```vue
 <template>
   <BaseTabsPanel
-    activeTabClass="x-button-auxiliary"
+    activeTabClass="xds:button-auxiliary"
     contentClass="x-p-12 x-bg-auxiliary-25"
-    tabClass="x-button-ghost"
+    tabClass="xds:button-ghost"
     tabListClass="x-flex-col"
   >
     <template #summer>

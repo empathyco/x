@@ -1,5 +1,5 @@
 <template>
-  <div class="x text-neutral-90">
+  <div class="x xds:text-neutral-90">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialExtraParams" />
     <PreselectedFilters />
@@ -7,8 +7,8 @@
     <SnippetCallbacks />
     <ExperienceControls />
     <OpenMainModal>Start</OpenMainModal>
-    <h1 class="text-primary-50 text-4xl font-bold leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls flex flex-col gap-16">
+    <h1 class="xds:text-primary-50 xds:text-4xl xds:font-bold xds:leading-[1.5]">Test controls</h1>
+    <ul class="x-test-controls xds:flex xds:flex-col xds:gap-16">
       <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
@@ -110,18 +110,18 @@
         </label>
       </li>
     </ul>
-    <hr class="mt-10" />
-    <h1 class="text-primary-50 text-4xl font-bold leading-[1.5]">Teleport test</h1>
+    <hr class="xds:mt-10" />
+    <h1 class="xds:text-primary-50 xds:text-4xl xds:font-bold xds:leading-[1.5]">Teleport test</h1>
     <div id="teleport-here"></div>
     <MainModal :animation="modalAnimation" :reference-selector="referenceSelector">
-      <MultiColumnMaxWidthLayout class="bg-neutral-0">
+      <MultiColumnMaxWidthLayout class="xds:bg-neutral-0">
         <template #header-middle>
           <div
-            class="flex flex-col gap-16 items-stretch flex-auto"
+            class="xds:flex xds:flex-col xds:gap-16 xds:items-stretch xds:flex-auto"
             :data-test="`main-scroll-${mainScrollDirection}`"
           >
-            <div class="x-input-group x-input-group-lead rounded-sm">
-              <div class="x-input x-search-input-placeholder-container flex">
+            <div class="xds:input-group xds:nput-group-lead xds:rounded-sm">
+              <div class="xds:input x-search-input-placeholder-container xds:flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
@@ -130,12 +130,12 @@
                 />
               </div>
               <ClearSearchInput
-                class="x-input-group-button x-input-group-button-rectangle"
+                class="xds:input-group-button xds:input-group-button-rectangle"
                 aria-label="Clear query"
               >
                 Clear
               </ClearSearchInput>
-              <SearchButton aria-label="Search" class="x-input-group-button-primary">
+              <SearchButton aria-label="Search" class="xds:input-group-button-primary">
                 <SearchIcon />
               </SearchButton>
             </div>
@@ -155,8 +155,8 @@
               </template>
               <RelatedTags
                 :animation="resultsAnimation"
-                class="gap-8"
-                item-class="x-tag-outlined"
+                class="xds:gap-8"
+                item-class="xds:tag-outlined"
               />
               <template #sliding-panel-right-button>
                 <ChevronRight />
@@ -166,7 +166,7 @@
         </template>
 
         <template #header-end>
-          <CloseMainModal class="x-button--ghost x-button">
+          <CloseMainModal class="x-button--ghost xds:button">
             <CrossIcon />
           </CloseMainModal>
         </template>
@@ -178,7 +178,7 @@
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
             v-if="x.totalResults > 0"
-            class="x-button--ghost x-button"
+            class="x-button--ghost xds:button"
             panel-id="aside-panel"
           >
             Toggle Aside
@@ -186,11 +186,11 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="x.totalResults > 0" class="flex items-center gap-12">
-            <span class="x-text1">{{ x.totalResults }} Results</span>
+          <div v-if="x.totalResults > 0" class="xds:flex xds:items-center xds:gap-12">
+            <span class="xds:text1">{{ x.totalResults }} Results</span>
             <BaseColumnPickerList
               :model-value="selectedColumns"
-              class="gap-4"
+              class="xds:gap-4"
               :columns="columnPickerValues"
               @update:model-value="(col: any) => (selectedColumns = col)"
             >
@@ -201,14 +201,14 @@
               </template>
 
               <template #divider>
-                <span class="x-button-group-divider"></span>
+                <span class="xds:button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
             <SortPickerList
               v-slot="{ item }"
               :items="sortValues"
-              class="x-button-group"
-              button-class="x-button x-button-outlined"
+              class="xds:button-group"
+              button-class="xds:button xds:button-outlined"
             >
               {{ item || 'default' }}
             </SortPickerList>
@@ -233,18 +233,18 @@
           <!--  Redirection  -->
           <Redirection
             v-slot="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="p-28 flex flex-col gap-8 items-center bg-lead-25 my-8"
+            class="xds:p-28 xds:flex xds:flex-col xds:gap-8 xds:items-center xds:bg-lead-25 xds:my-8"
             :delay-in-seconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
             <a :href="redirection.url" data-test="redirection-link" @click="redirect">
               {{ redirection.url }}
             </a>
-            <div class="flex gap-32">
-              <button class="x-button--ghost x-button text-neutral-25" @click="abortRedirect">
+            <div class="xds:flex xds:gap-32">
+              <button class="x-button--ghost xds:button xds:text-neutral-25" @click="abortRedirect">
                 No, I'll stay here
               </button>
-              <button class="x-button--ghost x-button text-neutral-90" @click="redirect">
+              <button class="x-button--ghost xds:button xds:text-neutral-90" @click="redirect">
                 Yes, redirect me
               </button>
             </div>
@@ -257,22 +257,24 @@
             <!--  No Results Message  -->
             <div
               v-if="x.noResults && !x.fromNoResultsWithFilters"
-              class="p-28 flex flex-col gap-8 items-center bg-lead-25 my-8"
+              class="xds:p-28 xds:flex xds:flex-col xds:gap-8 xds:items-center xds:bg-lead-25 xds:my-8"
               data-test="no-results-message"
             >
               <p>
                 There are no results for
-                <span class="font-bold">{{ x.query.search }}</span>
+                <span class="xds:font-bold">{{ x.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
             <LocationProvider location="results">
-              <AiOverview class="mb-28">
+              <AiOverview class="xds:mb-28">
                 <template #result="{ result }">
-                  <Result :result="result" class="w-[150px]" />
+                  <Result :result="result" class="xds:w-[150px]" />
                 </template>
                 <template #extra-content>
-                  <button class="bg-lead-50 absolute bottom-0 right-0 translate-y-full">
+                  <button
+                    class="xds:bg-lead-50 xds:absolute xds:bottom-0 xds:right-0 xds:translate-y-full"
+                  >
                     extra content
                   </button>
                 </template>
@@ -280,7 +282,7 @@
             </LocationProvider>
             <template v-if="!x.query.searchBox">
               <!-- Brand Recommendations -->
-              <h1 class="mb-16 x-title1">Brand Recommendations</h1>
+              <h1 class="xds:mb-16 xds:title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   v-slot="{ queryPreviewInfo, totalResults, results, displayTagging, queryTagging }"
@@ -294,9 +296,9 @@
                     :payload="displayTagging"
                     :event-metadata="{ feature: 'customer' }"
                   >
-                    <div class="flex flex-col gap-8 mb-16">
+                    <div class="xds:flex xds:flex-col xds:gap-8 xds:mb-16">
                       <QueryPreviewButton
-                        class="w-fit x-button-xl x-button-ghost"
+                        class="xds:w-fit xds:button-xl xds:button-ghost"
                         :query-preview-info="queryPreviewInfo"
                         :metadata="{ feature: 'customer' }"
                       >
@@ -304,7 +306,7 @@
                       </QueryPreviewButton>
                       <DisplayResultProvider :query-tagging="queryTagging">
                         <SlidingPanel :reset-on-content-change="false">
-                          <div class="flex gap-8">
+                          <div class="xds:flex xds:gap-8">
                             <Result
                               v-for="result in results"
                               :key="result.id"
@@ -340,7 +342,7 @@
                       >
                         <BaseVariableColumnGrid
                           style="--x-size-min-width-grid-item: 150px"
-                          class="gap-12"
+                          class="xds:gap-12"
                           :animation="resultsAnimation"
                           :columns="x.device === 'mobile' ? 2 : 4"
                         >
@@ -363,19 +365,19 @@
                               v-slot="{ results }"
                               :suggestion="nextQueries[0]"
                               :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
-                              class="pt-24"
+                              class="xds:pt-24"
                             >
                               <h1 class="x-title2">Others clients have searched</h1>
                               <NextQuery
-                                class="x-suggestion x-text1 x-text1-lg"
+                                class="xds:suggestion xds:text1 xds:text1-lg"
                                 :suggestion="nextQueries[0]"
                                 data-test="next-query-preview-name"
                               >
-                                <span class="x-font-bold">{{ nextQueries[0].query }}</span>
+                                <span class="xds:font-bold">{{ nextQueries[0].query }}</span>
                               </NextQuery>
-                              <div class="mb-24">
+                              <div class="xds:mb-24">
                                 <SlidingPanel :reset-on-content-change="false">
-                                  <div class="flex flex-row gap-8">
+                                  <div class="xds:flex xds:flex-row xds:gap-8">
                                     <Result
                                       v-for="result in results"
                                       :key="result.id"
@@ -389,7 +391,7 @@
                               <NextQuery
                                 :suggestion="nextQueries[0]"
                                 data-test="view-all-results"
-                                class="x-button x-button-outlined rounded-full mx-auto mt-8 mb-24"
+                                class="xds:button xds:button-outlined xds:rounded-full xds:mx-auto xds:mt-8 xds:mb-24"
                               >
                                 {{ 'View all results' }}
                               </NextQuery>
@@ -398,11 +400,15 @@
 
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
-                              button-class="x-button-lead x-button-circle x-button-ghost p-0"
-                              class="-mb-1 mt-24 desktop:mt-0 p-0 h-[70px]"
-                              tag-class="rounded-xl gap-8 w-[300px] max-w-[400px]"
-                              :tag-colors="['bg-amber-300', 'bg-amber-400', 'bg-amber-500']"
-                              scroll-container-class="desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm"
+                              button-class="xds:button-lead xds:button-circle xds:button-ghost p-0"
+                              class="xds:-mb-1 xds:mt-24 xds:desktop:mt-0 xds:p-0 xds:h-[70px]"
+                              tag-class="xds:rounded-xl xds:gap-8 xds:w-[300px] xds:max-w-[400px]"
+                              :tag-colors="[
+                                'xds:bg-amber-300',
+                                'xds:bg-amber-400',
+                                'xds:bg-amber-500',
+                              ]"
+                              scroll-container-class="xds:desktop:sliding-panel-fade xds:desktop:sliding-panel-fade-sm"
                             >
                               <template #default="{ relatedPrompt, isSelected, onSelect }">
                                 <DisplayEmitter
@@ -430,14 +436,14 @@
                                 :queries-preview-info="relatedPromptsQueriesPreviewInfo"
                                 query-feature="related_prompts"
                               >
-                                <div class="flex flex-col gap-8 mb-16">
+                                <div class="xds:flex xds:flex-col xds:gap-8 xds:mb-16">
                                   <QueryPreviewButton
                                     :query-preview-info="queryPreviewInfo"
-                                    class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:px-16"
+                                    class="xds:button xds:button-lead xds:button-tight xds:title3 xds:title3-sm xds:desktop:title3-md xds:max-desktop:px-16"
                                   >
                                     {{ queryPreviewInfo.query }}
                                     ({{ totalResults }})
-                                    <ArrowRightIcon class="x-icon-lg" />
+                                    <ArrowRightIcon class="xds:icon-lg" />
                                   </QueryPreviewButton>
                                   <DisplayEmitter
                                     :payload="getToolingDisplayTagging(queryPreviewInfo)"
@@ -456,7 +462,7 @@
                                           getToolingAdd2CartTagging(queryPreviewInfo)
                                         "
                                       >
-                                        <div class="flex gap-8">
+                                        <div class="xds:flex xds:gap-8">
                                           <Result
                                             v-for="result in results"
                                             :key="result.id"
@@ -482,8 +488,8 @@
 
             <!-- Semantic Queries -->
             <SemanticQueries v-slot="{ queries: semanticQueries, findSemanticQuery }">
-              <section class="mt-28">
-                <h1 v-if="isAnyQueryLoadedInPreview(semanticQueries)" class="x-title1">
+              <section class="xds:mt-28">
+                <h1 v-if="isAnyQueryLoadedInPreview(semanticQueries)" class="xds:title1">
                   Similar Semantic Queries
                 </h1>
                 <LocationProvider :location="x.noResults ? 'no_results' : 'low_results'">
@@ -493,7 +499,7 @@
                     query-feature="semantics"
                   >
                     <div
-                      class="flex flex-col gap-8 mb-16"
+                      class="xds:flex xds:lex-col xds:gap-8 xds:mb-16"
                       data-test="semantic-query-preview"
                       :data-query="query"
                     >
@@ -501,7 +507,7 @@
                       <!-- TODO: review why suggestion query renaming breaks e2e -->
                       <SemanticQuery
                         v-slot="{ suggestion: { query } }"
-                        class="x-suggestion x-title2 x-title2-md"
+                        class="xds:suggestion xds:title2 xds:title2-md"
                         :suggestion="findSemanticQuery(query)"
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
@@ -509,7 +515,7 @@
                       <!-- eslint-enable vue/no-template-shadow -->
                       <DisplayResultProvider :query-tagging="queryTagging">
                         <SlidingPanel :reset-on-content-change="false">
-                          <div class="flex gap-8">
+                          <div class="xds:flex xds:gap-8">
                             <Result
                               v-for="result in results"
                               :key="result.id"

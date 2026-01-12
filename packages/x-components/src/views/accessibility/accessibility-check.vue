@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col gap-16 p-32">
+  <section class="xds:flex xds:flex-col xds:gap-16 xds:p-32">
     <div>
       <h1 class="row1">WAI-ARIA compliance - test pages</h1>
       <ul class="menu">

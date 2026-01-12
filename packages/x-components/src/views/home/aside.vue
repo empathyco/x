@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col gap-24">
+  <div class="xds:flex xds:flex-col xds:gap-24">
     <FacetsProvider :facets="staticFacets" group-id="price" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" :css-classes="['x-facet-filter-success']">
+        <SimpleFilter :filter="filter" :css-classes="['xds:facet-filter-success']">
           <template #label>{{ filter.label ?? filter.id }}</template>
         </SimpleFilter>
       </template>
@@ -14,9 +14,12 @@
     <Facets class="gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel :data-test="facet.label" class="border-0 border-b border-neutral-10">
+        <BaseHeaderTogglePanel
+          :data-test="facet.label"
+          class="xds:border-0 xds:border-b xds:border-neutral-10"
+        >
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -26,9 +29,9 @@
 
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="w-full flex justify-between py-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            <span class="truncate">{{ facet.label }}</span>
+            <span class="xds:truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -37,7 +40,7 @@
               <HierarchicalFilter
                 :filter="filter"
                 :data-test="`${facet.label}-filter`"
-                children-filters-class="ml-16"
+                children-filters-class="xds:ml-16"
               />
             </FiltersList>
           </SlicedFilters>
@@ -46,9 +49,9 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="w-full flex justify-between py-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            <span :data-test="facet.label" class="truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -85,11 +88,11 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel header-class="w-full flex py-8 gap-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:py-8 xds:gap-8">
           <template #header-content>
-            <span :data-test="facet.label" class="truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDown class="ml-auto" />
+            <ChevronDown class="xds:ml-auto" />
           </template>
 
           <!-- Filters -->

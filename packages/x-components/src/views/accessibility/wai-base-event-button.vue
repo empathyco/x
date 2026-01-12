@@ -1,18 +1,18 @@
 <template>
   <Scroll id="accessibility-scroll">
-    <section class="flex flex-col gap-16 p-32">
+    <section class="xds:flex xds:flex-col xds:gap-16 xds:p-32">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" :panel-id="panelId">
+        <BaseIdTogglePanelButton class="x-button--ghost xds:button" :panel-id="panelId">
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
-          <div class="x-text1">Hey there!</div>
+          <div class="xds:text1">Hey there!</div>
         </BaseIdTogglePanel>
 
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" panel-id="panel2" />
+        <BaseIdTogglePanelButton class="x-button--ghost xds:button" panel-id="panel2" />
         <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
-          <div class="x-text1">
+          <div class="xds:text1">
             Button without text, an element should have the ID to make it accessible.
           </div>
         </BaseIdTogglePanel>

@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     :events="events"
-    class="x-base-id-toggle-panel-button x-button"
+    class="x-base-id-toggle-panel-button xds:button"
     data-test="base-id-toggle-button"
     :aria-pressed="isPanelOpen.toString()"
   >

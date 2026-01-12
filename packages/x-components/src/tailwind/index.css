@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import 'tailwindcss' prefix(xds);
 
 @config './tailwind.config.ts';
 

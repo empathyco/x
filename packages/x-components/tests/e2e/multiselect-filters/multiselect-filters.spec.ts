@@ -8,7 +8,7 @@ When(
   'selected filter number {int} in facet {string} list is clicked',
   (selectedFilter: number, facetName: string) => {
     cy.getByDataTest(`${facetName}-filter`)
-      .should('have.class', 'x-selected')
+      .should('have.class', 'xds:selected')
       .eq(selectedFilter)
       .click()
   },

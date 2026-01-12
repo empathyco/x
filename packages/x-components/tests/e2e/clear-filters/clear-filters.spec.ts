@@ -7,7 +7,7 @@ When('clear filters button is clicked', () => {
 
 Then('no filters are selected', () => {
   ;['age_facet-filter', 'price_facet-filter', 'hierarchical_category-filter'].forEach(facetName => {
-    cy.getByDataTest(facetName).should('not.have.class', 'x-selected')
+    cy.getByDataTest(facetName).should('not.have.class', 'xds:selected')
   })
 })
 

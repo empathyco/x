@@ -4,7 +4,7 @@
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
-    class="x-search-input x-input"
+    class="x-search-input xds:input"
     enterkeyhint="search"
     inputmode="search"
     type="search"

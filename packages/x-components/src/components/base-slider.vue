@@ -306,7 +306,7 @@ manually.
   <BaseSlider v-model="selectedRange" :threshold="threshold">
     <input
       @change="selectedRange.min = $event.target?.valueAsNumber || 0"
-      class="x-input"
+      class="xds:input"
       name="min"
       type="number"
       :value="selectedRange.min"
@@ -316,7 +316,7 @@ manually.
     <input
       @change="selectedRange.max = $event.target?.valueAsNumber || 1000000"
       style="display: block"
-      class="x-input"
+      class="xds:input"
       name="max"
       type="number"
       :value="selectedRange.max"

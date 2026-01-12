@@ -8,7 +8,7 @@
     <template v-if="showButton">
       <button
         v-if="showMoreFilters"
-        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
+        class="xds:facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
         :class="buttonClass"
         data-test="sliced-filters-show-more-button"
         @click="toggleShowMoreFilters"
@@ -25,7 +25,7 @@
       </button>
       <button
         v-else
-        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
+        class="xds:facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
         :class="buttonClass"
         data-test="sliced-filters-show-less-button"
         @click="toggleShowMoreFilters"
@@ -239,7 +239,7 @@ The `buttonClass` prop can be used to add classes to the show more/less buttons.
 
 ```vue live
 <Facets v-slot="{ facet }">
-  <SlicedFilters :filters="facet.filters" :max="4" buttonClass="x-facet-filter-lg">
+  <SlicedFilters :filters="facet.filters" :max="4" buttonClass="xds:facet-filter-lg">
     <Filters v-slot="{ filter }">
       <SimpleFilter :filter="filter"/>
     </Filters>

@@ -92,7 +92,7 @@ Then(
   function (this: any, simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
       .contains(this[`clickedFilter${simpleFilterIndex}`])
-      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected')
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'xds:selected')
   },
 )
 
@@ -102,7 +102,7 @@ Then(
   function (this: any, simpleFilterIndex: number, facetName: string) {
     cy.getByDataTest(`${facetName}-filter`)
       .eq(simpleFilterIndex)
-      .should('to.have.class', 'x-selected')
+      .should('to.have.class', 'xds:selected')
   },
 )
 
@@ -112,7 +112,7 @@ Then(
   function (this: any, simpleFilterIndex: number, facetName: string) {
     cy.getByDataTest(`${facetName}-filter`)
       .eq(simpleFilterIndex)
-      .should('not.to.have.class', 'x-selected')
+      .should('not.to.have.class', 'xds:selected')
   },
 )
 

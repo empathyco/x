@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-facet-filter x-all-filter"
+    class="xds:facet-filter x-all-filter"
     data-test="all-filter"
     role="checkbox"
     :aria-checked="isSelected.toString()"
@@ -81,7 +81,7 @@ export default defineComponent({
      */
     const cssClasses = computed(() => {
       return {
-        'x-selected x-all-filter--is-selected': isSelected.value,
+        'xds:selected x-all-filter--is-selected': isSelected.value,
       }
     })
 

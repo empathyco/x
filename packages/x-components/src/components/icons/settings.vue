@@ -1,5 +1,5 @@
 <template>
-  <svg class="x-icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="xds:icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_478_178)">
       <path
         d="M4 4.81818C4.45187 4.81818 4.81818 4.45187 4.81818 4C4.81818 3.54813 4.45187 3.18182 4 3.18182C3.54813 3.18182 3.18182 3.54813 3.18182 4C3.18182 4.45187 3.54813 4.81818 4 4.81818Z"

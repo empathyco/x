@@ -30,12 +30,12 @@ describe('testing Switch component', () => {
     expect(wrapper.attributes('role')).toBe('switch')
     expect(wrapper.attributes('aria-checked')).toBeFalsy()
     expect(wrapper.classes('x-switch--is-selected')).toBe(false)
-    expect(wrapper.classes('x-selected')).toBe(false)
+    expect(wrapper.classes('xds:selected')).toBe(false)
 
     await wrapper.trigger('click')
     expect(wrapper.attributes('aria-checked')).toBe('true')
     expect(wrapper.classes('x-switch--is-selected')).toBe(true)
-    expect(wrapper.classes('x-selected')).toBe(true)
+    expect(wrapper.classes('xds:selected')).toBe(true)
   })
 
   it('supports v-model syntax', async () => {
@@ -46,12 +46,12 @@ describe('testing Switch component', () => {
     expect(wrapper.attributes('role')).toBe('switch')
     expect(wrapper.attributes('aria-checked')).toBeFalsy()
     expect(wrapper.classes('x-switch--is-selected')).toBe(false)
-    expect(wrapper.classes('x-selected')).toBe(false)
+    expect(wrapper.classes('xds:selected')).toBe(false)
 
     await wrapper.trigger('click')
     expect(wrapper.attributes('aria-checked')).toBe('true')
     expect(wrapper.classes('x-switch--is-selected')).toBe(true)
-    expect(wrapper.classes('x-selected')).toBe(true)
+    expect(wrapper.classes('xds:selected')).toBe(true)
   })
 })
 

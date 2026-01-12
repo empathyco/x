@@ -2,7 +2,7 @@
   <BaseEventButton
     :events="events"
     :metadata="metadata"
-    class="x-query-preview-button x-button"
+    class="x-query-preview-button xds:button"
     data-test="query-preview-button"
   >
     <!-- @slot Button content with a text, an icon or both -->

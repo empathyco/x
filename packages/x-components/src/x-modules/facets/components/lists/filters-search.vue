@@ -11,7 +11,7 @@
       <input
         :value="query"
         type="search"
-        class="x-filters-search__input x-input"
+        class="x-filters-search__input xds:input"
         data-test="filters-search-input"
         aria-label="search into the filter values"
         @input="setQuery($event.target.value)"
@@ -216,7 +216,7 @@ Replacing search triggering:
     <input
       @input="setQuery($event.target.value)"
       :value="query"
-      class="x-input x-filters-search__input"
+      class="xds:input x-filters-search__input"
       :aria-label="filtersSearchInputMessage"/>
     <button @click="clearQuery">X</button>
   </template>
