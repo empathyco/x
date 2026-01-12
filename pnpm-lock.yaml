@@ -264,8 +264,8 @@ importers:
         specifier: 7.28.5
         version: 7.28.5(@babel/core@7.28.3)
       '@badeball/cypress-cucumber-preprocessor':
-        specifier: 23.2.1
-        version: 23.2.1(@babel/core@7.28.3)(cypress@15.8.1)(typescript@5.9.3)
+        specifier: 24.0.0
+        version: 24.0.0(@babel/core@7.28.3)(cypress@15.8.1)(typescript@5.9.3)
       '@bahmutov/cypress-esbuild-preprocessor':
         specifier: 2.2.8
         version: 2.2.8(esbuild@0.27.2)
@@ -1234,9 +1234,9 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@badeball/cypress-cucumber-preprocessor@23.2.1':
-    resolution: {integrity: sha512-yMEQCdjxhCww+mGhb/xvxlHNYUpsm2oiDuG3xb236+LwNFhfpT/RckvNktip44ETEZKSZe2xqxQDxOYKyXJctA==}
-    engines: {node: '>=20.0.0'}
+  '@badeball/cypress-cucumber-preprocessor@24.0.0':
+    resolution: {integrity: sha512-WjmmnjkN49E52vp65TldsbiP3WtgTp7JQDZal8qNCHpnjmGjBW70JjIUL4/RfvxujZIUDx13W/VFiPTlG0FhRw==}
+    engines: {node: ^20.12.0 || ^21.7.0 || >=22}
     hasBin: true
     peerDependencies:
       cypress: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
@@ -1263,9 +1263,6 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@cucumber/ci-environment@10.0.1':
-    resolution: {integrity: sha512-/+ooDMPtKSmvcPMDYnMZt4LuoipfFfHaYspStI4shqw8FyKcfQAmekz6G+QKWjQQrvM+7Hkljwx58MEwPCwwzg==}
-
   '@cucumber/ci-environment@12.0.0':
     resolution: {integrity: sha512-SqCEnbCNl3zCXCFpqGUuoaSNhLC0jLw4tKeFcAxTw9MD/QRlJjeAC/fyvVLFuXuSq0OunJlFfxLu+Z3HE+oLPg==}
 
@@ -1291,9 +1288,6 @@ packages:
 
   '@cucumber/gherkin@34.0.0':
     resolution: {integrity: sha512-659CCFsrsyvuBi/Eix1fnhSheMnojSfnBcqJ3IMPNawx7JlrNJDcXYSSdxcUw3n/nG05P+ptCjmiZY3i14p+tA==}
-
-  '@cucumber/gherkin@35.1.0':
-    resolution: {integrity: sha512-JtQZLlhclejUb1lmnztMBin2Qu5lvSuet9dCl/nizrP8Icr8ywZk6PaDfcFXwS5iNQAKV+wH9FLsPxhhxME0sQ==}
 
   '@cucumber/gherkin@37.0.0':
     resolution: {integrity: sha512-vKJVJ6h4HCktG870wgYUUskNpFxbFI0WmAkVLPTz1LlLwJX7/KOBqFcr2/L3u0pPoHjbLRW+IpbiXLT2T13/wg==}
@@ -1335,9 +1329,6 @@ packages:
     resolution: {integrity: sha512-fiqZ4gMEgYjmbuWproF/YeCdD5y+gD2BqgBIGbpihOsx6UlNsyzoDSfO+Tny0q65DxfK+pHo2UkPyEl7dO7wmQ==}
     peerDependencies:
       '@cucumber/messages': '*'
-
-  '@cucumber/tag-expressions@6.2.0':
-    resolution: {integrity: sha512-KIF0eLcafHbWOuSDWFw0lMmgJOLdDRWjEL1kfXEWrqHmx2119HxVAr35WuEd9z542d3Yyg+XNqSr+81rIKqEdg==}
 
   '@cucumber/tag-expressions@8.1.0':
     resolution: {integrity: sha512-UFeOVUyc711/E7VHjThxMwg3jbGod9TlbM1gxNixX/AGDKg82Eha4cE0tKki3GGUs7uB2NyI+hQAuhB8rL2h5A==}
@@ -1931,6 +1922,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.30':
     resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
+
+  '@jridgewell/trace-mapping@0.3.31':
+    resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
@@ -3568,6 +3562,10 @@ packages:
   common-ancestor-path@1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}
 
+  common-ancestor-path@2.0.0:
+    resolution: {integrity: sha512-dnN3ibLeoRf2HNC+OlCiNc5d2zxbLJXOtiZUudNFSXZrNSydxcCsSpRzXwfu7BBWCIfHPw+xTayeBvJCP/D8Ng==}
+    engines: {node: '>= 18'}
+
   common-tags@1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
@@ -4590,6 +4588,9 @@ packages:
     resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
     engines: {node: '>=0.4.x'}
 
+  fp-ts@2.16.11:
+    resolution: {integrity: sha512-LaI+KaX2NFkfn1ZGHoKCmcfv7yrZsC3b8NtWsTVQeHkq4F27vI5igUuO53sxqDEa2gNQMHFPmpojDw/1zmUK7w==}
+
   fraction.js@5.3.4:
     resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
@@ -4741,11 +4742,6 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
-    hasBin: true
-
-  glob@11.1.0:
-    resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
-    engines: {node: 20 || >=22}
     hasBin: true
 
   glob@13.0.0:
@@ -5031,6 +5027,11 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
+  io-ts@2.2.22:
+    resolution: {integrity: sha512-FHCCztTkHoV9mdBsHpocLpdTAfh956ZQcIkWQxxS0U5HT53vtrcuYdQneEJKH6xILaLNzXVl2Cvwtoy8XNN0AA==}
+    peerDependencies:
+      fp-ts: ^2.5.0
+
   ip-address@10.0.1:
     resolution: {integrity: sha512-NWv9YLW4PoW2B7xtzaS3NCot75m6nK7Icdv0o3lfMceJVRfSoQwqD4wEH5rLwoKJwUiZ/rfpiVBhnaF0FK4HoA==}
     engines: {node: '>= 12'}
@@ -5277,10 +5278,6 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
-
-  jackspeak@4.1.1:
-    resolution: {integrity: sha512-zptv57P3GpL+O0I7VdMJNBZCu+BPHVQUk55Ft8/QCJjTVxrnJHuVuX/0Bl2A6/+2oyR/ZMEuFKwmzqqZ/U5nPQ==}
-    engines: {node: 20 || >=22}
 
   jake@10.9.4:
     resolution: {integrity: sha512-wpHYzhxiVQL+IV05BLE2Xn34zW1S223hvjtqk0+gsPrwd/8JNLXJgZZM/iPFsYc1xyphF+6M6EvdE5E9MBGkDA==}
@@ -8113,12 +8110,12 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  uuid@10.0.0:
-    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
-    hasBin: true
-
   uuid@11.1.0:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
 
   uuid@8.3.2:
@@ -9329,32 +9326,34 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@badeball/cypress-cucumber-preprocessor@23.2.1(@babel/core@7.28.3)(cypress@15.8.1)(typescript@5.9.3)':
+  '@badeball/cypress-cucumber-preprocessor@24.0.0(@babel/core@7.28.3)(cypress@15.8.1)(typescript@5.9.3)':
     dependencies:
-      '@cucumber/ci-environment': 10.0.1
+      '@cucumber/ci-environment': 12.0.0
       '@cucumber/cucumber': 12.3.0
       '@cucumber/cucumber-expressions': 18.0.1
-      '@cucumber/gherkin': 35.1.0
-      '@cucumber/html-formatter': 22.2.0(@cucumber/messages@30.1.0)
-      '@cucumber/message-streams': 4.0.1(@cucumber/messages@30.1.0)
-      '@cucumber/messages': 30.1.0
-      '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.3.0)(@cucumber/messages@30.1.0)
-      '@cucumber/tag-expressions': 6.2.0
+      '@cucumber/gherkin': 37.0.0
+      '@cucumber/html-formatter': 22.2.0(@cucumber/messages@31.0.0)
+      '@cucumber/message-streams': 4.0.1(@cucumber/messages@31.0.0)
+      '@cucumber/messages': 31.0.0
+      '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.3.0)(@cucumber/messages@31.0.0)
+      '@cucumber/tag-expressions': 8.1.0
+      '@jridgewell/trace-mapping': 0.3.31
       base64-js: 1.5.1
       chalk: 4.1.2
       cli-table: 0.3.11
-      common-ancestor-path: 1.0.1
+      common-ancestor-path: 2.0.0
       cosmiconfig: 9.0.0(typescript@5.9.3)
       cypress: 15.8.1
       debug: 4.4.3(supports-color@8.1.1)
       error-stack-parser: 2.1.4
       find-cypress-specs: 1.54.8(@babel/core@7.28.3)
-      glob: 11.1.0
+      fp-ts: 2.16.11
+      glob: 13.0.0
+      io-ts: 2.2.22(fp-ts@2.16.11)
       mocha: 11.7.5
       seedrandom: 3.0.5
-      source-map: 0.6.1
       split: 1.0.1
-      uuid: 10.0.0
+      uuid: 13.0.0
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -9386,8 +9385,6 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
-
-  '@cucumber/ci-environment@10.0.1': {}
 
   '@cucumber/ci-environment@12.0.0': {}
 
@@ -9458,17 +9455,9 @@ snapshots:
     dependencies:
       '@cucumber/messages': 28.1.0
 
-  '@cucumber/gherkin@35.1.0':
-    dependencies:
-      '@cucumber/messages': 29.0.1
-
   '@cucumber/gherkin@37.0.0':
     dependencies:
       '@cucumber/messages': 31.0.0
-
-  '@cucumber/html-formatter@22.2.0(@cucumber/messages@30.1.0)':
-    dependencies:
-      '@cucumber/messages': 30.1.0
 
   '@cucumber/html-formatter@22.2.0(@cucumber/messages@31.0.0)':
     dependencies:
@@ -9481,10 +9470,6 @@ snapshots:
       '@teppeis/multimaps': 3.0.0
       luxon: 3.7.2
       xmlbuilder: 15.1.1
-
-  '@cucumber/message-streams@4.0.1(@cucumber/messages@30.1.0)':
-    dependencies:
-      '@cucumber/messages': 30.1.0
 
   '@cucumber/message-streams@4.0.1(@cucumber/messages@31.0.0)':
     dependencies:
@@ -9512,15 +9497,6 @@ snapshots:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
 
-  '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.3.0)(@cucumber/messages@30.1.0)':
-    dependencies:
-      '@cucumber/cucumber': 12.3.0
-      '@cucumber/messages': 30.1.0
-      ansi-styles: 5.2.0
-      cli-table3: 0.6.5
-      figures: 3.2.0
-      ts-dedent: 2.2.0
-
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.3.0)(@cucumber/messages@31.0.0)':
     dependencies:
       '@cucumber/cucumber': 12.3.0
@@ -9535,8 +9511,6 @@ snapshots:
       '@cucumber/messages': 31.0.0
       '@teppeis/multimaps': 3.0.0
       lodash.sortby: 4.7.0
-
-  '@cucumber/tag-expressions@6.2.0': {}
 
   '@cucumber/tag-expressions@8.1.0': {}
 
@@ -10142,6 +10116,11 @@ snapshots:
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
   '@jridgewell/trace-mapping@0.3.30':
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.2
+      '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@jridgewell/trace-mapping@0.3.31':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -11998,6 +11977,8 @@ snapshots:
 
   common-ancestor-path@1.0.1: {}
 
+  common-ancestor-path@2.0.0: {}
+
   common-tags@1.8.2: {}
 
   commondir@1.0.1: {}
@@ -12500,7 +12481,7 @@ snapshots:
   detective-vue2@2.2.0(typescript@5.9.3):
     dependencies:
       '@dependents/detective-less': 5.0.1
-      '@vue/compiler-sfc': 3.5.25
+      '@vue/compiler-sfc': 3.5.26
       detective-es6: 5.0.1
       detective-sass: 6.0.1
       detective-scss: 5.0.1
@@ -13306,6 +13287,8 @@ snapshots:
 
   format@0.2.2: {}
 
+  fp-ts@2.16.11: {}
+
   fraction.js@5.3.4: {}
 
   from@0.1.7: {}
@@ -13490,15 +13473,6 @@ snapshots:
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
-
-  glob@11.1.0:
-    dependencies:
-      foreground-child: 3.3.1
-      jackspeak: 4.1.1
-      minimatch: 10.1.1
-      minipass: 7.1.2
-      package-json-from-dist: 1.0.1
-      path-scurry: 2.0.1
 
   glob@13.0.0:
     dependencies:
@@ -13809,6 +13783,10 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
+  io-ts@2.2.22(fp-ts@2.16.11):
+    dependencies:
+      fp-ts: 2.16.11
+
   ip-address@10.0.1: {}
 
   is-arguments@1.2.0:
@@ -14032,10 +14010,6 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
-
-  jackspeak@4.1.1:
-    dependencies:
-      '@isaacs/cliui': 8.0.2
 
   jake@10.9.4:
     dependencies:
@@ -17543,9 +17517,9 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  uuid@10.0.0: {}
-
   uuid@11.1.0: {}
+
+  uuid@13.0.0: {}
 
   uuid@8.3.2: {}
 
