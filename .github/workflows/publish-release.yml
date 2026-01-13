@@ -1,5 +1,8 @@
 name: Release a new version
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - feat/migrate-tailwind
 jobs:
   release:
     runs-on: ubuntu-latest
