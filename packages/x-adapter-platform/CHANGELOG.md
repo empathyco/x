@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.41 (2026-01-07)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
 ## 1.1.0-alpha.40 (2025-12-17)
 
 * chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)

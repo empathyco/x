@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "2.0.0-alpha.20",
+  "version": "2.0.0-alpha.21",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -63,13 +63,13 @@
     "@types/tailwindcss": "^3.1.0",
     "@vitejs/plugin-vue": "5.2.4",
     "rimraf": "3.0.2",
-    "rollup": "4.9.1",
+    "rollup": "4.54.0",
     "rollup-plugin-typescript2": "0.36.0",
     "tailwindcss": "4.1.17",
     "ts-jest": "29.4.6",
     "typescript": "5.9.3",
     "vite": "6.4.1",
-    "vue": "3.5.25"
+    "vue": "3.5.26"
   },
   "publishConfig": {
     "access": "public"

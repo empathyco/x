@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.1.0-alpha.33",
+  "version": "10.1.0-alpha.34",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -52,8 +52,8 @@
     "@microsoft/api-extractor": "7.55.2",
     "@types/jest": "29.5.14",
     "jest": "29.7.0",
-    "rollup": "4.9.1",
-    "rollup-plugin-delete": "2.0.0",
+    "rollup": "4.54.0",
+    "rollup-plugin-delete": "2.2.0",
     "rollup-plugin-typescript2": "0.36.0",
     "ts-jest": "29.4.6",
     "typescript": "5.9.3"
