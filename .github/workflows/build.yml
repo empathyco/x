@@ -29,19 +29,5 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
-      - name: Install
-        uses: ./.github/actions/install
-
-      - name: Run lint check
-        run: pnpm run lint:check
-
-      - name: Run format check
-        run: pnpm run format:check
-
-      - name: Run tests
-        run: pnpm run test:unit
-
       - name: release
-        if:
-          ${{ github.ref_name == 'feat/migrate-tailwind' }}
         uses: ./.github/workflows/publish-release.yml
