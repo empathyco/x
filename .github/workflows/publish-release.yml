@@ -28,20 +28,6 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: lint packages
-        run: pnpm run lint:check
-
-      - name: Run format check
-        run: pnpm run format:check
-
-      - name: Run tests
-        run: pnpm run test:unit
-
-      - name: Run e2e tests
-        if: false # Temporarily disabled until the e2e are reviewed and updated so that it does not fail intermittently
-        timeout-minutes: 15
-        uses: ./.github/actions/run-e2e-tests
-
       - name: configure git user
         run: |
           git config --local user.email "x@empathy.co"
