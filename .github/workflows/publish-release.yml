@@ -53,10 +53,3 @@ jobs:
 
       - name: publish the release
         run: pnpm run publish-release
-
-      - name: push tags
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ steps.app-token.outputs.token }}
-          branch: ${{ github.ref }}
-          tags: true
