@@ -36,28 +36,28 @@ export default defineComponent({
     typography(): Record<string, { base: string; sizes: string[] }> {
       return {
         'Text 1': {
-          base: 'x-text1',
-          sizes: ['x-text1-sm', 'x-text1-md', 'x-text1-lg'],
+          base: 'text1',
+          sizes: ['text1-sm', 'text1-md', 'text1-lg'],
         },
         'Text 2': {
-          base: 'x-text2',
-          sizes: ['x-text2-sm', 'x-text2-md', 'x-text2-lg'],
+          base: 'text2',
+          sizes: ['text2-sm', 'text2-md', 'text2-lg'],
         },
         'Title 1': {
-          base: 'x-title1',
-          sizes: ['x-title1-sm', 'x-title1-md', 'x-title1-lg'],
+          base: 'title1',
+          sizes: ['title1-sm', 'title1-md', 'title1-lg'],
         },
         'Title 2': {
-          base: 'x-title2',
-          sizes: ['x-title2-sm', 'x-title2-md', 'x-title2-lg'],
+          base: 'title2',
+          sizes: ['title2-sm', 'title2-md', 'title2-lg'],
         },
         'Title 3': {
-          base: 'x-title3',
-          sizes: ['x-title3-sm', 'x-title3-md', 'x-title3-lg'],
+          base: 'title3',
+          sizes: ['title3-sm', 'title3-md', 'title3-lg'],
         },
         'Title 4': {
-          base: 'x-title4',
-          sizes: ['x-title4-sm', 'x-title4-md', 'x-title4-lg'],
+          base: 'title4',
+          sizes: ['title4-sm', 'title4-md', 'title4-lg'],
         },
       }
     },

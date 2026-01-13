@@ -4,7 +4,7 @@
     title="Progress Bar"
     :sections="sections"
   >
-    <div class="lex-col flex gap-4">
+    <div class="flex flex-col gap-4">
       <h3 class="text-sm">{{ removeClassPrefix(cssClass, base).trim() || 'default' }}</h3>
       <div
         class="w-[320px]"
@@ -12,7 +12,7 @@
         @click="copyCssClassesToClipboard"
         @keyup="copyCssClassesToClipboard"
       >
-        <div class="x-progress-bar-fill w-[30%]" />
+        <div class="progress-bar-fill w-[30%]" />
       </div>
     </div>
   </XdsBaseShowcase>
@@ -30,29 +30,29 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-progress-bar',
+      default: 'progress-bar',
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-progress-bar-neutral',
-        'x-progress-bar-lead',
-        'x-progress-bar-auxiliary',
-        'x-progress-bar-accent',
-        'x-progress-bar-highlight',
-        'x-progress-bar-success',
-        'x-progress-bar-warning',
-        'x-progress-bar-error',
+        'progress-bar-neutral',
+        'progress-bar-lead',
+        'progress-bar-auxiliary',
+        'progress-bar-accent',
+        'progress-bar-highlight',
+        'progress-bar-success',
+        'progress-bar-warning',
+        'progress-bar-error',
       ],
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-progress-bar-md', 'x-progress-bar-lg'],
+      default: () => ['progress-bar-md', 'progress-bar-lg'],
     },
     combinations: {
       type: Array as PropType<string[]>,
-      default: () => ['x-progress-bar-lg x-progress-bar-warning'],
+      default: () => ['progress-bar-lg progress-bar-warning'],
     },
   },
   setup(props) {

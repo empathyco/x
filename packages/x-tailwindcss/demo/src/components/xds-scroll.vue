@@ -27,7 +27,7 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-scroll',
+      default: 'scroll',
     },
   },
   computed: {

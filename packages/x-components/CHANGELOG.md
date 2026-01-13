@@ -5753,7 +5753,7 @@ All notable changes to this project will be documented in this file. See
 - **design-system:** add option list tokens
 - **design-system:** add `x-grid` Design System tokens
 - **design-system:** add `x-result` Design System tokens
-- **design-system:** improve `x-icon` token
+- **design-system:** improve `xds:icon` token
 - **design-system:** add `x-row` and `x-row-item` tokens
 - **design-system:** add `x-picture` Design System tokens
 - **facets:** add `SortedFilters` component
@@ -5827,11 +5827,11 @@ All notable changes to this project will be documented in this file. See
 
 - **design-system:** add `input-group` variants
 - **design-system:** add `justified` variant to `x-filter` component
-- **design-system:** add `x-button` css class in the necessary elements
+- **design-system:** add `xds:button` css class in the necessary elements
 - **design-system:** add `x-filter` tokens and CSS
 - **design-system:** add `x-suggestion` design tokens
 - **design-system:** add `x-tag` variants tokens and CSS styles
-- **design-system:** add default `x-facet` tokens and CSS and `x-icon` variants
+- **design-system:** add default `x-facet` tokens and CSS and `xds:icon` variants
 - **design-system:** add dropdown design tokens
 - **design-system:** add input default tokens and CSS
 - **design-system:** add input variants tokens and CSS

@@ -13,7 +13,7 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
   const startSizes = fadeStartSizes(helpers)
   const endSizes = fadeEndSizes(helpers)
   return {
-    '.x-sliding-panel-fade': {
+    '.sliding-panel-fade': {
       ...defaultSizes.md,
       ...rename(
         {
@@ -24,36 +24,30 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         },
       ),
     },
-    '&.x-sliding-panel-at-start': {
-      '.x-sliding-panel-fade': {
-        ...startSizes.md,
-        ...rename(
-          {
-            ...startSizes,
-          },
-          {
-            prefix: '&-',
-          },
-        ),
-      },
+    '&.sliding-panel-at-start': {
+      ...startSizes.md,
+      ...rename(
+        {
+          ...startSizes,
+        },
+        {
+          prefix: '&.sliding-panel-fade-',
+        },
+      ),
     },
-    '&.x-sliding-panel-at-end': {
-      '.x-sliding-panel-fade': {
-        ...endSizes.md,
-        ...rename(
-          {
-            ...endSizes,
-          },
-          {
-            prefix: '&-',
-          },
-        ),
-      },
+    '&.sliding-panel-at-end': {
+      ...endSizes.md,
+      ...rename(
+        {
+          ...endSizes,
+        },
+        {
+          prefix: '&.sliding-panel-fade-',
+        },
+      ),
     },
-    '&.x-sliding-panel-at-start.x-sliding-panel-at-end': {
-      '.x-sliding-panel-fade': {
-        mask: 'none',
-      },
+    '&.sliding-panel-at-start.sliding-panel-at-end': {
+      mask: 'none',
     },
   }
 }

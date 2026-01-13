@@ -160,7 +160,7 @@ export default defineComponent({
       'x-hierarchical-filter',
       { 'x-hierarchical-filter--is-partially-selected': isPartiallySelected.value },
       { 'x-hierarchical-filter--is-selected': props.filter.selected },
-      { 'x-facet-filter--is-partially-selected': isPartiallySelected.value },
+      { 'xds:facet-filter--is-partially-selected': isPartiallySelected.value },
       ...props.cssClasses,
     ])
 

@@ -142,7 +142,7 @@ describe('testing SimpleFilter component', () => {
 
     expect(buttonWrapper.classes()).toHaveLength(2)
     expect(buttonWrapper.classes()).toEqual(
-      expect.arrayContaining(['x-facet-filter', 'x-simple-filter']),
+      expect.arrayContaining(['xds:facet-filter', 'x-simple-filter']),
     )
     expect(buttonWrapper.attributes()).toHaveProperty('aria-checked', 'false')
     expect(buttonWrapper.element).toHaveProperty('disabled', false)
@@ -152,9 +152,9 @@ describe('testing SimpleFilter component', () => {
     expect(buttonWrapper.classes()).toHaveLength(4)
     expect(buttonWrapper.classes()).toEqual(
       expect.arrayContaining([
-        'x-facet-filter',
+        'xds:facet-filter',
         'x-simple-filter',
-        'x-selected',
+        'xds:selected',
         'x-simple-filter--is-selected',
       ]),
     )
@@ -171,12 +171,12 @@ describe('testing SimpleFilter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { buttonWrapper, selectFilter } = render()
 
-    expect(buttonWrapper.classes()).not.toContain('x-selected')
+    expect(buttonWrapper.classes()).not.toContain('xds:selected')
     expect(buttonWrapper.classes()).not.toContain('x-simple-filter--is-selected')
 
     await selectFilter()
 
-    expect(buttonWrapper.classes()).toContain('x-selected')
+    expect(buttonWrapper.classes()).toContain('xds:selected')
     expect(buttonWrapper.classes()).toContain('x-simple-filter--is-selected')
   })
 })

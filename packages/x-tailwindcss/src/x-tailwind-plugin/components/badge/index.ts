@@ -16,21 +16,21 @@ import { badgeSizes } from './sizes'
  */
 export function badge(helpers: TailwindHelpers) {
   return {
-    '.x-badge': {
+    '.badge': {
       ...badgeDefault(helpers),
-      ...rename(
-        {
-          ...badgeSizes(helpers),
-          ...badgeCircle(helpers),
-          ...badgeColors(helpers),
-          ...badgeOutlined(helpers),
-          ...badgeLight(helpers),
-          ...badgeBright(helpers),
-        },
-        {
-          prefix: '&-',
-        },
-      ),
     },
+    ...rename(
+      {
+        ...badgeSizes(helpers),
+        ...badgeCircle(helpers),
+        ...badgeColors(helpers),
+        ...badgeOutlined(helpers),
+        ...badgeLight(helpers),
+        ...badgeBright(helpers),
+      },
+      {
+        prefix: '.x-badge-',
+      },
+    ),
   }
 }

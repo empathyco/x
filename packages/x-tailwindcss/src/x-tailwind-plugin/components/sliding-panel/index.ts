@@ -11,7 +11,7 @@ import { slidingPanelFade } from './fade'
  */
 export function slidingPanel(helpers: TailwindHelpers) {
   return {
-    '.x-sliding-panel': {
+    '.sliding-panel': {
       ...deepMerge(slidingPanelDefault(), slidingPanelFade(helpers)),
     },
   }

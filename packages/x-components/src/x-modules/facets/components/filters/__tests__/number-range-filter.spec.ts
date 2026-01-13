@@ -98,12 +98,12 @@ describe('testing NumberRangeFilter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { buttonWrapper, selectFilter } = render()
 
-    expect(buttonWrapper.classes()).not.toContain('x-selected')
+    expect(buttonWrapper.classes()).not.toContain('xds:selected')
     expect(buttonWrapper.classes()).not.toContain('x-number-range-filter--is-selected')
 
     await selectFilter()
 
-    expect(buttonWrapper.classes()).toContain('x-selected')
+    expect(buttonWrapper.classes()).toContain('xds:selected')
     expect(buttonWrapper.classes()).toContain('x-number-range-filter--is-selected')
   })
 })

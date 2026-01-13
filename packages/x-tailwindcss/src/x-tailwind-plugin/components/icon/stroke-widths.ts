@@ -13,7 +13,7 @@ export function iconStrokeWidths({ theme }: TailwindHelpers) {
       map(theme('x.strokeWidth'), (width, value) => ({
         '*': { strokeWidth: value },
       })),
-      { prefix: '&-' },
+      { prefix: '&.icon-stroke-width-' },
     ),
   }
 }

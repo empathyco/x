@@ -12,9 +12,9 @@
       @click="copyCssClassesToClipboard"
       @keydown="copyCssClassesToClipboard"
     >
-      <CuratedIcon class="x-icon" />
+      <CuratedIcon class="icon" />
       <input
-        class="x-input"
+        class="input"
         :disabled="section === 'Disabled'"
         :placeholder="
           removeClassPrefix(cssClass, base).trim() ||
@@ -24,28 +24,28 @@
       />
       <button
         :disabled="section === 'Disabled'"
-        class="x-button x-input-group-button"
+        class="button input-group-button"
         @click.stop="copyCssClassesToClipboard"
       >
-        <CrossIcon class="x-icon" />
+        <CrossIcon class="icon" />
       </button>
       <button
         :disabled="section === 'Disabled'"
-        class="x-button x-input-group-button x-input-group-button-rectangle"
+        class="button input-group-button input-group-button-rectangle"
         @click.stop="copyCssClassesToClipboard"
       >
         clear
       </button>
       <button
         :disabled="section === 'Disabled'"
-        class="x-button x-input-group-button-primary"
+        class="button input-group-button-primary"
         :class="{
-          'x-input-group-button-outlined': section.includes('Outlined'),
-          'x-input-group-button-ghost': section.includes('Ghost'),
+          'input-group-button-outlined': section.includes('Outlined'),
+          'input-group-button-ghost': section.includes('Ghost'),
         }"
         @click.stop="copyCssClassesToClipboard"
       >
-        <CheckIcon class="x-icon" />
+        <CheckIcon class="icon" />
       </button>
     </div>
   </XdsBaseShowcase>
@@ -71,36 +71,36 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-input-group',
+      default: 'input-group',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-input-group-sm', 'x-input-group-md', 'x-input-group-lg'],
+      default: () => ['input-group-sm', 'input-group-md', 'input-group-lg'],
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-input-group-neutral',
-        'x-input-group-lead',
-        'x-input-group-auxiliary',
-        'x-input-group-accent',
-        'x-input-group-highlight',
-        'x-input-group-success',
-        'x-input-group-warning',
-        'x-input-group-error',
+        'input-group-neutral',
+        'input-group-lead',
+        'input-group-auxiliary',
+        'input-group-accent',
+        'input-group-highlight',
+        'input-group-success',
+        'input-group-warning',
+        'input-group-error',
       ],
     },
     line: {
       type: String,
-      default: 'x-input-group-line',
+      default: 'input-group-line',
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-input-group-lead x-input-group-sm',
-        'x-input-group-auxiliary x-input-group-line x-input-group-sm',
-        'x-input-group-accent x-input-group-lg ',
-        'x-input-group-warning x-input-group-line x-input-group-lg',
+        'input-group-lead input-group-sm',
+        'input-group-auxiliary input-group-line input-group-sm',
+        'input-group-accent input-group-lg ',
+        'input-group-warning input-group-line input-group-lg',
       ],
     },
   },

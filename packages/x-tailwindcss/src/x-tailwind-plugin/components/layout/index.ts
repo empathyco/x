@@ -15,15 +15,15 @@ import { utils } from './utils'
  */
 export function layout(helpers: TailwindHelpers) {
   return {
-    '.x-layout': rename(
+    ...rename(
       {
         ...container(helpers),
-        ...maxWidth(helpers),
-        ...minMargin(helpers),
         ...item(helpers),
       },
-      { prefix: '&-' },
+      { prefix: '.layout-' },
     ),
+    ...minMargin(helpers),
+    ...maxWidth(helpers),
     ...utils(helpers),
   }
 }

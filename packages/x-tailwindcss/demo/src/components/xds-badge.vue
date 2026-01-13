@@ -5,7 +5,7 @@
     :sections="sections"
     :sections-classes="sectionClasses"
   >
-    <button v-if="cssClass.includes('attach')" class="x-button x-attach-container">
+    <button v-if="cssClass.includes('attach')" class="button attach-container">
       {{ removeClassPrefix(cssClass, base) }}
       <span
         :class="cssClass"
@@ -21,7 +21,7 @@
       @click="copyCssClassesToClipboard"
       @keydown="copyCssClassesToClipboard"
     >
-      <CuratedIcon v-if="section === 'WithIcon'" class="x-icon" />
+      <CuratedIcon v-if="section === 'WithIcon'" class="icon" />
       <template v-else>
         {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
       </template>
@@ -56,64 +56,64 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: () => 'x-badge',
+      default: () => 'badge',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-badge-sm', 'x-badge-md'],
+      default: () => ['badge-sm', 'badge-md'],
     },
     circle: {
       type: String,
-      default: () => 'x-badge-circle',
+      default: () => 'badge-circle',
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-badge-neutral',
-        'x-badge-lead',
-        'x-badge-auxiliary',
-        'x-badge-accent',
-        'x-badge-highlight',
-        'x-badge-success',
-        'x-badge-warning',
-        'x-badge-error',
+        'badge-neutral',
+        'badge-lead',
+        'badge-auxiliary',
+        'badge-accent',
+        'badge-highlight',
+        'badge-success',
+        'badge-warning',
+        'badge-error',
       ],
     },
     light: {
       type: String,
-      default: () => 'x-badge-light',
+      default: () => 'badge-light',
     },
     outlined: {
       type: String,
-      default: () => 'x-badge-outlined',
+      default: () => 'badge-outlined',
     },
     bright: {
       type: String,
-      default: () => 'x-badge-bright',
+      default: () => 'badge-bright',
     },
     attachTo: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-attach-to-top-left',
-        'x-attach-to-top-right',
-        'x-attach-to-bottom-left',
-        'x-attach-to-bottom-right',
+        'attach-to-top-left',
+        'attach-to-top-right',
+        'attach-to-bottom-left',
+        'attach-to-bottom-right',
       ],
     },
     withIcon: {
       type: Array as PropType<string[]>,
-      default: () => ['x-badge-sm', '', 'x-badge-circle x-badge-sm', 'x-badge-circle'],
+      default: () => ['badge-sm', '', 'badge-circle badge-sm', 'badge-circle'],
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-badge-error x-badge-sm x-badge-outlined',
-        'x-badge-light x-badge-lead x-badge-circle',
-        'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
-        'x-badge-light x-badge-outlined x-badge-auxiliary',
-        'x-badge-circle x-badge-light x-badge-lead x-attach-to-top-right',
-        'x-badge-sm x-badge-highlight x-attach-to-top-right',
+        'badge-error badge-sm badge-outlined',
+        'badge-light badge-lead badge-circle',
+        'badge-outlined badge-circle badge-warning badge-sm',
+        'badge-light badge-outlined badge-auxiliary',
+        'badge-circle badge-light badge-lead attach-to-top-right',
+        'badge-sm badge-highlight attach-to-top-right',
       ],
     },
   },

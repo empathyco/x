@@ -35,7 +35,7 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
       textDecoration: 'underline',
     },
 
-    '.x-suggestion': {
+    '.suggestion': {
       color: 'currentColor',
       minHeight: 'inherit',
       fontSize: 'inherit',

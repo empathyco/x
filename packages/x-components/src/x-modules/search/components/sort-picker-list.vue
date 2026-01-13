@@ -83,7 +83,7 @@ export default defineComponent({
       props.items.map(item => ({
         item,
         cssClasses: {
-          'x-selected': item === selectedSort.value,
+          'xds:selected': item === selectedSort.value,
         },
         event: { UserClickedASort: item },
       })),
@@ -185,7 +185,7 @@ The `buttonClass` prop can be used to add classes to the sort items.
 
 ```vue
 <template>
-  <SortPickerList :items="sortValues" buttonClass="x-button-outlined" />
+  <SortPickerList :items="sortValues" buttonClass="xds:button-outlined" />
 </template>
 
 <script>

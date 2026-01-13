@@ -11,7 +11,7 @@
       :disabled="section === 'Disabled'"
       @click="copyCssClassesToClipboard"
     >
-      <CuratedIcon class="x-icon" />
+      <CuratedIcon class="icon" />
       <span v-if="!cssClass.includes('circle') && !cssClass.includes('square')">
         {{ removeClassPrefix(cssClass, base) }} button
       </span>
@@ -35,58 +35,58 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-button',
+      default: 'button',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-button-sm', 'x-button-md', 'x-button-lg', 'x-button-xl'],
+      default: () => ['button-sm', 'button-md', 'button-lg', 'button-xl'],
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-button-neutral',
-        'x-button-lead',
-        'x-button-auxiliary',
-        'x-button-accent',
-        'x-button-highlight',
-        'x-button-success',
-        'x-button-warning',
-        'x-button-error',
+        'button-neutral',
+        'button-lead',
+        'button-auxiliary',
+        'button-accent',
+        'button-highlight',
+        'button-success',
+        'button-warning',
+        'button-error',
       ],
     },
     layouts: {
       type: Array as PropType<string[]>,
-      default: () => ['x-button-circle', 'x-button-square'],
+      default: () => ['button-circle', 'button-square'],
     },
     outline: {
       type: String,
-      default: 'x-button-outlined',
+      default: 'button-outlined',
     },
     ghost: {
       type: String,
-      default: 'x-button-ghost',
+      default: 'button-ghost',
     },
     tight: {
       type: String,
-      default: 'x-button-tight',
+      default: 'button-tight',
     },
     link: {
       type: String,
-      default: 'x-button-link',
+      default: 'button-link',
     },
     selected: {
       type: String,
-      default: 'x-selected',
+      default: 'selected',
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-button-lead x-button-sm',
-        'x-button-outlined x-button-square x-button-lg x-selected',
-        'x-button-auxiliary x-button-circle x-button-outlined',
-        'x-button-accent x-button-tight',
-        'x-button-warning x-button-ghost',
+        'button-lead button-sm',
+        'button-outlined button-square button-lg selected',
+        'button-auxiliary button-circle button-outlined',
+        'button-accent button-tight',
+        'button-warning button-ghost',
       ],
     },
   },

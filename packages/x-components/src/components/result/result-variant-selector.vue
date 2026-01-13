@@ -19,7 +19,7 @@
         :is-selected="variantIsSelected(variant)"
         :select-variant="() => selectVariant(variant)"
       >
-        <button data-test="variant-button" class="x-button" @click="selectVariant(variant)">
+        <button data-test="variant-button" class="xds:button" @click="selectVariant(variant)">
           <!--
             @slot Variant content
             @binding {ResultVariant} variant - The variant item

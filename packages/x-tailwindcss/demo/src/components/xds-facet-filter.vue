@@ -11,23 +11,20 @@
       @click="copyCssClassesToClipboard"
     >
       <CheckIcon
-        v-if="cssClass.includes('x-selected')"
-        class="x-icon"
-        :class="{ 'x-icon-lg': cssClass.includes('x-facet-filter-lg') }"
+        v-if="cssClass.includes('selected')"
+        class="icon"
+        :class="{ 'icon-lg': cssClass.includes('facet-filter-lg') }"
       />
       <UncheckIcon
         v-else
-        class="x-icon"
-        :class="{ 'x-icon-lg': cssClass.includes('x-facet-filter-lg') }"
+        class="icon"
+        :class="{ 'icon-lg': cssClass.includes('facet-filter-lg') }"
       />
 
       <span v-if="section === 'Default'">very long default filter to test line wrap alignment</span>
       <span v-else>filter</span>
 
-      <span
-        v-if="section === 'Combinations'"
-        class="x-badge x-badge-circle x-badge-light x-badge-lead"
-      >
+      <span v-if="section === 'Combinations'" class="badge badge-circle badge-light badge-lead">
         1
       </span>
       <span v-else>(123)</span>
@@ -49,49 +46,49 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-facet-filter',
+      default: 'facet-filter',
     },
     sizes: {
       type: Array as PropType<string[]>,
-      default: () => ['x-facet-filter-sm', 'x-facet-filter-md', 'x-facet-filter-lg'],
+      default: () => ['facet-filter-sm', 'facet-filter-md', 'facet-filter-lg'],
     },
     selected: {
       type: String,
-      default: 'x-selected',
+      default: 'selected',
     },
     underline: {
       type: String,
-      default: 'x-facet-filter-underline',
+      default: 'facet-filter-underline',
     },
     ghost: {
       type: String,
-      default: 'x-facet-filter-ghost',
+      default: 'facet-filter-ghost',
     },
     simple: {
       type: String,
-      default: 'x-facet-filter-simple',
+      default: 'facet-filter-simple',
     },
     colors: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-facet-filter-neutral',
-        'x-facet-filter-lead',
-        'x-facet-filter-auxiliary',
-        'x-facet-filter-accent',
-        'x-facet-filter-highlight',
-        'x-facet-filter-success',
-        'x-facet-filter-warning',
-        'x-facet-filter-error',
+        'facet-filter-neutral',
+        'facet-filter-lead',
+        'facet-filter-auxiliary',
+        'facet-filter-accent',
+        'facet-filter-highlight',
+        'facet-filter-success',
+        'facet-filter-warning',
+        'facet-filter-error',
       ],
     },
     combinations: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
-        'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
+        'facet-filter-ghost facet-filter-lg facet-filter-warning selected',
+        'facet-filter-ghost facet-filter-success facet-filter-underline selected',
 
-        'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected',
+        'facet-filter-simple facet-filter-lg facet-filter-success facet-filter-underline selected',
       ],
     },
   },

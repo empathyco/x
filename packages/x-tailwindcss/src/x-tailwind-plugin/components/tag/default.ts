@@ -53,7 +53,7 @@ export function tagDefault(helpers: TailwindHelpers) {
     ...tagSizes(helpers).md,
     ...disabledStyles,
 
-    '&.x-selected': {
+    '&.selected': {
       borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
       borderWidth: theme('x.spacing.2'),
       color: theme('x.colors.neutral.90'),

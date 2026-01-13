@@ -9,7 +9,7 @@ import { scrollDefault } from './default'
  */
 export function scroll(helpers: TailwindHelpers) {
   return {
-    '.x-scroll': {
+    '.scroll': {
       ...scrollDefault(helpers),
     },
   }

@@ -7,7 +7,7 @@
       class="x-option-list__item x-sort-list__item"
     >
       <BaseEventButton
-        class="x-sort-list__button x-button"
+        class="x-sort-list__button xds:button"
         data-test="x-sort-button"
         :events="event"
       >

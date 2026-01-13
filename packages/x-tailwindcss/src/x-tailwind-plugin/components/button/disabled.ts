@@ -22,7 +22,7 @@ export function buttonDisabled(helpers: TailwindHelpers) {
       cursor: 'not-allowed',
       ...disabledStyles,
 
-      '&.x-selected': {
+      '&.selected': {
         ...disabledStyles,
       },
     },

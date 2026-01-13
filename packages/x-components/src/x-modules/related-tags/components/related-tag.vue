@@ -145,7 +145,7 @@ export default defineComponent({
      */
     const dynamicClasses = computed(
       (): VueCSSClasses => ({
-        'x-selected x-related-tag--is-selected': isSelected.value,
+        'xds:selected x-related-tag--is-selected': isSelected.value,
         'x-related-tag--is-curated': shouldHighlightCurated.value,
       }),
     )

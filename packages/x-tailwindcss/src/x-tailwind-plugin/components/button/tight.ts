@@ -13,7 +13,7 @@ export function buttonTight(helpers: TailwindHelpers) {
   const { theme } = helpers
   return {
     tight: deepMerge(noBackground(helpers), noHorizontalPadding(helpers), {
-      '&.x-selected': {
+      '&.selected': {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
         color: `var(--button-color-75,${theme('x.colors.neutral.100')})`,

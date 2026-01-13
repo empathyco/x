@@ -16,18 +16,16 @@ import { facetFilterUnderline } from './underline'
  */
 export function facetFilter(helpers: TailwindHelpers) {
   return {
-    '.x-facet-filter': deepMerge(
-      facetFilterDefault(helpers),
-      rename(
-        {
-          ...facetFilterSizes(helpers),
-          ...facetFilterColors(helpers),
-          ...facetFilterUnderline(helpers),
-          ...facetFilterGhost(helpers),
-          ...facetFilterSimple(helpers),
-        },
-        { prefix: '&-' },
-      ),
+    '.facet-filter': deepMerge(facetFilterDefault(helpers)),
+    ...rename(
+      {
+        ...facetFilterSizes(helpers),
+        ...facetFilterColors(helpers),
+        ...facetFilterUnderline(helpers),
+        ...facetFilterGhost(helpers),
+        ...facetFilterSimple(helpers),
+      },
+      { prefix: '.facet-filter-' },
     ),
   }
 }

@@ -12,7 +12,7 @@
     <slot name="sliding-panel-addons" :arrived-state="arrivedState" :scroll="xScroll" />
     <template v-if="showButtons">
       <button
-        class="x-sliding-panel__button x-button x-sliding-panel-button-left"
+        class="x-sliding-panel__button xds:button x-sliding-panel-button-left"
         :class="buttonClass"
         data-test="sliding-panel-left-button"
         @click="xScroll -= slotContainerWidth * scrollFactor"
@@ -21,7 +21,7 @@
         <slot name="sliding-panel-left-button">ᐸ</slot>
       </button>
       <button
-        class="x-sliding-panel__button x-button x-sliding-panel-button-right"
+        class="x-sliding-panel__button xds:button x-sliding-panel-button-right"
         :class="buttonClass"
         data-test="sliding-panel-right-button"
         @click="xScroll += slotContainerWidth * scrollFactor"

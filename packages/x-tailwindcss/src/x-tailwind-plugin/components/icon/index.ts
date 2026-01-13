@@ -15,18 +15,16 @@ import { iconStrokeWidths } from './stroke-widths'
  */
 export function icon(helpers: TailwindHelpers) {
   return {
-    '.x-icon': Object.assign(
-      iconDefault(helpers),
-      rename(
-        {
-          ...iconColors(helpers),
-          ...iconBackgroundColors(helpers),
-          ...iconSizes(helpers),
-          ...iconSharp(helpers),
-          ...iconStrokeWidths(helpers),
-        },
-        { prefix: '&-' },
-      ),
+    '.icon': Object.assign(iconDefault(helpers)),
+    ...rename(
+      {
+        ...iconColors(helpers),
+        ...iconBackgroundColors(helpers),
+        ...iconSizes(helpers),
+        ...iconSharp(helpers),
+        ...iconStrokeWidths(helpers),
+      },
+      { prefix: '.icon-' },
     ),
   }
 }

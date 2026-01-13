@@ -17,7 +17,7 @@
           v-slot="nextQueryScope"
           :suggestion="baseScope.suggestion"
           :highlight-curated="highlightCurated"
-          class="x-next-queries__suggestion x-suggestion"
+          class="x-next-queries__suggestion xds:suggestion"
         >
           <!-- eslint-disable max-len -->
           <!--

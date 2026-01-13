@@ -2,7 +2,7 @@
   <SelectedFilters :facets-ids="facetsIds" :always-visible="alwaysVisible">
     <component
       :is="animation"
-      class="x-selected-filters-list"
+      class="xds:selected-filters-list"
       data-test="selected-filters-list"
       tag="ul"
     >

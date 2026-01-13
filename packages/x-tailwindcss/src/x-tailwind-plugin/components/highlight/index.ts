@@ -10,7 +10,7 @@ import { highlightDefault } from './default'
  */
 export function highlight(helpers: TailwindHelpers) {
   return {
-    '.x-highlight-text': {
+    '.highlight-text': {
       ...highlightDefault(helpers),
     },
   }

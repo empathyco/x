@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     :events="events"
-    class="x-events-modal-close-button x-button"
+    class="x-events-modal-close-button xds:button"
     data-test="close-modal"
     aria-label="Close"
   >

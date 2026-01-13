@@ -40,7 +40,7 @@ export function addFillNoneInRoot(svg: string): string {
 }
 
 /**
- * Adds the `x-icon` and the data classes to the root of an SVG.
+ * Adds the `xds:icon` and the data classes to the root of an SVG.
  *
  * @param svg - The SVG that will be processed.
  *
@@ -48,7 +48,7 @@ export function addFillNoneInRoot(svg: string): string {
  */
 export function addXClass(svg: string): string {
   const matchRoot = /svg /g
-  return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)" ')
+  return svg.replace(matchRoot, 'svg :class="[\'xds:icon\'].concat(data.staticClass, data.class)" ')
 }
 
 /**

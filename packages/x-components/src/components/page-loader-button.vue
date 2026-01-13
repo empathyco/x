@@ -13,7 +13,7 @@
         </p>
       </slot>
       <BaseEventButton
-        class="x-button"
+        class="xds:button"
         :class="buttonClasses"
         :events="events"
         data-test="load-content"
@@ -152,15 +152,15 @@ This component has a default slot which allows to customise the entire layout.
 <template>
   <PageLoaderButton>
     <template #default="{ resultsLength, totalResults }">
-      <div class="x-flex x-flex-col">
-        <div class="x-flex x-gap-4 x-text">
-          <span class="x-text-accent-50 x-font-bold">{{ resultsLength }}</span>
+      <div class="xds:flex xds:flex-col">
+        <div class="xds:flex xds:gap-4 xds:text">
+          <span class="xds:text-accent-50 xds:font-bold">{{ resultsLength }}</span>
           <span>of</span>
-          <span class="x-text-accent-50">{{ totalResults }}</span>
+          <span class="xds:text-accent-50">{{ totalResults }}</span>
         </div>
         <button
           @click="$x.emit('UserReachedResultsListEnd', undefined)"
-          class="x-button x-button-ghost"
+          class="xds:button xds:button-ghost"
         >
           Load more
         </button>
@@ -191,10 +191,10 @@ content inside and customizing its style using the buttonClasses prop.
 <template>
   <PageLoaderButton :buttonClasses="buttonClasses">
     <template #textContent="{ resultsLength, totalResults }">
-      <div class="x-flex x-gap-4 x-text">
-        <span class="x-text-accent-50 x-font-bold">{{ resultsLength }}</span>
+      <div class="xds:flex xds:gap-4 xds:text">
+        <span class="xds:text-accent-50 xds:font-bold">{{ resultsLength }}</span>
         <span>of</span>
-        <span class="x-text-accent-50">{{ totalResults }}</span>
+        <span class="xds:text-accent-50">{{ totalResults }}</span>
       </div>
     </template>
     <template #buttonContent>Load more results</template>
@@ -211,7 +211,7 @@ export default {
   },
   data() {
     return {
-      buttonClasses: 'x-rounded-full',
+      buttonClasses: 'xds:rounded-full',
     }
   },
 }

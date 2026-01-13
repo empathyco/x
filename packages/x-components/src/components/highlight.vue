@@ -1,5 +1,5 @@
 <template>
-  <span class="x-highlight" :class="dynamicCSSClasses">
+  <span class="xds:highlight" :class="dynamicCSSClasses">
     <span
       v-if="matchParts.start"
       class="x-highlight__text"

@@ -14,7 +14,7 @@ import { inputSizes } from './sizes'
  */
 export function input(helpers: TailwindHelpers) {
   return {
-    '.x-input': deepMerge(
+    '.input': deepMerge(
       inputDefault(helpers),
       rename(
         {
@@ -23,7 +23,7 @@ export function input(helpers: TailwindHelpers) {
           ...inputLine(helpers),
         },
         {
-          prefix: '&-',
+          prefix: '&.input-',
         },
       ),
     ),

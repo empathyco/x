@@ -12,17 +12,17 @@ import { zoom } from './zoom'
  */
 export function picture(helpers: TailwindHelpers) {
   return {
-    '.x-picture': {
+    '.picture': {
       ...pictureDefault(helpers),
-      ...rename(
-        {
-          ...zoom(),
-          ...overlay(helpers),
-        },
-        {
-          prefix: '&-',
-        },
-      ),
     },
+    ...rename(
+      {
+        ...zoom(),
+        ...overlay(helpers),
+      },
+      {
+        prefix: '.picture-',
+      },
+    ),
   }
 }

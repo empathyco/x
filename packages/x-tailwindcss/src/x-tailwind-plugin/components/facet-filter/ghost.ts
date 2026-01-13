@@ -24,7 +24,7 @@ export function facetFilterGhost(helpers: TailwindHelpers) {
         backgroundColor: theme('x.colors.neutral.10'),
         color: theme('x.colors.neutral.90'),
       },
-      '&.x-selected': {
+      '&.selected': {
         fontWeight: theme('x.fontWeight.regular'),
         color: `var(--filter-color-75)`,
         letterSpacing: theme('x.letterSpacing.md'),

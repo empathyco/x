@@ -29,27 +29,5 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
-      - name: Install
-        uses: ./.github/actions/install
-
-      - name: Run lint check
-        run: pnpm run lint:check
-
-      - name: Run format check
-        run: pnpm run format:check
-
-      - name: Run tests
-        run: pnpm run test:unit
-
-      - name: Run e2e tests
-        timeout-minutes: 15
-        uses: ./.github/actions/run-e2e-tests
-
       - name: release
-        if:
-          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
-          !startsWith(github.event.head_commit.message, 'chore(release):') }}
-        uses: ./.github/actions/release-alpha
-        with:
-          npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
-          github_token: ${{ steps.app-token.outputs.token }}
+        uses: ./.github/workflows/publish-release.yml

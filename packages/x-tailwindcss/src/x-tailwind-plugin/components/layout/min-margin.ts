@@ -10,11 +10,11 @@ import { map, rename } from '@empathyco/x-utils'
 export function minMargin(helpers: TailwindHelpers) {
   const { theme } = helpers
   return {
-    'min-margin': rename(
+    ...rename(
       map(theme('x.spacing'), (spacingName, spacingValue) => ({
         '--x-layout-min-margin': spacingValue,
       })),
-      { prefix: '&-' },
+      { prefix: '.layout-min-margin-' },
     ),
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <svg class="x-icon" viewBox="0 0 16 16" fill="none">
+  <svg class="xds:icon" viewBox="0 0 16 16" fill="none">
     <g>
       <path
         d="M8 1.33301V3.99967"

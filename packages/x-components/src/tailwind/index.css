@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss' prefix(xds);
+
+@config './tailwind.config.ts';
+
+@plugin "@empathyco/x-tailwindcss/plugin";
+@plugin "@empathyco/x-tailwindcss/old-ds-plugin";

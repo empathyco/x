@@ -17,7 +17,7 @@
         src="https://assets.empathy.co/images-demo/2885.jpg"
         alt="Summer Sandal"
         role="presentation"
-        class="x-picture-image"
+        class="picture-image"
       />
     </div>
   </XdsBaseShowcase>
@@ -36,15 +36,15 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-picture',
+      default: 'picture',
     },
     zoom: {
       type: String,
-      default: 'x-picture-zoom',
+      default: 'picture-zoom',
     },
     overlay: {
       type: String,
-      default: 'x-picture-overlay',
+      default: 'picture-overlay',
     },
   },
   computed: {

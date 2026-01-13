@@ -72,7 +72,7 @@
         </Scroll>
       </BaseIdTogglePanel>
 
-      <MainScroll class="x-flex x-flex-auto">
+      <MainScroll class="xds:flex xds:flex-auto">
         <Scroll
           v-if="devMode || $slots['main-body']"
           id="main-scroll"

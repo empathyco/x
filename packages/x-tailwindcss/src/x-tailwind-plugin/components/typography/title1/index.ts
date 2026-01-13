@@ -11,14 +11,14 @@ import { titleSizes } from './sizes'
  */
 export function title1(helpers: TailwindHelpers) {
   return {
-    '.x-title1': {
+    '.title1': {
       ...titleDefault(helpers),
-      ...rename(
-        {
-          ...titleSizes(helpers),
-        },
-        { prefix: '&-' },
-      ),
     },
+    ...rename(
+      {
+        ...titleSizes(helpers),
+      },
+      { prefix: '.title1-' },
+    ),
   }
 }

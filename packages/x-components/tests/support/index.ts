@@ -185,7 +185,7 @@ const customCommands: CustomCommands = {
     return chain
   },
   assertFilterIs(label, selectedStatus) {
-    const selectedClass = 'x-selected'
+    const selectedClass = 'xds:selected'
     if (selectedStatus === 'selected') {
       return cy
         .getFilterWithLabel(label)
@@ -199,7 +199,7 @@ const customCommands: CustomCommands = {
     }
   },
   getSelectedFilters() {
-    return cy.get('.x-selected')
+    return cy.get('.xds:selected')
   },
   waitForResultsToRender() {
     cy.getByDataTest('search-result').should('be.visible')

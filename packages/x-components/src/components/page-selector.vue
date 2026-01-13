@@ -1,7 +1,7 @@
 <template>
   <nav v-if="visiblePages?.length > 1" class="x-page-selector" aria-label="Pagination">
     <button
-      class="x-button"
+      class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
@@ -15,7 +15,7 @@
     <button
       v-for="page in visiblePages"
       :key="page.value"
-      class="x-button x-page-selector__page"
+      class="xds:button x-page-selector__page"
       :class="[
         itemClasses(page.isSelected),
         {
@@ -34,7 +34,7 @@
     </button>
 
     <button
-      class="x-button"
+      class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
@@ -236,8 +236,8 @@ This component allows to customise its content using slots.
     :item-classes="
       (isSelected: boolean) =>
         isSelected
-          ? 'x-button-lead x-text-neutral-10'
-          : 'x-text-neutral-90 x-button-outlined'
+          ? 'xds:button-lead x-text-neutral-10'
+          : 'x-text-neutral-90 xds:button-outlined'
     "
     :buttonClasses="['x-rounded-md']"
   >

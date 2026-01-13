@@ -10,11 +10,11 @@ import { map, rename } from '@empathyco/x-utils'
 export function maxWidth(helpers: TailwindHelpers) {
   const { theme } = helpers
   return {
-    'max-width': rename(
+    ...rename(
       map(theme('x.layoutMaxWidth'), (maxWidthName, maxWidthValue) => ({
         '--x-layout-max-width': maxWidthValue,
       })),
-      { prefix: '&-' },
+      { prefix: '.layout-max-width-' },
     ),
   }
 }

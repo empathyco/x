@@ -91,11 +91,11 @@ describe('testing Renderless Filter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { buttonWrapper, selectFilter } = render()
 
-    expect(buttonWrapper.classes()).not.toContain('x-selected')
+    expect(buttonWrapper.classes()).not.toContain('xds:selected')
 
     await selectFilter()
 
-    expect(buttonWrapper.classes()).toContain('x-selected')
+    expect(buttonWrapper.classes()).toContain('xds:selected')
   })
 
   it('disables the filter when it has no results', async () => {

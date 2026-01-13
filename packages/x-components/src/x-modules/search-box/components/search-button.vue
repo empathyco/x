@@ -1,13 +1,13 @@
 <template>
   <button
     ref="buttonRef"
-    class="x-search-button x-button"
+    class="x-search-button xds:button"
     :class="dynamicClasses"
     data-test="search-button"
     @click="emitEvents"
   >
     <!-- @slot _Required_. Button content (text, icon, or both) -->
-    <slot><span class="x-icon">⌕</span></slot>
+    <slot><span class="xds:icon">⌕</span></slot>
   </button>
 </template>
 

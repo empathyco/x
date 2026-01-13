@@ -10,15 +10,15 @@
       @click="copyCssClassesToClipboard"
       @keydown="copyCssClassesToClipboard"
     >
-      <button class="x-button x-sliding-panel-button-left">ᐸ</button>
+      <button class="button sliding-panel-button-left">ᐸ</button>
       <div
         class="flex gap-3"
         :class="{
-          'x-sliding-panel-fade': section === 'Fade',
-          'x-sliding-panel-fade-sm':
-            section === 'Combinations' && cssClass.includes('x-sliding-panel-buttons-outside'),
-          'x-sliding-panel-fade-lg':
-            section === 'Combinations' && cssClass.includes('x-sliding-panel-buttons-center'),
+          'sliding-panel-fade': section === 'Fade',
+          'sliding-panel-fade-sm':
+            section === 'Combinations' && cssClass.includes('sliding-panel-buttons-outside'),
+          'sliding-panel-fade-lg':
+            section === 'Combinations' && cssClass.includes('sliding-panel-buttons-center'),
         }"
       >
         <div
@@ -29,7 +29,7 @@
           <span>{{ item }}</span>
         </div>
       </div>
-      <button class="x-button x-sliding-panel-button-right">ᐳ</button>
+      <button class="button sliding-panel-button-right">ᐳ</button>
     </div>
   </XdsBaseShowcase>
 </template>
@@ -48,27 +48,27 @@ export default defineComponent({
   props: {
     base: {
       type: String,
-      default: 'x-sliding-panel',
+      default: 'sliding-panel',
     },
     buttonsPositionVariants: {
       type: Array as PropType<string[]>,
-      default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside'],
+      default: () => ['', 'sliding-panel-buttons-center', 'sliding-panel-buttons-outside'],
     },
     showButtonsOnHover: {
       type: Array as PropType<string[]>,
       default: () => [
-        'x-sliding-panel-show-buttons-on-hover',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end',
+        'sliding-panel-show-buttons-on-hover',
+        'sliding-panel-show-buttons-on-hover sliding-panel-at-start',
+        'sliding-panel-show-buttons-on-hover sliding-panel-at-end',
       ],
     },
     fadeSizes: {
       type: Array as PropType<string[]>,
       default: () => [
         '',
-        'x-sliding-panel-at-start',
-        'x-sliding-panel-at-end',
-        'x-sliding-panel-at-start x-sliding-panel-at-end',
+        'sliding-panel-at-start',
+        'sliding-panel-at-end',
+        'sliding-panel-at-start sliding-panel-at-end',
       ],
     },
   },
@@ -87,12 +87,12 @@ export default defineComponent({
         'Sarajevo',
       ],
       combinations: [
-        'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
-        'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
+        'sliding-panel-buttons-center sliding-panel-show-buttons-on-hover',
+        'sliding-panel-buttons-outside sliding-panel-show-buttons-on-hover',
 
-        'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+        'sliding-panel-buttons-outside sliding-panel-show-buttons-on-hover sliding-panel-at-start',
 
-        'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end',
+        'sliding-panel-buttons-center sliding-panel-show-buttons-on-hover sliding-panel-at-end',
       ],
     }
   },

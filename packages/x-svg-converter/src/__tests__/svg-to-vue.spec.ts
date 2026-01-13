@@ -50,7 +50,7 @@ describe('test SVG to Vue script', () => {
     })
 
     expect(vueComponentContent).toBe(`<template functional>
-  <svg :class="['x-icon'].concat(data.staticClass, data.class)" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg :class="['xds:icon'].concat(data.staticClass, data.class)" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path stroke="currentColor" stroke-width=".4" d="M1.2 1.2h5.6v5.6H1.2z"/>
 <path fill="currentColor" d="M2 2h4v4H2z"/>
 <path d="M5 3 3.625 4.5 3 3.818" stroke="#fff" stroke-width=".4" stroke-linecap="square"/>
