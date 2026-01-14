@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.189 (2026-01-14)
+
+* chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v24 (#1958) ([3a99988](https://github.com/empathyco/x/commit/3a99988)), closes [#1958](https://github.com/empathyco/x/issues/1958)
+
+
+
+
+
 ## 6.0.0-alpha.188 (2026-01-07)
 
 * chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
