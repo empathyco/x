@@ -413,7 +413,7 @@ export default defineComponent({
   width: 0;
   padding-right: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default) - 16px);
 }
-.x-layout__body-scroll.x-scroll {
+.x-layout__body-scroll.xds\:scroll {
   overflow-y: scroll;
 }
 

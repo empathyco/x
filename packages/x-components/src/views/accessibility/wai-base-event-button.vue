@@ -128,7 +128,7 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-.x-scroll {
+.xds\:scroll {
   height: 600px;
 }
 </style>
