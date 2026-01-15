@@ -65,7 +65,7 @@ importers:
         version: 29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3))
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -84,7 +84,7 @@ importers:
         version: 29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3))
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -115,7 +115,7 @@ importers:
         version: 3.0.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -155,7 +155,7 @@ importers:
         version: 3.0.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -190,24 +190,18 @@ importers:
       rimraf:
         specifier: 3.0.2
         version: 3.0.2
-      rollup:
-        specifier: 4.54.0
-        version: 4.54.0
-      rollup-plugin-copy:
-        specifier: 3.5.0
-        version: 3.5.0
-      rollup-plugin-delete:
-        specifier: 2.2.0
-        version: 2.2.0(rollup@4.54.0)
-      rollup-plugin-typescript2:
-        specifier: 0.36.0
-        version: 0.36.0(rollup@4.54.0)(typescript@5.9.3)
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      vite:
+        specifier: 6.4.1
+        version: 6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)
+      vite-plugin-dts:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/node@24.10.4)(rollup@4.54.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2))
       vue:
         specifier: 3.5.26
         version: 3.5.26(typescript@5.9.3)
@@ -274,7 +268,7 @@ importers:
         version: 30.1.0
       '@empathyco/x-tailwindcss':
         specifier: ^2.0.0-alpha.21
-        version: link:../x-tailwindcss
+        version: 2.0.0-alpha.21-RC.MM.1
       '@microsoft/api-documenter':
         specifier: 7.28.2
         version: 7.28.2(@types/node@24.10.4)
@@ -407,7 +401,7 @@ importers:
         version: 3.0.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -481,7 +475,7 @@ importers:
         version: 29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3))
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -513,21 +507,18 @@ importers:
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3))
-      rollup:
-        specifier: 4.54.0
-        version: 4.54.0
-      rollup-plugin-delete:
-        specifier: 2.2.0
-        version: 2.2.0(rollup@4.54.0)
-      rollup-plugin-typescript2:
-        specifier: 0.36.0
-        version: 0.36.0(rollup@4.54.0)(typescript@5.9.3)
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      vite:
+        specifier: 6.4.1
+        version: 6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)
+      vite-plugin-dts:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/node@24.10.4)(rollup@4.54.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2))
 
   packages/x-utils:
     dependencies:
@@ -549,7 +540,7 @@ importers:
         version: 3.0.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(esbuild@0.27.2)(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1356,9 +1347,25 @@ packages:
   '@empathyco/eslint-config@1.8.0':
     resolution: {integrity: sha512-418kaBXnQnLjAXbY+dOvd7pF5DMeMYayAb4XvzzoMUIoVL8VSLabRFkwePvVgJbRGQhv1k5ww4YSGg16kFm4qA==}
 
+  '@empathyco/x-deep-merge@2.0.3-alpha.10':
+    resolution: {integrity: sha512-JSED49w1gg/lgpUtc1+8j0KoylBMOt0Kji9PehTK+6oyYZK+AOHMBTr9TA94p0IrHRg1j6qCPZJEGZqlk03Pyg==}
+    engines: {node: '>=22'}
+
   '@empathyco/x-jest-utils@1.4.0-alpha.11':
     resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
     engines: {node: '>=16'}
+
+  '@empathyco/x-storage-service@2.0.3-alpha.8':
+    resolution: {integrity: sha512-10ANKqLHGo7MfqDCxTCdH2tPQqn6JlpBQJx+iGNRljRlgfjnICexmzCmdmZNH9QRCdCII4ANaybyyKEzq2qpzA==}
+    engines: {node: '>=22'}
+
+  '@empathyco/x-tailwindcss@2.0.0-alpha.21-RC.MM.1':
+    resolution: {integrity: sha512-qU7gr4Ct6955qpCY6eZDJAx1HrrCK8TvwyVuy4uUqtsWjKGL1OnFbhHe5iZW6TEYIUq97aCDQf+ZDCLR+yzRjA==}
+    engines: {node: '>=22'}
+
+  '@empathyco/x-utils@1.0.3-alpha.9':
+    resolution: {integrity: sha512-tNX1Ftn/ii/wL5CFrTSzRGqXVbpFA9Fm8DWKIzXBdPhCPl8o61paQ5n7rXL1psZAgBGhsi8RBy0yPCIVDL2lEA==}
+    engines: {node: '>=22'}
 
   '@es-joy/jsdoccomment@0.50.2':
     resolution: {integrity: sha512-YAdE/IJSpwbOTiaURNCKECdAwqrJuFiZhylmesBcIRawtYKnBR2wxPhoIewMg+Yu+QuYvHfJNReWpoxGBKOChA==}
@@ -2851,11 +2858,22 @@ packages:
   '@vue/compiler-ssr@3.5.26':
     resolution: {integrity: sha512-lZT9/Y0nSIRUPVvapFJEVDbEXruZh2IYHMk2zTtEgJSlP5gVOqeWXH54xDKAaFS4rTnDeDBQUYDtxKyoW9FwDw==}
 
+  '@vue/compiler-vue2@2.7.16':
+    resolution: {integrity: sha512-qYC3Psj9S/mfu9uVi5WvNZIzq+xnXMhOwbTFKKDD7b1lhpnn71jXSFdTQ+WsIEk0ONCd7VV2IMm7ONl6tbQ86A==}
+
   '@vue/devtools-api@6.5.1':
     resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
 
   '@vue/devtools-api@6.6.4':
     resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
+
+  '@vue/language-core@2.2.0':
+    resolution: {integrity: sha512-O1ZZFaaBGkKbsRfnVH1ifOK1/1BUkyK+3SQsfnh6PmMmD4qJcTU8godCeA96jjDRTL6zgnK7YzCHfaUlH2r0Mw==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@vue/language-core@3.2.1':
     resolution: {integrity: sha512-g6oSenpnGMtpxHGAwKuu7HJJkNZpemK/zg3vZzZbJ6cnnXq1ssxuNrXSsAHYM3NvH8p4IkTw+NLmuxyeYz4r8A==}
@@ -2992,6 +3010,9 @@ packages:
 
   ajv@8.13.0:
     resolution: {integrity: sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==}
+
+  alien-signals@0.4.14:
+    resolution: {integrity: sha512-itUAVzhczTmP2U5yX67xVpsbbOiquusbWVyA9N+sy6+r6YVbFkahXvNCeEPWEOMhwDYwbVbGHFkVL03N9I5g+Q==}
 
   alien-signals@3.1.1:
     resolution: {integrity: sha512-ogkIWbVrLwKtHY6oOAXaYkAxP+cTH7V5FZ5+Tm4NZFd8VDZ6uNMDrfzqctTZ42eTMCSR3ne3otpcxmqSnFfPYA==}
@@ -3576,6 +3597,9 @@ packages:
   compare-func@2.0.0:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
 
+  compare-versions@6.1.1:
+    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
+
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
@@ -3788,6 +3812,9 @@ packages:
 
   dayjs@1.11.19:
     resolution: {integrity: sha512-t5EcLVS6QPBNqM2z8fakk/NKel+Xzshgt8FFKAn+qwlD1pzZWxh0nVCrvFK7ZDb6XucZeF9z8C7CBWTRIVApAw==}
+
+  de-indent@1.0.2:
+    resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -8150,6 +8177,15 @@ packages:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
 
+  vite-plugin-dts@4.5.4:
+    resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
+    peerDependencies:
+      typescript: '*'
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+
   vite-plugin-vue-inspector@5.3.2:
     resolution: {integrity: sha512-YvEKooQcSiBTAs0DoYLfefNja9bLgkFM7NI2b07bE2SruuvX0MEa9cMaxjKVMkeCp5Nz9FRIdcN1rOdFVBeL6Q==}
     peerDependencies:
@@ -9607,7 +9643,27 @@ snapshots:
       - typescript
       - vitest
 
+  '@empathyco/x-deep-merge@2.0.3-alpha.10':
+    dependencies:
+      '@empathyco/x-utils': 1.0.3-alpha.9
+      tslib: 2.8.1
+
   '@empathyco/x-jest-utils@1.4.0-alpha.11': {}
+
+  '@empathyco/x-storage-service@2.0.3-alpha.8':
+    dependencies:
+      tslib: 2.8.1
+
+  '@empathyco/x-tailwindcss@2.0.0-alpha.21-RC.MM.1':
+    dependencies:
+      '@empathyco/x-deep-merge': 2.0.3-alpha.10
+      '@empathyco/x-utils': 1.0.3-alpha.9
+      tslib: 2.8.1
+
+  '@empathyco/x-utils@1.0.3-alpha.9':
+    dependencies:
+      '@empathyco/x-storage-service': 2.0.3-alpha.8
+      tslib: 2.8.1
 
   '@es-joy/jsdoccomment@0.50.2':
     dependencies:
@@ -11247,9 +11303,27 @@ snapshots:
       '@vue/compiler-dom': 3.5.26
       '@vue/shared': 3.5.26
 
+  '@vue/compiler-vue2@2.7.16':
+    dependencies:
+      de-indent: 1.0.2
+      he: 1.2.0
+
   '@vue/devtools-api@6.5.1': {}
 
   '@vue/devtools-api@6.6.4': {}
+
+  '@vue/language-core@2.2.0(typescript@5.9.3)':
+    dependencies:
+      '@volar/language-core': 2.4.27
+      '@vue/compiler-dom': 3.5.26
+      '@vue/compiler-vue2': 2.7.16
+      '@vue/shared': 3.5.26
+      alien-signals: 0.4.14
+      minimatch: 9.0.5
+      muggle-string: 0.4.1
+      path-browserify: 1.0.1
+    optionalDependencies:
+      typescript: 5.9.3
 
   '@vue/language-core@3.2.1':
     dependencies:
@@ -11410,6 +11484,8 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
+
+  alien-signals@0.4.14: {}
 
   alien-signals@3.1.1: {}
 
@@ -11988,6 +12064,8 @@ snapshots:
       array-ify: 1.0.0
       dot-prop: 5.3.0
 
+  compare-versions@6.1.1: {}
+
   concat-map@0.0.1: {}
 
   concat-stream@2.0.0:
@@ -12315,6 +12393,8 @@ snapshots:
   dateformat@3.0.3: {}
 
   dayjs@1.11.19: {}
+
+  de-indent@1.0.2: {}
 
   debug@3.2.7(supports-color@8.1.1):
     dependencies:
@@ -17281,26 +17361,6 @@ snapshots:
       esbuild: 0.27.2
       jest-util: 29.7.0
 
-  ts-jest@29.4.6(@babel/core@7.28.3)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest-util@29.7.0)(jest@29.7.0(@types/node@24.10.4))(typescript@5.9.3):
-    dependencies:
-      bs-logger: 0.2.6
-      fast-json-stable-stringify: 2.1.0
-      handlebars: 4.7.8
-      jest: 29.7.0(@types/node@24.10.4)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3))
-      json5: 2.2.3
-      lodash.memoize: 4.1.2
-      make-error: 1.3.6
-      semver: 7.7.3
-      type-fest: 4.41.0
-      typescript: 5.9.3
-      yargs-parser: 21.1.1
-    optionalDependencies:
-      '@babel/core': 7.28.3
-      '@jest/transform': 29.7.0
-      '@jest/types': 29.6.3
-      babel-jest: 29.7.0(@babel/core@7.28.3)
-      jest-util: 29.7.0
-
   ts-map@1.0.3: {}
 
   ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3):
@@ -17553,6 +17613,25 @@ snapshots:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.3.0
+
+  vite-plugin-dts@4.5.4(@types/node@24.10.4)(rollup@4.54.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)):
+    dependencies:
+      '@microsoft/api-extractor': 7.55.2(@types/node@24.10.4)
+      '@rollup/pluginutils': 5.2.0(rollup@4.54.0)
+      '@volar/typescript': 2.4.27
+      '@vue/language-core': 2.2.0(typescript@5.9.3)
+      compare-versions: 6.1.1
+      debug: 4.4.3(supports-color@8.1.1)
+      kolorist: 1.8.0
+      local-pkg: 1.1.2
+      magic-string: 0.30.21
+      typescript: 5.9.3
+    optionalDependencies:
+      vite: 6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
 
   vite-plugin-vue-inspector@5.3.2(vite@6.4.1(@types/node@24.10.4)(jiti@1.21.7)(sass@1.97.1)(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:
