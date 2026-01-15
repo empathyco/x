@@ -69,19 +69,52 @@ export default defineComponent({
 The FadeAndSlide component is intended to be used as a prop in animatable components but also works
 as a wrapper of a transition group that can receive the tag it will render to as a prop.
 
-Used as a prop in an animatable component:
+### Used as a prop in an animatable component
 
 ```vue
-<AnimatableComponent :animation="FadeAndSlide" />
+<template>
+  <AnimatableComponent :animation="FadeAndSlide" />
+</template>
+
+<script setup>
+import FadeAndSlide from '@empathyco/x-components/js/components/animations/fade-and-slide.vue'
+</script>
 ```
 
-Used as a regular component passing a the tag as prop:
+### Used as a regular component passing the tag as prop
 
 ```vue
-<FadeAndSlide tag="ul">
-  <li>Element to animate</li>
-  <li>Element to animate</li>
-  <li>Element to animate</li>
-</FadeAndSlide>
+<template>
+  <FadeAndSlide tag="ul">
+    <li>Element to animate</li>
+    <li>Element to animate</li>
+    <li>Element to animate</li>
+  </FadeAndSlide>
+</template>
+
+<script setup>
+import FadeAndSlide from '@empathyco/x-components/js/components/animations/fade-and-slide.vue'
+</script>
+```
+
+### Example with dynamic content
+
+```vue
+<template>
+  <FadeAndSlide tag="ul">
+    <li v-for="item in items" :key="item">{{ item }}</li>
+  </FadeAndSlide>
+  <button @click="addItem">Add Item</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import FadeAndSlide from '@empathyco/x-components/js/components/animations/fade-and-slide.vue'
+
+const items = ref(['One', 'Two', 'Three'])
+function addItem() {
+  items.value.push(`Item ${items.value.length + 1}`)
+}
+</script>
 ```
 </docs>

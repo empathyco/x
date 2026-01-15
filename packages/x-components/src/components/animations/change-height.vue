@@ -40,3 +40,44 @@ export default defineComponent({
   },
 })
 </script>
+
+<docs lang="mdx">
+## Examples
+
+The ChangeHeight component automatically animates the height of its content when it changes size.
+
+### Basic usage:
+
+```vue
+<template>
+  <ChangeHeight>
+    <div>Content whose height will be animated</div>
+  </ChangeHeight>
+</template>
+
+<script setup>
+import ChangeHeight from '@empathyco/x-components/js/components/animations/change-height.vue'
+</script>
+```
+
+### Example with dynamic content:
+
+```vue
+<template>
+  <div>
+    <button @click="expanded = !expanded">Toggle</button>
+    <ChangeHeight>
+      <div v-if="expanded" style="height: 200px; background: #eee;">Expanded content</div>
+      <div v-else style="height: 50px; background: #ccc;">Collapsed content</div>
+    </ChangeHeight>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ChangeHeight from '@empathyco/x-components/js/components/animations/change-height.vue'
+
+const expanded = ref(false)
+</script>
+```
+</docs>
