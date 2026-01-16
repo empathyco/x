@@ -93,39 +93,54 @@ export default defineComponent({
 
 A list of events that the component will emit:
 
-- `open`: the event is emitted after the user clicks the element and opens it.
-- `close`: the event is emitted after the user clicks the element and closes it.
+- `open`: emitted after the user clicks the element and opens it.
+- `close`: emitted after the user clicks the element and closes it.
 
 ## Examples
 
-Toggle panel which uses the base toggle panel, adds a header and manage the open / close state of
-the panel.
+Toggle panel which uses the base toggle panel, adds a header and manages the open/close state of the panel.
 
 ### Basic usage
 
 ```vue
-<BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="false">
-  <template #header-content="{ open }">
-    <p>Header, open: {{ open ? 'close' : 'open' }}</p>
-  </template>
-  <template>
-    <p>Default content</p>
-  </template>
-</BaseHeaderTogglePanel>
+<template>
+  <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="false">
+    <template #header-content="{ open }">
+      <p>Header, open: {{ open ? 'close' : 'open' }}</p>
+    </template>
+    <template #default>
+      <p>Default content</p>
+    </template>
+  </BaseHeaderTogglePanel>
+</template>
+
+<script setup>
+import { BaseHeaderTogglePanel } from '@empathyco/x-components'
+import { CollapseHeight } from '@empathyco/x-components/animations'
+const collapseHeight = CollapseHeight
+</script>
 ```
 
 ### Custom header
 
 ```vue
-<BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="true">
-  <template #header="{ toggleOpen, open }">
-    <p>Header, open: {{ open ? 'close' : 'open' }}</p>
-    <button @click="toggleOpen">Toggle</button>
-  </template>
-  <template>
-    <p>Default content</p>
-  </template>
-</BaseHeaderTogglePanel>
+<template>
+  <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="true">
+    <template #header="{ toggleOpen, open }">
+      <p>Header, open: {{ open ? 'close' : 'open' }}</p>
+      <button @click="toggleOpen">Toggle</button>
+    </template>
+    <template #default>
+      <p>Default content</p>
+    </template>
+  </BaseHeaderTogglePanel>
+</template>
+
+<script setup>
+import { BaseHeaderTogglePanel } from '@empathyco/x-components'
+import { CollapseHeight } from '@empathyco/x-components/animations'
+const collapseHeight = CollapseHeight
+</script>
 ```
 
 ### Customizing default header with classes
@@ -133,17 +148,25 @@ the panel.
 The `headerClass` prop can be used to add classes to the header of the toggle panel.
 
 ```vue
-<BaseHeaderTogglePanel
-  headerClass="custom-class"
-  :animation="collapseHeight"
-  :start-collapsed="false"
->
-  <template #header-content="{ open }">
-    <p>Header, open: {{ open ? 'close' : 'open' }}</p>
-  </template>
-  <template>
-    <p>Default content</p>
-  </template>
-</BaseHeaderTogglePanel>
+<template>
+  <BaseHeaderTogglePanel
+    headerClass="custom-class"
+    :animation="collapseHeight"
+    :start-collapsed="false"
+  >
+    <template #header-content="{ open }">
+      <p>Header, open: {{ open ? 'close' : 'open' }}</p>
+    </template>
+    <template #default>
+      <p>Default content</p>
+    </template>
+  </BaseHeaderTogglePanel>
+</template>
+
+<script setup>
+import { BaseHeaderTogglePanel } from '@empathyco/x-components'
+import { CollapseHeight } from '@empathyco/x-components/animations'
+const collapseHeight = CollapseHeight
+</script>
 ```
 </docs>

@@ -96,19 +96,19 @@ A list of events that the component will emit:
 
 ### Basic example
 
-The component rendering content passed to the default slot and opening the panel toggle with panelId
-`my-toggle`.
+The component renders content passed to the default slot and toggles the panel with panelId
+`myToggle`.
 
 ```vue
 <template>
   <div>
-    <BaseIdTogglePanelButton v-slot="{ isPanelOpen }" panelId="myToggle">
-      <template #default="{ isPanelOpen }" v-if="isPanelOpen">
-        <img src="./close-button-icon.svg" />
+    <BaseIdTogglePanelButton panelId="myToggle" v-slot="{ isPanelOpen }">
+      <template v-if="isPanelOpen">
+        <img src="./close-button-icon.svg" alt="Close aside" />
         <span>Close aside</span>
       </template>
       <template v-else>
-        <img src="./open-button-icon.svg" />
+        <img src="./open-button-icon.svg" alt="Open aside" />
         <span>Open aside</span>
       </template>
     </BaseIdTogglePanelButton>
@@ -118,25 +118,10 @@ The component rendering content passed to the default slot and opening the panel
   </div>
 </template>
 
-<script>
-import {
-  BaseIdTogglePanel,
-  BaseIdTogglePanelButton,
-  CollapseFromTop,
-} from '@empathyco/x-components'
-
-export default {
-  components: {
-    BaseIdTogglePanel,
-    BaseIdTogglePanelButton,
-    CollapseFromTop,
-  },
-  data: function () {
-    return {
-      animation: CollapseFromTop,
-    }
-  },
-}
+<script setup>
+import { BaseIdTogglePanel, BaseIdTogglePanelButton } from '@empathyco/x-components'
+import { CollapseFromTop } from '@empathyco/x-components/animations'
+const animation = CollapseFromTop
 </script>
 ```
 </docs>
