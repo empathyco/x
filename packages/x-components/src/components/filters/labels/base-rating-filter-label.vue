@@ -80,34 +80,62 @@ filter label must be a valid number string. For example: '3', '2.5', '0.25'
 ### Basic usage
 
 ```vue
-<BaseRatingFilterLabel :filter="filter" />
+<template>
+  <BaseRatingFilterLabel :filter="filter" />
+</template>
+
+<script setup>
+import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
+// Provide a valid filter object, e.g.:
+// const filter = ref({ label: '3', ... })
+</script>
 ```
 
 ### Customizing color
 
-Its possible to change the default color directly with color CSS attribute. For more elaborated
-styles it's possible to style the inner svg icons.
+It is possible to change the default color directly with the color CSS attribute. For more elaborate
+styles, you can style the inner svg icons.
 
 ```vue
-<BaseRatingFilterLabel :filter="filter" style="color: gold" />
+<template>
+  <BaseRatingFilterLabel :filter="filter" style="color: gold" />
+</template>
+
+<script setup>
+import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
+// Provide a valid filter object
+</script>
 ```
 
 ### Customizing its contents
 
-The `max` prop can be used to set the max rating number. It will render as many icons as the this
-`max` value.
+The `max` prop can be used to set the max rating number. It will render as many icons as this `max` value.
 
 ```vue
-<BaseRatingFilterLabel :filter="filter" :max="max" />
+<template>
+  <BaseRatingFilterLabel :filter="filter" :max="max" />
+</template>
+
+<script setup>
+import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
+// Provide a valid filter object and max value
+</script>
 ```
 
-The default icons can be changed using the `rating-icon-filled` and `rating-icon-empty` icons, to
-represent the filled empty and empty icon in the rating component.
+The default icons can be changed using the `rating-icon-filled` and `rating-icon-empty` slots, to
+represent the filled and empty icons in the rating component.
 
 ```vue
-<BaseRatingFilterLabel :filter="filter" :max="max">
-  <template #rating-icon-filled>♥</template>
-  <template #rating-icon-empty>♡</template>
-</BaseRatingFilterLabel>
+<template>
+  <BaseRatingFilterLabel :filter="filter" :max="max">
+    <template #rating-icon-filled>♥</template>
+    <template #rating-icon-empty>♡</template>
+  </BaseRatingFilterLabel>
+</template>
+
+<script setup>
+import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
+// Provide a valid filter object and max value
+</script>
 ```
 </docs>
