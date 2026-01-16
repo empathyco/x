@@ -277,7 +277,7 @@ export default defineComponent({
 <docs lang="mdx">
 ## Layout
 
-This component has the following layout with fixed headers and collapsible fixed asides:
+This component provides a multi-column layout with fixed headers and collapsible fixed asides:
 
 |            |   header   |               |
 | :--------: | :--------: | :-----------: |
@@ -286,26 +286,25 @@ This component has the following layout with fixed headers and collapsible fixed
 |            |    main    |               |
 |            |            | scroll-to-top |
 
-Additionally it provides an empty slot `extra-aside` to be customized by the user.
+Additionally, it provides an empty slot `extra-aside` to be customized by the user.
 
 ## Design Tokens
 
-The component has also the following `Design Tokens` to configure it:
-
-|                    token                    | default value |
+The component exposes the following `Design Tokens` for configuration:
+| token | default value |
 | :-----------------------------------------: | :-----------: |
-|       --x-size-height-layout-backdrop       |     40vh      |
-|         --x-size-width-layout-aside         |     300px     |
-|         --x-size-min-margin-layout          |     20px      |
-|      --x-size-max-height-layout-header      |     auto      |
-|          --x-size-max-width-layout          |    1440px     |
-| --x-color-background-layout-header-backdrop |     white     |
-|     --x-color-background-layout-header      |  transparent  |
-|     --x-size-border-color-layout-header     |  transparent  |
-|     --x-size-border-width-layout-header     |      0px      |
-|   --x-color-background-layout-sub-header    |  transparent  |
-|   --x-size-border-color-layout-sub-header   |  transparent  |
-|   --x-size-border-width-layout-sub-header   |      0px      |
+| --x-size-height-layout-backdrop | 40vh |
+| --x-size-width-layout-aside | 300px |
+| --x-size-min-margin-layout | 20px |
+| --x-size-max-height-layout-header | auto |
+| --x-size-max-width-layout | 1440px |
+| --x-color-background-layout-header-backdrop | white |
+| --x-color-background-layout-header | transparent |
+| --x-size-border-color-layout-header | transparent |
+| --x-size-border-width-layout-header | 0px |
+| --x-color-background-layout-sub-header | transparent |
+| --x-size-border-color-layout-sub-header | transparent |
+| --x-size-border-width-layout-sub-header | 0px |
 
 |                    token                    |                    use                    |
 | :-----------------------------------------: | :---------------------------------------: |
@@ -321,4 +320,25 @@ The component has also the following `Design Tokens` to configure it:
 |   --x-color-background-layout-sub-header    |  The background color of the sub header   |
 |   --x-size-border-color-layout-sub-header   |    The border color of the sub header     |
 |   --x-size-border-width-layout-sub-header   |     The border with of the sub header     |
+
+## Example
+
+```vue
+<template>
+  <FixedHeaderAndAsidesLayout>
+    <template #header>Header content</template>
+    <template #sub-header>Sub-header content</template>
+    <template #toolbar>Toolbar content</template>
+    <template #main>Main content</template>
+    <template #left-aside>Left aside content</template>
+    <template #right-aside>Right aside content</template>
+    <template #extra-aside>Extra aside content</template>
+    <template #scroll-to-top>Scroll to top content</template>
+  </FixedHeaderAndAsidesLayout>
+</template>
+
+<script setup>
+import FixedHeaderAndAsidesLayout from '@empathyco/x-components/js/components/layouts/fixed-header-and-asides-layout.vue'
+</script>
+```
 </docs>
