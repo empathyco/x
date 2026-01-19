@@ -104,142 +104,101 @@ export default defineComponent({
 </script>
 
 <docs lang="mdx">
-## Example
+## Examples
 
-The `BaseScroll` is a component that manages the state of scroll of a specified element. The
-component does the necessary calculations for knowing the direction of scroll, if the scroll has
-reached to start or to end, and is about to reaching to end. The components emits the next events
-depending of movement that realize the user:
+### Basic usage
+
+This is a highly configurable component that manages the scroll state of an element and emits events
+for scroll position, direction, when reaching the start or end, and when about reaching the end.
 
 ```vue
 <template>
   <BaseScroll
-    @scroll="scroll"
-    @scroll:direction-change="scrollDirectionChange"
-    @scroll:at-start="scrollAtStart"
-    @scroll:almost-at-end="scrollAlmostAtEnd"
-    @scroll:at-end="scrollAtEnd"
+    @scroll="onScroll"
+    @scroll:direction-change="onDirectionChange"
+    @scroll:at-start="onAtStart"
+    @scroll:almost-at-end="onAlmostAtEnd"
+    @scroll:at-end="onAtEnd"
     :throttleMs="1000"
     :distanceToBottom="200"
   >
-    <template>
-      <div class="content-scroll">
-        <span>content1</span>
-        <span>content1</span>
-      </div>
-    </template>
+    <div class="content-scroll">
+      <span>content1</span>
+      <span>content2</span>
+    </div>
   </BaseScroll>
 </template>
 
-<script>
+<script setup>
 import { BaseScroll } from '@empathyco/x-components'
-
-export default {
-  name: 'ScrollTest',
-  components: {
-    BaseScroll,
-  },
-  methods: {
-    scroll(position) {
-      console.log('scroll', position)
-    },
-    scrollDirectionChange(direction) {
-      console.log('scroll:direction-change', direction)
-    },
-    scrollAtStart() {
-      console.log('scroll:at-start')
-    },
-    scrollAlmostAtEnd(distance) {
-      console.log('scroll:almost-at-end', distance)
-    },
-    scrollAtEnd() {
-      console.log('scroll:at-end')
-    },
-  },
+function onScroll(position) {
+  console.log('scroll', position)
+}
+function onDirectionChange(direction) {
+  console.log('scroll:direction-change', direction)
+}
+function onAtStart() {
+  console.log('scroll:at-start')
+}
+function onAlmostAtEnd(distance) {
+  console.log('scroll:almost-at-end', distance)
+}
+function onAtEnd() {
+  console.log('scroll:at-end')
 }
 </script>
 ```
 
 ### Avoid reset scroll on query change
 
-Set to false the reset scroll on query change feature which is true by default.
+Set `resetOnChange` to `false` to prevent scroll reset on query change (default is `true`).
 
 ```vue
 <template>
-  <BaseScroll @scroll="scroll" :resetOnChange="false">
-    <template>
-      <div class="content-scroll">
-        <span>content1</span>
-        <span>content1</span>
-      </div>
-    </template>
+  <BaseScroll @scroll="onScroll" :resetOnChange="false">
+    <div class="content-scroll">
+      <span>content1</span>
+      <span>content2</span>
+    </div>
   </BaseScroll>
 </template>
 
-<script>
+<script setup>
 import { BaseScroll } from '@empathyco/x-components'
-
-export default {
-  name: 'ScrollTest',
-  components: {
-    BaseScroll,
-  },
-  methods: {
-    scroll(position) {
-      console.log('scroll', position)
-    },
-  },
+function onScroll(position) {
+  console.log('scroll', position)
 }
 </script>
 ```
 
-### Reset scroll
+### Reset scroll on custom events
 
-You can configure which events reset the scroll position using the `resetOn` prop.
+Configure which events reset the scroll position using the `resetOn` prop.
 
 ```vue
 <template>
-  <BaseScroll @scroll="scroll" :resetOn="resetScrollEvents">
-    <template>
-      <div class="content-scroll">
-        <span>content1</span>
-        <span>content1</span>
-      </div>
-    </template>
+  <BaseScroll @scroll="onScroll" :resetOn="resetScrollEvents">
+    <div class="content-scroll">
+      <span>content1</span>
+      <span>content2</span>
+    </div>
   </BaseScroll>
 </template>
 
-<script>
+<script setup>
 import { BaseScroll } from '@empathyco/x-components'
-
-export default {
-  name: 'ScrollTest',
-  components: {
-    BaseScroll,
-  },
-  data() {
-    return {
-      resetScrollEvents: ['UserAcceptedAQuery'],
-    }
-  },
-  methods: {
-    scroll(position) {
-      console.log('scroll', position)
-    },
-  },
+const resetScrollEvents = ['UserAcceptedAQuery']
+function onScroll(position) {
+  console.log('scroll', position)
 }
 </script>
 ```
 
-## Vue Events:
+## Vue Events
 
-- `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
-  top distance in pixels.
-- `scroll:direction-change`: the event is emitted when the user changes the scroll direction. The
-  payload is the new scrolling direction.
-- `scroll:at-start`: the event is emitted when the user scrolls up to the initial position of the
-  scroll.
-- `scroll:almost-at-end`: the event is emitted when the user is about to reach the bottom part of
-  the scroll.
-- `scroll:at-end`: the event is emitted when the user has reached the bottom part of the scroll.
+- `scroll`: emitted after the user scrolls in this container. Payload: scroll top distance in pixels.
+- `scroll:direction-change`: emitted when the user changes the scroll direction. Payload: new direction.
+- `scroll:at-start`: emitted when the user scrolls to the initial position.
+- `scroll:almost-at-end`: emitted when the user is about to reach the bottom.
+- `scroll:at-end`: emitted when the user has reached the bottom.
 </docs>
