@@ -86,8 +86,13 @@ filter label must be a valid number string. For example: '3', '2.5', '0.25'
 
 <script setup>
 import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
-// Provide a valid filter object, e.g.:
-// const filter = ref({ label: '3', ... })
+import { ref } from 'vue'
+const filter = ref({
+  label: '3',
+  selected: false,
+  id: 'rating-3',
+  modelName: 'BooleanFilter',
+})
 </script>
 ```
 
@@ -103,7 +108,13 @@ styles, you can style the inner svg icons.
 
 <script setup>
 import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
-// Provide a valid filter object
+import { ref } from 'vue'
+const filter = ref({
+  label: '4.5',
+  selected: false,
+  id: 'rating-4.5',
+  modelName: 'BooleanFilter',
+})
 </script>
 ```
 
@@ -118,7 +129,14 @@ The `max` prop can be used to set the max rating number. It will render as many 
 
 <script setup>
 import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
-// Provide a valid filter object and max value
+import { ref } from 'vue'
+const filter = ref({
+  label: '2.5',
+  selected: false,
+  id: 'rating-2.5',
+  modelName: 'BooleanFilter',
+})
+const max = 7
 </script>
 ```
 
@@ -135,7 +153,14 @@ represent the filled and empty icons in the rating component.
 
 <script setup>
 import BaseRatingFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-rating-filter-label.vue'
-// Provide a valid filter object and max value
+import { ref } from 'vue'
+const filter = ref({
+  label: '5',
+  selected: false,
+  id: 'rating-5',
+  modelName: 'BooleanFilter',
+})
+const max = 5
 </script>
 ```
 </docs>
