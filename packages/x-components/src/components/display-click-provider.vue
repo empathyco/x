@@ -79,3 +79,66 @@ export default defineComponent({
   },
 })
 </script>
+
+<docs lang="mdx">
+## Usage
+
+The `DisplayClickProvider` component is used to provide context and event metadata for display result clicks and add-to-cart actions. It should wrap the content that needs to access these events and metadata via Vue's provide/inject mechanism.
+
+### Basic example
+
+```vue
+<template>
+  <DisplayClickProvider :resultFeature="'overview'">
+    <ResultCard :result="result" />
+  </DisplayClickProvider>
+</template>
+
+<script setup>
+import { DisplayClickProvider } from '@empathyco/x-components'
+import ResultCard from './ResultCard.vue'
+const result = {
+  /* ...result data... */
+}
+</script>
+```
+
+### With tagging and ignoring result click event
+
+```vue
+<template>
+  <DisplayClickProvider
+    :resultFeature="'related_prompts'"
+    :toolingDisplayTagging="displayTagging"
+    :toolingAdd2CartTagging="add2CartTagging"
+    :queryTagging="queryTagging"
+    :ignoreResultClickEvent="true"
+  >
+    <ResultCard :result="result" />
+  </DisplayClickProvider>
+</template>
+
+<script setup>
+import { DisplayClickProvider } from '@empathyco/x-components'
+import ResultCard from './ResultCard.vue'
+const result = {
+  /* ...result data... */
+}
+const displayTagging = {
+  /* ...tagging data... */
+}
+const add2CartTagging = {
+  /* ...tagging data... */
+}
+const queryTagging = {
+  /* ...tagging data... */
+}
+</script>
+```
+
+### Notes
+
+- The component uses Vue 3's provide/inject API and is intended for use in Vue 3 projects.
+- All props are reactive and can be updated dynamically.
+- The default slot is required and should contain the content that will use the provided context.
+</docs>

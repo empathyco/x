@@ -133,19 +133,23 @@ on this value.
 ### Basic usage
 
 ```vue
-<BaseRating :value="5.23" />
+<template>
+  <BaseRating :value="5.23" />
+</template>
 ```
 
 ### Customizing its contents
 
 ```vue
-<BaseRating :value="7.15" :max="10">
-  <template #filled-icon>
-    <TestIcon/>
-  </template>
-  <template #empty-icon>
-    <TestIcon/>
-  </template>
-</BaseRating>
+<template>
+  <BaseRating :value="7.15" :max="10">
+    <template #filled-icon>
+      <TestIcon />
+    </template>
+    <template #empty-icon>
+      <TestIcon />
+    </template>
+  </BaseRating>
+</template>
 ```
 </docs>

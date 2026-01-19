@@ -101,11 +101,13 @@ export default defineComponent({
 </script>
 
 <docs lang="mdx">
-## Example
+## Examples
 
 The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to the
 `ColumnsNumberProvided` events and passes the selected amount of columns to the grid. It also allows
-you to customize the grid items using the available `scopedSlots`.
+you to customize the grid items using the available slots.
+
+### Basic example
 
 ```vue
 <template>
@@ -124,36 +126,17 @@ you to customize the grid items using the available `scopedSlots`.
   </section>
 </template>
 
-<script>
+<script setup>
 import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultsSection',
-  components: {
-    BaseVariableColumnGrid,
-  },
-  data() {
-    return {
-      animation: StaggeredFadeAndSlide,
-      items: [
-        {
-          id: 'res-1',
-          modelName: 'Result',
-          name: 'Product 1',
-        },
-        {
-          id: 'res-2',
-          modelName: 'Result',
-          name: 'Product 2',
-        },
-      ],
-    }
-  },
-  methods: {
-    setColumns(columns) {
-      this.$x.emit('UserClickedColumnPicker', columns)
-    },
-  },
+import { ref } from 'vue'
+const animation = StaggeredFadeAndSlide
+const items = [
+  { id: 'res-1', modelName: 'Result', name: 'Product 1' },
+  { id: 'res-2', modelName: 'Result', name: 'Product 2' },
+]
+function setColumns(columns) {
+  // Emits the event to change columns
+  // $x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```
@@ -180,36 +163,17 @@ Configuring the default columns to be rendered. These columns will be the defaul
   </section>
 </template>
 
-<script>
+<script setup>
 import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultsSection',
-  components: {
-    BaseVariableColumnGrid,
-  },
-  data() {
-    return {
-      animation: StaggeredFadeAndSlide,
-      items: [
-        {
-          id: 'res-1',
-          modelName: 'Result',
-          name: 'Product 1',
-        },
-        {
-          id: 'res-2',
-          modelName: 'Result',
-          name: 'Product 2',
-        },
-      ],
-    }
-  },
-  methods: {
-    setColumns(columns) {
-      this.$x.emit('UserClickedColumnPicker', columns)
-    },
-  },
+import { ref } from 'vue'
+const animation = StaggeredFadeAndSlide
+const items = [
+  { id: 'res-1', modelName: 'Result', name: 'Product 1' },
+  { id: 'res-2', modelName: 'Result', name: 'Product 2' },
+]
+function setColumns(columns) {
+  // Emits the event to change columns
+  // $x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```
@@ -232,32 +196,14 @@ items.
   </BaseVariableColumnGrid>
 </template>
 
-<script>
+<script setup>
 import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultsSection',
-  components: {
-    BaseVariableColumnGrid,
-  },
-  data() {
-    return {
-      animation: StaggeredFadeAndSlide,
-      items: [
-        {
-          id: 'res-1',
-          modelName: 'Result',
-          name: 'Product 1',
-        },
-        {
-          id: 'res-2',
-          modelName: 'Result',
-          name: 'Product 2',
-        },
-      ],
-    }
-  },
-}
+import { ref } from 'vue'
+const animation = StaggeredFadeAndSlide
+const items = [
+  { id: 'res-1', modelName: 'Result', name: 'Product 1' },
+  { id: 'res-2', modelName: 'Result', name: 'Product 2' },
+]
 </script>
 ```
 </docs>

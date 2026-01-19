@@ -206,22 +206,10 @@ It is required to send the value prop which holds the selected values.
   <BaseSlider v-model="selectedRange" />
 </template>
 
-<script>
+<script setup>
 import { BaseSlider } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSliderDemo',
-  components: {
-    BaseSlider,
-  },
-  setup() {
-    const selectedRange = ref({ min: 0, max: 1000 })
-
-    return {
-      selectedRange,
-    }
-  },
-}
+import { ref } from 'vue'
+const selectedRange = ref({ min: 0, max: 1000 })
 </script>
 ```
 
@@ -232,24 +220,11 @@ export default {
   <BaseSlider v-model="selectedRange" :threshold="threshold" />
 </template>
 
-<script>
+<script setup>
 import { BaseSlider } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSliderDemo',
-  components: {
-    BaseSliderDemo,
-  },
-  setup() {
-    const threshold = ref({ min: 0, max: 1000 })
-    const selectedRange = ref(threshold.value)
-
-    return {
-      selectedRange,
-      threshold,
-    }
-  },
-}
+import { ref } from 'vue'
+const threshold = { min: 0, max: 1000 }
+const selectedRange = ref({ ...threshold })
 </script>
 ```
 
@@ -277,24 +252,11 @@ It is possible to override the default slot to customize the layout for the sele
   </BaseSlider>
 </template>
 
-<script>
+<script setup>
 import { BaseSlider } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSliderDemo',
-  components: {
-    BaseSliderDemo,
-  },
-  setup() {
-    const threshold = ref({ min: 0, max: 1000 })
-    const selectedRange = ref(threshold.value)
-
-    return {
-      selectedRange,
-      threshold,
-    }
-  },
-}
+import { ref } from 'vue'
+const threshold = { min: 0, max: 1000 }
+const selectedRange = ref({ ...threshold })
 </script>
 ```
 
@@ -325,24 +287,11 @@ manually.
   </BaseSlider>
 </template>
 
-<script>
+<script setup>
 import { BaseSlider } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSliderDemo',
-  components: {
-    BaseSliderDemo,
-  },
-  setup() {
-    const threshold = ref({ min: 0, max: 1000 })
-    const selectedRange = ref(threshold.value)
-
-    return {
-      selectedRange,
-      threshold,
-    }
-  },
-}
+import { ref } from 'vue'
+const threshold = { min: 0, max: 1000 }
+const selectedRange = ref({ ...threshold })
 </script>
 ```
 </docs>

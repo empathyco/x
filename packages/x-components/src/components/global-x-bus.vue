@@ -52,19 +52,11 @@ Event by using the prop `listeners`
   <GlobalXBus :listeners="{ UserAcceptedAQuery: printQuery }" />
 </template>
 
-<script>
+<script setup>
 import { GlobalXBus } from '@empathyco/x-components'
-export default {
-  name: 'GlobalXBusTest',
-  components: {
-    GlobalXBus,
-  },
-  methods: {
-    printQuery(query, metadata) {
-      console.log('My new query is:', query)
-      console.log('And has been triggered by this DOM element:', metadata.target)
-    },
-  },
+function printQuery(query, metadata) {
+  console.log('My new query is:', query)
+  console.log('And has been triggered by this DOM element:', metadata.target)
 }
 </script>
 ```
