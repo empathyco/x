@@ -73,26 +73,20 @@ _See how the snippet config is injected and passed to the SnippetConfigExtraPara
   </Provider>
 </template>
 
-<script>
+<script setup>
 import { SnippetConfigExtraParams } from '@empathyco/x-components/extra-params'
+import { defineComponent, provide } from 'vue'
 
-const Provider = {
-  provide: {
-    snippetConfig: {
+const Provider = defineComponent({
+  setup(_, { slots }) {
+    provide('snippetConfig', {
       instance: 'demo',
       lang: 'es',
       warehouse: 1234,
-    },
+    })
+    return () => slots.default?.()
   },
-}
-
-export default {
-  name: 'SnippetConfigExtraParamsDemo',
-  components: {
-    Provider,
-    SnippetConfigExtraParams,
-  },
-}
+})
 </script>
 ```
 </docs>

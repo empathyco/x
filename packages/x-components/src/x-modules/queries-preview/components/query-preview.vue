@@ -318,20 +318,10 @@ results.
   <QueryPreview :queryPreviewInfo="queryPreviewInfo" />
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemo',
-  components: {
-    QueryPreview,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'sandals' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'sandals' })
 </script>
 ```
 
@@ -365,24 +355,11 @@ In this example, the results will be rendered inside a sliding panel.
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
 import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'QueryPreviewDemoOverridingSlot',
-  components: {
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreview,
-    SlidingPanel,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 
@@ -400,20 +377,10 @@ In this example, the ID of the results will be rendered along with the name.
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemoOverridingResultSlot',
-  components: {
-    QueryPreview,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 
@@ -436,25 +403,12 @@ In this example, the query preview has been limited to render a maximum of 4 res
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components'
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemo',
-  components: {
-    BaseGrid,
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreview,
-  },
-  data() {
-    return {
-      maxItemsToRender: 4,
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const maxItemsToRender = 4
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 </docs>

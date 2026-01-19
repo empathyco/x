@@ -72,30 +72,20 @@ A list of events that the component will emit:
 
 ## See it in action
 
-Here you can see that the semantic query query is rendered.
+Here you can see that the semantic query is rendered.
 
 ```vue live
 <template>
   <SemanticQuery :suggestion="semanticQuery" />
 </template>
 
-<script>
+<script setup>
 import { SemanticQuery } from '@empathyco/x-components/semantic-queries'
 
-export default {
-  name: 'SemanticQueryDemo',
-  components: {
-    SemanticQuery,
-  },
-  data() {
-    return {
-      semanticQuery: {
-        modelName: 'SemanticQuery',
-        query: 'jacket',
-        distance: 2,
-      },
-    }
-  },
+const semanticQuery = {
+  modelName: 'SemanticQuery',
+  query: 'jacket',
+  distance: 2,
 }
 </script>
 ```
@@ -112,23 +102,13 @@ In this example, we add the distance of the semantic query next to the query.
   </SemanticQuery>
 </template>
 
-<script>
+<script setup>
 import { SemanticQuery } from '@empathyco/x-components/semantic-queries'
 
-export default {
-  name: 'SemanticQueryDemoDefaultSlot',
-  components: {
-    SemanticQuery,
-  },
-  data() {
-    return {
-      semanticQuery: {
-        modelName: 'SemanticQuery',
-        query: 'jacket',
-        distance: 2,
-      },
-    }
-  },
+const semanticQuery = {
+  modelName: 'SemanticQuery',
+  query: 'jacket',
+  distance: 2,
 }
 </script>
 ```
