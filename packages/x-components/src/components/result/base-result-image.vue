@@ -241,7 +241,17 @@ other section which needs to include results.
 The result prop is required. It will render a `<img/>` with the result image:
 
 ```vue
-<BaseResultImage :result="result" />
+<template>
+  <BaseResultImage :result="result" />
+</template>
+
+<script setup>
+import { BaseResultImage } from '@empathyco/x-components'
+const result = {
+  name: 'Jacket',
+  images: ['https://some-image-url.com/image1.jpg'],
+}
+</script>
 ```
 
 ### Showing the next image on hover
@@ -249,7 +259,17 @@ The result prop is required. It will render a `<img/>` with the result image:
 If a result has multiple images, it can show the next one on hover.
 
 ```vue
-<BaseResultImage :result="result" showNextImageOnHover />
+<template>
+  <BaseResultImage :result="result" showNextImageOnHover />
+</template>
+
+<script setup>
+import { BaseResultImage } from '@empathyco/x-components'
+const result = {
+  name: 'Jacket',
+  images: ['https://some-image-url.com/image1.jpg', 'https://some-image-url.com/image2.jpg'],
+}
+</script>
 ```
 
 ### Customizing slots content
@@ -262,19 +282,29 @@ The other slot is called `placeholder`, and allows you to set the image that its
 displayed while the real one is loaded.
 
 ```vue
-<BaseResultImage :result="result">
-  <template #placeholder>
-    <img alt="Placeholder image" src="./placeholder-image.svg"/>
-  </template>
-  <template #fallback>
-    <img alt="Fallback image" src="./fallback-image.svg"/>
-  </template>
-</BaseResultImage>
+<template>
+  <BaseResultImage :result="result">
+    <template #placeholder>
+      <img alt="Placeholder image" src="./placeholder-image.svg" />
+    </template>
+    <template #fallback>
+      <img alt="Fallback image" src="./fallback-image.svg" />
+    </template>
+  </BaseResultImage>
+</template>
+
+<script setup>
+import { BaseResultImage } from '@empathyco/x-components'
+const result = {
+  name: 'Jacket',
+  images: ['https://some-image-url.com/image1.jpg'],
+}
+</script>
 ```
 
 ### Customizing the animations
 
-Two animations can be used this component.
+Two animations can be used in this component.
 
 The `loadAnimation` is used to transition between the placeholder, the fallback and the image.
 
@@ -293,25 +323,14 @@ The `hoverAnimation` is used to transition between the image and the hover image
   />
 </template>
 
-<script>
+<script setup>
 import { BaseResultImage } from '@empathyco/x-components'
 import { CrossFade, CollapseHeight } from '@empathyco/x-components/animations'
-
-export default {
-  name: 'BaseResultImageAnimations',
-  components: {
-    BaseResultImage,
-  },
-  data() {
-    return {
-      loadAnimation: CrossFade,
-      hoverAnimation: CollapseHeight,
-      result: {
-        name: 'jacket',
-        images: ['https://some-image', 'https://some-image-2'],
-      },
-    }
-  },
+const loadAnimation = CrossFade
+const hoverAnimation = CollapseHeight
+const result = {
+  name: 'Jacket',
+  images: ['https://some-image-url.com/image1.jpg', 'https://some-image-url.com/image2.jpg'],
 }
 </script>
 ```

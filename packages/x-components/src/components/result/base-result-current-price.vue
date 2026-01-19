@@ -84,14 +84,34 @@ This component shows the current price formatted. You can provide the `format` b
 the `BaseCurrency` component use an injected one.
 
 ```vue
-<BaseResultCurrentPrice :value="result" :format="'i.iii,ddd €'" />
+<template>
+  <BaseResultCurrentPrice :result="result" :format="'i.iii,ddd €'" />
+</template>
+
+<script setup>
+import { BaseResultCurrentPrice } from '@empathyco/x-components'
+const result = {
+  price: { value: 123.45, hasDiscount: false },
+  // ...other result properties
+}
+</script>
 ```
 
 ### Overriding default slot
 
 ```vue
-<BaseResultCurrentPrice :result="result">
-  <span class="custom-base-result-current-price">{{ result.price.value }}</span>
-</BaseResultCurrentPrice>
+<template>
+  <BaseResultCurrentPrice :result="result">
+    <span class="custom-base-result-current-price">{{ result.price.value }}</span>
+  </BaseResultCurrentPrice>
+</template>
+
+<script setup>
+import { BaseResultCurrentPrice } from '@empathyco/x-components'
+const result = {
+  price: { value: 123.45, hasDiscount: false },
+  // ...other result properties
+}
+</script>
 ```
 </docs>

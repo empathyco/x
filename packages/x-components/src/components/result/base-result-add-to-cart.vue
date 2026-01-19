@@ -97,12 +97,24 @@ Renders a button with a default slot. It receives the result with the data and e
 
 ### Basic example
 
-This component is a button to emit `UserClickedResultAddToCart` whe clicked by the user
+This component is a button to emit `UserClickedResultAddToCart` when clicked by the user.
 
 ```vue
-<BaseResultAddToCart :result="result">
-  <img src="./add-to-cart.svg" />
-  <span>Add to cart</span>
-</BaseResultAddToCart>
+<template>
+  <BaseResultAddToCart :result="result">
+    <img src="./add-to-cart.svg" alt="Add to cart" />
+    <span>Add to cart</span>
+  </BaseResultAddToCart>
+</template>
+
+<script setup>
+import { BaseResultAddToCart } from '@empathyco/x-components'
+const result = {
+  id: '123',
+  name: 'Product name',
+  price: 19.99,
+  // ...other result properties
+}
+</script>
 ```
 </docs>
