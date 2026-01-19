@@ -169,72 +169,102 @@ This component will listen to the configured events in `eventsToOpenEmpathize` a
 are:
 
 - Open: `UserFocusedSearchBox`, `UserIsTypingAQuery`, `UserClickedSearchBox`
-- Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnter` and 'UserBlurredSearchBox`
+- Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnterKey`, `UserBlurredSearchBox`
 
-### Basic examples
+### Basic example
 
 The component rendering the query suggestions, popular searches and history queries with keyboard
 navigation.
 
 ```vue
-<Empathize>
-  <template #default>
+<template>
+  <Empathize>
     <BaseKeyboardNavigation>
-      <QuerySuggestions/>
-      <PopularSearches/>
-      <HistoryQueries/>
+      <QuerySuggestions />
+      <PopularSearches />
+      <HistoryQueries />
     </BaseKeyboardNavigation>
-  </template>
-</Empathize>
+  </Empathize>
+</template>
+
+<script setup>
+import Empathize from '@empathyco/x-components/js/x-modules/empathize/components/empathize.vue'
+import BaseKeyboardNavigation from '@empathyco/x-components/js/components/base-keyboard-navigation.vue'
+import QuerySuggestions from '@empathyco/x-components/js/x-modules/query-suggestions/components/query-suggestions.vue'
+import PopularSearches from '@empathyco/x-components/js/x-modules/popular-searches/components/popular-searches.vue'
+import HistoryQueries from '@empathyco/x-components/js/x-modules/history-queries/components/history-queries.vue'
+</script>
 ```
 
-Defining custom values for the events to open and close the Empathize. For example opening it when
+Defining custom values for the events to open and close the Empathize. For example, opening it when
 the search box loses the focus and closing it when the search box receives the focus:
 
 ```vue
-<Empathize
-  :eventsToOpenEmpathize="['UserBlurredSearchBox']"
-  :eventsToCloseEmpathize="['UserFocusedSearchBox']"
->
-  <template #default>
+<template>
+  <Empathize
+    :events-to-open-empathize="['UserBlurredSearchBox']"
+    :events-to-close-empathize="['UserFocusedSearchBox']"
+  >
     Please, type a query in the Search Box.
-  </template>
-</Empathize>
+  </Empathize>
+</template>
+
+<script setup>
+import Empathize from '@empathyco/x-components/js/x-modules/empathize/components/empathize.vue'
+</script>
 ```
 
-An animation can be used for the opening and closing using the `animation` prop. The animation, must
-be a Component with a `Transition` with a slot inside:
+An animation can be used for the opening and closing using the `animation` prop. The animation must
+be a component with a `Transition` and a slot inside:
 
 ```vue
-<Empathize :animation="collapseFromTop">
-  <template #default>
-    <PopularSearches/>
-  </template>
-</Empathize>
+<template>
+  <Empathize :animation="collapseFromTop">
+    <PopularSearches />
+  </Empathize>
+</template>
+
+<script setup>
+import Empathize from '@empathyco/x-components/js/x-modules/empathize/components/empathize.vue'
+import PopularSearches from '@empathyco/x-components/js/x-modules/popular-searches/components/popular-searches.vue'
+import collapseFromTop from './collapseFromTop.vue'
+</script>
 ```
 
-### Advance examples
+### Advanced example
 
 The component rendering the query suggestions, popular searches and history queries with keyboard
 navigation. It also configures `searchAndCloseOnNoContent` to trigger a search and close the empathize
-when has no-content as fallback behaviour. To do that, `hasContent` prop must be reactive to know
-if the empathize has content or not.
-It also configures `searchAndCloseDebounceInMs` to 500ms as debounce time to search and close the
-empathize when has no-content.
+when it has no content as fallback behaviour. To do that, `hasContent` prop must be reactive to know
+if the empathize has content or not. It also configures `searchAndCloseDebounceInMs` to 500ms as debounce time to search and close the empathize when it has no content.
 
 ```vue
-<Empathize
-  :animation="empathizeAnimation"
-  :events-to-close-empathize="empathizeCloseEvents"
-  :has-content="showEmpathize"
-  :search-and-close-debounce-in-ms="500"
-  search-and-close-on-no-content
->
-  <BaseKeyboardNavigation>
-    <QuerySuggestions/>
-    <PopularSearches/>
-    <HistoryQueries/>
-  </BaseKeyboardNavigation>
-</Empathize>
+<template>
+  <Empathize
+    :animation="empathizeAnimation"
+    :events-to-close-empathize="empathizeCloseEvents"
+    :has-content="showEmpathize"
+    :search-and-close-debounce-in-ms="500"
+    search-and-close-on-no-content
+  >
+    <BaseKeyboardNavigation>
+      <QuerySuggestions />
+      <PopularSearches />
+      <HistoryQueries />
+    </BaseKeyboardNavigation>
+  </Empathize>
+</template>
+
+<script setup>
+import Empathize from '@empathyco/x-components/js/x-modules/empathize/components/empathize.vue'
+import BaseKeyboardNavigation from '@empathyco/x-components/js/components/base-keyboard-navigation.vue'
+import QuerySuggestions from '@empathyco/x-components/js/x-modules/query-suggestions/components/query-suggestions.vue'
+import PopularSearches from '@empathyco/x-components/js/x-modules/popular-searches/components/popular-searches.vue'
+import HistoryQueries from '@empathyco/x-components/js/x-modules/history-queries/components/history-queries.vue'
+import { ref } from 'vue'
+const empathizeAnimation = null // Provide your animation component
+const empathizeCloseEvents = ['UserClosedEmpathize', 'UserSelectedASuggestion']
+const showEmpathize = ref(true)
+</script>
 ```
 </docs>

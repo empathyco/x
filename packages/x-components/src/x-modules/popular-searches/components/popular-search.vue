@@ -74,37 +74,28 @@ A list of events that the component will emit:
 
 ## Examples
 
-This components expects just a suggestion as a prop to be rendered. It has a slot to override the
+This component expects just a suggestion as a prop to be rendered. It has a slot to override the
 content. By default, it renders the suggestion query of the popular search.
 
-### Basic Usage
+### Basic usage
 
 ```vue live
 <template>
   <PopularSearch :suggestion="suggestion" />
 </template>
 
-<script>
+<script setup>
 import { PopularSearch } from '@empathyco/x-components/popular-searches'
-export default {
-  name: 'PopularSearchDemo',
-  components: {
-    PopularSearch,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'PopularSearch',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'PopularSearch',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
-### Custom Usage
+### Custom usage
 
 ```vue live
 <template>
@@ -116,26 +107,15 @@ export default {
   </PopularSearch>
 </template>
 
-<script>
+<script setup>
 import { PopularSearch } from '@empathyco/x-components/popular-searches'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'PopularSearchDemo',
-  components: {
-    PopularSearch,
-    TrendingIcon,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'PopularSearch',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'PopularSearch',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 </docs>

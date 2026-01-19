@@ -177,24 +177,14 @@ _Try resizing the browser window!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { DeviceDetector } from '@empathyco/x-components/device'
-
-export default {
-  name: 'DeviceDemo',
-  components: {
-    DeviceDetector,
-  },
-  data() {
-    return {
-      breakpoints: {
-        mobile: 600,
-        tablet: 900,
-        desktop: Number.POSITIVE_INFINITY,
-      },
-    }
-  },
-}
+import { reactive } from 'vue'
+const breakpoints = reactive({
+  mobile: 600,
+  tablet: 900,
+  desktop: Number.POSITIVE_INFINITY,
+})
 </script>
 ```
 
@@ -213,31 +203,21 @@ _Try resizing the window to check that it never changes_
   </div>
 </template>
 
-<script>
+<script setup>
 import { DeviceDetector } from '@empathyco/x-components/device'
-
-export default {
-  name: 'DeviceDemo',
-  components: {
-    DeviceDetector,
-  },
-  data() {
-    return {
-      breakpoints: {
-        mobile: 600,
-        tablet: 900,
-        desktop: Number.POSITIVE_INFINITY,
-      },
-    }
-  },
-}
+import { reactive } from 'vue'
+const breakpoints = reactive({
+  mobile: 600,
+  tablet: 900,
+  desktop: Number.POSITIVE_INFINITY,
+})
 </script>
 ```
 
 ### Play with events
 
 In this example, the `DeviceDetector` will emit a `DeviceProvided` event, with the new device as the
-payload. This device is stored in a data variable and then displayed.
+payload. This device is stored in a ref and then displayed.
 
 _Try resizing the browser window!_
 
@@ -249,29 +229,17 @@ _Try resizing the browser window!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { DeviceDetector } from '@empathyco/x-components/device'
-
-export default {
-  name: 'DeviceDemo',
-  components: {
-    DeviceDetector,
-  },
-  data() {
-    return {
-      device: 'unknown',
-      breakpoints: {
-        mobile: 600,
-        tablet: 900,
-        desktop: Number.POSITIVE_INFINITY,
-      },
-    }
-  },
-  methods: {
-    storeDevice(device) {
-      this.device = device
-    },
-  },
+import { reactive, ref } from 'vue'
+const device = ref('unknown')
+const breakpoints = reactive({
+  mobile: 600,
+  tablet: 900,
+  desktop: Number.POSITIVE_INFINITY,
+})
+function storeDevice(newDevice) {
+  device.value = newDevice
 }
 </script>
 ```

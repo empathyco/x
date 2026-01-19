@@ -97,22 +97,32 @@ export default defineComponent({
 <docs lang="mdx">
 ## Examples
 
-### Play with slot
-
 A IdentifierResult **must** be used inside the IdentifierResults component. In the example below the
 BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult
 component.
 
+### Play with slot
+
 ```vue
-<IdentifierResults :animation="fadeAndSlide">
-  <template #default="{ identifierResult }">
-    <BaseResultLink :result="identifierResult">
-      <template #default="{ result }">
-        <IdentifierResult :result="result"/>
-      </template>
-    </BaseResultLink>
-  </template>
-</IdentifierResults>
+<template>
+  <IdentifierResults :animation="fadeAndSlide">
+    <template #default="{ identifierResult }">
+      <BaseResultLink :result="identifierResult">
+        <template #default="{ result }">
+          <IdentifierResult :result="result" />
+        </template>
+      </BaseResultLink>
+    </template>
+  </IdentifierResults>
+</template>
+
+<script setup>
+import IdentifierResults from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-results.vue'
+import IdentifierResult from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-result.vue'
+import BaseResultLink from '@empathyco/x-components/js/components/base-result-link.vue'
+// Example fadeAndSlide animation import
+import fadeAndSlide from '@empathyco/x-components/js/animations/fade-and-slide.vue'
+</script>
 ```
 
 ### Play with props
@@ -121,21 +131,16 @@ In this example, the identifier results have been limited to render a maximum of
 
 ```vue
 <template>
-  <IdentifierResults #default="{ identifierResult }" :maxItemsToRender="3">
-    <IdentifierResult :result="identifierResult" />
+  <IdentifierResults :max-items-to-render="3">
+    <template #default="{ identifierResult }">
+      <IdentifierResult :result="identifierResult" />
+    </template>
   </IdentifierResults>
 </template>
 
-<script>
-import { IdentifierResults, IdentifierResult } from '@empathyco/x-components'
-
-export default {
-  name: 'IdentifierResultsDemo',
-  components: {
-    IdentifierResults,
-    IdentifierResult,
-  },
-}
+<script setup>
+import IdentifierResults from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-results.vue'
+import IdentifierResult from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-result.vue'
 </script>
 ```
 </docs>
