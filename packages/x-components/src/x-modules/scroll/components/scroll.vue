@@ -152,11 +152,11 @@ A list of events that the component will emit:
 - [`UserReachedScrollEnd`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   emitted when the user has reached the bottom part of the scroll.
 
-## Example
+## Examples
 
 The Scroll is a component that wraps the BaseScroll and provides it for a unique id.
 
-### Customized usage
+### Basic usage
 
 #### Overriding the properties
 
@@ -164,23 +164,16 @@ It renders an element with scroll, with the content passed in the `default slot`
 
 ```vue
 <template>
-  <Scroll id="exampleScrollId" throttleMs="50" distanceToBottom="300">
+  <Scroll id="exampleScrollId" :throttleMs="50" :distanceToBottom="300">
     <div class="content-scroll">
       <span>content1</span>
-      <span>content1</span>
+      <span>content2</span>
     </div>
   </Scroll>
 </template>
 
-<script>
+<script setup>
 import { Scroll } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'ScrollIdTest',
-  components: {
-    Scroll,
-  },
-}
 </script>
 ```
 
@@ -200,80 +193,70 @@ export default {
   >
     <div class="content-scroll">
       <span>content1</span>
-      <span>content1</span>
+      <span>content2</span>
     </div>
   </Scroll>
 </template>
 
-<script>
+<script setup>
 import { Scroll } from '@empathyco/x-components/scroll'
 
-export default {
-  name: 'ScrollIdTest',
-  components: {
-    Scroll,
-  },
-  methods: {
-    scroll(position) {
-      console.log('scroll', position)
-    },
-    scrollDirectionChange(direction) {
-      console.log('scroll:direction-change', direction)
-    },
-    scrollAtStart(isAtStart) {
-      console.log('scroll:at-start', isAtStart)
-    },
-    scrollAlmostAtEnd(isAlmostAtEnd) {
-      console.log('scroll:almost-at-end', isAlmostAtEnd)
-    },
-    scrollAtEnd(isAtEnd) {
-      console.log('scroll:at-end', isAtEnd)
-    },
-  },
+function scroll(position) {
+  console.log('scroll', position)
+}
+function scrollDirectionChange(direction) {
+  console.log('scroll:direction-change', direction)
+}
+function scrollAtStart(isAtStart) {
+  console.log('scroll:at-start', isAtStart)
+}
+function scrollAlmostAtEnd(isAlmostAtEnd) {
+  console.log('scroll:almost-at-end', isAlmostAtEnd)
+}
+function scrollAtEnd(isAtEnd) {
+  console.log('scroll:at-end', isAtEnd)
 }
 </script>
 ```
 
 #### Using XEvents.
 
-You can use the XEvents subscribing to them.
+You can use the XEvents API to subscribe to events programmatically:
 
 ```vue
 <template>
   <Scroll throttleMs="50" distanceToBottom="300">
     <div class="content-scroll">
       <span>content1</span>
-      <span>content1</span>
+      <span>content2</span>
     </div>
   </Scroll>
 </template>
 
-<script>
+<script setup>
 import { Scroll } from '@empathyco/x-components/scroll'
+import { onMounted, getCurrentInstance } from 'vue'
 
-export default {
-  name: 'ScrollIdTest',
-  components: {
-    Scroll,
-  },
-  mounted() {
-    this.$x.on('UserScrolled').subscribe(distance => {
+onMounted(() => {
+  const vm = getCurrentInstance()?.proxy
+  if (vm && vm.$x) {
+    vm.$x.on('UserScrolled').subscribe(distance => {
       console.log(distance)
     })
-    this.$x.on('UserChangedScrollDirection').subscribe(direction => {
+    vm.$x.on('UserChangedScrollDirection').subscribe(direction => {
       console.log(direction)
     })
-    this.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
+    vm.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
       console.log(isAtStart)
     })
-    this.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
+    vm.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
       console.log(isAlmostAtEnd)
     })
-    this.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
+    vm.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
       console.log(isAtEnd)
     })
-  },
-}
+  }
+})
 </script>
 ```
 </docs>

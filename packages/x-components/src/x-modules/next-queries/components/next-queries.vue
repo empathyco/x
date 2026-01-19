@@ -122,22 +122,14 @@ queries it will show them
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { NextQueries } from '@empathyco/x-components/next-queries'
-
-export default {
-  name: 'NextQueriesDemo',
-  components: {
-    SearchInput,
-    NextQueries,
-  },
-}
 </script>
 ```
 
 The component has three optional props. `animation` to render the component with an animation,
-`maxItemsToRender` to limit the number of next queries will be rendered (by default it is 5) and
+`maxItemsToRender` to limit the number of next queries rendered (by default it is 5), and
 `highlightCurated` to indicate if the curated Next Queries inside the list should be highlighted.
 
 ```vue live
@@ -148,20 +140,15 @@ The component has three optional props. `animation` to render the component with
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { NextQueries } from '@empathyco/x-components/next-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
+import { getCurrentInstance } from 'vue'
 
-// Registering the animation as a global component
-Vue.component('FadeAndSlide', FadeAndSlide)
-export default {
-  name: 'NextQueriesDemo',
-  components: {
-    SearchInput,
-    NextQueries,
-  },
+const app = getCurrentInstance()?.appContext.app
+if (app) {
+  app.component('FadeAndSlide', FadeAndSlide)
 }
 </script>
 ```
@@ -185,19 +172,10 @@ Next Query suggestion.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { NextQueries } from '@empathyco/x-components/next-queries'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'NextQueriesDemo',
-  components: {
-    SearchInput,
-    NextQueries,
-    TrendingIcon,
-  },
-}
 </script>
 ```
 
@@ -206,7 +184,7 @@ export default {
 You can use your custom implementation of a next query component. To work correctly, it should use
 the `emitNextQuerySelected` function when the next query is selected. In the example below, instead
 of using the default `button` tag for a next query, an icon is added, and the text of the next query
-is wrapped in a `span`
+is wrapped in a `span`.
 
 ```vue live
 <template>
@@ -226,20 +204,10 @@ is wrapped in a `span`
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { NextQueries, NextQuery } from '@empathyco/x-components/next-queries'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'NextQueriesDemo',
-  components: {
-    SearchInput,
-    NextQueries,
-    NextQuery,
-    TrendingIcon,
-  },
-}
 </script>
 ```
 </docs>

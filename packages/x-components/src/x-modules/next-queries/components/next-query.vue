@@ -121,6 +121,7 @@ Using default slot:
 <script setup>
 import { NextQuery } from '@empathyco/x-components/next-queries'
 import { ref } from 'vue'
+
 const suggestion = ref({
   modelName: 'NextQuery',
   query: 'tshirt',
@@ -135,11 +136,9 @@ The default slot allows you to replace the content of the suggestion button.
 
 ```vue live
 <template>
-  <NextQuery :suggestion="suggestion">
-    <template #default="{ suggestion }">
-      <TrendingIcon />
-      <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
-    </template>
+  <NextQuery :suggestion="suggestion" #default="{ suggestion }">
+    <TrendingIcon />
+    <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
   </NextQuery>
 </template>
 
@@ -147,6 +146,7 @@ The default slot allows you to replace the content of the suggestion button.
 import { NextQuery } from '@empathyco/x-components/next-queries'
 import { TrendingIcon } from '@empathyco/x-components'
 import { ref } from 'vue'
+
 const suggestion = ref({
   modelName: 'NextQuery',
   query: 'tshirt',

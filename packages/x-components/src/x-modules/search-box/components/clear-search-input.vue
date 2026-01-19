@@ -80,16 +80,8 @@ _Type any term in the input field and then click the Clear button to try it out!
   </div>
 </template>
 
-<script>
+<script setup>
 import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'ClearSearchInputDemo',
-  components: {
-    ClearSearchInput,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -105,15 +97,8 @@ _Click the icon button to try it out!_
   <ClearSearchInput>Clear</ClearSearchInput>
 </template>
 
-<script>
+<script setup>
 import { ClearSearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'ClearSearchInputDemo',
-  components: {
-    ClearSearchInput,
-  },
-}
 </script>
 ```
 
@@ -132,20 +117,11 @@ _Click the Clear button to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { ClearSearchInput } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'ClearSearchInputDemo',
-  components: {
-    ClearSearchInput,
-  },
-  data() {
-    return {
-      message: '',
-    }
-  },
-}
+const message = ref('')
 </script>
 ```
 
@@ -165,16 +141,8 @@ _Type any term in the input field and then click the icon button to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput, ClearSearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'ClearSearchInputDemo',
-  components: {
-    SearchInput,
-    ClearSearchInput,
-  },
-}
 </script>
 ```
 </docs>
