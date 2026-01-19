@@ -187,13 +187,15 @@ of the suggestion component is a simple `button`, that calls the `emitSuggestion
 when clicked.
 
 ```vue
-<BaseSuggestions :suggestions="suggestions">
-  <template #default="{ suggestion }">
-    <button @click="emitSuggestionSelected($event, suggestion)">
-      {{ suggestion.query }}
-    </button>
-  </template>
-</BaseSuggestions>
+<template>
+  <BaseSuggestions :suggestions="suggestions">
+    <template #default="{ suggestion }">
+      <button @click="emitSuggestionSelected($event, suggestion)">
+        {{ suggestion.query }}
+      </button>
+    </template>
+  </BaseSuggestions>
+</template>
 ```
 
 Following the previous example, the component options object could be something like this:
@@ -222,29 +224,42 @@ another toy in the input field to try it out!_
   <BaseSuggestions :suggestions="suggestions" :maxItemsToRender="3" />
 </template>
 
-<script>
+<script setup>
 import { BaseSuggestions } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSuggestionsDemo',
-  components: {
-    BaseSuggestions,
+const suggestions = [
+  {
+    facets: [],
+    key: 'chips',
+    query: 'Chips',
+    totalResults: 10,
+    results: [],
+    modelName: 'PopularSearch',
   },
-  data() {
-    return {
-      suggestions: [
-        {
-          facets: [],
-          key: 'chips',
-          query: 'Chips',
-          totalResults: 10,
-          results: [],
-          modelName: 'PopularSearch',
-        },
-      ],
-    }
+  {
+    facets: [],
+    key: 'puzzle',
+    query: 'Puzzle',
+    totalResults: 5,
+    results: [],
+    modelName: 'PopularSearch',
   },
-}
+  {
+    facets: [],
+    key: 'lego',
+    query: 'Lego',
+    totalResults: 8,
+    results: [],
+    modelName: 'PopularSearch',
+  },
+  {
+    facets: [],
+    key: 'car',
+    query: 'Car',
+    totalResults: 3,
+    results: [],
+    modelName: 'PopularSearch',
+  },
+]
 </script>
 ```
 
@@ -263,78 +278,56 @@ This will render:
   <BaseSuggestions :suggestions="suggestions" showFacets showPlainSuggestion />
 </template>
 
-<script>
+<script setup>
 import { BaseSuggestions } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSuggestionsDemo',
-  components: {
-    BaseSuggestions,
+const suggestions = [
+  {
+    facets: [
+      {
+        id: 'exampleFacet',
+        label: 'exampleFacet',
+        modelName: 'SimpleFacet',
+        filters: [
+          {
+            facetId: 'exampleFacet',
+            id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+            label: 'EXAMPLE',
+            selected: false,
+            totalResults: 10,
+            modelName: 'SimpleFilter',
+          },
+        ],
+      },
+    ],
+    key: 'chips',
+    query: 'Chips',
+    totalResults: 10,
+    results: [],
+    modelName: 'PopularSearch',
   },
-  data() {
-    return {
-      suggestions: [
-        {
-          facets: [
-            {
-              id: 'exampleFacet',
-              label: 'exampleFacet',
-              modelName: 'SimpleFacet',
-              filters: [
-                {
-                  facetId: 'exampleFacet',
-                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
-                  label: 'EXAMPLE',
-                  selected: false,
-                  totalResults: 10,
-                  modelName: 'SimpleFilter',
-                },
-              ],
-            },
-          ],
-          key: 'chips',
-          query: 'Chips',
-          totalResults: 10,
-          results: [],
-          modelName: 'PopularSearch',
-        },
-      ],
-    }
-  },
-}
+]
 </script>
 ```
 
-In this example, the `contentClass` prop can be used to add classes to the suggestion item.
+In this example, the `suggestionItemClass` prop can be used to add classes to the suggestion item.
 
 ```vue
 <template>
   <BaseSuggestions :suggestions="suggestions" suggestionItemClass="x-custom-class" />
 </template>
 
-<script>
+<script setup>
 import { BaseSuggestions } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSuggestionsDemo',
-  components: {
-    BaseSuggestions,
+const suggestions = [
+  {
+    facets: [],
+    key: 'chips',
+    query: 'Chips',
+    totalResults: 10,
+    results: [],
+    modelName: 'PopularSearch',
   },
-  data() {
-    return {
-      suggestions: [
-        {
-          facets: [],
-          key: 'chips',
-          query: 'Chips',
-          totalResults: 10,
-          results: [],
-          modelName: 'PopularSearch',
-        },
-      ],
-    }
-  },
-}
+]
 </script>
 ```
 </docs>
