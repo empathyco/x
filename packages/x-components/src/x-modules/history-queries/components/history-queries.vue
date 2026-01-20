@@ -109,17 +109,9 @@ Here you have a basic example of how the HistoryQueries is rendered.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-  },
-}
 </script>
 ```
 
@@ -136,17 +128,9 @@ it is 5).
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-  },
-}
 </script>
 ```
 
@@ -160,20 +144,15 @@ export default {
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
+import { getCurrentInstance } from 'vue'
 
-// Registering the animation as a global component
-Vue.component('FadeAndSlide', FadeAndSlide)
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-  },
+const app = getCurrentInstance()?.appContext.app
+if (app) {
+  app.component('FadeAndSlide', FadeAndSlide)
 }
 </script>
 ```
@@ -193,18 +172,9 @@ In this example, the [`HistoryQuery`](./x-components.history-query.md) component
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-    HistoryQuery,
-  },
-}
 </script>
 ```
 
@@ -224,17 +194,9 @@ passed.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-  },
-}
 </script>
 ```
 
@@ -254,19 +216,10 @@ icon to remove the history query.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
 import { CrossIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'HistoryQueriesDemo',
-  components: {
-    SearchInput,
-    HistoryQueries,
-    CrossIcon,
-  },
-}
 </script>
 ```
 </docs>

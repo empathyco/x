@@ -116,30 +116,22 @@ A list of events that the component will emit:
 
 ### Basic usage
 
-This component only requires a prop called `suggestion`
+This component only requires a prop called `suggestion`.
 
 ```vue live
 <template>
   <HistoryQuery :suggestion="suggestion" />
 </template>
 
-<script>
+<script setup>
 import { HistoryQuery } from '@empathyco/x-components/history-queries'
-export default {
-  name: 'HistoryQueryDemo',
-  components: {
-    HistoryQuery,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'HistoryQuery',
-        query: 'trousers',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+
+const suggestion = ref({
+  modelName: 'HistoryQuery',
+  query: 'trousers',
+  facets: [],
+})
 </script>
 ```
 
@@ -167,28 +159,16 @@ that serves to remove this query from the history. This slot only has one proper
   </HistoryQuery>
 </template>
 
-<script>
+<script setup>
 import { HistoryQuery } from '@empathyco/x-components/history-queries'
 import { HistoryIcon, CrossIcon, Highlight } from '@empathyco/x-components'
+import { ref } from 'vue'
 
-export default {
-  name: 'HistoryQueryDemo',
-  components: {
-    HistoryQuery,
-    HistoryIcon,
-    CrossIcon,
-    Highlight,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'HistoryQuery',
-        query: 'trousers',
-        facets: [],
-      },
-    }
-  },
-}
+const suggestion = ref({
+  modelName: 'HistoryQuery',
+  query: 'trousers',
+  facets: [],
+})
 </script>
 ```
 
@@ -201,23 +181,15 @@ The `suggestionClass` prop can be used to add classes to the history query sugge
   <HistoryQuery :suggestion="suggestion" suggestionClass="x-custom-class" />
 </template>
 
-<script>
+<script setup>
 import { HistoryQuery } from '@empathyco/x-components/history-queries'
-export default {
-  name: 'HistoryQueryDemo',
-  components: {
-    HistoryQuery,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'HistoryQuery',
-        query: 'trousers',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+
+const suggestion = ref({
+  modelName: 'HistoryQuery',
+  query: 'trousers',
+  facets: [],
+})
 </script>
 ```
 
@@ -228,23 +200,15 @@ The `removeButtonClass` prop can be used to add classes to the remove history qu
   <HistoryQuery :suggestion="suggestion" removeButtonClass="x-custom-class" />
 </template>
 
-<script>
+<script setup>
 import { HistoryQuery } from '@empathyco/x-components/history-queries'
-export default {
-  name: 'HistoryQueryDemo',
-  components: {
-    HistoryQuery,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'HistoryQuery',
-        query: 'trousers',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+
+const suggestion = ref({
+  modelName: 'HistoryQuery',
+  query: 'trousers',
+  facets: [],
+})
 </script>
 ```
 </docs>
