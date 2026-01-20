@@ -158,15 +158,15 @@ This component emits the following events:
 In this example, a query has been searched in the search input resulting in a case where the
 response has a redirection.
 
-A text box appears bellow the search box indicating that you're going to be redirected to another
+A text box appears below the search box indicating that you're going to be redirected to another
 web page.
 
 This component has two modes:
 
 - Auto mode means that the redirection will occur after a certain number of seconds passed as a
   property.
-- If the value is 0 the redirection will be instantly.
-- Manual mode means that the user have to click the redirect button or nothing will happen.
+- If the value is 0 the redirection will be instant.
+- Manual mode means that the user has to click the redirect button or nothing will happen.
 
 _Type any term in the input field to try it out!_
 
@@ -175,19 +175,13 @@ _Type any term in the input field to try it out!_
   <Redirection #default="{ redirection, redirect, abortRedirect }">
     <span>In a few seconds you're going to be redirected!</span>
     <span>{{ redirection.url }}</span>
-    <button @click="redirection">Redirect now!</button>
+    <button @click="redirect">Redirect now!</button>
     <button @click="abortRedirect">Abort redirection!</button>
   </Redirection>
 </template>
 
-<script>
+<script setup>
 import { Redirection } from '@empathyco/x-components/search'
-export default {
-  name: 'RedirectionDemo',
-  components: {
-    Redirection,
-  },
-}
 </script>
 ```
 
@@ -198,25 +192,14 @@ forcing the user to accept the redirection
 
 ```vue
 <template>
-  <Redirection #default="{ redirection, redirect }">
+  <Redirection mode="manual" #default="{ redirection, redirect }">
     <span>{{ redirection.url }}</span>
     <button @click="redirect">Redirect now!</button>
   </Redirection>
 </template>
 
-<script>
+<script setup>
 import { Redirection } from '@empathyco/x-components/search'
-export default {
-  name: 'RedirectionDemo',
-  components: {
-    Redirection,
-  },
-  data() {
-    return {
-      mode: 'manual',
-    }
-  },
-}
 </script>
 ```
 </docs>

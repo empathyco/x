@@ -93,7 +93,7 @@ export default defineComponent({
 <docs lang="mdx">
 ## Examples
 
-This component loops through an array of partials an exposed a slot to use customize each partial.
+This component loops through an array of partials and exposes a slot to customize each partial.
 
 ### Basic example
 
@@ -107,11 +107,16 @@ It renders a list of partial results using the default slot:
     </template>
   </PartialResultsList>
 </template>
+
+<script setup>
+import { PartialResultsList } from '@empathyco/x-components/search'
+import { ResultsList } from '@empathyco/x-components/search'
+</script>
 ```
 
 ### Configuring the number of partials
 
-It sets the maximum partials to show to 3.
+Set the maximum partials to show to 3.
 
 ```vue
 <template>
@@ -121,6 +126,11 @@ It sets the maximum partials to show to 3.
     </template>
   </PartialResultsList>
 </template>
+
+<script setup>
+import { PartialResultsList } from '@empathyco/x-components/search'
+import { ResultsList } from '@empathyco/x-components/search'
+</script>
 ```
 
 ### Rendering usage
@@ -149,5 +159,11 @@ results and a button to update the query with the partial one.
     </template>
   </PartialResultsList>
 </template>
+
+<script setup>
+import { PartialResultsList } from '@empathyco/x-components/search'
+import { BaseGrid, BaseResultLink, BaseResultImage } from '@empathyco/x-components'
+import { PartialQueryButton } from '@empathyco/x-components/search'
+</script>
 ```
 </docs>

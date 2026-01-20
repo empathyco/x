@@ -103,26 +103,17 @@ Here you have a basic example of how the PromotedsList is rendered.
 
 _Type any term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
-
     <PromotedsList />
   </div>
 </template>
 
-<script>
+<script setup>
 import { PromotedsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'PromotedsListDemo',
-  components: {
-    SearchInput,
-    PromotedsList,
-  },
-}
 </script>
 ```
 
@@ -136,23 +127,12 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { PromotedsList } from '@empathyco/x-components/search'
 import { FadeAndSlide } from '@empathyco/x-components/animations'
 import { SearchInput } from '@empathyco/x-components/search-box'
 
-export default {
-  name: 'PromotedsListDemo',
-  components: {
-    SearchInput,
-    PromotedsList,
-  },
-  data() {
-    return {
-      fadeAndSlide: FadeAndSlide,
-    }
-  },
-}
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 
@@ -175,19 +155,10 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { PromotedsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
-
-export default {
-  name: 'PromotedsListDemo',
-  components: {
-    SearchInput,
-    PromotedsList,
-    BaseGrid,
-  },
-}
 </script>
 ```
 
@@ -205,17 +176,9 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { PromotedsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'PromotedsListDemo',
-  components: {
-    SearchInput,
-    PromotedsList,
-  },
-}
 </script>
 ```
 
@@ -238,18 +201,9 @@ value.
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList, PromotedsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'PromotedsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-    PromotedsList,
-  },
-}
 </script>
 ```
 </docs>

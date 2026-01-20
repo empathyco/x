@@ -112,17 +112,9 @@ _Type any term in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'ResultsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-  },
-}
 </script>
 ```
 
@@ -136,23 +128,12 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { FadeAndSlide } from '@empathyco/x-components/animations'
 
-export default {
-  name: 'ResultsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-  },
-  data() {
-    return {
-      fadeAndSlide: FadeAndSlide,
-    }
-  },
-}
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 
@@ -175,19 +156,10 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-    BaseGrid,
-  },
-}
 </script>
 ```
 
@@ -205,16 +177,9 @@ export default {
   </div>
 </template>
 
-<script>
-import { SearchInput, ResultsList } from '@empathyco/x-components/search'
-
-export default {
-  name: 'ResultsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-  },
-}
+<script setup>
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { ResultsList } from '@empathyco/x-components/search'
 </script>
 ```
 
@@ -245,19 +210,9 @@ that, occupying the rows.
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList, BannersList, PromotedsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'ResultsListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-    BannersList,
-    PromotedsList,
-  },
-}
 </script>
 ```
 </docs>
