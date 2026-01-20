@@ -217,7 +217,7 @@ export default defineComponent({
 </style>
 
 <docs lang="mdx">
-## Example
+## Examples
 
 This component renders the list of facets stored in the Facets module. Facets can be rendered
 differently based on their purpose and this can be achieved using the exposed slots:
@@ -237,7 +237,7 @@ rendered as specified in the default slot.
 <template>
   <Facets>
     <template #default="{ facet, selectedFilters }">
-      <h1>{{ ${facet.label} }}</h1>
+      <h1>{{ facet.label }}</h1>
       <span v-if="selectedFilters.length > 0">{{ `${selectedFilters.length} selected` }}</span>
 
       <ul>
@@ -249,14 +249,8 @@ rendered as specified in the default slot.
   </Facets>
 </template>
 
-<script>
+<script setup>
 import { Facets } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    Facets,
-  },
-}
 </script>
 ```
 
@@ -292,7 +286,7 @@ with the facet id.
       <ul v-for="filter in facet.filters" :key="filter.id">
         <li v-if="!filter.selected">
           {{ filter.label }}
-          <ul v-for="childFilter in filter.children" :key="filter.id">
+          <ul v-for="childFilter in filter.children" :key="childFilter.id">
             <li v-if="!childFilter.selected">
               {{ childFilter.label }}
             </li>
@@ -313,14 +307,8 @@ with the facet id.
   </Facets>
 </template>
 
-<script>
+<script setup>
 import { Facets } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    Facets,
-  },
-}
 </script>
 ```
 
@@ -347,14 +335,8 @@ ones. In the following example, the component will only render color and categor
   </Facets>
 </template>
 
-<script>
+<script setup>
 import { Facets } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    Facets,
-  },
-}
 </script>
 ```
 
@@ -378,23 +360,17 @@ render every facet except color and price.
   </Facets>
 </template>
 
-<script>
+<script setup>
 import { Facets } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    Facets,
-  },
-}
 </script>
 ```
 
 ### Integrating with the filters components
 
 There are many components that will help you build your own awesome filters list. `Facets` just
-renders the list, but what to render for each facet is up to you. Below you can see an example. of
-the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFilter`, `Filters`,
-`HierarchicalFilter`, `NumberRangeFilter` and `BasePriceFilterLabel`.
+renders the list, but what to render for each facet is up to you. Below you can see an example of
+the `Facets` component using the `FiltersSearch`, `MultiSelectFilters`, `SimpleFilter`, `Filters`,
+`HierarchicalFilter`, `NumberRangeFilter` and `BasePriceFilterLabel` components.
 
 ```vue
 <template>
@@ -426,7 +402,7 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
   </Facets>
 </template>
 
-<script>
+<script setup>
 import {
   Facets,
   Filters,
@@ -438,19 +414,6 @@ import {
 } from '@empathyco/x-components/facets'
 
 import { BasePriceFilterLabel } from '@empathyco/x-components'
-
-export default {
-  components: {
-    Facets,
-    MultiSelectFilters,
-    FiltersSearch,
-    SimpleFilter,
-    Filters,
-    HierarchicalFilter,
-    NumberRangeFilter,
-    BasePriceFilterLabel,
-  },
-}
 </script>
 ```
 </docs>

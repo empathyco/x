@@ -377,28 +377,20 @@ True by default.
   <EditableNumberRangeFilter :filter="editableFilter" />
 </template>
 
-<script>
+<script setup>
 import { EditableNumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    EditableNumberRangeFilter,
+const editableFilter = ref({
+  facetId: 'age',
+  id: 'age:primary',
+  label: 'primary',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
   },
-  data() {
-    return {
-      editableFilter: {
-        facetId: 'age',
-        id: 'age:primary',
-        label: 'primary',
-        modelName: 'EditableNumberRangeFilter',
-        range: {
-          min: null,
-          max: null,
-        },
-      },
-    }
-  },
-}
+})
 </script>
 ```
 
@@ -409,28 +401,20 @@ export default {
   <EditableNumberRangeFilter :filter="editableFilter" :isInstant="true" :hasClearButton="false" />
 </template>
 
-<script>
+<script setup>
 import { EditableNumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    EditableNumberRangeFilter,
+const editableFilter = ref({
+  facetId: 'age',
+  id: 'age:primary',
+  label: 'primary',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
   },
-  data() {
-    return {
-      editableFilter: {
-        facetId: 'age',
-        id: 'age:primary',
-        label: 'primary',
-        modelName: 'EditableNumberRangeFilter',
-        range: {
-          min: null,
-          max: null,
-        },
-      },
-    }
-  },
-}
+})
 </script>
 ```
 
@@ -439,33 +423,25 @@ export default {
 ```vue
 <template>
   <EditableNumberRangeFilter :filter="editableFilter">
-    <template name="apply-content">Apply</template>
-    <template name="clear-content">Clear</template>
+    <template #apply-content>Apply</template>
+    <template #clear-content>Clear</template>
   </EditableNumberRangeFilter>
 </template>
 
-<script>
+<script setup>
 import { EditableNumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    EditableNumberRangeFilter,
+const editableFilter = ref({
+  facetId: 'age',
+  id: 'age:primary',
+  label: 'primary',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
   },
-  data() {
-    return {
-      editableFilter: {
-        facetId: 'age',
-        id: 'age:primary',
-        label: 'primary',
-        modelName: 'EditableNumberRangeFilter',
-        range: {
-          min: null,
-          max: null,
-        },
-      },
-    }
-  },
-}
+})
 </script>
 ```
 
@@ -494,28 +470,20 @@ export default {
   </EditableNumberRangeFilter>
 </template>
 
-<script>
+<script setup>
 import { EditableNumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    EditableNumberRangeFilter,
+const editableFilter = ref({
+  facetId: 'age',
+  id: 'age:primary',
+  label: 'primary',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
   },
-  data() {
-    return {
-      editableFilter: {
-        facetId: 'age',
-        id: 'age:primary',
-        label: 'primary',
-        modelName: 'EditableNumberRangeFilter',
-        range: {
-          min: null,
-          max: null,
-        },
-      },
-    }
-  },
-}
+})
 </script>
 ```
 
@@ -533,28 +501,20 @@ the component.
   />
 </template>
 
-<script>
-  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
+<script setup>
+import { EditableNumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-  export default {
-    components: {
-      EditableNumberRangeFilter
-    },
-    data() {
-      return {
-        editableFilter: {
-          facetId: 'age',
-          id: 'age:primary',
-          label: 'primary',
-          modelName: 'EditableNumberRangeFilter',
-          range: {
-            min: null,
-            max: null
-          }
-        }
-      };
-    }
-  };
+const editableFilter = ref({
+  facetId: 'age',
+  id: 'age:primary',
+  label: 'primary',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
+  },
+})
 </script>
 ```
 </docs>

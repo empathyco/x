@@ -112,42 +112,62 @@ but this content is customizable through the default slot.
 ### Basic usage
 
 ```vue
-<AllFilter :facet="facet" />
+<template>
+  <AllFilter :facet="facet" />
+</template>
+
+<script setup>
+import { AllFilter } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ### Customizing its content
 
 ```vue
-<AllFilter v-slot="{ facet }" :facet="facet">
-  Select all {{ facet.label }}
-</AllFilter>
+<template>
+  <AllFilter v-slot="{ facet }" :facet="facet"> Select all {{ facet.label }} </AllFilter>
+</template>
+
+<script setup>
+import { AllFilter } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ### Basic example within facets
 
 ```vue
-<Facets>
-  <template #default="{ facet }">
-    <AllFilter :facet="facet" />
-    <Filters v-slot="{ filter }" :filters="facet.filters">
-      <SimpleFilter :filter="filter" />
-    </Filters>
-  </template>
-</Facets>
+<template>
+  <Facets>
+    <template #default="{ facet }">
+      <AllFilter :facet="facet" />
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <SimpleFilter :filter="filter" />
+      </Filters>
+    </template>
+  </Facets>
+</template>
+
+<script setup>
+import { Facets, Filters, AllFilter, SimpleFilter } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ### Custom example within facets
 
 ```vue
-<Facets>
-  <template #default="{ facet }">
-    <AllFilter v-slot="{ facet }" :facet="facet">
-      Select all {{ facet.label }}
-    </AllFilter>
-    <Filters v-slot="{ filter }" :filters="facet.filters">
-      <SimpleFilter :filter="filter" />
-    </Filters>
-  </template>
-</Facets>
+<template>
+  <Facets>
+    <template #default="{ facet }">
+      <AllFilter v-slot="{ facet }" :facet="facet"> Select all {{ facet.label }} </AllFilter>
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <SimpleFilter :filter="filter" />
+      </Filters>
+    </template>
+  </Facets>
+</template>
+
+<script setup>
+import { Facets, Filters, AllFilter, SimpleFilter } from '@empathyco/x-components/facets'
+</script>
 ```
 </docs>

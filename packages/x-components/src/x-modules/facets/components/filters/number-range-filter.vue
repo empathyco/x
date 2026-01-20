@@ -133,30 +133,21 @@ to emit on click.
   <NumberRangeFilter :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { NumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'NumberRangeFilterTest',
-  components: {
-    NumberRangeFilter,
+const filter = ref({
+  id: `price:1-10`,
+  modelName: 'NumberRangeFilter',
+  label: `From 1 to 10`,
+  facetId: 'price',
+  range: {
+    min: 1,
+    max: 10,
   },
-  date() {
-    return {
-      filter: {
-        id: `price:1-10`,
-        modelName: 'NumberRangeFilter',
-        label: `From 1 to 10`,
-        facetId: 'price',
-        range: {
-          min: 1,
-          max: 10,
-        },
-        selected: false,
-      },
-    }
-  },
-}
+  selected: false,
+})
 </script>
 ```
 
@@ -169,30 +160,21 @@ Configuring the events to emit when the filter is clicked.
   <NumberRangeFilter :clickEvents="{ UserClickedANumberRangeFilter: filter }" :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { NumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'NumberRangeFilterTest',
-  components: {
-    NumberRangeFilter,
+const filter = ref({
+  id: `price:1-10`,
+  modelName: 'NumberRangeFilter',
+  label: `From 1 to 10`,
+  facetId: 'price',
+  range: {
+    min: 1,
+    max: 10,
   },
-  date() {
-    return {
-      filter: {
-        id: `price:1-10`,
-        modelName: 'NumberRangeFilter',
-        label: `From 1 to 10`,
-        facetId: 'price',
-        range: {
-          min: 1,
-          max: 10,
-        },
-        selected: false,
-      },
-    }
-  },
-}
+  selected: false,
+})
 </script>
 ```
 
@@ -206,30 +188,21 @@ export default {
   </NumberRangeFilter>
 </template>
 
-<script>
+<script setup>
 import { NumberRangeFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'NumberRangeFilterTest',
-  components: {
-    NumberRangeFilter,
+const filter = ref({
+  id: `price:1-10`,
+  modelName: 'NumberRangeFilter',
+  label: `From 1 to 10`,
+  facetId: 'price',
+  range: {
+    min: 1,
+    max: 10,
   },
-  date() {
-    return {
-      filter: {
-        id: `price:1-10`,
-        modelName: 'NumberRangeFilter',
-        label: `From 1 to 10`,
-        facetId: 'price',
-        range: {
-          min: 1,
-          max: 10,
-        },
-        selected: false,
-      },
-    }
-  },
-}
+  selected: false,
+})
 </script>
 ```
 </docs>

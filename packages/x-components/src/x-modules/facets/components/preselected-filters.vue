@@ -91,19 +91,13 @@ _See how the event is triggered when the component is rendered._
   <PreselectedFilters />
 </template>
 
-<script>
+<script setup>
 import { PreselectedFilters } from '@empathyco/x-components'
-export default {
-  name: 'PreselectedFiltersDemo',
-  components: {
-    PreselectedFilters,
-  },
-  provide: {
-    snippetConfig: {
-      filters: ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"'],
-    },
-  },
-}
+import { provide } from 'vue'
+
+provide('snippetConfig', {
+  filters: ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"'],
+})
 </script>
 ```
 
@@ -117,19 +111,11 @@ prop:
   <PreselectedFilters :filters="filters" />
 </template>
 
-<script>
+<script setup>
 import { PreselectedFilters } from '@empathyco/x-components'
-export default {
-  name: 'PreselectedFiltersDemo',
-  components: {
-    PreselectedFilters,
-  },
-  computed: {
-    filters() {
-      return ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"']
-    },
-  },
-}
+import { ref } from 'vue'
+
+const filters = ref(['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"'])
 </script>
 ```
 </docs>

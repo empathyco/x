@@ -46,7 +46,13 @@ The default slot renders the length of the selected filters array.
 ### Basic usage
 
 ```vue
-<SelectedFilters />
+<template>
+  <SelectedFilters />
+</template>
+
+<script setup>
+import { SelectedFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ### Always visible
@@ -55,7 +61,13 @@ If "alwaysVisible" is true, the component is rendered no matter if there are som
 If "alwaysVisible" is false (default), the component is rendered if there are some filter selected.
 
 ```vue
-<SelectedFilters />
+<template>
+  <SelectedFilters alwaysVisible />
+</template>
+
+<script setup>
+import { SelectedFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 Output:
@@ -69,11 +81,17 @@ Output:
 In this example, renders a custom message using the default scoped slot.
 
 ```vue
-<SelectedFilters>
-  <template #default="{ selectedFilters }">
-    Selected filters: {{ selectedFilters.length }}
-  </template>
-</SelectedFilters>
+<template>
+  <SelectedFilters>
+    <template #default="{ selectedFilters }">
+      Selected filters: {{ selectedFilters.length }}
+    </template>
+  </SelectedFilters>
+</template>
+
+<script setup>
+import { SelectedFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 Output:
@@ -85,14 +103,26 @@ Output:
 In this example, the selected filters are filtered by the facetsIds property.
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet']" />
+<template>
+  <SelectedFilters :facetsIds="['brand_facet']" />
+</template>
+
+<script setup>
+import { SelectedFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet', 'gender_facet']">
-  <template #default="{ selectedFilters }">
-    Selected filters: {{ selectedFilters.length }}
-  </template>
-</SelectedFilters>
+<template>
+  <SelectedFilters :facetsIds="['brand_facet', 'gender_facet']">
+    <template #default="{ selectedFilters }">
+      Selected filters: {{ selectedFilters.length }}
+    </template>
+  </SelectedFilters>
+</template>
+
+<script setup>
+import { SelectedFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 </docs>

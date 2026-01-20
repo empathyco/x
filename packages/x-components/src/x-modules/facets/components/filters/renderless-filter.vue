@@ -82,7 +82,23 @@ when clicking the content, the CSS classes and if the content should be deactiva
 ### Basic usage
 
 ```vue
-<RenderlessFilter :filter="filter" />
+<template>
+  <RenderlessFilter :filter="filter" />
+</template>
+
+<script setup>
+import { RenderlessFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filter = ref({
+  id: 'color:red',
+  modelName: 'SimpleFilter',
+  label: 'Red',
+  facetId: 'color',
+  selected: false,
+  totalResults: 10,
+})
+</script>
 ```
 
 ### Customizing its contents and adding new events
@@ -100,20 +116,19 @@ when clicking the content, the CSS classes and if the content should be deactiva
   </RenderlessFilter>
 </template>
 
-<script>
-import { RenderlessFilter } from '@empathyco/x-components'
+<script setup>
+import { RenderlessFilter } from '@empathyco/x-components/facets'
+import { ref, computed } from 'vue'
 
-export default {
-  components: {
-    RenderlessFilter,
-  },
-  props: ['filter'],
-  computed: {
-    clickEvents() {
-      return { UserClickedAHierarchicalFilter: this.filter }
-    },
-  },
-}
+const filter = ref({
+  id: 'color:red',
+  modelName: 'SimpleFilter',
+  label: 'Red',
+  facetId: 'color',
+  selected: false,
+  totalResults: 10,
+})
+const clickEvents = computed(() => ({ UserClickedAHierarchicalFilter: filter.value }))
 </script>
 ```
 </docs>
