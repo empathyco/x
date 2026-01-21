@@ -196,22 +196,36 @@ when clicked.
     </template>
   </BaseSuggestions>
 </template>
-```
 
-Following the previous example, the component options object could be something like this:
+<script setup>
+import { ref } from 'vue'
+import { BaseSuggestions } from '@empathyco/x-components'
+import { use$x } from '../../composables'
 
-```js
-export default {
-  computed: {
-    ...mapGetters(['x', 'querySuggestions'], { suggestions: 'suggestions' }),
+const x = use$x()
+const suggestions = ref([
+  {
+    query: 'Chips',
+    facets: [],
+    key: 'chips',
+    totalResults: 10,
+    results: [],
+    modelName: 'PopularSearch',
   },
-  methods: {
-    emitSuggestionSelected(event, suggestion) {
-      this.$x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target })
-      this.$x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target })
-    },
+  {
+    query: 'Puzzle',
+    facets: [],
+    key: 'puzzle',
+    totalResults: 5,
+    results: [],
+    modelName: 'PopularSearch',
   },
+])
+function emitSuggestionSelected(event, suggestion) {
+  x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target })
+  x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target })
 }
+</script>
 ```
 
 ### Play with props

@@ -141,11 +141,11 @@ You can listen to the `TogglePanelStateChanged` event to react to panel open/clo
 import { ref } from 'vue'
 import { use$x } from '@empathyco/x-components'
 
-const $x = use$x()
+const x = use$x()
 const isPanelOpen = ref(false)
 const panelId = 'myToggle'
 
-$x.on('TogglePanelStateChanged').subscribe((isOpen, { id }) => {
+x.on('TogglePanelStateChanged').subscribe((isOpen, { id }) => {
   if (id === panelId) {
     isPanelOpen.value = isOpen
   }

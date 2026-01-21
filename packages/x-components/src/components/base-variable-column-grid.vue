@@ -127,15 +127,18 @@ you to customize the grid items using the available slots.
 </template>
 
 <script setup>
-import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
 import { ref } from 'vue'
+import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
+import { use$x } from '../../composables'
+
+const x = use$x()
 const animation = StaggeredFadeAndSlide
 const items = [
   { id: 'res-1', modelName: 'Result', name: 'Product 1' },
   { id: 'res-2', modelName: 'Result', name: 'Product 2' },
 ]
 function setColumns(columns) {
-  $x.emit('UserClickedColumnPicker', columns)
+  x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```
@@ -163,15 +166,18 @@ Configuring the default columns to be rendered. These columns will be the defaul
 </template>
 
 <script setup>
-import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
 import { ref } from 'vue'
+import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components'
+import { use$x } from '@empathyco/x-components'
+
+const x = use$x()
 const animation = StaggeredFadeAndSlide
 const items = [
   { id: 'res-1', modelName: 'Result', name: 'Product 1' },
   { id: 'res-2', modelName: 'Result', name: 'Product 2' },
 ]
 function setColumns(columns) {
-  $x.emit('UserClickedColumnPicker', columns)
+  x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```
