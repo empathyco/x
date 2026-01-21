@@ -105,7 +105,7 @@ component.
 
 ```vue
 <template>
-  <IdentifierResults :animation="fadeAndSlide">
+  <IdentifierResults :animation="animation">
     <template #default="{ identifierResult }">
       <BaseResultLink :result="identifierResult">
         <template #default="{ result }">
@@ -120,8 +120,9 @@ component.
 import IdentifierResults from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-results.vue'
 import IdentifierResult from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-result.vue'
 import BaseResultLink from '@empathyco/x-components/js/components/base-result-link.vue'
-// Example fadeAndSlide animation import
-import fadeAndSlide from '@empathyco/x-components/js/animations/fade-and-slide.vue'
+import FadeAndSlide from '@empathyco/x-components/js/animations/fade-and-slide.vue'
+
+const animation = FadeAndSlide
 </script>
 ```
 

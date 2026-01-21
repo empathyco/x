@@ -99,7 +99,7 @@ The component has two optional props. `animation` to render the component with a
 
 ```vue live
 <template>
-  <PopularSearches :animation="FadeAndSlide" :max-items-to-render="10" />
+  <PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10" />
 </template>
 
 <script setup>

@@ -526,7 +526,7 @@ export default defineComponent({
 <docs lang="mdx">
 ## AI Overview Examples
 
-The `ai-overview` component provides an AI-generated summary and suggestions for queries. Below are usage examples in Vue 3 style, matching the format of previous documentation files.
+The `ai-overview` component provides an AI-generated summary and suggestions for queries.
 
 ### Basic usage
 
@@ -587,11 +587,4 @@ import AiOverview from '@empathyco/x-components/js/x-modules/ai/components/ai-ov
 import ResultCard from './ResultCard.vue'
 </script>
 ```
-
-### Notes
-
-- The component is designed for Vue 3 and uses `<script setup>` syntax in all examples.
-- All props are reactive and can be updated dynamically.
-- The `result` slot is required for rendering each result card.
-- You can use other named slots to customize loading, extra content, and sliding panel controls.
 </docs>

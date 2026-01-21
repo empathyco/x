@@ -156,7 +156,7 @@ In this example, the component will render a maximum of 4 result recommendations
 <template>
   <Recommendations
     v-slot="{ recommendation }"
-    :max-items-to-render="4"
+    :maxItemsToRender="4"
     :animation="StaggeredFadeAndSlide"
   >
     <BaseResultLink :result="recommendation" class="x-recommendations__link">

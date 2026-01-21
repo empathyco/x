@@ -227,7 +227,8 @@ be a component with a `Transition` and a slot inside:
 <script setup>
 import Empathize from '@empathyco/x-components/js/x-modules/empathize/components/empathize.vue'
 import PopularSearches from '@empathyco/x-components/js/x-modules/popular-searches/components/popular-searches.vue'
-import collapseFromTop from './collapseFromTop.vue'
+import CollapseFromTop from './collapseFromTop.vue'
+const animation = CollapseFromTop
 </script>
 ```
 
@@ -261,8 +262,9 @@ import BaseKeyboardNavigation from '@empathyco/x-components/js/components/base-k
 import QuerySuggestions from '@empathyco/x-components/js/x-modules/query-suggestions/components/query-suggestions.vue'
 import PopularSearches from '@empathyco/x-components/js/x-modules/popular-searches/components/popular-searches.vue'
 import HistoryQueries from '@empathyco/x-components/js/x-modules/history-queries/components/history-queries.vue'
+import CollapseFromTop from './collapseFromTop.vue'
 import { ref } from 'vue'
-const empathizeAnimation = null // Provide your animation component
+const empathizeAnimation = CollapseFromTop
 const empathizeCloseEvents = ['UserClosedEmpathize', 'UserSelectedASuggestion']
 const showEmpathize = ref(true)
 </script>
