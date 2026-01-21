@@ -14,6 +14,11 @@
     {
       "matchPackageNames": ["/^@types/react*/"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["@empathyco/eslint-config"],
+      "allowedVersions": "1.8.0",
+      "description": "Pin to current version to avoid CI issues" // TODO: Remove when root cause is found
     }
   ]
 }
