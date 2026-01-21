@@ -173,13 +173,16 @@ _Try resizing the browser window!_
 <template>
   <div>
     <DeviceDetector :breakpoints="breakpoints" />
-    {{ $x.device }}
+    {{ x.device }}
   </div>
 </template>
 
 <script setup>
-import { DeviceDetector } from '@empathyco/x-components/device'
 import { reactive } from 'vue'
+import { DeviceDetector } from '@empathyco/x-components/device'
+import { use$x } from '../../../composables/use-$x'
+
+const x = use$x()
 const breakpoints = reactive({
   mobile: 600,
   tablet: 900,
@@ -199,13 +202,16 @@ _Try resizing the window to check that it never changes_
 <template>
   <div>
     <DeviceDetector force="mobile" :breakpoints="breakpoints" />
-    {{ $x.device }}
+    {{ x.device }}
   </div>
 </template>
 
 <script setup>
-import { DeviceDetector } from '@empathyco/x-components/device'
 import { reactive } from 'vue'
+import { DeviceDetector } from '@empathyco/x-components/device'
+import { use$x } from '../../../composables/use-$x'
+
+const x = use$x()
 const breakpoints = reactive({
   mobile: 600,
   tablet: 900,
