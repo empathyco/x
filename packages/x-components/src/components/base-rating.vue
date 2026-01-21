@@ -136,6 +136,10 @@ on this value.
 <template>
   <BaseRating :value="5.23" />
 </template>
+
+<script setup>
+import { BaseRating } from '@empathyco/x-components'
+</script>
 ```
 
 ### Customizing its contents
@@ -151,5 +155,10 @@ on this value.
     </template>
   </BaseRating>
 </template>
+
+<script setup>
+import { BaseRating } from '@empathyco/x-components'
+import TestIcon from './TestIcon.vue'
+</script>
 ```
 </docs>

@@ -135,8 +135,7 @@ const items = [
   { id: 'res-2', modelName: 'Result', name: 'Product 2' },
 ]
 function setColumns(columns) {
-  // Emits the event to change columns
-  // $x.emit('UserClickedColumnPicker', columns)
+  $x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```
@@ -172,8 +171,7 @@ const items = [
   { id: 'res-2', modelName: 'Result', name: 'Product 2' },
 ]
 function setColumns(columns) {
-  // Emits the event to change columns
-  // $x.emit('UserClickedColumnPicker', columns)
+  $x.emit('UserClickedColumnPicker', columns)
 }
 </script>
 ```

@@ -203,11 +203,7 @@ If the suggestion contains a filter, it is displayed next to the suggestion.
 
 ```vue live
 <template>
-  <BaseSuggestion
-    :query="query"
-    :suggestion="suggestion"
-    :suggestionSelectedEvents="suggestionSelectedEvents"
-  />
+  <BaseSuggestion :query="query" :suggestion="suggestion" />
 </template>
 
 <script setup>
@@ -234,7 +230,6 @@ const suggestion = {
     },
   ],
 }
-const suggestionSelectedEvents = {}
 </script>
 ```
 
@@ -244,11 +239,7 @@ You can make this component render any content you want by using the `default` s
 
 ```vue live
 <template>
-  <BaseSuggestion
-    :query="query"
-    :suggestion="suggestion"
-    :suggestionSelectedEvents="suggestionSelectedEvents"
-  >
+  <BaseSuggestion :query="query" :suggestion="suggestion">
     <template #default="{ suggestion, query, filter }">
       <span>🔍</span>
       <Highlight :text="suggestion.query" :highlight="query" />
@@ -264,7 +255,32 @@ const suggestion = {
   modelName: 'QuerySuggestion',
   query: 'steak',
 }
-const suggestionSelectedEvents = {}
+</script>
+```
+
+### Emitting custom events with suggestionSelectedEvents
+
+You can emit additional custom events when a suggestion is selected by passing them in the `suggestionSelectedEvents` prop. For example, to emit a custom event called `CustomSuggestionEvent` with a payload:
+
+```vue live
+<template>
+  <BaseSuggestion
+    :query="query"
+    :suggestion="suggestion"
+    :suggestionSelectedEvents="suggestionSelectedEvents"
+  />
+</template>
+
+<script setup>
+import { BaseSuggestion } from '@empathyco/x-components'
+const query = 'st'
+const suggestion = {
+  modelName: 'QuerySuggestion',
+  query: 'steak',
+}
+const suggestionSelectedEvents = {
+  CustomSuggestionEvent: { custom: 'payload' },
+}
 </script>
 ```
 </docs>

@@ -45,7 +45,7 @@ The `Fade` component is intended to be used as animation to wrap an element with
 
 ### Basic usage with `v-if`
 
-```vue
+```vue live
 <template>
   <Fade>
     <ComponentOrElement v-if="open" />
@@ -62,7 +62,7 @@ const open = ref(false)
 
 ### Usage with `v-show`
 
-```vue
+```vue live
 <template>
   <Fade>
     <ComponentOrElement v-show="open" />
@@ -79,7 +79,7 @@ const open = ref(true)
 
 ### Example with dynamic content
 
-```vue
+```vue live
 <template>
   <div>
     <button @click="open = !open">Toggle</button>

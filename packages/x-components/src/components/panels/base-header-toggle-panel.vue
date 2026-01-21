@@ -104,7 +104,7 @@ Toggle panel which uses the base toggle panel, adds a header and manages the ope
 
 ```vue
 <template>
-  <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="false">
+  <BaseHeaderTogglePanel :animation="animation" :start-collapsed="false">
     <template #header-content="{ open }">
       <p>Header, open: {{ open ? 'close' : 'open' }}</p>
     </template>
@@ -117,7 +117,7 @@ Toggle panel which uses the base toggle panel, adds a header and manages the ope
 <script setup>
 import { BaseHeaderTogglePanel } from '@empathyco/x-components'
 import { CollapseHeight } from '@empathyco/x-components/animations'
-const collapseHeight = CollapseHeight
+const animation = CollapseHeight
 </script>
 ```
 
@@ -125,7 +125,7 @@ const collapseHeight = CollapseHeight
 
 ```vue
 <template>
-  <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="true">
+  <BaseHeaderTogglePanel :animation="animation" :start-collapsed="true">
     <template #header="{ toggleOpen, open }">
       <p>Header, open: {{ open ? 'close' : 'open' }}</p>
       <button @click="toggleOpen">Toggle</button>
@@ -139,7 +139,7 @@ const collapseHeight = CollapseHeight
 <script setup>
 import { BaseHeaderTogglePanel } from '@empathyco/x-components'
 import { CollapseHeight } from '@empathyco/x-components/animations'
-const collapseHeight = CollapseHeight
+const animation = CollapseHeight
 </script>
 ```
 
@@ -149,11 +149,7 @@ The `headerClass` prop can be used to add classes to the header of the toggle pa
 
 ```vue
 <template>
-  <BaseHeaderTogglePanel
-    headerClass="custom-class"
-    :animation="collapseHeight"
-    :start-collapsed="false"
-  >
+  <BaseHeaderTogglePanel headerClass="custom-class" :animation="animation" :start-collapsed="false">
     <template #header-content="{ open }">
       <p>Header, open: {{ open ? 'close' : 'open' }}</p>
     </template>
@@ -166,7 +162,7 @@ The `headerClass` prop can be used to add classes to the header of the toggle pa
 <script setup>
 import { BaseHeaderTogglePanel } from '@empathyco/x-components'
 import { CollapseHeight } from '@empathyco/x-components/animations'
-const collapseHeight = CollapseHeight
+const animation = CollapseHeight
 </script>
 ```
 </docs>

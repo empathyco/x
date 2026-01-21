@@ -180,6 +180,11 @@ reaching the navigation limit in any direction.
     <QuerySuggestions />
   </BaseKeyboardNavigation>
 </template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 
 ### Defining multiple conditions to take navigation's control
@@ -203,6 +208,11 @@ reaching the navigation limit in any direction.
     <QuerySuggestions />
   </BaseKeyboardNavigation>
 </template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 
 ### Defining events to emit when reaching a navigation limit
@@ -224,5 +234,10 @@ reaching the navigation limit in any direction.
     <QuerySuggestions />
   </BaseKeyboardNavigation>
 </template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 </docs>

@@ -51,7 +51,7 @@ Simple panel that receives its open state via prop, which is responsible for ren
 
 ```vue
 <template>
-  <BaseTogglePanel :open="true" :animation="collapseFromTop">
+  <BaseTogglePanel :open="true" :animation="animation">
     <Filters :filters="filters">
       <template #default="{ filter }">
         <p>{{ filter.label }}</p>
@@ -63,19 +63,8 @@ Simple panel that receives its open state via prop, which is responsible for ren
 <script setup>
 import { BaseTogglePanel } from '@empathyco/x-components'
 import { CollapseFromTop } from '@empathyco/x-components/animations'
-const collapseFromTop = CollapseFromTop
+const animation = CollapseFromTop
 const filters = [{ label: 'Color' }, { label: 'Size' }, { label: 'Brand' }]
-</script>
-```
-
-### Customizing the animation
-
-You can use any animation component for the panel transition:
-
-```vue
-<script setup>
-import { CollapseFromLeft } from '@empathyco/x-components/animations'
-const collapseFromLeft = CollapseFromLeft
 </script>
 ```
 </docs>

@@ -171,7 +171,7 @@ function onScroll(position) {
 </script>
 ```
 
-### Reset scroll on custom events
+### Reset scroll
 
 Configure which events reset the scroll position using the `resetOn` prop.
 

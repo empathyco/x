@@ -126,26 +126,30 @@ const animation = CollapseFromTop
 </script>
 ```
 
-### Customizing the animation
-
-You can use any animation component for the panel transition:
-
-```vue
-<script setup>
-import { CollapseFromLeft } from '@empathyco/x-components/animations'
-const animation = CollapseFromLeft
-</script>
-```
-
 ### Listening to state changes
 
 You can listen to the `TogglePanelStateChanged` event to react to panel open/close state changes:
 
-```js
+```vue
+<template>
+  <div>
+    <span>Panel is {{ isPanelOpen ? 'open' : 'closed' }}</span>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
 import { use$x } from '@empathyco/x-components'
+
 const $x = use$x()
-$x.on('TogglePanelStateChanged').subscribe(isOpen => {
-  // handle state change
+const isPanelOpen = ref(false)
+const panelId = 'myToggle'
+
+$x.on('TogglePanelStateChanged').subscribe((isOpen, { id }) => {
+  if (id === panelId) {
+    isPanelOpen.value = isOpen
+  }
 })
+</script>
 ```
 </docs>
