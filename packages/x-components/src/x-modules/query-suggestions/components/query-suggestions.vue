@@ -158,17 +158,17 @@ you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` e
 <script setup>
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 import { SearchInput } from '@empathyco/x-components/search-box'
-import { useXBus } from '@empathyco/x-components'
+import { use$x } from '../../../composables/use-$x'
 
-const $x = useXBus()
+const x = use$x()
 function emitSuggestionClickedEvents(event, suggestion) {
-  $x.emit('UserAcceptedAQuery', suggestion.query, {
+  x.emit('UserAcceptedAQuery', suggestion.query, {
     target: event.target
   })
-  $x.emit('UserSelectedASuggestion', suggestion, {
+  x.emit('UserSelectedASuggestion', suggestion, {
     target: event.target
   })
-  $x.emit('UserSelectedAQuerySuggestion', suggestion, {
+  x.emit('UserSelectedAQuerySuggestion', suggestion, {
     target: event.target
   })
 }

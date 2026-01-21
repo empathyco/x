@@ -159,7 +159,7 @@ _Search for a fashion term and see the related tags with the animation effect._
 <template>
   <div>
     <SearchInput />
-    <RelatedTags :animation="'StaggeredFadeAndSlide'" :maxItemsToRender="3" />
+    <RelatedTags :animation="animation" :maxItemsToRender="3" />
   </div>
 </template>
 
@@ -168,12 +168,7 @@ import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
 import { StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-// Registering the animation as a global component (Vue 3)
-import { getCurrentInstance } from 'vue'
-const app = getCurrentInstance()?.appContext.app
-if (app) {
-  app.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
-}
+const animation = StaggeredFadeAndSlide
 </script>
 ```
 
