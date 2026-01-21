@@ -133,19 +133,32 @@ on this value.
 ### Basic usage
 
 ```vue
-<BaseRating :value="5.23" />
+<template>
+  <BaseRating :value="5.23" />
+</template>
+
+<script setup>
+import { BaseRating } from '@empathyco/x-components'
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<BaseRating :value="7.15" :max="10">
-  <template #filled-icon>
-    <TestIcon/>
-  </template>
-  <template #empty-icon>
-    <TestIcon/>
-  </template>
-</BaseRating>
+<template>
+  <BaseRating :value="7.15" :max="10">
+    <template #filled-icon>
+      <TestIcon />
+    </template>
+    <template #empty-icon>
+      <TestIcon />
+    </template>
+  </BaseRating>
+</template>
+
+<script setup>
+import { BaseRating } from '@empathyco/x-components'
+import TestIcon from './TestIcon.vue'
+</script>
 ```
 </docs>

@@ -95,23 +95,22 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-A list of events that the component will watch:
+A list of events that the component will watch and emit:
 
 - [`UserClickedPanelToggleButton`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted after the user clicks the button. The event payload is the id of the panelId
-  that is going to be toggled.
+  watched to toggle the panel when the payload matches the `panelId` prop.
+- [`TogglePanelStateChanged`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the internal open state changes, with the new state and panel id.
 
 ## Examples
 
 ### Basic usage
 
-Using default slot:
-
 ```vue
 <template>
   <div>
     <BaseIdTogglePanelButton panelId="myToggle">
-      <img src="./open-button-icon.svg" />
+      <img src="./open-button-icon.svg" alt="Toggle Aside" />
       <span>Toggle Aside</span>
     </BaseIdTogglePanelButton>
     <BaseIdTogglePanel :startOpen="true" :animation="animation" panelId="myToggle">
@@ -120,25 +119,37 @@ Using default slot:
   </div>
 </template>
 
-<script>
-import {
-  BaseIdTogglePanel,
-  BaseIdTogglePanelButton,
-  CollapseFromTop,
-} from '@empathyco/x-components'
+<script setup>
+import { BaseIdTogglePanel, BaseIdTogglePanelButton } from '@empathyco/x-components'
+import { CollapseFromTop } from '@empathyco/x-components/animations'
+const animation = CollapseFromTop
+</script>
+```
 
-export default {
-  components: {
-    BaseIdTogglePanel,
-    BaseIdTogglePanelButton,
-    CollapseFromTop,
-  },
-  data: function () {
-    return {
-      animation: CollapseFromTop,
-    }
-  },
-}
+### Listening to state changes
+
+You can listen to the `TogglePanelStateChanged` event to react to panel open/close state changes:
+
+```vue
+<template>
+  <div>
+    <span>Panel is {{ isPanelOpen ? 'open' : 'closed' }}</span>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { use$x } from '@empathyco/x-components'
+
+const x = use$x()
+const isPanelOpen = ref(false)
+const panelId = 'myToggle'
+
+x.on('TogglePanelStateChanged').subscribe((isOpen, { id }) => {
+  if (id === panelId) {
+    isPanelOpen.value = isOpen
+  }
+})
 </script>
 ```
 </docs>

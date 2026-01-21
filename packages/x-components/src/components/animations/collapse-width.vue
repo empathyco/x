@@ -50,16 +50,61 @@ export default defineComponent({
 <docs lang="mdx">
 ## Examples
 
-The CollapseWidth component is intended to be used as animation to wrap an element with v-if or
-v-show and animate it. The animation consists on scale its width size from 0 to auto. This
-transition does not work with components that have horizontal margin, padding or border. It also is
-dependant of the width of the child elements and not the root element.
+The CollapseWidth component is intended to be used as animation to wrap an element with `v-if` or
+`v-show` and animate its width. The animation scales its width from 0 to auto. This transition does not work with components that have horizontal margin, padding, or border. It also depends on the width of the child elements and not the root element.
 
-Used wrapping a component:
+### Basic usage with `v-if`
 
 ```vue
-<CollapseWidth>
-  <ComponentOrElement v-if="open"/>
-</CollapseWidth>
+<template>
+  <CollapseWidth>
+    <ComponentOrElement v-if="open" />
+  </CollapseWidth>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseWidth from '@empathyco/x-components/js/components/animations/collapse-width.vue'
+
+const open = ref(false)
+</script>
+```
+
+### Usage with `v-show`
+
+```vue
+<template>
+  <CollapseWidth>
+    <ComponentOrElement v-show="open" />
+  </CollapseWidth>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseWidth from '@empathyco/x-components/js/components/animations/collapse-width.vue'
+
+const open = ref(true)
+</script>
+```
+
+### Example with dynamic content
+
+```vue
+<template>
+  <div>
+    <button @click="open = !open">Toggle</button>
+    <CollapseWidth>
+      <div v-if="open" style="width: 200px; background: #eee;">Expanded content</div>
+      <div v-else style="width: 50px; background: #ccc;">Collapsed content</div>
+    </CollapseWidth>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseWidth from '@empathyco/x-components/js/components/animations/collapse-width.vue'
+
+const open = ref(false)
+</script>
 ```
 </docs>

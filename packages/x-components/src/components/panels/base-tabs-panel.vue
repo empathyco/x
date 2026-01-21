@@ -192,7 +192,7 @@ This component emits no events.
 
 This component renders a list of tabs based on the name of the slots passed on its template. By
 default, the name of each slot will be used as tab label. If an initial tab is passed by prop, the
-content of its correspondent slot will displayed in a panel. Otherwise, no content will be displayed
+content of its correspondent slot will be displayed in a panel. Otherwise, no content will be displayed
 until a tab is selected.
 
 ### Basic example
@@ -205,26 +205,17 @@ It renders a list of tabs and, when a tab is clicked, a panel with its content w
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-}
 </script>
 ```
 
@@ -241,26 +232,17 @@ which tab should be opened at first.
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-}
 </script>
 ```
 
@@ -276,26 +258,17 @@ behavior is deactivated.
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-}
 </script>
 ```
 
@@ -312,31 +285,22 @@ export default {
     activeTabClass="x-button-auxiliary"
     contentClass="x-p-12 x-bg-auxiliary-25"
     tabClass="x-button-ghost"
-    tabListClass="x-flex-col"
+    tabsListClass="x-flex-col"
   >
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-}
 </script>
 ```
 
@@ -351,27 +315,15 @@ export default {
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel, StaggeredFadeAndSlide } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-  data() {
-    return {
-      staggeredFadeAndSlide: StaggeredFadeAndSlide,
-    }
-  },
-}
+const staggeredFadeAndSlide = StaggeredFadeAndSlide
 </script>
 ```
 
@@ -390,31 +342,20 @@ replaced entirely through the `tab` slot.
       This is the {{ tab }} tab.
       <button @click="select">Open tab</button>
     </template>
-
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-    CheckIcon,
-  },
-}
 </script>
 ```
 
@@ -430,31 +371,20 @@ Alternatively to the previous example, instead of changing the whole tab button,
       <CheckIcon v-if="isSelected" />
       {{ tab }}
     </template>
-
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
-
     <template #outlet>
       <div>Outlet Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-    CheckIcon,
-  },
-}
 </script>
 ```
 
@@ -470,22 +400,14 @@ The displayed tab name and a method to select a tab are exposed to the tab panel
       <button @click="() => selectTab('fall')">Open Fall</button>
       <button @click="deselectTab">Close tab</button>
     </template>
-
     <template #fall>
       <div>Fall Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>
 
-<script>
+<script setup>
 import { BaseTabsPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseTabsPanelDemo',
-  components: {
-    BaseTabsPanel,
-  },
-}
 </script>
 ```
 </docs>

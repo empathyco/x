@@ -191,7 +191,9 @@ This component emits the following events:
   event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 
-## See it in action
+## Examples
+
+### Basic usage
 
 This suggestion component expects a suggestion to render and pass to its default slot, a normalized
 query to compare with the suggestion's query and highlight its matching parts, and events to emit
@@ -201,40 +203,32 @@ If the suggestion contains a filter, it is displayed next to the suggestion.
 
 ```vue live
 <template>
-  <BaseSuggestion v-bind="{ query, suggestion }" />
+  <BaseSuggestion :query="query" :suggestion="suggestion" />
 </template>
-<script>
-import { BaseSuggestion } from '@empathyco/x-components'
 
-export default {
-  name: 'BaseSuggestionDemo',
-  components: {
-    BaseSuggestion,
-  },
-  data() {
-    return {
-      query: 'st',
-      suggestion: {
-        modelName: 'QuerySuggestion',
-        query: 'steak',
-        facet: {
-          namedModel: 'SimpleFacet',
-          id: 'category',
-          label: 'Category',
-          filters: [
-            {
-              id: 'category:groceries',
-              modelName: 'SimpleFilter',
-              facetId: 'category-facet',
-              label: 'Groceries',
-              selected: false,
-              totalResults: 10,
-            },
-          ],
+<script setup>
+import { BaseSuggestion } from '@empathyco/x-components'
+const query = 'st'
+const suggestion = {
+  modelName: 'QuerySuggestion',
+  query: 'steak',
+  facets: [
+    {
+      modelName: 'SimpleFacet',
+      id: 'category',
+      label: 'Category',
+      filters: [
+        {
+          id: 'category:groceries',
+          modelName: 'SimpleFilter',
+          facetId: 'category-facet',
+          label: 'Groceries',
+          selected: false,
+          totalResults: 10,
         },
-      },
-    }
-  },
+      ],
+    },
+  ],
 }
 </script>
 ```
@@ -245,29 +239,47 @@ You can make this component render any content you want by using the `default` s
 
 ```vue live
 <template>
-  <BaseSuggestion v-bind="{ query, suggestion }" #default="{ suggestion, query, filter }">
-    <span>🔍</span>
-    <Highlight :text="suggestion.query" :highlight="query" />
-    <span v-if="filter">{{ filter.label }}</span>
+  <BaseSuggestion :query="query" :suggestion="suggestion">
+    <template #default="{ suggestion, query, filter }">
+      <span>🔍</span>
+      <Highlight :text="suggestion.query" :highlight="query" />
+      <span v-if="filter">{{ filter.label }}</span>
+    </template>
   </BaseSuggestion>
 </template>
-<script>
-import { BaseSuggestion } from '@empathyco/x-components'
 
-export default {
-  name: 'BaseSuggestionDemo',
-  components: {
-    BaseSuggestion,
-  },
-  data() {
-    return {
-      query: 'st',
-      suggestion: {
-        modelName: 'QuerySuggestion',
-        query: 'steak',
-      },
-    }
-  },
+<script setup>
+import { BaseSuggestion } from '@empathyco/x-components'
+const query = 'st'
+const suggestion = {
+  modelName: 'QuerySuggestion',
+  query: 'steak',
+}
+</script>
+```
+
+### Emitting custom events with suggestionSelectedEvents
+
+You can emit additional custom events when a suggestion is selected by passing them in the `suggestionSelectedEvents` prop. For example, to emit a custom event called `CustomSuggestionEvent` with a payload:
+
+```vue live
+<template>
+  <BaseSuggestion
+    :query="query"
+    :suggestion="suggestion"
+    :suggestionSelectedEvents="suggestionSelectedEvents"
+  />
+</template>
+
+<script setup>
+import { BaseSuggestion } from '@empathyco/x-components'
+const query = 'st'
+const suggestion = {
+  modelName: 'QuerySuggestion',
+  query: 'steak',
+}
+const suggestionSelectedEvents = {
+  CustomSuggestionEvent: { custom: 'payload' },
 }
 </script>
 ```

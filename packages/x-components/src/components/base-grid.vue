@@ -253,6 +253,15 @@ It renders a list of items using the default slot:
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 
 ### Configuring the number of columns
@@ -267,6 +276,15 @@ It renders a grid with 12 columns instead of 6, which is the default value:
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 
 ### Rendering usage
@@ -303,6 +321,18 @@ and are rendered in different slots.
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+import BaseResultLink from './BaseResultLink.vue'
+const animation = 'ul'
+const items = [
+  { id: 1, modelName: 'banner', title: 'Banner 1' },
+  { id: 2, modelName: 'next-queries', totalResults: 5 },
+  { id: 3, modelName: 'promoted', title: 'Promo 1' },
+  { id: 4, modelName: 'result', name: 'Result 1' },
+]
+</script>
 ```
 
 ### Customizing the items width
@@ -318,5 +348,14 @@ items.
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 </docs>

@@ -142,27 +142,42 @@ export default defineComponent({
 </style>
 
 <docs lang="mdx">
-The Staggered fade and slide components works as the normal fade and slide components, but it also
-adds a configurable delay to each transition.
+## Examples
 
-## Example
+The StaggeredFadeAndSlide component works like the normal fade and slide components, but adds a configurable delay to each transition.
 
 ### Used with animatable components
 
 ```vue
-<AnimatableComponent :animation="StaggeredFadeAndSlide" />
+<template>
+  <AnimatableComponent :animation="StaggeredFadeAndSlide" />
+</template>
+
+<script setup>
+import StaggeredFadeAndSlide from '@empathyco/x-components/js/components/animations/staggered-fade-and-slide.vue'
+</script>
 ```
 
-### Used as a regular component:
+### Used as a regular component
 
-This components exposes all the props and events of the Staggering transition group, like the `tag`
-or the `stagger` props:
+This component exposes all the props and events of the transition group, like the `tag` or the `stagger` props:
 
 ```vue
-<StaggeredFadeAndSlide tag="ul" :stagger="50">
-  <li key="1">Element to animate</li>
-  <li key="2">Element to animate</li>
-  <li key="3">Element to animate</li>
-</StaggeredFadeAndSlide>
+<template>
+  <StaggeredFadeAndSlide tag="ul" :stagger="50">
+    <li v-for="item in items" :key="item">{{ item }}</li>
+  </StaggeredFadeAndSlide>
+  <button @click="addItem">Add Item</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import StaggeredFadeAndSlide from '@empathyco/x-components/js/components/animations/staggered-fade-and-slide.vue'
+
+const items = ref(['One', 'Two', 'Three'])
+function addItem() {
+  items.value.push(`Item ${items.value.length + 1}`)
+}
+</script>
 ```
 </docs>

@@ -175,48 +175,69 @@ reaching the navigation limit in any direction.
 ### Basic Usage
 
 ```vue
-<KeyboardNavigation>
-  <QuerySuggestions/>
-</KeyboardNavigation>
+<template>
+  <BaseKeyboardNavigation>
+    <QuerySuggestions />
+  </BaseKeyboardNavigation>
+</template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 
 ### Defining multiple conditions to take navigation's control
 
 ```vue
-<KeyboardNavigation
-  :navigationHijacker="[
-    {
-      xEvent: 'UserPressedArrowKey',
-      moduleName: 'searchBox',
-      direction: 'ArrowDown',
-    },
-    {
-      xEvent: 'UserPressedArrowKey',
-      moduleName: 'facets',
-      direction: 'ArrowRight',
-    },
-  ]"
->
-  <QuerySuggestions/>
-</KeyboardNavigation>
+<template>
+  <BaseKeyboardNavigation
+    :navigationHijacker="[
+      {
+        xEvent: 'UserPressedArrowKey',
+        moduleName: 'searchBox',
+        direction: 'ArrowDown',
+      },
+      {
+        xEvent: 'UserPressedArrowKey',
+        moduleName: 'facets',
+        direction: 'ArrowRight',
+      },
+    ]"
+  >
+    <QuerySuggestions />
+  </BaseKeyboardNavigation>
+</template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 
 ### Defining events to emit when reaching a navigation limit
 
 ```vue
-<KeyboardNavigation
-  :navigationHijacker="[
-    {
-      xEvent: 'UserPressedArrowKey',
-      moduleName: 'searchBox',
-      direction: 'ArrowDown',
-    },
-  ]"
-  :eventsForDirectionLimit="{
-    ArrowUp: 'UserReachedEmpathizeTop',
-  }"
->
-  <QuerySuggestions/>
-</KeyboardNavigation>
+<template>
+  <BaseKeyboardNavigation
+    :navigationHijacker="[
+      {
+        xEvent: 'UserPressedArrowKey',
+        moduleName: 'searchBox',
+        direction: 'ArrowDown',
+      },
+    ]"
+    :eventsForDirectionLimit="{
+      ArrowUp: 'UserReachedEmpathizeTop',
+    }"
+  >
+    <QuerySuggestions />
+  </BaseKeyboardNavigation>
+</template>
+
+<script setup>
+import { BaseKeyboardNavigation } from '@empathyco/x-components'
+import QuerySuggestions from './QuerySuggestions.vue'
+</script>
 ```
 </docs>

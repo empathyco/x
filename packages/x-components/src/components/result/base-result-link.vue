@@ -120,22 +120,33 @@ This component emits the following event:
 
 The component can emit more events on click using the `resultClickExtraEvents` prop.
 
-## See it in action
+## Examples
 
-This component is a wrapper for the result contents (images, name, price...) It may be part of the
+This component is a wrapper for the result contents (images, name, price...). It may be part of the
 search result page, recommendations or other section which needs to include results.
 
 Additionally, this component may be injected other events to be emitted on click event, so,
-depending where it's used its father component may provide this events.
+depending where it's used its father component may provide these events.
 
-The result prop is required. It will render a `<a></a>` with the href to the result URL:
+The result prop is required. It will render an `<a>` with the href to the result URL:
 
 ```vue
-<BaseResultLink :result="result">
-  <template #default="{ result }">
-    <img :src="result.images[0]"/>
-    <span>{{ result.name }}</span>
-  </template>
-</BaseResultLink>
+<template>
+  <BaseResultLink :result="result">
+    <template #default="{ result }">
+      <img :src="result.images[0]" alt="Result image" />
+      <span>{{ result.name }}</span>
+    </template>
+  </BaseResultLink>
+</template>
+
+<script setup>
+import { BaseResultLink } from '@empathyco/x-components'
+const result = {
+  name: 'Jacket',
+  url: 'https://shop.com/jacket',
+  images: ['https://shop.com/jacket.jpg'],
+}
+</script>
 ```
 </docs>

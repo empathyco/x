@@ -138,7 +138,7 @@ An event that the component will emit:
   the event is emitted on component mount, and whenever the value changes. The event payload is the
   current `selectedColumns` value.
 
-## Example
+## Examples
 
 Column picker dropdown component renders a dropdown component which options are the different
 columns you can set for a grid.
@@ -161,20 +161,11 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
   </BaseColumnPickerDropdown>
 </template>
 
-<script>
-import { BaseColumnPickerDropdown } from '@empathyco/x-components'
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerDropdown from '@empathyco/x-components/js/components/column-picker/base-column-picker-dropdown.vue'
 
-export default {
-  name: 'BaseColumnPickerDropdownTest',
-  components: {
-    BaseColumnPickerDropdown,
-  },
-  data() {
-    return {
-      selectedColumns: 2,
-    }
-  },
-}
+const selectedColumns = ref(2)
 </script>
 ```
 
@@ -192,20 +183,11 @@ export default {
   </BaseColumnPickerDropdown>
 </template>
 
-<script>
-import { BaseColumnPickerDropdown } from '@empathyco/x-components'
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerDropdown from '@empathyco/x-components/js/components/column-picker/base-column-picker-dropdown.vue'
 
-export default {
-  name: 'BaseColumnPickerDropdownTest',
-  components: {
-    BaseColumnPickerDropdown,
-  },
-  data() {
-    return {
-      selectedColumns: 2,
-    }
-  },
-}
+const selectedColumns = ref(2)
 </script>
 ```
 
@@ -227,15 +209,8 @@ with other column pickers.
   </BaseColumnPickerDropdown>
 </template>
 
-<script>
-import { BaseColumnPickerDropdown } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseColumnPickerDropdownTest',
-  components: {
-    BaseColumnPickerDropdown,
-  },
-}
+<script setup>
+import BaseColumnPickerDropdown from '@empathyco/x-components/js/components/column-picker/base-column-picker-dropdown.vue'
 </script>
 ```
 </docs>

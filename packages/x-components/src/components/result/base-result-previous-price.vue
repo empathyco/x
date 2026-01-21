@@ -65,22 +65,19 @@ export default defineComponent({
 
 ### Basic example
 
-This component shows the previous price formatted if it has discount. The component has two optional
-props. `format` to select the currency format to be applied.
+This component shows the previous price formatted if it has discount. The component has an optional
+`format` prop to select the currency format to be applied.
 
 ```vue
 <template>
   <BaseResultPreviousPrice :result="result" :format="'i.iii,ddd €'" />
 </template>
 
-<script>
+<script setup>
 import { BaseResultPreviousPrice } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseResultPreviousPriceDemo',
-  components: {
-    BaseResultPreviousPrice,
-  },
+const result = {
+  price: { originalValue: 199.99, hasDiscount: true },
+  // ...other result properties
 }
 </script>
 ```
@@ -94,14 +91,11 @@ export default {
   </BaseResultPreviousPrice>
 </template>
 
-<script>
+<script setup>
 import { BaseResultPreviousPrice } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseResultPreviousPriceDemo',
-  components: {
-    BaseResultPreviousPrice,
-  },
+const result = {
+  price: { originalValue: 199.99, hasDiscount: true },
+  // ...other result properties
 }
 </script>
 ```

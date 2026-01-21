@@ -192,3 +192,52 @@ export default defineComponent({
   pointer-events: all;
 }
 </style>
+
+<docs lang="mdx">
+## Layout
+
+This component provides a single-column layout with fixed headers and collapsible fixed asides:
+
+### Layout Schema
+
+| header      |
+| ----------- |
+| sub-header  |
+| toolbar     |
+| predictive  |
+| main        |
+| floating    |
+| footer      |
+| aside       |
+| extra-aside |
+
+## Design Tokens
+
+The component exposes the following `Design Tokens` for configuration:
+
+| Token                                     | Default Value | Description                         |
+| ----------------------------------------- | ------------- | ----------------------------------- |
+| --x-size-margin-left-layout-single-column | 0             | The left margin for the aside modal |
+
+## Example
+
+```vue
+<template>
+  <SingleColumnLayout>
+    <template #header>Header content</template>
+    <template #sub-header>Sub-header content</template>
+    <template #toolbar>Toolbar content</template>
+    <template #predictive>Predictive content</template>
+    <template #main>Main content</template>
+    <template #floating>Floating content</template>
+    <template #footer>Footer content</template>
+    <template #aside>Aside content</template>
+    <template #extra-aside>Extra aside content</template>
+  </SingleColumnLayout>
+</template>
+
+<script setup>
+import SingleColumnLayout from '@empathyco/x-components/js/components/layouts/single-column-layout.vue'
+</script>
+```
+</docs>

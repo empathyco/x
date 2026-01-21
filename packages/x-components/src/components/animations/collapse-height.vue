@@ -50,15 +50,61 @@ export default defineComponent({
 <docs lang="mdx">
 ## Examples
 
-The CollapseHeight component is intended to be used as animation to wrap an element with v-if or
-v-show and animate it. The animation consists on scale its height size from 0 to auto. This
-transition does not work with components that have vertical margin, padding or border.
+The CollapseHeight component is intended to be used as an animation to wrap an element with `v-if` or
+`v-show` and animate its height. The animation scales its height from 0 to auto. This transition does not work with components that have vertical margin, padding, or border.
 
-Used wrapping a component:
+### Basic usage with `v-if`
 
 ```vue
-<CollapseHeight>
-  <ComponentOrElement v-if="open"/>
-</CollapseHeight>
+<template>
+  <CollapseHeight>
+    <ComponentOrElement v-if="open" />
+  </CollapseHeight>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseHeight from '@empathyco/x-components/js/components/animations/collapse-height.vue'
+
+const open = ref(false)
+</script>
+```
+
+### Usage with `v-show`
+
+```vue
+<template>
+  <CollapseHeight>
+    <ComponentOrElement v-show="open" />
+  </CollapseHeight>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseHeight from '@empathyco/x-components/js/components/animations/collapse-height.vue'
+
+const open = ref(true)
+</script>
+```
+
+### Example with dynamic content
+
+```vue
+<template>
+  <div>
+    <button @click="open = !open">Toggle</button>
+    <CollapseHeight>
+      <div v-if="open" style="height: 200px; background: #eee;">Expanded content</div>
+      <div v-else style="height: 50px; background: #ccc;">Collapsed content</div>
+    </CollapseHeight>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CollapseHeight from '@empathyco/x-components/js/components/animations/collapse-height.vue'
+
+const open = ref(false)
+</script>
 ```
 </docs>

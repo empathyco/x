@@ -308,22 +308,11 @@ is open.
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { BaseModal, FadeAndSlide } from '@empathyco/x-components'
-import Vue from 'vue'
-
-Vue.component('fadeAndSlide', FadeAndSlide)
-
-export default {
-  components: {
-    BaseModal,
-  },
-  data() {
-    return {
-      open: false,
-    }
-  },
-}
+const open = ref(false)
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 
@@ -351,22 +340,11 @@ The `contentClass` prop can be used to add classes to the modal content.
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { BaseModal, FadeAndSlide } from '@empathyco/x-components'
-import Vue from 'vue'
-
-Vue.component('fadeAndSlide', FadeAndSlide)
-
-export default {
-  components: {
-    BaseModal,
-  },
-  data() {
-    return {
-      open: false,
-    }
-  },
-}
+const open = ref(false)
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 
@@ -392,22 +370,11 @@ The `overlayClass` prop can be used to add classes to the modal overlay.
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { BaseModal, FadeAndSlide } from '@empathyco/x-components'
-import Vue from 'vue'
-
-Vue.component('fadeAndSlide', FadeAndSlide)
-
-export default {
-  components: {
-    BaseModal,
-  },
-  data() {
-    return {
-      open: false,
-    }
-  },
-}
+const open = ref(false)
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 

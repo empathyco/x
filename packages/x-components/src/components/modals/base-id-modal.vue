@@ -148,17 +148,8 @@ share the same value in their `modalId` prop to work:
   </div>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalOpen, BaseIdModal, BaseIdModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'TestModal',
-  components: {
-    BaseIdModalOpen,
-    BaseIdModal,
-    BaseIdModalClose,
-  },
-}
 </script>
 ```
 
@@ -179,17 +170,8 @@ The `contentClass` prop can be used to add classes to the modal content.
   </div>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalOpen, BaseIdModal, BaseIdModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'TestModal',
-  components: {
-    BaseIdModalOpen,
-    BaseIdModal,
-    BaseIdModalClose,
-  },
-}
 </script>
 ```
 </docs>

@@ -80,15 +80,8 @@ modal with modalId `my-modal`.
   </BaseIdModalClose>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseIdModalCloseTest',
-  components: {
-    BaseIdModalClose,
-  },
-}
 </script>
 ```
 
@@ -109,15 +102,8 @@ function to close the modal with modalId `my-modal`.
   </BaseIdModalClose>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseIdModalCloseTest',
-  components: {
-    BaseIdModalClose,
-  },
-}
 </script>
 ```
 </docs>

@@ -146,8 +146,8 @@ export default defineComponent({
 ## Examples
 
 This component renders a list of elements in different slots depending on the columns prop. Each
-element will emit the needed events to sync other instances of columns pickers, or grids with the
-number of columns that it is being selected when it is clicked.
+button emits the needed events to sync other instances of column pickers or grids with the
+number of columns being selected when clicked.
 
 ### Default usage
 
@@ -157,40 +157,31 @@ It is required to send the columns prop.
 <template>
   <BaseColumnPickerList :columns="columns" />
 </template>
-<script>
-import { BaseColumnPickerList } from '@empathyco/x-components'
 
-export default {
-  components: {
-    BaseColumnPickerList,
-  },
-  data() {
-    return { columns: [2, 4, 6] }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerList from '@empathyco/x-components/js/components/column-picker/base-column-picker-list.vue'
+
+const columns = ref([2, 4, 6])
 </script>
 ```
 
-#### Using v-model
+### Using v-model
 
-It is possible to do two way binding in order to synchronize the value with the parents. It will be
-updated if it changed the value or if the parent changes it.
+It is possible to do two-way binding in order to synchronize the value with the parent. It will be
+updated if the value changes or if the parent changes it.
 
 ```vue live
 <template>
   <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
 </template>
-<script>
-import { BaseColumnPickerList } from '@empathyco/x-components'
 
-export default {
-  components: {
-    BaseColumnPickerList,
-  },
-  data() {
-    return { columns: [2, 4, 6], selectedColumns: 4 }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerList from '@empathyco/x-components/js/components/column-picker/base-column-picker-list.vue'
+
+const columns = ref([2, 4, 6])
+const selectedColumns = ref(4)
 </script>
 ```
 
@@ -202,21 +193,18 @@ It is possible to override the column picker button content.
 
 ```vue live
 <template>
-  <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
-    <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
+  <BaseColumnPickerList :columns="columns">
+    <template #default="{ column, isSelected }">
+      <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
+    </template>
   </BaseColumnPickerList>
 </template>
-<script>
-import { BaseColumnPickerList } from '@empathyco/x-components'
 
-export default {
-  components: {
-    BaseColumnPickerList,
-  },
-  data() {
-    return { columns: [2, 4, 6] }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerList from '@empathyco/x-components/js/components/column-picker/base-column-picker-list.vue'
+
+const columns = ref([2, 4, 6])
 </script>
 ```
 
@@ -231,18 +219,13 @@ It is also possible to add a divider element between the column picker buttons b
     </template>
   </BaseColumnPickerList>
 </template>
-<script>
-import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/x-components'
 
-export default {
-  components: {
-    BaseColumnPickerList,
-    ChevronRightIcon,
-  },
-  data() {
-    return { columns: [2, 4, 6] }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerList from '@empathyco/x-components/js/components/column-picker/base-column-picker-list.vue'
+import ChevronRightIcon from '@empathyco/x-components/js/components/icons/chevron-right.vue'
+
+const columns = ref([2, 4, 6])
 </script>
 ```
 
@@ -254,17 +237,12 @@ The `buttonClass` prop can be used to add classes to the buttons.
 <template>
   <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
-<script>
-import { BaseColumnPickerList } from '@empathyco/x-components'
 
-export default {
-  components: {
-    BaseColumnPickerList,
-  },
-  data() {
-    return { columns: [2, 4, 6] }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+import BaseColumnPickerList from '@empathyco/x-components/js/components/column-picker/base-column-picker-list.vue'
+
+const columns = ref([2, 4, 6])
 </script>
 ```
 

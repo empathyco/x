@@ -411,7 +411,7 @@ export default defineComponent({
 ## Example
 
 The `Dropdown` component is a simple yet customizable select component. The component needs to work
-the list of items available to select, which are passed using the `items` prop, and the selected
+with the list of items available to select, which are passed using the `items` prop, and the selected
 item, which is passed in using the `value` prop.
 
 The supported items must be an array that can contain unique strings, unique numbers, or objects
@@ -420,14 +420,13 @@ with a unique `id` property.
 The content of each item can be customized using the `item` slot, which apart from the data of the
 item, it also receives via prop if the element is selected or highlighted.
 
-There `toggle` slot can be used to customize the button that opens the dropdown. If this is not
+The `toggle` slot can be used to customize the button that opens the dropdown. If this is not
 provided, the `item` slot will be used for that.
 
 ```vue
 <template>
   <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
-
     <template #item="{ item, isSelected, isHighlighted }">
       <span v-if="isHighlighted">🟢</span>
       <span v-if="isSelected">✅</span>
@@ -436,21 +435,11 @@ provided, the `item` slot will be used for that.
   </BaseDropdown>
 </template>
 
-<script>
+<script setup>
 import { BaseDropdown } from '@empathyco/x-components'
-
-export default {
-  name: 'DropdownTest',
-  components: {
-    BaseDropdown,
-  },
-  data() {
-    return {
-      items: ['a', 2, { id: '3' }],
-      value: 'a',
-    }
-  },
-}
+import { ref } from 'vue'
+const items = ['a', 2, { id: '3' }]
+const value = ref('a')
 </script>
 ```
 </docs>
