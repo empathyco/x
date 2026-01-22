@@ -99,7 +99,7 @@ The component exposes a single default slot, where you can add icons or text.
   <div>
     <SearchInput />
     <ClearHistoryQueries>Clear history queries</ClearHistoryQueries>
-    <HistoryQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+    <HistoryQueries :animation="animation" :maxItemsToRender="10" />
   </div>
 </template>
 
@@ -107,12 +107,8 @@ The component exposes a single default slot, where you can add icons or text.
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries, ClearHistoryQueries } from '@empathyco/x-components/history-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
-import { getCurrentInstance } from 'vue'
 
-const app = getCurrentInstance()?.appContext.app
-if (app) {
-  app.component('FadeAndSlide', FadeAndSlide)
-}
+const animation = FadeAndSlide
 </script>
 ```
 </docs>

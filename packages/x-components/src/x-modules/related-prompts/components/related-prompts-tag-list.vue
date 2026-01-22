@@ -379,7 +379,7 @@ import { RelatedPromptsTagList } from '@empathyco/x-components/related-prompts'
 
 ```vue live
 <template>
-  <RelatedPromptsTagList :tagColors="['bg-blue-100', 'bg-green-100']" tagClass="rounded" />
+  <RelatedPromptsTagList :tagColors="['x-bg-neutral-50', 'x-bg-lead-50']" tagClass="rounded" />
 </template>
 
 <script setup>

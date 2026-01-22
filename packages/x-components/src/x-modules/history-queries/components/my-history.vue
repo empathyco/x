@@ -250,19 +250,14 @@ import { MyHistory } from '@empathyco/x-components/history-queries'
 
 ```vue
 <template>
-  <MyHistory :animation="fadeAndSlide" />
+  <MyHistory :animation="animation" />
 </template>
 
 <script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
-import { getCurrentInstance } from 'vue'
 
-const app = getCurrentInstance()?.appContext.app
-if (app) {
-  app.component('FadeAndSlide', FadeAndSlide)
-}
-const fadeAndSlide = FadeAndSlide
+const animation = FadeAndSlide
 </script>
 ```
 

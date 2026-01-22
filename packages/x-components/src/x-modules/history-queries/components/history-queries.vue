@@ -140,7 +140,7 @@ import { HistoryQueries } from '@empathyco/x-components/history-queries'
 <template>
   <div>
     <SearchInput />
-    <HistoryQueries :animation="'FadeAndSlide'" />
+    <HistoryQueries :animation="animation" />
   </div>
 </template>
 
@@ -148,12 +148,8 @@ import { HistoryQueries } from '@empathyco/x-components/history-queries'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { HistoryQueries } from '@empathyco/x-components/history-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
-import { getCurrentInstance } from 'vue'
 
-const app = getCurrentInstance()?.appContext.app
-if (app) {
-  app.component('FadeAndSlide', FadeAndSlide)
-}
+const animation = FadeAndSlide
 </script>
 ```
 
