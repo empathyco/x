@@ -157,12 +157,12 @@
       <Fade>
         <div
           v-if="queries.length"
-          class="x-cursor-pointer"
+          class="x-ai-overview-toggle-btn-wrapper x-cursor-pointer"
           data-test="ai-overview-toggle-button-wrapper"
-          @click="emitAndSetExpand(!expanded)"
+          @click="!$slots['toggle-button'] && emitAndSetExpand(!expanded)"
         >
           <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
-          <div class="x-ai-overview-toggle-wrapper">
+          <slot name="cta-button">
             <button
               class="x-ai-overview-toggle-btn"
               data-test="ai-overview-toggle-button"
@@ -174,7 +174,7 @@
                 :class="{ 'x-ai-overview-toggle-btn-icon-expanded': expanded }"
               />
             </button>
-          </div>
+          </slot>
         </div>
       </Fade>
     </div>
@@ -414,9 +414,9 @@ export default defineComponent({
   background-image: linear-gradient(to bottom, transparent 0%, var(--color-lighter) 100%);
 }
 
-.x-ai-overview-toggle-wrapper {
+.x-ai-overview-toggle-btn-wrapper {
   display: flex;
-  position: relative;
+  justify-content: center;
 }
 
 .x-ai-overview-toggle-btn {
@@ -437,6 +437,7 @@ export default defineComponent({
   min-height: 2.5rem;
   gap: 0.5rem;
   font-size: 0.875rem;
+  position: relative;
 }
 
 .x-ai-overview-toggle-btn:hover {
