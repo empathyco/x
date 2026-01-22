@@ -159,7 +159,7 @@
           v-if="queries.length"
           class="x-ai-overview-toggle-btn-wrapper x-cursor-pointer"
           data-test="ai-overview-toggle-button-wrapper"
-          @click="!$slots['toggle-button'] && emitAndSetExpand(!expanded)"
+          @click="!$slots['cta-button'] && emitAndSetExpand(!expanded)"
         >
           <div v-show="!expanded" class="x-ai-overview-gradient" data-test="ai-overview-gradient" />
           <slot name="cta-button">

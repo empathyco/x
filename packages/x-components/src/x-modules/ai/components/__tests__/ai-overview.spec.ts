@@ -547,4 +547,22 @@ describe('ai-overview component', () => {
     expect(sut.toggleButton.text()).toBe(propsStub.expandText)
     expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
   })
+
+  it('should allow customizing the toggle button with the cta-button slot', async () => {
+    const sut = render({
+      slots: {
+        'cta-button': '<button data-test="custom-cta-button">Custom CTA</button>',
+      },
+    })
+
+    expect(sut.toggleButton.exists()).toBeFalsy()
+    const customButton = sut.wrapper.find(getDataTestSelector('custom-cta-button'))
+    expect(customButton.exists()).toBeTruthy()
+    expect(customButton.text()).toBe('Custom CTA')
+
+    // Clicking the custom button should not trigger expansion automatically if it doesn't have the click listener
+    // But clicking the wrapper should NOT trigger it because the cta-button slot is used.
+    await sut.toggleButtonWrapper.trigger('click')
+    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
+  })
 })
