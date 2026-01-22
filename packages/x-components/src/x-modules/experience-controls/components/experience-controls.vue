@@ -43,15 +43,9 @@ This component will fire the events received in the `ExperienceControlsEventsCha
 <template>
   <ExperienceControls />
 </template>
-<script>
-import { ExperienceControls } from '@empathyco/x-components/experience-controls'
 
-export default {
-  name: 'ExperienceControlsDemo',
-  components: {
-    ExperienceControls,
-  },
-}
+<script setup>
+import { ExperienceControls } from '@empathyco/x-components/experience-controls'
 </script>
 ```
 </docs>

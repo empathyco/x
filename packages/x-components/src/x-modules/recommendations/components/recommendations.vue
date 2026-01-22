@@ -123,31 +123,27 @@ To use this component, the Topclicked service must be implemented.
 
 Here you have a basic example on how the recommendations are rendered. You can customize how each
 result is rendered by using the `default` slot. It is highly recommended to use base components such
-as the `BaseResultLink` or the `BaseResultAddToCart`, as they provides integration with other
-modules such like the `tagging` one.
+as the `BaseResultLink` or the `BaseResultAddToCart`, as they provide integration with other
+modules such as the `tagging` one.
 
 ```vue live
 <template>
-  <Recommendations #default="{ recommendation }">
+  <Recommendations v-slot="{ recommendation }">
     <BaseResultLink :result="recommendation" class="x-recommendations__link">
-      <img :src="recommendation.images[0]" class="x-recommendations__image" />
+      <img
+        :src="recommendation.images[0]"
+        :alt="recommendation.name"
+        class="x-recommendations__image"
+      />
       <span class="x-recommendations__title">{{ recommendation.name }}</span>
     </BaseResultLink>
-    <BaseResultAddToCart>Add to cart</BaseResultAddToCart>
+    <BaseResultAddToCart :result="recommendation">Add to cart</BaseResultAddToCart>
   </Recommendations>
 </template>
-<script>
+
+<script setup>
 import { Recommendations } from '@empathyco/x-components/recommendations'
 import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
-
-export default {
-  name: 'RecommendationsDemo',
-  components: {
-    Recommendations,
-    BaseResultLink,
-    BaseResultAddToCart,
-  },
-}
 </script>
 ```
 
@@ -159,43 +155,38 @@ In this example, the component will render a maximum of 4 result recommendations
 ```vue live
 <template>
   <Recommendations
-    #default="{ recommendation }"
+    v-slot="{ recommendation }"
     :maxItemsToRender="4"
-    animation="StaggeredFadeAndSlide"
+    :animation="StaggeredFadeAndSlide"
   >
     <BaseResultLink :result="recommendation" class="x-recommendations__link">
-      <img :src="recommendation.images[0]" class="x-recommendations__image" />
+      <img
+        :src="recommendation.images[0]"
+        :alt="recommendation.name"
+        class="x-recommendations__image"
+      />
       <span class="x-recommendations__title">{{ recommendation.name }}</span>
     </BaseResultLink>
-    <BaseResultAddToCart>Add to cart</BaseResultAddToCart>
+    <BaseResultAddToCart :result="recommendation">Add to cart</BaseResultAddToCart>
   </Recommendations>
 </template>
-<script>
-import Vue from 'vue'
+
+<script setup>
 import { Recommendations } from '@empathyco/x-components/recommendations'
 import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
-
-Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
-export default {
-  name: 'RecommendationsDemo',
-  components: {
-    Recommendations,
-    BaseResultLink,
-    BaseResultAddToCart,
-  },
-}
+import StaggeredFadeAndSlide from '@empathyco/x-components/animations/staggered-fade-and-slide.vue'
 </script>
 ```
 
 ### Play with the layout
 
 In this example you can build your own layout, and the `Recommendations` component will just act as
-a provider of the result recommendations data. Using the component this way, and due to Vue 2
-limitations you will only be allowed to render a single element inside the `layout` slot.
+a provider of the result recommendations data. Using the component this way, you can render any
+layout you want using the `layout` slot.
 
 ```vue live
 <template>
-  <Recommendations #layout="{ recommendations }">
+  <Recommendations v-slot:layout="{ recommendations }">
     <div class="x-recommendations">
       <article
         class="x-recommendations-list"
@@ -203,26 +194,22 @@ limitations you will only be allowed to render a single element inside the `layo
         :key="recommendation.id"
       >
         <BaseResultLink :result="recommendation" class="x-recommendations__link">
-          <img :src="recommendation.images[0]" class="x-recommendations__image" />
+          <img
+            :src="recommendation.images[0]"
+            :alt="recommendation.name"
+            class="x-recommendations__image"
+          />
           <span class="x-recommendations__title">{{ recommendation.name }}</span>
         </BaseResultLink>
-        <BaseResultAddToCart>Add to cart</BaseResultAddToCart>
+        <BaseResultAddToCart :result="recommendation">Add to cart</BaseResultAddToCart>
       </article>
     </div>
   </Recommendations>
 </template>
-<script>
+
+<script setup>
 import { Recommendations } from '@empathyco/x-components/recommendations'
 import { BaseResultLink, BaseResultAddToCart } from '@empathyco/x-components'
-
-export default {
-  name: 'RecommendationsDemo',
-  components: {
-    Recommendations,
-    BaseResultLink,
-    BaseResultAddToCart,
-  },
-}
 </script>
 ```
 </docs>

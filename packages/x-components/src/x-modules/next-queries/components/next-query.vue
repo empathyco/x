@@ -104,12 +104,12 @@ A list of events that the component will emit:
 
 ## Examples
 
-This components expects just a suggestion as a prop to be rendered. It has a slot to override the
+This component expects just a suggestion as a prop to be rendered. It has a slot to override the
 content. By default, it renders the suggestion query of the next query. It also has an optional
 prop, `highlightCurated`, to indicate if the curated Next Queries should be differentiated with a
 CSS class.
 
-### Basic Usage
+### Basic usage
 
 Using default slot:
 
@@ -118,28 +118,18 @@ Using default slot:
   <NextQuery :suggestion="suggestion" />
 </template>
 
-<script>
+<script setup>
 import { NextQuery } from '@empathyco/x-components/next-queries'
-
-export default {
-  name: 'NextQueryDemo',
-  components: {
-    NextQuery,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
-### Overriding default slot.
+### Overriding default slot
 
 The default slot allows you to replace the content of the suggestion button.
 
@@ -153,26 +143,15 @@ The default slot allows you to replace the content of the suggestion button.
   </NextQuery>
 </template>
 
-<script>
+<script setup>
 import { NextQuery } from '@empathyco/x-components/next-queries'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'NextQueryDemo',
-  components: {
-    NextQuery,
-    TrendingIcon,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 </docs>

@@ -89,14 +89,8 @@ searches it will show them.
   <PopularSearches />
 </template>
 
-<script>
+<script setup>
 import { PopularSearches } from '@empathyco/x-components/popular-searches'
-export default {
-  name: 'PopularSearchesDemo',
-  components: {
-    PopularSearches,
-  },
-}
 </script>
 ```
 
@@ -105,23 +99,12 @@ The component has two optional props. `animation` to render the component with a
 
 ```vue live
 <template>
-  <PopularSearches :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+  <PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10" />
 </template>
 
-<script>
-import Vue from 'vue'
+<script setup>
 import { PopularSearches } from '@empathyco/x-components/popular-searches'
-import FadeAndSlide from '@empathyco/x-components'
-
-// Registering the animation as a global component
-Vue.component('FadeAndSlide', FadeAndSlide)
-export default {
-  name: 'PopularSearchesDemo',
-  components: {
-    PopularSearches,
-    FadeAndSlide,
-  },
-}
+import FadeAndSlide from '@empathyco/x-components/animations/fade-and-slide.vue'
 </script>
 ```
 
@@ -141,17 +124,9 @@ query of the Popular Search's suggestion.
   </PopularSearches>
 </template>
 
-<script>
+<script setup>
 import { PopularSearches } from '@empathyco/x-components/popular-searches'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'PopularSearchesDemo',
-  components: {
-    PopularSearches,
-    TrendingIcon,
-  },
-}
 </script>
 ```
 
@@ -178,18 +153,9 @@ Search component.
   </PopularSearches>
 </template>
 
-<script>
+<script setup>
 import { PopularSearches, PopularSearch } from '@empathyco/x-components/popular-searches'
 import { TrendingIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'PopularSearchesDemo',
-  components: {
-    PopularSearches,
-    PopularSearch,
-    TrendingIcon,
-  },
-}
 </script>
 ```
 </docs>

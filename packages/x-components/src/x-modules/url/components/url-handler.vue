@@ -388,25 +388,18 @@ This component emits the following events:
 ## See it in action
 
 This component manages the browser URL parameters to preserve them through reloads and browser
-history navigation. It allow to configure the default url parameter names using its attributes. This
+history navigation. It allows you to configure the default URL parameter names using its attributes. This
 component doesn't render elements to the DOM.
 
-_Try to make some requests and take a look to the url!_
+_Try to make some requests and take a look at the URL!_
 
 ```vue
 <template>
   <UrlHandler />
 </template>
 
-<script>
+<script setup>
 import { UrlHandler } from '@empathyco/x-components/url-handler'
-
-export default {
-  name: 'UrlHandlerDemo',
-  components: {
-    UrlHandler,
-  },
-}
 </script>
 ```
 
@@ -416,25 +409,18 @@ In this example, the `UrlHandler` component changes the following query paramete
 
 - `query` to be `q`.
 - `page` to be `p`.
-- `filter` to be `f`
-- `sort` to be `s`
+- `filter` to be `f`.
+- `sort` to be `s`.
 
-_Try to make some requests and take a look to the url!_
+_Try to make some requests and take a look at the URL!_
 
 ```vue
 <template>
   <UrlHandler query="q" page="p" filter="f" sort="s" />
 </template>
 
-<script>
+<script setup>
 import { UrlHandler } from '@empathyco/x-components/url-handler'
-
-export default {
-  name: 'UrlHandlerDemo',
-  components: {
-    UrlHandler,
-  },
-}
 </script>
 ```
 
@@ -443,7 +429,7 @@ export default {
 The `UrlHandler` will emit the `ParamsLoadedFromUrl` when the page is loaded.
 
 The `UrlHandler` will emit the `ExtraParamsLoadedFromUrl` when the page is loaded with an extra
-param configured and with a value in URL.
+param configured and with a value in the URL.
 
 The `UrlHandler` will emit the `UserOpenXProgrammatically` when the page is loaded with a query in
 the URL.

@@ -522,3 +522,69 @@ export default defineComponent({
   }
 }
 </style>
+
+<docs lang="mdx">
+## AI Overview Examples
+
+The `ai-overview` component provides an AI-generated summary and suggestions for queries.
+
+### Basic usage
+
+```vue
+<template>
+  <AiOverview
+    :title="'AI Overview'"
+    :title-loading="'Generating with Empathy AI'"
+    :expand-text="'Show more'"
+    :collapse-text="'Show less'"
+    :content-classes="'my-content-class'"
+    :sliding-panels-classes="'my-sliding-panel-class'"
+    :sliding-panel-containers-classes="'my-sliding-panel-container-class'"
+    :sliding-panel-buttons-classes="'my-sliding-panel-button-class'"
+  >
+    <template #result="{ result }">
+      <ResultCard :result="result" />
+    </template>
+  </AiOverview>
+</template>
+
+<script setup>
+import AiOverview from '@empathyco/x-components/js/x-modules/ai/components/ai-overview.vue'
+import ResultCard from './ResultCard.vue'
+</script>
+```
+
+### Customizing slots
+
+You can customize the loading title, extra content, and sliding panel slots:
+
+```vue
+<template>
+  <AiOverview
+    :title="'AI Overview'"
+    :title-loading="'Loading... Please wait'"
+    :expand-text="'Show more'"
+    :collapse-text="'Show less'"
+  >
+    <template #title-loading>
+      <span>Custom loading title...</span>
+    </template>
+    <template #extra-content>
+      <div>Extra content below the main overview</div>
+    </template>
+    <template #sliding-panels-addons="{ arrivedState }">
+      <span v-if="arrivedState.left">Left end reached</span>
+      <span v-if="arrivedState.right">Right end reached</span>
+    </template>
+    <template #result="{ result }">
+      <ResultCard :result="result" />
+    </template>
+  </AiOverview>
+</template>
+
+<script setup>
+import AiOverview from '@empathyco/x-components/js/x-modules/ai/components/ai-overview.vue'
+import ResultCard from './ResultCard.vue'
+</script>
+```
+</docs>
