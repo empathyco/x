@@ -81,51 +81,42 @@ returns the result with XProvide.
 ```vue
 <template>
   <Facets v-slot="{ facet }">
-    <SortedFilters :filters="facet.filters" #default="{ sortedFilters }">
-      <Filters :items="sortedFilters" v-slot="{ filter }">
+    <SortedFilters :filters="facet.filters" #default="{ filters }">
+      <Filters :items="filters" v-slot="{ filter }">
         <SimpleFilter :filter="filter" />
       </Filters>
     </SortedFilters>
   </Facets>
 </template>
 
-<script>
-import { Facets, SimpleFilter, Filters } from '@empathyco/x-components'
-
-export default {
-  components: {
-    Facets,
-    Filters,
-    SimpleFilter,
-  },
-}
+<script setup>
+import { Facets, SortedFilters, Filters, SimpleFilter } from '@empathyco/x-components'
 </script>
 ```
 
 #### Using XInject and XProvide
 
 ```vue
-<Facets v-slot="{ facet }">
-  <FiltersSearch :filters="facet.filters">
-    <SortedFilters>
-      <Filters v-slot="{ filter }">
-        <SimpleFilter :filter="filter"/>
-      </Filters>
-    </SortedFilters>
-  </FiltersSearch>
-</Facets>
+<template>
+  <Facets v-slot="{ facet }">
+    <FiltersSearch :filters="facet.filters">
+      <SortedFilters>
+        <Filters v-slot="{ filter }">
+          <SimpleFilter :filter="filter" />
+        </Filters>
+      </SortedFilters>
+    </FiltersSearch>
+  </Facets>
+</template>
 
-<script>
-import { Facets, FiltersSearch, SimpleFilter, Filters } from '@empathyco/x-components'
-
-export default {
-  components: {
-    Facets,
-    FiltersSearch,
-    Filters,
-    SimpleFilter,
-  },
-}
+<script setup>
+import {
+  Facets,
+  FiltersSearch,
+  SortedFilters,
+  Filters,
+  SimpleFilter,
+} from '@empathyco/x-components'
 </script>
 ```
 </docs>

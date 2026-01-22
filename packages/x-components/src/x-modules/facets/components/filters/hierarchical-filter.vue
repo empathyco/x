@@ -231,29 +231,20 @@ to emit on click.
   <HierarchicalFilter :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { HierarchicalFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'HierarchicalFilterTest',
-  components: {
-    HierarchicalFilter,
-  },
-  date() {
-    return {
-      filter: {
-        id: `categories:men`,
-        modelName: 'HierarchicalFilter',
-        label: `men`,
-        facetId: 'categories',
-        parentId: null,
-        totalResults: 10,
-        children: [],
-        selected: false,
-      },
-    }
-  },
-}
+const filter = ref({
+  id: `categories:men`,
+  modelName: 'HierarchicalFilter',
+  label: `men`,
+  facetId: 'categories',
+  parentId: null,
+  totalResults: 10,
+  children: [],
+  selected: false,
+})
 </script>
 ```
 
@@ -266,29 +257,20 @@ Configuring the events to emit when the filter is clicked.
   <HierarchicalFilter :clickEvents="{ UserClickedAHierarchicalFilter: filter }" :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { HierarchicalFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'HierarchicalFilterTest',
-  components: {
-    HierarchicalFilter,
-  },
-  date() {
-    return {
-      filter: {
-        id: `categories:men`,
-        modelName: 'HierarchicalFilter',
-        label: `men`,
-        facetId: 'categories',
-        parentId: null,
-        totalResults: 10,
-        children: [],
-        selected: false,
-      },
-    }
-  },
-}
+const filter = ref({
+  id: `categories:men`,
+  modelName: 'HierarchicalFilter',
+  label: `men`,
+  facetId: 'categories',
+  parentId: null,
+  totalResults: 10,
+  children: [],
+  selected: false,
+})
 </script>
 ```
 
@@ -298,37 +280,28 @@ In this example, the child filters will also include the label and checkbox.
 
 ```vue
 <template>
-  <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter, slotCSSClasses, isDisabled }">
-    <label :class="slotCSSClasses">
+  <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter, cssClasses, isDisabled }">
+    <label :class="cssClasses">
       <input @change="clickFilter" :disabled="isDisabled" />
       {{ filter.label }}
     </label>
   </HierarchicalFilter>
 </template>
 
-<script>
+<script setup>
 import { HierarchicalFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'HierarchicalFilterTest',
-  components: {
-    HierarchicalFilter,
-  },
-  date() {
-    return {
-      filter: {
-        id: `categories:men`,
-        modelName: 'HierarchicalFilter',
-        label: `men`,
-        facetId: 'categories',
-        parentId: null,
-        totalResults: 10,
-        children: [],
-        selected: false,
-      },
-    }
-  },
-}
+const filter = ref({
+  id: `categories:men`,
+  modelName: 'HierarchicalFilter',
+  label: `men`,
+  facetId: 'categories',
+  parentId: null,
+  totalResults: 10,
+  children: [],
+  selected: false,
+})
 </script>
 ```
 
@@ -337,35 +310,26 @@ export default {
 ```vue
 <template>
   <HierarchicalFilter :filter="filter">
-    <template #label :filter="filter">
+    <template #label="{ filter }">
       <span class="custom-class">{{ filter.label }}</span>
     </template>
   </HierarchicalFilter>
 </template>
 
-<script>
+<script setup>
 import { HierarchicalFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'HierarchicalFilterTest',
-  components: {
-    HierarchicalFilter,
-  },
-  date() {
-    return {
-      filter: {
-        id: `categories:men`,
-        modelName: 'HierarchicalFilter',
-        label: `men`,
-        facetId: 'categories',
-        parentId: null,
-        totalResults: 10,
-        children: [],
-        selected: false,
-      },
-    }
-  },
-}
+const filter = ref({
+  id: `categories:men`,
+  modelName: 'HierarchicalFilter',
+  label: `men`,
+  facetId: 'categories',
+  parentId: null,
+  totalResults: 10,
+  children: [],
+  selected: false,
+})
 </script>
 ```
 
@@ -385,29 +349,20 @@ The `filterItemClass` prop can be used to add classes to the filter element itse
   />
 </template>
 
-<script>
+<script setup>
 import { HierarchicalFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'HierarchicalFilterTest',
-  components: {
-    HierarchicalFilter,
-  },
-  date() {
-    return {
-      filter: {
-        id: `categories:men`,
-        modelName: 'HierarchicalFilter',
-        label: `men`,
-        facetId: 'categories',
-        parentId: null,
-        totalResults: 10,
-        children: [],
-        selected: false,
-      },
-    }
-  },
-}
+const filter = ref({
+  id: `categories:men`,
+  modelName: 'HierarchicalFilter',
+  label: `men`,
+  facetId: 'categories',
+  parentId: null,
+  totalResults: 10,
+  children: [],
+  selected: false,
+})
 </script>
 ```
 </docs>

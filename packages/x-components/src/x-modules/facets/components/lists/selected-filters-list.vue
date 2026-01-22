@@ -135,14 +135,8 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
   <SelectedFiltersList />
 </template>
 
-<script>
+<script setup>
 import { SelectedFiltersList } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFiltersList,
-  },
-}
 </script>
 ```
 
@@ -153,14 +147,8 @@ export default {
   <SelectedFiltersList #default="{ filter }">Default: {{ filter.label }}</SelectedFiltersList>
 </template>
 
-<script>
-import { SelectedFilters } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFilters,
-  },
-}
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
 </script>
 ```
 
@@ -174,14 +162,8 @@ export default {
   </SelectedFiltersList>
 </template>
 
-<script>
-import { SelectedFilters } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFilters,
-  },
-}
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
 </script>
 ```
 
@@ -191,7 +173,13 @@ If "alwaysVisible" is true, the component is rendered no matter if there are som
 If "alwaysVisible" is false (default), the component is rendered if there are some filter selected.
 
 ```vue
-<SelectedFiltersList :alwaysVisible="true" />
+<template>
+  <SelectedFiltersList :alwaysVisible="true" />
+</template>
+
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
+</script>
 ```
 
 Output:
@@ -208,6 +196,12 @@ In this example, the selected filters computed are the ones that match the facet
 properties.
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet', 'gender_facet']" />
+<template>
+  <SelectedFiltersList :facetsIds="['brand_facet', 'gender_facet']" />
+</template>
+
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
+</script>
 ```
 </docs>

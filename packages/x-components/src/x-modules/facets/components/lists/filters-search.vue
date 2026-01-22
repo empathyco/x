@@ -191,41 +191,78 @@ filters list to their children, it is mandatory to send it as prop.
 Using default and required slot:
 
 ```vue
-<FiltersSearch :filters="filters" v-slot="{ siftedFilters }">
-  <ul v-for="filter in siftedFilters">
-    <li :key="filter.id">{{ filter.label }}</li>
-  </ul>
-</FiltersSearch>
+<template>
+  <FiltersSearch :filters="filters" v-slot="{ siftedFilters }">
+    <ul v-for="filter in siftedFilters">
+      <li :key="filter.id">{{ filter.label }}</li>
+    </ul>
+  </FiltersSearch>
+</template>
+
+<script setup>
+import { FiltersSearch } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 
 Setting debounce time:
 
 ```vue
-<FiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
-  <ul v-for="filter in siftedFilters">
-    <li :key="filter.id">{{ filter.label }}</li>
-  </ul>
-</FiltersSearch>
+<template>
+  <FiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
+    <ul v-for="filter in siftedFilters">
+      <li :key="filter.id">{{ filter.label }}</li>
+    </ul>
+  </FiltersSearch>
+</template>
+
+<script setup>
+import { FiltersSearch } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 
 Replacing search triggering:
 
 ```vue
-<FiltersSearch :filters="filters">
-  <template #search="{ query, setQuery, clearQuery }">
-    <input
-      @input="setQuery($event.target.value)"
-      :value="query"
-      class="x-input x-filters-search__input"
-      :aria-label="filtersSearchInputMessage"/>
-    <button @click="clearQuery">X</button>
-  </template>
-  <template #default="{ siftedFilters }">
-    <ul v-for="filter in siftedFilters">
-      <li :key="filter.id">{{ filter.label }}</li>
-    </ul>
-  </template>
-</FiltersSearch>
+<template>
+  <FiltersSearch :filters="filters">
+    <template #search="{ query, setQuery, clearQuery }">
+      <input
+        @input="setQuery($event.target.value)"
+        :value="query"
+        class="x-input x-filters-search__input"
+        :aria-label="filtersSearchInputMessage"
+      />
+      <button @click="clearQuery">X</button>
+    </template>
+    <template #default="{ siftedFilters }">
+      <ul v-for="filter in siftedFilters">
+        <li :key="filter.id">{{ filter.label }}</li>
+      </ul>
+    </template>
+  </FiltersSearch>
+</template>
+
+<script setup>
+import { FiltersSearch } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 
 > **Using injection**: It can receive the filters list by injection. It only works if it has a
@@ -234,14 +271,29 @@ Replacing search triggering:
 > the rest of components will inject this list.
 
 ```vue
-<Facets v-slot="{ facet }">
-  <SlicedFilters :filters="facet.filters" :max="8">
-    <FiltersSearch >
+<template>
+  <Facets v-slot="{ facet }">
+    <SlicedFilters :filters="facet.filters" :max="8">
+      <FiltersSearch>
         <Filters v-slot="{ filter }">
           <SimpleFilter :filter="filter" data-test="brand-filter" />
         </Filters>
-    </FiltersSearch>
-  </SlicedFilters>
-</Facets>
+      </FiltersSearch>
+    </SlicedFilters>
+  </Facets>
+</template>
+
+<script setup>
+import { Facets } from '@empathyco/x-components/facets'
+import { SlicedFilters, FiltersSearch, Filters, SimpleFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const facet = ref({
+  filters: [
+    { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+    { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+  ],
+})
+</script>
 ```
 </docs>
