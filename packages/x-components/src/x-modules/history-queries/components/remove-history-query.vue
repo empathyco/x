@@ -78,8 +78,21 @@ A list of events that the component will emit:
 You can customize the content that this component renders. To do so, simply use the default slot.
 
 ```vue
-<RemoveHistoryQuery :historyQuery="historyQuery">
-  <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg"/>
-</RemoveHistoryQuery>
+<template>
+  <RemoveHistoryQuery :historyQuery="historyQuery">
+    <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg" />
+  </RemoveHistoryQuery>
+</template>
+
+<script setup>
+import { RemoveHistoryQuery } from '@empathyco/x-components/history-queries'
+import { ref } from 'vue'
+
+const historyQuery = ref({
+  modelName: 'HistoryQuery',
+  query: 'trousers',
+  facets: [],
+})
+</script>
 ```
 </docs>

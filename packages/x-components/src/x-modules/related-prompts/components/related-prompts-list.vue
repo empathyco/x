@@ -201,19 +201,10 @@ the results list.
   </div>
 </template>
 
-<script>
+<script setup>
 import { RelatedPromptsList } from '@empathyco/x-components/related-prompts'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'RelatedPromptsListDemo',
-  components: {
-    RelatedPromptsList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -240,19 +231,10 @@ Each group can contain up to `6` related prompts (`maxRelatedPromptsPerGroup`).
   </div>
 </template>
 
-<script>
+<script setup>
 import { RelatedPromptsList } from '@empathyco/x-components/related-prompts'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'RelatedPromptsListDemo',
-  components: {
-    RelatedPromptsList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -278,19 +260,10 @@ In the following example, related prompts will be displayed regardless of the nu
   </div>
 </template>
 
-<script>
+<script setup>
 import { RelatedPromptsList } from '@empathyco/x-components/related-prompts'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'RelatedPromptsListDemo',
-  components: {
-    RelatedPromptsList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -310,11 +283,11 @@ the `BaseGrid` component. To do so, you can use the `default` slot as follows:
         :frequency="72"
         :maxRelatedPromptsPerGroup="6"
         :maxGroups="3"
-        #default="{ items }"
+        #default="{ items, animation }"
       >
         <BaseGrid :items="items" :animation="animation">
           <template #related-prompts-group="{ item }">
-            <span v-for="const prompt of items.relatedPrompts">
+            <span v-for="prompt in item.relatedPrompts" :key="prompt.id">
               RelatedPromptsGroup:
               <pre>{{ prompt }}</pre>
             </span>
@@ -331,21 +304,11 @@ the `BaseGrid` component. To do so, you can use the `default` slot as follows:
   </div>
 </template>
 
-<script>
+<script setup>
 import { RelatedPromptsList } from '@empathyco/x-components/related-prompts'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
-
-export default {
-  name: 'RelatedPromptsListDemo',
-  components: {
-    RelatedPromptsLis,
-    ResultsList,
-    BaseGrid,
-    SearchInput,
-  },
-}
 </script>
 ```
 </docs>

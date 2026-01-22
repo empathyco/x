@@ -359,3 +359,65 @@ export default defineComponent({
   flex-shrink: 0;
 }
 </style>
+
+<docs lang="mdx">
+## See it in action
+
+### Basic usage
+
+```vue live
+<template>
+  <RelatedPromptsTagList />
+</template>
+
+<script setup>
+import { RelatedPromptsTagList } from '@empathyco/x-components/related-prompts'
+</script>
+```
+
+### Customizing tag colors and classes
+
+```vue live
+<template>
+  <RelatedPromptsTagList :tagColors="['x-bg-neutral-50', 'x-bg-lead-50']" tagClass="rounded" />
+</template>
+
+<script setup>
+import { RelatedPromptsTagList } from '@empathyco/x-components/related-prompts'
+</script>
+```
+
+### Using the default slot to customize prompt rendering
+
+```vue live
+<template>
+  <RelatedPromptsTagList>
+    <template #default="{ relatedPrompt, onSelect, isSelected }">
+      <button :class="{ selected: isSelected }" @click="onSelect()">
+        {{ relatedPrompt.suggestionText }}
+      </button>
+    </template>
+  </RelatedPromptsTagList>
+</template>
+
+<script setup>
+import { RelatedPromptsTagList } from '@empathyco/x-components/related-prompts'
+</script>
+```
+
+### Customizing extra content in RelatedPrompt
+
+```vue live
+<template>
+  <RelatedPromptsTagList>
+    <template #related-prompt-extra-content="{ relatedPrompt }">
+      <span>Extra: {{ relatedPrompt.suggestionText }}</span>
+    </template>
+  </RelatedPromptsTagList>
+</template>
+
+<script setup>
+import { RelatedPromptsTagList } from '@empathyco/x-components/related-prompts'
+</script>
+```
+</docs>

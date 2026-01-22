@@ -102,3 +102,49 @@ export default defineComponent({
   object-fit: cover;
 }
 </style>
+
+<docs lang="mdx">
+## See it in action
+
+### Basic usage
+
+```vue live
+<template>
+  <RelatedPrompt :relatedPrompt="relatedPrompt" />
+</template>
+
+<script setup>
+import { RelatedPrompt } from '@empathyco/x-components/related-prompts'
+import { ref } from 'vue'
+
+const relatedPrompt = ref({
+  suggestionText: 'Try shoes',
+  suggestionImageUrl: 'https://via.placeholder.com/56',
+  nextQueries: ['shoes'],
+})
+</script>
+```
+
+### Customizing the extra content slot
+
+```vue live
+<template>
+  <RelatedPrompt :relatedPrompt="relatedPrompt">
+    <template #related-prompt-extra-content="{ relatedPrompt }">
+      <span>Extra: {{ relatedPrompt.suggestionText }}</span>
+    </template>
+  </RelatedPrompt>
+</template>
+
+<script setup>
+import { RelatedPrompt } from '@empathyco/x-components/related-prompts'
+import { ref } from 'vue'
+
+const relatedPrompt = ref({
+  suggestionText: 'Try bags',
+  suggestionImageUrl: '',
+  nextQueries: ['bags'],
+})
+</script>
+```
+</docs>

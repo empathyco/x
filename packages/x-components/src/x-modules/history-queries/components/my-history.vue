@@ -227,15 +227,8 @@ Here you have a basic example of how the MyHistory is rendered.
   <MyHistory />
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-}
 </script>
 ```
 
@@ -245,18 +238,11 @@ In this example, the my history has been configured to use the 'es' locale.
 
 ```vue
 <template>
-  <MyHistory :locale="es" />
+  <MyHistory locale="es" />
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-}
 </script>
 ```
 
@@ -264,24 +250,14 @@ export default {
 
 ```vue
 <template>
-  <MyHistory :animation="fadeAndSlide" />
+  <MyHistory :animation="animation" />
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
 
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-  data() {
-    return {
-      fadeAndSlide: FadeAndSlide,
-    }
-  },
-}
+const animation = FadeAndSlide
 </script>
 ```
 
@@ -293,27 +269,19 @@ In this example, the [`HistoryQuery`](./x-components.history-query.md) component
 ```vue
 <template>
   <MyHistory #suggestion="{ suggestion }">
-    <HistoryQuery :suggestion="suggestion"></HistoryQuery>
+    <HistoryQuery :suggestion="suggestion" />
   </MyHistory>
 </template>
 
-<script>
+<script setup>
 import { MyHistory, HistoryQuery } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-    HistoryQuery,
-  },
-}
 </script>
 ```
 
 ### Play with suggestion-content slot
 
 To continue the previous example, the [`HistoryQuery`](./x-components.history-query.md) component is
-passed in the `suggestion-content` slot, but in addition, an HTML span tag for the text are also
+passed in the `suggestion-content` slot, but in addition, an HTML span tag for the text is also
 passed.
 
 ```vue
@@ -323,21 +291,14 @@ passed.
   </MyHistory>
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-}
 </script>
 ```
 
-### Play with suggestion-content slot
+### Play with date slot
 
-In this example, an HTML span tag for the date are passed.
+In this example, an HTML span tag for the date is passed.
 
 ```vue
 <template>
@@ -346,42 +307,27 @@ In this example, an HTML span tag for the date are passed.
   </MyHistory>
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-}
 </script>
 ```
 
-### Play with suggestion-content-remove slot
+### Play with suggestion-remove-content slot
 
 To continue the previous example, the [`HistoryQuery`](./x-components.history-query.md) component is
-passed in the `suggestion-content` slot, but in addition, a cross icon is also passed to change the
+passed in the `suggestion-remove-content` slot, but in addition, a cross icon is also passed to change the
 icon to remove the history query.
 
 ```vue
 <template>
-  <MyHistory #suggestion-content-remove="{ suggestion }">
+  <MyHistory #suggestion-remove-content="{ suggestion }">
     <CrossIcon />
   </MyHistory>
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
 import { CrossIcon } from '@empathyco/x-components'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-    CrossIcon,
-  },
-}
 </script>
 ```
 
@@ -391,18 +337,11 @@ The `queriesListClass` prop can be used to add classes to the suggestions list.
 
 ```vue live
 <template>
-  <MyHistory #date="{ date }" queriesListClass="x-gap-16" />
+  <MyHistory queriesListClass="x-gap-16" />
 </template>
 
-<script>
+<script setup>
 import { MyHistory } from '@empathyco/x-components/history-queries'
-
-export default {
-  name: 'MyHistoryDemo',
-  components: {
-    MyHistory,
-  },
-}
 </script>
 ```
 </docs>

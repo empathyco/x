@@ -88,15 +88,8 @@ _Try clicking it to see how it changes its state_
   <HistoryQueriesSwitch />
 </template>
 
-<script>
-import { HistoryQueriesSwitch } from '@empathyco/x-components'
-
-export default {
-  name: 'HistoryQueriesSwitchDemo',
-  components: {
-    HistoryQueriesSwitch,
-  },
-}
+<script setup>
+import { HistoryQueriesSwitch } from '@empathyco/x-components/history-queries'
 </script>
 ```
 
@@ -121,33 +114,20 @@ Here you have a more complex example.
   </div>
 </template>
 
-<script>
+<script setup>
 import { BaseEventButton, BaseEventsModal } from '@empathyco/x-components'
 import { HistoryQueriesSwitch, HistoryQueries } from '@empathyco/x-components/history-queries'
-import { SearchInput, SearchButton } from '@empathyco/x-components/search'
-export default {
-  name: 'HistoryQueriesSwitchDemo',
-  components: {
-    BaseEventButton,
-    BaseEventsModal,
-    HistoryQueriesSwitch,
-    HistoryQueries,
-    SearchInput,
-    SearchButton,
-  },
-  data() {
-    return {
-      eventsToOpenModal: ['UserClickedDisableHistoryQueries'],
-      disableEvents: {
-        UserClickedConfirmDisableHistoryQueries: undefined,
-        UserClickedCloseEventsModal: undefined,
-      },
-      cancelEvents: {
-        UserClickedCloseEventsModal: undefined,
-      },
-    }
-  },
-}
+import { SearchInput, SearchButton } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
+
+const eventsToOpenModal = ref(['UserClickedDisableHistoryQueries'])
+const disableEvents = ref({
+  UserClickedConfirmDisableHistoryQueries: undefined,
+  UserClickedCloseEventsModal: undefined,
+})
+const cancelEvents = ref({
+  UserClickedCloseEventsModal: undefined,
+})
 </script>
 ```
 </docs>
