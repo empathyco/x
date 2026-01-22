@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.194 (2026-01-22)
+
+* docs: update code examples (#1967) ([3787069](https://github.com/empathyco/x/commit/3787069)), closes [#1967](https://github.com/empathyco/x/issues/1967)
+* docs: update code examples (#1968) ([60c3989](https://github.com/empathyco/x/commit/60c3989)), closes [#1968](https://github.com/empathyco/x/issues/1968)
+
+
+
+
+
 ## 6.0.0-alpha.193 (2026-01-22)
 
 * docs: Update x-modules components documentation (3/6) (#1965) ([625676c](https://github.com/empathyco/x/commit/625676c)), closes [#1965](https://github.com/empathyco/x/issues/1965)
