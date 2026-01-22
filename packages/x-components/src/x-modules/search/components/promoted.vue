@@ -81,11 +81,14 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This component doesn't emit events.
+This component emits the following event:
+
+- [`UserClickedAPromoted`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user clicks the promoted item (if it has a URL).
 
 ## See it in action
 
-In this example promoted data is passed as a prop.
+In this example, promoted data is passed as a prop.
 
 _Here you can see how the `Promoted` component is rendered._
 
@@ -94,27 +97,18 @@ _Here you can see how the `Promoted` component is rendered._
   <Promoted :promoted="promoted" />
 </template>
 
-<script>
+<script setup>
 import { Promoted } from '@empathyco/x-components/search'
+import { ref } from 'vue'
 
-export default {
-  name: 'PromotedDemo',
-  components: {
-    Promoted,
-  },
-  data() {
-    return {
-      promoted: {
-        modelName: 'Promoted',
-        id: 'promoted-example',
-        url: 'https://my-website.com/summer-shirts',
-        image: 'https://my-website.com/images/summer-shirts.jpg',
-        title: 'Trendy summer shirts',
-        position: 1,
-      },
-    }
-  },
-}
+const promoted = ref({
+  modelName: 'Promoted',
+  id: 'promoted-example',
+  url: 'https://my-website.com/summer-shirts',
+  image: 'https://my-website.com/images/summer-shirts.jpg',
+  title: 'Trendy summer shirts',
+  position: 1,
+})
 </script>
 ```
 
@@ -127,27 +121,18 @@ The `titleClass` prop can be used to add classes to the promoted title.
   <Promoted :promoted="promoted" titleClass="x-bg-neutral-50" />
 </template>
 
-<script>
+<script setup>
 import { Promoted } from '@empathyco/x-components/search'
+import { ref } from 'vue'
 
-export default {
-  name: 'PromotedDemo',
-  components: {
-    Promoted,
-  },
-  data() {
-    return {
-      promoted: {
-        modelName: 'Promoted',
-        id: 'promoted-example',
-        url: 'https://my-website.com/summer-shirts',
-        image: 'https://my-website.com/images/summer-shirts.jpg',
-        title: 'Trendy summer shirts',
-        position: 1,
-      },
-    }
-  },
-}
+const promoted = ref({
+  modelName: 'Promoted',
+  id: 'promoted-example',
+  url: 'https://my-website.com/summer-shirts',
+  image: 'https://my-website.com/images/summer-shirts.jpg',
+  title: 'Trendy summer shirts',
+  position: 1,
+})
 </script>
 ```
 </docs>

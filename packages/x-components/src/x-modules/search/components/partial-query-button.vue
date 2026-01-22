@@ -97,13 +97,20 @@ The component sets the current query as the new query and emits the `UserAccepte
 <template>
   <PartialQueryButton :query="query" />
 </template>
+
+<script setup>
+import { PartialQueryButton } from '@empathyco/x-components/search'
+import { ref } from 'vue'
+
+const query = ref('shoes')
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
 <template>
-  <PartialQueryButton>
+  <PartialQueryButton :query="query">
     <template #default="{ query }">
       <span class="x-partial-query-button__text">
         Set the Partial query as the new query: {{ query }}!
@@ -112,14 +119,11 @@ The component sets the current query as the new query and emits the `UserAccepte
   </PartialQueryButton>
 </template>
 
-<script>
+<script setup>
 import { PartialQueryButton } from '@empathyco/x-components/search'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    PartialQueryButton,
-  },
-}
+const query = ref('bags')
 </script>
 ```
 </docs>
