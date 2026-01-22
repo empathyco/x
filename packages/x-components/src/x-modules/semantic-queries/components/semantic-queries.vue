@@ -101,15 +101,8 @@ By default, the `SemanticQueries` component will render a list of semantic queri
   <SemanticQueries />
 </template>
 
-<script>
+<script setup>
 import { SemanticQueries } from '@empathyco/x-components/semantic-queries'
-
-export default {
-  name: 'SemanticQueriesDemo',
-  components: {
-    SemanticQueries,
-  },
-}
 </script>
 ```
 
@@ -117,25 +110,19 @@ export default {
 
 The component has the following props:
 
-- maxItemsToRender to limit the number of semantic queries to render.
-- animation to specify the animation to be used to animate the semantic queries.
+- `maxItemsToRender` to limit the number of semantic queries to render.
+- `animation` to specify the animation to be used to animate the semantic queries.
 
 ```vue live
 <template>
   <SemanticQueries :animation="animation" :maxItemsToRender="3" />
 </template>
 
-<script>
+<script setup>
+import { SemanticQueries } from '@empathyco/x-components/semantic-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
 
-export default {
-  name: 'SemanticQueriesPropsDemo',
-  data() {
-    return {
-      animation: FadeAndSlide,
-    }
-  },
-}
+const animation = FadeAndSlide
 </script>
 ```
 
@@ -148,7 +135,7 @@ The default slot is used to overwrite the whole content of the component.
   <SemanticQueries #default="{ suggestions }">
     <section>
       <SlidingPanel>
-        <div v-for="suggestion in suggestions">
+        <div v-for="suggestion in suggestions" :key="suggestion.query">
           {{ suggestion.query }}
           {{ suggestion.distance }}
         </div>
@@ -157,17 +144,9 @@ The default slot is used to overwrite the whole content of the component.
   </SemanticQueries>
 </template>
 
-<script>
+<script setup>
 import { SemanticQueries } from '@empathyco/x-components/semantic-queries'
 import { SlidingPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'SemanticQueriesDefaultSlotDemo',
-  components: {
-    SemanticQueries,
-    SlidingPanel,
-  },
-}
 </script>
 ```
 
@@ -183,8 +162,8 @@ semantic query to use it in another element.
     <section>
       <QueryPreviewList :queries="queries" #slot="{ query, results }">
         <div>
-          <SemanticQuery :semanticQuery="findSemanticQuery(query)" #default="{ query }">
-            {{ query.query }} ({{ query.distance }})
+          <SemanticQuery :suggestion="findSemanticQuery(query)" #default="{ suggestion }">
+            {{ suggestion.query }} ({{ suggestion.distance }})
           </SemanticQuery>
           <ul>
             <li v-for="result in results" :key="result.id">
@@ -197,18 +176,9 @@ semantic query to use it in another element.
   </SemanticQueries>
 </template>
 
-<script>
+<script setup>
 import { SemanticQueries, SemanticQuery } from '@empathyco/x-components/semantic-queries'
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'SemanticQueriesDefaultSlotDemo2',
-  components: {
-    SemanticQueries,
-    SemanticQuery,
-    QueryPreviewList,
-  },
-}
 </script>
 ```
 
@@ -228,20 +198,14 @@ In this example, the query will be rendered along with the distance.
   </SemanticQueries>
 </template>
 
-<script>
+<script setup>
 import { SemanticQueries } from '@empathyco/x-components/semantic-queries'
-export default {
-  name: 'SemanticQueriesItemSlotDemo',
-  components: {
-    SemanticQueries,
-  },
-}
 </script>
 ```
 
-### Play with the suggestion content slot
+### Play with the suggestion-content slot
 
-The suggsetion content slot can be used to override only the content, but keep using the
+The suggestion-content slot can be used to override only the content, but keep using the
 SemanticQuery component internally.
 
 ```vue live
@@ -254,14 +218,8 @@ SemanticQuery component internally.
   </SemanticQueries>
 </template>
 
-<script>
+<script setup>
 import { SemanticQueries } from '@empathyco/x-components/semantic-queries'
-export default {
-  name: 'SemanticQueriesItemSlotDemo',
-  components: {
-    SemanticQueries,
-  },
-}
 </script>
 ```
 </docs>

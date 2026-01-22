@@ -218,20 +218,14 @@ names of the results.
   <QueryPreviewList :queriesPreviewInfo="queriesPreviewInfo" />
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewListDemo',
-  components: {
-    QueryPreviewList,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 
@@ -261,24 +255,16 @@ In this example, the results will be rendered inside a sliding panel.
   </QueryPreviewList>
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'QueryPreviewListDemoOverridingSlot',
-  components: {
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreviewList,
-    SlidingPanel,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import SlidingPanel from '@empathyco/x-components/sliding-panel.vue'
+import Result from '@empathyco/x-components/result.vue'
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 
@@ -300,20 +286,14 @@ In this example, the ID of the results will be rendered along with the name.
   </QueryPreviewList>
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewListDemoOverridingResultSlot',
-  components: {
-    QueryPreviewList,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 </docs>

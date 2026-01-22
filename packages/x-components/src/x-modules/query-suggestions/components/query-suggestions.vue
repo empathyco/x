@@ -85,23 +85,13 @@ _Type “sandal” or another fashion term in the input field to try it out!_
 
 ```vue live
 <template>
-  <div>
-    <SearchInput />
-    <QuerySuggestions />
-  </div>
+  <SearchInput />
+  <QuerySuggestions />
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'QuerySuggestionsDemo',
-  components: {
-    QuerySuggestions,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -114,27 +104,15 @@ _Type “lipstick” or another fashion term in the input field to try it out!_
 
 ```vue live
 <template>
-  <div>
-    <SearchInput />
-    <QuerySuggestions :animation="'StaggeredFadeAndSlide'" />
-  </div>
+  <SearchInput />
+  <QuerySuggestions :animation="StaggeredFadeAndSlide" />
 </template>
 
 <script>
 import Vue from 'vue'
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 import { SearchInput } from '@empathyco/x-components/search-box'
-import { StaggeredFadeAndSlide } from '@empathyco/x-components'
-
-// Registering the animation as a global component
-Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
-export default {
-  name: 'QuerySuggestionsDemo',
-  components: {
-    QuerySuggestions,
-    SearchInput,
-  },
-}
+import StaggeredFadeAndSlide from '@empathyco/x-components/animations/staggered-fade-and-slide.vue'
 </script>
 ```
 
@@ -146,27 +124,18 @@ _Type “bag” or another fashion term in the input field to try it out!_
 
 ```vue live
 <template>
-  <div>
-    <SearchInput />
-    <QuerySuggestions #suggestion="{ suggestion }">
-      <QuerySuggestion :suggestion="suggestion" #default="{ suggestion }">
-        <span>🔍</span>
-        <span>{{ suggestion.query }}</span>
-      </QuerySuggestion>
-    </QuerySuggestions>
-  </div>
+  <SearchInput />
+  <QuerySuggestions #suggestion="{ suggestion }">
+    <QuerySuggestion :suggestion="suggestion" #default="{ suggestion }">
+      <span>🔍</span>
+      <span>{{ suggestion.query }}</span>
+    </QuerySuggestion>
+  </QuerySuggestions>
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestion, QuerySuggestions } from '@empathyco/x-components/query-suggestions'
-
-export default {
-  name: 'QuerySuggestionsDemo',
-  components: {
-    QuerySuggestion,
-    QuerySuggestions,
-  },
-}
+import { SearchInput } from '@empathyco/x-components/search-box'
 </script>
 ```
 
@@ -178,40 +147,31 @@ you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` e
 
 ```vue live
 <template>
-  <div>
-    <SearchInput />
-    <QuerySuggestions #suggestion="{ suggestion }">
-      <button @click="emitSuggestionClickedEvents($event, suggestion)">
-        {{ suggestion.query }}
-      </button>
-    </QuerySuggestions>
-  </div>
+  <SearchInput />
+  <QuerySuggestions #suggestion="{ suggestion }">
+    <button @click="emitSuggestionClickedEvents($event, suggestion)">
+      {{ suggestion.query }}
+    </button>
+  </QuerySuggestions>
 </template>
 
-<script>
-  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
-  import { SearchInput } from '@empathyco/x-components/search-box';
+<script setup>
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
+import { SearchInput } from '@empathyco/x-components/search-box'
+import { use$x } from '../../../composables/use-$x'
 
-  export default {
-    name: 'QuerySuggestionsDemo',
-    components: {
-      SearchInput,
-      QuerySuggestions
-    },
-    methods: {
-      emitSuggestionClickedEvents(event, suggestion) {
-        this.$x.emit('UserAcceptedAQuery', suggestion.query, {
-          target: event.target
-        });
-        this.$x.emit('UserSelectedASuggestion', suggestion, {
-          target: event.target
-        });
-        this.$x.emit('UserSelectedAQuerySuggestion', suggestion, {
-          target: event.target
-        });
-      }
-    }
-  };
+const x = use$x()
+function emitSuggestionClickedEvents(event, suggestion) {
+  x.emit('UserAcceptedAQuery', suggestion.query, {
+    target: event.target
+  })
+  x.emit('UserSelectedASuggestion', suggestion, {
+    target: event.target
+  })
+  x.emit('UserSelectedAQuerySuggestion', suggestion, {
+    target: event.target
+  })
+}
 </script>
 ```
 
@@ -236,19 +196,10 @@ _Type “trousers” or another toy in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { Highlight } from '@empathyco/x-components'
-
-export default {
-  name: 'QuerySuggestionsDemo',
-  components: {
-    SearchInput,
-    QuerySuggestions,
-    Highlight,
-  },
-}
 </script>
 ```
 
@@ -268,17 +219,9 @@ _Type “pants” or another toy in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'QuerySuggestionsDemo',
-  components: {
-    SearchInput,
-    QuerySuggestions,
-  },
-}
 </script>
 ```
 </docs>

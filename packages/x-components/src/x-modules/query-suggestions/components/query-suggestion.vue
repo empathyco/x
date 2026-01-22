@@ -87,23 +87,14 @@ Here you can see how a single query suggestion is rendered using the `suggestion
   <QuerySuggestion :suggestion="suggestion" />
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
-export default {
-  name: 'QuerySuggestionDemo',
-  components: {
-    QuerySuggestion,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'QuerySuggestion',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'QuerySuggestion',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
@@ -119,23 +110,14 @@ In this example, we are adding an emoji next to the suggestion.
   </QuerySuggestion>
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
-export default {
-  name: 'QuerySuggestionDemo',
-  components: {
-    QuerySuggestion,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'QuerySuggestion',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'QuerySuggestion',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
@@ -149,27 +131,16 @@ the `UserSelectedAQuerySuggestion` event has been triggered.
   <QuerySuggestion :suggestion="suggestion" @UserSelectedAQuerySuggestion="alertSuggestion" />
 </template>
 
-<script>
+<script setup>
 import { QuerySuggestion } from '@empathyco/x-components/query-suggestions'
-export default {
-  name: 'QuerySuggestionDemo',
-  components: {
-    QuerySuggestion,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'QuerySuggestion',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-  methods: {
-    alertSuggestion(querySuggestion) {
-      alert(`You have clicked the query suggestion: ${querySuggestion.query}`)
-    },
-  },
+import { ref } from 'vue'
+const suggestion = ref({
+  modelName: 'QuerySuggestion',
+  query: 'tshirt',
+  facets: [],
+})
+function alertSuggestion(querySuggestion) {
+  alert(`You have clicked the query suggestion: ${querySuggestion.query}`)
 }
 </script>
 ```
