@@ -149,7 +149,7 @@ A list of events that the component will emit:
 
 - [`UserClickedScrollToTop`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after the user clicks the button. The event payload is the id of the scroll
-  that it going to be scrolled.
+  that is going to be scrolled.
 
 ## Examples
 
@@ -173,15 +173,8 @@ the scroll.
   </div>
 </template>
 
-<script>
+<script setup>
 import { ScrollToTop } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'ScrollToTopTest',
-  components: {
-    ScrollToTop,
-  },
-}
 </script>
 ```
 </docs>

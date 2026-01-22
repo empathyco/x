@@ -189,19 +189,10 @@ results list.
   </div>
 </template>
 
-<script>
+<script setup>
 import { NextQueriesList } from '@empathyco/x-components/next-queries'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'NextQueriesListDemo',
-  components: {
-    NextQueriesList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -224,19 +215,10 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
   </div>
 </template>
 
-<script>
+<script setup>
 import { NextQueriesList } from '@empathyco/x-components/next-queries'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'NextQueriesListDemo',
-  components: {
-    NextQueriesList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -261,23 +243,14 @@ than the offset, but this behavior can be deactivated by setting the `showOnlyAf
   </div>
 </template>
 
-<script>
+<script setup>
 import { NextQueriesList } from '@empathyco/x-components/next-queries'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'NextQueriesListDemo',
-  components: {
-    NextQueriesList,
-    ResultsList,
-    SearchInput,
-  },
-}
 </script>
 ```
 
-### Customise the layout of the component
+### Customize the layout of the component
 
 This component will render by default the `id` of each search item, both the injected, and for the
 groups of next queries generated, but the common case is to integrate it with another layout
@@ -295,7 +268,7 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
         :maxGroups="3"
         #default="{ items }"
       >
-        <BaseGrid :items="items" :animation="animation">
+        <BaseGrid :items="items">
           <template #next-queries-group="{ item }">
             <span>NextQueriesGroup: {{ item.queries.join(', ') }}</span>
           </template>
@@ -311,21 +284,11 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
   </div>
 </template>
 
-<script>
+<script setup>
 import { NextQueriesList } from '@empathyco/x-components/next-queries'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
-
-export default {
-  name: 'NextQueriesListDemo',
-  components: {
-    NextQueriesList,
-    ResultsList,
-    BaseGrid,
-    SearchInput,
-  },
-}
 </script>
 ```
 </docs>

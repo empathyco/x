@@ -84,7 +84,7 @@ export default defineComponent({
 
 This component emits the following events:
 
-- [`UserAcceptedAQuery`]https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 - [`UserPressedSearchButton`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 <!-- prettier-ignore-start -->
@@ -109,15 +109,8 @@ _Click the Search button to try it out!_
   <SearchButton />
 </template>
 
-<script>
+<script setup>
 import { SearchButton } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'SearchButtonDemo',
-  components: {
-    SearchButton,
-  },
-}
 </script>
 ```
 
@@ -132,15 +125,8 @@ _Click the icon button to try it out!_
   <SearchButton>Search</SearchButton>
 </template>
 
-<script>
+<script setup>
 import { SearchButton } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'SearchButtonDemo',
-  components: {
-    SearchButton,
-  },
-}
 </script>
 ```
 
@@ -168,21 +154,11 @@ _Type any term in the input field and then click the Search button to try it out
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput, SearchButton } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'SearchButtonDemo',
-  components: {
-    SearchInput,
-    SearchButton,
-  },
-  data() {
-    return {
-      message: '',
-    }
-  },
-}
+const message = ref('')
 </script>
 ```
 
@@ -199,27 +175,24 @@ _Type any term in the input field and then click the Search button to try it out
   <div>
     <div style="display: flex;">
       <SearchInput />
-      <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+      <SearchButton
+        @UserAcceptedAQuery="
+          () => {
+            message = 'looking for results'
+          }
+        "
+        >Search</SearchButton
+      >
     </div>
     {{ message }}
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchButton, SearchInput } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'SearchButtonDemo',
-  components: {
-    SearchButton,
-    SearchInput,
-  },
-  data() {
-    return {
-      message: '',
-    }
-  },
-}
+const message = ref('')
 </script>
 ```
 </docs>
