@@ -234,28 +234,28 @@ You can use the XEvents API to subscribe to events programmatically:
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { Scroll } from '@empathyco/x-components/scroll'
-import { onMounted, getCurrentInstance } from 'vue'
+import { use$x } from '../../../composables'
+
+const x = use$x()
 
 onMounted(() => {
-  const vm = getCurrentInstance()?.proxy
-  if (vm && vm.$x) {
-    vm.$x.on('UserScrolled').subscribe(distance => {
-      console.log(distance)
-    })
-    vm.$x.on('UserChangedScrollDirection').subscribe(direction => {
-      console.log(direction)
-    })
-    vm.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
-      console.log(isAtStart)
-    })
-    vm.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
-      console.log(isAlmostAtEnd)
-    })
-    vm.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
-      console.log(isAtEnd)
-    })
-  }
+  x.on('UserScrolled').subscribe(distance => {
+    console.log(distance)
+  })
+  x.on('UserChangedScrollDirection').subscribe(direction => {
+    console.log(direction)
+  })
+  x.on('UserReachedScrollStart').subscribe(isAtStart => {
+    console.log(isAtStart)
+  })
+  x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
+    console.log(isAlmostAtEnd)
+  })
+  x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
+    console.log(isAtEnd)
+  })
 })
 </script>
 ```

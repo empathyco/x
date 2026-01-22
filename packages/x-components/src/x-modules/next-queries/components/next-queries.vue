@@ -136,7 +136,7 @@ The component has three optional props. `animation` to render the component with
 <template>
   <div>
     <SearchInput />
-    <NextQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" :highlightCurated="true" />
+    <NextQueries :animation="animation" :maxItemsToRender="10" :highlightCurated="true" />
   </div>
 </template>
 
@@ -144,12 +144,8 @@ The component has three optional props. `animation` to render the component with
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { NextQueries } from '@empathyco/x-components/next-queries'
 import { FadeAndSlide } from '@empathyco/x-components'
-import { getCurrentInstance } from 'vue'
 
-const app = getCurrentInstance()?.appContext.app
-if (app) {
-  app.component('FadeAndSlide', FadeAndSlide)
-}
+const animation = FadeAndSlide
 </script>
 ```
 

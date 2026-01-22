@@ -268,7 +268,7 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
         :maxGroups="3"
         #default="{ items }"
       >
-        <BaseGrid :items="items" :animation="animation">
+        <BaseGrid :items="items">
           <template #next-queries-group="{ item }">
             <span>NextQueriesGroup: {{ item.queries.join(', ') }}</span>
           </template>
@@ -289,9 +289,6 @@ import { NextQueriesList } from '@empathyco/x-components/next-queries'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
-import { ref } from 'vue'
-
-const animation = ref('ul')
 </script>
 ```
 </docs>
