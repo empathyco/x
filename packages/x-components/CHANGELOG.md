@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.192 (2026-01-22)
+
+* feat(ai): add `cta-button` slot and improve toggle button structure in ai-overview component ([0301790](https://github.com/empathyco/x/commit/0301790))
+* feat(ai): add test for `cta-button` slot customization in ai-overview component ([8cbe493](https://github.com/empathyco/x/commit/8cbe493))
+* docs: Update x-modules components documentation (2/6) (#1964) ([4a04b7f](https://github.com/empathyco/x/commit/4a04b7f)), closes [#1964](https://github.com/empathyco/x/issues/1964)
+
+
+
+
+
 ## 6.0.0-alpha.191 (2026-01-22)
 
 * docs: Update x-modules components documentation (1/6) (#1963) ([7b236fc](https://github.com/empathyco/x/commit/7b236fc)), closes [#1963](https://github.com/empathyco/x/issues/1963)
