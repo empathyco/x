@@ -19,7 +19,7 @@ export default defineConfig({
   plugins: [
     dts({
       entryRoot: 'src',
-      outDir: 'dist',
+      outDir: 'temp/types',
     }),
   ],
 })
