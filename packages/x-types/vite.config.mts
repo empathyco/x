@@ -20,6 +20,7 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       outDir: 'temp/types',
+      insertTypesEntry: true,
     }),
   ],
 })
