@@ -19,6 +19,11 @@
       "matchPackageNames": ["@empathyco/eslint-config"],
       "allowedVersions": "1.8.0",
       "description": "Pin to current version to avoid CI issues" // TODO: Remove when root cause is found
+    },
+    {
+      "matchPackageNames": ["@empathyco/x-tailwindcss"],
+      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+-alpha\\.\\d+$/",
+      "description": "Only allow pure alpha versions for x-tailwindcss, excluding RCs and other variants"
     }
   ]
 }
