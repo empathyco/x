@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.195 (2026-01-28)
+
+* chore(deps): pin x-tailwindcss version (#1973) ([3b8eacf](https://github.com/empathyco/x/commit/3b8eacf)), closes [#1973](https://github.com/empathyco/x/issues/1973)
+* chore(deps): update dependency @cucumber/messages to v32 (#1972) ([86ddbfd](https://github.com/empathyco/x/commit/86ddbfd)), closes [#1972](https://github.com/empathyco/x/issues/1972)
+
+
+
+
+
 ## 6.0.0-alpha.194 (2026-01-22)
 
 * docs: update code examples (#1967) ([3787069](https://github.com/empathyco/x/commit/3787069)), closes [#1967](https://github.com/empathyco/x/issues/1967)
