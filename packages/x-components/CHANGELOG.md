@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.196 (2026-01-29)
+
+* chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
+
+
+
+
+
 ## 6.0.0-alpha.195 (2026-01-28)
 
 * chore(deps): pin x-tailwindcss version (#1973) ([3b8eacf](https://github.com/empathyco/x/commit/3b8eacf)), closes [#1973](https://github.com/empathyco/x/issues/1973)

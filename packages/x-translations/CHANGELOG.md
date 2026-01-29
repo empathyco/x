@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.14 (2026-01-29)</small>
+
+* chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
+
+
+
+
+
 ## <small>2.0.3-alpha.13 (2025-12-17)</small>
 
 * chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
