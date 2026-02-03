@@ -11,22 +11,19 @@ export default defineConfig({
       formats: ['es', 'cjs'],
       fileName: format => `index.${format}.js`,
     },
-
     rollupOptions: {
       external: [
         ...Object.keys(pkg.dependencies ?? {}),
         ...Object.keys(pkg.peerDependencies ?? {}),
       ],
     },
-
     sourcemap: true,
     emptyOutDir: true,
   },
-
   plugins: [
     dts({
       entryRoot: 'src',
-      outputDir: 'dist',
+      outDir: 'dist',
     }),
   ],
 })
