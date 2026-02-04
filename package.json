@@ -22,7 +22,7 @@
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "husky": "8.0.3",
-    "lerna": "6.6.2"
+    "lerna": "9.0.3"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {
