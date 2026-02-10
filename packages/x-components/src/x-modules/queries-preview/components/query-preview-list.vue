@@ -7,6 +7,7 @@
     >
       <QueryPreview
         :debounce-time-ms="debounceTimeMs"
+        :load-when-visible="loadWhenVisible"
         :max-items-to-render="maxItemsToRender"
         :persist-in-cache="persistInCache"
         :query-feature="queryFeature"
@@ -76,8 +77,18 @@ export default defineComponent({
       type: Number,
     },
     /**
+     * Controls whether the query preview requests should be triggered when the component is visible in the viewport.
+     *
+     * @public
+     */
+    loadWhenVisible: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Debounce time in milliseconds for triggering the search requests
      * on each query preview.
+     *
      * It will default to 0 to fit the most common use case (pre-search),
      * and it would work properly with a 250 value inside empathize.
      */
