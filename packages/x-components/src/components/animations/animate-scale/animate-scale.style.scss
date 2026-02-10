@@ -119,7 +119,9 @@ $steps: 18;
 @keyframes contentAnimationY {
   @for $step from 0 through $steps {
     $scale: easeInOut(div($step, $steps));
-    $invScale: if($scale > 0, div(1, $scale), 99999999);
+    $invScale: if(
+      sass($scale > 0): div(1, $scale) ; else: 99999999,
+    );
     #{$step * div(100, $steps)}% {
       transform: scaleY(#{$invScale});
     }
@@ -138,7 +140,9 @@ $steps: 18;
 @keyframes contentAnimationX {
   @for $step from 0 through $steps {
     $scale: easeInOut(div($step, $steps));
-    $invScale: if($scale > 0, div(1, $scale), 99999999);
+    $invScale: if(
+      sass($scale > 0): div(1, $scale) ; else: 99999999,
+    );
     #{$step * div(100, $steps)}% {
       transform: scaleX(#{$invScale});
     }
