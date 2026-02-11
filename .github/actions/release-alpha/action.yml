@@ -27,7 +27,37 @@ runs:
     - name: Publish release
       run: |
         git restore ./pnpm-lock.yaml
-        pnpm run release:alpha
+        
+        # Capture output and error from pnpm run release:alpha
+        if ! output=$(pnpm run release:alpha 2>&1); then
+          exit_code=$?
+          
+          # Check if the error is related to NPM authentication (E404 from lerna)
+          if echo "$output" | grep -q "lerna ERR! E404 Not found"; then
+            echo ""
+            echo "🔴 ================================================================================================"
+            echo "🔴 CRITICAL ERROR: NPM_TOKEN_GRANULAR_ACCESS REPOSITORY SECRET HAS EXPIRED"
+            echo "🔴 ================================================================================================"
+            echo ""
+            echo "The release failed because the NPM_TOKEN_GRANULAR_ACCESS repository secret has expired."
+            echo ""
+            echo "👉 ACTION REQUIRED:"
+            echo "   1. Open a new Jira ticket to the Platform Team"
+            echo "   2. Clone this ticket: https://searchbroker.atlassian.net/browse/OPS-10807"
+            echo "   3. Request NPM_TOKEN_GRANULAR_ACCESS secret renewal for this repository"
+            echo "   4. Once the Platform Team renews the token, re-run this workflow"
+            echo ""
+            echo "🔴 ================================================================================================"
+            echo ""
+          fi
+          
+          # Print the original error output for additional context
+          echo "Original error output:"
+          echo "$output"
+          
+          # Exit with the original error code
+          exit $exit_code
+        fi
       shell: bash
 
     - name: Push tags
