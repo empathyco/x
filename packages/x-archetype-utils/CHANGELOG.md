@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.26 (2026-02-11)
+
+* chore(deps): pin dependency vite-plugin-dts to 4.5.4 (#1978) ([605f13f](https://github.com/empathyco/x/commit/605f13f)), closes [#1978](https://github.com/empathyco/x/issues/1978)
+
+
+
+
+
 ## 2.0.0-alpha.25 (2026-02-11)
 
 * feat: migrate to Vite x-types and x-archetype-utils packages (#1949) ([730686f](https://github.com/empathyco/x/commit/730686f)), closes [#1949](https://github.com/empathyco/x/issues/1949)

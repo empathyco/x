@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.200 (2026-02-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.199 (2026-02-11)
 
 * fix: solve errors & warnings on serving the demo locally (#1985) ([18e65f3](https://github.com/empathyco/x/commit/18e65f3)), closes [#1985](https://github.com/empathyco/x/issues/1985)

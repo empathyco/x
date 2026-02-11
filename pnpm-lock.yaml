@@ -123,7 +123,7 @@ importers:
         specifier: ^8.1.0-alpha.10
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.36
+        specifier: 10.1.0-alpha.37
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.9
@@ -209,7 +209,7 @@ importers:
         specifier: ^8.1.0-alpha.10
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.43
+        specifier: 1.1.0-alpha.44
         version: link:../x-adapter-platform
       '@empathyco/x-deep-merge':
         specifier: ^2.0.3-alpha.10
@@ -218,7 +218,7 @@ importers:
         specifier: ^2.0.3-alpha.8
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.36
+        specifier: 10.1.0-alpha.37
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.9
