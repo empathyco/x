@@ -197,7 +197,7 @@ importers:
         specifier: 6.4.1
         version: 6.4.1(@types/node@24.10.9)(jiti@1.21.7)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@24.10.9)(rollup@4.56.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.9)(jiti@1.21.7)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))
       vue:
         specifier: 3.5.27
@@ -514,7 +514,7 @@ importers:
         specifier: 6.4.1
         version: 6.4.1(@types/node@24.10.9)(jiti@1.21.7)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@24.10.9)(rollup@4.56.0)(typescript@5.9.3)(vite@6.4.1(@types/node@24.10.9)(jiti@1.21.7)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))
 
   packages/x-utils:
@@ -11717,9 +11717,9 @@ snapshots:
   '@vue/language-core@2.2.0(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.27
-      '@vue/compiler-dom': 3.5.26
+      '@vue/compiler-dom': 3.5.27
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.26
+      '@vue/shared': 3.5.27
       alien-signals: 0.4.14
       minimatch: 9.0.5
       muggle-string: 0.4.1
