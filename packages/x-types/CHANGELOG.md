@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.36 (2026-02-11)
+
+* feat: migrate to Vite x-types and x-archetype-utils packages (#1949) ([730686f](https://github.com/empathyco/x/commit/730686f)), closes [#1949](https://github.com/empathyco/x/issues/1949)
+
+
+
+
+
 ## 10.1.0-alpha.35 (2026-01-29)
 
 * chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)

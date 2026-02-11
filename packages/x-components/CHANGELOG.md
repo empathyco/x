@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.198 (2026-02-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.197 (2026-01-30)
 
 * chore(lerna): enforce exact dependency versions (#1975) ([6939587](https://github.com/empathyco/x/commit/6939587)), closes [#1975](https://github.com/empathyco/x/issues/1975)
