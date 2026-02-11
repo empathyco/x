@@ -55,7 +55,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const el = ref<HTMLElement | null>()
+    const el = ref()
 
     /**
      * The list of additional events to be emitted by the component when user clicks the link.
@@ -128,7 +128,7 @@ search result page, recommendations or other section which needs to include resu
 Additionally, this component may be injected other events to be emitted on click event, so,
 depending where it's used its father component may provide these events.
 
-The result prop is required. It will render an `<a>` with the href to the result URL:
+The result prop is required. It will render an anchor element with the href to the result URL:
 
 ```vue
 <template>
