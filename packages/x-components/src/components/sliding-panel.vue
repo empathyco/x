@@ -118,7 +118,7 @@ export default defineComponent({
       )
     }
     //ensure positions are right calculated as soon as the sliding panel is shown
-    whenever(isVisible, measure)
+    whenever(isVisible as any, measure)
 
     return {
       arrivedState,

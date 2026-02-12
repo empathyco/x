@@ -1,0 +1,12 @@
+# Build outputs
+dist/
+
+# Package tarballs
+*.tgz
+
+# Dependencies
+node_modules/
+
+# Build cache
+.rollup.cache/
+*.tsbuildinfo

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "rootDir": "src",
+    "module": "esnext",
+    "moduleResolution": "node16",
+    "types": [],
+    "strict": true,
+    "declaration": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts", "vite.config.ts"]
+}
