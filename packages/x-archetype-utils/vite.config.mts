@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import * as path from 'path'
 import pkg from './package.json'
 
@@ -24,6 +25,15 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       outDir: 'dist',
+      exclude: ['**/__tests__/**']
     }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'src/home',
+          dest: ''
+        }
+      ]
+    })
   ],
 })
