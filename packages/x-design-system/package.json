@@ -1,0 +1,56 @@
+{
+  "name": "@empathyco/x-design-system",
+  "version": "0.0.1",
+  "description": "Empathy X Tailwind Design System",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-design-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-design-system"
+  },
+  "keywords": [
+    "tailwind",
+    "design system",
+    "empathy"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite serve demo",
+    "dev:build": "vite build demo",
+    "build": "echo 'XDS build' && vite build demo",
+    "pack": "pnpm pack",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "lint:inspect": "eslint --inspect-config .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "tslib": "2.8.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.18",
+    "@vitejs/plugin-vue": "6.0.4",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vue": "3.5.28"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

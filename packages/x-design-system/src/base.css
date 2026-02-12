@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@layer base {
+  h1 {
+    font-size: var(--text-2xl);
+  }
+}
