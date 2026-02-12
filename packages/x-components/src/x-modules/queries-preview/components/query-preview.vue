@@ -223,6 +223,8 @@ export default defineComponent({
         priority: 0,
         replaceable: false,
       })
+    } else if (!props.loadWhenVisible) {
+      emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value)
     }
 
     /**
