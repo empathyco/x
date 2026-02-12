@@ -292,7 +292,7 @@
                 >
                   <DisplayEmitter
                     :payload="displayTagging"
-                    :event-metadata="{ feature: 'customer' }"
+                    :event-metadata="{ feature: 'customer', replaceable: false }"
                   >
                     <div class="x-flex x-flex-col x-gap-8 x-mb-16">
                       <QueryPreviewButton

@@ -3,6 +3,7 @@
     <li
       v-for="(queryPreview, index) in renderedQueryPreviews"
       :key="index"
+      :class="{ 'padding-block-1': loadWhenVisible }"
       data-test="query-preview-item"
     >
       <QueryPreview
@@ -216,6 +217,12 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.padding-block-1 {
+  padding-block: 1px;
+}
+</style>
 
 <docs lang="mdx">
 ## See it in action
