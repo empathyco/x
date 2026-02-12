@@ -27,6 +27,13 @@ export interface FacetsState extends StatusState, QueryState {
   origin: QueryOrigin | null
   /** The extra params property of the state. */
   params: Dictionary<unknown>
+  /** The list of the facets, related to the `query` property of the state. */
+  rawFacets: Facet[]
+  /**
+   * The dictionary of selected filters, used to perform the search request.
+   * The key is the facet id, and the value the list of filters for that facet.
+   */
+  selectedFiltersDictionary: Dictionary<Filter[]>
 }
 
 /**
@@ -146,6 +153,18 @@ export interface FacetsMutations
    * @param params - The new extra params.
    */
   setParams: (params: Dictionary<unknown>) => void
+  /**
+   * Sets the facets of the module.
+   *
+   * @param facets - The new facets to save to the state.
+   */
+  setRawFacets: (facets: Facet[]) => void
+  /**
+   * Sets the selected filters dictionary of the module.
+   *
+   * @param selectedFilters - The new selected filters to save to the state.
+   */
+  setSelectedFiltersDictionary: (selectedFilters: Filter[]) => void
 }
 
 /**

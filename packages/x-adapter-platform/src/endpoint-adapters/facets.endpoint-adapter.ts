@@ -5,7 +5,7 @@ import { facetsResponseMapper } from '../mappers/responses/facets-response.mappe
 import { getDefaultHeaders, getSearchServiceUrl } from './utils'
 
 /**
- * Default adapter for the search endpoint.
+ * Default adapter for the facet endpoint.
  *
  * @public
  */
