@@ -3,7 +3,7 @@ import type { RootXStoreState } from '../../../../store'
 import type { UrlParams } from '../../../../types'
 import type { QueryPreviewInfo, QueryPreviewItem } from '../../store/types'
 import { flushPromises, mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import { Store } from 'vuex'
 import { getEmptySearchResponseStub, getResultsStub } from '../../../../__stubs__'
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy'
@@ -19,15 +19,22 @@ import { queriesPreviewXModule } from '../../x-module'
 import QueryPreview from '../query-preview.vue'
 import { resetXQueriesPreviewStateWith } from './utils'
 
+jest.mock('../../../../composables/use-on-display', () => ({
+  useOnDisplay: jest.fn(),
+}))
+
 const extraParams = { instance: 'empathy', lang: 'en' }
 
+let mockUseOnDisplayCallback: (() => void) | null = null
+
 async function render({
-  template = `<QueryPreview :queryPreviewInfo="queryPreviewInfo" :queryFeature="queryFeature" :maxItemsToRender="maxItemsToRender" :debounceTimeMs="debounceTimeMs" :persistInCache="persistInCache"/>`,
+  template = `<QueryPreview :queryPreviewInfo="queryPreviewInfo" :queryFeature="queryFeature" :maxItemsToRender="maxItemsToRender" :debounceTimeMs="debounceTimeMs" :persistInCache="persistInCache" :loadWhenVisible="loadWhenVisible"/>`,
   queryPreviewInfo = { query: 'milk' } as QueryPreviewInfo,
   queryFeature = undefined as undefined | string,
   maxItemsToRender = undefined as undefined | number,
   debounceTimeMs = 0,
   persistInCache = false,
+  loadWhenVisible = false,
   location = undefined as undefined | string,
   queryPreviewInState = {
     request: {},
@@ -39,6 +46,16 @@ async function render({
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
+  // Mock useOnDisplay to capture the callback
+  const { useOnDisplay } = await import('../../../../composables/use-on-display')
+  ;(useOnDisplay as jest.Mock).mockImplementation(({ callback }: { callback: () => void }) => {
+    mockUseOnDisplayCallback = callback
+    return {
+      isElementVisible: ref(false),
+      unwatchDisplay: jest.fn(),
+    }
+  })
+
   const wrapper = mount(
     {
       template,
@@ -49,6 +66,7 @@ async function render({
         'maxItemsToRender',
         'debounceTimeMs',
         'persistInCache',
+        'loadWhenVisible',
       ],
     },
     {
@@ -62,6 +80,7 @@ async function render({
         maxItemsToRender,
         debounceTimeMs,
         persistInCache,
+        loadWhenVisible,
       },
     },
   )
@@ -88,6 +107,11 @@ async function render({
     queryPreviewUnmountedSpy,
     queryPreviewInfo,
     queryPreviewInState,
+    triggerVisibility: () => {
+      if (mockUseOnDisplayCallback) {
+        mockUseOnDisplayCallback()
+      }
+    },
     updateExtraParams: async (params: Partial<UrlParams>) => {
       store.commit('x/queriesPreview/setParams', params)
       await nextTick()
@@ -479,6 +503,57 @@ describe('query preview', () => {
       wrapper.unmount()
       jest.advanceTimersByTime(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
+    })
+  })
+
+  describe('loadWhenVisible prop', () => {
+    it('does not emit QueryPreviewRequestUpdated immediately when loadWhenVisible is true', async () => {
+      const { queryPreviewRequestUpdatedSpy } = await render({
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'initial',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      jest.advanceTimersByTime(1)
+      expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
+    })
+
+    it('emits QueryPreviewRequestUpdated when component becomes visible', async () => {
+      const { queryPreviewRequestUpdatedSpy, triggerVisibility } = await render({
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'initial',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
+
+      // Trigger visibility callback
+      triggerVisibility()
+      jest.advanceTimersByTime(1)
+
+      expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
+      expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
+        query: 'shoes',
+        rows: 24,
+        extraParams: {
+          instance: 'empathy',
+          lang: 'en',
+        },
+        filters: undefined,
+        origin: undefined,
+      })
     })
   })
 })
