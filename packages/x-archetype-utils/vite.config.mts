@@ -25,15 +25,15 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       outDir: 'dist',
-      exclude: ['**/__tests__/**']
+      exclude: ['**/__tests__/**'],
     }),
     viteStaticCopy({
       targets: [
         {
           src: 'src/home',
-          dest: ''
-        }
-      ]
-    })
+          dest: '',
+        },
+      ],
+    }),
   ],
 })
