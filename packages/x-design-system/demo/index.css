@@ -1,7 +1,11 @@
-@import 'tailwindcss';
+@import '../lib/index.css';
 
 @layer base {
   body {
-    @apply bg-gray-100;
+    @apply xds:bg-gray-100;
   }
+}
+
+@theme {
+  --color-fabada: #fabada;
 }
