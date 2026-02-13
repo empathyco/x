@@ -1,1 +1,0 @@
-// Demo entry point creation
