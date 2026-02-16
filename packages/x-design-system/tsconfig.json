@@ -3,8 +3,8 @@
     "target": "es2019",
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
-    "rootDir": "src",
-    "module": "esnext",
+    "rootDir": "lib",
+    "module": "node16",
     "moduleResolution": "node16",
     "types": [],
     "strict": true,
@@ -12,6 +12,6 @@
     "importHelpers": true,
     "sourceMap": true,
     "esModuleInterop": true
-  }
-  // "include": ["src/**/*.ts"]
+  },
+  "include": ["lib/**/*.ts"]
 }

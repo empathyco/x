@@ -1,5 +1,3 @@
-/* TODO - Will ensure your CSS is applied in the correct order for your components. Needed? */
-@layer utilities.components.base, utilities.components.modifier;
 /* TODO - Thinking if prefix is finally added or not. */
 @import 'tailwindcss' prefix(xds);
 @import './theme.css';
