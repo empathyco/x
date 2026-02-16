@@ -6,6 +6,7 @@
         {{ route.name }}
       </a>
     </nav>
+    <h1 class="xds:flex xds:text-fabada xds:text-5xl">DEMO TESTING</h1>
     <router-view />
   </div>
 </template>

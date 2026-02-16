@@ -2,16 +2,16 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
+import tailwindcss from '@tailwindcss/vite'
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
-  transform(code: string, id: string) {
-    return !/vue&type=docs/.test(id) ? undefined : `export default ''`
-  },
+  transform: (_: string, id: string) =>
+    !/vue&type=docs/.test(id) ? undefined : `export default ''`,
 }
 
 export default defineConfig({
-  plugins: [vue(), vueDocsPlugin, Inspector()],
+  plugins: [vue(), tailwindcss(), vueDocsPlugin, Inspector()],
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue'),

@@ -5,9 +5,9 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "rootDir": "src",
+    "rootDir": ".",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "strict": true,
     "declaration": true,
@@ -19,6 +19,6 @@
     "esModuleInterop": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.vue", "vite.config.ts"],
   "exclude": ["node_modules"]
 }
