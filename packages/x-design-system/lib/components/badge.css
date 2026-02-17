@@ -1,0 +1,31 @@
+@utility badge {
+  @apply xds:font-family-main xds:font-regular xds:text-xs;
+  @apply xds:inline-flex xds:items-center xds:justify-center xds:rounded-full;
+  @apply xds:text-neutral-0 xds:bg-neutral-90;
+
+  @apply xds:badge-sm;
+}
+
+/* Sizes */
+@utility badge-sm {
+  --attach-horizontal-offset: var(--xds-spacing-8);
+  @apply xds:h-20 xds:ps-8 xds:pe-8;
+}
+@utility badge-md {
+  --attach-horizontal-offset: var(--xds-spacing-12);
+  @apply xds:h-24 xds:ps-12 xds:pe-12;
+}
+
+/* Circle */
+@utility badge-circle {
+  --attach-horizontal-offset: 50%;
+  @apply xds:overflow-hidden xds:whitespace-nowrap xds:p-0 xds:w-24;
+
+  &.badge-sm {
+    @apply xds:w-20;
+  }
+
+  &.badge-md {
+    @apply xds:w-24;
+  }
+}
