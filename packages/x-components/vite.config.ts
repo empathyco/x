@@ -2,12 +2,14 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
+// @ts-ignore
 import tailwindcss from '@tailwindcss/vite'
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
-  transform: (_: string, id: string) =>
-    !/vue&type=docs/.test(id) ? undefined : `export default ''`,
+  transform(code: string, id: string) {
+    return !/vue&type=docs/.test(id) ? undefined : `export default ''`
+  },
 }
 
 export default defineConfig({
