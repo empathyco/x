@@ -21,11 +21,10 @@
   --attach-horizontal-offset: 50%;
   @apply xds:overflow-hidden xds:whitespace-nowrap xds:p-0 xds:w-24;
 
-  &.badge-sm {
+  &.xds\:badge-sm {
     @apply xds:w-20;
   }
-
-  &.badge-md {
+  &.xds\:badge-md {
     @apply xds:w-24;
   }
 }
