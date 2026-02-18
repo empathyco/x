@@ -1,9 +1,10 @@
+/* Base */
 @utility badge {
   @apply xds:font-family-main xds:font-regular xds:text-xs;
   @apply xds:inline-flex xds:items-center xds:justify-center xds:rounded-full;
   @apply xds:text-neutral-0 xds:bg-neutral-90;
 
-  @apply xds:badge-sm;
+  @apply xds:badge-md;
 }
 
 /* Sizes */
@@ -27,4 +28,70 @@
   &.xds\:badge-md {
     @apply xds:w-24;
   }
+}
+
+/* Colors */
+/* TODO - Look for a way to avoid hardcoded colors. Something like:
+ @utility badge-* {
+  --badge-color-25: --value(--xds-color-*-25);
+  --badge-color-50: --value(--xds-color-*-50);
+  background-color: --value(--xds-color-*-75);
+}*/
+@utility badge-lead {
+  --badge-color-25: var(--xds-color-lead-25);
+  --badge-color-50: var(--xds-color-lead-50);
+  @apply xds:bg-lead-75;
+}
+@utility badge-auxiliary {
+  --badge-color-25: var(--xds-color-auxiliary-25);
+  --badge-color-50: var(--xds-color-auxiliary-50);
+  @apply xds:bg-auxiliary-75;
+}
+@utility badge-accent {
+  --badge-color-25: var(--xds-color-accent-25);
+  --badge-color-50: var(--xds-color-accent-50);
+  @apply xds:bg-accent-75;
+}
+@utility badge-highlight {
+  --badge-color-25: var(--xds-color-highlight-25);
+  --badge-color-50: var(--xds-color-highlight-50);
+  @apply xds:bg-highlight-75;
+}
+@utility badge-success {
+  --badge-color-25: var(--xds-color-success-25);
+  --badge-color-50: var(--xds-color-success-50);
+  @apply xds:bg-success-75;
+}
+@utility badge-warning {
+  --badge-color-25: var(--xds-color-warning-25);
+  --badge-color-50: var(--xds-color-warning-50);
+  @apply xds:bg-warning-75;
+}
+@utility badge-error {
+  --badge-color-25: var(--xds-color-error-25);
+  --badge-color-50: var(--xds-color-error-50);
+  @apply xds:bg-error-75;
+}
+
+/* Outlined */
+@utility badge-outlined {
+  @apply xds:text-neutral-90 xds:bg-transparent!;
+
+  @apply xds:border-1;
+  border-color: var(--badge-color-50, var(--xds-color-neutral-90));
+}
+
+/* Light */
+@utility badge-light {
+  @apply xds:text-neutral-90;
+
+  background-color: var(--badge-color-25, var(--xds-color-neutral-0)) !important;
+}
+
+/* Bright */
+@utility badge-bright {
+  @apply xds:text-neutral-90 xds:bg-transparent!;
+
+  @apply xds:border-1;
+  border-color: var(--badge-color-25, var(--xds-color-neutral-0));
 }

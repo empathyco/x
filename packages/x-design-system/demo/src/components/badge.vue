@@ -7,9 +7,50 @@
       <span class="xds:badge xds:badge-sm">sm badge</span>
       <span class="xds:badge xds:badge-md">md badge</span>
     </template>
-    <template #circles>
+    <template #circle>
       <span class="xds:badge xds:badge-circle xds:badge-sm">1</span>
       <span class="xds:badge xds:badge-circle xds:badge-md">1</span>
+    </template>
+    <template #color>
+      <span class="xds:badge">badge</span>
+      <span class="xds:badge xds:badge-accent">badge</span>
+
+      <span v-for="(value, key) in colors" :key="key" class="xds:badge" :class="value">
+        {{ key }} badge
+      </span>
+    </template>
+    <template #light>
+      <span class="xds:badge xds:badge-light">badge</span>
+      <span
+        v-for="(value, key) in colors"
+        :key="key"
+        class="xds:badge xds:badge-light"
+        :class="[value]"
+      >
+        light {{ key }} badge
+      </span>
+    </template>
+    <template #outlined>
+      <span class="xds:badge xds:badge-outlined">badge</span>
+      <span
+        v-for="(value, key) in colors"
+        :key="key"
+        class="xds:badge xds:badge-outlined"
+        :class="[value]"
+      >
+        outlined {{ key }} badge
+      </span>
+    </template>
+    <template #bright>
+      <span class="xds:badge xds:badge-bright">badge</span>
+      <span
+        v-for="(value, key) in colors"
+        :key="key"
+        class="xds:badge xds:badge-bright"
+        :class="[value]"
+      >
+        bright {{ key }} badge
+      </span>
     </template>
   </Wrapper>
 </template>
@@ -17,5 +58,26 @@
 <script setup lang="ts">
 import Wrapper from './wrapper.vue'
 
-const rows = ['default', 'size', 'circles']
+const rows = [
+  'default',
+  'size',
+  'circle',
+  'color',
+  'light',
+  'outlined',
+  'bright',
+  'attachTo',
+  'withIcon',
+  'combinations',
+]
+const colors = {
+  neutral: 'xds:badge-neutral',
+  lead: 'xds:badge-lead',
+  auxiliary: 'xds:badge-auxiliary',
+  accent: 'xds:badge-accent',
+  highlight: 'xds:badge-highlight',
+  success: 'xds:badge-success',
+  warning: 'xds:badge-warning',
+  error: 'xds:badge-error',
+}
 </script>
