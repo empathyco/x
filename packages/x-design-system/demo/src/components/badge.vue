@@ -12,15 +12,12 @@
       <span class="xds:badge xds:badge-circle xds:badge-md">1</span>
     </template>
     <template #color>
-      <span class="xds:badge">badge</span>
-      <span class="xds:badge xds:badge-accent">badge</span>
-
       <span v-for="(value, key) in colors" :key="key" class="xds:badge" :class="value">
         {{ key }} badge
       </span>
     </template>
     <template #light>
-      <span class="xds:badge xds:badge-light">badge</span>
+      <span class="xds:badge xds:badge-light">light badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
@@ -31,7 +28,7 @@
       </span>
     </template>
     <template #outlined>
-      <span class="xds:badge xds:badge-outlined">badge</span>
+      <span class="xds:badge xds:badge-outlined">outlined badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
@@ -42,7 +39,7 @@
       </span>
     </template>
     <template #bright>
-      <span class="xds:badge xds:badge-bright">badge</span>
+      <span class="xds:badge xds:badge-bright">bright badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
