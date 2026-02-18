@@ -1,0 +1,9 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## <small>0.0.2-alpha.0 (2026-02-18)</small>
+
+* fix(x-design-system): fix release alpha (#1995) ([517a616](https://github.com/empathyco/x/commit/517a616)), closes [#1995](https://github.com/empathyco/x/issues/1995)
+* feat(x-design-system): add `x-design-system` package with initial skeleton for tailwind 4 (#1988) ([e30f630](https://github.com/empathyco/x/commit/e30f630)), closes [#1988](https://github.com/empathyco/x/issues/1988)
