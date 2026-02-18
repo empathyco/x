@@ -1,5 +1,12 @@
+.DS_Store
+
+# Prettier CHANGELOG.md ignore
+CHANGELOG.md
+
 # Build outputs
 dist/
+coverage/
+temp/
 
 # Package tarballs
 *.tgz
@@ -10,3 +17,12 @@ node_modules/
 # Build cache
 .rollup.cache/
 *.tsbuildinfo
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
