@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.202 (2026-02-18)
+
+* feat(x-design-system): add `x-design-system` package with initial skeleton for tailwind 4 (#1988) ([e30f630](https://github.com/empathyco/x/commit/e30f630)), closes [#1988](https://github.com/empathyco/x/issues/1988)
+
+
+
+
+
 ## 6.0.0-alpha.201 (2026-02-12)
 
 * feat(query-preview): add lazy loading support to QueryPreview (#1980) ([ce95a17](https://github.com/empathyco/x/commit/ce95a17)), closes [#1980](https://github.com/empathyco/x/issues/1980)
