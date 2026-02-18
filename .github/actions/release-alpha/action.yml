@@ -1,6 +1,9 @@
 name: Release alpha version
 description: Runs npm script to release alpha version and pushes tags to github
 inputs:
+  npm_token:
+    description: Token to push code to npm
+    required: true
   github_token:
     description: Token to push code to github
     required: true
@@ -12,6 +15,14 @@ runs:
         git config --local user.email "x@empathy.co"
         git config --local user.name "empathy/x"
       shell: bash
+
+    - name: Configure npm auth
+      run: |
+        npm config set registry="https://registry.npmjs.org/"
+        npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+      shell: bash
+      env:
+        NPM_TOKEN: ${{ inputs.npm_token }}
 
     - name: Publish release
       run: |
