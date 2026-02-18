@@ -35,4 +35,5 @@ jobs:
       - name: execute release-alpha action
         uses: ./.github/actions/release-alpha
         with:
+          npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
           github_token: ${{ steps.app-token.outputs.token }}

@@ -6,7 +6,7 @@
     "build": "lerna run build",
     "pack": "lerna run pack",
     "lint": "lerna run lint -- --cache --cache-strategy content",
-    "lint:check": "lerna run lint:check --ignore @empathyco/x-design-system -- --quiet --cache --cache-strategy content",
+    "lint:check": "lerna run lint:check -- --quiet --cache --cache-strategy content",
     "format": "lerna run format",
     "format:check": "lerna run format:check",
     "test": "lerna run test",
