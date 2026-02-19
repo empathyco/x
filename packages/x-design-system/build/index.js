@@ -16,11 +16,11 @@ function createDist() {
 
 function copyLibToDist() {
   readdirSync(__libDirName, { withFileTypes: true }).forEach(dirent => {
-    const libDir = resolve(__libDirName, dirent.name)
-    const distDir = resolve(__distDirName, dirent.name)
+    const __direntLibDirName = resolve(__libDirName, dirent.name)
+    const __direntDistDirName = resolve(__distDirName, dirent.name)
     return dirent.isDirectory()
-      ? cpSync(libDir, distDir, { recursive: true })
-      : copyFileSync(libDir, distDir)
+      ? cpSync(__direntLibDirName, __direntDistDirName, { recursive: true })
+      : copyFileSync(__direntLibDirName, __direntDistDirName)
   })
 }
 
