@@ -27,11 +27,12 @@
   },
   "scripts": {
     "dev": "vite serve demo",
+    "preview": "vite preview demo",
     "build:demo": "vite build demo",
-    "build:lib": "node ./lib/build.js",
+    "build:lib": "node ./build",
     "build": "npm run build:lib && npm run build:demo",
     "pack": "pnpm pack",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "vue-tsc",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
@@ -45,10 +46,12 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.18",
     "@vitejs/plugin-vue": "6.0.4",
+    "@vue/tsconfig": "0.8.1",
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vue": "3.5.28"
+    "vue": "3.5.28",
+    "vue-tsc": "3.2.4"
   },
   "publishConfig": {
     "access": "public"
