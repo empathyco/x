@@ -1,5 +1,6 @@
 {
   "name": "@empathyco/x-design-system",
+  "type": "module",
   "version": "0.0.2-alpha.0",
   "description": "Empathy X Tailwind Design System",
   "author": "Empathy Systems Corporation S.L.",
@@ -16,10 +17,7 @@
     "empathy"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
-    }
+    ".": "./index.css"
   },
   "files": [
     "dist"
@@ -29,9 +27,11 @@
   },
   "scripts": {
     "dev": "vite serve demo",
-    "dev:build": "vite build demo",
-    "build": "echo 'XDS build' && vite build demo",
+    "build:demo": "vite build demo",
+    "build:lib": "node ./lib/build.js",
+    "build": "npm run build:lib && npm run build:demo",
     "pack": "pnpm pack",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
