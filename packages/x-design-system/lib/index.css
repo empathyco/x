@@ -1,5 +1,6 @@
-/* TODO - Thinking if prefix is finally added or not. */
 @import 'tailwindcss' prefix(xds);
+
+@import './components/index.css';
 @import './theme.css';
 @import './variants.css';
 

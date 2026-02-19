@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-design-system",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.1",
   "description": "Empathy X Tailwind Design System",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
