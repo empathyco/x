@@ -267,8 +267,8 @@ importers:
         specifier: 32.0.1
         version: 32.0.1
       '@empathyco/x-design-system':
-        specifier: file://../x-design-system/empathyco-x-design-system-0.0.1.tgz
-        version: file:packages/x-design-system/empathyco-x-design-system-0.0.1.tgz
+        specifier: 0.0.2-alpha.1
+        version: link:../x-design-system
       '@microsoft/api-documenter':
         specifier: 7.28.2
         version: 7.28.2(@types/node@24.10.9)
@@ -1443,11 +1443,6 @@ packages:
 
   '@empathyco/eslint-config@1.8.0':
     resolution: {integrity: sha512-418kaBXnQnLjAXbY+dOvd7pF5DMeMYayAb4XvzzoMUIoVL8VSLabRFkwePvVgJbRGQhv1k5ww4YSGg16kFm4qA==}
-
-  '@empathyco/x-design-system@file:packages/x-design-system/empathyco-x-design-system-0.0.1.tgz':
-    resolution: {integrity: sha512-VlBJKF2YkvMumU5E/1HXRaoiJdLWTzX6S8ZxUr8zUVXt/jtQh3OlXzFeEwk/7IBWk1LMhXTe5BhnMVEgfFukFA==, tarball: file:packages/x-design-system/empathyco-x-design-system-0.0.1.tgz}
-    version: 0.0.1
-    engines: {node: '>=22'}
 
   '@empathyco/x-jest-utils@1.4.0-alpha.11':
     resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
@@ -10240,10 +10235,6 @@ snapshots:
       - svelte-eslint-parser
       - typescript
       - vitest
-
-  '@empathyco/x-design-system@file:packages/x-design-system/empathyco-x-design-system-0.0.1.tgz':
-    dependencies:
-      tslib: 2.8.1
 
   '@empathyco/x-jest-utils@1.4.0-alpha.11': {}
 

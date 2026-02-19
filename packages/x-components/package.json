@@ -99,7 +99,7 @@
     "@badeball/cypress-cucumber-preprocessor": "24.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "2.2.8",
     "@cucumber/messages": "32.0.1",
-    "@empathyco/x-design-system": "file://../x-design-system/empathyco-x-design-system-0.0.1.tgz",
+    "@empathyco/x-design-system": "0.0.2-alpha.1",
     "@microsoft/api-documenter": "7.28.2",
     "@microsoft/api-extractor": "7.55.2",
     "@tailwindcss/vite": "4.1.18",
