@@ -397,6 +397,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: 6.0.4
         version: 6.0.4(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
+      '@vue/tsconfig':
+        specifier: 0.8.1
+        version: 0.8.1(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3))
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
@@ -409,6 +412,9 @@ importers:
       vue:
         specifier: 3.5.28
         version: 3.5.28(typescript@5.9.3)
+      vue-tsc:
+        specifier: 3.2.4
+        version: 3.2.4(typescript@5.9.3)
 
   packages/x-svg-converter:
     devDependencies:
@@ -3238,6 +3244,17 @@ packages:
 
   '@vue/test-utils@2.4.6':
     resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
+
+  '@vue/tsconfig@0.8.1':
+    resolution: {integrity: sha512-aK7feIWPXFSUhsCP9PFqPyFOcz4ENkb8hZ2pneL6m2UjCkccvaOhC/5KCKluuBufvp2KzkbdA2W2pk20vLzu3g==}
+    peerDependencies:
+      typescript: 5.x
+      vue: ^3.4.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vue:
+        optional: true
 
   '@vue/vue3-jest@29.2.6':
     resolution: {integrity: sha512-Hy4i2BsV5fUmER5LplYiAeRkLTDCSB3ZbnAeEawXtjto/ILaOnamBAoAvEqARgPpR6NRtiYjSgGKmllMtnFd9g==}
@@ -12091,8 +12108,8 @@ snapshots:
   '@vue/language-core@3.2.4':
     dependencies:
       '@volar/language-core': 2.4.27
-      '@vue/compiler-dom': 3.5.27
-      '@vue/shared': 3.5.27
+      '@vue/compiler-dom': 3.5.28
+      '@vue/shared': 3.5.28
       alien-signals: 3.1.1
       muggle-string: 0.4.1
       path-browserify: 1.0.1
@@ -12152,6 +12169,11 @@ snapshots:
     dependencies:
       js-beautify: 1.15.4
       vue-component-type-helpers: 2.2.12
+
+  '@vue/tsconfig@0.8.1(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3))':
+    optionalDependencies:
+      typescript: 5.9.3
+      vue: 3.5.28(typescript@5.9.3)
 
   '@vue/vue3-jest@29.2.6(@babel/core@7.28.3)(babel-jest@29.7.0(@babel/core@7.28.3))(jest@29.7.0(@types/node@24.10.9)(ts-node@10.9.2(@types/node@24.10.9)(typescript@5.9.3)))(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))':
     dependencies:
