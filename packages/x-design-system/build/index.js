@@ -8,9 +8,10 @@ const __distDirName = resolve(__rootDirName, 'dist')
 const __libDirName = resolve(__rootDirName, 'lib')
 
 function createDist() {
-  return existsSync(__distDirName)
-    ? rmSync(__distDirName, { recursive: true, force: true })
-    : mkdirSync(__distDirName)
+  if (existsSync(__distDirName)) {
+    rmSync(__distDirName, { recursive: true, force: true })
+  }
+  mkdirSync(__distDirName)
 }
 
 function copyLibToDist() {
