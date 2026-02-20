@@ -1,1 +1,12 @@
 @import '../../lib/index.css';
+
+@theme {
+  --color-tertiary-25: #f3d5da;
+  --color-tertiary-50: #db8191;
+  --color-tertiary-75: #eb0030;
+  --color-tertiary-100: #492b30;
+  --color-tertiary: var(--xds-color-tertiary-100);
+
+  --color-enable: #51c531;
+  --color-disable: #b71c1c;
+}
