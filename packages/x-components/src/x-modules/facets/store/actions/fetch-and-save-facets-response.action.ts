@@ -1,46 +1,32 @@
-import type { Facet, FacetsRequest, FacetsResponse, Filter } from '@empathyco/x-types'
+import type { FacetsRequest, FacetsResponse } from '@empathyco/x-types'
 import type { FacetsActionsContext } from '../types'
-import { isHierarchicalFacet } from '@empathyco/x-types'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
-import { applyHierarchicalSelection, flattenAllFilters } from '../../utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   FacetsActionsContext,
   FacetsRequest | null,
   FacetsResponse | null
 >({
-  async fetch({ dispatch, getters }) {
-    return getters.request
-      ? dispatch('fetchFacetsResponse', getters.request)
-      : Promise.resolve(null)
+  async fetch({ dispatch }, request) {
+    return request ? dispatch('fetchFacetsResponse', request) : Promise.resolve(null)
   },
-  onSuccess({ commit, getters }, response) {
-    if (response !== null) {
-      const selectedFilters = getters.selectedFilters
-      const selectedIds = new Set(
-        Object.values(selectedFilters ?? {})
-          .filter((f: Filter) => f.selected)
-          .map((f: Filter) => f.id),
-      )
-      const facetsWithSelectedFilters: Facet[] = []
-
-      response.facets?.forEach((facet: Facet) => {
-        if (isHierarchicalFacet(facet)) {
-          applyHierarchicalSelection(facet.filters, selectedIds)
-        } else {
-          facet.filters.forEach((filter: Filter) => {
-            filter.selected = selectedIds.has(filter.id)
-          })
-        }
-
-        facetsWithSelectedFilters.push(facet)
-        commit('setFacet', facet)
-      })
-
-      commit('setFilters', flattenAllFilters(facetsWithSelectedFilters))
+  onSuccess({ commit }, response) {
+    if (response !== null && response.facets) {
+      commit('setRawFacets', response.facets)
     }
   },
 })
 
+/**
+ * Default implementation for {@link FacetsActions.fetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const fetchAndSaveFacetsResponse = fetchAndSave
+
+/**
+ * Default implementation for {@link FacetsActions.cancelFetchAndSaveFacetsResponse} action.
+ *
+ * @public
+ */
 export const cancelFetchAndSaveFacetsResponse = cancelPrevious

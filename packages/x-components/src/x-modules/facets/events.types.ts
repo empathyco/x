@@ -1,6 +1,7 @@
 import type {
   EditableNumberRangeFilter,
   Facet,
+  FacetsRequest,
   Filter,
   HierarchicalFilter,
   NumberRangeFilter,
@@ -98,4 +99,10 @@ export interface FacetsXEvents {
    * Payload: The facets query.
    */
   FacetsQueryChanged: string
+  /**
+   * Any property of the search request has been updated.
+   * Payload: The new facets request or `null` if there is not enough data in the state to
+   * conform a valid request.
+   */
+  FacetsRequestUpdated: FacetsRequest | null
 }
