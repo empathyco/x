@@ -1,0 +1,25 @@
+/* Base */
+@utility button-group {
+  @apply xds:inline-flex;
+  @apply xds:text-neutral-50;
+
+  /* We should only remove the left border if the button group doesn't have gap */
+  &:not([class*='gap']) > .xds\:button + .xds\:button {
+    @apply xds:border-l-0;
+  }
+
+  & > :not(.xds\:button-circle):first-child {
+    @apply xds:rounded-tl-[inherit] xds:rounded-bl-[inherit];
+  }
+
+  & > :not(.xds\:button-circle):last-child {
+    @apply xds:rounded-tr-[inherit] xds:rounded-br-[inherit];
+  }
+}
+
+/* Divider */
+@utility button-group-divider {
+  @apply xds:border-l-1 xds:border-l-inherit;
+  @apply xds:my-8;
+  @apply xds:self-stretch;
+}
