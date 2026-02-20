@@ -45,6 +45,17 @@
   --color-error-50: #ef4444;
   --color-error-75: #991b1b;
 
+  /* These colors are used for functional utilities like `@utility badge-*` to create utility
+     colors without "modifier" -> `.xds:bagde-lead` */
+  --color-neutral: var(--xds-color-neutral-50);
+  --color-lead: var(--xds-color-lead-50);
+  --color-auxiliary: var(--xds-color-auxiliary-50);
+  --color-accent: var(--xds-color-accent-50);
+  --color-highlight: var(--xds-color-highlight-50);
+  --color-success: var(--xds-color-success-50);
+  --color-warning: var(--xds-color-warning-50);
+  --color-error: var(--xds-color-error-50);
+
   --font-family-main: Inter, sans-serif;
   --font-family-alternative: Lora, serif;
   --font-family-extra: Poppins, sans-serif;

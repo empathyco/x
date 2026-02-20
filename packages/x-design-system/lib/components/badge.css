@@ -4,7 +4,9 @@
   @apply xds:inline-flex xds:items-center xds:justify-center xds:rounded-full;
   @apply xds:text-neutral-0 xds:bg-neutral-90;
 
-  @apply xds:badge-md;
+  /* `@apply xds:badge-md;` can not be use here because cause circular dependency. */
+  --attach-horizontal-offset: var(--xds-spacing-8); /* TODO - Is it needed? */
+  @apply xds:h-20 xds:ps-8 xds:pe-8;
 }
 
 /* Sizes */
@@ -30,140 +32,38 @@
   }
 }
 
-/* Colors */
-/* TODO - Look for a way to avoid hardcoded colors. Something like:
- @utility badge-* {
-  background-color: --value(--xds-color-*-75);
-}*/
-@utility badge-neutral {
-  @apply xds:bg-neutral-75;
-}
-@utility badge-lead {
-  @apply xds:bg-lead-75;
-}
-@utility badge-auxiliary {
-  @apply xds:bg-auxiliary-75;
-}
-@utility badge-accent {
-  @apply xds:bg-accent-75;
-}
-@utility badge-highlight {
-  @apply xds:bg-highlight-75;
-}
-@utility badge-success {
-  @apply xds:bg-success-75;
-}
-@utility badge-warning {
-  @apply xds:bg-warning-75;
-}
-@utility badge-error {
-  @apply xds:bg-error-75;
+/* Light */
+@utility badge-light {
+  @apply xds:text-neutral-90 xds:bg-neutral-0;
 }
 
 /* Outlined */
 @utility badge-outlined {
   @apply xds:text-neutral-90 xds:bg-transparent;
   @apply xds:border-1 xds:border-neutral-90;
-
-  &.xds\:badge-neutral {
-    @apply xds:bg-transparent;
-    @apply xds:border-neutral-50;
-  }
-  &.xds\:badge-lead {
-    @apply xds:bg-transparent;
-    @apply xds:border-lead-50;
-  }
-  &.xds\:badge-auxiliary {
-    @apply xds:bg-transparent;
-    @apply xds:border-auxiliary-50;
-  }
-  &.xds\:badge-accent {
-    @apply xds:bg-transparent;
-    @apply xds:border-accent-50;
-  }
-  &.xds\:badge-highlight {
-    @apply xds:bg-transparent;
-    @apply xds:border-highlight-50;
-  }
-  &.xds\:badge-success {
-    @apply xds:bg-transparent;
-    @apply xds:border-success-50;
-  }
-  &.xds\:badge-warning {
-    @apply xds:bg-transparent;
-    @apply xds:border-warning-50;
-  }
-  &.xds\:badge-error {
-    @apply xds:bg-transparent;
-    @apply xds:border-error-50;
-  }
-}
-
-/* Light */
-@utility badge-light {
-  @apply xds:text-neutral-90 xds:bg-neutral-0;
-
-  &.xds\:badge-neutral {
-    @apply xds:bg-neutral-25;
-  }
-  &.xds\:badge-lead {
-    @apply xds:bg-lead-25;
-  }
-  &.xds\:badge-auxiliary {
-    @apply xds:bg-auxiliary-25;
-  }
-  &.xds\:badge-accent {
-    @apply xds:bg-accent-25;
-  }
-  &.xds\:badge-highlight {
-    @apply xds:bg-highlight-25;
-  }
-  &.xds\:badge-success {
-    @apply xds:bg-success-25;
-  }
-  &.xds\:badge-warning {
-    @apply xds:bg-warning-25;
-  }
-  &.xds\:badge-error {
-    @apply xds:bg-error-25;
-  }
 }
 
 /* Bright */
 @utility badge-bright {
   @apply xds:text-neutral-90 xds:bg-transparent;
   @apply xds:border-1 xds:border-neutral-0;
+}
 
-  &.xds\:badge-neutral {
-    @apply xds:bg-transparent;
-    @apply xds:border-neutral-25;
+/* Colors */
+@utility badge-* {
+  background-color: --value(--color- * -75);
+
+  &.xds\:badge-light {
+    background-color: --value(--color- * -25);
   }
-  &.xds\:badge-lead {
+
+  &.xds\:badge-outlined {
     @apply xds:bg-transparent;
-    @apply xds:border-lead-25;
+    border-color: --value(--color- * -50);
   }
-  &.xds\:badge-auxiliary {
+
+  &.xds\:badge-bright {
     @apply xds:bg-transparent;
-    @apply xds:border-auxiliary-25;
-  }
-  &.xds\:badge-accent {
-    @apply xds:bg-transparent;
-    @apply xds:border-accent-25;
-  }
-  &.xds\:badge-highlight {
-    @apply xds:bg-transparent;
-    @apply xds:border-highlight-25;
-  }
-  &.xds\:badge-success {
-    @apply xds:bg-transparent;
-    @apply xds:border-success-25;
-  }
-  &.xds\:badge-warning {
-    @apply xds:bg-transparent;
-    @apply xds:border-warning-25;
-  }
-  &.xds\:badge-error {
-    @apply xds:bg-transparent;
-    @apply xds:border-error-25;
+    border-color: --value(--color- * -25);
   }
 }
