@@ -5,7 +5,8 @@
   @apply xds:font-family-main xds:font-bold;
   @apply xds:text-neutral-0 xds:bg-neutral-90 xds:border-neutral-90;
 
-  @apply xds:button-md;
+  /* `@apply xds:button-md;` can not be use here because cause circular dependency. */
+  @apply xds:min-h-40 xds:gap-8 xds:ps-16 xds:pe-16 xds:text-sm;
 
   &:hover,
   &:active {
@@ -53,144 +54,6 @@
   @apply xds:aspect-square xds:ps-0 xds:pe-0;
 }
 
-/* Colors */
-@utility button-neutral {
-  @apply xds:bg-neutral-50 xds:border-neutral-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-neutral-75 xds:border-neutral-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-neutral-75 xds:border-neutral-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-50 xds:border-neutral-50;
-    }
-  }
-}
-@utility button-lead {
-  @apply xds:bg-lead-50 xds:border-lead-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-lead-75 xds:border-lead-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-lead-75 xds:border-lead-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-lead-50 xds:border-lead-50;
-    }
-  }
-}
-@utility button-auxiliary {
-  @apply xds:bg-auxiliary-50 xds:border-auxiliary-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-auxiliary-75 xds:border-auxiliary-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-auxiliary-75 xds:border-auxiliary-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-auxiliary-50 xds:border-auxiliary-50;
-    }
-  }
-}
-@utility button-accent {
-  @apply xds:bg-accent-50 xds:border-accent-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-accent-75 xds:border-accent-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-accent-75 xds:border-accent-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-accent-50 xds:border-accent-50;
-    }
-  }
-}
-@utility button-highlight {
-  @apply xds:bg-highlight-50 xds:border-highlight-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-highlight-75 xds:border-highlight-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-highlight-75 xds:border-highlight-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-highlight-50 xds:border-highlight-50;
-    }
-  }
-}
-@utility button-success {
-  @apply xds:bg-success-50 xds:border-success-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-success-75 xds:border-success-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-success-75 xds:border-success-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-success-50 xds:border-success-50;
-    }
-  }
-}
-@utility button-warning {
-  @apply xds:bg-warning-50 xds:border-warning-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-warning-75 xds:border-warning-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-warning-75 xds:border-warning-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-warning-50 xds:border-warning-50;
-    }
-  }
-}
-@utility button-error {
-  @apply xds:bg-error-50 xds:border-error-50;
-
-  &:hover,
-  &:active {
-    @apply xds:bg-error-75 xds:border-error-75;
-  }
-
-  &.xds\:selected {
-    @apply xds:bg-error-75 xds:border-error-75;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-error-50 xds:border-error-50;
-    }
-  }
-}
-
 /* Outlined */
 @utility button-outlined {
   @apply xds:text-neutral-90 xds:bg-transparent;
@@ -216,151 +79,6 @@
     &:hover,
     &:active {
       @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-25 xds:cursor-not-allowed;
-    }
-  }
-
-  &.xds\:button-neutral {
-    @apply xds:bg-transparent;
-    @apply xds:border-neutral-50 xds:text-neutral-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-50 xds:border-neutral-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-50 xds:border-neutral-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-neutral-50 xds:text-neutral-50;
-      }
-    }
-  }
-  &.xds\:button-lead {
-    @apply xds:bg-transparent;
-    @apply xds:border-lead-50 xds:text-lead-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-lead-50 xds:border-lead-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-lead-50 xds:border-lead-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-lead-50 xds:text-lead-50;
-      }
-    }
-  }
-  &.xds\:button-auxiliary {
-    @apply xds:bg-transparent;
-    @apply xds:border-auxiliary-50 xds:text-auxiliary-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-auxiliary-50 xds:border-auxiliary-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-auxiliary-50 xds:border-auxiliary-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-auxiliary-50 xds:text-auxiliary-50;
-      }
-    }
-  }
-  &.xds\:button-accent {
-    @apply xds:bg-transparent;
-    @apply xds:border-accent-50 xds:text-accent-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-accent-50 xds:border-accent-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-accent-50 xds:border-accent-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-accent-50 xds:text-accent-50;
-      }
-    }
-  }
-  &.xds\:button-highlight {
-    @apply xds:bg-transparent;
-    @apply xds:border-highlight-50 xds:text-highlight-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-highlight-50 xds:border-highlight-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-highlight-50 xds:border-highlight-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-highlight-50 xds:text-highlight-50;
-      }
-    }
-  }
-  &.xds\:button-success {
-    @apply xds:bg-transparent;
-    @apply xds:border-success-50 xds:text-success-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-success-50 xds:border-success-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-success-50 xds:border-success-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-success-50 xds:text-success-50;
-      }
-    }
-  }
-  &.xds\:button-warning {
-    @apply xds:bg-transparent;
-    @apply xds:border-warning-50 xds:text-warning-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-warning-50 xds:border-warning-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-warning-50 xds:border-warning-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-warning-50 xds:text-warning-50;
-      }
-    }
-  }
-  &.xds\:button-error {
-    @apply xds:bg-transparent;
-    @apply xds:border-error-50 xds:text-error-50;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-error-50 xds:border-error-50 xds:text-neutral-0;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-error-50 xds:border-error-50 xds:text-neutral-0;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-error-50 xds:text-error-50;
-      }
     }
   }
 }
@@ -392,151 +110,6 @@
       @apply xds:border-0 xds:bg-transparent xds:text-neutral-25 xds:cursor-not-allowed;
     }
   }
-
-  &.xds\:button-neutral {
-    @apply xds:text-neutral-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-neutral-75;
-      }
-    }
-  }
-  &.xds\:button-lead {
-    @apply xds:text-lead-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-lead-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-lead-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-lead-75;
-      }
-    }
-  }
-  &.xds\:button-auxiliary {
-    @apply xds:text-auxiliary-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-auxiliary-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-auxiliary-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-auxiliary-75;
-      }
-    }
-  }
-  &.xds\:button-accent {
-    @apply xds:text-accent-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-accent-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-accent-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-accent-75;
-      }
-    }
-  }
-  &.xds\:button-highlight {
-    @apply xds:text-highlight-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-highlight-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-highlight-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-highlight-75;
-      }
-    }
-  }
-  &.xds\:button-success {
-    @apply xds:text-success-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-success-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-success-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-success-75;
-      }
-    }
-  }
-  &.xds\:button-warning {
-    @apply xds:text-warning-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-warning-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-warning-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-warning-75;
-      }
-    }
-  }
-  &.xds\:button-error {
-    @apply xds:text-error-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-error-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-error-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-error-75;
-      }
-    }
-  }
 }
 
 /* Tight */
@@ -564,151 +137,6 @@
     &:hover,
     &:active {
       @apply xds:border-0 xds:bg-transparent xds:text-neutral-25 xds:cursor-not-allowed;
-    }
-  }
-
-  &.xds\:button-neutral {
-    @apply xds:text-neutral-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-neutral-50;
-      }
-    }
-  }
-  &.xds\:button-lead {
-    @apply xds:text-lead-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
-      }
-    }
-  }
-  &.xds\:button-auxiliary {
-    @apply xds:text-auxiliary-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-50;
-      }
-    }
-  }
-  &.xds\:button-accent {
-    @apply xds:text-accent-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-accent-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-accent-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-accent-50;
-      }
-    }
-  }
-  &.xds\:button-highlight {
-    @apply xds:text-highlight-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-highlight-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-highlight-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-highlight-50;
-      }
-    }
-  }
-  &.xds\:button-success {
-    @apply xds:text-success-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-success-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-success-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-success-50;
-      }
-    }
-  }
-  &.xds\:button-warning {
-    @apply xds:text-warning-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-warning-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-warning-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-warning-50;
-      }
-    }
-  }
-  &.xds\:button-error {
-    @apply xds:text-error-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-error-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-error-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-error-50;
-      }
     }
   }
 }
@@ -741,148 +169,118 @@
       @apply xds:border-0 xds:bg-transparent xds:text-neutral-25 xds:cursor-not-allowed;
     }
   }
+}
 
-  &.xds\:button-neutral {
-    @apply xds:text-neutral-50 xds:bg-transparent;
-    @apply xds:border-0;
+/* Colors */
+@utility button-* {
+  background-color: --value(--color- * -50);
+  border-color: --value(--color- * -50);
+
+  &:hover,
+  &:active {
+    background-color: --value(--color- * -75);
+    border-color: --value(--color- * -75);
+  }
+
+  &.xds\:selected {
+    background-color: --value(--color- * -75);
+    border-color: --value(--color- * -75);
 
     &:hover,
     &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-75;
+      background-color: --value(--color- * -50);
+      border-color: --value(--color- * -50);
+    }
+  }
+
+  &.xds\:button-outlined {
+    @apply xds:bg-transparent;
+    border-color: --value(--color- * -50);
+    color: --value(--color- * -50);
+
+    &:hover,
+    &:active {
+      @apply xds:text-neutral-0;
+      background-color: --value(--color- * -50);
+      border-color: --value(--color- * -50);
     }
 
     &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-75;
+      @apply xds:text-neutral-0;
+      background-color: --value(--color- * -50);
+      border-color: --value(--color- * -50);
 
       &:hover,
       &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-neutral-50;
+        @apply xds:bg-transparent;
+        border-color: --value(--color- * -50);
+        color: --value(--color- * -50);
       }
     }
   }
-  &.xds\:button-lead {
-    @apply xds:text-lead-50 xds:bg-transparent;
-    @apply xds:border-0;
+
+  &.xds\:button-ghost {
+    @apply xds:border-0 xds:bg-transparent;
+    color: --value(--color- * -50);
 
     &:hover,
     &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
+      @apply xds:bg-neutral-10 xds:border-neutral-10;
+      color: --value(--color- * -75);
     }
 
     &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
+      @apply xds:bg-neutral-10 xds:border-neutral-10;
+      color: --value(--color- * -75);
 
       &:hover,
       &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-lead-75;
+        @apply xds:bg-neutral-25 xds:border-neutral-25;
+        color: --value(--color- * -75);
       }
     }
   }
-  &.xds\:button-auxiliary {
-    @apply xds:text-auxiliary-50 xds:bg-transparent;
-    @apply xds:border-0;
+
+  &.xds\:button-tight {
+    @apply xds:border-0 xds:bg-transparent;
+    color: --value(--color- * -50);
 
     &:hover,
     &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-75;
+      @apply xds:bg-transparent xds:border-0;
+      color: --value(--color- * -75);
     }
 
     &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-75;
+      @apply xds:bg-transparent xds:border-0;
+      color: --value(--color- * -75);
 
       &:hover,
       &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-auxiliary-50;
+        @apply xds:bg-transparent xds:border-0;
+        color: --value(--color- * -50);
       }
     }
   }
-  &.xds\:button-accent {
-    @apply xds:text-accent-50 xds:bg-transparent;
-    @apply xds:border-0;
+
+  &.xds\:button-link {
+    @apply xds:border-0 xds:bg-transparent;
+    color: --value(--color- * -50);
 
     &:hover,
     &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-accent-75;
+      @apply xds:bg-transparent xds:border-0;
+      color: --value(--color- * -75);
     }
 
     &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-accent-75;
+      @apply xds:bg-transparent xds:border-0;
+      color: --value(--color- * -75);
 
       &:hover,
       &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-accent-50;
-      }
-    }
-  }
-  &.xds\:button-highlight {
-    @apply xds:text-highlight-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-highlight-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-highlight-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-highlight-50;
-      }
-    }
-  }
-  &.xds\:button-success {
-    @apply xds:text-success-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-success-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-success-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-success-50;
-      }
-    }
-  }
-  &.xds\:button-warning {
-    @apply xds:text-warning-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-warning-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-warning-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-warning-50;
-      }
-    }
-  }
-  &.xds\:button-error {
-    @apply xds:text-error-50 xds:bg-transparent;
-    @apply xds:border-0;
-
-    &:hover,
-    &:active {
-      @apply xds:bg-transparent xds:border-0 xds:text-error-75;
-    }
-
-    &.xds\:selected {
-      @apply xds:bg-transparent xds:border-0 xds:text-error-75;
-
-      &:hover,
-      &:active {
-        @apply xds:bg-transparent xds:border-0 xds:text-error-50;
+        @apply xds:bg-transparent xds:border-0;
+        color: --value(--color- * -50);
       }
     }
   }
