@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.3 (2026-02-20)</small>
+
+* fix: use medium colors to the ones without opacity ([941250c](https://github.com/empathyco/x/commit/941250c))
+* feat(badge): use functional utility for colors ([f266db8](https://github.com/empathyco/x/commit/f266db8))
+
+
+
+
+
 ## <small>0.0.2-alpha.2 (2026-02-19)</small>
 
 * fix(x-design-system): improve `build` script and `TS` and `vue-tsc` (#1997) ([ffc65f6](https://github.com/empathyco/x/commit/ffc65f6)), closes [#1997](https://github.com/empathyco/x/issues/1997)
