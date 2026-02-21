@@ -119,8 +119,8 @@ describe('testing MyHistory component', () => {
 
   it('renders the date using the locale prop when there is no snippetConfig', async () => {
     const historyQueriesGroupedByDate = {
-      'lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
-      'miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]],
+      'Lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
+      'Miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]],
     }
     const locale = 'es'
     const { findAllInWrapper } = renderMyHistory({
@@ -213,6 +213,49 @@ describe('testing MyHistory component', () => {
     expect(wrapper.find(getDataTestSelector('my-history-queries')).classes('custom-class')).toBe(
       true,
     )
+  })
+
+  it('should use uiLang from snippetConfig for date formatting', async () => {
+    const historyQueriesGroupedByDate = {
+      'Lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
+      'Miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]],
+    }
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'en', uiLang: 'es' },
+    })
+
+    await nextTick()
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, 'es')
+  })
+
+  it('should capitalize the first character of formatted dates', async () => {
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'es', uiLang: 'es' },
+    })
+
+    await nextTick()
+    const historyWrappers = findAllInWrapper('my-history-item')
+    historyWrappers.forEach(wrapper => {
+      const dateText = wrapper.find(getDataTestSelector('my-history-date')).text()
+      // Check first character is uppercase
+      expect(dateText.charAt(0)).toBe(dateText.charAt(0).toUpperCase())
+    })
+  })
+
+  it('should fallback to lang when uiLang is not provided', async () => {
+    const historyQueriesGroupedByDate = {
+      'Lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
+      'Miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]],
+    }
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'es' },
+    })
+
+    await nextTick()
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, 'es')
   })
 
   function expectValidHistoryContent(
