@@ -1,0 +1,107 @@
+/* Base */
+@utility input {
+  @apply xds:ps-16 xds:pe-16 xds:font-regular xds:cursor-text xds:text-ellipsis;
+  @apply xds:border-1 xds:border-neutral-90;
+  @apply xds:bg-neutral-0 xds:text-neutral-90;
+
+  /* `@apply xds:input-md;` can not be use here because cause circular dependency. */
+  @apply xds:h-40 xds:text-base;
+
+  &:hover,
+  &:active {
+    @apply xds:border-neutral-50;
+  }
+
+  &:focus,
+  &:focus-within {
+    @apply xds:border-neutral-50 xds:outline-2 xds:outline-neutral-25;
+  }
+
+  &:disabled,
+  &[disabled] {
+    @apply xds:cursor-not-allowed xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
+  }
+
+  &::placeholder,
+  & .input-placeholder {
+    @apply xds:text-neutral-50 xds:font-family-main xds:font-regular xds:text-sm;
+  }
+}
+
+/* Sizes */
+@utility input-sm {
+  @apply xds:h-32 xds:text-sm;
+
+  &::placeholder {
+    @apply xds:text-sm;
+  }
+}
+
+@utility input-md {
+  @apply xds:h-40 xds:text-base;
+
+  &::placeholder {
+    @apply xds:text-base;
+  }
+}
+
+@utility input-lg {
+  @apply xds:h-48 xds:text-base;
+
+  &::placeholder {
+    @apply xds:text-base;
+  }
+}
+
+/* Line */
+@utility input-line {
+  @apply xds:border-0 xds:border-b-neutral-90;
+  @apply xds:bg-bottom xds:bg-size-[100%_1px] xds:bg-no-repeat;
+  background-image: linear-gradient(var(--color-neutral-90), var(--color-neutral-90));
+
+  &:hover {
+    @apply xds:bg-size-[100%_2px];
+  }
+
+  &:focus,
+  &:focus-within {
+    @apply xds:bg-size-[100%_2px] xds:text-neutral-90 xds:outline-none;
+  }
+
+  &:disabled,
+  &[disabled] {
+    @apply xds:bg-neutral-10 xds:border-neutral-25;
+  }
+}
+
+/* Colors */
+@utility input-* {
+  border-color: --value(--color- * -50);
+
+  &.xds\:input-line {
+    background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
+  }
+
+  &:hover,
+  &:active {
+    border-color: --value(--color- * -75);
+  }
+
+  &:focus,
+  &:focus-within {
+    border-color: --value(--color- * -75);
+    outline-color: --value(--color- * -25);
+  }
+
+  &:disabled,
+  &[disabled] {
+    border-color: --value(--color- * -25);
+    background-color: --value(--color- * -10);
+    color: --value(--color- * -50);
+  }
+
+  &::placeholder,
+  & .input-placeholder {
+    color: --value(--color- * -50);
+  }
+}
