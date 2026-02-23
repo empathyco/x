@@ -117,7 +117,7 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-scss-transform": "1.0.4",
     "postcss": "8.5.6",
-    "postcss-dir-pseudo-class": "7.0.2",
+    "postcss-dir-pseudo-class": "10.0.0",
     "postcss-logical": "4.0.2",
     "rimraf": "3.0.2",
     "rollup": "4.56.0",
