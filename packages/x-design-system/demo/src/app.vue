@@ -2,6 +2,7 @@
   <div class="xds:flex xds:flex-col xds:gap-40">
     <Button />
     <ButtonGroup />
+    <FilterFacet />
     <Icon />
     <Highlight />
     <Input />
