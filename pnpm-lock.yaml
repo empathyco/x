@@ -314,9 +314,6 @@ importers:
       jest-environment-jsdom:
         specifier: 29.7.0
         version: 29.7.0
-      jest-scss-transform:
-        specifier: 1.0.4
-        version: 1.0.4(babel-jest@29.7.0(@babel/core@7.28.3))
       postcss:
         specifier: 8.5.6
         version: 8.5.6
@@ -347,9 +344,6 @@ importers:
       rollup-plugin-vue:
         specifier: 6.0.0
         version: 6.0.0(@vue/compiler-sfc@3.5.28)
-      sass:
-        specifier: 1.97.3
-        version: 1.97.3
       start-server-and-test:
         specifier: 2.1.3
         version: 2.1.3
@@ -5779,11 +5773,6 @@ packages:
   jest-runtime@29.7.0:
     resolution: {integrity: sha512-gUnLjgwdGqW7B4LvOIkbKs9WGbn+QLqRQQ9juC6HndeDiezIwhDP+mhMwHWCEcfQ5RUXa6OPnFF8BJh5xegwwQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
-  jest-scss-transform@1.0.4:
-    resolution: {integrity: sha512-lI2d3aFO23jf2aB9nBWPcloa+da6uCEV/5R8wfFpPDkjaeQVToACJgXePovoZl/YD8wQb0Tk8goPa1P89QbnAg==}
-    peerDependencies:
-      babel-jest: '>=24.8.0'
 
   jest-snapshot@29.7.0:
     resolution: {integrity: sha512-Rm0BMWtxBcioHr1/OX5YCP8Uov4riHvKPknOGs804Zg9JGZgmIBkbtlxJC/7Z4msKYVbIJtfU+tKb8xlYNfdkw==}
@@ -14583,7 +14572,8 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immutable@5.1.4: {}
+  immutable@5.1.4:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -15156,10 +15146,6 @@ snapshots:
       strip-bom: 4.0.0
     transitivePeerDependencies:
       - supports-color
-
-  jest-scss-transform@1.0.4(babel-jest@29.7.0(@babel/core@7.28.3)):
-    dependencies:
-      babel-jest: 29.7.0(@babel/core@7.28.3)
 
   jest-snapshot@29.7.0:
     dependencies:
@@ -17704,6 +17690,7 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.1
+    optional: true
 
   saxes@6.0.0:
     dependencies:
