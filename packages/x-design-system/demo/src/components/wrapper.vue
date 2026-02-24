@@ -1,5 +1,5 @@
 <template>
-  <table class="xds:min-w-full">
+  <table class="xds:min-w-full xds:mb-16">
     <thead class="xds:bg-neutral-25">
       <tr>
         <th colspan="2" class="xds:p-8">{{ feature }}</th>
