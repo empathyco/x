@@ -2,13 +2,7 @@ import { empathyco } from '@empathyco/eslint-config'
 
 export default empathyco(
   {
-    ignores: [
-      '.loaded_actions',
-      'vite.config.ts',
-      'tailwind.config.ts',
-      'jest.setup.ts',
-      'cypress.config.ts',
-    ],
+    ignores: ['.loaded_actions', 'vite.config.ts', 'jest.setup.ts', 'cypress.config.ts'],
   },
   {
     files: ['**/*.spec.{ts,tsx,js,jsx}'],
