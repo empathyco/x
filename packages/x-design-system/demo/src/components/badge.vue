@@ -49,6 +49,53 @@
         bright {{ key }} badge
       </span>
     </template>
+    <template #attach-to>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach top-left
+        <span class="xds:attach-top-left xds:badge xds:badge-sm">10</span>
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach top-right
+        <span class="xds:attach-top-right xds:badge xds:badge-sm">10</span>
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach bottom-left
+        <span class="xds:attach-bottom-left xds:badge xds:badge-sm">10</span>
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach bottom-right
+        <span class="xds:attach-bottom-right xds:badge xds:badge-sm">10</span>
+      </span>
+
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach badge-md
+        <span class="xds:attach-top-right xds:badge xds:badge-md">10</span>
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        attach badge-circle
+        <span class="xds:attach-bottom-right xds:badge xds:badge-md xds:badge-circle">10</span>
+      </span>
+    </template>
+    <template #combinations>
+      <span class="xds:badge xds:badge-error xds:badge-sm xds:badge-outlined">
+        error sm outlined badge
+      </span>
+      <span class="xds:badge xds:badge-light xds:badge-md xds:badge-lead xds:badge-circle">1</span>
+      <span class="xds:badge xds:badge-outlined xds:badge-sm xds:badge-warning xds:badge-circle">
+        1
+      </span>
+      <span class="xds:badge xds:badge-light xds:badge-md xds:badge-auxiliary">
+        light md auxiliary badge
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        circle attach-to-top-right
+        <span class="xds:attach-top-right xds:badge xds:badge-sm xds:badge-circle">10</span>
+      </span>
+      <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
+        sm highlight attach-to-top-right
+        <span class="xds:attach-top-right xds:badge xds:badge-sm xds:badge-highlight">10</span>
+      </span>
+    </template>
   </Wrapper>
 </template>
 
@@ -63,8 +110,8 @@ const rows = [
   'light',
   'outlined',
   'bright',
-  'attachTo',
-  'withIcon',
+  'attach-to',
+  'with-icon',
   'combinations',
 ]
 const colors = {
