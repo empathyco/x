@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.5 (2026-02-24)</small>
+
+* feat(attach): migrate badge attach component (#2007) ([c66d3ec](https://github.com/empathyco/x/commit/c66d3ec)), closes [#2007](https://github.com/empathyco/x/issues/2007)
+
+
+
+
+
 ## <small>0.0.2-alpha.4 (2026-02-24)</small>
 
 * feat(x-design-system): button component (#1998) ([7c474d2](https://github.com/empathyco/x/commit/7c474d2)), closes [#1998](https://github.com/empathyco/x/issues/1998)
