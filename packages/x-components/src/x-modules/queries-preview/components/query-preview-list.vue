@@ -218,7 +218,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .padding-block-1 {
   padding-block: 1px;
 }

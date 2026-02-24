@@ -3,9 +3,9 @@ module.exports = {
   transform: {
     '^.+\\.(m|c)?(t|j)sx?$': 'ts-jest',
     '^.+\\.vue$': '@vue/vue3-jest',
-    '^.+\\.scss$': 'jest-scss-transform',
   },
   moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': '<rootDir>/jest.css.mock.js',
     'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs',
   },
   moduleFileExtensions: ['ts', 'vue', 'js', 'mjs'],
