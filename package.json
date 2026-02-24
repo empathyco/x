@@ -9,6 +9,7 @@
     "lint:check": "lerna run lint:check -- --quiet --cache --cache-strategy content",
     "format": "lerna run format",
     "format:check": "lerna run format:check",
+    "typecheck": "lerna run typecheck",
     "test": "lerna run test",
     "test:unit": "lerna run test:unit",
     "serve": "lerna run serve",
