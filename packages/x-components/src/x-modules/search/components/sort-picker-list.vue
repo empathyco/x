@@ -26,22 +26,12 @@
 import type { Sort } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type Vue from 'vue'
-import type { VueCSSClasses } from '../../../utils/types'
-import type { XEventsTypes } from '../../../wiring/events.types'
+import type { SortPickerItem } from './sort-picker-list.types'
 import { computed, defineComponent, watch } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { searchXModule } from '../x-module'
-
-/**
- * Sort Picker item options.
- */
-interface SortPickerItem {
-  item: Sort
-  cssClasses: VueCSSClasses
-  event: Partial<XEventsTypes>
-}
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component

@@ -2,7 +2,7 @@
   <QueryPreview
     v-slot="{ results, totalResults, query: queryPreview }"
     :debounce-time-ms="250"
-    :query="query"
+    :query-preview-info="{ query }"
   >
     <div class="x-flex x-gap-8 x-mb-16">
       <h1 class="x-title2">{{ queryPreview }} ({{ totalResults }})</h1>

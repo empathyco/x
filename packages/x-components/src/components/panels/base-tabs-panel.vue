@@ -23,7 +23,7 @@
           :key="tab"
           class="x-tabs-panel__list-item x-tabs-panel__button x-button"
           :class="tabIsSelected(tab) ? activeTabClass : tabClass"
-          :aria-selected="tabIsSelected(tab).toString()"
+          :aria-selected="tabIsSelected(tab)"
           data-test="base-tabs-panel-button"
           role="tab"
           @click="selectTab(tab)"

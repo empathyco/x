@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="result.price.hasDiscount"
+    v-if="result.price?.hasDiscount"
     class="x-result-previous-price"
     data-test="result-previous-price"
   >

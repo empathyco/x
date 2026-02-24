@@ -13,7 +13,7 @@
       data-test="dropdown-toggle"
       role="combobox"
       aria-haspopup="listbox"
-      :aria-expanded="isOpen.toString()"
+      :aria-expanded="isOpen"
       :aria-controls="listId"
       :aria-label="ariaLabel"
       aria-autocomplete="none"
@@ -44,10 +44,14 @@
         @keydown.esc="closeAndFocusToggleButton"
         @keydown.home="highlightFirstItem"
       >
-        <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
+        <li
+          v-for="(item, index) in items"
+          :key="(item as Identifiable).id ?? item"
+          class="x-dropdown__list-item"
+        >
           <button
-            :ref="el => (itemsButtonRefs[index] = el)"
-            :aria-selected="(item === modelValue).toString()"
+            :ref="el => (itemsButtonRefs[index] = el as HTMLButtonElement | null)"
+            :aria-selected="item === modelValue"
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
@@ -128,7 +132,7 @@ export default defineComponent({
     /** The button that opens and closes the list of options. */
     const toggleButtonRef = ref<HTMLButtonElement>()
     /** Array containing the dropdown list buttons HTMLElements. */
-    const itemsButtonRefs = ref<HTMLButtonElement[]>([])
+    const itemsButtonRefs = ref<(HTMLButtonElement | null)[]>([])
 
     /** Property to check whether the dropdown is expanded or closed. */
     const isOpen = ref(false)
@@ -282,10 +286,12 @@ export default defineComponent({
         const normalizedSearch = normalizeString(search)
         const matchingIndices = itemsButtonRefs?.value?.reduce<number[]>(
           (matchingIndices, button, index) => {
-            const safeButtonWordCharacters = button.textContent!.replace(/\W/g, '')
-            const normalizedButtonText = normalizeString(safeButtonWordCharacters)
-            if (normalizedButtonText.startsWith(normalizedSearch)) {
-              matchingIndices.push(index)
+            if (button) {
+              const safeButtonWordCharacters = button.textContent!.replace(/\W/g, '')
+              const normalizedButtonText = normalizeString(safeButtonWordCharacters)
+              if (normalizedButtonText.startsWith(normalizedSearch)) {
+                matchingIndices.push(index)
+              }
             }
             return matchingIndices
           },

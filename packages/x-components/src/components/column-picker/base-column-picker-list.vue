@@ -35,18 +35,10 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { VueCSSClasses } from '../../utils/types'
-import type { XEventsTypes } from '../../wiring'
+import type { ColumnPickerItem } from './base-column-picker-list.types'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseEventButton from '../base-event-button.vue'
-
-interface ColumnPickerItem {
-  column: number
-  cssClasses: VueCSSClasses
-  events: Partial<XEventsTypes>
-  isSelected: boolean
-}
 
 /**
  * Column picker list component renders a list of buttons to choose the columns number.

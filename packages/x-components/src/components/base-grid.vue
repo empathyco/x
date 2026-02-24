@@ -25,7 +25,7 @@
         the item without an specific slot implementation.
             @binding {item} item - Item to render
       -->
-      <slot v-else :item="item">{{ item.name || item.modelName || item.id || item }}</slot>
+      <slot v-else :item="item">{{ (item as any).name || item.modelName || item.id || item }}</slot>
     </li>
   </component>
 </template>
@@ -33,23 +33,14 @@
 <script lang="ts">
 import type { MaybeComputedElementRef, UseResizeObserverReturn } from '@vueuse/core'
 import type { PropType, Ref } from 'vue'
-import type { ListItem, VueCSSClasses } from '../utils/types'
+import type { ListItem } from '../utils/types'
+import type { GridItem } from './base-grid.types'
 import { useResizeObserver } from '@vueuse/core'
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useXBus } from '../composables/use-x-bus'
 import { AnimationProp } from '../types/animation-prop'
 import { toKebabCase } from '../utils/string'
 import { LIST_ITEMS_KEY } from './decorators/injection.consts'
-
-/**
- * The type returned by the gridItems function. Basically it's a list of items with its CSS
- * classes and a slotName.
- */
-interface GridItem {
-  slotName: string
-  item: ListItem
-  cssClass: VueCSSClasses
-}
 
 /**
  * Grid component that is able to render different items based on their modelName value. In order

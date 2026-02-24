@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import type { Result } from '@empathyco/x-types'
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, ref, watch } from 'vue'
 import { AnimationProp } from '../../types'
 import { NoAnimation } from '../animations'
@@ -113,19 +113,20 @@ export default defineComponent({
      */
     const userHasHoveredImage = ref(false)
 
-    /**.
+    /**
      * Styles to use inline in the image loader, to prevent override from CSS
      *
      * @internal
      */
-    const loaderStyles: Partial<CSSStyleDeclaration> = {
-      position: 'absolute !important',
-      top: '0 !important',
-      left: '0 !important',
-      width: '100% !important',
-      height: '100% !important',
-      pointerEvents: 'none !important',
-      visibility: 'hidden !important',
+    const loaderStyles: StyleValue = {
+      // csstype issue: https://github.com/frenic/csstype/issues/160
+      position: 'absolute !important' as 'absolute',
+      top: '0 !important' as '0',
+      left: '0 !important' as '0',
+      width: '100% !important' as '100%',
+      height: '100% !important' as '100%',
+      pointerEvents: 'none !important' as 'none',
+      visibility: 'hidden !important' as 'hidden',
     }
 
     /**
