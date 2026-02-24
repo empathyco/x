@@ -62,19 +62,19 @@
   --font-family-special: Bree Serif, serif;
   --font-family-icon: font-awesome;
 
-  --font-size-xxs: 10px;
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 20px;
-  --font-size-xl: 24px;
-  --font-size-2xl: 32px;
-  --font-size-3xl: 40px;
-  --font-size-4xl: 48px;
-  --font-size-5xl: 56px;
-  --font-size-6xl: 64px;
-  --font-size-7xl: 80px;
-  --font-size-8xl: 96px;
+  --text-xxs: 10px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+  --text-4xl: 48px;
+  --text-5xl: 56px;
+  --text-6xl: 64px;
+  --text-7xl: 80px;
+  --text-8xl: 96px;
 
   --font-weight-light: 200;
   --font-weight-regular: 400;
@@ -84,10 +84,10 @@
   --layout-max-width-lg: 1920px;
   --layout-max-width-full: 100vw;
 
-  --letter-spacing-xs: -0.025em;
-  --letter-spacing-sm: -0.01em;
-  --letter-spacing-md: 0;
-  --letter-spacing-lg: 0.04em;
+  --tracking-xs: -0.025em;
+  --tracking-sm: -0.01em;
+  --tracking-md: 0;
+  --tracking-lg: 0.04em;
 
   --line-height-xs: 1.2;
   --line-height-sm: 1.4;
