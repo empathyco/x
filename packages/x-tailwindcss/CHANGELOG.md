@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.23 (2026-02-24)
+
+* refactor: remove sass ([1557098](https://github.com/empathyco/x/commit/1557098))
+
+
+
+
+
 ## 2.0.0-alpha.22 (2026-01-29)
 
 * chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
