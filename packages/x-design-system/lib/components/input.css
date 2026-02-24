@@ -5,72 +5,57 @@
   @apply xds:bg-neutral-0 xds:text-neutral-90;
 
   /* `@apply xds:input-md;` can not be use here because cause circular dependency. */
-  @apply xds:h-40 xds:text-base;
+  @apply xds:h-40 xds:text-md;
 
-  &:hover,
-  &:active {
+  &:hover {
     @apply xds:border-neutral-50;
   }
 
-  &:focus,
-  &:focus-within {
+  @variant focus {
     @apply xds:border-neutral-50 xds:outline-2 xds:outline-neutral-25;
   }
 
-  &:disabled,
-  &[disabled] {
-    @apply xds:cursor-not-allowed xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
+  @variant disabled {
+    @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
+    @apply xds:shadow-[0_2px_0_-0.5px] xds:shadow-neutral-25;
+    @apply xds:cursor-not-allowed;
   }
 
-  &::placeholder,
-  & .input-placeholder {
-    @apply xds:text-neutral-50 xds:font-family-main xds:font-regular xds:text-sm;
+  &::placeholder {
+    @apply xds:text-neutral-50 xds:font-family-main xds:font-regular;
   }
 }
 
 /* Sizes */
 @utility input-sm {
   @apply xds:h-32 xds:text-sm;
-
-  &::placeholder {
-    @apply xds:text-sm;
-  }
 }
 
 @utility input-md {
   @apply xds:h-40 xds:text-base;
-
-  &::placeholder {
-    @apply xds:text-base;
-  }
 }
 
 @utility input-lg {
   @apply xds:h-48 xds:text-base;
-
-  &::placeholder {
-    @apply xds:text-base;
-  }
 }
 
 /* Line */
 @utility input-line {
   @apply xds:border-0 xds:border-b-neutral-90;
   @apply xds:bg-bottom xds:bg-size-[100%_1px] xds:bg-no-repeat;
-  background-image: linear-gradient(var(--color-neutral-90), var(--color-neutral-90));
+  background-image: linear-gradient(var(--xds-color-neutral-90), var(--xds-color-neutral-90));
 
   &:hover {
     @apply xds:bg-size-[100%_2px];
   }
 
-  &:focus,
-  &:focus-within {
+  @variant focus {
     @apply xds:bg-size-[100%_2px] xds:text-neutral-90 xds:outline-none;
   }
 
-  &:disabled,
-  &[disabled] {
-    @apply xds:bg-neutral-10 xds:border-neutral-25;
+  @variant disabled {
+    @apply xds:bg-neutral-10;
+    background-image: linear-gradient(var(--xds-color-neutral-25), var(--xds-color-neutral-25));
   }
 }
 
@@ -82,26 +67,16 @@
     background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
   }
 
-  &:hover,
-  &:active {
+  @variant hover-active {
     border-color: --value(--color- * -75);
   }
 
-  &:focus,
-  &:focus-within {
+  @variant focus {
     border-color: --value(--color- * -75);
     outline-color: --value(--color- * -25);
   }
 
-  &:disabled,
-  &[disabled] {
-    border-color: --value(--color- * -25);
-    background-color: --value(--color- * -10);
-    color: --value(--color- * -50);
-  }
-
-  &::placeholder,
-  & .input-placeholder {
-    color: --value(--color- * -50);
+  @variant disabled {
+    --tw-shadow-color: --value(--color- * -75);
   }
 }

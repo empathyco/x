@@ -1,3 +1,5 @@
 /* TODO - Is this variant needed? */
 @custom-variant selected (&.xds\:selected);
 @custom-variant hover-active (&:hover,&:active);
+@custom-variant focus (&:focus,&:focus-within);
+@custom-variant disabled (&:disabled,&[disabled]);
