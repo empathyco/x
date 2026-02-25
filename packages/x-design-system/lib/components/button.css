@@ -21,7 +21,7 @@
     }
   }
 
-  &:disabled {
+  @variant disabled {
     @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
 
@@ -70,7 +70,7 @@
     }
   }
 
-  &:disabled {
+  @variant disabled {
     @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
 
@@ -101,7 +101,7 @@
     }
   }
 
-  &:disabled {
+  @variant disabled {
     @apply xds:bg-transparent xds:border-0 xds:text-neutral-25 xds:cursor-not-allowed;
 
     @variant hover-active {
@@ -127,7 +127,7 @@
     }
   }
 
-  &:disabled {
+  @variant disabled {
     @apply xds:bg-transparent xds:border-0 xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
 
@@ -157,7 +157,7 @@
     }
   }
 
-  &:disabled {
+  @variant disabled {
     @apply xds:bg-transparent xds:border-0 xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
     font-weight: inherit;
