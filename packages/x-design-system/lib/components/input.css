@@ -65,15 +65,18 @@
 
   &.xds\:input-line {
     background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
+
+    @variant focus {
+      box-shadow: 0 2px 0 -0.5px --value(--color- * -25);
+    }
   }
 
-  @variant hover-active {
+  &:hover {
     border-color: --value(--color- * -75);
   }
 
   @variant focus {
     border-color: --value(--color- * -75);
     outline-color: --value(--color- * -25);
-    box-shadow: 0 2px 0 -0.5px --value(--color- * -25);
   }
 }
