@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    :ref="el"
+    ref="modal"
     :animation="animation"
     :open="isOpen"
     @click:overlay="emitClickOutOfModal"
@@ -13,7 +13,7 @@
 <script lang="ts">
 import type { XEvent } from '../../wiring/events.types'
 import type { WireMetadata } from '../../wiring/wiring.types'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, useTemplateRef } from 'vue'
 import { useXBus } from '../../composables'
 import { AnimationProp } from '../../types/animation-prop'
 import { getTargetElement, isElementEqualOrContained } from '../../utils/html'
@@ -52,7 +52,7 @@ export default defineComponent({
     /** Whether the modal is open or not. */
     const isOpen = ref(false)
 
-    const el = ref<HTMLElement>()
+    const el = useTemplateRef<InstanceType<typeof BaseModal>>('modal')
 
     const closeModalEvents: XEvent[] = ['UserClickedCloseModal', 'UserClickedOutOfModal']
 
@@ -96,7 +96,7 @@ export default defineComponent({
     function emitClickOutOfModal(event: MouseEvent | FocusEvent): void {
       // Prevents clicking the open button when the panel is already open to close the panel.
       if (!openerElement || !isElementEqualOrContained(openerElement, getTargetElement(event))) {
-        xBus.emit('UserClickedOutOfModal', props.modalId, { target: el.value as HTMLElement })
+        xBus.emit('UserClickedOutOfModal', props.modalId, { target: el.value?.$el as HTMLElement })
       }
     }
 

@@ -31,6 +31,9 @@ jobs:
       - name: Run format check
         run: pnpm run format:check
 
+      - name: Run typecheck
+        run: pnpm run typecheck
+
       - name: Run tests
         run: pnpm run test:unit
 

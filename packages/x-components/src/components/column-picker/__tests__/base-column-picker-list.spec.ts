@@ -181,7 +181,7 @@ describe('testing BaseColumnPickerList component', () => {
     const { wrapper, mountComponent, clickNthItem, setWrapperSelectedColumns } = render({
       columns: [4, 6, 0],
     })
-    const wrappers = [wrapper]
+    const wrappers = [wrapper] as any[]
 
     expect(wrapper.text().slice(0, 1)).toEqual('4')
 

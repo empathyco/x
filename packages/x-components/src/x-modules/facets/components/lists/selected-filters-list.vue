@@ -18,7 +18,7 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot v-if="hasSlot(slotName)" :name="slotName" :filter="selectedFilter">
-          <span class="x-tag">{{ selectedFilter.label }}</span>
+          <span class="x-tag">{{ (selectedFilter as BooleanFilter).label }}</span>
         </slot>
 
         <!--
@@ -26,7 +26,7 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot v-else name="default" :filter="selectedFilter">
-          {{ selectedFilter.label }}
+          {{ (selectedFilter as BooleanFilter).label }}
         </slot>
       </li>
     </component>
@@ -34,8 +34,10 @@
 </template>
 
 <script lang="ts">
-import type { Facet, Filter } from '@empathyco/x-types'
+// eslint-disable-next-line unused-imports/no-unused-imports
+import type { BooleanFilter, Facet, Filter } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { RenderFilter } from './selected-filters-list.types'
 import { isFacetFilter } from '@empathyco/x-types'
 import { defineComponent } from 'vue'
 import { AnimationProp } from '../../../../types'
@@ -43,16 +45,6 @@ import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
 import SelectedFilters from './selected-filters.vue'
-
-/**
- * Custom interface to provide a slot name to a Filter.
- *
- * @internal
- */
-interface RenderFilter {
-  slotName: string
-  selectedFilter: Filter
-}
 
 /**
  * This component renders a list of selected filters from every facet, or from the facet

@@ -14,7 +14,7 @@
         class="x-filters-search__input x-input"
         data-test="filters-search-input"
         aria-label="search into the filter values"
-        @input="setQuery($event.target.value)"
+        @input="setQuery(($event?.target as HTMLInputElement)?.value)"
       />
     </slot>
     <!--
