@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.29 (2026-02-25)
+
+* chore(deps): pin dependency vite-plugin-static-copy to 3.2.0 (#1991) ([5cfecdc](https://github.com/empathyco/x/commit/5cfecdc)), closes [#1991](https://github.com/empathyco/x/issues/1991)
+
+
+
+
+
 ## 2.0.0-alpha.28 (2026-02-25)
 
 * chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
