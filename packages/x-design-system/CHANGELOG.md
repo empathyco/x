@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.8 (2026-02-25)</small>
+
+* feat(x-design-system): input component (#2005) ([2585795](https://github.com/empathyco/x/commit/2585795)), closes [#2005](https://github.com/empathyco/x/issues/2005)
+
+
+
+
+
 ## <small>0.0.2-alpha.7 (2026-02-25)</small>
 
 * chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
