@@ -1,7 +1,7 @@
 import type { Facet } from '@empathyco/x-types'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper } from '@vue/test-utils'
-import type Vue from 'vue'
+import type { Component } from 'vue'
 import type { RootXStoreState } from '../../../../../store/store.types'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
@@ -313,7 +313,7 @@ function renderFacetsComponent({
 }
 
 interface FacetsRenderOptions {
-  components?: Dictionary<typeof Vue>
+  components?: Dictionary<Component>
   customFacetSlot?: string
   facets?: Dictionary<Facet>
   renderableFacets?: string
