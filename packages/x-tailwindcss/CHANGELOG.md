@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.24 (2026-02-25)
+
+* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+* chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
+
+
+
+
+
 ## 2.0.0-alpha.23 (2026-02-24)
 
 * refactor: remove sass ([1557098](https://github.com/empathyco/x/commit/1557098))

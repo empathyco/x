@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.7 (2026-02-25)</small>
+
+* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+
+
+
+
+
 ## <small>0.0.2-alpha.6 (2026-02-24)</small>
 
 * feat(x-design-system): button group component (#1999) ([04af386](https://github.com/empathyco/x/commit/04af386)), closes [#1999](https://github.com/empathyco/x/issues/1999)

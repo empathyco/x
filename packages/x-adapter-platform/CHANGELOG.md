@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.45 (2026-02-25)
+
+* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+
+
+
+
+
 ## 1.1.0-alpha.44 (2026-02-11)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

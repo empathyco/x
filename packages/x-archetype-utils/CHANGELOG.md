@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.28 (2026-02-25)
+
+* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+* chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
+
+
+
+
+
 ## 2.0.0-alpha.27 (2026-02-12)
 
 * fix: fix x-archetype-utils build files (#1987) ([a33ee0d](https://github.com/empathyco/x/commit/a33ee0d)), closes [#1987](https://github.com/empathyco/x/issues/1987)

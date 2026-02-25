@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.38 (2026-02-25)
+
+* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+* refactor: fix type issues ([74216e4](https://github.com/empathyco/x/commit/74216e4))
+
+
+
+
+
 ## 10.1.0-alpha.37 (2026-02-11)
 
 * chore(deps): pin dependency vite-plugin-dts to 4.5.4 (#1978) ([605f13f](https://github.com/empathyco/x/commit/605f13f)), closes [#1978](https://github.com/empathyco/x/issues/1978)
