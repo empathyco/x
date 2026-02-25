@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.205 (2026-02-25)
+
+* chore(deps): update dependency marked to v17 (#2003) ([2191e4d](https://github.com/empathyco/x/commit/2191e4d)), closes [#2003](https://github.com/empathyco/x/issues/2003)
+
+
+
+
+
 ## 6.0.0-alpha.204 (2026-02-25)
 
 * chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
