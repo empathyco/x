@@ -1,6 +1,5 @@
 /* Base */
 @utility progress-bar {
-  --progress-bar-color-50: var(--xds-color-neutral-50);
   @apply xds:rounded-sm;
   @apply xds:inline-block;
   @apply xds:bg-neutral-25;
@@ -11,7 +10,7 @@
 
   & > .xds\:progress-bar-fill {
     @apply xds:h-full;
-    @apply xds:bg-(--progress-bar-color-50);
+    @apply xds:bg-neutral-50;
   }
 }
 
@@ -25,5 +24,7 @@
 
 /* Colors */
 @utility progress-bar-* {
-  --progress-bar-color-50: --value(--color- * -50);
+  & > .xds\:progress-bar-fill {
+    background-color: --value(--color- * -50);
+  }
 }

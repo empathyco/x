@@ -1,18 +1,23 @@
 <template>
   <Wrapper feature="ProgressBar" :rows="rows">
     <template #default>
+      <span>default</span>
       <div class="xds:progress-bar xds:w-320">
         <div class="xds:progress-bar-fill xds:w-[30%]" />
       </div>
     </template>
     <template #size>
-      <span>sm</span>
-      <div class="xds:progress-bar xds:progress-bar-sm xds:w-320">
-        <div class="xds:progress-bar-fill xds:w-[30%]" />
+      <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
+        <span>sm</span>
+        <div class="xds:progress-bar xds:progress-bar-sm xds:w-320">
+          <div class="xds:progress-bar-fill xds:w-[30%]" />
+        </div>
       </div>
-      <span>lg</span>
-      <div class="xds:progress-bar xds:progress-bar-lg xds:w-320">
-        <div class="xds:progress-bar-fill xds:w-[30%]" />
+      <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
+        <span>lg</span>
+        <div class="xds:progress-bar xds:progress-bar-lg xds:w-320">
+          <div class="xds:progress-bar-fill xds:w-[30%]" />
+        </div>
       </div>
     </template>
     <template #color>
