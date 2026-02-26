@@ -1,32 +1,34 @@
 /* Base */
-@utility button {
-  @apply xds:flex xds:justify-center xds:items-center xds:content-center xds:flex-row xds:flex-nowrap;
-  @apply xds:border-1 xds:border-solid xds:box-border;
-  @apply xds:text-neutral-0 xds:bg-neutral-90 xds:border-neutral-90;
-  @apply xds:font-family-main xds:font-bold xds:tracking-md;
-  @apply xds:cursor-pointer;
+@layer components {
+  .xds\:button {
+    @apply xds:flex xds:justify-center xds:items-center xds:content-center xds:flex-row xds:flex-nowrap;
+    @apply xds:border-1 xds:border-solid xds:box-border;
+    @apply xds:text-neutral-0 xds:bg-neutral-90 xds:border-neutral-90;
+    @apply xds:font-family-main xds:font-bold xds:tracking-md;
+    @apply xds:cursor-pointer;
 
-  /* `@apply xds:button-md;` can not be use here because cause circular dependency. */
-  @apply xds:min-h-40 xds:gap-8 xds:ps-16 xds:pe-16 xds:text-sm;
-
-  @variant hover-active {
-    @apply xds:bg-neutral-100 xds:border-neutral-100;
-  }
-
-  @variant selected {
-    @apply xds:bg-neutral-100 xds:border-neutral-100;
+    /* `@apply xds:button-md;` can not be use here because cause circular dependency. */
+    @apply xds:min-h-40 xds:gap-8 xds:ps-16 xds:pe-16 xds:text-sm;
 
     @variant hover-active {
-      @apply xds:bg-neutral-90 xds:border-neutral-90;
+      @apply xds:bg-neutral-100 xds:border-neutral-100;
     }
-  }
 
-  @variant disabled {
-    @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-25;
-    @apply xds:cursor-not-allowed;
+    @variant selected {
+      @apply xds:bg-neutral-100 xds:border-neutral-100;
 
-    @variant hover-active {
+      @variant hover-active {
+        @apply xds:bg-neutral-90 xds:border-neutral-90;
+      }
+    }
+
+    @variant disabled {
       @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-25;
+      @apply xds:cursor-not-allowed;
+
+      @variant hover-active {
+        @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-25;
+      }
     }
   }
 }
