@@ -1,8 +1,10 @@
 import type { App } from 'vue'
+import type { SnippetConfig } from './x-installer'
 // eslint-disable-next-line import/no-named-default
 import { default as AppComponent } from './App.vue'
 import { setupDevtools } from './plugins/devtools/devtools.plugin'
 import router from './router'
+import { createXRoot } from './utils/create-x-root'
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config'
 import { XInstaller } from './x-installer/x-installer/x-installer'
 import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory'
@@ -24,21 +26,19 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
   SingleSelectModifier as any,
 )
 
+const snippetConfig = retrieveSnippetConfig()
+
 const installer = new XInstaller({
   ...baseInstallXOptions,
   rootComponent: AppComponent,
-  domElement: '#app',
+  domElement: createXRoot(snippetConfig),
   onCreateApp: initDevtools,
   installExtraPlugins({ app }) {
     app.use(router)
   },
 })
 
-if (window.initX) {
-  void installer.init()
-} else {
-  void installer.init(baseSnippetConfig)
-}
+void installer.init(snippetConfig)
 
 /**
  * If an app is provided, initialise the devtools.
@@ -50,6 +50,18 @@ function initDevtools(app: App): void {
   if (process.env.NODE_ENV !== 'production') {
     setupDevtools(app)
   }
+}
+/**
+ * Tries to retrieve the snippet config from the window.initX function or object.
+ */
+function retrieveSnippetConfig(): SnippetConfig {
+  if (typeof window.initX === 'function') {
+    return window.initX()
+  }
+  if (typeof window.initX === 'object') {
+    return window.initX
+  }
+  return baseSnippetConfig
 }
 
 /* eslint-enable ts/no-unsafe-argument */
