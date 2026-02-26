@@ -76,6 +76,20 @@
         <span class="xds:attach-bottom-right xds:badge xds:badge-md xds:badge-circle">10</span>
       </span>
     </template>
+    <template #with-icon>
+      <span class="xds:badge">
+        <CuratedIcon class="xds:icon" />
+      </span>
+      <span class="xds:badge xds:badge-sm xds:badge-accent">
+        <CuratedIcon class="xds:icon" />
+      </span>
+      <span class="xds:badge xds:badge-circle">
+        <CuratedIcon class="xds:icon" />
+      </span>
+      <span class="xds:badge xds:badge-circle xds:badge-sm xds:badge-accent">
+        <CuratedIcon class="xds:icon" />
+      </span>
+    </template>
     <template #combinations>
       <span class="xds:badge xds:badge-error xds:badge-sm xds:badge-outlined">
         error sm outlined badge
@@ -100,6 +114,7 @@
 </template>
 
 <script setup lang="ts">
+import CuratedIcon from './icons/curated.svg'
 import Wrapper from './wrapper.vue'
 
 const rows = [

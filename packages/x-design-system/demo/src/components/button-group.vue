@@ -41,18 +41,27 @@
         <button class="xds:button xds:button-tight xds:button-warning">BUTTON 3</button>
       </div>
       <div class="xds:button-group" :class="{ 'xds:rounded-xl': row === 'rounded' }">
-        <button class="xds:button xds:button-highlight xds:button-circle">+</button>
-        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">+</button>
+        <button class="xds:button xds:button-highlight xds:button-circle">
+          <PlusIcon class="xds:icon" />
+        </button>
+        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">
+          <PlusIcon class="xds:icon" />
+        </button>
       </div>
       <div class="xds:button-group" :class="{ 'xds:rounded-xl': row === 'rounded' }">
-        <button class="xds:button xds:button-highlight xds:button-square">+</button>
-        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">+</button>
+        <button class="xds:button xds:button-highlight xds:button-square">
+          <PlusIcon class="xds:icon" />
+        </button>
+        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">
+          <PlusIcon class="xds:icon" />
+        </button>
       </div>
     </template>
   </Wrapper>
 </template>
 
 <script setup lang="ts">
+import PlusIcon from './icons/plus.svg'
 import Wrapper from './wrapper.vue'
 
 const rows = ['default', 'rounded']
