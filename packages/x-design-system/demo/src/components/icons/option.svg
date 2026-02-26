@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 8">
+  <g clip-path="url(#a)">
+    <circle cx="4" cy="4" r="3" stroke="currentColor" stroke-width=".4" />
+    <circle cx="4" cy="4" r="2.2" fill="currentColor" />
+  </g>
+  <defs>
+    <clipPath id="a"><path d="M0 0h8v8H0z" /></clipPath>
+  </defs>
+</svg>

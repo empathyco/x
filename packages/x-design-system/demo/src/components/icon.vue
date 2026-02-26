@@ -122,15 +122,15 @@
 </template>
 
 <script setup lang="ts">
-import Tick1 from '../assets/icons/tick1.svg'
-import Tick2 from '../assets/icons/tick2.svg'
-import Tick3 from '../assets/icons/tick3.svg'
-import Tick4 from '../assets/icons/tick4.svg'
-import Tick5 from '../assets/icons/tick5.svg'
-import Tick6 from '../assets/icons/tick6.svg'
+import CheckAlt from './icons/check-alt.svg'
+import CheckFill from './icons/check-fill.svg'
+import Check from './icons/check.svg'
+import CuratedFill from './icons/curated-fill.svg'
+import Curated from './icons/curated.svg'
+import Option from './icons/option.svg'
 import Wrapper from './wrapper.vue'
 
-const iconComponents = [Tick1, Tick2, Tick3, Tick4, Tick5, Tick6]
+const iconComponents = [Check, CheckFill, Curated, CuratedFill, Option, CheckAlt]
 
 const rows = [
   'default',
