@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.9 (2026-02-26)</small>
+
+* feat(progress-bar): add ProgressBar component with customizable sizes and colors ([c665768](https://github.com/empathyco/x/commit/c665768))
+* feat(progress-bar): update styles for progress bar component and fix color application ([d152798](https://github.com/empathyco/x/commit/d152798))
+
+
+
+
+
 ## <small>0.0.2-alpha.8 (2026-02-25)</small>
 
 * feat(x-design-system): input component (#2005) ([2585795](https://github.com/empathyco/x/commit/2585795)), closes [#2005](https://github.com/empathyco/x/issues/2005)
