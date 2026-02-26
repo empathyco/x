@@ -97,18 +97,6 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item">
-        <label for="adapter.e2eAdapter">
-          Use mocked adapter
-          <input
-            id="adapter.e2eAdapter"
-            v-model="controls.adapter.useE2EAdapter"
-            type="checkbox"
-            data-test="adapter-e2e"
-            @change="toggleE2EAdapter"
-          />
-        </label>
-      </li>
     </ul>
     <hr class="x-mt-10" />
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Teleport test</h1>
@@ -498,7 +486,6 @@
                       :data-query="query"
                     >
                       <!-- eslint-disable vue/no-template-shadow -->
-                      <!-- TODO: review why suggestion query renaming breaks e2e -->
                       <SemanticQuery
                         v-slot="{ suggestion: { query } }"
                         class="x-suggestion x-title2 x-title2-md"
@@ -643,7 +630,6 @@ import SemanticQueries from '../../x-modules/semantic-queries/components/semanti
 import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue'
 import Tagging from '../../x-modules/tagging/components/tagging.vue'
 import UrlHandler from '../../x-modules/url/components/url-handler.vue'
-import { adapterConfig } from '../adapter'
 import Aside from './aside.vue'
 import DisplayResultProvider from './display-result-provider.vue'
 import PredictiveLayer from './predictive-layer.vue'
@@ -818,9 +804,6 @@ export default defineComponent({
     ]
 
     const queries = computed(() => queriesPreviewInfo.map(item => item.query))
-    const toggleE2EAdapter = () => {
-      adapterConfig.e2e = !adapterConfig.e2e
-    }
     return {
       resultsAnimation,
       modalAnimation,

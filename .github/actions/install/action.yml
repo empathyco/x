@@ -14,11 +14,6 @@ runs:
       with:
         version: 9.15.9
 
-    - name: Install deps
-      uses: cypress-io/github-action@v6
-      with:
-        runTests: false
-
     - name: Build
       shell: bash
       run: pnpm run build

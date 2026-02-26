@@ -70,7 +70,6 @@ As a starting point, this project uses the following scopes:
 - **x-plugin**: For changes that affect the core of the `x-components` project. For example, if you
   modify the X Components plugin, the X Components archetype, or the X bus.
 - **wiring**: Changes that only affect the wiring operators or wiring factory.
-- **e2e**: For end-to-end tests.
 - **design-system**: For design tokens, CSS styling, etc.
 - **deps**: For upgrading and change dependencies.
 
