@@ -9,6 +9,9 @@ on:
 jobs:
   release-alpha:
     runs-on: [self-hosted, linux, x64, platform, vm]
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
