@@ -2,11 +2,6 @@
  * The style payload interface.
  * @public
  */
-export interface Style {
-  /** Css source. */
-  source: string
-}
-
 /**
  * The XCSSInjector interface.
  * Custom CSS injector that allows to inject styles into a host element.
@@ -18,7 +13,7 @@ export interface XCSSInjector {
   /** Styles that will be injected into the hosts. */
   stylesToAdopt: CSSStyleSheet[]
   /** Function that will add the styles to the host. */
-  addStyle: (style: Style) => void
+  addStyle: (css: string[]) => void
   /** Adds the element to the hosts set. */
   addHost: (el: Document | ShadowRoot) => void
   /** Removes the element from the hosts set. */

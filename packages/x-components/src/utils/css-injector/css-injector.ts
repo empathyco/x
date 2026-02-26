@@ -1,4 +1,4 @@
-import type { Style, WindowWithInjector, XCSSInjector } from './css-injector.types'
+import type { WindowWithInjector, XCSSInjector } from './css-injector.types'
 
 /**
  * Custom CSS injector that allows to inject styles into a host element.
@@ -11,14 +11,16 @@ export const cssInjector: XCSSInjector = {
   /**
    * Adds the style to the host element.
    *
-   * @param style - The styles to be added.
-   * @param style.source - Styles source.
+   * @param css - The styles to be added.
    */
-  addStyle(style: Style): void {
+  addStyle(css: string[]): void {
+    if (!Array.isArray(css)) {
+      return
+    }
     const sheet = new CSSStyleSheet()
-    sheet.replaceSync(style.source)
+    sheet.replaceSync(css.join('\n'))
     this.stylesToAdopt.push(sheet)
-    this.hosts.forEach(host => (host.adoptedStyleSheets = this.stylesToAdopt))
+    this.hosts.forEach(host => host.adoptedStyleSheets.push(sheet))
   },
   /**
    * Adds the element to the hosts set.
@@ -43,5 +45,5 @@ export const cssInjector: XCSSInjector = {
 }
 
 if (typeof window !== 'undefined') {
-  ;(window as WindowWithInjector).xCSSInjector = cssInjector
+  ;(window as WindowWithInjector).xCSSInjector ??= cssInjector
 }

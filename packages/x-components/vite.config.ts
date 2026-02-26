@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
+import { viteCssInjectorPlugin } from '../x-archetype-utils/src/build/vite/css-injector-plugin'
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
@@ -11,7 +12,21 @@ export const vueDocsPlugin = {
 }
 
 export default defineConfig({
-  plugins: [vue(), vueDocsPlugin, Inspector()],
+  plugins: [
+    viteCssInjectorPlugin(),
+    vue({
+      features: {
+        customElement: true,
+      },
+      template: {
+        compilerOptions: {
+          comments: false,
+        },
+      },
+    }),
+    vueDocsPlugin,
+    Inspector(),
+  ],
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue'),

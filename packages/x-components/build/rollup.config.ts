@@ -81,13 +81,7 @@ export const rollupConfig: RollupOptions = {
     }) as Plugin,
     styles({
       minimize: true,
-      mode: [
-        'inject',
-        varname => {
-          const pathInjector = path.resolve('../src/utils/css-injector/css-injector.ts')
-          return `import { cssInjector } from '${pathInjector}';cssInjector.addStyle({ source: ${varname} });`
-        },
-      ],
+      mode: ['inject', varname => `window.xCSSInjector.addStyle([${varname} ]);`],
     }),
     vueDocs,
     generateEntryFiles({ buildPath, jsOutputDir, typesOutputDir }),
