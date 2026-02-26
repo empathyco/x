@@ -816,7 +816,6 @@ export default defineComponent({
       sortValues,
       isAnyQueryLoadedInPreview,
       queries,
-      toggleE2EAdapter,
       controls,
       x,
       mainScrollDirection,

@@ -32,8 +32,8 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "",
-    "test:unit": ""
+    "test": "echo 'No tests configured for x-svg-converter'",
+    "test:unit": "echo 'No tests configured for x-svg-converter'"
   },
   "devDependencies": {
     "@types/jest": "29.5.14",
