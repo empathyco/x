@@ -24,8 +24,7 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { PropType } from 'vue'
-import type Vue from 'vue'
+import type { Component, PropType } from 'vue'
 import type { SortPickerItem } from './sort-picker-list.types'
 import { computed, defineComponent, watch } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
@@ -49,7 +48,7 @@ export default defineComponent({
     },
     /** The transition to use for rendering the list. */
     animation: {
-      type: [String, Object] as PropType<string | typeof Vue>,
+      type: [String, Object] as PropType<string | Component>,
       default: () => 'div',
     },
     /** Class inherited by each sort button. */

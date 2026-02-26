@@ -33,8 +33,7 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { PropType } from 'vue'
-import type Vue from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, ref, watch } from 'vue'
 
 import BaseDropdown from '../../../components/base-dropdown.vue'
@@ -57,7 +56,7 @@ export default defineComponent({
       required: true,
     },
     /** The transition to use for opening and closing the dropdown. */
-    animation: [String, Object] as PropType<string | typeof Vue>,
+    animation: [String, Object] as PropType<string | Component>,
   },
   emits: ['change'],
   setup(_, { emit }) {

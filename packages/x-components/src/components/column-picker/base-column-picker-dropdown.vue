@@ -30,8 +30,7 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import type Vue from 'vue'
+import type { Component, PropType } from 'vue'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseDropdown from '../base-dropdown.vue'
@@ -57,7 +56,7 @@ export default defineComponent({
     /** The value of the selected columns number. */
     modelValue: Number,
     /** The transition to use for opening and closing the dropdown. */
-    animation: [String, Object] as PropType<string | typeof Vue>,
+    animation: [String, Object] as PropType<string | Component>,
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
