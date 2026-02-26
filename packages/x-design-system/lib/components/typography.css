@@ -1,0 +1,89 @@
+/* text1 */
+@utility text1 {
+  @apply xds:font-family-main xds:font-regular;
+  @apply xds:text1-md;
+}
+@utility text1-sm {
+  @apply xds:text-xs/(--xds-line-height-lg);
+}
+@utility text1-md {
+  @apply xds:text-sm/(--xds-line-height-md);
+}
+@utility text1-lg {
+  @apply xds:text-md;
+}
+
+/* text2 */
+@utility text2 {
+  @apply xds:font-family-main xds:font-regular;
+  @apply xds:text2-md;
+}
+@utility text2-sm {
+  @apply xds:text-xs/(--xds-line-height-lg);
+}
+@utility text2-md {
+  @apply xds:text-sm/(--xds-line-height-md);
+}
+@utility text2-lg {
+  @apply xds:text-md;
+}
+
+/* title1 */
+@utility title1 {
+  @apply xds:font-family-main xds:font-bold;
+  @apply xds:title1-md;
+}
+@utility title1-sm {
+  @apply xds:text-xl/(--xds-line-height-md);
+}
+@utility title1-md {
+  @apply xds:text-2xl/(--xds-line-height-sm);
+}
+@utility title1-lg {
+  @apply xds:text-4xl;
+}
+
+/* title2 */
+@utility title2 {
+  @apply xds:font-family-main xds:font-bold;
+  @apply xds:title2-md;
+}
+@utility title2-sm {
+  @apply xds:text-lg;
+}
+@utility title2-md {
+  @apply xds:text-xl/(--xds-line-height-md);
+}
+@utility title2-lg {
+  @apply xds:text-3xl/(--xds-line-height-sm);
+}
+
+/* title3 */
+@utility title3 {
+  @apply xds:font-family-main xds:font-bold;
+  @apply xds:title3-md;
+}
+@utility title3-sm {
+  @apply xds:text-sm;
+}
+@utility title3-md {
+  @apply xds:text-md/(--xds-line-height-md);
+}
+@utility title3-lg {
+  @apply xds:text-xl;
+}
+
+/* title4 */
+@utility title4 {
+  @apply xds:font-family-main xds:font-bold;
+  @apply xds:title4-md;
+}
+@utility title4-sm {
+  @apply xds:text-xs;
+}
+@utility title4-md {
+  @apply xds:text-sm/(--xds-line-height-md);
+}
+@utility title4-lg {
+  @apply xds:text-lg;
+}

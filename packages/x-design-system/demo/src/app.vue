@@ -6,6 +6,7 @@
   <Input />
   <ProgressBar />
   <Integration />
+  <Typography />
 </template>
 
 <script setup lang="ts">
@@ -16,4 +17,5 @@ import Highlight from './components/highlight.vue'
 import Input from './components/input.vue'
 import Integration from './components/integration.vue'
 import ProgressBar from './components/progress-bar.vue'
+import Typography from './components/typography.vue'
 </script>
