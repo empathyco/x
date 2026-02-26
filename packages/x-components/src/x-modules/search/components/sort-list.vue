@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { Component, PropType  } from 'vue'
+import type { Component, PropType } from 'vue'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
 import { computed, defineComponent, watch } from 'vue'
