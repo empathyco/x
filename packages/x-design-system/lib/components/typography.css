@@ -13,21 +13,6 @@
   @apply xds:text-md;
 }
 
-/* text2 */
-@utility text2 {
-  @apply xds:font-family-main xds:font-regular;
-  @apply xds:text2-md;
-}
-@utility text2-sm {
-  @apply xds:text-xs xds:leading-lg;
-}
-@utility text2-md {
-  @apply xds:text-sm xds:leading-md;
-}
-@utility text2-lg {
-  @apply xds:text-md;
-}
-
 /* title1 */
 @utility title1 {
   @apply xds:font-family-main xds:font-bold;
