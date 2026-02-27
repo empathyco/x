@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.11 (2026-02-27)</small>
+
+- feat(typography): migrate xds typography component (#2014) ([4c83287](https://github.com/empathyco/x/commit/4c83287)), closes [#2014](https://github.com/empathyco/x/issues/2014)
+
 ## <small>0.0.2-alpha.10 (2026-02-27)</small>
 
 - fix: use icons in features (#2015) ([b8f0f47](https://github.com/empathyco/x/commit/b8f0f47)), closes [#2015](https://github.com/empathyco/x/issues/2015)
