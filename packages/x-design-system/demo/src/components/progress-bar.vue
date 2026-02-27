@@ -1,5 +1,5 @@
 <template>
-  <Wrapper feature="ProgressBar" :rows="rows">
+  <Wrapper feature="Progress Bar" :rows="rows">
     <template #default>
       <span>default</span>
       <div class="xds:progress-bar xds:w-320">
@@ -8,7 +8,7 @@
     </template>
     <template #size>
       <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
-        <span>sm</span>
+        <span>md</span>
         <div class="xds:progress-bar xds:progress-bar-sm xds:w-320">
           <div class="xds:progress-bar-fill xds:w-[30%]" />
         </div>

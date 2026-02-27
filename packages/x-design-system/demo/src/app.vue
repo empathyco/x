@@ -1,13 +1,15 @@
 <template>
-  <Badge />
-  <Button />
-  <ButtonGroup />
-  <Highlight />
-  <Icon />
-  <Input />
-  <ProgressBar />
-  <Integration />
-  <Typography />
+  <div class="xds:flex xds:flex-col xds:gap-40">
+    <Button />
+    <ButtonGroup />
+    <Icon />
+    <Highlight />
+    <Input />
+    <Badge />
+    <ProgressBar />
+    <Typography />
+    <Integration />
+  </div>
 </template>
 
 <script setup lang="ts">

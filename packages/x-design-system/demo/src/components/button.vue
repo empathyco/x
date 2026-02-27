@@ -10,8 +10,12 @@
       <button class="xds:button xds:button-xl">xl badge</button>
     </template>
     <template #layout>
-      <button class="xds:button xds:button-circle">+</button>
-      <button class="xds:button xds:button-square">+</button>
+      <button class="xds:button xds:button-circle">
+        <CuratedIcon class="xds:icon" />
+      </button>
+      <button class="xds:button xds:button-square">
+        <CuratedIcon class="xds:icon" />
+      </button>
     </template>
     <template #color>
       <button class="xds:button">button</button>
@@ -143,20 +147,30 @@
       </button>
     </template>
     <template #combinations>
-      <button class="xds:button xds:button-lead xds:button-sm">lead sm button</button>
+      <button class="xds:button xds:button-lead xds:button-sm">
+        <CuratedIcon class="xds:icon" />
+        lead sm button
+      </button>
       <button class="xds:button xds:button-outlined xds:button-square xds:button-lg xds:selected">
-        +
+        <CuratedIcon class="xds:icon" />
       </button>
       <button class="xds:button xds:button-auxiliary xds:button-outlined xds:button-circle">
-        -
+        <CuratedIcon class="xds:icon" />
       </button>
-      <button class="xds:button xds:button-accent xds:button-tight">accent tight button</button>
-      <button class="xds:button xds:button-warning xds:button-ghost">warning ghost button</button>
+      <button class="xds:button xds:button-accent xds:button-tight">
+        <CuratedIcon class="xds:icon" />
+        accent tight button
+      </button>
+      <button class="xds:button xds:button-warning xds:button-ghost">
+        <CuratedIcon class="xds:icon" />
+        warning ghost button
+      </button>
     </template>
   </Wrapper>
 </template>
 
 <script setup lang="ts">
+import CuratedIcon from './icons/curated.svg'
 import Wrapper from './wrapper.vue'
 
 const rows = [
