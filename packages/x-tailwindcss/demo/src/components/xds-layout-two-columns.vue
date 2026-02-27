@@ -26,7 +26,7 @@
           <div class="x-title3 flex justify-center p-4">SUB HEADER</div>
         </div>
 
-        <div class="x-layout-item x-layout-no-margin-right x-layout-expand mb-4 mt-4">
+        <div class="x-layout-item x-layout-no-margin-right x-layout-expand mt-4 mb-4">
           <div class="x-layout-expand flex gap-6">
             <div class="x-scroll w-[128px]">
               <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">

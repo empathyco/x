@@ -6,7 +6,7 @@
     <div class="modal bg-white">
       <div class="x-layout-min-margin-48 bg-gray-100" :class="cssClass">
         <div class="x-scroll flex flex-col">
-          <div class="x-layout-item border-b-1 sticky top-0 border-gray-300 bg-white">
+          <div class="x-layout-item sticky top-0 border-b-1 border-gray-300 bg-white">
             <div class="flex items-center justify-between py-2">
               <span class="x-title3">FIXED HEADER LAYOUT</span>
               <label for="layout-fixed-header-modal" class="x-button x-button-ghost ml-auto">
