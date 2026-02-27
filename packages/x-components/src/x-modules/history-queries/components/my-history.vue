@@ -132,8 +132,11 @@ export default defineComponent({
      */
     const usedLocale = computed(() => snippetConfig?.lang ?? props.locale)
 
+    const uiLocale = computed(() => snippetConfig?.uiLang ?? props.locale)
+
     /**
-     * Returns a record of history queries grouped by date.
+     * Returns a record of history queries grouped by date, using the UI language (`uiLang`) for locale.
+     * The first character of the date is capitalized to ensure proper display in languages like Spanish.
      *
      * @example
      * ```typescript
@@ -155,12 +158,13 @@ export default defineComponent({
      */
     const groupByDate = computed((): Dictionary<HistoryQueryType[]> => {
       return groupItemsBy(historyQueries.value as HistoryQueryType[], current => {
-        return new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
+        const dateStr = new Date(current.timestamp).toLocaleDateString(uiLocale.value, {
           day: 'numeric',
           weekday: 'long',
           month: 'long',
           year: 'numeric',
         })
+        return dateStr.charAt(0).toUpperCase() + dateStr.slice(1)
       })
     })
 
