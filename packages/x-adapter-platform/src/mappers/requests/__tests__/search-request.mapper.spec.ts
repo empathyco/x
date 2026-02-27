@@ -33,6 +33,7 @@ describe('searchRequestMapper tests', () => {
         lang: 'en',
         device: 'mobile',
         scope: 'mobile',
+        facets: true,
       },
     })
   })

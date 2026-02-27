@@ -12,5 +12,5 @@ export const facetsRequestSchema = createMutableSchema<FacetsRequest, PlatformFa
   query: 'query',
   origin: 'origin',
   filter: ({ filters }) => mapFilters(filters),
-  extraParams: 'extraParams',
+  extraParams: ({ extraParams: { separateFacets, ...rest } = {} }) => rest,
 })

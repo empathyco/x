@@ -1,8 +1,11 @@
 import type { Facet } from '@empathyco/x-types'
 import type { FacetGroupEntry, FacetsXStoreModule } from './types'
+import { isFacetFilter } from '@empathyco/x-types'
 import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setQuery } from '../../../store/utils/query.utils'
+import { groupItemsBy } from '../../../utils/array'
+import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import {
   cancelFetchAndSaveFacetsResponse,
   fetchAndSaveFacetsResponse,
@@ -28,19 +31,21 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets: {},
     preselectedFilters: [],
     stickyFilters: {},
+    origin: null,
+    params: {},
     config: {
       filtersStrategyForRequest: 'all',
     },
     status: 'initial',
-    origin: null,
-    params: {},
+    rawFacets: [],
+    selectedFiltersDictionary: {},
   }),
   getters: {
+    facets,
+    request,
     selectedFilters,
     selectedFiltersForRequest,
     selectedFiltersByFacet,
-    facets,
-    request,
   },
   mutations: {
     mutateFilter(state, { filter, newFilterState }) {
@@ -88,6 +93,14 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setParams(state, params) {
       state.params = params
+    },
+    setRawFacets(state, rawFacets) {
+      state.rawFacets = rawFacets
+    },
+    setSelectedFiltersDictionary(state, selectedFilters) {
+      state.selectedFiltersDictionary = groupItemsBy(selectedFilters, filter =>
+        isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
+      )
     },
   },
   actions: {
