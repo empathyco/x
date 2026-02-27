@@ -4,10 +4,10 @@
   @apply xds:text1-md;
 }
 @utility text1-sm {
-  @apply xds:text-xs/(--xds-line-height-lg);
+  @apply xds:text-xs xds:leading-lg;
 }
 @utility text1-md {
-  @apply xds:text-sm/(--xds-line-height-md);
+  @apply xds:text-sm xds:leading-md;
 }
 @utility text1-lg {
   @apply xds:text-md;
@@ -19,10 +19,10 @@
   @apply xds:text2-md;
 }
 @utility text2-sm {
-  @apply xds:text-xs/(--xds-line-height-lg);
+  @apply xds:text-xs xds:leading-lg;
 }
 @utility text2-md {
-  @apply xds:text-sm/(--xds-line-height-md);
+  @apply xds:text-sm xds:leading-md;
 }
 @utility text2-lg {
   @apply xds:text-md;
@@ -34,10 +34,10 @@
   @apply xds:title1-md;
 }
 @utility title1-sm {
-  @apply xds:text-xl/(--xds-line-height-md);
+  @apply xds:text-xl xds:leading-md;
 }
 @utility title1-md {
-  @apply xds:text-2xl/(--xds-line-height-sm);
+  @apply xds:text-2xl xds:leading-sm;
 }
 @utility title1-lg {
   @apply xds:text-4xl;
@@ -52,10 +52,10 @@
   @apply xds:text-lg;
 }
 @utility title2-md {
-  @apply xds:text-xl/(--xds-line-height-md);
+  @apply xds:text-xl xds:leading-md;
 }
 @utility title2-lg {
-  @apply xds:text-3xl/(--xds-line-height-sm);
+  @apply xds:text-3xl xds:leading-sm;
 }
 
 /* title3 */
@@ -67,7 +67,7 @@
   @apply xds:text-sm;
 }
 @utility title3-md {
-  @apply xds:text-md/(--xds-line-height-md);
+  @apply xds:text-md xds:leading-md;
 }
 @utility title3-lg {
   @apply xds:text-xl;
@@ -82,7 +82,7 @@
   @apply xds:text-xs;
 }
 @utility title4-md {
-  @apply xds:text-sm/(--xds-line-height-md);
+  @apply xds:text-sm xds:leading-md;
 }
 @utility title4-lg {
   @apply xds:text-lg;
