@@ -89,11 +89,11 @@
   --tracking-md: 0;
   --tracking-lg: 0.04em;
 
-  --line-height-xs: 1.2;
-  --line-height-sm: 1.4;
-  --line-height-md: 1.6;
-  --line-height-lg: 1.8;
-  --line-height-default: auto;
+  --leading-xs: 1.2;
+  --leading-sm: 1.4;
+  --leading-md: 1.6;
+  --leading-lg: 1.8;
+  --leading-default: auto;
 
   --screen-tablet: 744px;
   --screen-desktop: 1280px;

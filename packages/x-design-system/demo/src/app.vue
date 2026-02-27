@@ -7,6 +7,7 @@
     <Input />
     <Badge />
     <ProgressBar />
+    <Typography />
     <Integration />
   </div>
 </template>
@@ -20,4 +21,5 @@ import Icon from './components/icon.vue'
 import Input from './components/input.vue'
 import Integration from './components/integration.vue'
 import ProgressBar from './components/progress-bar.vue'
+import Typography from './components/typography.vue'
 </script>

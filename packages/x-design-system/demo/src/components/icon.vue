@@ -139,7 +139,6 @@ const rows = [
   'background-color',
   'sharp',
   'stroke-width',
-  'icon-offset',
   'combinations',
 ]
 
