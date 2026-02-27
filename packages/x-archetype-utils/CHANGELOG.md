@@ -3,344 +3,202 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.30 (2026-02-27)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
 ## 2.0.0-alpha.29 (2026-02-25)
 
-* chore(deps): pin dependency vite-plugin-static-copy to 3.2.0 (#1991) ([5cfecdc](https://github.com/empathyco/x/commit/5cfecdc)), closes [#1991](https://github.com/empathyco/x/issues/1991)
-
-
-
-
+- chore(deps): pin dependency vite-plugin-static-copy to 3.2.0 (#1991) ([5cfecdc](https://github.com/empathyco/x/commit/5cfecdc)), closes [#1991](https://github.com/empathyco/x/issues/1991)
 
 ## 2.0.0-alpha.28 (2026-02-25)
 
-* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
-* chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
-
-
-
-
+- chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+- chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
 
 ## 2.0.0-alpha.27 (2026-02-12)
 
-* fix: fix x-archetype-utils build files (#1987) ([a33ee0d](https://github.com/empathyco/x/commit/a33ee0d)), closes [#1987](https://github.com/empathyco/x/issues/1987)
-
-
-
-
+- fix: fix x-archetype-utils build files (#1987) ([a33ee0d](https://github.com/empathyco/x/commit/a33ee0d)), closes [#1987](https://github.com/empathyco/x/issues/1987)
 
 ## 2.0.0-alpha.26 (2026-02-11)
 
-* chore(deps): pin dependency vite-plugin-dts to 4.5.4 (#1978) ([605f13f](https://github.com/empathyco/x/commit/605f13f)), closes [#1978](https://github.com/empathyco/x/issues/1978)
-
-
-
-
+- chore(deps): pin dependency vite-plugin-dts to 4.5.4 (#1978) ([605f13f](https://github.com/empathyco/x/commit/605f13f)), closes [#1978](https://github.com/empathyco/x/issues/1978)
 
 ## 2.0.0-alpha.25 (2026-02-11)
 
-* feat: migrate to Vite x-types and x-archetype-utils packages (#1949) ([730686f](https://github.com/empathyco/x/commit/730686f)), closes [#1949](https://github.com/empathyco/x/issues/1949)
-
-
-
-
+- feat: migrate to Vite x-types and x-archetype-utils packages (#1949) ([730686f](https://github.com/empathyco/x/commit/730686f)), closes [#1949](https://github.com/empathyco/x/issues/1949)
 
 ## 2.0.0-alpha.24 (2026-01-29)
 
-* chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
-
-
-
-
+- chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
 
 ## 2.0.0-alpha.23 (2026-01-07)
 
-* chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
-
-
-
-
+- chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
 
 ## 2.0.0-alpha.22 (2025-12-17)
 
-* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
-
-
-
-
+- chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
 
 ## 2.0.0-alpha.21 (2025-12-16)
 
-* chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)
-
-
-
-
+- chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)
 
 ## 2.0.0-alpha.20 (2025-12-11)
 
-* chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
-
-
-
-
+- chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
 
 ## 2.0.0-alpha.19 (2025-12-04)
 
-* feat: update snippetConfig type and add data-attributes in home templ… (#1938) ([7e81241](https://github.com/empathyco/x/commit/7e81241)), closes [#1938](https://github.com/empathyco/x/issues/1938)
-
-
-
-
+- feat: update snippetConfig type and add data-attributes in home templ… (#1938) ([7e81241](https://github.com/empathyco/x/commit/7e81241)), closes [#1938](https://github.com/empathyco/x/issues/1938)
 
 ## 2.0.0-alpha.18 (2025-11-19)
 
-* chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
-
-
-
-
+- chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
 
 ## 2.0.0-alpha.17 (2025-08-12)
 
-* chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
-
-
-
-
+- chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
 
 ## 2.0.0-alpha.16 (2025-08-06)
 
-* test: fix test ([b580a8e](https://github.com/empathyco/x/commit/b580a8e))
-* chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
-
-
-
-
+- test: fix test ([b580a8e](https://github.com/empathyco/x/commit/b580a8e))
+- chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
 
 ## 2.0.0-alpha.15 (2025-07-16)
 
-* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
-
-
-
-
+- chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
 
 ## 2.0.0-alpha.14 (2025-06-27)
 
-* chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
-
-
-
-
+- chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
 
 ## 2.0.0-alpha.13 (2025-06-26)
 
-* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
-
-
-
-
+- chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
 
 ## 2.0.0-alpha.12 (2025-06-06)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.10...@empathyco/x-archetype-utils@2.0.0-alpha.11) (2025-06-03)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.9...@empathyco/x-archetype-utils@2.0.0-alpha.10) (2025-05-07)
-
 
 ### ⚠ BREAKING CHANGES
 
-* **css-injector:** setHost no longer exist, use addHost. Add host input is DocumentOrShadowRoot
+- **css-injector:** setHost no longer exist, use addHost. Add host input is DocumentOrShadowRoot
 
 Signed-off-by: davidglezz <davidgg666@gmail.com>
 
 ### Features
 
-* add multi-host CSS injector ([3a8a58a](https://github.com/empathyco/x/commit/3a8a58a5ba20212b7f617d8cf4723d54e06e5bb5))
-* **css-injector:** restore setHost method to avoid breaking changes ([5faef47](https://github.com/empathyco/x/commit/5faef47871db86f25cd4dfcf451e2a3126c67573))
-
+- add multi-host CSS injector ([3a8a58a](https://github.com/empathyco/x/commit/3a8a58a5ba20212b7f617d8cf4723d54e06e5bb5))
+- **css-injector:** restore setHost method to avoid breaking changes ([5faef47](https://github.com/empathyco/x/commit/5faef47871db86f25cd4dfcf451e2a3126c67573))
 
 ### Code Refactoring
 
-* **css-injector:** merge Css Injectors ([01a8c0e](https://github.com/empathyco/x/commit/01a8c0ee833120c83849d97127f4edcfa7bc62ac))
-* **css-injector:** use adoptedStyleSheets ([ca6dbfe](https://github.com/empathyco/x/commit/ca6dbfe368e152af84e16f8a7f08d91114d268e9))
-
+- **css-injector:** merge Css Injectors ([01a8c0e](https://github.com/empathyco/x/commit/01a8c0ee833120c83849d97127f4edcfa7bc62ac))
+- **css-injector:** use adoptedStyleSheets ([ca6dbfe](https://github.com/empathyco/x/commit/ca6dbfe368e152af84e16f8a7f08d91114d268e9))
 
 ### Testing
 
-* **css-injector:** update test ([f129d55](https://github.com/empathyco/x/commit/f129d55247c7d2d528416a37377b217ea2d3cc17))
-
-
+- **css-injector:** update test ([f129d55](https://github.com/empathyco/x/commit/f129d55247c7d2d528416a37377b217ea2d3cc17))
 
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.8...@empathyco/x-archetype-utils@2.0.0-alpha.9) (2025-04-28)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.7...@empathyco/x-archetype-utils@2.0.0-alpha.8) (2025-04-21)
-
 
 ### Bug Fixes
 
-* **x-archetype-utils:** fix rollup config search term in CSS injector replacement (#1756) ([4fe986d](https://github.com/empathyco/x/commit/4fe986d500410cce1dbe666c3812282b19c5d3c4))
-
-
+- **x-archetype-utils:** fix rollup config search term in CSS injector replacement (#1756) ([4fe986d](https://github.com/empathyco/x/commit/4fe986d500410cce1dbe666c3812282b19c5d3c4))
 
 ## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.6...@empathyco/x-archetype-utils@2.0.0-alpha.7) (2025-04-15)
 
-
 ### Bug Fixes
 
-* fix CSS injector to add styles when defining the host (#1747) ([cf0019d](https://github.com/empathyco/x/commit/cf0019d322940e3a463472cc3586a0143e41efcc))
-
-
+- fix CSS injector to add styles when defining the host (#1747) ([cf0019d](https://github.com/empathyco/x/commit/cf0019d322940e3a463472cc3586a0143e41efcc))
 
 ## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.5...@empathyco/x-archetype-utils@2.0.0-alpha.6) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.4...@empathyco/x-archetype-utils@2.0.0-alpha.5) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.3...@empathyco/x-archetype-utils@2.0.0-alpha.4) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.3) (2025-01-13)
-
 
 ### Features
 
-* **i18n:** do not use legacy api (#1669) ([99b1004](https://github.com/empathyco/x/commit/99b10049fba2cd2cfc32038deef6823d4afac9dd))
-
-
+- **i18n:** do not use legacy api (#1669) ([99b1004](https://github.com/empathyco/x/commit/99b10049fba2cd2cfc32038deef6823d4afac9dd))
 
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.2) (2024-10-24)
 
-
 ### Features
 
-* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
-
-
+- update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
 
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.1) (2024-09-05)
 
-
 ### ⚠ BREAKING CHANGES
 
-* @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
-* @empathyco/x-archetype-utils is only compatible with vue 3
+- @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
+- @empathyco/x-archetype-utils is only compatible with vue 3
 
 ### Features
 
-* bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
-* bump vue18n version (#1604) ([9320c57](https://github.com/empathyco/x/commit/9320c57bd1aa2ff01fea8133238dc8fb809484c0))
-* **rollup:** update replace config to align CSS injector with Vue 3 (#1607) ([b98a31e](https://github.com/empathyco/x/commit/b98a31e488b788bab0a2fede87739e4cc9d1df57))
-
-
+- bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
+- bump vue18n version (#1604) ([9320c57](https://github.com/empathyco/x/commit/9320c57bd1aa2ff01fea8133238dc8fb809484c0))
+- **rollup:** update replace config to align CSS injector with Vue 3 (#1607) ([b98a31e](https://github.com/empathyco/x/commit/b98a31e488b788bab0a2fede87739e4cc9d1df57))
 
 ## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.1...@empathyco/x-archetype-utils@1.1.0-alpha.2) (2024-02-08)
 
-
 ### Bug Fixes
 
-* set home search input font size to 16px (#1406) ([b9349b8](https://github.com/empathyco/x/commit/b9349b8c544283f9df1f4bad5756e5666d748e41))
-
-
+- set home search input font size to 16px (#1406) ([b9349b8](https://github.com/empathyco/x/commit/b9349b8c544283f9df1f4bad5756e5666d748e41))
 
 ## [1.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.0...@empathyco/x-archetype-utils@1.1.0-alpha.1) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.3-alpha.1...@empathyco/x-archetype-utils@1.1.0-alpha.0) (2024-01-11)
-
 
 ### Features
 
-* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
-
-
+- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
 
 ## [1.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.3-alpha.0...@empathyco/x-archetype-utils@1.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.2...@empathyco/x-archetype-utils@1.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 ## [1.0.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.2-alpha.0...@empathyco/x-archetype-utils@1.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.1-alpha.0...@empathyco/x-archetype-utils@1.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 ## [1.0.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.1-alpha.0...@empathyco/x-archetype-utils@1.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
 
-
-
-
-
 ## [1.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.0.0-alpha.4...@empathyco/x-archetype-utils@1.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
-
-
-
-
 
 # Change Log
 
