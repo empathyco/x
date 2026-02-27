@@ -3,6 +3,7 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
@@ -20,10 +21,10 @@ import FacetsProvider from '../facets-provider.vue'
 
 describe('testing Facets component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('is an XComponent', () => {
@@ -169,7 +170,7 @@ function renderFacetsProviderComponent({
         DefaultFacetsService.instance.select(getStoreFilter(store, filter.id))
       })
       await nextTick()
-      jest.runAllTimers()
+      vi.runAllTimers()
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter =>
@@ -177,7 +178,7 @@ function renderFacetsProviderComponent({
         DefaultFacetsService.instance.deselect(getStoreFilter(store, filter.id)),
       )
       await nextTick()
-      jest.runAllTimers()
+      vi.runAllTimers()
     },
   }
 }

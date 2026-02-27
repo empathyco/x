@@ -1,6 +1,7 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSemanticQuery } from '../../../../__stubs__/index'
@@ -34,7 +35,7 @@ function renderSemanticQuery({
 
   return {
     wrapper: wrapper.findComponent(SemanticQuery),
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     suggestion,
   } as const
 }

@@ -1,5 +1,6 @@
 import type { Result } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 import { createResultStub } from '../../../__stubs__/index'
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
@@ -65,7 +66,7 @@ const render = ({
 
   return {
     wrapper: wrapper.findComponent(ResultVariantsProvider),
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     findSelectorButtonByLevel: (level: number) =>
       findTestDataById(wrapper, 'variants-list')
         .at(level)
@@ -83,7 +84,7 @@ const render = ({
 
 describe('results with variants', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('provider exposes the result in the default slot', () => {

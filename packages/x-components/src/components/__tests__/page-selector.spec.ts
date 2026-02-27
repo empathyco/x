@@ -1,6 +1,7 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getResultsStub } from '../../__stubs__/index'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/index'
@@ -39,17 +40,17 @@ function renderPageSelector({
 
   return {
     wrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
   }
 }
 
 describe('testing PageSelector component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders a page selector component with default slots', () => {
@@ -150,6 +151,6 @@ interface RenderPageSelectorOptions {
 interface RenderPageSelectorAPI {
   /** The wrapper for the page loader button component. */
   wrapper: VueWrapper
-  /* A jest spy of the X emit method. */
-  emitSpy: ReturnType<typeof jest.spyOn>
+  /* A vi spy of the X emit method. */
+  emitSpy: ReturnType<typeof vi.spyOn>
 }

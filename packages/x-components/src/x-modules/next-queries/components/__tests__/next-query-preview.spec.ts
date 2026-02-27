@@ -3,6 +3,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import type { XEvent } from '../../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createNextQueryStub, getResultsStub } from '../../../../__stubs__/index'
@@ -59,7 +60,7 @@ describe('next query preview', () => {
 
     let eventSpy
     if (eventToSpy) {
-      eventSpy = jest.fn()
+      eventSpy = vi.fn()
       XPlugin.bus.on(eventToSpy).subscribe(eventSpy)
     }
 

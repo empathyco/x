@@ -1,6 +1,7 @@
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { AiActions, AiGetters, AiMutations, AiState } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
 import { aiXStoreModule } from '../module'

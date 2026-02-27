@@ -1,5 +1,6 @@
 import type { IdentifierResultsState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { identifierResultsXStoreModule } from '../module'
 import { resetIdentifierResultsStateWith } from './utils'

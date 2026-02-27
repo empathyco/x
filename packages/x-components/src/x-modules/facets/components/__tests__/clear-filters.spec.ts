@@ -3,6 +3,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import {
@@ -152,7 +153,7 @@ describe('testing ClearFilters component', () => {
   )
 
   it('emits UserClickedClearAllFilters event with the provided facetIds', async () => {
-    const listenerClearFilterFacets = jest.fn()
+    const listenerClearFilterFacets = vi.fn()
     const facetsIds = ['category']
     const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters()
     XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets)
@@ -175,7 +176,7 @@ describe('testing ClearFilters component', () => {
   })
 
   it('emits UserClickedClearAllFilters event', async () => {
-    const listenerClearFilter = jest.fn()
+    const listenerClearFilter = vi.fn()
     const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters()
     XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter)
 

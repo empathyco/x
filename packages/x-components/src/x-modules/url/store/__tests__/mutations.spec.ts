@@ -1,4 +1,5 @@
 import type { UrlParams } from '../../../../types/url-params'
+import { describe, expect, it } from 'vitest'
 import { createUrlStore } from './utils'
 
 describe('testing Url module mutations', () => {

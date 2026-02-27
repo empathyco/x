@@ -1,6 +1,7 @@
 import type { AnyFunction } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -41,7 +42,7 @@ function renderOpenMainModal({
 describe('testing Open Main Modal button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
     const { click } = renderOpenMainModal()
-    const onUserClickedOpenX = jest.fn()
+    const onUserClickedOpenX = vi.fn()
     XPlugin.bus.on('UserClickedOpenX').subscribe(onUserClickedOpenX)
 
     await click()
@@ -59,7 +60,7 @@ describe('testing Open Main Modal button component', () => {
 
   it('can be extended adding listeners', async () => {
     const methods = {
-      onClick: jest.fn(),
+      onClick: vi.fn(),
     }
     const { click } = renderOpenMainModal({
       template: '<OpenMainModal @click="onClick">Open</OpenMainModal>',

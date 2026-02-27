@@ -1,5 +1,6 @@
 import type { HistoryQuery } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins/index'
 import RemoveHistoryQuery from '../remove-history-query.vue'
@@ -12,7 +13,7 @@ describe('testing RemoveHistoryQuery component', () => {
   }
 
   it('emits UserPressedRemoveHistoryQuery when it is clicked', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
 
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {
@@ -66,7 +67,7 @@ describe('testing RemoveHistoryQuery component', () => {
         plugins: [installNewXPlugin()],
       },
     })
-    // eslint-disable-next-line ts/no-unsafe-call
+
     const renderedSlotHTML = removeHistoryQuery.element.querySelector(
       '.x-remove-history-query__text',
     )

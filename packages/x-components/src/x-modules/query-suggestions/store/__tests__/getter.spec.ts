@@ -1,6 +1,7 @@
 import type { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types'
 import type { QuerySuggestionsState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory'
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory'

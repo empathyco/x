@@ -7,6 +7,7 @@ import type {
   SearchBoxState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { searchBoxXStoreModule } from '../module'

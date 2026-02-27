@@ -2,6 +2,7 @@ import type { TaggingRequest } from '@empathyco/x-types'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { TaggingActions, TaggingGetters, TaggingMutations, TaggingState } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory'
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy'
@@ -14,9 +15,7 @@ describe('testing tagging module actions', () => {
   const adapter = XComponentsAdapterDummy
 
   // eslint-disable-next-line no-restricted-globals
-  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
-    crypto: { randomUUID: () => string }
-  }>
+  const selfSpy = vi.spyOn(self, 'self', 'get') as any
 
   selfSpy.mockImplementation(() => ({
     crypto: {
@@ -31,7 +30,7 @@ describe('testing tagging module actions', () => {
 
   beforeEach(() => {
     resetTaggingStateWith(store)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('track', () => {

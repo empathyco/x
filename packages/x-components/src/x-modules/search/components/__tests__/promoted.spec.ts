@@ -1,5 +1,6 @@
 import type { Promoted as PromotedModel } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createPromotedStub } from '../../../../__stubs__/promoteds-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'

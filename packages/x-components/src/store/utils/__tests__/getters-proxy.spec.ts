@@ -1,9 +1,10 @@
 import type { AnyXStoreModule, RootXStoreState } from '../../store.types'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getGettersProxy, getGettersProxyFromModule } from '../getters-proxy.utils'
 
-const getter1Spy = jest.fn()
-const getter2Spy = jest.fn()
+const getter1Spy = vi.fn()
+const getter2Spy = vi.fn()
 
 const storeModuleTest: AnyXStoreModule = {
   state: () => ({
@@ -36,7 +37,7 @@ const storeMock = new Store<RootXStoreState>({
 
 describe('testing getGettersProxy util', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('returns an object with getters proxies for all the real getters', () => {
@@ -63,7 +64,7 @@ describe('testing getGettersProxy util', () => {
 
 describe('testing getGettersProxyFromModule util', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('returns an object with getters proxies for all the real getters', () => {

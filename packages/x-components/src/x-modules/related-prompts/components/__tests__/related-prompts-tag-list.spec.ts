@@ -1,10 +1,19 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick, reactive, ref, TransitionGroup } from 'vue'
 import { getRelatedPromptsStub } from '../../../../__stubs__/related-prompts-stubs.factory'
 import SlidingPanel from '../../../../components/sliding-panel.vue'
 import RelatedPrompt from '../related-prompt.vue'
 import RelatedPromptsTagList from '../related-prompts-tag-list.vue'
+
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
 
 const relatedPromptsStub = getRelatedPromptsStub(5)
 const selectedPromptIndexStub = ref(-1)
@@ -17,23 +26,23 @@ const propsStub = {
   animationDurationInMs: 4000,
 }
 
-const xUseStateMock = jest.fn((module: string, paths: string[]) => {
+const xUseStateMock = vi.fn((module: string, paths: string[]) => {
   void module
   void paths
   return { selectedPrompt: selectedPromptIndexStub, relatedPrompts: ref(relatedPromptsStub) }
 })
-const xEmitMock = jest.fn((event: string, payload: number) => {
+const xEmitMock = vi.fn((event: string, payload: number) => {
   void event
   void payload
 })
-jest.mock('../../../../composables', () => ({
-  use$x: jest.fn(() => ({
+vi.mock('../../../../composables', () => ({
+  use$x: vi.fn(() => ({
     emit: (event: string, payload: number) => xEmitMock(event, payload),
-    on: jest.fn((event: string, withMetadata: false) => {
+    on: vi.fn((event: string, withMetadata: false) => {
       void event
       void withMetadata
 
-      return { subscribe: jest.fn() }
+      return { subscribe: vi.fn() }
     }),
     query: queryStub,
   })),
@@ -41,7 +50,7 @@ jest.mock('../../../../composables', () => ({
 }))
 
 const maxWidthStub = '100px'
-const getComputedStyleMock = jest.fn((element: Element) => {
+const getComputedStyleMock = vi.fn((element: Element) => {
   void element
 
   return { maxWidth: maxWidthStub } as CSSStyleDeclaration
@@ -91,19 +100,19 @@ function render(options: ComponentMountingOptions<typeof RelatedPromptsTagList> 
 
 describe('relatedPromptsTagList component', () => {
   beforeEach(() => {
-    jest.restoreAllMocks()
-    jest.useFakeTimers()
+    vi.restoreAllMocks()
+    vi.useFakeTimers()
     selectedPromptIndexStub.value = -1
   })
 
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('should render correctly', async () => {
     const sut = render()
 
-    jest.runAllTimers() // setTimeout from inmediate watch callback implementation
+    vi.runAllTimers() // setTimeout from inmediate watch callback implementation
     await nextTick()
 
     expect(sut.slidingPanel.props().resetOnContentChange).toBeFalsy()
@@ -149,7 +158,7 @@ describe('relatedPromptsTagList component', () => {
       expect(listItemElement.style.pointerEvents).toBe('none')
     })
 
-    jest.runAllTimers() // setTimeout from resetTransitionStyle function
+    vi.runAllTimers() // setTimeout from resetTransitionStyle function
 
     sut.listItems.forEach((listItem, index) => {
       const listItemElement = listItem.element as HTMLElement
@@ -173,7 +182,7 @@ describe('relatedPromptsTagList component', () => {
 
     const sut = render()
 
-    jest.runAllTimers() // setTimeout from inmediate watch callback implementation
+    vi.runAllTimers() // setTimeout from inmediate watch callback implementation
     await nextTick()
 
     await sut.relatedPrompts[clickedRelatedPromptIndex].trigger('click')
@@ -204,7 +213,7 @@ describe('relatedPromptsTagList component', () => {
     })
 
     // Trigger the animation
-    jest.advanceTimersByTime(propsStub.animationDurationInMs - 1) // only requestAnimationFrame execution
+    vi.advanceTimersByTime(propsStub.animationDurationInMs - 1) // only requestAnimationFrame execution
     await nextTick()
 
     const selectedElement = sut.listItems[clickedRelatedPromptIndex].element as HTMLElement
@@ -225,13 +234,13 @@ describe('relatedPromptsTagList component', () => {
 
     const sut = render()
 
-    jest.runAllTimers() // setTimeout from inmediate watch callback implementation
+    vi.runAllTimers() // setTimeout from inmediate watch callback implementation
     await nextTick()
 
     await sut.relatedPrompts[clickedRelatedPromptIndex].trigger('click') // Selecting a RP
     selectedPromptIndexStub.value = clickedRelatedPromptIndex
 
-    jest.runAllTimers() // Force the selecting to be done
+    vi.runAllTimers() // Force the selecting to be done
     await nextTick()
 
     await sut.relatedPrompts[0].trigger('click') // 0 is now the selected RP (the others are not rendered)
@@ -246,7 +255,7 @@ describe('relatedPromptsTagList component', () => {
     // Trigger the animation
     expect(selectedElement.style.width).toBe('100%')
 
-    jest.advanceTimersByTime(propsStub.animationDurationInMs - 1) // only requestAnimationFrame execution
+    vi.advanceTimersByTime(propsStub.animationDurationInMs - 1) // only requestAnimationFrame execution
     await nextTick()
 
     expect(selectedElement.style.left).toBe(`${offsetLeftsStub[selectedPromptIndexStub.value]}px`)
@@ -262,7 +271,7 @@ describe('relatedPromptsTagList component', () => {
 
     const sut = render()
 
-    jest.runAllTimers() // setTimeout from inmediate watch callback implementation
+    vi.runAllTimers() // setTimeout from inmediate watch callback implementation
     await nextTick()
 
     expect(sut.slidingPanel.props().showButtons).toBeFalsy()

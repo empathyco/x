@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { createSimpleFilter } from '../../../../__stubs__/filters-stubs.factory'
 import { SimpleFilterEntity } from '../simple-filter.entity'
 import { isFilterSelected, prepareFacetsStore } from './utils'

@@ -35,7 +35,7 @@ export function dummyCreateEmitter<SomeEvent extends keyof XEventsTypes>(
   event: SomeEvent,
 ): void {
   // TODO - Review casting to any
-  // eslint-disable-next-line ts/no-unsafe-assignment
+
   this.emitters[event] = new Subject<
     SubjectPayload<EventPayload<XEventsTypes, SomeEvent>, WireMetadata>
   >() as any

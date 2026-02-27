@@ -1,14 +1,19 @@
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import BaseModal from '../base-modal.vue'
 
-const MockResizeObserver: ResizeObserver = {
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+const observeMock = vi.fn()
+const unobserveMock = vi.fn()
+const disconnectMock = vi.fn()
+
+class MockResizeObserver implements ResizeObserver {
+  observe = observeMock
+  unobserve = unobserveMock
+  disconnect = disconnectMock
 }
 
-window.ResizeObserver = jest.fn().mockImplementation(() => MockResizeObserver)
+window.ResizeObserver = MockResizeObserver as any
 
 /**
  * Mounts a {@link BaseModal} component with the provided options and offers an API to easily
@@ -69,16 +74,16 @@ function mountBaseModal({
       const buttonWrapper = mount({ template: `<button>Button</button>` })
       appendToBody()
       document.body.appendChild(buttonWrapper.element)
-      jest.runAllTimers()
+      vi.runAllTimers()
       await buttonWrapper.trigger('focusin')
     },
   } as const
 }
 
 describe('testing Base Modal  component', () => {
-  beforeAll(() => jest.useFakeTimers())
-  beforeEach(() => jest.clearAllMocks())
-  afterAll(() => jest.useRealTimers())
+  beforeAll(() => vi.useFakeTimers())
+  beforeEach(() => vi.clearAllMocks())
+  afterAll(() => vi.useRealTimers())
 
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal()
@@ -192,8 +197,8 @@ describe('testing Base Modal  component', () => {
   })
 
   it('allows update position when referenceSelector changes', async () => {
-    const observeSpy = jest.spyOn(MockResizeObserver, 'observe')
-    const disconnectSpy = jest.spyOn(MockResizeObserver, 'disconnect')
+    observeMock.mockClear()
+    disconnectMock.mockClear()
 
     const { appendToBody, setReferenceSelector } = mountBaseModal({
       open: true,
@@ -201,12 +206,12 @@ describe('testing Base Modal  component', () => {
 
     appendToBody()
 
-    expect(disconnectSpy).toHaveBeenCalledTimes(1)
-    expect(observeSpy).not.toHaveBeenCalled()
+    expect(disconnectMock).toHaveBeenCalledTimes(1)
+    expect(observeMock).not.toHaveBeenCalled()
 
     await setReferenceSelector('#test-panel')
 
-    expect(disconnectSpy).toHaveBeenCalledTimes(2)
-    expect(observeSpy).toHaveBeenCalled()
+    expect(disconnectMock).toHaveBeenCalledTimes(2)
+    expect(observeMock).toHaveBeenCalled()
   })
 })

@@ -1,4 +1,5 @@
 import type { Module, Store } from 'vuex'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createStore } from 'vuex'
 
@@ -52,11 +53,11 @@ const secondModule: Module<SecondState, StoreRootState> = {
 }
 let store: Store<StoreRootState>
 store = createStore<StoreRootState>({})
-const watchCallback = jest.fn()
+const watchCallback = vi.fn()
 
 describe('testing Vuex watcher hacks', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('vuex watchers standard behavior', () => {

@@ -3,6 +3,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { flushPromises, mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQueries } from '../../../../__stubs__/index'
@@ -43,8 +44,8 @@ describe('testing HistoryQueriesSwitch component', () => {
 
   it('should emit proper events when toggling its state', async () => {
     const { wrapper } = await renderHistoryQueriesSwitch()
-    const enableListener = jest.fn()
-    const disableListener = jest.fn()
+    const enableListener = vi.fn()
+    const disableListener = vi.fn()
 
     XPlugin.bus.on('UserClickedEnableHistoryQueries').subscribe(enableListener)
     XPlugin.bus.on('UserClickedDisableHistoryQueries').subscribe(disableListener)
@@ -64,7 +65,7 @@ describe('testing HistoryQueriesSwitch component', () => {
       historyQueries: [],
       isEnabled: true,
     })
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedConfirmDisableHistoryQueries').subscribe(listener)
 
     await wrapper.trigger('click')

@@ -1,11 +1,12 @@
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { cancellablePromise, CancelSymbol } from '../cancellable-promise'
 
 describe(`testing ${cancellablePromise.name} utility method`, () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it("resolves with the original promise if it's not cancelled", async () => {
@@ -15,14 +16,14 @@ describe(`testing ${cancellablePromise.name} utility method`, () => {
       setTimeout(res, originalPromiseTimeout, originalPromisePayload)
     })
     const { promise } = cancellablePromise(originalPromise)
-    jest.advanceTimersByTime(originalPromiseTimeout)
+    vi.advanceTimersByTime(originalPromiseTimeout)
     await expect(promise).resolves.toBe(originalPromisePayload)
   })
 
   it('cancels the original promise with a rejection payload', async () => {
     const originalPromiseTimeout = 100
     const payload = 'payload'
-    const mockedCancelCallback = jest.fn()
+    const mockedCancelCallback = vi.fn()
     const originalPromise = new Promise(res => {
       setTimeout(res, originalPromiseTimeout)
     })

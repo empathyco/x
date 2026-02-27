@@ -1,5 +1,6 @@
 import type { FeatureLocation } from '../../types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent, inject } from 'vue'
 import LocationProvider from '../location-provider.vue'
 

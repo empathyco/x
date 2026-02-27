@@ -3,6 +3,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
 import type { WirePayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createRedirectionStub, getEmptySearchResponseStub } from '../../../../__stubs__'
@@ -51,10 +52,10 @@ function renderRedirection({
   )
   resetXSearchStateWith(store, { redirections })
 
-  const onUserAbortedARedirection = jest.fn()
+  const onUserAbortedARedirection = vi.fn()
   XPlugin.bus.on('UserClickedAbortARedirection', true).subscribe(onUserAbortedARedirection)
 
-  const onUserClickedARedirection = jest.fn()
+  const onUserClickedARedirection = vi.fn()
   XPlugin.bus.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection)
 
   return {
@@ -71,7 +72,7 @@ function renderRedirection({
 }
 
 describe('testing Redirection component', () => {
-  const spy = jest.fn()
+  const spy = vi.fn()
   const { location } = window
 
   beforeEach(() => {
@@ -82,8 +83,8 @@ describe('testing Redirection component', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
-    jest.useFakeTimers()
+    vi.clearAllMocks()
+    vi.useFakeTimers()
     window.location = location as any
   })
 
@@ -141,7 +142,7 @@ describe('testing Redirection component', () => {
   it("doesn't redirect and doesn't emit the event `UserClickedARedirection` in manual when the user doesn't click the button", () => {
     const { onUserClickedARedirection } = renderRedirection({ mode: 'manual' })
 
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()
@@ -152,7 +153,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
     // The delay 0 runs so fast, we need to force the test to simulate a wait.
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1)
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
@@ -173,7 +174,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
     await abortRedirection()
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(onUserAbortedARedirection).toHaveBeenCalledTimes(1)
@@ -184,7 +185,7 @@ describe('testing Redirection component', () => {
     const { onUserClickedARedirection } = renderRedirection()
     await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
 
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()

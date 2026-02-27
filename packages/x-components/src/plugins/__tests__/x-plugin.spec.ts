@@ -5,6 +5,7 @@ import type { AnyWire } from '../../wiring/wiring.types'
 import type { AnyXModule } from '../../x-modules/x-modules.types'
 import type { PrivateXModulesOptions, XModulesOptions, XPluginOptions } from '../x-plugin.types'
 import { mount, shallowMount } from '@vue/test-utils'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createStore } from 'vuex'
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy'
@@ -16,17 +17,17 @@ import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory'
 import { createWiring } from '../../wiring/wiring.utils'
 import { XPlugin } from '../x-plugin'
 
-const wireToReplace: AnyWire = jest.fn()
-const wireToRemove: AnyWire = jest.fn()
-const wire: AnyWire = jest.fn()
-const userIsTypingAQuerySelector = jest.fn()
-const userAcceptedAQuerySelector = jest.fn()
-const action = jest.fn()
-const actionToReplace = jest.fn()
-const actionToRemove = jest.fn()
-const mutation = jest.fn()
-const mutationToReplace = jest.fn()
-const mutationToRemove = jest.fn()
+const wireToReplace: AnyWire = vi.fn()
+const wireToRemove: AnyWire = vi.fn()
+const wire: AnyWire = vi.fn()
+const userIsTypingAQuerySelector = vi.fn()
+const userAcceptedAQuerySelector = vi.fn()
+const action = vi.fn()
+const actionToReplace = vi.fn()
+const actionToRemove = vi.fn()
+const mutation = vi.fn()
+const mutationToReplace = vi.fn()
+const mutationToRemove = vi.fn()
 const xModule: AnyXModule = {
   name: 'searchBox',
   wiring: {
@@ -79,7 +80,7 @@ let store: Store<any> // Any to handle creation of new properties
 
 describe('testing X Plugin', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     XPlugin.resetInstance()
     store = createStore({})
     mount({}, { global: { plugins: [store] } })
@@ -174,10 +175,10 @@ describe('testing X Plugin', () => {
   })
 
   describe('install XPlugin overriding store', () => {
-    const newAction = jest.fn()
-    const replacedAction = jest.fn()
-    const newMutation = jest.fn()
-    const replacedMutation = jest.fn()
+    const newAction = vi.fn()
+    const replacedAction = vi.fn()
+    const newMutation = vi.fn()
+    const replacedMutation = vi.fn()
     const privateXModulesOptions: PrivateXModulesOptions = {
       searchBox: {
         storeModule: {
@@ -353,8 +354,8 @@ describe('testing X Plugin', () => {
   })
 
   describe('install XPlugin overriding wiring', () => {
-    const newWire = jest.fn()
-    const replacedWire = jest.fn()
+    const newWire = vi.fn()
+    const replacedWire = vi.fn()
     const pluginOptions: XPluginOptions = {
       adapter: XComponentsAdapterDummy,
       xModules: {
@@ -410,7 +411,7 @@ describe('testing X Plugin', () => {
   })
 
   describe('x-Modules system', () => {
-    const searchBoxQueryChangedSubscriber = jest.fn()
+    const searchBoxQueryChangedSubscriber = vi.fn()
     const storeModule: XStoreModule<
       { query: string },
       { trimmedQuery: string },
@@ -441,7 +442,7 @@ describe('testing X Plugin', () => {
     })
 
     beforeAll(() => {
-      jest.useFakeTimers()
+      vi.useFakeTimers()
     })
     beforeEach(() => {
       XPlugin.registerXModule({
@@ -460,14 +461,14 @@ describe('testing X Plugin', () => {
       )
     })
     afterAll(() => {
-      jest.useFakeTimers()
+      vi.useFakeTimers()
     })
 
     it('store-emitters emit a changed event when the observed store state changes', async () => {
       void XPlugin.bus.emit('UserIsTypingAQuery', 'New York strip steak')
 
       await nextTick() // Needed so Vue has updated the reactive dependencies.
-      jest.runAllTimers() // Needed for debounce of the emitters.
+      vi.runAllTimers() // Needed for debounce of the emitters.
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1)
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -536,11 +537,11 @@ describe('testing X Plugin', () => {
 /**
  * Waits for Vue's reactivity to update getters and watchers, and flushes the pending emitters.
  *
- * @remarks It needs `jest.useFakeTimers()` to have been called to wait for the emitters.
+ * @remarks It needs `vi.useFakeTimers()` to have been called to wait for the emitters.
  * @returns A promise that resolves after the reactivity has been updated and the pending emitters
  * have been run.
  */
 async function waitNextTick(): Promise<void> {
   await nextTick()
-  jest.runAllTimers()
+  vi.runAllTimers()
 }

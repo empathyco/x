@@ -1,5 +1,6 @@
 import type { RangeValue } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
@@ -106,7 +107,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       isInstant: true,
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
     await typeMin(6)
@@ -119,7 +120,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       isInstant: true,
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
     await typeMin(2)
@@ -154,7 +155,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       range: { min: 1, max: 5 },
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserModifiedEditableNumberRangeFilter', true).subscribe(listener)
 
     await typeMin(2)
@@ -168,7 +169,7 @@ describe('testing BaseNumberRangeFilter component', () => {
         range: { min: 1, max: 5 },
       })
 
-      const listener = jest.fn()
+      const listener = vi.fn()
       XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
       await clearButtonWrapper.trigger('click')
@@ -281,7 +282,7 @@ describe('testing BaseNumberRangeFilter component', () => {
           range: { min: 7, max: 4 },
         })
 
-      const listener = jest.fn()
+      const listener = vi.fn()
       XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
       expect(applyButtonWrapper.text()).toBe('✅ Apply!')

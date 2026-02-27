@@ -5,6 +5,7 @@ import type { RootXStoreState } from '../../../../store/store.types'
 import type { SnippetConfig } from '../../../../x-installer/api/api.types'
 import { forEach } from '@empathyco/x-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import {

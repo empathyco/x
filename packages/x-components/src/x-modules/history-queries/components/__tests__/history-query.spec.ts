@@ -2,6 +2,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__'
@@ -42,7 +43,7 @@ function renderHistoryQuery({
   return {
     wrapper: wrapper.findComponent(HistoryQuery),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     getSuggestionWrapper: () => wrapper.get(getDataTestSelector('history-query')),
     getRemoveWrapper: () => wrapper.get(getDataTestSelector('remove-history-query')),
     getMatchingPart: () => wrapper.get(getDataTestSelector('matching-part')),
@@ -51,7 +52,7 @@ function renderHistoryQuery({
 
 describe('testing history-query component', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('is an XComponent that belongs to the history queries', () => {
@@ -163,7 +164,7 @@ describe('testing history-query component', () => {
 
   it('emits click event', async () => {
     const suggestion = createHistoryQuery({ query: 'baileys' })
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
 
     const { wrapper } = renderHistoryQuery({
       suggestion,

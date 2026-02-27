@@ -1,5 +1,6 @@
 import type { RootXStoreState } from '../../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
@@ -92,7 +93,7 @@ describe('testing AllFilter component', () => {
 
   it('emits `UserClickedAllFilter` event with the facet id as payload', async () => {
     const { wrapper, toggleFirstFilter, clickAllFilter, facet } = renderAllFilter()
-    const listenerAllFilter = jest.fn()
+    const listenerAllFilter = vi.fn()
     XPlugin.bus.on('UserClickedAllFilter', true).subscribe(listenerAllFilter)
     await toggleFirstFilter()
     expect(listenerAllFilter).toHaveBeenCalledTimes(0)

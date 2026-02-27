@@ -2,6 +2,7 @@ import type { AnyFunction } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -45,7 +46,7 @@ function renderBaseIdToggleButton({
 describe('testing BaseIdTogglePanelButton component', () => {
   it('emits UserClickedPanelToggleButton with the panel id as payload', async () => {
     const { panelId, click } = renderBaseIdToggleButton()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedPanelToggleButton').subscribe(listener)
 
     await click()

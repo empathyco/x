@@ -1,6 +1,7 @@
 import type { Filter } from '@empathyco/x-types'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createSimpleFilter } from '../../../../../__stubs__'
 import { getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'

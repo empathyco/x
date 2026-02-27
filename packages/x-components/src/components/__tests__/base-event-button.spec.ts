@@ -1,6 +1,7 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { WireMetadata, XEventsTypes } from '../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins'
 import BaseEventButton from '../base-event-button.vue'
@@ -17,7 +18,7 @@ function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) 
 
   return {
     wrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     expectedMetadata: {
       location: 'none',
       moduleName: null,

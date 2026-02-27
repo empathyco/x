@@ -1,6 +1,7 @@
 import type { RecommendationsRequest } from '@empathyco/x-types'
 import type { RecommendationsState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { RECOMMENDATIONS_ORIGIN } from '../constants'
 import { recommendationsXStoreModule } from '../module'

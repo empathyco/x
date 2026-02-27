@@ -3,6 +3,7 @@ import type { RootXStoreState } from '../../../../store'
 import type { UrlParams } from '../../../../types'
 import type { QueryPreviewInfo, QueryPreviewItem } from '../../store/types'
 import { flushPromises, mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { Store } from 'vuex'
 import { getEmptySearchResponseStub, getResultsStub } from '../../../../__stubs__'
@@ -19,8 +20,8 @@ import { queriesPreviewXModule } from '../../x-module'
 import QueryPreview from '../query-preview.vue'
 import { resetXQueriesPreviewStateWith } from './utils'
 
-jest.mock('../../../../composables/use-on-display', () => ({
-  useOnDisplay: jest.fn(),
+vi.mock('../../../../composables/use-on-display', () => ({
+  useOnDisplay: vi.fn(),
 }))
 
 const extraParams = { instance: 'empathy', lang: 'en' }
@@ -48,11 +49,11 @@ async function render({
 
   // Mock useOnDisplay to capture the callback
   const { useOnDisplay } = await import('../../../../composables/use-on-display')
-  ;(useOnDisplay as jest.Mock).mockImplementation(({ callback }: { callback: () => void }) => {
+  ;(useOnDisplay as any).mockImplementation(({ callback }: { callback: () => void }) => {
     mockUseOnDisplayCallback = callback
     return {
       isElementVisible: ref(false),
-      unwatchDisplay: jest.fn(),
+      unwatchDisplay: vi.fn(),
     }
   })
 
@@ -93,10 +94,10 @@ async function render({
   store.commit('x/queriesPreview/setParams', extraParams)
   await nextTick()
 
-  const queryPreviewRequestUpdatedSpy = jest.fn()
+  const queryPreviewRequestUpdatedSpy = vi.fn()
   XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy)
 
-  const queryPreviewUnmountedSpy = jest.fn()
+  const queryPreviewUnmountedSpy = vi.fn()
   XPlugin.bus.on('QueryPreviewUnmounted').subscribe(queryPreviewUnmountedSpy)
 
   return {
@@ -120,13 +121,22 @@ async function render({
 }
 
 describe('query preview', () => {
-  jest.useFakeTimers()
-  afterEach(() => {
-    jest.runAllTimers()
-    jest.resetAllMocks()
+  beforeEach(() => {
+    vi.useFakeTimers()
   })
+
+  afterEach(() => {
+    try {
+      vi.runAllTimers()
+    } catch {
+      // Ignore errors if real timers are active
+    }
+    vi.clearAllTimers()
+    vi.resetAllMocks()
+  })
+
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('is an XComponent which has an XModule', async () => {
@@ -189,7 +199,7 @@ describe('query preview', () => {
       },
     })
 
-    jest.advanceTimersByTime(1) // Wait for first emission.
+    vi.advanceTimersByTime(1) // Wait for first emission.
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
       extraParams: {
@@ -209,7 +219,7 @@ describe('query preview', () => {
     await wrapper.setProps({ queryFeature: 'popular_search' })
     await nextTick()
     // fast-forward until next timer should be executed
-    jest.advanceTimersToNextTimer()
+    vi.advanceTimersToNextTimer()
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
       extraParams: {
@@ -226,7 +236,7 @@ describe('query preview', () => {
     })
 
     await updateExtraParams({ store: 'Uganda' })
-    jest.advanceTimersToNextTimer()
+    vi.advanceTimersToNextTimer()
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
       extraParams: {
@@ -251,7 +261,7 @@ describe('query preview', () => {
     })
 
     await updateExtraParams({ lang: 'es' })
-    jest.advanceTimersToNextTimer()
+    vi.advanceTimersToNextTimer()
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
   })
@@ -263,7 +273,7 @@ describe('query preview', () => {
     })
 
     await wrapper.setProps({ queryFeature: 'query_suggestion' })
-    jest.advanceTimersToNextTimer()
+    vi.advanceTimersToNextTimer()
 
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
       extraParams: { lang: 'en', instance: 'empathy' },
@@ -347,8 +357,7 @@ describe('query preview', () => {
   })
 
   it('emits load event on success', async () => {
-    jest.useRealTimers()
-    ;(XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
+    ;(XComponentsAdapterDummy.search as any).mockResolvedValueOnce({
       ...getEmptySearchResponseStub(),
       results: getResultsStub(1),
       totalResults: 1,
@@ -364,17 +373,15 @@ describe('query preview', () => {
     })
     const query = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
+    vi.runAllTimers()
     await flushPromises()
 
     expect(queryPreviewWrapper.emitted('load')?.length).toEqual(1)
     expect(queryPreviewWrapper.emitted('load')?.[0]).toEqual([query])
     expect(queryPreviewWrapper.emitted('error')).toEqual(undefined)
-
-    jest.useFakeTimers()
   })
 
   it('emits error event on success if results are empty', async () => {
-    jest.useRealTimers()
     const { queryPreviewWrapper, queryPreviewInfo } = await render({
       queryPreviewInState: {
         request: { query: 'milk' },
@@ -386,18 +393,16 @@ describe('query preview', () => {
     })
     const query = getHashFromQueryPreviewInfo(queryPreviewInfo, extraParams)
 
+    vi.runAllTimers()
     await flushPromises()
 
     expect(queryPreviewWrapper.emitted('error')?.length).toEqual(1)
     expect(queryPreviewWrapper.emitted('error')?.[0]).toEqual([query])
     expect(queryPreviewWrapper.emitted('load')).toEqual(undefined)
-
-    jest.useFakeTimers()
   })
 
   it('emits error event on error', async () => {
-    jest.useRealTimers()
-    ;(XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error')
+    ;(XComponentsAdapterDummy.search as any).mockRejectedValueOnce('Some error')
     const { queryPreviewWrapper } = await render({
       queryPreviewInState: {
         request: { query: 'milk' },
@@ -409,12 +414,12 @@ describe('query preview', () => {
     })
     const query = getHashFromQueryPreviewInfo({ query: 'milk' }, extraParams)
 
+    vi.runAllTimers()
     await flushPromises()
 
     expect(queryPreviewWrapper.emitted('error')?.length).toEqual(1)
     expect(queryPreviewWrapper.emitted('error')?.[0]).toEqual([query])
     expect(queryPreviewWrapper.emitted('load')).toEqual(undefined)
-    jest.useFakeTimers()
   })
 
   describe('debounce', () => {
@@ -424,7 +429,7 @@ describe('query preview', () => {
       })
 
       await wrapper.setProps({ queryPreviewInfo: { query: 'bull' } })
-      jest.advanceTimersByTime(0)
+      vi.advanceTimersByTime(0)
 
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
@@ -440,10 +445,10 @@ describe('query preview', () => {
       })
 
       await wrapper.setProps({ queryPreviewInfo: { query: 'bull' } })
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
 
-      jest.advanceTimersByTime(1) // 250ms since mounting the component, the debounce tested
+      vi.advanceTimersByTime(1) // 250ms since mounting the component, the debounce tested
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
         extraParams: { lang: 'en', instance: 'empathy' },
@@ -451,21 +456,21 @@ describe('query preview', () => {
         rows: 24,
       })
 
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
 
       // Emulates user is typing a new query
       await wrapper.setProps({ queryPreviewInfo: { query: 'secall' } }) // Timer relaunched
 
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
 
       await wrapper.setProps({ queryPreviewInfo: { query: 'secallona' } }) // Timer relaunched
 
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
 
-      jest.advanceTimersByTime(251)
+      vi.advanceTimersByTime(251)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(2)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
         extraParams: { lang: 'en', instance: 'empathy' },
@@ -480,15 +485,15 @@ describe('query preview', () => {
         queryPreviewInfo: { query: 'bull' },
       })
 
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
 
       // Updating the debounce time aborts previous running timers
       await wrapper.setProps({ debounceTimeMs: 100 })
-      jest.advanceTimersByTime(99)
+      vi.advanceTimersByTime(99)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
 
-      jest.advanceTimersByTime(1) // 100ms since mounting the component, the debounce tested
+      vi.advanceTimersByTime(1) // 100ms since mounting the component, the debounce tested
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     })
 
@@ -497,11 +502,11 @@ describe('query preview', () => {
         debounceTimeMs: 250,
         queryPreviewInfo: { query: 'bull' },
       })
-      jest.advanceTimersByTime(249)
+      vi.advanceTimersByTime(249)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
 
       wrapper.unmount()
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     })
   })
@@ -520,7 +525,7 @@ describe('query preview', () => {
         },
       })
 
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     })
 
@@ -541,7 +546,7 @@ describe('query preview', () => {
 
       // Trigger visibility callback
       triggerVisibility()
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
 
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1)
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({

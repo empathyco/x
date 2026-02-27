@@ -1,6 +1,7 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import BaseCurrency from '../../currency/base-currency.vue'
 import BaseResultPreviousPrice from '../base-result-previous-price.vue'

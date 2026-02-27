@@ -1,8 +1,9 @@
 import type { StoreOptions } from 'vuex'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { FacetsActions, FacetsGetters, FacetsMutations, FacetsState } from '../types'
-
 import { mount } from '@vue/test-utils'
+
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory'
 import {
@@ -43,7 +44,7 @@ describe('testing facets module actions', () => {
 
   beforeEach(() => {
     resetFacetsStateWith(store)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('fetchFacetsResponse', () => {

@@ -1,6 +1,7 @@
 import type { Suggestion } from '@empathyco/x-types'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory'
 import {
   createPopularSearch,

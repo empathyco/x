@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
@@ -45,7 +46,7 @@ function render({
   )
 
   return {
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     wrapper,
     empathize: wrapper.findComponent(Empathize),
     get empathizeContainer() {
@@ -59,10 +60,10 @@ function render({
 
 describe('testing empathize component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('is an XComponent which has an XModule', () => {
@@ -80,7 +81,7 @@ describe('testing empathize component', () => {
     })
 
     await XPlugin.bus.emit('UserClickedSearchBox', undefined)
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
@@ -94,7 +95,7 @@ describe('testing empathize component', () => {
 
     // Test opening with one of the default open events
     await XPlugin.bus.emit('UserClickedSearchBox', undefined)
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     // Both should exist and be visible
@@ -106,7 +107,7 @@ describe('testing empathize component', () => {
 
     // Test closing with one of the default close events
     await XPlugin.bus.emit('UserClosedEmpathize', undefined)
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     // Both should exist, as v-show doesn't remove the elements in the DOM, and not be visible
@@ -125,7 +126,7 @@ describe('testing empathize component', () => {
     })
 
     await empathizeContainer.trigger('focusin')
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
@@ -133,7 +134,7 @@ describe('testing empathize component', () => {
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeOpened', undefined, expect.any(Object))
 
     await wrapper.setProps({ hasContent: false } as any)
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
@@ -149,7 +150,7 @@ describe('testing empathize component', () => {
     })
 
     await empathizeContainer.trigger('focusin')
-    jest.runAllTimers()
+    vi.runAllTimers()
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
@@ -163,7 +164,7 @@ describe('testing empathize component', () => {
     await wrapper.setProps({ hasContent: false } as any)
 
     // Advance timer by less than the debounce time - nothing should happen yet
-    jest.advanceTimersByTime(customDebounceTime - 100)
+    vi.advanceTimersByTime(customDebounceTime - 100)
     await nextTick()
 
     // Verify that UserAcceptedAQuery and EmpathizeClosed have not been emitted yet
@@ -179,7 +180,7 @@ describe('testing empathize component', () => {
     )
 
     // Now advance timer to complete the debounce period
-    jest.advanceTimersByTime(100)
+    vi.advanceTimersByTime(100)
     await nextTick()
 
     // Now the events should have been emitted

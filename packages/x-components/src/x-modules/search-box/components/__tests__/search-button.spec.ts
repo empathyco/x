@@ -2,6 +2,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../../../__tests__/utils'
@@ -22,7 +23,7 @@ function renderSearchButton(slotContent: string) {
   })
 
   XPlugin.registerXModule(searchBoxXModule)
-  const mockedObserver = jest.fn()
+  const mockedObserver = vi.fn()
   XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(mockedObserver)
   XPlugin.bus.on('UserPressedSearchButton', true).subscribe(mockedObserver)
 
@@ -35,7 +36,7 @@ function renderSearchButton(slotContent: string) {
 
 describe('testing search button component', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('is an XComponent', () => {

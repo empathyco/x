@@ -2,6 +2,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory'
@@ -39,7 +40,7 @@ function renderQuerySuggestion({
   return {
     wrapper: wrapper.findComponent(QuerySuggestion),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     getMatchingPart: () => wrapper.get(getDataTestSelector('matching-part')),
   } as const
 }

@@ -2,6 +2,7 @@ import type { Filter } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import type { ComponentOptions, PropType } from 'vue'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent, provide, ref } from 'vue'
 import {
   createHierarchicalFilter,

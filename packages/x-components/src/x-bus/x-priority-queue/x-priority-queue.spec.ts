@@ -1,4 +1,5 @@
 import type { XPriorityQueueNode } from './x-priority-queue.types'
+import { describe, expect, it } from 'vitest'
 import { BaseXPriorityQueue } from './x-priority-queue'
 
 describe('x-priority-queue scenarios', () => {
