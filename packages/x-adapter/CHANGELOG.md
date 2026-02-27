@@ -3,146 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.11 (2026-02-27)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
 ## 8.1.0-alpha.10 (2025-12-17)
 
-* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
-
-
-
-
+- chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
 
 ## 8.1.0-alpha.9 (2025-09-02)
 
-* chore: code improvement ([5d7346d](https://github.com/empathyco/x/commit/5d7346d))
-* chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
-* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
-* test(x-adapter): add unit tests for httpClient functions ([f57556f](https://github.com/empathyco/x/commit/f57556f))
-* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
-
-
-
-
+- chore: code improvement ([5d7346d](https://github.com/empathyco/x/commit/5d7346d))
+- chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+- chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+- test(x-adapter): add unit tests for httpClient functions ([f57556f](https://github.com/empathyco/x/commit/f57556f))
+- feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
 
 ## 8.1.0-alpha.8 (2025-08-12)
 
-* chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
-
-
-
-
+- chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
 
 ## 8.1.0-alpha.7 (2025-08-06)
 
-* chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
-
-
-
-
+- chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
 
 ## 8.1.0-alpha.6 (2025-07-16)
 
-* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
-
-
-
-
+- chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
 
 ## 8.1.0-alpha.5 (2025-06-26)
 
-* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
-
-
-
-
+- chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
 
 ## 8.1.0-alpha.4 (2025-06-06)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.0-alpha.2...@empathyco/x-adapter@8.1.0-alpha.3) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 ## [8.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.0-alpha.1...@empathyco/x-adapter@8.1.0-alpha.2) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.0-alpha.0...@empathyco/x-adapter@8.1.0-alpha.1) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.3-alpha.1...@empathyco/x-adapter@8.1.0-alpha.0) (2024-05-03)
-
 
 ### Features
 
-* support empty params on adapter's requests (#1459) ([11a2efc](https://github.com/empathyco/x/commit/11a2efc2d0efe5ef7e34f8feb9e1bcc389bf847a))
-
-
+- support empty params on adapter's requests (#1459) ([11a2efc](https://github.com/empathyco/x/commit/11a2efc2d0efe5ef7e34f8feb9e1bcc389bf847a))
 
 ## [8.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.3-alpha.0...@empathyco/x-adapter@8.0.3-alpha.1) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.2...@empathyco/x-adapter@8.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 ## [8.0.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.2-alpha.0...@empathyco/x-adapter@8.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.1-alpha.0...@empathyco/x-adapter@8.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 ## [8.0.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.1-alpha.0...@empathyco/x-adapter@8.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-
-
-
-
 ## [8.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.34...@empathyco/x-adapter@8.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-
-
-
 
 # Change Log
 

@@ -6,7 +6,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': '<rootDir>/jest.css.mock.js',
-    'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs',
+    'vue-global-events': '<rootDir>/../../node_modules/vue-global-events/dist/index.cjs',
   },
   moduleFileExtensions: ['ts', 'vue', 'js', 'mjs'],
   testMatch: ['<rootDir>/src/**/*.spec.ts'],

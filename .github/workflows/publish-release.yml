@@ -2,11 +2,10 @@ name: Release a new version
 on: [workflow_dispatch]
 jobs:
   release:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-22.14.0-chrome-135.0.7049.84-1-ff-137.0.1-edge-135.0.3179.54-1@sha256:55119cf831abaff1d4a66cfcdcd617a9dedf5a6183ec2272e24bf657db5f1ce5
-      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
-      options: --user 1001
+    runs-on: [self-hosted, linux, x64, platform, vm]
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
@@ -36,11 +35,6 @@ jobs:
 
       - name: Run tests
         run: pnpm run test:unit
-
-      - name: Run e2e tests
-        if: false # Temporarily disabled until the e2e are reviewed and updated so that it does not fail intermittently
-        timeout-minutes: 15
-        uses: ./.github/actions/run-e2e-tests
 
       - name: configure git user
         run: |

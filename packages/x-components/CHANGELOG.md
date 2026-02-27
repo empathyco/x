@@ -3,1268 +3,728 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.206 (2026-02-27)
+
+- feat: remove Cypress-related configurations and tests ([67ec01d](https://github.com/empathyco/x/commit/67ec01d))
+- feat: update test configurations and clean up SVG files ([3c45eec](https://github.com/empathyco/x/commit/3c45eec))
+- refactor: fix minor type issues in sort-list component ([e8eddfa](https://github.com/empathyco/x/commit/e8eddfa))
+- refactor: fix type issues ([5f4061b](https://github.com/empathyco/x/commit/5f4061b))
+
 ## 6.0.0-alpha.205 (2026-02-25)
 
-* chore(deps): update dependency marked to v17 (#2003) ([2191e4d](https://github.com/empathyco/x/commit/2191e4d)), closes [#2003](https://github.com/empathyco/x/issues/2003)
-
-
-
-
+- chore(deps): update dependency marked to v17 (#2003) ([2191e4d](https://github.com/empathyco/x/commit/2191e4d)), closes [#2003](https://github.com/empathyco/x/issues/2003)
 
 ## 6.0.0-alpha.204 (2026-02-25)
 
-* chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
-* chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
-* refactor: fix type issues ([74216e4](https://github.com/empathyco/x/commit/74216e4))
-* build(tsconfig): fix libs and add skipLibCheck option ([c1db14a](https://github.com/empathyco/x/commit/c1db14a))
-
-
-
-
+- chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+- chore(deps): update vue version to 3.5.28 ([c023c00](https://github.com/empathyco/x/commit/c023c00))
+- refactor: fix type issues ([74216e4](https://github.com/empathyco/x/commit/74216e4))
+- build(tsconfig): fix libs and add skipLibCheck option ([c1db14a](https://github.com/empathyco/x/commit/c1db14a))
 
 ## 6.0.0-alpha.203 (2026-02-24)
 
-* refactor: remove sass ([1557098](https://github.com/empathyco/x/commit/1557098))
-
-
-
-
+- refactor: remove sass ([1557098](https://github.com/empathyco/x/commit/1557098))
 
 ## 6.0.0-alpha.202 (2026-02-18)
 
-* feat(x-design-system): add `x-design-system` package with initial skeleton for tailwind 4 (#1988) ([e30f630](https://github.com/empathyco/x/commit/e30f630)), closes [#1988](https://github.com/empathyco/x/issues/1988)
-
-
-
-
+- feat(x-design-system): add `x-design-system` package with initial skeleton for tailwind 4 (#1988) ([e30f630](https://github.com/empathyco/x/commit/e30f630)), closes [#1988](https://github.com/empathyco/x/issues/1988)
 
 ## 6.0.0-alpha.201 (2026-02-12)
 
-* feat(query-preview): add lazy loading support to QueryPreview (#1980) ([ce95a17](https://github.com/empathyco/x/commit/ce95a17)), closes [#1980](https://github.com/empathyco/x/issues/1980)
-
-
-
-
+- feat(query-preview): add lazy loading support to QueryPreview (#1980) ([ce95a17](https://github.com/empathyco/x/commit/ce95a17)), closes [#1980](https://github.com/empathyco/x/issues/1980)
 
 ## 6.0.0-alpha.200 (2026-02-11)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.199 (2026-02-11)
 
-* fix: solve errors & warnings on serving the demo locally (#1985) ([18e65f3](https://github.com/empathyco/x/commit/18e65f3)), closes [#1985](https://github.com/empathyco/x/issues/1985)
-
-
-
-
+- fix: solve errors & warnings on serving the demo locally (#1985) ([18e65f3](https://github.com/empathyco/x/commit/18e65f3)), closes [#1985](https://github.com/empathyco/x/issues/1985)
 
 ## 6.0.0-alpha.198 (2026-02-11)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.197 (2026-01-30)
 
-* chore(lerna): enforce exact dependency versions (#1975) ([6939587](https://github.com/empathyco/x/commit/6939587)), closes [#1975](https://github.com/empathyco/x/issues/1975)
-
-
-
-
+- chore(lerna): enforce exact dependency versions (#1975) ([6939587](https://github.com/empathyco/x/commit/6939587)), closes [#1975](https://github.com/empathyco/x/issues/1975)
 
 ## 6.0.0-alpha.196 (2026-01-29)
 
-* chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
-
-
-
-
+- chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
 
 ## 6.0.0-alpha.195 (2026-01-28)
 
-* chore(deps): pin x-tailwindcss version (#1973) ([3b8eacf](https://github.com/empathyco/x/commit/3b8eacf)), closes [#1973](https://github.com/empathyco/x/issues/1973)
-* chore(deps): update dependency @cucumber/messages to v32 (#1972) ([86ddbfd](https://github.com/empathyco/x/commit/86ddbfd)), closes [#1972](https://github.com/empathyco/x/issues/1972)
-
-
-
-
+- chore(deps): pin x-tailwindcss version (#1973) ([3b8eacf](https://github.com/empathyco/x/commit/3b8eacf)), closes [#1973](https://github.com/empathyco/x/issues/1973)
+- chore(deps): update dependency @cucumber/messages to v32 (#1972) ([86ddbfd](https://github.com/empathyco/x/commit/86ddbfd)), closes [#1972](https://github.com/empathyco/x/issues/1972)
 
 ## 6.0.0-alpha.194 (2026-01-22)
 
-* docs: update code examples (#1967) ([3787069](https://github.com/empathyco/x/commit/3787069)), closes [#1967](https://github.com/empathyco/x/issues/1967)
-* docs: update code examples (#1968) ([60c3989](https://github.com/empathyco/x/commit/60c3989)), closes [#1968](https://github.com/empathyco/x/issues/1968)
-
-
-
-
+- docs: update code examples (#1967) ([3787069](https://github.com/empathyco/x/commit/3787069)), closes [#1967](https://github.com/empathyco/x/issues/1967)
+- docs: update code examples (#1968) ([60c3989](https://github.com/empathyco/x/commit/60c3989)), closes [#1968](https://github.com/empathyco/x/issues/1968)
 
 ## 6.0.0-alpha.193 (2026-01-22)
 
-* docs: Update x-modules components documentation (3/6) (#1965) ([625676c](https://github.com/empathyco/x/commit/625676c)), closes [#1965](https://github.com/empathyco/x/issues/1965)
-* docs: Update x-modules components documentation (4/6) (#1966) ([a1648b9](https://github.com/empathyco/x/commit/a1648b9)), closes [#1966](https://github.com/empathyco/x/issues/1966)
-
-
-
-
+- docs: Update x-modules components documentation (3/6) (#1965) ([625676c](https://github.com/empathyco/x/commit/625676c)), closes [#1965](https://github.com/empathyco/x/issues/1965)
+- docs: Update x-modules components documentation (4/6) (#1966) ([a1648b9](https://github.com/empathyco/x/commit/a1648b9)), closes [#1966](https://github.com/empathyco/x/issues/1966)
 
 ## 6.0.0-alpha.192 (2026-01-22)
 
-* feat(ai): add `cta-button` slot and improve toggle button structure in ai-overview component ([0301790](https://github.com/empathyco/x/commit/0301790))
-* feat(ai): add test for `cta-button` slot customization in ai-overview component ([8cbe493](https://github.com/empathyco/x/commit/8cbe493))
-* docs: Update x-modules components documentation (2/6) (#1964) ([4a04b7f](https://github.com/empathyco/x/commit/4a04b7f)), closes [#1964](https://github.com/empathyco/x/issues/1964)
-
-
-
-
+- feat(ai): add `cta-button` slot and improve toggle button structure in ai-overview component ([0301790](https://github.com/empathyco/x/commit/0301790))
+- feat(ai): add test for `cta-button` slot customization in ai-overview component ([8cbe493](https://github.com/empathyco/x/commit/8cbe493))
+- docs: Update x-modules components documentation (2/6) (#1964) ([4a04b7f](https://github.com/empathyco/x/commit/4a04b7f)), closes [#1964](https://github.com/empathyco/x/issues/1964)
 
 ## 6.0.0-alpha.191 (2026-01-22)
 
-* docs: Update x-modules components documentation (1/6) (#1963) ([7b236fc](https://github.com/empathyco/x/commit/7b236fc)), closes [#1963](https://github.com/empathyco/x/issues/1963)
-
-
-
-
+- docs: Update x-modules components documentation (1/6) (#1963) ([7b236fc](https://github.com/empathyco/x/commit/7b236fc)), closes [#1963](https://github.com/empathyco/x/issues/1963)
 
 ## 6.0.0-alpha.190 (2026-01-21)
 
-* docs: Update common components documentation (#1962) ([9c51d49](https://github.com/empathyco/x/commit/9c51d49)), closes [#1962](https://github.com/empathyco/x/issues/1962)
-
-
-
-
+- docs: Update common components documentation (#1962) ([9c51d49](https://github.com/empathyco/x/commit/9c51d49)), closes [#1962](https://github.com/empathyco/x/issues/1962)
 
 ## 6.0.0-alpha.189 (2026-01-14)
 
-* chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v24 (#1958) ([3a99988](https://github.com/empathyco/x/commit/3a99988)), closes [#1958](https://github.com/empathyco/x/issues/1958)
-
-
-
-
+- chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v24 (#1958) ([3a99988](https://github.com/empathyco/x/commit/3a99988)), closes [#1958](https://github.com/empathyco/x/issues/1958)
 
 ## 6.0.0-alpha.188 (2026-01-07)
 
-* chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
-
-
-
-
+- chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
 
 ## 6.0.0-alpha.187 (2025-12-17)
 
-* chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
-
-
-
-
+- chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
 
 ## 6.0.0-alpha.186 (2025-12-16)
 
-* chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)
-* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.18 (#1945) ([d8c5af9](https://github.com/empathyco/x/commit/d8c5af9)), closes [#1945](https://github.com/empathyco/x/issues/1945)
-
-
-
-
+- chore: upgrade Vite related dependencies (#1944) ([813fc5e](https://github.com/empathyco/x/commit/813fc5e)), closes [#1944](https://github.com/empathyco/x/issues/1944)
+- chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.18 (#1945) ([d8c5af9](https://github.com/empathyco/x/commit/d8c5af9)), closes [#1945](https://github.com/empathyco/x/issues/1945)
 
 ## 6.0.0-alpha.185 (2025-12-11)
 
-* chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
-
-
-
-
+- chore: upgrade @vue and @vueuse/core (#1943) ([f16b475](https://github.com/empathyco/x/commit/f16b475)), closes [#1943](https://github.com/empathyco/x/issues/1943)
 
 ## 6.0.0-alpha.184 (2025-12-11)
 
-* chore(tests): upgrade cypress and enable e2e tests (#1942) ([b6ad1dd](https://github.com/empathyco/x/commit/b6ad1dd)), closes [#1942](https://github.com/empathyco/x/issues/1942)
-
-
-
-
+- chore(tests): upgrade cypress and enable e2e tests (#1942) ([b6ad1dd](https://github.com/empathyco/x/commit/b6ad1dd)), closes [#1942](https://github.com/empathyco/x/issues/1942)
 
 ## 6.0.0-alpha.183 (2025-12-08)
 
-* chore(deps): update cypress-related dependencies (#1941) ([3c751ef](https://github.com/empathyco/x/commit/3c751ef)), closes [#1941](https://github.com/empathyco/x/issues/1941)
-
-
-
-
+- chore(deps): update cypress-related dependencies (#1941) ([3c751ef](https://github.com/empathyco/x/commit/3c751ef)), closes [#1941](https://github.com/empathyco/x/issues/1941)
 
 ## 6.0.0-alpha.182 (2025-11-26)
 
-* chore(deps): upgrade cypress version to 14.5.4 (#1933) ([83b93e8](https://github.com/empathyco/x/commit/83b93e8)), closes [#1933](https://github.com/empathyco/x/issues/1933)
-
-
-
-
+- chore(deps): upgrade cypress version to 14.5.4 (#1933) ([83b93e8](https://github.com/empathyco/x/commit/83b93e8)), closes [#1933](https://github.com/empathyco/x/issues/1933)
 
 ## 6.0.0-alpha.181 (2025-11-20)
 
-* feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
-
-
-
-
+- feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
 
 ## 6.0.0-alpha.180 (2025-11-19)
 
-* chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
-
-
-
-
+- chore(deps): update dependency @types/node to v24 (#1927) ([4b58181](https://github.com/empathyco/x/commit/4b58181)), closes [#1927](https://github.com/empathyco/x/issues/1927)
 
 ## 6.0.0-alpha.179 (2025-11-12)
 
-* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.17 (#1926) ([0ea2e89](https://github.com/empathyco/x/commit/0ea2e89)), closes [#1926](https://github.com/empathyco/x/issues/1926)
-
-
-
-
+- chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.17 (#1926) ([0ea2e89](https://github.com/empathyco/x/commit/0ea2e89)), closes [#1926](https://github.com/empathyco/x/issues/1926)
 
 ## 6.0.0-alpha.178 (2025-11-07)
 
-* refactor(queries-preview): include whole extraParams object in queries preview hash generation (#191 ([df7a373](https://github.com/empathyco/x/commit/df7a373)), closes [#1916](https://github.com/empathyco/x/issues/1916)
-
-
-
-
+- refactor(queries-preview): include whole extraParams object in queries preview hash generation (#191 ([df7a373](https://github.com/empathyco/x/commit/df7a373)), closes [#1916](https://github.com/empathyco/x/issues/1916)
 
 ## 6.0.0-alpha.177 (2025-11-05)
 
-* feat(ai): refactor title styling and add margin to content title in ai-overview component ([9d8dc8d](https://github.com/empathyco/x/commit/9d8dc8d))
-
-
-
-
+- feat(ai): refactor title styling and add margin to content title in ai-overview component ([9d8dc8d](https://github.com/empathyco/x/commit/9d8dc8d))
 
 ## 6.0.0-alpha.176 (2025-11-04)
 
-* refactor(ai): rename `x-ai-overview-content` to `x-ai-overview-conten… (#1922) ([3908d74](https://github.com/empathyco/x/commit/3908d74)), closes [#1922](https://github.com/empathyco/x/issues/1922)
-
-
-
-
+- refactor(ai): rename `x-ai-overview-content` to `x-ai-overview-conten… (#1922) ([3908d74](https://github.com/empathyco/x/commit/3908d74)), closes [#1922](https://github.com/empathyco/x/issues/1922)
 
 ## 6.0.0-alpha.175 (2025-11-04)
 
-* feat(ai): add `contentClasses` prop and styling improvements to ai-overview component ([6f887c9](https://github.com/empathyco/x/commit/6f887c9))
-
-
-
-
+- feat(ai): add `contentClasses` prop and styling improvements to ai-overview component ([6f887c9](https://github.com/empathyco/x/commit/6f887c9))
 
 ## 6.0.0-alpha.174 (2025-11-04)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.173 (2025-11-03)
 
-* feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
-
-
-
-
+- feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
 
 ## 6.0.0-alpha.172 (2025-11-03)
 
-* fix(AiOverview): remove query when clicking a product ([4028e81](https://github.com/empathyco/x/commit/4028e81))
-
-
-
-
+- fix(AiOverview): remove query when clicking a product ([4028e81](https://github.com/empathyco/x/commit/4028e81))
 
 ## 6.0.0-alpha.171 (2025-10-30)
 
-* chore(deps): install marked in x-component to parse markdown ([cf90867](https://github.com/empathyco/x/commit/cf90867))
-
-
-
-
+- chore(deps): install marked in x-component to parse markdown ([cf90867](https://github.com/empathyco/x/commit/cf90867))
 
 ## 6.0.0-alpha.170 (2025-10-30)
 
-* fix(AiOverview): Collapse AiOverview when AiSuggestions request changes ([a5bb16c](https://github.com/empathyco/x/commit/a5bb16c))
-
-
-
-
+- fix(AiOverview): Collapse AiOverview when AiSuggestions request changes ([a5bb16c](https://github.com/empathyco/x/commit/a5bb16c))
 
 ## 6.0.0-alpha.169 (2025-10-29)
 
-* fix: doc ([b5b7f16](https://github.com/empathyco/x/commit/b5b7f16))
-* fix: raname some variables ([4db954b](https://github.com/empathyco/x/commit/4db954b))
-* feat(ai-overview): add support to auto expand in search no results ([e2682e0](https://github.com/empathyco/x/commit/e2682e0))
-* feat(ai): perform suggestions search on expand and track queries ([76133f4](https://github.com/empathyco/x/commit/76133f4))
-
-
-
-
+- fix: doc ([b5b7f16](https://github.com/empathyco/x/commit/b5b7f16))
+- fix: raname some variables ([4db954b](https://github.com/empathyco/x/commit/4db954b))
+- feat(ai-overview): add support to auto expand in search no results ([e2682e0](https://github.com/empathyco/x/commit/e2682e0))
+- feat(ai): perform suggestions search on expand and track queries ([76133f4](https://github.com/empathyco/x/commit/76133f4))
 
 ## 6.0.0-alpha.168 (2025-10-27)
 
-* feat(ai): add `extra-content` slot to ai-overview and use in home view ([4a51932](https://github.com/empathyco/x/commit/4a51932))
-
-
-
-
+- feat(ai): add `extra-content` slot to ai-overview and use in home view ([4a51932](https://github.com/empathyco/x/commit/4a51932))
 
 ## 6.0.0-alpha.167 (2025-10-27)
 
-* chore(deps): update dependency @cucumber/messages to v30 (#1909) ([d450cf2](https://github.com/empathyco/x/commit/d450cf2)), closes [#1909](https://github.com/empathyco/x/issues/1909)
-
-
-
-
+- chore(deps): update dependency @cucumber/messages to v30 (#1909) ([d450cf2](https://github.com/empathyco/x/commit/d450cf2)), closes [#1909](https://github.com/empathyco/x/issues/1909)
 
 ## 6.0.0-alpha.166 (2025-10-24)
 
-* fix(ai): export missing store things (#1907) ([ac5f37a](https://github.com/empathyco/x/commit/ac5f37a)), closes [#1907](https://github.com/empathyco/x/issues/1907)
-
-
-
-
+- fix(ai): export missing store things (#1907) ([ac5f37a](https://github.com/empathyco/x/commit/ac5f37a)), closes [#1907](https://github.com/empathyco/x/issues/1907)
 
 ## 6.0.0-alpha.165 (2025-10-22)
 
-* fix(url-handler): disable attribute inheritance to avoid error with GlobalEvents ([dfa0979](https://github.com/empathyco/x/commit/dfa0979))
-
-
-
-
+- fix(url-handler): disable attribute inheritance to avoid error with GlobalEvents ([dfa0979](https://github.com/empathyco/x/commit/dfa0979))
 
 ## 6.0.0-alpha.164 (2025-10-20)
 
-* feat(ai): connect query preview selection with ai module (#1904) ([400bacb](https://github.com/empathyco/x/commit/400bacb)), closes [#1904](https://github.com/empathyco/x/issues/1904)
-
-
-
-
+- feat(ai): connect query preview selection with ai module (#1904) ([400bacb](https://github.com/empathyco/x/commit/400bacb)), closes [#1904](https://github.com/empathyco/x/issues/1904)
 
 ## 6.0.0-alpha.163 (2025-10-15)
 
-* fix: minor improvements in implementation ([454fb8c](https://github.com/empathyco/x/commit/454fb8c))
-* feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
-
-
-
-
+- fix: minor improvements in implementation ([454fb8c](https://github.com/empathyco/x/commit/454fb8c))
+- feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
 
 ## 6.0.0-alpha.162 (2025-10-13)
 
-* feat(ai): add `suggestions-extra-content` slot to ai-overview component ([350a7c1](https://github.com/empathyco/x/commit/350a7c1))
-
-
-
-
+- feat(ai): add `suggestions-extra-content` slot to ai-overview component ([350a7c1](https://github.com/empathyco/x/commit/350a7c1))
 
 ## 6.0.0-alpha.161 (2025-10-02)
 
-* fix: fire search only if Empathise is open (#1895) ([2412415](https://github.com/empathyco/x/commit/2412415)), closes [#1895](https://github.com/empathyco/x/issues/1895) [#1894](https://github.com/empathyco/x/issues/1894)
-
-
-
-
+- fix: fire search only if Empathise is open (#1895) ([2412415](https://github.com/empathyco/x/commit/2412415)), closes [#1895](https://github.com/empathyco/x/issues/1895) [#1894](https://github.com/empathyco/x/issues/1894)
 
 ## 6.0.0-alpha.160 (2025-10-02)
 
-* feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
-
-
-
-
+- feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
 
 ## 6.0.0-alpha.159 (2025-10-01)
 
-* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.16 (#1834) ([69e6d9b](https://github.com/empathyco/x/commit/69e6d9b)), closes [#1834](https://github.com/empathyco/x/issues/1834)
-
-
-
-
+- chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.16 (#1834) ([69e6d9b](https://github.com/empathyco/x/commit/69e6d9b)), closes [#1834](https://github.com/empathyco/x/issues/1834)
 
 ## 6.0.0-alpha.158 (2025-10-01)
 
-* feat(base-teleport): support dynamic host styles and improve type safety (#1839) ([0713104](https://github.com/empathyco/x/commit/0713104)), closes [#1839](https://github.com/empathyco/x/issues/1839)
-* chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v23 (#1885) ([5af25a4](https://github.com/empathyco/x/commit/5af25a4)), closes [#1885](https://github.com/empathyco/x/issues/1885)
-
-
-
-
+- feat(base-teleport): support dynamic host styles and improve type safety (#1839) ([0713104](https://github.com/empathyco/x/commit/0713104)), closes [#1839](https://github.com/empathyco/x/issues/1839)
+- chore(deps): update dependency @badeball/cypress-cucumber-preprocessor to v23 (#1885) ([5af25a4](https://github.com/empathyco/x/commit/5af25a4)), closes [#1885](https://github.com/empathyco/x/issues/1885)
 
 ## 6.0.0-alpha.157 (2025-10-01)
 
-* fix: selected tag being removed (#1894) ([287cb48](https://github.com/empathyco/x/commit/287cb48)), closes [#1894](https://github.com/empathyco/x/issues/1894)
-
-
-
-
+- fix: selected tag being removed (#1894) ([287cb48](https://github.com/empathyco/x/commit/287cb48)), closes [#1894](https://github.com/empathyco/x/issues/1894)
 
 ## 6.0.0-alpha.156 (2025-09-26)
 
-* feat(ai): smoothly scroll to AI overview on collapse and add relevant test ([45e8133](https://github.com/empathyco/x/commit/45e8133))
-
-
-
-
+- feat(ai): smoothly scroll to AI overview on collapse and add relevant test ([45e8133](https://github.com/empathyco/x/commit/45e8133))
 
 ## 6.0.0-alpha.155 (2025-09-26)
 
-* style(ai): prevent content shrinking by adding `flex-shrink: 0` to overview icon (#1891) ([368ca3a](https://github.com/empathyco/x/commit/368ca3a)), closes [#1891](https://github.com/empathyco/x/issues/1891)
-
-
-
-
+- style(ai): prevent content shrinking by adding `flex-shrink: 0` to overview icon (#1891) ([368ca3a](https://github.com/empathyco/x/commit/368ca3a)), closes [#1891](https://github.com/empathyco/x/issues/1891)
 
 ## 6.0.0-alpha.154 (2025-09-25)
 
-* refactor(AiOverview): transform tailwind classes into css (#1888) ([0d2297a](https://github.com/empathyco/x/commit/0d2297a)), closes [#1888](https://github.com/empathyco/x/issues/1888)
-* `query-preview` trade off (#1890) ([c990dbc](https://github.com/empathyco/x/commit/c990dbc)), closes [#1890](https://github.com/empathyco/x/issues/1890)
-
+- refactor(AiOverview): transform tailwind classes into css (#1888) ([0d2297a](https://github.com/empathyco/x/commit/0d2297a)), closes [#1888](https://github.com/empathyco/x/issues/1888)
+- `query-preview` trade off (#1890) ([c990dbc](https://github.com/empathyco/x/commit/c990dbc)), closes [#1890](https://github.com/empathyco/x/issues/1890)
 
 ### BREAKING-CHANGE
 
-* The `updateAQueryPreviewResult` mutation payload now accepts a results array and a hash of string instead of computed of string
-
-
-
+- The `updateAQueryPreviewResult` mutation payload now accepts a results array and a hash of string instead of computed of string
 
 ## 6.0.0-alpha.153 (2025-09-25)
 
-* refactor(ai): remove unused test for `title-loading` slot in ai-overview ([c3a0513](https://github.com/empathyco/x/commit/c3a0513))
-* fix(ai): rename slot `titleLoading` to `title-loading` in ai-overview and update test ([3d40bd4](https://github.com/empathyco/x/commit/3d40bd4))
-* feat(ai): add slot support for titleLoading in ai-overview component and update test ([2c08fdd](https://github.com/empathyco/x/commit/2c08fdd))
-
-
-
-
+- refactor(ai): remove unused test for `title-loading` slot in ai-overview ([c3a0513](https://github.com/empathyco/x/commit/c3a0513))
+- fix(ai): rename slot `titleLoading` to `title-loading` in ai-overview and update test ([3d40bd4](https://github.com/empathyco/x/commit/3d40bd4))
+- feat(ai): add slot support for titleLoading in ai-overview component and update test ([2c08fdd](https://github.com/empathyco/x/commit/2c08fdd))
 
 ## 6.0.0-alpha.152 (2025-09-24)
 
-* feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
-
-
-
-
+- feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
 
 ## 6.0.0-alpha.151 (2025-09-23)
 
-* Add tagging to ai overview search queries (#1882) ([4a7b9fc](https://github.com/empathyco/x/commit/4a7b9fc)), closes [#1882](https://github.com/empathyco/x/issues/1882)
-
-
-
-
+- Add tagging to ai overview search queries (#1882) ([4a7b9fc](https://github.com/empathyco/x/commit/4a7b9fc)), closes [#1882](https://github.com/empathyco/x/issues/1882)
 
 ## 6.0.0-alpha.150 (2025-09-22)
 
-* feat(AiOverview): handle new noResult chunk in AiOverview (#1886) ([2c41469](https://github.com/empathyco/x/commit/2c41469)), closes [#1886](https://github.com/empathyco/x/issues/1886)
-
-
-
-
+- feat(AiOverview): handle new noResult chunk in AiOverview (#1886) ([2c41469](https://github.com/empathyco/x/commit/2c41469)), closes [#1886](https://github.com/empathyco/x/issues/1886)
 
 ## 6.0.0-alpha.149 (2025-09-22)
 
-* style(ai-overview): fade animation to show results (#1880) ([84ee675](https://github.com/empathyco/x/commit/84ee675)), closes [#1880](https://github.com/empathyco/x/issues/1880)
-
-
-
-
+- style(ai-overview): fade animation to show results (#1880) ([84ee675](https://github.com/empathyco/x/commit/84ee675)), closes [#1880](https://github.com/empathyco/x/issues/1880)
 
 ## 6.0.0-alpha.148 (2025-09-18)
 
-* feat(ai-overview): make component more configurable (#1884) ([8b4b579](https://github.com/empathyco/x/commit/8b4b579)), closes [#1884](https://github.com/empathyco/x/issues/1884)
-
-
-
-
+- feat(ai-overview): make component more configurable (#1884) ([8b4b579](https://github.com/empathyco/x/commit/8b4b579)), closes [#1884](https://github.com/empathyco/x/issues/1884)
 
 ## 6.0.0-alpha.147 (2025-09-18)
 
-* fix(ai-overview): expose setExpanded function ([30baae2](https://github.com/empathyco/x/commit/30baae2))
-
-
-
-
+- fix(ai-overview): expose setExpanded function ([30baae2](https://github.com/empathyco/x/commit/30baae2))
 
 ## 6.0.0-alpha.146 (2025-09-18)
 
-* feat(AiOverview): add SpinnerIcon component and update ai-overview for loading state (#1881) ([e4b03b1](https://github.com/empathyco/x/commit/e4b03b1)), closes [#1881](https://github.com/empathyco/x/issues/1881)
-
-
-
-
+- feat(AiOverview): add SpinnerIcon component and update ai-overview for loading state (#1881) ([e4b03b1](https://github.com/empathyco/x/commit/e4b03b1)), closes [#1881](https://github.com/empathyco/x/issues/1881)
 
 ## 6.0.0-alpha.145 (2025-09-12)
 
-* feat(AiOverview): allow customisation of SlidingPanel buttons through props (#1876) ([f923ef1](https://github.com/empathyco/x/commit/f923ef1)), closes [#1876](https://github.com/empathyco/x/issues/1876)
-
-
-
-
+- feat(AiOverview): allow customisation of SlidingPanel buttons through props (#1876) ([f923ef1](https://github.com/empathyco/x/commit/f923ef1)), closes [#1876](https://github.com/empathyco/x/issues/1876)
 
 ## 6.0.0-alpha.144 (2025-09-12)
 
-* refactor(ai): remove unused titleLoadingText in ai-overview tests ([c09e07d](https://github.com/empathyco/x/commit/c09e07d))
-* refactor(ai): rename onExpandedButtonClick to onExpandButtonClick and update references ([13f2ad6](https://github.com/empathyco/x/commit/13f2ad6))
-* refactor(ai): rename setExpanded to onExpandedButtonClick and update usage ([0713e3c](https://github.com/empathyco/x/commit/0713e3c))
-
-
-
-
+- refactor(ai): remove unused titleLoadingText in ai-overview tests ([c09e07d](https://github.com/empathyco/x/commit/c09e07d))
+- refactor(ai): rename onExpandedButtonClick to onExpandButtonClick and update references ([13f2ad6](https://github.com/empathyco/x/commit/13f2ad6))
+- refactor(ai): rename setExpanded to onExpandedButtonClick and update usage ([0713e3c](https://github.com/empathyco/x/commit/0713e3c))
 
 ## 6.0.0-alpha.143 (2025-09-12)
 
-* refactor(ai): remove null safety from suggestionsRequest (#1874) ([7245431](https://github.com/empathyco/x/commit/7245431)), closes [#1874](https://github.com/empathyco/x/issues/1874)
-
-
-
-
+- refactor(ai): remove null safety from suggestionsRequest (#1874) ([7245431](https://github.com/empathyco/x/commit/7245431)), closes [#1874](https://github.com/empathyco/x/issues/1874)
 
 ## 6.0.0-alpha.142 (2025-09-12)
 
-* refactor(ai): simplify toggle button chevron classes and styles (#1873) ([59419eb](https://github.com/empathyco/x/commit/59419eb)), closes [#1873](https://github.com/empathyco/x/issues/1873)
-
-
-
-
+- refactor(ai): simplify toggle button chevron classes and styles (#1873) ([59419eb](https://github.com/empathyco/x/commit/59419eb)), closes [#1873](https://github.com/empathyco/x/issues/1873)
 
 ## 6.0.0-alpha.141 (2025-09-11)
 
-* feat(ai): enhance sliding panel customization (#1872) ([199a6cc](https://github.com/empathyco/x/commit/199a6cc)), closes [#1872](https://github.com/empathyco/x/issues/1872)
-
-
-
-
+- feat(ai): enhance sliding panel customization (#1872) ([199a6cc](https://github.com/empathyco/x/commit/199a6cc)), closes [#1872](https://github.com/empathyco/x/issues/1872)
 
 ## 6.0.0-alpha.140 (2025-09-11)
 
-* refactor(sliding-panel): simplify scrolling logic and enhance reactivity (#1870) ([c659e00](https://github.com/empathyco/x/commit/c659e00)), closes [#1870](https://github.com/empathyco/x/issues/1870)
-* chore: pr review ([6a1d503](https://github.com/empathyco/x/commit/6a1d503))
-* feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
-* feat(AiOverview): add toolingDisplayClick tagging ([42f1fd4](https://github.com/empathyco/x/commit/42f1fd4))
-
-
-
-
+- refactor(sliding-panel): simplify scrolling logic and enhance reactivity (#1870) ([c659e00](https://github.com/empathyco/x/commit/c659e00)), closes [#1870](https://github.com/empathyco/x/issues/1870)
+- chore: pr review ([6a1d503](https://github.com/empathyco/x/commit/6a1d503))
+- feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
+- feat(AiOverview): add toolingDisplayClick tagging ([42f1fd4](https://github.com/empathyco/x/commit/42f1fd4))
 
 ## 6.0.0-alpha.139 (2025-09-09)
 
-* chore: pr review ([d30c56f](https://github.com/empathyco/x/commit/d30c56f))
-* style(AiOverview): minor adjustment ([7728c9f](https://github.com/empathyco/x/commit/7728c9f))
-* feat(AiOverview): remove the skeleton to display the incremental content from the store ([1d41ee5](https://github.com/empathyco/x/commit/1d41ee5))
-
-
-
-
+- chore: pr review ([d30c56f](https://github.com/empathyco/x/commit/d30c56f))
+- style(AiOverview): minor adjustment ([7728c9f](https://github.com/empathyco/x/commit/7728c9f))
+- feat(AiOverview): remove the skeleton to display the incremental content from the store ([1d41ee5](https://github.com/empathyco/x/commit/1d41ee5))
 
 ## 6.0.0-alpha.138 (2025-09-09)
 
-* feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
-
-
-
-
+- feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
 
 ## 6.0.0-alpha.137 (2025-09-08)
 
-* feat(AiOverview): minor component adjustments (#1867) ([554cd79](https://github.com/empathyco/x/commit/554cd79)), closes [#1867](https://github.com/empathyco/x/issues/1867)
-
-
-
-
+- feat(AiOverview): minor component adjustments (#1867) ([554cd79](https://github.com/empathyco/x/commit/554cd79)), closes [#1867](https://github.com/empathyco/x/issues/1867)
 
 ## 6.0.0-alpha.136 (2025-09-05)
 
-* fix(ai): reset state handling (#1864) ([29aa62c](https://github.com/empathyco/x/commit/29aa62c)), closes [#1864](https://github.com/empathyco/x/issues/1864)
-
-
-
-
+- fix(ai): reset state handling (#1864) ([29aa62c](https://github.com/empathyco/x/commit/29aa62c)), closes [#1864](https://github.com/empathyco/x/issues/1864)
 
 ## 6.0.0-alpha.135 (2025-09-04)
 
-* feat(ai): color customization (#1863) ([2445441](https://github.com/empathyco/x/commit/2445441)), closes [#1863](https://github.com/empathyco/x/issues/1863)
-
-
-
-
+- feat(ai): color customization (#1863) ([2445441](https://github.com/empathyco/x/commit/2445441)), closes [#1863](https://github.com/empathyco/x/issues/1863)
 
 ## 6.0.0-alpha.134 (2025-09-04)
 
-* chore: minor adjustment ([ae27549](https://github.com/empathyco/x/commit/ae27549))
-* chore(ai-store): remove unused getter ([1ea4ff3](https://github.com/empathyco/x/commit/1ea4ff3))
-* feat(AiOverview): adjust style ([db7653f](https://github.com/empathyco/x/commit/db7653f))
-
-
-
-
+- chore: minor adjustment ([ae27549](https://github.com/empathyco/x/commit/ae27549))
+- chore(ai-store): remove unused getter ([1ea4ff3](https://github.com/empathyco/x/commit/1ea4ff3))
+- feat(AiOverview): adjust style ([db7653f](https://github.com/empathyco/x/commit/db7653f))
 
 ## 6.0.0-alpha.133 (2025-09-04)
 
-* feat(AiOverview): component implementation (#1861) ([17b6535](https://github.com/empathyco/x/commit/17b6535)), closes [#1861](https://github.com/empathyco/x/issues/1861)
-
-
-
-
+- feat(AiOverview): component implementation (#1861) ([17b6535](https://github.com/empathyco/x/commit/17b6535)), closes [#1861](https://github.com/empathyco/x/issues/1861)
 
 ## 6.0.0-alpha.132 (2025-09-03)
 
-* test: fix unit tests ([604b2a1](https://github.com/empathyco/x/commit/604b2a1))
-* feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
-* feat(ai): add loading flag to both suggestions connections ([365a073](https://github.com/empathyco/x/commit/365a073))
-* feat(ai): add suggestionsSearchRequest in store ([16383d0](https://github.com/empathyco/x/commit/16383d0))
-* feat(ai): avoid crashes on streaming parsing ([b847b69](https://github.com/empathyco/x/commit/b847b69))
-* feat(ai): questions to suggestions ([574cd62](https://github.com/empathyco/x/commit/574cd62))
-* refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
-* fix(ai): PR suggestions ([7c77c1a](https://github.com/empathyco/x/commit/7c77c1a))
-
-
-
-
+- test: fix unit tests ([604b2a1](https://github.com/empathyco/x/commit/604b2a1))
+- feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
+- feat(ai): add loading flag to both suggestions connections ([365a073](https://github.com/empathyco/x/commit/365a073))
+- feat(ai): add suggestionsSearchRequest in store ([16383d0](https://github.com/empathyco/x/commit/16383d0))
+- feat(ai): avoid crashes on streaming parsing ([b847b69](https://github.com/empathyco/x/commit/b847b69))
+- feat(ai): questions to suggestions ([574cd62](https://github.com/empathyco/x/commit/574cd62))
+- refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
+- fix(ai): PR suggestions ([7c77c1a](https://github.com/empathyco/x/commit/7c77c1a))
 
 ## 6.0.0-alpha.131 (2025-09-02)
 
-* chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
-* feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
-
-
-
-
+- chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+- feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
 
 ## 6.0.0-alpha.130 (2025-09-01)
 
-* refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
-* fix(e2e): mock adapter ([74ac6a5](https://github.com/empathyco/x/commit/74ac6a5))
-
-
-
-
+- refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+- fix(e2e): mock adapter ([74ac6a5](https://github.com/empathyco/x/commit/74ac6a5))
 
 ## 6.0.0-alpha.129 (2025-08-25)
 
-* fix(ai): AIOverview gradient missing properties ([2c87386](https://github.com/empathyco/x/commit/2c87386))
-
-
-
-
+- fix(ai): AIOverview gradient missing properties ([2c87386](https://github.com/empathyco/x/commit/2c87386))
 
 ## 6.0.0-alpha.128 (2025-08-22)
 
-* fix: fixed test ([e202a8d](https://github.com/empathyco/x/commit/e202a8d))
-* test: AIOverview tested gradient div ([2f7b634](https://github.com/empathyco/x/commit/2f7b634))
-* style(ai-overview): improved gradient in AiOverview ([42bb328](https://github.com/empathyco/x/commit/42bb328))
-* feat(ai): AIOverview reset on query change ([cd11378](https://github.com/empathyco/x/commit/cd11378))
-* feat(ai): AIOverview slot expansion transition ([c87e086](https://github.com/empathyco/x/commit/c87e086))
-
-
-
-
+- fix: fixed test ([e202a8d](https://github.com/empathyco/x/commit/e202a8d))
+- test: AIOverview tested gradient div ([2f7b634](https://github.com/empathyco/x/commit/2f7b634))
+- style(ai-overview): improved gradient in AiOverview ([42bb328](https://github.com/empathyco/x/commit/42bb328))
+- feat(ai): AIOverview reset on query change ([cd11378](https://github.com/empathyco/x/commit/cd11378))
+- feat(ai): AIOverview slot expansion transition ([c87e086](https://github.com/empathyco/x/commit/c87e086))
 
 ## 6.0.0-alpha.127 (2025-08-21)
 
-* fix(ai): register module to use ai overview ([59cfbd7](https://github.com/empathyco/x/commit/59cfbd7))
-* fix(ai): remove AiOverview from home ([b9ebdce](https://github.com/empathyco/x/commit/b9ebdce))
-
-
-
-
+- fix(ai): register module to use ai overview ([59cfbd7](https://github.com/empathyco/x/commit/59cfbd7))
+- fix(ai): remove AiOverview from home ([b9ebdce](https://github.com/empathyco/x/commit/b9ebdce))
 
 ## 6.0.0-alpha.126 (2025-08-21)
 
-* fix: applied format ([713c3ab](https://github.com/empathyco/x/commit/713c3ab))
-* fix: applied some fixes mentioned in the comments ([69e9cd2](https://github.com/empathyco/x/commit/69e9cd2))
-* fix(ai): apply styles ([15c2358](https://github.com/empathyco/x/commit/15c2358))
-* fix(ai): integrate AIOverview in Home.vue ([2558948](https://github.com/empathyco/x/commit/2558948))
-* fix(ai): set query when clicking on a query preview ([93090c5](https://github.com/empathyco/x/commit/93090c5))
-* feat: implemented AiOverview default slot ([aa94a07](https://github.com/empathyco/x/commit/aa94a07))
-* feat(ai): AI Overview component ([cf43216](https://github.com/empathyco/x/commit/cf43216))
-* feat(ai): AiOverview custom button Text ([0e15561](https://github.com/empathyco/x/commit/0e15561))
-* feat(ai): AiOverview header implementation ([3e9df81](https://github.com/empathyco/x/commit/3e9df81))
-* feat(ai): bind question to slot default ([2d14717](https://github.com/empathyco/x/commit/2d14717))
-* feat(ai): integrate AIOverview in Home.vue ([22a2176](https://github.com/empathyco/x/commit/22a2176))
-* test(ai-question-results): added test and migrate the tailwind to css ([8e6d559](https://github.com/empathyco/x/commit/8e6d559))
-* test(ai): slot fallback ([acdf20a](https://github.com/empathyco/x/commit/acdf20a))
-* styles(ai): gradient ([abba0e2](https://github.com/empathyco/x/commit/abba0e2))
-* style: added some styles to sliding panel ([b517493](https://github.com/empathyco/x/commit/b517493))
-
-
-
-
+- fix: applied format ([713c3ab](https://github.com/empathyco/x/commit/713c3ab))
+- fix: applied some fixes mentioned in the comments ([69e9cd2](https://github.com/empathyco/x/commit/69e9cd2))
+- fix(ai): apply styles ([15c2358](https://github.com/empathyco/x/commit/15c2358))
+- fix(ai): integrate AIOverview in Home.vue ([2558948](https://github.com/empathyco/x/commit/2558948))
+- fix(ai): set query when clicking on a query preview ([93090c5](https://github.com/empathyco/x/commit/93090c5))
+- feat: implemented AiOverview default slot ([aa94a07](https://github.com/empathyco/x/commit/aa94a07))
+- feat(ai): AI Overview component ([cf43216](https://github.com/empathyco/x/commit/cf43216))
+- feat(ai): AiOverview custom button Text ([0e15561](https://github.com/empathyco/x/commit/0e15561))
+- feat(ai): AiOverview header implementation ([3e9df81](https://github.com/empathyco/x/commit/3e9df81))
+- feat(ai): bind question to slot default ([2d14717](https://github.com/empathyco/x/commit/2d14717))
+- feat(ai): integrate AIOverview in Home.vue ([22a2176](https://github.com/empathyco/x/commit/22a2176))
+- test(ai-question-results): added test and migrate the tailwind to css ([8e6d559](https://github.com/empathyco/x/commit/8e6d559))
+- test(ai): slot fallback ([acdf20a](https://github.com/empathyco/x/commit/acdf20a))
+- styles(ai): gradient ([abba0e2](https://github.com/empathyco/x/commit/abba0e2))
+- style: added some styles to sliding panel ([b517493](https://github.com/empathyco/x/commit/b517493))
 
 ## 6.0.0-alpha.125 (2025-08-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.124 (2025-08-20)
 
-* test(ai): actions and getters ([ee1aac0](https://github.com/empathyco/x/commit/ee1aac0))
-* test(ai): add AiQuestion stub ([64cf1ba](https://github.com/empathyco/x/commit/64cf1ba))
-* refactor(ai): remove Object assign ([da8f2c4](https://github.com/empathyco/x/commit/da8f2c4))
-* chore(ai): docs ([acd1c3a](https://github.com/empathyco/x/commit/acd1c3a))
-* feat(ai): force questions with quere ([939586f](https://github.com/empathyco/x/commit/939586f))
-* feat(ai): remove fetch and save ([fb36045](https://github.com/empathyco/x/commit/fb36045))
-* feat(ai): wiring, store, emitters for ai module ([48840be](https://github.com/empathyco/x/commit/48840be))
-
-
-
-
+- test(ai): actions and getters ([ee1aac0](https://github.com/empathyco/x/commit/ee1aac0))
+- test(ai): add AiQuestion stub ([64cf1ba](https://github.com/empathyco/x/commit/64cf1ba))
+- refactor(ai): remove Object assign ([da8f2c4](https://github.com/empathyco/x/commit/da8f2c4))
+- chore(ai): docs ([acd1c3a](https://github.com/empathyco/x/commit/acd1c3a))
+- feat(ai): force questions with quere ([939586f](https://github.com/empathyco/x/commit/939586f))
+- feat(ai): remove fetch and save ([fb36045](https://github.com/empathyco/x/commit/fb36045))
+- feat(ai): wiring, store, emitters for ai module ([48840be](https://github.com/empathyco/x/commit/48840be))
 
 ## 6.0.0-alpha.123 (2025-08-19)
 
-* feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))
-* feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
-
-
-
-
+- feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))
+- feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
 
 ## 6.0.0-alpha.122 (2025-08-18)
 
-* test: fix empty test suite ([3fbb6b7](https://github.com/empathyco/x/commit/3fbb6b7))
-* feat(ai): add initial x-module ([189cefe](https://github.com/empathyco/x/commit/189cefe))
-* feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
-* fix: move ai dir ([f30ecb2](https://github.com/empathyco/x/commit/f30ecb2))
-
-
-
-
+- test: fix empty test suite ([3fbb6b7](https://github.com/empathyco/x/commit/3fbb6b7))
+- feat(ai): add initial x-module ([189cefe](https://github.com/empathyco/x/commit/189cefe))
+- feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+- fix: move ai dir ([f30ecb2](https://github.com/empathyco/x/commit/f30ecb2))
 
 ## 6.0.0-alpha.121 (2025-08-12)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.120 (2025-08-11)
 
-* feat(empathize): implement search and close fallback on no-content state (#1833) ([7a4120c](https://github.com/empathyco/x/commit/7a4120c)), closes [#1833](https://github.com/empathyco/x/issues/1833)
-
-
-
-
+- feat(empathize): implement search and close fallback on no-content state (#1833) ([7a4120c](https://github.com/empathyco/x/commit/7a4120c)), closes [#1833](https://github.com/empathyco/x/issues/1833)
 
 ## 6.0.0-alpha.119 (2025-08-06)
 
-* chore(deps): add missing type dep ([8ff4322](https://github.com/empathyco/x/commit/8ff4322))
-* chore(deps): pin dependencies ([b1764e7](https://github.com/empathyco/x/commit/b1764e7))
-* chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
-* test: fix timers issue with useFakeTimers params ([037c0f7](https://github.com/empathyco/x/commit/037c0f7))
-* test: update snapshots manually ([3169ee2](https://github.com/empathyco/x/commit/3169ee2))
-
-
-
-
+- chore(deps): add missing type dep ([8ff4322](https://github.com/empathyco/x/commit/8ff4322))
+- chore(deps): pin dependencies ([b1764e7](https://github.com/empathyco/x/commit/b1764e7))
+- chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
+- test: fix timers issue with useFakeTimers params ([037c0f7](https://github.com/empathyco/x/commit/037c0f7))
+- test: update snapshots manually ([3169ee2](https://github.com/empathyco/x/commit/3169ee2))
 
 ## 6.0.0-alpha.118 (2025-07-31)
 
-* ci: add typecheck ([94becff](https://github.com/empathyco/x/commit/94becff))
-
-
-
-
+- ci: add typecheck ([94becff](https://github.com/empathyco/x/commit/94becff))
 
 ## 6.0.0-alpha.117 (2025-07-17)
 
-* refactor(animation): replace 'content-visibility' with standard property access ([bfcdd6d](https://github.com/empathyco/x/commit/bfcdd6d))
-
-
-
-
+- refactor(animation): replace 'content-visibility' with standard property access ([bfcdd6d](https://github.com/empathyco/x/commit/bfcdd6d))
 
 ## 6.0.0-alpha.116 (2025-07-16)
 
-* chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
-
-
-
-
+- chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
 
 ## 6.0.0-alpha.115 (2025-07-16)
 
-* chore(deps): update vite (#1796) ([6c23bed](https://github.com/empathyco/x/commit/6c23bed)), closes [#1796](https://github.com/empathyco/x/issues/1796)
-
-
-
-
+- chore(deps): update vite (#1796) ([6c23bed](https://github.com/empathyco/x/commit/6c23bed)), closes [#1796](https://github.com/empathyco/x/issues/1796)
 
 ## 6.0.0-alpha.114 (2025-07-15)
 
-* feat: add aria label to base modal ([cb1f674](https://github.com/empathyco/x/commit/cb1f674))
-
-
-
-
+- feat: add aria label to base modal ([cb1f674](https://github.com/empathyco/x/commit/cb1f674))
 
 ## 6.0.0-alpha.113 (2025-07-14)
 
-* chore(deps): remove unused glob dependency ([fee1ff6](https://github.com/empathyco/x/commit/fee1ff6))
-* chore(deps): update dependency @types/glob to v9 ([ce0578c](https://github.com/empathyco/x/commit/ce0578c))
-
-
-
-
+- chore(deps): remove unused glob dependency ([fee1ff6](https://github.com/empathyco/x/commit/fee1ff6))
+- chore(deps): update dependency @types/glob to v9 ([ce0578c](https://github.com/empathyco/x/commit/ce0578c))
 
 ## 6.0.0-alpha.112 (2025-07-14)
 
-* chore(deps): update dependency @cucumber/messages to v28 ([09c9c4e](https://github.com/empathyco/x/commit/09c9c4e))
-
-
-
-
+- chore(deps): update dependency @cucumber/messages to v28 ([09c9c4e](https://github.com/empathyco/x/commit/09c9c4e))
 
 ## 6.0.0-alpha.111 (2025-07-09)
 
-* docs: fix API Extractor ([137b708](https://github.com/empathyco/x/commit/137b708))
-* fix(x-bus): improve type handling ([009e9ad](https://github.com/empathyco/x/commit/009e9ad))
-* feat(x-bus): expose class ([44750c7](https://github.com/empathyco/x/commit/44750c7))
-* refactor(x-bus): move to x-components ([a2aadcd](https://github.com/empathyco/x/commit/a2aadcd))
-
-
-
-
+- docs: fix API Extractor ([137b708](https://github.com/empathyco/x/commit/137b708))
+- fix(x-bus): improve type handling ([009e9ad](https://github.com/empathyco/x/commit/009e9ad))
+- feat(x-bus): expose class ([44750c7](https://github.com/empathyco/x/commit/44750c7))
+- refactor(x-bus): move to x-components ([a2aadcd](https://github.com/empathyco/x/commit/a2aadcd))
 
 ## 6.0.0-alpha.110 (2025-07-07)
 
-* feat!: revert save filtered related prompts in related prompts state ([ccd7065](https://github.com/empathyco/x/commit/ccd7065))
-
+- feat!: revert save filtered related prompts in related prompts state ([ccd7065](https://github.com/empathyco/x/commit/ccd7065))
 
 ### BREAKING CHANGE
 
-* the backend is already filtering the related prompts in their side, so we can remove the filtering on the frontend.
-- Drop use of `useFilteredRelatedPrompts` prop in related-promtps-tag-list.vue component.
-- Drop use of  `relatedPromptsFiltered` array in RelatedPrompts state.
-- Drop use of `setFilteredRelatedPromptsProducts` mutation in RelatedPrompts module.
-- Remove related-prompts.utils.ts utils file.
+- the backend is already filtering the related prompts in their side, so we can remove the filtering on the frontend.
 
-
-
+* Drop use of `useFilteredRelatedPrompts` prop in related-promtps-tag-list.vue component.
+* Drop use of `relatedPromptsFiltered` array in RelatedPrompts state.
+* Drop use of `setFilteredRelatedPromptsProducts` mutation in RelatedPrompts module.
+* Remove related-prompts.utils.ts utils file.
 
 ## 6.0.0-alpha.109 (2025-07-03)
 
-* chore(deps): update @vueuse/core to version 10.11.0 ([c37a645](https://github.com/empathyco/x/commit/c37a645))
-
-
-
-
+- chore(deps): update @vueuse/core to version 10.11.0 ([c37a645](https://github.com/empathyco/x/commit/c37a645))
 
 ## 6.0.0-alpha.108 (2025-07-02)
 
-* docs: add BaseTeleport documentation (#1818) ([080cef1](https://github.com/empathyco/x/commit/080cef1)), closes [#1818](https://github.com/empathyco/x/issues/1818)
-
-
-
-
+- docs: add BaseTeleport documentation (#1818) ([080cef1](https://github.com/empathyco/x/commit/080cef1)), closes [#1818](https://github.com/empathyco/x/issues/1818)
 
 ## 6.0.0-alpha.107 (2025-07-01)
 
-* feat: create ReloadRelatedPromptsRequested event (#1817) ([854c28e](https://github.com/empathyco/x/commit/854c28e)), closes [#1817](https://github.com/empathyco/x/issues/1817)
-
-
-
-
+- feat: create ReloadRelatedPromptsRequested event (#1817) ([854c28e](https://github.com/empathyco/x/commit/854c28e)), closes [#1817](https://github.com/empathyco/x/issues/1817)
 
 ## 6.0.0-alpha.106 (2025-07-01)
 
-* feat: save filtered related prompts in the related prompts state (#1816) ([bded354](https://github.com/empathyco/x/commit/bded354)), closes [#1816](https://github.com/empathyco/x/issues/1816)
-
-
-
-
+- feat: save filtered related prompts in the related prompts state (#1816) ([bded354](https://github.com/empathyco/x/commit/bded354)), closes [#1816](https://github.com/empathyco/x/issues/1816)
 
 ## 6.0.0-alpha.105 (2025-06-30)
 
-* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.12 (#1814) ([d9a1522](https://github.com/empathyco/x/commit/d9a1522)), closes [#1814](https://github.com/empathyco/x/issues/1814)
-
-
-
-
+- chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.12 (#1814) ([d9a1522](https://github.com/empathyco/x/commit/d9a1522)), closes [#1814](https://github.com/empathyco/x/issues/1814)
 
 ## 6.0.0-alpha.104 (2025-06-27)
 
-* chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
-
-
-
-
+- chore(deps): update vue-router and vue-i18n (#1813) ([11563f7](https://github.com/empathyco/x/commit/11563f7)), closes [#1813](https://github.com/empathyco/x/issues/1813)
 
 ## 6.0.0-alpha.103 (2025-06-27)
 
-* feat: avoid related-prompts animation from top of the serp (#1812) ([e333a98](https://github.com/empathyco/x/commit/e333a98)), closes [#1812](https://github.com/empathyco/x/issues/1812)
-
-
-
-
+- feat: avoid related-prompts animation from top of the serp (#1812) ([e333a98](https://github.com/empathyco/x/commit/e333a98)), closes [#1812](https://github.com/empathyco/x/issues/1812)
 
 ## 6.0.0-alpha.102 (2025-06-26)
 
-* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
-
-
-
-
+- chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
 
 ## 6.0.0-alpha.101 (2025-06-26)
 
-* feat(related-prompts): add related prompts images as default (#1811) ([e7e51b4](https://github.com/empathyco/x/commit/e7e51b4)), closes [#1811](https://github.com/empathyco/x/issues/1811)
-
-
-
-
+- feat(related-prompts): add related prompts images as default (#1811) ([e7e51b4](https://github.com/empathyco/x/commit/e7e51b4)), closes [#1811](https://github.com/empathyco/x/issues/1811)
 
 ## 6.0.0-alpha.100 (2025-06-25)
 
-* chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.11 (#1808) ([c614b25](https://github.com/empathyco/x/commit/c614b25)), closes [#1808](https://github.com/empathyco/x/issues/1808)
-
-
-
-
+- chore(deps): pin dependency @empathyco/x-tailwindcss to 2.0.0-alpha.11 (#1808) ([c614b25](https://github.com/empathyco/x/commit/c614b25)), closes [#1808](https://github.com/empathyco/x/issues/1808)
 
 ## 6.0.0-alpha.99 (2025-06-20)
 
-* ci: add typecheck script to package.json (#1806) ([912d163](https://github.com/empathyco/x/commit/912d163)), closes [#1806](https://github.com/empathyco/x/issues/1806)
-
-
-
-
+- ci: add typecheck script to package.json (#1806) ([912d163](https://github.com/empathyco/x/commit/912d163)), closes [#1806](https://github.com/empathyco/x/issues/1806)
 
 ## 6.0.0-alpha.98 (2025-06-18)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.97 (2025-06-17)
 
-* fix(docs): fix related prompts documentation (#1801) ([7f9ee87](https://github.com/empathyco/x/commit/7f9ee87)), closes [#1801](https://github.com/empathyco/x/issues/1801)
-* feat(use-store): remove use-store ([752d70f](https://github.com/empathyco/x/commit/752d70f))
-
-
-
-
+- fix(docs): fix related prompts documentation (#1801) ([7f9ee87](https://github.com/empathyco/x/commit/7f9ee87)), closes [#1801](https://github.com/empathyco/x/issues/1801)
+- feat(use-store): remove use-store ([752d70f](https://github.com/empathyco/x/commit/752d70f))
 
 ## 6.0.0-alpha.96 (2025-06-13)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## 6.0.0-alpha.95 (2025-06-06)
 
-* feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
-
-
-
-
+- feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
 
 ## 6.0.0-alpha.94 (2025-06-04)
 
-* feat!: remove deprecated design system (#1793) ([97a853d](https://github.com/empathyco/x/commit/97a853d)), closes [#1793](https://github.com/empathyco/x/issues/1793)
-
+- feat!: remove deprecated design system (#1793) ([97a853d](https://github.com/empathyco/x/commit/97a853d)), closes [#1793](https://github.com/empathyco/x/issues/1793)
 
 ### BREAKING CHANGE
 
-* remove deprecated-full-theme.css
+- remove deprecated-full-theme.css
 
 Signed-off-by: davidglezz <davidg@empathy.co>
 
-* refactor: extract dev mode styles
+- refactor: extract dev mode styles
 
 Signed-off-by: davidglezz <davidg@empathy.co>
-
-
-
 
 ## 6.0.0-alpha.93 (2025-06-03)
 
-* chore(deps): pin dependency @cucumber/messages to 27.2.0 ([7f80eb2](https://github.com/empathyco/x/commit/7f80eb2))
-
-
-
-
+- chore(deps): pin dependency @cucumber/messages to 27.2.0 ([7f80eb2](https://github.com/empathyco/x/commit/7f80eb2))
 
 ## [6.0.0-alpha.92](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.91...@empathyco/x-components@6.0.0-alpha.92) (2025-06-03)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.91](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.90...@empathyco/x-components@6.0.0-alpha.91) (2025-06-03)
-
 
 ### Features
 
-* track by default click on promoted result (#1794) ([9645e49](https://github.com/empathyco/x/commit/9645e49dfb4696e74012966ac6095b04672ed299))
-
-
+- track by default click on promoted result (#1794) ([9645e49](https://github.com/empathyco/x/commit/9645e49dfb4696e74012966ac6095b04672ed299))
 
 ## [6.0.0-alpha.90](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.89...@empathyco/x-components@6.0.0-alpha.90) (2025-05-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.89](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.88...@empathyco/x-components@6.0.0-alpha.89) (2025-05-20)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.88](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.87...@empathyco/x-components@6.0.0-alpha.88) (2025-05-20)
-
 
 ### Testing
 
-* **base-teleport:** improve tests ([fbcb3bc](https://github.com/empathyco/x/commit/fbcb3bc05f02589123b383f066ab833ce78d5db9))
-
-
+- **base-teleport:** improve tests ([fbcb3bc](https://github.com/empathyco/x/commit/fbcb3bc05f02589123b383f066ab833ce78d5db9))
 
 ## [6.0.0-alpha.87](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.86...@empathyco/x-components@6.0.0-alpha.87) (2025-05-20)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.86](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.85...@empathyco/x-components@6.0.0-alpha.86) (2025-05-19)
-
 
 ### Features
 
-* **base-teleport:** support SSR ensuring DOM existence ([5ad6f28](https://github.com/empathyco/x/commit/5ad6f28c46fea6e6e665796cf7ddb722285746ce))
-
-
+- **base-teleport:** support SSR ensuring DOM existence ([5ad6f28](https://github.com/empathyco/x/commit/5ad6f28c46fea6e6e665796cf7ddb722285746ce))
 
 ## [6.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.84...@empathyco/x-components@6.0.0-alpha.85) (2025-05-19)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.84) (2025-05-15)
-
 
 ### Bug Fixes
 
-* **base-teleport:** improve target element observation logic ([4304720](https://github.com/empathyco/x/commit/4304720aaf81202f32555a87d04c078cbfb8f122))
-
-
+- **base-teleport:** improve target element observation logic ([4304720](https://github.com/empathyco/x/commit/4304720aaf81202f32555a87d04c078cbfb8f122))
 
 ## [6.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.82...@empathyco/x-components@6.0.0-alpha.83) (2025-05-14)
 
-
 ### Bug Fixes
 
-* **base-teleport:** add style tag after DOMContentLoaded was fired ([1086d37](https://github.com/empathyco/x/commit/1086d37358c50ebf0396193607d1c3075ffdbdfa))
-
-
+- **base-teleport:** add style tag after DOMContentLoaded was fired ([1086d37](https://github.com/empathyco/x/commit/1086d37358c50ebf0396193607d1c3075ffdbdfa))
 
 ## [6.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.81...@empathyco/x-components@6.0.0-alpha.82) (2025-05-14)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.80...@empathyco/x-components@6.0.0-alpha.81) (2025-05-14)
-
 
 ### Bug Fixes
 
-* **base-teleport:** fix container element ([e54e755](https://github.com/empathyco/x/commit/e54e755bab06ab0172148a74563e0a3f283bad2d))
-* **base-teleport:** fix shadowRoot support ([d712296](https://github.com/empathyco/x/commit/d712296bb46e58592a3d433f1b3022d0762e740a))
-* **base-teleport:** move teleport host styles to a script tag ([feaaa3d](https://github.com/empathyco/x/commit/feaaa3d43ad5ede1c4e2cf7065fa4c113e5df3ae))
-* remove unused event (#1744) ([e7584e0](https://github.com/empathyco/x/commit/e7584e01d387816021984faf986af27ade2d15b1))
-
+- **base-teleport:** fix container element ([e54e755](https://github.com/empathyco/x/commit/e54e755bab06ab0172148a74563e0a3f283bad2d))
+- **base-teleport:** fix shadowRoot support ([d712296](https://github.com/empathyco/x/commit/d712296bb46e58592a3d433f1b3022d0762e740a))
+- **base-teleport:** move teleport host styles to a script tag ([feaaa3d](https://github.com/empathyco/x/commit/feaaa3d43ad5ede1c4e2cf7065fa4c113e5df3ae))
+- remove unused event (#1744) ([e7584e0](https://github.com/empathyco/x/commit/e7584e01d387816021984faf986af27ade2d15b1))
 
 ### Documentation
 
-* **base-teleport:** add comments for better understanding. ([05efd6d](https://github.com/empathyco/x/commit/05efd6d882021d63f59124d3893bbdc2d771a15e))
-
-
+- **base-teleport:** add comments for better understanding. ([05efd6d](https://github.com/empathyco/x/commit/05efd6d882021d63f59124d3893bbdc2d771a15e))
 
 ## [6.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.79...@empathyco/x-components@6.0.0-alpha.80) (2025-05-12)
 
-
 ### Features
 
-* **base-teleport:** make target prop reactive ([603aaaf](https://github.com/empathyco/x/commit/603aaafe2e3b462f4ecfe3e7ee9ef886ac0d42f4))
-* **base-teleport:** use isConnected ([0a7cef4](https://github.com/empathyco/x/commit/0a7cef4b428c93f6d231d141eae86a022db366d8))
-* implement target presence observable in BaseTeleport ([fa82b66](https://github.com/empathyco/x/commit/fa82b6645434d0e1cedc9f611d8f1856bc3cd1bc))
-
+- **base-teleport:** make target prop reactive ([603aaaf](https://github.com/empathyco/x/commit/603aaafe2e3b462f4ecfe3e7ee9ef886ac0d42f4))
+- **base-teleport:** use isConnected ([0a7cef4](https://github.com/empathyco/x/commit/0a7cef4b428c93f6d231d141eae86a022db366d8))
+- implement target presence observable in BaseTeleport ([fa82b66](https://github.com/empathyco/x/commit/fa82b6645434d0e1cedc9f611d8f1856bc3cd1bc))
 
 ### Bug Fixes
 
-* **base-teleport:** fix isolation check ([55b3e07](https://github.com/empathyco/x/commit/55b3e073bd642fbbe161f5235350fc4bf42defae))
-
-
+- **base-teleport:** fix isolation check ([55b3e07](https://github.com/empathyco/x/commit/55b3e073bd642fbbe161f5235350fc4bf42defae))
 
 ## [6.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.78...@empathyco/x-components@6.0.0-alpha.79) (2025-05-08)
 
-
 ### Bug Fixes
 
-* disable default tagging on related-prompts no-result scenario (#1776) ([61480a6](https://github.com/empathyco/x/commit/61480a6069aa73124d2a16e394b549ee78214d89))
-
-
+- disable default tagging on related-prompts no-result scenario (#1776) ([61480a6](https://github.com/empathyco/x/commit/61480a6069aa73124d2a16e394b549ee78214d89))
 
 ## [6.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.77...@empathyco/x-components@6.0.0-alpha.78) (2025-05-08)
 
-
 ### Features
 
-* **base-teleport:** support shadowRoot ([04c5299](https://github.com/empathyco/x/commit/04c5299756fba1aa332ce083ac27c1e3b7e8c523))
-* **home:** add teleport test section with BaseTeleport component ([a1d34d7](https://github.com/empathyco/x/commit/a1d34d736d7f04144b2b6bb7e69acc41cc330d13))
-
-
+- **base-teleport:** support shadowRoot ([04c5299](https://github.com/empathyco/x/commit/04c5299756fba1aa332ce083ac27c1e3b7e8c523))
+- **home:** add teleport test section with BaseTeleport component ([a1d34d7](https://github.com/empathyco/x/commit/a1d34d736d7f04144b2b6bb7e69acc41cc330d13))
 
 ## [6.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.76...@empathyco/x-components@6.0.0-alpha.77) (2025-05-06)
 
-
 ### Features
 
-* sent the correct totalHits value when RPs are displayed in no-r… (#1773) ([227c1ee](https://github.com/empathyco/x/commit/227c1ee07330f59f62f450d70badbd2e048a78f9))
-
-
+- sent the correct totalHits value when RPs are displayed in no-r… (#1773) ([227c1ee](https://github.com/empathyco/x/commit/227c1ee07330f59f62f450d70badbd2e048a78f9))
 
 ## [6.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.75...@empathyco/x-components@6.0.0-alpha.76) (2025-05-05)
 
-
 ### Code Refactoring
 
-* **use-getter:** improve type inference while keeping old signature (#1771) ([6d6f380](https://github.com/empathyco/x/commit/6d6f380b4ef6dec0b7e70657cfcee5552ba987d2))
-
-
+- **use-getter:** improve type inference while keeping old signature (#1771) ([6d6f380](https://github.com/empathyco/x/commit/6d6f380b4ef6dec0b7e70657cfcee5552ba987d2))
 
 ## [6.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.74...@empathyco/x-components@6.0.0-alpha.75) (2025-05-05)
 
-
 ### Bug Fixes
 
-* prop type definition in BaseTeleport component ([316a87a](https://github.com/empathyco/x/commit/316a87acee266082b86c0b6a1ad69009610fc0c9))
-
+- prop type definition in BaseTeleport component ([316a87a](https://github.com/empathyco/x/commit/316a87acee266082b86c0b6a1ad69009610fc0c9))
 
 ### Code Refactoring
 
-* Update packages/x-components/src/components/base-teleport.vue ([5d53538](https://github.com/empathyco/x/commit/5d5353852613346769c86de34a02c7c1e89e680b))
-
-
+- Update packages/x-components/src/components/base-teleport.vue ([5d53538](https://github.com/empathyco/x/commit/5d5353852613346769c86de34a02c7c1e89e680b))
 
 ## [6.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.73...@empathyco/x-components@6.0.0-alpha.74) (2025-05-01)
 
-
 ### Code Refactoring
 
-* **home:** simplify related prompts queries preview logic ([d8162c3](https://github.com/empathyco/x/commit/d8162c3e3221b87df5ae16fecd6db4a035774f8d))
-
-
+- **home:** simplify related prompts queries preview logic ([d8162c3](https://github.com/empathyco/x/commit/d8162c3e3221b87df5ae16fecd6db4a035774f8d))
 
 ## [6.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.72...@empathyco/x-components@6.0.0-alpha.73) (2025-05-01)
 
-
 ### Features
 
-* add ios-utils to x-components (#1766) ([1ffcc56](https://github.com/empathyco/x/commit/1ffcc5688e66d535ff477c334bcd9356b1071c1b))
-
-
+- add ios-utils to x-components (#1766) ([1ffcc56](https://github.com/empathyco/x/commit/1ffcc5688e66d535ff477c334bcd9356b1071c1b))
 
 ## [6.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.71...@empathyco/x-components@6.0.0-alpha.72) (2025-04-30)
 
-
 ### Features
 
-* **base-teleport:** improve base teleport (#1762) ([f0f53f4](https://github.com/empathyco/x/commit/f0f53f452d5cc7ff3f4dc9baa368057b59ab4a64))
-
-
+- **base-teleport:** improve base teleport (#1762) ([f0f53f4](https://github.com/empathyco/x/commit/f0f53f452d5cc7ff3f4dc9baa368057b59ab4a64))
 
 ## [6.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.70...@empathyco/x-components@6.0.0-alpha.71) (2025-04-30)
 
-
 ### Bug Fixes
 
-* **related-prompt:** decouple component from x-tailwindcss dep (#1765) ([5f5ac64](https://github.com/empathyco/x/commit/5f5ac6433736e403d04980b79416c9ac3e5e7125))
-
-
+- **related-prompt:** decouple component from x-tailwindcss dep (#1765) ([5f5ac64](https://github.com/empathyco/x/commit/5f5ac6433736e403d04980b79416c9ac3e5e7125))
 
 ## [6.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.69...@empathyco/x-components@6.0.0-alpha.70) (2025-04-30)
 
-
 ### Features
 
-* add add2cart location to FeatureLocation type (#1764) ([732a0da](https://github.com/empathyco/x/commit/732a0da3c1fdd70c685078663809943a91d72627))
-
-
+- add add2cart location to FeatureLocation type (#1764) ([732a0da](https://github.com/empathyco/x/commit/732a0da3c1fdd70c685078663809943a91d72627))
 
 ## [6.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.68...@empathyco/x-components@6.0.0-alpha.69) (2025-04-28)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.67...@empathyco/x-components@6.0.0-alpha.68) (2025-04-28)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.66...@empathyco/x-components@6.0.0-alpha.67) (2025-04-24)
-
 
 ### Features
 
-* add append and inject element approach in BaseTeleport component (#1753) ([34a54d0](https://github.com/empathyco/x/commit/34a54d0995f91803da69ee1703881165fa68fa90))
-
-
+- add append and inject element approach in BaseTeleport component (#1753) ([34a54d0](https://github.com/empathyco/x/commit/34a54d0995f91803da69ee1703881165fa68fa90))
 
 ## [6.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.65...@empathyco/x-components@6.0.0-alpha.66) (2025-04-21)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [6.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.64...@empathyco/x-components@6.0.0-alpha.65) (2025-04-17)
-
 
 ### Documentation
 
-* update CHANGELOG to reflect breaking change on #1741 (#1752) ([34da8e6](https://github.com/empathyco/x/commit/34da8e6f8132fbd0f5a82aabd5ecee1e36db0c2a))
-
-
+- update CHANGELOG to reflect breaking change on #1741 (#1752) ([34da8e6](https://github.com/empathyco/x/commit/34da8e6f8132fbd0f5a82aabd5ecee1e36db0c2a))
 
 ## [6.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.63...@empathyco/x-components@6.0.0-alpha.64) (2025-04-16)
 
