@@ -10,15 +10,16 @@ export const cssInjector: XCSSInjector = {
   stylesToAdopt: [] as CSSStyleSheet[],
   /**
    * Adds the style to the host element.
+   * @remark push is used to be compatible as array
    *
    * @param css - The styles to be added.
    */
-  addStyle(css: string[]): void {
-    if (!Array.isArray(css)) {
+  push(css: string): void {
+    if (!css) {
       return
     }
     const sheet = new CSSStyleSheet()
-    sheet.replaceSync(css.join('\n'))
+    sheet.replaceSync(css)
     this.stylesToAdopt.push(sheet)
     this.hosts.forEach(host => host.adoptedStyleSheets.push(sheet))
   },
@@ -45,5 +46,7 @@ export const cssInjector: XCSSInjector = {
 }
 
 if (typeof window !== 'undefined') {
+  const toAdd = ((window as WindowWithInjector).xCSSInjector ?? []) as string[]
+  toAdd.forEach(css => cssInjector.push(css))
   ;(window as WindowWithInjector).xCSSInjector ??= cssInjector
 }

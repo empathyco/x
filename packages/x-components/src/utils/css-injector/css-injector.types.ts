@@ -13,7 +13,7 @@ export interface XCSSInjector {
   /** Styles that will be injected into the hosts. */
   stylesToAdopt: CSSStyleSheet[]
   /** Function that will add the styles to the host. */
-  addStyle: (css: string[]) => void
+  push: (css: string) => void
   /** Adds the element to the hosts set. */
   addHost: (el: Document | ShadowRoot) => void
   /** Removes the element from the hosts set. */
