@@ -1,12 +1,8 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import Inspector from 'vite-plugin-vue-inspector'
-
 import { dependencies as pkgDeps, peerDependencies as pkgPeerDeps } from './package.json' //with { type: 'json' }
-import type { Plugin } from 'vite'
 import { viteCssInjectorPlugin } from '../x-archetype-utils/src/build/vite/css-injector-plugin'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 const dependencies = new Set([...Object.keys(pkgDeps), ...Object.keys(pkgPeerDeps)])
