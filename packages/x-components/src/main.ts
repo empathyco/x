@@ -2,8 +2,9 @@
 // It must be the first, it setups the global cssInjector used by the styles injection system
 import './utils/css-injector/css-injector'
 import type { SnippetConfig } from './x-installer'
-// eslint-disable-next-line import/no-named-default
-import { default as AppComponent } from './App.vue'
+ 
+import type { App } from 'vue'
+import AppComponent from './App.vue'
 import { setupDevtools } from './plugins/devtools/devtools.plugin'
 import router from './router'
 import { createXRoot } from './utils/create-x-root'

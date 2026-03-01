@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
 import { viteCssInjectorPlugin } from '../x-archetype-utils/src/build/vite/css-injector-plugin'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
@@ -14,6 +15,12 @@ export const vueDocsPlugin = {
 export default defineConfig({
   plugins: [
     viteCssInjectorPlugin(),
+    cssInjectedByJsPlugin({
+      dev: {
+        enableDev: true,
+      },
+      injectCode: (cssCode: string) => `(window.xCSSInjector ??= []).push(${cssCode});`
+    }),
     vue({
       features: {
         customElement: true,
@@ -25,7 +32,7 @@ export default defineConfig({
       },
     }),
     vueDocsPlugin,
-    Inspector(),
+    //Inspector(),
   ],
   server: {
     port: 8080,
