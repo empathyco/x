@@ -7,6 +7,7 @@ export const baseSnippetConfig: SnippetConfig = {
   lang: 'en',
   env: 'staging',
   scope: 'x-components-development',
+  isolate: false
 }
 
 // eslint-disable-next-line ts/no-unsafe-assignment
