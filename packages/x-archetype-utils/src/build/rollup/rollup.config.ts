@@ -1,5 +1,5 @@
 export const rollupCssInjectorConfig = {
   styles: {
-    mode: ['inject', (varname: string) => `window.xCSSInjector.addStyle([${varname}]);`],
+    mode: ['inject', (varname: string) => `(window.xCSSInjector ??= []).push(${varname});`],
   },
 }

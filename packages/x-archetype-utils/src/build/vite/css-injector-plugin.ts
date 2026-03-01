@@ -9,7 +9,7 @@ export function viteCssInjectorPlugin() {
       if (!id.endsWith('.vue') || !code.includes('</style>')) return
       return `${code}
         <x-inject-css type="text/javascript" lang="js">
-          export default component => Promise.resolve(component).then(comp => window.xCSSInjector.addStyle(comp.styles))
+          export default component => Promise.resolve(component).then(comp => (window.xCSSInjector ??= []).push(...comp.styles));
         </x-inject-css>
       `
     },
