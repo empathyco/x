@@ -99,7 +99,7 @@ const rollupConfig: RollupOptions = {
       mode: [
         'inject',
         varname => {
-          const pathInjector = path.resolve('./tools/inject-css.js')
+          const pathInjector = r('src/utils/inject-css.js')
           return `import injectCss from '${pathInjector}';injectCss(${varname});`
         },
       ],
