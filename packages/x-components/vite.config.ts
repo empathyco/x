@@ -8,6 +8,7 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 const dependencies = new Set([...Object.keys(pkgDeps), ...Object.keys(pkgPeerDeps)])
 import dts from 'vite-plugin-dts'
 import { fileURLToPath } from 'node:url'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 const r = (path: string) => fileURLToPath(new URL(path, import.meta.url))
 
@@ -42,6 +43,18 @@ export default defineConfig({
       tsconfigPath: './tsconfig.build.json',
     }),
     vueDocsPlugin,
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'package.json',
+          dest: './',
+        },
+        {
+          src: 'patches',
+          dest: './',
+        },
+      ],
+    }),
   ],
   build: {
     minify: false,
