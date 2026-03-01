@@ -27,11 +27,6 @@ export default defineConfig({
     vueDocsPlugin,
     Inspector(),
   ],
-  resolve: {
-    alias: {
-      vue: resolve(__dirname, 'node_modules/vue'),
-    },
-  },
   server: {
     port: 8080,
     host: '0.0.0.0',
