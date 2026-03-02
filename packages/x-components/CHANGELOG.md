@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.207 (2026-03-02)
+
+**Note:** Version bump only for package @empathyco/x-components
+
 ## 6.0.0-alpha.206 (2026-02-27)
 
 - feat: remove Cypress-related configurations and tests ([67ec01d](https://github.com/empathyco/x/commit/67ec01d))

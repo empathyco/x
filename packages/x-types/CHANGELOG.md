@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.40 (2026-03-02)
+
+- feat: migrate from Jest to Vitest and add custom assertion utilities ([d0474ba](https://github.com/empathyco/x/commit/d0474ba))
+- feat: remove unused dependencies from package.json and pnpm-lock.yaml ([8e69b5d](https://github.com/empathyco/x/commit/8e69b5d))
+
 ## 10.1.0-alpha.39 (2026-02-27)
 
 - feat: remove Cypress-related configurations and tests ([67ec01d](https://github.com/empathyco/x/commit/67ec01d))
