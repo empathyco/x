@@ -1,4 +1,5 @@
 import type { ExtractPath, ExtractPathByType, ExtractType } from '../paths.types'
+import { describe, expect, it } from 'vitest'
 
 interface Example {
   anString: string
