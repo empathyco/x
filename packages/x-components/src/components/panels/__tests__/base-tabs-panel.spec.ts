@@ -1,5 +1,6 @@
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import BaseTabsPanel from '../base-tabs-panel.vue'
@@ -202,13 +203,13 @@ describe('testing BaseTabsPanel', () => {
     })
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(0)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(0)?.attributes('aria-selected')).toBe('true')
 
     // Select third tab
     await clickNthTab(2)
-    expect(getTabsButtons().at(2)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(2)?.element).toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(2)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(2)?.attributes('aria-selected')).toBe('true')
 
     // The third panel is the rendered one
     expect(getTabPanel().text()).toBe('Top Outlet sales')
@@ -226,13 +227,13 @@ describe('testing BaseTabsPanel', () => {
     })
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(0)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(0)?.attributes('aria-selected')).toBe('true')
 
     // Select again first tab
     await clickNthTab(0)
-    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(0)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(0)?.attributes('aria-selected')).toBe('true')
 
     // The first panel is the rendered one
     expect(getTabPanel().text()).toBe('Top Summer sales')
@@ -251,13 +252,13 @@ describe('testing BaseTabsPanel', () => {
     })
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(0)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(0)?.attributes('aria-selected')).toBe('true')
 
     // Select again first tab
     await clickNthTab(0)
-    expect(getTabsButtons().at(0)?.element).not.toHaveClass('selected-tab')
-    expect(getTabsButtons().at(0)?.element).not.toHaveAttribute('aria-selected', 'true')
+    expect(getTabsButtons().at(0)?.classes()).not.toContain('selected-tab')
+    expect(getTabsButtons().at(0)?.attributes('aria-selected')).toBe('false')
 
     // The panel is not rendered
     expect(getTabPanel().exists()).toBe(false)
@@ -276,10 +277,10 @@ describe('testing BaseTabsPanel', () => {
       tabsListClass: 'tabs-list',
     })
 
-    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab')
-    expect(getTabsButtons().at(1)?.element).toHaveClass('tab-button')
-    expect(getTabPanel().element).toHaveClass('tab-panel')
-    expect(getTabsList().element).toHaveClass('tabs-list')
+    expect(getTabsButtons().at(0)?.classes()).toContain('selected-tab')
+    expect(getTabsButtons().at(1)?.classes()).toContain('tab-button')
+    expect(getTabPanel().classes()).toContain('tab-panel')
+    expect(getTabsList().classes()).toContain('tabs-list')
   })
 })
 

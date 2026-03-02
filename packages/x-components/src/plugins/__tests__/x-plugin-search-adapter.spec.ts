@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { XPlugin } from '../x-plugin'
 
@@ -6,7 +7,7 @@ describe('testing adapter configuration', () => {
   let xPlugin: XPlugin
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     xPlugin = new XPlugin(new XDummyBus())
   })
 

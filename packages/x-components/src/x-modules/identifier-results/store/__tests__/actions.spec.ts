@@ -6,6 +6,7 @@ import type {
   IdentifierResultsState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
@@ -35,7 +36,7 @@ describe('testing identifier results module actions', () => {
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('fetchIdentifierResults', () => {

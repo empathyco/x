@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/index'
 import { XPlugin } from '../../../../plugins/index'
@@ -35,10 +36,10 @@ describe('testing experience controls component', () => {
       SortChanged: 'price:desc',
     }
 
-    const extraParamsProvidedListener = jest.fn()
+    const extraParamsProvidedListener = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided').subscribe(extraParamsProvidedListener)
 
-    const sortChangedListener = jest.fn()
+    const sortChangedListener = vi.fn()
     XPlugin.bus.on('SortChanged').subscribe(sortChangedListener)
 
     void XPlugin.bus.emit('ExperienceControlsEventsChanged', eventsFromExperienceControls)

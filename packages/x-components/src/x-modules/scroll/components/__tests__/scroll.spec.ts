@@ -1,6 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins/index'
@@ -36,8 +37,8 @@ async function renderScroll({
   const wrapper = wrapperContainer.findComponent(Scroll)
   const scrollElement: HTMLElement = wrapperContainer.find(getDataTestSelector('base-scroll'))
     .element as HTMLElement
-  jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight)
-  jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight)
+  vi.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight)
+  vi.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight)
 
   /* Because the scroll mixins uses a $nextTick in the mounted hook, we have to add a wait here
   so it has really finish mounting */
@@ -49,7 +50,7 @@ async function renderScroll({
     async scroll({ to, durationMs }) {
       scrollElement.scrollTop = to
       await wrapper.trigger('scroll')
-      jest.advanceTimersByTime(durationMs)
+      vi.advanceTimersByTime(durationMs)
       await nextTick()
     },
   }
@@ -57,10 +58,10 @@ async function renderScroll({
 
 describe('testing Scroll Component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('renders default slot contents', async () => {
@@ -84,7 +85,7 @@ describe('testing Scroll Component', () => {
       id: 'main-scroll',
     })
 
-    const listenerScrolled = jest.fn()
+    const listenerScrolled = vi.fn()
     XPlugin.bus.on('UserScrolled', true).subscribe(listenerScrolled)
     expect(listenerScrolled).not.toHaveBeenCalled()
 
@@ -121,7 +122,7 @@ describe('testing Scroll Component', () => {
       id: 'main-scroll',
     })
 
-    const listenerChangeDirection = jest.fn()
+    const listenerChangeDirection = vi.fn()
     XPlugin.bus.on('UserChangedScrollDirection', true).subscribe(listenerChangeDirection)
     expect(listenerChangeDirection).toHaveBeenCalledTimes(0)
 
@@ -170,7 +171,7 @@ describe('testing Scroll Component', () => {
       id: 'main-scroll',
     })
 
-    const listenerScrollStart = jest.fn()
+    const listenerScrollStart = vi.fn()
     XPlugin.bus.on('UserReachedScrollStart', true).subscribe(listenerScrollStart)
     expect(listenerScrollStart).toHaveBeenCalledTimes(0)
 
@@ -212,9 +213,9 @@ describe('testing Scroll Component', () => {
       distanceToBottom: 300,
     })
 
-    const listenerAlmostReachedScrollEnd = jest.fn()
+    const listenerAlmostReachedScrollEnd = vi.fn()
     XPlugin.bus.on('UserAlmostReachedScrollEnd', true).subscribe(listenerAlmostReachedScrollEnd)
-    const listenerReachedScrollEnd = jest.fn()
+    const listenerReachedScrollEnd = vi.fn()
     XPlugin.bus.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd)
 
     await scroll({

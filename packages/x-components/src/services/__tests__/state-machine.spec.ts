@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from 'vitest'
 import { StateMachine } from '../state-machine.service'
 
 type Status = 'idle' | 'playing' | 'paused'

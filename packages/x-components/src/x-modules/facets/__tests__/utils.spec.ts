@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createHierarchicalFacetStub, createSimpleFacetStub } from '../../../__stubs__'
 import { applyHierarchicalSelection, flatHierarchicalFilters, flattenAllFilters } from '../utils'
 

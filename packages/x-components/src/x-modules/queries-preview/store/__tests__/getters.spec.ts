@@ -6,6 +6,7 @@ import type {
   QueriesPreviewState,
   QueryPreviewItem,
 } from '../types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { getResultsStub } from '../../../../__stubs__'
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory'

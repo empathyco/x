@@ -1,8 +1,9 @@
 import type { DebounceOptions } from '../../utils/types'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { useDebounce } from '../use-debounce'
 
-const fnMock = jest.fn()
+const fnMock = vi.fn()
 const fnParamStub = 'It is a parameter'
 
 function render(debounceTimeInMs = 200, debounceOptions: DebounceOptions = {}) {
@@ -27,13 +28,13 @@ function render(debounceTimeInMs = 200, debounceOptions: DebounceOptions = {}) {
 
 describe('testing useDebounce composable', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   beforeEach(() => {
     fnMock.mockClear()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('should debounce the fn with the debounced time', async () => {
@@ -41,17 +42,17 @@ describe('testing useDebounce composable', () => {
 
     await runDebouncedFnMock()
     expect(fnMock).toHaveBeenCalledTimes(0)
-    jest.advanceTimersByTime(200)
+    vi.advanceTimersByTime(200)
     expect(fnMock).toHaveBeenCalledTimes(1)
     expect(fnMock).toHaveBeenCalledWith(fnParamStub)
 
     fnMock.mockClear()
     await runDebouncedFnMock()
-    jest.advanceTimersByTime(100)
+    vi.advanceTimersByTime(100)
     await runDebouncedFnMock()
-    jest.advanceTimersByTime(150)
+    vi.advanceTimersByTime(150)
     expect(fnMock).toHaveBeenCalledTimes(0)
-    jest.advanceTimersByTime(50)
+    vi.advanceTimersByTime(50)
     expect(fnMock).toHaveBeenCalledTimes(1)
     expect(fnMock).toHaveBeenCalledWith(fnParamStub)
   })
@@ -62,7 +63,7 @@ describe('testing useDebounce composable', () => {
     await runDebouncedFnMock()
     expect(fnMock).toHaveBeenCalledTimes(1)
     await runDebouncedFnMock()
-    jest.advanceTimersByTime(200)
+    vi.advanceTimersByTime(200)
     expect(fnMock).toHaveBeenCalledTimes(2)
     expect(fnMock).toHaveBeenCalledWith(fnParamStub)
   })
@@ -71,9 +72,9 @@ describe('testing useDebounce composable', () => {
     const { wrapper, runDebouncedFnMock } = render()
 
     await runDebouncedFnMock()
-    jest.advanceTimersByTime(100)
+    vi.advanceTimersByTime(100)
     wrapper.unmount()
-    jest.advanceTimersByTime(500)
+    vi.advanceTimersByTime(500)
     expect(fnMock).toHaveBeenCalledTimes(0)
   })
 })

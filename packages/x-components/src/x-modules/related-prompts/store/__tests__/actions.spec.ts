@@ -7,6 +7,7 @@ import type {
   RelatedPromptsState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { getRelatedPromptsStub } from '../../../../__stubs__'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'

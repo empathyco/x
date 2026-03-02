@@ -1,10 +1,19 @@
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import BaseIdModal from '../base-id-modal.vue'
+
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
 
 /**
  * Mounts a {@link BaseIdModal} component with the provided options and offers an API to easily
@@ -47,7 +56,7 @@ function mountBaseIdModal({
       return wrapper.find(getDataTestSelector('modal-content'))
     },
     async fakeFocusIn() {
-      jest.runAllTimers()
+      vi.runAllTimers()
       document.body.dispatchEvent(new FocusEvent('focusin'))
       await nextTick()
     },
@@ -56,11 +65,11 @@ function mountBaseIdModal({
 
 describe('testing BaseIdModal  component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('opens when UserClickedOpenModal event is emitted', async () => {

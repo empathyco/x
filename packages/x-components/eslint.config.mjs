@@ -1,17 +1,23 @@
 import { empathyco } from '@empathyco/eslint-config'
-
 export default empathyco(
   {
-    ignores: ['.loaded_actions', 'vite.config.ts', 'tailwind.config.ts', 'jest.setup.ts'],
+    ignores: [
+      '.loaded_actions',
+      'vite.config.ts',
+      'tailwind.config.ts',
+      'vitest-setup.ts',
+      'vitest.config.ts',
+    ],
   },
   {
-    files: ['**/*.spec.{ts,tsx,js,jsx}'],
+    files: ['**/*.spec.{ts,tsx,js,jsx}', '**/__tests__/**/*.ts'],
     rules: {
       'ts/unbound-method': 'off',
       'ts/no-unsafe-member-access': 'off',
       'ts/no-unsafe-assignment': 'off',
       'ts/no-unsafe-return': 'off',
       'ts/no-unsafe-argument': 'off',
+      'ts/no-unsafe-call': 'off',
     },
   },
   {

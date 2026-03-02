@@ -17,6 +17,7 @@ import type {
 } from '@empathyco/x-types'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import type { Mock } from 'vitest'
 import type { Store } from 'vuex'
 import type { XPluginOptions } from '../plugins'
 import type { ActionsDictionary } from '../store/actions.types'
@@ -24,17 +25,14 @@ import type { MutationsDictionary } from '../store/mutations.types'
 import type { RootXStoreState, XStoreModule } from '../store/store.types'
 import type { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types'
 import { deepMerge } from '@empathyco/x-deep-merge'
+import { vi } from 'vitest'
 import { XPlugin } from '../plugins/x-plugin'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { XComponentsAdapterDummy } from './adapter.dummy'
 import { XDummyBus } from './bus.dummy'
-import Mock = jest.Mock
 
 export type MockedXComponentsAdapter = {
-  [Method in keyof Required<XComponentsAdapter>]: jest.Mock<
-    ReturnType<Required<XComponentsAdapter>[Method]>,
-    Parameters<Required<XComponentsAdapter>[Method]>
-  >
+  [Method in keyof Required<XComponentsAdapter>]: Mock<Required<XComponentsAdapter>[Method]>
 }
 
 /**
@@ -136,8 +134,8 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
  *
  * @internal
  */
-export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
-  return jest.fn(
+export function getMockedAdapterFunction<T>(whatReturns: T): any {
+  return vi.fn(
     async () =>
       new Promise(resolve => {
         setTimeout(() => {
@@ -162,7 +160,7 @@ export function getMockedAdapter(
   responseFeatures?: Partial<MockedAdapterFeatures>,
 ): MockedXComponentsAdapter {
   return {
-    /* eslint-disable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
+    /* eslint-disable ts/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
     popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
@@ -180,7 +178,7 @@ export function getMockedAdapter(
     aiQuestions: getMockedAdapterFunction(responseFeatures?.aiQuestions!),
     aiTasks: getMockedAdapterFunction(responseFeatures?.aiTasks!),
     facets: getMockedAdapterFunction(responseFeatures?.facets!),
-    /* eslint-enable ts/no-unsafe-assignment,ts/no-non-null-asserted-optional-chain */
+    /* eslint-enable ts/no-non-null-asserted-optional-chain */
   }
 }
 

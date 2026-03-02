@@ -1,4 +1,5 @@
 import type { UrlGetters } from '../types'
+import { describe, expect, it } from 'vitest'
 import { createUrlStore, resetUrlStateWith } from './utils'
 
 describe('testing url module getters', () => {

@@ -3,6 +3,7 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/index'
 import type { QueryPreviewInfo } from '../../store/index'
 import { mount } from '@vue/test-utils'
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { findTestDataById, installNewXPlugin } from '../../../../__tests__/utils'
@@ -39,7 +40,7 @@ function renderQueryPreviewButton({
   XPlugin.registerXModule(queriesPreviewXModule)
   const findTestDataByIdInButton = findTestDataById.bind(undefined, wrapper)
 
-  const queryPreviewButtonEmitSpy = jest.fn()
+  const queryPreviewButtonEmitSpy = vi.fn()
   XPlugin.bus.on('UserAcceptedAQueryPreview').subscribe(queryPreviewButtonEmitSpy)
 
   return {
@@ -55,13 +56,13 @@ function renderQueryPreviewButton({
 }
 
 describe('query preview button', () => {
-  jest.useFakeTimers()
+  vi.useFakeTimers()
   afterEach(() => {
-    jest.runAllTimers()
-    jest.resetAllMocks()
+    vi.runAllTimers()
+    vi.resetAllMocks()
   })
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('is an XComponent which has an XModule', () => {
@@ -128,7 +129,7 @@ interface RenderQueryPreviewButtonAPI {
   /** The wrapper of the rendered component. */
   wrapper: VueWrapper
   /** The spy to check if the event was emitted. */
-  queryPreviewButtonEmitSpy: jest.Mock
+  queryPreviewButtonEmitSpy: ReturnType<typeof vi.fn>
   /** The query preview info to be used in the component. */
   queryPreviewInfo: QueryPreviewInfo
   /** Updates the extra params of the query preview module. */

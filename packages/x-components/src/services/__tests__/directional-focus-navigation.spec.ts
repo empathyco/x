@@ -1,18 +1,20 @@
+import { describe, expect, it, vi } from 'vitest'
 import { DirectionalFocusNavigationService } from '../directional-focus-navigation.service'
 
 describe(`testing directional-focus-navigation service functionalities`, () => {
   describe('testing that service filters out unfocusable candidates', () => {
-    const mockedFilterCandidates = jest.fn(candidates =>
+    const mockedFilterCandidates = vi.fn(candidates =>
       DirectionalFocusNavigationService.prototype.filterCandidates(candidates),
     )
-    jest
-      .spyOn(DirectionalFocusNavigationService.prototype as any, 'isInNavigateDirection')
-      .mockImplementation(() => true)
+    vi.spyOn(
+      DirectionalFocusNavigationService.prototype as any,
+      'isInNavigateDirection',
+    ).mockImplementation(() => true)
 
     const buttonCandidate = document.createElement('button')
     document.body.appendChild(buttonCandidate)
-    jest.spyOn(buttonCandidate, 'offsetWidth', 'get').mockImplementation(() => 100)
-    jest.spyOn(buttonCandidate, 'offsetHeight', 'get').mockImplementation(() => 100)
+    vi.spyOn(buttonCandidate, 'offsetWidth', 'get').mockImplementation(() => 100)
+    vi.spyOn(buttonCandidate, 'offsetHeight', 'get').mockImplementation(() => 100)
 
     it('filters out candidates without dimensions', () => {
       const noDimensionsCandidate = document.createElement('button')

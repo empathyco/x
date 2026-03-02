@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { createHierarchicalFacetStub, createSimpleFilter } from '../../../../__stubs__/index'
 import { HierarchicalFilterEntity } from '../hierarchical-filter.entity'
 import { SimpleFilterEntity } from '../simple-filter.entity'

@@ -1,12 +1,13 @@
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick, reactive, ref } from 'vue'
 import { getDataTestSelector } from '../../__tests__/utils'
 import SlidingPanel from '../sliding-panel.vue'
 
 let mutationCallback: undefined | ((mutations: any[]) => void)
-let measureSpy: jest.Mock | undefined
+let measureSpy: ReturnType<typeof vi.fn> | undefined
 
-jest.mock('@vueuse/core', () => {
+vi.mock('@vueuse/core', () => {
   const useElementBounding = () => ({ width: ref(100) })
 
   const useElementVisibility = () => ref(true)
@@ -14,7 +15,7 @@ jest.mock('@vueuse/core', () => {
   const useScroll = () => {
     const x = ref(0)
     const arrivedState = reactive({ left: true, right: false })
-    const measure = jest.fn()
+    const measure = vi.fn()
     measureSpy = measure
     return { x, arrivedState, measure }
   }
@@ -24,7 +25,6 @@ jest.mock('@vueuse/core', () => {
   }
 
   const whenever = (source: any, cb: () => void) => {
-    // eslint-disable-next-line ts/no-unsafe-call
     const value = typeof source === 'function' ? source() : (source?.value ?? source)
     if (value) {
       cb()

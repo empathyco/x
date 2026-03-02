@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import {
   createSimpleFilter,
@@ -43,7 +44,7 @@ function render({
 
   return {
     wrapper: renderlessFilterWrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     filter,
     buttonWrapper,
     clickFilter: async () => buttonWrapper.trigger('click'),

@@ -1,5 +1,6 @@
 import type { HistoryQueriesState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import {
   createHistoryQueries,

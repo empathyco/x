@@ -1,4 +1,5 @@
 import type { FilterEntity } from '../types'
+import { describe, expect, it } from 'vitest'
 import { createHierarchicalFacetStub } from '../../../../__stubs__/facets-stubs.factory'
 import {
   createEditableNumberRangeFilter,

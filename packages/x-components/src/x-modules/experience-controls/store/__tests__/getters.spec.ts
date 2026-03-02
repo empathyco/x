@@ -1,4 +1,5 @@
 import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils'
 
 describe('testing experience controls module getters', () => {

@@ -1,6 +1,7 @@
 import type { EditableNumberRangeFilter, Facet, Filter } from '@empathyco/x-types'
 import type { FacetsService } from '../types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import {
   createEditableNumberRangeFacetStub,
   createHierarchicalFacetStub,

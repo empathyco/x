@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent, h, provide, ref, TransitionGroup } from 'vue'
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts'
 import { useDisableAnimation } from '../use-disable-animation'

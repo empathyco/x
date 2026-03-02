@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
@@ -71,7 +72,7 @@ describe('testing BaseColumnPickerList component', () => {
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render({ columns: [1, 3, 6] })
 
-    const listenerColumnPicker = jest.fn()
+    const listenerColumnPicker = vi.fn()
     XPlugin.bus.on('ColumnsNumberProvided', true).subscribe(listenerColumnPicker)
 
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1)
@@ -90,8 +91,8 @@ describe('testing BaseColumnPickerList component', () => {
     const index = 1
     const { wrapper, clickNthItem } = render({ columns })
 
-    const userClickedColumnPickerListener = jest.fn()
-    const columnsNumberProvidedListener = jest.fn()
+    const userClickedColumnPickerListener = vi.fn()
+    const columnsNumberProvidedListener = vi.fn()
     XPlugin.bus.on('UserClickedColumnPicker', true).subscribe(userClickedColumnPickerListener)
     XPlugin.bus.on('ColumnsNumberProvided', true).subscribe(columnsNumberProvidedListener)
 

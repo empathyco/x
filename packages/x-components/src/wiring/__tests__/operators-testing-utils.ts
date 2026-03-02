@@ -6,6 +6,7 @@ import type { EventPayload, SubjectPayload, XBus } from '../../x-bus'
 import type { XEvent, XEventPayload, XEventsTypes } from '../events.types'
 import type { Wire, WireMetadata } from '../wiring.types'
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { createStore } from 'vuex'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { createWireFromFunction } from '../wires.factory'
@@ -27,7 +28,7 @@ export function createWire<SomeEvent extends XEvent = 'UserIsTypingAQuery'>({
   }) as Store<RootXStoreState>
   mount({}, { global: { plugins: [store] } })
   const bus = new XDummyBus()
-  const callback = jest.fn()
+  const callback = vi.fn()
   const wire = createWireFromFunction<XEventPayload<SomeEvent>>(({ eventPayload }) => {
     callback(eventPayload)
   })
@@ -64,8 +65,8 @@ interface CreateWireAPI<Payload> {
   bus: XBus<XEventsTypes, WireMetadata>
   /** The created wire. */
   wire: Wire<Payload>
-  /** A jest mock that the wire will execute when triggered. */
-  callback: jest.Mock
+  /** A mock that the wire will execute when triggered. */
+  callback: ReturnType<typeof vi.fn>
   /** Registers the wire to the provided event. */
   registerWire: (wire: Wire<Payload>) => void
   /** Emits synchronously the given values. */

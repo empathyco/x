@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { getURLParameter } from '../get-url-parameters'
 
 describe('testing get url params', () => {

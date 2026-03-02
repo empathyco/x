@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { dummyCreateEmitter } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -16,7 +17,7 @@ function renderBaseIdModalOpen({
   template = `<BaseIdModalOpen :modalId="modalId" v-bind="$attrs"/>`,
 } = {}) {
   // Making bus not repeat subjects
-  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any)
+  vi.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any)
 
   const modalId = 'myModal'
 
@@ -43,7 +44,7 @@ function renderBaseIdModalOpen({
 describe('testing Open Button component', () => {
   it("emits UserClickedOpenModal with the component's id as payload", async () => {
     const { modalId, click } = renderBaseIdModalOpen()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedOpenModal').subscribe(listener)
 
     await click()
@@ -72,7 +73,7 @@ describe('testing Open Button component', () => {
         </BaseIdModalOpen>`,
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedOpenModal').subscribe(listener)
 
     await click()

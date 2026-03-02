@@ -1,6 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { ListItem } from '../../utils/types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getBannersStub } from '../../__stubs__/banners-stubs.factory'
 import { getPromotedsStub } from '../../__stubs__/promoteds-stubs.factory'
 import { getResultsStub } from '../../__stubs__/results-stubs.factory'

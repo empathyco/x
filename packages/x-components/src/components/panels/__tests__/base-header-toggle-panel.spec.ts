@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import BaseHeaderTogglePanel from '../base-header-toggle-panel.vue'
 

@@ -1,5 +1,6 @@
 import type { SimpleFilter } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getSimpleFilterStub } from '../../../../../__stubs__'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'
 import ExcludeFiltersWithNoResults from '../exclude-filters-with-no-results.vue'

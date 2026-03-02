@@ -1,5 +1,6 @@
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../store/index'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { noOp } from '../../utils/function'
 import {
@@ -21,7 +22,7 @@ describe('testing wires factory', () => {
 
   beforeEach(() => {
     subjectHandler.reset()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('testing generic wires factory', () => {
@@ -31,7 +32,7 @@ describe('testing wires factory', () => {
       } receives the store, the observable payload and the metadata object, and invokes a` +
         ` function with them`,
       () => {
-        const executeFn = jest.fn()
+        const executeFn = vi.fn()
         const wire = createWireFromFunction(executeFn)
 
         wire(subjectHandler.subject, storeMock, busOnMock)
@@ -184,11 +185,11 @@ describe('testing wires factory', () => {
 
   describe('testing wire service factories', () => {
     class TestService {
-      public noParametersMethod = jest.fn(noOp)
-      public oneOptionalParameterMethod = jest.fn((parameter?: string) => parameter)
-      public oneParameterMethod = jest.fn((parameter: string) => parameter)
-      public restParametersMethod = jest.fn((...parameters: number[]) => parameters)
-      public multipleParametersMethod = jest.fn((a: number, b: number) => a + b)
+      public noParametersMethod = vi.fn(noOp)
+      public oneOptionalParameterMethod = vi.fn((parameter?: string) => parameter)
+      public oneParameterMethod = vi.fn((parameter: string) => parameter)
+      public restParametersMethod = vi.fn((...parameters: number[]) => parameters)
+      public multipleParametersMethod = vi.fn((a: number, b: number) => a + b)
     }
 
     describe(`testing ${wireService.name}`, () => {

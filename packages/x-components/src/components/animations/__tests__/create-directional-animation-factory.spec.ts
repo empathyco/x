@@ -1,5 +1,6 @@
 import type { DOMWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import { createDirectionalAnimationFactory } from '../create-directional-animation-factory'
 

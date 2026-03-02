@@ -38,7 +38,6 @@ export function createExperienceControlsStore(): Store<ExperienceControlsState> 
     ExperienceControlsGetters,
     ExperienceControlsMutations,
     ExperienceControlsActions
-    // eslint-disable-next-line ts/no-unsafe-argument
   > = new Store(experienceControlsXStoreModule as any)
 
   return store

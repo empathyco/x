@@ -3,13 +3,14 @@ import type { PrivateXModulesOptions, XModulesOptions, XPlugin } from '../../../
 import type { AnyXModule } from '../../../x-modules/x-modules.types'
 import type { SnippetConfig } from '../../api/index'
 import type { InitWrapper, InstallXOptions } from '../types'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { computed, defineComponent, inject, nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy'
 import { XInstaller } from '../x-installer'
 
 const adapter = XComponentsAdapterDummy
-const xPluginMock = { install: jest.fn() }
+const xPluginMock = { install: vi.fn() }
 const plugin = xPluginMock as unknown as XPlugin
 const store = {} as unknown as Store<any>
 const xModules = {} as unknown as XModulesOptions
@@ -26,7 +27,7 @@ const component = defineComponent({
   setup: () => {
     // empty setup
   },
-  mounted: jest.fn(),
+  mounted: vi.fn(),
   template: '<h1/>',
 })
 
@@ -55,7 +56,7 @@ describe('testing `XInstaller` utility', () => {
   beforeEach(() => {
     delete window.initX
     delete window.InterfaceX
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     document.body.innerHTML = ''
   })
 

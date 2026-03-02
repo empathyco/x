@@ -1,5 +1,6 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createRelatedPromptStub } from '../../../../__stubs__'
 import CrossTinyIcon from '../../../../components/icons/cross-tiny.vue'
 import PlusIcon from '../../../../components/icons/plus.vue'
@@ -7,7 +8,7 @@ import RelatedPrompt from '../related-prompt.vue'
 
 const relatedPromptStub = createRelatedPromptStub('Related Prompt 1')
 
-const typingMock = jest.fn()
+const typingMock = vi.fn()
 
 function render(options: ComponentMountingOptions<typeof RelatedPrompt> = {}) {
   const wrapper = mount(RelatedPrompt, {

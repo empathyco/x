@@ -2,6 +2,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/index'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
@@ -69,8 +70,8 @@ describe('testing SpellcheckButton component', () => {
   })
 
   it('emits the UserAcceptedAQuery and UserAcceptSpellcheck events when the button is clicked', async () => {
-    const userAcceptedAQuery = jest.fn()
-    const userAcceptSpellcheck = jest.fn()
+    const userAcceptedAQuery = vi.fn()
+    const userAcceptSpellcheck = vi.fn()
     const spellcheckedQuery = 'coche'
     const { wrapper, click } = renderSpellcheckButton({ spellcheckedQuery })
 

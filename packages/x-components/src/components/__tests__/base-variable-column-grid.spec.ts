@@ -1,10 +1,19 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
 import BaseVariableColumnGrid from '../base-variable-column-grid.vue'
+
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
 
 const searchResponse = getSearchResponseStub()
 const itemsStub = [
