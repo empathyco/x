@@ -1,0 +1,27 @@
+@utility scroll {
+  @apply xds:overflow-y-scroll xds:min-h-0;
+
+  @media (hover: hover) and (pointer: fine) {
+    /* Firefox */
+    scrollbar-width: auto;
+    scrollbar-color: var(--xds-color-neutral-200) transparent;
+
+    /* WebKit */
+    &::-webkit-scrollbar {
+      @apply xds:w-[17px];
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply xds:bg-clip-content xds:bg-neutral-200;
+      @apply xds:border-4 xds:border-transparent xds:rounded-full;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply xds:bg-transparent;
+    }
+
+    &:hover {
+      scrollbar-color: var(--xds-color-neutral-400);
+    }
+  }
+}
