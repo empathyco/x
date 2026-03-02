@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.12 (2026-03-02)</small>
+
+**Note:** Version bump only for package @empathyco/x-deep-merge
+
 ## <small>2.0.3-alpha.11 (2026-02-27)</small>
 
 - feat: remove Cypress-related configurations and tests ([67ec01d](https://github.com/empathyco/x/commit/67ec01d))

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 10.1.0-alpha.41 (2026-03-02)
+
+**Note:** Version bump only for package @empathyco/x-types
+
 ## 10.1.0-alpha.40 (2026-03-02)
 
 - feat: migrate from Jest to Vitest and add custom assertion utilities ([d0474ba](https://github.com/empathyco/x/commit/d0474ba))

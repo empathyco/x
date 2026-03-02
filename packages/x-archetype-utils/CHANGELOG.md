@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.31 (2026-03-02)
+
+- chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))
+
 ## 2.0.0-alpha.30 (2026-02-27)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

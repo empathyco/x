@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.12 (2026-03-02)</small>
+
+- feat(x-design-system): filter-facet component (#2010) ([ee2606b](https://github.com/empathyco/x/commit/ee2606b)), closes [#2010](https://github.com/empathyco/x/issues/2010)
+
 ## <small>0.0.2-alpha.11 (2026-02-27)</small>
 
 - feat(typography): migrate xds typography component (#2014) ([4c83287](https://github.com/empathyco/x/commit/4c83287)), closes [#2014](https://github.com/empathyco/x/issues/2014)

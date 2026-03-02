@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.26 (2026-03-02)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
 ## 2.0.0-alpha.25 (2026-02-27)
 
 - feat: update layout styles and add Prettier dependency ([d7b3eca](https://github.com/empathyco/x/commit/d7b3eca))

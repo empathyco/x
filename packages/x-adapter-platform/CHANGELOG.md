@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.48 (2026-03-02)
+
+- chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))
+
 ## 1.1.0-alpha.47 (2026-03-02)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

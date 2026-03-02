@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.208 (2026-03-02)
+
+- chore: remove Jest-related files and dependencies after migrating to Vitest ([e4455c1](https://github.com/empathyco/x/commit/e4455c1))
+- test: update test files to use Vitest for assertions and mocking ([3a40537](https://github.com/empathyco/x/commit/3a40537))
+
 ## 6.0.0-alpha.207 (2026-03-02)
 
 **Note:** Version bump only for package @empathyco/x-components
