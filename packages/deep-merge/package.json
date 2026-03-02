@@ -44,8 +44,7 @@
     "test:unit-watch": "vitest"
   },
   "dependencies": {
-    "@empathyco/x-utils": "1.0.3-alpha.11",
-    "tslib": "~2.8.1"
+    "@empathyco/x-utils": "1.0.3-alpha.11"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.0.18",
