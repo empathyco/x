@@ -1,5 +1,5 @@
 import type { Schema } from '../../schemas/types'
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest'
 import { schemaMapperFactory } from '../schema-mapper.factory'
 
 describe('schemaMapperFactory tests', () => {

@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { vi } from 'vitest'
 export const okFetchMock = vi.fn(fetchMock({}))
 
 export const koFetchMock = vi.fn(async () =>
