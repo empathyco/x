@@ -24,6 +24,11 @@ export interface TypingOptions {
   targetAttr?: string
 }
 
+/**
+ * Typing element private data.
+ *
+ * @internal
+ */
 export interface TypingHTMLElement extends HTMLElement {
   __timeoutId?: number
 }

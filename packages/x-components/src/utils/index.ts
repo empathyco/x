@@ -1,6 +1,8 @@
 export * from './array'
 export * from './cancellable-promise'
 export * from './clone'
+export * from './css-injector/css-injector'
+export * from './css-injector/css-injector.types'
 export * from './currency-formatter'
 export { debounce as debounceFunction } from './debounce'
 export * from './filters'

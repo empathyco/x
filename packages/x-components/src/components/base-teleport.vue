@@ -16,6 +16,7 @@ import {
   watch,
   watchEffect,
 } from 'vue'
+import { cssInjector } from '../utils/css-injector/css-injector'
 
 export default defineComponent({
   name: 'BaseTeleport',
@@ -71,7 +72,7 @@ export default defineComponent({
 
     onUnmounted(() => {
       if (isIsolated && teleportHost.value) {
-        ;(window as any).xCSSInjector.removeHost(teleportHost.value.shadowRoot)
+        cssInjector.removeHost(teleportHost.value.shadowRoot!)
       }
     })
 
@@ -158,7 +159,7 @@ export default defineComponent({
       isIsolated = instance?.appContext.app._container instanceof ShadowRoot
       if (isIsolated) {
         teleportHost.value.attachShadow({ mode: 'open' })
-        ;(window as any).xCSSInjector.addHost(teleportHost.value.shadowRoot)
+        cssInjector.addHost(teleportHost.value.shadowRoot!)
       }
     }
 

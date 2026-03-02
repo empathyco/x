@@ -26,3 +26,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Build Tools
+.vite-inspect
+sonda-report.html
