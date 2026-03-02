@@ -2,16 +2,19 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "esnext"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "types": ["jest"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["vitest/globals"],
     "strict": true,
     "declaration": true,
     "declarationDir": "./types",
     "importHelpers": true,
     "inlineSources": true,
+    "noEmit": true,
     "outDir": "./dist/cjs",
-    "sourceMap": true
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts"]
 }

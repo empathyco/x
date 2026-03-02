@@ -3,6 +3,13 @@
 Storage Service is a wrapper on top of the Web Storage API that provides additional features such as
 key prefixing and TTL.
 
+## Tech Stack
+
+[![TypeScript](https://img.shields.io/badge/-typescript-3178C6?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org/)
+[![Vitest](https://img.shields.io/badge/-vitest-729B1B?logo=vitest&logoColor=white&style=for-the-badge)](https://vitest.dev/)
+
+<br>
+
 ## Creating an instance
 
 By default, Storage Service works with `localStorage` and using `empathy` as prefix. If that sounds
@@ -66,3 +73,14 @@ storage.setItem('x', 'value', 50)
 
 After the specified time, the item won't be available via `getItem` or `removeItem`. Expired items
 are automatically removed from storage to avoid consuming space unnecessarily.
+
+<br>
+
+## Test
+
+**Storage Service** features are tested using [Vitest](https://vitest.dev/). You will find a
+`__tests__` folder inside the `src` folder.
+
+```
+npm run test
+```
