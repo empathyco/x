@@ -8,9 +8,7 @@
     <tbody>
       <tr v-for="row in rows" :key="row" class="xds:not-last:border-b xds:border-b-neutral-10">
         <td class="xds:w-192 xds:p-12 xds:text-right">{{ row }}</td>
-        <td
-          class="xds:p-12 xds:flex xds:items-center xds:flex-wrap xds:whitespace-nowrap xds:gap-8"
-        >
+        <td class="xds:p-12 xds:flex xds:items-center xds:flex-wrap xds:gap-8">
           <slot :name="row" />
         </td>
       </tr>

@@ -1,0 +1,129 @@
+/* Base */
+@utility filter-facet {
+  @apply xds:grid xds:grid-flow-col xds:box-border;
+  @apply xds:items-baseline-last xds:content-center xds:justify-start;
+  @apply xds:cursor-pointer;
+  @apply xds:font-family-main xds:font-regular xds:text-start xds:text-neutral-90;
+  @apply xds:border-b-1 xds:border-transparent;
+
+  /* `@apply xds:filter-facet-md;` can not be use here because cause circular dependency. */
+  @apply xds:min-h-32 xds:gap-4 xds:text-sm;
+
+  & > .xds\:icon {
+    @apply xds:icon-offset;
+  }
+
+  &:hover {
+    @apply xds:text-neutral-50;
+  }
+
+  @variant selected {
+    @apply xds:font-bold xds:tracking-xs xds:text-neutral-90;
+  }
+
+  @variant disabled {
+    @apply xds:text-neutral-25;
+    @apply xds:cursor-not-allowed;
+  }
+}
+
+/* Sizes */
+@utility filter-facet-sm {
+  @apply xds:min-h-24 xds:gap-2 xds:text-sm;
+}
+@utility filter-facet-md {
+  @apply xds:min-h-32 xds:gap-4 xds:text-sm;
+}
+@utility filter-facet-lg {
+  @apply xds:min-h-48 xds:gap-12 xds:text-md;
+}
+
+/* Underline */
+@utility filter-facet-underline {
+  &:hover {
+    @apply xds:border-current;
+
+    @variant disabled {
+      @apply xds:border-transparent;
+    }
+  }
+
+  @variant selected {
+    @apply xds:font-regular xds:tracking-md;
+  }
+}
+
+/* Ghost */
+@utility filter-facet-ghost {
+  @apply xds:px-8;
+
+  &.xds\:filter-facet-sm {
+    @apply xds:px-4;
+  }
+  &.xds\:filter-facet-md {
+    @apply xds:px-8;
+  }
+  &.xds\:filter-facet-lg {
+    @apply xds:px-12;
+  }
+
+  &:hover {
+    @apply xds:bg-neutral-10 xds:text-neutral-90;
+  }
+
+  @variant selected {
+    @apply xds:font-regular xds:tracking-md xds:text-neutral-75;
+  }
+
+  @variant disabled {
+    @apply xds:border-transparent xds:text-neutral-25 xds:bg-transparent;
+  }
+}
+
+/* Simple */
+@utility filter-facet-simple {
+  @apply xds:px-8;
+
+  &:hover {
+    @apply xds:text-neutral-90 xds:opacity-60;
+  }
+
+  @variant selected {
+    @apply xds:font-regular xds:tracking-md;
+
+    &:hover {
+      @apply xds:text-neutral-50;
+    }
+
+    @variant disabled {
+      @apply xds:text-neutral-25;
+    }
+  }
+
+  @variant disabled {
+    @apply xds:opacity-100 xds:text-neutral-25;
+  }
+}
+
+/* Colors */
+@utility filter-facet-* {
+  &:hover:not(.xds\:filter-facet-ghost) {
+    color: --value(--color- * -50);
+  }
+
+  @variant selected {
+    color: --value(--color- * -50);
+  }
+
+  &.xds\:filter-facet-simple.xds\:selected {
+    &:hover {
+      color: --value(--color- * -50);
+    }
+  }
+
+  &.xds\:filter-facet-ghost {
+    @variant selected {
+      color: --value(--color- * -75);
+    }
+  }
+}
