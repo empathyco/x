@@ -17,7 +17,7 @@ export default mergeConfig(viteConfig, {
       userAgent: 'Agent/007',
     },
     include: ['src/**/*.spec.ts'],
-    setupFiles: ['./jest.setup.ts'],
+    setupFiles: ['./vitest-setup.ts'],
     css: {
       modules: {
         classNameStrategy: 'non-scoped',

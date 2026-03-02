@@ -288,7 +288,7 @@ describe('query preview', () => {
     const { getQueryPreviewItemWrappers, queryPreviewInState } = await render()
 
     queryPreviewInState.results.forEach((result, index) => {
-      expect(getQueryPreviewItemWrappers().at(index)?.element).toHaveTextContent(result.name!)
+      expect(getQueryPreviewItemWrappers().at(index)?.text()).toContain(result.name!)
     })
   })
 
@@ -313,17 +313,17 @@ describe('query preview', () => {
         </QueryPreview>`,
     })
 
-    expect(
-      queryPreviewWrapper.find(getDataTestSelector('query-preview-query')).element,
-    ).toHaveTextContent(queryPreviewInfo.query)
-    expect(
-      queryPreviewWrapper.find(getDataTestSelector('total-results')).element,
-    ).toHaveTextContent(queryPreviewInState.totalResults.toString())
+    expect(queryPreviewWrapper.find(getDataTestSelector('query-preview-query')).text()).toContain(
+      queryPreviewInfo.query,
+    )
+    expect(queryPreviewWrapper.find(getDataTestSelector('total-results')).text()).toContain(
+      queryPreviewInState.totalResults.toString(),
+    )
 
     const resultsWrappers = findTestDataById(queryPreviewWrapper, 'result-name')
 
     queryPreviewInState.results.forEach((result, index) => {
-      expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!)
+      expect(resultsWrappers.at(index)?.text()).toContain(result.name!)
     })
   })
 
@@ -338,7 +338,7 @@ describe('query preview', () => {
     const resultsWrapper = findTestDataById(queryPreviewWrapper, 'result-content')
 
     queryPreviewInState.results.forEach((result, index) => {
-      expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`)
+      expect(resultsWrapper.at(index)?.text()).toContain(`${result.id} - ${result.name!}`)
     })
   })
 

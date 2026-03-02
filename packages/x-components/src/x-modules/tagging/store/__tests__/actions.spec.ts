@@ -1,4 +1,5 @@
 import type { TaggingRequest } from '@empathyco/x-types'
+import type { Mock } from 'vitest'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { TaggingActions, TaggingGetters, TaggingMutations, TaggingState } from '../types'
 import { mount } from '@vue/test-utils'
@@ -39,7 +40,7 @@ describe('testing tagging module actions', () => {
 
       expect(adapter.tagging).toHaveBeenCalled()
       expect(adapter.tagging).toHaveBeenCalledWith(queryTagging)
-      const payload: TaggingRequest = (adapter.tagging as jest.Mock<any, any>).mock.calls[0][0]
+      const payload: TaggingRequest = (adapter.tagging as Mock).mock.calls[0][0]
       expect('session' in payload.params).toBe(false)
     })
 
@@ -49,7 +50,7 @@ describe('testing tagging module actions', () => {
 
       expect(adapter.tagging).toHaveBeenCalled()
       expect(adapter.tagging).toHaveBeenCalledWith(queryTagging)
-      const payload: TaggingRequest = (adapter.tagging as jest.Mock<any, any>).mock.calls[0][0]
+      const payload: TaggingRequest = (adapter.tagging as Mock).mock.calls[0][0]
       expect('session' in payload.params).toBe(false)
     })
 

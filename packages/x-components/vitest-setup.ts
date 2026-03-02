@@ -1,5 +1,4 @@
 import { vi } from 'vitest'
-import '@testing-library/jest-dom'
 
 window.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),

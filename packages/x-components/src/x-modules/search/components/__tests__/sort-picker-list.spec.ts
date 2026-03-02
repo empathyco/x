@@ -127,8 +127,8 @@ describe('testing SortPickerList component', () => {
     await clickNthItem(1)
 
     const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'))
-    expect(buttons[0].element).not.toHaveAttribute('aria-pressed')
-    expect(buttons[1].element).toHaveAttribute('aria-pressed', 'true')
+    expect(buttons[0].attributes('aria-pressed')).toBeUndefined()
+    expect(buttons[1].attributes('aria-pressed')).toBe('true')
   })
 
   it('adds corresponding classes to the selected element', async () => {

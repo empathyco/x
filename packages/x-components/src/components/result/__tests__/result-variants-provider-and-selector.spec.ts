@@ -284,7 +284,7 @@ describe('results with variants', () => {
 
       await firstVariantButton.trigger('click')
 
-      expect(variantWrappers.at(0)?.element).toHaveClass(className)
+      expect(variantWrappers.at(0)?.classes()).toContain(className)
       variantWrappers.slice(1).forEach(wrapper => {
         expect(wrapper.element.classList.contains(className)).toBe(false)
       })
@@ -381,7 +381,7 @@ describe('results with variants', () => {
 
       await variants.at(0)?.trigger('click')
 
-      expect(variants.at(0)?.element).toHaveClass('isSelected')
+      expect(variants.at(0)?.classes()).toContain('isSelected')
     })
 
     it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
@@ -406,7 +406,7 @@ describe('results with variants', () => {
       expect(variants.at(1)?.text()).toEqual('blue jacket')
 
       await variants.at(1)?.trigger('click')
-      expect(variants.at(1)?.element).toHaveClass('isSelected')
+      expect(variants.at(1)?.classes()).toContain('isSelected')
     })
 
     it('exposes variant and isSelected in the variant-content slot', async () => {

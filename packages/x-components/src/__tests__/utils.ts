@@ -17,6 +17,7 @@ import type {
 } from '@empathyco/x-types'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import type { Mock } from 'vitest'
 import type { Store } from 'vuex'
 import type { XPluginOptions } from '../plugins'
 import type { ActionsDictionary } from '../store/actions.types'
@@ -31,10 +32,7 @@ import { XComponentsAdapterDummy } from './adapter.dummy'
 import { XDummyBus } from './bus.dummy'
 
 export type MockedXComponentsAdapter = {
-  [Method in keyof Required<XComponentsAdapter>]: jest.Mock<
-    ReturnType<Required<XComponentsAdapter>[Method]>,
-    Parameters<Required<XComponentsAdapter>[Method]>
-  >
+  [Method in keyof Required<XComponentsAdapter>]: Mock<Required<XComponentsAdapter>[Method]>
 }
 
 /**

@@ -53,9 +53,7 @@ describe('semantic queries component', () => {
       suggestion: createSemanticQuery({ query: 'test query' }),
     })
 
-    expect(wrapper.get(getDataTestSelector('semantic-query')).element).toHaveTextContent(
-      'test query',
-    )
+    expect(wrapper.get(getDataTestSelector('semantic-query')).text()).toContain('test query')
   })
 
   it('allows overriding its content with a slot', async () => {

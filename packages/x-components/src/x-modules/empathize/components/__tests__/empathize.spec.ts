@@ -85,7 +85,7 @@ describe('testing empathize component', () => {
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
-    expect(empathizeContainer.element).not.toBeVisible()
+    expect(empathizeContainer.isVisible()).toBeFalsy()
     expect(empathizeContent.exists()).toBeFalsy()
     expect(emitSpy).toHaveBeenCalledTimes(1) // 'UserClickedSearchBox' event
   })
@@ -100,9 +100,9 @@ describe('testing empathize component', () => {
 
     // Both should exist and be visible
     expect(empathizeContainer.exists()).toBeTruthy()
-    expect(empathizeContainer.element).toBeVisible()
+    expect(empathizeContainer.isVisible()).toBeTruthy()
     expect(empathizeContent.exists()).toBeTruthy()
-    expect(empathizeContent.element).toBeVisible()
+    expect(empathizeContent.isVisible()).toBeTruthy()
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeOpened', undefined, expect.any(Object))
 
     // Test closing with one of the default close events
@@ -112,9 +112,9 @@ describe('testing empathize component', () => {
 
     // Both should exist, as v-show doesn't remove the elements in the DOM, and not be visible
     expect(empathizeContainer.exists()).toBeTruthy()
-    expect(empathizeContainer.element).not.toBeVisible()
+    expect(empathizeContainer.isVisible()).toBeFalsy()
     expect(empathizeContent.exists()).toBeTruthy()
-    expect(empathizeContent.element).not.toBeVisible()
+    expect(empathizeContent.isVisible()).toBeFalsy()
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
   })
 
@@ -130,7 +130,7 @@ describe('testing empathize component', () => {
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
-    expect(empathizeContainer.element).toBeVisible()
+    expect(empathizeContainer.isVisible()).toBeTruthy()
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeOpened', undefined, expect.any(Object))
 
     await wrapper.setProps({ hasContent: false } as any)
@@ -154,7 +154,7 @@ describe('testing empathize component', () => {
     await nextTick()
 
     expect(empathizeContainer.exists()).toBeTruthy()
-    expect(empathizeContainer.element).toBeVisible()
+    expect(empathizeContainer.isVisible()).toBeTruthy()
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeOpened', undefined, expect.any(Object))
 
     // Reset the emit spy to clarify assertions

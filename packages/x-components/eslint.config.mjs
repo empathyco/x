@@ -5,7 +5,7 @@ export default empathyco(
       '.loaded_actions',
       'vite.config.ts',
       'tailwind.config.ts',
-      'jest.setup.ts',
+      'vitest-setup.ts',
       'vitest.config.ts',
     ],
   },

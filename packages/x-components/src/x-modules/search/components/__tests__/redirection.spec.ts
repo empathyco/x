@@ -1,5 +1,6 @@
 import type { Redirection as RedirectionModel } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
+import type { Mock } from 'vitest'
 import type { RootXStoreState } from '../../../../store'
 import type { WirePayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
@@ -34,7 +35,7 @@ function renderRedirection({
   delayInSeconds = 1,
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
-  ;(XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
+  ;(XComponentsAdapterDummy.search as Mock).mockResolvedValueOnce({
     ...getEmptySearchResponseStub(),
   })
 
