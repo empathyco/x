@@ -35,8 +35,10 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest",
-    "test:unit": "jest",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit-coverage": "vitest run --coverage",
+    "test:unit-watch": "vitest",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -50,17 +52,15 @@
     "vue-i18n": "~9.14.5"
   },
   "devDependencies": {
-    "@types/jest": "29.5.14",
-    "@types/node": "24.10.13",
+    "@vitest/coverage-v8": "4.0.18",
     "@vue/test-utils": "2.4.6",
-    "jest": "29.7.0",
-    "jest-environment-jsdom": "29.7.0",
+    "jsdom": "28.1.0",
     "rimraf": "3.0.2",
-    "ts-jest": "29.4.6",
     "typescript": "5.9.3",
     "vite": "6.4.1",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-static-copy": "3.2.0",
+    "vitest": "4.0.18",
     "vue": "3.5.28"
   },
   "publishConfig": {
