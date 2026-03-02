@@ -10,21 +10,7 @@
   @apply xds:min-h-32 xds:gap-4 xds:text-sm;
 
   & > .xds\:icon {
-    @apply xds:text-[14px];
-    transform: translateY(calc(50% - 0.5ex - 1px));
-
-    &.xds\:icon-sm {
-      @apply xds:text-[7px];
-    }
-    &.xds\:icon-md {
-      @apply xds:text-[14px];
-    }
-    &.xds\:icon-lg {
-      @apply xds:text-[20px];
-    }
-    &.xds\:icon-xl {
-      @apply xds:text-[28px];
-    }
+    @apply xds:icon-offset;
   }
 
   &:hover {
@@ -127,10 +113,6 @@
 
   @variant selected {
     color: --value(--color- * -50);
-  }
-
-  @variant disabled {
-    color: --value(--color- * -25);
   }
 
   &.xds\:filter-facet-simple.xds\:selected {

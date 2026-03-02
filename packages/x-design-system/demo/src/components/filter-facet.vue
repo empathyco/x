@@ -16,7 +16,7 @@
           :class="[size]"
         >
           <Uncheck class="xds:icon" />
-          <span>{{ size }}</span>
+          <span>{{ cleanedValue(size) }}</span>
           <span>(123)</span>
         </button>
       </div>
@@ -24,7 +24,7 @@
     <template #color>
       <button v-for="(value, key) in colors" :key="key" class="xds:filter-facet" :class="value">
         <Uncheck class="xds:icon" />
-        <span>{{ value }}</span>
+        <span>{{ cleanedValue(value) }}</span>
         <span>(123)</span>
       </button>
     </template>
@@ -36,7 +36,7 @@
         :class="value"
       >
         <Check class="xds:icon" />
-        <span>{{ value }} xds:selected</span>
+        <span>{{ cleanedValue(value) }} selected</span>
         <span>(123)</span>
       </button>
     </template>
@@ -48,7 +48,7 @@
         :class="value"
       >
         <Uncheck class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-underline</span>
+        <span>{{ cleanedValue(value) }} underline</span>
         <span>(123)</span>
       </button>
     </template>
@@ -60,7 +60,7 @@
         :class="value"
       >
         <Check class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-underline xds:selected</span>
+        <span>{{ cleanedValue(value) }} underline selected</span>
         <span>(123)</span>
       </button>
     </template>
@@ -72,7 +72,7 @@
         :class="value"
       >
         <Uncheck class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-ghost</span>
+        <span>{{ cleanedValue(value) }} ghost</span>
         <span>(123)</span>
       </button>
     </template>
@@ -84,7 +84,7 @@
         :class="value"
       >
         <Check class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-ghost xds:selected</span>
+        <span>{{ cleanedValue(value) }} ghost selected</span>
         <span>(123)</span>
       </button>
     </template>
@@ -96,7 +96,7 @@
         :class="value"
       >
         <Uncheck class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-simple</span>
+        <span>{{ cleanedValue(value) }} simple</span>
         <span>(123)</span>
       </button>
     </template>
@@ -108,7 +108,7 @@
         :class="value"
       >
         <Check class="xds:icon" />
-        <span>{{ value }} xds:filter-facet-simple xds:selected</span>
+        <span>{{ cleanedValue(value) }} simple selected</span>
         <span>(123)</span>
       </button>
     </template>
@@ -187,4 +187,6 @@ const combinations = [
   'xds:filter-facet-ghost xds:filter-facet-success xds:filter-facet-underline xds:selected',
   'xds:filter-facet-simple xds:filter-facet-lg xds:filter-facet-success xds:filter-facet-underline xds:selected',
 ]
+
+const cleanedValue = (value: string) => value.replace(/^xds:filter-facet-/, '')
 </script>
