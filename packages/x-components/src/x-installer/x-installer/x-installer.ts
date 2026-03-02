@@ -8,6 +8,7 @@ import { forEach, isFunction } from '@empathyco/x-utils'
 import { createApp, reactive } from 'vue'
 import { bus } from '../../plugins/x-bus'
 import { XPlugin } from '../../plugins/x-plugin'
+import { cssInjector } from '../../utils'
 import { BaseXAPI } from '../api/base-api'
 
 declare global {
@@ -165,6 +166,8 @@ export class XInstaller {
   init(): Promise<InitWrapper | void>
   async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
     if (snippetConfig) {
+      const mountingTarget = this.getMountingTarget(this.options.domElement)
+      cssInjector.addHost(mountingTarget instanceof ShadowRoot ? mountingTarget : document)
       this.snippetConfig = reactive(this.normaliseSnippetConfig(snippetConfig))
       this.createApp()
       const bus = this.createBus()
@@ -172,7 +175,7 @@ export class XInstaller {
       const plugin = this.installPlugin(pluginOptions, bus)
       await this.installExtraPlugins(bus)
       this.api?.setBus(bus)
-      this.app.mount(this.getMountingTarget(this.options.domElement))
+      this.app.mount(mountingTarget)
 
       return {
         api: this.api,

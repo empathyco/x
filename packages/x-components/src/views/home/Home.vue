@@ -554,7 +554,12 @@
       </MultiColumnMaxWidthLayout>
     </MainModal>
   </div>
-  <BaseTeleport target="#teleport-here">This is the teleport content</BaseTeleport>
+  <BaseTeleport target="#teleport-here">
+    Teleporting inside App <OpenMainModal>Start</OpenMainModal>
+  </BaseTeleport>
+  <BaseTeleport target="body" position="beforeend">
+    Teleporting outside App <OpenMainModal>Start</OpenMainModal>
+  </BaseTeleport>
 </template>
 
 <script lang="ts">
