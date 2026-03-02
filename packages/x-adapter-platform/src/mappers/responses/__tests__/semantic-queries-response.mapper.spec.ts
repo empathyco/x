@@ -1,4 +1,5 @@
 import type { PlatformSemanticQueriesResponse } from '../../../types/responses/semantic-queries-response.model'
+import { describe, expect, it } from 'vitest'
 import { semanticQueriesResponseMapper } from '../semantic-queries-response.mapper'
 
 describe('semanticQueriesResponseMapper tests', () => {

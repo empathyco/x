@@ -1,4 +1,5 @@
 import type { RelatedTagsRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { relatedTagsRequestMapper } from '../related-tags-request.mapper'
 
 describe('relatedTagsRequestMapper tests', () => {
