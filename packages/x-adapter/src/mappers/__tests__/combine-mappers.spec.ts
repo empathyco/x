@@ -1,5 +1,6 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { Mapper } from '../types'
+import { describe, expect, it } from "vitest";
 import { combineMappers } from '../combine-mappers'
 
 describe('combineMappers util', () => {

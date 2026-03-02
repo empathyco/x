@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { RequestError } from '../request-error'
 
 describe('requestError testing', () => {

@@ -1,10 +1,11 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RequestError } from '../errors/request-error'
 import { buildUrl, toJson } from '../utils'
 
 describe('http-client utils tests', () => {
   describe('toJson tests', () => {
     beforeEach(() => {
-      jest.clearAllMocks()
+      vi.clearAllMocks()
     })
 
     it('transforms to json format if the response is ok', async () => {

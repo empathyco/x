@@ -1,6 +1,8 @@
+import type { Mock } from 'vitest'
 import type { HttpClient, RequestOptions } from '../../http-clients/types'
 import type { Mapper } from '../../mappers/types'
 import type { EndpointAdapterOptions, ExtendableEndpointAdapter } from '../types'
+import { describe, expect, it, vi } from 'vitest'
 import { identityMapper } from '../../mappers/identity.mapper'
 import { endpointAdapterFactory } from '../endpoint-adapter.factory'
 
@@ -21,15 +23,15 @@ function createEndpointAdapterFactoryOptions<Request, Response>({
   Request,
   Response
 > {
-  const mockedHttpClient = jest.fn(async () => Promise.resolve(rawResponse))
-  const mockedRequestMapper = jest.fn(identityMapper)
-  const mockedResponseMapper = jest.fn(identityMapper)
+  const mockedHttpClient = vi.fn(async () => Promise.resolve(rawResponse))
+  const mockedRequestMapper = vi.fn(identityMapper)
+  const mockedResponseMapper = vi.fn(identityMapper)
 
   const adapterOptions: EndpointAdapterOptions<Request, Response> = {
     endpoint: 'https://api.empathy.co/test',
     httpClient: mockedHttpClient as HttpClient,
-    requestMapper: mockedRequestMapper,
-    responseMapper: mockedResponseMapper,
+    requestMapper: mockedRequestMapper as Mapper<Request, Record<string, any>>,
+    responseMapper: mockedResponseMapper as Mapper<any, Response>,
     ...options,
   }
   const endpointAdapter = endpointAdapterFactory<Request, Response>(adapterOptions)
@@ -83,12 +85,12 @@ describe('adapterFactory tests', () => {
 
     const extendedEndpoint = 'https://api.empathy.co/extended'
     const extendedRawResponse = { extendedQuery: 'patata', extendedHits: 10 }
-    const mockExtendedHttpClient = jest.fn(async () => Promise.resolve(extendedRawResponse))
-    const mockExtendedRequestMapper = jest.fn(({ q, origin }: ExtendedTestRequest) => ({
+    const mockExtendedHttpClient = vi.fn(async () => Promise.resolve(extendedRawResponse))
+    const mockExtendedRequestMapper = vi.fn(({ q, origin }: ExtendedTestRequest) => ({
       extendedQuery: q,
       extendedOrigin: origin,
     }))
-    const mockExtendedResponseMapper = jest.fn(
+    const mockExtendedResponseMapper = vi.fn(
       ({ extendedQuery, extendedHits }): ExtendedTestResponse => ({
         query: extendedQuery,
         hits: extendedHits,
@@ -261,11 +263,11 @@ interface CreateEndpointAdapterFactoryAPI<Request, Response> {
   /** The options passed to {@link endpointAdapterFactory} function. */
   options: EndpointAdapterOptions<Request, Response>
   /** The mocked {@link EndpointAdapterOptions.httpClient}. */
-  mockedHttpClient: jest.Mock
+  mockedHttpClient: Mock
   /** The mocked {@link EndpointAdapterOptions.requestMapper}. */
-  mockedRequestMapper: jest.Mock
+  mockedRequestMapper: Mock
   /** The mocked {@link EndpointAdapterOptions.responseMapper}. */
-  mockedResponseMapper: jest.Mock
+  mockedResponseMapper: Mock
 }
 
 interface TestRequest {

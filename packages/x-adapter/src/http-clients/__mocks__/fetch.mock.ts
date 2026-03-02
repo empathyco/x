@@ -1,6 +1,7 @@
-export const okFetchMock = jest.fn(fetchMock({}))
+import { vi } from "vitest";
+export const okFetchMock = vi.fn(fetchMock({}))
 
-export const koFetchMock = jest.fn(async () =>
+export const koFetchMock = vi.fn(async () =>
   Promise.resolve({
     ok: false,
     json: async () => Promise.resolve({}),

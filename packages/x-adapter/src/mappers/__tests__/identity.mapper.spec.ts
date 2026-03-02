@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { identityMapper } from '../identity.mapper'
 
 describe('identityMapper tests', () => {
