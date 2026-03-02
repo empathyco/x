@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.0-alpha.206",
+  "version": "6.0.0-alpha.207",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -69,10 +69,10 @@
   },
   "dependencies": {
     "@empathyco/x-adapter": "8.1.0-alpha.11",
-    "@empathyco/x-adapter-platform": "1.1.0-alpha.46",
+    "@empathyco/x-adapter-platform": "1.1.0-alpha.47",
     "@empathyco/x-deep-merge": "2.0.3-alpha.11",
     "@empathyco/x-storage-service": "2.0.3-alpha.9",
-    "@empathyco/x-types": "10.1.0-alpha.39",
+    "@empathyco/x-types": "10.1.0-alpha.40",
     "@empathyco/x-utils": "1.0.3-alpha.10",
     "@vue/devtools-api": "~6.6.4",
     "@vueuse/core": "~12.8.2",

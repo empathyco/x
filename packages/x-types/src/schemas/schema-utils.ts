@@ -1,71 +1,11 @@
-import type {
-  EmpathyExtendedExpect,
-  EmpathyExtendedMatchers,
-  FunctionType,
-  Newable,
-} from './jest-utils.types'
+import type { Newable } from '../vitest-augmentation'
+import { expect } from 'vitest'
 
-declare global {
-  // eslint-disable-next-line ts/no-namespace
-  namespace jest {
-    export interface Expect extends EmpathyExtendedExpect {}
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    export interface Matchers<R> extends EmpathyExtendedMatchers {}
-  }
-}
-
-const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatchers), FunctionType> =
-  {
-    // extensions for expect.xxx
-    nullOr,
-    nullOrMatch,
-    nullOrAnyOf,
-    undefinedOr,
-    undefinedOrMatch,
-    nullOrUndefinedOr,
-    arrayOf,
-    anyOf,
-    arrayOfItemsMatching: everyItemToMatch,
-    // Extensions for expect(...).xxx
-    toBeNullOr: nullOr,
-    toBeUndefinedOr: undefinedOr,
-    toBeNullOrUndefinedOr: nullOrUndefinedOr,
-    everyItemToBe: arrayOf,
-    everyItemToMatch,
-    toBeAValidURLWithExactQueryParameters,
-    toBeAValidURLWithQueryParameters,
-  }
-
-expect.extend(extendOptions)
-
-const ok: jest.CustomMatcherResult = { pass: true, message: () => 'OK' }
-const error = (msg: string): jest.CustomMatcherResult => ({
+const ok = { pass: true, message: () => 'OK' }
+const error = (msg: string) => ({
   pass: false,
   message: () => msg,
 })
-
-/**
- * Checks if the value received is null or any of the types sent.
- *
- * @param received - The value to check.
- * @param classTypeUnion - Array of types.
- *
- * @returns Ok if the object is null or any of the types sent, error otherwise.
- */
-function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
-  if (received !== null) {
-    try {
-      anyOf(received, classTypeUnion)
-    } catch {
-      return error(
-        `Expected "${received}" to be "${classTypeUnion
-          .map(classType => classType.name)
-          .join(' | ')}" or null`,
-      )
-    }
-  }
-  return ok
-}
 
 /**
  * Checks if the value received is any of the types sent.
@@ -75,7 +15,7 @@ function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatch
  *
  * @returns Ok if the element is any of the types sent, error otherwise.
  */
-function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
+function anyOf(received: any, classTypeUnion: Newable[]) {
   const isValid = classTypeUnion.some(classType => {
     try {
       expect(received).toEqual(expect.any(classType))
@@ -88,11 +28,26 @@ function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResu
     return ok
   } else {
     return error(
-      `Expected "${received}" to be "${classTypeUnion
-        .map(classType => classType.name)
+      `Expected "${String(received)}" to be "${classTypeUnion
+        .map(classType => String(classType.name))
         .join(' | ')}"`,
     )
   }
+}
+
+/**
+ * Checks if the value received is null or any of the types sent.
+ *
+ * @param received - The value to check.
+ * @param classTypeUnion - Array of types.
+ *
+ * @returns Ok if the object is null or any of the types sent, error otherwise.
+ */
+function nullOrAnyOf(received: any, classTypeUnion: Newable[]) {
+  if (received !== null) {
+    return anyOf(received, classTypeUnion)
+  }
+  return ok
 }
 
 /**
@@ -103,12 +58,12 @@ function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResu
  *
  * @returns Ok if the object is null or the type sent, error otherwise.
  */
-function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
+function nullOr(received: any, classType: Newable) {
   if (received !== null) {
     try {
       expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "null"`)
+      return error(`Expected "${String(received)}" to be "${String(classType)}" or "null"`)
     }
   }
   return ok
@@ -122,12 +77,12 @@ function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
  *
  * @returns Ok if the object is null or match the schema sent, error otherwise.
  */
-function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
+function nullOrMatch(received: any, schema: Record<string, any>) {
   if (received !== null) {
     try {
       expect(received).toMatchObject(schema)
     } catch {
-      return error(`Expected "${received}" to match "${schema}" or "null"`)
+      return error(`Expected "${received}" to match "${JSON.stringify(schema)}" or "null"`)
     }
   }
   return ok
@@ -141,12 +96,12 @@ function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMat
  *
  * @returns Ok if the object s undefined or match the schema sent, error otherwise.
  */
-function undefinedOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
+function undefinedOrMatch(received: any, schema: Record<string, any>) {
   if (received !== undefined) {
     try {
       expect(received).toMatchObject(schema)
     } catch {
-      return error(`Expected "${received}" to match "${schema}" or "null"`)
+      return error(`Expected "${received}" to match "${JSON.stringify(schema)}" or "undefined"`)
     }
   }
   return ok
@@ -160,12 +115,12 @@ function undefinedOrMatch(received: any, schema: Record<string, any>): jest.Cust
  *
  * @returns Ok if the object is undefined or the type sent, error otherwise.
  */
-function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
+function undefinedOr(received: any, classType: Newable) {
   if (received !== undefined) {
     try {
       expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "undefined"`)
+      return error(`Expected "${String(received)}" to be "${String(classType)}" or "undefined"`)
     }
   }
   return ok
@@ -179,12 +134,14 @@ function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResul
  *
  * @returns Ok if the object is null, undefined or the type sent, error otherwise.
  */
-function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
+function nullOrUndefinedOr(received: any, classType: Newable) {
   if (received != null) {
     try {
       expect(received).toEqual(expect.any(classType))
     } catch {
-      return error(`Expected "${received}" to be "${classType}" or "null" or "undefined"`)
+      return error(
+        `Expected "${String(received)}" to be "${String(classType)}" or "null" or "undefined"`,
+      )
     }
   }
   return ok
@@ -198,11 +155,11 @@ function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatche
  *
  * @returns Ok if the object is an array of the type sent, error otherwise.
  */
-function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult {
+function arrayOf(received: any[], classType: Newable) {
   try {
     received.every(object => expect(object).toEqual(expect.any(classType)))
   } catch {
-    return error(`Expected "${received}" to be an array of "${classType}"`)
+    return error(`Expected "${String(received)}" to be an array of "${String(classType)}"`)
   }
   return ok
 }
@@ -215,11 +172,13 @@ function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult 
  *
  * @returns Ok if the every value received matches to the schema sent, error otherwise.
  */
-function everyItemToMatch(received: any[], schema: Record<string, any>): jest.CustomMatcherResult {
+function everyItemToMatch(received: any[], schema: Record<string, any>) {
   try {
     received.every(object => expect(object).toMatchObject(schema))
   } catch {
-    return error(`Expected every item of "${received}" to match "${schema}"`)
+    return error(
+      `Expected every item of "${String(received)}" to match "${JSON.stringify(schema)}"`,
+    )
   }
   return ok
 }
@@ -236,19 +195,25 @@ function everyItemToMatch(received: any[], schema: Record<string, any>): jest.Cu
  * by parameter, error otherwise.
  */
 function toBeAValidURLWithExactQueryParameters(
-  urlString: any,
+  urlString: string,
   parameters: Record<string, string | string[]>,
-): any {
-  const entries = Object.fromEntries(new URL(urlString as string).searchParams)
+) {
   try {
-    expect(entries).toEqual(parameters)
+    const url = new URL(urlString)
+    const actualParams = Object.fromEntries(url.searchParams.entries())
+
+    const pass = JSON.stringify(actualParams) === JSON.stringify(parameters)
+
+    return {
+      pass,
+      message: () => `Query parameters do not match exactly`,
+    }
   } catch {
-    return error(
-      `Expected URL parameters "${JSON.stringify(parameters)}" to be "${JSON.stringify(entries)}",
-         but it is not present"`,
-    )
+    return {
+      pass: false,
+      message: () => `Invalid URL`,
+    }
   }
-  return ok
 }
 
 /**
@@ -263,14 +228,15 @@ function toBeAValidURLWithExactQueryParameters(
 function toBeAValidURLWithQueryParameters(
   urlString: any,
   parameters: Record<string, string | string[]>,
-): any {
+) {
   const url = new URL(urlString as string)
-  Object.keys(parameters).forEach(key => {
+  for (const key of Object.keys(parameters)) {
     const expectedValue = parameters[key]
     if (!url.searchParams.has(key)) {
-      throw new TypeError(
-        `Expected URL to include parameter "${key}" with value "${parameters[key]}",
-         but it is not present"`,
+      return error(
+        `Expected URL to include parameter "${key}" with value "${String(
+          parameters[key],
+        )}", but it is not present`,
       )
     }
 
@@ -279,17 +245,38 @@ function toBeAValidURLWithQueryParameters(
       try {
         expect(received).toEqual(expectedValue)
       } catch {
-        throw new TypeError(
-          `Expected parameters with key "${key}" to equal array "${expectedValue}",but it has value "${received}"`,
+        return error(
+          `Expected parameters with key "${key}" to equal array "${String(
+            expectedValue,
+          )}", but it has value "${String(received)}"`,
         )
       }
     } else if (url.searchParams.get(key) !== expectedValue) {
-      throw new TypeError(
-        `Expected parameter "${key}" to equal value "${expectedValue}",but it has value "${url.searchParams.get(
-          key,
-        )}"`,
+      return error(
+        `Expected parameter "${key}" to equal value "${String(
+          expectedValue,
+        )}", but it has value "${String(url.searchParams.get(key))}"`,
       )
     }
-  })
+  }
   return ok
 }
+
+expect.extend({
+  nullOr,
+  nullOrMatch,
+  nullOrAnyOf,
+  undefinedOr,
+  undefinedOrMatch,
+  nullOrUndefinedOr,
+  arrayOf,
+  anyOf,
+  arrayOfItemsMatching: everyItemToMatch,
+  toBeNullOr: nullOr,
+  toBeUndefinedOr: undefinedOr,
+  toBeNullOrUndefinedOr: nullOrUndefinedOr,
+  everyItemToBe: arrayOf,
+  everyItemToMatch,
+  toBeAValidURLWithExactQueryParameters,
+  toBeAValidURLWithQueryParameters,
+})
