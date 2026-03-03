@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.14 (2026-03-03)
+
+- feat: x utils jest to vitest (#2031) ([75b20c0](https://github.com/empathyco/x/commit/75b20c0)), closes [#2031](https://github.com/empathyco/x/issues/2031)
+
 ## 8.1.0-alpha.13 (2026-03-03)
 
 - chore: complete migration from Jest to Vitest, remove Jest configs an… (#2029) ([c97bdc0](https://github.com/empathyco/x/commit/c97bdc0)), closes [#2029](https://github.com/empathyco/x/issues/2029)

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.14 (2026-03-03)</small>
+
+- feat(x-design-system): picture component (#2026) ([3c115ec](https://github.com/empathyco/x/commit/3c115ec)), closes [#2026](https://github.com/empathyco/x/issues/2026)
+
 ## <small>0.0.2-alpha.13 (2026-03-03)</small>
 
 - feat(x-design-system): input-group component (#2024) ([a90430e](https://github.com/empathyco/x/commit/a90430e)), closes [#2024](https://github.com/empathyco/x/issues/2024)
