@@ -29,7 +29,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "concurrently \"pnpm run build:*\"",
+    "build": "pnpm run build:cjs && pnpm run build:esm",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.0.18",
-    "concurrently": "8.2.2",
     "jsdom": "28.1.0",
     "rimraf": "3.0.2",
     "typescript": "5.9.3",
