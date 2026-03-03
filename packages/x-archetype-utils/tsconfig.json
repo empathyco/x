@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "module": "ESNext",
     "moduleResolution": "node",
-    "types": ["jest"],
+    "types": ["vitest/globals"],
     "strict": true,
     "declaration": true,
     "sourceMap": true,
