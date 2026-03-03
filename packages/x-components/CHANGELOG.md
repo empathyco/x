@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.210 (2026-03-03)
+
+- chore: remove Vue alias configuration from Vite setup (#2035) ([81ca671](https://github.com/empathyco/x/commit/81ca671)), closes [#2035](https://github.com/empathyco/x/issues/2035)
+
 ## 6.0.0-alpha.209 (2026-03-03)
 
 **Note:** Version bump only for package @empathyco/x-components

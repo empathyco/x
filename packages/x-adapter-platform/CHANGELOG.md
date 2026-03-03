@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.50 (2026-03-03)
+
+- chore: x-adapter-platform update tests to use Vitest (#2030) ([a78c920](https://github.com/empathyco/x/commit/a78c920)), closes [#2030](https://github.com/empathyco/x/issues/2030)
+
 ## 1.1.0-alpha.49 (2026-03-03)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
