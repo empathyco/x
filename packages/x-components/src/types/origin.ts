@@ -50,7 +50,7 @@ export type ResultFeature =
   | 'identifier_result'
   | 'related_prompts'
   | 'overview'
-  | 'ai-carousel'
+  | 'ai_carousel'
 
 /**
  * Indicates where the feature is placed.

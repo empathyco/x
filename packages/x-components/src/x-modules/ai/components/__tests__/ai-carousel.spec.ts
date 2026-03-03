@@ -136,7 +136,7 @@ describe('ai-carousel component', () => {
     expect(sut.displayEmitter.props().payload).toStrictEqual(
       useStateStub.tagging.value.toolingDisplay,
     )
-    expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
+    expect(sut.displayEmitter.props('eventMetadata')).toStrictEqual({
       feature: 'ai_carousel',
       displayOriginalQuery: useStateStub.query.value,
       replaceable: false,
@@ -187,7 +187,8 @@ describe('ai-carousel component', () => {
       query: ref(''),
     }))
     const sut = render()
-    expect(sut.displayEmitter.props().eventMetadata.displayOriginalQuery).toBe(
+
+    expect(sut.displayEmitter.props('eventMetadata')!.displayOriginalQuery).toBe(
       'ai-carousel-without-query',
     )
   })

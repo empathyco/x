@@ -41,7 +41,7 @@
                 :tooling-add2-cart-tagging="
                   tagging?.searchQueries[suggestion.query].toolingDisplayAdd2Cart
                 "
-                result-feature="ai-carousel"
+                result-feature="ai_carousel"
               >
                 <li
                   v-for="result in suggestion.results"
