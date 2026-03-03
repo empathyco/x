@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.12 (2026-03-03)</small>
+
+- feat: x utils jest to vitest (#2031) ([75b20c0](https://github.com/empathyco/x/commit/75b20c0)), closes [#2031](https://github.com/empathyco/x/issues/2031)
+
 ## <small>1.0.3-alpha.11 (2026-03-02)</small>
 
 - chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))
