@@ -27,31 +27,6 @@ importers:
         specifier: 3.5.3
         version: 3.5.3
 
-  packages/deep-merge:
-    dependencies:
-      '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.11
-        version: 1.0.3-alpha.11
-    devDependencies:
-      '@vitest/coverage-v8':
-        specifier: 4.0.18
-        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.31.1)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
-      jsdom:
-        specifier: 28.1.0
-        version: 28.1.0
-      rimraf:
-        specifier: 3.0.2
-        version: 3.0.2
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@types/node@24.10.13)(typescript@5.9.3)
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      vitest:
-        specifier: 4.0.18
-        version: 4.0.18(@types/node@24.10.13)(@vitest/ui@4.0.18)(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.31.1)(yaml@2.8.2)
-
   packages/storage-service:
     devDependencies:
       '@vitest/coverage-v8':
@@ -74,7 +49,7 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: 2.0.3-alpha.14
-        version: link:../deep-merge
+        version: 2.0.3-alpha.14
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.12
         version: link:../x-utils
@@ -139,7 +114,7 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: 2.0.3-alpha.14
-        version: link:../deep-merge
+        version: 2.0.3-alpha.14
       '@empathyco/x-utils':
         specifier: workspace:^1.0.3-alpha.12
         version: link:../x-utils
@@ -188,7 +163,7 @@ importers:
         version: link:../x-adapter-platform
       '@empathyco/x-deep-merge':
         specifier: 2.0.3-alpha.14
-        version: link:../deep-merge
+        version: 2.0.3-alpha.14
       '@empathyco/x-storage-service':
         specifier: 2.0.3-alpha.10
         version: link:../storage-service
@@ -374,7 +349,7 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: 2.0.3-alpha.14
-        version: link:../deep-merge
+        version: 2.0.3-alpha.14
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.12
         version: link:../x-utils
@@ -1201,6 +1176,10 @@ packages:
 
   '@empathyco/eslint-config@1.8.0':
     resolution: {integrity: sha512-418kaBXnQnLjAXbY+dOvd7pF5DMeMYayAb4XvzzoMUIoVL8VSLabRFkwePvVgJbRGQhv1k5ww4YSGg16kFm4qA==}
+
+  '@empathyco/x-deep-merge@2.0.3-alpha.14':
+    resolution: {integrity: sha512-gRkIPMphvOHecxT22i5H6cKbNSIjFr5M0ONeq8JvST6rsgObzoPZ1gVQxsq8tDfqQD8/B7EY59wWemqfSVFAmw==}
+    engines: {node: '>=22'}
 
   '@empathyco/x-storage-service@2.0.3-alpha.10':
     resolution: {integrity: sha512-mwU1VxKp585wlaVCpZoK6I8duxwiTDeVunMa7+18dVDdeZfNpZpQARomT+PAjAD/9jjOmwdavVsn6KOpMs0nLg==}
@@ -8814,6 +8793,10 @@ snapshots:
       - svelte-eslint-parser
       - typescript
       - vitest
+
+  '@empathyco/x-deep-merge@2.0.3-alpha.14':
+    dependencies:
+      '@empathyco/x-utils': 1.0.3-alpha.11
 
   '@empathyco/x-storage-service@2.0.3-alpha.10':
     dependencies:
