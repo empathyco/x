@@ -1,12 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2019",
     "module": "esnext",
     "declaration": false,
     "declarationDir": null,
     "inlineSources": true,
+    "noEmit": false,
     "outDir": "./dist/esm",
     "sourceMap": true
-  }
+  },
+  "exclude": ["**/__tests__/**"]
 }

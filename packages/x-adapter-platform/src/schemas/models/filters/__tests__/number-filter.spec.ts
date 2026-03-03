@@ -1,6 +1,7 @@
 import type { NumberRangeFilter } from '@empathyco/x-types'
 import type { PlatformFilter } from '../../../../types'
 import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { describe, expect, it } from 'vitest'
 import { numberFilterSchema } from '../number-filter.schema'
 
 const createFilter = (value: string): PlatformFilter => {

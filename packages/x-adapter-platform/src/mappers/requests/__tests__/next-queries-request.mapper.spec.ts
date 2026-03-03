@@ -1,4 +1,5 @@
 import type { NextQueriesRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { nextQueriesRequestMapper } from '../next-queries-request.mapper'
 
 describe('nextQueriesRequestMapper tests', () => {

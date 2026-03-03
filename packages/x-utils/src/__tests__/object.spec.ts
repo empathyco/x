@@ -1,4 +1,5 @@
 import type { Dictionary } from '../types/utils.types'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   cleanEmpty,
   cleanUndefined,
@@ -19,10 +20,10 @@ class Person {
 ;(Person.prototype as any).inheritedProperty = 'Inherited property'
 
 describe('testing object utils', () => {
-  beforeEach(jest.clearAllMocks)
+  beforeEach(vi.clearAllMocks)
 
   describe('forEach', () => {
-    const forEachCallback = jest.fn()
+    const forEachCallback = vi.fn()
 
     it('iterates through object properties', () => {
       const obj = {
@@ -114,7 +115,7 @@ describe('testing object utils', () => {
   })
 
   describe('reduce', () => {
-    const reducer = jest.fn(
+    const reducer = vi.fn(
       (count: number, _: string, propertyValue) => count + (propertyValue ? 1 : 0),
     ) // Counts truthy properties
     it('iterates through object properties', () => {
@@ -212,7 +213,7 @@ describe('testing object utils', () => {
   })
 
   describe('map', () => {
-    const mapCallback = jest.fn((_: string, propertyValue: any) => !!propertyValue)
+    const mapCallback = vi.fn((_: string, propertyValue: any) => !!propertyValue)
     // Transform each property to a boolean
 
     it('iterates through object properties', () => {

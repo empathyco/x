@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`facetsResponseMapper tests should map the response 1`] = `
+exports[`facetsResponseMapper tests > should map the response 1`] = `
 {
   "facets": [
     {

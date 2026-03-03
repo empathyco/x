@@ -1,4 +1,5 @@
 import type { TaggingRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { taggingRequestMapper } from '../tagging-request.mapper'
 
 describe('taggingRequestMapper tests', () => {

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.32 (2026-03-03)
+
+- chore: x-archetype-utils Jest to Vitest and update ESLint configuration (#2032) ([7455d9c](https://github.com/empathyco/x/commit/7455d9c)), closes [#2032](https://github.com/empathyco/x/issues/2032)
+
 ## 2.0.0-alpha.31 (2026-03-02)
 
 - chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))
