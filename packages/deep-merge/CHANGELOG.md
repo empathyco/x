@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.14 (2026-03-03)</small>
+
+- chore: deep-merge Jest to Vitest (#2033) ([969ce2c](https://github.com/empathyco/x/commit/969ce2c)), closes [#2033](https://github.com/empathyco/x/issues/2033)
+
 ## <small>2.0.3-alpha.13 (2026-03-03)</small>
 
 **Note:** Version bump only for package @empathyco/x-deep-merge
