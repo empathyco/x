@@ -1,4 +1,5 @@
 import { BrowserStorageService, InMemoryStorageService } from '@empathyco/x-storage-service'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { DefaultSessionService } from '../session.service'
 
 describe('testing session id service', () => {
@@ -7,7 +8,7 @@ describe('testing session id service', () => {
   const storageKey = DefaultSessionService.SESSION_ID_KEY
 
   // eslint-disable-next-line no-restricted-globals
-  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
+  const selfSpy = vi.spyOn(self, 'self', 'get') as jest.SpyInstance<{
     crypto: { randomUUID: () => string }
   }>
 
@@ -17,14 +18,14 @@ describe('testing session id service', () => {
     },
   }))
 
-  const getItemSpy = jest.spyOn(mockedStorageService, 'getItem')
-  const setItemSpy = jest.spyOn(mockedStorageService, 'setItem')
-  const removeItemSpy = jest.spyOn(mockedStorageService, 'removeItem')
+  const getItemSpy = vi.spyOn(mockedStorageService, 'getItem')
+  const setItemSpy = vi.spyOn(mockedStorageService, 'setItem')
+  const removeItemSpy = vi.spyOn(mockedStorageService, 'removeItem')
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     mockedStorageService.clear()
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   it('creates a new session id when calling getSessionId and a session does not exist', () => {
@@ -50,10 +51,10 @@ describe('testing session id service', () => {
   it('generates a new session after ttl runs out', () => {
     const sessionService = new DefaultSessionService(new BrowserStorageService(localStorage), 1000)
     const session1 = sessionService.getSessionId()
-    jest.advanceTimersByTime(999)
+    vi.advanceTimersByTime(999)
     const session2 = sessionService.getSessionId()
     expect(session1).toEqual(session2)
-    jest.advanceTimersByTime(1000)
+    vi.advanceTimersByTime(1000)
     const session3 = sessionService.getSessionId()
     expect(session1).not.toEqual(session3)
   })

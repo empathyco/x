@@ -1,0 +1,27 @@
+@utility picture {
+  @apply xds:block xds:aspect-ratio-default xds:overflow-hidden;
+}
+
+@utility picture-image {
+  @apply xds:aspect-ratio-default xds:object-contain xds:w-full xds:h-full;
+}
+
+@utility picture-zoom {
+  & > .xds\:picture-image {
+    @apply xds:transition-transform xds:duration-300 xds:ease-out;
+
+    &:hover {
+      @apply xds:scale-110;
+    }
+  }
+}
+
+@utility picture-overlay {
+  &:hover {
+    @apply xds:mix-blend-multiply;
+  }
+
+  & > .xds\:picture-image:hover {
+    mask-image: linear-gradient(to top, transparent 20%, var(--xds-color-neutral-100));
+  }
+}

@@ -1,4 +1,5 @@
 import type { WindowWithInjector } from '../css-injector/css-injector.types'
+import { describe, expect, it } from 'vitest'
 import { CssInjector } from '../css-injector/css-injector'
 
 const getInstance = () => (window as WindowWithInjector).xCSSInjector as CssInjector

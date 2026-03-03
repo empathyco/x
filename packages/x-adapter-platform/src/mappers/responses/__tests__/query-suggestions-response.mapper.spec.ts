@@ -1,4 +1,5 @@
 import type { PlatformQuerySuggestionsResponse } from '../../../types/responses/query-suggestions-response.model'
+import { describe, expect, it } from 'vitest'
 import { querySuggestionsResponseMapper } from '../query-suggestions-response.mapper'
 
 describe('querySuggestionsResponseMapper tests', () => {

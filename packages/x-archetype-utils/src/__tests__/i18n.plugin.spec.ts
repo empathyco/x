@@ -2,6 +2,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { Device, I18nOptions, Locale } from '../i18n/i18n.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { I18n } from '../i18n/i18n.plugin'
 
 interface Messages {
