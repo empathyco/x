@@ -39,6 +39,15 @@ const mergedObject = deepMerge({}, ...sources) // mergedObject = { a: 1, b: 2 }
 
 If you want to find out all the covered use cases, check the `tests` folder.
 
+## Test
+
+**x-deep-merge** features are tested using [Vitest](https://vitest.dev/). You will find a
+`__tests__` folder inside the `src` folder.
+
+```
+pnpm run test
+```
+
 ### How to update the version
 
 You can check if a new version has been published running

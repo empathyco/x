@@ -6,4 +6,5 @@ export default empathyco({
     'ts/no-unsafe-member-access': 'off',
     'ts/no-unsafe-assignment': 'off',
   },
+  ignores: ['vitest.config.ts', 'dist'],
 })
