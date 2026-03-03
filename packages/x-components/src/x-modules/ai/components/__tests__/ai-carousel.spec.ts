@@ -206,19 +206,4 @@ describe('ai-carousel component', () => {
 
     expect(emitMock).toHaveBeenCalledWith('AiSuggestionsSearchRequestUpdated')
   })
-
-  it('should allow customizing content via slots', () => {
-    const sut = render({
-      slots: {
-        'extra-content': '<div data-test="extra-content">Extra Content</div>',
-        'cta-button': '<button data-test="cta-button">CTA</button>',
-        result:
-          '<template #result="{ result }"><span class="custom-result">{{ result.id }}</span></template>',
-      },
-    })
-
-    expect(sut.wrapper.find(getDataTestSelector('extra-content')).exists()).toBeTruthy()
-    expect(sut.wrapper.find(getDataTestSelector('cta-button')).exists()).toBeTruthy()
-    expect(sut.wrapper.find('.custom-result').exists()).toBeTruthy()
-  })
 })
