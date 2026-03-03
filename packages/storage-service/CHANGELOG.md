@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.3-alpha.11 (2026-03-03)</small>
+
+- chore: storage service migrate tests from Jest to Vitest (#2034) ([0aa9b6c](https://github.com/empathyco/x/commit/0aa9b6c)), closes [#2034](https://github.com/empathyco/x/issues/2034)
+
 ## <small>2.0.3-alpha.10 (2026-03-02)</small>
 
 - chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.3-alpha.12",
+  "version": "1.0.3-alpha.13",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-storage-service": "2.0.3-alpha.10"
+    "@empathyco/x-storage-service": "2.0.3-alpha.11"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.0.18",
