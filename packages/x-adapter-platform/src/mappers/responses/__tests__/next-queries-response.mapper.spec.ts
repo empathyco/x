@@ -1,4 +1,5 @@
 import type { PlatformNextQueriesResponse } from '../../../types/responses/next-queries-response.model'
+import { describe, expect, it } from 'vitest'
 import { nextQueriesResponseMapper } from '../next-queries-response.mapper'
 
 describe('nextQueriesResponseMapper tests', () => {

@@ -1,4 +1,5 @@
 import type { SearchRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { filtersStub, mappedFiltersStub } from '../../../__tests__/__fixtures__/filter'
 import { searchRequestMapper } from '../../requests/search-request.mapper'
 
