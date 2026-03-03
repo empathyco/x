@@ -1,4 +1,5 @@
 import type { FacetsRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { filtersStub, mappedFiltersStub } from '../../../__tests__/__fixtures__/filter'
 import { facetsRequestMapper } from '../facets-request.mapper'
 

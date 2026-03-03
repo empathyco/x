@@ -1,0 +1,202 @@
+/* Base */
+@utility input-group {
+  @apply xds:input;
+  @apply xds:flex xds:flex-row xds:flex-nowrap xds:items-center xds:content-center;
+  @apply xds:ps-0 xds:pe-0 xds:gap-8 xds:overflow-hidden;
+  @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
+
+  & > :first-child:not(.xds\:input-group-button-primary) {
+    @apply xds:ms-16;
+  }
+  & > :last-child:not(.xds\:input-group-button-primary) {
+    @apply xds:me-16;
+  }
+
+  & > .xds\:input,
+  & > input {
+    @apply xds:flex-1 xds:min-w-0 xds:p-0 xds:border-0;
+    @apply xds:bg-transparent xds:text-inherit xds:outline-none;
+  }
+}
+
+/* Sizes */
+@utility input-group-sm {
+  @apply xds:input-sm;
+
+  & > .xds\:input-group-button {
+    @apply xds:text-xs;
+  }
+
+  & > .xds\:input-group-button-primary {
+    @apply xds:text-sm;
+  }
+
+  & > .xds\:input-group-button-rectangle {
+    @apply xds:ps-12 xds:pe-12;
+  }
+}
+@utility input-group-md {
+  @apply xds:input-md;
+
+  & > .xds\:input-group-button {
+    @apply xds:text-sm;
+  }
+
+  & > .xds\:input-group-button-primary {
+    @apply xds:text-sm;
+  }
+
+  & > .xds\:input-group-button-rectangle {
+    @apply xds:ps-16 xds:pe-16;
+  }
+}
+@utility input-group-lg {
+  @apply xds:input-lg;
+
+  & > .xds\:input-group-button {
+    @apply xds:text-sm;
+  }
+
+  & > .xds\:input-group-button-primary {
+    @apply xds:text-md;
+  }
+
+  & > .xds\:input-group-button-rectangle {
+    @apply xds:ps-20 xds:pe-20;
+  }
+}
+
+/* Line */
+@utility input-group-line {
+  @apply xds:input-line;
+
+  @variant disabled {
+    @apply xds:bg-none;
+  }
+
+  & > .xds\:input-group-button {
+    @apply xds:h-32;
+  }
+
+  &.xds\:input-group-sm {
+    @apply xds:pb-4;
+
+    & > .xds\:input-group-button {
+      @apply xds:h-28;
+    }
+  }
+
+  & > .xds\:input-group-button-primary:first-child {
+    @apply xds:border-s;
+  }
+
+  & > .xds\:input-group-button-primary:first-child {
+    @apply xds:border-e;
+  }
+}
+
+/* Input Group Button */
+@utility input-group-button {
+  @apply xds:button;
+  @apply xds:h-full xds:p-0 xds:aspect-square;
+  @apply xds:font-regular xds:text-sm;
+  @apply xds:border-transparent xds:bg-transparent xds:text-neutral-50;
+
+  @variant hover-active-focus {
+    @apply xds:border-transparent xds:bg-transparent xds:text-neutral-75;
+  }
+
+  @variant disabled {
+    @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-25;
+  }
+}
+
+/* Input Group Primary Button */
+@utility input-group-button-primary {
+  @apply xds:border-0 xds:border-l-1 xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
+
+  @variant hover-active-focus {
+    @apply xds:bg-neutral-75 xds:border-neutral-75;
+  }
+
+  &:first-child {
+    @apply xds:border-s-0 xds:ms-0;
+  }
+
+  &:last-child {
+    @apply xds:border-e-0 xds:me-0;
+  }
+}
+
+/* Input Group Rectangle Button */
+@utility input-group-button-rectangle {
+  @apply xds:ps-16 xds:pe-16 xds:aspect-auto;
+}
+
+/* Input Group Outlined Button */
+@utility input-group-button-outlined {
+  @apply xds:bg-neutral-0 xds:border-neutral-90 xds:text-neutral-90;
+
+  @variant hover-active-focus {
+    @apply xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
+  }
+}
+
+/* Input Group Ghost Button */
+@utility input-group-button-ghost {
+  @apply xds:bg-transparent xds:border-transparent xds:text-neutral-90;
+
+  @variant hover-active-focus {
+    @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-90;
+  }
+}
+
+/* Input Group Colors */
+@utility input-group-* {
+  border-color: --value(--color- * -50);
+
+  @variant focus {
+    border-color: --value(--color- * -75);
+  }
+
+  &.xds\:input-group-line {
+    background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
+
+    @variant focus {
+      box-shadow: 0 2px 0 -0.5px --value(--color- * -25);
+    }
+  }
+
+  & > .xds\:input-group-button-primary {
+    @apply xds:text-neutral-0;
+    background-color: --value(--color- * -50);
+    border-color: --value(--color- * -50);
+
+    @variant hover-active-focus {
+      background-color: --value(--color- * -75);
+      border-color: --value(--color- * -75);
+    }
+  }
+
+  & > .xds\:input-group-button-outlined {
+    @apply xds:bg-neutral-0 xds:border-y-0;
+    border-color: --value(--color- * -50);
+    color: --value(--color- * -50);
+
+    @variant hover-active-focus {
+      @apply xds:text-neutral-0;
+      background-color: --value(--color- * -50);
+      border-color: --value(--color- * -50);
+    }
+  }
+
+  & > .xds\:input-group-button-ghost {
+    @apply xds:bg-transparent xds:border-transparent;
+    color: --value(--color- * -50);
+
+    @variant hover-active-focus {
+      @apply xds:bg-neutral-10 xds:border-neutral-10;
+      color: --value(--color- * -75);
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import type { IdentifierResultsRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { identifierResultsRequestMapper } from '../identifier-results-request.mapper'
 
 describe('identifierResultsRequestMapper tests', () => {

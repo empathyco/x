@@ -1,4 +1,5 @@
 import type { PlatformExperienceControlsResponse } from '../../../types'
+import { describe, expect, it } from 'vitest'
 import {
   experienceControlsResponse,
   platformExperienceControlsResponse,

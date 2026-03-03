@@ -11,6 +11,7 @@ import type { PlatformQuerySuggestionsResponse } from '../types/responses/query-
 import type { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model'
 import type { PlatformSearchResponse } from '../types/responses/search-response.model'
 import type { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { platformAdapter } from '../platform.adapter'
 import {
   aiSuggestionsSearchResponse,
@@ -37,7 +38,7 @@ const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
   totalItems: 0,
 }
 describe('platformAdapter tests', () => {
-  beforeEach(jest.clearAllMocks)
+  beforeEach(vi.clearAllMocks)
 
   it('should call the search endpoint', async () => {
     const rawPlatformSearchResponse: DeepPartial<PlatformSearchResponse> = {
@@ -72,7 +73,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformSearchResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformSearchResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.search({
@@ -192,7 +193,7 @@ describe('platformAdapter tests', () => {
         ],
       },
     }
-    const fetchMock = jest.fn(getFetchMock(rawPlatformPopularSearchesResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformPopularSearchesResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.popularSearches({
@@ -242,7 +243,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.querySuggestions({
@@ -294,7 +295,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.querySuggestions({
@@ -359,7 +360,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformNextQueriesResponse))
+    const fetchMock = vi.fn(getFetchMock(platformNextQueriesResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.nextQueries(nextQueriesRequest)
@@ -402,7 +403,7 @@ describe('platformAdapter tests', () => {
       status: 200,
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformRelatedTagsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformRelatedTagsResponse))
     window.fetch = fetchMock as any
 
     const relatedTagsRequest: RelatedTagsRequest = {
@@ -440,7 +441,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the identifier results endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock(platformIdentifierResultsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformIdentifierResultsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.identifierResults({
@@ -561,7 +562,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the recommendations endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock(platformRecommendationsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformRecommendationsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.recommendations({
@@ -594,7 +595,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the tagging endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock({}))
+    const fetchMock = vi.fn(getFetchMock({}))
     window.fetch = fetchMock as any
     await platformAdapter.tagging({
       url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click',
@@ -639,7 +640,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformResponse))
+    const fetchMock = vi.fn(getFetchMock(platformResponse))
     window.fetch = fetchMock as any
     const response = await platformAdapter.semanticQueries({
       query: 'test',
@@ -684,7 +685,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformResponse))
+    const fetchMock = vi.fn(getFetchMock(platformResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.experienceControls({
@@ -718,7 +719,7 @@ describe('platformAdapter tests', () => {
     const instanceStub = 'empathy'
     const queryStub = 'return policy'
     const langStub = 'en'
-    const fetchMock = jest.fn(getFetchMock(aiQuestionsResponseStub))
+    const fetchMock = vi.fn(getFetchMock(aiQuestionsResponseStub))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.aiQuestions({
@@ -761,7 +762,7 @@ describe('platformAdapter tests', () => {
     const instanceStub = 'empathy'
     const taskIdStub = 'taskId'
 
-    const fetchMock = jest.fn(getFetchMock(aiTasksResponse))
+    const fetchMock = vi.fn(getFetchMock(aiTasksResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.aiTasks({
@@ -796,7 +797,7 @@ describe('platformAdapter tests', () => {
       },
     ]
 
-    const fetchMock = jest.fn(getFetchMock(platformAiSuggestionsSearchResponse))
+    const fetchMock = vi.fn(getFetchMock(platformAiSuggestionsSearchResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.aiSuggestionsSearch({
@@ -834,7 +835,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the facets endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock(platformFacetsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformFacetsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.facets({

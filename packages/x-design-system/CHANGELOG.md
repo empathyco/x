@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.13 (2026-03-03)</small>
+
+- feat(x-design-system): input-group component (#2024) ([a90430e](https://github.com/empathyco/x/commit/a90430e)), closes [#2024](https://github.com/empathyco/x/issues/2024)
+
 ## <small>0.0.2-alpha.12 (2026-03-02)</small>
 
 - feat(x-design-system): filter-facet component (#2010) ([ee2606b](https://github.com/empathyco/x/commit/ee2606b)), closes [#2010](https://github.com/empathyco/x/issues/2010)
