@@ -1,4 +1,5 @@
 import type { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model'
+import { describe, expect, it } from 'vitest'
 import { relatedTagsResponseMapper } from '../related-tags-response.mapper'
 
 describe('relatedTagsResponseMapper tests', () => {
