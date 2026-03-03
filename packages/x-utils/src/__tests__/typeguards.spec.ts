@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { isArray, isFunction, isObject, isPath } from '../typeguards'
 
 describe('typeguards test', () => {
