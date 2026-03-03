@@ -8,6 +8,7 @@
     <Input />
     <InputGroup />
     <Picture />
+    <Scroll />
     <Badge />
     <FilterFacet />
     <ProgressBar />
@@ -28,5 +29,6 @@ import Input from './components/input.vue'
 import Integration from './components/integration.vue'
 import Picture from './components/picture.vue'
 import ProgressBar from './components/progress-bar.vue'
+import Scroll from './components/scroll.vue'
 import Typography from './components/typography.vue'
 </script>

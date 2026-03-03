@@ -56,6 +56,10 @@
   --color-warning: var(--xds-color-warning-50);
   --color-error: var(--xds-color-error-50);
 
+  --color-thumb-scroll-bar: var(--xds-color-neutral-25);
+  --color-thumb-scroll-bar-hover: var(--xds-color-neutral-50);
+  --color-background-scroll-bar: 'transparent';
+
   --font-family-main: Inter, sans-serif;
   --font-family-alternative: Lora, serif;
   --font-family-extra: Poppins, sans-serif;
