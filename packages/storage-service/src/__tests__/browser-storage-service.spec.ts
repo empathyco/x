@@ -1,4 +1,5 @@
 import type { StorageService } from '../storage-service'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { BrowserStorageService } from '../browser-storage-service'
 
 let storage: StorageService
@@ -12,7 +13,7 @@ describe('testing BrowserStorageService', () => {
   beforeEach(() => {
     localStorage.clear()
     storage = new BrowserStorageService(localStorage)
-    Date.now = jest.fn(() => startingTimestamp)
+    Date.now = vi.fn(() => startingTimestamp)
   })
 
   it('saves an item in local storage', () => {
@@ -45,7 +46,7 @@ describe('testing BrowserStorageService', () => {
   it('supports ttl', () => {
     storage.setItem(key, item, 50)
     expect(storage.getItem(key)).toEqual(item)
-    Date.now = jest.fn(() => startingTimestamp + 100)
+    Date.now = vi.fn(() => startingTimestamp + 100)
     expect(storage.getItem(key)).toBeNull()
   })
 
@@ -54,7 +55,7 @@ describe('testing BrowserStorageService', () => {
     storage.setItem(anotherKey, item)
     expect(storage.getItem(key)).toEqual(item)
     expect(storage.getItem(anotherKey)).toEqual(item)
-    Date.now = jest.fn(() => startingTimestamp + 100)
+    Date.now = vi.fn(() => startingTimestamp + 100)
     // Unexpired item still exists
     expect(storage.getItem(anotherKey)).toEqual(item)
     // Expired item is removed from storage without actively getting it
