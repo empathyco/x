@@ -7,6 +7,7 @@
     <Highlight />
     <Input />
     <InputGroup />
+    <Picture />
     <Badge />
     <FilterFacet />
     <ProgressBar />
@@ -25,6 +26,7 @@ import Icon from './components/icon.vue'
 import InputGroup from './components/input-group/index.vue'
 import Input from './components/input.vue'
 import Integration from './components/integration.vue'
+import Picture from './components/picture.vue'
 import ProgressBar from './components/progress-bar.vue'
 import Typography from './components/typography.vue'
 </script>
