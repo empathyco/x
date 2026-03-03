@@ -14,7 +14,7 @@ Some features that it provides:
 ## Tech Stack
 
 [![TypeScript](https://img.shields.io/badge/-typescript-3178C6?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org/)
-[![Jest](https://img.shields.io/badge/-jest-C21325?logo=jest&logoColor=white&style=for-the-badge)](https://jestjs.io/)
+[![Vitest](https://img.shields.io/badge/-vitest-729B1B?logo=vitest&logoColor=white&style=for-the-badge)](https://vitest.dev/)
 
 <br>
 
@@ -668,7 +668,7 @@ needs.
 
 ## Test
 
-**Empathy Adapter** features are tested using [Jest](https://jestjs.io/). You will find a
+**Empathy Adapter** features are tested using [Vitest](https://vitest.dev/). You will find a
 `__tests__` folder inside each of the project's sections.
 
 ```

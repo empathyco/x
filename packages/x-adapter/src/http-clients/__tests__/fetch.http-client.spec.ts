@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { okFetchMock } from '../__mocks__/fetch.mock'
 import * as httpClient from '../fetch.http-client'
 import * as httpClientUtils from '../utils'
@@ -7,8 +8,8 @@ describe('fetch httpClient testing', () => {
 
   beforeEach(async () => {
     window.fetch = okFetchMock as any
-    jest.clearAllMocks()
-    jest.resetModules()
+    vi.clearAllMocks()
+    vi.resetModules()
   })
 
   describe('fetchRawHttpClient', () => {
@@ -229,12 +230,9 @@ describe('fetch httpClient testing', () => {
   })
 
   describe('fetchHttpClient function', () => {
-    const fetchHttpClient = httpClient.fetchHttpClient
-
-    const fetchRawHttpClientSpy = jest.spyOn(httpClient, 'fetchRawHttpClient')
-    const toJsonSpy = jest.spyOn(httpClientUtils, 'toJson')
-
     it('exectutes toJson and fetchRawHttpClient with the correct parameters', async () => {
+      const toJsonSpy = vi.spyOn(httpClientUtils, 'toJson')
+
       const optionsStub = {
         parameters: {
           q: 'shirt',
@@ -243,9 +241,12 @@ describe('fetch httpClient testing', () => {
         },
       }
 
-      await fetchHttpClient(endpoint, optionsStub)
+      await httpClient.fetchHttpClient(endpoint, optionsStub)
 
-      expect(fetchRawHttpClientSpy).toHaveBeenCalledWith(endpoint, optionsStub)
+      expect(window.fetch).toHaveBeenCalledWith(
+        'https://api.empathy.co/search?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12',
+        expect.objectContaining({}),
+      )
       expect(toJsonSpy).toHaveBeenCalledTimes(1)
     })
   })

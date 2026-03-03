@@ -1,4 +1,5 @@
 import type { Schema } from '../types'
+import { describe, expect, it } from 'vitest'
 
 describe('schema tests', () => {
   interface Source {
