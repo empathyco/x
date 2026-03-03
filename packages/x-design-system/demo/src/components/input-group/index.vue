@@ -1,11 +1,11 @@
 <template>
   <Wrapper feature="Input Group" :rows="rows">
     <template #default>
-      <InputGroupBase placeholder="input-group" />
+      <InputGroup placeholder="input-group" />
     </template>
 
     <template #size>
-      <InputGroupBase
+      <InputGroup
         v-for="size in ['xds:input-group-sm', 'xds:input-group-md', 'xds:input-group-lg']"
         :key="size"
         :placeholder="cleanedValue(size)"
@@ -14,7 +14,7 @@
     </template>
 
     <template #color>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
@@ -22,7 +22,7 @@
       />
     </template>
     <template #outlined>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
@@ -32,7 +32,7 @@
     </template>
 
     <template #ghost>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
@@ -42,11 +42,11 @@
     </template>
 
     <template #line>
-      <InputGroupBase placeholder="line" wrapper-class="xds:input-group-line" />
+      <InputGroup placeholder="line" wrapper-class="xds:input-group-line" />
     </template>
 
     <template #line-size>
-      <InputGroupBase
+      <InputGroup
         v-for="size in ['xds:input-group-sm', 'xds:input-group-md', 'xds:input-group-lg']"
         :key="size"
         :placeholder="cleanedValue(size)"
@@ -55,57 +55,54 @@
     </template>
 
     <template #line-color>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
-        wrapper-class="xds:input-group-line"
+        :wrapper-class="`xds:input-group-line ${value}`"
       />
     </template>
 
     <template #line-outlined>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
-        wrapper-class="xds:input-group-line"
+        :wrapper-class="`xds:input-group-line ${value}`"
         button-class="xds:input-group-button-outlined"
       />
     </template>
 
     <template #line-ghost>
-      <InputGroupBase
+      <InputGroup
         v-for="(value, key) in colors"
         :key="key"
         :placeholder="cleanedValue(value)"
-        wrapper-class="xds:input-group-line"
+        :wrapper-class="`xds:input-group-line ${value}`"
         button-class="xds:input-group-button-ghost"
       />
     </template>
 
     <template #disabled>
-      <InputGroupBase placeholder="input-group" disabled />
+      <InputGroup placeholder="input-group" disabled />
 
-      <InputGroupBase placeholder="line" wrapper-class="xds:input-group-line" disabled />
+      <InputGroup placeholder="line" wrapper-class="xds:input-group-line" disabled />
     </template>
 
     <template #combinations>
-      <InputGroupBase
-        placeholder="lead sm"
-        wrapper-class="xds:input-group-lead xds:input-group-sm"
-      />
+      <InputGroup placeholder="lead sm" wrapper-class="xds:input-group-lead xds:input-group-sm" />
 
-      <InputGroupBase
+      <InputGroup
         placeholder="auxiliary sm line"
         wrapper-class="xds:input-group-auxiliary xds:input-group-sm xds:input-group-line"
       />
 
-      <InputGroupBase
+      <InputGroup
         placeholder="accent lg"
         wrapper-class="xds:input-group-accent xds:input-group-lg"
       />
 
-      <InputGroupBase
+      <InputGroup
         placeholder="warning lg line"
         wrapper-class="xds:input-group-warning xds:input-group-line xds:input-group-lg"
       />
@@ -114,8 +111,8 @@
 </template>
 
 <script setup lang="ts">
-import InputGroupBase from './input-group-base.vue'
-import Wrapper from './wrapper.vue'
+import Wrapper from '../wrapper.vue'
+import InputGroup from './item.vue'
 
 const rows = [
   'default',

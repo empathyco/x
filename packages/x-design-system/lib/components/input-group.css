@@ -93,13 +93,13 @@
 
 /* Input Group Button */
 @utility input-group-button {
-  @apply xds:flex xds:flex-row xds:flex-nowrap xds:items-center xds:content-center;
-  @apply xds:min-h-0 xds:h-full xds:p-0 xds:aspect-square;
+  @apply xds:button;
+  @apply xds:h-full xds:p-0 xds:aspect-square;
   @apply xds:font-regular xds:text-sm;
-  @apply xds:border-1 xds:border-transparent xds:bg-transparent xds:text-neutral-50;
+  @apply xds:border-transparent xds:bg-transparent xds:text-neutral-50;
 
   @variant hover-active-focus {
-    @apply xds:border-transparent xds:bg-neutral-10 xds:text-neutral-75;
+    @apply xds:border-transparent xds:bg-transparent xds:text-neutral-75;
   }
 
   @variant disabled {
@@ -109,7 +109,6 @@
 
 /* Input Group Primary Button */
 @utility input-group-button-primary {
-  @apply xds:input-group-button;
   @apply xds:border-0 xds:border-l-1 xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
 
   @variant hover-active-focus {
@@ -187,7 +186,7 @@
   }
 
   & > .xds\:input-group-button-outlined {
-    @apply xds:bg-neutral-0;
+    @apply xds:bg-neutral-0 xds:border-y-0;
     border-color: --value(--color- * -50);
     color: --value(--color- * -50);
 
