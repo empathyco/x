@@ -70,6 +70,10 @@
 @utility input-group-line {
   @apply xds:input-line;
 
+  @variant disabled {
+    @apply xds:bg-none;
+  }
+
   & > .xds\:input-group-button {
     @apply xds:h-32;
   }
@@ -155,18 +159,7 @@
     border-color: --value(--color- * -75);
   }
 
-  & > .xds\:input {
-    @variant focus {
-      border-color: --value(--color- * -75);
-      outline-color: --value(--color- * -25);
-    }
-
-    &:hover {
-      border-color: --value(--color- * -75);
-    }
-  }
-
-  & > .xds\:input-line {
+  &.xds\:input-group-line {
     background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
 
     @variant focus {

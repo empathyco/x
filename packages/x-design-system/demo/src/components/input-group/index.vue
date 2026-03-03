@@ -50,7 +50,7 @@
         v-for="size in ['xds:input-group-sm', 'xds:input-group-md', 'xds:input-group-lg']"
         :key="size"
         :placeholder="cleanedValue(size)"
-        :wrapper-class="size"
+        :wrapper-class="`xds:input-group-line ${size}`"
       />
     </template>
 
