@@ -4,7 +4,7 @@
       <DisplayEmitter
         :payload="tagging?.toolingDisplay ?? emptyTaggingRequest"
         :event-metadata="{
-          feature: 'ai-carousel',
+          feature: 'ai_carousel',
           displayOriginalQuery: query || 'ai-carousel-without-query',
           replaceable: false,
         }"

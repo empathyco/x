@@ -137,7 +137,7 @@ describe('ai-carousel component', () => {
       useStateStub.tagging.value.toolingDisplay,
     )
     expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
-      feature: 'ai-carousel',
+      feature: 'ai_carousel',
       displayOriginalQuery: useStateStub.query.value,
       replaceable: false,
     })
@@ -156,7 +156,7 @@ describe('ai-carousel component', () => {
 
     useStateStub.suggestionsSearch.value.forEach((suggestion, index) => {
       const provider = sut.displayClickProviders[index]
-      expect(provider.props().resultFeature).toBe('ai-carousel')
+      expect(provider.props().resultFeature).toBe('ai_carousel')
       expect(provider.props().toolingDisplayTagging).toBe(
         useStateStub.tagging.value.searchQueries[suggestion.query].toolingDisplayClick,
       )
