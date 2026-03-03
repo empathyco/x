@@ -255,7 +255,22 @@
               <p>You may be interested in these:</p>
             </div>
             <LocationProvider location="results">
-              <AiOverview class="x-mb-28">
+              <AiCarousel v-if="x.noResults && !x.fromNoResultsWithFilters" class="x-mb-28">
+                <template #result="{ result }">
+                  <Result :result="result" class="x-w-[150px]" />
+                </template>
+                <template #extra-content>
+                  <button class="x-bg-lead-50 x-absolute x-bottom-0 x-right-0 x-translate-y-full">
+                    extra content
+                  </button>
+                </template>
+                <template #cta-button>
+                  <button class="x-bg-lead-50 x-absolute x-right-1/2 x-bottom-0 x-translate-y-1/2">
+                    AI Mode
+                  </button>
+                </template>
+              </AiCarousel>
+              <AiOverview v-else class="x-mb-28">
                 <template #result="{ result }">
                   <Result :result="result" class="x-w-[150px]" />
                 </template>
@@ -592,6 +607,7 @@ import SnippetCallbacks from '../../components/snippet-callbacks.vue'
 import { use$x } from '../../composables/use-$x'
 import { useState } from '../../composables/use-state'
 import { infiniteScroll } from '../../directives/infinite-scroll'
+import AiCarousel from '../../x-modules/ai/components/ai-carousel.vue'
 import AiOverview from '../../x-modules/ai/components/ai-overview.vue'
 import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue'
 import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue'
@@ -643,6 +659,7 @@ export default defineComponent({
     DisplayClickProvider,
     // eslint-disable-next-line vue/no-reserved-component-names
     Aside,
+    AiCarousel,
     AiOverview,
     AutoProgressBar,
     ArrowRightIcon,
