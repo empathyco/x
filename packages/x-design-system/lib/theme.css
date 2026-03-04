@@ -130,6 +130,10 @@
   --spacing-448: 448px;
   --spacing-512: 512px;
 
+  --spacing-sliding-fade-sm: var(--xds-spacing-40);
+  --spacing-sliding-fade-md: var(--xds-spacing-80);
+  --spacing-sliding-fade-lg: var(--xds-spacing-160);
+
   --stroke-width-sm: 0.2;
   --stroke-width-md: 0.4;
   --stroke-width-lg: 0.8;
