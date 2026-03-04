@@ -1,3 +1,4 @@
+export * from './deep-merge'
 export * from './get-safe-property-chain'
 export * from './object'
 export * from './services'

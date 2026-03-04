@@ -1,4 +1,5 @@
-import { isObject } from '@empathyco/x-utils'
+/* eslint-disable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */
+import { isObject } from './typeguards'
 
 enum Behaviour {
   Replace = 'replace',
@@ -127,3 +128,4 @@ function mergeObject(target: any, [key, value]: any): void {
 function getMergeBehaviour(targetValue: any, sourceValue: any): Behaviour {
   return behaviourMap.get(sourceValue as object) || behaviourMap.get(targetValue as object)
 }
+/* eslint-enable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */
