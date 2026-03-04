@@ -1,4 +1,4 @@
-import type { ExtractPath, ExtractType } from './types'
+import type { ExtractPath, ExtractType } from '../types/paths'
 
 /**
  * Safely searches for a chain of properties in an object.
@@ -8,8 +8,7 @@ import type { ExtractPath, ExtractType } from './types'
  * @param defaultReturn - The value to return if any of the intermediate or the final value is not
  * defined.
  * @remarks The `defaultReturn` parameter has been left here for retro-compatibility. We recommend
- * to use coalescing operator (`??`) instead.
- *
+ * using coalescing operator (`??`) instead.
  * @returns The value of the chain of properties, or `undefined` if any of the intermediate values
  * is not defined.
  */
@@ -18,6 +17,7 @@ export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeOb
   propertyChain: Path,
   defaultReturn?: ExtractType<SomeObject, Path>,
 ): ExtractType<SomeObject, Path> | undefined
+
 /**
  * Safely searches for a chain of properties in an object.
  *
@@ -26,8 +26,7 @@ export function getSafePropertyChain<SomeObject, Path extends ExtractPath<SomeOb
  * @param defaultReturn - The value to return if any of the intermediate or the final value is not
  * defined.
  * @remarks The `defaultReturn` parameter has been left here for retro-compatibility. We recommend
- * to use coalescing operator (`??`) instead.
- *
+ * using coalescing operator (`??`) instead.
  * @returns The value of the chain of properties, or the default return if any of the intermediate
  * values is not defined.
  */
@@ -36,6 +35,7 @@ export function getSafePropertyChain<SomeObject>(
   propertyChain: '',
   defaultReturn?: SomeObject,
 ): SomeObject
+
 /**
  * Safely searches for a chain of properties in an object.
  *
@@ -43,7 +43,6 @@ export function getSafePropertyChain<SomeObject>(
  * @param propertyChain - The chain of properties, separated by a dot, to search for.
  * @param defaultReturn - The value to return if any of the intermediate or the final value is not
  * defined.
- *
  * @returns The value of the chain of properties, or the default return if any of the intermediate
  * values is not defined.
  */
@@ -52,9 +51,7 @@ export function getSafePropertyChain<
   Path extends ExtractPath<SomeObject>,
   T = ExtractType<SomeObject, Path>,
 >(obj: SomeObject, propertyChain: Path | '', defaultReturn?: T): T {
-  // eslint-disable-next-line ts/no-unsafe-assignment
   const resolved = getChain(obj, ...propertyChain.split('.'))
-  // eslint-disable-next-line ts/no-unsafe-return
   return resolved === undefined ? defaultReturn! : resolved
 }
 
@@ -68,11 +65,9 @@ export function getSafePropertyChain<
  * defined.
  */
 function getChain<T = any>(obj: any, property = '', ...propertyChain: string[]): T | undefined {
-  // eslint-disable-next-line ts/no-unsafe-return
   return obj == null && property
     ? undefined
     : !property
       ? obj
-      : // eslint-disable-next-line ts/no-unsafe-member-access
-        getChain(obj[property], ...propertyChain)
+      : getChain(obj[property], ...propertyChain)
 }

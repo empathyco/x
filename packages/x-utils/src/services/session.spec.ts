@@ -1,6 +1,8 @@
-import { BrowserStorageService, InMemoryStorageService } from '@empathyco/x-storage-service'
+import type { Mock } from 'vitest'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { DefaultSessionService } from '../session.service'
+import { DefaultSessionService } from './session'
+import { BrowserStorageService } from './storage/browser'
+import { InMemoryStorageService } from './storage/in-memory'
 
 describe('testing session id service', () => {
   const mockedStorageService = new InMemoryStorageService()
@@ -8,9 +10,9 @@ describe('testing session id service', () => {
   const storageKey = DefaultSessionService.SESSION_ID_KEY
 
   // eslint-disable-next-line no-restricted-globals
-  const selfSpy = vi.spyOn(self, 'self', 'get') as jest.SpyInstance<{
-    crypto: { randomUUID: () => string }
-  }>
+  const selfSpy = vi.spyOn(self, 'self', 'get') as Mock<
+    () => { crypto: { randomUUID: () => string } }
+  >
 
   selfSpy.mockImplementation(() => ({
     crypto: {

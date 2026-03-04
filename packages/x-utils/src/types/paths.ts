@@ -1,4 +1,4 @@
-import type { Keys, Primitive } from './utils.types'
+import type { Keys, Primitive } from './utils'
 
 /**
  * Extracts all the possible string paths to properties for a given object.
@@ -24,8 +24,7 @@ import type { Keys, Primitive } from './utils.types'
  * potential key name values when possible.
  *
  * When trying to get the path to an array item, keep in mind that a number ending with a dot is a
- * valid javascript syntax so this type will assume as safe getting the 'n.' element.
- * @public
+ * valid JavaScript syntax so this type will assume as safe getting the 'n.' element.
  */
 export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
   ? `${number}` | `${number}.${ExtractPath<ArrayType>}`
@@ -36,16 +35,13 @@ export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  *
  * @param SomeObject - The object type to extract the properties names from.
  * @param PropName - Name of the property to get the path from.
- *
- * @internal
  */
 type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
   ? SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
     : SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
       ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
-      : // eslint-disable-next-line ts/no-unsafe-function-type
-        `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+      : `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never
 
 /**
@@ -53,7 +49,7 @@ type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends k
  *
  * @param SomeObject - The object to extract the property type from.
  * @param Path - String property path.
- * @example
+ * @remarks example
  * ```typescript
  *   interface Result {
  *     id: string,
@@ -67,8 +63,6 @@ type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends k
  *  type MaxPrice = ExtractType<Result, "price.max">; // number
  *  type FirstImageType = ExtractType<Result, "images.0">; // string
  * ```
- *
- * @public
  */
 export type ExtractType<
   SomeObject,
@@ -90,7 +84,7 @@ export type ExtractType<
  * @param SomeObject - The object to extract the property paths from.
  * @param Type - The type of the property paths to extract.
  *
- * @example
+ * @remarks example
  * ```typescript
  * interface Result {
  *   id: string,
@@ -107,7 +101,6 @@ export type ExtractType<
  * type NumberPaths = ExtractPathByType<Result, number>[];
  * // ['price.max', 'price.min']
  * ```
- * @public
  */
 export type ExtractPathByType<SomeObject, Type> = keyof {
   [Path in ExtractPath<SomeObject> as ExtractType<SomeObject, Path> extends (infer ArrayType)[]

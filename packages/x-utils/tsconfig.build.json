@@ -1,9 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": [],
-    "inlineSources": true,
-    "sourceMap": true
+    "types": []
   },
-  "exclude": ["node_modules", "**/__tests__/**/*"]
+  "exclude": ["**/*.spec.ts", "vitest.config.ts"]
 }

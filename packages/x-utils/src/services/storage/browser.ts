@@ -1,9 +1,7 @@
-import type { StorageService } from './storage-service'
+import type { StorageService } from './types'
 
 /**
  * In browser implementation of the storage service.
- *
- * @public
  */
 export class BrowserStorageService implements StorageService {
   public constructor(
@@ -17,10 +15,8 @@ export class BrowserStorageService implements StorageService {
    * @param key - The key of the item.
    * @param item - The item to save.
    * @param ttlInMs - The TTL in ms of the item in the browser storage.
-   *
-   * @public
    */
-  setItem(key: string, item: any, ttlInMs?: number): void {
+  setItem(key: string, item: any, ttlInMs?: number) {
     if (item === undefined) {
       console.warn(
         `[StorageService][${this.prefix}] Tried to store an undefined object with key ${key}`,
@@ -38,8 +34,6 @@ export class BrowserStorageService implements StorageService {
    *
    * @param key - The key of the item.
    * @returns The founded item or null.
-   *
-   * @public
    */
   getItem<Item = any>(key: string): Item | null {
     this.removeExpiredItems()
@@ -57,8 +51,6 @@ export class BrowserStorageService implements StorageService {
    *
    * @param key - The key of the item.
    * @returns The removed item or null.
-   *
-   * @public
    */
   removeItem<Item = any>(key: string): Item | null {
     const item = this.getItem(key)
@@ -68,43 +60,41 @@ export class BrowserStorageService implements StorageService {
   }
 
   /**
-   * Clears the storage..
+   * Clears the storage.
    *
    * @returns The number of removed items.
-   *
-   * @public
    */
-  clear(): number {
+  clear() {
     return this.getOwnKeys().reduce((removedCount, key) => {
       this.storage.removeItem(key)
       return ++removedCount
     }, 0)
   }
 
-  protected prefixKey(key: string): string {
+  protected prefixKey(key: string) {
     return `${this.prefix}-${key}`
   }
 
-  protected createExpirableItem(item: any, ttlInMs?: number): any {
+  protected createExpirableItem(item: any, ttlInMs?: number) {
     return {
       ...(!!ttlInMs && { ttl: ttlInMs + this.currentTimestamp() }),
       value: item,
     }
   }
 
-  protected currentTimestamp(): number {
+  protected currentTimestamp() {
     return Date.now()
   }
 
-  protected getItemValue(item: any): any {
+  protected getItemValue(item: any) {
     return item.value
   }
 
-  protected getOwnKeys(): string[] {
+  protected getOwnKeys() {
     return Object.keys(this.storage).filter(key => key.startsWith(`${this.prefix}-`))
   }
 
-  protected removeExpiredItems(): void {
+  protected removeExpiredItems() {
     this.getOwnKeys().forEach(key => {
       const serializedItem = this.storage.getItem(key)
       if (serializedItem) {

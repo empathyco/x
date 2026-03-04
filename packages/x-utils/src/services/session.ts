@@ -1,23 +1,16 @@
-import type { StorageService } from '@empathyco/x-storage-service'
-import type { SessionService } from './service.types'
-import { BrowserStorageService, InMemoryStorageService } from '@empathyco/x-storage-service'
+import type { StorageService } from './storage/types'
+import type { SessionService } from './types'
+import { BrowserStorageService } from './storage/browser'
+import { InMemoryStorageService } from './storage/in-memory'
 
 /**
  * Default implementation for the {@link SessionService}.
- *
- * @public
  */
 export class DefaultSessionService implements SessionService {
-  /**
-   * Session id key to use as key in the storage.
-   *
-   * @public
-   */
+  /** Session id key to use as a key in the storage. */
   public static readonly SESSION_ID_KEY = 'session-id'
 
-  /**
-   * Global instance of the {@link SessionService}.
-   */
+  /** Global instance of the {@link SessionService}. */
   public static instance: SessionService = new DefaultSessionService()
 
   public constructor(
@@ -31,25 +24,19 @@ export class DefaultSessionService implements SessionService {
    * Returns the session id of the storage.
    *
    * @returns The current session id.
-   *
-   * @public
    */
   getSessionId(): string {
-    // eslint-disable-next-line ts/no-unsafe-assignment
     const sessionId =
       // eslint-disable-next-line no-restricted-globals
       this.storageService.getItem(DefaultSessionService.SESSION_ID_KEY) ?? self.crypto.randomUUID()
     this.storageService.setItem(DefaultSessionService.SESSION_ID_KEY, sessionId, this.ttlMs)
-    // eslint-disable-next-line ts/no-unsafe-return
     return sessionId
   }
 
   /**
    * Removes the session if from the storage.
-   *
-   * @public
    */
-  clearSessionId(): void {
+  clearSessionId() {
     this.storageService.removeItem(DefaultSessionService.SESSION_ID_KEY)
   }
 }

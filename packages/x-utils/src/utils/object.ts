@@ -1,4 +1,4 @@
-import type { Dictionary } from './types'
+import type { Dictionary } from '../types/utils'
 import { isArray, isObject } from './typeguards'
 
 /**
@@ -7,7 +7,6 @@ import { isArray, isObject } from './typeguards'
  *
  * @param obj - The object to iterate through each property.
  * @param callbackFn - The callback function to call for each property.
- * @public
  */
 export function forEach<T extends Dictionary>(
   obj: T | undefined | null,
@@ -33,7 +32,6 @@ export function forEach<T extends Dictionary>(
  * object.
  * @param initialValue - The initial value of the accumulator property of the reducer function.
  * @returns Result of the reducer function.
- * @public
  */
 export function reduce<T extends Dictionary, V>(
   obj: T | undefined | null,
@@ -58,7 +56,6 @@ export function reduce<T extends Dictionary, V>(
  * @param obj - The object to transform each property value.
  * @param mapper - The mapper function which will transform each value.
  * @returns A record with the result of the mapper.
- * @public
  */
 export function map<T extends Dictionary, W>(
   obj: T | undefined | null,
@@ -79,7 +76,6 @@ export function map<T extends Dictionary, W>(
  *
  * @param obj - The object from whom pick the values.
  * @returns A new object with the not undefined properties of the source object.
- * @public
  */
 export function cleanUndefined<T>(obj: T): T {
   return typeof obj !== 'object' || obj === null || Array.isArray(obj)
@@ -104,7 +100,6 @@ export function cleanUndefined<T>(obj: T): T {
  *
  * @param obj - The object from whom pick the values.
  * @returns A new object with the not empty properties of the source object.
- * @public
  */
 export function cleanEmpty<SomeObject extends Record<string, unknown>>(
   obj: SomeObject,
@@ -134,7 +129,6 @@ export function cleanEmpty<SomeObject extends Record<string, unknown>>(
  * @param obj - T object to be filtered.
  * @param isIncluded - Test function that every obj item must pass.
  * @returns A filtered object.
- * @public
  */
 export function objectFilter<T extends Dictionary>(
   obj: T | undefined | null,
@@ -158,9 +152,7 @@ export function objectFilter<T extends Dictionary>(
  *
  * @param newValue - The new object value.
  * @param oldValue - The old object value.
- *
  * @returns An array of keys.
- * @public
  */
 export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
   newValue: ObjectType | undefined,
@@ -178,9 +170,7 @@ export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
  *
  * @param object - The object to check if every item meets the given condition.
  * @param condition - The condition to check in each one of the entries of the object.
- *
  * @returns True when all the entries pass the condition. False otherwise.
- * @public
  */
 export function every<ObjectType extends Dictionary>(
   object: ObjectType,
@@ -203,7 +193,6 @@ export function every<ObjectType extends Dictionary>(
  *
  * @param object - The object to flatten.
  * @returns The flattened object.
- * @public
  */
 export function flatObject(object: Dictionary): Dictionary {
   const flattenedObject: Dictionary = {}
@@ -211,7 +200,6 @@ export function flatObject(object: Dictionary): Dictionary {
     if (isObject(value)) {
       Object.assign(flattenedObject, flatObject(value))
     } else {
-      // eslint-disable-next-line ts/no-unsafe-assignment
       flattenedObject[key] = value
     }
   })
@@ -224,7 +212,6 @@ export function flatObject(object: Dictionary): Dictionary {
  * @param object - The object to rename its keys.
  * @param pattern - The options to rename with: a prefix and a suffix.
  * @returns A new object with the keys renamed following the pattern.
- * @public
  */
 export function rename<
   SomeObject extends Dictionary,
@@ -248,8 +235,6 @@ export function rename<
 
 /**
  * Renames the keys of the given object prefixing and suffixing them.
- *
- * @public
  */
 export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
   [Key in keyof SomeObject as `${Prefix}${Key & string}${Suffix}`]: SomeObject[Key]
@@ -257,8 +242,6 @@ export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
 
 /**
  * An optional prefix and suffix.
- *
- * @public
  */
 interface RenameOptions<Prefix, Suffix> {
   prefix?: Prefix
@@ -270,9 +253,7 @@ interface RenameOptions<Prefix, Suffix> {
  *
  * @param object1 - First object to compare.
  * @param object2 - Second object to compare.
- *
  * @returns True if both objects are deeply equal. False otherwise.
- * @public
  */
 export function deepEqual<ObjectType extends Dictionary>(
   object1: ObjectType | undefined,

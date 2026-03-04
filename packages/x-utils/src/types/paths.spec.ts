@@ -1,4 +1,4 @@
-import type { ExtractPath, ExtractPathByType, ExtractType } from '../paths.types'
+import type { ExtractPath, ExtractPathByType, ExtractType } from './paths'
 import { describe, expect, it } from 'vitest'
 
 interface Example {

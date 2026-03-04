@@ -1,4 +1,3 @@
-/* eslint-disable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */
 import { isObject } from './typeguards'
 
 enum Behaviour {
@@ -14,7 +13,6 @@ enum Behaviour {
  *
  * @param target - The object which will be used as the base to clone all the sources into.
  * @param sources - One or more objects to clone to the target.
- *
  * @returns The target modified.
  */
 export function deepMerge(target: any, ...sources: any[]): any {
@@ -35,7 +33,6 @@ const behaviourMap = new WeakMap()
  * deepMerge(target, firstSource);
  * // `target` is now { children: { c: 4, d: 5 } }
  * ```
- *
  * @returns The same object with the new behaviour.
  */
 export function replaceBehaviour<T extends Record<string, unknown>>(obj: T): T {
@@ -48,7 +45,6 @@ export function replaceBehaviour<T extends Record<string, unknown>>(obj: T): T {
  * behavior.
  *
  * @param obj - The object to set its merge behavior.
- *
  * @returns The same object with the new behaviour.
  */
 export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T {
@@ -61,7 +57,6 @@ export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T
  *
  * @param target - The target object to clone in.
  * @param source - The source objet to clone.
- *
  * @returns The union of the target and source.
  */
 function cloneSourcesProperties(target: any, source: any): (source: any) => void {
@@ -79,7 +74,6 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
  * @param source - Key-Value to clone into the target object.
  * @param source.0 - Key to clone into the target object.
  * @param source.1 - Value to clone into the target object.
- *
  * @returns The target object updated with the entry parameter.
  */
 function cloneObjectProperties(target: any, [key, value]: any): any {
@@ -102,7 +96,6 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  * @param source - Key-Value to clone into the target object.
  * @param source.0 - Key to clone into the target object.
  * @param source.1 - Value to clone into the target object.
- *
  */
 function mergeObject(target: any, [key, value]: any): void {
   const mergeBehaviour = getMergeBehaviour(target[key], value)
@@ -122,10 +115,8 @@ function mergeObject(target: any, [key, value]: any): void {
  *
  * @param targetValue - The target object.
  * @param sourceValue - The source objet.
- *
- * @returns The correct behaviour.
+ * @returns The correct behavior.
  */
 function getMergeBehaviour(targetValue: any, sourceValue: any): Behaviour {
   return behaviourMap.get(sourceValue as object) || behaviourMap.get(targetValue as object)
 }
-/* eslint-enable ts/no-unsafe-return,ts/no-unsafe-member-access,ts/no-unsafe-assignment */

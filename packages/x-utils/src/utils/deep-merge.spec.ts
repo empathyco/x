@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../deep-merge'
+import { deepMerge, deepMergeBehaviour, replaceBehaviour } from './deep-merge'
 
 describe('deep-merge.ts', () => {
   it('copies simple objects', () => {
