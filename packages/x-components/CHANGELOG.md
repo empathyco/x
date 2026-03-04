@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.215 (2026-03-04)
+
+- feat: add AI carousel component with related integration and tests ([8fe744e](https://github.com/empathyco/x/commit/8fe744e))
+- feat: implement title expansion toggle in AI carousel component ([a7ce3e2](https://github.com/empathyco/x/commit/a7ce3e2))
+- test: remove slot customization test from AI carousel component ([b077cc5](https://github.com/empathyco/x/commit/b077cc5))
+- fix: update feature naming from 'ai-carousel' to 'ai_carousel' in component and tests ([2fb1607](https://github.com/empathyco/x/commit/2fb1607))
+- fix: update feature naming from 'ai-carousel' to 'ai_carousel' in component and tests ([d95f9c4](https://github.com/empathyco/x/commit/d95f9c4))
+- chore: remove Vue alias configuration from Vite setup ([168a0e3](https://github.com/empathyco/x/commit/168a0e3))
+
 ## 6.0.0-alpha.214 (2026-03-04)
 
 **Note:** Version bump only for package @empathyco/x-components
