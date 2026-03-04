@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.15 (2026-03-04)</small>
+
+- feat(x-design-system): scroll component (#2027) ([f02990d](https://github.com/empathyco/x/commit/f02990d)), closes [#2027](https://github.com/empathyco/x/issues/2027)
+
 ## <small>0.0.2-alpha.14 (2026-03-03)</small>
 
 - feat(x-design-system): picture component (#2026) ([3c115ec](https://github.com/empathyco/x/commit/3c115ec)), closes [#2026](https://github.com/empathyco/x/issues/2026)
