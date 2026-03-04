@@ -11,6 +11,26 @@ import { use$x, useState } from '../../../../composables'
 import AICarousel from '../ai-carousel.vue'
 
 vi.mock('../../../../composables')
+let resizeCallback: any
+vi.mock('@vueuse/core', async importOriginal => {
+  const actual = (await importOriginal()) as any
+  return {
+    ...actual,
+    useResizeObserver: vi.fn((_el, callback) => {
+      resizeCallback = callback
+      return {
+        stop: vi.fn(),
+      }
+    }),
+  }
+})
+
+class ResizeObserverMock {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+globalThis.ResizeObserver = ResizeObserverMock as any
 
 const useStateStub = {
   query: ref('query text'),
@@ -103,6 +123,12 @@ function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
     },
     get title() {
       return wrapper.find(getDataTestSelector('ai-carousel-title'))
+    },
+    get expandButton() {
+      return wrapper.find(getDataTestSelector('ai-carousel-title-button'))
+    },
+    get collapsedTitle() {
+      return wrapper.find(getDataTestSelector('ai-carousel-title-collapsed'))
     },
     get aiStarIcon() {
       return wrapper.findComponent(AIStarIcon)
@@ -205,5 +231,41 @@ describe('ai-carousel component', () => {
     await nextTick()
 
     expect(emitMock).toHaveBeenCalledWith('AiSuggestionsSearchRequestUpdated')
+  })
+
+  it('should toggle the title expansion when clicked if it overflows', async () => {
+    const sut = render()
+
+    // Initially title is not overflowing
+    expect(sut.title.exists()).toBeTruthy()
+    expect(sut.collapsedTitle.exists()).toBeFalsy()
+    expect(sut.expandButton.exists()).toBeFalsy()
+
+    // Mock title overflowing
+    // Mock the title element properties
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+
+    // Trigger the resize observer callback
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.title.text()).toContain(propsStub.title)
+    expect(sut.collapsedTitle.exists()).toBeFalsy()
+    expect(sut.expandButton.exists()).toBeTruthy()
+
+    await sut.expandButton.trigger('click')
+    await nextTick()
+
+    // Now it's expanded, so the title-text in CollapseHeight is shown and the expandButton is still shown
+    expect(sut.title.classes()).toContain('x-ai-carousel-title--expanded')
+    expect(sut.expandButton.exists()).toBeTruthy()
+
+    // Toggle off
+    await sut.expandButton.trigger('click')
+    await nextTick()
+    expect(sut.title.classes()).not.toContain('x-ai-carousel-title--expanded')
+    expect(sut.expandButton.exists()).toBeTruthy()
   })
 })

@@ -10,11 +10,36 @@
         }"
         data-test="ai-carousel-display-emitter"
       >
-        <span class="x-ai-carousel-title" data-test="ai-carousel-title">
-          <AIStarIcon class="x-ai-carousel-title-icon" /> {{ title }}
+        <span
+          class="x-ai-carousel-title"
+          :class="{ 'x-ai-carousel-title--expanded': titleExpanded }"
+          data-test="ai-carousel-title"
+          @click="toggleTitleExpansion"
+        >
+          <AIStarIcon class="x-ai-carousel-title-icon" />
+          <ChangeHeight>
+            <span
+              ref="titleRef"
+              class="x-ai-carousel-title-text"
+              :class="{ 'x-ai-carousel-title-text--expanded': titleExpanded }"
+            >
+              {{ title }}
+            </span>
+          </ChangeHeight>
+          <button
+            v-if="isTitleOverflowing"
+            class="x-ai-carousel-title-button"
+            data-test="ai-carousel-title-button"
+            :aria-label="titleExpanded ? 'Collapse' : 'Expand'"
+          >
+            <ChevronDownIcon
+              class="x-ai-carousel-title-button-icon"
+              :class="{ 'x-ai-carousel-title-button-icon--expanded': titleExpanded }"
+            />
+          </button>
         </span>
       </DisplayEmitter>
-      <slot name="sliding-panel" :results="suggestionsSearchResults">
+      <slot name="sliding-panel" :results="suggestionsSearch">
         <SlidingPanel
           :class="slidingPanelClasses"
           :scroll-container-class="slidingPanelContainerClasses"
@@ -64,8 +89,16 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
-import { computed, defineComponent, watch } from 'vue'
-import { AIStarIcon, CollapseHeight, DisplayClickProvider, SlidingPanel } from '../../../components'
+import { useResizeObserver } from '@vueuse/core'
+import { computed, defineComponent, ref, watch } from 'vue'
+import {
+  AIStarIcon,
+  ChangeHeight,
+  ChevronDownIcon,
+  CollapseHeight,
+  DisplayClickProvider,
+  SlidingPanel,
+} from '../../../components'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useState } from '../../../composables'
 import { aiXModule } from '../x-module'
@@ -73,14 +106,16 @@ import { aiXModule } from '../x-module'
 export default defineComponent({
   xModule: aiXModule.name,
   components: {
+    ChangeHeight,
     DisplayClickProvider,
     DisplayEmitter,
     CollapseHeight,
     AIStarIcon,
+    ChevronDownIcon,
     SlidingPanel,
   },
   props: {
-    /* The text displayed when the question ended loading */
+    /* The title text displayed */
     title: {
       type: String,
     },
@@ -102,9 +137,30 @@ export default defineComponent({
     const { query, isNoResults, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
-    const suggestionsSearchResults = computed(() =>
-      suggestionsSearch.value.flatMap(suggestion => suggestion.results),
-    )
+    const titleRef = ref<HTMLElement | null>(null)
+    const titleExpanded = ref(false)
+    const isTitleOverflowing = ref(false)
+
+    /**
+     * Checks if the title is overflowing and updates the state.
+     */
+    function updateTitleOverflow() {
+      if (titleExpanded.value) {
+        return
+      }
+      if (titleRef.value) {
+        isTitleOverflowing.value = titleRef.value.scrollWidth > titleRef.value.clientWidth
+      }
+    }
+
+    /**
+     * Toggles the title expanded state if it is overflowing.
+     */
+    function toggleTitleExpansion() {
+      if (isTitleOverflowing.value) {
+        titleExpanded.value = !titleExpanded.value
+      }
+    }
 
     const title = computed(() => {
       if (!props.title) {
@@ -123,15 +179,20 @@ export default defineComponent({
       }
     })
 
+    useResizeObserver(titleRef, updateTitleOverflow)
+
     return {
-      title,
-      query,
-      queries,
-      tagging,
       emptyTaggingRequest,
       isNoResults,
+      isTitleOverflowing,
+      queries,
+      query,
       suggestionsSearch,
-      suggestionsSearchResults,
+      tagging,
+      title,
+      titleExpanded,
+      titleRef,
+      toggleTitleExpansion,
     }
   },
 })
@@ -151,8 +212,18 @@ export default defineComponent({
   display: flex;
   font-size: 12px;
   gap: 8px;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 14px 8px;
+  cursor: pointer;
+}
+.x-ai-carousel-title-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.x-ai-carousel-title-text--expanded {
+  white-space: normal;
 }
 .x-ai-carousel-title-icon {
   height: 1rem;
@@ -160,6 +231,25 @@ export default defineComponent({
   color: var(--color);
   flex-shrink: 0;
   margin-bottom: auto;
+}
+.x-ai-carousel-title-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color);
+  margin-bottom: auto;
+}
+.x-ai-carousel-title-button-icon {
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  transition: transform 0.3s ease;
+}
+.x-ai-carousel-title-button-icon--expanded {
+  transform: rotate(180deg);
 }
 .x-ai-carousel-suggestion-results {
   display: flex;
