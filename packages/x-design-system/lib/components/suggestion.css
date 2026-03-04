@@ -1,0 +1,59 @@
+/* Base */
+@utility suggestion {
+  @apply xds:font-family-main xds:font-regular xds:text-start xds:text-neutral-90;
+  @apply xds:grid xds:grid-flow-col xds:items-center xds:content-center xds:justify-start;
+  @apply xds:box-border xds:cursor-pointer;
+
+  /* `@apply xds:suggestion-md;` can not be use here because cause circular dependency. */
+  @apply xds:min-h-32 xds:gap-8 xds:text-sm;
+
+  &:hover {
+    @apply xds:underline;
+  }
+
+  & .xds\:icon {
+    @apply xds:icon-offset;
+  }
+}
+
+/* Sizes */
+@utility suggestion-sm {
+  @apply xds:min-h-24 xds:gap-8 xds:text-sm;
+}
+@utility suggestion-md {
+  @apply xds:min-h-32 xds:gap-8 xds:text-sm;
+}
+@utility suggestion-lg {
+  @apply xds:min-h-48 xds:gap-24 xds:text-md;
+}
+
+/* Outlined */
+@utility suggestion-outlined {
+  @apply xds:bg-neutral-0 xds:border-1 xds:border-current;
+  @apply xds:ps-8 xds:pe-8;
+
+  &:hover {
+    @apply xds:bg-neutral-10 xds:no-underline;
+  }
+
+  &.xds\:suggestion-lg {
+    @apply xds:ps-12 xds:pe-12;
+  }
+}
+
+@utility suggestion-ghost {
+  @apply xds:bg-neutral-0 xds:border-1 xds:border-neutral-0;
+  @apply xds:ps-8 xds:pe-8;
+
+  &:hover {
+    @apply xds:bg-neutral-10 xds:no-underline;
+  }
+
+  &.xds\:suggestion-lg {
+    @apply xds:ps-12 xds:pe-12;
+  }
+}
+
+@utility suggestion-* {
+  color: --value(--color- *);
+}
