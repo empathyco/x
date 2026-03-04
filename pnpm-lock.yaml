@@ -50,7 +50,7 @@ importers:
         specifier: 2.0.3-alpha.14
         version: 2.0.3-alpha.14
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.13
+        specifier: 1.0.3-alpha.14
         version: link:../x-utils
     devDependencies:
       '@vitest/coverage-v8':
@@ -75,13 +75,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.16
+        specifier: 8.1.0-alpha.17
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.45
+        specifier: 10.1.0-alpha.46
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.13
+        specifier: 1.0.3-alpha.14
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -115,7 +115,7 @@ importers:
         specifier: 2.0.3-alpha.14
         version: 2.0.3-alpha.14
       '@empathyco/x-utils':
-        specifier: workspace:^1.0.3-alpha.13
+        specifier: workspace:^1.0.3-alpha.14
         version: link:../x-utils
       vue-i18n:
         specifier: ~9.14.5
@@ -155,10 +155,10 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.16
+        specifier: 8.1.0-alpha.17
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.53
+        specifier: 1.1.0-alpha.54
         version: link:../x-adapter-platform
       '@empathyco/x-deep-merge':
         specifier: 2.0.3-alpha.14
@@ -167,10 +167,10 @@ importers:
         specifier: 2.0.3-alpha.11
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.45
+        specifier: 10.1.0-alpha.46
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.13
+        specifier: 1.0.3-alpha.14
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.6.4
@@ -204,7 +204,7 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(@babel/core@7.29.0)
       '@empathyco/x-tailwindcss':
-        specifier: 2.0.0-alpha.29
+        specifier: 2.0.0-alpha.30
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.29.2
@@ -350,7 +350,7 @@ importers:
         specifier: 2.0.3-alpha.14
         version: 2.0.3-alpha.14
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.13
+        specifier: 1.0.3-alpha.14
         version: link:../x-utils
       tslib:
         specifier: ~2.8.1
@@ -399,10 +399,10 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.16
+        specifier: 8.1.0-alpha.17
         version: link:../x-adapter
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.13
+        specifier: 1.0.3-alpha.14
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -1572,8 +1572,11 @@ packages:
       }
 
   '@empathyco/x-deep-merge@2.0.3-alpha.14':
-    resolution: {integrity: sha512-gRkIPMphvOHecxT22i5H6cKbNSIjFr5M0ONeq8JvST6rsgObzoPZ1gVQxsq8tDfqQD8/B7EY59wWemqfSVFAmw==}
-    engines: {node: '>=22'}
+    resolution:
+      {
+        integrity: sha512-gRkIPMphvOHecxT22i5H6cKbNSIjFr5M0ONeq8JvST6rsgObzoPZ1gVQxsq8tDfqQD8/B7EY59wWemqfSVFAmw==,
+      }
+    engines: { node: '>=22' }
 
   '@empathyco/x-storage-service@2.0.3-alpha.10':
     resolution:

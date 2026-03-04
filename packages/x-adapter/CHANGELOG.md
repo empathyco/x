@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.17 (2026-03-04)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
 ## 8.1.0-alpha.16 (2026-03-03)
 
 **Note:** Version bump only for package @empathyco/x-adapter

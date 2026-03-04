@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.14 (2026-03-04)</small>
+
+- feat(deep-merge): add deep-merge code into x-utils package ([00519a6](https://github.com/empathyco/x/commit/00519a6))
+
 ## <small>1.0.3-alpha.13 (2026-03-03)</small>
 
 **Note:** Version bump only for package @empathyco/x-utils
