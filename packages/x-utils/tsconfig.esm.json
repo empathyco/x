@@ -1,7 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": []
+    "types": [],
+    "declaration": true,
+    "declarationDir": "./types",
+    "outDir": "./dist/esm"
   },
   "exclude": ["**/*.spec.ts", "vitest.config.ts"]
 }
