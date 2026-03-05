@@ -1,9 +1,7 @@
-import type { StorageService } from './storage-service'
+import type { StorageService } from './types'
 
 /**
  * In memory implementation of the storage service.
- *
- * @public
  */
 export class InMemoryStorageService implements StorageService {
   protected storage: Record<string, any> = {}
@@ -13,10 +11,8 @@ export class InMemoryStorageService implements StorageService {
    *
    * @param key - The key of the item.
    * @param item - The item to save.
-   *
-   * @public
    */
-  setItem(key: string, item: any): void {
+  setItem(key: string, item: any) {
     this.storage[key] = item
   }
 
@@ -25,8 +21,6 @@ export class InMemoryStorageService implements StorageService {
    *
    * @param key - The key of the item.
    * @returns The founded item or null.
-   *
-   * @public
    */
   getItem<Item = any>(key: string): Item | null {
     return this.storage[key] ?? null
@@ -37,8 +31,6 @@ export class InMemoryStorageService implements StorageService {
    *
    * @param key - The key of the item.
    * @returns The removed item or null.
-   *
-   * @public
    */
   removeItem<Item = any>(key: string): Item | null {
     const item = this.storage[key]
@@ -47,13 +39,11 @@ export class InMemoryStorageService implements StorageService {
   }
 
   /**
-   * Clears the storage..
+   * Clears the storage.
    *
    * @returns The number of removed items.
-   *
-   * @public
    */
-  clear(): number {
+  clear() {
     const numberOfRemovedItems = Object.keys(this.storage).length
     this.storage = {}
     return numberOfRemovedItems

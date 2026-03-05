@@ -1,7 +1,5 @@
 /**
- * Service to manage the session id.
- *
- * @public
+ * Service to manage the session ID.
  */
 export interface SessionService {
   /**
@@ -9,7 +7,6 @@ export interface SessionService {
    *
    * @remarks If a session id is outdated or does not exist,
    * a new one is created.
-   *
    * @returns The session id.
    */
   getSessionId: () => string

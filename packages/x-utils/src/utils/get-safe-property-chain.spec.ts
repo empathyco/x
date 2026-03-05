@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getSafePropertyChain } from '../get-safe-property-chain'
+import { getSafePropertyChain } from './get-safe-property-chain'
 
 describe('testing getSafePropertyChain function', () => {
   it('retrieves shallow values', () => {

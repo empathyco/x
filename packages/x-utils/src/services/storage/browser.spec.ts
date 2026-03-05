@@ -1,6 +1,6 @@
-import type { StorageService } from '../storage-service'
+import type { StorageService } from './types'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { BrowserStorageService } from '../browser-storage-service'
+import { BrowserStorageService } from './browser'
 
 let storage: StorageService
 const prefix = 'custom'

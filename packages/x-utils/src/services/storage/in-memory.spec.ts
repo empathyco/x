@@ -1,6 +1,6 @@
-import type { StorageService } from '../storage-service'
+import type { StorageService } from './types'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryStorageService } from '../in-memory-storage-service'
+import { InMemoryStorageService } from './in-memory'
 
 let storage: StorageService
 const key = 'key'

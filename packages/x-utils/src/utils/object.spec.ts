@@ -1,4 +1,5 @@
-import type { Dictionary } from '../types/utils.types'
+import type { Mock } from 'vitest'
+import type { Dictionary } from '../types/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   cleanEmpty,
@@ -11,7 +12,7 @@ import {
   map,
   reduce,
   rename,
-} from '../object'
+} from './object'
 
 class Person {
   public constructor(public name: string) {}
@@ -181,7 +182,7 @@ describe('testing object utils', () => {
      */
     function expectReduceToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
-      callback: jest.Mock = reducer,
+      callback: Mock = reducer,
     ): void {
       const objEntries = Object.entries(obj)
       expect(callback).toHaveBeenCalledTimes(objEntries.length)
@@ -198,7 +199,7 @@ describe('testing object utils', () => {
      *
      * @internal
      */
-    function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
+    function expectReduceCallsToHaveValidIndexParameter(callback: Mock = reducer): void {
       callback.mock.calls
         .map(call => {
           return call[3]
@@ -286,7 +287,7 @@ describe('testing object utils', () => {
      */
     function expectMapToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
-      callback: jest.Mock = mapCallback,
+      callback: Mock = mapCallback,
     ): void {
       const objEntries = Object.entries(obj)
       expect(callback).toHaveBeenCalledTimes(objEntries.length)
@@ -303,7 +304,7 @@ describe('testing object utils', () => {
      *
      * @internal
      */
-    function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
+    function expectMapCallsToHaveValidIndexParameter(callback: Mock = mapCallback): void {
       callback.mock.calls
         .map(call => {
           return call[2]
@@ -477,14 +478,10 @@ describe('testing object utils', () => {
 
     it('returns an empty array when both objects are the same', () => {
       const newValue = {}
-      const oldValue = newValue
-
-      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual([])
+      expect(getNewAndUpdatedKeys(newValue, newValue)).toEqual([])
 
       const anotherNewValue = { a: 1, b: '2' }
-      const anotherOldValue = anotherNewValue
-
-      expect(getNewAndUpdatedKeys(anotherNewValue, anotherOldValue)).toEqual([])
+      expect(getNewAndUpdatedKeys(anotherNewValue, anotherNewValue)).toEqual([])
     })
 
     it('returns an empty array when both objects have same structure and values', () => {
