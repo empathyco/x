@@ -19,16 +19,5 @@ defineProps({
   contentClass: String,
 })
 
-const items = [
-  'Baghdad',
-  'Nairobi',
-  'Ankara',
-  'Thais',
-  'Edron',
-  'Venore',
-  'Carlin',
-  'Belgrado',
-  'Zagreb',
-  'Sarajevo',
-]
+const items = ['Baghdad', 'Nairobi', 'Ankara', 'Thais', 'Edron']
 </script>

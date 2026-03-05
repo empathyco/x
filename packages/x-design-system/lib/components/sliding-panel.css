@@ -5,32 +5,35 @@
 
 /* Fade */
 @utility sliding-panel-fade {
-  /* `@apply xds:sliding-panel-fade-md;` can not be use here because cause circular dependency. */
+  --xds-sliding-panel-fade-spacing: var(--xds-spacing-80);
   mask: linear-gradient(
     to right,
-    transparent calc(0.43 * var(--xds-spacing-sliding-fade-md)),
-    rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-md)),
-    black var(--xds-spacing-sliding-fade-md),
-    rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--xds-spacing-sliding-fade-md)),
-    transparent calc(100% - 0.43 * var(--xds-spacing-sliding-fade-md))
+    transparent calc(0.43 * var(--xds-sliding-panel-fade-spacing)),
+    rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-sliding-panel-fade-spacing)),
+    black var(--xds-sliding-panel-fade-spacing),
+    rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--xds-sliding-panel-fade-spacing)),
+    transparent calc(100% - 0.43 * var(--xds-sliding-panel-fade-spacing))
   );
 }
 
-@utility sliding-panel-fade-* {
-  mask: linear-gradient(
-    to right,
-    transparent calc(0.43 * --value(--spacing-sliding-fade- *)),
-    rgba(0, 0, 0, 0.8) calc(0.67 * --value(--spacing-sliding-fade- *)),
-    black --value(--spacing-sliding-fade- *),
-    rgba(0, 0, 0, 0.8) calc(100% - 0.67 * --value(--spacing-sliding-fade- *)),
-    transparent calc(100% - 0.43 * --value(--spacing-sliding-fade- *))
-  );
+/* Fade Sizes */
+@utility sliding-panel-fade-sm {
+  @apply xds:sliding-panel-fade;
+  --xds-sliding-panel-fade-spacing: var(--xds-spacing-40);
+}
+@utility sliding-panel-fade-md {
+  @apply xds:sliding-panel-fade;
+  --xds-sliding-panel-fade-spacing: var(--xds-spacing-80);
+}
+@utility sliding-panel-fade-lg {
+  @apply xds:sliding-panel-fade;
+  --xds-sliding-panel-fade-spacing: var(--xds-spacing-160);
 }
 
 /* Buttons */
 @utility sliding-panel-button {
   @apply xds:button;
-  @apply xds:absolute xds:z-10;
+  @apply xds:absolute xds:z-1;
   @apply xds:transition-all xds:ease-out xds:duration-200 xds:translate-x-0;
 }
 
@@ -40,27 +43,6 @@
 
 @utility sliding-panel-button-right {
   @apply xds:right-0;
-}
-
-/* Button Positions */
-@utility sliding-panel-buttons-center {
-  & > .xds\:sliding-panel-button-left {
-    @apply xds:-translate-x-1/2;
-  }
-
-  & > .xds\:sliding-panel-button-right {
-    @apply xds:translate-x-1/2;
-  }
-}
-
-@utility sliding-panel-buttons-outside {
-  & > .xds\:sliding-panel-button-left {
-    @apply xds:-translate-x-full;
-  }
-
-  & > .xds\:sliding-panel-button-right {
-    @apply xds:translate-x-full;
-  }
 }
 
 /* Buttons on hover */
@@ -81,42 +63,57 @@
   }
 }
 
+/* Positions */
+@utility sliding-panel-buttons-center {
+  & > .xds\:sliding-panel-button-left {
+    @apply xds:-translate-x-1/2;
+  }
+
+  & > .xds\:sliding-panel-button-right {
+    @apply xds:translate-x-1/2;
+  }
+}
+
+@utility sliding-panel-buttons-outside {
+  & > .xds\:sliding-panel-button-left {
+    @apply xds:-translate-x-full;
+  }
+
+  & > .xds\:sliding-panel-button-right {
+    @apply xds:translate-x-full;
+  }
+}
+
+@utility sliding-panel-fade-position {
+  --xds-sliding-panel-fade-spacing: var(--xds-spacing-80);
+  --xds-sliding-panel-fade-direction: to left;
+  mask: linear-gradient(
+    var(--xds-sliding-panel-fade-direction),
+    transparent calc(0.43 * var(--xds-sliding-panel-fade-spacing)),
+    rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-sliding-panel-fade-spacing)),
+    black var(--xds-sliding-panel-fade-spacing)
+  );
+}
 @utility sliding-panel-at-start {
   & > .xds\:sliding-panel-button-left {
     @apply xds:opacity-0 xds:pointer-events-none;
   }
 
-  &:not(.xds\:sliding-panel-at-end) {
-    & > .xds\:sliding-panel-fade-sm {
-      mask: linear-gradient(
-        to left,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-sm)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-sm)),
-        black var(--xds-spacing-sliding-fade-sm)
-      );
-    }
-
-    & > .xds\:sliding-panel-fade,
-    & > .xds\:sliding-panel-fade-md {
-      mask: linear-gradient(
-        to left,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-md)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-md)),
-        black var(--xds-spacing-sliding-fade-md)
-      );
-    }
-
-    & > .xds\:sliding-panel-fade-lg {
-      mask: linear-gradient(
-        to left,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-lg)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-lg)),
-        black var(--xds-spacing-sliding-fade-lg)
-      );
-    }
+  & > .xds\:sliding-panel-fade-sm {
+    @apply xds:sliding-panel-fade-position;
+    --xds-spacing-sliding-fade: var(--xds-spacing-40);
   }
+  & > .xds\:sliding-panel-fade,
+  & > .xds\:sliding-panel-fade-md {
+    @apply xds:sliding-panel-fade-position;
+  }
+  & > .xds\:sliding-panel-fade-lg {
+    @apply xds:sliding-panel-fade-position;
+    --xds-spacing-sliding-fade: var(--xds-spacing-160);
+  }
+
   &.xds\:sliding-panel-at-end > .xds\:sliding-panel-fade {
-    mask: none !important;
+    mask: none;
   }
 }
 
@@ -125,50 +122,19 @@
     @apply xds:opacity-0 xds:pointer-events-none;
   }
 
-  &:not(.xds\:sliding-panel-at-start) {
-    & > .xds\:sliding-panel-fade {
-      mask: linear-gradient(
-        to right,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-md)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-md)),
-        black var(--xds-spacing-sliding-fade-md)
-      );
-    }
-
-    & > .xds\:sliding-panel-fade-* {
-      mask: linear-gradient(
-        to right,
-        transparent calc(0.43 * --value(--spacing-sliding-fade- *)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * --value(--spacing-sliding-fade- *)),
-        black --value(--spacing-sliding-fade- *)
-      );
-    }
-    & > .xds\:sliding-panel-fade-sm {
-      mask: linear-gradient(
-        to right,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-sm)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-sm)),
-        black var(--xds-spacing-sliding-fade-sm)
-      );
-    }
-
-    & > .xds\:sliding-panel-fade,
-    & > .xds\:sliding-panel-fade-md {
-      mask: linear-gradient(
-        to right,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-md)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-md)),
-        black var(--xds-spacing-sliding-fade-md)
-      );
-    }
-
-    & > .xds\:sliding-panel-fade-lg {
-      mask: linear-gradient(
-        to right,
-        transparent calc(0.43 * var(--xds-spacing-sliding-fade-lg)),
-        rgba(0, 0, 0, 0.8) calc(0.67 * var(--xds-spacing-sliding-fade-lg)),
-        black var(--xds-spacing-sliding-fade-lg)
-      );
-    }
+  & > .xds\:sliding-panel-fade-sm {
+    @apply xds:sliding-panel-fade-position;
+    --xds-spacing-sliding-fade: var(--xds-spacing-40);
+    --xds-sliding-panel-fade-direction: to right;
+  }
+  & > .xds\:sliding-panel-fade,
+  & > .xds\:sliding-panel-fade-md {
+    @apply xds:sliding-panel-fade-position;
+    --xds-sliding-panel-fade-direction: to right;
+  }
+  & > .xds\:sliding-panel-fade-lg {
+    @apply xds:sliding-panel-fade-position;
+    --xds-spacing-sliding-fade: var(--xds-spacing-160);
+    --xds-sliding-panel-fade-direction: to right;
   }
 }

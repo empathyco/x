@@ -43,11 +43,11 @@
         content-class="xds:sliding-panel-fade-lg"
       />
       <SlidingPanel
-        wrapper-class="xds:sliding-panel-outside xds:sliding-panel-show-buttons-on-hover"
+        wrapper-class="xds:sliding-panel-buttons-outside xds:sliding-panel-show-buttons-on-hover"
         content-class="xds:sliding-panel-fade-sm"
       />
       <SlidingPanel
-        wrapper-class="xds:sliding-panel-outside xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
+        wrapper-class="xds:sliding-panel-buttons-buttons-outside xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
         content-class="xds:sliding-panel-fade-sm"
       />
       <SlidingPanel
