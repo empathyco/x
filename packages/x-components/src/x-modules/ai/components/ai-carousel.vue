@@ -90,7 +90,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ChangeHeight,
@@ -177,6 +177,10 @@ export default defineComponent({
       if (queries.value.length > 0) {
         $x.emit('AiSuggestionsSearchRequestUpdated')
       }
+    })
+
+    onMounted(() => {
+      $x.emit('AiComponentMounted', undefined, { feature: 'ai_carousel' })
     })
 
     useResizeObserver(titleRef, updateTitleOverflow)

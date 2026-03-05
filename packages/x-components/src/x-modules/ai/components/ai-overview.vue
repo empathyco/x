@@ -316,7 +316,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      $x.emit('AiOverviewMounted', undefined, { feature: 'overview' })
+      $x.emit('AiComponentMounted', undefined, { feature: 'overview' })
     })
 
     return {

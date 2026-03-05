@@ -233,6 +233,14 @@ describe('ai-carousel component', () => {
     expect(emitMock).toHaveBeenCalledWith('AiSuggestionsSearchRequestUpdated')
   })
 
+  it('should emit AiComponentMounted event on mounted', () => {
+    render()
+
+    expect(emitMock).toHaveBeenCalledWith('AiComponentMounted', undefined, {
+      feature: 'ai_carousel',
+    })
+  })
+
   it('should toggle the title expansion when clicked if it overflows', async () => {
     const sut = render()
 
