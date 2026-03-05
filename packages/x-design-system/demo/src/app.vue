@@ -8,6 +8,7 @@
     <Input />
     <InputGroup />
     <Suggestion />
+    <SuggestionGroup />
     <SlidingPanel />
     <Picture />
     <Scroll />
@@ -33,6 +34,7 @@ import Picture from './components/picture.vue'
 import ProgressBar from './components/progress-bar.vue'
 import Scroll from './components/scroll.vue'
 import SlidingPanel from './components/sliding-panel/index.vue'
+import SuggestionGroup from './components/suggestion-group/index.vue'
 import Suggestion from './components/suggestion.vue'
 import Typography from './components/typography.vue'
 </script>
