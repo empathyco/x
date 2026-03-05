@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.15 (2026-03-05)</small>
+
+- feat(x-utils): move storage-service package into x-util ([a37045c](https://github.com/empathyco/x/commit/a37045c))
+- feat(x-utils): recover cjs bundler ([5f9dd59](https://github.com/empathyco/x/commit/5f9dd59))
+- feat(x-utils): recover cjs bundler ([316a7d2](https://github.com/empathyco/x/commit/316a7d2))
+
 ## <small>1.0.3-alpha.14 (2026-03-04)</small>
 
 - feat(deep-merge): add deep-merge code into x-utils package ([00519a6](https://github.com/empathyco/x/commit/00519a6))
