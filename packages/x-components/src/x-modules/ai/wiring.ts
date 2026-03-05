@@ -86,7 +86,7 @@ export const aiWiring = createWiring({
   SelectedFiltersForRequestChanged: {
     setSelectedFiltersWire,
   },
-  AiOverviewMounted: {
+  AiComponentMounted: {
     saveAiOriginWire,
   },
 })

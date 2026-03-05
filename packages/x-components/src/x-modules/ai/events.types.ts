@@ -17,5 +17,5 @@ export interface AiXEvents {
   AiSuggestionsSearchChanged: AiSuggestionSearch[]
   UserClickedAiOverviewExpandButton: boolean
   UserClickedAnAiOverviewResult: Result
-  AiOverviewMounted: void
+  AiComponentMounted: void
 }

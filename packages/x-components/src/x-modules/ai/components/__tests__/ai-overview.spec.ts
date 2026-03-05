@@ -495,10 +495,10 @@ describe('ai-overview component', () => {
     })
   })
 
-  it('should emit AiOverviewMounted event on mounted', () => {
+  it('should emit AiComponentMounted event on mounted', () => {
     render()
 
-    expect(emitMock).toHaveBeenCalledWith('AiOverviewMounted', undefined, {
+    expect(emitMock).toHaveBeenCalledWith('AiComponentMounted', undefined, {
       feature: 'overview',
     })
   })
