@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.216 (2026-03-04)
+
+- fix: update slot props in AI carousel and improve height transition styles (#2041) ([e025504](https://github.com/empathyco/x/commit/e025504)), closes [#2041](https://github.com/empathyco/x/issues/2041)
+
 ## 6.0.0-alpha.215 (2026-03-04)
 
 - feat: add AI carousel component with related integration and tests ([8fe744e](https://github.com/empathyco/x/commit/8fe744e))

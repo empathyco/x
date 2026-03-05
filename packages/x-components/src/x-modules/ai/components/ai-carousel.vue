@@ -39,7 +39,7 @@
           </button>
         </span>
       </DisplayEmitter>
-      <slot name="sliding-panel" :results="suggestionsSearch">
+      <slot name="sliding-panel" :suggestions="suggestionsSearch" :tagging="tagging">
         <SlidingPanel
           :class="slidingPanelClasses"
           :scroll-container-class="slidingPanelContainerClasses"
