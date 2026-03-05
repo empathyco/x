@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.218 (2026-03-05)
+
+- fix: rename `AiOverviewMounted` to `AiComponentMounted` across components, tests, and wiring (#2044) ([28b3c10](https://github.com/empathyco/x/commit/28b3c10)), closes [#2044](https://github.com/empathyco/x/issues/2044)
+
 ## 6.0.0-alpha.217 (2026-03-05)
 
 - feat(x-utils): recover cjs bundler ([5f9dd59](https://github.com/empathyco/x/commit/5f9dd59))
