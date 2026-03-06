@@ -130,7 +130,7 @@ export default defineComponent({
      * @returns The locale to be used.
      * @internal
      */
-    const usedLocale = computed(() => snippetConfig?.lang ?? props.locale)
+    const usedLocale = computed(() => snippetConfig?.uiLang ?? snippetConfig?.lang ?? props.locale)
 
     /**
      * Returns a record of history queries grouped by date.
@@ -155,12 +155,13 @@ export default defineComponent({
      */
     const groupByDate = computed((): Dictionary<HistoryQueryType[]> => {
       return groupItemsBy(historyQueries.value as HistoryQueryType[], current => {
-        return new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
+        const formatted = new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
           day: 'numeric',
           weekday: 'long',
           month: 'long',
           year: 'numeric',
         })
+        return formatted.charAt(0).toUpperCase() + formatted.slice(1)
       })
     })
 
