@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.16 (2026-03-06)</small>
+
+- feat(x-design-system): sliding-panel component (#2039) ([0ae8964](https://github.com/empathyco/x/commit/0ae8964)), closes [#2039](https://github.com/empathyco/x/issues/2039)
+
 ## <small>0.0.2-alpha.15 (2026-03-04)</small>
 
 - feat(x-design-system): scroll component (#2027) ([f02990d](https://github.com/empathyco/x/commit/f02990d)), closes [#2027](https://github.com/empathyco/x/issues/2027)
