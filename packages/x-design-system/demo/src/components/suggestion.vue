@@ -28,7 +28,7 @@
       </button>
     </template>
     <template #outlined>
-      <button class="xds:suggestion">
+      <button class="xds:suggestion xds:suggestion-outlined">
         <CuratedIcon class="xds:icon" />
         outlined suggestion
       </button>
@@ -54,7 +54,7 @@
       </button>
     </template>
     <template #ghost>
-      <button class="xds:suggestion xds:suggestion-ghost xds:w-30">
+      <button class="xds:suggestion xds:suggestion-ghost">
         <CuratedIcon class="xds:icon" />
         ghost suggestion
       </button>
@@ -88,9 +88,9 @@
         <CuratedIcon class="xds:icon" />
         auxiliary md suggestion
       </button>
-      <button class="xds:suggestion xds:suggestion-error-50 xds:suggestion-lg">
+      <button class="xds:suggestion xds:suggestion-error xds:suggestion-lg">
         <CuratedIcon class="xds:icon" />
-        error-50 lg suggestion
+        error lg suggestion
       </button>
     </template>
   </Wrapper>
@@ -111,14 +111,14 @@ const rows = [
   'combinations',
 ]
 const colors = {
-  neutral: 'xds:suggestion-neutral-75',
-  lead: 'xds:suggestion-lead-75',
-  auxiliary: 'xds:suggestion-auxiliary-75',
-  accent: 'xds:suggestion-accent-75',
-  highlight: 'xds:suggestion-highlight-75',
-  success: 'xds:suggestion-success-75',
-  warning: 'xds:suggestion-warning-75',
-  error: 'xds:suggestion-error-75',
+  neutral: 'xds:suggestion-neutral',
+  lead: 'xds:suggestion-lead',
+  auxiliary: 'xds:suggestion-auxiliary',
+  accent: 'xds:suggestion-accent',
+  highlight: 'xds:suggestion-highlight',
+  success: 'xds:suggestion-success',
+  warning: 'xds:suggestion-warning',
+  error: 'xds:suggestion-error',
 }
 
 const cleanedValue = (value: string) => value.replace(/^xds:suggestion-/, '')

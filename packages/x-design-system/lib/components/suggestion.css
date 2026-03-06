@@ -42,18 +42,10 @@
 }
 
 @utility suggestion-ghost {
-  @apply xds:bg-neutral-0 xds:border-1 xds:border-neutral-0;
-  @apply xds:ps-8 xds:pe-8;
-
-  &:hover {
-    @apply xds:bg-neutral-10 xds:no-underline;
-  }
-
-  &.xds\:suggestion-lg {
-    @apply xds:ps-12 xds:pe-12;
-  }
+  @apply xds:suggestion-outlined;
+  @apply xds:border-neutral-0;
 }
 
 @utility suggestion-* {
-  color: --value(--color- *);
+  color: --value(--color- * -75);
 }
