@@ -7,6 +7,7 @@
     <Highlight />
     <Input />
     <InputGroup />
+    <SlidingPanel />
     <Picture />
     <Scroll />
     <Badge />
@@ -30,5 +31,6 @@ import Integration from './components/integration.vue'
 import Picture from './components/picture.vue'
 import ProgressBar from './components/progress-bar.vue'
 import Scroll from './components/scroll.vue'
+import SlidingPanel from './components/sliding-panel/index.vue'
 import Typography from './components/typography.vue'
 </script>
