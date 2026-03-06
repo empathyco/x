@@ -168,11 +168,11 @@
         ]"
         :key="caseClass"
       >
-        <button class="xds:tag" :class="caseClass">
+        <button class="xds:tag" :class="caseClass" disabled>
           {{ cleanedValue(caseClass) }} tag
           <PlusIcon class="xds:icon" />
         </button>
-        <button class="xds:tag xds:selected" :class="caseClass">
+        <button class="xds:tag xds:selected" :class="caseClass" disabled>
           selected {{ cleanedValue(caseClass) }} tag
           <PlusIcon class="xds:icon" />
         </button>

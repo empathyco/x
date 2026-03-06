@@ -7,6 +7,7 @@
   @apply xds:cursor-pointer;
   @apply xds:py-0;
 
+  /* `@apply xds:tag-md;` can not be use here because cause circular dependency. */
   @apply xds:min-h-32 xds:text-sm xds:ps-12 xds:pe-12;
 
   @variant hover-active-focus {
@@ -60,6 +61,16 @@
     @variant hover-active-focus {
       @apply xds:border-neutral-75 xds:text-neutral-75;
     }
+
+    @variant disabled {
+      @apply xds:bg-transparent xds:border-neutral-25 xds:border-1 xds:text-neutral-25;
+      @apply xds:cursor-not-allowed;
+    }
+  }
+
+  @variant disabled {
+    @apply xds:border-neutral-25 xds:border-1 xds:text-neutral-25;
+    @apply xds:cursor-not-allowed;
   }
 }
 
@@ -76,6 +87,10 @@
 
     @variant hover-active-focus {
       @apply xds:bg-neutral-50 xds:border-neutral-50;
+    }
+
+    @variant disabled {
+      @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-25;
     }
   }
 
@@ -98,6 +113,11 @@
 
     @variant hover-active-focus {
       @apply xds:border-neutral-10;
+    }
+
+    @variant disabled {
+      @apply xds:bg-transparent xds:border-transparent xds:text-neutral-25;
+      @apply xds:font-regular;
     }
   }
 
@@ -122,6 +142,11 @@
 
     @variant hover-active-focus {
       @apply xds:border-transparent xds:text-neutral-50;
+    }
+
+    @variant disabled {
+      @apply xds:border-transparent xds:text-neutral-25;
+      @apply xds:font-regular;
     }
   }
 

@@ -12,6 +12,7 @@
     <SlidingPanel />
     <Picture />
     <Scroll />
+    <Tag />
     <Badge />
     <FilterFacet />
     <ProgressBar />
@@ -36,5 +37,6 @@ import Scroll from './components/scroll.vue'
 import SlidingPanel from './components/sliding-panel/index.vue'
 import SuggestionGroup from './components/suggestion-group/index.vue'
 import Suggestion from './components/suggestion.vue'
+import Tag from './components/tag.vue'
 import Typography from './components/typography.vue'
 </script>
