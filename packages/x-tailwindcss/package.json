@@ -47,8 +47,8 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "29.0.0",
     "@vitejs/plugin-vue": "5.2.4",
-    "autoprefixer": "10.4.24",
-    "postcss": "8.5.6",
+    "autoprefixer": "10.4.27",
+    "postcss": "8.5.8",
     "postcss-import": "16.1.1",
     "rimraf": "3.0.2",
     "rollup": "4.59.0",
@@ -57,7 +57,7 @@
     "ts-jest": "29.4.6",
     "typescript": "5.9.3",
     "vite": "6.4.1",
-    "vue": "3.5.28"
+    "vue": "3.5.29"
   },
   "publishConfig": {
     "access": "public"

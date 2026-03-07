@@ -21,10 +21,10 @@
   "devDependencies": {
     "@empathyco/eslint-config": "1.8.0",
     "colors": "1.4.0",
-    "conventional-changelog-conventionalcommits": "9.1.0",
+    "conventional-changelog-conventionalcommits": "9.2.0",
     "husky": "8.0.3",
-    "lerna": "9.0.4",
-    "prettier": "3.5.3"
+    "lerna": "9.0.5",
+    "prettier": "3.8.1"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {

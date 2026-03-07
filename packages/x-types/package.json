@@ -46,8 +46,8 @@
     "@empathyco/x-utils": "1.0.3-alpha.15"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.29.2",
-    "@microsoft/api-extractor": "7.57.2",
+    "@microsoft/api-documenter": "7.29.6",
+    "@microsoft/api-extractor": "7.57.6",
     "typescript": "5.9.3",
     "vite": "6.4.1",
     "vite-plugin-dts": "4.5.4",
