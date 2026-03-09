@@ -4,7 +4,7 @@ import type {
   EndpointAdapterOptions,
   ExtendableEndpointAdapter,
 } from './types'
-import { deepMerge } from '@empathyco/x-deep-merge'
+import { deepMerge } from '@empathyco/x-utils'
 import { fetchHttpClient } from '../http-clients/fetch.http-client'
 import { identityMapper } from '../mappers/identity.mapper'
 import { interpolate } from '../utils/interpolate'

@@ -1,6 +1,5 @@
 import type { TailwindHelpers } from '../../../types'
-import { deepMerge } from '@empathyco/x-deep-merge'
-import { rename } from '@empathyco/x-utils'
+import { deepMerge, rename } from '@empathyco/x-utils'
 import { buttonColors } from './colors'
 import { buttonDefault } from './default'
 import { buttonDisabled } from './disabled'

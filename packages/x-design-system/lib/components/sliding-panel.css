@@ -63,7 +63,7 @@
   }
 }
 
-/* Positions */
+/* Button positions */
 @utility sliding-panel-buttons-center {
   & > .xds\:sliding-panel-button-left {
     @apply xds:-translate-x-1/2;
@@ -84,6 +84,7 @@
   }
 }
 
+/* Fade positions */
 @utility sliding-panel-fade-position {
   --xds-sliding-panel-fade-spacing: var(--xds-spacing-80);
   --xds-sliding-panel-fade-direction: to left;

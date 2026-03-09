@@ -29,7 +29,7 @@
   "scripts": {
     "dev": "vite serve demo",
     "dev:build": "vite build demo",
-    "prebuild": "rimraf ./dist ./showcase ./*.tgz",
+    "prebuild": "rm -rf dist showcase *.tgz",
     "build": "rollup -c && vite build demo",
     "pack": "pnpm pack",
     "lint": "eslint --fix",
@@ -40,7 +40,6 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "2.0.3-alpha.14",
     "@empathyco/x-utils": "1.0.3-alpha.15",
     "tslib": "~2.8.1"
   },
@@ -50,7 +49,6 @@
     "autoprefixer": "10.4.24",
     "postcss": "8.5.6",
     "postcss-import": "16.1.1",
-    "rimraf": "3.0.2",
     "rollup": "4.59.0",
     "rollup-plugin-typescript2": "0.36.0",
     "tailwindcss": "3.4.19",

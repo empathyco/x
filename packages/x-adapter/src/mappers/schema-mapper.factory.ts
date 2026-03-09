@@ -1,8 +1,8 @@
 import type { Dictionary, ExtractPath } from '@empathyco/x-utils'
 import type { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types'
 import type { Mapper, MapperContext } from './types'
-import { deepMerge } from '@empathyco/x-deep-merge'
 import {
+  deepMerge,
   getSafePropertyChain,
   isArray,
   isFunction,

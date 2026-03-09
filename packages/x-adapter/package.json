@@ -26,8 +26,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"pnpm run build:*\"",
+    "prebuild": "rm -rf dist *.tgz",
+    "build": "pnpm run /^build:/",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "pack": "pnpm pack",
@@ -43,14 +43,11 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "2.0.3-alpha.14",
     "@empathyco/x-utils": "1.0.3-alpha.15"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.0.18",
-    "concurrently": "8.2.2",
     "jsdom": "28.1.0",
-    "rimraf": "3.0.2",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },

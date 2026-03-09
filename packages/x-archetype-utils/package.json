@@ -25,10 +25,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf dist ./*.tgz",
+    "prebuild": "rm -rf dist *.tgz",
     "build": "vite build",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:esm": "tsc --project tsconfig.esm.json",
     "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
@@ -46,7 +44,6 @@
     "vue-i18n": "^9.14.5"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "2.0.3-alpha.14",
     "@empathyco/x-utils": "1.0.3-alpha.15",
     "vue-i18n": "~9.14.5"
   },
@@ -54,7 +51,6 @@
     "@vitest/coverage-v8": "4.0.18",
     "@vue/test-utils": "2.4.6",
     "jsdom": "28.1.0",
-    "rimraf": "3.0.2",
     "typescript": "5.9.3",
     "vite": "6.4.1",
     "vite-plugin-dts": "4.5.4",
