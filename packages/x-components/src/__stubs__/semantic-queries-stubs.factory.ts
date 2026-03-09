@@ -1,6 +1,6 @@
 import type { SemanticQueriesResponse, SemanticQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
-import { deepMerge } from '@empathyco/x-deep-merge'
+import { deepMerge } from '@empathyco/x-utils'
 
 /**
  * Creates a {@link SemanticQuery} stub with the provided options.

@@ -1,6 +1,6 @@
 import type { HistoryQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
-import { deepMerge } from '@empathyco/x-deep-merge'
+import { deepMerge } from '@empathyco/x-utils'
 
 /**
  * Creates a history query overriding default values with the ones passed.

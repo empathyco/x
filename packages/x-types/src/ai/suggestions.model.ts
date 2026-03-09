@@ -2,8 +2,7 @@ import type { TaggingRequest } from '../request'
 
 /**
  * Data for each query suggested.
- *
- * @internal
+ * @public
  */
 export interface AiSuggestionQuery {
   query: string
@@ -12,8 +11,7 @@ export interface AiSuggestionQuery {
 
 /**
  * Interface for the AI suggestion tagging.
- *
- * @internal
+ * @public
  */
 export interface AiSuggestionTagging {
   toolingDisplay: TaggingRequest

@@ -27,8 +27,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
+    "prebuild": "rm -rf dist docs report *.tgz",
+    "build": "pnpm run /^build:/ && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "pack": "pnpm pack",
@@ -55,9 +55,7 @@
     "@microsoft/api-documenter": "7.29.2",
     "@microsoft/api-extractor": "7.57.2",
     "@vitest/coverage-v8": "4.0.18",
-    "concurrently": "8.2.2",
     "jsdom": "28.1.0",
-    "rimraf": "3.0.2",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },

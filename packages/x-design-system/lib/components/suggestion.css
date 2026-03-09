@@ -41,11 +41,13 @@
   }
 }
 
+/* Ghost */
 @utility suggestion-ghost {
   @apply xds:suggestion-outlined;
   @apply xds:border-neutral-0;
 }
 
+/* Colors */
 @utility suggestion-* {
   color: --value(--color- * -75);
 }

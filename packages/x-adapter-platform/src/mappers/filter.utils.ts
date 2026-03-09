@@ -59,6 +59,7 @@ import { reduce } from '@empathyco/x-utils'
  *     'categoryIds:ffc61e1e9__fa5ef54f2'
  * ];
  * ```
+ * @public
  */
 export function mapFilters(filters?: Record<string, Filter[]>) {
   return reduce(
