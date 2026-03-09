@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.0-alpha.37 (2026-03-09)
+
+- feat(deep-merge-storage-service): clean up deep-merge and storage-service deps and side effects (#20 ([668130c](https://github.com/empathyco/x/commit/668130c)), closes [#2048](https://github.com/empathyco/x/issues/2048)
+
 ## 2.0.0-alpha.36 (2026-03-05)
 
 - feat(x-utils): recover cjs bundler ([316a7d2](https://github.com/empathyco/x/commit/316a7d2))

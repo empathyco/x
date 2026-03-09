@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.18 (2026-03-09)</small>
+
+- feat(deep-merge-storage-service): clean up deep-merge and storage-service deps and side effects (#20 ([668130c](https://github.com/empathyco/x/commit/668130c)), closes [#2048](https://github.com/empathyco/x/issues/2048)
+
 ## <small>0.0.2-alpha.17 (2026-03-06)</small>
 
 - feat(x-design-system): suggestion component (#2042) ([2d4bda2](https://github.com/empathyco/x/commit/2d4bda2)), closes [#2042](https://github.com/empathyco/x/issues/2042)
