@@ -39,7 +39,7 @@
 /* Outlined */
 @utility suggestion-group-outlined {
   @apply xds:bg-neutral-0 xds:border-1 xds:border-neutral-90;
-  @apply xds:gap-4;
+  @apply xds:gap-4!;
 
   &:hover,
   &:hover * {
@@ -63,11 +63,13 @@
   }
 }
 
+/* Ghost */
 @utility suggestion-group-ghost {
   @apply xds:suggestion-group-outlined;
-  @apply xds:bg-transparent xds:gap-4 xds:border-0;
+  @apply xds:bg-transparent xds:border-0;
 }
 
+/* Colors */
 @utility suggestion-group-* {
   color: --value(--color- * -75);
 
