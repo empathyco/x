@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.20 (2026-03-10)</small>
+
+- feat(xds): tag component (#2047) ([d32d33b](https://github.com/empathyco/x/commit/d32d33b)), closes [#2047](https://github.com/empathyco/x/issues/2047)
+
 ## <small>0.0.2-alpha.19 (2026-03-10)</small>
 
 - feat(x-design-system): suggestion-group component (#2043) ([c03d399](https://github.com/empathyco/x/commit/c03d399)), closes [#2043](https://github.com/empathyco/x/issues/2043)
