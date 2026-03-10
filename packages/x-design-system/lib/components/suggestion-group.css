@@ -1,7 +1,7 @@
 /* Base */
 @utility suggestion-group {
   @apply xds:font-family-main xds:font-regular xds:text-neutral-90;
-  @apply xds:grid xds:grid-flow-col xds:grid-cols-[auto_[last-col]];
+  @apply xds:grid xds:grid-flow-col xds:grid-cols-[auto_[last-col]] xds:auto-cols-[1fr];
   @apply xds:items-center xds:content-center xds:justify-start;
   @apply xds:box-border xds:cursor-pointer xds:overflow-hidden;
   @apply xds:ps-0 xds:pe-0 xds:gap-16;
@@ -17,9 +17,10 @@
     @apply xds:icon-offset;
   }
 
-  & > .xds\:suggestion,
-  & > .xds\:suggestion:hover {
-    @apply xds:min-h-[inherit] xds:font-[inherit] xds:text-inherit;
+  & > .xds\:suggestion {
+    @apply xds:min-h-[inherit] xds:text-inherit;
+    font-size: inherit;
+    font-weight: inherit;
     text-decoration: inherit;
   }
 }
@@ -63,35 +64,15 @@
 }
 
 @utility suggestion-group-ghost {
-  @apply xds:bg-transparent xds:gap-4;
-
-  &:hover,
-  &:hover * {
-    @apply xds:bg-neutral-10 xds:no-underline!;
-  }
-
-  & > *:first-child:not(.xds\:suggestion-group-button) {
-    @apply xds:ms-8;
-  }
-
-  & > *:last-child:not(.xds\:suggestion-group-button) {
-    @apply xds:me-8;
-  }
-
-  &.xds\:suggestion-group-lg > *:first-child:not(.xds\:suggestion-group-button) {
-    @apply xds:ms-12;
-  }
-
-  &.xds\:suggestion-group-lg > *:last-child:not(.xds\:suggestion-group-button) {
-    @apply xds:me-12;
-  }
+  @apply xds:suggestion-group-outlined;
+  @apply xds:bg-transparent xds:gap-4 xds:border-0;
 }
 
 @utility suggestion-group-* {
-  color: --value(--color- *);
+  color: --value(--color- * -75);
 
   &.xds\:suggestion-group-outlined {
-    border-color: --value(--color- *);
+    border-color: --value(--color- * -75);
   }
 }
 
@@ -103,7 +84,7 @@
   @apply xds:before:content-['|'] xds:before:w-0 xds:before:invisible;
 
   &:hover {
-    @apply xds:scale-120;
+    @apply xds:scale-[1.2];
   }
 
   &:last-child {
@@ -114,7 +95,7 @@
 /* Button Ghost */
 @utility suggestion-group-button-ghost {
   &:hover {
-    @apply xds:bg-neutral-25 xds:scale-100;
+    @apply xds:bg-neutral-25 xds:scale-none;
   }
 }
 
@@ -126,13 +107,13 @@
 /* Button Lighter */
 @utility suggestion-group-button-lighter {
   &:hover {
-    @apply xds:scale-100;
+    @apply xds:scale-none;
   }
 }
 
 /* Button Colors */
 @utility suggestion-group-button-* {
-  &.xds\:x-suggestion-group-button-lighter:hover {
+  &.xds\:suggestion-group-button-lighter:hover {
     color: --value(--color- * -50);
   }
 }

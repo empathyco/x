@@ -17,7 +17,9 @@
       </SuggestionGroup>
     </template>
     <template #outlined>
-      <SuggestionGroup> outlined suggestion group </SuggestionGroup>
+      <SuggestionGroup class="xds:suggestion-group-outlined">
+        outlined suggestion group
+      </SuggestionGroup>
       <SuggestionGroup
         v-for="(value, key) in colors"
         :key="key"
@@ -74,7 +76,7 @@
     <template #combinations-layer>
       <SuggestionGroup
         class="xds:suggestion-group-success xds:suggestion-group-sm"
-        button-class="xds:suggestion-group-button-rectangle xds:suggestion-group-button-success"
+        button-class="xds:suggestion-group-button-rectangle xds:suggestion-group-button-lighter"
       >
         success sm suggestion group
         <template #button> clear </template>
@@ -113,14 +115,14 @@ const rows = [
   'combinations-layer',
 ]
 const colors = {
-  neutral: 'xds:suggestion-group-neutral-75',
-  lead: 'xds:suggestion-group-lead-75',
-  auxiliary: 'xds:suggestion-group-auxiliary-75',
-  accent: 'xds:suggestion-group-accent-75',
-  highlight: 'xds:suggestion-group-highlight-75',
-  success: 'xds:suggestion-group-success-75',
-  warning: 'xds:suggestion-group-warning-75',
-  error: 'xds:suggestion-group-error-75',
+  neutral: 'xds:suggestion-group-neutral',
+  lead: 'xds:suggestion-group-lead',
+  auxiliary: 'xds:suggestion-group-auxiliary',
+  accent: 'xds:suggestion-group-accent',
+  highlight: 'xds:suggestion-group-highlight',
+  success: 'xds:suggestion-group-success',
+  warning: 'xds:suggestion-group-warning',
+  error: 'xds:suggestion-group-error',
 }
 const sizes = ['xds:suggestion-group-sm', 'xds:suggestion-group-md', 'xds:suggestion-group-lg']
 
