@@ -10,22 +10,13 @@
   /* `@apply xds:tag-md;` can not be use here because cause circular dependency. */
   @apply xds:min-h-32 xds:text-sm xds:ps-12 xds:pe-12;
 
-  @variant hover-active-focus {
-    @apply xds:border-neutral-50 xds:text-neutral-90;
-  }
-
   @variant selected {
     @apply xds:border-neutral-90 xds:text-neutral-90;
     @apply xds:border-2;
+  }
 
-    @variant hover-active-focus {
-      @apply xds:border-neutral-50;
-    }
-
-    @variant disabled {
-      @apply xds:border-neutral-25 xds:border-1 xds:text-neutral-25;
-      @apply xds:cursor-not-allowed;
-    }
+  @variant hover-active-focus {
+    @apply xds:border-neutral-50 xds:text-neutral-90;
   }
 
   @variant disabled {
@@ -49,14 +40,14 @@
 
 /* Outlined */
 @utility tag-outlined {
-  @apply xds:bg-transparent xds:border-neutral-50;
+  @apply xds:bg-transparent xds:border-neutral-50 xds:text-neutral-50;
 
   @variant hover-active-focus {
     @apply xds:border-neutral-75 xds:text-neutral-75;
   }
 
   @variant selected {
-    @apply xds:bg-neutral-25 xds:border-neutral-90 xds:text-neutral-75;
+    @apply xds:bg-neutral-25 xds:border-neutral-90 xds:text-neutral-75 xds:border-1;
 
     @variant hover-active-focus {
       @apply xds:border-neutral-75 xds:text-neutral-75;
@@ -104,7 +95,7 @@
   @apply xds:bg-transparent xds:border-transparent xds:text-neutral-50;
 
   @variant hover-active-focus {
-    @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-75;
+    @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-90;
   }
 
   @variant selected {
@@ -161,8 +152,9 @@
   @apply xds:text-neutral-75 xds:border-neutral-25;
 
   @variant hover-active-focus {
+    @apply xds:text-neutral-90;
+
     border-color: --value(--color- * -50);
-    color: --value(--color- * -90);
   }
 
   @variant selected {

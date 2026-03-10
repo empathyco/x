@@ -129,7 +129,7 @@
     </template>
     <template #tight>
       <button class="xds:tag xds:tag-tight">
-        tag button
+        tight tag
         <PlusIcon class="xds:icon" />
       </button>
       <button
@@ -144,7 +144,7 @@
     </template>
     <template #tight-selected>
       <button class="xds:tag xds:tag-tight xds:selected">
-        selected tag button
+        selected tight tag
         <PlusIcon class="xds:icon" />
       </button>
       <button
