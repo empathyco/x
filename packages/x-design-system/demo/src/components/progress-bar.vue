@@ -7,13 +7,13 @@
       </div>
     </template>
     <template #size>
-      <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
+      <div class="xds:mr-16 xds:flex xds:items-center xds:gap-8">
         <span>md</span>
-        <div class="xds:progress-bar xds:progress-bar-sm xds:w-320">
+        <div class="xds:progress-bar-sm xds:progress-bar xds:w-320">
           <div class="xds:progress-bar-fill xds:w-[30%]" />
         </div>
       </div>
-      <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
+      <div class="xds:mr-16 xds:flex xds:items-center xds:gap-8">
         <span>lg</span>
         <div class="xds:progress-bar xds:progress-bar-lg xds:w-320">
           <div class="xds:progress-bar-fill xds:w-[30%]" />
@@ -21,7 +21,7 @@
       </div>
     </template>
     <template #color>
-      <div class="xds:flex xds:gap-8 xds:items-center xds:mr-16">
+      <div class="xds:mr-16 xds:flex xds:items-center xds:gap-8">
         <span>default</span>
         <div class="xds:progress-bar xds:w-320">
           <div class="xds:progress-bar-fill xds:w-[30%]" />
@@ -30,7 +30,7 @@
       <div
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:flex xds:gap-8 xds:mr-16 xds:items-center"
+        class="xds:mr-16 xds:flex xds:items-center xds:gap-8"
       >
         <span>{{ key }}</span>
         <div class="xds:progress-bar xds:w-320" :class="value">
@@ -41,7 +41,7 @@
 
     <template #combinations>
       <span>lg warning</span>
-      <div class="xds:progress-bar xds:progress-bar-lg xds:progress-bar-warning xds:w-320">
+      <div class="xds:progress-bar xds:progress-bar-lg xds:w-320 xds:progress-bar-warning">
         <div class="xds:progress-bar-fill xds:w-[30%]" />
       </div>
     </template>

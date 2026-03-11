@@ -3,7 +3,7 @@
 }
 
 @utility picture-image {
-  @apply xds:aspect-ratio-default xds:object-contain xds:w-full xds:h-full;
+  @apply xds:aspect-ratio-default xds:h-full xds:w-full xds:object-contain;
 }
 
 @utility picture-zoom {

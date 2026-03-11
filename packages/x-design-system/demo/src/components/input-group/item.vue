@@ -7,7 +7,7 @@
     </button>
     <button class="xds:input-group-button xds:input-group-button-rectangle" :disabled>clear</button>
     <button
-      class="xds:input-group-button xds:input-group-button-primary"
+      class="xds:input-group-button-primary xds:input-group-button"
       :class="buttonClass"
       :disabled
     >

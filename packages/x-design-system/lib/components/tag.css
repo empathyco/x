@@ -1,14 +1,14 @@
 /* Base */
 @utility tag {
-  @apply xds:flex xds:justify-center xds:items-center xds:content-center xds:flex-row xds:flex-nowrap xds:gap-8;
-  @apply xds:border-1 xds:border-solid xds:box-border;
-  @apply xds:text-neutral-75 xds:bg-neutral-0 xds:border-neutral-25;
-  @apply xds:font-family-main xds:font-regular xds:tracking-lg xds:leading-sm;
+  @apply xds:flex xds:flex-row xds:flex-nowrap xds:content-center xds:items-center xds:justify-center xds:gap-8;
+  @apply xds:box-border xds:border-1 xds:border-solid;
+  @apply xds:border-neutral-25 xds:bg-neutral-0 xds:text-neutral-75;
+  @apply xds:font-family-main xds:leading-sm xds:font-regular xds:tracking-lg;
   @apply xds:cursor-pointer;
   @apply xds:py-0;
 
   /* `@apply xds:tag-md;` can not be use here because cause circular dependency. */
-  @apply xds:min-h-32 xds:text-sm xds:ps-12 xds:pe-12;
+  @apply xds:min-h-32 xds:ps-12 xds:pe-12 xds:text-sm;
 
   @variant selected {
     @apply xds:border-neutral-90 xds:text-neutral-90;
@@ -20,30 +20,30 @@
   }
 
   @variant disabled {
-    @apply xds:border-neutral-25 xds:border-1 xds:text-neutral-25;
+    @apply xds:border-1 xds:border-neutral-25 xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
   }
 }
 
 /* Sizes */
 @utility tag-sm {
-  @apply xds:min-h-24 xds:text-sm xds:ps-8 xds:pe-8;
+  @apply xds:min-h-24 xds:ps-8 xds:pe-8 xds:text-sm;
 }
 
 @utility tag-md {
-  @apply xds:min-h-32 xds:text-sm xds:ps-12 xds:pe-12;
+  @apply xds:min-h-32 xds:ps-12 xds:pe-12 xds:text-sm;
 }
 
 @utility tag-lg {
-  @apply xds:min-h-40 xds:text-md xds:ps-16 xds:pe-16;
+  @apply xds:min-h-40 xds:ps-16 xds:pe-16 xds:text-md;
 }
 
 /* Outlined */
 @utility tag-outlined {
-  @apply xds:bg-transparent xds:border-neutral-50 xds:text-neutral-50;
+  @apply xds:border-neutral-50 xds:bg-transparent xds:text-neutral-50;
 
   @variant selected {
-    @apply xds:bg-neutral-25 xds:border-neutral-90 xds:text-neutral-75 xds:border-1;
+    @apply xds:border-1 xds:border-neutral-90 xds:bg-neutral-25 xds:text-neutral-75;
   }
 
   @variant hover-active-focus {
@@ -51,34 +51,34 @@
   }
 
   @variant disabled {
-    @apply xds:bg-transparent xds:border-neutral-25 xds:border-1 xds:text-neutral-25;
+    @apply xds:border-1 xds:border-neutral-25 xds:bg-transparent xds:text-neutral-25;
   }
 }
 
 /* Solid */
 @utility tag-solid {
-  @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-75;
+  @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-75;
 
   @variant selected {
-    @apply xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
+    @apply xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
 
     @variant hover-active-focus {
-      @apply xds:bg-neutral-50 xds:border-neutral-50 xds:text-neutral-0;
+      @apply xds:border-neutral-50 xds:bg-neutral-50 xds:text-neutral-0;
     }
   }
 
   @variant hover-active-focus {
-    @apply xds:bg-neutral-25 xds:border-neutral-25 xds:text-neutral-75;
+    @apply xds:border-neutral-25 xds:bg-neutral-25 xds:text-neutral-75;
   }
 
   @variant disabled {
-    @apply xds:bg-neutral-10! xds:border-neutral-10! xds:text-neutral-25!;
+    @apply xds:border-neutral-10! xds:bg-neutral-10! xds:text-neutral-25!;
   }
 }
 
 /* Ghost */
 @utility tag-ghost {
-  @apply xds:bg-transparent xds:border-transparent xds:text-neutral-50;
+  @apply xds:border-transparent xds:bg-transparent xds:text-neutral-50;
 
   @variant selected {
     @apply xds:border-transparent xds:text-neutral-90;
@@ -90,11 +90,11 @@
   }
 
   @variant hover-active-focus {
-    @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-90;
+    @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-90;
   }
 
   @variant disabled {
-    @apply xds:bg-transparent xds:border-transparent! xds:text-neutral-25;
+    @apply xds:border-transparent! xds:bg-transparent xds:text-neutral-25;
     @apply xds:font-regular;
   }
 }
@@ -121,7 +121,7 @@
 
 /* Colors */
 @utility tag-* {
-  @apply xds:text-neutral-75 xds:border-neutral-25;
+  @apply xds:border-neutral-25 xds:text-neutral-75;
 
   @variant selected {
     border-color: --value(--color- * -75);

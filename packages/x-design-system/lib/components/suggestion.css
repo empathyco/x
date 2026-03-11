@@ -1,7 +1,7 @@
 /* Base */
 @utility suggestion {
-  @apply xds:font-family-main xds:font-regular xds:text-start xds:text-neutral-90;
-  @apply xds:grid xds:grid-flow-col xds:items-center xds:content-center xds:justify-start;
+  @apply xds:text-start xds:font-family-main xds:font-regular xds:text-neutral-90;
+  @apply xds:grid xds:grid-flow-col xds:content-center xds:items-center xds:justify-start;
   @apply xds:box-border xds:cursor-pointer;
 
   /* `@apply xds:suggestion-md;` can not be use here because cause circular dependency. */
@@ -29,7 +29,7 @@
 
 /* Outlined */
 @utility suggestion-outlined {
-  @apply xds:bg-neutral-0 xds:border-1 xds:border-current;
+  @apply xds:border-1 xds:border-current xds:bg-neutral-0;
   @apply xds:ps-8 xds:pe-8;
 
   &:hover {

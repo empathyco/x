@@ -1,6 +1,6 @@
 /* Base */
 @utility sliding-panel {
-  @apply xds:flex xds:flex-row xds:flex-nowrap xds:items-center xds:relative;
+  @apply xds:relative xds:flex xds:flex-row xds:flex-nowrap xds:items-center;
 }
 
 /* Fade */
@@ -34,7 +34,7 @@
 @utility sliding-panel-button {
   @apply xds:button;
   @apply xds:absolute xds:z-1;
-  @apply xds:transition-all xds:ease-out xds:duration-200 xds:translate-x-0;
+  @apply xds:translate-x-0 xds:transition-all xds:duration-200 xds:ease-out;
 }
 
 @utility sliding-panel-button-left {
@@ -58,7 +58,7 @@
   &:hover {
     &:not(.xds\:sliding-panel-at-start) > .xds\:sliding-panel-button-left,
     &:not(.xds\:sliding-panel-at-end) > .xds\:sliding-panel-button-right {
-      @apply xds:opacity-100 xds:pointer-events-auto;
+      @apply xds:pointer-events-auto xds:opacity-100;
     }
   }
 }
@@ -97,7 +97,7 @@
 }
 @utility sliding-panel-at-start {
   & > .xds\:sliding-panel-button-left {
-    @apply xds:opacity-0 xds:pointer-events-none;
+    @apply xds:pointer-events-none xds:opacity-0;
   }
 
   & > .xds\:sliding-panel-fade-sm {
@@ -120,7 +120,7 @@
 
 @utility sliding-panel-at-end {
   & > .xds\:sliding-panel-button-right {
-    @apply xds:opacity-0 xds:pointer-events-none;
+    @apply xds:pointer-events-none xds:opacity-0;
   }
 
   & > .xds\:sliding-panel-fade-sm {

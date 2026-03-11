@@ -1,5 +1,5 @@
 @utility scroll {
-  @apply xds:overflow-y-scroll xds:min-h-0;
+  @apply xds:min-h-0 xds:overflow-y-scroll;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -16,8 +16,8 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      @apply xds:bg-clip-content xds:bg-(--xds-color-thumb-scroll-bar);
-      @apply xds:border-4 xds:border-transparent xds:rounded-3xl;
+      @apply xds:bg-(--xds-color-thumb-scroll-bar) xds:bg-clip-content;
+      @apply xds:rounded-3xl xds:border-4 xds:border-transparent;
     }
 
     &::-webkit-scrollbar-track {

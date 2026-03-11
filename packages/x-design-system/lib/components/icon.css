@@ -1,7 +1,7 @@
 /* Base */
 @utility icon {
-  @apply xds:flex xds:items-center xds:justify-center xds:flex-none;
-  @apply xds:font-family-icon xds:w-auto xds:aspect-square;
+  @apply xds:flex xds:flex-none xds:items-center xds:justify-center;
+  @apply xds:aspect-square xds:w-auto xds:font-family-icon;
   vector-effect: non-scaling-stroke;
 
   /* `@apply xds:icon-md;` can not be use here because cause circular dependency. */

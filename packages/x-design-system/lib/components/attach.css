@@ -29,7 +29,7 @@
 }
 
 @utility attach-bottom-right {
-  @apply xds:absolute xds:bottom-0 xds:right-0;
+  @apply xds:absolute xds:right-0 xds:bottom-0;
   transform: translate(var(--xds-spacing-8, 50%), 50%);
 
   &.xds\:badge-md {

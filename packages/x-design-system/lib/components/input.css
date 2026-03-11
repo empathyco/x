@@ -1,6 +1,6 @@
 /* Base */
 @utility input {
-  @apply xds:ps-16 xds:pe-16 xds:font-regular xds:cursor-text xds:text-ellipsis;
+  @apply xds:cursor-text xds:ps-16 xds:pe-16 xds:font-regular xds:text-ellipsis;
   @apply xds:border-1 xds:border-neutral-90;
   @apply xds:bg-neutral-0 xds:text-neutral-90;
 
@@ -21,7 +21,7 @@
   }
 
   &::placeholder {
-    @apply xds:text-neutral-50 xds:font-family-main xds:font-regular;
+    @apply xds:font-family-main xds:font-regular xds:text-neutral-50;
   }
 }
 
@@ -41,7 +41,7 @@
 /* Line */
 @utility input-line {
   @apply xds:border-0 xds:border-b-neutral-90;
-  @apply xds:bg-bottom xds:bg-size-[100%_1px] xds:bg-no-repeat;
+  @apply xds:bg-size-[100%_1px] xds:bg-bottom xds:bg-no-repeat;
   background-image: linear-gradient(var(--xds-color-neutral-90), var(--xds-color-neutral-90));
 
   &:hover {

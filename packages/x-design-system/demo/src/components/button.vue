@@ -24,11 +24,11 @@
       </button>
     </template>
     <template #default-selected>
-      <button class="xds:button xds:selected">selected button</button>
+      <button class="xds:selected xds:button">selected button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:button xds:selected"
+        class="xds:selected xds:button"
         :class="value"
       >
         selected {{ key }} button
@@ -46,11 +46,11 @@
       </button>
     </template>
     <template #outlined-selected>
-      <button class="xds:button xds:selected xds:button-outlined">selected outlined button</button>
+      <button class="xds:selected xds:button xds:button-outlined">selected outlined button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:button xds:selected xds:button-outlined"
+        class="xds:selected xds:button xds:button-outlined"
         :class="[value]"
       >
         selected outline {{ key }} button
@@ -68,11 +68,11 @@
       </button>
     </template>
     <template #ghost-selected>
-      <button class="xds:button xds:button-ghost xds:selected">selected ghost button</button>
+      <button class="xds:selected xds:button xds:button-ghost">selected ghost button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:button xds:button-ghost xds:selected"
+        class="xds:selected xds:button xds:button-ghost"
         :class="[value]"
       >
         selected ghost {{ key }} button
@@ -90,11 +90,11 @@
       </button>
     </template>
     <template #tight-selected>
-      <button class="xds:button xds:button-tight xds:selected">selected tight button</button>
+      <button class="xds:selected xds:button xds:button-tight">selected tight button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:button xds:button-tight xds:selected"
+        class="xds:selected xds:button xds:button-tight"
         :class="[value]"
       >
         selected tight {{ key }} button
@@ -115,11 +115,11 @@
     </template>
     <template #link-selected>
       <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16 xds:text-md">
-        <button class="xds:button xds:button-link xds:selected">selected link button</button>
+        <button class="xds:selected xds:button xds:button-link">selected link button</button>
         <button
           v-for="(value, key) in colors"
           :key="key"
-          class="xds:button xds:button-link xds:selected"
+          class="xds:selected xds:button xds:button-link"
           :class="[value]"
         >
           selected link {{ key }} button
@@ -128,40 +128,40 @@
     </template>
     <template #disabled>
       <button class="xds:button" disabled>button</button>
-      <button class="xds:button xds:selected" disabled>selected button</button>
+      <button class="xds:selected xds:button" disabled>selected button</button>
       <button class="xds:button xds:button-outlined" disabled>outlined button</button>
-      <button class="xds:button xds:selected xds:button-outlined" disabled>
+      <button class="xds:selected xds:button xds:button-outlined" disabled>
         selected outlined button
       </button>
       <button class="xds:button xds:button-ghost" disabled>ghost button</button>
-      <button class="xds:button xds:selected xds:button-ghost" disabled>
+      <button class="xds:selected xds:button xds:button-ghost" disabled>
         selected ghost button
       </button>
       <button class="xds:button xds:button-tight" disabled>tight button</button>
-      <button class="xds:button xds:selected xds:button-tight" disabled>
+      <button class="xds:selected xds:button xds:button-tight" disabled>
         selected tight button
       </button>
       <button class="xds:button xds:button-link xds:button-xl" disabled>link button</button>
-      <button class="xds:button xds:selected xds:button-link xds:button-xl" disabled>
+      <button class="xds:selected xds:button xds:button-link xds:button-xl" disabled>
         selected link button
       </button>
     </template>
     <template #combinations>
-      <button class="xds:button xds:button-lead xds:button-sm">
+      <button class="xds:button xds:button-sm xds:button-lead">
         <CuratedIcon class="xds:icon" />
         lead sm button
       </button>
-      <button class="xds:button xds:button-outlined xds:button-square xds:button-lg xds:selected">
+      <button class="xds:selected xds:button xds:button-square xds:button-lg xds:button-outlined">
         <CuratedIcon class="xds:icon" />
       </button>
-      <button class="xds:button xds:button-auxiliary xds:button-outlined xds:button-circle">
+      <button class="xds:button xds:button-circle xds:button-outlined xds:button-auxiliary">
         <CuratedIcon class="xds:icon" />
       </button>
-      <button class="xds:button xds:button-accent xds:button-tight">
+      <button class="xds:button xds:button-tight xds:button-accent">
         <CuratedIcon class="xds:icon" />
         accent tight button
       </button>
-      <button class="xds:button xds:button-warning xds:button-ghost">
+      <button class="xds:button xds:button-ghost xds:button-warning">
         <CuratedIcon class="xds:icon" />
         warning ghost button
       </button>

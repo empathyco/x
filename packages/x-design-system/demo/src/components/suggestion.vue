@@ -80,15 +80,15 @@
       </button>
     </template>
     <template #combinations>
-      <button class="xds:suggestion xds:suggestion-success xds:suggestion-md">
+      <button class="xds:suggestion xds:suggestion-md xds:suggestion-success">
         <CuratedIcon class="xds:icon" />
         success md suggestion
       </button>
-      <button class="xds:suggestion xds:suggestion-auxiliary xds:suggestion-md">
+      <button class="xds:suggestion xds:suggestion-md xds:suggestion-auxiliary">
         <CuratedIcon class="xds:icon" />
         auxiliary md suggestion
       </button>
-      <button class="xds:suggestion xds:suggestion-error xds:suggestion-lg">
+      <button class="xds:suggestion xds:suggestion-lg xds:suggestion-error">
         <CuratedIcon class="xds:icon" />
         error lg suggestion
       </button>

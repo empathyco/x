@@ -1,9 +1,9 @@
 /* Base */
 @utility filter-facet {
-  @apply xds:grid xds:grid-flow-col xds:box-border;
-  @apply xds:items-baseline-last xds:content-center xds:justify-start;
+  @apply xds:box-border xds:grid xds:grid-flow-col;
+  @apply xds:content-center xds:items-baseline-last xds:justify-start;
   @apply xds:cursor-pointer;
-  @apply xds:font-family-main xds:font-regular xds:text-start xds:text-neutral-90;
+  @apply xds:text-start xds:font-family-main xds:font-regular xds:text-neutral-90;
   @apply xds:border-b-1 xds:border-transparent;
 
   /* `@apply xds:filter-facet-md;` can not be use here because cause circular dependency. */
@@ -76,7 +76,7 @@
   }
 
   @variant disabled {
-    @apply xds:border-transparent xds:text-neutral-25 xds:bg-transparent;
+    @apply xds:border-transparent xds:bg-transparent xds:text-neutral-25;
   }
 }
 
@@ -101,7 +101,7 @@
   }
 
   @variant disabled {
-    @apply xds:opacity-100 xds:text-neutral-25;
+    @apply xds:text-neutral-25 xds:opacity-100;
   }
 }
 
