@@ -77,6 +77,9 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
  * @returns The target object updated with the entry parameter.
  */
 function cloneObjectProperties(target: any, [key, value]: any): any {
+  if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+    return target
+  }
   if (value === undefined) {
     delete target[key]
   } else if (isObject(value)) {
@@ -98,6 +101,9 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  * @param source.1 - Value to clone into the target object.
  */
 function mergeObject(target: any, [key, value]: any): void {
+  if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+    return
+  }
   const mergeBehaviour = getMergeBehaviour(target[key], value)
   if (mergeBehaviour === Behaviour.Replace) {
     target[key] = deepMerge({}, value)

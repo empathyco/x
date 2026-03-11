@@ -180,4 +180,37 @@ describe('deep-merge.ts', () => {
     deepMerge(target, { a: { a1: 'h1' } })
     expect(target).toEqual({ a: { a1: 'h1' } })
   })
+
+  it('prevents prototype pollution with __proto__ key', () => {
+    const target = {}
+    const source = { __proto__: { polluted: true } }
+    deepMerge(target, source)
+    const obj = {}
+    expect(obj).not.toHaveProperty('polluted')
+    expect((obj as any).polluted).toBeUndefined()
+  })
+
+  it('prevents prototype pollution with constructor key', () => {
+    const target = {}
+    const source = { constructor: { polluted: true } }
+    deepMerge(target, source)
+    const obj = {}
+    expect((obj as any).polluted).toBeUndefined()
+  })
+
+  it('prevents prototype pollution with prototype key', () => {
+    const target = {}
+    const source = { prototype: { polluted: true } }
+    deepMerge(target, source)
+    const obj = {}
+    expect((obj as any).polluted).toBeUndefined()
+  })
+
+  it('prevents nested prototype pollution', () => {
+    const target = { nested: {} }
+    const source = { nested: { __proto__: { polluted: true } } }
+    deepMerge(target, source)
+    const obj = {}
+    expect((obj as any).polluted).toBeUndefined()
+  })
 })
