@@ -37,7 +37,7 @@
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write . && pnpm run format:custom",
-    "format:check": "prettier --write . && prettier --check .",
+    "format:check": "prettier --write . && prettier --check . && git restore *.css",
     "format:custom": "node ./scripts/prettier-tailwind-utilities-formatter.js",
     "prepublishOnly": "pnpm run build"
   },
