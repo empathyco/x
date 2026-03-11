@@ -35,8 +35,8 @@
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
-    "format": "echo 'Avoided because this dependency will be deprecated'",
-    "format:check": "echo 'Avoided because this dependency will be deprecated'",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
