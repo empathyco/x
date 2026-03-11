@@ -13,7 +13,8 @@ import type {
  * @public
  */
 export interface PlatformSearchRequest
-  extends PlatformQueryableRequest,
+  extends
+    PlatformQueryableRequest,
     PlatformPageableRequest,
     PlatformFilterableRequest,
     PlatformTrackableRequest,

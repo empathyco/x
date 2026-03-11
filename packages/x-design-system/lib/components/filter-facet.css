@@ -108,7 +108,7 @@
 /* Colors */
 @utility filter-facet-* {
   &:hover:not(.xds\:filter-facet-ghost) {
-    color: --value(--color- * -50);
+    color: --value(--color-* -50);
   }
 
   @variant selected {
@@ -117,7 +117,7 @@
 
   &.xds\:filter-facet-simple.xds\:selected {
     &:hover {
-      color: --value(--color- * -50);
+      color: --value(--color-* -50);
     }
   }
 

@@ -153,14 +153,14 @@
 
 /* Input Group Colors */
 @utility input-group-* {
-  border-color: --value(--color- * -50);
+  border-color: --value(--color-* -50);
 
   @variant focus {
     border-color: --value(--color- * -75);
   }
 
   &.xds\:input-group-line {
-    background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
+    background-image: linear-gradient(--value(--color-* -50), --value(--color-* -50));
 
     @variant focus {
       box-shadow: 0 2px 0 -0.5px --value(--color- * -25);
@@ -169,8 +169,8 @@
 
   & > .xds\:input-group-button-primary {
     @apply xds:text-neutral-0;
-    background-color: --value(--color- * -50);
-    border-color: --value(--color- * -50);
+    background-color: --value(--color-* -50);
+    border-color: --value(--color-* -50);
 
     @variant hover-active-focus {
       background-color: --value(--color- * -75);
@@ -180,8 +180,8 @@
 
   & > .xds\:input-group-button-outlined {
     @apply xds:bg-neutral-0 xds:border-y-0;
-    border-color: --value(--color- * -50);
-    color: --value(--color- * -50);
+    border-color: --value(--color-* -50);
+    color: --value(--color-* -50);
 
     @variant hover-active-focus {
       @apply xds:text-neutral-0;
@@ -192,7 +192,7 @@
 
   & > .xds\:input-group-button-ghost {
     @apply xds:bg-transparent xds:border-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-* -50);
 
     @variant hover-active-focus {
       @apply xds:bg-neutral-10 xds:border-neutral-10;

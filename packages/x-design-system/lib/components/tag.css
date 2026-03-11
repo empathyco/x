@@ -134,7 +134,7 @@
 
   &.xds\:tag-outlined {
     @apply xds:text-neutral-75;
-    border-color: --value(--color- * -50);
+    border-color: --value(--color-* -50);
 
     @variant selected {
       background-color: --value(--color- * -25);
@@ -148,8 +148,8 @@
   }
 
   &.xds\:tag-solid {
-    background-color: --value(--color- * -25);
-    border-color: --value(--color- * -25);
+    background-color: --value(--color-* -25);
+    border-color: --value(--color-* -25);
 
     @variant selected {
       background-color: --value(--color- * -75);
@@ -170,7 +170,7 @@
 
   &.xds\:tag-ghost {
     @apply xds:border-transparent;
-    color: --value(--color- * -75);
+    color: --value(--color-* -75);
 
     @variant selected {
       color: --value(--color- * -75);
@@ -182,7 +182,7 @@
   }
 
   &.xds\:tag-tight {
-    color: --value(--color- * -75);
+    color: --value(--color-* -75);
 
     @variant selected {
       color: --value(--color- * -75);

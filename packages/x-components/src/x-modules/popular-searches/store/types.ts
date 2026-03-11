@@ -40,8 +40,7 @@ export interface PopularSearchesGetters {
  * @public
  */
 export interface PopularSearchesMutations
-  extends StatusMutations,
-    ConfigMutations<PopularSearchesState> {
+  extends StatusMutations, ConfigMutations<PopularSearchesState> {
   /**
    * Sets the suggestions of the module.
    *

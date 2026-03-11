@@ -49,5 +49,5 @@
 
 /* Colors */
 @utility suggestion-* {
-  color: --value(--color- * -75);
+  color: --value(--color-* -75);
 }

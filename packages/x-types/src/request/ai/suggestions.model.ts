@@ -11,7 +11,4 @@ import type {
  * @public
  */
 export interface AiSuggestionsRequest
-  extends ExtraParamsRequest,
-    TrackableRequest,
-    FilterableRequest,
-    QueryableRequest {}
+  extends ExtraParamsRequest, TrackableRequest, FilterableRequest, QueryableRequest {}

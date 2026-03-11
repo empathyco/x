@@ -47,19 +47,19 @@
 
 /* Colors */
 @utility badge-* {
-  background-color: --value(--color- * -75);
+  background-color: --value(--color-* -75);
 
   &.xds\:badge-light {
-    background-color: --value(--color- * -25);
+    background-color: --value(--color-* -25);
   }
 
   &.xds\:badge-outlined {
     @apply xds:bg-transparent;
-    border-color: --value(--color- * -50);
+    border-color: --value(--color-* -50);
   }
 
   &.xds\:badge-bright {
     @apply xds:bg-transparent;
-    border-color: --value(--color- * -25);
+    border-color: --value(--color-* -25);
   }
 }

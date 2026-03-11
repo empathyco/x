@@ -57,8 +57,7 @@ export interface SemanticQueriesGetters {
  * @public
  */
 export interface SemanticQueriesMutations
-  extends QueryMutations,
-    ConfigMutations<SemanticQueriesState> {
+  extends QueryMutations, ConfigMutations<SemanticQueriesState> {
   /**
    * Sets the {@link SemanticQueriesState.totalResults} property.
    */

@@ -11,7 +11,4 @@ import type {
  * @public
  */
 export interface FacetsRequest
-  extends QueryableRequest,
-    FilterableRequest,
-    TrackableRequest,
-    ExtraParamsRequest {}
+  extends QueryableRequest, FilterableRequest, TrackableRequest, ExtraParamsRequest {}

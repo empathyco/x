@@ -170,8 +170,8 @@
 
 /* Colors */
 @utility button-* {
-  background-color: --value(--color- * -50);
-  border-color: --value(--color- * -50);
+  background-color: --value(--color-* -50);
+  border-color: --value(--color-* -50);
 
   @variant hover-active {
     background-color: --value(--color- * -75);
@@ -190,8 +190,8 @@
 
   &.xds\:button-outlined {
     @apply xds:bg-transparent;
-    border-color: --value(--color- * -50);
-    color: --value(--color- * -50);
+    border-color: --value(--color-* -50);
+    color: --value(--color-* -50);
 
     @variant hover-active {
       @apply xds:text-neutral-0;
@@ -213,7 +213,7 @@
 
   &.xds\:button-ghost {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-* -50);
 
     @variant hover-active {
       @apply xds:border-transparent xds:bg-transparent xds:text-neutral-100;
@@ -221,7 +221,7 @@
 
     &:hover {
       @apply xds:bg-neutral-10 xds:border-neutral-10;
-      color: --value(--color- * -75);
+      color: --value(--color-* -75);
     }
 
     @variant selected {
@@ -237,7 +237,7 @@
 
   &.xds\:button-tight {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-* -50);
 
     @variant hover-active {
       @apply xds:bg-transparent xds:border-0;
@@ -257,7 +257,7 @@
 
   &.xds\:button-link {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-* -50);
 
     @variant hover-active {
       @apply xds:bg-transparent xds:border-0;

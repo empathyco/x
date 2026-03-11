@@ -64,9 +64,7 @@ export interface FacetsGetters {
  * @public
  */
 export interface FacetsMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<FacetsState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<FacetsState> {
   /**
    * Updates the state of a filter.
    *

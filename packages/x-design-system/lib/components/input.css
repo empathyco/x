@@ -61,10 +61,10 @@
 
 /* Colors */
 @utility input-* {
-  border-color: --value(--color- * -50);
+  border-color: --value(--color-* -50);
 
   &.xds\:input-line {
-    background-image: linear-gradient(--value(--color- * -50), --value(--color- * -50));
+    background-image: linear-gradient(--value(--color-* -50), --value(--color-* -50));
 
     @variant focus {
       box-shadow: 0 2px 0 -0.5px --value(--color- * -25);
@@ -72,7 +72,7 @@
   }
 
   &:hover {
-    border-color: --value(--color- * -75);
+    border-color: --value(--color-* -75);
   }
 
   @variant focus {

@@ -52,21 +52,21 @@
 /* Stroke width */
 @utility icon-stroke-width-* {
   & > * {
-    stroke-width: --value(--stroke-width- *);
+    stroke-width: --value(--stroke-width-*);
   }
 }
 
 /* Colors */
 @utility icon-* {
-  color: --value(--color- *);
+  color: --value(--color-*);
 }
 
 /* Background colors */
 @utility icon-bg-* {
   & > [stroke='#fff'] {
-    stroke: --value(--color- *);
+    stroke: --value(--color-*);
   }
   & > [fill='#fff'] {
-    fill: --value(--color- *);
+    fill: --value(--color-*);
   }
 }

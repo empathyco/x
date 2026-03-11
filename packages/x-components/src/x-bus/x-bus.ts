@@ -26,8 +26,7 @@ import { BaseXPriorityQueue } from './x-priority-queue'
 export class XPriorityBus<
   SomeEvents extends Dictionary,
   SomeEventMetadata extends XPriorityBusEventMetadata,
-> implements XBus<SomeEvents, SomeEventMetadata>
-{
+> implements XBus<SomeEvents, SomeEventMetadata> {
   /**
    * A {@link XPriorityQueue | priority queue} to store the events to
    * emit.
