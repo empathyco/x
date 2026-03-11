@@ -18,13 +18,11 @@
       </button>
     </template>
     <template #color>
-      <button class="xds:button">button</button>
       <button v-for="(value, key) in colors" :key="key" class="xds:button" :class="value">
         {{ key }} button
       </button>
     </template>
     <template #default-selected>
-      <button class="xds:selected xds:button">selected button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -35,7 +33,6 @@
       </button>
     </template>
     <template #outlined>
-      <button class="xds:button xds:button-outlined">outlined button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -46,7 +43,6 @@
       </button>
     </template>
     <template #outlined-selected>
-      <button class="xds:selected xds:button xds:button-outlined">selected outlined button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -57,7 +53,6 @@
       </button>
     </template>
     <template #ghost>
-      <button class="xds:button xds:button-ghost">ghost button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -68,7 +63,6 @@
       </button>
     </template>
     <template #ghost-selected>
-      <button class="xds:selected xds:button xds:button-ghost">selected ghost button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -79,7 +73,6 @@
       </button>
     </template>
     <template #tight>
-      <button class="xds:button xds:button-tight">tight button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -90,7 +83,6 @@
       </button>
     </template>
     <template #tight-selected>
-      <button class="xds:selected xds:button xds:button-tight">selected tight button</button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -102,7 +94,6 @@
     </template>
     <template #link>
       <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16 xds:text-md">
-        <button class="xds:button xds:button-link">link button</button>
         <button
           v-for="(value, key) in colors"
           :key="key"
@@ -115,7 +106,6 @@
     </template>
     <template #link-selected>
       <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16 xds:text-md">
-        <button class="xds:selected xds:button xds:button-link">selected link button</button>
         <button
           v-for="(value, key) in colors"
           :key="key"
@@ -191,6 +181,7 @@ const rows = [
   'combinations',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:button-neutral',
   lead: 'xds:button-lead',
   auxiliary: 'xds:button-auxiliary',

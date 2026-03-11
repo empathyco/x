@@ -117,7 +117,6 @@
     mask: none;
   }
 }
-
 @utility sliding-panel-at-end {
   & > .xds\:sliding-panel-button-right {
     @apply xds:pointer-events-none xds:opacity-0;

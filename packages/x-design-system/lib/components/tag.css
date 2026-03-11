@@ -29,11 +29,9 @@
 @utility tag-sm {
   @apply xds:min-h-24 xds:ps-8 xds:pe-8 xds:text-sm;
 }
-
 @utility tag-md {
   @apply xds:min-h-32 xds:ps-12 xds:pe-12 xds:text-sm;
 }
-
 @utility tag-lg {
   @apply xds:min-h-40 xds:ps-16 xds:pe-16 xds:text-md;
 }
@@ -124,72 +122,72 @@
   @apply xds:border-neutral-25 xds:text-neutral-75;
 
   @variant selected {
-    border-color: --value(--color- * -75);
+    border-color: --value(--color-*-75);
   }
 
   @variant hover-active-focus {
     @apply xds:text-neutral-90;
-    border-color: --value(--color- * -50);
+    border-color: --value(--color-*-50);
   }
 
   &.xds\:tag-outlined {
     @apply xds:text-neutral-75;
-    border-color: --value(--color-* -50);
+    border-color: --value(--color-*-50);
 
     @variant selected {
-      background-color: --value(--color- * -25);
-      border-color: --value(--color- * -75);
+      background-color: --value(--color-*-25);
+      border-color: --value(--color-*-75);
     }
 
     @variant hover-active-focus {
-      border-color: --value(--color- * -75);
-      color: --value(--color- * -75);
+      border-color: --value(--color-*-75);
+      color: --value(--color-*-75);
     }
   }
 
   &.xds\:tag-solid {
-    background-color: --value(--color-* -25);
-    border-color: --value(--color-* -25);
+    background-color: --value(--color-*-25);
+    border-color: --value(--color-*-25);
 
     @variant selected {
-      background-color: --value(--color- * -75);
-      border-color: --value(--color- * -75);
+      background-color: --value(--color-*-75);
+      border-color: --value(--color-*-75);
 
       @variant hover-active-focus {
-        background-color: --value(--color- * -50);
-        border-color: --value(--color- * -50);
+        background-color: --value(--color-*-50);
+        border-color: --value(--color-*-50);
       }
     }
 
     @variant hover-active-focus {
-      background-color: --value(--color- * -25);
-      border-color: --value(--color- * -25);
-      color: --value(--color- * -75);
+      background-color: --value(--color-*-25);
+      border-color: --value(--color-*-25);
+      color: --value(--color-*-75);
     }
   }
 
   &.xds\:tag-ghost {
     @apply xds:border-transparent;
-    color: --value(--color-* -75);
+    color: --value(--color-*-75);
 
     @variant selected {
-      color: --value(--color- * -75);
+      color: --value(--color-*-75);
     }
 
     @variant hover-active-focus {
-      color: --value(--color- * -75);
+      color: --value(--color-*-75);
     }
   }
 
   &.xds\:tag-tight {
-    color: --value(--color-* -75);
+    color: --value(--color-*-75);
 
     @variant selected {
-      color: --value(--color- * -75);
+      color: --value(--color-*-75);
     }
 
     @variant hover-active-focus {
-      color: --value(--color- * -50);
+      color: --value(--color-*-50);
     }
   }
 }

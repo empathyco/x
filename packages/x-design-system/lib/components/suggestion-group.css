@@ -71,10 +71,10 @@
 
 /* Colors */
 @utility suggestion-group-* {
-  color: --value(--color-* -75);
+  color: --value(--color-*-75);
 
   &.xds\:suggestion-group-outlined {
-    border-color: --value(--color-* -75);
+    border-color: --value(--color-*-75);
   }
 }
 
@@ -116,6 +116,6 @@
 /* Button Colors */
 @utility suggestion-group-button-* {
   &.xds\:suggestion-group-button-lighter:hover {
-    color: --value(--color-* -50);
+    color: --value(--color-*-50);
   }
 }

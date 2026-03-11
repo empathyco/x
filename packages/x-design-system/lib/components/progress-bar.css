@@ -25,6 +25,6 @@
 /* Colors */
 @utility progress-bar-* {
   & > .xds\:progress-bar-fill {
-    background-color: --value(--color-* -50);
+    background-color: --value(--color-*-50);
   }
 }

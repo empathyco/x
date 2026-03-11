@@ -1,3 +1,4 @@
+/* Base */
 @utility scroll {
   @apply xds:min-h-0 xds:overflow-y-scroll;
 
@@ -16,12 +17,12 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      @apply xds:bg-(--xds-color-thumb-scroll-bar) xds:bg-clip-content;
+      @apply xds:bg-thumb-scroll-bar xds:bg-clip-content;
       @apply xds:rounded-3xl xds:border-4 xds:border-transparent;
     }
 
     &::-webkit-scrollbar-track {
-      @apply xds:bg-(--xds-color-background-scroll-bar);
+      @apply xds:bg-background-scroll-bar;
     }
   }
 }

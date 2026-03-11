@@ -17,7 +17,6 @@
       </span>
     </template>
     <template #light>
-      <span class="xds:badge xds:badge-light">light badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
@@ -28,7 +27,6 @@
       </span>
     </template>
     <template #outlined>
-      <span class="xds:badge xds:badge-outlined">outlined badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
@@ -39,7 +37,6 @@
       </span>
     </template>
     <template #bright>
-      <span class="xds:badge xds:badge-bright">bright badge</span>
       <span
         v-for="(value, key) in colors"
         :key="key"
@@ -66,7 +63,6 @@
         attach bottom-right
         <span class="xds:attach-bottom-right xds:badge xds:badge-sm">10</span>
       </span>
-
       <span class="xds:attach-container xds:badge xds:badge-md xds:badge-outlined">
         attach badge-md
         <span class="xds:attach-top-right xds:badge xds:badge-md">10</span>
@@ -130,6 +126,7 @@ const rows = [
   'combinations',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:badge-neutral',
   lead: 'xds:badge-lead',
   auxiliary: 'xds:badge-auxiliary',

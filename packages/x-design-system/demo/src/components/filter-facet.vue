@@ -161,6 +161,7 @@ const rows = [
 ]
 
 const colors = {
+  default: '',
   neutral: 'xds:filter-facet-neutral',
   lead: 'xds:filter-facet-lead',
   auxiliary: 'xds:filter-facet-auxiliary',

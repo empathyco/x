@@ -3,7 +3,6 @@
     <template #default>
       <InputGroup placeholder="input-group" />
     </template>
-
     <template #size>
       <InputGroup
         v-for="size in ['xds:input-group-sm', 'xds:input-group-md', 'xds:input-group-lg']"
@@ -12,7 +11,6 @@
         :wrapper-class="size"
       />
     </template>
-
     <template #color>
       <InputGroup
         v-for="(value, key) in colors"
@@ -30,7 +28,6 @@
         button-class="xds:input-group-button-outlined"
       />
     </template>
-
     <template #ghost>
       <InputGroup
         v-for="(value, key) in colors"
@@ -40,11 +37,9 @@
         button-class="xds:input-group-button-ghost"
       />
     </template>
-
     <template #line>
       <InputGroup placeholder="line" wrapper-class="xds:input-group-line" />
     </template>
-
     <template #line-size>
       <InputGroup
         v-for="size in ['xds:input-group-sm', 'xds:input-group-md', 'xds:input-group-lg']"
@@ -53,7 +48,6 @@
         :wrapper-class="`xds:input-group-line ${size}`"
       />
     </template>
-
     <template #line-color>
       <InputGroup
         v-for="(value, key) in colors"
@@ -62,7 +56,6 @@
         :wrapper-class="`xds:input-group-line ${value}`"
       />
     </template>
-
     <template #line-outlined>
       <InputGroup
         v-for="(value, key) in colors"
@@ -72,7 +65,6 @@
         button-class="xds:input-group-button-outlined"
       />
     </template>
-
     <template #line-ghost>
       <InputGroup
         v-for="(value, key) in colors"
@@ -82,26 +74,20 @@
         button-class="xds:input-group-button-ghost"
       />
     </template>
-
     <template #disabled>
       <InputGroup placeholder="input-group" disabled />
-
       <InputGroup placeholder="line" wrapper-class="xds:input-group-line" disabled />
     </template>
-
     <template #combinations>
       <InputGroup placeholder="lead sm" wrapper-class="xds:input-group-lead xds:input-group-sm" />
-
       <InputGroup
         placeholder="auxiliary sm line"
         wrapper-class="xds:input-group-auxiliary xds:input-group-sm xds:input-group-line"
       />
-
       <InputGroup
         placeholder="accent lg"
         wrapper-class="xds:input-group-accent xds:input-group-lg"
       />
-
       <InputGroup
         placeholder="warning lg line"
         wrapper-class="xds:input-group-warning xds:input-group-line xds:input-group-lg"

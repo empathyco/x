@@ -18,30 +18,18 @@
       </button>
     </template>
     <template #color>
-      <button class="xds:tag">
-        tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button v-for="(value, key) in colors" :key="key" class="xds:tag" :class="value">
         {{ key }} tag
         <PlusIcon class="xds:icon" />
       </button>
     </template>
     <template #default-selected>
-      <button class="xds:selected xds:tag">
-        selected tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button v-for="(value, key) in colors" :key="key" class="xds:selected xds:tag" :class="value">
         selected {{ key }} tag
         <PlusIcon class="xds:icon" />
       </button>
     </template>
     <template #outlined>
-      <button class="xds:tag xds:tag-outlined">
-        outlined tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -53,10 +41,6 @@
       </button>
     </template>
     <template #outlined-selected>
-      <button class="xds:selected xds:tag xds:tag-outlined">
-        selected outlined tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -68,10 +52,6 @@
       </button>
     </template>
     <template #solid>
-      <button class="xds:tag xds:tag-solid">
-        solid tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -83,10 +63,6 @@
       </button>
     </template>
     <template #solid-selected>
-      <button class="xds:selected xds:tag xds:tag-solid">
-        selected solid tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -98,10 +74,6 @@
       </button>
     </template>
     <template #ghost>
-      <button class="xds:tag xds:tag-ghost">
-        ghost tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -113,10 +85,6 @@
       </button>
     </template>
     <template #ghost-selected>
-      <button class="xds:selected xds:tag xds:tag-ghost">
-        selected ghost tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -128,10 +96,6 @@
       </button>
     </template>
     <template #tight>
-      <button class="xds:tag xds:tag-tight">
-        tight tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -143,10 +107,6 @@
       </button>
     </template>
     <template #tight-selected>
-      <button class="xds:selected xds:tag xds:tag-tight">
-        selected tight tag
-        <PlusIcon class="xds:icon" />
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -224,6 +184,7 @@ const rows = [
   'combinations',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:tag-neutral',
   lead: 'xds:tag-lead',
   auxiliary: 'xds:tag-auxiliary',

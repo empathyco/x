@@ -6,7 +6,6 @@
       </SuggestionGroup>
     </template>
     <template #color>
-      <SuggestionGroup class="xds:w-50"> suggestion group </SuggestionGroup>
       <SuggestionGroup v-for="(value, key) in colors" :key="key" :class="value">
         {{ cleanedValue(value) }} suggestion group
       </SuggestionGroup>
@@ -17,9 +16,6 @@
       </SuggestionGroup>
     </template>
     <template #outlined>
-      <SuggestionGroup class="xds:suggestion-group-outlined">
-        outlined suggestion group
-      </SuggestionGroup>
       <SuggestionGroup
         v-for="(value, key) in colors"
         :key="key"
@@ -40,7 +36,6 @@
       </SuggestionGroup>
     </template>
     <template #ghost>
-      <SuggestionGroup class="xds:suggestion-group-ghost"> ghost suggestion </SuggestionGroup>
       <SuggestionGroup
         v-for="(value, key) in colors"
         :key="key"
@@ -115,6 +110,7 @@ const rows = [
   'combinations-layer',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:suggestion-group-neutral',
   lead: 'xds:suggestion-group-lead',
   auxiliary: 'xds:suggestion-group-auxiliary',

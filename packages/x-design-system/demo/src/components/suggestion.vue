@@ -7,10 +7,6 @@
       </button>
     </template>
     <template #color>
-      <button class="xds:suggestion">
-        <CuratedIcon class="xds:icon" />
-        suggestion
-      </button>
       <button v-for="(value, key) in colors" :key="key" class="xds:suggestion" :class="value">
         <CuratedIcon class="xds:icon" />
         {{ cleanedValue(value) }} suggestion
@@ -28,10 +24,6 @@
       </button>
     </template>
     <template #outlined>
-      <button class="xds:suggestion xds:suggestion-outlined">
-        <CuratedIcon class="xds:icon" />
-        outlined suggestion
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -54,10 +46,6 @@
       </button>
     </template>
     <template #ghost>
-      <button class="xds:suggestion xds:suggestion-ghost">
-        <CuratedIcon class="xds:icon" />
-        ghost suggestion
-      </button>
       <button
         v-for="(value, key) in colors"
         :key="key"
@@ -111,6 +99,7 @@ const rows = [
   'combinations',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:suggestion-neutral',
   lead: 'xds:suggestion-lead',
   auxiliary: 'xds:suggestion-auxiliary',
