@@ -1,6 +1,7 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../../__tests__/bus.dummy'
@@ -42,9 +43,9 @@ function renderSortList({
 
   resetXSearchStateWith(store, { sort: selectedSort })
 
-  const onSelectedSortProvided = jest.fn()
+  const onSelectedSortProvided = vi.fn()
   XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided)
-  const onUserClickedASort = jest.fn()
+  const onUserClickedASort = vi.fn()
   XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort)
 
   const sortList = wrapper.findComponent(SortList)

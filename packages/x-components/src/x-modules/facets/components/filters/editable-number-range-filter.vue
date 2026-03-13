@@ -36,7 +36,7 @@
         :value="!isAnyRange ? min : null"
         data-test="range-min"
         :aria-label="rangeFilterMin"
-        @change="setMin($event.target.valueAsNumber)"
+        @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
 
       <input
@@ -47,7 +47,7 @@
         :value="max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
-        @change="setMax($event.target.valueAsNumber)"
+        @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
       <!-- eslint-enable max-len -->
 

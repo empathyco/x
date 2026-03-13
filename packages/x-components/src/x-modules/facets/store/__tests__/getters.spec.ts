@@ -1,6 +1,7 @@
 import type { Facet, Filter } from '@empathyco/x-types'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { FacetsActions, FacetsGetters, FacetsMutations, FacetsState } from '../types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import {
   createEditableNumberRangeFacetStub,

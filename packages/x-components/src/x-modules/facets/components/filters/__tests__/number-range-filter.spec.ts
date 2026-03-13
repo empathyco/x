@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
@@ -33,7 +34,7 @@ function render({
 
   return {
     wrapper: filterWrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     filter,
     buttonWrapper,
     clickFilter: async () => buttonWrapper.trigger('click'),

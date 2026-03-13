@@ -1,6 +1,7 @@
 import type { Dictionary } from '@empathyco/x-utils'
 import type { WirePayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins'
@@ -38,7 +39,7 @@ describe('testing RenderlessExtraParam component', () => {
   })
 
   it("doesn't emit ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     render()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
 
@@ -47,7 +48,7 @@ describe('testing RenderlessExtraParam component', () => {
   })
 
   it('emits UserChangedExtraParams event when the update method is called', async () => {
-    const userChangedExtraParamsCallback = jest.fn()
+    const userChangedExtraParamsCallback = vi.fn()
     const { wrapper } = render({
       template: `
         <RenderlessExtraParam name="warehouse" #default="{ defaultValue, updateValue }">

@@ -10,6 +10,7 @@ import type {
   QueryPreviewItem,
 } from '../../store/index'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent } from 'vue'
 import { Store } from 'vuex'
 import { getSearchResponseStub } from '../../../../__stubs__/index'

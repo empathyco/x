@@ -2,10 +2,19 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { PropsWithType } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring'
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
 import MainModal from '../main-modal.vue'
+
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
 
 /**
  * Renders a {@link MainModal} component with the provided options and offers an API to easily
@@ -46,7 +55,7 @@ function renderMainModal({
       return wrapper.find(getDataTestSelector('modal-content'))
     },
     async focusOutOfModal() {
-      jest.runAllTimers()
+      vi.runAllTimers()
       document.body.dispatchEvent(new FocusEvent('focusin'))
       await nextTick()
     },
@@ -55,11 +64,11 @@ function renderMainModal({
 
 describe('testing Main Modal  component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {

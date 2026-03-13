@@ -3,6 +3,7 @@ import type { ComponentMountingOptions } from '@vue/test-utils'
 import type { Ref } from 'vue'
 import type { DisplayEmitter } from '../../../../components'
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
@@ -17,7 +18,15 @@ import {
 import { use$x, useGetter, useState } from '../../../../composables'
 import AIOverview from '../ai-overview.vue'
 
-jest.mock('../../../../composables')
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
+
+vi.mock('../../../../composables')
 
 const useGettersStub = {
   query: ref('query text'),
@@ -72,20 +81,20 @@ const useStateStub = {
   isNoResults: ref(false),
 }
 let subscribeCb = () => {}
-const onMock = jest.fn(() => ({
+const onMock = vi.fn(() => ({
   subscribe: (cb: () => void) => {
     subscribeCb = cb
   },
 }))
-const emitMock = jest.fn()
-const useGettersMock = jest.fn(() => useGettersStub)
-const useStateMock = jest.fn(() => useStateStub)
+const emitMock = vi.fn()
+const useGettersMock = vi.fn(() => useGettersStub)
+const useStateMock = vi.fn(() => useStateStub)
 const xInstance = { emit: emitMock, on: onMock, noResults: false }
-const use$xMock = jest.fn(() => xInstance)
+const use$xMock = vi.fn(() => xInstance)
 
-jest.mock('marked', () => ({
+vi.mock('marked', () => ({
   marked: {
-    parse: jest.fn((markdown: string) => markdown),
+    parse: vi.fn((markdown: string) => markdown),
   },
 }))
 
@@ -203,12 +212,12 @@ describe('ai-overview component', () => {
   const originalScrollIntoView = (Element.prototype as any).scrollIntoView
 
   beforeEach(() => {
-    jest.restoreAllMocks()
-    jest.clearAllMocks()
-    ;(Element.prototype as any).scrollIntoView = jest.fn()
-    jest.mocked(useGetter).mockImplementation(useGettersMock)
-    jest.mocked(useState).mockImplementation(useStateMock)
-    jest.mocked(use$x).mockImplementation(use$xMock as any)
+    vi.restoreAllMocks()
+    vi.clearAllMocks()
+    ;(Element.prototype as any).scrollIntoView = vi.fn()
+    vi.mocked(useGetter).mockImplementation(useGettersMock)
+    vi.mocked(useState).mockImplementation(useStateMock)
+    vi.mocked(use$x).mockImplementation(use$xMock as any)
     xInstance.noResults = false
   })
 
@@ -296,9 +305,10 @@ describe('ai-overview component', () => {
   })
 
   it('should render with loading state correctly', () => {
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: ref(true) }))
+    vi.mocked(useState).mockImplementation(() => ({
+      ...useStateStub,
+      suggestionsLoading: ref(true),
+    }))
 
     const sut = render()
 
@@ -373,9 +383,7 @@ describe('ai-overview component', () => {
   })
 
   it('should render correctly if suggestion is loading', () => {
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, suggestionsSearch: ref([]) }))
+    vi.mocked(useState).mockImplementation(() => ({ ...useStateStub, suggestionsSearch: ref([]) }))
 
     const sut = render()
 
@@ -402,9 +410,7 @@ describe('ai-overview component', () => {
       { query: 'orphan query (no results)' },
     ])
 
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, queries: queriesWithOrphan }))
+    vi.mocked(useState).mockImplementation(() => ({ ...useStateStub, queries: queriesWithOrphan }))
 
     const sut = render()
 
@@ -419,7 +425,7 @@ describe('ai-overview component', () => {
   })
 
   it('should pass the correct props to DisplayEmitter component when there is no query', () => {
-    jest.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, query: ref('') }))
+    vi.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, query: ref('') }))
 
     const sut = render()
 
@@ -439,7 +445,7 @@ describe('ai-overview component', () => {
   })
 
   it('should not render the component if isNoResults is true', async () => {
-    jest.mocked(useState).mockImplementation(() => ({ ...useStateStub, isNoResults: ref(true) }))
+    vi.mocked(useState).mockImplementation(() => ({ ...useStateStub, isNoResults: ref(true) }))
 
     const sut = render()
 
@@ -449,7 +455,7 @@ describe('ai-overview component', () => {
   it('should call scrollIntoView when collapsing after being expanded (and not on expand)', async () => {
     const sut = render()
 
-    const scrollSpy = jest.fn()
+    const scrollSpy = vi.fn()
     ;(Element.prototype as any).scrollIntoView = scrollSpy
 
     await sut.toggleButton.trigger('click')
@@ -489,19 +495,20 @@ describe('ai-overview component', () => {
     })
   })
 
-  it('should emit AiOverviewMounted event on mounted', () => {
+  it('should emit AiComponentMounted event on mounted', () => {
     render()
 
-    expect(emitMock).toHaveBeenCalledWith('AiOverviewMounted', undefined, {
+    expect(emitMock).toHaveBeenCalledWith('AiComponentMounted', undefined, {
       feature: 'overview',
     })
   })
 
   it('auto-expands when autoExpandInSearchNoResults is true and suggestions finish loading with no results', async () => {
     const suggestionsLoadingRef = ref(true)
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: suggestionsLoadingRef }))
+    vi.mocked(useState).mockImplementation(() => ({
+      ...useStateStub,
+      suggestionsLoading: suggestionsLoadingRef,
+    }))
 
     const sut = render()
 
@@ -530,9 +537,10 @@ describe('ai-overview component', () => {
 
   it('does not auto-expand when autoExpandInSearchNoResults is false even with no results', async () => {
     const suggestionsLoadingRef = ref(true)
-    jest
-      .mocked(useState)
-      .mockImplementation(() => ({ ...useStateStub, suggestionsLoading: suggestionsLoadingRef }))
+    vi.mocked(useState).mockImplementation(() => ({
+      ...useStateStub,
+      suggestionsLoading: suggestionsLoadingRef,
+    }))
 
     const sut = render({ props: { ...propsStub, autoExpandInSearchNoResults: false } })
 

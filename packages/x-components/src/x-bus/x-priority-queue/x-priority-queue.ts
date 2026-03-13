@@ -10,9 +10,10 @@ import type {
  *
  * @public
  */
-export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData extends Dictionary>
-  implements XPriorityQueueNode<SomeRecord, SomeData>
-{
+export class BaseXPriorityQueueNode<
+  SomeRecord extends Dictionary,
+  SomeData extends Dictionary,
+> implements XPriorityQueueNode<SomeRecord, SomeData> {
   public readonly key: keyof SomeRecord
   public readonly priority: number
   public readonly data: SomeData
@@ -57,8 +58,7 @@ export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData exte
 export class BaseXPriorityQueue<
   SomeRecord extends Dictionary,
   SomeData extends Dictionary = Dictionary,
-> implements XPriorityQueue<SomeRecord, SomeData>
-{
+> implements XPriorityQueue<SomeRecord, SomeData> {
   /**
    * The list of stored {@link XPriorityQueueNode | nodes}.
    *

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`searchResponseMapper tests should map the response 1`] = `
+exports[`searchResponseMapper tests > should map the response 1`] = `
 {
   "banners": [
     {

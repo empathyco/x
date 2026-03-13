@@ -1,6 +1,7 @@
 import type { Result } from '@empathyco/x-types'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -80,7 +81,7 @@ describe('testing BaserResultRating component', () => {
       template: `<BaseResultRating :result="result" :max="10" />`,
       result,
     })
-    const eventListener = jest.fn()
+    const eventListener = vi.fn()
     XPlugin.bus.on('UserClickedAResultRating').subscribe(eventListener)
 
     await clickRating()

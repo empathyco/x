@@ -1,4 +1,5 @@
 import type { PopularSearchesRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { popularSearchesRequestMapper } from '../popular-searches-request.mapper'
 
 describe('popularSearchesRequestMapper tests', () => {

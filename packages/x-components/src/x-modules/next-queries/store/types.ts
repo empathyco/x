@@ -59,9 +59,7 @@ export interface NextQueriesGetters {
  * @public
  */
 export interface NextQueriesMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<NextQueriesState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<NextQueriesState> {
   /**
    * Sets the next queries of the module.
    *

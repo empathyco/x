@@ -1,0 +1,9 @@
+/* Base */
+@utility highlight-text {
+  @apply xds:font-bold;
+}
+
+/* Match */
+@utility highlight-text-match {
+  @apply xds:font-regular;
+}

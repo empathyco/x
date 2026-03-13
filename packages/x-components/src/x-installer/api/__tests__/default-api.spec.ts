@@ -1,4 +1,5 @@
 import type { NormalisedSnippetConfig, SnippetConfig } from '../api.types'
+import { describe, expect, it, vi } from 'vitest'
 import { computed, defineComponent, inject, nextTick } from 'vue'
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
@@ -12,7 +13,7 @@ describe('testing default X API', () => {
   const query = 'maserati'
 
   it('should allow asynchronous initialization', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     const someXAPI = new BaseXAPI()
     const someOtherBus = new XDummyBus()
     someXAPI.setInitCallback(async () => {
@@ -36,7 +37,7 @@ describe('testing default X API', () => {
   })
 
   it('should emit `UserAcceptedAQuery` through the `search` function', () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     bus.on('UserAcceptedAQuery').subscribe(listener)
     defaultXAPI.search(query)
 
@@ -44,7 +45,7 @@ describe('testing default X API', () => {
   })
 
   it('should emit `UserClickedCloseX` through the `close` function', () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     bus.on('UserClickedCloseX').subscribe(listener)
 
     defaultXAPI.close()
@@ -53,7 +54,7 @@ describe('testing default X API', () => {
   })
 
   it('should emit `UserClickedPDPAddToCart` through the `addProductToCart` function', () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     bus.on('UserClickedPDPAddToCart').subscribe(listener)
 
     defaultXAPI.addProductToCart()

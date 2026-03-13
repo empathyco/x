@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { createHierarchicalFacetStub } from '../../../../__stubs__/facets-stubs.factory'
 import { createHierarchicalFilter } from '../../../../__stubs__/filters-stubs.factory'
 import { HierarchicalFilterEntity } from '../hierarchical-filter.entity'

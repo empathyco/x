@@ -11,7 +11,8 @@ import type {
  * @public
  */
 export interface PlatformFacetsRequest
-  extends PlatformQueryableRequest,
+  extends
+    PlatformQueryableRequest,
     PlatformFilterableRequest,
     PlatformTrackableRequest,
     PlatformExtraParamsRequest {}

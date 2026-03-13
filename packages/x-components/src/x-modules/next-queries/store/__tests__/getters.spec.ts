@@ -1,6 +1,7 @@
 import type { NextQueriesRequest } from '@empathyco/x-types'
 import type { NextQueriesState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import {
   createHistoryQueries,

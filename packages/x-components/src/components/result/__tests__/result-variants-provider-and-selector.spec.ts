@@ -1,5 +1,6 @@
 import type { Result } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 import { createResultStub } from '../../../__stubs__/index'
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
@@ -65,7 +66,7 @@ const render = ({
 
   return {
     wrapper: wrapper.findComponent(ResultVariantsProvider),
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     findSelectorButtonByLevel: (level: number) =>
       findTestDataById(wrapper, 'variants-list')
         .at(level)
@@ -83,7 +84,7 @@ const render = ({
 
 describe('results with variants', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('provider exposes the result in the default slot', () => {
@@ -283,7 +284,7 @@ describe('results with variants', () => {
 
       await firstVariantButton.trigger('click')
 
-      expect(variantWrappers.at(0)?.element).toHaveClass(className)
+      expect(variantWrappers.at(0)?.classes()).toContain(className)
       variantWrappers.slice(1).forEach(wrapper => {
         expect(wrapper.element.classList.contains(className)).toBe(false)
       })
@@ -380,7 +381,7 @@ describe('results with variants', () => {
 
       await variants.at(0)?.trigger('click')
 
-      expect(variants.at(0)?.element).toHaveClass('isSelected')
+      expect(variants.at(0)?.classes()).toContain('isSelected')
     })
 
     it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
@@ -405,7 +406,7 @@ describe('results with variants', () => {
       expect(variants.at(1)?.text()).toEqual('blue jacket')
 
       await variants.at(1)?.trigger('click')
-      expect(variants.at(1)?.element).toHaveClass('isSelected')
+      expect(variants.at(1)?.classes()).toContain('isSelected')
     })
 
     it('exposes variant and isSelected in the variant-content slot', async () => {

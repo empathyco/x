@@ -9,6 +9,7 @@
     "lint:check": "lerna run lint:check -- --quiet --cache --cache-strategy content",
     "format": "lerna run format",
     "format:check": "lerna run format:check",
+    "typecheck": "lerna run typecheck",
     "test": "lerna run test",
     "test:unit": "lerna run test:unit",
     "serve": "lerna run serve",
@@ -18,11 +19,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-config": "1.8.0",
+    "@empathyco/eslint-config": "1.10.31",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "husky": "8.0.3",
-    "lerna": "6.6.2"
+    "lerna": "9.0.4"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {

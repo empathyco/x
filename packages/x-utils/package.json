@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.3-alpha.9",
+  "version": "1.0.3-alpha.15",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -25,11 +25,14 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./types",
+    "prebuild": "rm -rf dist types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
-    "test": "jest",
-    "test:unit": "jest",
     "pack": "pnpm pack",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit-coverage": "vitest run --coverage",
+    "test:unit-watch": "vitest",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
@@ -37,16 +40,11 @@
     "format:check": "prettier --check .",
     "prepublishOnly": "pnpm run build"
   },
-  "dependencies": {
-    "@empathyco/x-storage-service": "^2.0.3-alpha.8",
-    "tslib": "~2.8.1"
-  },
   "devDependencies": {
-    "@types/jest": "29.5.14",
-    "jest": "29.7.0",
-    "rimraf": "3.0.2",
-    "ts-jest": "29.4.6",
-    "typescript": "5.9.3"
+    "@vitest/coverage-v8": "4.0.18",
+    "jsdom": "28.1.0",
+    "typescript": "5.9.3",
+    "vitest": "4.0.18"
   },
   "publishConfig": {
     "access": "public"

@@ -23,8 +23,10 @@ export interface EndpointAdapter<Request, Response> {
  *
  * @public
  */
-export interface ExtendableEndpointAdapter<Request, Response>
-  extends EndpointAdapter<Request, Response> {
+export interface ExtendableEndpointAdapter<Request, Response> extends EndpointAdapter<
+  Request,
+  Response
+> {
   /**
    * Extends the endpoint adapter, merging its options with the new ones, creating a new
    * {@link ExtendableEndpointAdapter} object.

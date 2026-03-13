@@ -1,5 +1,6 @@
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../store/index'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import {
   namespacedWireCommit,
@@ -19,7 +20,7 @@ describe('testing namespaced wires factory', () => {
 
   beforeEach(() => {
     subjectHandler.reset()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('testing namespaced mutation wires factory', () => {

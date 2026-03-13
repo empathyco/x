@@ -1,3 +1,0 @@
-{
-  "stepDefinitions": "tests/e2e/**/*.spec.ts"
-}

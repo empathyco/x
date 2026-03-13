@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-design-system",
   "type": "module",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-alpha.21",
   "description": "Empathy X Tailwind Design System",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,28 +27,33 @@
   },
   "scripts": {
     "dev": "vite serve demo",
+    "preview": "vite preview demo",
     "build:demo": "vite build demo",
-    "build:lib": "node ./lib/build.js",
+    "build:lib": "node ./build",
     "build": "npm run build:lib && npm run build:demo",
     "pack": "pnpm pack",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "vue-tsc",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "prettier --write . && pnpm run format:custom",
+    "format:check": "prettier --write . && prettier --check . && git restore *.css",
+    "format:custom": "node ./scripts/prettier-tailwind-utilities-formatter.js",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "tslib": "2.8.1"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.1.18",
+    "@tailwindcss/vite": "4.2.0",
     "@vitejs/plugin-vue": "6.0.4",
-    "tailwindcss": "4.1.18",
+    "@vue/tsconfig": "0.8.1",
+    "tailwindcss": "4.2.0",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vue": "3.5.28"
+    "vite-svg-loader": "5.1.0",
+    "vue": "3.5.28",
+    "vue-tsc": "3.2.5"
   },
   "publishConfig": {
     "access": "public"

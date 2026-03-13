@@ -1,6 +1,7 @@
 import type { Suggestion } from '@empathyco/x-types'
 import type { WireMetadata, XEventsTypes } from '../../../wiring'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   createPopularSearch,
   createQuerySuggestion,
@@ -34,7 +35,7 @@ function renderBaseSuggestion({
     },
   )
 
-  const emit = jest.spyOn(XPlugin.bus, 'emit')
+  const emit = vi.spyOn(XPlugin.bus, 'emit')
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element,
@@ -53,7 +54,7 @@ function renderBaseSuggestion({
 
 describe('testing Base Suggestion component', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders a basic suggestion', () => {

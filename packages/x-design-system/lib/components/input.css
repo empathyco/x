@@ -1,0 +1,82 @@
+/* Base */
+@utility input {
+  @apply xds:cursor-text xds:ps-16 xds:pe-16 xds:font-regular xds:text-ellipsis;
+  @apply xds:border-1 xds:border-neutral-90;
+  @apply xds:bg-neutral-0 xds:text-neutral-90;
+
+  /* `@apply xds:input-md;` can not be use here because cause circular dependency. */
+  @apply xds:h-40 xds:text-md;
+
+  &:hover {
+    @apply xds:border-neutral-50;
+  }
+
+  @variant focus {
+    @apply xds:border-neutral-50 xds:outline-2 xds:outline-neutral-25;
+  }
+
+  @variant disabled {
+    @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
+    @apply xds:cursor-not-allowed;
+  }
+
+  &::placeholder {
+    @apply xds:font-family-main xds:font-regular xds:text-neutral-50;
+  }
+}
+
+/* Sizes */
+@utility input-sm {
+  @apply xds:h-32 xds:text-sm;
+}
+
+@utility input-md {
+  @apply xds:h-40 xds:text-base;
+}
+
+@utility input-lg {
+  @apply xds:h-48 xds:text-base;
+}
+
+/* Line */
+@utility input-line {
+  @apply xds:border-0 xds:border-b-neutral-90;
+  @apply xds:bg-size-[100%_1px] xds:bg-bottom xds:bg-no-repeat;
+  background-image: linear-gradient(var(--xds-color-neutral-90), var(--xds-color-neutral-90));
+
+  &:hover {
+    @apply xds:bg-size-[100%_2px];
+  }
+
+  @variant focus {
+    @apply xds:bg-size-[100%_2px] xds:text-neutral-90 xds:outline-none;
+    @apply xds:shadow-[0_2px_0_-0.5px] xds:shadow-neutral-25;
+  }
+
+  @variant disabled {
+    @apply xds:bg-neutral-10;
+    background-image: linear-gradient(var(--xds-color-neutral-25), var(--xds-color-neutral-25));
+  }
+}
+
+/* Colors */
+@utility input-* {
+  border-color: --value(--color-*-50);
+
+  &.xds\:input-line {
+    background-image: linear-gradient(--value(--color-*-50), --value(--color-*-50));
+
+    @variant focus {
+      box-shadow: 0 2px 0 -0.5px --value(--color-*-25);
+    }
+  }
+
+  &:hover {
+    border-color: --value(--color-*-75);
+  }
+
+  @variant focus {
+    border-color: --value(--color-*-75);
+    outline-color: --value(--color-*-25);
+  }
+}

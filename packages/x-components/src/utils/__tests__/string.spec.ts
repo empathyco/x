@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { isStringEmpty, toKebabCase } from '../string'
 
 describe(`testing ${isStringEmpty.name} utility method`, () => {

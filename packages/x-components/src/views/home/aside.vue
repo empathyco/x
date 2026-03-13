@@ -58,7 +58,7 @@
           <ExcludeFiltersWithNoResults :filters="facet.filters">
             <SortedFilters>
               <SlicedFilters
-                :max="controls.slicedFilters.max"
+                :max="controls?.slicedFilters?.max ?? 5"
                 :data-test="`${facet.label}-sliced-filters`"
               >
                 <SelectedFilters v-slot="{ selectedFilters }" :facets-ids="[facet.id]">
@@ -177,7 +177,7 @@ export default defineComponent({
     SortedFilters,
   },
   setup() {
-    const controls = inject<Ref<HomeControls>>('controls')?.value
+    const controls = inject<Ref<HomeControls>>('controls')!
     const editableNumberRangeFilter: EditableNumberRangeFilter = {
       facetId: 'salePrice',
       selected: false,

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.1.0-alpha.44",
+  "version": "1.1.0-alpha.57",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,8 +27,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
+    "prebuild": "rm -rf dist docs report *.tgz",
+    "build": "pnpm run /^build:/ && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "pack": "pnpm pack",
@@ -40,25 +40,24 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest",
-    "test:unit": "jest",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit-coverage": "vitest run --coverage",
+    "test:unit-watch": "vitest",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.10",
-    "@empathyco/x-types": "10.1.0-alpha.37",
-    "@empathyco/x-utils": "^1.0.3-alpha.9",
-    "tslib": "~2.8.1"
+    "@empathyco/x-adapter": "8.1.0-alpha.20",
+    "@empathyco/x-types": "10.1.0-alpha.49",
+    "@empathyco/x-utils": "1.0.3-alpha.15"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.28.2",
-    "@microsoft/api-extractor": "7.55.2",
-    "@types/jest": "29.5.14",
-    "concurrently": "8.2.2",
-    "jest": "29.7.0",
-    "rimraf": "3.0.2",
-    "ts-jest": "29.4.6",
-    "typescript": "5.9.3"
+    "@microsoft/api-documenter": "7.29.2",
+    "@microsoft/api-extractor": "7.57.2",
+    "@vitest/coverage-v8": "4.0.18",
+    "jsdom": "28.1.0",
+    "typescript": "5.9.3",
+    "vitest": "4.0.18"
   },
   "publishConfig": {
     "access": "public"

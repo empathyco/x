@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
@@ -27,7 +28,7 @@ describe('testing BaseResultAddToCart component', () => {
   it('emits UserClickedResultAddToCart when the user click on the component', async () => {
     const testResult = createResultStub('My Result')
     const { clickAddToCart } = render({ result: testResult })
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener)
     await clickAddToCart()
 
@@ -52,7 +53,7 @@ describe('testing BaseResultAddToCart component', () => {
   })
 
   it('uses the listeners passed', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     const { clickAddToCart } = render({
       template: '<BaseResultAddToCart @click="miClick" :result="result"/>',
       methods: {

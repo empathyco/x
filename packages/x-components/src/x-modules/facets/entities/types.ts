@@ -49,9 +49,9 @@ export interface FilterEntityModifier<Metadata extends Dictionary = Dictionary> 
  *
  * @internal
  */
-export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dictionary>
-  implements FilterEntity<Metadata>
-{
+export abstract class BaseFilterEntityModifier<
+  Metadata extends Dictionary = Dictionary,
+> implements FilterEntity<Metadata> {
   public constructor(
     protected store: Store<RootXStoreState>,
     protected entity: FilterEntity,

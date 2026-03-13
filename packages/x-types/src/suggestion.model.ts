@@ -7,7 +7,12 @@ import type { Previewable } from './previewable.model'
  *
  * @public
  */
-export interface Suggestion extends NamedModel<'QuerySuggestion' | 'PopularSearch'>, Previewable {
+export interface Suggestion
+  extends
+    NamedModel<
+      'QuerySuggestion' | 'PopularSearch' | 'SemanticQuery' | 'NextQuery' | 'HistoryQuery'
+    >,
+    Previewable {
   /** If it's a curated suggestion. */
   isCurated?: boolean
   /**
@@ -16,5 +21,5 @@ export interface Suggestion extends NamedModel<'QuerySuggestion' | 'PopularSearc
    * @deprecated - The key field should be calculated if needed using the `query` and the
    * `facets` properties.
    */
-  key: string
+  key?: string
 }

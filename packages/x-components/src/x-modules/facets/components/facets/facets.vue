@@ -57,6 +57,7 @@
 import type { Facet } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
+import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
 import { computed, defineComponent } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
@@ -64,17 +65,6 @@ import { AnimationProp } from '../../../../types'
 import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
-
-/**
- * Custom interface to provide a slot name to a Facet.
- *
- * @internal
- */
-interface RenderFacet {
-  slotNameById: string
-  slotNameByModelName: string
-  facet: Facet
-}
 
 /**
  * This component renders the list of facets stored in the Facets module. Facets can be rendered

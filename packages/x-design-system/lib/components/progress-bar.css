@@ -1,0 +1,30 @@
+/* Base */
+@utility progress-bar {
+  @apply xds:rounded-sm;
+  @apply xds:inline-block;
+  @apply xds:bg-neutral-25;
+  @apply xds:overflow-hidden;
+
+  /* `@apply xds:progress-bar-md;` can not be use here because cause circular dependency. */
+  @apply xds:h-4;
+
+  & > .xds\:progress-bar-fill {
+    @apply xds:h-full;
+    @apply xds:bg-neutral-50;
+  }
+}
+
+/* Sizes */
+@utility progress-bar-md {
+  @apply xds:h-4;
+}
+@utility progress-bar-lg {
+  @apply xds:h-8;
+}
+
+/* Colors */
+@utility progress-bar-* {
+  & > .xds\:progress-bar-fill {
+    background-color: --value(--color-*-50);
+  }
+}

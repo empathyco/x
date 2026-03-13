@@ -3,6 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import type { WirePayload } from '../../../../wiring'
 import type { SnippetConfig } from '../../../../x-installer/api/api.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick, reactive } from 'vue'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
@@ -57,7 +58,7 @@ describe('testing snippet config extra params component', () => {
 
   it('emits the ExtraParamsProvided event when the component is loaded, when the values prop changes, and when the snippet config changes', async () => {
     const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams()
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
@@ -83,7 +84,7 @@ describe('testing snippet config extra params component', () => {
 
   it('emits the ExtraParamsProvided event with the values from the snippet config and the extra params', () => {
     renderSnippetConfigExtraParams({ values: { scope: 'mobile' } })
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
@@ -95,7 +96,7 @@ describe('testing snippet config extra params component', () => {
 
   it('does not emit ExtraParamsProvided when any no extra params in the snippet config changes', async () => {
     const { setSnippetConfig } = renderSnippetConfigExtraParams()
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
@@ -122,7 +123,7 @@ describe('testing snippet config extra params component', () => {
   })
   it('not includes the callback configuration as extra params', () => {
     renderSnippetConfigExtraParams()
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
@@ -139,7 +140,7 @@ describe('testing snippet config extra params component', () => {
       },
       excludedExtraParams: ['currency', 'warehouse', 'callbacks'],
     })
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,

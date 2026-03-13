@@ -1,4 +1,5 @@
 import type { PlatformPopularSearchesResponse } from '../../../types/responses/popular-searches-response.model'
+import { describe, expect, it } from 'vitest'
 import { popularSearchesResponseMapper } from '../popular-searches-response.mapper'
 
 describe('popularSearchesResponseMapper tests', () => {

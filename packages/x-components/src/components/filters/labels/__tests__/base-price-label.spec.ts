@@ -1,6 +1,7 @@
 import type { NumberRangeFilter } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getNumberRangeFilterStub } from '../../../../__stubs__/filters-stubs.factory'
 import BasePriceFilterLabel from '../base-price-filter-label.vue'
 

@@ -1,6 +1,7 @@
 import type { AnyFunction } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -38,7 +39,7 @@ function renderCloseMainModal({
 describe('testing Close Main Modal button component', () => {
   it('emits UserClickedCloseX by default when clicked', async () => {
     const { click } = renderCloseMainModal()
-    const onUserClickedCloseX = jest.fn()
+    const onUserClickedCloseX = vi.fn()
     XPlugin.bus.on('UserClickedCloseX').subscribe(onUserClickedCloseX)
 
     await click()
@@ -56,7 +57,7 @@ describe('testing Close Main Modal button component', () => {
 
   it('can be extended adding listeners', async () => {
     const methods = {
-      onClick: jest.fn(),
+      onClick: vi.fn(),
     }
     const { click } = renderCloseMainModal({
       template: '<CloseMainModal @click="onClick">Close</CloseMainModal>',

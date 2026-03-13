@@ -1,13 +1,14 @@
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../__stubs__/index'
 import { namespacedDebounce, namespacedThrottle } from '../namespaced-wires.operators'
 import { createWire } from './operators-testing-utils'
 
 describe('testing namespaced wires operators', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   describe(`testing ${namespacedDebounce.name}`, () => {
@@ -21,10 +22,10 @@ describe('testing namespaced wires operators', () => {
       )
 
       emitWireEvent('1', '2', '3')
-      jest.advanceTimersByTime(999)
+      vi.advanceTimersByTime(999)
       expect(callback).not.toHaveBeenCalled()
 
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('3')
     })
@@ -41,11 +42,11 @@ describe('testing namespaced wires operators', () => {
       )
 
       emitWireEvent('1', '2', '3')
-      jest.advanceTimersByTime(999)
+      vi.advanceTimersByTime(999)
       expect(callback).not.toHaveBeenCalled()
 
       void bus.emit('UserClearedQuery', '')
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
       expect(callback).not.toHaveBeenCalled()
     })
 
@@ -67,7 +68,7 @@ describe('testing namespaced wires operators', () => {
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('3')
 
-      jest.advanceTimersByTime(1000)
+      vi.advanceTimersByTime(1000)
       expect(callback).toHaveBeenCalledTimes(1)
     })
   })
@@ -86,10 +87,10 @@ describe('testing namespaced wires operators', () => {
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('1')
 
-      jest.advanceTimersByTime(999)
+      vi.advanceTimersByTime(999)
       expect(callback).toHaveBeenCalledTimes(1)
 
-      jest.advanceTimersByTime(1)
+      vi.advanceTimersByTime(1)
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('3')
     })
@@ -110,7 +111,7 @@ describe('testing namespaced wires operators', () => {
       expect(callback).toHaveBeenCalledWith('1')
 
       void bus.emit('UserClearedQuery', '')
-      jest.advanceTimersByTime(1000)
+      vi.advanceTimersByTime(1000)
       expect(callback).toHaveBeenCalledTimes(1)
     })
 
@@ -133,7 +134,7 @@ describe('testing namespaced wires operators', () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('3')
 
-      jest.advanceTimersByTime(1000)
+      vi.advanceTimersByTime(1000)
       expect(callback).toHaveBeenCalledTimes(2)
     })
   })

@@ -7,8 +7,7 @@ import type {
   LoadLazyMessagesByDevice,
   Locale,
 } from './i18n.types'
-import { deepMerge } from '@empathyco/x-deep-merge'
-import { isObject } from '@empathyco/x-utils'
+import { deepMerge, isObject } from '@empathyco/x-utils'
 import { createI18n } from 'vue-i18n'
 
 /**

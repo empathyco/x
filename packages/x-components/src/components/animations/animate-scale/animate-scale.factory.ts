@@ -1,5 +1,5 @@
 import { createDirectionalAnimationFactory } from '../create-directional-animation-factory'
-import './animate-scale.style.scss'
+import './animate-scale.style.css'
 
 /**
  * Returns a transition component to wrap an element passed in the default slot and animating its

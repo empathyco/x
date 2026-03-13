@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { getActiveElement, isElementEqualOrContained } from '../html'
 
 describe(`testing ${isElementEqualOrContained.name} utility method`, () => {

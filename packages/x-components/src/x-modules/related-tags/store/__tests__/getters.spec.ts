@@ -6,6 +6,7 @@ import type {
   RelatedTagsMutations,
   RelatedTagsState,
 } from '../types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import {
   createRelatedTagStub,

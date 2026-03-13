@@ -70,7 +70,6 @@ export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
   store: Store<RootXStoreState>,
   facetId: Facet['id'],
 ): SomeFilter[] {
-  // eslint-disable-next-line ts/no-unsafe-return,ts/no-unsafe-member-access
   return store.getters['x/facets/facets'][facetId]?.filters ?? []
 }
 

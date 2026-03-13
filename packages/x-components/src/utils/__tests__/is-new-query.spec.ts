@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { isNewQuery } from '../is-new-query'
 
 describe('testing hasQueryChanged util', () => {

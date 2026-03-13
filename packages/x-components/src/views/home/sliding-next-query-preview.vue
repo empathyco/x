@@ -1,7 +1,7 @@
 <template>
   <NextQueryPreview
     v-slot="{ results, totalResults, suggestion: nextQuerySuggestion }"
-    :suggestion="nextQuerySuggestion"
+    :suggestion="suggestion"
     class="x-flex x-flex-col x-gap-8"
   >
     <h1 class="x-title2">Others clients have searched</h1>

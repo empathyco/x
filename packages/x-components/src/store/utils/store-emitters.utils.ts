@@ -31,8 +31,11 @@ export type SimpleStateSelector<
  * @param Getters - The type of the getters of the {@link XModule} where this selector is used.
  * @public
  */
-export interface StateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary>
-  extends WatchOptions {
+export interface StateSelector<
+  ReturnType,
+  State extends Dictionary,
+  Getters extends Dictionary,
+> extends WatchOptions {
   selector: SimpleStateSelector<ReturnType, State, Getters>
   /**
    * Asserts if the event should really be emitted taking into account the new and old values and

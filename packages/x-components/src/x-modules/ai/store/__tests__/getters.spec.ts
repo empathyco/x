@@ -6,6 +6,7 @@ import type {
 } from '@empathyco/x-types'
 import type { AiState } from '../types'
 import { map } from '@empathyco/x-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { aiXStoreModule } from '../module'
 import { resetAiStateWith } from './utils'

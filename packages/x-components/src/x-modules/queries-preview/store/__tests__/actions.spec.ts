@@ -11,6 +11,7 @@ import type {
   QueryPreviewItem,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 import { Store } from 'vuex'
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory'

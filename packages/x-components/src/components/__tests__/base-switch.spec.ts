@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import BaseSwitch from '../base-switch.vue'
 
 function renderBaseSwitch({ template, value }: RenderBaseSwitchOptions): RenderBaseSwitchApi {

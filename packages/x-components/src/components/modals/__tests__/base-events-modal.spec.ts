@@ -2,10 +2,19 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { PropsWithType } from '../../../utils/types'
 import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
 import BaseEventsModal from '../base-events-modal.vue'
+
+class MockResizeObserver implements ResizeObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+
+window.ResizeObserver = MockResizeObserver as any
 
 /**
  * Mounts a {@link BaseEventsModal} component with the provided options and offers an API to easily
@@ -50,7 +59,7 @@ function mountBaseEventsModal({
       return wrapper.find(getDataTestSelector('modal-content'))
     },
     async fakeFocusIn() {
-      jest.runAllTimers()
+      vi.runAllTimers()
       document.body.dispatchEvent(new FocusEvent('focusin'))
       await nextTick()
     },
@@ -59,11 +68,11 @@ function mountBaseEventsModal({
 
 describe('testing Base Events Modal  component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
@@ -119,9 +128,9 @@ describe('testing Base Events Modal  component', () => {
       eventsToCloseModal: [eventToClose],
     })
 
-    const openListener = jest.fn()
+    const openListener = vi.fn()
     XPlugin.bus.on(eventToOpen).subscribe(openListener)
-    const closeListener = jest.fn()
+    const closeListener = vi.fn()
     XPlugin.bus.on(eventToClose).subscribe(closeListener)
 
     await emit(eventToOpen)
@@ -139,7 +148,7 @@ describe('testing Base Events Modal  component', () => {
       bodyClickEvent,
       eventsToCloseModal: [bodyClickEvent],
     })
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on(bodyClickEvent).subscribe(listener)
 
     await emit('UserClickedOpenEventsModal')

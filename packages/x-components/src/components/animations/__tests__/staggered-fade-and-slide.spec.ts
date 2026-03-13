@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { ref, TransitionGroup } from 'vue'
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts'
 import StaggeredFadeAndSlide from '../staggered-fade-and-slide.vue'
@@ -31,10 +32,10 @@ function render({ appear = true, tag = 'div', stagger = 25, disableAnimation = f
 
 describe('testing StaggeredFadeAndSlide component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('renders the TransitionGroup with correct props', () => {
@@ -73,20 +74,20 @@ describe('testing StaggeredFadeAndSlide component', () => {
     }
 
     // Wait for the first transition to finish
-    jest.advanceTimersByTime(transitionDuration)
+    vi.advanceTimersByTime(transitionDuration)
 
     expect(elements[0].element.style.transitionDelay).toBe('0ms')
     expect(elements[1].element.style.transitionDelay).not.toBe('0ms')
     expect(elements[2].element.style.transitionDelay).not.toBe('0ms')
 
     // Once the previous transition is finished wait for the stagger delay
-    jest.advanceTimersByTime(stagger)
+    vi.advanceTimersByTime(stagger)
 
     expect(elements[1].element.style.transitionDelay).toBe('0ms')
     expect(elements[2].element.style.transitionDelay).not.toBe('0ms')
 
     // Once the previous transition is finished wait for the stagger delay
-    jest.advanceTimersByTime(stagger)
+    vi.advanceTimersByTime(stagger)
 
     for (const el of elements) {
       expect(el.element.style.transitionDelay).toBe('0ms')

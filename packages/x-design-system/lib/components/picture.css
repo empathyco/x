@@ -1,0 +1,31 @@
+/* Base */
+@utility picture {
+  @apply xds:block xds:aspect-ratio-default xds:overflow-hidden;
+}
+
+/* Image */
+@utility picture-image {
+  @apply xds:aspect-ratio-default xds:h-full xds:w-full xds:object-contain;
+}
+
+/* Zoom */
+@utility picture-zoom {
+  & > .xds\:picture-image {
+    @apply xds:transition-transform xds:duration-300 xds:ease-out;
+
+    &:hover {
+      @apply xds:scale-110;
+    }
+  }
+}
+
+/* Overlay */
+@utility picture-overlay {
+  &:hover {
+    @apply xds:mix-blend-multiply;
+  }
+
+  & > .xds\:picture-image:hover {
+    mask-image: linear-gradient(to top, transparent 20%, var(--xds-color-neutral-100));
+  }
+}

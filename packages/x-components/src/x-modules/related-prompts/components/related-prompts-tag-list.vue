@@ -49,7 +49,7 @@
           :is-selected="selectedPromptIndex === index"
         >
           <DisplayEmitter
-            :payload="relatedPrompt.tagging?.toolingDisplayTagging"
+            :payload="relatedPrompt.tagging?.toolingDisplayTagging!"
             :event-metadata="{
               feature: 'related-prompts',
               displayOriginalQuery: x.query.searchBox,

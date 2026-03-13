@@ -1,13 +1,14 @@
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../__stubs__/results-stubs.factory'
 import { throttle } from '../wires.operators'
 import { createWire } from './operators-testing-utils'
 
 describe(`testing ${throttle.name} operator`, () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it('emits value immediately, then ignores the next values for the defined time', () => {
@@ -18,18 +19,18 @@ describe(`testing ${throttle.name} operator`, () => {
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('1')
 
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     emitWireEvent('3')
     expect(callback).toHaveBeenCalledTimes(1)
 
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(2)
     expect(callback).toHaveBeenCalledWith('3')
 
     emitWireEvent('4')
     expect(callback).toHaveBeenCalledTimes(2)
 
-    jest.advanceTimersByTime(500)
+    vi.advanceTimersByTime(500)
     expect(callback).toHaveBeenCalledTimes(3)
     expect(callback).toHaveBeenCalledWith('4')
   })
@@ -46,11 +47,11 @@ describe(`testing ${throttle.name} operator`, () => {
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('1')
 
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     emitWireEvent('3')
     expect(callback).toHaveBeenCalledTimes(1)
 
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(2)
     expect(callback).toHaveBeenCalledWith('3')
   })
@@ -65,23 +66,23 @@ describe(`testing ${throttle.name} operator`, () => {
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('1')
 
-    jest.advanceTimersByTime(249)
+    vi.advanceTimersByTime(249)
     emitWireEvent('3')
     expect(callback).toHaveBeenCalledTimes(1)
 
     store.state.x.querySuggestions.config.debounceInMs = 250
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(1) /* We still haven't run the new timer until
      the previous one has completed. */
 
-    jest.advanceTimersByTime(250)
+    vi.advanceTimersByTime(250)
     expect(callback).toHaveBeenCalledTimes(2)
     expect(callback).toHaveBeenCalledWith('3')
 
     emitWireEvent('4')
     expect(callback).toHaveBeenCalledTimes(2)
 
-    jest.advanceTimersByTime(250)
+    vi.advanceTimersByTime(250)
     expect(callback).toHaveBeenCalledTimes(3)
     expect(callback).toHaveBeenCalledWith('4')
   })
@@ -102,7 +103,7 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('2')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledWith('3')
       expect(callback).toHaveBeenCalledTimes(3)
     })
@@ -147,14 +148,14 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('2')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(2)
 
       emitWireEvent('3', '4', '5')
       expect(callback).toHaveBeenCalledTimes(3)
       expect(callback).toHaveBeenCalledWith('3')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(4)
       expect(callback).toHaveBeenCalledWith('5')
     })
@@ -174,7 +175,7 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('2')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(2)
 
       emitWireEvent('3', '4', '5')
@@ -185,7 +186,7 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(4)
       expect(callback).toHaveBeenCalledWith('5')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(4)
     })
   })
@@ -205,7 +206,7 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('3')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(2)
     })
 
@@ -222,7 +223,7 @@ describe(`testing ${throttle.name} operator`, () => {
       void bus.emit('UserClickedAResult', createResultStub('Random result'))
       expect(callback).toHaveBeenCalledTimes(1)
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(1)
     })
   })

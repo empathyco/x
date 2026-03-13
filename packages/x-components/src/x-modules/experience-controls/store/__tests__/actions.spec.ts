@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { getExperienceControlsStub } from '../../../../__stubs__/experience-controls-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils'

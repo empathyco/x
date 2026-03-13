@@ -97,18 +97,6 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item">
-        <label for="adapter.e2eAdapter">
-          Use mocked adapter
-          <input
-            id="adapter.e2eAdapter"
-            v-model="controls.adapter.useE2EAdapter"
-            type="checkbox"
-            data-test="adapter-e2e"
-            @change="toggleE2EAdapter"
-          />
-        </label>
-      </li>
     </ul>
     <hr class="xds:mt-10" />
     <h1 class="xds:text-lead-50 xds:text-4xl xds:font-bold xds:leading-normal">Teleport test</h1>
@@ -267,7 +255,22 @@
               <p>You may be interested in these:</p>
             </div>
             <LocationProvider location="results">
-              <AiOverview class="xds:mb-28">
+              <AiCarousel v-if="x.noResults && !x.fromNoResultsWithFilters" class="xds:mb-28">
+                <template #result="{ result }">
+                  <Result :result="result" class="x-w-[150px]" />
+                </template>
+                <template #extra-content>
+                  <button class="x-bg-lead-50 x-absolute x-bottom-0 x-right-0 x-translate-y-full">
+                    extra content
+                  </button>
+                </template>
+                <template #cta-button>
+                  <button class="x-bg-lead-50 x-absolute x-right-1/2 x-bottom-0 x-translate-y-1/2">
+                    AI Mode
+                  </button>
+                </template>
+              </AiCarousel>
+              <AiOverview v-else class="xds:mb-28">
                 <template #result="{ result }">
                   <Result :result="result" class="x-w-[150px]" />
                 </template>
@@ -504,7 +507,6 @@
                       :data-query="query"
                     >
                       <!-- eslint-disable vue/no-template-shadow -->
-                      <!-- TODO: review why suggestion query renaming breaks e2e -->
                       <SemanticQuery
                         v-slot="{ suggestion: { query } }"
                         class="x-suggestion x-title2 x-title2-md"
@@ -611,6 +613,7 @@ import SnippetCallbacks from '../../components/snippet-callbacks.vue'
 import { use$x } from '../../composables/use-$x'
 import { useState } from '../../composables/use-state'
 import { infiniteScroll } from '../../directives/infinite-scroll'
+import AiCarousel from '../../x-modules/ai/components/ai-carousel.vue'
 import AiOverview from '../../x-modules/ai/components/ai-overview.vue'
 import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue'
 import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue'
@@ -649,7 +652,6 @@ import SemanticQueries from '../../x-modules/semantic-queries/components/semanti
 import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue'
 import Tagging from '../../x-modules/tagging/components/tagging.vue'
 import UrlHandler from '../../x-modules/url/components/url-handler.vue'
-import { adapterConfig } from '../adapter'
 import Aside from './aside.vue'
 import DisplayResultProvider from './display-result-provider.vue'
 import PredictiveLayer from './predictive-layer.vue'
@@ -663,6 +665,7 @@ export default defineComponent({
     DisplayClickProvider,
     // eslint-disable-next-line vue/no-reserved-component-names
     Aside,
+    AiCarousel,
     AiOverview,
     AutoProgressBar,
     ArrowRightIcon,
@@ -824,9 +827,6 @@ export default defineComponent({
     ]
 
     const queries = computed(() => queriesPreviewInfo.map(item => item.query))
-    const toggleE2EAdapter = () => {
-      adapterConfig.e2e = !adapterConfig.e2e
-    }
     return {
       resultsAnimation,
       modalAnimation,
@@ -839,7 +839,6 @@ export default defineComponent({
       sortValues,
       isAnyQueryLoadedInPreview,
       queries,
-      toggleE2EAdapter,
       controls,
       x,
       mainScrollDirection,

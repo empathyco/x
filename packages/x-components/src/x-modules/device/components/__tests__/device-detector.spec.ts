@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../../__tests__/bus.dummy'
 import { installNewXPlugin } from '../../../../__tests__/utils'
@@ -29,7 +30,7 @@ async function renderDeviceDetector({
 } = {}) {
   Object.assign(window, { innerWidth: initialWidth })
   const xBus = new XDummyBus()
-  const emitSpy = jest.spyOn(xBus, 'emit')
+  const emitSpy = vi.spyOn(xBus, 'emit')
 
   const wrapper = mount(DeviceDetector, {
     props: {
@@ -50,7 +51,7 @@ async function renderDeviceDetector({
       window.dispatchEvent(new UIEvent('resize'))
     },
     waitForThrottle: async () => {
-      jest.advanceTimersByTime(throttleMs)
+      vi.advanceTimersByTime(throttleMs)
       return nextTick()
     },
   }
@@ -58,10 +59,10 @@ async function renderDeviceDetector({
 
 describe('testing DeviceDetector component', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   afterEach(() => {
-    jest.runAllTimers()
+    vi.runAllTimers()
   })
 
   it('is an x-component', async () => {

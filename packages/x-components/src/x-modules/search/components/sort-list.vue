@@ -21,8 +21,7 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { PropType } from 'vue'
-import type Vue from 'vue'
+import type { Component, PropType } from 'vue'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
 import { computed, defineComponent, watch } from 'vue'
@@ -56,7 +55,7 @@ export default defineComponent({
     },
     /** The transition to use for rendering the list. */
     animation: {
-      type: [String, Object] as PropType<string | typeof Vue>,
+      type: [String, Object] as PropType<string | Component>,
       default: () => 'ul',
     },
   },

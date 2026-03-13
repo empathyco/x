@@ -1,5 +1,6 @@
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/index'
@@ -72,8 +73,8 @@ describe('testing PartialQueryButton component', () => {
   })
 
   it('emits the UserAcceptedAQuery and UserClickedPartialQuery events when the button is clicked', async () => {
-    const userAcceptedAQuery = jest.fn()
-    const UserClickedPartialQuery = jest.fn()
+    const userAcceptedAQuery = vi.fn()
+    const UserClickedPartialQuery = vi.fn()
     const query = 'coche'
     const { partialQueryButtonWrapper, click } = renderPartialQueryButton({
       query,

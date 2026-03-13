@@ -1,7 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "src"
-  },
-  "include": ["src/**/*.vue", "src/**/*.ts", "shims-vue.d.ts", "vite.config.ts"]
-}

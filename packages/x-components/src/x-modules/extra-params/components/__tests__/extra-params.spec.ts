@@ -1,6 +1,7 @@
 import type { Dictionary } from '@empathyco/x-utils'
 import type { WirePayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { ref } from 'vue'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
@@ -8,8 +9,8 @@ import { useState } from '../../../../composables'
 import { XPlugin } from '../../../../plugins'
 import ExtraParams from '../extra-params.vue'
 
-jest.mock('../../../../composables/use-state', () => ({
-  useState: jest.fn().mockReturnValue({
+vi.mock('../../../../composables/use-state', () => ({
+  useState: vi.fn().mockReturnValue({
     params: ref({}),
   }),
 }))
@@ -33,12 +34,12 @@ describe('testing extra params component', () => {
 
   it('emits the ExtraParamsProvided event on init with params state and props values', () => {
     // Set extra-params in the store to check values prop has more priority in the merge
-    ;(useState as jest.Mock).mockReturnValueOnce({
+    ;(useState as any).mockReturnValueOnce({
       params: ref({ area: 'gijon', currency: 'EUR' }),
     })
     renderExtraParams({ area: 'uk', lang: 'en' })
 
-    const extraParamsInitializedCallback = jest.fn()
+    const extraParamsInitializedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsInitialized', true).subscribe(extraParamsInitializedCallback)
     expect(extraParamsInitializedCallback).toHaveBeenCalledTimes(1)
     expect(extraParamsInitializedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
@@ -48,7 +49,7 @@ describe('testing extra params component', () => {
       },
     )
 
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1)
     expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
@@ -59,7 +60,7 @@ describe('testing extra params component', () => {
 
   it('emits the ExtraParamsProvided event when the values change', async () => {
     const { wrapper } = renderExtraParams({ warehouse: 1234 })
-    const extraParamsProvidedCallback = jest.fn()
+    const extraParamsProvidedCallback = vi.fn()
 
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback)
 

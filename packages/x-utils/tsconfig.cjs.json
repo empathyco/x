@@ -1,9 +1,10 @@
 {
-  "extends": "./tsconfig.build.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": true,
-    "declarationDir": "./types",
+    "moduleResolution": "node",
+    "types": [],
     "outDir": "./dist/cjs"
-  }
+  },
+  "exclude": ["**/*.spec.ts", "vitest.config.ts"]
 }

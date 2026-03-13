@@ -1,5 +1,6 @@
 import type { TypingOptions } from '../typing'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { typing } from '../typing'
 
 function render(typingOptions: TypingOptions) {
@@ -24,12 +25,12 @@ function render(typingOptions: TypingOptions) {
 
 describe('typingHtmlDirective', () => {
   beforeEach(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterEach(() => {
-    jest.useRealTimers()
-    jest.clearAllMocks()
+    vi.useRealTimers()
+    vi.clearAllMocks()
   })
 
   it('should write the text character by character', () => {
@@ -39,13 +40,13 @@ describe('typingHtmlDirective', () => {
 
     expect(el.innerHTML).toBe(mockHtml[0])
 
-    jest.runAllTimers()
+    vi.runAllTimers()
 
     expect(el.innerHTML).toBe(mockHtml)
   })
 
   it('should show a console.error if a text is not send', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
 
     render({ text: '' })
 
@@ -55,10 +56,10 @@ describe('typingHtmlDirective', () => {
   })
 
   it('should call clearTimeout when typing finished', () => {
-    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout')
+    const mockClearTimeout = vi.spyOn(globalThis, 'clearTimeout')
     render({ text: 'Hello, World!' })
 
-    jest.runAllTimers()
+    vi.runAllTimers()
 
     expect(mockClearTimeout).toHaveBeenCalled()
     expect(mockClearTimeout.mock.calls.length).toBeGreaterThanOrEqual(1)
@@ -67,7 +68,7 @@ describe('typingHtmlDirective', () => {
   })
 
   it('should call clearTimeout after unmounting directive', () => {
-    const mockClearTimeout = jest.spyOn(globalThis, 'clearTimeout')
+    const mockClearTimeout = vi.spyOn(globalThis, 'clearTimeout')
     const sut = render({ text: 'Hello, World!' })
 
     sut.unmount()

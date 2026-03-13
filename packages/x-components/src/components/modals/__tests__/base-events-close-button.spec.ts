@@ -1,6 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -46,7 +47,7 @@ function renderBaseEventsModalClose({
 describe('testing Close Button component', () => {
   it('emits UserClickedCloseEventsModal by default when clicked', async () => {
     const { click } = renderBaseEventsModalClose()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedCloseEventsModal').subscribe(listener)
 
     await click()
@@ -58,7 +59,7 @@ describe('testing Close Button component', () => {
     const { click } = renderBaseEventsModalClose({
       closingEvent: 'UserClickedAFilter',
     })
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedAFilter').subscribe(listener)
 
     await click()

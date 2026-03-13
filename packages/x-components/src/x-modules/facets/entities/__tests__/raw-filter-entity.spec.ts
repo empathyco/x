@@ -1,6 +1,7 @@
 import type { RawFilter } from '@empathyco/x-types'
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../../../store/store.types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createRawFilter } from '../../../../__stubs__/filters-stubs.factory'
 import { RawFilterEntity } from '../raw-filter.entity'
 import { getStoreFilter, isFilterSelected, prepareFacetsStore } from './utils'

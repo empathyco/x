@@ -1,8 +1,9 @@
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../../../store/index'
 import type { TaggingConfig } from '../../config.types'
-import { InMemoryStorageService } from '@empathyco/x-storage-service'
+import { InMemoryStorageService } from '@empathyco/x-utils'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../../../__stubs__/index'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins/index'
@@ -46,12 +47,12 @@ describe('testing pdp add to cart', () => {
   const { service, localStorageService, sessionStorageService, store } =
     prepareExternalTaggingService()
 
-  const localSetItemSpy = jest.spyOn(localStorageService, 'setItem')
-  const localRemoveItemSpy = jest.spyOn(localStorageService, 'removeItem')
+  const localSetItemSpy = vi.spyOn(localStorageService, 'setItem')
+  const localRemoveItemSpy = vi.spyOn(localStorageService, 'removeItem')
 
-  const sessionGetItemSpy = jest.spyOn(sessionStorageService, 'getItem')
-  const sessionSetItemSpy = jest.spyOn(sessionStorageService, 'setItem')
-  const storeDispatchSpy = jest.spyOn(store, 'dispatch')
+  const sessionGetItemSpy = vi.spyOn(sessionStorageService, 'getItem')
+  const sessionSetItemSpy = vi.spyOn(sessionStorageService, 'setItem')
+  const storeDispatchSpy = vi.spyOn(store, 'dispatch')
 
   const productPathName = '/products/1234'
   const url = `http://localhost:8080${productPathName}?param=test`
@@ -66,7 +67,7 @@ describe('testing pdp add to cart', () => {
   })
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     localStorageService.clear()
     sessionStorageService.clear()
   })

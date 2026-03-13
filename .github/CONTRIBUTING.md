@@ -58,25 +58,18 @@ evolves.
   Components, ready to connect to any search API with customizable layout through design tokens. It
   is the perfect example to learn how to use the X Components. This package is a project outside
   this monorepo.
-- **[@empathyco/x-deep-merge](/packages/deep-merge)** - This package clones an array of objects into
-  another object.
-- **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
-- **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
 - **[@empathyco/x-adapter](/packages/x-adapter)** - A set of tools to manage trough schemas API
   calls and transform the responses to map it to x-types
 - **[@empathyco/x-adapter-platform](/packages/x-adapter-platform)** - A x-adapter implementation to
   manage requests and responses to Empathy Platform APIs
-- **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
-- **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
-- **[@empathyco/x-translations](/packages/x-translations)** - A project that allows you to import
-  and export the translations.
-- **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
 - **[@empathyco/x-archetype-utils](/packages/x-archetype-utils)** - provides utilities to ease the
   development. It's used in the Interface X Archetype project.
-- **[@empathyco/x-bus](/packages/x-bus)** - provides an event bus to help with event orchestration.
-- **[@empathyco/x-tailwind](/packages/x-tailwind)** - Empathy X Tailwind plugin that represent a
+- **[@empathyco/x-design-system](/packages/x-design-system)** - Empathy X Design System in Tailwind 4.
+- **[@empathyco/x-tailwindcss](/packages/x-tailwindcss)** - Empathy X Tailwind plugin that represent a
   design system builder. With this package you are able to create a design system through a
   cofiguration file
+- **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
+- **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
 
 ## How to contribute
 

@@ -30,7 +30,10 @@ const setAiQueryFromPreviewWire = wireCommit('setQuery', ({ eventPayload: { quer
 const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
 
 /** Fetches and save the AI suggestions search response. */
-const fetchAndSaveAiSuggestionsSearchWire = filterTruthyPayload(
+const fetchAndSaveAiSuggestionsSearchWire = wireDispatch('fetchAndSaveAiSuggestionsSearch', true)
+
+/** Fetches and save the AI suggestions search response. */
+const fetchAndSaveAiSuggestionsSearchIfExpandedWire = filterTruthyPayload(
   wireDispatch('fetchAndSaveAiSuggestionsSearch'),
 )
 
@@ -71,9 +74,11 @@ export const aiWiring = createWiring({
     resetAiStateWire,
     fetchAndSaveAiSuggestionsWire,
   },
-  // Formerly AiSuggestionsSearchRequestUpdated
-  UserClickedAiOverviewExpandButton: {
+  AiSuggestionsSearchRequestUpdated: {
     fetchAndSaveAiSuggestionsSearchWire,
+  },
+  UserClickedAiOverviewExpandButton: {
+    fetchAndSaveAiSuggestionsSearchIfExpandedWire,
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTagsWire,
@@ -81,7 +86,7 @@ export const aiWiring = createWiring({
   SelectedFiltersForRequestChanged: {
     setSelectedFiltersWire,
   },
-  AiOverviewMounted: {
+  AiComponentMounted: {
     saveAiOriginWire,
   },
 })

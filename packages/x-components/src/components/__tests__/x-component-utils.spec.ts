@@ -1,6 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { XModuleName } from '../../x-modules/x-modules.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { getRootXComponent, getXComponentXModuleName, isXComponent } from '../x-component.utils'
 
