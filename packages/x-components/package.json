@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.0-alpha.219",
+  "version": "6.0.0-alpha.220",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -67,9 +67,9 @@
     "vuex": "4.0.2"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "8.1.0-alpha.19",
-    "@empathyco/x-adapter-platform": "1.1.0-alpha.56",
-    "@empathyco/x-types": "10.1.0-alpha.48",
+    "@empathyco/x-adapter": "8.1.0-alpha.20",
+    "@empathyco/x-adapter-platform": "1.1.0-alpha.57",
+    "@empathyco/x-types": "10.1.0-alpha.49",
     "@empathyco/x-utils": "1.0.3-alpha.15",
     "@vue/devtools-api": "~6.6.4",
     "@vueuse/core": "~12.8.2",
@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "7.29.0",
-    "@empathyco/x-tailwindcss": "2.0.0-alpha.32",
+    "@empathyco/x-tailwindcss": "2.0.0-alpha.33",
     "@microsoft/api-documenter": "7.29.2",
     "@microsoft/api-extractor": "7.57.2",
     "@testing-library/vue": "8.1.0",

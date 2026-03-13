@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.0.2-alpha.21 (2026-03-13)</small>
+
+* Make `eslint-config` & `prettier` great again (#2049) ([6f6ca7e](https://github.com/empathyco/x/commit/6f6ca7e)), closes [#2049](https://github.com/empathyco/x/issues/2049)
+
+
+
+
+
 ## <small>0.0.2-alpha.20 (2026-03-10)</small>
 
 - feat(xds): tag component (#2047) ([d32d33b](https://github.com/empathyco/x/commit/d32d33b)), closes [#2047](https://github.com/empathyco/x/issues/2047)

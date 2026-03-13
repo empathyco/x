@@ -46,10 +46,10 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.19
+        specifier: 8.1.0-alpha.20
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.48
+        specifier: 10.1.0-alpha.49
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.15
@@ -114,13 +114,13 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.19
+        specifier: 8.1.0-alpha.20
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.56
+        specifier: 1.1.0-alpha.57
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.48
+        specifier: 10.1.0-alpha.49
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.15
@@ -157,7 +157,7 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(@babel/core@7.29.0)
       '@empathyco/x-tailwindcss':
-        specifier: 2.0.0-alpha.32
+        specifier: 2.0.0-alpha.33
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.29.2
@@ -343,7 +343,7 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.19
+        specifier: 8.1.0-alpha.20
         version: link:../x-adapter
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.15
