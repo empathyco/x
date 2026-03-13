@@ -46,9 +46,7 @@ export interface QuerySuggestionsGetters {
  * @public
  */
 export interface QuerySuggestionsMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<QuerySuggestionsState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<QuerySuggestionsState> {
   /**
    * Sets the suggestions of the module.
    *

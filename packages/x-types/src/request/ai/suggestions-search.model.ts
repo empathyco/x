@@ -5,9 +5,7 @@ import type { ExtraParamsRequest, FilterableRequest, TrackableRequest } from '..
  * @public
  */
 export interface AiSuggestionsSearchRequest
-  extends ExtraParamsRequest,
-    TrackableRequest,
-    FilterableRequest {
+  extends ExtraParamsRequest, TrackableRequest, FilterableRequest {
   queries: {
     query: string
     categories: string[]

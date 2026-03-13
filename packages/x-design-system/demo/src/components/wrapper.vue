@@ -6,9 +6,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in rows" :key="row" class="xds:not-last:border-b xds:border-b-neutral-10">
+      <tr v-for="row in rows" :key="row" class="xds:border-b-neutral-10 xds:not-last:border-b">
         <td class="xds:w-192 xds:p-12 xds:text-right">{{ row }}</td>
-        <td class="xds:p-12 xds:flex xds:items-center xds:flex-wrap xds:gap-8">
+        <td class="xds:flex xds:flex-wrap xds:items-center xds:gap-8 xds:p-12">
           <slot :name="row" />
         </td>
       </tr>

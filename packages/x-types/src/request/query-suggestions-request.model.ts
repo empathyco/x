@@ -6,6 +6,4 @@ import type { ExtraParamsRequest, PageableRequest, QueryableRequest } from './re
  * @public
  */
 export interface QuerySuggestionsRequest
-  extends QueryableRequest,
-    PageableRequest,
-    ExtraParamsRequest {}
+  extends QueryableRequest, PageableRequest, ExtraParamsRequest {}

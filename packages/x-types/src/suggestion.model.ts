@@ -8,7 +8,8 @@ import type { Previewable } from './previewable.model'
  * @public
  */
 export interface Suggestion
-  extends NamedModel<
+  extends
+    NamedModel<
       'QuerySuggestion' | 'PopularSearch' | 'SemanticQuery' | 'NextQuery' | 'HistoryQuery'
     >,
     Previewable {

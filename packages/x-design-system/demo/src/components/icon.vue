@@ -24,7 +24,7 @@
       </div>
     </template>
     <template #color>
-      <div class="xds:flex xds:flex-row xds:gap-16 xds:flex-wrap">
+      <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16">
         <template v-for="colorClass in colorClasses" :key="colorClass">
           <div class="xds:flex xds:flex-col xds:gap-2">
             <h3 class="xds:text-xs">xds:icon-{{ colorClass }}</h3>
@@ -42,7 +42,7 @@
       </div>
     </template>
     <template #background-color>
-      <div class="xds:flex xds:flex-row xds:gap-16 xds:flex-wrap">
+      <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16">
         <template v-for="colorClass in colorClasses" :key="colorClass">
           <div class="xds:flex xds:flex-col xds:gap-2">
             <h3 class="xds:text-xs">xds:icon-bg-{{ colorClass }}</h3>
@@ -93,7 +93,7 @@
       </div>
     </template>
     <template #combinations>
-      <div class="xds:flex xds:flex-row xds:gap-16 xds:flex-wrap">
+      <div class="xds:flex xds:flex-row xds:flex-wrap xds:gap-16">
         <div class="xds:flex xds:flex-col xds:gap-2">
           <h3 class="text-xs">lead xl stroke-width-lg sharp</h3>
           <div class="xds:flex xds:flex-row xds:gap-2">
@@ -101,7 +101,7 @@
               :is="icon"
               v-for="(icon, i) in iconComponents"
               :key="i"
-              class="xds:icon xds:icon-lead xds:icon-xl xds:icon-stroke-width-lg xds:icon-sharp"
+              class="xds:icon xds:icon-xl xds:icon-stroke-width-lg xds:icon-lead xds:icon-sharp"
             />
           </div>
         </div>
@@ -112,7 +112,7 @@
               :is="icon"
               v-for="(icon, i) in iconComponents"
               :key="i"
-              class="xds:icon xds:icon-error xds:icon-bg-warning xds:icon-lg"
+              class="xds:icon xds:icon-lg xds:icon-bg-warning xds:icon-error"
             />
           </div>
         </div>

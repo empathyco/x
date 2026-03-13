@@ -1,10 +1,10 @@
 /* Base */
 @utility suggestion-group {
   @apply xds:font-family-main xds:font-regular xds:text-neutral-90;
-  @apply xds:grid xds:grid-flow-col xds:grid-cols-[auto_[last-col]] xds:auto-cols-[1fr];
-  @apply xds:items-center xds:content-center xds:justify-start;
+  @apply xds:grid xds:auto-cols-[1fr] xds:grid-flow-col xds:grid-cols-[auto_[last-col]];
+  @apply xds:content-center xds:items-center xds:justify-start;
   @apply xds:box-border xds:cursor-pointer xds:overflow-hidden;
-  @apply xds:ps-0 xds:pe-0 xds:gap-16;
+  @apply xds:gap-16 xds:ps-0 xds:pe-0;
 
   /* `@apply xds:suggestion-group-md;` can not be use here because cause circular dependency. */
   @apply xds:min-h-32 xds:text-sm;
@@ -38,7 +38,7 @@
 
 /* Outlined */
 @utility suggestion-group-outlined {
-  @apply xds:bg-neutral-0 xds:border-1 xds:border-neutral-90;
+  @apply xds:border-1 xds:border-neutral-90 xds:bg-neutral-0;
   @apply xds:gap-4!;
 
   &:hover,
@@ -66,24 +66,24 @@
 /* Ghost */
 @utility suggestion-group-ghost {
   @apply xds:suggestion-group-outlined;
-  @apply xds:bg-transparent xds:border-0;
+  @apply xds:border-0 xds:bg-transparent;
 }
 
 /* Colors */
 @utility suggestion-group-* {
-  color: --value(--color- * -75);
+  color: --value(--color-*-75);
 
   &.xds\:suggestion-group-outlined {
-    border-color: --value(--color- * -75);
+    border-color: --value(--color-*-75);
   }
 }
 
 /* Button */
 @utility suggestion-group-button {
-  @apply xds:grid xds:grid-flow-col xds:items-baseline xds:content-center xds:justify-center;
+  @apply xds:grid xds:grid-flow-col xds:content-center xds:items-baseline xds:justify-center;
   @apply xds:box-border xds:cursor-pointer;
-  @apply xds:bg-transparent xds:text-current xds:min-h-[inherit] xds:aspect-square xds:max-h-full;
-  @apply xds:before:content-['|'] xds:before:w-0 xds:before:invisible;
+  @apply xds:aspect-square xds:max-h-full xds:min-h-[inherit] xds:bg-transparent xds:text-current;
+  @apply xds:before:invisible xds:before:w-0 xds:before:content-['|'];
 
   &:hover {
     @apply xds:scale-[1.2];
@@ -97,13 +97,13 @@
 /* Button Ghost */
 @utility suggestion-group-button-ghost {
   &:hover {
-    @apply xds:bg-neutral-25 xds:scale-none;
+    @apply xds:scale-none xds:bg-neutral-25;
   }
 }
 
 /* Button Rectangle */
 @utility suggestion-group-button-rectangle {
-  @apply xds:ps-8 xds:pe-8 xds:aspect-auto;
+  @apply xds:aspect-auto xds:ps-8 xds:pe-8;
 }
 
 /* Button Lighter */
@@ -116,6 +116,6 @@
 /* Button Colors */
 @utility suggestion-group-button-* {
   &.xds\:suggestion-group-button-lighter:hover {
-    color: --value(--color- * -50);
+    color: --value(--color-*-50);
   }
 }

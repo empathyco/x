@@ -6,7 +6,6 @@
       </SuggestionGroup>
     </template>
     <template #color>
-      <SuggestionGroup class="xds:w-50"> suggestion group </SuggestionGroup>
       <SuggestionGroup v-for="(value, key) in colors" :key="key" :class="value">
         {{ cleanedValue(value) }} suggestion group
       </SuggestionGroup>
@@ -17,9 +16,6 @@
       </SuggestionGroup>
     </template>
     <template #outlined>
-      <SuggestionGroup class="xds:suggestion-group-outlined">
-        outlined suggestion group
-      </SuggestionGroup>
       <SuggestionGroup
         v-for="(value, key) in colors"
         :key="key"
@@ -40,7 +36,6 @@
       </SuggestionGroup>
     </template>
     <template #ghost>
-      <SuggestionGroup class="xds:suggestion-group-ghost"> ghost suggestion </SuggestionGroup>
       <SuggestionGroup
         v-for="(value, key) in colors"
         :key="key"
@@ -61,11 +56,11 @@
       </SuggestionGroup>
     </template>
     <template #combinations>
-      <SuggestionGroup class="xds:suggestion-group-success xds:suggestion-group-sm">
+      <SuggestionGroup class="xds:suggestion-group-sm xds:suggestion-group-success">
         success sm suggestion group
       </SuggestionGroup>
       <SuggestionGroup
-        class="xds:suggestion-group-outlined xds:suggestion-group-auxiliary xds:suggestion-group-md"
+        class="xds:suggestion-group-outlined xds:suggestion-group-md xds:suggestion-group-auxiliary"
       >
         outlined auxiliary md suggestion group
       </SuggestionGroup>
@@ -75,14 +70,14 @@
     </template>
     <template #combinations-layer>
       <SuggestionGroup
-        class="xds:suggestion-group-success xds:suggestion-group-sm"
+        class="xds:suggestion-group-sm xds:suggestion-group-success"
         button-class="xds:suggestion-group-button-rectangle xds:suggestion-group-button-lighter"
       >
         success sm suggestion group
         <template #button> clear </template>
       </SuggestionGroup>
       <SuggestionGroup
-        class="xds:suggestion-group-outlined xds:suggestion-group-auxiliary xds:suggestion-group-md"
+        class="xds:suggestion-group-outlined xds:suggestion-group-md xds:suggestion-group-auxiliary"
         button-class="xds:suggestion-group-button-rectangle xds:suggestion-group-button-ghost"
       >
         outlined auxiliary md suggestion group
@@ -115,6 +110,7 @@ const rows = [
   'combinations-layer',
 ]
 const colors = {
+  default: '',
   neutral: 'xds:suggestion-group-neutral',
   lead: 'xds:suggestion-group-lead',
   auxiliary: 'xds:suggestion-group-auxiliary',

@@ -32,7 +32,7 @@
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:filter-facet xds:selected"
+        class="xds:selected xds:filter-facet"
         :class="value"
       >
         <Check class="xds:icon" />
@@ -56,7 +56,7 @@
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:filter-facet xds:filter-facet-underline xds:selected"
+        class="xds:selected xds:filter-facet xds:filter-facet-underline"
         :class="value"
       >
         <Check class="xds:icon" />
@@ -80,7 +80,7 @@
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:filter-facet xds:filter-facet-ghost xds:selected"
+        class="xds:selected xds:filter-facet xds:filter-facet-ghost"
         :class="value"
       >
         <Check class="xds:icon" />
@@ -104,7 +104,7 @@
       <button
         v-for="(value, key) in colors"
         :key="key"
-        class="xds:filter-facet xds:filter-facet-simple xds:selected"
+        class="xds:selected xds:filter-facet xds:filter-facet-simple"
         :class="value"
       >
         <Check class="xds:icon" />
@@ -134,7 +134,7 @@
       >
         <Uncheck class="xds:icon" />
         <span>filter</span>
-        <span class="xds:badge xds:badge-circle xds:badge-light xds:badge-lead"> 1 </span>
+        <span class="xds:badge xds:badge-circle xds:badge-lead xds:badge-light"> 1 </span>
       </button>
     </template>
   </Wrapper>
@@ -161,6 +161,7 @@ const rows = [
 ]
 
 const colors = {
+  default: '',
   neutral: 'xds:filter-facet-neutral',
   lead: 'xds:filter-facet-lead',
   auxiliary: 'xds:filter-facet-auxiliary',

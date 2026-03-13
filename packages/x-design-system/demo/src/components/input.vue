@@ -21,9 +21,9 @@
       <input class="xds:input xds:input-line" placeholder="Line" />
     </template>
     <template #line-size>
-      <input class="xds:input xds:input-line xds:input-sm" placeholder="line sm" />
-      <input class="xds:input xds:input-line xds:input-md" placeholder="line md" />
-      <input class="xds:input xds:input-line xds:input-lg" placeholder="line lg" />
+      <input class="xds:input xds:input-sm xds:input-line" placeholder="line sm" />
+      <input class="xds:input xds:input-md xds:input-line" placeholder="line md" />
+      <input class="xds:input xds:input-lg xds:input-line" placeholder="line lg" />
     </template>
     <template #line-color>
       <input
@@ -39,14 +39,14 @@
       <input class="xds:input xds:input-line" disabled placeholder="line" />
     </template>
     <template #combinations>
-      <input class="xds:input xds:input-lead xds:input-sm" placeholder="lead sm" />
+      <input class="xds:input xds:input-sm xds:input-lead" placeholder="lead sm" />
       <input
-        class="xds:input xds:input-auxiliary xds:input-line xds:input-sm"
+        class="xds:input xds:input-sm xds:input-line xds:input-auxiliary"
         placeholder="auxiliary line sm"
       />
-      <input class="xds:input xds:input-accent xds:input-lg" placeholder="accent lg" />
+      <input class="xds:input xds:input-lg xds:input-accent" placeholder="accent lg" />
       <input
-        class="xds:input xds:input-warning xds:input-line xds:input-lg"
+        class="xds:input xds:input-lg xds:input-line xds:input-warning"
         placeholder="warning line lg"
       />
     </template>

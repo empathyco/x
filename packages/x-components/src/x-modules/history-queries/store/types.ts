@@ -67,8 +67,7 @@ export interface HistoryQueriesGetters {
  * @public
  */
 export interface HistoryQueriesMutations
-  extends QueryMutations,
-    ConfigMutations<HistoryQueriesState> {
+  extends QueryMutations, ConfigMutations<HistoryQueriesState> {
   /**
    * Sets the {@link HistoryQueriesState.historyQueries} property.
    *

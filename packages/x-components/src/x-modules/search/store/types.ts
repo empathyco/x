@@ -95,9 +95,7 @@ export interface SearchGetters {
  * @public
  */
 export interface SearchMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<SearchState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<SearchState> {
   /**
    * Append the results to the results state.
    *

@@ -6,5 +6,4 @@ import type { PlatformExtraParamsRequest, PlatformPageableRequest } from './requ
  * @public
  */
 export interface PlatformPopularSearchesRequest
-  extends PlatformPageableRequest,
-    PlatformExtraParamsRequest {}
+  extends PlatformPageableRequest, PlatformExtraParamsRequest {}

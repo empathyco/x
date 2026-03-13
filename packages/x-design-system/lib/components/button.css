@@ -1,8 +1,8 @@
 /* Base */
 @utility button {
-  @apply xds:flex xds:justify-center xds:items-center xds:content-center xds:flex-row xds:flex-nowrap;
-  @apply xds:border-1 xds:border-solid xds:box-border;
-  @apply xds:text-neutral-0 xds:bg-neutral-90 xds:border-neutral-90;
+  @apply xds:flex xds:flex-row xds:flex-nowrap xds:content-center xds:items-center xds:justify-center;
+  @apply xds:box-border xds:border-1 xds:border-solid;
+  @apply xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
   @apply xds:font-family-main xds:font-bold xds:tracking-md;
   @apply xds:cursor-pointer;
 
@@ -10,14 +10,14 @@
   @apply xds:min-h-40 xds:gap-8 xds:ps-16 xds:pe-16 xds:text-sm;
 
   @variant hover-active {
-    @apply xds:bg-neutral-100 xds:border-neutral-100;
+    @apply xds:border-neutral-100 xds:bg-neutral-100;
   }
 
   @variant selected {
-    @apply xds:bg-neutral-100 xds:border-neutral-100;
+    @apply xds:border-neutral-100 xds:bg-neutral-100;
 
     @variant hover-active {
-      @apply xds:bg-neutral-90 xds:border-neutral-90;
+      @apply xds:border-neutral-90 xds:bg-neutral-90;
     }
   }
 
@@ -47,7 +47,7 @@
 
 /* Layouts */
 @utility button-circle {
-  @apply xds:aspect-square xds:ps-0 xds:pe-0 xds:rounded-full;
+  @apply xds:aspect-square xds:rounded-full xds:ps-0 xds:pe-0;
 }
 @utility button-square {
   @apply xds:aspect-square xds:ps-0 xds:pe-0;
@@ -55,18 +55,18 @@
 
 /* Outlined */
 @utility button-outlined {
-  @apply xds:text-neutral-90 xds:bg-transparent;
+  @apply xds:bg-transparent xds:text-neutral-90;
   @apply xds:border-1 xds:border-neutral-90;
 
   @variant hover-active {
-    @apply xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
+    @apply xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
   }
 
   @variant selected {
-    @apply xds:bg-neutral-90 xds:border-neutral-90 xds:text-neutral-0;
+    @apply xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
 
     @variant hover-active {
-      @apply xds:bg-transparent xds:border-neutral-90 xds:text-neutral-90;
+      @apply xds:border-neutral-90 xds:bg-transparent xds:text-neutral-90;
     }
   }
 
@@ -82,7 +82,7 @@
 
 /* Ghost */
 @utility button-ghost {
-  @apply xds:text-neutral-90 xds:bg-transparent;
+  @apply xds:bg-transparent xds:text-neutral-90;
   @apply xds:border-0;
 
   @variant hover-active {
@@ -90,19 +90,19 @@
   }
 
   &:hover {
-    @apply xds:bg-neutral-10 xds:border-neutral-10;
+    @apply xds:border-neutral-10 xds:bg-neutral-10;
   }
 
   @variant selected {
-    @apply xds:bg-neutral-10 xds:border-neutral-10 xds:text-neutral-90;
+    @apply xds:border-neutral-10 xds:bg-neutral-10 xds:text-neutral-90;
 
     @variant hover-active {
-      @apply xds:bg-neutral-25 xds:border-neutral-25;
+      @apply xds:border-neutral-25 xds:bg-neutral-25;
     }
   }
 
   @variant disabled {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-25 xds:cursor-not-allowed;
+    @apply xds:cursor-not-allowed xds:border-0 xds:bg-transparent xds:text-neutral-25;
 
     @variant hover-active {
       @apply xds:border-0 xds:bg-transparent xds:text-neutral-25;
@@ -112,23 +112,23 @@
 
 /* Tight */
 @utility button-tight {
-  @apply xds:bg-transparent xds:border-0 xds:text-neutral-90;
-  @apply xds:pe-0 xds:ps-0;
+  @apply xds:border-0 xds:bg-transparent xds:text-neutral-90;
+  @apply xds:ps-0 xds:pe-0;
 
   @variant hover-active {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-100;
+    @apply xds:border-0 xds:bg-transparent xds:text-neutral-100;
   }
 
   @variant selected {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-100;
+    @apply xds:border-0 xds:bg-transparent xds:text-neutral-100;
 
     @variant hover-active {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-90;
+      @apply xds:border-0 xds:bg-transparent xds:text-neutral-90;
     }
   }
 
   @variant disabled {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-25;
+    @apply xds:border-0 xds:bg-transparent xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
 
     @variant hover-active {
@@ -140,25 +140,25 @@
 /* Link */
 @utility button-link {
   @apply xds:inline-flex xds:min-h-0 xds:ps-0 xds:pe-0;
-  @apply xds:border-0 xds:text-neutral-90 xds:bg-transparent;
-  @apply xds:font-[inherit] xds:tracking-[inherit] xds:leading-[inherit] xds:underline;
+  @apply xds:border-0 xds:bg-transparent xds:text-neutral-90;
+  @apply xds:font-[inherit] xds:leading-[inherit] xds:tracking-[inherit] xds:underline;
   font-size: inherit;
   font-weight: inherit;
 
   @variant hover-active {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-100;
+    @apply xds:border-0 xds:bg-transparent xds:text-neutral-100;
   }
 
   @variant selected {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-100 xds:font-bold;
+    @apply xds:border-0 xds:bg-transparent xds:font-bold xds:text-neutral-100;
 
     @variant hover-active {
-      @apply xds:bg-transparent xds:border-0 xds:text-neutral-90;
+      @apply xds:border-0 xds:bg-transparent xds:text-neutral-90;
     }
   }
 
   @variant disabled {
-    @apply xds:bg-transparent xds:border-0 xds:text-neutral-25;
+    @apply xds:border-0 xds:bg-transparent xds:text-neutral-25;
     @apply xds:cursor-not-allowed;
     font-weight: inherit;
 
@@ -170,107 +170,107 @@
 
 /* Colors */
 @utility button-* {
-  background-color: --value(--color- * -50);
-  border-color: --value(--color- * -50);
+  background-color: --value(--color-*-50);
+  border-color: --value(--color-*-50);
 
   @variant hover-active {
-    background-color: --value(--color- * -75);
-    border-color: --value(--color- * -75);
+    background-color: --value(--color-*-75);
+    border-color: --value(--color-*-75);
   }
 
   @variant selected {
-    background-color: --value(--color- * -75);
-    border-color: --value(--color- * -75);
+    background-color: --value(--color-*-75);
+    border-color: --value(--color-*-75);
 
     @variant hover-active {
-      background-color: --value(--color- * -50);
-      border-color: --value(--color- * -50);
+      background-color: --value(--color-*-50);
+      border-color: --value(--color-*-50);
     }
   }
 
   &.xds\:button-outlined {
     @apply xds:bg-transparent;
-    border-color: --value(--color- * -50);
-    color: --value(--color- * -50);
+    border-color: --value(--color-*-50);
+    color: --value(--color-*-50);
 
     @variant hover-active {
       @apply xds:text-neutral-0;
-      background-color: --value(--color- * -50);
-      border-color: --value(--color- * -50);
+      background-color: --value(--color-*-50);
+      border-color: --value(--color-*-50);
     }
 
     @variant selected {
       @apply xds:text-neutral-0;
-      background-color: --value(--color- * -50);
-      border-color: --value(--color- * -50);
+      background-color: --value(--color-*-50);
+      border-color: --value(--color-*-50);
 
       @variant hover-active {
         @apply xds:bg-transparent;
-        color: --value(--color- * -50);
+        color: --value(--color-*-50);
       }
     }
   }
 
   &.xds\:button-ghost {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-*-50);
 
     @variant hover-active {
       @apply xds:border-transparent xds:bg-transparent xds:text-neutral-100;
     }
 
     &:hover {
-      @apply xds:bg-neutral-10 xds:border-neutral-10;
-      color: --value(--color- * -75);
+      @apply xds:border-neutral-10 xds:bg-neutral-10;
+      color: --value(--color-*-75);
     }
 
     @variant selected {
-      @apply xds:bg-neutral-10 xds:border-neutral-10;
-      color: --value(--color- * -75);
+      @apply xds:border-neutral-10 xds:bg-neutral-10;
+      color: --value(--color-*-75);
 
       @variant hover-active {
-        @apply xds:bg-neutral-25 xds:border-neutral-25;
-        color: --value(--color- * -75);
+        @apply xds:border-neutral-25 xds:bg-neutral-25;
+        color: --value(--color-*-75);
       }
     }
   }
 
   &.xds\:button-tight {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-*-50);
 
     @variant hover-active {
-      @apply xds:bg-transparent xds:border-0;
-      color: --value(--color- * -75);
+      @apply xds:border-0 xds:bg-transparent;
+      color: --value(--color-*-75);
     }
 
     @variant selected {
-      @apply xds:bg-transparent xds:border-0;
-      color: --value(--color- * -75);
+      @apply xds:border-0 xds:bg-transparent;
+      color: --value(--color-*-75);
 
       @variant hover-active {
-        @apply xds:bg-transparent xds:border-0;
-        color: --value(--color- * -50);
+        @apply xds:border-0 xds:bg-transparent;
+        color: --value(--color-*-50);
       }
     }
   }
 
   &.xds\:button-link {
     @apply xds:border-0 xds:bg-transparent;
-    color: --value(--color- * -50);
+    color: --value(--color-*-50);
 
     @variant hover-active {
-      @apply xds:bg-transparent xds:border-0;
-      color: --value(--color- * -75);
+      @apply xds:border-0 xds:bg-transparent;
+      color: --value(--color-*-75);
     }
 
     @variant selected {
-      @apply xds:bg-transparent xds:border-0;
-      color: --value(--color- * -75);
+      @apply xds:border-0 xds:bg-transparent;
+      color: --value(--color-*-75);
 
       @variant hover-active {
-        @apply xds:bg-transparent xds:border-0;
-        color: --value(--color- * -50);
+        @apply xds:border-0 xds:bg-transparent;
+        color: --value(--color-*-50);
       }
     }
   }

@@ -1,11 +1,14 @@
+/* Base */
 @utility picture {
   @apply xds:block xds:aspect-ratio-default xds:overflow-hidden;
 }
 
+/* Image */
 @utility picture-image {
-  @apply xds:aspect-ratio-default xds:object-contain xds:w-full xds:h-full;
+  @apply xds:aspect-ratio-default xds:h-full xds:w-full xds:object-contain;
 }
 
+/* Zoom */
 @utility picture-zoom {
   & > .xds\:picture-image {
     @apply xds:transition-transform xds:duration-300 xds:ease-out;
@@ -16,6 +19,7 @@
   }
 }
 
+/* Overlay */
 @utility picture-overlay {
   &:hover {
     @apply xds:mix-blend-multiply;

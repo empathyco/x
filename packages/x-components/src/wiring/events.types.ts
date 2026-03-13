@@ -58,7 +58,8 @@ import type { WireMetadata } from './wiring.types'
  * @public
  */
 export interface XEventsTypes
-  extends DeviceXEvents,
+  extends
+    DeviceXEvents,
     EmpathizeXEvents,
     ExtraParamsXEvents,
     FacetsXEvents,

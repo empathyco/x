@@ -41,18 +41,18 @@
         <button class="xds:button xds:button-tight xds:button-warning">BUTTON 3</button>
       </div>
       <div class="xds:button-group" :class="{ 'xds:rounded-xl': row === 'rounded' }">
-        <button class="xds:button xds:button-highlight xds:button-circle">
+        <button class="xds:button xds:button-circle xds:button-highlight">
           <PlusIcon class="xds:icon" />
         </button>
-        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">
+        <button class="xds:button xds:button-square xds:button-ghost xds:button-success">
           <PlusIcon class="xds:icon" />
         </button>
       </div>
       <div class="xds:button-group" :class="{ 'xds:rounded-xl': row === 'rounded' }">
-        <button class="xds:button xds:button-highlight xds:button-square">
+        <button class="xds:button xds:button-square xds:button-highlight">
           <PlusIcon class="xds:icon" />
         </button>
-        <button class="xds:button xds:button-ghost xds:button-success xds:button-square">
+        <button class="xds:button xds:button-square xds:button-ghost xds:button-success">
           <PlusIcon class="xds:icon" />
         </button>
       </div>
