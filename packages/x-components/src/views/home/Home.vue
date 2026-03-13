@@ -7,7 +7,7 @@
     <SnippetCallbacks />
     <ExperienceControls />
     <OpenMainModal>Start</OpenMainModal>
-    <h1 class="xds:text-lead-50 xds:text-4xl xds:font-bold xds:leading-normal">Test controls</h1>
+    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold xds:text-lead-50">Test controls</h1>
     <ul class="x-test-controls xds:flex xds:flex-col xds:gap-16">
       <li class="x-test-controls__item">
         <label for="searchInput.instant">
@@ -99,13 +99,13 @@
       </li>
     </ul>
     <hr class="xds:mt-10" />
-    <h1 class="xds:text-lead-50 xds:text-4xl xds:font-bold xds:leading-normal">Teleport test</h1>
+    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold xds:text-lead-50">Teleport test</h1>
     <div id="teleport-here"></div>
     <MainModal :animation="modalAnimation" :reference-selector="referenceSelector">
       <MultiColumnMaxWidthLayout class="xds:bg-neutral-0">
         <template #header-middle>
           <div
-            class="xds:flex xds:flex-col xds:gap-16 xds:items-stretch xds:flex-auto"
+            class="xds:flex xds:flex-auto xds:flex-col xds:items-stretch xds:gap-16"
             :data-test="`main-scroll-${mainScrollDirection}`"
           >
             <div class="x-input-group x-input-group-lead xds:rounded-sm">
@@ -221,7 +221,7 @@
           <!--  Redirection  -->
           <Redirection
             v-slot="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="xds:p-28 xds:flex xds:flex-col xds:gap-8 xds:items-center xds:bg-lead-25 xds:my-8"
+            class="xds:my-8 xds:flex xds:flex-col xds:items-center xds:gap-8 xds:bg-lead-25 xds:p-28"
             :delay-in-seconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
@@ -245,7 +245,7 @@
             <!--  No Results Message  -->
             <div
               v-if="x.noResults && !x.fromNoResultsWithFilters"
-              class="xds:p-28 xds:flex xds:flex-col xds:gap-8 xds:items-center xds:bg-lead-25 xds:my-8"
+              class="xds:my-8 xds:flex xds:flex-col xds:items-center xds:gap-8 xds:bg-lead-25 xds:p-28"
               data-test="no-results-message"
             >
               <p>
@@ -276,7 +276,7 @@
                 </template>
                 <template #extra-content>
                   <button
-                    class="xds:bg-lead-50 xds:absolute xds:bottom-0 xds:right-0 xds:translate-y-full"
+                    class="xds:absolute xds:right-0 xds:bottom-0 xds:translate-y-full xds:bg-lead-50"
                   >
                     extra content
                   </button>
@@ -285,7 +285,7 @@
             </LocationProvider>
             <template v-if="!x.query.searchBox">
               <!-- Brand Recommendations -->
-              <h1 class="xds:mb-16 x-title1">Brand Recommendations</h1>
+              <h1 class="x-title1 xds:mb-16">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   v-slot="{ queryPreviewInfo, totalResults, results, displayTagging, queryTagging }"
@@ -299,9 +299,9 @@
                     :payload="displayTagging"
                     :event-metadata="{ feature: 'customer', replaceable: false }"
                   >
-                    <div class="xds:flex xds:flex-col xds:gap-8 xds:mb-16">
+                    <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
                       <QueryPreviewButton
-                        class="xds:w-fit x-button-xl x-button-ghost"
+                        class="x-button-xl x-button-ghost xds:w-fit"
                         :query-preview-info="queryPreviewInfo"
                         :metadata="{ feature: 'customer' }"
                       >
@@ -394,7 +394,7 @@
                               <NextQuery
                                 :suggestion="nextQueries[0]"
                                 data-test="view-all-results"
-                                class="x-button x-button-outlined xds:rounded-full xds:mx-auto xds:mt-8 xds:mb-24"
+                                class="x-button x-button-outlined xds:mx-auto xds:mt-8 xds:mb-24 xds:rounded-full"
                               >
                                 {{ 'View all results' }}
                               </NextQuery>
@@ -404,7 +404,7 @@
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
                               button-class="x-button-lead x-button-circle x-button-ghost xds:p-0"
-                              class="xds:mb-1 xds:mt-24 desktop:xds:mt-0 xds:p-0 xds:h-[70px]"
+                              class="desktop:xds:mt-0 xds:mt-24 xds:mb-1 xds:h-[70px] xds:p-0"
                               tag-class="xds:rounded-xl xds:gap-8 xds:w-[300px] xds:max-w-[400px]"
                               :tag-colors="[
                                 'xds:bg-amber-300',
@@ -439,7 +439,7 @@
                                 :queries-preview-info="relatedPromptsQueriesPreviewInfo"
                                 query-feature="related_prompts"
                               >
-                                <div class="xds:flex xds:flex-col xds:gap-8 xds:mb-16">
+                                <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
                                   <QueryPreviewButton
                                     :query-preview-info="queryPreviewInfo"
                                     class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:xds:px-16"
@@ -502,7 +502,7 @@
                     query-feature="semantics"
                   >
                     <div
-                      class="xds:flex xds:flex-col xds:gap-8 xds:mb-16"
+                      class="xds:mb-16 xds:flex xds:flex-col xds:gap-8"
                       data-test="semantic-query-preview"
                       :data-query="query"
                     >
