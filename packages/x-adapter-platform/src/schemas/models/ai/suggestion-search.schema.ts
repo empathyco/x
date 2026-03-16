@@ -19,6 +19,6 @@ export const aiSuggestionSearchSchema = createMutableSchema<
   },
   numFound: 'numFound',
   tagging: ({ tagging }) => ({
-    query: getTaggingInfoFromUrl(tagging.query),
+    query: getTaggingInfoFromUrl(tagging?.query ?? ''),
   }),
 })
