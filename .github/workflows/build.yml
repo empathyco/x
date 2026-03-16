@@ -18,7 +18,7 @@ jobs:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # Only for internal contributors or when secrets are available
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         if: ${{ vars.GH_TOKENS_APP_ID != '' }}
         id: app-token
         with:
