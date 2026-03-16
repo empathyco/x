@@ -1,10 +1,9 @@
 import type { Dictionary } from '@empathyco/x-utils'
 import type { CustomInspectorNode, DevtoolsPluginApi, InspectorNodeTag } from '@vue/devtools-api'
-import type { XEvent } from '../../../src/wiring/events.types'
-import type { AnyWire, Wiring } from '../../../src/wiring/wiring.types'
-import type { XModuleName } from '../../../src/x-modules/x-modules.types'
+import type { AnyWire, Wiring, XEvent } from '@x/wiring'
+import type { XModuleName } from '@x/x-modules/x-modules.types'
 import { forEach, reduce } from '@empathyco/x-utils'
-import { filter } from '../../../src/wiring/wires.operators'
+import { filter } from '@x/wiring'
 import { hslToHex, moduleColors } from './colors.utils'
 
 /** The full list of wiring nodes for the inspector. */

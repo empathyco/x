@@ -31,11 +31,11 @@
 </template>
 
 <script lang="ts">
+import { BaseColumnPickerDropdown } from '@x/components'
+import { useXBus } from '@x/composables'
+import { HistoryQueriesSwitch } from '@x/x-modules/history-queries'
+import { SortDropdown } from '@x/x-modules/search'
 import { defineComponent, onMounted } from 'vue'
-import BaseColumnPickerDropdown from '../../../src/components/column-picker/base-column-picker-dropdown.vue'
-import { useXBus } from '../../../src/composables/use-x-bus'
-import HistoryQueriesSwitch from '../../../src/x-modules/history-queries/components/history-queries-switch.vue'
-import SortDropdown from '../../../src/x-modules/search/components/sort-dropdown.vue'
 
 export default defineComponent({
   name: 'AccessibilityCheck',

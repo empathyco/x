@@ -25,10 +25,9 @@
 <script lang="ts">
 import type { NextQuery as NextQueryModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import { SlidingPanel } from '@x/components'
+import { NextQuery, NextQueryPreview } from '@x/x-modules/next-queries'
 import { defineComponent } from 'vue'
-import SlidingPanel from '../../../src/components/sliding-panel.vue'
-import NextQueryPreview from '../../../src/x-modules/next-queries/components/next-query-preview.vue'
-import NextQuery from '../../../src/x-modules/next-queries/components/next-query.vue'
 import Result from './result.vue'
 
 export default defineComponent({

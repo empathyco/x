@@ -1,8 +1,8 @@
 import type { InspectorNodeTag } from '@vue/devtools-api'
-import type { XModuleState } from '../../../src/store/x.module'
-import type { XModuleName } from '../../../src/x-modules/x-modules.types'
+import type { XModuleState } from '@x/store'
+import type { XModuleName } from '@x/x-modules/x-modules.types'
 import { map } from '@empathyco/x-utils'
-import { RootXStoreModule } from '../../../src/store/x.module'
+import { RootXStoreModule } from '@x/store/x.module'
 
 /** Unique text and background colors for each module. */
 type ModuleColors = Record<XModuleName, Pick<InspectorNodeTag, 'textColor' | 'backgroundColor'>>
@@ -21,7 +21,7 @@ export const moduleColors = createModuleColors()
 function createModuleColors(): ModuleColors {
   const xState = (RootXStoreModule.state as () => XModuleState)()
   const modulesCount = Object.keys(xState).length
-  return map(xState, (moduleName, _, index) => {
+  return map(xState, (_moduleName, _, index) => {
     const hue = Math.trunc((index * 360) / modulesCount)
     return {
       textColor: hslToHex(hue, 30, 97.5),

@@ -8,6 +8,9 @@
     "rootDirs": ["src", "demo"],
     "module": "esnext",
     "moduleResolution": "node",
+    "paths": {
+      "@x/*": ["src/*"] // For demo purposes
+    },
     "types": ["vitest/globals", "node"],
     "strict": true,
     "declaration": true,

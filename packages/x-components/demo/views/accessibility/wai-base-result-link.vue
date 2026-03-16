@@ -20,12 +20,14 @@
 </template>
 
 <script lang="ts">
+import { createResultStub } from '@x/__stubs__'
+import {
+  BaseResultCurrentPrice,
+  BaseResultImage,
+  BaseResultLink,
+  BaseResultPreviousPrice,
+} from '@x/components'
 import { defineComponent } from 'vue'
-import { createResultStub } from '../../../src/__stubs__'
-import BaseResultCurrentPrice from '../../../src/components/result/base-result-current-price.vue'
-import BaseResultImage from '../../../src/components/result/base-result-image.vue'
-import BaseResultLink from '../../../src/components/result/base-result-link.vue'
-import BaseResultPreviousPrice from '../../../src/components/result/base-result-previous-price.vue'
 
 export default defineComponent({
   name: 'AccessibilityCheck',

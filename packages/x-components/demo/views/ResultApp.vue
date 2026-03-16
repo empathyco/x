@@ -57,14 +57,15 @@
 </template>
 
 <script lang="ts">
+import { getResultsStub, getSearchResponseStub } from '@x/__stubs__'
+import {
+  BaseColumnPickerList,
+  BaseRating,
+  BaseResultImage,
+  BaseVariableColumnGrid,
+  StaggeredFadeAndSlide,
+} from '@x/components'
 import { defineComponent } from 'vue'
-import { getResultsStub } from '../../src/__stubs__/results-stubs.factory'
-import { getSearchResponseStub } from '../../src/__stubs__/search-response-stubs.factory'
-import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue'
-import BaseRating from '../../src/components/base-rating.vue'
-import BaseVariableColumnGrid from '../../src/components/base-variable-column-grid.vue'
-import BaseColumnPickerList from '../../src/components/column-picker/base-column-picker-list.vue'
-import BaseResultImage from '../../src/components/result/base-result-image.vue'
 
 export default defineComponent({
   components: {

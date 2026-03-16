@@ -14,9 +14,9 @@
       </BaseResultImage>
     </BaseResultLink>
     <div>
-      <BaseResultAddToCart :result="result" data-test="add-to-cart">
+      <BaseAddToCart :result="result" data-test="add-to-cart">
         <span>Add to cart</span>
-      </BaseResultAddToCart>
+      </BaseAddToCart>
     </div>
     <div class="x-result__description">
       <BaseResultRating :result="result" :max="5" link="#" class="x-text1 x-text1-sm">
@@ -33,17 +33,19 @@
 <script lang="ts">
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import { CrossFade } from '@x/components'
+import {
+  BaseAddToCart,
+  BaseResultImage,
+  BaseResultLink,
+  BaseResultRating,
+} from '@x/components/result'
 import { defineComponent } from 'vue'
-import CrossFade from '../../../src/components/animations/cross-fade.vue'
-import BaseResultAddToCart from '../../../src/components/result/base-result-add-to-cart.vue'
-import BaseResultImage from '../../../src/components/result/base-result-image.vue'
-import BaseResultLink from '../../../src/components/result/base-result-link.vue'
-import BaseResultRating from '../../../src/components/result/base-result-rating.vue'
 
 export default defineComponent({
   name: 'Result',
   components: {
-    BaseResultAddToCart,
+    BaseAddToCart,
     BaseResultLink,
     BaseResultRating,
     BaseResultImage,

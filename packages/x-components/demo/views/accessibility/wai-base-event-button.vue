@@ -27,9 +27,9 @@
 
       <div>
         <h1>BaseResultAddToCart</h1>
-        <BaseResultAddToCart :result="{ id: 1, modelName: 'Result' }">
+        <BaseAddToCart :result="{ id: 1, modelName: 'Result' }">
           <img src="https://picsum.photos/seed/200/50/50" alt="Add to cart" />
-        </BaseResultAddToCart>
+        </BaseAddToCart>
       </div>
 
       <div>
@@ -40,9 +40,9 @@
             <AllFilter :facet="facetBinding">
               {{ facetBinding.label }}
             </AllFilter>
-            <Filters v-slot="{ filter }" :filters="facetBinding.filters">
+            <FiltersList v-slot="{ filter }" :filters="facetBinding.filters">
               <SimpleFilter :filter="filter" />
-            </Filters>
+            </FiltersList>
           </template>
         </Facets>
         <ClearFilters />
@@ -74,26 +74,28 @@
 </template>
 
 <script lang="ts">
+import { getSimpleFacetStub } from '@x/__stubs__'
+import {
+  BaseAddToCart,
+  BaseColumnPickerList,
+  BaseEventsModal,
+  BaseEventsModalClose,
+  BaseEventsModalOpen,
+  BaseIdTogglePanel,
+  BaseIdTogglePanelButton,
+} from '@x/components'
+import {
+  AllFilter,
+  ClearFilters,
+  Facets,
+  FacetsProvider,
+  FiltersList,
+  SimpleFilter,
+} from '@x/x-modules/facets'
+import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
+import { Scroll, ScrollToTop } from '@x/x-modules/scroll'
+import { SearchInput } from '@x/x-modules/search-box'
 import { defineComponent } from 'vue'
-import { getSimpleFacetStub } from '../../../src/__stubs__'
-import BaseColumnPickerList from '../../../src/components/column-picker/base-column-picker-list.vue'
-import BaseEventsModalClose from '../../../src/components/modals/base-events-modal-close.vue'
-import BaseEventsModalOpen from '../../../src/components/modals/base-events-modal-open.vue'
-import BaseEventsModal from '../../../src/components/modals/base-events-modal.vue'
-import BaseIdTogglePanelButton from '../../../src/components/panels/base-id-toggle-panel-button.vue'
-import BaseIdTogglePanel from '../../../src/components/panels/base-id-toggle-panel.vue'
-import BaseResultAddToCart from '../../../src/components/result/base-result-add-to-cart.vue'
-import ClearFilters from '../../../src/x-modules/facets/components/clear-filters.vue'
-import FacetsProvider from '../../../src/x-modules/facets/components/facets/facets-provider.vue'
-import Facets from '../../../src/x-modules/facets/components/facets/facets.vue'
-import AllFilter from '../../../src/x-modules/facets/components/filters/all-filter.vue'
-import SimpleFilter from '../../../src/x-modules/facets/components/filters/simple-filter.vue'
-import Filters from '../../../src/x-modules/facets/components/lists/filters-list.vue'
-import ClearHistoryQueries from '../../../src/x-modules/history-queries/components/clear-history-queries.vue'
-import HistoryQueries from '../../../src/x-modules/history-queries/components/history-queries.vue'
-import ScrollToTop from '../../../src/x-modules/scroll/components/scroll-to-top.vue'
-import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
-import SearchInput from '../../../src/x-modules/search-box/components/search-input.vue'
 
 export default defineComponent({
   name: 'AccessibilityCheck',
@@ -103,12 +105,12 @@ export default defineComponent({
     BaseEventsModalOpen,
     BaseIdTogglePanel,
     BaseIdTogglePanelButton,
-    BaseResultAddToCart,
+    BaseAddToCart,
     BaseColumnPickerList,
     ClearFilters,
     ClearHistoryQueries,
     Facets,
-    Filters,
+    FiltersList,
     HistoryQueries,
     ScrollToTop,
     Scroll,
