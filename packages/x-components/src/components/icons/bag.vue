@@ -1,5 +1,5 @@
 <template>
-  <svg class="x-icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="xds:icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M1.8 2.29995H6.29995M2.33333 1.19995L1.5 2.29995V6.42561C2.61092 6.42561 4.85446 6.42561 6.5 6.42561V2.29995L5.66667 1.19995H2.33333Z"
       stroke="currentColor"
