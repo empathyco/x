@@ -98,6 +98,9 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  * @param source.1 - Value to clone into the target object.
  */
 function mergeObject(target: any, [key, value]: any): void {
+  if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+    return
+  }
   const mergeBehaviour = getMergeBehaviour(target[key], value)
   if (mergeBehaviour === Behaviour.Replace) {
     target[key] = deepMerge({}, value)

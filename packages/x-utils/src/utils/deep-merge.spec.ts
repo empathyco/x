@@ -180,4 +180,35 @@ describe('deep-merge.ts', () => {
     deepMerge(target, { a: { a1: 'h1' } })
     expect(target).toEqual({ a: { a1: 'h1' } })
   })
+
+  describe('deep-merge Prototype Pollution', () => {
+    it('prevents prototype pollution with __proto__ key', () => {
+      const malicious = JSON.parse('{"__proto__":{"role":"admin"}}')
+      deepMerge({}, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
+
+    it('prevents nested prototype pollution', () => {
+      const malicious = JSON.parse('{"nested":{"__proto__":{"role":"admin"}}}')
+      const target = { nested: {} }
+      deepMerge(target, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
+
+    it('prevents prototype pollution with constructor key', () => {
+      const malicious = JSON.parse('{"constructor":{"role":"admin"}}')
+      deepMerge({}, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
+
+    it('prevents prototype pollution with prototype key', () => {
+      const malicious = JSON.parse('{"prototype":{"role":"admin"}}')
+      deepMerge({}, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
+  })
 })
