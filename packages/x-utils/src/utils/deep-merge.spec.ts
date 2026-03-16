@@ -181,36 +181,34 @@ describe('deep-merge.ts', () => {
     expect(target).toEqual({ a: { a1: 'h1' } })
   })
 
-  it('prevents prototype pollution with __proto__ key', () => {
-    const target = {}
-    const source = { __proto__: { polluted: true } }
-    deepMerge(target, source)
-    const obj = {}
-    expect(obj).not.toHaveProperty('polluted')
-    expect((obj as any).polluted).toBeUndefined()
-  })
+  describe('deep-merge Prototype Pollution', () => {
+    it('prevents prototype pollution with __proto__ key', () => {
+      const malicious = JSON.parse('{"__proto__":{"role":"admin"}}')
+      deepMerge({}, malicious)
 
-  it('prevents prototype pollution with constructor key', () => {
-    const target = {}
-    const source = { constructor: { polluted: true } }
-    deepMerge(target, source)
-    const obj = {}
-    expect((obj as any).polluted).toBeUndefined()
-  })
+      expect(({} as any).role).toBeUndefined()
+    })
 
-  it('prevents prototype pollution with prototype key', () => {
-    const target = {}
-    const source = { prototype: { polluted: true } }
-    deepMerge(target, source)
-    const obj = {}
-    expect((obj as any).polluted).toBeUndefined()
-  })
+    it('prevents nested prototype pollution', () => {
+      const malicious = JSON.parse('{"nested":{"__proto__":{"role":"admin"}}}')
+      const target = { nested: {} }
+      deepMerge(target, malicious)
 
-  it('prevents nested prototype pollution', () => {
-    const target = { nested: {} }
-    const source = { nested: { __proto__: { polluted: true } } }
-    deepMerge(target, source)
-    const obj = {}
-    expect((obj as any).polluted).toBeUndefined()
+      expect(({} as any).role).toBeUndefined()
+    })
+
+    it('prevents prototype pollution with constructor key', () => {
+      const malicious = JSON.parse('{"constructor":{"role":"admin"}}')
+      deepMerge({}, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
+
+    it('prevents prototype pollution with prototype key', () => {
+      const malicious = JSON.parse('{"prototype":{"role":"admin"}}')
+      deepMerge({}, malicious)
+
+      expect(({} as any).role).toBeUndefined()
+    })
   })
 })

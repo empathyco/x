@@ -77,9 +77,6 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
  * @returns The target object updated with the entry parameter.
  */
 function cloneObjectProperties(target: any, [key, value]: any): any {
-  if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
-    return target
-  }
   if (value === undefined) {
     delete target[key]
   } else if (isObject(value)) {
