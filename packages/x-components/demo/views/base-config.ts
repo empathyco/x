@@ -1,5 +1,5 @@
-import type { SnippetConfig } from '../x-installer/api/api.types'
-import type { InstallXOptions } from '../x-installer/types'
+import type { SnippetConfig } from '../../src/x-installer/api/api.types'
+import type { InstallXOptions } from '../../src/x-installer/types'
 import { adapter } from './adapter'
 
 export const baseSnippetConfig: SnippetConfig = {
