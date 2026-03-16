@@ -1,13 +1,13 @@
 <template>
   <button
     ref="buttonRef"
-    class="x-search-button x-button"
+    class="x:search-button xds:button"
     :class="dynamicClasses"
     data-test="search-button"
     @click="emitEvents"
   >
     <!-- @slot _Required_. Button content (text, icon, or both) -->
-    <slot><span class="x-icon">⌕</span></slot>
+    <slot><span class="xds:icon">⌕</span></slot>
   </button>
 </template>
 
@@ -25,7 +25,7 @@ import { searchBoxXModule } from '../x-module'
  * @remarks
  * If query is not empty, it emits {@link XEventsTypes.UserAcceptedAQuery} and
  * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload.
- * It also adds `x-search-button--has-empty-query` as class when there is no query.
+ * It also adds `x:search-button--has-empty-query` as class when there is no query.
  *
  * @public
  */
@@ -42,7 +42,7 @@ export default defineComponent({
     const isQueryEmpty = computed(() => query.value.length === 0)
 
     const dynamicClasses = computed<VueCSSClasses>(() => ({
-      'x-search-button--has-empty-query': isQueryEmpty.value,
+      'x:search-button--has-empty-query': isQueryEmpty.value,
     }))
 
     /**

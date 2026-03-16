@@ -108,8 +108,8 @@
             class="xds:flex xds:flex-auto xds:flex-col xds:items-stretch xds:gap-16"
             :data-test="`main-scroll-${mainScrollDirection}`"
           >
-            <div class="x-input-group x-input-group-lead xds:rounded-sm">
-              <div class="x-input x-search-input-placeholder-container xds:flex">
+            <div class="xds:input-group xds:rounded-sm xds:input-group-lead">
+              <div class="x-search-input-placeholder-container xds:flex xds:input">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
@@ -118,7 +118,7 @@
                 />
               </div>
               <ClearSearchInput
-                class="x-input-group-button x-input-group-button-rectangle"
+                class="xds:input-group-button xds:input-group-button-rectangle"
                 aria-label="Clear query"
               >
                 Clear

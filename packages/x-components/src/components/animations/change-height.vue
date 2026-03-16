@@ -1,5 +1,5 @@
 <template>
-  <div class="x-change-height">
+  <div class="x:change-height">
     <div ref="wrapper">
       <slot />
     </div>
@@ -40,8 +40,9 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
-.x-change-height {
+.x\:change-height {
   --x-change-height-duration: 0.3s;
   overflow: hidden;
   transition: all var(--x-change-height-duration) ease-out;

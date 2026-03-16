@@ -4,7 +4,7 @@
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
-    class="x-search-input x-input"
+    class="x:search-input xds:input"
     enterkeyhint="search"
     inputmode="search"
     type="search"
@@ -278,10 +278,10 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-.x-search-input::-webkit-search-decoration,
-.x-search-input::-webkit-search-cancel-button,
-.x-search-input::-webkit-search-results-button,
-.x-search-input::-webkit-search-results-decoration {
+.x\:search-input::-webkit-search-decoration,
+.x\:search-input::-webkit-search-cancel-button,
+.x\:search-input::-webkit-search-results-button,
+.x\:search-input::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 </style>

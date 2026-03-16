@@ -2,7 +2,7 @@
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    class="x-result-picture x-picture"
+    class="x:result-picture xds:picture"
     data-test="result-picture"
     @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
@@ -13,14 +13,14 @@
       loading="lazy"
       :src="pendingImages[0]"
       :style="loaderStyles"
-      class="x-picture-image"
+      class="xds:picture-image"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
       @load="flagImageLoaded"
       @error="flagImageAsFailed"
     />
-    <component :is="animation" class="x-picture-image" :appear="false">
+    <component :is="animation" class="xds:picture-image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 
@@ -32,7 +32,7 @@
         :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
-        class="x-result-picture-image"
+        class="x:result-picture-image"
         data-test="result-picture-image"
       />
     </component>
@@ -219,13 +219,13 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-.x-result-picture {
+.x\:result-picture {
   position: relative;
   min-width: 1px;
   min-height: 1px;
 }
 
-.x-result-picture-image {
+.x\:result-picture-image {
   max-width: 100%;
   max-height: 100%;
 }

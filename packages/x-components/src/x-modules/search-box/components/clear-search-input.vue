@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-clear-search-input x-button"
+    class="x:clear-search-input xds:button"
     :class="dynamicClasses"
     :events="clearSearchInputEvents"
     data-test="clear-search-input"
@@ -24,7 +24,7 @@ import { searchBoxXModule } from '../x-module'
  * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
  * and {@link SearchBoxXEvents.UserClearedQuery} events, expressing the user intention to clear
  * the current query.
- * It also adds `x-clear-search-input--has-empty-query` as class when there is no query.
+ * It also adds `x:clear-search-input--has-empty-query` as class when there is no query.
  *
  * @public
  */
@@ -35,19 +35,10 @@ export default defineComponent({
   setup() {
     const { query } = useState('searchBox')
 
-    /**
-     * The events dictionary that are going to be emitted when the button is pressed.
-     *
-     * @internal
-     */
-    const clearSearchInputEvents = ref({
-      UserPressedClearSearchBoxButton: undefined,
-    })
-
-    const isQueryEmpty = computed(() => query.value.length === 0)
+    const clearSearchInputEvents = ref({ UserPressedClearSearchBoxButton: undefined })
 
     const dynamicClasses = computed<VueCSSClasses>(() => ({
-      'x-clear-search-input--has-empty-query': isQueryEmpty.value,
+      'x:clear-search-input--has-empty-query': query.value.length === 0,
     }))
 
     return {

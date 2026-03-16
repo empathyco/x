@@ -2,7 +2,7 @@
   <component
     :is="animation"
     v-if="isVisible"
-    class="x-input-placeholder x-search-input-placeholder"
+    class="x:search-input-placeholder xds:input-placeholder"
     mode="out-in"
   >
     <span :key="message" data-test="search-input-placeholder">
@@ -231,13 +231,13 @@ export default defineComponent({
 </script>
 
 <style lang="css">
-.x-search-input-placeholder-container {
+.x\:search-input-placeholder-container {
   position: relative;
 }
 </style>
 
 <style lang="css" scoped>
-.x-search-input-placeholder {
+.x\:search-input-placeholder {
   position: absolute;
   inset: 0;
   display: flex;
