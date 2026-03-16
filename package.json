@@ -21,9 +21,9 @@
   "devDependencies": {
     "@empathyco/eslint-config": "1.10.31",
     "colors": "1.4.0",
-    "conventional-changelog-conventionalcommits": "9.1.0",
+    "conventional-changelog-conventionalcommits": "9.3.0",
     "husky": "8.0.3",
-    "lerna": "9.0.4"
+    "lerna": "9.0.7"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {
