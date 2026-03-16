@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.0-alpha.21 (2026-03-16)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
 ## 8.1.0-alpha.20 (2026-03-13)
 
 * Make `eslint-config` & `prettier` great again (#2049) ([6f6ca7e](https://github.com/empathyco/x/commit/6f6ca7e)), closes [#2049](https://github.com/empathyco/x/issues/2049)

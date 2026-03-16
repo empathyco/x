@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3-alpha.16 (2026-03-16)</small>
+
+* fix: prevent prototype pollution in deepMerge (CWE-1321) (#2050) ([f9cb2c2](https://github.com/empathyco/x/commit/f9cb2c2)), closes [#2050](https://github.com/empathyco/x/issues/2050)
+
+
+
+
+
 ## <small>1.0.3-alpha.15 (2026-03-05)</small>
 
 - feat(x-utils): move storage-service package into x-util ([a37045c](https://github.com/empathyco/x/commit/a37045c))

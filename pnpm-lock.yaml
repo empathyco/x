@@ -27,7 +27,7 @@ importers:
   packages/x-adapter:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
     devDependencies:
       '@vitest/coverage-v8':
@@ -46,13 +46,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.20
+        specifier: 8.1.0-alpha.21
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.49
+        specifier: 10.1.0-alpha.50
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -77,7 +77,7 @@ importers:
   packages/x-archetype-utils:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
       vue-i18n:
         specifier: ~9.14.5
@@ -114,16 +114,16 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.20
+        specifier: 8.1.0-alpha.21
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.57
+        specifier: 1.1.0-alpha.58
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.49
+        specifier: 10.1.0-alpha.50
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.6.4
@@ -157,7 +157,7 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(@babel/core@7.29.0)
       '@empathyco/x-tailwindcss':
-        specifier: 2.0.0-alpha.33
+        specifier: 2.0.0-alpha.34
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.29.2
@@ -297,7 +297,7 @@ importers:
   packages/x-tailwindcss:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
       tslib:
         specifier: ~2.8.1
@@ -343,10 +343,10 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.20
+        specifier: 8.1.0-alpha.21
         version: link:../x-adapter
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.15
+        specifier: 1.0.3-alpha.16
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -1850,6 +1850,7 @@ packages:
   '@lerna/create@9.0.4':
     resolution: {integrity: sha512-WxedGD98G8/a6HztCXNWquaM0x17oSvfvuqDsLxNNX1qXGyrzmMUmd1mQikF/47uy80X6qyWdaRtaAHlwkvEUA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: This package is an implementation detail of Lerna and is no longer published separately.
 
   '@microsoft/api-documenter@7.29.2':
     resolution: {integrity: sha512-6yO8mxwUyKwk8p3X0uKC3nMLpB7AEmN+KcCBlmuWZxn57jERWzsumBO7KQsW7q+AxzRJp18vwFNekUY4Lwqbyw==}
