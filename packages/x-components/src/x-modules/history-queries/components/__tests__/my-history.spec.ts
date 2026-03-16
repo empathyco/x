@@ -12,10 +12,10 @@ import {
   createHistoryQueries,
   createHistoryQuery,
 } from '../../../../__stubs__/history-queries-stubs.factory'
+import { snippetConfigStub } from '../../../../__stubs__/snippet-config.stub'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueryComponent from '../history-query.vue'
 import MyHistory from '../my-history.vue'
@@ -111,7 +111,7 @@ describe('testing MyHistory component', () => {
     }
     const { findAllInWrapper } = renderMyHistory({
       historyQueries,
-      snippetConfig: { ...baseSnippetConfig, lang: 'en' },
+      snippetConfig: snippetConfigStub,
     })
 
     await nextTick()

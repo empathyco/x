@@ -41,10 +41,10 @@
     "node": ">=22"
   },
   "scripts": {
-    "serve": "vite",
-    "preview": "vite build && vite preview",
+    "serve:demo": "vite demo",
+    "build:demo": "vite build demo",
+    "preview:demo": "pnpm run build:demo && vite preview demo",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
-    "build:website": "vite build",
     "postbuild": "pnpm pack --pack-destination ..",
     "gen:docs": "rm -rf docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
@@ -55,11 +55,11 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "vitest run",
     "test:unit": "vitest run",
     "test:unit-coverage": "vitest run --coverage",
     "test:unit-watch": "vitest",
     "test:ui": "vitest --ui",
-    "test": "pnpm run test:unit",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
