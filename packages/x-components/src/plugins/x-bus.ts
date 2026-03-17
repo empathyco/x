@@ -1,7 +1,6 @@
 import type { XEventsTypes } from '../wiring/events.types'
 import type { WireMetadata } from '../wiring/wiring.types'
 import { XPriorityBus } from '../x-bus'
-import { logDevtoolsXEvent } from './devtools/timeline.devtools'
 
 /**
  * Default XBus implementation.
@@ -20,5 +19,4 @@ export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
     DataReceived: 256,
     ModuleRegistered: 512,
   },
-  emitCallbacks: [logDevtoolsXEvent],
 })

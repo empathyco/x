@@ -5,9 +5,12 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "rootDir": "src",
+    "rootDirs": ["src", "demo"],
     "module": "esnext",
     "moduleResolution": "node",
+    "paths": {
+      "@x/*": ["src/*"] // For demo purposes
+    },
     "types": ["vitest/globals", "node"],
     "strict": true,
     "declaration": true,
@@ -20,6 +23,13 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "demo/**/*.ts",
+    "demo/**/*.vue",
+    "vitest.config.ts",
+    "vitest-setup.ts"
+  ],
   "exclude": ["node_modules"]
 }

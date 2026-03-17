@@ -1,10 +1,10 @@
-import { xTailwindPlugin, oldDsPlugin } from '@empathyco/x-tailwindcss'
-import { Config } from 'tailwindcss'
-import options from './src/tailwind/plugin-options'
+import type { Config } from 'tailwindcss'
+import { oldDsPlugin, xTailwindPlugin } from '@empathyco/x-tailwindcss'
 
 export default {
   content: [
-    './public/index.html',
+    './demo/public/index.html',
+    './demo/**/*.vue',
     './src/**/*.vue',
     './node_modules/@empathyco/x-tailwindcss/showcase/**/*.js',
   ],
@@ -18,6 +18,6 @@ export default {
       screens: ({ theme }) => theme('x.screens'),
     },
   },
-  plugins: [xTailwindPlugin(options), oldDsPlugin],
+  plugins: [xTailwindPlugin({}), oldDsPlugin],
   important: true,
 } as Config

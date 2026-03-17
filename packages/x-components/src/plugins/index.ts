@@ -1,4 +1,3 @@
-export * from './devtools/devtools.plugin'
 export * from './x-bus'
 export * from './x-emitters'
 export * from './x-plugin'

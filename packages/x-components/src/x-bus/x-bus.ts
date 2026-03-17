@@ -11,7 +11,7 @@ import type {
   XPriorityBusEventMetadata,
   XPriorityQueueNodeData,
 } from './x-bus.types'
-import type { XPriorityQueue } from './x-priority-queue'
+import type { XPriorityQueue } from './x-priority-queue.types'
 import { ReplaySubject } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { BaseXPriorityQueue } from './x-priority-queue'

@@ -4,6 +4,7 @@
 /node_modules
 /coverage
 /dist
+/demo/dist
 /docs
 /temp
 /*.tgz

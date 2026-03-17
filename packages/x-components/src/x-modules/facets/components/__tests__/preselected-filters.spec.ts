@@ -2,10 +2,10 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { defineComponent, h, inject, nextTick, reactive } from 'vue' // Correct imports
+import { defineComponent, h, inject, nextTick, reactive } from 'vue'
+import { snippetConfigStub } from '../../../../__stubs__'
 import { bus } from '../../../../plugins/index'
 import { createRawFilters } from '../../../../utils/filters'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import PreselectedFilters from '../preselected-filters.vue'
 
 function renderPreselectedFilters({
@@ -14,7 +14,7 @@ function renderPreselectedFilters({
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = vi.spyOn(bus, 'emit')
 
-  const snippetConfig = reactive({ ...baseSnippetConfig, filters: snippetFilters })
+  const snippetConfig = reactive({ ...snippetConfigStub, filters: snippetFilters })
 
   const wrapper = mount(PreselectedFilters, {
     global: {
@@ -160,7 +160,7 @@ describe('testing Preselected filters component', () => {
     const wrapperWithTest = mount(PreselectedFilters, {
       global: {
         provide: {
-          snippetConfig: { ...baseSnippetConfig, filters: newFilters },
+          snippetConfig: { ...snippetConfigStub, filters: newFilters },
         },
       },
       props: { filters },

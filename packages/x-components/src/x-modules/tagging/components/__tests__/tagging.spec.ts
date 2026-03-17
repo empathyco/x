@@ -4,10 +4,10 @@ import type { TaggingConfig } from '../../config.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick, reactive } from 'vue'
+import { snippetConfigStub } from '../../../../__stubs__/snippet-config.stub'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import Tagging from '../../../tagging/components/tagging.vue'
 
 function renderTagging({
@@ -27,7 +27,7 @@ function renderTagging({
   productId,
 }: RenderTaggingOptions = {}) {
   const snippetConfig = reactive({
-    ...baseSnippetConfig,
+    ...snippetConfigStub,
     consent: snippetConsent,
     productId,
   })
