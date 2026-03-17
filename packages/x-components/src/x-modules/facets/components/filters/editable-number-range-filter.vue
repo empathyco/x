@@ -31,7 +31,7 @@
       <input
         name="min"
         type="number"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min x-input"
+        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
         :class="inputsClass"
         :value="!isAnyRange ? min : null"
         data-test="range-min"
@@ -42,7 +42,7 @@
       <input
         name="max"
         type="number"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max x-input"
+        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
         :class="inputsClass"
         :value="max"
         data-test="range-max"
@@ -53,7 +53,7 @@
 
       <button
         v-if="!isInstant"
-        class="x-editable-number-range-filter__apply x-button"
+        class="x-editable-number-range-filter__apply xds:button"
         :class="buttonsClass"
         :disabled="hasError"
         data-test="range-apply"
@@ -67,7 +67,7 @@
 
       <button
         v-if="renderClearButton"
-        class="x-editable-number-range-filter__clear x-button"
+        class="x-editable-number-range-filter__clear xds:button"
         :class="buttonsClass"
         data-test="range-clear"
         @click="clearValues"

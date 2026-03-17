@@ -1,10 +1,10 @@
 <template>
   <BaseKeyboardNavigation>
     <Empathize :animation="empathizeAnimation">
-      <div class="x-flex x-gap-24">
+      <div class="xds:flex xds:gap-24">
         <PopularSearches :max-items-to-render="10" />
         <HistoryQueries :max-items-to-render="controls.historyQueries.maxItemsToRender" />
-        <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
+        <ClearHistoryQueries class="xds:button-ghost">
           <CrossTinyIcon />
           <span>Clear previous searches</span>
         </ClearHistoryQueries>
@@ -14,7 +14,7 @@
         <!-- IdentifierResults -->
         <IdentifierResults v-slot="{ identifierResult }">
           <BaseResultLink :result="identifierResult">
-            <article class="x-suggestion">
+            <article class="xds:suggestion">
               <IdentifierResult :result="identifierResult" />
               <span class="x-truncate" data-test="result-text">
                 {{ identifierResult.name }}

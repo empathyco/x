@@ -326,6 +326,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <docs lang="mdx">
 ## Events
 

@@ -157,7 +157,7 @@
       <Fade>
         <div
           v-if="queries.length"
-          class="x-ai-overview-toggle-btn-wrapper x-cursor-pointer"
+          class="x-ai-overview-toggle-btn-wrapper"
           data-test="ai-overview-toggle-button-wrapper"
           @click="!$slots['cta-button'] && emitAndSetExpand(!expanded)"
         >
@@ -417,6 +417,7 @@ export default defineComponent({
 .x-ai-overview-toggle-btn-wrapper {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .x-ai-overview-toggle-btn {

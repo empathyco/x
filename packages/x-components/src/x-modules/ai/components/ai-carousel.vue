@@ -55,7 +55,7 @@
           <template #sliding-panel-right-button>
             <slot name="sliding-panels-right-button" />
           </template>
-          <div class="x-flex x-gap-8">
+          <div class="x-ai-carousel-suggestion">
             <ul class="x-ai-carousel-suggestion-results">
               <DisplayClickProvider
                 v-for="suggestion in suggestionsSearch"
@@ -255,6 +255,12 @@ export default defineComponent({
 .x-ai-carousel-title-button-icon--expanded {
   transform: rotate(180deg);
 }
+
+.x-ai-carousel-suggestion {
+  display: flex;
+  gap: 8px;
+}
+
 .x-ai-carousel-suggestion-results {
   display: flex;
   gap: 1rem;

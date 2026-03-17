@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "7.29.0",
-    "@empathyco/x-design-system": "0.0.2-alpha.21",
+    "@empathyco/x-design-system": "0.0.2-alpha.22",
     "@microsoft/api-documenter": "7.29.7",
     "@microsoft/api-extractor": "7.57.7",
     "@tailwindcss/vite": "4.2.1",

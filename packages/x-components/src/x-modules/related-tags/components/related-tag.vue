@@ -1,7 +1,7 @@
 <template>
   <button
     ref="buttonEl"
-    class="x-tag x-related-tag"
+    class="x-related-tag xds:tag"
     data-test="related-tag"
     :class="dynamicClasses"
     @click="clickRelatedTag"
@@ -145,7 +145,7 @@ export default defineComponent({
      */
     const dynamicClasses = computed(
       (): VueCSSClasses => ({
-        'x-selected x-related-tag--is-selected': isSelected.value,
+        'xds:selected x-related-tag--is-selected': isSelected.value,
         'x-related-tag--is-curated': shouldHighlightCurated.value,
       }),
     )

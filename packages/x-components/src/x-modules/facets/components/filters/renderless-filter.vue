@@ -44,8 +44,8 @@ export default defineComponent({
 
     /** CSS classes to apply to the element. */
     const innerCssClasses = computed(() => [
-      'x-facet-filter',
-      { 'x-selected': props.filter.selected },
+      'xds:filter-facet',
+      { 'xds:selected': props.filter.selected },
       ...props.cssClasses,
     ])
 

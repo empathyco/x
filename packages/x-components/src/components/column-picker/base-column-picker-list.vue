@@ -127,7 +127,7 @@ export default defineComponent({
         column,
         cssClasses: [
           `x-column-picker-list__button--${column}-cols`,
-          { 'x-selected': selectedColumns.value === column },
+          { 'xds:selected': selectedColumns.value === column },
         ],
         isSelected: selectedColumns.value === column,
         events: {

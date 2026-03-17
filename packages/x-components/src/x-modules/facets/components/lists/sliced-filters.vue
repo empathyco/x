@@ -8,7 +8,7 @@
     <template v-if="showButton">
       <button
         v-if="showMoreFilters"
-        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
+        class="x-sliced-filters__button x-sliced-filters__button--show-more xds:filter-facet"
         :class="buttonClass"
         data-test="sliced-filters-show-more-button"
         @click="toggleShowMoreFilters"
@@ -25,7 +25,7 @@
       </button>
       <button
         v-else
-        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
+        class="x-sliced-filters__button x-sliced-filters__button--show-less xds:filter-facet"
         :class="buttonClass"
         data-test="sliced-filters-show-less-button"
         @click="toggleShowMoreFilters"

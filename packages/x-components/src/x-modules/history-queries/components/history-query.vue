@@ -1,5 +1,5 @@
 <template>
-  <div class="x-history-query x-suggestion-group">
+  <div class="x-history-query xds:suggestion-group">
     <!--
       Click on the History Query suggestion
       @event click
@@ -24,7 +24,7 @@
       <slot v-bind="{ ...baseScope }" />
     </BaseSuggestion>
     <RemoveHistoryQuery
-      class="x-history-query__remove x-suggestion-group-button"
+      class="x-history-query__remove xds:suggestion-group-button"
       :class="removeButtonClass"
       :history-query="suggestion"
       data-test="remove-history-query"

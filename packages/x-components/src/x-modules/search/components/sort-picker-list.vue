@@ -72,7 +72,7 @@ export default defineComponent({
       props.items.map(item => ({
         item,
         cssClasses: {
-          'x-selected': item === selectedSort.value,
+          'xds:selected': item === selectedSort.value,
         },
         event: { UserClickedASort: item },
       })),
