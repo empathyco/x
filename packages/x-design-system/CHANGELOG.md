@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-design-system@0.0.2-alpha.21...@empathyco/x-design-system@0.0.2-alpha.22) (2026-03-17)
+
+**Note:** Version bump only for package @empathyco/x-design-system
+
+
+
+
+
 ## <small>0.0.2-alpha.21 (2026-03-13)</small>
 
 * Make `eslint-config` & `prettier` great again (#2049) ([6f6ca7e](https://github.com/empathyco/x/commit/6f6ca7e)), closes [#2049](https://github.com/empathyco/x/issues/2049)

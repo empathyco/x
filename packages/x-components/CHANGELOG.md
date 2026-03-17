@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.224](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.223...@empathyco/x-components@6.0.0-alpha.224) (2026-03-17)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## 6.0.0-alpha.223 (2026-03-17)
 
 * feat(x-component): restructure x-components to extract `demo` from `library` (#2054) ([db104d1](https://github.com/empathyco/x/commit/db104d1)), closes [#2054](https://github.com/empathyco/x/issues/2054)

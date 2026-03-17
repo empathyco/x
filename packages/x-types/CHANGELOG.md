@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.50...@empathyco/x-types@10.1.0-alpha.51) (2026-03-17)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
 ## 10.1.0-alpha.50 (2026-03-16)
 
 **Note:** Version bump only for package @empathyco/x-types
