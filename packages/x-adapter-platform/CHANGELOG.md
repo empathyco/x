@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.0-alpha.59 (2026-03-16)
+
+* fix: handle optional tagging query in suggestion search schema ([b5e7bed](https://github.com/empathyco/x/commit/b5e7bed))
+
+
+
+
+
 ## 1.1.0-alpha.58 (2026-03-16)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

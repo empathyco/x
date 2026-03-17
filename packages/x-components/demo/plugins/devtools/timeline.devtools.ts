@@ -1,7 +1,6 @@
 import type { Dictionary } from '@empathyco/x-utils'
 import type { DevtoolsPluginApi } from '@vue/devtools-api'
-import type { XEvent, XEventPayload } from '../../wiring/events.types'
-import type { WirePayload } from '../../wiring/wiring.types'
+import type { WirePayload, XEvent, XEventPayload } from '@x/wiring'
 import { hslToHex } from './colors.utils'
 
 /**

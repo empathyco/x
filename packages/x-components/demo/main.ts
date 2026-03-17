@@ -1,17 +1,13 @@
 import type { App } from 'vue'
-// eslint-disable-next-line import/no-named-default
-import { default as AppComponent } from './App.vue'
+import { XInstaller } from '@x/x-installer'
+import { FilterEntityFactory, SingleSelectModifier, StickyModifier } from '@x/x-modules/facets'
+import AppComponent from './app.vue'
 import { setupDevtools } from './plugins/devtools/devtools.plugin'
 import router from './router'
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config'
-import { XInstaller } from './x-installer/x-installer/x-installer'
-import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory'
-import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier'
-import { StickyModifier } from './x-modules/facets/entities/sticky.modifier'
 import './tailwind/xds.css'
 
 /* eslint-disable ts/no-unsafe-argument */
-
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier as any)
 FilterEntityFactory.instance.registerModifierByFacetId(
   'brand_facet',
@@ -51,5 +47,4 @@ function initDevtools(app: App): void {
     setupDevtools(app)
   }
 }
-
 /* eslint-enable ts/no-unsafe-argument */

@@ -68,7 +68,7 @@ export const rollupConfig: RollupOptions = {
           declarationDir: typesOutputDir,
           target: 'es2020',
         },
-        exclude: ['node_modules', './src/main.ts', '**/__tests__/**', '**/__stubs__/**'],
+        exclude: ['node_modules', '**/__tests__/**', '**/__stubs__/**', '**/*.spec.ts'],
       },
     }),
     vue3({
@@ -90,7 +90,11 @@ export const rollupConfig: RollupOptions = {
       ],
     }),
     vueDocs,
-    generateEntryFiles({ buildPath, jsOutputDir, typesOutputDir }),
+    generateEntryFiles({
+      buildPath,
+      jsOutputDir,
+      typesOutputDir: path.join(typesOutputDir, 'src'),
+    }),
     apiDocumentation({ buildPath }),
     copy({
       targets: [

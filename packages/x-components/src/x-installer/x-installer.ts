@@ -1,14 +1,14 @@
 import type { App, Plugin } from 'vue'
-import type { XPluginOptions } from '../../plugins/x-plugin.types'
-import type { WireMetadata, XEventsTypes } from '../../wiring/index'
-import type { XBus } from '../../x-bus'
-import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types'
+import type { XPluginOptions } from '../plugins/x-plugin.types'
+import type { WireMetadata, XEventsTypes } from '../wiring/index'
+import type { XBus } from '../x-bus'
+import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api/api.types'
 import type { InitWrapper, InstallXOptions } from './types'
 import { forEach, isFunction } from '@empathyco/x-utils'
 import { createApp, reactive } from 'vue'
-import { bus } from '../../plugins/x-bus'
-import { XPlugin } from '../../plugins/x-plugin'
-import { BaseXAPI } from '../api/base-api'
+import { bus } from '../plugins/x-bus'
+import { XPlugin } from '../plugins/x-plugin'
+import { BaseXAPI } from './api/base-api'
 
 declare global {
   interface Window {

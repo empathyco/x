@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { snippetConfigStub } from '../../__stubs__/snippet-config.stub'
 import { dummyCreateEmitter } from '../../__tests__/bus.dummy'
 import { bus } from '../../plugins/x-bus'
-import { baseSnippetConfig } from '../../views/base-config'
 import SnippetCallbacks from '../snippet-callbacks.vue'
 
 // Making bus not repeat subjects
@@ -12,7 +12,7 @@ function renderSnippetCallbacks({ callbacks = {} } = {}) {
   const wrapper = mount(SnippetCallbacks, {
     global: {
       provide: {
-        snippetConfig: { ...baseSnippetConfig, callbacks },
+        snippetConfig: { ...snippetConfigStub, callbacks },
       },
     },
   })

@@ -108,7 +108,18 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-@import url('../../styles/dev-mode.css');
+.dev-mode .slot-helper {
+  font-family: inherit;
+  color: grey;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: dashed 1px grey;
+  border-radius: 10px;
+}
 
 .x-layout {
   display: grid;

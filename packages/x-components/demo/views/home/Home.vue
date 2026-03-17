@@ -139,7 +139,7 @@
             <!-- Related Tags -->
             <SlidingPanel v-if="x.relatedTags.length">
               <template #sliding-panel-left-button>
-                <ChevronLeft />
+                <ChevronLeftIcon />
               </template>
               <RelatedTags
                 :animation="resultsAnimation"
@@ -147,7 +147,7 @@
                 item-class="x-tag-outlined"
               />
               <template #sliding-panel-right-button>
-                <ChevronRight />
+                <ChevronRightIcon />
               </template>
             </SlidingPanel>
           </div>
@@ -184,8 +184,8 @@
             >
               <template #default="{ column }">
                 <span v-if="column === 0">Auto</span>
-                <Grid2Col v-else-if="column === 2" />
-                <Grid4Col v-else-if="column === 4" />
+                <Grid2ColIcon v-else-if="column === 2" />
+                <Grid4ColIcon v-else-if="column === 4" />
               </template>
 
               <template #divider>
@@ -569,7 +569,7 @@
 
         <template #scroll-to-top>
           <ScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
-            <ChevronUp />
+            <ChevronUpIcon />
           </ScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
@@ -580,78 +580,81 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
+import type { QueryPreviewInfo } from '@x/x-modules/queries-preview'
 import type { ComputedRef } from 'vue'
-import type { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types'
 import type { HomeControls } from './types'
+import {
+  animateClipPath,
+  ArrowRightIcon,
+  AutoProgressBar,
+  BaseColumnPickerList,
+  BaseDropdown,
+  BaseGrid,
+  BaseIdTogglePanelButton,
+  BaseTeleport,
+  BaseVariableColumnGrid,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  CloseMainModal,
+  CrossIcon,
+  DisplayClickProvider,
+  DisplayEmitter,
+  Grid2ColIcon,
+  Grid4ColIcon,
+  LocationProvider,
+  MainModal,
+  MultiColumnMaxWidthLayout,
+  OpenMainModal,
+  SearchIcon,
+  SlidingPanel,
+  SnippetCallbacks,
+  StaggeredFadeAndSlide,
+} from '@x/components'
+import { use$x, useState } from '@x/composables'
+import { infiniteScroll } from '@x/directives'
+import { AiCarousel, AiOverview } from '@x/x-modules/ai'
+import { ExperienceControls } from '@x/x-modules/experience-controls'
+import { RenderlessExtraParams, SnippetConfigExtraParams } from '@x/x-modules/extra-params'
+import { PreselectedFilters } from '@x/x-modules/facets'
+import { NextQueriesList, NextQuery, NextQueryPreview } from '@x/x-modules/next-queries'
+import {
+  QueryPreviewButton,
+  QueryPreviewList,
+  useQueriesPreview,
+} from '@x/x-modules/queries-preview'
+import { Recommendations } from '@x/x-modules/recommendations'
+import {
+  RelatedPrompt,
+  RelatedPromptsList,
+  RelatedPromptsTagList,
+} from '@x/x-modules/related-prompts'
+import { RelatedTags } from '@x/x-modules/related-tags'
+import { MainScrollItem, ScrollToTop } from '@x/x-modules/scroll'
+import {
+  Banner,
+  BannersList,
+  FallbackDisclaimer,
+  PartialQueryButton,
+  PartialResultsList,
+  Promoted,
+  PromotedsList,
+  Redirection,
+  ResultsList,
+  SortPickerList,
+  Spellcheck,
+  SpellcheckButton,
+} from '@x/x-modules/search'
+import {
+  ClearSearchInput,
+  SearchButton,
+  SearchInput,
+  SearchInputPlaceholder,
+} from '@x/x-modules/search-box'
+import { SemanticQueries, SemanticQuery } from '@x/x-modules/semantic-queries'
+import { Tagging } from '@x/x-modules/tagging'
+import { UrlHandler } from '@x/x-modules/url'
 import { computed, defineComponent, provide, ref } from 'vue'
-import { BaseTeleport } from '../../components'
-import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory'
-import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue'
-import AutoProgressBar from '../../components/auto-progress-bar.vue'
-import BaseDropdown from '../../components/base-dropdown.vue'
-import BaseGrid from '../../components/base-grid.vue'
-import BaseVariableColumnGrid from '../../components/base-variable-column-grid.vue'
-import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue'
-import DisplayClickProvider from '../../components/display-click-provider.vue'
-import DisplayEmitter from '../../components/display-emitter.vue'
-import ArrowRightIcon from '../../components/icons/arrow-right.vue'
-import ChevronLeft from '../../components/icons/chevron-left.vue'
-import ChevronRight from '../../components/icons/chevron-right.vue'
-import ChevronUp from '../../components/icons/chevron-up.vue'
-import CrossIcon from '../../components/icons/cross.vue'
-import Grid2Col from '../../components/icons/grid-2-col.vue'
-import Grid4Col from '../../components/icons/grid-4-col.vue'
-import SearchIcon from '../../components/icons/search.vue'
-import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue'
-import LocationProvider from '../../components/location-provider.vue'
-import CloseMainModal from '../../components/modals/close-main-modal.vue'
-import MainModal from '../../components/modals/main-modal.vue'
-import OpenMainModal from '../../components/modals/open-main-modal.vue'
-import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue'
-import SlidingPanel from '../../components/sliding-panel.vue'
-import SnippetCallbacks from '../../components/snippet-callbacks.vue'
-import { use$x } from '../../composables/use-$x'
-import { useState } from '../../composables/use-state'
-import { infiniteScroll } from '../../directives/infinite-scroll'
-import AiCarousel from '../../x-modules/ai/components/ai-carousel.vue'
-import AiOverview from '../../x-modules/ai/components/ai-overview.vue'
-import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue'
-import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue'
-import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue'
-import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue'
-import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue'
-import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue'
-import NextQuery from '../../x-modules/next-queries/components/next-query.vue'
-import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue'
-import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue'
-import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable'
-import Recommendations from '../../x-modules/recommendations/components/recommendations.vue'
-import RelatedPrompt from '../../x-modules/related-prompts/components/related-prompt.vue'
-import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue'
-import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue'
-import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue'
-import MainScrollItem from '../../x-modules/scroll/components/main-scroll-item.vue'
-import ScrollToTop from '../../x-modules/scroll/components/scroll-to-top.vue'
-import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue'
-import SearchButton from '../../x-modules/search-box/components/search-button.vue'
-import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue'
-import SearchInput from '../../x-modules/search-box/components/search-input.vue'
-import Banner from '../../x-modules/search/components/banner.vue'
-import BannersList from '../../x-modules/search/components/banners-list.vue'
-import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue'
-import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue'
-import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue'
-import Promoted from '../../x-modules/search/components/promoted.vue'
-import PromotedsList from '../../x-modules/search/components/promoteds-list.vue'
-import Redirection from '../../x-modules/search/components/redirection.vue'
-import ResultsList from '../../x-modules/search/components/results-list.vue'
-import SortPickerList from '../../x-modules/search/components/sort-picker-list.vue'
-import SpellcheckButton from '../../x-modules/search/components/spellcheck-button.vue'
-import Spellcheck from '../../x-modules/search/components/spellcheck.vue'
-import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue'
-import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue'
-import Tagging from '../../x-modules/tagging/components/tagging.vue'
-import UrlHandler from '../../x-modules/url/components/url-handler.vue'
 import Aside from './aside.vue'
 import DisplayResultProvider from './display-result-provider.vue'
 import PredictiveLayer from './predictive-layer.vue'
@@ -662,13 +665,12 @@ export default defineComponent({
     infiniteScroll,
   },
   components: {
-    DisplayClickProvider,
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Aside,
     AiCarousel,
     AiOverview,
-    AutoProgressBar,
     ArrowRightIcon,
+    // eslint-disable-next-line vue/no-reserved-component-names
+    Aside,
+    AutoProgressBar,
     Banner,
     BannersList,
     BaseColumnPickerList,
@@ -677,18 +679,19 @@ export default defineComponent({
     BaseIdTogglePanelButton,
     BaseTeleport,
     BaseVariableColumnGrid,
-    ChevronLeft,
-    ChevronRight,
-    ChevronUp,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    ChevronUpIcon,
     ClearSearchInput,
     CloseMainModal,
     CrossIcon,
+    DisplayClickProvider,
     DisplayEmitter,
     DisplayResultProvider,
     ExperienceControls,
     FallbackDisclaimer,
-    Grid2Col,
-    Grid4Col,
+    Grid2ColIcon,
+    Grid4ColIcon,
     LocationProvider,
     MainModal,
     MainScrollItem,
@@ -696,9 +699,6 @@ export default defineComponent({
     NextQueriesList,
     NextQuery,
     NextQueryPreview,
-    RelatedPrompt,
-    RelatedPromptsList,
-    RelatedPromptsTagList,
     OpenMainModal,
     PartialQueryButton,
     PartialResultsList,
@@ -710,6 +710,9 @@ export default defineComponent({
     QueryPreviewList,
     Recommendations,
     Redirection,
+    RelatedPrompt,
+    RelatedPromptsList,
+    RelatedPromptsTagList,
     RelatedTags,
     RenderlessExtraParams,
     Result,

@@ -1,3 +1,5 @@
+import path from 'node:path'
+import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import Inspector from 'vite-plugin-vue-inspector'
@@ -13,6 +15,11 @@ export const vueDocsPlugin = {
 
 export default defineConfig({
   plugins: [vue(), tailwindcss(), vueDocsPlugin, Inspector()],
+  resolve: {
+    alias: {
+      '@x': path.resolve(__dirname, '../src'),
+    },
+  },
   server: {
     port: 8080,
     host: '0.0.0.0',

@@ -13,7 +13,6 @@ import { deepMerge, forEach } from '@empathyco/x-utils'
 import { createStore } from 'vuex'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
-import { sendWiringToDevtools } from './devtools/wiring.devtools'
 import { bus } from './x-bus'
 import { registerStoreEmitters } from './x-emitters'
 import { assertXPluginOptionsAreValid } from './x-plugin.utils'
@@ -281,8 +280,7 @@ export class XPlugin {
    * @param xModule - The {@link XModule} to register its wiring.
    * @internal
    */
-  protected registerWiring({ wiring, name }: AnyXModule): void {
-    sendWiringToDevtools(name, wiring)
+  protected registerWiring({ wiring }: AnyXModule): void {
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
       const observable = this.bus.on(event, true) as unknown as Observable<

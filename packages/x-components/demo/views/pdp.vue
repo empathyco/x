@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
-import type { XEvent } from '../wiring'
+import type { XEvent } from '@x/wiring'
+import { use$x } from '@x/composables'
+import { Tagging } from '@x/x-modules/tagging'
 import { defineComponent, ref } from 'vue'
-import { use$x } from '../composables/use-$x'
-import { Tagging } from '../x-modules/tagging'
 
 export default defineComponent({
   components: {

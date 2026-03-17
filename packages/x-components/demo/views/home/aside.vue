@@ -20,10 +20,10 @@
         >
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
-            <ChevronDown />
+            <ChevronDownIcon />
           </template>
           <!-- Filters -->
-          <EditableNumberPriceRangeFilter :filter="facet.filters[0]" />
+          <EditableNumberRangeFilter :filter="facet.filters[0]" />
         </BaseHeaderTogglePanel>
       </template>
 
@@ -32,7 +32,7 @@
         <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span class="x-truncate">{{ facet.label }}</span>
-            <ChevronDown />
+            <ChevronDownIcon />
           </template>
           <!-- Filters -->
           <SlicedFilters :max="4" :filters="facet.filters">
@@ -52,7 +52,7 @@
         <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
-            <ChevronDown />
+            <ChevronDownIcon />
           </template>
           <!-- Filters -->
           <ExcludeFiltersWithNoResults :filters="facet.filters">
@@ -92,7 +92,7 @@
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDown class="x-ml-auto" />
+            <ChevronDownIcon class="x-ml-auto" />
           </template>
 
           <!-- Filters -->
@@ -103,12 +103,7 @@
                   :max="controls.slicedFilters.max"
                   :data-test="`${facet.label}-sliced-filters`"
                 >
-                  <FiltersList
-                    v-slot="{
-                      // eslint-disable-next-line vue/no-unused-vars
-                      filter,
-                    }"
-                  >
+                  <FiltersList v-slot="{ filter }">
                     <SimpleFilter :filter="filter" :data-test="`${facet.label}-filter`">
                       <template #label="{ filter: labelFilter }">
                         {{ labelFilter.label }}
@@ -131,29 +126,29 @@
 <script lang="ts">
 import type {
   EditableNumberRangeFacet,
-  EditableNumberRangeFilter,
+  EditableNumberRangeFilter as EditableNumberRangeFilterModel,
   Facet,
   SimpleFilter as SimpleFilterModel,
 } from '@empathyco/x-types'
 import type { Ref } from 'vue'
 import type { HomeControls } from './types'
+import { BaseHeaderTogglePanel, BasePriceFilterLabel, ChevronDownIcon } from '@x/components'
+import {
+  ClearFilters,
+  EditableNumberRangeFilter,
+  ExcludeFiltersWithNoResults,
+  Facets,
+  FacetsProvider,
+  FiltersList,
+  FiltersSearch,
+  HierarchicalFilter,
+  SelectedFilters,
+  SelectedFiltersList,
+  SimpleFilter,
+  SlicedFilters,
+  SortedFilters,
+} from '@x/x-modules/facets'
 import { defineComponent, inject } from 'vue'
-import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue'
-import ChevronDown from '../../components/icons/chevron-down.vue'
-import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue'
-import ClearFilters from '../../x-modules/facets/components/clear-filters.vue'
-import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue'
-import Facets from '../../x-modules/facets/components/facets/facets.vue'
-import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue'
-import HierarchicalFilter from '../../x-modules/facets/components/filters/hierarchical-filter.vue'
-import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue'
-import ExcludeFiltersWithNoResults from '../../x-modules/facets/components/lists/exclude-filters-with-no-results.vue'
-import FiltersList from '../../x-modules/facets/components/lists/filters-list.vue'
-import FiltersSearch from '../../x-modules/facets/components/lists/filters-search.vue'
-import SelectedFiltersList from '../../x-modules/facets/components/lists/selected-filters-list.vue'
-import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue'
-import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue'
-import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -161,9 +156,9 @@ export default defineComponent({
   components: {
     BaseHeaderTogglePanel,
     BasePriceFilterLabel,
-    ChevronDown,
+    ChevronDownIcon,
     ClearFilters,
-    EditableNumberPriceRangeFilter,
+    EditableNumberRangeFilter,
     ExcludeFiltersWithNoResults,
     Facets,
     FacetsProvider,
@@ -178,7 +173,7 @@ export default defineComponent({
   },
   setup() {
     const controls = inject<Ref<HomeControls>>('controls')!
-    const editableNumberRangeFilter: EditableNumberRangeFilter = {
+    const editableNumberRangeFilter: EditableNumberRangeFilterModel = {
       facetId: 'salePrice',
       selected: false,
       id: 'price:0-*',

@@ -2,10 +2,10 @@ import type { UrlParams } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
+import { snippetConfigStub } from '../../../../__stubs__'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import { initialUrlState } from '../../store/initial-state'
 import UrlHandler from '../url-handler.vue'
 
@@ -43,7 +43,9 @@ function renderUrlHandler({ template = `<UrlHandler />`, urlParams = '' } = {}) 
     {
       global: {
         plugins: [installNewXPlugin({})],
-        provide: { snippetConfig: { ...baseSnippetConfig } },
+        provide: {
+          snippetConfig: snippetConfigStub,
+        },
       },
     },
   )

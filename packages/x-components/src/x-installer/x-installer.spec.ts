@@ -1,13 +1,13 @@
 import type { Store } from 'vuex'
-import type { PrivateXModulesOptions, XModulesOptions, XPlugin } from '../../../plugins'
-import type { AnyXModule } from '../../../x-modules/x-modules.types'
-import type { SnippetConfig } from '../../api/index'
-import type { InitWrapper, InstallXOptions } from '../types'
+import type { PrivateXModulesOptions, XModulesOptions, XPlugin } from '../plugins'
+import type { AnyXModule } from '../x-modules/x-modules.types'
+import type { SnippetConfig } from './api/api.types'
+import type { InitWrapper, InstallXOptions } from './types'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { computed, defineComponent, inject, nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy'
-import { XInstaller } from '../x-installer'
+import { XComponentsAdapterDummy } from '../__tests__/adapter.dummy'
+import { XInstaller } from './x-installer'
 
 const adapter = XComponentsAdapterDummy
 const xPluginMock = { install: vi.fn() }

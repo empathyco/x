@@ -21,9 +21,9 @@
 </template>
 
 <script lang="ts">
+import { SlidingPanel } from '@x/components'
+import { QueryPreview } from '@x/x-modules/queries-preview'
 import { defineComponent } from 'vue'
-import SlidingPanel from '../../components/sliding-panel.vue'
-import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue'
 import Result from './result.vue'
 
 export default defineComponent({
