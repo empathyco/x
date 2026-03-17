@@ -1,6 +1,6 @@
 <template>
   <button
-    class="x-events-modal-id-open-button x-button"
+    class="x-events-modal-id-open-button xds:button"
     data-test="open-modal-id"
     @click="openModal"
   >

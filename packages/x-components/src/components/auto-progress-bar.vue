@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isLoading" class="x-progress-bar" data-test="progress-bar" role="progressbar">
-    <div class="x-progress-bar-fill" :style="cssStyles" data-test="progress-bar-line" />
+  <div v-if="isLoading" class="xds:progress-bar" data-test="progress-bar" role="progressbar">
+    <div class="xds:progress-bar-fill" :style="cssStyles" data-test="progress-bar-line" />
   </div>
 </template>
 
