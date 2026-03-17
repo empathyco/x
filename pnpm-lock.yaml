@@ -27,7 +27,7 @@ importers:
   packages/x-adapter:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
     devDependencies:
       '@vitest/coverage-v8':
@@ -46,13 +46,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.21
+        specifier: 8.1.0-alpha.22
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.50
+        specifier: 10.1.0-alpha.51
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -77,7 +77,7 @@ importers:
   packages/x-archetype-utils:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
       vue-i18n:
         specifier: ~9.14.5
@@ -114,16 +114,16 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.21
+        specifier: 8.1.0-alpha.22
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.60
+        specifier: 1.1.0-alpha.61
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.50
+        specifier: 10.1.0-alpha.51
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.6.4
@@ -157,7 +157,7 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(@babel/core@7.29.0)
       '@empathyco/x-tailwindcss':
-        specifier: 2.0.0-alpha.34
+        specifier: 2.0.0-alpha.35
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.29.7
@@ -297,7 +297,7 @@ importers:
   packages/x-tailwindcss:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
       tslib:
         specifier: ~2.8.1
@@ -343,10 +343,10 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0-alpha.21
+        specifier: 8.1.0-alpha.22
         version: link:../x-adapter
       '@empathyco/x-utils':
-        specifier: 1.0.3-alpha.16
+        specifier: 1.0.3-alpha.17
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
