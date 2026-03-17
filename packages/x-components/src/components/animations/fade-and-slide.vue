@@ -1,5 +1,5 @@
 <template>
-  <transition-group class="x:fade-and-slide" :name="name" :tag="tag" :appear="appear">
+  <transition-group class="x-fade-and-slide" :name="name" :tag="tag" :appear="appear">
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
@@ -44,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style lang="css">
-.x\:fade-and-slide--move,
+.x-fade-and-slide--move,
 .x-fade-and-slide--enter-active,
 .x-fade-and-slide--leave-active {
   transition:

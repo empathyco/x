@@ -1,11 +1,11 @@
 <template>
-  <div class="x:column-picker-list xds:button-group" data-test="column-picker-list" role="list">
+  <div class="x-column-picker-list xds:button-group" data-test="column-picker-list" role="list">
     <template
       v-for="({ column, cssClasses, events, isSelected }, index) in columnsWithCssClasses"
       :key="column"
     >
       <BaseEventButton
-        class="x:column-picker-list__button xds:button"
+        class="x-column-picker-list__button xds:button"
         :class="[buttonClass, cssClasses]"
         data-test="column-picker-button"
         :aria-pressed="isSelected.toString()"

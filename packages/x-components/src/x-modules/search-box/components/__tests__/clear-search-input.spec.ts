@@ -34,7 +34,7 @@ describe('testing ClearSearchInput component', () => {
   })
 
   it('has a default slot to customize its contents', () => {
-    const slotTemplate = '<span class="x:clear-search-input__text">Clear</span>'
+    const slotTemplate = '<span class="x-clear-search-input__text">Clear</span>'
     const clearSearchInput = mount(ClearSearchInput, {
       global: { plugins: [installNewXPlugin()] },
       slots: {
