@@ -620,6 +620,7 @@ import {
   StaggeredFadeAndSlide,
 } from '@x/components'
 import { use$x, useState } from '@x/composables'
+import { infiniteScroll } from '@x/directives'
 import { AiCarousel, AiOverview } from '@x/x-modules/ai'
 import { ExperienceControls } from '@x/x-modules/experience-controls'
 import { RenderlessExtraParams, SnippetConfigExtraParams } from '@x/x-modules/extra-params'
@@ -668,6 +669,7 @@ import PredictiveLayer from './predictive-layer.vue'
 import Result from './result.vue'
 
 const x = use$x()
+const vInfiniteScroll = infiniteScroll
 const stores = ['Spain', 'Portugal', 'Italy']
 const initialExtraParams = { store: 'Portugal' }
 const searchInputPlaceholderMessages = [
