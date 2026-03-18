@@ -1,5 +1,7 @@
+import type { PlatformAdapter } from '@empathyco/x-adapter-platform'
+import type { XModulesOptions } from '@x/plugins'
 import type { InstallXOptions, SnippetConfig } from '@x/x-installer'
-import { adapter } from './adapter'
+import { platformAdapter } from '@empathyco/x-adapter-platform'
 
 export const baseSnippetConfig: SnippetConfig = {
   instance: 'empathy',
@@ -8,12 +10,15 @@ export const baseSnippetConfig: SnippetConfig = {
   scope: 'x-components-development',
 }
 
-// eslint-disable-next-line ts/no-unsafe-assignment
-const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}')
+const adapter = new Proxy(platformAdapter, {
+  get: (obj, prop: keyof PlatformAdapter) => obj[prop],
+})
+const xModulesURLConfig = JSON.parse(
+  new URL(location.href).searchParams.get('xModules') ?? '{}',
+) as XModulesOptions | undefined
 
 export const baseInstallXOptions: InstallXOptions = {
   adapter,
-  // eslint-disable-next-line ts/no-unsafe-assignment
   xModules: {
     ...xModulesURLConfig,
     facets: {

@@ -1,55 +1,15 @@
 <template>
-  <article style="max-width: 300px; overflow: hidden">
-    <BaseResultLink :result="result">
-      <BaseResultImage :result="result" class="x-picture-zoom"></BaseResultImage>
-    </BaseResultLink>
-
-    <BaseResultLink class="x-flex x-flex-col x-gap-4" :result="result">
-      <h2 class="x-small x-ellipsis x-uppercase" data-test="result-title">
-        {{ result.name }}
-      </h2>
-      <div class="x-list x-list--horizontal x-list--wrap x-list--gap-03">
-        <BaseResultCurrentPrice :result="result" class="x-text x-text--bold" />
-        <BaseResultPreviousPrice
-          :result="result"
-          class="x-text x-text--secondary x-text--light x-text--stroke"
-        />
-      </div>
-    </BaseResultLink>
-  </article>
+  <Result :result="resultData"></Result>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { createResultStub } from '@x/__stubs__'
-import {
-  BaseResultCurrentPrice,
-  BaseResultImage,
-  BaseResultLink,
-  BaseResultPreviousPrice,
-} from '@x/components'
-import { defineComponent } from 'vue'
+import Result from '../home/result.vue'
 
-export default defineComponent({
-  name: 'AccessibilityCheck',
-  components: {
-    BaseResultCurrentPrice,
-    BaseResultPreviousPrice,
-    BaseResultImage,
-    BaseResultLink,
-  },
-  setup() {
-    return {
-      result: createResultStub('Demo result', {
-        images: ['https://picsum.photos/seed/5/100/100'],
-        price: {
-          hasDiscount: false,
-          originalValue: 11.99,
-          futureValue: 11.99,
-          value: 11.99,
-        },
-        url: 'https://www.lolahome.es/escobilla-zen-ceramica-blanco-gris-29075',
-      }),
-    }
-  },
+const resultData = createResultStub('Demo result', {
+  images: [
+    'https://empathyco-test-images-fashion-farfetch.s3.eu-west-1.amazonaws.com/tmptest/13/76/29/60/13762960_17724928_480.jpg',
+  ],
+  url: 'https://www.lolahome.es/escobilla-zen-ceramica-blanco-gris-29075',
 })
 </script>

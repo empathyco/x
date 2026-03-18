@@ -6,8 +6,9 @@
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <ExperienceControls />
+
     <OpenMainModal>Start</OpenMainModal>
-    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold xds:text-lead-50">Test controls</h1>
+    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold">Test controls</h1>
     <ul class="x-test-controls xds:flex xds:flex-col xds:gap-16">
       <li class="x-test-controls__item">
         <label for="searchInput.instant">
@@ -98,9 +99,11 @@
         </label>
       </li>
     </ul>
+
     <hr class="xds:mt-10" />
-    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold xds:text-lead-50">Teleport test</h1>
+    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold">Teleport test</h1>
     <div id="teleport-here"></div>
+
     <MainModal :animation="modalAnimation" :reference-selector="referenceSelector">
       <MultiColumnMaxWidthLayout class="xds:bg-neutral-0">
         <template #header-middle>
@@ -123,7 +126,7 @@
               >
                 Clear
               </ClearSearchInput>
-              <SearchButton aria-label="Search" class="x-input-group-button-primary">
+              <SearchButton aria-label="Search" class="xds:input-group-button-primary">
                 <SearchIcon />
               </SearchButton>
             </div>
@@ -144,7 +147,7 @@
               <RelatedTags
                 :animation="resultsAnimation"
                 class="xds:gap-8"
-                item-class="x-tag-outlined"
+                item-class="xds:tag-outlined"
               />
               <template #sliding-panel-right-button>
                 <ChevronRightIcon />
@@ -154,7 +157,7 @@
         </template>
 
         <template #header-end>
-          <CloseMainModal class="x-button--ghost x-button">
+          <CloseMainModal class="xds:button xds:button-ghost">
             <CrossIcon />
           </CloseMainModal>
         </template>
@@ -166,7 +169,7 @@
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
             v-if="x.totalResults > 0"
-            class="x-button--ghost x-button"
+            class="xds:button xds:button-ghost"
             panel-id="aside-panel"
           >
             Toggle Aside
@@ -189,14 +192,14 @@
               </template>
 
               <template #divider>
-                <span class="x-button-group-divider"></span>
+                <span class="xds:button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
             <SortPickerList
               v-slot="{ item }"
               :items="sortValues"
-              class="x-button-group"
-              button-class="x-button x-button-outlined"
+              class="xds:button-group"
+              button-class="xds:button xds:button-outlined"
             >
               {{ item || 'default' }}
             </SortPickerList>
@@ -205,7 +208,6 @@
               <BaseDropdown
                 :model-value="value"
                 :items="stores"
-                class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
                 data-test="store-selector"
                 @update:model-value="updateValue"
               />
@@ -229,10 +231,13 @@
               {{ redirection.url }}
             </a>
             <div class="xds:flex xds:gap-32">
-              <button class="x-button--ghost x-button x-text-neutral-25" @click="abortRedirect">
+              <button
+                class="xds:button xds:button-ghost xds:text-neutral-25"
+                @click="abortRedirect"
+              >
                 No, I'll stay here
               </button>
-              <button class="x-button--ghost x-button x-text-neutral-90" @click="redirect">
+              <button class="xds:button xds:button-ghost xds:text-neutral-90" @click="redirect">
                 Yes, redirect me
               </button>
             </div>
@@ -257,22 +262,26 @@
             <LocationProvider location="results">
               <AiCarousel v-if="x.noResults && !x.fromNoResultsWithFilters" class="xds:mb-28">
                 <template #result="{ result }">
-                  <Result :result="result" class="x-w-[150px]" />
+                  <Result :result="result" class="xds:w-37.5" />
                 </template>
                 <template #extra-content>
-                  <button class="x-bg-lead-50 x-absolute x-bottom-0 x-right-0 x-translate-y-full">
+                  <button
+                    class="xds:absolute xds:right-0 xds:bottom-0 xds:translate-y-full xds:bg-lead-50"
+                  >
                     extra content
                   </button>
                 </template>
                 <template #cta-button>
-                  <button class="x-bg-lead-50 x-absolute x-right-1/2 x-bottom-0 x-translate-y-1/2">
+                  <button
+                    class="xds:absolute xds:right-1/2 xds:bottom-0 xds:translate-y-1/2 xds:bg-lead-50"
+                  >
                     AI Mode
                   </button>
                 </template>
               </AiCarousel>
               <AiOverview v-else class="xds:mb-28">
                 <template #result="{ result }">
-                  <Result :result="result" class="x-w-[150px]" />
+                  <Result :result="result" class="xds:w-37.5" />
                 </template>
                 <template #extra-content>
                   <button
@@ -285,7 +294,7 @@
             </LocationProvider>
             <template v-if="!x.query.searchBox">
               <!-- Brand Recommendations -->
-              <h1 class="x-title1 xds:mb-16">Brand Recommendations</h1>
+              <h1 class="xds:mb-16 xds:title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   v-slot="{ queryPreviewInfo, totalResults, results, displayTagging, queryTagging }"
@@ -301,7 +310,7 @@
                   >
                     <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
                       <QueryPreviewButton
-                        class="x-button-xl x-button-ghost xds:w-fit"
+                        class="xds:button-xl xds:w-fit xds:button-ghost"
                         :query-preview-info="queryPreviewInfo"
                         :metadata="{ feature: 'customer' }"
                       >
@@ -370,9 +379,9 @@
                               :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                               class="xds:pt-24"
                             >
-                              <h1 class="x-title2">Others clients have searched</h1>
+                              <h1 class="xds:title2">Others clients have searched</h1>
                               <NextQuery
-                                class="x-suggestion x-text1 x-text1-lg"
+                                class="xds:suggestion xds:text1 xds:text1-lg"
                                 :suggestion="nextQueries[0]"
                                 data-test="next-query-preview-name"
                               >
@@ -394,7 +403,7 @@
                               <NextQuery
                                 :suggestion="nextQueries[0]"
                                 data-test="view-all-results"
-                                class="x-button x-button-outlined xds:mx-auto xds:mt-8 xds:mb-24 xds:rounded-full"
+                                class="xds:mx-auto xds:mt-8 xds:mb-24 xds:button xds:button-outlined xds:rounded-full"
                               >
                                 {{ 'View all results' }}
                               </NextQuery>
@@ -403,15 +412,15 @@
 
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
-                              button-class="x-button-lead x-button-circle x-button-ghost xds:p-0"
-                              class="desktop:xds:mt-0 xds:mt-24 xds:mb-1 xds:h-[70px] xds:p-0"
+                              button-class="xds:button-lead xds:button-circle xds:button-ghost xds:p-0"
+                              class="desktop:xds:mt-0 xds:mt-24 xds:mb-1 xds:h-17.5 xds:p-0"
                               tag-class="xds:rounded-xl xds:gap-8 xds:w-[300px] xds:max-w-[400px]"
                               :tag-colors="[
                                 'xds:bg-amber-300',
                                 'xds:bg-amber-400',
                                 'xds:bg-amber-500',
                               ]"
-                              scroll-container-class="desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm"
+                              scroll-container-class="desktop:xds:sliding-panel-fade desktop:xds:sliding-panel-fade-sm"
                             >
                               <template #default="{ relatedPrompt, isSelected, onSelect }">
                                 <DisplayEmitter
@@ -442,11 +451,11 @@
                                 <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
                                   <QueryPreviewButton
                                     :query-preview-info="queryPreviewInfo"
-                                    class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:xds:px-16"
+                                    class="desktop:xds:title3-md max-desktop:xds:px-16 xds:button xds:button-tight xds:button-lead xds:title3 xds:title3-sm"
                                   >
                                     {{ queryPreviewInfo.query }}
                                     ({{ totalResults }})
-                                    <ArrowRightIcon class="x-icon-lg" />
+                                    <ArrowRightIcon class="xds:icon-lg" />
                                   </QueryPreviewButton>
                                   <DisplayEmitter
                                     :payload="getToolingDisplayTagging(queryPreviewInfo)"
@@ -492,7 +501,7 @@
             <!-- Semantic Queries -->
             <SemanticQueries v-slot="{ queries: semanticQueries, findSemanticQuery }">
               <section class="xds:mt-28">
-                <h1 v-if="isAnyQueryLoadedInPreview(semanticQueries)" class="x-title1">
+                <h1 v-if="isAnyQueryLoadedInPreview(semanticQueries)" class="xds:title1">
                   Similar Semantic Queries
                 </h1>
                 <LocationProvider :location="x.noResults ? 'no_results' : 'low_results'">
@@ -509,7 +518,7 @@
                       <!-- eslint-disable vue/no-template-shadow -->
                       <SemanticQuery
                         v-slot="{ suggestion: { query } }"
-                        class="x-suggestion x-title2 x-title2-md"
+                        class="xds:suggestion xds:title2 xds:title2-md"
                         :suggestion="findSemanticQuery(query)"
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
@@ -568,7 +577,7 @@
         </template>
 
         <template #scroll-to-top>
-          <ScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
+          <ScrollToTop :threshold-px="500" class="xds:button-circle" scroll-id="main-scroll">
             <ChevronUpIcon />
           </ScrollToTop>
         </template>
@@ -578,10 +587,9 @@
   <BaseTeleport target="#teleport-here">This is the teleport content</BaseTeleport>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { TaggingRequest } from '@empathyco/x-types'
 import type { QueryPreviewInfo } from '@x/x-modules/queries-preview'
-import type { ComputedRef } from 'vue'
 import type { HomeControls } from './types'
 import {
   animateClipPath,
@@ -612,7 +620,6 @@ import {
   StaggeredFadeAndSlide,
 } from '@x/components'
 import { use$x, useState } from '@x/composables'
-import { infiniteScroll } from '@x/directives'
 import { AiCarousel, AiOverview } from '@x/x-modules/ai'
 import { ExperienceControls } from '@x/x-modules/experience-controls'
 import { RenderlessExtraParams, SnippetConfigExtraParams } from '@x/x-modules/extra-params'
@@ -654,206 +661,72 @@ import {
 import { SemanticQueries, SemanticQuery } from '@x/x-modules/semantic-queries'
 import { Tagging } from '@x/x-modules/tagging'
 import { UrlHandler } from '@x/x-modules/url'
-import { computed, defineComponent, provide, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import Aside from './aside.vue'
 import DisplayResultProvider from './display-result-provider.vue'
 import PredictiveLayer from './predictive-layer.vue'
 import Result from './result.vue'
 
-export default defineComponent({
-  directives: {
-    infiniteScroll,
-  },
-  components: {
-    AiCarousel,
-    AiOverview,
-    ArrowRightIcon,
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Aside,
-    AutoProgressBar,
-    Banner,
-    BannersList,
-    BaseColumnPickerList,
-    BaseDropdown,
-    BaseGrid,
-    BaseIdTogglePanelButton,
-    BaseTeleport,
-    BaseVariableColumnGrid,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    ChevronUpIcon,
-    ClearSearchInput,
-    CloseMainModal,
-    CrossIcon,
-    DisplayClickProvider,
-    DisplayEmitter,
-    DisplayResultProvider,
-    ExperienceControls,
-    FallbackDisclaimer,
-    Grid2ColIcon,
-    Grid4ColIcon,
-    LocationProvider,
-    MainModal,
-    MainScrollItem,
-    MultiColumnMaxWidthLayout,
-    NextQueriesList,
-    NextQuery,
-    NextQueryPreview,
-    OpenMainModal,
-    PartialQueryButton,
-    PartialResultsList,
-    PredictiveLayer,
-    PreselectedFilters,
-    Promoted,
-    PromotedsList,
-    QueryPreviewButton,
-    QueryPreviewList,
-    Recommendations,
-    Redirection,
-    RelatedPrompt,
-    RelatedPromptsList,
-    RelatedPromptsTagList,
-    RelatedTags,
-    RenderlessExtraParams,
-    Result,
-    ResultsList,
-    ScrollToTop,
-    SearchButton,
-    SearchIcon,
-    SearchInput,
-    SearchInputPlaceholder,
-    SemanticQueries,
-    SemanticQuery,
-    SlidingPanel,
-    SnippetCallbacks,
-    SnippetConfigExtraParams,
-    SortPickerList,
-    Spellcheck,
-    SpellcheckButton,
-    Tagging,
-    UrlHandler,
-  },
-  setup() {
-    const x = use$x()
-    const stores = ['Spain', 'Portugal', 'Italy']
-    const initialExtraParams = { store: 'Portugal' }
-    const searchInputPlaceholderMessages = [
-      'Find shirts',
-      'Find shoes',
-      'Find watches',
-      'Find handbags',
-      'Find sunglasses',
-    ]
-    const columnPickerValues = [0, 2, 4]
-    const resultsAnimation = StaggeredFadeAndSlide
-    const modalAnimation = animateClipPath()
-    const selectedColumns = 4
-    const sortValues = ['', 'price asc', 'price desc']
-    const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview
-    const referenceSelector = ref()
+const x = use$x()
+const stores = ['Spain', 'Portugal', 'Italy']
+const initialExtraParams = { store: 'Portugal' }
+const searchInputPlaceholderMessages = [
+  'Find shirts',
+  'Find shoes',
+  'Find watches',
+  'Find handbags',
+  'Find sunglasses',
+]
+const columnPickerValues = [0, 2, 4]
+const resultsAnimation = StaggeredFadeAndSlide
+const modalAnimation = animateClipPath()
+const selectedColumns = 4
+const sortValues = ['', 'price asc', 'price desc']
+const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview
+const referenceSelector = ref()
 
-    const scrollData = useState('scroll').data
-    const mainScrollDirection = computed(() => scrollData.value['main-scroll']?.direction)
+const scrollData = useState('scroll').data
+const mainScrollDirection = computed(() => scrollData.value['main-scroll']?.direction)
 
-    const controls: ComputedRef<HomeControls> = computed(() => {
-      return {
-        searchInput: {
-          instant: true,
-          instantDebounceInMs: 500, // default
-        },
-        popularSearches: {
-          maxItemsToRender: 10,
-        },
-        slicedFilters: {
-          max: 4,
-        },
-        historyQueries: {
-          maxItemsToRender: 5,
-        },
-        nextQueriesPreview: {
-          maxItemsToRender: 10,
-        },
-        nextQueriesList: {
-          showOnlyAfterOffset: true,
-        },
-        relatedPromptsList: {
-          showOnlyAfterOffset: true,
-        },
-        adapter: {
-          useE2EAdapter: false,
-        },
-      }
-    })
+const controls = computed<HomeControls>(() => ({
+  searchInput: { instant: true, instantDebounceInMs: 500 },
+  popularSearches: { maxItemsToRender: 10 },
+  slicedFilters: { max: 4 },
+  historyQueries: { maxItemsToRender: 5 },
+  nextQueriesPreview: { maxItemsToRender: 10 },
+  nextQueriesList: { showOnlyAfterOffset: true },
+  relatedPromptsList: { showOnlyAfterOffset: true },
+}))
 
-    provide('controls', controls)
+provide('controls', controls)
 
-    const { relatedPrompts, selectedPrompt } = useState('relatedPrompts')
+const { relatedPrompts, selectedPrompt } = useState('relatedPrompts')
 
-    const relatedPromptsQueriesPreviewInfo = computed(() => {
-      const queries = relatedPrompts.value?.[selectedPrompt.value].relatedPromptNextQueries ?? []
-      return queries.map(({ query }) => ({ query }))
-    })
-
-    const fallbackTaggingRequest = {} as TaggingRequest
-    const findNextQuery = (queryPreviewInfo: QueryPreviewInfo) =>
-      relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
-        nextQuery => nextQuery.query === queryPreviewInfo.query,
-      )
-
-    const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo) =>
-      findNextQuery(queryPreviewInfo)?.toolingDisplayTagging ?? fallbackTaggingRequest
-    const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo) =>
-      findNextQuery(queryPreviewInfo)?.toolingDisplayAdd2CartTagging ?? fallbackTaggingRequest
-    const getToolingDisplayClickTagging = (queryPreviewInfo: QueryPreviewInfo) =>
-      findNextQuery(queryPreviewInfo)?.toolingDisplayClickTagging ?? fallbackTaggingRequest
-
-    const queriesPreviewInfo: QueryPreviewInfo[] = [
-      {
-        query: 'cortina',
-        extraParams: { store: 'Gijón' },
-        filters: ['categoryIds:66dd06d9f'],
-      },
-      {
-        query: 'summer dress',
-        filters: ['categoryIds:5b612edb5', 'brand:marni'],
-      },
-      {
-        query: 'woven hat',
-      },
-      {
-        query: 'jeans',
-        extraParams: { store: 'Gijón' },
-      },
-      {
-        query: 't-shirt',
-      },
-    ]
-
-    const queries = computed(() => queriesPreviewInfo.map(item => item.query))
-    return {
-      resultsAnimation,
-      modalAnimation,
-      queriesPreviewInfo,
-      stores,
-      initialExtraParams,
-      searchInputPlaceholderMessages,
-      columnPickerValues,
-      selectedColumns,
-      sortValues,
-      isAnyQueryLoadedInPreview,
-      queries,
-      controls,
-      x,
-      mainScrollDirection,
-      relatedPromptsQueriesPreviewInfo,
-      selectedPrompt,
-      referenceSelector,
-      getToolingDisplayTagging,
-      getToolingDisplayClickTagging,
-      getToolingAdd2CartTagging,
-    }
-  },
+const relatedPromptsQueriesPreviewInfo = computed(() => {
+  const queries = relatedPrompts.value?.[selectedPrompt.value].relatedPromptNextQueries ?? []
+  return queries.map(({ query }) => ({ query }))
 })
+
+const fallbackTaggingRequest = {} as TaggingRequest
+const findNextQuery = (queryPreviewInfo: QueryPreviewInfo) =>
+  relatedPrompts.value[selectedPrompt.value].relatedPromptNextQueries?.find(
+    nextQuery => nextQuery.query === queryPreviewInfo.query,
+  )
+
+const getToolingDisplayTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+  findNextQuery(queryPreviewInfo)?.toolingDisplayTagging ?? fallbackTaggingRequest
+const getToolingAdd2CartTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+  findNextQuery(queryPreviewInfo)?.toolingDisplayAdd2CartTagging ?? fallbackTaggingRequest
+const getToolingDisplayClickTagging = (queryPreviewInfo: QueryPreviewInfo) =>
+  findNextQuery(queryPreviewInfo)?.toolingDisplayClickTagging ?? fallbackTaggingRequest
+
+const queriesPreviewInfo: QueryPreviewInfo[] = [
+  { query: 'cortina', extraParams: { store: 'Gijón' }, filters: ['categoryIds:66dd06d9f'] },
+  { query: 'summer dress', filters: ['categoryIds:5b612edb5', 'brand:marni'] },
+  { query: 'woven hat' },
+  { query: 'jeans', extraParams: { store: 'Gijón' } },
+  { query: 't-shirt' },
+]
 </script>
 
 <style lang="css">

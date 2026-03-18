@@ -21,7 +21,4 @@ export interface HomeControls {
   relatedPromptsList: {
     showOnlyAfterOffset: boolean
   }
-  adapter: {
-    useE2EAdapter: boolean
-  }
 }

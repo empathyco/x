@@ -10,11 +10,8 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     provide('resultClickExtraEvents', ['UserClickedADisplayResult'])
-
     provide('resultLinkMetadataPerEvent', {
-      UserClickedADisplayResult: {
-        queryTagging: props.queryTagging,
-      },
+      UserClickedADisplayResult: { queryTagging: props.queryTagging },
     })
 
     return () => slots.default?.()[0] ?? ''

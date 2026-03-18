@@ -16,7 +16,7 @@
           <BaseResultLink :result="identifierResult">
             <article class="xds:suggestion">
               <IdentifierResult :result="identifierResult" />
-              <span class="x-truncate" data-test="result-text">
+              <span data-test="result-text">
                 {{ identifierResult.name }}
               </span>
             </article>
@@ -27,7 +27,7 @@
   </BaseKeyboardNavigation>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { animateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
 import { Empathize } from '@x/x-modules/empathize'
 import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
@@ -35,34 +35,12 @@ import { IdentifierResult, IdentifierResults } from '@x/x-modules/identifier-res
 import { NextQueries } from '@x/x-modules/next-queries'
 import { PopularSearches } from '@x/x-modules/popular-searches'
 import { QuerySuggestions } from '@x/x-modules/query-suggestions'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'PredictiveLayer',
-  components: {
-    BaseKeyboardNavigation,
-    BaseResultLink,
-    ClearHistoryQueries,
-    CrossTinyIcon,
-    Empathize,
-    HistoryQueries,
-    IdentifierResult,
-    IdentifierResults,
-    NextQueries,
-    PopularSearches,
-    QuerySuggestions,
-  },
-  props: {
-    controls: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const empathizeAnimation = animateScale()
-    return {
-      empathizeAnimation,
-    }
+defineProps({
+  controls: {
+    type: Object,
+    required: true,
   },
 })
+const empathizeAnimation = animateScale()
 </script>

@@ -1,18 +1,18 @@
 <template>
   <Scroll id="accessibility-scroll">
-    <section class="x-flex x-flex-col x-gap-16 x-p-32">
+    <section class="xds:flex xds:flex-col xds:gap-16 xds:p-32">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" :panel-id="panelId">
+        <BaseIdTogglePanelButton class="xds:button xds:button-ghost" :panel-id="panelId">
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
-          <div class="x-text1">Hey there!</div>
+          <div class="xds:text1">Hey there!</div>
         </BaseIdTogglePanel>
 
-        <BaseIdTogglePanelButton class="x-button--ghost x-button" panel-id="panel2" />
+        <BaseIdTogglePanelButton class="xds:button xds:button-ghost" panel-id="panel2" />
         <BaseIdTogglePanel :start-open="true" panel-id="aside-panel">
-          <div class="x-text1">
+          <div class="xds:text1">
             Button without text, an element should have the ID to make it accessible.
           </div>
         </BaseIdTogglePanel>
@@ -65,7 +65,7 @@
 
       <h1>ScrollToTop</h1>
       <div>
-        <ScrollToTop scroll-id="accessibility-scroll" :threshold-px="1000">
+        <ScrollToTop class="xds:button-circle" scroll-id="accessibility-scroll" :threshold-px="500">
           <span>^</span>
         </ScrollToTop>
       </div>
@@ -73,7 +73,7 @@
   </Scroll>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getSimpleFacetStub } from '@x/__stubs__'
 import {
   BaseAddToCart,
@@ -95,41 +95,13 @@ import {
 import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
 import { Scroll, ScrollToTop } from '@x/x-modules/scroll'
 import { SearchInput } from '@x/x-modules/search-box'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'AccessibilityCheck',
-  components: {
-    BaseEventsModal,
-    BaseEventsModalClose,
-    BaseEventsModalOpen,
-    BaseIdTogglePanel,
-    BaseIdTogglePanelButton,
-    BaseAddToCart,
-    BaseColumnPickerList,
-    ClearFilters,
-    ClearHistoryQueries,
-    Facets,
-    FiltersList,
-    HistoryQueries,
-    ScrollToTop,
-    Scroll,
-    SearchInput,
-    SimpleFilter,
-    FacetsProvider,
-    AllFilter,
-  },
-  setup() {
-    return {
-      facet: getSimpleFacetStub(),
-      panelId: 'aside-panel',
-    }
-  },
-})
+const facet = getSimpleFacetStub()
+const panelId = 'aside-panel'
 </script>
 
 <style lang="css" scoped>
-.x-scroll {
+.xds\:scroll {
   height: 600px;
 }
 </style>

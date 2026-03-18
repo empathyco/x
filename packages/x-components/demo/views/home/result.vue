@@ -1,7 +1,7 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result">
-      <BaseResultImage :result="result" :load-animation="crossFade">
+      <BaseResultImage :result="result" :load-animation="crossFace">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
         </template>
@@ -19,18 +19,18 @@
       </BaseAddToCart>
     </div>
     <div class="x-result__description">
-      <BaseResultRating :result="result" :max="5" link="#" class="x-text1 x-text1-sm">
+      <BaseResultRating :result="result" :max="5" link="#" class="xds:text1 xds:text1-sm">
         <template #filled-icon>❤️</template>
         <template #empty-icon>🤍</template>
       </BaseResultRating>
       <BaseResultLink :result="result">
-        <h1 class="x-text1 x-text1-lg" data-test="result-title">{{ result.name }}</h1>
+        <h1 class="xds:text1 xds:text1-lg" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
     </div>
   </article>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import { CrossFade } from '@x/components'
@@ -40,26 +40,12 @@ import {
   BaseResultLink,
   BaseResultRating,
 } from '@x/components/result'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'Result',
-  components: {
-    BaseAddToCart,
-    BaseResultLink,
-    BaseResultRating,
-    BaseResultImage,
-  },
-  props: {
-    result: {
-      type: Object as PropType<Result>,
-      required: true,
-    },
-  },
-  setup() {
-    return {
-      crossFade: CrossFade,
-    }
+defineProps({
+  result: {
+    type: Object as PropType<Result>,
+    required: true,
   },
 })
+const crossFace = CrossFade
 </script>
