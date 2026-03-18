@@ -100,7 +100,7 @@
       </li>
     </ul>
 
-    <hr class="xds:mt-10" />
+    <hr class="xds:mt-10 xds:text-neutral-25" />
     <h1 class="xds:text-4xl xds:leading-normal xds:font-bold">Teleport test</h1>
     <div id="teleport-here"></div>
 
@@ -178,7 +178,7 @@
 
         <template #toolbar-body>
           <div v-if="x.totalResults > 0" class="xds:flex xds:items-center xds:gap-12">
-            <span class="xds:text-lg">{{ x.totalResults }} Results</span>
+            <span class="xds:text1">{{ x.totalResults }} Results</span>
             <BaseColumnPickerList
               :model-value="selectedColumns"
               class="xds:gap-4"
