@@ -1,0 +1,108 @@
+/* Base */
+@utility layout {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .xds-scroll > .xds-layout-item:not(.xds-layout-no-margin-right) {
+        --xds-layout-scroll-width: 17px;
+      }
+    }
+  }
+}
+
+/* Container */
+@utility layout-container {
+  @apply xds:flex xds:flex-col xds:flex-nowrap xds:items-stretch xds:justify-start;
+  @apply xds:h-full xds:max-h-full;
+
+  & > .xds\:scroll {
+    @apply xds:h-full xds:min-h-0 xds:flex-1;
+  }
+}
+
+/* Container Margin */
+@utility layout-container-mx-* {
+  & > .xds\:layout-item {
+    --xds-margin-left: --value(--spacing-*, [length]);
+    --xds-margin-right: --value(--spacing-*, [length]);
+  }
+}
+@utility layout-container-ml-* {
+  & > .xds\:layout-item {
+    --xds-margin-left: --value(--spacing-*, [length]);
+  }
+}
+@utility layout-container-mr-* {
+  & > .xds\:layout-item {
+    --xds-margin-right: --value(--spacing-*, [length]);
+  }
+}
+
+/* Max Width */
+@utility layout-max-width-* {
+  --xds-layout-max-width: --value(--layout-max-width-*);
+}
+
+/* Min Margin */
+@utility layout-min-margin-* {
+  --xds-layout-min-margin: --value(--spacing-*);
+}
+
+/* Item */
+@utility layout-item {
+  --xds-max-width-margin: calc((100vw - var(--xds-layout-max-width, 100vw)) / 2);
+  --xds-margin: max(var(--xds-layout-min-margin, 0px), var(--xds-max-width-margin));
+  --xds-margin-left: var(--xds-margin);
+  --xds-margin-right: var(--xds-margin);
+
+  @apply xds:grid xds:items-stretch xds:justify-items-stretch;
+  grid-template-columns:
+    var(--xds-margin-left) 1fr
+    calc(var(--xds-margin-right) - var(--xds-layout-scroll-width, 0px));
+
+  & > * {
+    @apply xds:col-[2/-2] xds:min-w-0;
+  }
+
+  &:not(.xds-layout-overlap):not(.xds-layout-overlap-from-top) > * {
+    @apply xds:min-w-0;
+  }
+}
+
+/* Utilities */
+/* No Margin utility */
+@utility layout-no-margin-left {
+  --xds-margin-left: 0px;
+}
+@utility layout-no-margin-right {
+  --xds-margin-right: 0px;
+}
+@utility layout-no-margin {
+  @apply xds:layout-no-margin-left xds:layout-no-margin-right;
+}
+/* On Margin utility */
+@utility layout-on-margin-left {
+  @apply xds:col-[1/2];
+}
+@utility layout-on-margin-right {
+  @apply xds:col-[-2/-1];
+}
+/* Overlap utility */
+@utility layout-overlap {
+  @apply xds:z-1 xds:h-0 xds:content-end xds:overflow-visible;
+}
+@utility layout-overlap-from-top {
+  @apply xds:layout-overlap;
+  @apply xds:content-start;
+}
+/* Expand utility */
+@utility layout-expand {
+  @apply xds:h-full xds:min-h-0 xds:flex-1;
+}
+/* Stack utility */
+@utility layout-stack {
+  @apply xds:grid xds:grid-cols-[1fr] xds:grid-rows-[1fr] xds:items-stretch xds:justify-items-stretch;
+
+  & > * {
+    @apply xds:col-span-full xds:row-span-full xds:max-h-full xds:min-h-0 xds:max-w-full xds:min-w-0;
+  }
+}

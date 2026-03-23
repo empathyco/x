@@ -3,7 +3,6 @@
   @apply xds:input;
   @apply xds:flex xds:flex-row xds:flex-nowrap xds:content-center xds:items-center;
   @apply xds:gap-8 xds:overflow-hidden xds:ps-0 xds:pe-0;
-  @apply xds:border-neutral-25 xds:bg-neutral-10 xds:text-neutral-50;
 
   & > :first-child:not(.xds\:input-group-button-primary) {
     @apply xds:ms-16;
@@ -12,8 +11,8 @@
     @apply xds:me-16;
   }
 
-  & > .xds\:input,
-  & > input {
+  & .xds\:input,
+  & input {
     @apply xds:min-w-0 xds:flex-1 xds:border-0 xds:p-0;
     @apply xds:bg-transparent xds:text-inherit xds:outline-none;
   }
