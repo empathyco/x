@@ -1,10 +1,15 @@
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../__stubs__/index'
 import { debounce } from '../wires.operators'
 import { createWire } from './operators-testing-utils'
 
 describe(`testing ${debounce.name} operator`, () => {
-  beforeAll(jest.useFakeTimers)
-  afterAll(jest.useRealTimers)
+  beforeAll(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.clearAllTimers()
+  })
 
   it('discards emitted values that take less than the specified time between output', () => {
     const { wire, callback, emitWireEvent, registerWire } = createWire()
@@ -13,14 +18,14 @@ describe(`testing ${debounce.name} operator`, () => {
 
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     expect(callback).not.toHaveBeenCalled()
 
     emitWireEvent('3', '4')
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('4')
   })
@@ -34,14 +39,14 @@ describe(`testing ${debounce.name} operator`, () => {
 
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     expect(callback).not.toHaveBeenCalled()
 
     emitWireEvent('3', '4')
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('4')
   })
@@ -55,15 +60,15 @@ describe(`testing ${debounce.name} operator`, () => {
 
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(499)
+    vi.advanceTimersByTime(499)
     expect(callback).not.toHaveBeenCalled()
 
     store.state.x.querySuggestions.config.debounceInMs = 250
     emitWireEvent('3', '4')
-    jest.advanceTimersByTime(249)
+    vi.advanceTimersByTime(249)
     expect(callback).not.toHaveBeenCalled()
 
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('4')
   })
@@ -75,13 +80,13 @@ describe(`testing ${debounce.name} operator`, () => {
       emitWireEvent('1', '2', '3')
 
       void bus.emit('UserClearedQuery', '')
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).not.toHaveBeenCalled()
 
       emitWireEvent('4')
       expect(callback).not.toHaveBeenCalled()
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('4')
     })
@@ -92,18 +97,18 @@ describe(`testing ${debounce.name} operator`, () => {
       emitWireEvent('1')
 
       void bus.emit('UserClearedQuery', '')
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).not.toHaveBeenCalled()
 
       emitWireEvent('2')
       void bus.emit('UserAcceptedAQuery', 'jumper')
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).not.toHaveBeenCalled()
 
       emitWireEvent('3')
       expect(callback).not.toHaveBeenCalled()
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('3')
     })
@@ -123,13 +128,13 @@ describe(`testing ${debounce.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('2')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(1)
 
       emitWireEvent('3', '4')
       expect(callback).toHaveBeenCalledTimes(1)
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('4')
     })
@@ -151,7 +156,7 @@ describe(`testing ${debounce.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2)
       expect(callback).toHaveBeenCalledWith('4')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(2)
     })
   })
@@ -170,7 +175,7 @@ describe(`testing ${debounce.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(1)
       expect(callback).toHaveBeenCalledWith('2')
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).toHaveBeenCalledTimes(1)
     })
 
@@ -186,7 +191,7 @@ describe(`testing ${debounce.name} operator`, () => {
       void bus.emit('UserClickedAResult', createResultStub('Random result'))
       expect(callback).not.toHaveBeenCalled()
 
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
       expect(callback).not.toHaveBeenCalled()
     })
   })

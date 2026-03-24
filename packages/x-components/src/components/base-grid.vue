@@ -25,7 +25,7 @@
         the item without an specific slot implementation.
             @binding {item} item - Item to render
       -->
-      <slot v-else :item="item">{{ item.name || item.modelName || item.id || item }}</slot>
+      <slot v-else :item="item">{{ (item as any).name || item.modelName || item.id || item }}</slot>
     </li>
   </component>
 </template>
@@ -33,23 +33,14 @@
 <script lang="ts">
 import type { MaybeComputedElementRef, UseResizeObserverReturn } from '@vueuse/core'
 import type { PropType, Ref } from 'vue'
-import type { ListItem, VueCSSClasses } from '../utils/types'
+import type { ListItem } from '../utils/types'
+import type { GridItem } from './base-grid.types'
 import { useResizeObserver } from '@vueuse/core'
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useXBus } from '../composables/use-x-bus'
 import { AnimationProp } from '../types/animation-prop'
 import { toKebabCase } from '../utils/string'
 import { LIST_ITEMS_KEY } from './decorators/injection.consts'
-
-/**
- * The type returned by the gridItems function. Basically it's a list of items with its CSS
- * classes and a slotName.
- */
-interface GridItem {
-  slotName: string
-  item: ListItem
-  cssClass: VueCSSClasses
-}
 
 /**
  * Grid component that is able to render different items based on their modelName value. In order
@@ -253,6 +244,15 @@ It renders a list of items using the default slot:
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 
 ### Configuring the number of columns
@@ -267,6 +267,15 @@ It renders a grid with 12 columns instead of 6, which is the default value:
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 
 ### Rendering usage
@@ -303,6 +312,18 @@ and are rendered in different slots.
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+import BaseResultLink from './BaseResultLink.vue'
+const animation = 'ul'
+const items = [
+  { id: 1, modelName: 'banner', title: 'Banner 1' },
+  { id: 2, modelName: 'next-queries', totalResults: 5 },
+  { id: 3, modelName: 'promoted', title: 'Promo 1' },
+  { id: 4, modelName: 'result', name: 'Result 1' },
+]
+</script>
 ```
 
 ### Customizing the items width
@@ -318,5 +339,14 @@ items.
     </template>
   </BaseGrid>
 </template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+const items = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' },
+  { id: 3, name: 'Item 3' },
+]
+</script>
 ```
 </docs>

@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { installNewXPlugin } from '../../__tests__/utils'
@@ -6,11 +7,11 @@ import { XPlugin } from '../../plugins'
 import { useXBus } from '../use-x-bus'
 
 let dummyBus = new XDummyBus()
-const onColumnsNumberProvidedMock = jest.fn()
+const onColumnsNumberProvidedMock = vi.fn()
 
 function render(withMetadata = true) {
-  const emitSpy = jest.spyOn(dummyBus, 'emit')
-  const onSpy = jest.spyOn(dummyBus, 'on')
+  const emitSpy = vi.spyOn(dummyBus, 'emit')
+  const onSpy = vi.spyOn(dummyBus, 'on')
   const component = defineComponent({
     xModule: 'searchBox',
     setup: async () => {

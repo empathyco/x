@@ -2,7 +2,6 @@ import type { Directive } from 'vue'
 
 /**
  * TypingOptions interface.
- *
  * @public
  */
 export interface TypingOptions {
@@ -24,13 +23,16 @@ export interface TypingOptions {
   targetAttr?: string
 }
 
-interface TypingHTMLElement extends HTMLElement {
+/**
+ * TypingHTMLElement interface.
+ * @public
+ */
+export interface TypingHTMLElement extends HTMLElement {
   __timeoutId?: number
 }
 
 /**
  * Typing directive.
- *
  * @public
  */
 export const typing: Directive<TypingHTMLElement, TypingOptions> = {
@@ -55,6 +57,7 @@ export const typing: Directive<TypingHTMLElement, TypingOptions> = {
  *
  * @param el - The HTML element where the typing animation will be displayed.
  * @param options - Options for the behavior of the animation.
+ * @internal
  */
 function execute(el: TypingHTMLElement, options: TypingOptions) {
   const { text, speed = 1, targetAttr = '' } = options

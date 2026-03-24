@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-archetype-utils",
-  "version": "2.0.0-alpha.14",
+  "version": "2.0.0-alpha.39",
   "description": "Utilities for x-archetype",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -15,9 +15,9 @@
     "x",
     "x-archetype"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -25,43 +25,38 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf dist ./*.tgz",
-    "build": "rollup -c",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "postbuild": "pnpm pack",
+    "prebuild": "rm -rf dist *.tgz",
+    "build": "vite build",
+    "pack": "pnpm pack",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest",
-    "test:unit": "jest",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit-coverage": "vitest run --coverage",
+    "test:unit-watch": "vitest",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "vue": "^3.4.31",
-    "vue-i18n": "^9.14.4"
+    "vue": "^3.5.30",
+    "vue-i18n": "^9.14.5"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.6",
-    "@empathyco/x-utils": "workspace:^1.0.3-alpha.5",
-    "tslib": "~2.8.1",
-    "vue-i18n": "~9.14.4"
+    "@empathyco/x-utils": "1.0.3-alpha.17",
+    "vue-i18n": "~9.14.5"
   },
   "devDependencies": {
-    "@types/jest": "27.5.0",
-    "@types/node": "22.15.29",
+    "@vitest/coverage-v8": "4.1.0",
     "@vue/test-utils": "2.4.6",
-    "jest": "27.5.0",
-    "rimraf": "3.0.2",
-    "rollup": "4.9.1",
-    "rollup-plugin-copy": "3.5.0",
-    "rollup-plugin-delete": "2.0.0",
-    "rollup-plugin-typescript2": "0.36.0",
-    "ts-jest": "27.1.0",
-    "typescript": "4.9.4",
-    "vue": "3.4.31"
+    "jsdom": "28.1.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.1",
+    "vite-plugin-dts": "4.5.4",
+    "vite-plugin-static-copy": "3.3.0",
+    "vitest": "4.1.0",
+    "vue": "3.5.30"
   },
   "publishConfig": {
     "access": "public"

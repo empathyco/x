@@ -1,4 +1,5 @@
 import type { Schema } from '../types'
+import { describe, expect, it } from 'vitest'
 
 describe('schema tests', () => {
   interface Source {
@@ -95,10 +96,9 @@ describe('schema tests', () => {
       }
 
       const otherSchema: Schema<ComposedSource, ComposedTarget> = {
+        // @ts-expect-error Type Schema<Pepe, Maria> is not assignable to type "$self" | ((source: ComposedSource) => never
         request: {
-          // @ts-expect-error Type "response" is not assignable to type "response.list
           $path: 'response',
-          // @ts-expect-error Type Schema<Pepe, Maria> is not assignable to type "$self" | ((source: ComposedSource) => never
           $subSchema: wrongSubSchema,
         },
         filter: 'response.list.0',

@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -45,8 +46,8 @@ async function renderBaseScroll({
   const wrapper = wrapperContainer.findComponent(BaseScroll)
   const scrollElement: HTMLElement = wrapperContainer.find(getDataTestSelector('base-scroll'))
     .element as HTMLElement
-  jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight)
-  jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight)
+  vi.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight)
+  vi.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight)
 
   await nextTick()
 
@@ -55,15 +56,19 @@ async function renderBaseScroll({
     scroll: async ({ to = 0, durationMs = 0 }) => {
       scrollElement.scrollTop = to
       await wrapper.trigger('scroll')
-      jest.advanceTimersByTime(durationMs)
+      vi.advanceTimersByTime(durationMs)
       await nextTick()
     },
   }
 }
 
 describe('testing Base Scroll Component', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.clearAllTimers()
+  })
 
   it('renders default slot contents', async () => {
     const { wrapper } = await renderBaseScroll({

@@ -1,6 +1,7 @@
-import type { DeepPartial } from '@empathyco/x-utils/types/types/utils.types'
+import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from 'src/store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
@@ -10,10 +11,7 @@ import BaseKeyboardNavigation from '../base-keyboard-navigation.vue'
 
 describe('testing keyboard navigation component', () => {
   it('takes control of the navigation when a defined condition is triggered', async () => {
-    const navigateToSpy = jest.spyOn(
-      DirectionalFocusNavigationService.prototype as any,
-      'navigateTo',
-    )
+    const navigateToSpy = vi.spyOn(DirectionalFocusNavigationService.prototype as any, 'navigateTo')
     const store = new Store<DeepPartial<RootXStoreState>>({})
     mount(BaseKeyboardNavigation, {
       global: { plugins: [installNewXPlugin({ store })] },
@@ -37,11 +35,11 @@ describe('testing keyboard navigation component', () => {
   })
 
   it('emits the defined event when reaching the limit in the direction of the navigation', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     // As cannot mock elementToFocus (it will be undefined), making the navigateTo method return undefined
-    jest
-      .spyOn(DirectionalFocusNavigationService.prototype as any, 'navigateTo')
-      .mockReturnValue(undefined)
+    vi.spyOn(DirectionalFocusNavigationService.prototype as any, 'navigateTo').mockReturnValue(
+      undefined,
+    )
     const keyboardNavigation = mount(BaseKeyboardNavigation, {
       global: { plugins: [installNewXPlugin()] },
       props: {

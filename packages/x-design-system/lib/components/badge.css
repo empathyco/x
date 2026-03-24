@@ -1,0 +1,65 @@
+/* Base */
+@utility badge {
+  @apply xds:font-family-main xds:text-xs xds:font-regular;
+  @apply xds:inline-flex xds:items-center xds:justify-center xds:rounded-full;
+  @apply xds:bg-neutral-90 xds:text-neutral-0;
+
+  /* `@apply xds:badge-md;` can not be use here because cause circular dependency. */
+  @apply xds:h-24 xds:ps-8 xds:pe-8;
+}
+
+/* Sizes */
+@utility badge-sm {
+  @apply xds:h-20 xds:ps-8 xds:pe-8;
+}
+@utility badge-md {
+  @apply xds:h-24 xds:ps-12 xds:pe-12;
+}
+
+/* Circle */
+@utility badge-circle {
+  @apply xds:w-24 xds:overflow-hidden xds:p-0 xds:whitespace-nowrap;
+
+  &.xds\:badge-sm {
+    @apply xds:w-20;
+  }
+  &.xds\:badge-md {
+    @apply xds:w-24;
+  }
+}
+
+/* Light */
+@utility badge-light {
+  @apply xds:bg-neutral-0 xds:text-neutral-90;
+}
+
+/* Outlined */
+@utility badge-outlined {
+  @apply xds:bg-transparent xds:text-neutral-90;
+  @apply xds:border-1 xds:border-neutral-90;
+}
+
+/* Bright */
+@utility badge-bright {
+  @apply xds:bg-transparent xds:text-neutral-90;
+  @apply xds:border-1 xds:border-neutral-0;
+}
+
+/* Colors */
+@utility badge-* {
+  background-color: --value(--color-*-75);
+
+  &.xds\:badge-light {
+    background-color: --value(--color-*-25);
+  }
+
+  &.xds\:badge-outlined {
+    @apply xds:bg-transparent;
+    border-color: --value(--color-*-50);
+  }
+
+  &.xds\:badge-bright {
+    @apply xds:bg-transparent;
+    border-color: --value(--color-*-25);
+  }
+}

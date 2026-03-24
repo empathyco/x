@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getDataTestSelector } from '../../__tests__/utils'
 import Highlight from '../highlight.vue'
 
@@ -129,12 +130,10 @@ describe('testing Highlight component', () => {
       highlight: 'chur',
     })
     expect(wrapper.html()).toMatchInlineSnapshot(
-      `"<span class=\\"match-custom-layout\\"><strong></strong>chur<strong>rasco</strong></span>"`,
+      `"<span class="match-custom-layout"><strong></strong>chur<strong>rasco</strong></span>"`,
     )
 
     await setHighlight('no-match')
-    expect(wrapper.html()).toMatchInlineSnapshot(
-      `"<span class=\\"no-match-custom\\">churrasco</span>"`,
-    )
+    expect(wrapper.html()).toMatchInlineSnapshot(`"<span class="no-match-custom">churrasco</span>"`)
   })
 })

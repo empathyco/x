@@ -120,23 +120,13 @@ _Try clicking it to see how it changes its state_
 
 ```vue live
 <template>
-  <BaseSwitch @update:modelValue="value = !value" :modelValue="value" />
+  <BaseSwitch v-model="value" />
 </template>
 
-<script>
+<script setup>
 import { BaseSwitch } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSwitchDemo',
-  components: {
-    BaseSwitch,
-  },
-  data() {
-    return {
-      value: false,
-    }
-  },
-}
+import { ref } from 'vue'
+const value = ref(false)
 </script>
 ```
 
@@ -148,20 +138,10 @@ change:
   <BaseSwitch v-model="value" />
 </template>
 
-<script>
+<script setup>
 import { BaseSwitch } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseSwitchDemo',
-  components: {
-    BaseSwitch,
-  },
-  data() {
-    return {
-      value: false,
-    }
-  },
-}
+import { ref } from 'vue'
+const value = ref(false)
 </script>
 ```
 </docs>

@@ -32,9 +32,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       state.params = params
     },
     setQueryPreviewCached(state, queryPreview) {
-      state.queriesPreview[
-        getHashFromQueryPreviewItem(queryPreview, queryPreview.request.extraParams?.lang as string)
-      ] = queryPreview
+      state.queriesPreview[getHashFromQueryPreviewItem(queryPreview)] = queryPreview
     },
     setStatus(state, { queryPreviewHash, status }) {
       state.queriesPreview[queryPreviewHash].status = status
@@ -59,7 +57,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       }
     },
     updateAQueryPreviewResult(state, { result, queryPreviewHash }) {
-      const queryPreviewResult = state.queriesPreview[queryPreviewHash.value]?.results.find(
+      const queryPreviewResult = state.queriesPreview[queryPreviewHash]?.results.find(
         resultPreview => resultPreview.id === result.id,
       )
       if (queryPreviewResult) {

@@ -2,11 +2,12 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import type { TaggingConfig } from '../../config.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick, reactive } from 'vue'
+import { snippetConfigStub } from '../../../../__stubs__/snippet-config.stub'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import Tagging from '../../../tagging/components/tagging.vue'
 
 function renderTagging({
@@ -26,7 +27,7 @@ function renderTagging({
   productId,
 }: RenderTaggingOptions = {}) {
   const snippetConfig = reactive({
-    ...baseSnippetConfig,
+    ...snippetConfigStub,
     consent: snippetConsent,
     productId,
   })
@@ -62,13 +63,13 @@ function renderTagging({
     },
   )
 
-  const onConsentProvided = jest.fn()
+  const onConsentProvided = vi.fn()
   XPlugin.bus.on('ConsentProvided', true).subscribe(onConsentProvided)
 
-  const onTaggingConfigProvided = jest.fn()
+  const onTaggingConfigProvided = vi.fn()
   XPlugin.bus.on('TaggingConfigProvided', true).subscribe(onTaggingConfigProvided)
 
-  const onPDPIsLoaded = jest.fn()
+  const onPDPIsLoaded = vi.fn()
   XPlugin.bus.on('PDPIsLoaded', true).subscribe(onPDPIsLoaded)
 
   async function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {

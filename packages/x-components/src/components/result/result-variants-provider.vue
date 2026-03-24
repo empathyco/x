@@ -178,57 +178,28 @@ By default, the first variants of all the levels will be selected when the compo
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantsProviderDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-            variants: [
-              {
-                name: 'red XL',
-              },
-              {
-                name: 'red L',
-              },
-            ],
-          },
-          {
-            name: 'blue',
-            variants: [
-              {
-                name: 'blue S',
-              },
-              {
-                name: 'blue M',
-              },
-              {
-                name: 'blue L',
-              },
-            ],
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [
+    {
+      name: 'red',
+      variants: [{ name: 'red XL' }, { name: 'red L' }],
+    },
+    {
+      name: 'blue',
+      variants: [{ name: 'blue S' }, { name: 'blue M' }, { name: 'blue L' }],
+    },
+  ],
 }
 </script>
 ```
@@ -256,57 +227,28 @@ first variant of the first level, and so on.
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantsProviderDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-            variants: [
-              {
-                name: 'red XL',
-              },
-              {
-                name: 'red L',
-              },
-            ],
-          },
-          {
-            name: 'blue',
-            variants: [
-              {
-                name: 'blue S',
-              },
-              {
-                name: 'blue M',
-              },
-              {
-                name: 'blue L',
-              },
-            ],
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [
+    {
+      name: 'red',
+      variants: [{ name: 'red XL' }, { name: 'red L' }],
+    },
+    {
+      name: 'blue',
+      variants: [{ name: 'blue S' }, { name: 'blue M' }, { name: 'blue L' }],
+    },
+  ],
 }
 </script>
 ```

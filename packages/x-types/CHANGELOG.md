@@ -3,189 +3,286 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.50...@empathyco/x-types@10.1.0-alpha.51) (2026-03-17)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## 10.1.0-alpha.50 (2026-03-16)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## 10.1.0-alpha.49 (2026-03-13)
+
+* Make `eslint-config` & `prettier` great again (#2049) ([6f6ca7e](https://github.com/empathyco/x/commit/6f6ca7e)), closes [#2049](https://github.com/empathyco/x/issues/2049)
+
+
+
+
+
+## 10.1.0-alpha.48 (2026-03-09)
+
+- feat(deep-merge-storage-service): clean up deep-merge and storage-service deps and side effects (#20 ([668130c](https://github.com/empathyco/x/commit/668130c)), closes [#2048](https://github.com/empathyco/x/issues/2048)
+
+## 10.1.0-alpha.47 (2026-03-05)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.46 (2026-03-04)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.45 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.44 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.43 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.42 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.41 (2026-03-02)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.40 (2026-03-02)
+
+- feat: migrate from Jest to Vitest and add custom assertion utilities ([d0474ba](https://github.com/empathyco/x/commit/d0474ba))
+- feat: remove unused dependencies from package.json and pnpm-lock.yaml ([8e69b5d](https://github.com/empathyco/x/commit/8e69b5d))
+
+## 10.1.0-alpha.39 (2026-02-27)
+
+- feat: remove Cypress-related configurations and tests ([67ec01d](https://github.com/empathyco/x/commit/67ec01d))
+
+## 10.1.0-alpha.38 (2026-02-25)
+
+- chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+- refactor: fix type issues ([74216e4](https://github.com/empathyco/x/commit/74216e4))
+
+## 10.1.0-alpha.37 (2026-02-11)
+
+- chore(deps): pin dependency vite-plugin-dts to 4.5.4 (#1978) ([605f13f](https://github.com/empathyco/x/commit/605f13f)), closes [#1978](https://github.com/empathyco/x/issues/1978)
+
+## 10.1.0-alpha.36 (2026-02-11)
+
+- feat: migrate to Vite x-types and x-archetype-utils packages (#1949) ([730686f](https://github.com/empathyco/x/commit/730686f)), closes [#1949](https://github.com/empathyco/x/issues/1949)
+
+## 10.1.0-alpha.35 (2026-01-29)
+
+- chore(deps): update all non-major dependencies (#1957) ([41a8824](https://github.com/empathyco/x/commit/41a8824)), closes [#1957](https://github.com/empathyco/x/issues/1957)
+
+## 10.1.0-alpha.34 (2026-01-07)
+
+- chore(deps): update all non-major dependencies (#1937) ([e8054f1](https://github.com/empathyco/x/commit/e8054f1)), closes [#1937](https://github.com/empathyco/x/issues/1937)
+
+## 10.1.0-alpha.33 (2025-12-17)
+
+- chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+## 10.1.0-alpha.32 (2025-11-20)
+
+- feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
+
+## 10.1.0-alpha.31 (2025-11-03)
+
+- feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
+
+## 10.1.0-alpha.30 (2025-10-15)
+
+- feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
+
+## 10.1.0-alpha.29 (2025-10-02)
+
+- feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
+
+## 10.1.0-alpha.28 (2025-09-24)
+
+- feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
+
+## 10.1.0-alpha.27 (2025-09-23)
+
+- Add tagging to ai overview search queries (#1882) ([4a7b9fc](https://github.com/empathyco/x/commit/4a7b9fc)), closes [#1882](https://github.com/empathyco/x/issues/1882)
+
+## 10.1.0-alpha.26 (2025-09-11)
+
+- feat(AiOverview): add display tagging ([73aa630](https://github.com/empathyco/x/commit/73aa630))
+
+## 10.1.0-alpha.25 (2025-09-09)
+
+- chore: adapt AiSuggestionsSearchResponse type ([8fd6215](https://github.com/empathyco/x/commit/8fd6215))
+- feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
+
+## 10.1.0-alpha.24 (2025-09-03)
+
+- refactor(ai): fetchAndSave for both requests ([5d2a355](https://github.com/empathyco/x/commit/5d2a355))
+- feat(ai): add AiSuggestionQuery model ([6df871d](https://github.com/empathyco/x/commit/6df871d))
+
+## 10.1.0-alpha.23 (2025-09-02)
+
+- chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+- chore: fix linter issues ([5018b7c](https://github.com/empathyco/x/commit/5018b7c))
+- chore: pr review ([8d9dded](https://github.com/empathyco/x/commit/8d9dded))
+- chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+- feat: add ai suggestions request type ([9d92ae7](https://github.com/empathyco/x/commit/9d92ae7))
+- feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+
+## 10.1.0-alpha.22 (2025-09-01)
+
+- fix: avoid unnecessary export ([9322cd1](https://github.com/empathyco/x/commit/9322cd1))
+- fix: improve schemas ([da24f29](https://github.com/empathyco/x/commit/da24f29))
+- fix: make lang as part of the extraParams ([d29499d](https://github.com/empathyco/x/commit/d29499d))
+- fix: replace items by suggestion in internal model ([10ddccc](https://github.com/empathyco/x/commit/10ddccc))
+- fix(Result): infinite loop regression ([9b4712b](https://github.com/empathyco/x/commit/9b4712b))
+- fix(Result): infinite loop regression ([6ad37b0](https://github.com/empathyco/x/commit/6ad37b0))
+- refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+- refactor(types): barrels ([315c81f](https://github.com/empathyco/x/commit/315c81f))
+- feat(x-platform-adapter): overview-suggestions-search ([ac379da](https://github.com/empathyco/x/commit/ac379da))
+
+## 10.1.0-alpha.21 (2025-08-21)
+
+- docs(ai): models ([d9f6ef9](https://github.com/empathyco/x/commit/d9f6ef9))
+
+## 10.1.0-alpha.20 (2025-08-19)
+
+- feat(ai): add aiTasks on XComponentsAdapter ([79f0a55](https://github.com/empathyco/x/commit/79f0a55))
+- feat(ai): implement tasks endpoint ([082153e](https://github.com/empathyco/x/commit/082153e))
+- feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
+- refactor(ai): rename interface for consistent naming ([29a868a](https://github.com/empathyco/x/commit/29a868a))
+- refactor(ai): rename interface for consistent naming ([3633c86](https://github.com/empathyco/x/commit/3633c86))
+
+## 10.1.0-alpha.19 (2025-08-18)
+
+- feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+
+## 10.1.0-alpha.18 (2025-08-12)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## 10.1.0-alpha.17 (2025-08-06)
+
+- chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
+
+## 10.1.0-alpha.16 (2025-07-16)
+
+- chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
 ## 10.1.0-alpha.15 (2025-06-26)
 
-* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
-
-
-
-
+- chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
 
 ## 10.1.0-alpha.14 (2025-06-06)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.12...@empathyco/x-types@10.1.0-alpha.13) (2025-05-20)
-
 
 ### Features
 
-* add suggestionImageUrl as new field in the related-prompts response (#1786) ([2be35ac](https://github.com/empathyco/x/commit/2be35acc10ef17ae6a21fa2815506ba077a75a6b))
-
-
+- add suggestionImageUrl as new field in the related-prompts response (#1786) ([2be35ac](https://github.com/empathyco/x/commit/2be35acc10ef17ae6a21fa2815506ba077a75a6b))
 
 ## [10.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.11...@empathyco/x-types@10.1.0-alpha.12) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.10...@empathyco/x-types@10.1.0-alpha.11) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.9...@empathyco/x-types@10.1.0-alpha.10) (2025-02-28)
-
 
 ### Features
 
-* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
-
-
+- refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
 
 ## [10.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.8...@empathyco/x-types@10.1.0-alpha.9) (2025-02-26)
 
-
 ### Code Refactoring
 
-* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
-
-
+- related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
 
 ## [10.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.7...@empathyco/x-types@10.1.0-alpha.8) (2025-02-17)
 
-
 ### Features
 
-* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
-
-
+- related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
 
 ## [10.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.6...@empathyco/x-types@10.1.0-alpha.7) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.5...@empathyco/x-types@10.1.0-alpha.6) (2024-11-25)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.4...@empathyco/x-types@10.1.0-alpha.5) (2024-10-31)
-
 
 ### Features
 
-* add stats to search response (#1648) ([0fdf5b4](https://github.com/empathyco/x/commit/0fdf5b4030a90da6ec7b4d30d667c08afeb5a80d))
-
-
+- add stats to search response (#1648) ([0fdf5b4](https://github.com/empathyco/x/commit/0fdf5b4030a90da6ec7b4d30d667c08afeb5a80d))
 
 ## [10.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.3...@empathyco/x-types@10.1.0-alpha.4) (2024-10-28)
 
-
 ### Features
 
-* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
-
-
+- add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
 
 ## [10.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.2...@empathyco/x-types@10.1.0-alpha.3) (2024-05-03)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.1...@empathyco/x-types@10.1.0-alpha.2) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.0...@empathyco/x-types@10.1.0-alpha.1) (2024-01-12)
-
 
 ### Features
 
-* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
-
-
+- **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
 
 ## [10.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.1...@empathyco/x-types@10.1.0-alpha.0) (2024-01-11)
 
-
 ### Features
 
-* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
-
-
+- update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
 
 ## [10.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.0...@empathyco/x-types@10.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.2...@empathyco/x-types@10.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 ## [10.0.2](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.2-alpha.0...@empathyco/x-types@10.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.1-alpha.0...@empathyco/x-types@10.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 ## [10.0.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.1-alpha.0...@empathyco/x-types@10.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-
-
-
-
 ## [10.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.75...@empathyco/x-types@10.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 # Change Log
 

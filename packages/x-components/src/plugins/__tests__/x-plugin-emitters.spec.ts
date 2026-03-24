@@ -1,6 +1,7 @@
 import type { Store } from 'vuex'
 import type { XPluginOptions } from '../x-plugin.types'
 import { mount } from '@vue/test-utils'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createStore } from 'vuex'
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy'
@@ -9,10 +10,10 @@ import { setQuery } from '../../store/utils/query.utils'
 import { createWireFromFunction } from '../../wiring/wires.factory'
 import { XPlugin } from '../x-plugin'
 
-const wireInstance = jest.fn()
-const usedClearedWireInstance = jest.fn()
-const userIsTypingAQuerySelector = jest.fn()
-const userAcceptedAQuerySelector = jest.fn()
+const wireInstance = vi.fn()
+const usedClearedWireInstance = vi.fn()
+const userIsTypingAQuerySelector = vi.fn()
+const userAcceptedAQuerySelector = vi.fn()
 
 const xModule = createXModule({
   name: 'searchBox',
@@ -45,20 +46,20 @@ let store: Store<any> // Any to handle creation of new properties
 
 describe('testing X Plugin emitters', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     XPlugin.resetInstance()
     store = createStore({})
     mount({}, { global: { plugins: [store] } })
   })
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('install XPlugin overriding store emitters', () => {
-    const newSearchBoxQueryChangedSelector = jest.fn()
+    const newSearchBoxQueryChangedSelector = vi.fn()
     const pluginOptions: XPluginOptions = {
       adapter: XComponentsAdapterDummy,
       __PRIVATE__xModules: {
@@ -149,7 +150,7 @@ describe('testing X Plugin emitters', () => {
   })
 
   describe('immediate configuration option', () => {
-    const testWire = jest.fn()
+    const testWire = vi.fn()
     const wiring = {
       SearchBoxQueryChanged: {
         setQueryWire: createWireFromFunction(testWire),
@@ -180,7 +181,7 @@ describe('testing X Plugin emitters', () => {
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
          they have emitted or not. */
-      jest.runAllTimers()
+      vi.runAllTimers()
 
       expect(testWire).not.toHaveBeenCalled()
     })
@@ -211,7 +212,7 @@ describe('testing X Plugin emitters', () => {
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
        they have emitted or not. */
-      jest.advanceTimersByTime(0)
+      vi.advanceTimersByTime(0)
 
       expect(testWire).toHaveBeenCalled()
     })
@@ -219,7 +220,7 @@ describe('testing X Plugin emitters', () => {
 
   describe('isDifferent configuration option', () => {
     it('should not trigger the event if the provided filter function returns false', async () => {
-      const testWire = jest.fn()
+      const testWire = vi.fn()
       const wiring = {
         SearchBoxQueryChanged: {
           testWire: createWireFromFunction(testWire),
@@ -285,11 +286,11 @@ describe('testing X Plugin emitters', () => {
 /**
  * Waits for Vue's reactivity to update getters and watchers, and flushes the pending emitters.
  *
- * @remarks It needs `jest.useFakeTimers()` to have been called to wait for the emitters.
+ * @remarks It needs `vi.useFakeTimers()` to have been called to wait for the emitters.
  * @returns A promise that resolves after the reactivity has been updated and the pending emitters
  * have been run.
  */
 async function waitNextTick(): Promise<void> {
   await nextTick()
-  jest.runAllTimers()
+  vi.runAllTimers()
 }

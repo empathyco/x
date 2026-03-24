@@ -3,246 +3,359 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.60...@empathyco/x-adapter-platform@1.1.0-alpha.61) (2026-03-17)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## 1.1.0-alpha.60 (2026-03-17)
+
+* chore(release): publish ([6264e06](https://github.com/empathyco/x/commit/6264e06))
+* fix: handle optional tagging query in suggestion search schema ([b5e7bed](https://github.com/empathyco/x/commit/b5e7bed))
+
+
+
+
+
+## 1.1.0-alpha.59 (2026-03-16)
+
+* fix: handle optional tagging query in suggestion search schema ([b5e7bed](https://github.com/empathyco/x/commit/b5e7bed))
+
+
+
+
+
+## 1.1.0-alpha.58 (2026-03-16)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## 1.1.0-alpha.57 (2026-03-13)
+
+* Make `eslint-config` & `prettier` great again (#2049) ([6f6ca7e](https://github.com/empathyco/x/commit/6f6ca7e)), closes [#2049](https://github.com/empathyco/x/issues/2049)
+
+
+
+
+
+## 1.1.0-alpha.56 (2026-03-09)
+
+- feat(deep-merge-storage-service): clean up deep-merge and storage-service deps and side effects (#20 ([668130c](https://github.com/empathyco/x/commit/668130c)), closes [#2048](https://github.com/empathyco/x/issues/2048)
+
+## 1.1.0-alpha.55 (2026-03-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.54 (2026-03-04)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.53 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.52 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.51 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.50 (2026-03-03)
+
+- chore: x-adapter-platform update tests to use Vitest (#2030) ([a78c920](https://github.com/empathyco/x/commit/a78c920)), closes [#2030](https://github.com/empathyco/x/issues/2030)
+
+## 1.1.0-alpha.49 (2026-03-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.48 (2026-03-02)
+
+- chore: add `jest-environment-jsdom` as a dev dependency across packages ([eae76f1](https://github.com/empathyco/x/commit/eae76f1))
+
+## 1.1.0-alpha.47 (2026-03-02)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.46 (2026-02-27)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.45 (2026-02-25)
+
+- chore(deps): update all non-major dependencies (#1976) ([1a54734](https://github.com/empathyco/x/commit/1a54734)), closes [#1976](https://github.com/empathyco/x/issues/1976)
+
+## 1.1.0-alpha.44 (2026-02-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.43 (2026-02-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.42 (2026-01-29)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.41 (2026-01-07)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.40 (2025-12-17)
+
+- chore: upgrade Typescript related deps (#1948) ([19dbdd7](https://github.com/empathyco/x/commit/19dbdd7)), closes [#1948](https://github.com/empathyco/x/issues/1948)
+
+## 1.1.0-alpha.39 (2025-11-20)
+
+- feat: add standalone facets endpoint and module foundation (#1928) ([b3109e5](https://github.com/empathyco/x/commit/b3109e5)), closes [#1928](https://github.com/empathyco/x/issues/1928)
+
+## 1.1.0-alpha.38 (2025-11-03)
+
+- feat(ai): add aiSummarize endpoint and integrate with ai-overview (#1915) ([3423237](https://github.com/empathyco/x/commit/3423237)), closes [#1915](https://github.com/empathyco/x/issues/1915)
+
+## 1.1.0-alpha.37 (2025-10-15)
+
+- fix: minor improvements in implementation ([454fb8c](https://github.com/empathyco/x/commit/454fb8c))
+- feat(AiOverview): add selected filters to requests ([2a6a446](https://github.com/empathyco/x/commit/2a6a446))
+
+## 1.1.0-alpha.36 (2025-10-02)
+
+- feat(AiOverview): add origin field to the store module (#1893) ([355ace6](https://github.com/empathyco/x/commit/355ace6)), closes [#1893](https://github.com/empathyco/x/issues/1893)
+
+## 1.1.0-alpha.35 (2025-09-24)
+
+- feat(AiOverview): handle query tagging for suggested queries (#1887) ([8b47df6](https://github.com/empathyco/x/commit/8b47df6)), closes [#1887](https://github.com/empathyco/x/issues/1887)
+
+## 1.1.0-alpha.34 (2025-09-23)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.33 (2025-09-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.32 (2025-09-09)
+
+- test: fix unit tests ([9571c05](https://github.com/empathyco/x/commit/9571c05))
+- feat(ai): add numFound property to the response of suggestionSearch ([d0118ae](https://github.com/empathyco/x/commit/d0118ae))
+
+## 1.1.0-alpha.31 (2025-09-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## 1.1.0-alpha.30 (2025-09-02)
+
+- chore: core refactor ([5f6c03a](https://github.com/empathyco/x/commit/5f6c03a))
+- chore: fix linter issues ([5018b7c](https://github.com/empathyco/x/commit/5018b7c))
+- chore: pr review ([8d9dded](https://github.com/empathyco/x/commit/8d9dded))
+- chore: pr review ([eacfeeb](https://github.com/empathyco/x/commit/eacfeeb))
+- chore(x-adapter): remove unnecessary eslint comment ([e6c611a](https://github.com/empathyco/x/commit/e6c611a))
+- tests(request-mapper): add unit test to aiSuggestionsRequestMapper ([e0036dc](https://github.com/empathyco/x/commit/e0036dc))
+- feat: add ai suggestions request type ([9d92ae7](https://github.com/empathyco/x/commit/9d92ae7))
+- feat(x-adapter): create streamHttpClient function ([991fe3c](https://github.com/empathyco/x/commit/991fe3c))
+- feat(x-platform-adapter): overview-suggestions ([55f7dd0](https://github.com/empathyco/x/commit/55f7dd0))
+
+## 1.1.0-alpha.29 (2025-09-01)
+
+- fix: improve schemas ([da24f29](https://github.com/empathyco/x/commit/da24f29))
+- fix: make lang as part of the extraParams ([d29499d](https://github.com/empathyco/x/commit/d29499d))
+- fix: reorder ([af58e9a](https://github.com/empathyco/x/commit/af58e9a))
+- fix: replace items by suggestion in internal model ([10ddccc](https://github.com/empathyco/x/commit/10ddccc))
+- fix: unit tests ([3e9755b](https://github.com/empathyco/x/commit/3e9755b))
+- fix(e2e): mock adapter ([74ac6a5](https://github.com/empathyco/x/commit/74ac6a5))
+- fix(Result): infinite loop regression ([9b4712b](https://github.com/empathyco/x/commit/9b4712b))
+- test: rename fixture ([4f31639](https://github.com/empathyco/x/commit/4f31639))
+- test(overview-suggestions-search): request mapper & response mapper ([bd1df55](https://github.com/empathyco/x/commit/bd1df55))
+- test(overview-suggestions-search): test ([78b60f4](https://github.com/empathyco/x/commit/78b60f4))
+- refactor(result): align models ([90023ab](https://github.com/empathyco/x/commit/90023ab))
+- refactor(suggestions-search): rename ([3ffe0b0](https://github.com/empathyco/x/commit/3ffe0b0))
+- feat(x-platform-adapter): overview-suggestions-search ([ac379da](https://github.com/empathyco/x/commit/ac379da))
+
+## 1.1.0-alpha.28 (2025-08-21)
+
+- docs(ai): schemas ([7ac1b11](https://github.com/empathyco/x/commit/7ac1b11))
+
+## 1.1.0-alpha.27 (2025-08-21)
+
+- fix(ai): export task endpoint adapter ([6697839](https://github.com/empathyco/x/commit/6697839))
+
+## 1.1.0-alpha.26 (2025-08-20)
+
+- chore(ai): fix text ([601f19d](https://github.com/empathyco/x/commit/601f19d))
+- feat(ai): wiring, store, emitters for ai module ([48840be](https://github.com/empathyco/x/commit/48840be))
+
+## 1.1.0-alpha.25 (2025-08-19)
+
+- feat(ai): implement tasks endpoint ([082153e](https://github.com/empathyco/x/commit/082153e))
+- feat(platform-adapter): add questions v1 endpoint ([63323d3](https://github.com/empathyco/x/commit/63323d3))
+- refactor(ai): rename interface for consistent naming ([29a868a](https://github.com/empathyco/x/commit/29a868a))
+- refactor(ai): rename interface for consistent naming ([3633c86](https://github.com/empathyco/x/commit/3633c86))
+- fix(AIQuestions): fix adapter config ([d364194](https://github.com/empathyco/x/commit/d364194))
+
+## 1.1.0-alpha.24 (2025-08-18)
+
+- fix: platform adapter interface ([359686c](https://github.com/empathyco/x/commit/359686c))
+- feat(ai): initial ai overview skeleton ([7cd260b](https://github.com/empathyco/x/commit/7cd260b))
+
+## 1.1.0-alpha.23 (2025-08-12)
+
+- chore: remove the install-build-pack chain ([09e08fb](https://github.com/empathyco/x/commit/09e08fb))
+
+## 1.1.0-alpha.22 (2025-08-06)
+
+- test: fix test ([b580a8e](https://github.com/empathyco/x/commit/b580a8e))
+- chore(deps): update jest to 29 ([ad31210](https://github.com/empathyco/x/commit/ad31210))
+
+## 1.1.0-alpha.21 (2025-07-16)
+
+- chore(deps): upgrade typescript to version 5.8.3 ([e334a69](https://github.com/empathyco/x/commit/e334a69))
+
 ## 1.1.0-alpha.20 (2025-06-26)
 
-* chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
-
-
-
-
+- chore(deps): bump high confidence packages (#1810) ([892f1b2](https://github.com/empathyco/x/commit/892f1b2)), closes [#1810](https://github.com/empathyco/x/issues/1810)
 
 ## 1.1.0-alpha.19 (2025-06-06)
 
-* feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
-
-
-
-
+- feat(logger): remove x-logger (#1800) ([70d210a](https://github.com/empathyco/x/commit/70d210a)), closes [#1800](https://github.com/empathyco/x/issues/1800)
 
 ## [1.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.17...@empathyco/x-adapter-platform@1.1.0-alpha.18) (2025-05-20)
 
-
 ### Features
 
-* **utils:** ensure `getDefaultHeaders` is SSR-friendly and add tests for browser/non-browser behavior ([1768159](https://github.com/empathyco/x/commit/17681593538b879b9e17b49146e1b949d80c845d))
-
-
+- **utils:** ensure `getDefaultHeaders` is SSR-friendly and add tests for browser/non-browser behavior ([1768159](https://github.com/empathyco/x/commit/17681593538b879b9e17b49146e1b949d80c845d))
 
 ## [1.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.16...@empathyco/x-adapter-platform@1.1.0-alpha.17) (2025-05-20)
 
-
 ### Features
 
-* add suggestionImageUrl as new field in the related-prompts response (#1786) ([2be35ac](https://github.com/empathyco/x/commit/2be35acc10ef17ae6a21fa2815506ba077a75a6b))
-
-
+- add suggestionImageUrl as new field in the related-prompts response (#1786) ([2be35ac](https://github.com/empathyco/x/commit/2be35acc10ef17ae6a21fa2815506ba077a75a6b))
 
 ## [1.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.15...@empathyco/x-adapter-platform@1.1.0-alpha.16) (2025-05-19)
 
-
 ### Features
 
-* **x-adapter-platform:** add default headers to endpoint adapters ([d112a64](https://github.com/empathyco/x/commit/d112a64f77563c7ed305210baa19820cc1a851ea))
-
+- **x-adapter-platform:** add default headers to endpoint adapters ([d112a64](https://github.com/empathyco/x/commit/d112a64f77563c7ed305210baa19820cc1a851ea))
 
 ### Testing
 
-* add 'x-empathy-origin' header validation to fetchMock expectations ([ecccdb5](https://github.com/empathyco/x/commit/ecccdb5e6e5828498af7fd5cd96d39c2b4606168))
-
-
+- add 'x-empathy-origin' header validation to fetchMock expectations ([ecccdb5](https://github.com/empathyco/x/commit/ecccdb5e6e5828498af7fd5cd96d39c2b4606168))
 
 ## [1.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.14...@empathyco/x-adapter-platform@1.1.0-alpha.15) (2025-04-14)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.13...@empathyco/x-adapter-platform@1.1.0-alpha.14) (2025-03-19)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.12...@empathyco/x-adapter-platform@1.1.0-alpha.13) (2025-02-28)
-
 
 ### Features
 
-* refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
-
-
+- refactor RPs types and send toolingDisplayClick when a prompt is selected (#1715) ([eefb327](https://github.com/empathyco/x/commit/eefb327445a07e1dd63db779d4948f78257ee67b))
 
 ## [1.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.11...@empathyco/x-adapter-platform@1.1.0-alpha.12) (2025-02-26)
 
-
 ### Code Refactoring
 
-* related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
-
-
+- related prompts type (#1714) ([13a1940](https://github.com/empathyco/x/commit/13a1940ddd5d455a64b68d519b9857677b746887))
 
 ## [1.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.10...@empathyco/x-adapter-platform@1.1.0-alpha.11) (2025-02-17)
 
-
 ### Features
 
-* related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
-
-
+- related-prompts tooling tagging (#1703) ([24df720](https://github.com/empathyco/x/commit/24df7200df5de76a7530e24953367dd09f683fdc))
 
 ## [1.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.9...@empathyco/x-adapter-platform@1.1.0-alpha.10) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.8...@empathyco/x-adapter-platform@1.1.0-alpha.9) (2024-11-25)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.7...@empathyco/x-adapter-platform@1.1.0-alpha.8) (2024-10-31)
-
 
 ### Features
 
-* add stats to search adapter (#1649) ([14b94ec](https://github.com/empathyco/x/commit/14b94ecf4c4a1f642232c74c22a50f4110976519))
-
-
+- add stats to search adapter (#1649) ([14b94ec](https://github.com/empathyco/x/commit/14b94ecf4c4a1f642232c74c22a50f4110976519))
 
 ## [1.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.6...@empathyco/x-adapter-platform@1.1.0-alpha.7) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.5...@empathyco/x-adapter-platform@1.1.0-alpha.6) (2024-10-31)
-
 
 ### Bug Fixes
 
-* change related prompts endpoint (#1652) ([61468cd](https://github.com/empathyco/x/commit/61468cd6b7fae02bb37f765490b8680e583de113))
-
-
+- change related prompts endpoint (#1652) ([61468cd](https://github.com/empathyco/x/commit/61468cd6b7fae02bb37f765490b8680e583de113))
 
 ## [1.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.4...@empathyco/x-adapter-platform@1.1.0-alpha.5) (2024-10-28)
 
-
 ### Features
 
-* add adapter for related prompts (#1641) ([8066983](https://github.com/empathyco/x/commit/80669835142a5e8d3823d42d599adb51ffc5849a))
-
-
+- add adapter for related prompts (#1641) ([8066983](https://github.com/empathyco/x/commit/80669835142a5e8d3823d42d599adb51ffc5849a))
 
 ## [1.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.3...@empathyco/x-adapter-platform@1.1.0-alpha.4) (2024-10-28)
 
-
 ### Features
 
-* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
-
-
+- add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
 
 ## [1.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.2...@empathyco/x-adapter-platform@1.1.0-alpha.3) (2024-05-21)
 
-
 ### Features
 
-* **adapter-platform:** support platform test environment (#1477) ([6b433a4](https://github.com/empathyco/x/commit/6b433a45e63d853f24823eccc3db5874e5b7d501))
-
-
+- **adapter-platform:** support platform test environment (#1477) ([6b433a4](https://github.com/empathyco/x/commit/6b433a45e63d853f24823eccc3db5874e5b7d501))
 
 ## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.1...@empathyco/x-adapter-platform@1.1.0-alpha.2) (2024-05-03)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.0...@empathyco/x-adapter-platform@1.1.0-alpha.1) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.3-alpha.2...@empathyco/x-adapter-platform@1.1.0-alpha.0) (2024-01-12)
-
 
 ### Features
 
-* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
-
-
+- **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
 
 ## [1.0.3-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.3-alpha.1...@empathyco/x-adapter-platform@1.0.3-alpha.2) (2024-01-11)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.3-alpha.0...@empathyco/x-adapter-platform@1.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
-
-
-
-
 
 ## [1.0.3-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.2...@empathyco/x-adapter-platform@1.0.3-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.0.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.2-alpha.0...@empathyco/x-adapter-platform@1.0.2) (2023-11-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
-
-
-
-
 
 ## [1.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.1-alpha.0...@empathyco/x-adapter-platform@1.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.0.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.1-alpha.0...@empathyco/x-adapter-platform@1.0.1) (2023-11-21)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
 
-
-
-
-
 ## [1.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.88...@empathyco/x-adapter-platform@1.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
-
-
-
-
 
 # Change Log
 

@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
@@ -77,7 +78,7 @@ describe('testing BaseColumnPickerDropdown component', () => {
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render()
 
-    const listenerColumnPicker = jest.fn()
+    const listenerColumnPicker = vi.fn()
     XPlugin.bus.on('ColumnsNumberProvided', true).subscribe(listenerColumnPicker)
 
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1)
@@ -106,7 +107,7 @@ describe('testing BaseColumnPickerDropdown component', () => {
   it('sets selectedColumns and emits "ColumnsNumberProvided" X Event with the column as payload on value change', async () => {
     const { toggleWrapper, setWrapperSelectedColumns } = render()
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ColumnsNumberProvided').subscribe(listener)
 
     expect(toggleWrapper.text()).toEqual('2')
@@ -133,7 +134,7 @@ describe('testing BaseColumnPickerDropdown component', () => {
   it('emits "UserClickedColumnPicker" when clicking a item dropdown, changing its own selectedColumns value', async () => {
     const { clickNthItem, toggleWrapper } = render()
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedColumnPicker').subscribe(listener)
 
     expect(toggleWrapper.text()).toEqual('2')

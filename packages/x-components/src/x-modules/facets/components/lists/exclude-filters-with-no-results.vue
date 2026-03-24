@@ -76,45 +76,37 @@ filters list to their children, it is mandatory to send it as prop.
   </ExcludeFiltersWithNoResults>
 </template>
 
-<script>
+<script setup>
 import { ExcludeFiltersWithNoResults } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    ExcludeFiltersWithNoResults,
+const filters = ref([
+  {
+    // This is the only filter that will be removed.
+    facetId: 'category',
+    id: 'category:men',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Men',
+    totalResults: 0,
   },
-  data() {
-    return {
-      filters: [
-        {
-          // This is the only filter that will be removed.
-          facetId: 'category',
-          id: 'category:men',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Men',
-          totalResults: 0,
-        },
-        {
-          facetId: 'category',
-          id: 'category:women',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Women',
-          totalResults: 10,
-        },
-        {
-          facetId: 'category',
-          id: 'category:kids',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Kids',
-          totalResults: undefined,
-        },
-      ],
-    }
+  {
+    facetId: 'category',
+    id: 'category:women',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Women',
+    totalResults: 10,
   },
-}
+  {
+    facetId: 'category',
+    id: 'category:kids',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Kids',
+    totalResults: undefined,
+  },
+])
 </script>
 ```
 
@@ -134,53 +126,42 @@ export default {
   </ExcludeFiltersWithNoResults>
 </template>
 
-<script>
+<script setup>
 import {
   ExcludeFiltersWithNoResults,
   FiltersSearch,
   Filters,
   SimpleFilter,
 } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    ExcludeFiltersWithNoResults,
-    FiltersSearch,
-    Filters,
-    SimpleFilter,
+const filters = ref([
+  {
+    // This is the only filter that will be removed.
+    facetId: 'category',
+    id: 'category:men',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Men',
+    totalResults: 0,
   },
-  data() {
-    return {
-      filters: [
-        {
-          // This is the only filter that will be removed.
-          facetId: 'category',
-          id: 'category:men',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Men',
-          totalResults: 0,
-        },
-        {
-          facetId: 'category',
-          id: 'category:women',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Women',
-          totalResults: 10,
-        },
-        {
-          facetId: 'category',
-          id: 'category:kids',
-          modelName: 'SimpleFilter',
-          selected: false,
-          label: 'Kids',
-          totalResults: undefined,
-        },
-      ],
-    }
+  {
+    facetId: 'category',
+    id: 'category:women',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Women',
+    totalResults: 10,
   },
-}
+  {
+    facetId: 'category',
+    id: 'category:kids',
+    modelName: 'SimpleFilter',
+    selected: false,
+    label: 'Kids',
+    totalResults: undefined,
+  },
+])
 </script>
 ```
 </docs>

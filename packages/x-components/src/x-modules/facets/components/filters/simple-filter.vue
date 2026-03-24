@@ -120,27 +120,18 @@ to emit on click.
   <SimpleFilter :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { SimpleFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'SimpleFilterTest',
-  components: {
-    SimpleFilter,
-  },
-  data() {
-    return {
-      filter: {
-        modelName: 'SimpleFilter',
-        selected: false,
-        id: 'category:shirts',
-        value: 'category:shirts',
-        facetId: 'category',
-        totalResults: 10,
-      },
-    }
-  },
-}
+const filter = ref({
+  modelName: 'SimpleFilter',
+  selected: false,
+  id: 'category:shirts',
+  value: 'category:shirts',
+  facetId: 'category',
+  totalResults: 10,
+})
 </script>
 ```
 
@@ -153,27 +144,18 @@ Configuring the events to emit when the filter is clicked.
   <SimpleFilter :clickEvents="{ UserClickedASimpleFilter: filter }" :filter="filter" />
 </template>
 
-<script>
+<script setup>
 import { SimpleFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'SimpleFilterTest',
-  components: {
-    SimpleFilter,
-  },
-  data() {
-    return {
-      filter: {
-        modelName: 'SimpleFilter',
-        selected: false,
-        id: 'category:shirts',
-        value: 'category:shirts',
-        facetId: 'category',
-        totalResults: 10,
-      },
-    }
-  },
-}
+const filter = ref({
+  modelName: 'SimpleFilter',
+  selected: false,
+  id: 'category:shirts',
+  value: 'category:shirts',
+  facetId: 'category',
+  totalResults: 10,
+})
 </script>
 ```
 
@@ -193,28 +175,19 @@ data and methods needed:
   </SimpleFilter>
 </template>
 
-<script>
+<script setup>
 import { SimpleFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'SimpleFilterTest',
-  components: {
-    SimpleFilter,
-  },
-  data() {
-    return {
-      filter: {
-        modelName: 'SimpleFilter',
-        selected: false,
-        id: 'category:shirts',
-        value: 'category:shirts',
-        facetId: 'category',
-        label: 'Shirts',
-        totalResults: 10,
-      },
-    }
-  },
-}
+const filter = ref({
+  modelName: 'SimpleFilter',
+  selected: false,
+  id: 'category:shirts',
+  value: 'category:shirts',
+  facetId: 'category',
+  label: 'Shirts',
+  totalResults: 10,
+})
 </script>
 ```
 
@@ -233,28 +206,19 @@ receive the filter data.
   </SimpleFilter>
 </template>
 
-<script>
+<script setup>
 import { SimpleFilter } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  name: 'SimpleFilterTest',
-  components: {
-    SimpleFilter,
-  },
-  data() {
-    return {
-      filter: {
-        modelName: 'SimpleFilter',
-        selected: false,
-        id: 'category:shirts',
-        value: 'category:shirts',
-        facetId: 'category',
-        label: 'Shirts',
-        totalResults: 10,
-      },
-    }
-  },
-}
+const filter = ref({
+  modelName: 'SimpleFilter',
+  selected: false,
+  id: 'category:shirts',
+  value: 'category:shirts',
+  facetId: 'category',
+  label: 'Shirts',
+  totalResults: 10,
+})
 </script>
 ```
 </docs>

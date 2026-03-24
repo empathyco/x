@@ -139,17 +139,9 @@ _Type any term in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { BannersList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'BannersListDemo',
-  components: {
-    SearchInput,
-    BannersList,
-  },
-}
 </script>
 ```
 
@@ -163,23 +155,12 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { BannersList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { FadeAndSlide } from '@empathyco/x-components/animations'
 
-export default {
-  name: 'BannersListDemo',
-  components: {
-    SearchInput,
-    BannersList,
-  },
-  data() {
-    return {
-      fadeAndSlide: FadeAndSlide,
-    }
-  },
-}
+const fadeAndSlide = FadeAndSlide
 </script>
 ```
 
@@ -202,17 +183,10 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { BannersList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'BannersListDemo',
-  components: {
-    SearchInput,
-    BannersList,
-  },
-}
+import { BaseGrid } from '@empathyco/x-components'
 </script>
 ```
 
@@ -230,17 +204,9 @@ export default {
   </div>
 </template>
 
-<script>
+<script setup>
 import { BannersList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'BannersListDemo',
-  components: {
-    SearchInput,
-    BannersList,
-  },
-}
 </script>
 ```
 
@@ -268,18 +234,9 @@ value.
   </div>
 </template>
 
-<script>
+<script setup>
 import { ResultsList, BannersList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'BannersListDemo',
-  components: {
-    SearchInput,
-    ResultsList,
-    BannersList,
-  },
-}
 </script>
 ```
 </docs>

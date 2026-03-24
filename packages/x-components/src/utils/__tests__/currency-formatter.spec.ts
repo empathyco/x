@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { currencyFormatter } from '../currency-formatter'
 
 describe('testing Currency formatter', () => {

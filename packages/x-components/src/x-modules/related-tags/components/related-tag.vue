@@ -194,24 +194,14 @@ _Here you can see how the RelatedTag component is rendered._
   <RelatedTag :relatedTag="tag" />
 </template>
 
-<script>
+<script setup>
 import { RelatedTag } from '@empathyco/x-components/related-tags'
 
-export default {
-  name: 'RelatedTagDemo',
-  components: {
-    RelatedTag,
-  },
-  data() {
-    return {
-      tag: {
-        modelName: 'RelatedTag',
-        query: 'high heel',
-        isCurated: false,
-        tag: 'heel',
-      },
-    }
-  },
+const tag = {
+  modelName: 'RelatedTag',
+  query: 'high heel',
+  isCurated: false,
+  tag: 'heel',
 }
 </script>
 ```
@@ -229,24 +219,14 @@ _See how the related tag can be rendered._
   </RelatedTag>
 </template>
 
-<script>
+<script setup>
 import { RelatedTag } from '@empathyco/x-components/related-tags'
 
-export default {
-  name: 'RelatedTagDemo',
-  components: {
-    RelatedTag,
-  },
-  data() {
-    return {
-      tag: {
-        modelName: 'RelatedTag',
-        query: 'high heel',
-        isCurated: false,
-        tag: 'heel',
-      },
-    }
-  },
+const tag = {
+  modelName: 'RelatedTag',
+  query: 'high heel',
+  isCurated: false,
+  tag: 'heel',
 }
 </script>
 ```
@@ -263,29 +243,18 @@ _See how the event is triggered when the related tag is clicked._
   <RelatedTag :relatedTag="tag" @UserSelectedARelatedTag="alertRelatedTag" />
 </template>
 
-<script>
+<script setup>
 import { RelatedTag } from '@empathyco/x-components/related-tags'
 
-export default {
-  name: 'RelatedTagDemo',
-  components: {
-    RelatedTag,
-  },
-  data() {
-    return {
-      tag: {
-        modelName: 'RelatedTag',
-        query: 'high heel',
-        isCurated: false,
-        tag: 'heel',
-      },
-    }
-  },
-  methods: {
-    alertRelatedTag(relatedTag) {
-      alert(`You have clicked the related tag: ${relatedTag.query}`)
-    },
-  },
+const tag = {
+  modelName: 'RelatedTag',
+  query: 'high heel',
+  isCurated: false,
+  tag: 'heel',
+}
+
+function alertRelatedTag(relatedTag) {
+  alert(`You have clicked the related tag: ${relatedTag.query}`)
 }
 </script>
 ```

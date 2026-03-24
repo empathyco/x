@@ -126,19 +126,9 @@ how the price should look like.
   </Facets>
 </template>
 
-<script>
-import { BasePriceFilterLabel } from '@empathyco/x-components'
+<script setup>
+import BasePriceFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-price-filter-label.vue'
 import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets'
-
-export default {
-  name: 'MyFacets',
-  components: {
-    Facets,
-    Filters,
-    NumberRangeFilter,
-    BasePriceFilterLabel,
-  },
-}
 </script>
 ```
 </docs>

@@ -1,19 +1,20 @@
 import type { Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { defineComponent, h, inject, nextTick, reactive } from 'vue' // Correct imports
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { defineComponent, h, inject, nextTick, reactive } from 'vue'
+import { snippetConfigStub } from '../../../../__stubs__'
 import { bus } from '../../../../plugins/index'
 import { createRawFilters } from '../../../../utils/filters'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import PreselectedFilters from '../preselected-filters.vue'
 
 function renderPreselectedFilters({
   filters,
   snippetFilters,
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
-  const emit = jest.spyOn(bus, 'emit')
+  const emit = vi.spyOn(bus, 'emit')
 
-  const snippetConfig = reactive({ ...baseSnippetConfig, filters: snippetFilters })
+  const snippetConfig = reactive({ ...snippetConfigStub, filters: snippetFilters })
 
   const wrapper = mount(PreselectedFilters, {
     global: {
@@ -40,7 +41,7 @@ function renderPreselectedFilters({
 
 describe('testing Preselected filters component', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('does not emit the event when neither filters nor snippet config filters are provided', () => {
@@ -159,7 +160,7 @@ describe('testing Preselected filters component', () => {
     const wrapperWithTest = mount(PreselectedFilters, {
       global: {
         provide: {
-          snippetConfig: { ...baseSnippetConfig, filters: newFilters },
+          snippetConfig: { ...snippetConfigStub, filters: newFilters },
         },
       },
       props: { filters },
@@ -196,7 +197,7 @@ interface RenderPreselectedFiltersOptions {
  */
 interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
-  emit: jest.SpyInstance
+  emit: ReturnType<typeof vi.spyOn>
   /** The wrapper of the container element.*/
   wrapper: VueWrapper
   /** Helper method to change the snippet config. */

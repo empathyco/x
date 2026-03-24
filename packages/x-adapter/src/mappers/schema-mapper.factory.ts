@@ -1,8 +1,8 @@
 import type { Dictionary, ExtractPath } from '@empathyco/x-utils'
 import type { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types'
 import type { Mapper, MapperContext } from './types'
-import { deepMerge } from '@empathyco/x-deep-merge'
 import {
+  deepMerge,
   getSafePropertyChain,
   isArray,
   isFunction,
@@ -64,7 +64,11 @@ function mapSchema<Source, Target>(
                 context,
                 schema as unknown as Schema<Source, TargetKey>,
               ) as TargetKey)
-            : mapSchema<Source, TargetKey>(source, transformer, context)
+            : mapSchema<Source, TargetKey>(
+                source,
+                transformer as Schema<Source, TargetKey>,
+                context,
+              )
 
         if (value) {
           target[key] = value

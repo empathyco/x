@@ -1,8 +1,10 @@
 import type { Redirection as RedirectionModel } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
+import type { Mock } from 'vitest'
 import type { RootXStoreState } from '../../../../store'
 import type { WirePayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createRedirectionStub, getEmptySearchResponseStub } from '../../../../__stubs__'
@@ -33,7 +35,7 @@ function renderRedirection({
   delayInSeconds = 1,
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
-  ;(XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
+  ;(XComponentsAdapterDummy.search as Mock).mockResolvedValueOnce({
     ...getEmptySearchResponseStub(),
   })
 
@@ -51,10 +53,10 @@ function renderRedirection({
   )
   resetXSearchStateWith(store, { redirections })
 
-  const onUserAbortedARedirection = jest.fn()
+  const onUserAbortedARedirection = vi.fn()
   XPlugin.bus.on('UserClickedAbortARedirection', true).subscribe(onUserAbortedARedirection)
 
-  const onUserClickedARedirection = jest.fn()
+  const onUserClickedARedirection = vi.fn()
   XPlugin.bus.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection)
 
   return {
@@ -71,30 +73,30 @@ function renderRedirection({
 }
 
 describe('testing Redirection component', () => {
-  const spy = jest.fn()
+  const spy = vi.fn()
   const { location } = window
 
   beforeEach(() => {
     // @ts-expect-error - TS error
     delete window.location
-    window.location = { ...location, replace: spy }
+    window.location = { ...location, replace: spy } as any
     bus = new XDummyBus()
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
-    jest.useFakeTimers()
-    window.location = location
+    vi.clearAllMocks()
+    vi.useFakeTimers()
+    window.location = location as any
   })
 
   it('is an XComponent', () => {
     const { wrapper } = renderRedirection()
-    expect(isXComponent(wrapper.vm)).toEqual(true)
+    expect(isXComponent(wrapper.vm)).toBe(true)
   })
 
   it('has Search as XModule', () => {
     const { wrapper } = renderRedirection()
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search')
+    expect(getXComponentXModuleName(wrapper.vm)).toBe('search')
   })
 
   it("doesn't render when there are no redirections", () => {
@@ -116,9 +118,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
 
-    expect(wrapper.get(getDataTestSelector('redirection-url')).text()).toEqual(
-      stubRedirections[0].url,
-    )
+    expect(wrapper.get(getDataTestSelector('redirection-url')).text()).toBe(stubRedirections[0].url)
   })
 
   it('redirects and emits the `UserClickedARedirection` event in manual mode when the user click the button', async () => {
@@ -143,7 +143,7 @@ describe('testing Redirection component', () => {
   it("doesn't redirect and doesn't emit the event `UserClickedARedirection` in manual when the user doesn't click the button", () => {
     const { onUserClickedARedirection } = renderRedirection({ mode: 'manual' })
 
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()
@@ -154,7 +154,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
     // The delay 0 runs so fast, we need to force the test to simulate a wait.
-    jest.advanceTimersByTime(1)
+    vi.advanceTimersByTime(1)
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1)
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
@@ -175,7 +175,7 @@ describe('testing Redirection component', () => {
 
     await nextTick()
     await abortRedirection()
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(onUserAbortedARedirection).toHaveBeenCalledTimes(1)
@@ -186,7 +186,7 @@ describe('testing Redirection component', () => {
     const { onUserClickedARedirection } = renderRedirection()
     await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
 
-    jest.runAllTicks()
+    vi.runAllTicks()
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()

@@ -5,6 +5,7 @@ import type { PropsWithType } from '../../../utils/index'
 import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
 import type { WireMetadata } from '../../../wiring/index'
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -31,7 +32,7 @@ describe('testing BaseResultLink component', () => {
   })
 
   it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedAResult').subscribe(listener)
 
     await resultLinkWrapper.trigger('click')
@@ -62,7 +63,7 @@ describe('testing BaseResultLink component', () => {
       },
     )
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(listener)
 
     await resultLinkWrapper.trigger('click')
@@ -106,10 +107,10 @@ describe('testing BaseResultLink component', () => {
       },
     )
 
-    const resultClickListener = jest.fn()
+    const resultClickListener = vi.fn()
     XPlugin.bus.on('UserClickedAResult', true).subscribe(resultClickListener)
 
-    const addToCartClickListener = jest.fn()
+    const addToCartClickListener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(addToCartClickListener)
 
     await resultLinkWrapper.trigger('click')

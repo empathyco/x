@@ -88,7 +88,13 @@ This component renders a button, which on clicked emits the `UserClickedClearAll
 ### Basic usage
 
 ```vue
-<ClearFilters />
+<template>
+  <ClearFilters />
+</template>
+
+<script setup>
+import { ClearFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 ### Customizing its contents
@@ -96,17 +102,32 @@ This component renders a button, which on clicked emits the `UserClickedClearAll
 In this example, show the custom message in button.
 
 ```vue
-<ClearFilters v-slot="{ selectedFilters }">
-  Delete {{ selectedFilters.length }} selected
-</ClearFilters>
+<template>
+  <ClearFilters v-slot="{ selectedFilters }">
+    Delete {{ selectedFilters.length }} selected
+  </ClearFilters>
+</template>
+
+<script setup>
+import { ClearFilters } from '@empathyco/x-components/facets'
+</script>
 ```
 
 In this example, show the custom message in button with always visible a true and list of facets
 ids.
 
 ```vue
-<ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true" :facetsIds="facetsIds">
-  Delete {{ selectedFilters.length }} selected
-</ClearFilters>
+<template>
+  <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true" :facetsIds="facetsIds">
+    Delete {{ selectedFilters.length }} selected
+  </ClearFilters>
+</template>
+
+<script setup>
+import { ClearFilters } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const facetsIds = ref(['brand_facet', 'gender_facet'])
+</script>
 ```
 </docs>

@@ -108,7 +108,18 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-@import url('../../styles/dev-mode.css');
+.dev-mode .slot-helper {
+  font-family: inherit;
+  color: grey;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: dashed 1px grey;
+  border-radius: 10px;
+}
 
 .x-layout {
   display: grid;
@@ -192,3 +203,52 @@ export default defineComponent({
   pointer-events: all;
 }
 </style>
+
+<docs lang="mdx">
+## Layout
+
+This component provides a single-column layout with fixed headers and collapsible fixed asides:
+
+### Layout Schema
+
+| header      |
+| ----------- |
+| sub-header  |
+| toolbar     |
+| predictive  |
+| main        |
+| floating    |
+| footer      |
+| aside       |
+| extra-aside |
+
+## Design Tokens
+
+The component exposes the following `Design Tokens` for configuration:
+
+| Token                                     | Default Value | Description                         |
+| ----------------------------------------- | ------------- | ----------------------------------- |
+| --x-size-margin-left-layout-single-column | 0             | The left margin for the aside modal |
+
+## Example
+
+```vue
+<template>
+  <SingleColumnLayout>
+    <template #header>Header content</template>
+    <template #sub-header>Sub-header content</template>
+    <template #toolbar>Toolbar content</template>
+    <template #predictive>Predictive content</template>
+    <template #main>Main content</template>
+    <template #floating>Floating content</template>
+    <template #footer>Footer content</template>
+    <template #aside>Aside content</template>
+    <template #extra-aside>Extra aside content</template>
+  </SingleColumnLayout>
+</template>
+
+<script setup>
+import SingleColumnLayout from '@empathyco/x-components/js/components/layouts/single-column-layout.vue'
+</script>
+```
+</docs>

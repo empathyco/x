@@ -262,27 +262,17 @@ Here a basic example of how the animated search input placeholder is rendered.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput, SearchInputPlaceholder } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'SearchInputPlaceholderDemo',
-  components: {
-    SearchInput,
-    SearchInputPlaceholder,
-  },
-  data: function () {
-    return {
-      placeholderMessages: [
-        'Find shirts',
-        'Find shoes',
-        'Find watches',
-        'Find handbags',
-        'Find sunglasses',
-      ],
-    }
-  },
-}
+const placeholderMessages = ref([
+  'Find shirts',
+  'Find shoes',
+  'Find watches',
+  'Find handbags',
+  'Find sunglasses',
+])
 </script>
 ```
 
@@ -303,27 +293,17 @@ input, showing the first message of the array the rest of the time.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput, SearchInputPlaceholder } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'SearchInputPlaceholderDemo',
-  components: {
-    SearchInput,
-    SearchInputPlaceholder,
-  },
-  data: function () {
-    return {
-      placeholderMessages: [
-        'Find shirts',
-        'Find shoes',
-        'Find watches',
-        'Find handbags',
-        'Find sunglasses',
-      ],
-    }
-  },
-}
+const placeholderMessages = ref([
+  'Find shirts',
+  'Find shoes',
+  'Find watches',
+  'Find handbags',
+  'Find sunglasses',
+])
 </script>
 ```
 </docs>

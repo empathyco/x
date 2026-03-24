@@ -316,15 +316,8 @@ _Type any term in the input field to try it out!_
   <SearchInput />
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'SearchInputDemo',
-  components: {
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -341,15 +334,8 @@ _Type a term with more than 5 characters to try it out!_
   <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
-
-export default {
-  name: 'SearchInputDemo',
-  components: {
-    SearchInput,
-  },
-}
 </script>
 ```
 
@@ -386,21 +372,12 @@ _Type any term in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
+import { ref } from 'vue'
 
-export default {
-  name: 'SearchInputDemo',
-  components: {
-    SearchInput,
-  },
-  data() {
-    return {
-      value: '',
-      hasFocus: false,
-    }
-  },
-}
+const value = ref('')
+const hasFocus = ref(false)
 </script>
 ```
 
@@ -429,19 +406,9 @@ out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput, ClearSearchInput, SearchButton } from '@empathyco/x-components/search-box'
 import { QuerySuggestions } from '@empathyco/x-components/query-suggestions'
-
-export default {
-  name: 'SearchInputDemo',
-  components: {
-    SearchInput,
-    ClearSearchInput,
-    SearchButton,
-    QuerySuggestions,
-  },
-}
 </script>
 ```
 </docs>

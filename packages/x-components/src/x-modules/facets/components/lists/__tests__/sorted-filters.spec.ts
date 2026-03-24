@@ -1,6 +1,7 @@
 import type { BooleanFilter, Filter } from '@empathyco/x-types'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { nextTick, reactive } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector } from '../../../../../__tests__/utils'

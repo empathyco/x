@@ -1,3 +1,4 @@
+export * from './ai'
 export * from './banner.model'
 export * from './facet.model'
 export * from './next-query.model'

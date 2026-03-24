@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.1.0-alpha.20",
+  "version": "1.1.0-alpha.61",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,11 +27,11 @@
     "node": ">=22"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
+    "prebuild": "rm -rf dist docs report *.tgz",
+    "build": "pnpm run /^build:/ && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "postbuild": "pnpm pack",
+    "pack": "pnpm pack",
     "gen:model-docs": "api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "pnpm run gen:model-docs && pnpm run gen:typescript-docs",
@@ -40,25 +40,24 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest",
-    "test:unit": "jest",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit-coverage": "vitest run --coverage",
+    "test:unit-watch": "vitest",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.5",
-    "@empathyco/x-types": "^10.1.0-alpha.15",
-    "@empathyco/x-utils": "^1.0.3-alpha.5",
-    "tslib": "~2.6.0"
+    "@empathyco/x-adapter": "8.1.0-alpha.22",
+    "@empathyco/x-types": "10.1.0-alpha.51",
+    "@empathyco/x-utils": "1.0.3-alpha.17"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.23.0",
-    "@microsoft/api-extractor": "7.52.8",
-    "@types/jest": "27.5.0",
-    "concurrently": "8.2.2",
-    "jest": "27.5.0",
-    "rimraf": "3.0.2",
-    "ts-jest": "27.1.0",
-    "typescript": "4.9.4"
+    "@microsoft/api-documenter": "7.29.7",
+    "@microsoft/api-extractor": "7.57.7",
+    "@vitest/coverage-v8": "4.1.0",
+    "jsdom": "28.1.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.0"
   },
   "publishConfig": {
     "access": "public"

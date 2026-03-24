@@ -101,61 +101,35 @@ export default defineComponent({
 
 ### Basic example
 
-The component content has the query preview query as default
+The component content has the query preview query as default.
 
 ```vue
 <template>
-  <div>
-    <QueryPreviewButton queryPreviewInfo="queryPreviewInfo" />
-  </div>
+  <QueryPreviewButton queryPreviewInfo="queryPreviewInfo" />
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewButton } from '@empathyco/x-components/queries-preview'
-
-export default {
-  components: {
-    QueryPreviewButton,
-  },
-  data: function () {
-    return {
-      queryPreviewInfo: {
-        query: 'shoes',
-      },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'shoes' })
 </script>
 ```
 
 ### Customizing slots
 
-The content of the button is customizable via its default slot
+The content of the button is customizable via its default slot.
 
 ```vue
 <template>
-  <div>
-    <QueryPreviewButton queryPreviewInfo="queryPreviewInfo">
-      {{ `Search for: ${queryPreviewInfo.query}` }}
-    </QueryPreviewButton>
-  </div>
+  <QueryPreviewButton queryPreviewInfo="queryPreviewInfo">
+    {{ `Search for: ${queryPreviewInfo.query}` }}
+  </QueryPreviewButton>
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewButton } from '@empathyco/x-components/queries-preview'
-
-export default {
-  components: {
-    QueryPreviewButton,
-  },
-  data: function () {
-    return {
-      queryPreviewInfo: {
-        query: 'shoes',
-      },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'shoes' })
 </script>
 ```
 

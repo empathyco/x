@@ -1,6 +1,7 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../../../__tests__/utils'
@@ -43,7 +44,7 @@ describe('testing ClearHistoryQueries component', () => {
 
   it('emits UserPressedClearHistoryQueries when clicked', async () => {
     const { wrapper, store } = render()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserPressedClearHistoryQueries', true).subscribe(listener)
 
     resetXHistoryQueriesStateWith(store, {

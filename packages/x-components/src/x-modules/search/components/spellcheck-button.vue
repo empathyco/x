@@ -93,18 +93,30 @@ The component sets the current spellcheckedQuery as the new query and emits the 
 and `UserAcceptedSpellcheckQuery` events.
 
 ```vue
-<SpellcheckButton />
+<template>
+  <SpellcheckButton />
+</template>
+
+<script setup>
+import { SpellcheckButton } from '@empathyco/x-components/search'
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<SpellcheckButton>
-  <template #default="{ spellcheckedQuery }">
-    <span class="x-spellcheck__text">
-      Set the Spellcheck as the new query: {{ spellcheckedQuery}}!
-    </span>
-  </template>
-</SpellcheckButton>
+<template>
+  <SpellcheckButton>
+    <template #default="{ spellcheckedQuery }">
+      <span class="x-spellcheck__text">
+        Set the Spellcheck as the new query: {{ spellcheckedQuery }}!
+      </span>
+    </template>
+  </SpellcheckButton>
+</template>
+
+<script setup>
+import { SpellcheckButton } from '@empathyco/x-components/search'
+</script>
 ```
 </docs>

@@ -1,6 +1,7 @@
 import type { NextQuery } from '@empathyco/x-types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createNextQueryStub } from '../../../../__stubs__'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
@@ -50,7 +51,7 @@ describe('testing next query item component', () => {
 
   it('emits UserSelectedANextQuery when a next query is selected', async () => {
     const { clickNextQuery, suggestion, wrapper } = renderNextQuery()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserSelectedANextQuery', true).subscribe(listener)
 
     await clickNextQuery()

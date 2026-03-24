@@ -128,15 +128,8 @@ doesn't render elements to the DOM.
   <Tagging />
 </template>
 
-<script>
+<script setup>
 import { Tagging } from '@empathyco/x-components/tagging'
-
-export default {
-  name: 'TaggingDemo',
-  components: {
-    Tagging,
-  },
-}
 </script>
 ```
 
@@ -144,7 +137,7 @@ export default {
 
 In this example, the `Tagging` component will emit `ConsentProvided` with payload false by default
 if the consent is not provided, the `TaggingConfigProvided` event will be emitted only if the props
-`queryTaggingDebounceMs`, `sessionDurationMs`, `storageTTLMs` or `storageKey`are defined.
+`queryTaggingDebounceMs`, `sessionDurationMs`, `storageTTLMs` or `storageKey` are defined.
 
 Every time the user clicks a result or adds a result to the cart, the information for the product
 will be stored on the browser during 30 seconds which is the default value for the prop
@@ -156,15 +149,8 @@ will be used since `storageKey` default value is 'url'.
   <Tagging :consent="true" :queryTaggingDebounceMs="300" :sessionDurationMs="30000" />
 </template>
 
-<script>
+<script setup>
 import { Tagging } from '@empathyco/x-components/tagging'
-
-export default {
-  name: 'TaggingDemo',
-  components: {
-    Tagging,
-  },
-}
 </script>
 ```
 
@@ -176,15 +162,8 @@ during 60 seconds and the product id will be used as storage key
   <Tagging :storageTTLMs="60000" :storageKey="'id'" />
 </template>
 
-<script>
+<script setup>
 import { Tagging } from '@empathyco/x-components/tagging'
-
-export default {
-  name: 'TaggingDemo',
-  components: {
-    Tagging,
-  },
-}
 </script>
 ```
 

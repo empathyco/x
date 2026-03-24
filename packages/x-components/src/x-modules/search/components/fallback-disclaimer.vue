@@ -41,26 +41,29 @@ its default slot. This component will be rendered if there is a no results with 
 ### Basic usage
 
 ```vue
-<FallbackDisclaimer />
+<template>
+  <FallbackDisclaimer />
+</template>
+
+<script setup>
+import { FallbackDisclaimer } from '@empathyco/x-components/search'
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<FallbackDisclaimer>
-  <template #default="{ query }">
-    No results found for '{{ query }}' with the selected filters. The filters have been unselected.
-  </template>
-</FallbackDisclaimer>
+<template>
+  <FallbackDisclaimer>
+    <template #default="{ query }">
+      No results found for '{{ query }}' with the selected filters. The filters have been
+      unselected.
+    </template>
+  </FallbackDisclaimer>
+</template>
 
-<script>
+<script setup>
 import { FallbackDisclaimer } from '@empathyco/x-components/search'
-
-export default {
-  components: {
-    FallbackDisclaimer,
-  },
-}
 </script>
 ```
 </docs>

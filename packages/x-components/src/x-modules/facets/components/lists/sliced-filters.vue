@@ -201,18 +201,9 @@ filters list to their children, it is mandatory to send it as prop.
     </SlicedFilters>
   </Facets>
 </template>
-<script>
-import { BaseShowMoreFilters } from '@empathyco/x-components'
-import { Facets, SimpleFilter, Filters } from '@empathyco/x-components'
 
-export default {
-  components: {
-    Facets,
-    BaseShowMoreFilters,
-    Filters,
-    SimpleFilter,
-  },
-}
+<script setup>
+import { Facets, SlicedFilters, Filters, SimpleFilter } from '@empathyco/x-components'
 </script>
 ```
 
@@ -222,30 +213,42 @@ export default {
 > the rest of components will inject this list.
 
 ```vue
-<Facets v-slot="{ facet }">
-  <SlicedFilters :filters="facet.filters" :max="4">
+<template>
+  <Facets v-slot="{ facet }">
+    <SlicedFilters :filters="facet.filters" :max="4">
       <Filters v-slot="{ filter }">
-        <SimpleFilter :filter="filter"/>
+        <SimpleFilter :filter="filter" />
       </Filters>
-    <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-    <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-  </SlicedFilters>
-</Facets>
+      <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+      <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+    </SlicedFilters>
+  </Facets>
+</template>
+
+<script setup>
+import { Facets, SlicedFilters, Filters, SimpleFilter } from '@empathyco/x-components'
+</script>
 ```
 
 ### Customizing the items with classes
 
 The `buttonClass` prop can be used to add classes to the show more/less buttons.
 
-```vue live
-<Facets v-slot="{ facet }">
-  <SlicedFilters :filters="facet.filters" :max="4" buttonClass="x-facet-filter-lg">
-    <Filters v-slot="{ filter }">
-      <SimpleFilter :filter="filter"/>
-    </Filters>
-    <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-    <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-  </SlicedFilters>
-</Facets>
+```vue
+<template>
+  <Facets v-slot="{ facet }">
+    <SlicedFilters :filters="facet.filters" :max="4" buttonClass="x-facet-filter-lg">
+      <Filters v-slot="{ filter }">
+        <SimpleFilter :filter="filter" />
+      </Filters>
+      <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+      <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+    </SlicedFilters>
+  </Facets>
+</template>
+
+<script setup>
+import { Facets, SlicedFilters, Filters, SimpleFilter } from '@empathyco/x-components'
+</script>
 ```
 </docs>

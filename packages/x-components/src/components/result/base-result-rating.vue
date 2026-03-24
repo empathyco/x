@@ -107,37 +107,28 @@ This component emits the following events:
 
 - [`UserClickedAResultRating`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
-## See it in action
+## Examples
 
-Here you have a basic example of how the result rating is rendered.
+### Basic example
 
 ```vue
 <template>
   <BaseResultRating :result="result" />
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```
 
 ### Play with props
+
+#### Custom max value
 
 In this example, the result rating has been configured to 6 as maximum value using the prop `max`.
 
@@ -146,26 +137,17 @@ In this example, the result rating has been configured to 6 as maximum value usi
   <BaseResultRating :result="result" :max="6" />
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```
+
+#### With link
 
 In this example, the result rating has been configured with a link to redirect when is clicked.
 
@@ -174,23 +156,12 @@ In this example, the result rating has been configured with a link to redirect w
   <BaseResultRating :result="result" link="https://empathy.co/" />
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```
@@ -204,33 +175,22 @@ In this example, a message has been added to be shown when the result rating is 
   <BaseResultRating :result="result" @UserClickedAResultRating="logUserClickedRating" />
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
-  methods: {
-    logUserClickedRating(result) {
-      console.log('User clickedRating of this result:', result)
-    },
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
+}
+function logUserClickedRating(result) {
+  console.log('User clickedRating of this result:', result)
 }
 </script>
 ```
 
 ## Extending the component
+
+### Custom icons with slots
 
 The rendered icons for rating can be configured through slots. Keep in mind that the icons for both
 states (filled and empty), must have the same size make component work properly.
@@ -243,26 +203,17 @@ states (filled and empty), must have the same size make component work properly.
   </BaseResultRating>
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```
+
+### Override all content
 
 It is possible to override all the content of the component to show your own rating but keeping the
 link and event behaviour:
@@ -270,33 +221,24 @@ link and event behaviour:
 ```vue
 <template>
   <BaseResultRating :result="result" #default="{ rating, result }">
-    <span v-for="star in rating">⭐️</span>
+    <span v-for="star in rating" :key="star">⭐️</span>
     <span>{{ result.name }}</span>
   </BaseResultRating>
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```
 
-Even it is possible to reuse our rating component:
+### Reuse BaseRating
+
+It is also possible to reuse our rating component:
 
 ```vue
 <template>
@@ -306,24 +248,12 @@ Even it is possible to reuse our rating component:
   </BaseResultRating>
 </template>
 
-<script>
+<script setup>
 import { BaseResultRating, BaseRating } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultRatingDemo',
-  components: {
-    BaseResultRating,
-    BaseRating,
-  },
-  data() {
-    return {
-      result: {
-        id: 1,
-        name: 'Result with rating',
-        rating: { value: 3 },
-      },
-    }
-  },
+const result = {
+  id: 1,
+  name: 'Result with rating',
+  rating: { value: 3 },
 }
 </script>
 ```

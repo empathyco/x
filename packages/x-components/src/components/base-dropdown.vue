@@ -13,7 +13,7 @@
       data-test="dropdown-toggle"
       role="combobox"
       aria-haspopup="listbox"
-      :aria-expanded="isOpen.toString()"
+      :aria-expanded="isOpen"
       :aria-controls="listId"
       :aria-label="ariaLabel"
       aria-autocomplete="none"
@@ -44,10 +44,14 @@
         @keydown.esc="closeAndFocusToggleButton"
         @keydown.home="highlightFirstItem"
       >
-        <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
+        <li
+          v-for="(item, index) in items"
+          :key="(item as Identifiable).id ?? item"
+          class="x-dropdown__list-item"
+        >
           <button
-            :ref="el => (itemsButtonRefs[index] = el)"
-            :aria-selected="(item === modelValue).toString()"
+            :ref="el => (itemsButtonRefs[index] = el as HTMLButtonElement | null)"
+            :aria-selected="item === modelValue"
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
@@ -128,7 +132,7 @@ export default defineComponent({
     /** The button that opens and closes the list of options. */
     const toggleButtonRef = ref<HTMLButtonElement>()
     /** Array containing the dropdown list buttons HTMLElements. */
-    const itemsButtonRefs = ref<HTMLButtonElement[]>([])
+    const itemsButtonRefs = ref<(HTMLButtonElement | null)[]>([])
 
     /** Property to check whether the dropdown is expanded or closed. */
     const isOpen = ref(false)
@@ -282,10 +286,12 @@ export default defineComponent({
         const normalizedSearch = normalizeString(search)
         const matchingIndices = itemsButtonRefs?.value?.reduce<number[]>(
           (matchingIndices, button, index) => {
-            const safeButtonWordCharacters = button.textContent!.replace(/\W/g, '')
-            const normalizedButtonText = normalizeString(safeButtonWordCharacters)
-            if (normalizedButtonText.startsWith(normalizedSearch)) {
-              matchingIndices.push(index)
+            if (button) {
+              const safeButtonWordCharacters = button.textContent!.replace(/\W/g, '')
+              const normalizedButtonText = normalizeString(safeButtonWordCharacters)
+              if (normalizedButtonText.startsWith(normalizedSearch)) {
+                matchingIndices.push(index)
+              }
             }
             return matchingIndices
           },
@@ -411,7 +417,7 @@ export default defineComponent({
 ## Example
 
 The `Dropdown` component is a simple yet customizable select component. The component needs to work
-the list of items available to select, which are passed using the `items` prop, and the selected
+with the list of items available to select, which are passed using the `items` prop, and the selected
 item, which is passed in using the `value` prop.
 
 The supported items must be an array that can contain unique strings, unique numbers, or objects
@@ -420,14 +426,13 @@ with a unique `id` property.
 The content of each item can be customized using the `item` slot, which apart from the data of the
 item, it also receives via prop if the element is selected or highlighted.
 
-There `toggle` slot can be used to customize the button that opens the dropdown. If this is not
+The `toggle` slot can be used to customize the button that opens the dropdown. If this is not
 provided, the `item` slot will be used for that.
 
 ```vue
 <template>
   <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
-
     <template #item="{ item, isSelected, isHighlighted }">
       <span v-if="isHighlighted">🟢</span>
       <span v-if="isSelected">✅</span>
@@ -436,21 +441,11 @@ provided, the `item` slot will be used for that.
   </BaseDropdown>
 </template>
 
-<script>
+<script setup>
 import { BaseDropdown } from '@empathyco/x-components'
-
-export default {
-  name: 'DropdownTest',
-  components: {
-    BaseDropdown,
-  },
-  data() {
-    return {
-      items: ['a', 2, { id: '3' }],
-      value: 'a',
-    }
-  },
-}
+import { ref } from 'vue'
+const items = ['a', 2, { id: '3' }]
+const value = ref('a')
 </script>
 ```
 </docs>

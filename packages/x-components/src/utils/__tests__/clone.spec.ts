@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { clone } from '../clone'
 
 describe('testing clone function', () => {

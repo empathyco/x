@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "esnext"],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "types": ["jest", "@empathyco/x-jest-utils"],
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "rootDir": "./src",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["vitest/globals"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -14,9 +13,11 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "outDir": "./dist",
     "esModuleInterop": true
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "vite.config.mts"],
   "exclude": ["node_modules"]
 }

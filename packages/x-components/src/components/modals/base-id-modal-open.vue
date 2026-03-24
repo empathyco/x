@@ -80,15 +80,8 @@ with modalId `my-modal`.
   </BaseIdModalOpen>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalOpen } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseIdModalOpenTest',
-  components: {
-    BaseIdModalOpen,
-  },
-}
 </script>
 ```
 
@@ -109,15 +102,8 @@ function to open the modal with modalId `my-modal`.
   </BaseIdModalOpen>
 </template>
 
-<script>
+<script setup>
 import { BaseIdModalOpen } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseIdModalOpenTest',
-  components: {
-    BaseIdModalOpen,
-  },
-}
 </script>
 ```
 </docs>

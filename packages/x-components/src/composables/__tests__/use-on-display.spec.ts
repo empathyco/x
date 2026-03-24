@@ -1,19 +1,20 @@
 import type { TaggingRequest } from '@empathyco/x-types'
 import type { WireMetadata } from '../../wiring'
 import { useElementVisibility } from '@vueuse/core'
+import { vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { bus } from '../../plugins/index'
 import { useEmitDisplayEvent, useOnDisplay } from '../use-on-display'
 
-jest.mock('@vueuse/core', () => ({
-  useElementVisibility: jest.fn(),
+vi.mock('@vueuse/core', () => ({
+  useElementVisibility: vi.fn(),
 }))
 
 const refElementVisibility = ref(false)
-;(useElementVisibility as jest.Mock).mockReturnValue(refElementVisibility)
+;(useElementVisibility as any).mockReturnValue(refElementVisibility)
 
-const emitSpy = jest.fn()
-jest.spyOn(bus, 'emit' as any).mockImplementation(emitSpy)
+const emitSpy = vi.fn()
+vi.spyOn(bus, 'emit' as any).mockImplementation(emitSpy)
 
 describe(`testing ${useOnDisplay.name} composable`, () => {
   beforeEach(() => {
@@ -24,7 +25,7 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
     element = document.createElement('div'),
     triggerOnce,
   }: RenderUseOnDisplayTesterOptions = {}): RenderUseOnDisplayTesterAPI {
-    const callbackSpy = jest.fn()
+    const callbackSpy = vi.fn()
 
     const { isElementVisible, unwatchDisplay } = useOnDisplay({
       element,
@@ -53,7 +54,7 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
   it('uses a provided element for useElementVisibility to watch', () => {
     const element = document.createElement('div')
     renderUseOnDisplayTester({ element })
-    expect(useElementVisibility).toHaveBeenCalledWith(element)
+    expect(useElementVisibility).toHaveBeenCalledWith(element, { threshold: 0.1 })
   })
 
   it('triggers callback when the element changes from not visible to visible', async () => {
@@ -119,7 +120,7 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
 describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
   beforeEach(() => {
     refElementVisibility.value = false
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   function renderUseEmitDisplayEvent({
@@ -156,7 +157,7 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
   it('uses a provided element for useElementVisibility to watch', () => {
     const element = document.createElement('div')
     renderUseEmitDisplayEvent({ element })
-    expect(useElementVisibility).toHaveBeenCalledWith(element)
+    expect(useElementVisibility).toHaveBeenCalledWith(element, { threshold: 0.1 })
   })
 
   it('emits `TrackableElementDisplayed` when the element is visible with the provided tagging request converted to display taggable', async () => {
@@ -250,7 +251,7 @@ interface RenderUseOnDisplayTesterOptions {
  */
 interface RenderUseOnDisplayTesterAPI {
   /** The callback spy. */
-  callbackSpy: jest.Mock
+  callbackSpy: ReturnType<typeof vi.fn>
   /** Toggle element visibility. */
   isElementVisible: ReturnType<typeof useElementVisibility>
   /** The watch stop handle for the callback. */

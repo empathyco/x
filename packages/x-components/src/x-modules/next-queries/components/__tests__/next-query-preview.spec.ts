@@ -3,6 +3,7 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import type { XEvent } from '../../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createNextQueryStub, getResultsStub } from '../../../../__stubs__/index'
@@ -59,7 +60,7 @@ describe('next query preview', () => {
 
     let eventSpy
     if (eventToSpy) {
-      eventSpy = jest.fn()
+      eventSpy = vi.fn()
       XPlugin.bus.on(eventToSpy).subscribe(eventSpy)
     }
 
@@ -92,7 +93,7 @@ describe('next query preview', () => {
     const wrappers = findTestDataById('result-name')
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(wrappers.at(index)?.element).toHaveTextContent(result.name!)
+      expect(wrappers.at(index)?.text()).toContain(result.name!)
     })
   })
 
@@ -124,17 +125,15 @@ describe('next query preview', () => {
 
     await nextTick()
 
-    expect(wrapper.find(getDataTestSelector('next-query-query')).element).toHaveTextContent(
-      suggestion.query,
-    )
-    expect(wrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
+    expect(wrapper.find(getDataTestSelector('next-query-query')).text()).toContain(suggestion.query)
+    expect(wrapper.find(getDataTestSelector('total-results')).text()).toContain(
       resultsPreview!.totalResults.toString(),
     )
 
     const resultsWrappers = findTestDataById('result-name')
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!)
+      expect(resultsWrappers.at(index)?.text()).toContain(result.name!)
     })
   })
 
@@ -151,7 +150,7 @@ describe('next query preview', () => {
     const resultsWrapper = findTestDataById('result-content')
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`)
+      expect(resultsWrapper.at(index)?.text()).toContain(`${result.id} - ${result.name!}`)
     })
   })
 

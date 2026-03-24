@@ -18,7 +18,7 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot v-if="hasSlot(slotName)" :name="slotName" :filter="selectedFilter">
-          <span class="x-tag">{{ selectedFilter.label }}</span>
+          <span class="x-tag">{{ (selectedFilter as BooleanFilter).label }}</span>
         </slot>
 
         <!--
@@ -26,7 +26,7 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot v-else name="default" :filter="selectedFilter">
-          {{ selectedFilter.label }}
+          {{ (selectedFilter as BooleanFilter).label }}
         </slot>
       </li>
     </component>
@@ -34,8 +34,10 @@
 </template>
 
 <script lang="ts">
-import type { Facet, Filter } from '@empathyco/x-types'
+// eslint-disable-next-line unused-imports/no-unused-imports
+import type { BooleanFilter, Facet, Filter } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { RenderFilter } from './selected-filters-list.types'
 import { isFacetFilter } from '@empathyco/x-types'
 import { defineComponent } from 'vue'
 import { AnimationProp } from '../../../../types'
@@ -43,16 +45,6 @@ import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
 import SelectedFilters from './selected-filters.vue'
-
-/**
- * Custom interface to provide a slot name to a Filter.
- *
- * @internal
- */
-interface RenderFilter {
-  slotName: string
-  selectedFilter: Filter
-}
 
 /**
  * This component renders a list of selected filters from every facet, or from the facet
@@ -135,14 +127,8 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
   <SelectedFiltersList />
 </template>
 
-<script>
+<script setup>
 import { SelectedFiltersList } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFiltersList,
-  },
-}
 </script>
 ```
 
@@ -153,14 +139,8 @@ export default {
   <SelectedFiltersList #default="{ filter }">Default: {{ filter.label }}</SelectedFiltersList>
 </template>
 
-<script>
-import { SelectedFilters } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFilters,
-  },
-}
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
 </script>
 ```
 
@@ -174,14 +154,8 @@ export default {
   </SelectedFiltersList>
 </template>
 
-<script>
-import { SelectedFilters } from '@empathyco/x-components/facets'
-
-export default {
-  components: {
-    SelectedFilters,
-  },
-}
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
 </script>
 ```
 
@@ -191,7 +165,13 @@ If "alwaysVisible" is true, the component is rendered no matter if there are som
 If "alwaysVisible" is false (default), the component is rendered if there are some filter selected.
 
 ```vue
-<SelectedFiltersList :alwaysVisible="true" />
+<template>
+  <SelectedFiltersList :alwaysVisible="true" />
+</template>
+
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
+</script>
 ```
 
 Output:
@@ -208,6 +188,12 @@ In this example, the selected filters computed are the ones that match the facet
 properties.
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet', 'gender_facet']" />
+<template>
+  <SelectedFiltersList :facetsIds="['brand_facet', 'gender_facet']" />
+</template>
+
+<script setup>
+import { SelectedFiltersList } from '@empathyco/x-components/facets'
+</script>
 ```
 </docs>

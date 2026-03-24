@@ -11,7 +11,7 @@ import type {
   XPriorityBusEventMetadata,
   XPriorityQueueNodeData,
 } from './x-bus.types'
-import type { XPriorityQueue } from './x-priority-queue'
+import type { XPriorityQueue } from './x-priority-queue.types'
 import { ReplaySubject } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { BaseXPriorityQueue } from './x-priority-queue'
@@ -26,8 +26,7 @@ import { BaseXPriorityQueue } from './x-priority-queue'
 export class XPriorityBus<
   SomeEvents extends Dictionary,
   SomeEventMetadata extends XPriorityBusEventMetadata,
-> implements XBus<SomeEvents, SomeEventMetadata>
-{
+> implements XBus<SomeEvents, SomeEventMetadata> {
   /**
    * A {@link XPriorityQueue | priority queue} to store the events to
    * emit.
@@ -236,9 +235,9 @@ export class XPriorityBus<
     ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
-    // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
     return withMetadata
-      ? this.getEmitter(event).asObservable()
+      ? // @ts-expect-error Type is not assignable to type EventPayload<SomeEvents, SomeEvent
+        this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
             SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,

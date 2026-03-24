@@ -1,5 +1,6 @@
 import type { SimpleFilter } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { createSimpleFacetStub } from '../../../../../__stubs__'
 import { getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'

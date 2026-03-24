@@ -1,6 +1,7 @@
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { InternalSearchRequest } from '../../types'
 import type { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { createRelatedTagStub } from '../../../../__stubs__/index'
 import { searchXStoreModule } from '../module'

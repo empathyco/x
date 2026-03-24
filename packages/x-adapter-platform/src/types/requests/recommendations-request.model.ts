@@ -10,6 +10,4 @@ import type {
  * @public
  */
 export interface PlatformRecommendationsRequest
-  extends PlatformExtraParamsRequest,
-    PlatformPageableRequest,
-    PlatformTrackableRequest {}
+  extends PlatformExtraParamsRequest, PlatformPageableRequest, PlatformTrackableRequest {}

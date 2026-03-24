@@ -6,5 +6,4 @@ import type { PlatformExtraParamsRequest, PlatformQueryableRequest } from './req
  * @public
  */
 export interface PlatformNextQueriesRequest
-  extends PlatformQueryableRequest,
-    PlatformExtraParamsRequest {}
+  extends PlatformQueryableRequest, PlatformExtraParamsRequest {}

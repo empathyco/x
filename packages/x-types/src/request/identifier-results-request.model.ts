@@ -11,7 +11,4 @@ import type {
  * @public
  */
 export interface IdentifierResultsRequest
-  extends QueryableRequest,
-    PageableRequest,
-    TrackableRequest,
-    ExtraParamsRequest {}
+  extends QueryableRequest, PageableRequest, TrackableRequest, ExtraParamsRequest {}

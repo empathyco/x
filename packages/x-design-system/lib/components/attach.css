@@ -1,0 +1,54 @@
+/* Container */
+@utility attach-container {
+  @apply xds:relative;
+}
+
+/* Positions */
+@utility attach-top-left {
+  @apply xds:absolute xds:top-0 xds:left-0;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * -1), -50%);
+
+  &.xds\:badge-md {
+    transform: translate(calc(var(--xds-spacing-12, 50%) * -1), -50%);
+  }
+
+  &.xds\:badge-circle {
+    transform: translate(-50%, -50%);
+  }
+}
+@utility attach-top-right {
+  @apply xds:absolute xds:top-0 xds:right-0;
+  transform: translate(var(--xds-spacing-8, 50%), -50%);
+
+  &.xds\:badge-md {
+    transform: translate(var(--xds-spacing-12, 50%), -50%);
+  }
+
+  &.xds\:badge-circle {
+    transform: translate(50%, -50%);
+  }
+}
+@utility attach-bottom-right {
+  @apply xds:absolute xds:right-0 xds:bottom-0;
+  transform: translate(var(--xds-spacing-8, 50%), 50%);
+
+  &.xds\:badge-md {
+    transform: translate(var(--xds-spacing-12, 50%), 50%);
+  }
+
+  &.xds\:badge-circle {
+    transform: translate(50%, 50%);
+  }
+}
+@utility attach-bottom-left {
+  @apply xds:absolute xds:bottom-0 xds:left-0;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * -1), 50%);
+
+  &.xds\:badge-md {
+    transform: translate(calc(var(--xds-spacing-12, 50%) * -1), 50%);
+  }
+
+  &.xds\:badge-circle {
+    transform: translate(-50%, 50%);
+  }
+}

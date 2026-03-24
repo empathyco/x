@@ -99,20 +99,10 @@ Here you have a basic example of how the auto progress bar is rendered.
   <AutoProgressBar :isLoading="isLoading" :durationInSeconds="durationInSeconds" />
 </template>
 
-<script>
+<script setup>
 import { AutoProgressBar } from '@empathyco/x-components'
-export default {
-  name: 'AutoProgressBarDemo',
-  components: {
-    AutoProgressBar,
-  },
-  data() {
-    return {
-      isLoading: true,
-      durationInSeconds: 100,
-    }
-  },
-}
+const isLoading = true
+const durationInSeconds = 100
 </script>
 ```
 
@@ -126,14 +116,8 @@ to cancel the animation by sending the isLoading prop to false.
   <AutoProgressBar :durationInSeconds="5" :isLoading="true" />
 </template>
 
-<script>
+<script setup>
 import { AutoProgressBar } from '@empathyco/x-components'
-export default {
-  name: 'AutoProgressBarDemo',
-  components: {
-    AutoProgressBar,
-  },
-}
 </script>
 ```
 </docs>

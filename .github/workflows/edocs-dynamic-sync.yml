@@ -1,12 +1,12 @@
 name: EPDocs - Dynamic Content PR creation
-on: [workflow_dispatch, pull_request]
+on: [workflow_dispatch]
 jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
@@ -17,7 +17,7 @@ jobs:
             x
 
       - name: Checkout X mono-repo
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
@@ -35,6 +35,7 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
+          -H "Content-Type: application/json" \
           https://api.github.com/repos/empathyco/docs-framework/actions/workflows/epdocs-sync-dynamic-x-docs.yml/dispatches \
-          -d '{"ref": "main",  "inputs": {"branchName": "main", "version": "${{ steps.package-version.outputs.current-version }}"}}'
+          -d '{"ref":"main","inputs":{"branchName":"main","version":"${{ steps.package-version.outputs.current-version }}"}}'
 

@@ -6,6 +6,7 @@ import type {
   QuerySuggestionsState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'

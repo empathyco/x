@@ -153,15 +153,15 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This component doesn't emit events.
+This component does not emit any events.
 
-## See it in action
+## Examples
 
-Here you have a basic example of how the `ResultVariantSelector` component is rendered.
+### Basic usage
 
-Take into account that this component **must** be a child of a `ResultVariantsProvider` component.
+This component must be used as a child of `ResultVariantsProvider`.
 
-Also, the component is intended to be used overwriting the content with the slots.
+Also, this component is intended to be used overwriting the content with the slots.
 
 By default it will render a list of buttons containing the available variants.
 
@@ -170,81 +170,50 @@ rendered.
 
 ```vue
 <template>
-  <ResultVariantsProvider :result="result" #default="{ result }">
+  <ResultVariantsProvider :result="result">
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
-    <ResultVariantSelector :level="0" #variant="{ variant, selectVariant }" />
+    <ResultVariantSelector :level="0" />
 
     <h1>Select size</h1>
-    <ResultVariantSelector :level="1" #variant="{ variant, selectVariant }" />
+    <ResultVariantSelector :level="1" />
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantSelectorDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-            variants: [
-              {
-                name: 'red XL',
-              },
-              {
-                name: 'red L',
-              },
-            ],
-          },
-          {
-            name: 'blue',
-            variants: [
-              {
-                name: 'blue S',
-              },
-              {
-                name: 'blue M',
-              },
-              {
-                name: 'blue L',
-              },
-            ],
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [
+    {
+      name: 'red',
+      variants: [{ name: 'red XL' }, { name: 'red L' }],
+    },
+    {
+      name: 'blue',
+      variants: [{ name: 'blue S' }, { name: 'blue M' }, { name: 'blue L' }],
+    },
+  ],
 }
 </script>
 ```
 
 ### Play with the default slot
 
-In this example the default slot is used to customize the list.
+You can customize the list using the default slot:
 
 ```vue
 <template>
-  <ResultVariantsProvider :result="result" #default="{ result }">
-    <p>Result name: {{ result.name }}</p>
-
+  <ResultVariantsProvider :result="result">
     <ResultVariantSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
       <div>
         <p v-if="selectedVariant">Selected variant: {{ selectedVariant.name }}</p>
@@ -258,53 +227,30 @@ In this example the default slot is used to customize the list.
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantSelectorDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-          },
-          {
-            name: 'blue',
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [{ name: 'red' }, { name: 'blue' }],
 }
 </script>
 ```
 
 ### Play with variant-slot
 
-In this example the variant-slot is used to customize the variant item.
-
-The variant will be rendered inside a list.
+You can customize the variant item using the `variant` slot:
 
 ```vue
 <template>
-  <ResultVariantsProvider :result="result" #default="{ result }">
-    <p>Result name: {{ result.name }}</p>
-
+  <ResultVariantsProvider :result="result">
     <ResultVariantSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
       <div>
         <button @click="selectVariant">
@@ -316,52 +262,30 @@ The variant will be rendered inside a list.
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantSelectorDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-          },
-          {
-            name: 'blue',
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [{ name: 'red' }, { name: 'blue' }],
 }
 </script>
 ```
 
 ### Play with variant-content slot
 
-In this example the variant-content slot is used to customize the content of the default variant
-button.
+You can customize the content of the default variant button using the `variant-content` slot:
 
 ```vue
 <template>
-  <ResultVariantsProvider :result="result" #default="{ result }">
-    <p>Result name: {{ result.name }}</p>
-
+  <ResultVariantsProvider :result="result">
     <ResultVariantSelector #variant-content="{ variant, isSelected }">
       <div>
         {{ variant.name }}
@@ -371,38 +295,19 @@ button.
   </ResultVariantsProvider>
 </template>
 
-<script>
+<script setup>
 import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components'
-
-export default {
-  name: 'ResultVariantSelectorDemo',
-  components: {
-    ResultVariantsProvider,
-    ResultVariantSelector,
-  },
-  data() {
-    return {
-      result: {
-        id: 'jacket',
-        modelName: 'Result',
-        type: 'Product',
-        isWishlisted: false,
-        identifier: { value: 'jacket' },
-        images: [],
-        name: 'jacket',
-        price: { hasDiscount: false, originalValue: 10, value: 10 },
-        url: '/products/jacket',
-        variants: [
-          {
-            name: 'red',
-          },
-          {
-            name: 'blue',
-          },
-        ],
-      },
-    }
-  },
+const result = {
+  id: 'jacket',
+  modelName: 'Result',
+  type: 'Product',
+  isWishlisted: false,
+  identifier: { value: 'jacket' },
+  images: [],
+  name: 'jacket',
+  price: { hasDiscount: false, originalValue: 10, value: 10 },
+  url: '/products/jacket',
+  variants: [{ name: 'red' }, { name: 'blue' }],
 }
 </script>
 ```

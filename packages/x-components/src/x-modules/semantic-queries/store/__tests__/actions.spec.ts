@@ -7,6 +7,7 @@ import type {
   SemanticQueriesState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getSemanticQueriesStub } from '../../../../__stubs__/semantic-queries-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
@@ -38,7 +39,7 @@ describe('semantic queries actions tests', () => {
 
   beforeEach(() => {
     resetSemanticQueriesStateWith(store)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('fetchSemanticQuery', () => {

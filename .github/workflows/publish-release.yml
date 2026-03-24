@@ -2,22 +2,21 @@ name: Release a new version
 on: [workflow_dispatch]
 jobs:
   release:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-22.14.0-chrome-135.0.7049.84-1-ff-137.0.1-edge-135.0.3179.54-1@sha256:55119cf831abaff1d4a66cfcdcd617a9dedf5a6183ec2272e24bf657db5f1ce5
-      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
-      options: --user 1001
+    runs-on: [self-hosted, linux, x64, platform, vm]
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
@@ -31,12 +30,11 @@ jobs:
       - name: Run format check
         run: pnpm run format:check
 
+      - name: Run typecheck
+        run: pnpm run typecheck
+
       - name: Run tests
         run: pnpm run test:unit
-
-      - name: Run e2e tests
-        timeout-minutes: 15
-        uses: ./.github/actions/run-e2e-tests
 
       - name: configure git user
         run: |

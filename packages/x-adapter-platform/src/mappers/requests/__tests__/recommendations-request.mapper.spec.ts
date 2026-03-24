@@ -1,4 +1,5 @@
 import type { RecommendationsRequest } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { recommendationsRequestMapper } from '../recommendations-request.mapper'
 
 describe('recommendationsRequestMapper tests', () => {

@@ -1,6 +1,7 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../../__tests__/bus.dummy'
@@ -44,9 +45,9 @@ function renderSortPickerList({
   )
   resetXSearchStateWith(store, { sort: selectedSort })
 
-  const onSelectedSortProvided = jest.fn()
+  const onSelectedSortProvided = vi.fn()
   XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided)
-  const onUserClickedASort = jest.fn()
+  const onUserClickedASort = vi.fn()
   XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort)
 
   const sortPickerList = wrapper.findComponent(SortPickerList)
@@ -126,8 +127,8 @@ describe('testing SortPickerList component', () => {
     await clickNthItem(1)
 
     const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'))
-    expect(buttons[0].element).not.toHaveAttribute('aria-pressed')
-    expect(buttons[1].element).toHaveAttribute('aria-pressed', 'true')
+    expect(buttons[0].attributes('aria-pressed')).toBeUndefined()
+    expect(buttons[1].attributes('aria-pressed')).toBe('true')
   })
 
   it('adds corresponding classes to the selected element', async () => {

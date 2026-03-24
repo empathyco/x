@@ -2,6 +2,7 @@ import type { Filter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector } from '../../../../../__tests__/utils'
@@ -68,8 +69,12 @@ function renderFiltersSearch(
 }
 
 describe('testing FiltersSearch', () => {
-  beforeAll(jest.useFakeTimers)
-  afterEach(jest.clearAllTimers)
+  beforeAll(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.clearAllTimers()
+  })
 
   it('is an x-component', () => {
     const { filterWrapper } = renderFiltersSearch()
@@ -109,13 +114,13 @@ describe('testing FiltersSearch', () => {
       await expectFiltersSearch(filtersSearch, query, filtersMock.length)
       expect(filtersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted')
 
-      jest.advanceTimersByTime(1800)
+      vi.advanceTimersByTime(1800)
       await nextTick()
       expect(filtersSearch.getFiltersWrapper()).toHaveLength(occurrences)
       expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted')
 
       await filtersSearch.inputWrapper.setValue('')
-      jest.advanceTimersByTime(2000)
+      vi.advanceTimersByTime(2000)
       await nextTick()
       expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length)
     }
@@ -161,7 +166,7 @@ async function expectFiltersSearch(
 ): Promise<void> {
   await inputWrapper.setValue(query)
   expect((inputWrapper.element as HTMLInputElement).value).toEqual(query)
-  jest.advanceTimersByTime(200)
+  vi.advanceTimersByTime(200)
   await nextTick()
   expect((inputWrapper.element as HTMLInputElement).value).toEqual(query)
   expect(getFiltersWrapper()).toHaveLength(occurrences)

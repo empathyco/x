@@ -62,9 +62,8 @@ This component serves to open the `BaseEventsModal`.
 
 ### Basic example
 
-On clicked, the component closes the `BaseEventsModal`. The only needed thing is the content that
-the button should render, that can be any thing: a text, an image, an icon, a combination of the two
-of them...
+On click, the component opens the `BaseEventsModal`. The only required part is the content that
+the button should render, which can be anything: text, image, icon, or a combination.
 
 ```vue
 <template>
@@ -74,23 +73,15 @@ of them...
   </BaseEventsModalOpen>
 </template>
 
-<script>
+<script setup>
 import { BaseEventsModalOpen } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseEventsModalOpenTest',
-  components: {
-    BaseEventsModalOpen,
-  },
-}
 </script>
 ```
 
 ### Defining another event to emit when clicking the button
 
-By default it uses the same `openingEvent` that the `BaseEventsModal` is listening by default too.
-This event can be changed using the `openingEvent` prop, but remember to change it in the target
-`BaseEventsModal` too.
+By default, it uses the same `openingEvent` that the `BaseEventsModal` is listening to by default.
+This event can be changed using the `openingEvent` prop, but remember to change it in the target `BaseEventsModal` too.
 
 ```vue
 <template>
@@ -99,15 +90,8 @@ This event can be changed using the `openingEvent` prop, but remember to change 
   </BaseEventsModalOpen>
 </template>
 
-<script>
+<script setup>
 import { BaseEventsModalOpen } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseEventsModalOpenTest',
-  components: {
-    BaseEventsModalOpen,
-  },
-}
 </script>
 ```
 </docs>

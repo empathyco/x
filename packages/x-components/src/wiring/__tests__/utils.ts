@@ -4,6 +4,7 @@ import type { XModuleName } from '../../x-modules/x-modules.types'
 import type { WireParams, WirePayload } from '../wiring.types'
 import { mount } from '@vue/test-utils'
 import { Subject } from 'rxjs'
+import { vi } from 'vitest'
 import { createStore } from 'vuex'
 
 /**
@@ -31,8 +32,8 @@ export function createQuerySuggestionsStoreMock(): Store<any> {
     },
   })
   mount({}, { global: { plugins: [store] } })
-  store.commit = jest.fn()
-  store.dispatch = jest.fn()
+  store.commit = vi.fn()
+  store.dispatch = vi.fn()
   return store
 }
 
@@ -61,7 +62,6 @@ export class SubjectHandler {
   emit(values: unknown[] | unknown, moduleName: XModuleName | null = null): void {
     const processedValues = Array.isArray(values) ? values : [values]
     processedValues.forEach(value => {
-      // eslint-disable-next-line ts/no-unsafe-assignment
       this.subject.next({ eventPayload: value, metadata: { moduleName } })
     })
   }
@@ -92,9 +92,9 @@ export function getExpectedWirePayload<T>(
 ): WireParams<T> {
   return {
     eventPayload,
-    // eslint-disable-next-line ts/no-unsafe-assignment
+
     metadata: moduleName ? { moduleName } : expect.any(Object),
-    // eslint-disable-next-line ts/no-unsafe-assignment
+
     store,
   }
 }

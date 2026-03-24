@@ -3,10 +3,12 @@
     <li
       v-for="(queryPreview, index) in renderedQueryPreviews"
       :key="index"
+      :class="{ 'padding-block-1': loadWhenVisible }"
       data-test="query-preview-item"
     >
       <QueryPreview
         :debounce-time-ms="debounceTimeMs"
+        :load-when-visible="loadWhenVisible"
         :max-items-to-render="maxItemsToRender"
         :persist-in-cache="persistInCache"
         :query-feature="queryFeature"
@@ -76,8 +78,18 @@ export default defineComponent({
       type: Number,
     },
     /**
+     * Controls whether the query preview requests should be triggered when the component is visible in the viewport.
+     *
+     * @public
+     */
+    loadWhenVisible: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Debounce time in milliseconds for triggering the search requests
      * on each query preview.
+     *
      * It will default to 0 to fit the most common use case (pre-search),
      * and it would work properly with a 250 value inside empathize.
      */
@@ -118,7 +130,7 @@ export default defineComponent({
      */
     const queries = computed((): string[] =>
       props.queriesPreviewInfo.map(item =>
-        getHashFromQueryPreviewInfo(item, params.value.lang as string),
+        getHashFromQueryPreviewInfo(item, { ...params.value, ...item.extraParams }),
       ),
     )
 
@@ -130,7 +142,10 @@ export default defineComponent({
      */
     const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
       return props.queriesPreviewInfo.filter(item => {
-        const queryPreviewHash = getHashFromQueryPreviewInfo(item, params.value.lang as string)
+        const queryPreviewHash = getHashFromQueryPreviewInfo(item, {
+          ...params.value,
+          ...item.extraParams,
+        })
         return (
           queriesStatus.value[queryPreviewHash] === 'success' ||
           queriesStatus.value[queryPreviewHash] === 'loading'
@@ -203,6 +218,12 @@ export default defineComponent({
 })
 </script>
 
+<style lang="css" scoped>
+.padding-block-1 {
+  padding-block: 1px;
+}
+</style>
+
 <docs lang="mdx">
 ## See it in action
 
@@ -215,20 +236,14 @@ names of the results.
   <QueryPreviewList :queriesPreviewInfo="queriesPreviewInfo" />
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewListDemo',
-  components: {
-    QueryPreviewList,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 
@@ -258,24 +273,16 @@ In this example, the results will be rendered inside a sliding panel.
   </QueryPreviewList>
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'QueryPreviewListDemoOverridingSlot',
-  components: {
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreviewList,
-    SlidingPanel,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import SlidingPanel from '@empathyco/x-components/sliding-panel.vue'
+import Result from '@empathyco/x-components/result.vue'
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 
@@ -297,20 +304,14 @@ In this example, the ID of the results will be rendered along with the name.
   </QueryPreviewList>
 </template>
 
-<script>
+<script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewListDemoOverridingResultSlot',
-  components: {
-    QueryPreviewList,
-  },
-  data() {
-    return {
-      queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }],
-    }
-  },
-}
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
 </script>
 ```
 </docs>

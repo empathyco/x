@@ -44,31 +44,20 @@ This component emits the following events:
 
 - [`UserClickedOpenX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
-## See it in action
+## Example
 
-Here you have a basic example of how the open main modal button works.
+A basic example of how the open main modal button works:
 
 ```vue live
 <template>
-  <div>
-    <OpenMainModal>Open X</OpenMainModal>
-    <MainModal>
-      <CloseMainModal>Close X</CloseMainModal>
-    </MainModal>
-  </div>
+  <OpenMainModal>Open X</OpenMainModal>
+  <MainModal>
+    <CloseMainModal>Close X</CloseMainModal>
+  </MainModal>
 </template>
 
-<script>
+<script setup>
 import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
-
-export default {
-  name: 'XModalDemo',
-  components: {
-    MainModal,
-    CloseMainModal,
-    OpenMainModal,
-  },
-}
 </script>
 ```
 </docs>

@@ -45,20 +45,26 @@ export default defineComponent({
 <docs lang="mdx">
 ## Examples
 
-Simple panel that receives its open state via prop, which is responsible of rendering default slot
-inside a configurable transition.
+Simple panel that receives its open state via prop, which is responsible for rendering the default slot inside a configurable transition.
 
 ### Basic usage
 
-Using default slot:
-
 ```vue
-<BaseTogglePanel :open="true" :animation="collapseFromTop">
-  <Filters :filters="filters">
-    <template #default="{ filter }">
-      <p>{{ filter.label }}</p>
-    </template>
-  </Filters>
-</BaseTogglePanel>
+<template>
+  <BaseTogglePanel :open="true" :animation="animation">
+    <Filters :filters="filters">
+      <template #default="{ filter }">
+        <p>{{ filter.label }}</p>
+      </template>
+    </Filters>
+  </BaseTogglePanel>
+</template>
+
+<script setup>
+import { BaseTogglePanel } from '@empathyco/x-components'
+import { CollapseFromTop } from '@empathyco/x-components/animations'
+const animation = CollapseFromTop
+const filters = [{ label: 'Color' }, { label: 'Size' }, { label: 'Brand' }]
+</script>
 ```
 </docs>

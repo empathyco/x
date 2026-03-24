@@ -4,6 +4,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory'
 import { installNewXPlugin } from '../../../../__tests__/utils'
@@ -38,7 +39,7 @@ function renderPopularSearch({
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
   }
 }
 
@@ -99,7 +100,7 @@ interface RenderPopularSearchApi {
   /** Testing wrapper of the {@link PopularSearch} component. */
   wrapper: VueWrapper
   /** The {@link XBus.emit} spy. */
-  emitSpy: jest.SpyInstance
+  emitSpy: ReturnType<typeof vi.spyOn>
   /** Rendered {@link Suggestion} model data. */
   suggestion: Suggestion
 }

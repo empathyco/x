@@ -117,24 +117,15 @@ names of the results.
   <NextQueryPreview :suggestion="suggestion" />
 </template>
 
-<script>
+<script setup>
 import { NextQueryPreview } from '@empathyco/x-components/next-queries'
+import { ref } from 'vue'
 
-export default {
-  name: 'NextQueryPreviewDemo',
-  components: {
-    NextQueryPreview,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
@@ -166,28 +157,16 @@ In this example, the results will be rendered inside a sliding panel.
   </NextQueryPreview>
 </template>
 
-<script>
+<script setup>
 import { NextQueryPreview } from '@empathyco/x-components/next-queries'
 import { SlidingPanel, BaseResultLink, BaseResultImage } from '@empathyco/x-components'
+import { ref } from 'vue'
 
-export default {
-  name: 'NextQueryPreviewDemoOverridingSlot',
-  components: {
-    NextQueryPreview,
-    SlidingPanel,
-    BaseResultLink,
-    BaseResultImage,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
@@ -205,30 +184,21 @@ In this example, the ID of the results will be rendered along with the name.
   </NextQueryPreview>
 </template>
 
-<script>
+<script setup>
 import { NextQueryPreview } from '@empathyco/x-components/next-queries'
+import { ref } from 'vue'
 
-export default {
-  name: 'NextQueryPreviewDemoOverridingResultSlot',
-  components: {
-    NextQueryPreview,
-  },
-  data() {
-    return {
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 
 ### Play with props
 
-In this example, the suggestions has been limited to render a maximum of 4 items.
+In this example, the suggestions have been limited to render a maximum of 4 items.
 
 ```vue
 <template>
@@ -245,29 +215,17 @@ In this example, the suggestions has been limited to render a maximum of 4 items
   </NextQueryPreview>
 </template>
 
-<script>
+<script setup>
 import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components'
 import { NextQueryPreview } from '@empathyco/x-components/next-queries'
+import { ref } from 'vue'
 
-export default {
-  name: 'NextQueryPreviewDemo',
-  components: {
-    BaseGrid,
-    BaseResultImage,
-    BaseResultLink,
-    NextQueryPreview,
-  },
-  data() {
-    return {
-      maxItemsToRender: 4,
-      suggestion: {
-        modelName: 'NextQuery',
-        query: 'tshirt',
-        facets: [],
-      },
-    }
-  },
-}
+const maxItemsToRender = ref(4)
+const suggestion = ref({
+  modelName: 'NextQuery',
+  query: 'tshirt',
+  facets: [],
+})
 </script>
 ```
 </docs>

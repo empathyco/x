@@ -224,24 +224,16 @@ it injects the needed utilities to determine the first visible item.
 <template>
   <MainScroll>
     <ul>
-      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
+      <MainScrollItem v-for="item in 24" :key="item" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
   </MainScroll>
 </template>
 
-<script>
+<script setup>
 import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'MainScrollDemo',
-  components: {
-    MainScroll,
-    MainScrollItem,
-  },
-}
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 ul {
   overflow: auto;
   max-height: 200px;
@@ -265,21 +257,13 @@ default browser scroll, you can do so by using the `useWindow` prop:
 <template>
   <MainScroll useWindow>
     <ul>
-      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
+      <MainScrollItem v-for="item in 24" :key="item" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
   </MainScroll>
 </template>
 
-<script>
+<script setup>
 import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'MainScrollDemo',
-  components: {
-    MainScroll,
-    MainScrollItem,
-  },
-}
 </script>
 ```
 
@@ -297,21 +281,13 @@ when combined with the URL X Module.
 <template>
   <MainScroll :restoreScrollTimeoutMs="1000">
     <ul>
-      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
+      <MainScrollItem v-for="item in 24" :key="item" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
   </MainScroll>
 </template>
 
-<script>
+<script setup>
 import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'MainScrollDemo',
-  components: {
-    MainScroll,
-    MainScrollItem,
-  },
-}
 </script>
 ```
 
@@ -328,21 +304,13 @@ and adjusting the element to be at least 75% intersecting.
 <template>
   <MainScroll :threshold="0.75" margin="-50px">
     <ul>
-      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
+      <MainScrollItem v-for="item in 24" :key="item" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
   </MainScroll>
 </template>
 
-<script>
+<script setup>
 import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll'
-
-export default {
-  name: 'MainScrollDemo',
-  components: {
-    MainScroll,
-    MainScrollItem,
-  },
-}
 </script>
 ```
 </docs>

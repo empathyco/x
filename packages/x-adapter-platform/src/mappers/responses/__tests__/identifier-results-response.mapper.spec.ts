@@ -1,4 +1,5 @@
 import type { PlatformIdentifierResultsResponse } from '../../../types/responses/identifier-results-response.model'
+import { describe, expect, it } from 'vitest'
 
 import {
   identifierResultsResponse,

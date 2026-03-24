@@ -1,4 +1,5 @@
 import type { SemanticQueriesState } from '../types'
+import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { semanticQueriesXStoreModule } from '../module'
 import { resetSemanticQueriesStateWith } from './utils'

@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getDataTestSelector } from '../../__tests__/utils'
 import AutoProgressBar from '../auto-progress-bar.vue'
 

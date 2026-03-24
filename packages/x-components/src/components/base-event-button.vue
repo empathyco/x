@@ -69,18 +69,39 @@ The event prop is required. It will render a <button></button> that emits the ev
 with the value as payload on click:
 
 ```vue
-<BaseEventButton :events="{ myEvent: payload }" />
+<template>
+  <BaseEventButton :events="{ myEvent: payload }" />
+</template>
+
+<script setup>
+import { BaseEventButton } from '@empathyco/x-components'
+const payload = { foo: 'bar' }
+</script>
 ```
 
 If the event doesn't need payload then `undefined` must be passed:
 
 ```vue
-<BaseEventButton :events="{ myEvent: undefined }" />
+<template>
+  <BaseEventButton :events="{ myEvent: undefined }" />
+</template>
+
+<script setup>
+import { BaseEventButton } from '@empathyco/x-components'
+</script>
 ```
 
 It can emit multiple events at the same time:
 
 ```vue
-<BaseEventButton :events="{ myFirstEvent: payload1, mySecondEvent: payload2 }" />
+<template>
+  <BaseEventButton :events="{ myFirstEvent: payload1, mySecondEvent: payload2 }" />
+</template>
+
+<script setup>
+import { BaseEventButton } from '@empathyco/x-components'
+const payload1 = { foo: 1 }
+const payload2 = { bar: 2 }
+</script>
 ```
 </docs>

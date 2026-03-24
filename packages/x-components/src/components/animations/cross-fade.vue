@@ -46,16 +46,62 @@ export default defineComponent({
 </style>
 
 <docs lang="mdx">
-## Example
+## Examples
 
-The `CrossFade` component is intended to be used as animation to wrap an element with v-if or v-show
-and animate it. The animation fades the new element into the previous one.
+The `CrossFade` component is intended to be used as an animation to wrap an element with `v-if` or `v-show` and animate it. The animation fades the new element into the previous one.
 
-Wrapping a component:
+### Basic usage with `v-if`
 
 ```vue
-<CrossFade>
-  <ComponentOrElement v-if="open"/>
-</CrossFade>
+<template>
+  <CrossFade>
+    <ComponentOrElement v-if="open" />
+  </CrossFade>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CrossFade from '@empathyco/x-components/js/components/animations/cross-fade.vue'
+
+const open = ref(false)
+</script>
+```
+
+### Usage with `v-show`
+
+```vue
+<template>
+  <CrossFade>
+    <ComponentOrElement v-show="open" />
+  </CrossFade>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CrossFade from '@empathyco/x-components/js/components/animations/cross-fade.vue'
+
+const open = ref(true)
+</script>
+```
+
+### Example with dynamic content
+
+```vue
+<template>
+  <div>
+    <button @click="open = !open">Toggle</button>
+    <CrossFade>
+      <div v-if="open" style="background: #eee;">Expanded content</div>
+      <div v-else style="background: #ccc;">Collapsed content</div>
+    </CrossFade>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import CrossFade from '@empathyco/x-components/js/components/animations/cross-fade.vue'
+
+const open = ref(false)
+</script>
 ```
 </docs>

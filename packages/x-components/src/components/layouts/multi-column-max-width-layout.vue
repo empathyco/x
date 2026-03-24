@@ -165,7 +165,18 @@ export default defineComponent({
 </style>
 
 <style lang="css" scoped>
-@import url('../../styles/dev-mode.css');
+.dev-mode .slot-helper {
+  font-family: inherit;
+  color: grey;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: dashed 1px grey;
+  border-radius: 10px;
+}
 
 .x-layout {
   /* custom properties */
@@ -417,6 +428,10 @@ export default defineComponent({
   overflow-y: scroll;
 }
 
+.x-layout__main-body {
+  overflow-x: hidden;
+}
+
 .x-layout__scroll-to-top {
   /* layout */
   grid-area: scroll-to-top;
@@ -439,7 +454,7 @@ export default defineComponent({
 <docs lang="mdx">
 ## Layout
 
-This component has the following layout with fixed headers and collapsible fixed asides:
+This component provides a multi-column layout with fixed headers and collapsible fixed asides:
 
 | header-start  | header-middle |  header-end   |
 | :-----------: | :-----------: | :-----------: |
@@ -450,7 +465,7 @@ This component has the following layout with fixed headers and collapsible fixed
 
 ## Design Tokens
 
-The component has also the following `Design Tokens` to configure it:
+The component exposes the following `Design Tokens` for configuration:
 
 |                        token                        | default value |
 | :-------------------------------------------------: | :-----------: |
@@ -567,4 +582,24 @@ The component has also the following `Design Tokens` to configure it:
 |   --x-size-border-width-layout-columns-main-body    |  The border width of the sub main body   |
 | --x-size-margin-bottom-layout-columns-scroll-to-top |  The margin bottom of the scroll to top  |
 |  --x-size-margin-left-layout-columns-scroll-to-top  |   The margin left of the scroll to top   |
+
+## Example
+
+```vue
+<template>
+  <MultiColumnMaxWidthLayout>
+    <template #header>Header content</template>
+    <template #sub-header>Sub-header content</template>
+    <template #toolbar>Toolbar content</template>
+    <template #main>Main content</template>
+    <template #left-aside>Left aside content</template>
+    <template #right-aside>Right aside content</template>
+    <template #extra-aside>Extra aside content</template>
+  </MultiColumnMaxWidthLayout>
+</template>
+
+<script setup>
+import MultiColumnMaxWidthLayout from '@empathyco/x-components/js/components/layouts/multi-column-max-width-layout.vue'
+</script>
+```
 </docs>

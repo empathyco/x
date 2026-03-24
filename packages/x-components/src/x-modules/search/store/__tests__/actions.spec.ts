@@ -2,8 +2,9 @@ import type { StoreOptions } from 'vuex'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { UrlParams } from '../../../../types/url-params'
 import type { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types'
-
 import { mount } from '@vue/test-utils'
+
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory'
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory'
@@ -43,7 +44,7 @@ describe('testing search module actions', () => {
 
   beforeEach(() => {
     resetSearchStateWith(store)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('fetchSearchResponse', () => {

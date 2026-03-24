@@ -128,8 +128,8 @@ A list of events that the component will emit:
 ## Examples
 
 The `BaseEventsModal` component handles the modal open/close state via the events passed via props.
-Its configured by default to work as a modal for a whole search application, but if the events are
-changed, it can work as a modal that is opened/closed when the events it is listening are emitted.
+It is configured by default to work as a modal for a whole search application, but if the events are
+changed, it can work as a modal that is opened/closed when the events it is listening to are emitted.
 
 ### Basic usage
 
@@ -147,22 +147,14 @@ emit the same events that the `BaseEventsModal` component is listening to:
   </div>
 </template>
 
-<script>
-import { BaseEventsModalOpen, BaseEventsModal } from '@empathyco/x-components'
-
-export default {
-  name: 'ModalTest',
-  components: {
-    BaseEventsModalOpen,
-    BaseEventsModal,
-  },
-}
+<script setup>
+import { BaseEventsModalOpen, BaseEventsModal, BaseEventsModalClose } from '@empathyco/x-components'
 </script>
 ```
 
 ### Customizing the events
 
-If needed, the events to open/close the modal can be changed. The modal can listen one or more
+If needed, the events to open/close the modal can be changed. The modal can listen to one or more
 events. To do so, the `eventsToCloseModal` and `eventsToOpenModal` props can be used. Below you can
 see a full example on how this would work with custom events.
 
@@ -185,17 +177,13 @@ see a full example on how this would work with custom events.
   </div>
 </template>
 
-<script>
+<script setup>
 import { BaseEventsModalOpen, BaseEventsModal, BaseEventsModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'ModalTest',
-  components: {
-    BaseEventsModalOpen,
-    BaseEventsModal,
-    BaseEventsModalClose,
-  },
-}
+const eventsToOpenModal = ['UserClickedOpenMyCustomModal']
+const eventsToCloseModal = [
+  'UserClickedCloseMyCustomModalFromHeader',
+  'UserClickedCloseMyCustomModalFromFooter',
+]
 </script>
 ```
 
@@ -214,16 +202,8 @@ The `contentClass` prop can be used to add classes to the modal content.
   </div>
 </template>
 
-<script>
-import { BaseEventsModalOpen, BaseEventsModal } from '@empathyco/x-components'
-
-export default {
-  name: 'ModalTest',
-  components: {
-    BaseEventsModalOpen,
-    BaseEventsModal,
-  },
-}
+<script setup>
+import { BaseEventsModalOpen, BaseEventsModal, BaseEventsModalClose } from '@empathyco/x-components'
 </script>
 ```
 </docs>

@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { defineComponent } from 'vue'
 import { installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins'

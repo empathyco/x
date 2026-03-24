@@ -56,22 +56,12 @@ _See how the event is triggered when the component is rendered._
   <ExtraParams :values="values" />
 </template>
 
-<script>
+<script setup>
 import { ExtraParams } from '@empathyco/x-components/extra-params'
-
-export default {
-  name: 'ExtraParamsDemo',
-  components: {
-    ExtraParams,
-  },
-  data() {
-    return {
-      values: {
-        warehouse: 1234,
-      },
-    }
-  },
-}
+import { reactive } from 'vue'
+const values = reactive({
+  warehouse: 1234,
+})
 </script>
 ```
 </docs>

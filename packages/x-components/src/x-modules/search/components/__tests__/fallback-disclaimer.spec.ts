@@ -1,6 +1,7 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/index'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'

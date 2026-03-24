@@ -1,5 +1,6 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { Schema } from '../types'
+import { describe, expect, it } from 'vitest'
 import { schemaMapperFactory } from '../../mappers'
 import { createMutableSchema } from '../utils'
 
@@ -315,7 +316,7 @@ describe('mutableSchemas', () => {
     $path: facets.filters,
     $subSchema: {
       id: name,
-      numFound: (_, context) => { var _a; return ((_a = context === null || context === void 0 ? void 0 : context.requestParameters) === null || _a === void 0 ? void 0 : _a.addNumFound) + 2; },
+      numFound: (_, context) => context?.requestParameters?.addNumFound + 2,
       filters: {
         $path: children,
         $subSchema: $self,

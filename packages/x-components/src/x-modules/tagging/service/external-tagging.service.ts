@@ -1,9 +1,9 @@
-import type { StorageService } from '@empathyco/x-storage-service'
 import type { Result } from '@empathyco/x-types'
+import type { StorageService } from '@empathyco/x-utils'
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../../store/index'
 import type { ExternalTaggingService } from './types'
-import { BrowserStorageService } from '@empathyco/x-storage-service'
+import { BrowserStorageService } from '@empathyco/x-utils'
 import { XPlugin } from '../../../plugins/index'
 
 /**

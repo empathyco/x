@@ -44,17 +44,19 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /** Styles for the teleport (content container) */
+    hostStyle: Object as PropType<string | CSSStyleDeclaration>,
   },
   setup(props) {
     if (typeof document === 'undefined') {
-      return { teleportHost: ref<Element>() }
+      return { teleportHost: ref<HTMLElement>() }
     }
 
     const instance = getCurrentInstance()
     /** Hook where the slot content will be teleported to. */
-    const teleportHost = ref<Element>()
+    const teleportHost = ref<HTMLElement>()
     /** The page element where the teleport host will be inserted. */
-    const targetElement = ref<Element>()
+    const targetElement = ref<HTMLElement>()
     let isIsolated = false
 
     // Before doing app.mount it is unknown if it will be mounted in a shadow so we need to wait.
@@ -114,11 +116,24 @@ export default defineComponent({
       targetElement.value.insertAdjacentElement(position, teleportHost.value)
     })
 
+    /* Update the host inline styles when it changes */
+    watchEffect(() => {
+      if (teleportHost.value && props.hostStyle) {
+        if (typeof props.hostStyle === 'string') {
+          teleportHost.value.style.cssText = props.hostStyle
+        } else {
+          Object.assign(teleportHost.value.style, props.hostStyle)
+        }
+      }
+    })
+
     /** Checks if the target element exists in the DOM and updates the observers */
     function targetAdded() {
-      let element =
-        typeof props.target === 'string' ? document.querySelector(props.target) : props.target
-      if (element?.isConnected) {
+      let element: string | Element | null = props.target
+      if (typeof element === 'string') {
+        element = document.querySelector(element)
+      }
+      if (element instanceof HTMLElement && element.isConnected) {
         targetAddedObserver.disconnect()
         targetElement.value = element
         while (element.parentElement) {

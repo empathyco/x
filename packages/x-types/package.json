@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.1.0-alpha.15",
+  "version": "10.1.0-alpha.51",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -16,8 +16,8 @@
     "models",
     "interfaces"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "types": "dist/x-types.d.ts",
   "files": [
     "dist",
@@ -28,13 +28,13 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "rollup -c && npm run gen:docs",
-    "build:watch": "rollup -c -w",
+    "build": "vite build && pnpm run gen:docs",
+    "build:watch": "vite build -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
-    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
+    "gen:docs": "pnpm run gen:model-docs && pnpm run gen:typescript-docs",
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "lint:inspect": "eslint --inspect-config .",
@@ -42,20 +42,16 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.1.0-alpha.5",
-    "@empathyco/x-utils": "^1.0.3-alpha.5",
-    "tslib": "~2.8.1"
+    "@empathyco/x-adapter": "8.1.0-alpha.22",
+    "@empathyco/x-utils": "1.0.3-alpha.17"
   },
   "devDependencies": {
-    "@empathyco/x-jest-utils": "1.4.0-alpha.11",
-    "@microsoft/api-documenter": "7.23.0",
-    "@microsoft/api-extractor": "7.52.8",
-    "@types/jest": "27.5.0",
-    "jest": "27.5.0",
-    "rollup": "4.9.1",
-    "rollup-plugin-delete": "2.0.0",
-    "rollup-plugin-typescript2": "0.36.0",
-    "typescript": "4.9.4"
+    "@microsoft/api-documenter": "7.29.7",
+    "@microsoft/api-extractor": "7.57.7",
+    "typescript": "5.9.3",
+    "vite": "6.4.1",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.1.0"
   },
   "publishConfig": {
     "access": "public"

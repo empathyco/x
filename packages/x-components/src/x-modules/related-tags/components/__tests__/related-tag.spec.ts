@@ -1,5 +1,6 @@
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getRelatedTagsStub } from '../../../../__stubs__'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
@@ -87,9 +88,9 @@ describe('testing related tag item component', () => {
   })
 
   it('emits UserSelectedARelatedTag, UserPickedARelatedTag andUserDeselectedARelatedTag when the related tag is clicked', async () => {
-    const userPickedARelatedTagMock = jest.fn()
-    const selectRelatedTagMock = jest.fn()
-    const deselectRelatedTagMock = jest.fn()
+    const userPickedARelatedTagMock = vi.fn()
+    const selectRelatedTagMock = vi.fn()
+    const deselectRelatedTagMock = vi.fn()
     const { clickRelatedTag, relatedTag, wrapper } = renderRelatedTag()
     const expectedMetadata: Partial<WireMetadata> = {
       target: wrapper.element,

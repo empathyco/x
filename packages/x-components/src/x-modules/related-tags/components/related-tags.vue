@@ -142,17 +142,9 @@ _Search for a fashion term like "sandal" or "lipstick"._
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
-
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-  },
-}
 </script>
 ```
 
@@ -167,25 +159,16 @@ _Search for a fashion term and see the related tags with the animation effect._
 <template>
   <div>
     <SearchInput />
-    <RelatedTags :animation="'StaggeredFadeAndSlide'" :maxItemsToRender="3" />
+    <RelatedTags :animation="animation" :maxItemsToRender="3" />
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
 import { StaggeredFadeAndSlide } from '@empathyco/x-components'
 
-// Registering the animation as a global component
-Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide)
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-  },
-}
+const animation = StaggeredFadeAndSlide
 </script>
 ```
 
@@ -206,18 +189,9 @@ _Search for a fashion term and see how the related tags can be rendered._
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags, RelatedTag } from '@empathyco/x-components/related-tags'
-
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-    RelatedTag,
-  },
-}
 </script>
 ```
 
@@ -239,17 +213,9 @@ _Search for a fashion term and see how the related tags are rendered._
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
-
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-  },
-}
 </script>
 ```
 
@@ -273,19 +239,10 @@ _Search for a fashion term and see how the related tags can be rendered._
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
 import { ResultsList } from '@empathyco/x-components/search'
-
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-    ResultsList,
-  },
-}
 </script>
 ```
 
@@ -303,17 +260,9 @@ The `itemClass` prop can be used to add classes to the related tags.
   </div>
 </template>
 
-<script>
+<script setup>
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { RelatedTags } from '@empathyco/x-components/related-tags'
-
-export default {
-  name: 'RelatedTagsDemo',
-  components: {
-    SearchInput,
-    RelatedTags,
-  },
-}
 </script>
 ```
 </docs>

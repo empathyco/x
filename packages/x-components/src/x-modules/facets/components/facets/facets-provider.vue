@@ -146,45 +146,37 @@ These facets will be added to the `Facets X-Module` state together with the face
   <FacetsProvider :facets="myFacets" />
 </template>
 
-<script>
+<script setup>
 import { FacetsProvider } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    FacetsProvider,
+const myFacets = ref([
+  {
+    modelName: 'SimpleFacet',
+    id: 'color-facet',
+    label: 'Color',
+    filters: [
+      {
+        modelName: 'SimpleFilter',
+        id: 'color:red',
+        facetId: 'color-facet',
+        label: 'Red',
+        selected: false,
+        value: 'color:red',
+        totalResults: 10,
+      },
+      {
+        modelName: 'SimpleFilter',
+        id: 'color:blue',
+        facetId: 'color-facet',
+        label: 'Blue',
+        selected: false,
+        value: 'color:blue',
+        totalResults: 10,
+      },
+    ],
   },
-  data() {
-    return {
-      myFacets: [
-        {
-          modelName: 'SimpleFacet',
-          id: 'color-facet',
-          label: 'Color',
-          filters: [
-            {
-              modelName: 'SimpleFilter',
-              id: 'color:red',
-              facetId: 'color-facet',
-              label: 'Red',
-              selected: false,
-              value: 'color:red',
-              totalResults: 10,
-            },
-            {
-              modelName: 'SimpleFilter',
-              id: 'color:blue',
-              facetId: 'color-facet',
-              label: 'Blue',
-              selected: false,
-              value: 'color:blue',
-              totalResults: 10,
-            },
-          ],
-        },
-      ],
-    }
-  },
-}
+])
 </script>
 ```
 </docs>

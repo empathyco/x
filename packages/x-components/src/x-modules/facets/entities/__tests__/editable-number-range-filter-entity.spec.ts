@@ -1,4 +1,5 @@
 import type { RangeValue } from '@empathyco/x-types'
+import { describe, expect, it } from 'vitest'
 import { createEditableNumberRangeFilter } from '../../../../__stubs__/filters-stubs.factory'
 import { EditableNumberRangeFilterEntity } from '../editable-number-range-filter.entity'
 import {

@@ -1,4 +1,5 @@
 import type {
+  AiSuggestionSearch,
   RelatedPrompt,
   Result,
   SemanticQuery,
@@ -13,7 +14,7 @@ import { createOrigin } from '../../utils/index'
 import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory'
-import { filter, mapWire } from '../../wiring/wires.operators'
+import { filter, filterTruthyPayload, mapWire } from '../../wiring/wires.operators'
 import { createWiring } from '../../wiring/wiring.utils'
 import { DefaultExternalTaggingService } from './service/external-tagging.service'
 
@@ -292,6 +293,27 @@ export const trackNoResultsQueryWithSemanticsWireDebounced =
   trackNoResultsQueryWithFallbackWireDebounced
 
 /**
+ * Performs a track of clicking the AI overview expand button when the playload (expanded) is false.
+ *
+ * @public
+ */
+export const trackAiOverviewButtonClickedWire = filterTruthyPayload(
+  wireDispatch('track', ({ metadata: { toolingDisplayClick, suggestionText } }) => {
+    const taggingInfo = {
+      ...(toolingDisplayClick as TaggingRequest),
+      params: {
+        ...(toolingDisplayClick as TaggingRequest).params,
+        productId: 'EXPAND',
+        title: suggestionText as string,
+        url: 'none',
+      },
+    }
+
+    return taggingInfo
+  }),
+)
+
+/**
  * Factory helper to create a wire for the track of the display click.
  *
  * @param property - Key of the tagging object to track.
@@ -427,6 +449,14 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
 }
 
 /**
+ * Tracks query tagging of the AI suggestions-search.
+ * @public
+ */
+export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayload }) =>
+  (eventPayload as AiSuggestionSearch[]).map(({ tagging }) => tagging.query),
+)
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -495,5 +525,17 @@ export const taggingWiring = createWiring({
   },
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
+  },
+  AiSuggestionsSearchChanged: {
+    trackAiSuggestionsSearchWire,
+  },
+  UserClickedAiOverviewExpandButton: {
+    trackAiOverviewButtonClickedWire,
+  },
+  UserClickedAnAiOverviewResult: {
+    trackToolingDisplayClickedWire,
+  },
+  UserClickedAnAiOverviewAdd2Cart: {
+    trackToolingAdd2CartWire,
   },
 })

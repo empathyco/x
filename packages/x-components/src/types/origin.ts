@@ -33,6 +33,7 @@ export type QueryFeature =
   | 'customer'
   | 'semantics'
   | 'related_prompts'
+  | 'overview'
 
 /**
  * The name of the tool that generated the results.
@@ -48,6 +49,8 @@ export type ResultFeature =
   | 'partial_results'
   | 'identifier_result'
   | 'related_prompts'
+  | 'overview'
+  | 'ai_carousel'
 
 /**
  * Indicates where the feature is placed.
@@ -74,6 +77,7 @@ export type FeatureLocation =
   | 'url_history_pdp'
   | 'related_prompts'
   | 'add2cart'
+  | 'overview'
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.

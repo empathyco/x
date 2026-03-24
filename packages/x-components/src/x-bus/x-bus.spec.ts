@@ -1,5 +1,6 @@
 import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
 import type { XBus, XPriorityQueueNodeData } from './x-bus.types'
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { BaseXPriorityQueue } from '../x-bus/x-priority-queue'
 import { XPriorityBus } from './x-bus'
 
@@ -12,15 +13,15 @@ describe('x-priority-bus scenarios', () => {
   }
 
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('emit', () => {
@@ -74,7 +75,7 @@ describe('x-priority-bus scenarios', () => {
       const emittedEvents: (keyof TestEvents)[] = []
       const pushEmittedEvent: AnyFunction = ({ event }: { event: keyof TestEvents }) =>
         emittedEvents.push(event)
-      const queuePopSpy = jest.spyOn(queue, 'pop')
+      const queuePopSpy = vi.spyOn(queue, 'pop')
 
       // When multiple events are emitted at the same time
       // Then they're added to the queue
@@ -98,7 +99,7 @@ describe('x-priority-bus scenarios', () => {
       expect(queuePopSpy).not.toHaveBeenCalled()
 
       // The events are batched and emitted in the right order
-      jest.runAllTimers()
+      vi.runAllTimers()
       await Promise.all([emit1, emit2, emit3, emit4])
       expect(queuePopSpy).toHaveBeenCalledTimes(4)
       expect(emittedEvents).toEqual<(keyof TestEvents)[]>([
@@ -117,20 +118,20 @@ describe('x-priority-bus scenarios', () => {
       const bus = new XPriorityBus<TestEvents, Dictionary>()
 
       // Then creates a subscription to an event
-      const testEvent1SubscriptionFn = jest.fn()
-      const testEvent2SubscriptionFn = jest.fn()
+      const testEvent1SubscriptionFn = vi.fn()
+      const testEvent2SubscriptionFn = vi.fn()
       bus.on('TestEvent1').subscribe(testEvent1SubscriptionFn)
       const unsubscribeFromTestEvent2 = bus.on('TestEvent2').subscribe(testEvent2SubscriptionFn)
 
       // When that event is emitted
       void bus.emit('TestEvent1')
       void bus.emit('TestEvent2')
-      jest.runAllTimers()
+      vi.runAllTimers()
 
       unsubscribeFromTestEvent2.unsubscribe()
       void bus.emit('TestEvent1')
       void bus.emit('TestEvent2')
-      jest.runAllTimers()
+      vi.runAllTimers()
 
       // Then the bus notify its subscriptions
       expect(testEvent1SubscriptionFn).toHaveBeenCalledTimes(2)
@@ -147,15 +148,15 @@ describe('x-priority-bus scenarios', () => {
       const bus = new XPriorityBus<TestEvents, EventMetadata>()
 
       // Then creates a subscription to an event
-      const testEvent1SubscriptionFn = jest.fn()
-      const testEvent2SubscriptionFn = jest.fn()
+      const testEvent1SubscriptionFn = vi.fn()
+      const testEvent2SubscriptionFn = vi.fn()
       bus.on('TestEvent1', true).subscribe(testEvent1SubscriptionFn)
       bus.on('TestEvent2', true).subscribe(testEvent2SubscriptionFn)
 
       // When that event is emitted
       void bus.emit('TestEvent1', 'string', { name: 'TestEvent1', isCustom: true })
       void bus.emit('TestEvent2', 0, { name: 'TestEvent2', isCustom: false })
-      jest.runAllTimers()
+      vi.runAllTimers()
 
       // Then the bus notify its subscriptions
       expect(testEvent1SubscriptionFn).toHaveBeenCalledTimes(1)
@@ -190,14 +191,13 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
 ): Promise<any[]> {
   const pushEmittedEvent: AnyFunction = ({ event }: { event: keyof SomeRecord }) =>
     emittedEvents.push(event)
-  const emittedEventsPromise = Promise.all([
-    // eslint-disable-next-line array-callback-return
-    eventsToEmit.map(([event, payload, metadata]) => {
-      void bus.emit(event, payload, metadata).then(pushEmittedEvent)
+  const emittedEventsPromise = Promise.all(
+    eventsToEmit.map(async ([event, payload, metadata]) => {
+      return bus.emit(event, payload, metadata).then(pushEmittedEvent)
     }),
-  ])
+  )
 
-  jest.runAllTimers()
+  vi.runAllTimers()
 
   return emittedEventsPromise
 }

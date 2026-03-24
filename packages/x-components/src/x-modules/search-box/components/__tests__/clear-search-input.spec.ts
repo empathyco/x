@@ -1,17 +1,18 @@
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { useState } from '../../../../composables/use-state'
 import { XPlugin } from '../../../../plugins'
 import ClearSearchInput from '../clear-search-input.vue'
 
-jest.mock('../../../../composables/use-state', () => ({
-  useState: jest.fn(),
+vi.mock('../../../../composables/use-state', () => ({
+  useState: vi.fn(),
 }))
 
 describe('testing ClearSearchInput component', () => {
   beforeEach(() => {
     // Use state mock to return an empty query value
-    ;(useState as jest.Mock).mockReturnValue({ query: { value: '' } })
+    ;(useState as any).mockReturnValue({ query: { value: '' } })
   })
 
   it('emits UserPressedClearSearchBoxButton event when clicked', async () => {
@@ -24,7 +25,7 @@ describe('testing ClearSearchInput component', () => {
       replaceable: true,
       target: clearSearchInput.element,
     }
-    const emitSpy = jest.spyOn(XPlugin.bus, 'emit')
+    const emitSpy = vi.spyOn(XPlugin.bus, 'emit')
 
     await clearSearchInput.trigger('click')
 

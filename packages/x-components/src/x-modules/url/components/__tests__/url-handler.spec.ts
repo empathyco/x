@@ -1,16 +1,17 @@
 import type { UrlParams } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
+import { snippetConfigStub } from '../../../../__stubs__'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins'
-import { baseSnippetConfig } from '../../../../views/base-config'
 import { initialUrlState } from '../../store/initial-state'
 import UrlHandler from '../url-handler.vue'
 
 // Mock the window.performance.getEntriesByType function used to get the location. The location is
 // tested in an E2E test as navigation between different pages is needed.
-window.performance.getEntriesByType = jest.fn().mockReturnValue([])
+window.performance.getEntriesByType = vi.fn().mockReturnValue([])
 
 function setUrlParams(urlParams: string) {
   const newUrl = new URL(window.location.href)
@@ -42,7 +43,9 @@ function renderUrlHandler({ template = `<UrlHandler />`, urlParams = '' } = {}) 
     {
       global: {
         plugins: [installNewXPlugin({})],
-        provide: { snippetConfig: { ...baseSnippetConfig } },
+        provide: {
+          snippetConfig: snippetConfigStub,
+        },
       },
     },
   )
@@ -67,7 +70,7 @@ describe('testing UrlHandler component', () => {
       urlParams: 'query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego',
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ParamsLoadedFromUrl', true).subscribe(listener)
 
     expect(listener).toHaveBeenNthCalledWith(1, {
@@ -89,7 +92,7 @@ describe('testing UrlHandler component', () => {
   it('emits the `ParamsLoadedFromUrl` when the browser history is navigated', () => {
     const { popstateUrlWithParams } = renderUrlHandler()
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ParamsLoadedFromUrl').subscribe(listener)
 
     popstateUrlWithParams(
@@ -124,7 +127,7 @@ describe('testing UrlHandler component', () => {
   it('emits the `ParamsLoadedFromUrl` initial state values for not present params', () => {
     const { popstateUrlWithParams } = renderUrlHandler()
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ParamsLoadedFromUrl').subscribe(listener)
 
     popstateUrlWithParams('query=lego&page=2')
@@ -149,7 +152,7 @@ describe('testing UrlHandler component', () => {
       urlParams: 'query=lego&page=2&warehouse=111&store=222',
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ParamsLoadedFromUrl').subscribe(listener)
 
     expect(listener).toHaveBeenNthCalledWith(1, {
@@ -166,7 +169,7 @@ describe('testing UrlHandler component', () => {
       urlParams: 'q=lego&p=2',
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('ParamsLoadedFromUrl').subscribe(listener)
 
     expect(listener).toHaveBeenNthCalledWith(1, {

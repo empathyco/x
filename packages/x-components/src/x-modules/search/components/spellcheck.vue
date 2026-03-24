@@ -49,26 +49,28 @@ This two props should be show like a message comparing them.
 ### Basic usage
 
 ```vue
-<Spellcheck />
+<template>
+  <Spellcheck />
+</template>
+
+<script setup>
+import { Spellcheck } from '@empathyco/x-components/search'
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<Spellcheck>
-  <template #default="{ query, spellcheckedQuery }">
-    No results found for '{{ query }}'. We show you results for '{{ spellcheckedQuery }}'
-  </template>
-</Spellcheck>
+<template>
+  <Spellcheck>
+    <template #default="{ query, spellcheckedQuery }">
+      No results found for '{{ query }}'. We show you results for '{{ spellcheckedQuery }}'
+    </template>
+  </Spellcheck>
+</template>
 
-<script>
+<script setup>
 import { Spellcheck } from '@empathyco/x-components/search'
-
-export default {
-  components: {
-    Spellcheck,
-  },
-}
 </script>
 ```
 </docs>

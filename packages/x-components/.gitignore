@@ -4,14 +4,10 @@
 /node_modules
 /coverage
 /dist
+/demo/dist
 /docs
 /temp
 /*.tgz
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-/tests/e2e/downloads/
-/cypress
 
 # local env files
 .env.local

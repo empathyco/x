@@ -138,19 +138,43 @@ filters list to their children, it is mandatory to send it as prop.
 Using default slot:
 
 ```vue
-<FiltersList :filters="filters">
-  <template #default="{ filter }">
-    <p>{{ filter.label }}</p>
-  </template>
-</FiltersList>
+<template>
+  <FiltersList :filters="filters">
+    <template #default="{ filter }">
+      <p>{{ filter.label }}</p>
+    </template>
+  </FiltersList>
+</template>
+
+<script setup>
+import { FiltersList } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 
 Using default slot abbreviated syntax:
 
 ```vue
-<FiltersList :filters="filters" v-slot="{ filter }">
-  <p>{{ filter.label }}</p>
-</FiltersList>
+<template>
+  <FiltersList :filters="filters" v-slot="{ filter }">
+    <p>{{ filter.label }}</p>
+  </FiltersList>
+</template>
+
+<script setup>
+import { FiltersList } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 
 > **Using injection**: It can receive the filters list by injection. It only works if it has a
@@ -159,10 +183,22 @@ Using default slot abbreviated syntax:
 > the rest of components will inject this list.
 
 ```vue
-<SlicedFilters :filters="filters">
-  <FiltersList v-slot="{ filter }">
-    <p>{{ filter.label }}</p>
-  </FiltersList>
-</SlicedFilters>
+<template>
+  <SlicedFilters :filters="filters">
+    <FiltersList v-slot="{ filter }">
+      <p>{{ filter.label }}</p>
+    </FiltersList>
+  </SlicedFilters>
+</template>
+
+<script setup>
+import { SlicedFilters, FiltersList } from '@empathyco/x-components/facets'
+import { ref } from 'vue'
+
+const filters = ref([
+  { id: '1', label: 'Filter 1', modelName: 'SimpleFilter', selected: false },
+  { id: '2', label: 'Filter 2', modelName: 'SimpleFilter', selected: false },
+])
+</script>
 ```
 </docs>

@@ -113,11 +113,14 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This component doesn't emit events.
+This component emits the following event:
+
+- [`UserClickedABanner`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user clicks the banner (if it has a URL).
 
 ## See it in action
 
-In this example banned data is passed as a prop.
+In this example, banner data is passed as a prop.
 
 _Here you can see how the `Banner` component is rendered._
 
@@ -126,26 +129,18 @@ _Here you can see how the `Banner` component is rendered._
   <Banner :banner="banner" />
 </template>
 
-<script>
+<script setup>
 import { Banner } from '@empathyco/x-components/search'
-export default {
-  name: 'BannerDemo',
-  components: {
-    Banner,
-  },
-  data() {
-    return {
-      banner: {
-        modelName: 'Banner',
-        id: 'banner-example',
-        url: 'https://my-website.com/summer-shirts',
-        image: 'https://my-website.com/images/summer-shirts.jpg',
-        title: 'Trendy summer shirts',
-        position: 1,
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+
+const banner = ref({
+  modelName: 'Banner',
+  id: 'banner-example',
+  url: 'https://my-website.com/summer-shirts',
+  image: 'https://my-website.com/images/summer-shirts.jpg',
+  title: 'Trendy summer shirts',
+  position: 1,
+})
 </script>
 ```
 
@@ -158,26 +153,18 @@ The `titleClass` prop can be used to add classes to the banner title.
   <Banner :banner="banner" titleClass="x-bg-neutral-50" />
 </template>
 
-<script>
+<script setup>
 import { Banner } from '@empathyco/x-components/search'
-export default {
-  name: 'BannerDemo',
-  components: {
-    Banner,
-  },
-  data() {
-    return {
-      banner: {
-        modelName: 'Banner',
-        id: 'banner-example',
-        url: 'https://my-website.com/summer-shirts',
-        image: 'https://my-website.com/images/summer-shirts.jpg',
-        title: 'Trendy summer shirts',
-        position: 1,
-      },
-    }
-  },
-}
+import { ref } from 'vue'
+
+const banner = ref({
+  modelName: 'Banner',
+  id: 'banner-example',
+  url: 'https://my-website.com/summer-shirts',
+  image: 'https://my-website.com/images/summer-shirts.jpg',
+  title: 'Trendy summer shirts',
+  position: 1,
+})
 </script>
 ```
 </docs>

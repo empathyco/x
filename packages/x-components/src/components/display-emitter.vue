@@ -66,14 +66,9 @@ the div inside first appears in the viewport.
     <div>I'm displaying</div>
   </DisplayEmitter>
 </template>
-<script>
+
+<script setup>
 import { DisplayEmitter } from '@empathyco/x-components'
-export default {
-  name: 'DisplayEmitterDemo',
-  components: {
-    DisplayEmitter,
-  },
-}
 </script>
 ```
 </docs>

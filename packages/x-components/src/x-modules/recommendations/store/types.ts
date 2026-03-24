@@ -37,8 +37,7 @@ export interface RecommendationsGetters {
  * @public
  */
 export interface RecommendationsMutations
-  extends StatusMutations,
-    ConfigMutations<RecommendationsState> {
+  extends StatusMutations, ConfigMutations<RecommendationsState> {
   /**
    * Sets the recommendations of the module.
    *

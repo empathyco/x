@@ -1,5 +1,6 @@
 import type { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { createHierarchicalFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
@@ -99,7 +100,7 @@ function render({
     getFiltersWrappers,
     getFilterWrapperByText,
     hierarchicalFilterWrapper,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     getRootFilter,
     getFilters,
     getPartiallySelectedFilters,

@@ -1,6 +1,7 @@
 import type { Store } from 'vuex'
 import type { RootXStoreState } from '../../store/index'
 import type { WireParams } from '../wiring.types'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { createWireFromFunction } from '../wires.factory'
 import {
@@ -16,14 +17,14 @@ import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler
 describe('testing wires operators', () => {
   const storeMock = createQuerySuggestionsStoreMock() as Store<RootXStoreState>
   const subjectHandler = new SubjectHandler()
-  const executeFunction = jest.fn()
+  const executeFunction = vi.fn()
   const wire = createWireFromFunction(executeFunction)
   const busMock = new XDummyBus()
   const busOnMock = busMock.on.bind(busMock)
 
   beforeEach(() => {
     subjectHandler.reset()
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('testing filtering operators', () => {

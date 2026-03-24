@@ -37,27 +37,19 @@ export default defineComponent({
 The AnimateWidth component is intended to be used as a prop in animatable components but also works
 as a transition to animate the width of an element.
 
-Used as a prop in an animatable component:
+### Used as a prop in an animatable component:
 
 ```vue
 <template>
   <AnimatableComponent :animation="AnimateWidth" />
 </template>
 
-<script>
+<script setup>
 import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue'
-
-export default {
-  data() {
-    return {
-      AnimateWidth,
-    }
-  },
-}
 </script>
 ```
 
-Used as a regular Transition:
+### Used as a regular Transition:
 
 ```vue
 <template>
@@ -69,16 +61,11 @@ Used as a regular Transition:
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue'
 
-export default {
-  data() {
-    return {
-      visible: true,
-    }
-  },
-}
+const visible = ref(true)
 </script>
 ```
 </docs>

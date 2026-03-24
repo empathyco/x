@@ -1,6 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
@@ -90,11 +91,15 @@ async function renderSearchInputPlaceholder({
 }
 
 describe('testing search input placeholder component', () => {
-  beforeAll(jest.useFakeTimers)
-  beforeEach(() => {
-    jest.clearAllMocks()
+  beforeAll(() => {
+    vi.useFakeTimers()
   })
-  afterEach(jest.clearAllTimers)
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+  afterEach(() => {
+    vi.clearAllTimers()
+  })
 
   it('is an XComponent part of the SearchBox XModule', async () => {
     const { wrapper } = await renderSearchInputPlaceholder()
@@ -109,7 +114,7 @@ describe('testing search input placeholder component', () => {
 
     for (const message of messages) {
       expect(getPlaceholderText()).toEqual(message)
-      jest.runOnlyPendingTimers()
+      vi.runOnlyPendingTimers()
       await wrapper.vm.$nextTick()
     }
     expect(getPlaceholderText()).toEqual(messages[0])
@@ -124,16 +129,16 @@ describe('testing search input placeholder component', () => {
     await hoverInput('in')
     for (const message of messages.slice(1)) {
       expect(getPlaceholderText()).toEqual(message)
-      jest.runOnlyPendingTimers()
+      vi.runOnlyPendingTimers()
       await nextTick()
     }
     expect(getPlaceholderText()).toEqual(messages[0])
-    jest.runOnlyPendingTimers()
+    vi.runOnlyPendingTimers()
     await nextTick()
     expect(getPlaceholderText()).toEqual(messages[1])
     await hoverInput('out')
     expect(getPlaceholderText()).toEqual(messages[0])
-    jest.advanceTimersByTime(2000)
+    vi.advanceTimersByTime(2000)
     expect(getPlaceholderText()).toEqual(messages[0])
     await hoverInput('in')
     expect(getPlaceholderText()).toEqual(messages[1])
@@ -146,7 +151,7 @@ describe('testing search input placeholder component', () => {
     expect(getPlaceholderText()).toEqual(messages[0])
     await emit('UserAcceptedAQuery', 'testing')
     expect(isPlaceholderVisible()).toEqual(false)
-    jest.advanceTimersByTime(2000)
+    vi.advanceTimersByTime(2000)
     await emit('UserAcceptedAQuery', '')
     expect(getPlaceholderText()).toEqual(messages[1])
   })

@@ -47,9 +47,7 @@ export interface RelatedTagsGetters {
  * @public
  */
 export interface RelatedTagsMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<RelatedTagsState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<RelatedTagsState> {
   /**
    * Sets the related tags of the module.
    *

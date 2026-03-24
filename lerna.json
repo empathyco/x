@@ -25,5 +25,5 @@
     }
   },
   "npmClient": "pnpm",
-  "useWorkspaces": true
+  "exact": true
 }

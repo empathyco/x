@@ -1,5 +1,6 @@
 import type { Banner as BannerModel } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createBannerStub } from '../../../../__stubs__/banners-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
@@ -62,7 +63,7 @@ describe('testing Banner component', () => {
   })
 
   it('renders a banner which emits UserClickedABanner when the user clicks in the left, middle or right button on the component', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     const banner = createBannerStub('banner', { url: 'https://empathy.co' })
     const { wrapper } = renderBanner({ banner })
     XPlugin.bus.on('UserClickedABanner').subscribe(listener)
@@ -80,7 +81,7 @@ describe('testing Banner component', () => {
   })
 
   it('renders a banner which does not emits any event on click', async () => {
-    const listener = jest.fn()
+    const listener = vi.fn()
     const { wrapper } = renderBanner({
       banner: createBannerStub('banner', { title: 'Search UIs' }),
     })

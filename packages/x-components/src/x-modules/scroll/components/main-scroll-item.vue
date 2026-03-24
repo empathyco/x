@@ -107,7 +107,7 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This components emits the following events:
+This component emits the following event:
 
 - [`ScrollRestoreSucceeded`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
@@ -141,23 +141,12 @@ of all of these components. The URL is modified as the user scrolls.
   </div>
 </template>
 
-<script>
+<script setup>
 import { MainScroll, Scroll, MainScrollItem } from '@empathyco/x-components/scroll'
 import { ResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { UrlHandler } from '@empathyco/x-components/url'
-
-export default {
-  name: 'ScrollItemDemo',
-  components: {
-    Scroll,
-    ResultsList,
-    MainScroll,
-    MainScrollItem,
-    SearchInput,
-    UrlHandler,
-  },
-}
+import { BaseResultLink } from '@empathyco/x-components'
 </script>
 ```
 </docs>

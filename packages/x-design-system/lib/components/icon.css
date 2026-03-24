@@ -1,0 +1,72 @@
+/* Base */
+@utility icon {
+  @apply xds:flex xds:flex-none xds:items-center xds:justify-center;
+  @apply xds:aspect-square xds:w-auto xds:font-family-icon;
+  vector-effect: non-scaling-stroke;
+
+  /* `@apply xds:icon-md;` can not be use here because cause circular dependency. */
+  @apply xds:h-16 xds:text-[14px];
+}
+
+/* Offset */
+/* This utility can be used like:
+ * @utility suggestion {
+ *  & .xds\:icon {
+ *    @apply xds:icon-offset;
+ *  }
+ * }
+ */
+@utility icon-offset {
+  --iconVerticalOffset: calc(50% - 0.5ex - 1px);
+  font-size: initial;
+  transform: translateY(var(--iconVerticalOffset, 0));
+  margin-top: calc(var(--iconVerticalOffset) * -1);
+}
+
+/* Sizes */
+@utility icon-sm {
+  @apply xds:h-8;
+  @apply xds:text-[7px];
+}
+@utility icon-md {
+  @apply xds:h-16;
+  @apply xds:text-[14px];
+}
+@utility icon-lg {
+  @apply xds:h-24;
+  @apply xds:text-[20px];
+}
+@utility icon-xl {
+  @apply xds:h-32;
+  @apply xds:text-[28px];
+}
+
+/* Sharp */
+@utility icon-sharp {
+  & > * {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+}
+
+/* Stroke width */
+@utility icon-stroke-width-* {
+  & > * {
+    stroke-width: --value(--stroke-width-*);
+  }
+}
+
+/* Colors */
+@utility icon-* {
+  color: --value(--color-*);
+}
+
+/* Background colors */
+@utility icon-bg-* {
+  & > [stroke='#fff'] {
+    stroke: --value(--color-*);
+  }
+  & > [fill='#fff'] {
+    fill: --value(--color-*);
+  }
+}

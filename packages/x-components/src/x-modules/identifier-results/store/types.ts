@@ -49,9 +49,7 @@ export interface IdentifierResultsGetters {
  * @public
  */
 export interface IdentifierResultsMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<IdentifierResultsState> {
+  extends StatusMutations, QueryMutations, ConfigMutations<IdentifierResultsState> {
   /**
    * Sets the identifier results of the module.
    *

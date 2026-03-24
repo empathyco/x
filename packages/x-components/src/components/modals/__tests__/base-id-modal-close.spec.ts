@@ -1,5 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
@@ -47,7 +48,7 @@ function renderBaseIdModalClose({
 describe('testing Close Button component', () => {
   it("emits UserClickedCloseModal with the component's id as payload", async () => {
     const { modalId, click } = renderBaseIdModalClose()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedCloseModal').subscribe(listener)
 
     await click()
@@ -75,7 +76,7 @@ describe('testing Close Button component', () => {
                   </BaseIdModalClose>`,
     })
 
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedCloseModal').subscribe(listener)
 
     await click()

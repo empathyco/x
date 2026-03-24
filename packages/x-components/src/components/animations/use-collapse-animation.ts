@@ -26,15 +26,16 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    *
    * @param element - The DOM element that is going to be animated.
    */
-  function expand(element: HTMLElement): void {
-    /* eslint-disable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
+  function expand(element: Element): void {
+    if (!(element instanceof HTMLElement)) {
+      return
+    }
     element.style[property] = '0'
-    const originalValue = (element.style as any)['content-visibility']
-    ;(element.style as any)['content-visibility'] = 'visible'
+    const originalValue = element.style.contentVisibility
+    element.style.contentVisibility = 'visible'
     element.getBoundingClientRect()
     element.style[property] = `${element[scrollProperty]}px`
-    ;(element.style as any)['content-visibility'] = originalValue
-    /* eslint-enable ts/no-unsafe-assignment,ts/no-unsafe-member-access */
+    element.style.contentVisibility = originalValue
   }
 
   /**
@@ -42,7 +43,10 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    *
    * @param element - The DOM element that is going to be animated.
    */
-  function cleanUpAnimationStyles(element: HTMLElement): void {
+  function cleanUpAnimationStyles(element: Element): void {
+    if (!(element instanceof HTMLElement)) {
+      return
+    }
     element.style.removeProperty(property)
   }
 
@@ -51,7 +55,10 @@ export function useCollapseAnimation(property: AnimatedProperty) {
    *
    * @param element - The DOM element that is going to be animated.
    */
-  function collapse(element: HTMLElement): void {
+  function collapse(element: Element): void {
+    if (!(element instanceof HTMLElement)) {
+      return
+    }
     element.style[property] = `${element[scrollProperty]}px`
     // This is intended. We want to provoke a layer repaint to apply this style.
     element.getBoundingClientRect()

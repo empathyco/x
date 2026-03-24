@@ -80,11 +80,21 @@ export default defineComponent({
 ## Examples
 
 This component renders an identifier result value and highlights its matching part with the query
-from the state. Receives as prop the result data
+from the state. Receives as prop the result data.
 
-### Basic usage:
+### Basic usage
 
 ```vue
-<IdentifierResult v-bind="{ result }" />
+<template>
+  <IdentifierResult :result="result" />
+</template>
+
+<script setup>
+import IdentifierResult from '@empathyco/x-components/js/x-modules/identifier-results/components/identifier-result.vue'
+const result = {
+  identifier: { value: 'ABC-123-XYZ' },
+  // ...other result properties
+}
+</script>
 ```
 </docs>

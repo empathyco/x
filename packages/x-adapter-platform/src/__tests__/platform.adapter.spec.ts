@@ -1,19 +1,44 @@
 import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
-import type { PlatformExperienceControlsResponse } from '../types'
+import type {
+  PlatformAiQuestionsResponse,
+  PlatformAiTasksResponse,
+  PlatformExperienceControlsResponse,
+} from '../types'
 import type { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model'
 import type { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model'
 import type { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model'
 import type { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model'
 import type { PlatformSearchResponse } from '../types/responses/search-response.model'
 import type { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { platformAdapter } from '../platform.adapter'
+import {
+  aiSuggestionsSearchResponse,
+  platformAiSuggestionsSearchResponse,
+} from './__fixtures__/ai/suggestions-search.response'
+import { platformFacetsResponse } from './__fixtures__/facets.response'
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response'
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response'
+import { result } from './__fixtures__/result'
 import { getFetchMock } from './__mocks__/fetch.mock'
 
+const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
+  context: {
+    instance: 'mymotivemarketplace',
+    lang: 'es',
+    filters: {},
+    query: 'camiseta arrugada',
+  },
+  items: [],
+  resolved: false,
+  numItems: 0,
+  taskId:
+    'f:questions:i:mymotivemarketplace:type:generate-conversational:lang:es:q:9f7d9f3e3549f1d801845f4c9e2114a3',
+  totalItems: 0,
+}
 describe('platformAdapter tests', () => {
-  beforeEach(jest.clearAllMocks)
+  beforeEach(vi.clearAllMocks)
 
   it('should call the search endpoint', async () => {
     const rawPlatformSearchResponse: DeepPartial<PlatformSearchResponse> = {
@@ -48,7 +73,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformSearchResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformSearchResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.search({
@@ -168,7 +193,7 @@ describe('platformAdapter tests', () => {
         ],
       },
     }
-    const fetchMock = jest.fn(getFetchMock(rawPlatformPopularSearchesResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformPopularSearchesResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.popularSearches({
@@ -218,7 +243,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.querySuggestions({
@@ -270,7 +295,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
+    const fetchMock = vi.fn(getFetchMock(rawPlatformQuerySuggestionsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.querySuggestions({
@@ -335,7 +360,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformNextQueriesResponse))
+    const fetchMock = vi.fn(getFetchMock(platformNextQueriesResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.nextQueries(nextQueriesRequest)
@@ -378,7 +403,7 @@ describe('platformAdapter tests', () => {
       status: 200,
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformRelatedTagsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformRelatedTagsResponse))
     window.fetch = fetchMock as any
 
     const relatedTagsRequest: RelatedTagsRequest = {
@@ -416,7 +441,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the identifier results endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock(platformIdentifierResultsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformIdentifierResultsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.identifierResults({
@@ -458,6 +483,7 @@ describe('platformAdapter tests', () => {
           price: {
             value: 10,
             originalValue: 10,
+            futureValue: 10,
             hasDiscount: false,
           },
           rating: {
@@ -536,7 +562,7 @@ describe('platformAdapter tests', () => {
   })
 
   it('should call the recommendations endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock(platformRecommendationsResponse))
+    const fetchMock = vi.fn(getFetchMock(platformRecommendationsResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.recommendations({
@@ -564,33 +590,12 @@ describe('platformAdapter tests', () => {
     )
 
     expect(response).toStrictEqual({
-      results: [
-        {
-          id: '31335-U',
-          identifier: {
-            value: '31335-U',
-          },
-          images: ['https://assets.empathy.co/images-demo/31335.jpg'],
-          isWishlisted: false,
-          modelName: 'Result',
-          name: 'Locomotive Men Washed Blue Jeans',
-          price: {
-            hasDiscount: false,
-            originalValue: 10,
-            value: 10,
-          },
-          rating: {
-            value: null,
-          },
-          type: 'Default',
-          url: 'https://assets.empathy.co/images-demo/31335.jpg',
-        },
-      ],
+      results: [result],
     })
   })
 
   it('should call the tagging endpoint', async () => {
-    const fetchMock = jest.fn(getFetchMock({}))
+    const fetchMock = vi.fn(getFetchMock({}))
     window.fetch = fetchMock as any
     await platformAdapter.tagging({
       url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click',
@@ -635,7 +640,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformResponse))
+    const fetchMock = vi.fn(getFetchMock(platformResponse))
     window.fetch = fetchMock as any
     const response = await platformAdapter.semanticQueries({
       query: 'test',
@@ -680,7 +685,7 @@ describe('platformAdapter tests', () => {
       },
     }
 
-    const fetchMock = jest.fn(getFetchMock(platformResponse))
+    const fetchMock = vi.fn(getFetchMock(platformResponse))
     window.fetch = fetchMock as any
 
     const response = await platformAdapter.experienceControls({
@@ -707,6 +712,266 @@ describe('platformAdapter tests', () => {
         },
       },
       events: {},
+    })
+  })
+
+  it('should call the ai questions endpoint', async () => {
+    const instanceStub = 'empathy'
+    const queryStub = 'return policy'
+    const langStub = 'en'
+    const fetchMock = vi.fn(getFetchMock(aiQuestionsResponseStub))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.aiQuestions({
+      query: queryStub,
+      lang: langStub,
+      extraParams: {
+        instance: instanceStub,
+        env: 'staging',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      `https://questions.staging.empathy.co/v1/questions/${instanceStub}/conversational`,
+      {
+        headers: {
+          'x-origin': expect.anything(),
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          internal: true,
+          context: {
+            lang: langStub,
+            query: queryStub,
+            instance: instanceStub,
+          },
+        }),
+      },
+    )
+
+    expect(response).toStrictEqual(aiQuestionsResponseStub)
+  })
+
+  it('should call the ai tasks endpoint', async () => {
+    const aiTasksResponse: PlatformAiTasksResponse = {
+      result: aiQuestionsResponseStub,
+      steps: [],
+    }
+    const instanceStub = 'empathy'
+    const taskIdStub = 'taskId'
+
+    const fetchMock = vi.fn(getFetchMock(aiTasksResponse))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.aiTasks({
+      taskId: taskIdStub,
+      extraParams: {
+        instance: instanceStub,
+        env: 'staging',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      `https://questions.staging.empathy.co/v1/tasks/${taskIdStub}?internal=true&taskId=${taskIdStub}`,
+      {
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
+    )
+
+    // Ensure the response matches AiTaskResponse interface
+    expect(response).toStrictEqual(aiTasksResponse)
+  })
+
+  it('should call the ai suggestions search endpoint', async () => {
+    const instanceStub = 'empathy'
+    const langStub = 'en'
+    const queriesStub = [
+      {
+        query: 'test',
+        categories: ['test'],
+      },
+    ]
+
+    const fetchMock = vi.fn(getFetchMock(platformAiSuggestionsSearchResponse))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.aiSuggestionsSearch({
+      queries: queriesStub,
+      extraParams: {
+        lang: langStub,
+        instance: instanceStub,
+        env: 'staging',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      `https://questions.staging.empathy.co/v1/overview/${instanceStub}/suggestions/search`,
+      {
+        method: 'POST',
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          internal: true,
+          context: {
+            lang: langStub,
+            instance: instanceStub,
+            filters: { env: 'staging' },
+          },
+          queries: queriesStub,
+        }),
+      },
+    )
+
+    expect(response).toStrictEqual(aiSuggestionsSearchResponse)
+  })
+
+  it('should call the facets endpoint', async () => {
+    const fetchMock = vi.fn(getFetchMock(platformFacetsResponse))
+    window.fetch = fetchMock as any
+
+    const response = await platformAdapter.facets({
+      query: 'books',
+      filters: {
+        editorial: [
+          {
+            facetId: 'editorial',
+            id: 'editorial:ALFAGUARA',
+            label: 'ALFAGUARA',
+            modelName: 'SimpleFilter',
+            selected: true,
+            totalResults: 1005,
+          } as Filter,
+        ],
+      },
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'es',
+        device: 'desktop',
+        scope: 'desktop',
+      },
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://search.internal.test.empathy.co/query/empathy/facets?query=books&origin=search_box%3Anone&filter=editorial%3AALFAGUARA&instance=empathy&env=test&lang=es&device=desktop&scope=desktop',
+      {
+        signal: expect.anything(),
+        headers: {
+          'x-origin': expect.anything(),
+        },
+      },
+    )
+
+    expect(response).toStrictEqual({
+      facets: [
+        {
+          filters: [
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:DEBOLSILLO',
+              label: 'DEBOLSILLO',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 1149,
+            },
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:ALFAGUARA',
+              label: 'ALFAGUARA',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 1005,
+            },
+            {
+              facetId: 'facetEditorial',
+              id: 'editorial:PLANETA',
+              label: 'PLANETA',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 786,
+            },
+          ],
+          id: 'facetEditorial',
+          label: 'facetEditorial',
+          modelName: 'SimpleFacet',
+        },
+        {
+          filters: [
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Best Seller',
+              label: 'Best Seller',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 265,
+            },
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Jovenes lectores',
+              label: 'Jovenes lectores',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 238,
+            },
+            {
+              facetId: 'facetColecciondilve',
+              id: 'facetColecciondilve:Ficcion',
+              label: 'Ficcion',
+              modelName: 'SimpleFilter',
+              selected: false,
+              totalResults: 204,
+            },
+          ],
+          id: 'facetColecciondilve',
+          label: 'facetColecciondilve',
+          modelName: 'SimpleFacet',
+        },
+        {
+          filters: [
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:121000000',
+              label: 'Literatura',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 28672,
+            },
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:415000000',
+              label: 'Libro antiguo y de ocasion',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 14165,
+            },
+            {
+              facetId: 'facetHierarchicalCategories',
+              id: 'filterHierarchicalCategories:117000000',
+              label: 'Infantil',
+              modelName: 'HierarchicalFilter',
+              parentId: null,
+              selected: false,
+              totalResults: 10903,
+            },
+          ],
+          id: 'facetHierarchicalCategories',
+          label: 'facetHierarchicalCategories',
+          modelName: 'HierarchicalFacet',
+        },
+      ],
     })
   })
 })

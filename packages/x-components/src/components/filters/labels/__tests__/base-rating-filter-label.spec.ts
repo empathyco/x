@@ -1,6 +1,7 @@
 import type { SimpleFilter } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import BaseRatingFilterLabel from '../base-rating-filter-label.vue'

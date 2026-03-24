@@ -7,6 +7,7 @@ import type {
   NextQueriesState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import {
   createHistoryQueries,

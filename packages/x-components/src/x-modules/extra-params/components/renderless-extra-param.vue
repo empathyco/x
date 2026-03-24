@@ -52,28 +52,16 @@ default value of it.
 
 ```vue
 <template>
-  <RenderlessExtraParam #default="{ value, updateValue }" name="store">
+  <RenderlessExtraParam v-slot="{ value, updateValue }" name="store">
     <BaseDropdown @update:modelValue="updateValue" :modelValue="value" :items="items" />
   </RenderlessExtraParam>
 </template>
 
-<script>
-import { RenderlessExtraParams } from '@empathyco/x-components/extra-params'
-import { BaseDropdown } from '@empathyco/x-components'
-
-export default {
-  name: 'RenderlessExtraParamsDemo',
-  components: {
-    RenderlessExtraParams,
-    BaseDropdown,
-  },
-  props: ['name'],
-  data() {
-    return {
-      items: ['spain', 'portugal'],
-    }
-  },
-}
+<script setup>
+import RenderlessExtraParam from '@empathyco/x-components/js/x-modules/extra-params/components/renderless-extra-param.vue'
+import BaseDropdown from '@empathyco/x-components/js/components/base-dropdown.vue'
+import { ref } from 'vue'
+const items = ref(['spain', 'portugal'])
 </script>
 ```
 </docs>

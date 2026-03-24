@@ -1,0 +1,121 @@
+/*
+// Original SCSS:
+.x-animate-translate {
+  $p: &;
+
+  &--enter-active,
+  &--leave-active {
+    transition: transform var(--x-duration-animation, 0.3s) ease-out;
+  }
+
+  &--top {
+    &#{$p}--enter-from,
+    &#{$p}--leave-to {
+      transform: translateY(-100%);
+    }
+  }
+
+  &--bottom {
+    &#{$p}--enter-from,
+    &#{$p}--leave-to {
+      transform: translateY(100%);
+    }
+  }
+
+  &--top-to-bottom {
+    &#{$p}--enter-from {
+      transform: translateY(-100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateY(100%);
+    }
+  }
+
+  &--bottom-to-top {
+    &#{$p}--enter-from {
+      transform: translateY(100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateY(-100%);
+    }
+  }
+
+  &--left {
+    &#{$p}--enter-from,
+    &#{$p}--leave-to {
+      transform: translateX(-100%);
+    }
+  }
+
+  &--right {
+    &#{$p}--enter-from,
+    &#{$p}--leave-to {
+      transform: translateX(100%);
+    }
+  }
+
+  &--left-to-right {
+    &#{$p}--enter-from {
+      transform: translateX(-100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateX(100%);
+    }
+  }
+
+  &--right-to-left {
+    &#{$p}--enter-from {
+      transform: translateX(100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+// Compiled SCSS:
+ */
+.x-animate-translate--enter-active,
+.x-animate-translate--leave-active {
+  transition: transform var(--x-duration-animation, 0.3s) ease-out;
+}
+.x-animate-translate--top.x-animate-translate--enter-from,
+.x-animate-translate--top.x-animate-translate--leave-to {
+  transform: translateY(-100%);
+}
+.x-animate-translate--bottom.x-animate-translate--enter-from,
+.x-animate-translate--bottom.x-animate-translate--leave-to {
+  transform: translateY(100%);
+}
+.x-animate-translate--top-to-bottom.x-animate-translate--enter-from {
+  transform: translateY(-100%);
+}
+.x-animate-translate--top-to-bottom.x-animate-translate--leave-to {
+  transform: translateY(100%);
+}
+.x-animate-translate--bottom-to-top.x-animate-translate--enter-from {
+  transform: translateY(100%);
+}
+.x-animate-translate--bottom-to-top.x-animate-translate--leave-to {
+  transform: translateY(-100%);
+}
+.x-animate-translate--left.x-animate-translate--enter-from,
+.x-animate-translate--left.x-animate-translate--leave-to {
+  transform: translateX(-100%);
+}
+.x-animate-translate--right.x-animate-translate--enter-from,
+.x-animate-translate--right.x-animate-translate--leave-to {
+  transform: translateX(100%);
+}
+.x-animate-translate--left-to-right.x-animate-translate--enter-from {
+  transform: translateX(-100%);
+}
+.x-animate-translate--left-to-right.x-animate-translate--leave-to {
+  transform: translateX(100%);
+}
+.x-animate-translate--right-to-left.x-animate-translate--enter-from {
+  transform: translateX(100%);
+}
+.x-animate-translate--right-to-left.x-animate-translate--leave-to {
+  transform: translateX(-100%);
+}

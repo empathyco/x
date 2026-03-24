@@ -13,7 +13,8 @@ import type {
  * @public
  */
 export interface SearchRequest
-  extends QueryableRequest,
+  extends
+    QueryableRequest,
     FilterableRequest,
     PageableRequest,
     SortableRequest,

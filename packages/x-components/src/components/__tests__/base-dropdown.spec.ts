@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector } from '../../__tests__/utils'
 import BaseDropdown from '../base-dropdown.vue'
@@ -48,10 +49,10 @@ function renderDropdown({
     getHighlightedItem().trigger(`keydown`, { key })
 
   async function search(search: string) {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     await chainTypeChars(search, nextTick())
-    jest.runAllTimers()
-    jest.useRealTimers()
+    vi.runAllTimers()
+    vi.useRealTimers()
   }
 
   async function chainTypeChars(search: string, previousCharPromise: Promise<void>): Promise<void> {

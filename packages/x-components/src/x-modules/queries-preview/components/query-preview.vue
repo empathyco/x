@@ -1,20 +1,23 @@
 <template>
-  <ul v-if="hasResults" data-test="query-preview" class="x-query-preview">
-    <li
-      v-for="result in queryPreviewResults?.results"
-      :key="result.id"
-      class="x-query-preview__item"
-      data-test="query-preview-item"
-    >
-      <!--
-        @slot Query Preview result slot.
-        @binding {Result} result - A Query Preview result
-      -->
-      <slot name="result" :result="result">
-        <span data-test="result-name">{{ result.name }}</span>
-      </slot>
-    </li>
-  </ul>
+  <!-- eslint-disable-next-line vue/no-unused-refs -->
+  <section ref="queryPreviewElement" class="x-query-preview-wrapper__default-content">
+    <ul v-if="hasResults" data-test="query-preview" class="x-query-preview">
+      <li
+        v-for="result in queryPreviewResults?.results"
+        :key="result.id"
+        class="x-query-preview__item"
+        data-test="query-preview-item"
+      >
+        <!--
+          @slot Query Preview result slot.
+          @binding {Result} result - A Query Preview result
+        -->
+        <slot name="result" :result="result">
+          <span data-test="result-name">{{ result.name }}</span>
+        </slot>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script lang="ts">
@@ -24,9 +27,9 @@ import type { FeatureLocation, QueryFeature } from '../../../types'
 import type { DebouncedFunction } from '../../../utils'
 import type { QueryPreviewInfo } from '../store/types'
 import { deepEqual } from '@empathyco/x-utils'
-import { computed, defineComponent, inject, onBeforeUnmount, provide, watch } from 'vue'
+import { computed, defineComponent, h, inject, onBeforeUnmount, provide, ref, watch } from 'vue'
 import { LIST_ITEMS_KEY } from '../../../components'
-import { useState, useXBus } from '../../../composables'
+import { useOnDisplay, useState, useXBus } from '../../../composables'
 import { createOrigin, createRawFilters, debounceFunction } from '../../../utils'
 import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview'
 import { queriesPreviewXModule } from '../x-module'
@@ -54,6 +57,13 @@ export default defineComponent({
     /** Number of query preview results to be rendered. */
     maxItemsToRender: {
       type: Number,
+    },
+    /**
+     * Controls whether the query preview requests should be triggered when the component is visible in the viewport.
+     */
+    loadWhenVisible: {
+      type: Boolean,
+      default: false,
     },
     /**
      * Debounce time in milliseconds for triggering the search requests.
@@ -90,12 +100,20 @@ export default defineComponent({
     const { queriesPreview: previewResults, params, config } = useState('queriesPreview')
 
     /**
+     * Template ref for the root element to track visibility.
+     */
+    const queryPreviewElement = ref<HTMLElement | null>(null)
+
+    /**
      * Query Preview key converted into a unique id.
      *
      * @returns The query hash.
      */
     const queryPreviewHash = computed(() =>
-      getHashFromQueryPreviewInfo(props.queryPreviewInfo, params.value.lang as string),
+      getHashFromQueryPreviewInfo(props.queryPreviewInfo, {
+        ...params.value,
+        ...props.queryPreviewInfo.extraParams,
+      }),
     )
 
     provide('queryPreviewHash', queryPreviewHash)
@@ -191,7 +209,7 @@ export default defineComponent({
      * @internal
      */
     watch(queryPreviewRequest, (newRequest, oldRequest) => {
-      if (!deepEqual(newRequest, oldRequest)) {
+      if (!deepEqual(newRequest, oldRequest) && !props.loadWhenVisible) {
         emitQueryPreviewRequestUpdated.value(newRequest)
       }
     })
@@ -205,9 +223,22 @@ export default defineComponent({
         priority: 0,
         replaceable: false,
       })
-    } else {
+    } else if (!props.loadWhenVisible) {
       emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value)
     }
+
+    /**
+     * Watch element visibility and emit request when it becomes visible for the first time
+     * (only when loadWhenVisible is true).
+     */
+    const { unwatchDisplay } = useOnDisplay({
+      element: queryPreviewElement,
+      callback: () => {
+        if (props.loadWhenVisible && cachedQueryPreview?.status !== 'success') {
+          emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value)
+        }
+      },
+    })
 
     /**
      * Cancels the (remaining) requests when the component is destroyed
@@ -216,6 +247,7 @@ export default defineComponent({
      * from the state when the component is destroyed.
      */
     onBeforeUnmount(() => {
+      unwatchDisplay?.()
       emitQueryPreviewRequestUpdated.value.cancel()
       xBus.emit(
         'QueryPreviewUnmounted',
@@ -262,12 +294,12 @@ export default defineComponent({
     /**
      * Render function to execute the `default` slot, binding `slotsProps` and getting only the
      * first `vNode` to avoid Fragments and Text root nodes.
-     * If there are no results, nothing is rendered.
      *
      * @remarks `slotProps` must be values without Vue reactivity and located inside the
      * render-function to update the binding data properly.
      *
-     * @returns The root `vNode` of the `default` slot or empty string if there are no results.
+     * @returns The root `vNode` of the `default` slot or empty string if there are no results. Always wrapped in a section
+     * element with the `x-query-preview-wrapper__slot-content` class.
      */
     function renderDefaultSlot() {
       const slotProps = {
@@ -278,12 +310,18 @@ export default defineComponent({
         queryTagging: queryPreviewResults.value?.queryTagging,
       }
 
-      return hasResults.value ? slots.default?.(slotProps)[0] : ''
+      const slotContent = hasResults.value ? slots.default?.(slotProps)[0] : ''
+
+      return h(
+        'section',
+        { ref: queryPreviewElement, class: 'x-query-preview-wrapper__slot-content' },
+        [slotContent],
+      )
     }
 
     /* Hack to render through a render-function, the `default` slot or, in its absence,
        the component itself. It is the alternative for the NoElement antipattern. */
-    const componentProps = { hasResults, queryPreviewResults }
+    const componentProps = { hasResults, queryPreviewResults, queryPreviewElement }
     return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps
   },
 })
@@ -315,20 +353,10 @@ results.
   <QueryPreview :queryPreviewInfo="queryPreviewInfo" />
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemo',
-  components: {
-    QueryPreview,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'sandals' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'sandals' })
 </script>
 ```
 
@@ -362,24 +390,11 @@ In this example, the results will be rendered inside a sliding panel.
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
 import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components'
-
-export default {
-  name: 'QueryPreviewDemoOverridingSlot',
-  components: {
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreview,
-    SlidingPanel,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 
@@ -397,20 +412,10 @@ In this example, the ID of the results will be rendered along with the name.
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemoOverridingResultSlot',
-  components: {
-    QueryPreview,
-  },
-  data() {
-    return {
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 
@@ -433,25 +438,12 @@ In this example, the query preview has been limited to render a maximum of 4 res
   </QueryPreview>
 </template>
 
-<script>
+<script setup>
 import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components'
 import { QueryPreview } from '@empathyco/x-components/queries-preview'
-
-export default {
-  name: 'QueryPreviewDemo',
-  components: {
-    BaseGrid,
-    BaseResultImage,
-    BaseResultLink,
-    QueryPreview,
-  },
-  data() {
-    return {
-      maxItemsToRender: 4,
-      queryPreviewInfo: { query: 'flip-flops' },
-    }
-  },
-}
+import { reactive } from 'vue'
+const maxItemsToRender = 4
+const queryPreviewInfo = reactive({ query: 'flip-flops' })
 </script>
 ```
 </docs>

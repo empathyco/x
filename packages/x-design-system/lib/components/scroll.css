@@ -1,0 +1,28 @@
+/* Base */
+@utility scroll {
+  @apply xds:min-h-0 xds:overflow-y-scroll;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      --xds-color-thumb-scroll-bar: var(--xds-color-thumb-scroll-bar-hover);
+    }
+
+    /* Firefox */
+    scrollbar-width: auto;
+    scrollbar-color: var(--xds-color-thumb-scroll-bar) var(--xds-color-background-scroll-bar);
+
+    /* WebKit */
+    &::-webkit-scrollbar {
+      @apply xds:w-4.25;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply xds:bg-thumb-scroll-bar xds:bg-clip-content;
+      @apply xds:rounded-3xl xds:border-4 xds:border-transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply xds:bg-background-scroll-bar;
+    }
+  }
+}

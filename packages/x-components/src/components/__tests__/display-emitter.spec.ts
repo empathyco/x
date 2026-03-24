@@ -1,14 +1,15 @@
 import { mount } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getDataTestSelector } from '../../__tests__/utils'
 import { useEmitDisplayEvent } from '../../composables/use-on-display'
 import DisplayEmitter from '../display-emitter.vue'
 
-jest.mock('../../composables/use-on-display', () => ({
-  useEmitDisplayEvent: jest.fn(),
+vi.mock('../../composables/use-on-display', () => ({
+  useEmitDisplayEvent: vi.fn(),
 }))
-const unwatchDisplaySpy = jest.fn()
-;(useEmitDisplayEvent as jest.Mock).mockReturnValue({ unwatchDisplay: unwatchDisplaySpy })
+const unwatchDisplaySpy = vi.fn()
+;(useEmitDisplayEvent as any).mockReturnValue({ unwatchDisplay: unwatchDisplaySpy })
 
 function render({
   payload = { url: 'tagging/url', params: { test: 'param' } },
@@ -34,7 +35,7 @@ function render({
 
 describe('testing DisplayEmitter component', () => {
   beforeEach(() => {
-    ;(useEmitDisplayEvent as jest.Mock).mockClear()
+    ;(useEmitDisplayEvent as any).mockClear()
     unwatchDisplaySpy.mockClear()
   })
 

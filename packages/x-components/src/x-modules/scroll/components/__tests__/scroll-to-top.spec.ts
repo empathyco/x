@@ -1,5 +1,6 @@
 import type { XEvent, XEventPayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins'
@@ -68,7 +69,7 @@ describe('testing Scroll To Top component', () => {
 
   it("emits event with the component's id as payload when clicked", async () => {
     const { emitXEvent, click } = renderScrollToTop()
-    const listener = jest.fn()
+    const listener = vi.fn()
     XPlugin.bus.on('UserClickedScrollToTop').subscribe(listener)
 
     await emitXEvent('UserAlmostReachedScrollEnd', true)

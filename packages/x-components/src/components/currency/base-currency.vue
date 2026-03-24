@@ -116,15 +116,8 @@ HTML element.
   <!-- output: '12.345.678,87' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -134,15 +127,8 @@ export default {
   <!-- output: '12.345.678,876 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -152,15 +138,8 @@ export default {
   <!-- output: '12.345.678 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -170,15 +149,8 @@ export default {
   <!-- output: '$ 12.345.678,87' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -188,15 +160,8 @@ export default {
   <!-- output: '$12.345.678,87' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -206,15 +171,8 @@ export default {
   <!-- output: '12.345.678,87 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -224,15 +182,8 @@ export default {
   <!-- output: '12.345.678,87€' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -242,15 +193,8 @@ export default {
   <!-- output: '12,345,678.87 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -260,15 +204,8 @@ export default {
   <!-- output: '12 345 678.87 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -278,15 +215,8 @@ export default {
   <!-- output: '12 345 678 - 87 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -296,15 +226,8 @@ export default {
   <!-- output: '12.345.678,876543 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -314,15 +237,8 @@ export default {
   <!-- output: '12.345.678,870000 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -332,15 +248,8 @@ export default {
   <!-- output: '12.345.678,000000 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -350,15 +259,8 @@ export default {
   <!-- output: '12.345.678,87 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 
@@ -368,15 +270,8 @@ export default {
   <!-- output: '12.345.678 €' -->
 </template>
 
-<script>
-import { BaseCurrency } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseCurrencyDemo',
-  components: {
-    BaseCurrency,
-  },
-}
+<script setup>
+import { BaseCurrency } from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 </docs>

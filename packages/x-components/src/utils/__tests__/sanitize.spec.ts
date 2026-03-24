@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { sanitize } from '../sanitize'
 
 describe('testing sanitize function', () => {

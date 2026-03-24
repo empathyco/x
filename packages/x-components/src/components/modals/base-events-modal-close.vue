@@ -61,48 +61,32 @@ The `BaseEventsModalClose` component can be used to close the `BaseEventsModal` 
 
 ### Basic example
 
-On clicked, the component closes the `BaseEventsModal`. The only needed thing is the content that
-the button should render, that can be any thing: a text, an image, an icon, a combination of the two
-of them...
+On click, the component closes the `BaseEventsModal`. The only required part is the content that
+the button should render, which can be anything: text, image, icon, or a combination.
 
 ```vue
 <template>
-  <BaseEventsCloseButton>
+  <BaseEventsModalClose>
     <img src="./close-button-icon.svg" />
-  </BaseEventsCloseButton>
+  </BaseEventsModalClose>
 </template>
 
-<script>
+<script setup>
 import { BaseEventsModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseEventsModalCloseTest',
-  components: {
-    BaseEventsModalClose,
-  },
-}
 </script>
 ```
 
 ### Defining another event to emit when clicking the button
 
-By default it uses the same `closingEvent` that the `BaseEventsModal` is listening by default too.
-This event can be changed using the `closingEvent` prop.
+By default, it uses the same `closingEvent` that the `BaseEventsModal` is listening to. This event can be changed using the `closingEvent` prop.
 
 ```vue
 <template>
   <BaseEventsModalClose closingEvent="UserClosedEmpathize">×</BaseEventsModalClose>
 </template>
 
-<script>
+<script setup>
 import { BaseEventsModalClose } from '@empathyco/x-components'
-
-export default {
-  name: 'BaseEventsModalCloseTest',
-  components: {
-    BaseEventsModalClose,
-  },
-}
 </script>
 ```
 </docs>

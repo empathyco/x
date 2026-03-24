@@ -6,6 +6,7 @@ import type {
   RecommendationsState,
 } from '../types'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'

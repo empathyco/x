@@ -168,27 +168,16 @@ _Type any term in the input field to try it out!_
   </div>
 </template>
 
-<script>
+<script setup>
 import { Highlight } from '@empathyco/x-components'
-
-export default {
-  name: 'HighlightDemo',
-  components: {
-    Highlight,
-  },
-  data() {
-    return {
-      highlight: '',
-    }
-  },
-}
+import { ref } from 'vue'
+const highlight = ref('')
 </script>
 ```
 
 ### Customise the layout
 
-This component allows to customise the whole layout. Be careful as due to Vue 2 limitations you can
-only render a single root element.
+This component allows to customise the whole layout.
 
 ```vue live
 <template>
@@ -209,20 +198,10 @@ only render a single root element.
   </div>
 </template>
 
-<script>
+<script setup>
 import { Highlight } from '@empathyco/x-components'
-
-export default {
-  name: 'HighlightDemo',
-  components: {
-    Highlight,
-  },
-  data() {
-    return {
-      highlight: 'entran',
-    }
-  },
-}
+import { ref } from 'vue'
+const highlight = ref('entran')
 </script>
 ```
 </docs>

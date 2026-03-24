@@ -77,31 +77,20 @@ This component emits the following events:
 
 - [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
-## See it in action
+## Examples
 
-Here you have a basic example of how the main modal works.
+A basic example of how the main modal works:
 
 ```vue live
 <template>
-  <div>
-    <OpenMainModal>Open X</OpenMainModal>
-    <MainModal>
-      <CloseMainModal>Close X</CloseMainModal>
-    </MainModal>
-  </div>
+  <OpenMainModal>Open X</OpenMainModal>
+  <MainModal>
+    <CloseMainModal>Close X</CloseMainModal>
+  </MainModal>
 </template>
 
-<script>
+<script setup>
 import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
-
-export default {
-  name: 'MainModalDemo',
-  components: {
-    MainModal,
-    CloseMainModal,
-    OpenMainModal,
-  },
-}
 </script>
 ```
 
@@ -111,25 +100,14 @@ The `contentClass` prop can be used to add classes to the modal content.
 
 ```vue live
 <template>
-  <div>
-    <OpenMainModal>Open X</OpenMainModal>
-    <MainModal contentClass="x-bg-neutral-75">
-      <CloseMainModal>Close X</CloseMainModal>
-    </MainModal>
-  </div>
+  <OpenMainModal>Open X</OpenMainModal>
+  <MainModal contentClass="x-bg-neutral-75">
+    <CloseMainModal>Close X</CloseMainModal>
+  </MainModal>
 </template>
 
-<script>
+<script setup>
 import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
-
-export default {
-  name: 'MainModalDemo',
-  components: {
-    MainModal,
-    CloseMainModal,
-    OpenMainModal,
-  },
-}
 </script>
 ```
 
@@ -138,37 +116,24 @@ export default {
 The modal events can be customized by changing its props values:
 
 - To add or subtract events to open or close the modal,
-- To modify or remove the default
-  [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
-  that the modal emits.
+- To modify or remove the default [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts) that the modal emits.
 
 In this example, we are changing the `openEvents` prop to add another event, and removing the event
 that the modal would emit when the user clicks out of the modal.
 
 ```vue live
 <template>
-  <div>
-    <OpenMainModal>Open X</OpenMainModal>
-    <MainModal
-      :openEvents="['UserClickedOpenX', 'UserOpenXProgrammatically', 'MyCustomXEvent']"
-      :outOfModalClickEvent="null"
-    >
-      <CloseMainModal>Close X</CloseMainModal>
-    </MainModal>
-  </div>
+  <OpenMainModal>Open X</OpenMainModal>
+  <MainModal
+    :openEvents="['UserClickedOpenX', 'UserOpenXProgrammatically', 'MyCustomXEvent']"
+    :outOfModalClickEvent="null"
+  >
+    <CloseMainModal>Close X</CloseMainModal>
+  </MainModal>
 </template>
 
-<script>
+<script setup>
 import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components'
-
-export default {
-  name: 'MainModalDemo',
-  components: {
-    MainModal,
-    CloseMainModal,
-    OpenMainModal,
-  },
-}
 </script>
 ```
 </docs>

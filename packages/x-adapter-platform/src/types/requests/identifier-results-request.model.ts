@@ -11,7 +11,8 @@ import type {
  * @public
  */
 export interface PlatformIdentifierResultsRequest
-  extends PlatformQueryableRequest,
+  extends
+    PlatformQueryableRequest,
     PlatformPageableRequest,
     PlatformTrackableRequest,
     PlatformExtraParamsRequest {}
