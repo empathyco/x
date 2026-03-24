@@ -8,8 +8,8 @@ export interface ResultPrice {
   originalValue: number
   /** The current value. */
   value: number
-  /** @deprecated It is not a general purpose field. */
-  futureValue?: number
-  /** Whether this result has discount. */
+  /** Whether this result has a discount. */
   hasDiscount: boolean
+  /** @deprecated Inditex field only. */
+  futureValue?: number
 }
