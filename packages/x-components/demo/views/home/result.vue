@@ -1,7 +1,7 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result">
-      <BaseResultImage :result="result" :load-animation="crossFace">
+      <BaseResultImage :result="result" :load-animation="crossFade">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
         </template>
@@ -47,5 +47,5 @@ defineProps({
     required: true,
   },
 })
-const crossFace = CrossFade
+const crossFade = CrossFade
 </script>
