@@ -49,7 +49,7 @@ importers:
         specifier: 8.1.0-alpha.22
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.51
+        specifier: 10.1.0-alpha.52
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.17
@@ -117,10 +117,10 @@ importers:
         specifier: 8.1.0-alpha.22
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0-alpha.61
+        specifier: 1.1.0-alpha.62
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.1.0-alpha.51
+        specifier: 10.1.0-alpha.52
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3-alpha.17
@@ -157,7 +157,7 @@ importers:
         specifier: 7.29.2
         version: 7.29.2(@babel/core@7.29.0)
       '@empathyco/x-tailwindcss':
-        specifier: 2.0.0-alpha.35
+        specifier: 2.0.0-alpha.36
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: 7.29.7
