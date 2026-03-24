@@ -10,7 +10,6 @@ const mockedResult: Pick<Result, 'price'> = {
   price: {
     hasDiscount: true,
     originalValue: 29.99,
-    futureValue: 29.99,
     value: 19.99,
   },
 }
@@ -71,7 +70,6 @@ describe('testing BaseResultPreviousPrice component', () => {
         price: {
           hasDiscount: false,
           originalValue: 29.99,
-          futureValue: 29.99,
           value: 29.99,
         },
       },

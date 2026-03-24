@@ -12,7 +12,7 @@
   }
 
   & .xds\:input,
-  input {
+  & input {
     @apply xds:min-w-0 xds:flex-1 xds:border-0 xds:p-0;
     @apply xds:bg-transparent xds:text-inherit xds:outline-none;
   }

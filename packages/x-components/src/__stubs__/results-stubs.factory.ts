@@ -40,7 +40,6 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
     price: {
       hasDiscount: false,
       originalValue: 10,
-      futureValue: 10,
       value: 10,
     },
     rating: {

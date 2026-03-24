@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.61...@empathyco/x-adapter-platform@1.1.0-alpha.62) (2026-03-24)
+
+### Bug Fixes
+
+* **result-price:** make futureValue optional (#1827)
+
+
 ## [1.1.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.60...@empathyco/x-adapter-platform@1.1.0-alpha.61) (2026-03-17)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

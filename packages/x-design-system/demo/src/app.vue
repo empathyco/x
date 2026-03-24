@@ -1,5 +1,6 @@
 <template>
   <div class="xds:flex xds:flex-col xds:gap-40">
+    <Layout />
     <Button />
     <ButtonGroup />
     <FilterFacet />
@@ -31,6 +32,7 @@ import Icon from './components/icon.vue'
 import InputGroup from './components/input-group/index.vue'
 import Input from './components/input.vue'
 import Integration from './components/integration.vue'
+import Layout from './components/layout/index.vue'
 import Picture from './components/picture.vue'
 import ProgressBar from './components/progress-bar.vue'
 import Scroll from './components/scroll.vue'
