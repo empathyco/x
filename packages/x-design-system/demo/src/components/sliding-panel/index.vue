@@ -4,56 +4,66 @@
       <SlidingPanel />
     </template>
     <template #buttons>
-      <SlidingPanel />
-      <SlidingPanel wrapper-class="xds:sliding-panel-buttons-center" />
-      <SlidingPanel wrapper-class="xds:sliding-panel-buttons-outside" />
+      <div class="xds:flex xds:flex-col xds:gap-8">
+        <SlidingPanel />
+        <SlidingPanel wrapper-class="xds:sliding-panel-buttons-center" />
+        <SlidingPanel wrapper-class="xds:sliding-panel-buttons-outside" />
+      </div>
     </template>
     <template #hover>
-      <SlidingPanel wrapper-class="xds:sliding-panel-show-buttons-on-hover" />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-end"
-      />
+      <div class="xds:flex xds:flex-col xds:gap-8">
+        <SlidingPanel wrapper-class="xds:sliding-panel-show-buttons-on-hover" />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-end"
+        />
+      </div>
     </template>
     <template #fade>
-      <SlidingPanel content-class="xds:sliding-panel-fade" />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-at-start"
-        content-class="xds:sliding-panel-fade"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-at-end"
-        content-class="xds:sliding-panel-fade"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-at-start xds:sliding-panel-at-end"
-        content-class="xds:sliding-panel-fade"
-      />
+      <div class="xds:flex xds:flex-col xds:gap-8">
+        <SlidingPanel content-class="xds:sliding-panel-fade" />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-at-start"
+          content-class="xds:sliding-panel-fade"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-at-end"
+          content-class="xds:sliding-panel-fade"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-at-start xds:sliding-panel-at-end"
+          content-class="xds:sliding-panel-fade"
+        />
+      </div>
     </template>
     <template #fade-size>
-      <SlidingPanel content-class="xds:sliding-panel-fade-sm" />
-      <SlidingPanel content-class="xds:sliding-panel-fade-md" />
-      <SlidingPanel content-class="xds:sliding-panel-fade-lg" />
+      <div class="xds:flex xds:flex-col xds:gap-8">
+        <SlidingPanel content-class="xds:sliding-panel-fade-sm" />
+        <SlidingPanel content-class="xds:sliding-panel-fade-md" />
+        <SlidingPanel content-class="xds:sliding-panel-fade-lg" />
+      </div>
     </template>
     <template #combinations>
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-buttons-center xds:sliding-panel-show-buttons-on-hover"
-        content-class="xds:sliding-panel-fade-lg"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-buttons-outside xds:sliding-panel-show-buttons-on-hover"
-        content-class="xds:sliding-panel-fade-sm"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-buttons-buttons-outside xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
-        content-class="xds:sliding-panel-fade-sm"
-      />
-      <SlidingPanel
-        wrapper-class="xds:sliding-panel-buttons-center xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-end"
-        content-class="xds:sliding-panel-fade-lg"
-      />
+      <div class="xds:flex xds:flex-col xds:gap-8">
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-buttons-center xds:sliding-panel-show-buttons-on-hover"
+          content-class="xds:sliding-panel-fade-lg"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-buttons-outside xds:sliding-panel-show-buttons-on-hover"
+          content-class="xds:sliding-panel-fade-sm"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-buttons-buttons-outside xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-start"
+          content-class="xds:sliding-panel-fade-sm"
+        />
+        <SlidingPanel
+          wrapper-class="xds:sliding-panel-buttons-center xds:sliding-panel-show-buttons-on-hover xds:sliding-panel-at-end"
+          content-class="xds:sliding-panel-fade-lg"
+        />
+      </div>
     </template>
   </Wrapper>
 </template>

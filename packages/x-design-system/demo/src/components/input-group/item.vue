@@ -1,5 +1,5 @@
 <template>
-  <div class="xds:input-group" :class="wrapperClass" :disabled>
+  <div class="xds:input-group" :class="wrapperClass" v-bind="disabled ? { disabled: true } : {}">
     <Curated class="xds:icon" />
     <input class="xds:input" :placeholder :disabled />
     <button class="xds:input-group-button" :disabled>
