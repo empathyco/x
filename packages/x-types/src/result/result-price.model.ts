@@ -8,8 +8,6 @@ export interface ResultPrice {
   originalValue: number
   /** The current value. */
   value: number
-  /** Pre-warming price. */
-  futureValue: number
-  /** Whether this result has discount. */
+  /** Whether this result has a discount. */
   hasDiscount: boolean
 }

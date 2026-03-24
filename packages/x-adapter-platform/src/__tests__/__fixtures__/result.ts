@@ -32,7 +32,6 @@ export const result: Result = {
   price: {
     hasDiscount: false,
     originalValue: platformResult.__prices.current.value,
-    futureValue: platformResult.__prices.current.value,
     value: platformResult.__prices.current.value,
   },
   rating: {

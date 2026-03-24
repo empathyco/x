@@ -46,7 +46,6 @@ export const identifierResultsResponse = {
       price: {
         value: 10,
         originalValue: 10,
-        futureValue: 10,
         hasDiscount: false,
       },
       rating: {
