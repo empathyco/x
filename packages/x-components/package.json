@@ -74,15 +74,15 @@
     "@vue/devtools-api": "~6.6.4",
     "@vueuse/core": "~12.8.2",
     "js-md5": "~0.8.3",
-    "marked": "~17.0.4",
+    "marked": "~17.0.5",
     "nouislider": "~15.8.1",
     "rxjs": "~7.8.2",
     "tslib": "~2.8.1",
     "vue-global-events": "~3.0.1",
-    "vue-tsc": "~3.2.5"
+    "vue-tsc": "~3.2.6"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.29.0",
+    "@babel/preset-env": "7.29.2",
     "@empathyco/x-tailwindcss": "2.0.0-alpha.35",
     "@microsoft/api-documenter": "7.29.7",
     "@microsoft/api-extractor": "7.57.7",
@@ -100,7 +100,7 @@
     "postcss": "8.5.8",
     "postcss-dir-pseudo-class": "7.0.2",
     "postcss-logical": "4.0.2",
-    "rollup": "4.59.0",
+    "rollup": "4.59.1",
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-delete": "2.2.0",
     "rollup-plugin-styles": "4.0.0",
