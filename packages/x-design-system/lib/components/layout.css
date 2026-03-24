@@ -1,10 +1,8 @@
 /* Base */
 @utility layout {
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      .xds-scroll > .xds-layout-item:not(.xds-layout-no-margin-right) {
-        --xds-layout-scroll-width: 17px;
-      }
+    .xds\:scroll > .xds\:layout-item:not(.xds\:layout-no-margin-right) {
+      --xds-layout-scroll-width: 17px;
     }
   }
 }
@@ -63,7 +61,7 @@
     @apply xds:col-[2/-2] xds:min-w-0;
   }
 
-  &:not(.xds-layout-overlap):not(.xds-layout-overlap-from-top) > * {
+  &:not(.xds\:layout-overlap):not(.xds\:layout-overlap-from-top) > * {
     @apply xds:min-w-0;
   }
 }
