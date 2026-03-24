@@ -10,6 +10,4 @@ export interface ResultPrice {
   value: number
   /** Whether this result has a discount. */
   hasDiscount: boolean
-  /** @deprecated Inditex field only. */
-  futureValue?: number
 }

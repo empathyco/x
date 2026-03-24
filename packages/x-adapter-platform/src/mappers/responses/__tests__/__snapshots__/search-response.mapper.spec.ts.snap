@@ -467,7 +467,6 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
       "modelName": "Result",
       "name": "Locomotive Men Washed Blue Jeans",
       "price": {
-        "futureValue": 10,
         "hasDiscount": false,
         "originalValue": 10,
         "value": 10,

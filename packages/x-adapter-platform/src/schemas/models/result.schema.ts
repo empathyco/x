@@ -25,8 +25,6 @@ export const resultSchema = createMutableSchema<PlatformResult, Result>({
       rawPrices.previous?.value ?? rawPrices.current.value,
     hasDiscount: ({ __prices: rawPrices }) =>
       rawPrices.current.value < (rawPrices.previous?.value ?? rawPrices.current.value),
-    /** @deprecated Inditex field only. */
-    futureValue: ({ __prices: rawPrices }) => rawPrices.future?.value,
   },
   type: () => 'Default',
   modelName: () => 'Result',
