@@ -46,7 +46,7 @@ export function getAiSuggestionsServiceUrl(from: ExtraParamsRequest): string {
   if (from.extraParams?.env === 'staging') {
     return 'https://questions.staging.empathy.co/v1/overview'
   }
-  return 'https://api.{extraParams.env(.)}empathy.co/overview'
+  return 'https://api.{extraParams.env(.)}empathy.co/v1/overview'
 }
 
 /**
