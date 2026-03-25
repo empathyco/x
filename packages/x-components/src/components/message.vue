@@ -3,9 +3,8 @@
     <slot />
   </component>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import { Fade } from '@x/components/animations'
-import { defineComponent } from 'vue'
 import { AnimationProp } from '../types/animation-prop'
 
 /**
@@ -14,14 +13,11 @@ import { AnimationProp } from '../types/animation-prop'
  * @public
  */
 
-export default defineComponent({
-  name: 'Message',
-  props: {
-    /** Animation component that will be used to animate the message. */
-    animation: {
-      type: AnimationProp,
-      default: () => Fade,
-    },
+defineProps({
+  /** Animation component that will be used to animate the message. */
+  animation: {
+    type: AnimationProp,
+    default: () => Fade,
   },
 })
 </script>
