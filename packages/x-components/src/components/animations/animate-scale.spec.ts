@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import AnimateScale from '../animate-scale.vue'
+import AnimateScale from './animate-scale.vue'
 
 describe('testing AnimateScale component', () => {
   it('renders the slot content', () => {

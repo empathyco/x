@@ -5,11 +5,12 @@
 </template>
 
 <script setup lang="ts">
-import type { AnimationOrigin } from './animation-origin'
+import type { PropType } from 'vue'
+import type { AnimationOrigin } from './types'
 
 defineProps({
   animationOrigin: {
-    type: String as () => AnimationOrigin,
+    type: String as PropType<AnimationOrigin>,
     default: 'top',
   },
 })

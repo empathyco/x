@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import AnimateTranslate from '../animate-translate.vue'
+import AnimateTranslate from './animate-translate.vue'
 
 describe('testing AnimateTranslate component', () => {
   it('renders the slot content', () => {

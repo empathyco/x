@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import AnimateClipPath from '../animate-clip-path.vue'
+import AnimateClipPath from './animate-clip-path.vue'
 
 describe('testing AnimateClipPath component', () => {
   it('renders the slot content', () => {

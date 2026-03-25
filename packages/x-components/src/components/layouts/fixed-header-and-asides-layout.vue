@@ -113,8 +113,8 @@ export default defineComponent({
   setup() {
     const scrollPosition = ref(0)
 
-    const rightAsideAnimation = () => h(AnimateTranslate, { animationOrigin: 'right' })
-    const leftAsideAnimation = () => h(AnimateTranslate, { animationOrigin: 'left' })
+    const rightAsideAnimation = h(AnimateTranslate, { animationOrigin: 'right' })
+    const leftAsideAnimation = h(AnimateTranslate, { animationOrigin: 'left' })
 
     const setPosition = (position: number) => {
       scrollPosition.value = position
