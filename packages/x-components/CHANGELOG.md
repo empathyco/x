@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.226](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.225...@empathyco/x-components@6.0.0-alpha.226) (2026-03-25)
+
+### Features
+
+* implement message component (#2059)
+
+
 ## [6.0.0-alpha.225](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.224...@empathyco/x-components@6.0.0-alpha.225) (2026-03-24)
 
 ### Bug Fixes
