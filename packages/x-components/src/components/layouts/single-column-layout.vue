@@ -77,11 +77,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import { AnimationProp } from '../../types'
 import MainScroll from '../../x-modules/scroll/components/main-scroll.vue'
 import Scroll from '../../x-modules/scroll/components/scroll.vue'
-import { animateTranslate } from '../animations/animate-translate/animate-translate.factory'
+import AnimateTranslate from '../animations/animate-translate.vue'
 import BaseIdModal from '../modals/base-id-modal.vue'
 import BaseScroll from '../scroll/base-scroll.vue'
 
@@ -99,7 +99,7 @@ export default defineComponent({
     /** The animation used for the Main Aside. */
     asideAnimation: {
       type: AnimationProp,
-      default: () => animateTranslate('right'),
+      default: () => h(AnimateTranslate, { animationOrigin: 'right' }),
     },
     /** Enables the devMode, which shows the available slots to use with its names. */
     devMode: Boolean,

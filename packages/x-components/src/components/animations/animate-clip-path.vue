@@ -5,15 +5,7 @@
 </template>
 
 <script setup lang="ts">
-export type AnimationOrigin =
-  | 'top'
-  | 'bottom'
-  | 'top-to-bottom'
-  | 'bottom-to-top'
-  | 'left'
-  | 'right'
-  | 'left-to-right'
-  | 'right-to-left'
+import type { AnimationOrigin } from './animation-origin'
 
 defineProps({
   animationOrigin: {

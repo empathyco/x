@@ -90,10 +90,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import MainScroll from '../../x-modules/scroll/components/main-scroll.vue'
 import Scroll from '../../x-modules/scroll/components/scroll.vue'
-import { animateTranslate } from '../animations/animate-translate/animate-translate.factory'
+import AnimateTranslate from '../animations/animate-translate.vue'
 import BaseIdModal from '../modals/base-id-modal.vue'
 
 /**
@@ -113,8 +113,8 @@ export default defineComponent({
   setup() {
     const scrollPosition = ref(0)
 
-    const rightAsideAnimation = animateTranslate('right')
-    const leftAsideAnimation = animateTranslate('left')
+    const rightAsideAnimation = () => h(AnimateTranslate, { animationOrigin: 'right' })
+    const leftAsideAnimation = () => h(AnimateTranslate, { animationOrigin: 'left' })
 
     const setPosition = (position: number) => {
       scrollPosition.value = position

@@ -1,80 +1,21 @@
-/*
-// Original SCSS:
-.x-animate-translate {
-  $p: &;
+<template>
+  <Transition :name="`x-animate-translate--${animationOrigin} x-animate-translate-`">
+    <slot />
+  </Transition>
+</template>
 
-  &--enter-active,
-  &--leave-active {
-    transition: transform var(--x-duration-animation, 0.3s) ease-out;
-  }
+<script setup lang="ts">
+import type { AnimationOrigin } from './animation-origin'
 
-  &--top {
-    &#{$p}--enter-from,
-    &#{$p}--leave-to {
-      transform: translateY(-100%);
-    }
-  }
+defineProps({
+  animationOrigin: {
+    type: String as () => AnimationOrigin,
+    default: 'top',
+  },
+})
+</script>
 
-  &--bottom {
-    &#{$p}--enter-from,
-    &#{$p}--leave-to {
-      transform: translateY(100%);
-    }
-  }
-
-  &--top-to-bottom {
-    &#{$p}--enter-from {
-      transform: translateY(-100%);
-    }
-    &#{$p}--leave-to {
-      transform: translateY(100%);
-    }
-  }
-
-  &--bottom-to-top {
-    &#{$p}--enter-from {
-      transform: translateY(100%);
-    }
-    &#{$p}--leave-to {
-      transform: translateY(-100%);
-    }
-  }
-
-  &--left {
-    &#{$p}--enter-from,
-    &#{$p}--leave-to {
-      transform: translateX(-100%);
-    }
-  }
-
-  &--right {
-    &#{$p}--enter-from,
-    &#{$p}--leave-to {
-      transform: translateX(100%);
-    }
-  }
-
-  &--left-to-right {
-    &#{$p}--enter-from {
-      transform: translateX(-100%);
-    }
-    &#{$p}--leave-to {
-      transform: translateX(100%);
-    }
-  }
-
-  &--right-to-left {
-    &#{$p}--enter-from {
-      transform: translateX(100%);
-    }
-    &#{$p}--leave-to {
-      transform: translateX(-100%);
-    }
-  }
-}
-
-// Compiled SCSS:
- */
+<style lang="css">
 .x-animate-translate--enter-active,
 .x-animate-translate--leave-active {
   transition: transform var(--x-duration-animation, 0.3s) ease-out;
@@ -119,3 +60,4 @@
 .x-animate-translate--right-to-left.x-animate-translate--leave-to {
   transform: translateX(-100%);
 }
+</style>
