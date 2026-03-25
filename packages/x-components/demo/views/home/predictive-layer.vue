@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { animateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
+import { AnimateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
 import { Empathize } from '@x/x-modules/empathize'
 import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
 import { IdentifierResult, IdentifierResults } from '@x/x-modules/identifier-results'
@@ -59,7 +59,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const empathizeAnimation = animateScale()
+    const empathizeAnimation = AnimateScale
     return {
       empathizeAnimation,
     }
