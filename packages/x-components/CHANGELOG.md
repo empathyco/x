@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.228](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.227...@empathyco/x-components@6.0.0-alpha.228) (2026-03-25)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.227](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.226...@empathyco/x-components@6.0.0-alpha.227) (2026-03-25)
+
+### Bug Fixes
+
+* add export member for message component (#2060)
+
+
+## [6.0.0-alpha.226](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.225...@empathyco/x-components@6.0.0-alpha.226) (2026-03-25)
+
+### Features
+
+* implement message component (#2059)
+
+
 ## [6.0.0-alpha.225](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.224...@empathyco/x-components@6.0.0-alpha.225) (2026-03-24)
 
 ### Bug Fixes

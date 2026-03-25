@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.62...@empathyco/x-adapter-platform@1.1.0-alpha.63) (2026-03-25)
+
+### Bug Fixes
+
+* questions endpoint url (#2061)
+
+
 ## [1.1.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.61...@empathyco/x-adapter-platform@1.1.0-alpha.62) (2026-03-24)
 
 ### Bug Fixes
