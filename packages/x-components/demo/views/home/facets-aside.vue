@@ -14,16 +14,13 @@
     <Facets class="xds:gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel
-          :data-test="facet.label"
-          class="xds:border-0 xds:border-b xds:border-neutral-10"
-        >
+        <BaseHeaderTogglePanel :data-test="facet.label" class="xds:border-0 xds:border-neutral-10">
           <template #header-content>
-            <span :data-test="facet.label">{{ facet.label }}</span>
+            {{ facet.label }}
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
-          <EditableNumberRangeFilter :filter="facet.filters[0]" />
+          <EditableNumberRangeFilter :filter="facet.filters[0]" inputs-class="xds:w-full" />
         </BaseHeaderTogglePanel>
       </template>
 
@@ -130,7 +127,7 @@ import type {
   Facet,
   SimpleFilter as SimpleFilterModel,
 } from '@empathyco/x-types'
-import type { Ref } from 'vue'
+import type { PropType } from 'vue'
 import type { HomeControls } from './types'
 import { BaseHeaderTogglePanel, BasePriceFilterLabel, ChevronDownIcon } from '@x/components'
 import {
@@ -148,10 +145,15 @@ import {
   SlicedFilters,
   SortedFilters,
 } from '@x/x-modules/facets'
-import { inject } from 'vue'
 
-const controls = inject<Ref<HomeControls>>('controls')!
-const editableNumberRangeFilter: EditableNumberRangeFilterModel = {
+defineProps({
+  controls: {
+    type: Object as PropType<HomeControls>,
+    required: true,
+  },
+})
+
+const editableNumberRangeFilterItem: EditableNumberRangeFilterModel = {
   facetId: 'salePrice',
   selected: false,
   id: 'price:0-*',
@@ -180,7 +182,7 @@ const staticFacets: Facet[] = [
     modelName: 'EditableNumberRangeFacet',
     label: 'Price range',
     id: 'salePrice',
-    filters: [editableNumberRangeFilter],
+    filters: [editableNumberRangeFilterItem],
   } as EditableNumberRangeFacet,
 ]
 </script>
