@@ -1,3 +1,22 @@
+<template>
+  <Transition :name="`x-animate-clip-path--${animationOrigin} x-animate-clip-path-`">
+    <slot />
+  </Transition>
+</template>
+
+<script setup lang="ts">
+import type { PropType } from 'vue'
+import type { AnimationOrigin } from './types'
+
+defineProps({
+  animationOrigin: {
+    type: String as PropType<AnimationOrigin>,
+    default: 'top',
+  },
+})
+</script>
+
+<style lang="css">
 .x-animate-clip-path--enter-active,
 .x-animate-clip-path--leave-active {
   transition: clip-path var(--x-duration-animation, 0.3s) ease-out;
@@ -43,3 +62,4 @@
 .x-animate-clip-path--right-to-left.x-animate-clip-path--leave-to {
   clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
 }
+</style>

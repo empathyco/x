@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import { computed, defineComponent, onBeforeUnmount, ref, watch } from 'vue'
-import { animateTranslate } from '../../../components/animations/animate-translate/animate-translate.factory'
+import { computed, defineComponent, h, onBeforeUnmount, ref, watch } from 'vue'
+import AnimateTranslate from '../../../components/animations/animate-translate.vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { AnimationProp } from '../../../types'
@@ -46,7 +46,7 @@ export default defineComponent({
      */
     animation: {
       type: AnimationProp,
-      default: () => animateTranslate('bottom-to-top'),
+      default: () => h(AnimateTranslate, { animationOrigin: 'bottom-to-top' }),
     },
     /**
      * Time in milliseconds during which each message is visible.
