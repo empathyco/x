@@ -592,7 +592,7 @@ import type { TaggingRequest } from '@empathyco/x-types'
 import type { QueryPreviewInfo } from '@x/x-modules/queries-preview'
 import type { HomeControls } from './types'
 import {
-  animateClipPath,
+  AnimateClipPath,
   ArrowRightIcon,
   AutoProgressBar,
   BaseColumnPickerList,
@@ -681,7 +681,7 @@ const searchInputPlaceholderMessages = [
 ]
 const columnPickerValues = [0, 2, 4]
 const resultsAnimation = StaggeredFadeAndSlide
-const modalAnimation = animateClipPath()
+const modalAnimation = AnimateClipPath
 const selectedColumns = ref(4)
 const sortValues = ['', 'price asc', 'price desc']
 const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview

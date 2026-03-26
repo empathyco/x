@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { animateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
+import { AnimateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
 import { Empathize } from '@x/x-modules/empathize'
 import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
 import { IdentifierResult, IdentifierResults } from '@x/x-modules/identifier-results'
@@ -42,5 +42,5 @@ defineProps({
     required: true,
   },
 })
-const empathizeAnimation = animateScale()
+const empathizeAnimation = AnimateScale
 </script>
