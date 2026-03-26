@@ -578,7 +578,7 @@ import type { QueryPreviewInfo } from '@x/x-modules/queries-preview'
 import type { ComputedRef } from 'vue'
 import type { HomeControls } from './types'
 import {
-  animateClipPath,
+  AnimateClipPath,
   ArrowRightIcon,
   AutoProgressBar,
   BaseColumnPickerList,
@@ -740,7 +740,7 @@ export default defineComponent({
     ]
     const columnPickerValues = [0, 2, 4]
     const resultsAnimation = StaggeredFadeAndSlide
-    const modalAnimation = animateClipPath()
+    const modalAnimation = AnimateClipPath
     const selectedColumns = 4
     const sortValues = ['', 'price asc', 'price desc']
     const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview
