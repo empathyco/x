@@ -15,6 +15,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
     },
   },
   PageChanged: state => state.page,
+  PartialResultsChanged: state => state.partialResults,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
   SearchRequestUpdated: (_, getters) => getters.request,

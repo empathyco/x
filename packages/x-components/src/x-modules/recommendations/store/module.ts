@@ -43,6 +43,7 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
         Object.assign(stateRecommendation, recommendation)
       }
     },
+    updateRecommendationsFromEnrichment(_, __) {},
     setConfig,
     mergeConfig,
   },
@@ -50,5 +51,6 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
     cancelFetchAndSaveRecommendations,
     fetchRecommendations,
     fetchAndSaveRecommendations,
+    fetchAndSaveRecommendationsEnrichment: async _ => Promise.resolve(),
   },
 }

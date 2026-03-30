@@ -121,6 +121,7 @@ export const searchXStoreModule: SearchXStoreModule = {
         Object.assign(stateResult, result)
       }
     },
+    updatePartialResultsFromEnrichment(_, __) {},
     setStats(state, stats) {
       state.stats = stats
     },
@@ -129,6 +130,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
+    fetchAndSavePartialResultsEnrichment: async _ => Promise.resolve(),
     increasePageAppendingResults,
     resetRequestOnRefinement,
     saveSearchResponse,

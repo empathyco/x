@@ -183,6 +183,15 @@ export const resetRequestOnRefinementWire = wireDispatch(
 )
 
 /**
+ * Requests and stores the external results for the partial results.
+ *
+ * @public
+ */
+export const fetchAndSavePartialResultsEnrichmentWire = wireDispatch(
+  'fetchAndSavePartialResultsEnrichment',
+)
+
+/**
  * Resets the search state when the request is changed to null. See the
  * {@link SearchXStoreModule} for details.
  *
@@ -241,6 +250,9 @@ export const searchWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams,
     saveOriginWire,
+  },
+  PartialResultsChanged: {
+    fetchAndSavePartialResultsEnrichmentWire,
   },
   UserAcceptedAQuery: {
     setSearchQuery,
