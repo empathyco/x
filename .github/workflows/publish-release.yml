@@ -52,7 +52,7 @@ jobs:
         run: pnpm run publish-release
 
       - name: push tags
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@4cc74773234f74829a8c21bc4d69dd4be9cfa599 # master
         with:
           github_token: ${{ steps.app-token.outputs.token }}
           branch: ${{ github.ref }}
