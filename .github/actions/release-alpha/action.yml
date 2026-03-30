@@ -61,7 +61,7 @@ runs:
       shell: bash
 
     - name: Push tags
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@4cc74773234f74829a8c21bc4d69dd4be9cfa599 # master
       with:
         github_token: ${{ inputs.github_token }}
         branch: ${{ github.ref }}

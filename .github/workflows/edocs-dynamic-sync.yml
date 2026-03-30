@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       - name: Get X Components Version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+        uses: martinbeentjes/npm-get-version-action@7aa1d82604bb2dbe377a64ca35e692e6fe333c9c # master
         with:
           path: packages/x-components
       - name: Get branch name
