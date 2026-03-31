@@ -6,7 +6,6 @@ import type {
   AiSuggestionTagging,
   Filter,
   RelatedTag,
-  Result,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type {
@@ -17,6 +16,7 @@ import type {
   XStoreModule,
 } from '../../../store'
 import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
+import type { InternalSearchResponse } from '../../search/index'
 import type { AiConfig } from '../config.types'
 
 /**
@@ -173,13 +173,13 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param results
    */
-  setIsSearchNoResults: (results: Result[]) => void
+  setIsSearchNoResults: (results: InternalSearchResponse) => void
   /**
    * Sets the total results of the search response.
    *
    * @param results
    */
-  setSearchTotalResults: (results: Result[]) => void
+  setSearchTotalResults: (results: InternalSearchResponse) => void
 }
 
 /**

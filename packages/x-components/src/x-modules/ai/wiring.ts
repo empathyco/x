@@ -93,7 +93,7 @@ export const aiWiring = createWiring({
   AiComponentMounted: {
     saveAiOriginWire,
   },
-  ResultsChanged: {
+  SearchResponseChanged: {
     setSearchNoResultsWire,
     setSearchTotalResultsWire,
   },

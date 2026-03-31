@@ -87,10 +87,10 @@ export const aiXStoreModule: AiXStoreModule = {
       )
     },
     setIsSearchNoResults(state, results) {
-      state.isSearchNoResults = results.length === 0
+      state.isSearchNoResults = results.totalResults === 0
     },
     setSearchTotalResults(state, results) {
-      state.searchTotalResults = results.length
+      state.searchTotalResults = results.totalResults
     },
     setConfig,
     mergeConfig,
