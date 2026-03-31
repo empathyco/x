@@ -92,6 +92,11 @@ export interface RecommendationsActions {
    * @param results - The recommendations.
    */
   fetchAndSaveRecommendationsEnrichment: (results: Result[]) => void
+  /**
+   * Cancels / interrupt {@link RecommendationsActions.fetchAndSaveRecommendationsEnrichment} synchronous
+   * promise.
+   */
+  cancelFetchAndSaveRecommendationsEnrichment: () => void
 }
 
 /**
