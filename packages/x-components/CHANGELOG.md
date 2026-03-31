@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.229...@empathyco/x-components@6.0.0-alpha.230) (2026-03-30)
+
+### Features
+
+* **ai:** remove summarize calls (#2062)
+
+
 ## [6.0.0-alpha.229](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.228...@empathyco/x-components@6.0.0-alpha.229) (2026-03-26)
 
 ### Bug Fixes
