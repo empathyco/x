@@ -49,6 +49,10 @@ const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 /** Sets the AI state `selectedFilters`. */
 const setSelectedFiltersWire = wireCommit('setSelectedFilters')
 
+const setSearchNoResultsWire = wireCommit('setIsSearchNoResults')
+
+const setSearchTotalResultsWire = wireCommit('setSearchTotalResults')
+
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
  *
@@ -88,5 +92,9 @@ export const aiWiring = createWiring({
   },
   AiComponentMounted: {
     saveAiOriginWire,
+  },
+  ResultsChanged: {
+    setSearchNoResultsWire,
+    setSearchTotalResultsWire,
   },
 })
