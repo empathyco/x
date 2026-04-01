@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.232](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.231...@empathyco/x-components@6.0.0-alpha.232) (2026-04-01)
+
+### Bug Fixes
+
+* wait for search response before triggering AI requests (#2067)
+
+
 ## [6.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.230...@empathyco/x-components@6.0.0-alpha.231) (2026-04-01)
 
 ### Features
