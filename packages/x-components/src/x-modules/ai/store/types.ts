@@ -16,7 +16,6 @@ import type {
   XStoreModule,
 } from '../../../store'
 import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
-import type { InternalSearchResponse } from '../../search/index'
 import type { AiConfig } from '../config.types'
 
 /**
@@ -171,7 +170,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param results
    */
-  setSearchTotalResults: (results: InternalSearchResponse) => void
+  setSearchTotalResults: (totalResults: number) => void
 }
 
 /**
