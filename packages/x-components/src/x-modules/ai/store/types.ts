@@ -51,8 +51,6 @@ export interface AiState extends QueryState {
    * The key is the facet ID, and the value the list of filters for that facet.
    */
   selectedFilters: Dictionary<Filter[]>
-  /** Flag to indicate that the search response has no results */
-  isSearchNoResults: boolean
   /** The total results of the search response */
   searchTotalResults: number
 }
@@ -168,12 +166,6 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param selectedFilters - The new selected filters to save to the state.
    */
   setSelectedFilters: (selectedFilters: Filter[]) => void
-  /**
-   * Sets the no results flag of the search response.
-   *
-   * @param results
-   */
-  setIsSearchNoResults: (results: InternalSearchResponse) => void
   /**
    * Sets the total results of the search response.
    *

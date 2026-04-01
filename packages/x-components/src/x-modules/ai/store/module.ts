@@ -31,7 +31,6 @@ export const aiXStoreModule: AiXStoreModule = {
     params: {},
     origin: null,
     relatedTags: [],
-    isSearchNoResults: true,
     searchTotalResults: 0,
   }),
   getters: {
@@ -85,9 +84,6 @@ export const aiXStoreModule: AiXStoreModule = {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
         isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
       )
-    },
-    setIsSearchNoResults(state, results) {
-      state.isSearchNoResults = results.totalResults === 0
     },
     setSearchTotalResults(state, results) {
       state.searchTotalResults = results.totalResults

@@ -49,8 +49,7 @@ const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 /** Sets the AI state `selectedFilters`. */
 const setSelectedFiltersWire = wireCommit('setSelectedFilters')
 
-const setSearchNoResultsWire = wireCommit('setIsSearchNoResults')
-
+/** Sets the AI state `searchTotalResults`. */
 const setSearchTotalResultsWire = wireCommit('setSearchTotalResults')
 
 /**
@@ -94,7 +93,6 @@ export const aiWiring = createWiring({
     saveAiOriginWire,
   },
   SearchResponseChanged: {
-    setSearchNoResultsWire,
     setSearchTotalResultsWire,
   },
 })
