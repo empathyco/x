@@ -23,13 +23,8 @@ export class DefaultExternalResultEnrichmentService implements ExternalResultEnr
   }
 
   async fetchExternalResults(_: Result[]): Promise<any[]> {
-    // eslint-disable-next-line no-console
-    console.log('defaultfetchExternalResults', _)
-    return Promise.resolve([])
+    return []
   }
 
-  updateResultsFromEnrichment(_: Result[], __: any[]): void {
-    // eslint-disable-next-line no-console
-    console.log('defaultupdateResultsFromEnrichment', _, __)
-  }
+  updateResultsFromEnrichment(_: Result[], __: any[]): void {}
 }

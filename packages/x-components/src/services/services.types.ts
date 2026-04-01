@@ -1,5 +1,4 @@
 import type { Result } from '@empathyco/x-types'
-
 import type { ArrowKey } from '../utils/types'
 
 /**
