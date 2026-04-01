@@ -15,7 +15,7 @@ export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest']
   { params: extraParams, selectedFilters: filters, origin, searchTotalResults, config },
   { query },
 ) => {
-  if (searchTotalResults === 0 || searchTotalResults <= config.lowResultsThreshold) {
+  if (query && (searchTotalResults === 0 || searchTotalResults <= config.lowResultsThreshold)) {
     return { query, extraParams, filters, ...(origin && { origin }) }
   }
   return null

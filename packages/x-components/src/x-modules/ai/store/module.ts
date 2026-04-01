@@ -1,5 +1,4 @@
 import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
-import type { InternalSearchResponse } from '@x/x-modules/search/index'
 import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
@@ -66,9 +65,6 @@ export const aiXStoreModule: AiXStoreModule = {
     setQuery: (state: QueryState, query: string) => {
       state.query = query
     },
-    setSearchQuery: (state: QueryState, searchResponse: InternalSearchResponse) => {
-      state.query = searchResponse.request.query
-    },
     setParams(state, params) {
       state.params = params
     },
@@ -77,6 +73,10 @@ export const aiXStoreModule: AiXStoreModule = {
     },
     resetAiState(state) {
       Object.assign(state, resettableAiState())
+    },
+    resetAiQueryState(state) {
+      state.query = ''
+      state.searchTotalResults = 0
     },
     setAiRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags

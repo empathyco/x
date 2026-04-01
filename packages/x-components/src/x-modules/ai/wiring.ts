@@ -1,3 +1,4 @@
+import type { InternalSearchResponse } from '../search/index'
 import {
   createWiring,
   filterTruthyPayload,
@@ -21,10 +22,10 @@ const setUrlParamsWire = wireDispatch('setUrlParams')
 const setExtraParamsWire = wireCommit('setParams')
 
 /** Sets the AI state `query`. */
-const setAiQueryWire = wireCommit('setSearchQuery')
-
-/** Sets the AI state `query` with the selectedQueryPreview's query. */
-const setAiQueryFromPreviewWire = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
+const setAiQueryWire = wireCommit(
+  'setQuery',
+  ({ eventPayload: { request } }: { eventPayload: InternalSearchResponse }) => request.query,
+)
 
 /** Fetches the AI suggestions streaming response. */
 const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
@@ -42,6 +43,9 @@ const setAiRelatedTagsWire = wireCommit('setAiRelatedTags')
 
 /** Resets the related prompts state. */
 const resetAiStateWire = wireCommitWithoutPayload('resetAiState')
+
+/** Resets the search query and total search results state. */
+const resetAiQueryStateWire = wireCommitWithoutPayload('resetAiQueryState')
 
 /** Sets the origin for the AI requests. */
 const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
@@ -64,8 +68,8 @@ export const aiWiring = createWiring({
   ExtraParamsChanged: {
     setExtraParamsWire,
   },
-  UserAcceptedAQueryPreview: {
-    setAiQueryFromPreviewWire,
+  UserClearedQuery: {
+    resetAiQueryStateWire,
   },
   AiSuggestionsRequestUpdated: {
     resetAiStateWire,
