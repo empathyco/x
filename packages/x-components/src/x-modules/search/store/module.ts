@@ -1,6 +1,7 @@
 import type { Stats } from '@empathyco/x-types'
 import type { SearchXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
+import { DefaultExternalResultEnrichmentService } from '../../../services/external-result-enrichment.service'
 import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setQuery } from '../../../store/utils/query.utils'
@@ -8,6 +9,8 @@ import { groupItemsBy } from '../../../utils/array'
 import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import {
   cancelFetchAndSaveSearchResponse,
+  fetchAndSavePartialResultsEnrichment,
+  fetchAndSaveResultsEnrichment,
   fetchAndSaveSearchResponse,
   fetchSearchResponse,
   increasePageAppendingResults,
@@ -121,7 +124,22 @@ export const searchXStoreModule: SearchXStoreModule = {
         Object.assign(stateResult, result)
       }
     },
-    updatePartialResultsFromEnrichment(_, __) {},
+    updateResultsFromEnrichment(state, externalResults) {
+      DefaultExternalResultEnrichmentService.instance.updateResultsFromEnrichment(
+        state.results,
+        externalResults,
+      )
+    },
+    updatePartialResultsFromEnrichment(state, externalResults) {
+      for (const partialResult of state.partialResults) {
+        if (partialResult.results) {
+          DefaultExternalResultEnrichmentService.instance.updateResultsFromEnrichment(
+            partialResult.results,
+            externalResults,
+          )
+        }
+      }
+    },
     setStats(state, stats) {
       state.stats = stats
     },
@@ -130,7 +148,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
-    fetchAndSavePartialResultsEnrichment: async _ => Promise.resolve(),
+    fetchAndSaveResultsEnrichment,
+    fetchAndSavePartialResultsEnrichment,
     increasePageAppendingResults,
     resetRequestOnRefinement,
     saveSearchResponse,

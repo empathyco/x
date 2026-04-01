@@ -239,11 +239,17 @@ export interface SearchMutations
    */
   updateResult: (result: Partial<Result> & Pick<Result, 'id'>) => void
   /**
+   * Updates the results with the external results.
+   *
+   * @param externalResults - The external results.
+   */
+  updateResultsFromEnrichment: (externalResults: any[]) => void
+  /**
    * Updates the partial results with the external results.
    *
-   * @param results - The external results.
+   * @param externalResults - The external results.
    */
-  updatePartialResultsFromEnrichment: (results: any[]) => void
+  updatePartialResultsFromEnrichment: (externalResults: any[]) => void
 }
 
 /**
@@ -272,6 +278,12 @@ export interface SearchActions {
    * @returns The new search response.
    */
   fetchSearchResponse: (request: SearchRequest) => SearchResponse
+  /**
+   * Requests and stores the external results for the results.
+   *
+   * @param results - The results.
+   */
+  fetchAndSaveResultsEnrichment: (results: Result[]) => void
   /**
    * Requests and stores the external results for the partial results.
    *

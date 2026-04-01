@@ -10,7 +10,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   any[]
 >({
   async fetch(_, recommendations) {
-    return DefaultExternalResultEnrichmentService.instance.fetchExternalResults(recommendations)
+    return recommendations.length > 0
+      ? DefaultExternalResultEnrichmentService.instance.fetchExternalResults(recommendations)
+      : []
   },
   onSuccess({ commit }, externalResults) {
     commit('updateRecommendationsFromEnrichment', externalResults)

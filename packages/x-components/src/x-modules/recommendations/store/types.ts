@@ -60,9 +60,9 @@ export interface RecommendationsMutations
   /**
    * Updates the recommendations with the external results.
    *
-   * @param results - The external results.
+   * @param externalResults - The external results.
    */
-  updateRecommendationsFromEnrichment: (results: any[]) => void
+  updateRecommendationsFromEnrichment: (externalResults: any[]) => void
 }
 
 /**

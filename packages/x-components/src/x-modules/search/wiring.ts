@@ -69,6 +69,13 @@ export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metad
 export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
 
 /**
+ * Requests and stores the external results for the results.
+ *
+ * @public
+ */
+export const fetchAndSaveResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
+
+/**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
  *
  * @public
@@ -291,6 +298,7 @@ export const searchWiring = createWiring({
   },
   ResultsChanged: {
     resetAppending,
+    fetchAndSaveResultsEnrichmentWire,
   },
   ReloadSearchRequested: {
     resetStateForReloadWire,
