@@ -25,10 +25,13 @@ export const aiXStoreModule: AiXStoreModule = {
     ...resettableAiState(),
     selectedFilters: {},
     query: '',
-    config: {},
+    config: {
+      lowResultsThreshold: 50,
+    },
     params: {},
     origin: null,
     relatedTags: [],
+    searchTotalResults: 0,
   }),
   getters: {
     suggestionsRequest,
@@ -81,6 +84,9 @@ export const aiXStoreModule: AiXStoreModule = {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
         isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
       )
+    },
+    setSearchTotalResults(state, results) {
+      state.searchTotalResults = results.totalResults
     },
     setConfig,
     mergeConfig,

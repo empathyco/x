@@ -16,6 +16,7 @@ import type {
   XStoreModule,
 } from '../../../store'
 import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
+import type { InternalSearchResponse } from '../../search/index'
 import type { AiConfig } from '../config.types'
 
 /**
@@ -50,6 +51,8 @@ export interface AiState extends QueryState {
    * The key is the facet ID, and the value the list of filters for that facet.
    */
   selectedFilters: Dictionary<Filter[]>
+  /** The total results of the search response */
+  searchTotalResults: number
 }
 
 /**
@@ -61,7 +64,7 @@ export interface AiGetters {
   /**
    * Request object to retrieve the streaming response using the ai suggestions adapter.
    */
-  suggestionsRequest: AiSuggestionsRequest
+  suggestionsRequest: AiSuggestionsRequest | null
 
   /**
    * Request object to retrieve the suggestions search based on queries or null if there is
@@ -163,6 +166,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param selectedFilters - The new selected filters to save to the state.
    */
   setSelectedFilters: (selectedFilters: Filter[]) => void
+  /**
+   * Sets the total results of the search response.
+   *
+   * @param results
+   */
+  setSearchTotalResults: (results: InternalSearchResponse) => void
 }
 
 /**
