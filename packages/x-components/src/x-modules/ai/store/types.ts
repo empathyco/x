@@ -172,6 +172,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param results
    */
   setSearchTotalResults: (results: InternalSearchResponse) => void
+  /**
+   * Sets the query of the search response.
+   *
+   * @param results
+   */
+  setSearchQuery: (response: InternalSearchResponse) => void
 }
 
 /**
