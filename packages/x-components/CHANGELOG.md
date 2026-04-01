@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.230...@empathyco/x-components@6.0.0-alpha.231) (2026-04-01)
+
+### Features
+
+* trigger ai requests only in low and no results scenarios (#2066)
+
+
 ## [6.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.229...@empathyco/x-components@6.0.0-alpha.230) (2026-03-30)
 
 ### Features
