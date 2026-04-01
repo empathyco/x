@@ -16,7 +16,6 @@ import type {
   XStoreModule,
 } from '../../../store'
 import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
-import type { InternalSearchResponse } from '../../search/index'
 import type { AiConfig } from '../config.types'
 
 /**
@@ -143,10 +142,6 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    */
   resetAiState: () => void
   /**
-   * Resets the search query and the total search results.
-   */
-  resetAiQueryState: () => void
-  /**
    * Sets the related tags of the module.
    *
    * @param relatedTags - The new related tags to save to the state.
@@ -175,7 +170,7 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    *
    * @param results
    */
-  setSearchTotalResults: (results: InternalSearchResponse) => void
+  setSearchTotalResults: (totalResults: number) => void
 }
 
 /**

@@ -1,8 +1,8 @@
 import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
-import type { QueryState } from '../../../store'
 import type { AiXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setQuery } from '../../../store/utils/query.utils'
 import { groupItemsBy } from '../../../utils/array'
 import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
@@ -62,9 +62,7 @@ export const aiXStoreModule: AiXStoreModule = {
     setSuggestionsSearchLoading: (state, value) => {
       state.suggestionsSearchLoading = value
     },
-    setQuery: (state: QueryState, query: string) => {
-      state.query = query
-    },
+    setQuery,
     setParams(state, params) {
       state.params = params
     },
@@ -73,10 +71,6 @@ export const aiXStoreModule: AiXStoreModule = {
     },
     resetAiState(state) {
       Object.assign(state, resettableAiState())
-    },
-    resetAiQueryState(state) {
-      state.query = ''
-      state.searchTotalResults = 0
     },
     setAiRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
@@ -89,8 +83,8 @@ export const aiXStoreModule: AiXStoreModule = {
         isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
       )
     },
-    setSearchTotalResults(state, results) {
-      state.searchTotalResults = results.totalResults
+    setSearchTotalResults(state, totalResults) {
+      state.searchTotalResults = totalResults
     },
     setConfig,
     mergeConfig,

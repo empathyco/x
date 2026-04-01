@@ -21,6 +21,9 @@ const setUrlParamsWire = wireDispatch('setUrlParams')
 /** Sets the AI state `params`. */
 const setExtraParamsWire = wireCommit('setParams')
 
+/** Resets the AI state `query`. */
+const resetAiQueryWire = wireCommit('setQuery', '')
+
 /** Sets the AI state `query`. */
 const setAiQueryWire = wireCommit(
   'setQuery',
@@ -44,17 +47,20 @@ const setAiRelatedTagsWire = wireCommit('setAiRelatedTags')
 /** Resets the related prompts state. */
 const resetAiStateWire = wireCommitWithoutPayload('resetAiState')
 
-/** Resets the search query and total search results state. */
-const resetAiQueryStateWire = wireCommitWithoutPayload('resetAiQueryState')
-
 /** Sets the origin for the AI requests. */
 const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 
 /** Sets the AI state `selectedFilters`. */
 const setSelectedFiltersWire = wireCommit('setSelectedFilters')
 
+/** Resets the AI state `searchTotalResults`. */
+const resetSearchTotalResultsWire = wireCommit('setSearchTotalResults', 0)
+
 /** Sets the AI state `searchTotalResults`. */
-const setSearchTotalResultsWire = wireCommit('setSearchTotalResults')
+const setSearchTotalResultsWire = wireCommit(
+  'setSearchTotalResults',
+  ({ eventPayload }: { eventPayload: { totalResults: number } }) => eventPayload.totalResults,
+)
 
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
@@ -69,7 +75,8 @@ export const aiWiring = createWiring({
     setExtraParamsWire,
   },
   UserClearedQuery: {
-    resetAiQueryStateWire,
+    resetAiQueryWire,
+    resetSearchTotalResultsWire,
   },
   AiSuggestionsRequestUpdated: {
     resetAiStateWire,
