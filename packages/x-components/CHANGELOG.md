@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.233](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.232...@empathyco/x-components@6.0.0-alpha.233) (2026-04-02)
+
+### Features
+
+* define result enrichment for Results, PartialResults and Recommendations (#2065)
+
+
 ## [6.0.0-alpha.232](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.231...@empathyco/x-components@6.0.0-alpha.232) (2026-04-01)
 
 ### Bug Fixes
