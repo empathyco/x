@@ -21,7 +21,8 @@
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
-    "showcase"
+    "showcase",
+    "skills"
   ],
   "engines": {
     "node": ">=22"

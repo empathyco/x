@@ -37,6 +37,11 @@
   "main": "./core/index.js",
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
+  "files": [
+    "**/*.css",
+    "core",
+    "skills"
+  ],
   "engines": {
     "node": ">=22"
   },

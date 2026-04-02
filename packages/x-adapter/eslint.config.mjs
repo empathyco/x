@@ -6,5 +6,5 @@ export default empathyco({
     'ts/no-unsafe-argument': 'off',
     'ts/no-unsafe-assignment': 'off',
   },
-  ignores: ['vitest.config.ts', 'dist'],
+  ignores: ['vitest.config.ts', 'dist', 'skills'],
 })
