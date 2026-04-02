@@ -57,6 +57,12 @@ export interface RecommendationsMutations
    * and the properties to modify.
    */
   updateRecommendation: (recommendation: Partial<Result> & Pick<Result, 'id'>) => void
+  /**
+   * Updates the recommendations with the enrichment results.
+   *
+   * @param enrichmentResults - The enrichment results.
+   */
+  updateRecommendationsFromEnrichment: (enrichmentResults: any[]) => void
 }
 
 /**
@@ -80,6 +86,17 @@ export interface RecommendationsActions {
    * @returns A new list of results.
    */
   fetchRecommendations: (request: RecommendationsRequest | null) => Result[]
+  /**
+   * Requests and saves the enrichment results for the recommendations.
+   *
+   * @param results - The recommendations.
+   */
+  fetchAndSaveRecommendationsEnrichment: (results: Result[]) => void
+  /**
+   * Cancels / interrupt {@link RecommendationsActions.fetchAndSaveRecommendationsEnrichment} synchronous
+   * promise.
+   */
+  cancelFetchAndSaveRecommendationsEnrichment: () => void
 }
 
 /**

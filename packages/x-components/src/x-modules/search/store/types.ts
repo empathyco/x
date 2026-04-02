@@ -238,6 +238,18 @@ export interface SearchMutations
    * @param result - A result containing at least an id, and the properties to modify.
    */
   updateResult: (result: Partial<Result> & Pick<Result, 'id'>) => void
+  /**
+   * Updates the results with the enrichment results.
+   *
+   * @param enrichmentResults - The enrichment results.
+   */
+  updateResultsFromEnrichment: (enrichmentResults: any[]) => void
+  /**
+   * Updates the partial results with the enrichment results.
+   *
+   * @param enrichmentResults - The enrichment results.
+   */
+  updatePartialResultsFromEnrichment: (enrichmentResults: any[]) => void
 }
 
 /**
@@ -266,6 +278,18 @@ export interface SearchActions {
    * @returns The new search response.
    */
   fetchSearchResponse: (request: SearchRequest) => SearchResponse
+  /**
+   * Requests and stores the enrichment results for the results.
+   *
+   * @param results - The results.
+   */
+  fetchAndSaveResultsEnrichment: (results: Result[]) => void
+  /**
+   * Requests and stores the enrichment results for the partial results.
+   *
+   * @param partialResults - The partial results.
+   */
+  fetchAndSavePartialResultsEnrichment: (partialResults: PartialResult[]) => void
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link SearchState.isAppendResults} flag.
