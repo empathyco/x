@@ -58,11 +58,11 @@ export interface RecommendationsMutations
    */
   updateRecommendation: (recommendation: Partial<Result> & Pick<Result, 'id'>) => void
   /**
-   * Updates the recommendations with the external results.
+   * Updates the recommendations with the enrichment results.
    *
-   * @param externalResults - The external results.
+   * @param enrichmentResults - The enrichment results.
    */
-  updateRecommendationsFromEnrichment: (externalResults: any[]) => void
+  updateRecommendationsFromEnrichment: (enrichmentResults: any[]) => void
 }
 
 /**

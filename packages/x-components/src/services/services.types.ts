@@ -99,23 +99,23 @@ export interface Machine<SomeStatus extends string, SomeEvent extends string> {
 }
 
 /**
- * Service to handle the enrichment of the results with the external results.
+ * Service to handle the enrichment of the results.
  *
  * @public
  */
-export interface ExternalResultEnrichmentService {
+export interface ResultsEnrichmentService {
   /**
-   * Fetches the external results.
+   * Fetches the enrichment results.
    *
-   * @param results - The results to fetch the external results for.
+   * @param results - The results to fetch the enrichment results for.
    */
-  fetchExternalResults: (results: Result[]) => Promise<any[]>
+  fetchResults: (results: Result[]) => Promise<any[]>
 
   /**
-   * Updates the results with the external results. Updates via mutation.
+   * Updates the results with the enrichment results. Updates via mutation.
    *
    * @param results - The results to update.
-   * @param externalResults - The external results to update the results with.
+   * @param enrichmentResults - The enrichment results to update the results with.
    */
-  updateResultsFromEnrichment: (results: Result[], externalResults: any[]) => void
+  updateResults: (results: Result[], enrichmentResults: any[]) => void
 }

@@ -1,7 +1,7 @@
 import type { Result } from '@empathyco/x-types'
 
 import type { RecommendationsActionContext } from '../types'
-import { DefaultExternalResultEnrichmentService } from '@x/services/external-result-enrichment.service'
+import { DefaultResultsEnrichmentService } from '../../../../services/results-enrichment.service'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
@@ -11,11 +11,11 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
 >({
   async fetch(_, recommendations) {
     return recommendations.length > 0
-      ? DefaultExternalResultEnrichmentService.instance.fetchExternalResults(recommendations)
+      ? DefaultResultsEnrichmentService.instance.fetchResults(recommendations)
       : []
   },
-  onSuccess({ commit }, externalResults) {
-    commit('updateRecommendationsFromEnrichment', externalResults)
+  onSuccess({ commit }, enrichmentResults) {
+    commit('updateRecommendationsFromEnrichment', enrichmentResults)
   },
 })
 

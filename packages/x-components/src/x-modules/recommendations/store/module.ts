@@ -1,5 +1,5 @@
 import type { RecommendationsXStoreModule } from './types'
-import { DefaultExternalResultEnrichmentService } from '../../../services/external-result-enrichment.service'
+import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setStatus } from '../../../store/utils/status-store.utils'
 import {
@@ -48,10 +48,10 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
         Object.assign(stateRecommendation, recommendation)
       }
     },
-    updateRecommendationsFromEnrichment(state, externalResults) {
-      DefaultExternalResultEnrichmentService.instance.updateResultsFromEnrichment(
+    updateRecommendationsFromEnrichment(state, enrichmentResults) {
+      DefaultResultsEnrichmentService.instance.updateResults(
         state.recommendations,
-        externalResults,
+        enrichmentResults,
       )
     },
     setConfig,

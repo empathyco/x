@@ -1,7 +1,7 @@
 import type { Stats } from '@empathyco/x-types'
 import type { SearchXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
-import { DefaultExternalResultEnrichmentService } from '../../../services/external-result-enrichment.service'
+import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setQuery } from '../../../store/utils/query.utils'
@@ -124,18 +124,15 @@ export const searchXStoreModule: SearchXStoreModule = {
         Object.assign(stateResult, result)
       }
     },
-    updateResultsFromEnrichment(state, externalResults) {
-      DefaultExternalResultEnrichmentService.instance.updateResultsFromEnrichment(
-        state.results,
-        externalResults,
-      )
+    updateResultsFromEnrichment(state, enrichmentResults) {
+      DefaultResultsEnrichmentService.instance.updateResults(state.results, enrichmentResults)
     },
-    updatePartialResultsFromEnrichment(state, externalResults) {
+    updatePartialResultsFromEnrichment(state, enrichmentResults) {
       for (const partialResult of state.partialResults) {
         if (partialResult.results) {
-          DefaultExternalResultEnrichmentService.instance.updateResultsFromEnrichment(
+          DefaultResultsEnrichmentService.instance.updateResults(
             partialResult.results,
-            externalResults,
+            enrichmentResults,
           )
         }
       }

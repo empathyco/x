@@ -1,7 +1,7 @@
 import type { Result } from '@empathyco/x-types'
 
 import type { SearchActionContext } from '../types'
-import { DefaultExternalResultEnrichmentService } from '@x/services/external-result-enrichment.service'
+import { DefaultResultsEnrichmentService } from '../../../../services/results-enrichment.service'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
@@ -10,12 +10,10 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   any[]
 >({
   async fetch(_, results) {
-    return results.length > 0
-      ? DefaultExternalResultEnrichmentService.instance.fetchExternalResults(results)
-      : []
+    return results.length > 0 ? DefaultResultsEnrichmentService.instance.fetchResults(results) : []
   },
-  onSuccess({ commit }, externalResults) {
-    commit('updateResultsFromEnrichment', externalResults)
+  onSuccess({ commit }, enrichmentResults) {
+    commit('updateResultsFromEnrichment', enrichmentResults)
   },
 })
 

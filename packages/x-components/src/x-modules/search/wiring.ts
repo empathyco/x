@@ -69,7 +69,7 @@ export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metad
 export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
 
 /**
- * Requests and stores the external results for the results.
+ * Requests and stores the enrichment results for the results.
  *
  * @public
  */
@@ -190,7 +190,7 @@ export const resetRequestOnRefinementWire = wireDispatch(
 )
 
 /**
- * Requests and stores the external results for the partial results.
+ * Requests and stores the enrichment results for the partial results.
  *
  * @public
  */

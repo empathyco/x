@@ -28,7 +28,7 @@ const wireCommit = namespacedWireCommit(moduleName)
 const fetchAndSaveRecommendations = wireDispatch('fetchAndSaveRecommendations')
 
 /**
- * Requests and stores the external results for the recommendations.
+ * Requests and stores the enrichment results for the recommendations.
  *
  * @public
  */
