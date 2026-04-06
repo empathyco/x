@@ -48,7 +48,7 @@ const useStateStub = {
   ),
   queries: ref(['suggestion 1', 'suggestion 2', 'suggestion 3'].map(query => ({ query }))),
   params: ref({ param1: 'value1', param2: 'value2' }),
-  suggestionsLoading: ref(false),
+  suggestionsStatus: ref('success'),
   tagging: ref<AiSuggestionTagging>({
     toolingDisplayClick: {
       url: 'toolingDisplayClick',
@@ -307,7 +307,7 @@ describe('ai-overview component', () => {
   it('should render with loading state correctly', () => {
     vi.mocked(useState).mockImplementation(() => ({
       ...useStateStub,
-      suggestionsLoading: ref(true),
+      suggestionsStatus: ref('loading'),
     }))
 
     const sut = render()
@@ -504,10 +504,10 @@ describe('ai-overview component', () => {
   })
 
   it('auto-expands when autoExpandInSearchNoResults is true and suggestions finish loading with no results', async () => {
-    const suggestionsLoadingRef = ref(true)
+    const suggestionsStatusRef = ref('loading')
     vi.mocked(useState).mockImplementation(() => ({
       ...useStateStub,
-      suggestionsLoading: suggestionsLoadingRef,
+      suggestionsStatus: suggestionsStatusRef,
     }))
 
     const sut = render()
@@ -519,7 +519,7 @@ describe('ai-overview component', () => {
 
     // Set global noResults and finish loading to trigger the watch
     xInstance.noResults = true
-    suggestionsLoadingRef.value = false
+    suggestionsStatusRef.value = 'success'
     await nextTick()
 
     // Should be expanded automatically
@@ -536,17 +536,17 @@ describe('ai-overview component', () => {
   })
 
   it('does not auto-expand when autoExpandInSearchNoResults is false even with no results', async () => {
-    const suggestionsLoadingRef = ref(true)
+    const suggestionsStatusRef = ref('loading')
     vi.mocked(useState).mockImplementation(() => ({
       ...useStateStub,
-      suggestionsLoading: suggestionsLoadingRef,
+      suggestionsStatus: suggestionsStatusRef,
     }))
 
     const sut = render({ props: { ...propsStub, autoExpandInSearchNoResults: false } })
 
     // Make conditions true except the prop
     xInstance.noResults = true
-    suggestionsLoadingRef.value = false
+    suggestionsStatusRef.value = 'success'
     await nextTick()
 
     // Should remain collapsed

@@ -15,6 +15,7 @@ import type {
   XActionContext,
   XStoreModule,
 } from '../../../store'
+import type { RequestStatus } from '../../../store/utils/status-store.utils'
 import type { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types'
 import type { AiConfig } from '../config.types'
 
@@ -29,10 +30,10 @@ export interface AiState extends QueryState {
   suggestionText: string
   queries: AiSuggestionQuery[]
   tagging: AiSuggestionTagging | undefined
-  /** Loading state for the suggestions response */
-  suggestionsLoading: boolean
-  /** Loading state for the suggestions search response */
-  suggestionsSearchLoading: boolean
+  /** Status for the suggestions response */
+  suggestionsStatus: RequestStatus
+  /** Status for the suggestions search response */
+  suggestionsSearchStatus: RequestStatus
   /** The results per query retrieved by the suggestion search endpoint */
   suggestionsSearch: AiSuggestionSearch[]
   /* The config of the `AI` module. */
@@ -110,18 +111,18 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   setTagging: (tagging: AiSuggestionTagging) => void
 
   /**
-   * Sets the loading for the suggestions response.
+   * Sets the status for the suggestions response.
    *
-   * @param tagging - The new tagging.
+   * @param status - The new status.
    */
-  setSuggestionsLoading: (value: boolean) => void
+  setSuggestionsStatus: (status: RequestStatus) => void
 
   /**
-   * Sets the loading fot the suggestions search response.
+   * Sets the status for the suggestions search response.
    *
-   * @param tagging - The new tagging.
+   * @param status - The new status.
    */
-  setSuggestionsSearchLoading: (value: boolean) => void
+  setSuggestionsSearchStatus: (status: RequestStatus) => void
 
   /**
    * Sets the suggestions search from the suggestions search response.
