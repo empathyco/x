@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.234](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.233...@empathyco/x-components@6.0.0-alpha.234) (2026-04-06)
+
+### ⚠ BREAKING CHANGES
+
+* **ai:** The AI module now uses RequestStatus type instead of boolean loading states. Users should:
+* Update from `suggestionsLoading: boolean` to `suggestionsStatus: RequestStatus`.
+* Update from `setSuggestionsSearchLoading: boolean` to `setSuggestionsSearchStatus: RequestStatus`.
+* Adjust computed properties accordingly.
+
+### Code Refactoring
+
+* **ai:** replace boolean loading states with RequestStatus type (#2068)
+
+
 ## [6.0.0-alpha.233](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.232...@empathyco/x-components@6.0.0-alpha.233) (2026-04-02)
 
 ### Features
