@@ -16,7 +16,7 @@
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
     "publish-release": "node scripts/publish-release",
-    "prepare": "husky install"
+    "prepare": "husky install && skilld prepare"
   },
   "devDependencies": {
     "@empathyco/eslint-config": "1.10.31",
@@ -30,5 +30,11 @@
     "node": ">=22",
     "npm": ">=10"
   },
-  "prettier": "@empathyco/eslint-config/prettier"
+  "prettier": "@empathyco/eslint-config/prettier",
+  "files": [
+    "skills"
+  ],
+  "dependencies": {
+    "skilld": "^1.5.5"
+  }
 }

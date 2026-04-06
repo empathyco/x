@@ -1,7 +1,7 @@
 import { empathyco } from '@empathyco/eslint-config'
 export default empathyco(
   {
-    ignores: ['.loaded_actions', 'tailwind.config.ts'],
+    ignores: ['.loaded_actions', 'tailwind.config.ts', 'skills'],
   },
   {
     files: ['**/*.spec.{ts,tsx,js,jsx}', '**/__tests__/**/*.ts'],

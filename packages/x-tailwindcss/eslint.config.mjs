@@ -8,4 +8,5 @@ export default empathyco({
     'ts/restrict-template-expressions': 'off',
     'jsdoc/check-param-names': 'off',
   },
+  ignores: ['skills'],
 })
