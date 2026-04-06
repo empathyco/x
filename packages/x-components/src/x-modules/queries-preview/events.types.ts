@@ -41,4 +41,9 @@ export interface QueriesPreviewXEvents {
    * Payload: The query preview item.
    */
   QueriesPreviewChanged: Dictionary<QueryPreviewItem>
+  /**
+   * A query preview result has been received and cached.
+   * Payload: The {@link QueryPreviewItem} that was cached.
+   */
+  QueryPreviewResultReceived: QueryPreviewItem
 }

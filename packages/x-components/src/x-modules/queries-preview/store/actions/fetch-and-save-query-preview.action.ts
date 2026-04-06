@@ -1,4 +1,5 @@
 import type { QueriesPreviewXStoreModule, QueryPreviewItem } from '../types'
+import { XPlugin } from '../../../../plugins/x-plugin'
 import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-preview'
 
 /**
@@ -11,7 +12,6 @@ import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-pre
  *
  * @public
  */
-
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
   async ({ dispatch, commit }, request) => {
     const { query } = request
@@ -32,7 +32,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
 
     return dispatch('fetchQueryPreview', request)
       .then(response => {
-        commit('setQueryPreviewCached', {
+        const cachedItem: QueryPreviewItem = {
           request,
           results: response?.results ?? [],
           status: 'success',
@@ -40,7 +40,9 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           instances: 1,
           displayTagging: response?.displayTagging ?? undefined,
           queryTagging: response?.queryTagging ?? undefined,
-        })
+        }
+        commit('setQueryPreviewCached', cachedItem)
+        void XPlugin.bus.emit('QueryPreviewResultReceived', cachedItem)
       })
       .catch(error => {
         console.error(error)
