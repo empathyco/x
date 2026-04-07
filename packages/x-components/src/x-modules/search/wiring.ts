@@ -69,6 +69,13 @@ export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metad
 export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
 
 /**
+ * Requests and stores the enrichment results for the results.
+ *
+ * @public
+ */
+export const fetchAndSaveResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
+
+/**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
  *
  * @public
@@ -183,6 +190,15 @@ export const resetRequestOnRefinementWire = wireDispatch(
 )
 
 /**
+ * Requests and stores the enrichment results for the partial results.
+ *
+ * @public
+ */
+export const fetchAndSavePartialResultsEnrichmentWire = wireDispatch(
+  'fetchAndSavePartialResultsEnrichment',
+)
+
+/**
  * Resets the search state when the request is changed to null. See the
  * {@link SearchXStoreModule} for details.
  *
@@ -242,6 +258,9 @@ export const searchWiring = createWiring({
     setUrlParams,
     saveOriginWire,
   },
+  PartialResultsChanged: {
+    fetchAndSavePartialResultsEnrichmentWire,
+  },
   UserAcceptedAQuery: {
     setSearchQuery,
     saveOriginWire,
@@ -279,6 +298,7 @@ export const searchWiring = createWiring({
   },
   ResultsChanged: {
     resetAppending,
+    fetchAndSaveResultsEnrichmentWire,
   },
   ReloadSearchRequested: {
     resetStateForReloadWire,

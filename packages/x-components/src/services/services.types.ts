@@ -1,3 +1,4 @@
+import type { Result } from '@empathyco/x-types'
 import type { ArrowKey } from '../utils/types'
 
 /**
@@ -95,4 +96,26 @@ export type TransitionStates<SomeStatus extends string, SomeEvent extends string
 export interface Machine<SomeStatus extends string, SomeEvent extends string> {
   initial: SomeStatus
   states: TransitionStates<SomeStatus, SomeEvent>
+}
+
+/**
+ * Service to handle the enrichment of the results.
+ *
+ * @public
+ */
+export interface ResultsEnrichmentService {
+  /**
+   * Fetches the enrichment results.
+   *
+   * @param results - The results to fetch the enrichment results for.
+   */
+  fetchResults: (results: Result[]) => Promise<any[]>
+
+  /**
+   * Updates the results with the enrichment results. Updates via mutation.
+   *
+   * @param results - The results to update.
+   * @param enrichmentResults - The enrichment results to update the results with.
+   */
+  updateResults: (results: Result[], enrichmentResults: any[]) => void
 }

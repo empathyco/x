@@ -15,7 +15,7 @@ export const fetchAndSaveAiSuggestionsSearch: AiXStoreModule['actions']['fetchAn
     if (!request) {
       return
     }
-    commit('setSuggestionsSearchLoading', true)
+    commit('setSuggestionsSearchStatus', 'loading')
 
     return XPlugin.adapter
       .aiSuggestionsSearch(request)
@@ -28,6 +28,6 @@ export const fetchAndSaveAiSuggestionsSearch: AiXStoreModule['actions']['fetchAn
         console.error(error)
       })
       .finally(() => {
-        commit('setSuggestionsSearchLoading', false)
+        commit('setSuggestionsSearchStatus', 'success')
       })
   }

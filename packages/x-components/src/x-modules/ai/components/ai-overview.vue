@@ -269,7 +269,7 @@ export default defineComponent({
       suggestionText,
       responseText,
       suggestionsSearch,
-      suggestionsLoading,
+      suggestionsStatus,
       tagging,
       isNoResults,
       queries,
@@ -281,6 +281,10 @@ export default defineComponent({
     const expanded = ref(false)
     const shouldAnimateSuggestion = ref(true)
     const parsedResponseText = computed(() => marked.parse(responseText.value))
+
+    const suggestionsLoading = computed(
+      () => suggestionsStatus.value !== 'success' && suggestionsStatus.value !== 'error',
+    )
 
     const buttonText = computed(() => (expanded.value ? props.collapseText : props.expandText))
 
@@ -299,7 +303,7 @@ export default defineComponent({
 
     /* Expand AIOverview programmatically when the `autoExpandInSearchNoResults` prop is active,
     the request for suggestions has ended; there are queries in AI and no-results in search. */
-    watch([suggestionsLoading, () => $x.noResults], () => {
+    watch([suggestionsStatus, () => $x.noResults], () => {
       if (
         props.autoExpandInSearchNoResults &&
         !suggestionsLoading.value &&

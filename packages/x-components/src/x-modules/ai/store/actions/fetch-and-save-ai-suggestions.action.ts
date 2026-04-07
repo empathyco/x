@@ -38,7 +38,7 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
     if (!request) {
       return
     }
-    commit('setSuggestionsLoading', true)
+    commit('setSuggestionsStatus', 'loading')
 
     return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
       if (status !== 200) {
@@ -81,7 +81,7 @@ function readAnswer(
     .read()
     .then(({ value, done }) => {
       if (done) {
-        commit('setSuggestionsLoading', false)
+        commit('setSuggestionsStatus', 'success')
         return
       }
 
@@ -116,7 +116,7 @@ function readAnswer(
       readAnswer(reader, commit)
     })
     .catch((error: { code: number }) => {
-      commit('setSuggestionsLoading', false)
+      commit('setSuggestionsStatus', 'error')
       // AbortError code === 20
       if (error.code !== 20) {
         console.error(error)

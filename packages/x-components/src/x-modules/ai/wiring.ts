@@ -1,3 +1,4 @@
+import type { InternalSearchResponse } from '../search/index'
 import {
   createWiring,
   filterTruthyPayload,
@@ -20,11 +21,14 @@ const setUrlParamsWire = wireDispatch('setUrlParams')
 /** Sets the AI state `params`. */
 const setExtraParamsWire = wireCommit('setParams')
 
-/** Sets the AI state `query`. */
-const setAiQueryWire = wireCommit('setQuery')
+/** Resets the AI state `query`. */
+const resetAiQueryWire = wireCommit('setQuery', '')
 
-/** Sets the AI state `query` with the selectedQueryPreview's query. */
-const setAiQueryFromPreviewWire = wireCommit('setQuery', ({ eventPayload: { query } }) => query)
+/** Sets the AI state `query`. */
+const setAiQueryWire = wireCommit(
+  'setQuery',
+  ({ eventPayload: { request } }: { eventPayload: InternalSearchResponse }) => request.query,
+)
 
 /** Fetches the AI suggestions streaming response. */
 const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
@@ -49,6 +53,15 @@ const saveAiOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 /** Sets the AI state `selectedFilters`. */
 const setSelectedFiltersWire = wireCommit('setSelectedFilters')
 
+/** Resets the AI state `searchTotalResults`. */
+const resetSearchTotalResultsWire = wireCommit('setSearchTotalResults', 0)
+
+/** Sets the AI state `searchTotalResults`. */
+const setSearchTotalResultsWire = wireCommit(
+  'setSearchTotalResults',
+  ({ eventPayload }: { eventPayload: { totalResults: number } }) => eventPayload.totalResults,
+)
+
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
  *
@@ -61,14 +74,9 @@ export const aiWiring = createWiring({
   ExtraParamsChanged: {
     setExtraParamsWire,
   },
-  UserAcceptedAQuery: {
-    setAiQueryWire,
-  },
-  UserAcceptedAQueryPreview: {
-    setAiQueryFromPreviewWire,
-  },
   UserClearedQuery: {
-    setAiQueryWire,
+    resetAiQueryWire,
+    resetSearchTotalResultsWire,
   },
   AiSuggestionsRequestUpdated: {
     resetAiStateWire,
@@ -88,5 +96,9 @@ export const aiWiring = createWiring({
   },
   AiComponentMounted: {
     saveAiOriginWire,
+  },
+  SearchResponseChanged: {
+    setAiQueryWire,
+    setSearchTotalResultsWire,
   },
 })

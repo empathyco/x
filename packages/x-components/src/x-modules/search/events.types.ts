@@ -1,6 +1,7 @@
 import type {
   Banner,
   Facet,
+  PartialResult,
   Promoted,
   Redirection,
   Result,
@@ -26,6 +27,11 @@ export interface SearchXEvents {
    * Payload: The new page number.
    */
   PageChanged: number
+  /**
+   * Partial results have changed.
+   * Payload: The new {@link @empathyco/x-types#PartialResult | partial results}.
+   */
+  PartialResultsChanged: PartialResult[]
   /**
    * Reload the current search has been requested.
    */

@@ -1,3 +1,5 @@
+export * from './fetch-and-save-partial-results-enrichment.action'
+export * from './fetch-and-save-results-enrichment.action'
 export * from './fetch-and-save-search-response.action'
 export * from './fetch-search-response.action'
 export * from './increase-page-apending-results.action'

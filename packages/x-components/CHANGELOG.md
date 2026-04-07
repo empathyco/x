@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.235](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.234...@empathyco/x-components@6.0.0-alpha.235) (2026-04-06)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.234](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.233...@empathyco/x-components@6.0.0-alpha.234) (2026-04-06)
+
+### ⚠ BREAKING CHANGES
+
+* **ai:** The AI module now uses RequestStatus type instead of boolean loading states. Users should:
+* Update from `suggestionsLoading: boolean` to `suggestionsStatus: RequestStatus`.
+* Update from `setSuggestionsSearchLoading: boolean` to `setSuggestionsSearchStatus: RequestStatus`.
+* Adjust computed properties accordingly.
+
+### Code Refactoring
+
+* **ai:** replace boolean loading states with RequestStatus type (#2068)
+
+
+## [6.0.0-alpha.233](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.232...@empathyco/x-components@6.0.0-alpha.233) (2026-04-02)
+
+### Features
+
+* define result enrichment for Results, PartialResults and Recommendations (#2065)
+
+
+## [6.0.0-alpha.232](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.231...@empathyco/x-components@6.0.0-alpha.232) (2026-04-01)
+
+### Bug Fixes
+
+* wait for search response before triggering AI requests (#2067)
+
+
+## [6.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.230...@empathyco/x-components@6.0.0-alpha.231) (2026-04-01)
+
+### Features
+
+* trigger ai requests only in low and no results scenarios (#2066)
+
+
 ## [6.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.229...@empathyco/x-components@6.0.0-alpha.230) (2026-03-30)
 
 ### Features

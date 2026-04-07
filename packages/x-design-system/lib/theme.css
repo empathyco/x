@@ -99,9 +99,9 @@
   --leading-lg: 1.8;
   --leading-default: auto;
 
-  --screen-tablet: 744px;
-  --screen-desktop: 1280px;
-  --screen-large: 2560px;
+  --breakpoint-tablet: 744px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-large: 2560px;
 
   --spacing-0: 0px;
   --spacing-1: 1px;

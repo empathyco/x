@@ -1,8 +1,9 @@
 import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
-import type { QueryState } from '../../../store'
-import type { AiXStoreModule } from './types'
+import type { RequestStatus } from '../../../store/utils/status-store.utils'
+import type { AiState, AiXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
+import { setQuery } from '../../../store/utils/query.utils'
 import { groupItemsBy } from '../../../utils/array'
 import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import { fetchAndSaveAiSuggestionsSearch } from './actions/fetch-and-save-ai-suggestions-search.action'
@@ -25,10 +26,13 @@ export const aiXStoreModule: AiXStoreModule = {
     ...resettableAiState(),
     selectedFilters: {},
     query: '',
-    config: {},
+    config: {
+      lowResultsThreshold: 50,
+    },
     params: {},
     origin: null,
     relatedTags: [],
+    searchTotalResults: 0,
   }),
   getters: {
     suggestionsRequest,
@@ -53,15 +57,13 @@ export const aiXStoreModule: AiXStoreModule = {
     setSuggestionsSearch: (state, suggestionsSearch: AiSuggestionSearch[]) => {
       state.suggestionsSearch = suggestionsSearch
     },
-    setSuggestionsLoading: (state, value) => {
-      state.suggestionsLoading = value
+    setSuggestionsStatus: (state, status: RequestStatus) => {
+      state.suggestionsStatus = status
     },
-    setSuggestionsSearchLoading: (state, value) => {
-      state.suggestionsSearchLoading = value
+    setSuggestionsSearchStatus: (state, status: RequestStatus) => {
+      state.suggestionsSearchStatus = status
     },
-    setQuery: (state: QueryState, query: string) => {
-      state.query = query
-    },
+    setQuery,
     setParams(state, params) {
       state.params = params
     },
@@ -81,6 +83,9 @@ export const aiXStoreModule: AiXStoreModule = {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
         isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
       )
+    },
+    setSearchTotalResults(state, totalResults) {
+      state.searchTotalResults = totalResults
     },
     setConfig,
     mergeConfig,
@@ -108,8 +113,8 @@ function resettableAiState() {
     queries: [],
     tagging: undefined,
     suggestionsSearch: [],
-    suggestionsLoading: false,
-    suggestionsSearchLoading: false,
+    suggestionsStatus: 'initial' as RequestStatus,
+    suggestionsSearchStatus: 'initial' as RequestStatus,
     isNoResults: true,
   }
 }

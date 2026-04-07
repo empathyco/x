@@ -93,7 +93,7 @@ describe('testing SlidingPanel component', () => {
       slots: { default: '<div style="width: 1000px">Content</div>' },
     })
 
-    const vm = wrapper.vm as any
+    const vm = wrapper.vm
 
     // Initial x is 0; width mocked to 100 and default factor 0.7
     await getRightButton().trigger('click')
@@ -119,8 +119,8 @@ describe('testing SlidingPanel component', () => {
     expect(getRoot().classes()).toContain('xds:sliding-panel-at-start')
 
     // Change arrived state to end
-    ;(wrapper.vm as any).arrivedState.left = false
-    ;(wrapper.vm as any).arrivedState.right = true
+    wrapper.vm.arrivedState.left = false
+    wrapper.vm.arrivedState.right = true
     await nextTick()
 
     expect(getRoot().classes()).not.toContain('xds:sliding-panel-at-start')
@@ -145,12 +145,12 @@ describe('testing SlidingPanel component', () => {
       resetOnContentChange: true,
     })
 
-    ;(wrapper.vm as any).xScroll = 50
+    wrapper.vm.xScroll = 50
     await nextTick()
 
     await triggerMutation()
 
-    expect((wrapper.vm as any).xScroll).toBe(0)
+    expect(wrapper.vm.xScroll).toBe(0)
   })
 
   it('calls measure via whenever when the panel becomes visible', () => {
