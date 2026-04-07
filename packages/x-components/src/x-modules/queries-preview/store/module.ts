@@ -1,6 +1,8 @@
 import type { QueriesPreviewXStoreModule } from './types'
+import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { getHashFromQueryPreviewItem } from '../utils/get-hash-from-query-preview'
+import { fetchAndSaveQueryPreviewResultsEnrichment } from './actions/fetch-and-save-query-preview-results-enrichment.action'
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action'
 import { fetchQueryPreview } from './actions/fetch-query-preview.action'
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter'
@@ -64,9 +66,19 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
         Object.assign(queryPreviewResult, result)
       }
     },
+    updateQueryPreviewResultsFromEnrichment(state, { queryPreviewItem, enrichmentResults }) {
+      const queryPreview = state.queriesPreview[getHashFromQueryPreviewItem(queryPreviewItem)]
+      if (queryPreview) {
+        DefaultResultsEnrichmentService.instance.updateResults(
+          queryPreview.results,
+          enrichmentResults,
+        )
+      }
+    },
   },
   actions: {
     fetchQueryPreview,
     fetchAndSaveQueryPreview,
+    fetchAndSaveQueryPreviewResultsEnrichment,
   },
 }
