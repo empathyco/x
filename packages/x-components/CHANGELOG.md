@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.237](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.236...@empathyco/x-components@6.0.0-alpha.237) (2026-04-08)
+
+### Features
+
+* **icons:** add AISpinnerIcon component (#2075)
+
+
 ## [6.0.0-alpha.236](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.235...@empathyco/x-components@6.0.0-alpha.236) (2026-04-07)
 
 ### Features
