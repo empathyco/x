@@ -1,3 +1,4 @@
+export { default as AISpinnerIcon } from './ai-spinner-icon.vue'
 export { default as AIStarIcon } from './ai-star.vue'
 export { default as ArrowDownIcon } from './arrow-down.vue'
 export { default as ArrowLeftIcon } from './arrow-left.vue'
