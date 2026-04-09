@@ -1,7 +1,5 @@
 @import 'tailwindcss' prefix(xds);
 
-@import './components/index.css';
+@import './components.css';
 @import './theme.css';
 @import './variants.css';
-
-@source './**/*.{js,jsx,ts,tsx}';

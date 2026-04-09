@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-design-system",
   "type": "module",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Empathy X Tailwind Design System",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -50,7 +50,7 @@
     "@vue/tsconfig": "0.9.1",
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
+    "vite": "7.3.2",
     "vite-svg-loader": "5.1.1",
     "vue": "3.5.32",
     "vue-tsc": "3.2.6"
