@@ -69,14 +69,10 @@ Apply design system classes using the `xds:` prefix:
 
 ```html
 <!-- Button -->
-<button class="xds:button xds:button-primary">
-  Click me
-</button>
+<button class="xds:button-primary xds:button">Click me</button>
 
 <!-- Badge -->
-<span class="xds:badge xds:badge-accent">
-  New
-</span>
+<span class="xds:badge xds:badge-accent"> New </span>
 
 <!-- Input -->
 <input type="text" class="xds:input" placeholder="Search..." />
@@ -98,26 +94,26 @@ Access theme variables directly in your CSS:
 
 The design system includes the following pre-styled components:
 
-| Component | Description |
-|-----------|-------------|
-| **Button** | Primary, secondary, and tertiary button styles |
-| **Button Group** | Grouped button layouts |
-| **Badge** | Status and notification badges |
-| **Input** | Text input field styles |
-| **Input Group** | Grouped input layouts |
-| **Tag** | Removable tags and chips |
-| **Icon** | Icon container and sizing |
-| **Picture** | Responsive image component |
-| **Typography** | Heading and text styles |
-| **Highlight** | Text highlighting styles |
-| **Suggestion** | Search suggestion items |
-| **Suggestion Group** | Grouped suggestions |
-| **Filter Facet** | Filtering UI components |
-| **Progress Bar** | Loading and progress indicators |
-| **Scroll** | Custom scrollbar styles |
-| **Sliding Panel** | Side panel and drawer |
-| **Attach** | File attachment styles |
-| **Layout** | Grid and container layouts |
+| Component            | Description                                    |
+| -------------------- | ---------------------------------------------- |
+| **Button**           | Primary, secondary, and tertiary button styles |
+| **Button Group**     | Grouped button layouts                         |
+| **Badge**            | Status and notification badges                 |
+| **Input**            | Text input field styles                        |
+| **Input Group**      | Grouped input layouts                          |
+| **Tag**              | Removable tags and chips                       |
+| **Icon**             | Icon container and sizing                      |
+| **Picture**          | Responsive image component                     |
+| **Typography**       | Heading and text styles                        |
+| **Highlight**        | Text highlighting styles                       |
+| **Suggestion**       | Search suggestion items                        |
+| **Suggestion Group** | Grouped suggestions                            |
+| **Filter Facet**     | Filtering UI components                        |
+| **Progress Bar**     | Loading and progress indicators                |
+| **Scroll**           | Custom scrollbar styles                        |
+| **Sliding Panel**    | Side panel and drawer                          |
+| **Attach**           | File attachment styles                         |
+| **Layout**           | Grid and container layouts                     |
 
 ## 🎨 Theme
 
