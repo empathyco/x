@@ -14,7 +14,7 @@ import { createOrigin } from '../../utils/index'
 import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory'
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators'
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory'
-import { filter, filterTruthyPayload, mapWire } from '../../wiring/wires.operators'
+import { filter, mapWire } from '../../wiring/wires.operators'
 import { createWiring } from '../../wiring/wiring.utils'
 import { DefaultExternalTaggingService } from './service/external-tagging.service'
 
@@ -293,27 +293,6 @@ export const trackNoResultsQueryWithSemanticsWireDebounced =
   trackNoResultsQueryWithFallbackWireDebounced
 
 /**
- * Performs a track of clicking the AI overview expand button when the playload (expanded) is false.
- *
- * @public
- */
-export const trackAiOverviewButtonClickedWire = filterTruthyPayload(
-  wireDispatch('track', ({ metadata: { toolingDisplayClick, suggestionText } }) => {
-    const taggingInfo = {
-      ...(toolingDisplayClick as TaggingRequest),
-      params: {
-        ...(toolingDisplayClick as TaggingRequest).params,
-        productId: 'EXPAND',
-        title: suggestionText as string,
-        url: 'none',
-      },
-    }
-
-    return taggingInfo
-  }),
-)
-
-/**
  * Factory helper to create a wire for the track of the display click.
  *
  * @param property - Key of the tagging object to track.
@@ -528,9 +507,6 @@ export const taggingWiring = createWiring({
   },
   AiSuggestionsSearchChanged: {
     trackAiSuggestionsSearchWire,
-  },
-  UserClickedAiOverviewExpandButton: {
-    trackAiOverviewButtonClickedWire,
   },
   UserClickedAnAiOverviewResult: {
     trackToolingDisplayClickedWire,
