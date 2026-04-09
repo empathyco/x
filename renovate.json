@@ -6,19 +6,6 @@
       "matchPackageNames": ["vuex"],
       "allowedVersions": "< 4.1",
       "description": "4.1 has a bug: https://github.com/empathyco/motive-x/pull/640#issuecomment-2714822157"
-    },
-    {
-      "extends": ["monorepo:react"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["/^@types/react*/"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["@empathyco/x-tailwindcss"],
-      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+-alpha\\.\\d+$/",
-      "description": "Only allow pure alpha versions for x-tailwindcss, excluding RCs and other variants"
     }
   ]
 }

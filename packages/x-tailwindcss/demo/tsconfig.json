@@ -1,8 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "rootDir": "src",
-  "compilerOptions": {
-    "experimentalDecorators": true
-  },
-  "include": ["./src/**/*.ts", "./src/**/*.vue", "vite.config.ts", "tailwindcss-nesting.d.ts"]
-}

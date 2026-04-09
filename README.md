@@ -35,7 +35,7 @@ supported by Interface X.
 - **Easy-to-add interface layer**. Installing and setting up the interface is simple: just add a few
   lines of code.
 - **Use it anywhere.** A search interface layer that is easy to integrate into any website, with X
-  Components ready to use in your Vue.js and React projects.
+  Components ready to use in your Vue.js projects.
 - **Interoperable**. Interface X can adapt and work independently with any search service endpoints!
 - **Fully customizable experience**. Choose the configuration components, layouts, styles, and
   behaviors to craft exclusive search and discovery experiences.
@@ -76,65 +76,6 @@ Empathy’s eDocs documentation portal.
 - [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
-
-## Roadmap
-
-We are working on many key features to consolidate Interface X, including these milestones:
-
-- Publish **extensive documentation** covering functional and technical aspects.
-  [![Release Docs](https://img.shields.io/badge/Released-August%202021-brightgreen)](https://docs.empathy.co)
-- Support
-  **[URL management](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/)**
-  to set X&nbsp;Components state based on URL parameters.
-  [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/)
-- Create a
-  **[tagging module](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)**
-  to track session interactions without storing PII.
-  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)
-- Create the **[x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter)** to connect
-  to any Search API based on schemas
-  [![Release Docs](https://img.shields.io/badge/Released-April%202022-brightgreen)](https://docs.empathy.co)
-- **[My History](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/my-history.html)**
-  feature, Control your search history and have access to previous intentions.
-  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://empathy.co/blog/development-journey-my-history/)
-- Use
-  **[accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)**
-  to improve components a11y.
-  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://docs.empathy.co)
-- **[Next Queries Preview](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/next-queries/x-components.next-query-preview.html)**:
-  A set of results that matches searches that other shoppers performed after the current to be show
-  within the SERP. This helps the shopper to discover interesting products after the search action.
-  This represents Empathy sciences for **Inspiration** and **Cross-Selling**.
-  [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
-- **[Query Results Preview](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/queries-preview/x-components.query-preview.html)**:
-  Provides a list of results matching a query to be inserted before the shopper starts typing as
-  inspiration, in the predictive layer for results matching the current query, or as inspiration in
-  a no results scenario. If you are facing an Archetype type integration,
-  [this is how you set the query preview source of data](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview).
-  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/queries-preview/x-components.query-preview.html)
-- **Search box power-ups** such as
-  [animated suggestions](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
-  or [forbidden character](https://github.com/empathyco/x/pull/433) set to prevent code injection.
-  [![Release Docs](https://img.shields.io/badge/Released-January%202023-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
-- Create the **x-bus**, a library that provides an event bus to help with event orchestration.
-  [![Release Docs](https://img.shields.io/badge/Released-February%202023-brightgreen)](https://github.com/empathyco/x/tree/main/packages/x-bus)
-- **XDS: Interface X Design System Builder** is a Tailwind plugin thought to generate a new design
-  system for every customer, for every search experience look&feel. XDS brings the concept of
-  components to UI as X Components do with functional behavior.
-  [![Release Docs](https://img.shields.io/badge/Released-April%202023-brightgreen)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
-- **[Vectorized Recommendations](https://docs.empathy.co/explore-empathy-platform/features/vector-recommendations-overview.html)**:
-  These recommendations are relevant product suggestions based on query semantic affinities. They
-  usually show up as product carousels to amaze shoppers with product discovery inspirations.
-- **Filtering Strategies**: Added filtering capabilities to History Queries and Brand
-  Recommendations
-  [![Release Docs](https://img.shields.io/badge/Released-October%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/history-queries.html)
-- **Experience Controls**: Add capability of loading configurations from an external service
-  [![Release Docs](https://img.shields.io/badge/Released-November%202023-brightgreen)](https://vuejs.org/)
-- **Vue 3 Migration**.
-  [![Release Docs](https://img.shields.io/badge/Released-November%202024-brightgreen)](https://vuejs.org/)
-- **Network Request failure transparency**.
-- **Project generator CLI**.
-- **Observability**: Error capturing & monitoring.
 
 ## How to install
 
