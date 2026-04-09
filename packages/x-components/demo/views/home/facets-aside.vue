@@ -16,7 +16,7 @@
       <template #editable-number-range-facet="{ facet }">
         <BaseHeaderTogglePanel :data-test="facet.label" class="xds:border-0 xds:border-neutral-10">
           <template #header-content>
-            {{ facet.label }}
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
@@ -28,7 +28,7 @@
       <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            {{ facet.label }}
+            <span class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
@@ -48,7 +48,7 @@
       <template #number-range-facet="{ facet }">
         <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            <span :data-test="facet.label">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
@@ -87,7 +87,7 @@
       <template #default="{ facet }">
         <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:py-8 xds:gap-8">
           <template #header-content>
-            <span :data-test="facet.label">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
             <ChevronDownIcon class="xds:ml-auto" />
           </template>
