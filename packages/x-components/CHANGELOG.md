@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.239](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.238...@empathyco/x-components@6.0.0-alpha.239) (2026-04-13)
+
+### ⚠ BREAKING CHANGES
+
+* **x-components:** migrate `x-components` package from deprecated `x-tailwindcss` to the new `x-design-system` and Tailwind 3 to 4. That implies migrating the prefix from `x-` to `xds:`. Keeping `x-` for BEM conventions.
+
+### Features
+
+* **x-components:** integrate `xds` with `x-components` (#1993)
+
+
 ## [6.0.0-alpha.238](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.237...@empathyco/x-components@6.0.0-alpha.238) (2026-04-10)
 
 ### Bug Fixes
