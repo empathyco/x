@@ -157,7 +157,7 @@ importers:
         specifier: 7.29.2
         version: 7.29.2(@babel/core@7.29.0)
       '@empathyco/x-design-system':
-        specifier: 0.1.0-alpha.3
+        specifier: 1.0.0-alpha.0
         version: link:../x-design-system
       '@microsoft/api-documenter':
         specifier: 7.29.9
