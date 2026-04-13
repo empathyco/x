@@ -1,7 +1,7 @@
 <template>
   <button
     ref="partialButtonEl"
-    class="x-partial-query-button x-button"
+    class="x-partial-query-button xds:button"
     data-test="partial-query-button"
     @click="emitEvents"
   >

@@ -15,7 +15,7 @@
         <PopularSearch
           v-slot="popularSearchScope"
           :suggestion="baseScope.suggestion"
-          class="x-popular-searches__suggestion x-suggestion"
+          class="x-popular-searches__suggestion xds:suggestion"
         >
           <!-- eslint-disable max-len -->
           <!--

@@ -13,7 +13,7 @@
         </p>
       </slot>
       <BaseEventButton
-        class="x-button"
+        class="xds:button"
         :class="buttonClasses"
         :events="events"
         data-test="load-content"

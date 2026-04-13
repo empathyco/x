@@ -242,10 +242,7 @@ export class XPriorityBus<
           map<
             SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,
             EventPayload<SomeEvents, SomeEvent>
-          >(
-            // eslint-disable-next-line ts/no-unsafe-return
-            value => value.eventPayload,
-          ),
+          >(value => value.eventPayload),
         )
   }
 

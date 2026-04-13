@@ -1,10 +1,10 @@
 <template>
   <BaseKeyboardNavigation>
     <Empathize :animation="empathizeAnimation">
-      <div class="x-flex x-gap-24">
+      <div class="xds:flex xds:gap-24">
         <PopularSearches :max-items-to-render="10" />
         <HistoryQueries :max-items-to-render="controls.historyQueries.maxItemsToRender" />
-        <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
+        <ClearHistoryQueries class="xds:button-ghost">
           <CrossTinyIcon />
           <span>Clear previous searches</span>
         </ClearHistoryQueries>
@@ -14,9 +14,9 @@
         <!-- IdentifierResults -->
         <IdentifierResults v-slot="{ identifierResult }">
           <BaseResultLink :result="identifierResult">
-            <article class="x-suggestion">
+            <article class="xds:suggestion">
               <IdentifierResult :result="identifierResult" />
-              <span class="x-truncate" data-test="result-text">
+              <span data-test="result-text">
                 {{ identifierResult.name }}
               </span>
             </article>
@@ -27,7 +27,7 @@
   </BaseKeyboardNavigation>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { AnimateScale, BaseKeyboardNavigation, BaseResultLink, CrossTinyIcon } from '@x/components'
 import { Empathize } from '@x/x-modules/empathize'
 import { ClearHistoryQueries, HistoryQueries } from '@x/x-modules/history-queries'
@@ -35,34 +35,12 @@ import { IdentifierResult, IdentifierResults } from '@x/x-modules/identifier-res
 import { NextQueries } from '@x/x-modules/next-queries'
 import { PopularSearches } from '@x/x-modules/popular-searches'
 import { QuerySuggestions } from '@x/x-modules/query-suggestions'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'PredictiveLayer',
-  components: {
-    BaseKeyboardNavigation,
-    BaseResultLink,
-    ClearHistoryQueries,
-    CrossTinyIcon,
-    Empathize,
-    HistoryQueries,
-    IdentifierResult,
-    IdentifierResults,
-    NextQueries,
-    PopularSearches,
-    QuerySuggestions,
-  },
-  props: {
-    controls: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const empathizeAnimation = AnimateScale
-    return {
-      empathizeAnimation,
-    }
+defineProps({
+  controls: {
+    type: Object,
+    required: true,
   },
 })
+const empathizeAnimation = AnimateScale
 </script>

@@ -18,7 +18,7 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot v-if="hasSlot(slotName)" :name="slotName" :filter="selectedFilter">
-          <span class="x-tag">{{ (selectedFilter as BooleanFilter).label }}</span>
+          <span class="xds:tag">{{ (selectedFilter as BooleanFilter).label }}</span>
         </slot>
 
         <!--

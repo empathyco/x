@@ -1,37 +1,34 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-24">
+  <div class="xds:flex xds:flex-col xds:gap-24">
     <FacetsProvider :facets="staticFacets" group-id="price" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" :css-classes="['x-facet-filter-success']">
+        <SimpleFilter :filter="filter" :css-classes="['xds:filter-facet-success']">
           <template #label>{{ filter.label ?? filter.id }}</template>
         </SimpleFilter>
       </template>
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-gap-24">
+    <Facets class="xds:gap-24">
       <!--  Editable Number Price Range Facet    -->
       <template #editable-number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel
-          :data-test="facet.label"
-          class="x-border-0 x-border-b x-border-neutral-10"
-        >
+        <BaseHeaderTogglePanel :data-test="facet.label" class="xds:border-0 xds:border-neutral-10">
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
-          <EditableNumberRangeFilter :filter="facet.filters[0]" />
+          <EditableNumberRangeFilter :filter="facet.filters[0]" inputs-class="xds:w-full" />
         </BaseHeaderTogglePanel>
       </template>
 
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            <span class="x-truncate">{{ facet.label }}</span>
+            <span class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
@@ -40,7 +37,7 @@
               <HierarchicalFilter
                 :filter="filter"
                 :data-test="`${facet.label}-filter`"
-                children-filters-class="x-ml-16"
+                children-filters-class="xds:ml-16"
               />
             </FiltersList>
           </SlicedFilters>
@@ -49,9 +46,9 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-justify-between x-py-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:justify-between xds:py-8">
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
@@ -88,11 +85,11 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel header-class="x-w-full x-flex x-py-8 x-gap-8">
+        <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:py-8 xds:gap-8">
           <template #header-content>
-            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDownIcon class="x-ml-auto" />
+            <ChevronDownIcon class="xds:ml-auto" />
           </template>
 
           <!-- Filters -->
@@ -123,14 +120,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type {
   EditableNumberRangeFacet,
   EditableNumberRangeFilter as EditableNumberRangeFilterModel,
   Facet,
   SimpleFilter as SimpleFilterModel,
 } from '@empathyco/x-types'
-import type { Ref } from 'vue'
+import type { PropType } from 'vue'
 import type { HomeControls } from './types'
 import { BaseHeaderTogglePanel, BasePriceFilterLabel, ChevronDownIcon } from '@x/components'
 import {
@@ -148,65 +145,44 @@ import {
   SlicedFilters,
   SortedFilters,
 } from '@x/x-modules/facets'
-import { defineComponent, inject } from 'vue'
 
-export default defineComponent({
-  // eslint-disable-next-line vue/no-reserved-component-names
-  name: 'Aside',
-  components: {
-    BaseHeaderTogglePanel,
-    BasePriceFilterLabel,
-    ChevronDownIcon,
-    ClearFilters,
-    EditableNumberRangeFilter,
-    ExcludeFiltersWithNoResults,
-    Facets,
-    FacetsProvider,
-    FiltersList,
-    FiltersSearch,
-    HierarchicalFilter,
-    SimpleFilter,
-    SelectedFilters,
-    SelectedFiltersList,
-    SlicedFilters,
-    SortedFilters,
-  },
-  setup() {
-    const controls = inject<Ref<HomeControls>>('controls')!
-    const editableNumberRangeFilter: EditableNumberRangeFilterModel = {
-      facetId: 'salePrice',
-      selected: false,
-      id: 'price:0-*',
-      modelName: 'EditableNumberRangeFilter',
-      range: {
-        min: null,
-        max: null,
-      },
-    }
-    const staticFacets: Facet[] = [
-      {
-        modelName: 'SimpleFacet',
-        label: 'Offer',
-        id: 'offer',
-        filters: [
-          {
-            facetId: 'offer',
-            modelName: 'SimpleFilter',
-            id: 'price:0-10',
-            selected: false,
-            label: 'price:0-10',
-          } as SimpleFilterModel,
-        ],
-      },
-      {
-        modelName: 'EditableNumberRangeFacet',
-        label: 'Price range',
-        id: 'salePrice',
-        filters: [editableNumberRangeFilter],
-      } as EditableNumberRangeFacet,
-    ]
-
-    return { controls, staticFacets }
+defineProps({
+  controls: {
+    type: Object as PropType<HomeControls>,
+    required: true,
   },
 })
+
+const editableNumberRangeFilterItem: EditableNumberRangeFilterModel = {
+  facetId: 'salePrice',
+  selected: false,
+  id: 'price:0-*',
+  modelName: 'EditableNumberRangeFilter',
+  range: {
+    min: null,
+    max: null,
+  },
+}
+const staticFacets: Facet[] = [
+  {
+    modelName: 'SimpleFacet',
+    label: 'Offer',
+    id: 'offer',
+    filters: [
+      {
+        facetId: 'offer',
+        modelName: 'SimpleFilter',
+        id: 'price:0-10',
+        selected: false,
+        label: 'price:0-10',
+      } as SimpleFilterModel,
+    ],
+  },
+  {
+    modelName: 'EditableNumberRangeFacet',
+    label: 'Price range',
+    id: 'salePrice',
+    filters: [editableNumberRangeFilterItem],
+  } as EditableNumberRangeFacet,
+]
 </script>

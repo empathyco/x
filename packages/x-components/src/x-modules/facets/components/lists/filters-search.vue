@@ -11,7 +11,7 @@
       <input
         :value="query"
         type="search"
-        class="x-filters-search__input x-input"
+        class="x-filters-search__input xds:input"
         data-test="filters-search-input"
         aria-label="search into the filter values"
         @input="setQuery(($event?.target as HTMLInputElement)?.value)"

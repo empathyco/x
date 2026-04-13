@@ -8,7 +8,7 @@
     />
     <span
       v-if="hasMatch"
-      class="x-highlight__text x-highlight-text-match"
+      class="x-highlight__text xds:highlight-text-match"
       :class="matchingPartClass"
       data-test="matching-part"
       v-text="matchParts.match"
@@ -114,7 +114,7 @@ export default defineComponent({
     const dynamicCSSClasses = computed(() => {
       const classes = {
         'x-highlight--has-match': hasMatch.value,
-        'x-highlight-text': hasMatch.value,
+        'xds:highlight-text': hasMatch.value,
         [props.matchClass]: hasMatch.value,
       }
       if (props.noMatchClass) {

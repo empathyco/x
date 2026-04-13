@@ -206,7 +206,7 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(getFilterWrapper().classes()).toHaveLength(4)
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-facet-filter',
+        'xds:filter-facet',
         'x-hierarchical-filter',
         'x-hierarchical-filter--is-partially-selected',
         'x-facet-filter--is-partially-selected',
@@ -219,8 +219,8 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(getFilterWrapper().classes()).toHaveLength(6)
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-facet-filter',
-        'x-selected',
+        'xds:filter-facet',
+        'xds:selected',
         'x-hierarchical-filter',
         'x-hierarchical-filter--is-selected',
         'x-hierarchical-filter--is-partially-selected',
@@ -234,7 +234,7 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(getFilterWrapper().classes()).toHaveLength(4)
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-facet-filter',
+        'xds:filter-facet',
         'x-hierarchical-filter',
         'x-hierarchical-filter--is-partially-selected',
         'x-facet-filter--is-partially-selected',
@@ -246,14 +246,14 @@ describe('testing `HierarchicalFilter` component', () => {
     const { getFilterWrapper, mutateFilter, getRootFilter } = render()
 
     expect(getFilterWrapper().classes()).not.toEqual(
-      expect.arrayContaining(['x-selected', 'x-hierarchical-filter--is-selected']),
+      expect.arrayContaining(['xds:selected', 'x-hierarchical-filter--is-selected']),
     )
 
     const filter = getRootFilter()
     await mutateFilter(filter, { selected: true })
 
     expect(getFilterWrapper().classes()).toEqual(
-      expect.arrayContaining(['x-selected', 'x-hierarchical-filter--is-selected']),
+      expect.arrayContaining(['xds:selected', 'x-hierarchical-filter--is-selected']),
     )
   })
 
@@ -334,7 +334,7 @@ describe('testing `HierarchicalFilter` component', () => {
 
       getFiltersWrappers().forEach((filterWrapper, index) => {
         const filter = getFilters()[index]
-        const classes = ['x-facet-filter', 'x-hierarchical-filter']
+        const classes = ['xds:filter-facet', 'x-hierarchical-filter']
         if (partiallySelectedIds.includes(filter.id)) {
           classes.push('x-hierarchical-filter--is-partially-selected')
           classes.push('x-facet-filter--is-partially-selected')
@@ -366,7 +366,7 @@ describe('testing `HierarchicalFilter` component', () => {
       const grandChild0Data = getFilters()[2]
       expect(grandChild0Wrapper.classes()).toHaveLength(2)
       expect(grandChild0Wrapper.classes()).toEqual(
-        expect.arrayContaining(['x-facet-filter', 'x-hierarchical-filter']),
+        expect.arrayContaining(['xds:filter-facet', 'x-hierarchical-filter']),
       )
 
       /* Filters with totalResults===0 should be disabled. */
@@ -374,7 +374,7 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(grandChild0Wrapper.attributes()).toHaveProperty('disabled')
       expect(grandChild0Wrapper.classes()).toHaveLength(2)
       expect(grandChild0Wrapper.classes()).toEqual(
-        expect.arrayContaining(['x-facet-filter', 'x-hierarchical-filter']),
+        expect.arrayContaining(['xds:filter-facet', 'x-hierarchical-filter']),
       )
 
       /* As grand-child-0 is deselected and grand-child-1 selected, child-0 should have partial
@@ -385,8 +385,8 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(child0Wrapper.classes()).toHaveLength(6)
       expect(child0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-facet-filter',
-          'x-selected',
+          'xds:filter-facet',
+          'xds:selected',
           'x-facet-filter--is-partially-selected',
           'x-hierarchical-filter',
           'x-hierarchical-filter--is-selected',
@@ -400,9 +400,9 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(grandChild0Wrapper.classes()).toHaveLength(4)
       expect(grandChild0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-facet-filter',
+          'xds:filter-facet',
           'x-hierarchical-filter',
-          'x-selected',
+          'xds:selected',
           'x-hierarchical-filter--is-selected',
         ]),
       )
@@ -410,8 +410,8 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(child0Wrapper.classes()).toHaveLength(4)
       expect(child0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-facet-filter',
-          'x-selected',
+          'xds:filter-facet',
+          'xds:selected',
           'x-hierarchical-filter',
           'x-hierarchical-filter--is-selected',
         ]),

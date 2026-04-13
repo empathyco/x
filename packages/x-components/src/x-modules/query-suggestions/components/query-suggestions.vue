@@ -15,7 +15,7 @@
         <QuerySuggestion
           v-slot="querySuggestionScope"
           :suggestion="baseScope.suggestion"
-          class="x-query-suggestions__suggestion x-suggestion"
+          class="x-query-suggestions__suggestion xds:suggestion"
         >
           <!-- eslint-disable max-len -->
           <!--

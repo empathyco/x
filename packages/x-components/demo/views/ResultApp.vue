@@ -56,47 +56,25 @@
   </main>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getResultsStub, getSearchResponseStub } from '@x/__stubs__'
 import {
   BaseColumnPickerList,
   BaseRating,
   BaseResultImage,
   BaseVariableColumnGrid,
-  StaggeredFadeAndSlide,
 } from '@x/components'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  components: {
-    BaseColumnPickerList,
-    BaseRating,
-    BaseResultImage,
-    BaseVariableColumnGrid,
-  },
-  setup() {
-    const resultsStub = getResultsStub()
-    const searchResponse = getSearchResponseStub()
-    const searchResponseStub = [
-      ...searchResponse.banners!,
-      ...searchResponse.promoteds!,
-      ...searchResponse.results,
-    ]
-    const resultWithImages = resultsStub[0]
-    const resultWithFailImages = resultsStub[1]
-    const resultWithFailImagesAndOkImages = resultsStub[2]
-
-    return {
-      resultsStub,
-      searchResponse,
-      searchResponseStub,
-      resultWithImages,
-      resultWithFailImages,
-      resultWithFailImagesAndOkImages,
-      fade: StaggeredFadeAndSlide,
-    }
-  },
-})
+const resultsStub = getResultsStub()
+const searchResponse = getSearchResponseStub()
+const searchResponseStub = [
+  ...searchResponse.banners!,
+  ...searchResponse.promoteds!,
+  ...searchResponse.results,
+]
+const resultWithImages = resultsStub[0]
+const resultWithFailImages = resultsStub[1]
+const resultWithFailImagesAndOkImages = resultsStub[2]
 </script>
 
 <style lang="css">

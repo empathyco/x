@@ -1,11 +1,11 @@
 <template>
-  <div class="x-column-picker-list x-button-group" data-test="column-picker-list" role="list">
+  <div class="x-column-picker-list xds:button-group" data-test="column-picker-list" role="list">
     <template
       v-for="({ column, cssClasses, events, isSelected }, index) in columnsWithCssClasses"
       :key="column"
     >
       <BaseEventButton
-        class="x-column-picker-list__button x-button"
+        class="x-column-picker-list__button xds:button"
         :class="[buttonClass, cssClasses]"
         data-test="column-picker-button"
         :aria-pressed="isSelected.toString()"
@@ -35,10 +35,18 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { ColumnPickerItem } from './base-column-picker-list.types'
+import type { VueCSSClasses } from '../../utils/types'
+import type { XEventsTypes } from '../../wiring'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseEventButton from '../base-event-button.vue'
+
+export interface ColumnPickerItem {
+  column: number
+  cssClasses: VueCSSClasses
+  events: Partial<XEventsTypes>
+  isSelected: boolean
+}
 
 /**
  * Column picker list component renders a list of buttons to choose the columns number.
@@ -119,7 +127,7 @@ export default defineComponent({
         column,
         cssClasses: [
           `x-column-picker-list__button--${column}-cols`,
-          { 'x-selected': selectedColumns.value === column },
+          { 'xds:selected': selectedColumns.value === column },
         ],
         isSelected: selectedColumns.value === column,
         events: {
@@ -227,7 +235,7 @@ The `buttonClass` prop can be used to add classes to the buttons.
 
 ```vue live
 <template>
-  <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
+  <BaseColumnPickerList :columns="columns" buttonClass="xds:button-circle" />
 </template>
 
 <script setup>

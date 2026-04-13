@@ -2,7 +2,7 @@
   <component
     :is="animation"
     v-if="isVisible"
-    class="x-input-placeholder x-search-input-placeholder"
+    class="x-search-input-placeholder xds:input-placeholder"
     mode="out-in"
   >
     <span :key="message" data-test="search-input-placeholder">

@@ -40,6 +40,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
 .x-change-height {
   --x-change-height-duration: 0.3s;

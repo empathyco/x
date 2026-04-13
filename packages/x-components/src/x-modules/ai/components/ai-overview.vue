@@ -347,6 +347,7 @@ export default defineComponent({
 .x-ai-overview-toggle-btn-wrapper {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .x-ai-overview-toggle-btn {

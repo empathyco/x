@@ -4,7 +4,7 @@
     <button
       v-if="showAddToCartButton"
       data-test="pdp-add-to-cart-button"
-      class="x-button"
+      class="xds:button"
       @click="addProductToCart"
     >
       Add product to cart

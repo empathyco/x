@@ -45,7 +45,7 @@ export default defineComponent({
      * @internal
      */
     const cssClasses = computed<VueCSSClasses>(() => ({
-      'x-switch--is-selected x-selected': props.modelValue,
+      'x-switch--is-selected xds:selected': props.modelValue,
     }))
 
     /**

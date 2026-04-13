@@ -115,16 +115,16 @@ describe('testing SlidingPanel component', () => {
     })
 
     // Initially mocked as at start
-    expect(getRoot().classes()).not.toContain('x-sliding-panel-at-end')
-    expect(getRoot().classes()).toContain('x-sliding-panel-at-start')
+    expect(getRoot().classes()).not.toContain('xds:sliding-panel-at-end')
+    expect(getRoot().classes()).toContain('xds:sliding-panel-at-start')
 
     // Change arrived state to end
     wrapper.vm.arrivedState.left = false
     wrapper.vm.arrivedState.right = true
     await nextTick()
 
-    expect(getRoot().classes()).not.toContain('x-sliding-panel-at-start')
-    expect(getRoot().classes()).toContain('x-sliding-panel-at-end')
+    expect(getRoot().classes()).not.toContain('xds:sliding-panel-at-start')
+    expect(getRoot().classes()).toContain('xds:sliding-panel-at-end')
   })
 
   it('applies buttonClass and scrollContainerClass props', () => {

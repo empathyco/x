@@ -1,7 +1,7 @@
 <template>
   <div
     ref="baseScrollEl"
-    class="x-scroll x-base-scroll"
+    class="x-base-scroll xds:scroll"
     data-test="base-scroll"
     @scroll="throttledStoreScrollData"
   >

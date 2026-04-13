@@ -16,7 +16,7 @@
           :suggestion="baseScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
-          suggestion-class="x-suggestion"
+          suggestion-class="xds:suggestion"
         >
           <template #default="historyQueryScope">
             <!-- eslint-disable max-len -->

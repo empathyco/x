@@ -1,9 +1,9 @@
 <template>
-  <div v-if="slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
+  <div v-if="slots.default" class="xds:sliding-panel" :class="cssClasses" data-test="sliding-panel">
     <div
       ref="scrollContainerRef"
       :class="scrollContainerClass"
-      class="x-sliding-panel__scroll"
+      class="x-sliding-panel__scroll xds:sliding-panel-fade"
       data-test="sliding-panel-scroll"
     >
       <!-- @slot (Required) Sliding panel content -->
@@ -12,7 +12,7 @@
     <slot name="sliding-panel-addons" :arrived-state="arrivedState" :scroll="xScroll" />
     <template v-if="showButtons">
       <button
-        class="x-sliding-panel__button x-button x-sliding-panel-button-left"
+        class="xds:sliding-panel-button xds:sliding-panel-button-left"
         :class="buttonClass"
         data-test="sliding-panel-left-button"
         @click="xScroll -= slotContainerWidth * scrollFactor"
@@ -21,7 +21,7 @@
         <slot name="sliding-panel-left-button">ᐸ</slot>
       </button>
       <button
-        class="x-sliding-panel__button x-button x-sliding-panel-button-right"
+        class="xds:sliding-panel-button xds:sliding-panel-button-right"
         :class="buttonClass"
         data-test="sliding-panel-right-button"
         @click="xScroll += slotContainerWidth * scrollFactor"
@@ -97,8 +97,8 @@ export default defineComponent({
 
     /** CSS classes to apply based on the scroll position. */
     const cssClasses = computed(() => ({
-      'x-sliding-panel-at-start': arrivedState.left,
-      'x-sliding-panel-at-end': arrivedState.right,
+      'xds:sliding-panel-at-start': arrivedState.left,
+      'xds:sliding-panel-at-end': arrivedState.right,
     }))
 
     if (props.resetOnContentChange) {
@@ -133,27 +133,6 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-.x-sliding-panel {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  position: relative;
-}
-
-.x-sliding-panel__button {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  transition: all ease-out 0.2s;
-  z-index: 2; /* To overlay the design system gradient with z-index:1 */
-}
-.x-sliding-panel-button-left {
-  left: var(--x-sliding-panel-buttons-distance, 0);
-}
-.x-sliding-panel-button-right {
-  right: var(--x-sliding-panel-buttons-distance, 0);
-}
-
 .x-sliding-panel__scroll {
   display: flex;
   flex: 100%;
@@ -172,18 +151,6 @@ export default defineComponent({
 .x-sliding-panel__scroll > * {
   flex: 0 0 auto;
 }
-
-/* prettier-ignore */
-.x-sliding-panel:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-start) .x-sliding-panel-button-left {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-/* prettier-ignore */
-.x-sliding-panel:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-end) .x-sliding-panel-button-right {
-    opacity: 1;
-    pointer-events: all;
-  }
 </style>
 
 <docs lang="mdx">

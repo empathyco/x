@@ -5,7 +5,7 @@ import AppComponent from './app.vue'
 import { setupDevtools } from './plugins/devtools/devtools.plugin'
 import router from './router'
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config'
-import './tailwind/index.css'
+import './tailwind/xds.css'
 
 /* eslint-disable ts/no-unsafe-argument */
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier as any)

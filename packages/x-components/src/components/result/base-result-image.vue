@@ -2,7 +2,7 @@
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    class="x-result-picture x-picture"
+    class="x-result-picture xds:picture"
     data-test="result-picture"
     @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
@@ -13,14 +13,14 @@
       loading="lazy"
       :src="pendingImages[0]"
       :style="loaderStyles"
-      class="x-picture-image"
+      class="xds:picture-image"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
       @load="flagImageLoaded"
       @error="flagImageAsFailed"
     />
-    <component :is="animation" class="x-picture-image" :appear="false">
+    <component :is="animation" class="xds:picture-image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 

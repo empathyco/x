@@ -57,7 +57,7 @@ function renderSortPickerList({
     onUserClickedASort,
     onSelectedSortProvided,
     getButton: (index: number) => wrapper.vm.$el.children[index] as HTMLElement,
-    getSelectedItem: () => sortPickerList.get('.x-selected'),
+    getSelectedItem: () => sortPickerList.get('[aria-pressed="true"]'),
     clickNthItem: async (index: number) => {
       await sortPickerList
         .findAll(getDataTestSelector('sort-picker-button'))
@@ -137,8 +137,8 @@ describe('testing SortPickerList component', () => {
     await clickNthItem(1)
 
     const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'))
-    expect(buttons[0].classes('x-selected')).toBeFalsy()
-    expect(buttons[1].classes('x-selected')).toBeTruthy()
+    expect(buttons[0].classes('xds:selected')).toBeFalsy()
+    expect(buttons[1].classes('xds:selected')).toBeTruthy()
   })
 
   describe('slots', () => {

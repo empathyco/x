@@ -1,0 +1,4 @@
+@import '../../node_modules/@empathyco/x-design-system/dist/index.css';
+
+/* Scan tailwind classes from x-components. */
+@source '../../src';

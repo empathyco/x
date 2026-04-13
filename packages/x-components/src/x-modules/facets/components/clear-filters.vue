@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     v-if="isVisible"
-    class="x-clear-filters x-button"
+    class="x-clear-filters xds:button"
     data-test="clear-filters"
     :disabled="!hasSelectedFilters"
     :events="events"

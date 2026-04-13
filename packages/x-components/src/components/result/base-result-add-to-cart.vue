@@ -2,7 +2,7 @@
   <BaseEventButton
     :events="events"
     :metadata="metadata"
-    class="x-result-add-to-cart x-button"
+    class="x-result-add-to-cart xds:button"
     data-test="result-add-to-cart"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
