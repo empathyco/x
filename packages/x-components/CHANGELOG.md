@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.241](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.240...@empathyco/x-components@6.0.0-alpha.241) (2026-04-13)
+
+### ⚠ BREAKING CHANGES
+
+* **x-components:** remove deprecated layouts in `x-components`. Use `x-design-system` instead.
+
+### Code Refactoring
+
+* **x-components:** remove deprecated layouts (#2079)
+
+
 ## [6.0.0-alpha.240](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.239...@empathyco/x-components@6.0.0-alpha.240) (2026-04-13)
 
 **Note:** Version bump only for package @empathyco/x-components
