@@ -1,5 +1,5 @@
 name: Prepare stable release
-on: [workflow_dispatch,pull_request]
+on: [workflow_dispatch]
 jobs:
   prepare-release:
     runs-on: [self-hosted, linux, x64, platform, vm]
