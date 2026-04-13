@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.238](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.237...@empathyco/x-components@6.0.0-alpha.238) (2026-04-10)
+
+### Bug Fixes
+
+* **ai-carousel:** deleted expand button and fixed tagging twice
+
+
 ## [6.0.0-alpha.237](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.236...@empathyco/x-components@6.0.0-alpha.237) (2026-04-08)
 
 ### Features

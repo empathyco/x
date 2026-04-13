@@ -1,7 +1,6 @@
 import type { InternalSearchResponse } from '../search/index'
 import {
   createWiring,
-  filterTruthyPayload,
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
@@ -35,11 +34,6 @@ const fetchAndSaveAiSuggestionsWire = wireDispatch('fetchAndSaveAiSuggestions')
 
 /** Fetches and save the AI suggestions search response. */
 const fetchAndSaveAiSuggestionsSearchWire = wireDispatch('fetchAndSaveAiSuggestionsSearch', true)
-
-/** Fetches and save the AI suggestions search response. */
-const fetchAndSaveAiSuggestionsSearchIfExpandedWire = filterTruthyPayload(
-  wireDispatch('fetchAndSaveAiSuggestionsSearch'),
-)
 
 /** Sets the AI state `relatedTags`.*/
 const setAiRelatedTagsWire = wireCommit('setAiRelatedTags')
@@ -84,9 +78,6 @@ export const aiWiring = createWiring({
   },
   AiSuggestionsSearchRequestUpdated: {
     fetchAndSaveAiSuggestionsSearchWire,
-  },
-  UserClickedAiOverviewExpandButton: {
-    fetchAndSaveAiSuggestionsSearchIfExpandedWire,
   },
   SelectedRelatedTagsChanged: {
     setAiRelatedTagsWire,

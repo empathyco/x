@@ -4,14 +4,13 @@ import type { Ref } from 'vue'
 import type { DisplayEmitter } from '../../../../components'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
-import { nextTick, ref } from 'vue'
+import { ref } from 'vue'
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../../__tests__/utils'
 import {
   AIStarIcon,
   ArrowRightIcon,
   BaseEventButton,
-  ChevronDownIcon,
   DisplayClickProvider,
   SlidingPanel,
 } from '../../../../components'
@@ -80,6 +79,7 @@ const useStateStub = {
   }),
   isNoResults: ref(false),
 }
+// eslint-disable-next-line unused-imports/no-unused-vars
 let subscribeCb = () => {}
 const onMock = vi.fn(() => ({
   subscribe: (cb: () => void) => {
@@ -101,8 +101,6 @@ vi.mock('marked', () => ({
 const propsStub = {
   title: 'Empathy AI Overview',
   titleLoading: 'Loading AI Overview',
-  expandText: 'Show more',
-  collapseText: 'Show less',
   contentClasses: 'prose',
   slidingPanelsClasses: 'scroll-x',
   slidingPanelContainersClasses: 'mx-auto',
@@ -179,18 +177,6 @@ function render(options: ComponentMountingOptions<typeof AIOverview> = {}) {
     get slidingPanels() {
       return wrapper.findAllComponents(SlidingPanel)
     },
-    get toggleButtonWrapper() {
-      return wrapper.find(getDataTestSelector('ai-overview-toggle-button-wrapper'))
-    },
-    get gradientBottom() {
-      return wrapper.find(getDataTestSelector('ai-overview-gradient'))
-    },
-    get toggleButton() {
-      return wrapper.find(getDataTestSelector('ai-overview-toggle-button'))
-    },
-    get chevronDownIcon() {
-      return wrapper.findComponent(ChevronDownIcon)
-    },
     get displayEmitter() {
       return wrapper.findComponent<typeof DisplayEmitter>(
         getDataTestSelector('ai-overview-display-emitter'),
@@ -249,7 +235,6 @@ describe('ai-overview component', () => {
     expect(sut.collapseHeightSuggestions.attributes().style).toBe(
       `--x-collapse-height-transition-duration: ${300 * useStateStub.suggestionsSearch.value.length}ms;`,
     )
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
     expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.queryDisplayEmitters).toHaveLength(useStateStub.suggestionsSearch.value.length)
@@ -296,11 +281,6 @@ describe('ai-overview component', () => {
       })
     })
 
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.exists()).toBeTruthy()
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
-
     expect(onMock).toHaveBeenCalledWith('AiSuggestionsRequestUpdated', false)
   })
 
@@ -316,70 +296,6 @@ describe('ai-overview component', () => {
     expect(sut.titleLoading.text()).toBe(propsStub.titleLoading)
     expect(sut.title.exists()).toBeFalsy()
     expect(sut.displayEmitter.exists()).toBeFalsy()
-  })
-
-  it('should render with expanded state correctly when clicking on toggle button', async () => {
-    const sut = render()
-
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
-
-    await sut.toggleButton.trigger('click')
-
-    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
-  })
-
-  it('should render with expanded state correctly when clicking on toggle button wrapper', async () => {
-    const sut = render()
-
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
-
-    await sut.toggleButtonWrapper.trigger('click')
-
-    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
-  })
-
-  it('should collapse the suggestions when the ai suggestion request changes', async () => {
-    const sut = render()
-
-    await sut.toggleButton.trigger('click')
-
-    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
-
-    subscribeCb()
-    await sut.wrapper.vm.$nextTick()
-
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
-  })
-
-  it('should emit event when toggle button is clicked', async () => {
-    const sut = render()
-
-    await sut.toggleButton.trigger('click')
-
-    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-
-    expect(emitMock).toHaveBeenCalledWith('UserClickedAiOverviewExpandButton', false, {
-      suggestionText: useStateStub.suggestionText.value,
-      toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
-    })
   })
 
   it('should render correctly if suggestion is loading', () => {
@@ -413,9 +329,6 @@ describe('ai-overview component', () => {
     vi.mocked(useState).mockImplementation(() => ({ ...useStateStub, queries: queriesWithOrphan }))
 
     const sut = render()
-
-    await sut.toggleButton.trigger('click')
-    await nextTick()
 
     expect(sut.baseEventButtons).toHaveLength(useStateStub.suggestionsSearch.value.length)
     expect(sut.slidingPanels).toHaveLength(useStateStub.suggestionsSearch.value.length)
@@ -452,26 +365,8 @@ describe('ai-overview component', () => {
     expect(sut.overviewWrapper.exists()).toBeFalsy()
   })
 
-  it('should call scrollIntoView when collapsing after being expanded (and not on expand)', async () => {
-    const sut = render()
-
-    const scrollSpy = vi.fn()
-    ;(Element.prototype as any).scrollIntoView = scrollSpy
-
-    await sut.toggleButton.trigger('click')
-    expect(scrollSpy).toHaveBeenCalledTimes(0)
-
-    // Collapse
-    await sut.toggleButton.trigger('click')
-    expect(scrollSpy).toHaveBeenCalledTimes(1)
-    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth' })
-  })
-
   it('should animate the suggestion group once', async () => {
     const sut = render()
-
-    await sut.toggleButton.trigger('click')
-    await nextTick()
 
     useStateStub.suggestionsSearch.value.forEach((_, index) => {
       expect(sut.suggestions[index].classes()).toContain('x-ai-overview-result-animation')
@@ -479,18 +374,6 @@ describe('ai-overview component', () => {
         .findAll(getDataTestSelector('ai-overview-suggestion-result'))
         .forEach(result => {
           expect(result.classes()).toContain('x-ai-overview-result-animation')
-        })
-    })
-
-    await sut.toggleButton.trigger('click')
-    await nextTick()
-
-    useStateStub.suggestionsSearch.value.forEach((_, index) => {
-      expect(sut.suggestions[index].classes()).not.toContain('x-ai-overview-result-animation')
-      sut.slidingPanels[index]
-        .findAll(getDataTestSelector('ai-overview-suggestion-result'))
-        .forEach(result => {
-          expect(result.classes()).not.toContain('x-ai-overview-result-animation')
         })
     })
   })
@@ -501,76 +384,5 @@ describe('ai-overview component', () => {
     expect(emitMock).toHaveBeenCalledWith('AiComponentMounted', undefined, {
       feature: 'overview',
     })
-  })
-
-  it('auto-expands when autoExpandInSearchNoResults is true and suggestions finish loading with no results', async () => {
-    const suggestionsStatusRef = ref('loading')
-    vi.mocked(useState).mockImplementation(() => ({
-      ...useStateStub,
-      suggestionsStatus: suggestionsStatusRef,
-    }))
-
-    const sut = render()
-
-    // Initially collapsed
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-
-    // Set global noResults and finish loading to trigger the watch
-    xInstance.noResults = true
-    suggestionsStatusRef.value = 'success'
-    await nextTick()
-
-    // Should be expanded automatically
-    expect(sut.suggestionsContainer.isVisible()).toBeTruthy()
-    expect(sut.gradientBottom.isVisible()).toBeFalsy()
-    expect(sut.toggleButton.text()).toBe(propsStub.collapseText)
-    expect(sut.chevronDownIcon.classes()).toContain('x-ai-overview-toggle-btn-icon-expanded')
-
-    // It emits the click event with the previous expanded state (false)
-    expect(emitMock).toHaveBeenCalledWith('UserClickedAiOverviewExpandButton', false, {
-      suggestionText: useStateStub.suggestionText.value,
-      toolingDisplayClick: useStateStub.tagging.value?.toolingDisplayClick,
-    })
-  })
-
-  it('does not auto-expand when autoExpandInSearchNoResults is false even with no results', async () => {
-    const suggestionsStatusRef = ref('loading')
-    vi.mocked(useState).mockImplementation(() => ({
-      ...useStateStub,
-      suggestionsStatus: suggestionsStatusRef,
-    }))
-
-    const sut = render({ props: { ...propsStub, autoExpandInSearchNoResults: false } })
-
-    // Make conditions true except the prop
-    xInstance.noResults = true
-    suggestionsStatusRef.value = 'success'
-    await nextTick()
-
-    // Should remain collapsed
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
-    expect(sut.gradientBottom.isVisible()).toBeTruthy()
-    expect(sut.toggleButton.text()).toBe(propsStub.expandText)
-    expect(sut.chevronDownIcon.classes()).not.toContain('x-ai-overview-toggle-btn-icon-expanded')
-  })
-
-  it('should allow customizing the toggle button with the cta-button slot', async () => {
-    const sut = render({
-      slots: {
-        'cta-button': '<button data-test="custom-cta-button">Custom CTA</button>',
-      },
-    })
-
-    expect(sut.toggleButton.exists()).toBeFalsy()
-    const customButton = sut.wrapper.find(getDataTestSelector('custom-cta-button'))
-    expect(customButton.exists()).toBeTruthy()
-    expect(customButton.text()).toBe('Custom CTA')
-
-    // Clicking the custom button should not trigger expansion automatically if it doesn't have the click listener
-    // But clicking the wrapper should NOT trigger it because the cta-button slot is used.
-    await sut.toggleButtonWrapper.trigger('click')
-    expect(sut.suggestionsContainer.isVisible()).toBeFalsy()
   })
 })
