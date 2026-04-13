@@ -49,7 +49,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
 
       - name: publish the release
-        run: pnpm run publish-release
+        run: pnpm run publish-release:stable
 
       - name: push tags
         uses: ad-m/github-push-action@4cc74773234f74829a8c21bc4d69dd4be9cfa599 # master
