@@ -22,7 +22,7 @@ jobs:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -31,7 +31,7 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: execute release-alpha action
+      - name: Execute release-alpha action
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}

@@ -25,6 +25,20 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
+      - name: Configure git user
+        run: |
+          git config --local user.email "x@empathy.co"
+          git config --local user.name "empathy/x"
+        shell: bash
+
+      - name: Configure npm auth
+        run: |
+          npm config set registry="https://registry.npmjs.org/"
+          npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
+
       - name: Prepare the release
         run: pnpm run prepare-release:stable
 
@@ -33,6 +47,7 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: "chore(release): prepare stable release"
+          committer: Interface X <x@empathy.co>
           title: "chore(release): prepare stable release"
           body: Release preparation
           branch: release
