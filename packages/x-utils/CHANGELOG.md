@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.3-alpha.18...@empathyco/x-utils@1.0.3) (2026-04-13)
+
+**Note:** Version bump only for package @empathyco/x-utils
+
+
+
+
+
 ## [1.0.3-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.3-alpha.17...@empathyco/x-utils@1.0.3-alpha.18) (2026-04-06)
 
 **Note:** Version bump only for package @empathyco/x-utils

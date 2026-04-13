@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.40...@empathyco/x-archetype-utils@2.0.0) (2026-04-13)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+
+
+
+
 ## [2.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.39...@empathyco/x-archetype-utils@2.0.0-alpha.40) (2026-04-06)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
