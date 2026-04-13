@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@0.1.0-alpha.3...@empathyco/x-design-system@1.0.0-alpha.0) (2026-04-13)
+
+### ⚠ BREAKING CHANGES
+
+* **x-tailwindcss:** remove deprecated `x-tailwindcss` package in favour of `x-design-system`
+
+### Code Refactoring
+
+* **x-tailwindcss:** remove deprecated `x-tailwindcss` package in favor of `x-design-system` (#2078)
+
+
 ## [0.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-design-system@0.1.0-alpha.2...@empathyco/x-design-system@0.1.0-alpha.3) (2026-04-09)
 
 ### Bug Fixes
