@@ -1,0 +1,39 @@
+name: Prepare stable release
+on: [workflow_dispatch,pull_request]
+jobs:
+  prepare-release:
+    runs-on: [self-hosted, linux, x64, platform, vm]
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      # Use GitHub App token as a workaround to allow bypassing branch-protection rules
+      # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_TOKENS_APP_ID }}
+          private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Prepare the release
+        run: pnpm run prepare-release:stable
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          commit-message: "chore(release): prepare stable release"
+          title: "chore(release): prepare stable release"
+          body: Release preparation
+          branch: release
+          delete-branch: true
