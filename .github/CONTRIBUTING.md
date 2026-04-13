@@ -65,9 +65,6 @@ evolves.
 - **[@empathyco/x-archetype-utils](/packages/x-archetype-utils)** - provides utilities to ease the
   development. It's used in the Interface X Archetype project.
 - **[@empathyco/x-design-system](/packages/x-design-system)** - Empathy X Design System in Tailwind 4.
-- **[@empathyco/x-tailwindcss](/packages/x-tailwindcss)** - Empathy X Tailwind plugin that represent a
-  design system builder. With this package you are able to create a design system through a
-  cofiguration file
 - **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
 - **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
 
