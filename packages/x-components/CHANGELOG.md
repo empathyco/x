@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.1...@empathyco/x-components@6.0.2) (2026-04-14)
+
+### Bug Fixes
+
+* avoid running CI on prepare release commit
+
+
 ## [6.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0...@empathyco/x-components@6.0.1) (2026-04-14)
 
 ### Bug Fixes

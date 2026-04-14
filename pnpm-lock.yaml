@@ -46,10 +46,10 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0
+        specifier: 8.1.1
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.1.0
+        specifier: 10.1.1
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3
@@ -114,13 +114,13 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0
+        specifier: 8.1.1
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.1.0
+        specifier: 1.1.1
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.1.0
+        specifier: 10.1.1
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.3
@@ -288,7 +288,7 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.1.0
+        specifier: 8.1.1
         version: link:../x-adapter
       '@empathyco/x-utils':
         specifier: 1.0.3

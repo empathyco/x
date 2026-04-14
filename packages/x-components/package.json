@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -67,9 +67,9 @@
     "vuex": "4.0.2"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "8.1.0",
-    "@empathyco/x-adapter-platform": "1.1.0",
-    "@empathyco/x-types": "10.1.0",
+    "@empathyco/x-adapter": "8.1.1",
+    "@empathyco/x-adapter-platform": "1.1.1",
+    "@empathyco/x-types": "10.1.1",
     "@empathyco/x-utils": "1.0.3",
     "@vue/devtools-api": "~6.6.4",
     "@vueuse/core": "~12.8.2",
