@@ -27,16 +27,16 @@ jobs:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
-      - name: Configure Git user
-        run: |
-          git config --local user.email "x@empathy.co"
-          git config --local user.name "empathy/x"
-
       - name: Git checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
+
+      - name: Configure Git user
+        run: |
+          git config --local user.email "x@empathy.co"
+          git config --local user.name "empathy/x"
 
       - name: Install Build & Pack
         uses: ./.github/actions/install
