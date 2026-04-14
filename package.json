@@ -3,6 +3,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "serve": "lerna run serve",
     "build": "lerna run build",
     "pack": "lerna run pack",
     "lint": "lerna run lint -- --cache --cache-strategy content",
@@ -12,10 +13,8 @@
     "typecheck": "lerna run typecheck",
     "test": "lerna run test",
     "test:unit": "lerna run test:unit",
-    "serve": "lerna run serve",
-    "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
-    "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
-    "publish-release:stable": "node publish-release",
+    "release:prepare": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
+    "release:publish": "lerna publish from-package --yes",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -1,0 +1,120 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency: release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    defaults:
+      run:
+        shell: sh
+    steps:
+      # Use GitHub App token as a workaround to allow bypassing branch-protection rules
+      # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_TOKENS_APP_ID }}
+          private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
+
+      - name: Configure Git user
+        run: |
+          git config --local user.email "x@empathy.co"
+          git config --local user.name "empathy/x"
+
+      - name: Git checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Install Build & Pack
+        uses: ./.github/actions/install
+
+      - name: Linter
+        run: pnpm run lint:check
+
+      - name: Prettier
+        run: pnpm run format:check
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Tests
+        run: pnpm run test:unit
+
+      - name: Prepare the release (version packages)
+        run: pnpm run release:prepare
+
+      - name: Commit release changes
+        run: |
+          git add .
+          git commit -m "chore(release): prepare release" || echo "No changes to commit"
+
+      - name: Configure NPM auth
+        run: |
+          npm config set registry="https://registry.npmjs.org/"
+          npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
+
+      - name: Publish packages to NPM
+        run: |
+          # Capture output and error from release:publish
+          if ! output=$(pnpm run release:publish 2>&1); then
+            exit_code=$?
+            
+            # Check if the error is related to NPM authentication (E404 from lerna)
+            if echo "$output" | grep -q "lerna ERR! E404 Not found"; then
+              echo ""
+              echo "🔴 ================================================================================================"
+              echo "🔴 CRITICAL ERROR: NPM_TOKEN_GRANULAR_ACCESS REPOSITORY SECRET HAS EXPIRED"
+              echo "🔴 ================================================================================================"
+              echo ""
+              echo "The release failed because the NPM_TOKEN_GRANULAR_ACCESS repository secret has expired."
+              echo ""
+              echo "👉 ACTION REQUIRED:"
+              echo "   1. Open a new Jira ticket to the Platform Team"
+              echo "   2. Clone this ticket: https://searchbroker.atlassian.net/browse/OPS-10807"
+              echo "   3. Request NPM_TOKEN_GRANULAR_ACCESS secret renewal for this repository"
+              echo "   4. Once the Platform Team renews the token, re-run this workflow"
+              echo ""
+              echo "🔴 ================================================================================================"
+              echo ""
+            fi
+            
+            # Print the original error output for additional context
+            echo "Original error output:"
+            echo "$output"
+            
+            # Exit with the original error code
+            exit $exit_code
+          fi
+
+      - name: Create Git tags for published packages
+        run: |
+          # Get changed packages and create tags
+          changed_packages=$(lerna changed --json 2>/dev/null || echo "[]")
+          if [ "$changed_packages" != "[]" ]; then
+            echo "$changed_packages" | jq -r '.[] | "\(.name)@\(.version)"' | while read -r tag; do
+              echo "Creating tag: $tag"
+              git tag -a "$tag" -m "$tag"
+            done
+          else
+            echo "No packages to tag"
+          fi
+
+      - name: Push commits and tags
+        run: |
+          git push origin ${{ github.ref_name }}
+          git push origin --tags
