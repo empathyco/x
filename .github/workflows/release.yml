@@ -21,7 +21,7 @@ jobs:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
       - name: Generate GitHub App Token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        uses: actions/create-github-app-token@v3.1.1
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
@@ -59,7 +59,6 @@ jobs:
       - name: Commit release changes
         run: |
           git add .
-          export HUSKY_SKIP_HOOKS=1
           git commit -m "chore(release): prepare release" || echo "No changes to commit"
 
       - name: Configure NPM auth
