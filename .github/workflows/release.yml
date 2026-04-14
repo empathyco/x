@@ -59,6 +59,7 @@ jobs:
       - name: Commit release changes
         run: |
           git add .
+          export HUSKY_SKIP_HOOKS=1
           git commit -m "chore(release): prepare release" || echo "No changes to commit"
 
       - name: Configure NPM auth
