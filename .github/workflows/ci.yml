@@ -1,9 +1,6 @@
-name: ci
+name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 concurrency:
@@ -13,44 +10,37 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: sh
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # Only for internal contributors or when secrets are available
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
-        if: ${{ vars.GH_TOKENS_APP_ID != '' }}
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
-      - name: checkout repository
+      - name: Git checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          token: ${{ steps.app-token.outputs.token || github.token }}
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
-      - name: Install
+      - name: Install Build & Pack
         uses: ./.github/actions/install
 
-      - name: Run lint check
+      - name: Linter
         run: pnpm run lint:check
 
-      - name: Run format check
+      - name: Prettier
         run: pnpm run format:check
 
-      - name: Run typecheck
+      - name: Typecheck
         run: pnpm run typecheck
 
-      - name: Run tests
+      - name: Tests
         run: pnpm run test:unit
-
-      - name: release
-        if:
-          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
-          !startsWith(github.event.head_commit.message, 'chore(release):') }}
-        uses: ./.github/actions/release-alpha
-        with:
-          npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
-          github_token: ${{ steps.app-token.outputs.token }}
