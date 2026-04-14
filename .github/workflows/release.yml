@@ -24,7 +24,7 @@ jobs:
         uses: actions/create-github-app-token@v3.1.1
         id: app-token
         with:
-          app-id: ${{ vars.GH_TOKENS_APP_ID }}
+          client-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
       - name: Git checkout
@@ -59,7 +59,7 @@ jobs:
       - name: Commit release changes
         run: |
           git add .
-          git commit -m "chore(release): prepare release" || echo "No changes to commit"
+          git commit -m "chore(release): prepare release [skip ci]" || echo "No changes to commit"
 
       - name: Configure NPM auth
         run: |

@@ -35,5 +35,3 @@ export * from './x-modules/semantic-queries'
 export * from './x-modules/tagging'
 export * from './x-modules/url'
 export * from './x-modules/x-modules.types'
-
-// comment only for release testing purposes
