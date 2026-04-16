@@ -2,7 +2,6 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-[![Check branch is releasable](https://github.com/empathyco/x/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/empathyco/x/actions/workflows/build.yml)
 [![GitHub contributors](https://img.shields.io/github/contributors/empathyco/x.svg)](https://github.com/empathyco/x/graphs/contributors/)
 [![Created by](https://img.shields.io/badge/Created%20by-Empathy.co-green)](https://www.empathy.co)
 
@@ -11,7 +10,6 @@ commerce search and discovery experience to life with Interface X, an irresistib
 joyful search UI. Interface X is used within some of the most beautiful commerce search experiences
 out there, e.g. [Primor.eu](https://www.primor.eu/es_es/?query=brocha),
 [Carrefour.es](https://www.carrefour.es/?q=queso),
-[Tous.es](https://www.tous.com/es-es/?query=anillo),
 [Casadellibro.es](https://www.casadellibro.com/?query=novela) and
 [MotiveMarket.com](https://www.motivemarket.com/amagijon?query=queso).
 
