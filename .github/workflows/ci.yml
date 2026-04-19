@@ -18,7 +18,7 @@ jobs:
       # Only for internal contributors or when secrets are available
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
       - name: Generate GitHub App Token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         if: ${{ vars.GH_TOKENS_APP_ID != '' }}
         id: app-token
         with:
