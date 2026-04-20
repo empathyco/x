@@ -20,7 +20,7 @@ jobs:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
       - name: Generate GitHub App Token
-        uses: actions/create-github-app-token@v3.1.1
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         id: app-token
         with:
           client-id: ${{ vars.GH_TOKENS_APP_ID }}
