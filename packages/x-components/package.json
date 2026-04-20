@@ -96,7 +96,7 @@
     "@vue/test-utils": "2.4.6",
     "convert-source-map": "2.0.0",
     "esbuild": "0.28.0",
-    "jsdom": "28.1.0",
+    "jsdom": "29.0.2",
     "rollup": "4.60.1",
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-delete": "2.2.0",
