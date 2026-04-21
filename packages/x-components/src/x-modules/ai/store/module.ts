@@ -11,7 +11,6 @@ import { fetchAndSaveAiSuggestions } from './actions/fetch-and-save-ai-suggestio
 import { saveOrigin } from './actions/save-origin.action'
 import { setUrlParams } from './actions/set-url-params.action'
 import {
-  aiQuery as query,
   aiSuggestionsRequest as suggestionsRequest,
   aiSuggestionsSearchRequest as suggestionsSearchRequest,
 } from './getters'
@@ -37,7 +36,6 @@ export const aiXStoreModule: AiXStoreModule = {
   getters: {
     suggestionsRequest,
     suggestionsSearchRequest,
-    query,
   },
   mutations: {
     /* Streamed fields */

@@ -14,7 +14,7 @@ import {
   DisplayClickProvider,
   SlidingPanel,
 } from '../../../../components'
-import { use$x, useGetter, useState } from '../../../../composables'
+import { use$x, useState } from '../../../../composables'
 import AIOverview from '../ai-overview.vue'
 
 class MockResizeObserver implements ResizeObserver {
@@ -27,10 +27,8 @@ window.ResizeObserver = MockResizeObserver as any
 
 vi.mock('../../../../composables')
 
-const useGettersStub = {
-  query: ref('query text'),
-}
 const useStateStub = {
+  query: ref('query text'),
   suggestionText: ref('suggestion text'),
   responseText: ref('response text'),
   suggestionsSearch: ref(
@@ -87,7 +85,6 @@ const onMock = vi.fn(() => ({
   },
 }))
 const emitMock = vi.fn()
-const useGettersMock = vi.fn(() => useGettersStub)
 const useStateMock = vi.fn(() => useStateStub)
 const xInstance = { emit: emitMock, on: onMock, noResults: false }
 const use$xMock = vi.fn(() => xInstance)
@@ -201,7 +198,6 @@ describe('ai-overview component', () => {
     vi.restoreAllMocks()
     vi.clearAllMocks()
     ;(Element.prototype as any).scrollIntoView = vi.fn()
-    vi.mocked(useGetter).mockImplementation(useGettersMock)
     vi.mocked(useState).mockImplementation(useStateMock)
     vi.mocked(use$x).mockImplementation(use$xMock as any)
     xInstance.noResults = false
@@ -222,7 +218,7 @@ describe('ai-overview component', () => {
     )
     expect(sut.displayEmitter.props().eventMetadata).toStrictEqual({
       feature: 'overview',
-      displayOriginalQuery: useGettersStub.query.value,
+      displayOriginalQuery: useStateStub.query.value,
       replaceable: false,
     })
     expect(sut.title.exists()).toBeTruthy()
@@ -243,7 +239,7 @@ describe('ai-overview component', () => {
     useStateStub.suggestionsSearch.value.forEach((suggestionSearch, suggestionIndex) => {
       expect(sut.queryDisplayEmitters[suggestionIndex].props().eventMetadata).toStrictEqual({
         feature: 'overview',
-        displayOriginalQuery: useGettersStub.query.value,
+        displayOriginalQuery: useStateStub.query.value,
         replaceable: false,
       })
       expect(sut.queryDisplayEmitters[suggestionIndex].props().payload).toStrictEqual(
@@ -338,7 +334,7 @@ describe('ai-overview component', () => {
   })
 
   it('should pass the correct props to DisplayEmitter component when there is no query', () => {
-    vi.mocked(useGetter).mockImplementation(() => ({ ...useGettersStub, query: ref('') }))
+    vi.mocked(useState).mockImplementation(() => ({ ...useStateStub, query: ref('') }))
 
     const sut = render()
 
