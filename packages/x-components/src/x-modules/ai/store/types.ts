@@ -71,9 +71,6 @@ export interface AiGetters {
    * no valid queries to conform a valid request.
    */
   suggestionsSearchRequest: AiSuggestionsSearchRequest | null
-
-  /** The combination of the query and the selected related tags. */
-  query: string
 }
 
 /**

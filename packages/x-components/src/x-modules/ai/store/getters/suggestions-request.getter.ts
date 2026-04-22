@@ -11,10 +11,14 @@ import type { AiXStoreModule } from '../types'
  *
  * @public
  */
-export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest'] = (
-  { params: extraParams, selectedFilters: filters, origin, searchTotalResults, config },
-  { query },
-) => {
+export const suggestionsRequest: AiXStoreModule['getters']['suggestionsRequest'] = ({
+  params: extraParams,
+  selectedFilters: filters,
+  origin,
+  searchTotalResults,
+  config,
+  query,
+}) => {
   if (query && (searchTotalResults === 0 || searchTotalResults <= config.lowResultsThreshold)) {
     return { query, extraParams, filters, ...(origin && { origin }) }
   }

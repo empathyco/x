@@ -165,7 +165,7 @@ import {
   SpinnerIcon,
 } from '../../../components'
 import DisplayEmitter from '../../../components/display-emitter.vue'
-import { use$x, useGetter, useState } from '../../../composables'
+import { use$x, useState } from '../../../composables'
 import { typing } from '../../../directives'
 import { aiXModule } from '../x-module'
 
@@ -220,7 +220,6 @@ export default defineComponent({
   },
   setup() {
     const $x = use$x()
-    const { query } = useGetter('ai')
     const {
       suggestionText,
       responseText,
@@ -229,6 +228,7 @@ export default defineComponent({
       tagging,
       isNoResults,
       queries,
+      query,
     } = useState('ai')
 
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
