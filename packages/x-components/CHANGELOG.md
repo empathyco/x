@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.5...@empathyco/x-components@6.0.6) (2026-04-22)
+
+### Bug Fixes
+
+* **ai:** avoiding duplication of RTs in the query of the store (#2089)
+
+
 ## [6.0.5](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.4...@empathyco/x-components@6.0.5) (2026-04-20)
 
 **Note:** Version bump only for package @empathyco/x-components
