@@ -13,10 +13,7 @@ export const aiSuggestionsSearchEndpointAdapter = endpointAdapterFactory<
   AiSuggestionsSearchResponse
 >({
   endpoint: from =>
-    interpolate(
-      `${getAiSuggestionsServiceUrl(from)}/{extraParams.instance}/suggestions/search`,
-      from,
-    ),
+    interpolate(`${getAiSuggestionsServiceUrl(from)}/{extraParams.instance}/search`, from),
   requestMapper: aiSuggestionsSearchRequestMapper,
   responseMapper: aiSuggestionsSearchResponseMapper,
   defaultRequestOptions: {

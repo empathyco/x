@@ -12,6 +12,9 @@ export const aiSuggestionsSearchRequestRequestStub: AiSuggestionsSearchRequest =
   },
   filters: filtersStub,
   origin: 'origin',
+  excludeOptions: {
+    resultIds: ['product-1', 'product-2'],
+  },
 }
 
 describe('aiSuggestionsSearchRequestMapper tests', () => {
@@ -29,6 +32,9 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
           filters: mappedFiltersStub,
         },
       },
+      excludeOptions: {
+        resultIds: ['product-1', 'product-2'],
+      },
     })
   })
 
@@ -45,6 +51,30 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
           origin: 'origin',
         },
       },
+      excludeOptions: {
+        resultIds: ['product-1', 'product-2'],
+      },
     })
+  })
+
+  it('should include empty excludeOptions when resultIds is empty', () => {
+    const requestWithEmptyExcludeOptions = {
+      ...aiSuggestionsSearchRequestRequestStub,
+      excludeOptions: { resultIds: [] },
+    }
+
+    const mapped = aiSuggestionsSearchRequestMapper(requestWithEmptyExcludeOptions, {})
+    expect(mapped.excludeOptions).toStrictEqual({ resultIds: [] })
+  })
+
+  it('should include default excludeOptions when not provided', () => {
+    const { excludeOptions, ...requestWithoutExcludeOptions } =
+      aiSuggestionsSearchRequestRequestStub
+
+    const mapped = aiSuggestionsSearchRequestMapper(
+      requestWithoutExcludeOptions as AiSuggestionsSearchRequest,
+      {},
+    )
+    expect(mapped.excludeOptions).toStrictEqual({ resultIds: [] })
   })
 })
