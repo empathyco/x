@@ -103,7 +103,7 @@
     "rollup-plugin-styles": "4.0.0",
     "rollup-plugin-typescript2": "0.37.0",
     "rollup-plugin-vue": "6.0.0",
-    "start-server-and-test": "2.1.5",
+    "start-server-and-test": "3.0.2",
     "tailwindcss": "4.2.2",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
