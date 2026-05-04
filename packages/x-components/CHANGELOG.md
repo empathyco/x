@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.6...@empathyco/x-components@6.0.7) (2026-05-04)
+
+### Build System
+
+* remove start-sever-and-test dep (#2095)
+
+
 ## [6.0.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.5...@empathyco/x-components@6.0.6) (2026-04-22)
 
 ### Bug Fixes
