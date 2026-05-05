@@ -6,6 +6,7 @@ import type {
   AiSuggestionTagging,
   Filter,
   RelatedTag,
+  Result,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type {
@@ -29,6 +30,9 @@ export interface AiState extends QueryState {
   responseText: string
   suggestionText: string
   queries: AiSuggestionQuery[]
+  excludeOptions: {
+    resultIds: Result['id'][]
+  }
   tagging: AiSuggestionTagging | undefined
   /** Status for the suggestions response */
   suggestionsStatus: RequestStatus
@@ -100,6 +104,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    */
   setQueries: (queries: AiSuggestionQuery[]) => void
 
+  /**
+   * Sets the result ids to exclude from the suggestions response.
+   *
+   * @param resultIds - The new resultIds.
+   */
+  setExcludedResultIds: (resultIds: Result['id'][]) => void
   /**
    * Sets the tagging from the streamed response.
    *

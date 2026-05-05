@@ -1,6 +1,9 @@
+import type { ExtractMutationPayload } from '../../store'
+import type { SearchXEvents } from '../search/events.types'
 import type { InternalSearchResponse } from '../search/index'
 import {
   createWiring,
+  mapWire,
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
@@ -56,6 +59,12 @@ const setSearchTotalResultsWire = wireCommit(
   ({ eventPayload }: { eventPayload: { totalResults: number } }) => eventPayload.totalResults,
 )
 
+/** Sets the excluded result IDs from the search results. */
+const setExcludedResultIdsWire = mapWire<
+  SearchXEvents['ResultsChanged'],
+  ExtractMutationPayload<'ai', 'setExcludedResultIds'>
+>(wireCommit('setExcludedResultIds'), results => results.map(result => result.id))
+
 /**
  *  Wiring configuration for the {@link AiXModule | AI module}.
  *
@@ -71,6 +80,9 @@ export const aiWiring = createWiring({
   UserClearedQuery: {
     resetAiQueryWire,
     resetSearchTotalResultsWire,
+  },
+  ResultsChanged: {
+    setExcludedResultIdsWire,
   },
   AiSuggestionsRequestUpdated: {
     resetAiStateWire,

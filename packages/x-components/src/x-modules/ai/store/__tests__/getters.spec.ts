@@ -55,6 +55,9 @@ describe('testing ai module getters', () => {
       { query: 'ai cheese', categories: ['a'] },
       { query: 'ai chorizo', categories: [] },
     ]
+    const excludeOptionsStub = {
+      resultIds: ['1232', 'asdx'],
+    }
 
     it('should return a request object', () => {
       resetAiStateWith(store, {
@@ -62,6 +65,7 @@ describe('testing ai module getters', () => {
         params: { catalog: 'en' },
         selectedFilters: selectedFiltersStub,
         origin: 'related_prompts:results',
+        excludeOptions: excludeOptionsStub,
       })
 
       expect(
@@ -71,6 +75,7 @@ describe('testing ai module getters', () => {
         extraParams: { catalog: 'en' },
         filters: selectedFiltersStub,
         origin: 'related_prompts:results',
+        excludeOptions: excludeOptionsStub,
       })
     })
 
@@ -92,6 +97,7 @@ describe('testing ai module getters', () => {
         queries: queriesStub,
         extraParams: {},
         filters: {},
+        excludeOptions: { resultIds: [] },
       })
     })
   })

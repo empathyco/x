@@ -12,6 +12,9 @@ export const aiSuggestionsSearchRequestRequestStub: AiSuggestionsSearchRequest =
   },
   filters: filtersStub,
   origin: 'origin',
+  excludeOptions: {
+    resultIds: ['product-1', 'product-2'],
+  },
 }
 
 describe('aiSuggestionsSearchRequestMapper tests', () => {
@@ -29,6 +32,9 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
           filters: mappedFiltersStub,
         },
       },
+      excludeOptions: {
+        resultIds: ['product-1', 'product-2'],
+      },
     })
   })
 
@@ -44,6 +50,9 @@ describe('aiSuggestionsSearchRequestMapper tests', () => {
           env: 'test',
           origin: 'origin',
         },
+      },
+      excludeOptions: {
+        resultIds: ['product-1', 'product-2'],
       },
     })
   })

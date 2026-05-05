@@ -1,4 +1,4 @@
-import type { AiSuggestionQuery, AiSuggestionSearch } from '@empathyco/x-types'
+import type { AiSuggestionQuery, AiSuggestionSearch, Result } from '@empathyco/x-types'
 import type { RequestStatus } from '../../../store/utils/status-store.utils'
 import type { AiState, AiXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
@@ -47,6 +47,9 @@ export const aiXStoreModule: AiXStoreModule = {
     },
     setQueries: (state, queries: AiSuggestionQuery[]) => {
       state.queries = queries
+    },
+    setExcludedResultIds: (state, resultIds: Result['id'][]) => {
+      state.excludeOptions.resultIds = resultIds
     },
     setTagging: (state, tagging) => {
       state.tagging = tagging
@@ -109,6 +112,9 @@ function resettableAiState() {
     responseText: '',
     suggestionText: '',
     queries: [],
+    excludeOptions: {
+      resultIds: [],
+    },
     tagging: undefined,
     suggestionsSearch: [],
     suggestionsStatus: 'initial' as RequestStatus,

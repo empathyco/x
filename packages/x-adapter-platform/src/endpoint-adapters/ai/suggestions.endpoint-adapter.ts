@@ -9,8 +9,7 @@ import { getAiSuggestionsServiceUrl, getDefaultHeaders } from '../utils'
  * @public
  */
 export const aiSuggestionsEndpointAdapter = endpointAdapterFactory<AiSuggestionsRequest, Response>({
-  endpoint: from =>
-    interpolate(`${getAiSuggestionsServiceUrl(from)}/{extraParams.instance}/suggestions`, from),
+  endpoint: from => interpolate(`${getAiSuggestionsServiceUrl(from)}/{extraParams.instance}`, from),
   httpClient: fetchRawHttpClient,
   requestMapper: aiSuggestionsRequestMapper,
   defaultRequestOptions: {
