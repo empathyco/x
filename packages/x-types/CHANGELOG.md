@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.2.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.4...@empathyco/x-types@10.2.0) (2026-05-05)
+
+### Features
+
+* add excluded result IDs support in AI suggestions module
+
+
 ## [10.1.4](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.3...@empathyco/x-types@10.1.4) (2026-04-20)
 
 **Note:** Version bump only for package @empathyco/x-types

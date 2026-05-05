@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.7...@empathyco/x-components@6.1.0) (2026-05-05)
+
+### Features
+
+* add excluded result IDs support in AI suggestions module
+
+### Testing
+
+* add tests for excluded result IDs in AI module getters
+
+
 ## [6.0.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.6...@empathyco/x-components@6.0.7) (2026-05-04)
 
 ### Build System
