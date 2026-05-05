@@ -113,7 +113,7 @@ function resettableAiState() {
     suggestionText: '',
     queries: [],
     excludeOptions: {
-      resultIds: [] as Result['id'][],
+      resultIds: [],
     },
     tagging: undefined,
     suggestionsSearch: [],
