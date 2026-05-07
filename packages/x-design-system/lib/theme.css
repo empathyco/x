@@ -1,6 +1,6 @@
 @theme {
   --aspect-ratio-default: 3/4;
-  
+
   --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -101,6 +101,8 @@
   --breakpoint-desktop: 1280px;
   --breakpoint-large: 2560px;
 
+  /* Spacing by default is 0.25rem. REM bases on the font-size of the HTML, so reset to 4px. */
+  --spacing: 4px;
   --spacing-0: 0px;
   --spacing-1: 1px;
   --spacing-2: 2px;
