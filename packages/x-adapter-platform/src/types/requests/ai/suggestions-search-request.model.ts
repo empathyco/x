@@ -1,3 +1,5 @@
+import type { Result } from '@empathyco/x-types'
+
 /**
  * Request for the `AI suggestions search` endpoint.
  *
@@ -13,4 +15,7 @@ export interface PlatformAiSuggestionsSearchRequest {
     query: string
     categories: string[]
   }[]
+  excludeOptions: {
+    resultIds: Result['id'][]
+  }
 }

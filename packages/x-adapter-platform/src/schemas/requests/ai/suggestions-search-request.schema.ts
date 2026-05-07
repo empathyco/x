@@ -26,4 +26,5 @@ export const aiSuggestionsSearchRequestSchema = createMutableSchema<
     }
   },
   queries: 'queries',
+  excludeOptions: 'excludeOptions',
 })

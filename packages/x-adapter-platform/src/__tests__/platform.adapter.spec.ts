@@ -810,7 +810,7 @@ describe('platformAdapter tests', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
-      `https://questions.staging.empathy.co/v1/overview/${instanceStub}/suggestions/search`,
+      `https://questions.staging.empathy.co/v1/suggestions/${instanceStub}/search`,
       {
         method: 'POST',
         signal: expect.anything(),

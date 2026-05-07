@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.1...@empathyco/x-components@6.1.2) (2026-05-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.1.1](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.0...@empathyco/x-components@6.1.1) (2026-05-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.7...@empathyco/x-components@6.1.0) (2026-05-05)
+
+### Features
+
+* add excluded result IDs support in AI suggestions module
+
+### Testing
+
+* add tests for excluded result IDs in AI module getters
+
+
+## [6.0.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.6...@empathyco/x-components@6.0.7) (2026-05-04)
+
+### Build System
+
+* remove start-sever-and-test dep (#2095)
+
+
 ## [6.0.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.5...@empathyco/x-components@6.0.6) (2026-04-22)
 
 ### Bug Fixes

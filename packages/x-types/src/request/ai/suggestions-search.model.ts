@@ -1,3 +1,4 @@
+import type { Result } from '../../result'
 import type { ExtraParamsRequest, FilterableRequest, TrackableRequest } from '../request.model'
 
 /**
@@ -10,4 +11,7 @@ export interface AiSuggestionsSearchRequest
     query: string
     categories: string[]
   }[]
+  excludeOptions: {
+    resultIds: Result['id'][]
+  }
 }
