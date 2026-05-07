@@ -204,7 +204,7 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
-    const { query, isNoResults, suggestionsSearch, queries, tagging } = useState('ai')
+    const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
     const titleRef = ref<HTMLElement | null>(null)
@@ -257,7 +257,6 @@ export default defineComponent({
 
     return {
       emptyTaggingRequest,
-      isNoResults,
       isTitleOverflowing,
       queries,
       query,

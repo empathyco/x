@@ -70,7 +70,6 @@ const useStateStub = {
       ]),
     ),
   }),
-  isNoResults: ref(false),
 }
 
 const emitMock = vi.fn()

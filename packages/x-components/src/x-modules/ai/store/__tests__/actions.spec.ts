@@ -100,40 +100,6 @@ describe('testing ai module actions', () => {
       expect(store.state.suggestionsStatus).toBe('success')
     })
 
-    it('should set isNoResults to false when queries are received', async () => {
-      resetAiStateWith(store, { query: 'ai test', isNoResults: true })
-
-      const queriesData: AiSuggestionQuery[] = [{ query: 'test query', categories: [] }]
-
-      const mockReader = createMockReader([`data: ${JSON.stringify({ queries: queriesData })}\n\n`])
-
-      adapter.aiSuggestions.mockResolvedValueOnce({
-        body: { getReader: () => mockReader },
-        status: 200,
-      } as unknown as Response)
-
-      await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
-      await flushPromises()
-
-      expect(store.state.isNoResults).toBe(false)
-    })
-
-    it('should not set isNoResults to false when queries array is empty', async () => {
-      resetAiStateWith(store, { query: 'ai test', isNoResults: true })
-
-      const mockReader = createMockReader([`data: ${JSON.stringify({ queries: [] })}\n\n`])
-
-      adapter.aiSuggestions.mockResolvedValueOnce({
-        body: { getReader: () => mockReader },
-        status: 200,
-      } as unknown as Response)
-
-      await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
-      await flushPromises()
-
-      expect(store.state.isNoResults).toBe(true)
-    })
-
     it('should parse and store tagging data from streamed response', async () => {
       resetAiStateWith(store, { query: 'ai test' })
 

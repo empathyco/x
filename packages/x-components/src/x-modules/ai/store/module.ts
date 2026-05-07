@@ -39,12 +39,6 @@ export const aiXStoreModule: AiXStoreModule = {
   },
   mutations: {
     /* Streamed fields */
-    setResponseText: (state, responseText: string) => {
-      state.responseText = responseText
-    },
-    setSuggestionText: (state, suggestionText: string) => {
-      state.suggestionText = suggestionText
-    },
     setQueries: (state, queries: AiSuggestionQuery[]) => {
       state.queries = queries
     },
@@ -77,9 +71,6 @@ export const aiXStoreModule: AiXStoreModule = {
     setAiRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
     },
-    setIsNoResults(state, isNoResults: boolean) {
-      state.isNoResults = isNoResults
-    },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
         isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY,
@@ -109,8 +100,6 @@ export const aiXStoreModule: AiXStoreModule = {
  */
 function resettableAiState() {
   return {
-    responseText: '',
-    suggestionText: '',
     queries: [],
     excludeOptions: {
       resultIds: [],
@@ -119,6 +108,5 @@ function resettableAiState() {
     suggestionsSearch: [],
     suggestionsStatus: 'initial' as RequestStatus,
     suggestionsSearchStatus: 'initial' as RequestStatus,
-    isNoResults: true,
   }
 }

@@ -26,9 +26,6 @@ import type { AiConfig } from '../config.types'
  * @public
  */
 export interface AiState extends QueryState {
-  /** The streamed field from suggestion response.*/
-  responseText: string
-  suggestionText: string
   queries: AiSuggestionQuery[]
   excludeOptions: {
     resultIds: Result['id'][]
@@ -46,8 +43,6 @@ export interface AiState extends QueryState {
   params: Dictionary<unknown>
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[]
-  /** Flag to indicate that the AI response has no results */
-  isNoResults: boolean
   /** The origin property of the request. */
   origin: QueryOrigin | null
   /**
@@ -83,20 +78,6 @@ export interface AiGetters {
  * @public
  */
 export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
-  /**
-   * Sets the responseText from the streamed response.
-   *
-   * @param responseText - The new responseText.
-   */
-  setResponseText: (responseText: string) => void
-
-  /**
-   * Sets the suggestionText from the streamed response.
-   *
-   * @param suggestionText - The new suggestionText.
-   */
-  setSuggestionText: (suggestionText: string) => void
-
   /**
    * Sets the queries from the streamed response.
    *
@@ -155,12 +136,6 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param relatedTags - The new related tags to save to the state.
    */
   setAiRelatedTags: (relatedTags: RelatedTag[]) => void
-  /**
-   * Sets the no results flag of the module.
-   *
-   * @param isNoResults - The new no results value.
-   */
-  setIsNoResults: (isNoResults: boolean) => void
   /**
    * Sets the origin of the module.
    *
