@@ -15,7 +15,6 @@ export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
   AiSuggestionsSearchChanged: AiSuggestionSearch[]
-  UserClickedAiOverviewExpandButton: boolean
-  UserClickedAnAiOverviewResult: Result
+  UserClickedAnAiCarouselResult: Result
   AiComponentMounted: void
 }

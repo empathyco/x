@@ -83,6 +83,7 @@ const propsStub = {
   slidingPanelClasses: 'custom-sliding-panel',
   slidingPanelContainerClasses: 'custom-container',
   slidingPanelButtonsClasses: 'custom-buttons',
+  group: true,
 }
 
 function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
@@ -102,10 +103,17 @@ function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
         CollapseHeight: {
           template: '<div><slot /></div>',
         },
+        ChangeHeight: {
+          template: '<div><slot /></div>',
+        },
         SlidingPanel: {
           template:
             '<div class="x-sliding-panel"><slot /><slot name="sliding-panel-left-button" /><slot name="sliding-panel-right-button" /><slot name="sliding-panel-addons" /></div>',
           props: ['scrollContainerClass', 'buttonClass', 'resetOnContentChange'],
+        },
+        BaseEventButton: {
+          template: '<button><slot /></button>',
+          props: ['events'],
         },
       },
     },
@@ -141,6 +149,12 @@ function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
     },
     get suggestionResults() {
       return wrapper.findAll(getDataTestSelector('ai-carousel-suggestion-result'))
+    },
+    get suggestionsContainer() {
+      return wrapper.find(getDataTestSelector('ai-carousel-suggestions-container'))
+    },
+    get suggestions() {
+      return wrapper.findAll(getDataTestSelector('ai-carousel-suggestion'))
     },
   }
 }
@@ -275,5 +289,32 @@ describe('ai-carousel component', () => {
     await nextTick()
     expect(sut.title.classes()).not.toContain('x-ai-carousel-title--expanded')
     expect(sut.expandButton.exists()).toBeTruthy()
+  })
+
+  it('should render grouped mode when group prop is true', () => {
+    const sut = render({ props: { ...propsStub, group: true } })
+
+    expect(sut.carousel.exists()).toBeTruthy()
+    // In grouped mode, there should be one sliding panel with all results
+    expect(sut.slidingPanel.exists()).toBeTruthy()
+    // DisplayClickProviders should be equal to number of suggestions (grouped by suggestion)
+    expect(sut.displayClickProviders).toHaveLength(useStateStub.suggestionsSearch.value.length)
+  })
+
+  it('should render non-grouped mode when group prop is false', () => {
+    const sut = render({ props: { ...propsStub, group: false } })
+
+    expect(sut.carousel.exists()).toBeTruthy()
+    expect(sut.suggestionsContainer.exists()).toBeTruthy()
+
+    // In non-grouped mode, each suggestion should have its own carousel section
+    expect(sut.suggestions).toHaveLength(useStateStub.suggestionsSearch.value.length)
+
+    // Each suggestion should have DisplayClickProvider with ai_carousel feature
+    expect(sut.displayClickProviders).toHaveLength(useStateStub.suggestionsSearch.value.length)
+    useStateStub.suggestionsSearch.value.forEach((suggestion, index) => {
+      const provider = sut.displayClickProviders[index]
+      expect(provider.props().resultFeature).toBe('ai_carousel')
+    })
   })
 })

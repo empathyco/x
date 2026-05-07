@@ -171,10 +171,7 @@
 
                   <!-- AI -->
                   <LocationProvider location="results">
-                    <AiCarousel
-                      v-if="x.noResults && !x.fromNoResultsWithFilters"
-                      class="xds:mb-28 xds:w-full"
-                    >
+                    <AiCarousel :group="x.noResults" class="xds:mb-28 xds:w-full">
                       <template #result="{ result }">
                         <Result :result="result" class="xds:w-37.5" />
                       </template>
@@ -193,18 +190,6 @@
                         </button>
                       </template>
                     </AiCarousel>
-                    <AiOverview v-else class="xds:mb-28 xds:w-full">
-                      <template #result="{ result }">
-                        <Result :result="result" class="xds:w-37.5" />
-                      </template>
-                      <template #extra-content>
-                        <button
-                          class="xds:absolute xds:right-0 xds:bottom-0 xds:translate-y-full xds:bg-lead-50"
-                        >
-                          extra content
-                        </button>
-                      </template>
-                    </AiOverview>
                   </LocationProvider>
 
                   <template v-if="!x.query.searchBox">
@@ -543,7 +528,7 @@ import {
 } from '@x/components'
 import { use$x, useState } from '@x/composables'
 import { infiniteScroll } from '@x/directives'
-import { AiCarousel, AiOverview } from '@x/x-modules/ai'
+import { AiCarousel } from '@x/x-modules/ai'
 import { RenderlessExtraParams } from '@x/x-modules/extra-params'
 import { NextQueriesList, NextQuery, NextQueryPreview } from '@x/x-modules/next-queries'
 import {

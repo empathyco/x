@@ -18,11 +18,7 @@ interface TaggingData {
   }[]
 }
 
-type AnswerData =
-  | { responseText: string }
-  | { suggestionText: string }
-  | { queries: AiSuggestionQuery[] }
-  | TaggingData
+type AnswerData = { queries: AiSuggestionQuery[] } | TaggingData
 
 /**
  * Default implementation for the {@link AiActions.fetchAndSaveAiSuggestions}.
@@ -51,8 +47,8 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
     })
   }
 
-function mapTaggingData(tangingData: TaggingData): AiSuggestionTagging {
-  const { toolingDisplay, toolingDisplayClick, searchQueries } = tangingData.tagging[0]
+function mapTaggingData(taggingData: TaggingData): AiSuggestionTagging {
+  const { toolingDisplay, toolingDisplayClick, searchQueries } = taggingData.tagging[0]
   // TODO: Using the getTaggingInfoFromUrl util here is a temporary solution.
   // It creates a dependency with the x-adapter-platform project that should be avoided.
   return {
@@ -97,14 +93,6 @@ function readAnswer(
           const raw = line.startsWith('data:') ? line.slice(5).trim() : line.trim()
           const data = JSON.parse(raw) as AnswerData
 
-          if ('suggestionText' in data) {
-            commit('setIsNoResults', false)
-            commit('setSuggestionText', data.suggestionText)
-          }
-          if ('responseText' in data) {
-            commit('setIsNoResults', false)
-            commit('setResponseText', data.responseText)
-          }
           if ('queries' in data) {
             commit('setQueries', data.queries)
           }

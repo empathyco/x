@@ -39,7 +39,7 @@
           </button>
         </span>
       </DisplayEmitter>
-      <slot name="sliding-panel" :suggestions="suggestionsSearch" :tagging="tagging">
+      <slot v-if="group" name="sliding-panel" :suggestions="suggestionsSearch" :tagging="tagging">
         <SlidingPanel
           :class="slidingPanelClasses"
           :scroll-container-class="slidingPanelContainerClasses"
@@ -81,6 +81,67 @@
           </div>
         </SlidingPanel>
       </slot>
+      <div v-else class="x-ai-carousel-suggestions" data-test="ai-carousel-suggestions-container">
+        <DisplayEmitter
+          v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
+          :key="suggestionQuery"
+          :payload="tagging?.searchQueries[suggestionQuery].toolingDisplay ?? emptyTaggingRequest"
+          :event-metadata="{
+            feature: 'ai_carousel',
+            displayOriginalQuery: query || 'ai-carousel-without-query',
+            replaceable: false,
+          }"
+          data-test="ai-carousel-query-display-emitter"
+        >
+          <div class="x-ai-carousel-suggestion" data-test="ai-carousel-suggestion">
+            <BaseEventButton
+              class="x-ai-carousel-suggestion-query-btn"
+              :events="{ UserAcceptedAQuery: suggestionQuery }"
+            >
+              {{ suggestionQuery }}
+              <ArrowRightIcon class="x-ai-carousel-suggestion-query-btn-icon" />
+            </BaseEventButton>
+
+            <DisplayClickProvider
+              :tooling-display-tagging="tagging?.searchQueries[suggestionQuery].toolingDisplayClick"
+              :tooling-add2-cart-tagging="
+                tagging?.searchQueries[suggestionQuery].toolingDisplayAdd2Cart
+              "
+              result-feature="ai_carousel"
+            >
+              <slot name="sliding-panel" :results="queriesResults">
+                <SlidingPanel
+                  :class="slidingPanelClasses"
+                  :scroll-container-class="slidingPanelContainerClasses"
+                  :button-class="slidingPanelButtonsClasses"
+                  :reset-on-content-change="false"
+                >
+                  <template #sliding-panel-addons="{ arrivedState }">
+                    <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+                  </template>
+                  <template #sliding-panel-left-button>
+                    <slot name="sliding-panels-left-button" />
+                  </template>
+                  <template #sliding-panel-right-button>
+                    <slot name="sliding-panels-right-button" />
+                  </template>
+                  <ul class="x-ai-carousel-suggestion-results">
+                    <li
+                      v-for="result in queriesResults"
+                      :key="result.id"
+                      data-test="ai-carousel-suggestion-result"
+                    >
+                      <!-- @slot (required) result card -->
+                      <slot name="result" :result="result" />
+                    </li>
+                  </ul>
+                </SlidingPanel>
+              </slot>
+            </DisplayClickProvider>
+          </div>
+        </DisplayEmitter>
+        <slot name="suggestions-extra-content" />
+      </div>
       <slot name="extra-content" />
       <slot name="cta-button" />
     </div>
@@ -90,6 +151,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
+import ArrowRightIcon from '@x/components/icons/arrow-right.vue'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
@@ -99,6 +161,7 @@ import {
   DisplayClickProvider,
   SlidingPanel,
 } from '../../../components'
+import BaseEventButton from '../../../components/base-event-button.vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useState } from '../../../composables'
 import { aiXModule } from '../x-module'
@@ -106,6 +169,8 @@ import { aiXModule } from '../x-module'
 export default defineComponent({
   xModule: aiXModule.name,
   components: {
+    ArrowRightIcon,
+    BaseEventButton,
     ChangeHeight,
     DisplayClickProvider,
     DisplayEmitter,
@@ -130,6 +195,11 @@ export default defineComponent({
     /* The classes added to the sliding panel buttons. */
     slidingPanelButtonsClasses: {
       type: String,
+    },
+    /* Controls whether the carousel should group results or display N carousels per N query. */
+    group: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props) {
@@ -256,9 +326,35 @@ export default defineComponent({
   transform: rotate(180deg);
 }
 
+.x-ai-carousel-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+}
+
 .x-ai-carousel-suggestion {
   display: flex;
+  flex-direction: column;
   gap: 8px;
+}
+
+.x-ai-carousel-suggestion-query-btn {
+  border-color: transparent;
+  background-color: transparent;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-weight: 700;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.x-ai-carousel-suggestion-query-btn-icon {
+  height: 1rem;
+  aspect-ratio: 1 / 1;
 }
 
 .x-ai-carousel-suggestion-results {
