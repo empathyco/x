@@ -13,10 +13,6 @@ describe('testing ai module actions', () => {
       body: { getReader: () => ({ read: async () => Promise.resolve({ done: true }) }) },
       status: 200,
     } as unknown as Response,
-    aiSummarize: {
-      body: { getReader: () => ({ read: async () => Promise.resolve({ done: true }) }) },
-      status: 200,
-    } as unknown as Response,
   })
 
   const store: SafeStore<AiState, AiGetters, AiMutations, AiActions> = new Store(
