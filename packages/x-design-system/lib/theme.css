@@ -1,13 +1,11 @@
 @theme {
   --aspect-ratio-default: 3/4;
-
-  --border-radius-none: 0;
-  --border-radius-xs: 2px;
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
-  --border-radius-xl: 32px;
-  --border-radius-full: 99999px;
+  
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 32px;
 
   --border-width-default: 1px;
   --border-width-1: 1px;
