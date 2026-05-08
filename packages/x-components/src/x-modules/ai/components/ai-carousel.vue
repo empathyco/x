@@ -39,48 +39,22 @@
           </button>
         </span>
       </DisplayEmitter>
-      <slot v-if="group" name="sliding-panel" :suggestions="suggestionsSearch" :tagging="tagging">
-        <SlidingPanel
-          :class="slidingPanelClasses"
-          :scroll-container-class="slidingPanelContainerClasses"
-          :button-class="slidingPanelButtonsClasses"
-          :reset-on-content-change="false"
-        >
-          <template #sliding-panel-addons="{ arrivedState }">
-            <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
-          </template>
-          <template #sliding-panel-left-button>
-            <slot name="sliding-panels-left-button" />
-          </template>
-          <template #sliding-panel-right-button>
-            <slot name="sliding-panels-right-button" />
-          </template>
-          <div class="x-ai-carousel-suggestion">
-            <ul class="x-ai-carousel-suggestion-results">
-              <DisplayClickProvider
-                v-for="suggestion in suggestionsSearch"
-                :key="suggestion.query"
-                :tooling-display-tagging="
-                  tagging?.searchQueries[suggestion.query].toolingDisplayClick
-                "
-                :tooling-add2-cart-tagging="
-                  tagging?.searchQueries[suggestion.query].toolingDisplayAdd2Cart
-                "
-                result-feature="ai_carousel"
-              >
-                <li
-                  v-for="result in suggestion.results"
-                  :key="result.id"
-                  data-test="ai-carousel-suggestion-result"
-                >
-                  <!-- @slot (required) result card -->
-                  <slot name="result" :result="result" />
-                </li>
-              </DisplayClickProvider>
-            </ul>
-          </div>
-        </SlidingPanel>
-      </slot>
+
+      <AiGroupedCarousel v-if="group">
+        <template #sliding-panel-addons="{ arrivedState }">
+          <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
+        </template>
+        <template #sliding-panel-left-button>
+          <slot name="sliding-panels-left-button" />
+        </template>
+        <template #sliding-panel-right-button>
+          <slot name="sliding-panels-right-button" />
+        </template>
+        <template #result="{ result }">
+          <slot name="result" :result="result" />
+        </template>
+      </AiGroupedCarousel>
+
       <div v-else class="x-ai-carousel-suggestions" data-test="ai-carousel-suggestions-container">
         <DisplayEmitter
           v-for="{ query: suggestionQuery, results: queriesResults } in suggestionsSearch"
@@ -142,6 +116,7 @@
         </DisplayEmitter>
         <slot name="suggestions-extra-content" />
       </div>
+
       <slot name="extra-content" />
       <slot name="cta-button" />
     </div>
@@ -151,51 +126,45 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
-import ArrowRightIcon from '@x/components/icons/arrow-right.vue'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
+  ArrowRightIcon,
+  BaseEventButton,
   ChangeHeight,
   ChevronDownIcon,
   CollapseHeight,
   DisplayClickProvider,
+  DisplayEmitter,
   SlidingPanel,
 } from '../../../components'
-import BaseEventButton from '../../../components/base-event-button.vue'
-import DisplayEmitter from '../../../components/display-emitter.vue'
 import { use$x, useState } from '../../../composables'
 import { aiXModule } from '../x-module'
+import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
 export default defineComponent({
   xModule: aiXModule.name,
   components: {
+    AIStarIcon,
+    AiGroupedCarousel,
     ArrowRightIcon,
     BaseEventButton,
     ChangeHeight,
+    ChevronDownIcon,
+    CollapseHeight,
     DisplayClickProvider,
     DisplayEmitter,
-    CollapseHeight,
-    AIStarIcon,
-    ChevronDownIcon,
     SlidingPanel,
   },
   props: {
     /* The title text displayed */
-    title: {
-      type: String,
-    },
+    title: String,
     /* The classes added to the sliding panel. */
-    slidingPanelClasses: {
-      type: String,
-    },
+    slidingPanelClasses: String,
     /* The classes added to the sliding panel container. */
-    slidingPanelContainerClasses: {
-      type: String,
-    },
+    slidingPanelContainerClasses: String,
     /* The classes added to the sliding panel buttons. */
-    slidingPanelButtonsClasses: {
-      type: String,
-    },
+    slidingPanelButtonsClasses: String,
     /* Controls whether the carousel should group results or display N carousels per N query. */
     group: {
       type: Boolean,
@@ -270,6 +239,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <style lang="css">
 .x-ai-carousel {
   --color: var(--x-ai-carousel-color, #bbc9cf);

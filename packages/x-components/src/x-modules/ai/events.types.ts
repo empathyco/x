@@ -16,5 +16,6 @@ export interface AiXEvents {
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
   AiSuggestionsSearchChanged: AiSuggestionSearch[]
   UserClickedAnAiCarouselResult: Result
+  UserClickedAnAiCarouselAdd2Cart: Result
   AiComponentMounted: void
 }
