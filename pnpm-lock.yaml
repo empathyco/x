@@ -134,9 +134,6 @@ importers:
       js-md5:
         specifier: ~0.8.3
         version: 0.8.3
-      marked:
-        specifier: ~17.0.6
-        version: 17.0.6
       nouislider:
         specifier: ~15.8.1
         version: 15.8.1
@@ -4928,11 +4925,6 @@ packages:
 
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
-
-  marked@17.0.6:
-    resolution: {integrity: sha512-gB0gkNafnonOw0obSTEGZTT86IuhILt2Wfx0mWH/1Au83kybTayroZ/V6nS25mN7u8ASy+5fMhgB3XPNrOZdmA==}
-    engines: {node: '>= 20'}
-    hasBin: true
 
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
@@ -11979,8 +11971,6 @@ snapshots:
   map-obj@4.3.0: {}
 
   markdown-table@3.0.4: {}
-
-  marked@17.0.6: {}
 
   math-intrinsics@1.1.0: {}
 
