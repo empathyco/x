@@ -45,9 +45,6 @@ export const aiXStoreModule: AiXStoreModule = {
     setQueries: (state, queries: AiSuggestionQuery[]) => {
       state.queries = queries
     },
-    setExcludedResultIds: (state, resultIds: Result['id'][]) => {
-      state.excludeOptions.resultIds = resultIds
-    },
     setTagging: (state, tagging) => {
       state.tagging = tagging
     },
@@ -60,6 +57,9 @@ export const aiXStoreModule: AiXStoreModule = {
     },
     setSuggestionsSearchStatus: (state, status: RequestStatus) => {
       state.suggestionsSearchStatus = status
+    },
+    setExcludedResultIds: (state, resultIds: Result['id'][]) => {
+      state.excludeOptions.resultIds = resultIds
     },
     setQuery,
     setParams(state, params) {

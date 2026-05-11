@@ -86,12 +86,6 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
   setQueries: (queries: AiSuggestionQuery[]) => void
 
   /**
-   * Sets the result ids to exclude from the suggestions response.
-   *
-   * @param resultIds - The new resultIds.
-   */
-  setExcludedResultIds: (resultIds: Result['id'][]) => void
-  /**
    * Sets the tagging from the streamed response.
    *
    * @param tagging - The new tagging.
@@ -111,6 +105,13 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param status - The new status.
    */
   setSuggestionsSearchStatus: (status: RequestStatus) => void
+
+  /**
+   * Sets the result ids to exclude from the suggestion search response.
+   *
+   * @param resultIds - The new resultIds.
+   */
+  setExcludedResultIds: (resultIds: Result['id'][]) => void
 
   /**
    * Sets the suggestions search from the suggestions search response.
