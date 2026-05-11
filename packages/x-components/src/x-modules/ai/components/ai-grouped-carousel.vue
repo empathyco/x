@@ -58,11 +58,6 @@ export default defineComponent({
     slidingPanelContainerClasses: String,
     /* The classes added to the sliding panel buttons. */
     slidingPanelButtonsClasses: String,
-    /* Controls whether the carousel should group results or display N carousels per N query. */
-    group: {
-      type: Boolean,
-      default: true,
-    },
   },
   setup() {
     const { suggestionsSearch, tagging } = useState('ai')

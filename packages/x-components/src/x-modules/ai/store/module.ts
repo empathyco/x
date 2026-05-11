@@ -32,6 +32,9 @@ export const aiXStoreModule: AiXStoreModule = {
     origin: null,
     relatedTags: [],
     searchTotalResults: 0,
+    excludeOptions: {
+      resultIds: [],
+    },
   }),
   getters: {
     suggestionsRequest,
@@ -101,9 +104,6 @@ export const aiXStoreModule: AiXStoreModule = {
 function resettableAiState() {
   return {
     queries: [],
-    excludeOptions: {
-      resultIds: [],
-    },
     tagging: undefined,
     suggestionsSearch: [],
     suggestionsStatus: 'initial' as RequestStatus,
