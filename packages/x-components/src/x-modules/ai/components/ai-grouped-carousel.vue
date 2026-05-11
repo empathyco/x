@@ -14,28 +14,24 @@
     <template #sliding-panel-right-button>
       <slot name="sliding-panels-right-button" />
     </template>
-    <div class="x-ai-carousel-suggestion">
-      <ul class="x-ai-carousel-suggestion-results">
-        <DisplayClickProvider
-          v-for="suggestion in suggestionsSearch"
-          :key="suggestion.query"
-          :tooling-display-tagging="tagging?.searchQueries[suggestion.query].toolingDisplayClick"
-          :tooling-add2-cart-tagging="
-            tagging?.searchQueries[suggestion.query].toolingDisplayAdd2Cart
-          "
-          result-feature="ai_carousel"
+    <ul class="x-ai-carousel-suggestion-results">
+      <DisplayClickProvider
+        v-for="suggestion in suggestionsSearch"
+        :key="suggestion.query"
+        :tooling-display-tagging="tagging?.searchQueries[suggestion.query].toolingDisplayClick"
+        :tooling-add2-cart-tagging="tagging?.searchQueries[suggestion.query].toolingDisplayAdd2Cart"
+        result-feature="ai_carousel"
+      >
+        <li
+          v-for="result in suggestion.results"
+          :key="result.id"
+          data-test="ai-carousel-suggestion-result"
         >
-          <li
-            v-for="result in suggestion.results"
-            :key="result.id"
-            data-test="ai-carousel-suggestion-result"
-          >
-            <!-- @slot (required) result card -->
-            <slot name="result" :result="result" />
-          </li>
-        </DisplayClickProvider>
-      </ul>
-    </div>
+          <!-- @slot (required) result card -->
+          <slot name="result" :result="result" />
+        </li>
+      </DisplayClickProvider>
+    </ul>
   </SlidingPanel>
 </template>
 
