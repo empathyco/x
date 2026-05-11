@@ -1,9 +1,7 @@
 import type { EndpointAdapter } from '@empathyco/x-adapter'
 import type {
-  AiQuestionsRequest,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
-  AiTasksRequest,
   ExperienceControlsRequest,
   FacetsRequest,
   IdentifierResultsRequest,
@@ -18,9 +16,7 @@ import type {
   TaggingRequest,
 } from './request'
 import type {
-  AiQuestionsResponse,
   AiSuggestionsSearchResponse,
-  AiTasksResponse,
   ExperienceControlsResponse,
   FacetsResponse,
   IdentifierResultsResponse,
@@ -51,9 +47,6 @@ export interface XComponentsAdapter {
   semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>
   experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>
   aiSuggestionsSearch: EndpointAdapter<AiSuggestionsSearchRequest, AiSuggestionsSearchResponse>
-  aiQuestions: EndpointAdapter<AiQuestionsRequest, AiQuestionsResponse>
-  aiTasks: EndpointAdapter<AiTasksRequest, AiTasksResponse>
   aiSuggestions: EndpointAdapter<AiSuggestionsRequest, Response>
-  aiSummarize: EndpointAdapter<AiSuggestionsRequest, Response>
   facets: EndpointAdapter<FacetsRequest, FacetsResponse>
 }
