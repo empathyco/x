@@ -1,6 +1,7 @@
 <template>
   <SlidingPanel
     :key="x.query.search"
+    :fade="selectedPromptIndex === -1"
     :reset-on-content-change="false"
     :button-class="buttonClass"
     :show-buttons="showButtons && selectedPromptIndex === -1"

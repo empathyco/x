@@ -2,8 +2,8 @@
   <div v-if="slots.default" class="xds:sliding-panel" :class="cssClasses" data-test="sliding-panel">
     <div
       ref="scrollContainerRef"
-      :class="scrollContainerClass"
-      class="x-sliding-panel__scroll xds:sliding-panel-fade"
+      class="x-sliding-panel__scroll"
+      :class="[scrollContainerClass, { 'xds:sliding-panel-fade': fade }]"
       data-test="sliding-panel-scroll"
     >
       <!-- @slot (Required) Sliding panel content -->
@@ -75,6 +75,13 @@ export default defineComponent({
      * the scroll position to 0.
      */
     resetOnContentChange: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * When true, applies the design-system edge fade mask to the scroll container.
+     */
+    fade: {
       type: Boolean,
       default: true,
     },
