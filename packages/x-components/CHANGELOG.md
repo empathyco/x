@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.0...@empathyco/x-components@6.2.1) (2026-05-12)
+
+### Bug Fixes
+
+* **x-components:** add optional sliding panel fade for related prompts (#2103)
+
+
 ## [6.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.4...@empathyco/x-components@6.2.0) (2026-05-11)
 
 ### Features
