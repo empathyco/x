@@ -39,6 +39,7 @@ function renderSlidingPanel({
   showButtons = true,
   scrollFactor = 0.7,
   resetOnContentChange = true,
+  fade = true,
   buttonClass = '',
   scrollContainerClass = '',
 }: RenderSlidingPanelOptions = {}) {
@@ -47,6 +48,7 @@ function renderSlidingPanel({
       showButtons,
       scrollFactor,
       resetOnContentChange,
+      fade,
       buttonClass,
       scrollContainerClass,
     } as any,
@@ -139,6 +141,23 @@ describe('testing SlidingPanel component', () => {
     expect(getRightButton().classes()).toContain('custom-button')
   })
 
+  it('applies edge fade class on the scroll container when fade is true (default)', () => {
+    const { getScroll } = renderSlidingPanel({
+      slots: { default: '<div>Content</div>' },
+    })
+
+    expect(getScroll().classes()).toContain('xds:sliding-panel-fade')
+  })
+
+  it('does not apply edge fade class when fade is false', () => {
+    const { getScroll } = renderSlidingPanel({
+      fade: false,
+      slots: { default: '<div>Content</div>' },
+    })
+
+    expect(getScroll().classes()).not.toContain('xds:sliding-panel-fade')
+  })
+
   it('resets the scroll to 0 when content changes and resetOnContentChange is true', async () => {
     const { wrapper, triggerMutation } = renderSlidingPanel({
       slots: { default: '<div>Content</div>' },
@@ -164,6 +183,7 @@ interface RenderSlidingPanelOptions {
   showButtons?: boolean
   scrollFactor?: number
   resetOnContentChange?: boolean
+  fade?: boolean
   buttonClass?: string
   scrollContainerClass?: string
 }
