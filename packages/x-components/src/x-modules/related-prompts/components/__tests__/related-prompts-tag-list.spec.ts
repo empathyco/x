@@ -284,5 +284,21 @@ describe('relatedPromptsTagList component', () => {
     expect(sut.relatedPrompts[0].props().selected).toBeTruthy()
   })
 
+  it('passes fade to SlidingPanel when and only when no related prompt is selected', async () => {
+    selectedPromptIndexStub.value = -1
+    const noneSelected = render()
+    vi.runAllTimers()
+    await nextTick()
+    expect(noneSelected.slidingPanel.props().fade).toBe(true)
+    noneSelected.wrapper.unmount()
+
+    selectedPromptIndexStub.value = 2
+    const withSelection = render()
+    vi.runAllTimers()
+    await nextTick()
+    expect(withSelection.slidingPanel.props().fade).toBe(false)
+    withSelection.wrapper.unmount()
+  })
+
   // TODO: Test the transition group callbacks
 })
