@@ -60,45 +60,8 @@ jobs:
           git add .
           git commit -m "chore(release): prepare release [skip ci]" || echo "No changes to commit"
 
-      - name: Configure NPM auth
-        run: |
-          npm config set registry="https://registry.npmjs.org/"
-          npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
-
       - name: Publish packages to NPM
-        run: |
-          # Capture output and error from release:publish
-          if ! output=$(pnpm run release:publish 2>&1); then
-            exit_code=$?
-            
-            # Check if the error is related to NPM authentication (E404 from lerna)
-            if echo "$output" | grep -q "lerna ERR! E404 Not found"; then
-              echo ""
-              echo "🔴 ================================================================================================"
-              echo "🔴 CRITICAL ERROR: NPM_TOKEN_GRANULAR_ACCESS REPOSITORY SECRET HAS EXPIRED"
-              echo "🔴 ================================================================================================"
-              echo ""
-              echo "The release failed because the NPM_TOKEN_GRANULAR_ACCESS repository secret has expired."
-              echo ""
-              echo "👉 ACTION REQUIRED:"
-              echo "   1. Open a new Jira ticket to the Platform Team"
-              echo "   2. Clone this ticket: https://searchbroker.atlassian.net/browse/OPS-10807"
-              echo "   3. Request NPM_TOKEN_GRANULAR_ACCESS secret renewal for this repository"
-              echo "   4. Once the Platform Team renews the token, re-run this workflow"
-              echo ""
-              echo "🔴 ================================================================================================"
-              echo ""
-            fi
-            
-            # Print the original error output for additional context
-            echo "Original error output:"
-            echo "$output"
-            
-            # Exit with the original error code
-            exit $exit_code
-          fi
+        run: pnpm run release:publish
 
       - name: Create Git tags for published packages
         run: |
