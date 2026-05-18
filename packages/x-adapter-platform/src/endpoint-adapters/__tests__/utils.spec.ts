@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { getDefaultHeaders } from '../utils'
+import { getDefaultParams } from '../utils'
 
 describe('utils tests', () => {
-  describe('getDefaultHeaders', () => {
+  describe('getDefaultParams', () => {
     const globThis = globalThis as unknown as { window?: Window; location?: Location }
     // Store original properties
     let originalWindow: Window | undefined
@@ -39,9 +39,9 @@ describe('utils tests', () => {
         writable: true,
       })
 
-      const headers = getDefaultHeaders()
+      const params = getDefaultParams()
 
-      expect(headers).toEqual({
+      expect(params).toEqual({
         'x-origin': 'https://test.example.com',
       })
     })
@@ -51,9 +51,9 @@ describe('utils tests', () => {
       delete globThis.window
       delete globThis.location
 
-      const headers = getDefaultHeaders()
+      const params = getDefaultParams()
 
-      expect(headers).toEqual({
+      expect(params).toEqual({
         'x-origin': 'non-browser',
       })
     })

@@ -2,7 +2,7 @@ import type { ExperienceControlsRequest, ExperienceControlsResponse } from '@emp
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { experienceControlsRequestMapper } from '../mappers/requests/experience-controls-request.mapper'
 import { experienceControlsResponseMapper } from '../mappers/responses/experience-controls-response.mapper'
-import { getConfigServiceUrl, getDefaultHeaders } from './utils'
+import { getConfigServiceUrl, getDefaultParams } from './utils'
 
 /**.
  * Default adapter for the experience controls endpoint.
@@ -18,10 +18,8 @@ export const experienceControlsEndpointAdapter = endpointAdapterFactory<
   responseMapper: experienceControlsResponseMapper,
   defaultRequestOptions: {
     id: 'experience-controls',
-    properties: {
-      headers: getDefaultHeaders(),
-    },
     parameters: {
+      ...getDefaultParams(),
       service: 'xcontrols',
     },
   },

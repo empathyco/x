@@ -2,7 +2,7 @@ import type { RecommendationsRequest, RecommendationsResponse } from '@empathyco
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { recommendationsRequestMapper } from '../mappers/requests/recommendations-request.mapper'
 import { recommendationsResponseMapper } from '../mappers/responses/recommendations-response.mapper'
-import { getDefaultHeaders, getSearchServiceUrl } from './utils'
+import { getDefaultParams, getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the recommendations' endpoint.
@@ -19,10 +19,8 @@ export const recommendationsEndpointAdapter = endpointAdapterFactory<
   responseMapper: recommendationsResponseMapper,
   defaultRequestOptions: {
     id: 'recommendations',
-    properties: {
-      headers: getDefaultHeaders(),
-    },
     parameters: {
+      ...getDefaultParams(),
       internal: true,
     },
   },
