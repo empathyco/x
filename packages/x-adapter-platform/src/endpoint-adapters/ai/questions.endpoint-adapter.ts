@@ -1,7 +1,7 @@
 import type { AiQuestionsRequest, AiQuestionsResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { aiQuestionsRequestMapper, aiQuestionsResponseMapper } from '../../mappers'
-import { getDefaultHeaders, getQuestionsServiceUrl } from '../utils'
+import { getQuestionsServiceUrl } from '../utils'
 
 /**
  * Default adapter for the questions v1 endpoint.
@@ -22,7 +22,6 @@ export const aiQuestionsEndpointAdapter = endpointAdapterFactory<
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...getDefaultHeaders(),
       },
     },
     parameters: {

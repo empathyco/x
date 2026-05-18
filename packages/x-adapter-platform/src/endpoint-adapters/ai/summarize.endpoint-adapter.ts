@@ -1,7 +1,7 @@
 import type { AiSuggestionsRequest } from '@empathyco/x-types'
 import { endpointAdapterFactory, fetchRawHttpClient, interpolate } from '@empathyco/x-adapter'
 import { aiSuggestionsRequestMapper } from '../../mappers'
-import { getAiSuggestionsServiceUrl, getDefaultHeaders } from '../utils'
+import { getAiSuggestionsServiceUrl } from '../utils'
 
 /**
  * Default adapter for the Overview summarize streaming endpoint.
@@ -22,7 +22,6 @@ export const aiSummarizeEndpointAdapter = endpointAdapterFactory<AiSuggestionsRe
       headers: {
         accept: 'text/event-stream',
         'Content-Type': 'application/json',
-        ...getDefaultHeaders(),
       },
     },
     parameters: {
