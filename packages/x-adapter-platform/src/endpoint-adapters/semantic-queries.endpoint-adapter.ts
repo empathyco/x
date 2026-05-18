@@ -2,7 +2,7 @@ import type { SemanticQueriesRequest, SemanticQueriesResponse } from '@empathyco
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { semanticQueriesRequestMapper } from '../mappers/requests/semantic-queries-request.mapper'
 import { semanticQueriesResponseMapper } from '../mappers/responses/semantic-queries-response.mapper'
-import { getDefaultParams, getSemanticsServiceUrl } from './utils'
+import { getSemanticsServiceUrl } from './utils'
 
 /**
  * Default adapter for the semantic queries endpoint.
@@ -19,6 +19,5 @@ export const semanticQueriesEndpointAdapter = endpointAdapterFactory<
   responseMapper: semanticQueriesResponseMapper,
   defaultRequestOptions: {
     id: 'semantic-queries',
-    parameters: getDefaultParams(),
   },
 })

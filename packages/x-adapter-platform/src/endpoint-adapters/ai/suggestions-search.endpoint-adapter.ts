@@ -1,7 +1,7 @@
 import type { AiSuggestionsSearchRequest, AiSuggestionsSearchResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { aiSuggestionsSearchRequestMapper, aiSuggestionsSearchResponseMapper } from '../../mappers'
-import { getAiSuggestionsServiceUrl, getDefaultParams } from '../utils'
+import { getAiSuggestionsServiceUrl } from '../utils'
 
 /**
  * Default adapter for the ai suggestions search endpoint.
@@ -26,7 +26,6 @@ export const aiSuggestionsSearchEndpointAdapter = endpointAdapterFactory<
       },
     },
     parameters: {
-      ...getDefaultParams(),
       internal: true,
     },
   },

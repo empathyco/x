@@ -1,7 +1,7 @@
 import type { AiSuggestionsRequest } from '@empathyco/x-types'
 import { endpointAdapterFactory, fetchRawHttpClient, interpolate } from '@empathyco/x-adapter'
 import { aiSuggestionsRequestMapper } from '../../mappers'
-import { getAiSuggestionsServiceUrl, getDefaultParams } from '../utils'
+import { getAiSuggestionsServiceUrl } from '../utils'
 
 /**
  * Default adapter for the Overview suggestions v1 endpoint.
@@ -22,7 +22,6 @@ export const aiSuggestionsEndpointAdapter = endpointAdapterFactory<AiSuggestions
       },
     },
     parameters: {
-      ...getDefaultParams(),
       internal: true,
     },
     sendParamsInBody: true,

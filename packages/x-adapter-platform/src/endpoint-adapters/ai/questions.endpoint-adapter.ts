@@ -1,7 +1,7 @@
 import type { AiQuestionsRequest, AiQuestionsResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { aiQuestionsRequestMapper, aiQuestionsResponseMapper } from '../../mappers'
-import { getDefaultParams, getQuestionsServiceUrl } from '../utils'
+import { getQuestionsServiceUrl } from '../utils'
 
 /**
  * Default adapter for the questions v1 endpoint.
@@ -25,7 +25,6 @@ export const aiQuestionsEndpointAdapter = endpointAdapterFactory<
       },
     },
     parameters: {
-      ...getDefaultParams(),
       internal: true,
     },
     cancelable: false,

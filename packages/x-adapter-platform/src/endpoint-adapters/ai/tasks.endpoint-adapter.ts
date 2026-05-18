@@ -1,7 +1,7 @@
 import type { AiTasksRequest, AiTasksResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { aiTasksRequestMapper, aiTasksResponseMapper } from '../../mappers'
-import { getDefaultParams, getTasksServiceUrl } from '../utils'
+import { getTasksServiceUrl } from '../utils'
 
 /**
  * Default adapter for the questions v1 endpoint.
@@ -15,7 +15,6 @@ export const aiTasksEndpointAdapter = endpointAdapterFactory<AiTasksRequest, AiT
   defaultRequestOptions: {
     id: 'ai-tasks',
     parameters: {
-      ...getDefaultParams(),
       internal: true,
     },
     cancelable: false,
