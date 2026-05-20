@@ -90,7 +90,7 @@ describe('testing BaseCurrentPrice component', () => {
     })
 
     expect(wrapper.find(getDataTestSelector('override-default-slot')).exists()).toBe(true)
-    expect(wrapper.text()).toBe(mockedResult.price!.value.toString())
+    expect(wrapper.text()).toBe(mockedResult.price?.value?.toString())
   })
 })
 
