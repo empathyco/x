@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.3.0...@empathyco/x-adapter-platform@1.4.0) (2026-05-21)
+
+### Features
+
+* allow empty prices (#2108)
+
+
 ## [1.3.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.2.1...@empathyco/x-adapter-platform@1.3.0) (2026-05-18)
 
 ### Features

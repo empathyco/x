@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.3...@empathyco/x-components@6.3.0) (2026-05-21)
+
+### Features
+
+* allow empty prices (#2108)
+
+
 ## [6.2.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.2...@empathyco/x-components@6.2.3) (2026-05-20)
 
 ### Code Refactoring
