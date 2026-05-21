@@ -5,7 +5,12 @@
           @binding {result} result - Result data
     -->
     <slot :result="result">
-      <BaseCurrency v-if="result.price?.value" :value="result.price.value" :format="format" />
+      <BaseCurrency
+        v-if="result.price?.value"
+        :value="result.price.value"
+        :currency="currency"
+        :format="format"
+      />
     </slot>
   </div>
 </template>
@@ -36,24 +41,20 @@ export default defineComponent({
       required: true,
     },
     /**
-     * Format or mask to be defined as string.
-     * - Use 'i' to define integer numbers.
-     * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
-     * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
-     * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
-     * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
-     * than one character.
-     * - Set whatever you need around the integers and decimals marks.
-     * - Default mask: 'i.iii,dd' which returns '1.345,67'.
+     * Optional value coming from https://en.wikipedia.org/wiki/ISO_4217#List_of_ISO_4217_currency_codes.
      *
-     * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
-     * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
-     * part, delete significant digits.
+     * @public
+     */
+    currency: String,
+    /**
+     * The currency format possibilities from Intl.NumberFormatOptions.
+     * Allows customization of decimal places, grouping, etc.
      *
      * @public
      */
     format: {
-      type: String,
+      type: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
+      default: () => ({}),
     },
   },
   setup(props) {
@@ -80,18 +81,40 @@ export default defineComponent({
 
 ### Basic example
 
-This component shows the current price formatted. You can provide the `format` by property or let
-the `BaseCurrency` component use an injected one.
+This component shows the current price formatted. You can provide the `currency` and `format`
+properties to customize the display.
 
 ```vue
 <template>
-  <BaseResultCurrentPrice :result="result" :format="'i.iii,ddd €'" />
+  <BaseResultCurrentPrice :result="result" currency="USD" />
 </template>
 
 <script setup>
 import { BaseResultCurrentPrice } from '@empathyco/x-components'
 const result = {
   price: { value: 123.45, hasDiscount: false },
+  // ...other result properties
+}
+</script>
+```
+
+### Customizing format
+
+You can customize the number formatting using the `format` prop with `Intl.NumberFormatOptions`:
+
+```vue
+<template>
+  <BaseResultCurrentPrice
+    :result="result"
+    currency="EUR"
+    :format="{ minimumFractionDigits: 2, maximumFractionDigits: 2 }"
+  />
+</template>
+
+<script setup>
+import { BaseResultCurrentPrice } from '@empathyco/x-components'
+const result = {
+  price: { value: 123.456, hasDiscount: false },
   // ...other result properties
 }
 </script>

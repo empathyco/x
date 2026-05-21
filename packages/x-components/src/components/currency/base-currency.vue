@@ -1,48 +1,12 @@
 <template>
-  <span v-if="value !== undefined" class="x-currency">{{ currency }}</span>
+  <span class="x-currency">{{ currencyText }}</span>
 </template>
 
 <script lang="ts">
+import type { SnippetConfig } from '@x/x-installer'
+import type { PropType } from 'vue'
 import { computed, defineComponent, inject } from 'vue'
-import { currencyFormatter } from '../../utils/currency-formatter'
 
-/**
- * Renders the value received as a property which always must be a JavaScript number, with the
- * proper format provided as a string property or by injection. The rendered tag is a span in
- * order to render a default inline HTML element.
- *
- * Regarding the format or mask to be defined as string:
- * - Use 'i' to define integer numbers.
- * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
- * format doesn't include decimals, it is filled with zeros until reach the length defined with
- * 'd's.
- * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
- * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
- * than one character.
- * - If you want to hide the decimal part if it's zero, you can add the `?` symbol after the
- * decimal characters (e.g. 'i.iii,dd?', for `1234` you would get `1.234` instead of `1.234,00`).
- * - Set whatever you need around the integers and decimals marks.
- * - Default mask: 'i.iii,dd' which returns '1.345,67'.
- *
- * @remarks The number of 'd', which is the maximum decimal length, MUST matches with the length
- * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
- * part, it deletes significant digits.
- *
- * Basic example:
- *
- * ```vue
- * <BaseCurrency
- *   :value="123456.789"
- *   format="i.iiii,dddd €"
- * />
- * ```
- *
- * It will render: `123.456,7890 €`.
- *
- * See docs below for more examples.
- *
- * @public
- */
 export default defineComponent({
   props: {
     /**
@@ -59,43 +23,38 @@ export default defineComponent({
     },
 
     /**
-     * The format as string.
+     * The ISO 4217 currency value. If not specified we use snippetConfig.currency
+     *
+     * @public
+     */
+    currency: String,
+    /**
+     * The currency format possibilities from Intl.NumberFormatOptions.
+     * Allows customization of decimal places, grouping, etc.
+     * Note: 'currency' and 'style' options are managed internally.
      *
      * @public
      */
     format: {
-      type: String,
+      type: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
+      default: () => ({}),
     },
   },
 
   setup(props) {
-    /**
-     * The injected format as string.
-     *
-     * @public
-     */
-    const injectedFormat = inject<string>('currencyFormat', 'i.iii,dd')
+    const snippetConfig = inject<SnippetConfig>('snippetConfig')
 
-    /**
-     * A format which can be passed through prop or injected.
-     *
-     * @returns A format as string.
-     *
-     * @internal
-     */
-    const renderedFormat = computed<string>(() => props.format ?? injectedFormat)
-
-    /**
-     * Returns the formatted result as string.
-     *
-     * @returns Formatted number.
-     *
-     * @internal
-     */
-    const currency = computed<string>(() => currencyFormatter(props.value, renderedFormat.value))
+    const currencyText = computed<string>(() => {
+      const currency = props.currency ?? snippetConfig?.currency ?? 'EUR'
+      return Intl.NumberFormat(snippetConfig?.uiLang, {
+        style: 'currency',
+        ...props.format,
+        currency,
+      }).format(props.value)
+    })
 
     return {
-      currency,
+      currencyText,
     }
   },
 })
@@ -104,16 +63,16 @@ export default defineComponent({
 <docs lang="mdx">
 ## Example
 
-Renders the value received as a property, which always must be a JavaScript number, with the proper
-format provided as string property. The rendered tag is a span in order to render a default inline
-HTML element.
+Renders the value received as a property, which always must be a JavaScript number, formatted
+using the Intl.NumberFormat API with ISO 4217 currency codes. The rendered tag is a span in order
+to render a default inline HTML element.
 
 ### Basic usage
 
 ```vue
 <template>
-  <BaseCurrency :value="12345678.87654321" />
-  <!-- output: '12.345.678,87' -->
+  <BaseCurrency :value="12345678.87654321" currency="EUR" />
+  <!-- output depends on locale, e.g., '12.345.678,88 €' for es-ES -->
 </template>
 
 <script setup>
@@ -121,10 +80,16 @@ import BaseCurrency from '@empathyco/x-components/js/components/currency/base-cu
 </script>
 ```
 
+### Customizing decimal places
+
 ```vue
 <template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
-  <!-- output: '12.345.678,876 €' -->
+  <BaseCurrency
+    :value="12345678.87654321"
+    currency="USD"
+    :format="{ minimumFractionDigits: 3, maximumFractionDigits: 3 }"
+  />
+  <!-- output: '$12,345,678.877' for en-US locale -->
 </template>
 
 <script setup>
@@ -132,10 +97,16 @@ import BaseCurrency from '@empathyco/x-components/js/components/currency/base-cu
 </script>
 ```
 
+### No decimal places
+
 ```vue
 <template>
-  <BaseCurrency :value="12345678" format="i.iii,ddd? €" />
-  <!-- output: '12.345.678 €' -->
+  <BaseCurrency
+    :value="12345678.87"
+    currency="EUR"
+    :format="{ minimumFractionDigits: 0, maximumFractionDigits: 0 }"
+  />
+  <!-- output: '12.345.679 €' for es-ES locale (rounds up) -->
 </template>
 
 <script setup>
@@ -143,10 +114,20 @@ import BaseCurrency from '@empathyco/x-components/js/components/currency/base-cu
 </script>
 ```
 
+### Using different currencies
+
 ```vue
 <template>
-  <BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" />
-  <!-- output: '$ 12.345.678,87' -->
+  <div>
+    <BaseCurrency :value="1234.56" currency="USD" />
+    <!-- output: '$1,234.56' for en-US -->
+    <BaseCurrency :value="1234.56" currency="EUR" />
+    <!-- output: '1.234,56 €' for es-ES -->
+    <BaseCurrency :value="1234.56" currency="GBP" />
+    <!-- output: '£1,234.56' for en-GB -->
+    <BaseCurrency :value="1234.56" currency="JPY" />
+    <!-- output: '¥1,235' for ja-JP -->
+  </div>
 </template>
 
 <script setup>
@@ -154,124 +135,26 @@ import BaseCurrency from '@empathyco/x-components/js/components/currency/base-cu
 </script>
 ```
 
+### Advanced formatting options
+
+You can pass any valid Intl.NumberFormatOptions (except 'currency' and 'style' which are managed
+internally):
+
 ```vue
 <template>
-  <BaseCurrency :value="12345678.87654321" format="$i.iii,dd" />
-  <!-- output: '$12.345.678,87' -->
+  <BaseCurrency
+    :value="1234567.89"
+    currency="EUR"
+    :format="{
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 4,
+      useGrouping: true,
+    }"
+  />
 </template>
 
 <script setup>
 import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
-  <!-- output: '12.345.678,87 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii,dd€" />
-  <!-- output: '12.345.678,87€' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i,iii.dd €" />
-  <!-- output: '12,345,678.87 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i iii.dd €" />
-  <!-- output: '12 345 678.87 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i iii - dd €" />
-  <!-- output: '12 345 678 - 87 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii,dddddd €" />
-  <!-- output: '12.345.678,876543 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87" format="i.iii,dddddd €" />
-  <!-- output: '12.345.678,870000 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678" format="i.iii,dddddd €" />
-  <!-- output: '12.345.678,000000 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
-  <!-- output: '12.345.678,87 €' -->
-</template>
-
-<script setup>
-import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
-</script>
-```
-
-```vue
-<template>
-  <BaseCurrency :value="12345678.87654321" format="i.iii €" />
-  <!-- output: '12.345.678 €' -->
-</template>
-
-<script setup>
-import { BaseCurrency } from '@empathyco/x-components/js/components/currency/base-currency.vue'
 </script>
 ```
 </docs>

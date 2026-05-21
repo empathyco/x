@@ -18,6 +18,7 @@
         <span>Add to cart</span>
       </BaseAddToCart>
     </div>
+    <BaseResultCurrentPrice :result="result" />
     <div class="x-result__description">
       <BaseResultRating :result="result" :max="5" link="#" class="xds:text1 xds:text1-sm">
         <template #filled-icon>❤️</template>
@@ -33,7 +34,7 @@
 <script lang="ts" setup>
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { CrossFade } from '@x/components'
+import { BaseResultCurrentPrice, CrossFade } from '@x/components'
 import {
   BaseAddToCart,
   BaseResultImage,
