@@ -508,10 +508,10 @@ export const taggingWiring = createWiring({
   AiSuggestionsSearchChanged: {
     trackAiSuggestionsSearchWire,
   },
-  UserClickedAnAiOverviewResult: {
+  UserClickedAnAiCarouselResult: {
     trackToolingDisplayClickedWire,
   },
-  UserClickedAnAiOverviewAdd2Cart: {
+  UserClickedAnAiCarouselAdd2Cart: {
     trackToolingAdd2CartWire,
   },
 })

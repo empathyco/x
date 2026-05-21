@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.2.0",
+  "version": "10.3.0",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -42,16 +42,16 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@empathyco/x-adapter": "8.1.4",
-    "@empathyco/x-utils": "1.0.5"
+    "@empathyco/x-adapter": "8.1.6",
+    "@empathyco/x-utils": "1.0.7"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.30.0",
-    "@microsoft/api-extractor": "7.58.2",
+    "@microsoft/api-documenter": "7.30.5",
+    "@microsoft/api-extractor": "7.58.7",
     "typescript": "5.9.3",
     "vite": "6.4.2",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.4"
+    "vitest": "4.1.6"
   },
   "publishConfig": {
     "access": "public"

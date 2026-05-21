@@ -18,7 +18,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-config": "1.10.31",
+    "@empathyco/eslint-config": "1.10.32",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.3.1",
     "husky": "8.0.3",

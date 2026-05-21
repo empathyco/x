@@ -2,7 +2,7 @@ import type { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathy
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggestions-request.mapper'
 import { querySuggestionsResponseMapper } from '../mappers/responses/query-suggestions-response.mapper'
-import { getDefaultHeaders, getSearchServiceUrl } from './utils'
+import { getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the query suggestions endpoint.
@@ -19,9 +19,6 @@ export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   responseMapper: querySuggestionsResponseMapper,
   defaultRequestOptions: {
     id: 'query-suggestions',
-    properties: {
-      headers: getDefaultHeaders(),
-    },
     parameters: {
       internal: true,
     },

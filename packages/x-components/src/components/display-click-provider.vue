@@ -47,12 +47,12 @@ export default defineComponent({
 
     const resultAddToCartExtraEventsMap: Partial<Record<ResultFeature, string>> = {
       related_prompts: 'UserClickedARelatedPromptAdd2Cart',
-      overview: 'UserClickedAnAiOverviewAdd2Cart',
+      ai_carousel: 'UserClickedAnAiCarouselAdd2Cart',
     }
 
     const resultClickExtraEventsMap: Partial<Record<ResultFeature, string>> = {
       related_prompts: 'UserClickedARelatedPromptResult',
-      overview: 'UserClickedAnAiOverviewResult',
+      ai_carousel: 'UserClickedAnAiCarouselResult',
     }
 
     provide('resultAddToCartExtraEvents', [resultAddToCartExtraEventsMap[props.resultFeature]])
@@ -66,7 +66,7 @@ export default defineComponent({
     ])
     provide('resultLinkMetadataPerEvent', {
       UserClickedARelatedPromptResult: displayClickMetadata.value,
-      UserClickedAnAiOverviewResult: displayClickMetadata.value,
+      UserClickedAnAiCarouselResult: displayClickMetadata.value,
       UserClickedADisplayResult: displayClickMetadata.value,
       ...(props.ignoreResultClickEvent && {
         UserClickedAResult: {
@@ -89,7 +89,7 @@ The `DisplayClickProvider` component is used to provide context and event metada
 
 ```vue
 <template>
-  <DisplayClickProvider :resultFeature="'overview'">
+  <DisplayClickProvider :resultFeature="'related_prompts'">
     <ResultCard :result="result" />
   </DisplayClickProvider>
 </template>

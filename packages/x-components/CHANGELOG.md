@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.3...@empathyco/x-components@6.3.0) (2026-05-21)
+
+### Features
+
+* allow empty prices (#2108)
+
+
+## [6.2.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.2...@empathyco/x-components@6.2.3) (2026-05-20)
+
+### Code Refactoring
+
+* **ai-spinner:** optimize SVG structure and remove unused script logic (#2107)
+
+
+## [6.2.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.1...@empathyco/x-components@6.2.2) (2026-05-18)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.2.1](https://github.com/empathyco/x/compare/@empathyco/x-components@6.2.0...@empathyco/x-components@6.2.1) (2026-05-12)
+
+### Bug Fixes
+
+* **x-components:** add optional sliding panel fade for related prompts (#2103)
+
+
+## [6.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.4...@empathyco/x-components@6.2.0) (2026-05-11)
+
+### Features
+
+* **ai:** extract ai-grouped-carousel component and refactor ai-carousel component
+
+### Code Refactoring
+
+* **ai-carousel:** simplify markup and remove redundant wrapper container
+* **ai:** types
+* clean up AI carousel props and simplify `excludeOptions` state handling
+* remove `ai-overview` component, tests, and related integration
+* remove unused AI module state properties, mutations, and related tests
+
+
+## [6.1.4](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.3...@empathyco/x-components@6.1.4) (2026-05-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.1.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.2...@empathyco/x-components@6.1.3) (2026-05-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [6.1.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.1.1...@empathyco/x-components@6.1.2) (2026-05-07)
 
 **Note:** Version bump only for package @empathyco/x-components

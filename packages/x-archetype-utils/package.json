@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-archetype-utils",
-  "version": "2.0.2",
+  "version": "2.0.5",
   "description": "Utilities for x-archetype",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -40,23 +40,23 @@
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "vue": "^3.5.32",
+    "vue": "^3.5.34",
     "vue-i18n": "^9.14.5"
   },
   "dependencies": {
-    "@empathyco/x-utils": "1.0.5",
+    "@empathyco/x-utils": "1.0.7",
     "vue-i18n": "~9.14.5"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.4",
-    "@vue/test-utils": "2.4.6",
-    "jsdom": "29.0.2",
+    "@vitest/coverage-v8": "4.1.6",
+    "@vue/test-utils": "2.4.10",
+    "jsdom": "29.1.1",
     "typescript": "5.9.3",
     "vite": "6.4.2",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-static-copy": "3.4.0",
-    "vitest": "4.1.4",
-    "vue": "3.5.32"
+    "vitest": "4.1.6",
+    "vue": "3.5.34"
   },
   "publishConfig": {
     "access": "public"

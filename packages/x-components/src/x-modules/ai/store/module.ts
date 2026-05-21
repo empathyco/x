@@ -32,6 +32,9 @@ export const aiXStoreModule: AiXStoreModule = {
     origin: null,
     relatedTags: [],
     searchTotalResults: 0,
+    excludeOptions: {
+      resultIds: [],
+    },
   }),
   getters: {
     suggestionsRequest,
@@ -39,17 +42,8 @@ export const aiXStoreModule: AiXStoreModule = {
   },
   mutations: {
     /* Streamed fields */
-    setResponseText: (state, responseText: string) => {
-      state.responseText = responseText
-    },
-    setSuggestionText: (state, suggestionText: string) => {
-      state.suggestionText = suggestionText
-    },
     setQueries: (state, queries: AiSuggestionQuery[]) => {
       state.queries = queries
-    },
-    setExcludedResultIds: (state, resultIds: Result['id'][]) => {
-      state.excludeOptions.resultIds = resultIds
     },
     setTagging: (state, tagging) => {
       state.tagging = tagging
@@ -64,6 +58,9 @@ export const aiXStoreModule: AiXStoreModule = {
     setSuggestionsSearchStatus: (state, status: RequestStatus) => {
       state.suggestionsSearchStatus = status
     },
+    setExcludedResultIds: (state, resultIds: Result['id'][]) => {
+      state.excludeOptions.resultIds = resultIds
+    },
     setQuery,
     setParams(state, params) {
       state.params = params
@@ -76,9 +73,6 @@ export const aiXStoreModule: AiXStoreModule = {
     },
     setAiRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
-    },
-    setIsNoResults(state, isNoResults: boolean) {
-      state.isNoResults = isNoResults
     },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
@@ -109,16 +103,10 @@ export const aiXStoreModule: AiXStoreModule = {
  */
 function resettableAiState() {
   return {
-    responseText: '',
-    suggestionText: '',
     queries: [],
-    excludeOptions: {
-      resultIds: [],
-    },
     tagging: undefined,
     suggestionsSearch: [],
     suggestionsStatus: 'initial' as RequestStatus,
     suggestionsSearchStatus: 'initial' as RequestStatus,
-    isNoResults: true,
   }
 }

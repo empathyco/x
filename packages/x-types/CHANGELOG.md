@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.3.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.2.2...@empathyco/x-types@10.3.0) (2026-05-21)
+
+### Features
+
+* allow empty prices (#2108)
+
+
+## [10.2.2](https://github.com/empathyco/x/compare/@empathyco/x-types@10.2.1...@empathyco/x-types@10.2.2) (2026-05-18)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [10.2.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.2.0...@empathyco/x-types@10.2.1) (2026-05-07)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
 ## [10.2.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.4...@empathyco/x-types@10.2.0) (2026-05-05)
 
 ### Features
