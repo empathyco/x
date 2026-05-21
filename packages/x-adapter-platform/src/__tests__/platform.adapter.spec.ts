@@ -1,10 +1,6 @@
 import type { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
-import type {
-  PlatformAiQuestionsResponse,
-  PlatformAiTasksResponse,
-  PlatformExperienceControlsResponse,
-} from '../types'
+import type { PlatformExperienceControlsResponse } from '../types'
 import type { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model'
 import type { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model'
 import type { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model'
@@ -23,20 +19,6 @@ import { platformRecommendationsResponse } from './__fixtures__/recommendations.
 import { result } from './__fixtures__/result'
 import { getFetchMock } from './__mocks__/fetch.mock'
 
-const aiQuestionsResponseStub: PlatformAiQuestionsResponse = {
-  context: {
-    instance: 'mymotivemarketplace',
-    lang: 'es',
-    filters: {},
-    query: 'camiseta arrugada',
-  },
-  items: [],
-  resolved: false,
-  numItems: 0,
-  taskId:
-    'f:questions:i:mymotivemarketplace:type:generate-conversational:lang:es:q:9f7d9f3e3549f1d801845f4c9e2114a3',
-  totalItems: 0,
-}
 describe('platformAdapter tests', () => {
   beforeEach(vi.clearAllMocks)
 
@@ -679,73 +661,6 @@ describe('platformAdapter tests', () => {
       },
       events: {},
     })
-  })
-
-  it('should call the ai questions endpoint', async () => {
-    const instanceStub = 'empathy'
-    const queryStub = 'return policy'
-    const langStub = 'en'
-    const fetchMock = vi.fn(getFetchMock(aiQuestionsResponseStub))
-    window.fetch = fetchMock as any
-
-    const response = await platformAdapter.aiQuestions({
-      query: queryStub,
-      lang: langStub,
-      extraParams: {
-        instance: instanceStub,
-        env: 'staging',
-      },
-    })
-
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(fetchMock).toHaveBeenCalledWith(
-      `https://questions.staging.empathy.co/v1/questions/${instanceStub}/conversational`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          internal: true,
-          context: {
-            lang: langStub,
-            query: queryStub,
-            instance: instanceStub,
-          },
-        }),
-      },
-    )
-
-    expect(response).toStrictEqual(aiQuestionsResponseStub)
-  })
-
-  it('should call the ai tasks endpoint', async () => {
-    const aiTasksResponse: PlatformAiTasksResponse = {
-      result: aiQuestionsResponseStub,
-      steps: [],
-    }
-    const instanceStub = 'empathy'
-    const taskIdStub = 'taskId'
-
-    const fetchMock = vi.fn(getFetchMock(aiTasksResponse))
-    window.fetch = fetchMock as any
-
-    const response = await platformAdapter.aiTasks({
-      taskId: taskIdStub,
-      extraParams: {
-        instance: instanceStub,
-        env: 'staging',
-      },
-    })
-
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(fetchMock).toHaveBeenCalledWith(
-      `https://questions.staging.empathy.co/v1/tasks/${taskIdStub}?internal=true&taskId=${taskIdStub}`,
-      {},
-    )
-
-    // Ensure the response matches AiTaskResponse interface
-    expect(response).toStrictEqual(aiTasksResponse)
   })
 
   it('should call the ai suggestions search endpoint', async () => {

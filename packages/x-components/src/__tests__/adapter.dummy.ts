@@ -15,8 +15,5 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   experienceControls: vi.fn() as unknown as XComponentsAdapter['experienceControls'],
   aiSuggestions: vi.fn() as unknown as XComponentsAdapter['aiSuggestions'],
   aiSuggestionsSearch: vi.fn() as unknown as XComponentsAdapter['aiSuggestionsSearch'],
-  aiQuestions: vi.fn() as unknown as XComponentsAdapter['aiQuestions'],
-  aiTasks: vi.fn() as unknown as XComponentsAdapter['aiTasks'],
-  aiSummarize: vi.fn() as unknown as XComponentsAdapter['aiSummarize'],
   facets: vi.fn() as unknown as XComponentsAdapter['facets'],
 }
