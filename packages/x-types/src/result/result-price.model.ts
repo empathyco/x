@@ -5,9 +5,9 @@
  */
 export interface ResultPrice {
   /** The old value. */
-  originalValue: number
+  originalValue?: number | undefined
   /** The current value. */
-  value: number
+  value?: number | undefined
   /** Whether this result has a discount. */
   hasDiscount: boolean
 }

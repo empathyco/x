@@ -18,7 +18,7 @@ export interface PlatformResult {
   __images: string[]
   __prices: {
     // The current price of the result.
-    current: {
+    current?: {
       value: number
     }
     // If there is a discount this is the previous price without discount.

@@ -9,7 +9,11 @@
          @binding {result} result - Result data
     -->
     <slot :result="result">
-      <BaseCurrency :value="result.price.originalValue" :format="format" />
+      <BaseCurrency
+        v-if="result.price?.originalValue"
+        :value="result.price.originalValue"
+        :format="format"
+      />
     </slot>
   </div>
 </template>

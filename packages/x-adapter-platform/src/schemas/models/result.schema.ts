@@ -20,11 +20,12 @@ export const resultSchema = createMutableSchema<PlatformResult, Result>({
     value: () => null,
   },
   price: {
-    value: '__prices.current.value',
+    value: ({ __prices: rawPrices }) => rawPrices.current?.value,
     originalValue: ({ __prices: rawPrices }) =>
-      rawPrices.previous?.value ?? rawPrices.current.value,
+      rawPrices.previous?.value ?? rawPrices.current?.value,
     hasDiscount: ({ __prices: rawPrices }) =>
-      rawPrices.current.value < (rawPrices.previous?.value ?? rawPrices.current.value),
+      (rawPrices.current?.value ?? 0) <
+      (rawPrices.previous?.value ?? rawPrices.current?.value ?? 0),
   },
   type: () => 'Default',
   modelName: () => 'Result',
