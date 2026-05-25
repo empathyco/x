@@ -46,10 +46,10 @@
     "@empathyco/x-utils": "1.0.7"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.6",
+    "@vitest/coverage-v8": "4.1.7",
     "jsdom": "29.1.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.6"
+    "vitest": "4.1.7"
   },
   "publishConfig": {
     "access": "public"
