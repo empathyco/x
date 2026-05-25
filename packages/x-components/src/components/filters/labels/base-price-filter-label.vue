@@ -18,10 +18,19 @@ export default defineComponent({
       type: Object as PropType<{ range: RangeValue }>,
       required: true,
     },
-    /** Configuration for show the label. */
-    format: {
-      type: String,
-    },
+    /**
+     * An ISO 4217 currency value.
+     *
+     * @public
+     */
+    currency: String,
+    /**
+     * The currency format possibilities from Intl.NumberFormatOptions.
+     * Allows customization of decimal places, grouping, etc.
+     *
+     * @public
+     */
+    format: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
     /**
      * Message shown when the filter hasn't got the min value defined.
      *
@@ -72,11 +81,13 @@ export default defineComponent({
         if (partMessage === '{min}') {
           return h(BaseCurrency, {
             value: props.filter.range.min as number,
+            currency: props.currency,
             format: props.format,
           })
         } else if (partMessage === '{max}') {
           return h(BaseCurrency, {
             value: props.filter.range.max as number,
+            currency: props.currency,
             format: props.format,
           })
         }
@@ -115,7 +126,37 @@ how the price should look like.
         <NumberRangeFilter :filter="filter" v-slot="{ filter }">
           <BasePriceFilterLabel
             :filter="filter"
-            format="$i"
+            currency="USD"
+            lessThan="Less than {max}"
+            fromTo="From {min} to {max}"
+            from="More than {min}"
+          />
+        </NumberRangeFilter>
+      </Filters>
+    </template>
+  </Facets>
+</template>
+
+<script setup>
+import BasePriceFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-price-filter-label.vue'
+import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets'
+</script>
+```
+
+### Customizing format
+
+You can customize the number formatting using the `format` prop with `Intl.NumberFormatOptions`:
+
+```vue
+<template>
+  <Facets>
+    <template #price="{ facet }">
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+          <BasePriceFilterLabel
+            :filter="filter"
+            currency="EUR"
+            :format="{ minimumFractionDigits: 0, maximumFractionDigits: 0 }"
             lessThan="Less than {max}"
             fromTo="From {min} to {max}"
             from="More than {min}"

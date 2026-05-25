@@ -1,7 +1,6 @@
 export * from './array'
 export * from './cancellable-promise'
 export * from './clone'
-export * from './currency-formatter'
 export { debounce as debounceFunction } from './debounce'
 export * from './filters'
 export * from './focus'

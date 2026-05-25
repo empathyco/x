@@ -1,30 +1,57 @@
 import type { VueWrapper } from '@vue/test-utils'
+import type { SnippetConfig } from '@x/x-installer'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { defineComponent, provide, ref } from 'vue'
+import { defineComponent, provide } from 'vue'
 import BaseCurrency from '../base-currency.vue'
 
-function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): VueWrapper {
+function renderBaseCurrency({
+  value,
+  currency,
+  snippetConfig,
+  format,
+}: RenderBaseCurrencyOptions): VueWrapper {
+  const Provider = defineComponent({
+    setup() {
+      if (snippetConfig) {
+        provide('snippetConfig', snippetConfig)
+      }
+    },
+    template: '<div><slot/></div>',
+  })
+
   return mount(
     {
-      components: { BaseCurrency },
-      template: `<BaseCurrency :value="value" :format="format"/>`,
-      props: ['value', 'format'],
+      template: `
+        <Provider>
+          <BaseCurrency :value="value" :currency="currency" :format="format"/>
+        </Provider>
+      `,
+      components: {
+        Provider,
+        BaseCurrency,
+      },
     },
     {
-      props: {
-        value,
-        format,
+      data() {
+        return {
+          value,
+          currency,
+          format,
+        }
       },
     },
   )
 }
 
-function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): VueWrapper {
+function renderInjectedBaseCurrency({
+  value,
+  currency,
+  snippetConfig,
+}: RenderBaseCurrencyOptions): VueWrapper {
   const Provider = defineComponent({
     setup() {
-      const providedFormat = ref('$i,iii.ddd')
-      provide('currencyFormat', providedFormat.value)
+      provide('snippetConfig', snippetConfig ?? { currency: 'USD', uiLang: 'en-US' })
     },
     template: '<div><slot/></div>',
   })
@@ -33,7 +60,7 @@ function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions
     {
       template: `
           <Provider>
-          <BaseCurrency v-bind="{ value, format }" />
+          <BaseCurrency v-bind="{ value, currency }" />
           </Provider>
         `,
       components: {
@@ -45,7 +72,7 @@ function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions
       data() {
         return {
           value,
-          format,
+          currency,
         }
       },
     },
@@ -53,133 +80,158 @@ function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions
 }
 
 describe('testing BaseCurrency component', () => {
-  it('renders the default format', () => {
+  it('renders the default EUR currency with default locale', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678,
+      snippetConfig: { currency: 'EUR', uiLang: undefined },
     })
-    expect(wrapper.text()).toEqual('12.345.678,00')
+    expect(wrapper.text()).toContain('12')
+    expect(wrapper.text()).toContain('345')
+    expect(wrapper.text()).toContain('678')
   })
 
-  it('renders the provided format correctly with "?" after the decimal separator', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678,
-      format: 'i.iii,ddd? €',
-    })
-    expect(wrapper.text()).toEqual('12.345.678 €')
-  })
-
-  it('renders the provided currency at the start of the format', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: '$ i.iii,dd',
-    })
-    expect(wrapper.text()).toEqual('$ 12.345.678,87')
-  })
-
-  it('renders the provided currency at the start of the format without space', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: '$i.iii,dd',
-    })
-    expect(wrapper.text()).toEqual('$12.345.678,87')
-  })
-
-  it('renders the provided currency at the end of the format', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii,dd €',
-    })
-    expect(wrapper.text()).toEqual('12.345.678,87 €')
-  })
-
-  it('renders the provided currency at the end of the format without space', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii,dd€',
-    })
-    expect(wrapper.text()).toEqual('12.345.678,87€')
-  })
-
-  it('renders the provided format with comma for thousands and dot for decimals', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i,iii.dd €',
-    })
-    expect(wrapper.text()).toEqual('12,345,678.87 €')
-  })
-
-  it('renders the provided format with spaces for thousands separators', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i iii.dd €',
-    })
-    expect(wrapper.text()).toEqual('12 345 678.87 €')
-  })
-
-  it(
-    'renders the provided format with spaces for thousands separators and custom string (more' +
-      ' than one character for decimals',
-    () => {
-      const wrapper = renderBaseCurrency({
-        value: 12345678.87654321,
-        format: 'i iii - dd €',
-      })
-      expect(wrapper.text()).toEqual('12 345 678 - 87 €')
-    },
-  )
-
-  it('renders the provided format correctly with a larger number of decimals', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii,dddddd €',
-    })
-    expect(wrapper.text()).toEqual('12.345.678,876543 €')
-  })
-
-  it('renders the provided format correctly filling decimals with non-significant zeros', () => {
+  it('renders EUR currency with Spanish locale (es-ES)', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678.87,
-      format: 'i.iii,dddddd €',
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
     })
-    expect(wrapper.text()).toEqual('12.345.678,870000 €')
+    expect(wrapper.text()).toEqual('12.345.678,87\u00A0€')
   })
 
-  it(
-    'renders the provided format correctly filling decimals with non-significant zeros for an' +
-      'integer',
-    () => {
-      const wrapper = renderBaseCurrency({
-        value: 12345678,
-        format: 'i.iii,dddddd €',
-      })
-      expect(wrapper.text()).toEqual('12.345.678,000000 €')
-    },
-  )
-
-  it('renders the provided format correctly which only contains integer part', () => {
+  it('renders USD currency with US locale (en-US)', () => {
     const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii €',
+      value: 12345678.87,
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
     })
-    expect(wrapper.text()).toEqual('12.345.678 €')
+    expect(wrapper.text()).toEqual('$12,345,678.87')
   })
 
-  it('renders the injected format over default format', () => {
-    const wrapper = renderInjectedBaseCurrency({ value: 12345678.87654321 })
-
-    expect(wrapper.text()).toBe('$12,345,678.876')
+  it('renders GBP currency with UK locale (en-GB)', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678.87,
+      currency: 'GBP',
+      snippetConfig: { currency: 'GBP', uiLang: 'en-GB' },
+    })
+    expect(wrapper.text()).toEqual('£12,345,678.87')
   })
 
-  it('renders the passed prop format over injected format', () => {
-    const wrapper = renderInjectedBaseCurrency({ value: 12345678.87654321, format: 'i.iii,dd €' })
+  it('renders JPY currency (no decimals) with Japanese locale', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678,
+      currency: 'JPY',
+      snippetConfig: { currency: 'JPY', uiLang: 'ja-JP' },
+    })
+    expect(wrapper.text()).toEqual('￥12,345,678')
+  })
 
-    expect(wrapper.text()).toBe('12.345.678,87 €')
+  it('renders EUR currency with French locale (fr-FR)', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678.87,
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'fr-FR' },
+    })
+    // French locale uses spaces as thousands separator and comma for decimals
+    expect(wrapper.text()).toContain('12')
+    expect(wrapper.text()).toContain('345')
+    expect(wrapper.text()).toContain('678')
+    expect(wrapper.text()).toContain('87')
+    expect(wrapper.text()).toContain('€')
+  })
+
+  it('renders with prop currency over snippetConfig currency', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234.56,
+      currency: 'USD',
+      snippetConfig: { currency: 'EUR', uiLang: 'en-US' },
+    })
+    expect(wrapper.text()).toEqual('$1,234.56')
+  })
+
+  it('renders with snippetConfig currency when no prop currency is provided', () => {
+    const wrapper = renderInjectedBaseCurrency({
+      value: 1234.56,
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+    })
+    expect(wrapper.text()).toEqual('$1,234.56')
+  })
+
+  it('renders the passed prop currency over injected snippetConfig currency', () => {
+    const wrapper = renderInjectedBaseCurrency({
+      value: 1234.56,
+      currency: 'EUR',
+      snippetConfig: { currency: 'USD', uiLang: 'es-ES' },
+    })
+    expect(wrapper.text()).toEqual('1234,56\u00A0€')
+  })
+
+  it('renders integer values correctly', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678,
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+    })
+    expect(wrapper.text()).toEqual('$12,345,678.00')
+  })
+
+  it('uses fallback EUR currency when no currency is provided', () => {
+    const wrapper = renderBaseCurrency({
+      value: 100,
+      snippetConfig: { uiLang: 'en-US' },
+    })
+    expect(wrapper.text()).toContain('100')
+    expect(wrapper.text()).toContain('€')
+  })
+
+  it('renders with custom format: minimumFractionDigits and maximumFractionDigits', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234.5,
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+      format: { minimumFractionDigits: 3, maximumFractionDigits: 3 },
+    })
+    expect(wrapper.text()).toEqual('$1,234.500')
+  })
+
+  it('renders with custom format: no decimal places', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234.89,
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+      format: { minimumFractionDigits: 0, maximumFractionDigits: 0 },
+    })
+    expect(wrapper.text()).toEqual('1235\u00A0€') // rounds up
+  })
+
+  it('renders with custom format: many decimal places', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234.56789,
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+      format: { minimumFractionDigits: 5, maximumFractionDigits: 5 },
+    })
+    expect(wrapper.text()).toEqual('$1,234.56789')
+  })
+
+  it('renders with custom format: useGrouping false', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234567.89,
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+      format: { useGrouping: false },
+    })
+    expect(wrapper.text()).toEqual('$1234567.89')
   })
 })
 
 interface RenderBaseCurrencyOptions {
   /** Number to be passed to the component. */
   value: number
-  /** Format for rendering the currency. */
-  format?: string
+  /** ISO 4217 currency code (e.g., 'USD', 'EUR', 'GBP'). */
+  currency?: string
+  /** Snippet configuration including currency and locale. */
+  snippetConfig?: Partial<SnippetConfig>
+  /** Format options from Intl.NumberFormatOptions. */
+  format?: Omit<Intl.NumberFormatOptions, 'currency' | 'style'>
 }

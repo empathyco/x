@@ -69,7 +69,6 @@
                       <BasePriceFilterLabel
                         v-if="facet.id === 'price'"
                         :filter="filter"
-                        format="ii.dd €"
                         less-than="Less than {max}"
                         from-to="From {min} to {max}"
                         from="More than {min}"

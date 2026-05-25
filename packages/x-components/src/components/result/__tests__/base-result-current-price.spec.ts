@@ -1,7 +1,9 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
+import type { SnippetConfig } from '@x/x-installer'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
+import { defineComponent, provide } from 'vue'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import BaseCurrency from '../../currency/base-currency.vue'
 import BaseResultCurrentPrice from '../base-result-current-price.vue'
@@ -15,22 +17,39 @@ const mockedResult: Pick<Result, 'price'> = {
 }
 
 function renderBaseCurrentPrice({
-  format = 'i,iii.dd',
-  template = `<BaseResultCurrentPrice :result="result" :format="format" />`,
+  currency,
+  format,
+  template = `<BaseResultCurrentPrice :result="result" :currency="currency" :format="format" />`,
   result = mockedResult,
+  snippetConfig,
 }: RenderBaseCurrentPriceOptions = {}): RenderBaseCurrentPriceAPI {
+  const Provider = defineComponent({
+    setup() {
+      if (snippetConfig) {
+        provide('snippetConfig', snippetConfig)
+      }
+    },
+    template: '<div><slot/></div>',
+  })
+
   const wrapperComponent = {
-    template,
+    template: `
+      <Provider>
+        ${template}
+      </Provider>
+    `,
     components: {
+      Provider,
       BaseResultCurrentPrice,
     },
-    props: ['format', 'result'],
+    props: ['currency', 'result', 'format'],
   }
 
   const wrapper = mount(wrapperComponent, {
     propsData: {
-      format,
+      currency,
       result,
+      format,
     },
   })
 
@@ -41,30 +60,46 @@ function renderBaseCurrentPrice({
 
 describe('testing BaseCurrentPrice component', () => {
   it('renders a BaseCurrency component', () => {
-    const { wrapper } = renderBaseCurrentPrice()
+    const { wrapper } = renderBaseCurrentPrice({
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+    })
     expect(wrapper.findComponent(BaseCurrency)).toBeDefined()
   })
 
-  it('renders the current price with a custom format', () => {
+  it('renders the current price with USD currency', () => {
     const { wrapper } = renderBaseCurrentPrice({
-      format: 'i.iii,ddd €',
+      currency: 'USD',
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
     })
 
-    expect(wrapper.text()).toBe('19,990 €')
+    expect(wrapper.text()).toBe('$19.99')
   })
 
-  it('renders the current price hiding integer decimals', () => {
+  it('renders the current price with EUR currency', () => {
     const { wrapper } = renderBaseCurrentPrice({
-      format: 'i,iii',
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
     })
 
-    expect(wrapper.text()).toBe('19')
+    expect(wrapper.text()).toBe('19,99\u00A0€')
+  })
+
+  it('renders the current price with GBP currency', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      currency: 'GBP',
+      snippetConfig: { currency: 'GBP', uiLang: 'en-GB' },
+    })
+
+    expect(wrapper.text()).toBe('£19.99')
   })
 
   it('adds "x-result-current-price--on-sale" css class because the price is discounted', () => {
-    const { wrapper } = renderBaseCurrentPrice()
+    const { wrapper } = renderBaseCurrentPrice({
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+    })
 
-    expect(wrapper.classes()).toContain('x-result-current-price--on-sale')
+    const currentPriceElement = wrapper.find('.x-result-current-price')
+    expect(currentPriceElement.classes()).toContain('x-result-current-price--on-sale')
   })
 
   it('does not add "x-result-current-price--on-sale" css class because the price is not discounted', () => {
@@ -76,6 +111,7 @@ describe('testing BaseCurrentPrice component', () => {
           value: 29.99,
         },
       },
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
     })
 
     expect(wrapper.classes()).not.toContain('x-result-current-price--on-sale')
@@ -87,23 +123,48 @@ describe('testing BaseCurrentPrice component', () => {
         <BaseResultCurrentPrice :result="result">
           <span data-test="override-default-slot">{{ result.price.value }}</span>
         </BaseResultCurrentPrice>`,
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
     })
 
     expect(wrapper.find(getDataTestSelector('override-default-slot')).exists()).toBe(true)
     expect(wrapper.text()).toBe(mockedResult.price?.value?.toString())
   })
+
+  it('renders with custom format: no decimal places', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      currency: 'USD',
+      format: { minimumFractionDigits: 0, maximumFractionDigits: 0 },
+      snippetConfig: { currency: 'USD', uiLang: 'en-US' },
+    })
+
+    expect(wrapper.text()).toBe('$20') // rounds up
+  })
+
+  it('renders with custom format: three decimal places', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      currency: 'EUR',
+      format: { minimumFractionDigits: 3, maximumFractionDigits: 3 },
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+
+    expect(wrapper.text()).toBe('19,990\u00A0€')
+  })
 })
 
 interface RenderBaseCurrentPriceOptions {
-  /** The format to apply to the value. */
-  format?: string
+  /** ISO 4217 currency code to apply to the value. */
+  currency?: string
+  /** Format options from Intl.NumberFormatOptions. */
+  format?: Omit<Intl.NumberFormatOptions, 'currency' | 'style'>
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>
   /**
-   * The template to render. Receives the 'result', 'format' props and
+   * The template to render. Receives the 'result', 'currency', 'format' props and
    * has registered a {@link BaseCurrency | BaseCurrency component}.
    */
   template?: string
+  /** Snippet configuration including currency and locale. */
+  snippetConfig?: Partial<SnippetConfig>
 }
 
 interface RenderBaseCurrentPriceAPI {
