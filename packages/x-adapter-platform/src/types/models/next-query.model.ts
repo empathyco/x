@@ -5,6 +5,6 @@
  */
 export interface PlatformNextQuery {
   query: string
-  source: 'ORGANIC' | 'CURATED'
+  source: 'ORGANIC' | 'CURATED' | 'SYNTHETIC'
   position: number
 }

@@ -17,6 +17,11 @@ describe('nextQueriesResponseMapper tests', () => {
             position: 1000,
             source: 'CURATED',
           },
+          {
+            query: 'ai generated query',
+            position: 1000,
+            source: 'SYNTHETIC',
+          },
         ],
       },
     }
@@ -38,6 +43,14 @@ describe('nextQueriesResponseMapper tests', () => {
           modelName: 'NextQuery',
           totalResults: 0,
           isCurated: true,
+        },
+        {
+          query: 'ai generated query',
+          results: [],
+          facets: [],
+          modelName: 'NextQuery',
+          totalResults: 0,
+          isCurated: false,
         },
       ],
     })

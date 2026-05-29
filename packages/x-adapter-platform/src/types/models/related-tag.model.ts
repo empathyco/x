@@ -6,6 +6,6 @@
 export interface PlatformRelatedTag {
   query: string
   tag: string
-  source: 'ORGANIC' | 'CURATED'
+  source: 'ORGANIC' | 'CURATED' | 'SYNTHETIC'
   position: number
 }

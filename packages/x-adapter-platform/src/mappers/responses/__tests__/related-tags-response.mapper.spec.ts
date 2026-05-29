@@ -19,6 +19,12 @@ describe('relatedTagsResponseMapper tests', () => {
             source: 'CURATED',
             tag: 'shoes',
           },
+          {
+            query: 'ai generated tag',
+            position: 1000,
+            source: 'SYNTHETIC',
+            tag: 'ai-tag',
+          },
         ],
       },
       status: 200,
@@ -37,6 +43,12 @@ describe('relatedTagsResponseMapper tests', () => {
           modelName: 'RelatedTag',
           isCurated: true,
           tag: 'shoes',
+        },
+        {
+          query: 'ai generated tag',
+          modelName: 'RelatedTag',
+          isCurated: false,
+          tag: 'ai-tag',
         },
       ],
     })
