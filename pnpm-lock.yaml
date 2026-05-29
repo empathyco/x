@@ -117,7 +117,7 @@ importers:
         specifier: 8.1.7
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.4.2
+        specifier: 1.4.3
         version: link:../x-adapter-platform
       '@empathyco/x-types':
         specifier: 10.3.2

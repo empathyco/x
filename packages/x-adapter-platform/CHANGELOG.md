@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.4.2...@empathyco/x-adapter-platform@1.4.3) (2026-05-29)
+
+### Code Refactoring
+
+* **types:** add "SYNTHETIC" as a `source` option in models and update related tests (#2112)
+
+
 ## [1.4.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.4.1...@empathyco/x-adapter-platform@1.4.2) (2026-05-25)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
