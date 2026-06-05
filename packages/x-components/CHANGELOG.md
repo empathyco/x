@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/empathyco/x/compare/@empathyco/x-components@7.0.1...@empathyco/x-components@7.0.2) (2026-06-05)
+
+### Code Refactoring
+
+* **experience-controls:** add `ExperienceControlsChanged` event and update typings (#2113)
+
+
 ## [7.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.0.0...@empathyco/x-components@7.0.1) (2026-05-29)
 
 **Note:** Version bump only for package @empathyco/x-components
