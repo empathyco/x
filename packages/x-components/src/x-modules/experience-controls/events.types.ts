@@ -1,4 +1,5 @@
 import type { ExperienceControlsRequest } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
 import type { XEventsTypes } from '../../wiring'
 
 /**
@@ -9,4 +10,5 @@ import type { XEventsTypes } from '../../wiring'
 export interface ExperienceControlsXEvents {
   ExperienceControlsEventsChanged: Partial<XEventsTypes>
   ExperienceControlsRequestUpdated: ExperienceControlsRequest | null
+  ExperienceControlsChanged: Dictionary<unknown>
 }
