@@ -1,5 +1,5 @@
 import type { ExperienceControlsRequest } from '@empathyco/x-types'
-import type { ExperienceControlsState } from '@x/x-modules/experience-controls'
+import type { ExperienceControlsState } from '.'
 import type { XEventsTypes } from '../../wiring'
 
 /**
