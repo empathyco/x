@@ -50,10 +50,10 @@
     "@vue/tsconfig": "0.9.1",
     "tailwindcss": "4.3.0",
     "typescript": "5.9.3",
-    "vite": "7.3.3",
+    "vite": "7.3.5",
     "vite-svg-loader": "5.1.1",
-    "vue": "3.5.34",
-    "vue-tsc": "3.3.1"
+    "vue": "3.5.35",
+    "vue-tsc": "3.3.4"
   },
   "publishConfig": {
     "access": "public"
