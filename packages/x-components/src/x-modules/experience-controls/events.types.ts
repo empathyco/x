@@ -1,6 +1,6 @@
 import type { ExperienceControlsRequest } from '@empathyco/x-types'
-import type { ExperienceControlsState } from '.'
 import type { XEventsTypes } from '../../wiring'
+import type { ExperienceControlsState } from './store'
 
 /**
  * Dictionary of the events of Experience Controls XModule.
@@ -10,5 +10,5 @@ import type { XEventsTypes } from '../../wiring'
 export interface ExperienceControlsXEvents {
   ExperienceControlsEventsChanged: Partial<XEventsTypes>
   ExperienceControlsRequestUpdated: ExperienceControlsRequest | null
-  ExperienceControlsChanged: ExperienceControlsState
+  ExperienceControlsChanged: ExperienceControlsState['controls']
 }
