@@ -33,6 +33,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     selectedFilters: {},
     params: {},
     config: {
+      threshold: 24,
       pageSize: 24,
       pageMode: 'infinite_scroll',
     },
