@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.0.3...@empathyco/x-components@7.1.0) (2026-06-17)
+
+### Features
+
+* **alias:** add RP results and search LR alias (#2119)
+
+
 ## [7.0.3](https://github.com/empathyco/x/compare/@empathyco/x-components@7.0.2...@empathyco/x-components@7.0.3) (2026-06-12)
 
 ### Code Refactoring
