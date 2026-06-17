@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.4.3...@empathyco/x-adapter-platform@1.5.0) (2026-06-17)
+
+### Features
+
+* **schema:** rename 'facet' label to 'label' in facet schema and upd… (#2120)
+
+
 ## [1.4.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.4.2...@empathyco/x-adapter-platform@1.4.3) (2026-05-29)
 
 ### Code Refactoring
