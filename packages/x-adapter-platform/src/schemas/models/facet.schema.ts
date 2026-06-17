@@ -18,7 +18,7 @@ export const facetSchema = createMutableSchema<
   HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet
 >({
   id: 'facet',
-  label: 'facet',
+  label: 'label',
   // eslint-disable-next-line ts/no-unsafe-return
   modelName: ({ type }) => getFacetConfig(type).modelName as any,
   filters: {
