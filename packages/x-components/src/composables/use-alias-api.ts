@@ -5,6 +5,7 @@ import type {
   NextQuery,
   PartialResult,
   Redirection,
+  RelatedPrompt,
   RelatedTag,
   Result,
   SemanticQuery,
@@ -103,6 +104,12 @@ export function useAliasApi(): UseAliasAPI {
     get noResults() {
       return store.state.x.search?.isNoResults ?? false
     },
+    get lowResults() {
+      return (
+        store.state.x.search?.totalResults > 0 &&
+        store.state.x.search?.totalResults < store.state.x.search?.config?.threshold
+      )
+    },
     get partialResults() {
       return store.state.x.search?.partialResults ?? []
     },
@@ -138,6 +145,9 @@ export function useAliasApi(): UseAliasAPI {
     },
     get semanticQueries() {
       return store.state.x.semanticQueries?.semanticQueries ?? []
+    },
+    get relatedPrompts() {
+      return store.state.x.relatedPrompts?.relatedPrompts ?? []
     },
     get spellcheckedQuery() {
       return store.state.x.search?.spellcheckedQuery ?? null
@@ -184,6 +194,8 @@ export interface UseAliasAPI {
   readonly nextQueries: ReadonlyArray<NextQuery>
   /** The {@link SearchXModule} no results situation. */
   readonly noResults: boolean
+  /** The {@link SearchXModule} low results situation. */
+  readonly lowResults: boolean
   /** The {@link SearchXModule} partial results. */
   readonly partialResults: ReadonlyArray<PartialResult>
   /** The {@link PopularSearchesXModule} popular searches. */
@@ -210,6 +222,8 @@ export interface UseAliasAPI {
   readonly selectedRelatedTags: ReadonlyArray<RelatedTag>
   /** The {@link SemanticQueriesXModule} queries. */
   readonly semanticQueries: ReadonlyArray<SemanticQuery>
+  /** The {@link RelatedPromptsXModule} related prompts. */
+  readonly relatedPrompts: ReadonlyArray<RelatedPrompt>
   /** The {@link SearchXModule} spellchecked query. */
   readonly spellcheckedQuery: string | null
   /** The status value of the different modules. */
