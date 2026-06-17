@@ -13,6 +13,7 @@ import { nextQueriesXStoreModule } from '../../x-modules/next-queries/index'
 import { popularSearchesXStoreModule } from '../../x-modules/popular-searches/index'
 import { querySuggestionsXStoreModule } from '../../x-modules/query-suggestions/index'
 import { recommendationsXStoreModule } from '../../x-modules/recommendations/index'
+import { relatedPromptsXStoreModule } from '../../x-modules/related-prompts/index'
 import { relatedTagsXStoreModule } from '../../x-modules/related-tags/index'
 import { searchBoxXStoreModule } from '../../x-modules/search-box/index'
 import { searchXStoreModule } from '../../x-modules/search/index'
@@ -63,6 +64,10 @@ const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAP
               recommendations: {
                 namespaced: true,
                 ...recommendationsXStoreModule,
+              } as AnyXStoreModule,
+              relatedPrompts: {
+                namespaced: true,
+                ...relatedPromptsXStoreModule,
               } as AnyXStoreModule,
             }
           : {},
@@ -128,6 +133,9 @@ describe('testing useAliasApi composable', () => {
       selectedFilters: [],
       selectedRelatedTags: [],
       semanticQueries: [],
+      relatedPrompts: [],
+      selectedPrompt: -1,
+      lowResults: false,
       spellcheckedQuery: null,
       totalResults: 0,
       selectedSort: '',

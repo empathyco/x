@@ -143,6 +143,9 @@ export function useAliasApi(): UseAliasAPI {
     get selectedRelatedTags() {
       return store.state.x.relatedTags?.selectedRelatedTags ?? []
     },
+    get selectedPrompt() {
+      return store.state.x.relatedPrompts?.selectedPrompt ?? -1
+    },
     get semanticQueries() {
       return store.state.x.semanticQueries?.semanticQueries ?? []
     },
@@ -220,6 +223,8 @@ export interface UseAliasAPI {
   readonly selectedFilters: Filter[]
   /** The {@link RelatedTagsXModule} selected related tags. */
   readonly selectedRelatedTags: ReadonlyArray<RelatedTag>
+  /** The {@link RelatedPromptsXModule} selected prompt. */
+  readonly selectedPrompt: number
   /** The {@link SemanticQueriesXModule} queries. */
   readonly semanticQueries: ReadonlyArray<SemanticQuery>
   /** The {@link RelatedPromptsXModule} related prompts. */
