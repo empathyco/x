@@ -6,6 +6,7 @@ import type { BooleanFilter, Facet, Filter } from '@empathyco/x-types'
  * @public
  */
 export interface PlatformFacet {
+  label: string
   facet: string
   type: PlatformFacetType
   values: PlatformFilter[]

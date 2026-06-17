@@ -108,6 +108,7 @@ export const platformSearchResponse = {
     facets: [
       {
         facet: 'categoryPaths',
+        label: 'categoryPaths',
         type: 'hierarchical',
         values: [
           {
@@ -192,6 +193,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'price',
+        label: 'price',
         type: 'range',
         values: [
           {
@@ -252,6 +254,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'gender',
+        label: 'gender',
         type: 'value',
         values: [
           {

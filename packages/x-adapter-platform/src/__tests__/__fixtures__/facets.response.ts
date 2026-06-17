@@ -7,7 +7,7 @@ export const platformFacetsResponse = {
       {
         facet: 'facetEditorial',
         filter: 'editorial',
-        label: 'Editorial',
+        label: 'facetEditorial',
         type: 'value',
         values: [
           {
@@ -33,7 +33,7 @@ export const platformFacetsResponse = {
       {
         facet: 'facetColecciondilve',
         filter: 'facetColecciondilve',
-        label: 'Colección',
+        label: 'facetColecciondilve',
         type: 'value',
         values: [
           {
@@ -59,7 +59,7 @@ export const platformFacetsResponse = {
       {
         facet: 'facetHierarchicalCategories',
         filter: 'filterHierarchicalCategories',
-        label: 'Categorías',
+        label: 'facetHierarchicalCategories',
         type: 'hierarchical',
         values: [
           {
