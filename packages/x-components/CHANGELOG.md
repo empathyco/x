@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.1.1...@empathyco/x-components@7.2.0) (2026-06-18)
+
+### Features
+
+* **alias:** add selectedPrompt to useAliasApi and update tests for related prompts (#2121)
+
+
 ## [7.1.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.1.0...@empathyco/x-components@7.1.1) (2026-06-17)
 
 **Note:** Version bump only for package @empathyco/x-components
