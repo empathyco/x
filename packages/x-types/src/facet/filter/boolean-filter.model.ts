@@ -7,9 +7,6 @@ import { BooleanFilterModelNames } from '../../named-model.model'
  * A boolean filter used in a {@link FacetFilter}, which status can be selected or not and
  * it may contains the total results number that the filter should return.
  *
- * @remarks It is like an "abstract" interface because it is not going to be implemented
- * but it is extended by other interfaces. There will never be an object with this type.
- *
  * @public
  */
 export interface BooleanFilter extends FacetFilter {
