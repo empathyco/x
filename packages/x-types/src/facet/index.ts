@@ -1,3 +1,4 @@
+export * from './boolean-facet.model'
 export * from './editable-number-range-facet.model'
 export * from './facet.model'
 export * from './filter'

@@ -39,6 +39,7 @@ export type FacetModelName =
   | 'HierarchicalFacet'
   | 'NumberRangeFacet'
   | 'EditableNumberRangeFacet'
+  | 'BooleanFacet'
 
 /**
  * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter
@@ -57,6 +58,7 @@ export const BooleanFilterModelNames = [
   'SimpleFilter',
   'HierarchicalFilter',
   'NumberRangeFilter',
+  'BooleanFilter',
 ] as const
 
 /**

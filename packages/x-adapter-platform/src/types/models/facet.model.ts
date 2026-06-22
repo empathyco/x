@@ -17,7 +17,7 @@ export interface PlatformFacet {
  *
  * @public
  */
-export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-range'
+export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-range' | 'boolean'
 
 /**
  * Filter model for the `platform` API.
