@@ -26,6 +26,7 @@ import type { Result } from '@empathyco/x-types'
 import type { PropsWithType } from '../../../utils'
 import type { XEventsTypes } from '../../../wiring'
 import { computed, defineComponent, provide } from 'vue'
+import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts'
 import { useState } from '../../../composables'
 import { AnimationProp } from '../../../types'
 import { recommendationsXModule } from '../x-module'
@@ -69,6 +70,8 @@ export default defineComponent({
     const recommendations = computed<Result[]>(() =>
       storedRecommendations.value.slice(0, props.maxItemsToRender),
     )
+
+    provide(LIST_ITEMS_KEY as string, recommendations)
 
     /**
      * Render function to execute the `layout` slot, binding `slotsProps` and getting only the
