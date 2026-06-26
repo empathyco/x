@@ -16,6 +16,21 @@ export function getSearchServiceUrl(from: ExtraParamsRequest): string {
 }
 
 /**
+ * Gets the Browse service URL for the given request.
+ *
+ * @param from - The request.
+ *
+ * @returns The service URL.
+ *
+ * @internal
+ */
+export function getBrowseServiceUrl(from: ExtraParamsRequest): string {
+  return from.extraParams?.env === 'staging'
+    ? 'https://api.staging.empathy.co/search/v1'
+    : 'https://api.{extraParams.env(.)}empathy.co/search/v1'
+}
+
+/**
  * Gets the Beacon service URL for the given request.
  *
  * @param from - The request.

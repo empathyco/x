@@ -11,6 +11,16 @@ export interface QueryableRequest {
 }
 
 /**
+ * Interface for any Request with a `browseField` and `browseValue` parameters.
+ *
+ * @public
+ */
+export interface BrowsableRequest {
+  browseField: string
+  browseValue: string
+}
+
+/**
  * Interface for any Request with a `filters` parameter.
  *
  * @public

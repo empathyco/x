@@ -1,4 +1,5 @@
 export * from './ai'
+export * from './browse-response.mapper'
 export * from './experience-controls-response.mapper'
 export * from './facets-response.mapper'
 export * from './identifier-results-response.mapper'

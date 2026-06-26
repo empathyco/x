@@ -29,6 +29,16 @@ export interface PlatformQueryableRequest {
 }
 
 /**
+ * Interface for any `request` with a `browseField` and `browseValue` parameters.
+ *
+ * @public
+ */
+export interface PlatformBrowsableRequest {
+  browseField: string
+  browseValue: string
+}
+
+/**
  * Interface for any `request` with `sorting`.
  *
  * @public

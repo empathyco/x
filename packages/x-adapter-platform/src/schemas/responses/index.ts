@@ -1,4 +1,5 @@
 export * from './ai'
+export * from './browse-response.schema'
 export * from './experience-controls-response.schema'
 export * from './identifier-results-response.schema'
 export * from './next-queries-response.schema'
