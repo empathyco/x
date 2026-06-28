@@ -41,10 +41,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/coverage-v8": "4.1.9",
     "jsdom": "29.1.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.7"
+    "vitest": "4.1.9"
   },
   "publishConfig": {
     "access": "public"
