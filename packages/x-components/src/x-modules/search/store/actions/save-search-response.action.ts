@@ -42,6 +42,7 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     commit('setBanners', banners ?? [])
     commit('setPromoteds', promoteds ?? [])
     commit('setRedirections', redirections ?? [])
+    commit('setCustomResults', [])
   }
 
   commit('setPartialResults', partialResults ?? [])

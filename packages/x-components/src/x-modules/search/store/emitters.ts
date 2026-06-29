@@ -1,3 +1,4 @@
+import type { SearchState } from './types'
 import { createStoreEmitters } from '../../../store'
 import { isStringEmpty } from '../../../utils/string'
 import { searchXStoreModule } from './module'
@@ -14,6 +15,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
       return newValue.length !== 0 || oldValue.length !== 0
     },
   },
+  CustomResultsChanged: (state: SearchState) => state.customResults,
   PageChanged: state => state.page,
   PartialResultsChanged: state => state.partialResults,
   ResultsChanged: state => state.results,

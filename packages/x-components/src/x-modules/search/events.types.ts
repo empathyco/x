@@ -1,5 +1,6 @@
 import type {
   Banner,
+  CustomResultPayload,
   Facet,
   PartialResult,
   Promoted,
@@ -109,6 +110,11 @@ export interface SearchXEvents {
    * Payload: The clicked promoted.
    */
   UserClickedAPromoted: Promoted
+  /**
+   * The user has provided custom results to be inserted in the result grid.
+   * Payload: The array of custom result inputs with their items and positions.
+   */
+  UserCustomResultPayloadChanged: CustomResultPayload[]
   /**
    * The user has clicked a banner.
    * Payload: The clicked banner.
