@@ -2,7 +2,7 @@ import type { BrowseRequest, BrowseResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { browseRequestMapper } from '../mappers/requests/browse-request.mapper'
 import { browseResponseMapper } from '../mappers/responses/browse-response.mapper'
-import { getBrowseServiceUrl } from './utils'
+import { getSearchServiceUrl } from './utils'
 
 /**
  * Default adapter for the browse endpoint.
@@ -11,7 +11,7 @@ import { getBrowseServiceUrl } from './utils'
  */
 export const browseEndpointAdapter = endpointAdapterFactory<BrowseRequest, BrowseResponse>({
   endpoint: from =>
-    interpolate(`${getBrowseServiceUrl(from)}/query/{extraParams.instance}/browse`, from),
+    interpolate(`${getSearchServiceUrl(from)}/query/{extraParams.instance}/browse`, from),
   requestMapper: browseRequestMapper,
   responseMapper: browseResponseMapper,
   defaultRequestOptions: {
