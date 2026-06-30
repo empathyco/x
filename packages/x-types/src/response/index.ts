@@ -1,4 +1,5 @@
 export * from './ai'
+export * from './browse-response.model'
 export * from './experience-controls-response.model'
 export * from './facets-response.model'
 export * from './identifier-results-response.model'
