@@ -96,7 +96,7 @@ export const setRelatedTags = wireCommit('setRelatedTags')
  *
  * @public
  */
-export const setCustomResultsFromInput = wireCommit(
+export const setCustomResults = wireCommit(
   'setCustomResults',
   ({ eventPayload }: { eventPayload: CustomResultPayload[] }) =>
     eventPayload.map(({ item, position }) => ({
@@ -349,6 +349,6 @@ export const searchWiring = createWiring({
     resetAppending,
   },
   UserCustomResultsChanged: {
-    setCustomResultsFromInput,
+    setCustomResults,
   },
 })
