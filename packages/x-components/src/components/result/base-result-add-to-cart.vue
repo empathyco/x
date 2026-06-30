@@ -75,7 +75,7 @@ export default defineComponent({
     })
 
     return {
-      events,
+      events: props.result.modelName === 'Result' ? events : {},
       metadata,
     }
   },
