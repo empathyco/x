@@ -245,160 +245,168 @@
                       v-infinite-scroll:main-scroll="{ margin: 600 }"
                       data-wysiwyg="results"
                     >
-                      <PromotedsList>
-                        <BannersList>
-                          <NextQueriesList
-                            :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
-                          >
-                            <RelatedPromptsList
-                              :show-only-after-offset="
-                                controls.relatedPromptsList.showOnlyAfterOffset
-                              "
+                      <CustomResultsList>
+                        <PromotedsList>
+                          <BannersList>
+                            <NextQueriesList
+                              :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                             >
-                              <BaseVariableColumnGrid
-                                style="--x-size-min-width-grid-item: 150px"
-                                class="xds:gap-12"
-                                :animation="staggeredFadeAndSlideAnimation"
-                                :columns="x.device === 'mobile' ? 2 : 4"
+                              <RelatedPromptsList
+                                :show-only-after-offset="
+                                  controls.relatedPromptsList.showOnlyAfterOffset
+                                "
                               >
-                                <template #result="{ item: result }">
-                                  <MainScrollItem :item="result">
-                                    <Result :result="result" />
-                                  </MainScrollItem>
-                                </template>
+                                <BaseVariableColumnGrid
+                                  style="--x-size-min-width-grid-item: 150px"
+                                  class="xds:gap-12"
+                                  :animation="staggeredFadeAndSlideAnimation"
+                                  :columns="x.device === 'mobile' ? 2 : 4"
+                                >
+                                  <template #result="{ item: result }">
+                                    <MainScrollItem :item="result">
+                                      <Result :result="result" />
+                                    </MainScrollItem>
+                                  </template>
 
-                                <template #banner="{ item: banner }">
-                                  <Banner :banner="banner" />
-                                </template>
+                                  <template #custom-result="{ item: result }">
+                                    <MainScrollItem :item="result">
+                                      <Result :result="result" />
+                                    </MainScrollItem>
+                                  </template>
 
-                                <template #promoted="{ item: promoted }">
-                                  <Promoted :promoted="promoted" />
-                                </template>
+                                  <template #banner="{ item: banner }">
+                                    <Banner :banner="banner" />
+                                  </template>
 
-                                <template #next-queries-group="{ item: { nextQueries } }">
-                                  <NextQueryPreview
-                                    v-slot="{ results }"
-                                    :suggestion="nextQueries[0]"
-                                    :max-items-to-render="
-                                      controls.nextQueriesPreview.maxItemsToRender
-                                    "
-                                    class="xds:pt-24"
-                                  >
-                                    <h1 class="xds:title2">Others clients have searched</h1>
-                                    <NextQuery
-                                      class="xds:suggestion xds:text1 xds:text1-lg"
+                                  <template #promoted="{ item: promoted }">
+                                    <Promoted :promoted="promoted" />
+                                  </template>
+
+                                  <template #next-queries-group="{ item: { nextQueries } }">
+                                    <NextQueryPreview
+                                      v-slot="{ results }"
                                       :suggestion="nextQueries[0]"
+                                      :max-items-to-render="
+                                        controls.nextQueriesPreview.maxItemsToRender
+                                      "
+                                      class="xds:pt-24"
                                     >
-                                      <span class="xds:font-bold">
-                                        {{ nextQueries[0].query }}
-                                      </span>
-                                    </NextQuery>
-                                    <div class="xds:mb-24">
-                                      <SlidingPanel :reset-on-content-change="false">
-                                        <div class="xds:flex xds:flex-row xds:gap-8">
-                                          <Result
-                                            v-for="result in results"
-                                            :key="result.id"
-                                            :result="result"
-                                            style="max-width: 180px"
-                                          />
-                                        </div>
-                                      </SlidingPanel>
-                                    </div>
-                                    <NextQuery
-                                      :suggestion="nextQueries[0]"
-                                      class="xds:mx-auto xds:mt-8 xds:mb-24 xds:button xds:button-outlined xds:rounded-full"
-                                    >
-                                      {{ 'View all results' }}
-                                    </NextQuery>
-                                  </NextQueryPreview>
-                                </template>
-
-                                <template #related-prompts-group>
-                                  <RelatedPromptsTagList
-                                    button-class="xds:button-lead xds:button-circle xds:button-ghost xds:p-0"
-                                    class="desktop:xds:mt-0 xds:mt-24 xds:mb-1 xds:h-17.5 xds:p-0"
-                                    tag-class="xds:rounded-xl xds:gap-8 xds:w-[300px] xds:max-w-[400px]"
-                                    :tag-colors="[
-                                      'xds:bg-amber-300',
-                                      'xds:bg-amber-400',
-                                      'xds:bg-amber-500',
-                                    ]"
-                                    scroll-container-class="desktop:xds:sliding-panel-fade desktop:xds:sliding-panel-fade-sm"
-                                  >
-                                    <template #default="{ relatedPrompt, isSelected, onSelect }">
-                                      <DisplayEmitter
-                                        :payload="relatedPrompt.toolingDisplayTagging"
-                                        :event-metadata="{
-                                          feature: 'related-prompts',
-                                          displayOriginalQuery: x.query.searchBox,
-                                          replaceable: false,
-                                        }"
+                                      <h1 class="xds:title2">Others clients have searched</h1>
+                                      <NextQuery
+                                        class="xds:suggestion xds:text1 xds:text1-lg"
+                                        :suggestion="nextQueries[0]"
                                       >
-                                        <RelatedPrompt
-                                          :related-prompt="relatedPrompt"
-                                          :selected="isSelected"
-                                          data-wysiwyg="related-prompt"
-                                          :data-wysiwyg-id="relatedPrompt.suggestionText"
-                                          @click="onSelect"
-                                        />
-                                      </DisplayEmitter>
-                                    </template>
-                                  </RelatedPromptsTagList>
+                                        <span class="xds:font-bold">
+                                          {{ nextQueries[0].query }}
+                                        </span>
+                                      </NextQuery>
+                                      <div class="xds:mb-24">
+                                        <SlidingPanel :reset-on-content-change="false">
+                                          <div class="xds:flex xds:flex-row xds:gap-8">
+                                            <Result
+                                              v-for="result in results"
+                                              :key="result.id"
+                                              :result="result"
+                                              style="max-width: 180px"
+                                            />
+                                          </div>
+                                        </SlidingPanel>
+                                      </div>
+                                      <NextQuery
+                                        :suggestion="nextQueries[0]"
+                                        class="xds:mx-auto xds:mt-8 xds:mb-24 xds:button xds:button-outlined xds:rounded-full"
+                                      >
+                                        {{ 'View all results' }}
+                                      </NextQuery>
+                                    </NextQueryPreview>
+                                  </template>
 
-                                  <LocationProvider location="related_prompts">
-                                    <QueryPreviewList
-                                      v-if="selectedPrompt !== -1"
-                                      v-slot="{ queryPreviewInfo, totalResults, results }"
-                                      :queries-preview-info="relatedPromptsQueriesPreviewInfo"
-                                      query-feature="related_prompts"
+                                  <template #related-prompts-group>
+                                    <RelatedPromptsTagList
+                                      button-class="xds:button-lead xds:button-circle xds:button-ghost xds:p-0"
+                                      class="desktop:xds:mt-0 xds:mt-24 xds:mb-1 xds:h-17.5 xds:p-0"
+                                      tag-class="xds:rounded-xl xds:gap-8 xds:w-[300px] xds:max-w-[400px]"
+                                      :tag-colors="[
+                                        'xds:bg-amber-300',
+                                        'xds:bg-amber-400',
+                                        'xds:bg-amber-500',
+                                      ]"
+                                      scroll-container-class="desktop:xds:sliding-panel-fade desktop:xds:sliding-panel-fade-sm"
                                     >
-                                      <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
-                                        <QueryPreviewButton
-                                          :query-preview-info="queryPreviewInfo"
-                                          class="desktop:xds:title3-md max-desktop:xds:px-16 xds:button xds:button-tight xds:button-lead xds:title3 xds:title3-sm"
-                                        >
-                                          {{ queryPreviewInfo.query }}
-                                          ({{ totalResults }})
-                                          <ArrowRightIcon class="xds:icon-lg" />
-                                        </QueryPreviewButton>
+                                      <template #default="{ relatedPrompt, isSelected, onSelect }">
                                         <DisplayEmitter
-                                          :payload="getToolingDisplayTagging(queryPreviewInfo)"
+                                          :payload="relatedPrompt.toolingDisplayTagging"
                                           :event-metadata="{
                                             feature: 'related-prompts',
                                             displayOriginalQuery: x.query.searchBox,
+                                            replaceable: false,
                                           }"
                                         >
-                                          <SlidingPanel :reset-on-content-change="false">
-                                            <DisplayClickProvider
-                                              result-feature="related_prompts"
-                                              :tooling-display-tagging="
-                                                getToolingDisplayClickTagging(queryPreviewInfo)
-                                              "
-                                              :tooling-add2-cart-tagging="
-                                                getToolingAdd2CartTagging(queryPreviewInfo)
-                                              "
-                                            >
-                                              <div class="xds:flex xds:gap-8">
-                                                <Result
-                                                  v-for="result in results"
-                                                  :key="result.id"
-                                                  :result="result"
-                                                  style="max-width: 180px"
-                                                />
-                                              </div>
-                                            </DisplayClickProvider>
-                                          </SlidingPanel>
+                                          <RelatedPrompt
+                                            :related-prompt="relatedPrompt"
+                                            :selected="isSelected"
+                                            data-wysiwyg="related-prompt"
+                                            :data-wysiwyg-id="relatedPrompt.suggestionText"
+                                            @click="onSelect"
+                                          />
                                         </DisplayEmitter>
-                                      </div>
-                                    </QueryPreviewList>
-                                  </LocationProvider>
-                                </template>
-                              </BaseVariableColumnGrid>
-                            </RelatedPromptsList>
-                          </NextQueriesList>
-                        </BannersList>
-                      </PromotedsList>
+                                      </template>
+                                    </RelatedPromptsTagList>
+
+                                    <LocationProvider location="related_prompts">
+                                      <QueryPreviewList
+                                        v-if="selectedPrompt !== -1"
+                                        v-slot="{ queryPreviewInfo, totalResults, results }"
+                                        :queries-preview-info="relatedPromptsQueriesPreviewInfo"
+                                        query-feature="related_prompts"
+                                      >
+                                        <div class="xds:mb-16 xds:flex xds:flex-col xds:gap-8">
+                                          <QueryPreviewButton
+                                            :query-preview-info="queryPreviewInfo"
+                                            class="desktop:xds:title3-md max-desktop:xds:px-16 xds:button xds:button-tight xds:button-lead xds:title3 xds:title3-sm"
+                                          >
+                                            {{ queryPreviewInfo.query }}
+                                            ({{ totalResults }})
+                                            <ArrowRightIcon class="xds:icon-lg" />
+                                          </QueryPreviewButton>
+                                          <DisplayEmitter
+                                            :payload="getToolingDisplayTagging(queryPreviewInfo)"
+                                            :event-metadata="{
+                                              feature: 'related-prompts',
+                                              displayOriginalQuery: x.query.searchBox,
+                                            }"
+                                          >
+                                            <SlidingPanel :reset-on-content-change="false">
+                                              <DisplayClickProvider
+                                                result-feature="related_prompts"
+                                                :tooling-display-tagging="
+                                                  getToolingDisplayClickTagging(queryPreviewInfo)
+                                                "
+                                                :tooling-add2-cart-tagging="
+                                                  getToolingAdd2CartTagging(queryPreviewInfo)
+                                                "
+                                              >
+                                                <div class="xds:flex xds:gap-8">
+                                                  <Result
+                                                    v-for="result in results"
+                                                    :key="result.id"
+                                                    :result="result"
+                                                    style="max-width: 180px"
+                                                  />
+                                                </div>
+                                              </DisplayClickProvider>
+                                            </SlidingPanel>
+                                          </DisplayEmitter>
+                                        </div>
+                                      </QueryPreviewList>
+                                    </LocationProvider>
+                                  </template>
+                                </BaseVariableColumnGrid>
+                              </RelatedPromptsList>
+                            </NextQueriesList>
+                          </BannersList>
+                        </PromotedsList>
+                      </CustomResultsList>
                     </ResultsList>
                   </LocationProvider>
 
@@ -547,6 +555,7 @@ import { MainScrollItem, ScrollToTop } from '@x/x-modules/scroll'
 import {
   Banner,
   BannersList,
+  CustomResultsList,
   FallbackDisclaimer,
   PartialQueryButton,
   PartialResultsList,

@@ -4,9 +4,15 @@
     :href="result.url"
     class="x-result-link"
     data-test="result-link"
-    @click="emitUserClickedAResult"
-    @click.right="emitUserClickedAResult"
-    @click.middle="emitUserClickedAResult"
+    v-on="
+      result.modelName === 'Result'
+        ? {
+            click: emitUserClickedAResult,
+            contextmenu: emitUserClickedAResult,
+            auxclick: (event: { button: number }) => event.button === 1 && emitUserClickedAResult(),
+          }
+        : {}
+    "
   >
     <!--
       @slot (Required) Link content with a text, an image, another component or both

@@ -1,3 +1,4 @@
+export * from './custom-result.model'
 export * from './result-identifier.model'
 export * from './result-price.model'
 export * from './result-rating.model'

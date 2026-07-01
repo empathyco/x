@@ -1,3 +1,4 @@
+import type { CustomResultPayload } from '@empathyco/x-types'
 import type { WirePayload } from '../../wiring'
 import type { InternalSearchRequest } from './types'
 import { createRawFilters } from '../../utils'
@@ -88,6 +89,22 @@ export const resetSpellcheckQuery = wireCommit('setSpellcheck', '')
  * @public
  */
 export const setRelatedTags = wireCommit('setRelatedTags')
+
+/**
+ * Sets the search state `customResults` from user-provided custom result inputs.
+ * Transforms the input structure (item + position) into the internal CustomResult format.
+ *
+ * @public
+ */
+export const setCustomResults = wireCommit(
+  'setCustomResults',
+  ({ eventPayload }: { eventPayload: CustomResultPayload[] }) =>
+    eventPayload.map(({ item, position }) => ({
+      ...item,
+      modelName: 'CustomResult' as const,
+      position,
+    })),
+)
 
 /**
  * Sets the search state `query`.
@@ -330,5 +347,8 @@ export const searchWiring = createWiring({
   UserSelectedAPage: {
     setSearchPage,
     resetAppending,
+  },
+  UserCustomResultsChanged: {
+    setCustomResults,
   },
 })
