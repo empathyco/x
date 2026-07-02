@@ -26,6 +26,8 @@ describe('testing Url module mutations', () => {
         scroll: '',
         warehouse: '01234',
         consent: true,
+        browseValue: '',
+        browseField: '',
         initialExtraParams: {},
       })
     })

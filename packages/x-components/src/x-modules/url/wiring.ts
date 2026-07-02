@@ -86,6 +86,23 @@ export const setUrlSelectedFiltersFromPreview = wireCommit(
 export const setUrlScroll = wireCommit('setScroll')
 
 /**
+ * Sets the browseCategory of the url module.
+ *
+ * @public
+ */
+export const setUrlEmptyBrowseCategory = wireCommit('setBrowseCategory', {
+  browseField: '',
+  browseValue: '',
+})
+
+/**
+ * Sets the browseCategory of the url module.
+ *
+ * @public
+ */
+export const setUrlBrowseCategory = wireCommit('setBrowseCategory')
+
+/**
  * Sets the initial provided extra params.
  *
  * @public
@@ -142,5 +159,23 @@ export const urlWiring = createWiring({
   },
   UserScrolledToElement: {
     setUrlScroll,
+  },
+  UserBrowsedToCategory: {
+    setUrlBrowseCategory,
+  },
+  UserClickedCloseX: {
+    setUrlEmptyBrowseCategory,
+  },
+  UserClickedOpenX: {
+    setUrlEmptyBrowseCategory,
+  },
+  SelectedBrowseSortProvided: {
+    setUrlSort,
+  },
+  UserClickedABrowseSort: {
+    setUrlSort,
+  },
+  UserSelectedABrowsePage: {
+    setUrlPage,
   },
 })

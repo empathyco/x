@@ -14,4 +14,6 @@ export const initialUrlState: Readonly<UrlParams> = {
   scroll: '',
   tag: [],
   prompt: -1,
+  browseValue: '',
+  browseField: '',
 }

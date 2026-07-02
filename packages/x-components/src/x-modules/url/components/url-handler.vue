@@ -133,7 +133,7 @@ export default defineComponent({
      */
     const setUrlParameters = (url: URL, urlParams: UrlParams): void => {
       // Only when there is a query the rest of the parameters are valid.
-      if (!urlParams.query) {
+      if (!urlParams.query && !urlParams.browseField && !urlParams.browseValue) {
         return
       }
       const filteredParams = objectFilter(urlParams, paramName =>
@@ -356,6 +356,12 @@ export default defineComponent({
       $x.emit('ExtraParamsLoadedFromUrl', extra, metadata)
       if (all.query) {
         $x.emit('UserOpenXProgrammatically', undefined, metadata)
+      } else if (all.browseField && all.browseValue) {
+        $x.emit(
+          'UserBrowsedToCategory',
+          { browseValue: all.browseValue, browseField: all.browseField },
+          metadata,
+        )
       }
       urlLoaded.value = true
     }
