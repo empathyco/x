@@ -1,5 +1,6 @@
 import type {
   AiSuggestionsSearchResponse,
+  BrowseResponse,
   ExperienceControlsResponse,
   FacetsResponse,
   IdentifierResultsResponse,
@@ -51,6 +52,7 @@ interface MockedAdapterFeatures {
   aiSuggestions: Response
   aiSuggestionsSearch: AiSuggestionsSearchResponse
   facets: FacetsResponse
+  browse: BrowseResponse
 }
 
 /**
@@ -170,6 +172,7 @@ export function getMockedAdapter(
     aiSuggestions: getMockedAdapterFunction(responseFeatures?.aiSuggestions!),
     aiSuggestionsSearch: getMockedAdapterFunction(responseFeatures?.aiSuggestionsSearch!),
     facets: getMockedAdapterFunction(responseFeatures?.facets!),
+    browse: getMockedAdapterFunction(responseFeatures?.browse!),
     /* eslint-enable ts/no-non-null-asserted-optional-chain */
   }
 }

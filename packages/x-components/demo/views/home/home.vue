@@ -107,18 +107,98 @@
     <HomeMainModal :controls="controls" />
   </div>
   <BaseTeleport target="#teleport-here">This is the teleport content</BaseTeleport>
+
+  <div>
+    <hr class="xds:mt-10 xds:text-neutral-25" />
+    <h1 class="xds:text-4xl xds:leading-normal xds:font-bold">Browse test</h1>
+    <div class="xds:flex xds:gap-8">
+      <div class="xds:text-lg xds:font-semibold">Browse to...</div>
+      <button
+        class="xds:button"
+        onclick="
+          window.InterfaceX?.browse({ browseField: 'categoryIds', browseValue: '5b612edb5' })
+        "
+      >
+        CategoryIds > dress
+      </button>
+      <button
+        class="xds:button"
+        onclick="
+          window.InterfaceX?.browse({
+            browseField: 'description',
+            browseValue: 'floral print dress',
+          })
+        "
+      >
+        Description > floral print dress
+      </button>
+      <CloseMainModal class="xds:mr-64 xds:ml-auto xds:button xds:button-circle">
+        <CrossIcon />
+      </CloseMainModal>
+    </div>
+  </div>
+  <div class="xds:layout-item xds:layout-expand xds:layout-no-margin-right">
+    <div class="xds:flex xds:layout-expand xds:px-24 xds:pt-12">
+      <!-- ASIDE -->
+      <BaseIdTogglePanel
+        v-show="x.browseTotalResults > 0"
+        panel-id="aside-panel"
+        :animation="asideAnimation"
+        class="xds:w-1/5"
+      >
+        <Scroll id="aside-scroll" class="xds:h-full">
+          <FacetsAside :controls="controls" />
+        </Scroll>
+      </BaseIdTogglePanel>
+
+      <LocationProvider location="results">
+        <BrowseResultsList v-infinite-scroll:main-scroll="{ margin: 600 }" data-wysiwyg="results">
+          <BaseVariableColumnGrid
+            style="--x-size-min-width-grid-item: 150px"
+            class="xds:gap-12"
+            :animation="staggeredFadeAndSlideAnimation"
+            :columns="x.device === 'mobile' ? 2 : 4"
+          >
+            <template #result="{ item: result }">
+              <MainScrollItem :item="result">
+                <Result :result="result" />
+              </MainScrollItem>
+            </template>
+          </BaseVariableColumnGrid>
+        </BrowseResultsList>
+      </LocationProvider>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { HomeControls } from './types'
-import { BaseTeleport, OpenMainModal, SnippetCallbacks } from '@x/components'
+import {
+  AnimateWidth,
+  BaseIdTogglePanel,
+  BaseTeleport,
+  BaseVariableColumnGrid,
+  CloseMainModal,
+  CrossIcon,
+  LocationProvider,
+  OpenMainModal,
+  SnippetCallbacks,
+  StaggeredFadeAndSlide,
+} from '@x/components'
+import { use$x } from '@x/composables/index'
+import { infiniteScroll } from '@x/directives/index'
+import { BrowseResultsList } from '@x/x-modules/browse/index'
 import { ExperienceControls } from '@x/x-modules/experience-controls'
 import { SnippetConfigExtraParams } from '@x/x-modules/extra-params'
 import { PreselectedFilters } from '@x/x-modules/facets'
+import { MainScrollItem } from '@x/x-modules/scroll/index'
 import { Tagging } from '@x/x-modules/tagging'
 import { UrlHandler } from '@x/x-modules/url'
 import { computed } from 'vue'
+import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
+import FacetsAside from './facets-aside.vue'
 import HomeMainModal from './home-main-modal.vue'
+import Result from './result.vue'
 
 const controls = computed<HomeControls>(() => ({
   searchInput: { instant: true, instantDebounceInMs: 500 },
@@ -131,4 +211,10 @@ const controls = computed<HomeControls>(() => ({
 }))
 
 const initialExtraParams = { store: 'Portugal' }
+
+const staggeredFadeAndSlideAnimation = StaggeredFadeAndSlide
+const asideAnimation = AnimateWidth
+const vInfiniteScroll = infiniteScroll
+
+const x = use$x()
 </script>

@@ -1,3 +1,4 @@
+import type { BrowsableRequest } from '@empathyco/x-types'
 import type { WireMetadata, XEventsTypes } from '../../wiring/index'
 import type { XBus } from '../../x-bus'
 import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types'
@@ -121,6 +122,19 @@ export class BaseXAPI implements XAPI {
       void this.bus?.emit('UserAcceptedAQuery', query)
     }
     void this.bus?.emit('UserClickedOpenX', undefined)
+  }
+
+  /**
+   * Searches the query parameter as user query.
+   *
+   * @param browseCategory - Query to be searched.
+   *
+   * @public
+   */
+  browse(browseCategory?: BrowsableRequest): void {
+    if (browseCategory) {
+      void this.bus?.emit('UserBrowsedToCategory', browseCategory)
+    }
   }
 
   /**

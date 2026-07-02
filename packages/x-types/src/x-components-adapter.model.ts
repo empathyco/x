@@ -2,6 +2,7 @@ import type { EndpointAdapter } from '@empathyco/x-adapter'
 import type {
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
+  BrowseRequest,
   ExperienceControlsRequest,
   FacetsRequest,
   IdentifierResultsRequest,
@@ -17,6 +18,7 @@ import type {
 } from './request'
 import type {
   AiSuggestionsSearchResponse,
+  BrowseResponse,
   ExperienceControlsResponse,
   FacetsResponse,
   IdentifierResultsResponse,
@@ -49,4 +51,5 @@ export interface XComponentsAdapter {
   aiSuggestionsSearch: EndpointAdapter<AiSuggestionsSearchRequest, AiSuggestionsSearchResponse>
   aiSuggestions: EndpointAdapter<AiSuggestionsRequest, Response>
   facets: EndpointAdapter<FacetsRequest, FacetsResponse>
+  browse: EndpointAdapter<BrowseRequest, BrowseResponse>
 }
