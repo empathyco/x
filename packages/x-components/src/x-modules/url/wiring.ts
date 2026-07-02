@@ -90,7 +90,7 @@ export const setUrlScroll = wireCommit('setScroll')
  *
  * @public
  */
-export const setUrlEmptyBrowseCategory = wireCommit('setBrowseCategory', {
+export const resetUrlBrowseCategory = wireCommit('setBrowseCategory', {
   browseField: '',
   browseValue: '',
 })
@@ -164,10 +164,10 @@ export const urlWiring = createWiring({
     setUrlBrowseCategory,
   },
   UserClickedCloseX: {
-    setUrlEmptyBrowseCategory,
+    resetUrlBrowseCategory,
   },
   UserClickedOpenX: {
-    setUrlEmptyBrowseCategory,
+    resetUrlBrowseCategory,
   },
   SelectedBrowseSortProvided: {
     setUrlSort,
