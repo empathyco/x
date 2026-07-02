@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.5](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.4...@empathyco/x-components@7.2.5) (2026-07-02)
+
+### Code Refactoring
+
+* **types:** remove unused `overview` origin type references (#2127)
+
+
 ## [7.2.4](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.3...@empathyco/x-components@7.2.4) (2026-07-02)
 
 ### Build System
