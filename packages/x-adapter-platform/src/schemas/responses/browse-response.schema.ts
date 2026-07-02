@@ -3,9 +3,9 @@ import type { PlatformBrowseResponse } from '../../types/responses/browse-respon
 import { createMutableSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { bannerSchema } from '../models/banner.schema'
+import { browseResultSchema } from '../models/browse-result.schema'
 import { facetSchema } from '../models/facet.schema'
 import { promotedSchema } from '../models/promoted.schema'
-import { resultSchema } from '../models/result.schema'
 import { statsSchema } from '../models/stats.schema'
 
 /**
@@ -16,7 +16,7 @@ import { statsSchema } from '../models/stats.schema'
 export const browseResponseSchema = createMutableSchema<PlatformBrowseResponse, BrowseResponse>({
   results: {
     $path: 'catalog.content',
-    $subSchema: resultSchema,
+    $subSchema: browseResultSchema,
   },
   facets: {
     $path: 'catalog.facets',

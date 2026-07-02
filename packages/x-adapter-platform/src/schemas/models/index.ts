@@ -1,5 +1,6 @@
 export * from './ai'
 export * from './banner.schema'
+export * from './browse-result.schema'
 export * from './facet.schema'
 export * from './filters'
 export * from './next-query.schema'

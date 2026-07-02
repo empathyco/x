@@ -23,6 +23,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       toolingDisplayClick: null,
       toolingDisplayAdd2Cart: null,
     },
+    browseTaggingInfo: null,
   }),
   getters: {},
   mutations: {
@@ -31,6 +32,9 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     },
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingRequest) {
       state.queryTaggingInfo = queryTaggingInfo
+    },
+    setBrowseTaggingInfo(state, browseTaggingInfo: TaggingRequest) {
+      state.browseTaggingInfo = browseTaggingInfo
     },
     setNoResultsTaggingEnabled(state, module) {
       if (module === 'semanticQueries' || module === 'relatedPrompts') {
