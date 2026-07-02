@@ -96,7 +96,7 @@
     "convert-source-map": "2.0.0",
     "esbuild": "0.28.1",
     "jsdom": "29.1.1",
-    "rollup": "4.62.2",
+    "rollup": "4.60.4",
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-delete": "2.2.0",
     "rollup-plugin-styles": "4.0.0",

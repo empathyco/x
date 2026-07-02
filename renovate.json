@@ -6,6 +6,11 @@
       "matchPackageNames": ["vuex"],
       "allowedVersions": "< 4.1",
       "description": "4.1 has a bug: https://github.com/empathyco/motive-x/pull/640#issuecomment-2714822157"
+    },
+    {
+      "matchPackageNames": ["rollup"],
+      "allowedVersions": "< 4.61.0",
+      "description": "Use 4.60.4 version. A version higher than the one indicated causes x-components to break in consumers."
     }
   ]
 }
