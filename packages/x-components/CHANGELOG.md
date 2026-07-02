@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.4](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.3...@empathyco/x-components@7.2.4) (2026-07-02)
+
+### Build System
+
+* **x-components:** dowmgrade rollup dep to 4.60.4 to avoid break consumers (#2130)
+
+
 ## [7.2.3](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.2...@empathyco/x-components@7.2.3) (2026-07-01)
 
 **Note:** Version bump only for package @empathyco/x-components
