@@ -46,6 +46,13 @@ const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDi
 export const setNextQueriesQuery = wireCommit('setQuery')
 
 /**
+ * Reset the next queries state `query`.
+ *
+ * @public
+ */
+export const resetNextQueriesQuery = wireCommit('setQuery', '')
+
+/**
  * Sets the next queries state `relatedTags`.
  *
  * @public
@@ -153,6 +160,7 @@ export const nextQueriesWiring = createWiring({
   },
   UserClearedQuery: {
     resetNextQueriesWire,
+    resetNextQueriesQuery,
   },
   SelectedRelatedTagsChanged: {
     setNextQueriesRelatedTags,
