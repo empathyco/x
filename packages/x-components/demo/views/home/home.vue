@@ -139,6 +139,7 @@
   </div>
   <div class="xds:layout-item xds:layout-expand xds:layout-no-margin-right">
     <BrowseSortPickerList
+      v-show="x.browseTotalResults > 0"
       v-slot="{ item }"
       :items="['', 'price asc', 'price desc']"
       class="xds:mt-24 xds:button-group xds:pl-24"
