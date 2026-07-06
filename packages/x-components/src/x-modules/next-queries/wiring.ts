@@ -122,6 +122,13 @@ export const fetchAndSaveNextQueryPreviewWire = wireDispatch(
 export const resetResultsPreviewWire = wireCommitWithoutPayload('resetResultsPreview')
 
 /**
+ * Resets the next queries list to an empty array.
+ *
+ * @public
+ */
+export const resetNextQueriesWire = wireCommitWithoutPayload('resetNextQueries')
+
+/**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
  * @public
@@ -142,6 +149,7 @@ export const nextQueriesWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setNextQueriesQuery,
+    resetNextQueriesWire,
   },
   SelectedRelatedTagsChanged: {
     setNextQueriesRelatedTags,
