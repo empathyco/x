@@ -138,6 +138,15 @@
     </div>
   </div>
   <div class="xds:layout-item xds:layout-expand xds:layout-no-margin-right">
+    <BrowseSortPickerList
+      v-slot="{ item }"
+      :items="['', 'price asc', 'price desc']"
+      class="xds:mt-24 xds:button-group xds:pl-24"
+      button-class="xds:button xds:button-outlined"
+    >
+      {{ item || 'default' }}
+    </BrowseSortPickerList>
+
     <div class="xds:flex xds:layout-expand xds:px-24 xds:pt-12">
       <!-- ASIDE -->
       <BaseIdTogglePanel
@@ -187,7 +196,7 @@ import {
 } from '@x/components'
 import { use$x } from '@x/composables/index'
 import { infiniteScroll } from '@x/directives/index'
-import { BrowseResultsList } from '@x/x-modules/browse/index'
+import { BrowseResultsList, BrowseSortPickerList } from '@x/x-modules/browse/index'
 import { ExperienceControls } from '@x/x-modules/experience-controls'
 import { SnippetConfigExtraParams } from '@x/x-modules/extra-params'
 import { PreselectedFilters } from '@x/x-modules/facets'
