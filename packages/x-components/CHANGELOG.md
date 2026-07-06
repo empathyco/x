@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.5...@empathyco/x-components@7.3.0) (2026-07-06)
+
+### Features
+
+* **next-queries:** add mutation and wiring to reset next queries state (#2131)
+
+
 ## [7.2.5](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.4...@empathyco/x-components@7.2.5) (2026-07-02)
 
 ### Code Refactoring
