@@ -148,8 +148,8 @@ export const nextQueriesWiring = createWiring({
     resetResultsPreviewWire,
   },
   UserAcceptedAQuery: {
-    setNextQueriesQuery,
     resetNextQueriesWire,
+    setNextQueriesQuery,
   },
   SelectedRelatedTagsChanged: {
     setNextQueriesRelatedTags,
