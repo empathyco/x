@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.3.0...@empathyco/x-components@7.3.1) (2026-07-06)
+
+### Bug Fixes
+
+* **next-queries:** reset wiring on user-cleared query event (#2132)
+
+
 ## [7.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.5...@empathyco/x-components@7.3.0) (2026-07-06)
 
 ### Features
