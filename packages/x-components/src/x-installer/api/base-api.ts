@@ -125,9 +125,9 @@ export class BaseXAPI implements XAPI {
   }
 
   /**
-   * Searches the query parameter as user query.
+   * Browses the browseField and browseValue parameters as a selected category.
    *
-   * @param browseCategory - Query to be searched.
+   * @param browseCategory - browseField and browseValue to be browsed.
    *
    * @public
    */

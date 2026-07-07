@@ -88,7 +88,7 @@ export interface XAPI {
   /**
    * Dispatch a browse with the browseCategory parameter.
    *
-   * @param browseCategory - Category to be searched.
+   * @param browseCategory - browseField and browseValue to be searched.
    *
    * @public
    */
