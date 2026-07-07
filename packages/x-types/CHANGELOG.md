@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.5.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.4.1...@empathyco/x-types@10.5.0) (2026-07-07)
+
+### Features
+
+* create browse module (#2128)
+
+
 ## [10.4.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.4.0...@empathyco/x-types@10.4.1) (2026-07-01)
 
 **Note:** Version bump only for package @empathyco/x-types

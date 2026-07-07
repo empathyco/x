@@ -49,7 +49,7 @@ importers:
         specifier: 8.1.8
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 10.4.1
+        specifier: 10.5.0
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.9
@@ -117,10 +117,10 @@ importers:
         specifier: 8.1.8
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 1.6.1
+        specifier: 1.7.0
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 10.4.1
+        specifier: 10.5.0
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: 1.0.9
@@ -4082,7 +4082,7 @@ packages:
   git-raw-commits@3.0.0:
     resolution: {integrity: sha512-b5OHmZ3vAgGrDn/X0kS+9qCfNKWe4K/jFnhwzVWWg0/k5eLa3060tZShrRg8Dja5kPc+YjS0Gc6y7cRr44Lpjw==}
     engines: {node: '>=14'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-remote-origin-url@2.0.0:
@@ -4092,7 +4092,7 @@ packages:
   git-semver-tags@5.0.1:
     resolution: {integrity: sha512-hIvOeZwRbQ+7YEUmCkHqo8FOLQZCEn18yevLHADlFPZY02KJGsu5FZt9YW/lybfK2uhWFI7Qg/07LekJiTv7iA==}
     engines: {node: '>=14'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-up@7.0.0:
