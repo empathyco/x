@@ -70,7 +70,7 @@ watch(selectedSort, (value: Sort) => $x.emit('SelectedBrowseSortProvided', value
  * @returns A list of items with their css class and the event associate to it.
  */
 const listItems = computed<SortPickerItem[]>(() =>
-  props.items.map(item => ({
+  props.items.map((item: string) => ({
     item,
     cssClasses: {
       'xds:selected': item === selectedSort.value,
