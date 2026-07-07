@@ -110,7 +110,7 @@ export const setBrowseSort = wireCommit('setSort')
  *
  * @public
  */
-export const setBrowseUrlParams = wireDispatch('setUrlParams')
+export const setBrowseUrlParamsWire = wireDispatch('setUrlParams')
 
 /**
  * Sets the browse state `page`.
@@ -194,7 +194,7 @@ export const resetBrowseStateIfNoRequestWire = filterTruthyPayload<InternalBrows
  */
 export const browseWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setBrowseUrlParams,
+    setBrowseUrlParamsWire,
     saveBrowseOriginWire,
   },
   UserClickedABrowseSort: {
