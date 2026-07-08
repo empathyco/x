@@ -9,12 +9,12 @@ import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import {
   cancelFetchAndSaveBrowseResponse,
   fetchAndSaveBrowseResponse,
-  fetchAndSaveResultsEnrichment,
   fetchBrowseResponse,
-  increasePageAppendingResults,
-  resetRequestOnRefinement,
   saveBrowseResponse,
 } from './actions'
+import { fetchAndSaveResultsEnrichment } from './actions/fetch-and-save-results-enrichment.action'
+import { increasePageAppendingResults } from './actions/increase-page-apending-results.action'
+import { resetRequestOnRefinement } from './actions/reset-request-on-refinement.action'
 import { saveOrigin } from './actions/save-origin.action'
 import { setUrlParams } from './actions/set-url-params.action'
 import { request } from './getters/request.getter'
@@ -26,7 +26,7 @@ import { request } from './getters/request.getter'
  */
 export const browseXStoreModule: BrowseXStoreModule = {
   state: () => ({
-    ...resettableState(),
+    ...resettableBrowseState(),
     selectedFilters: {},
     params: {},
     config: {
@@ -46,10 +46,10 @@ export const browseXStoreModule: BrowseXStoreModule = {
       state.results = [...state.results, ...results]
     },
     resetState(state) {
-      Object.assign(state, resettableState())
+      Object.assign(state, resettableBrowseState())
     },
     resetStateForReload(state) {
-      const { selectedCategory, facets, sort, page, ...resettable } = resettableState()
+      const { selectedCategory, facets, sort, page, ...resettable } = resettableBrowseState()
       Object.assign(state, resettable)
     },
     setResults(state, results) {
@@ -139,7 +139,7 @@ export const browseXStoreModule: BrowseXStoreModule = {
  *
  * @internal
  */
-export function resettableState() {
+export function resettableBrowseState() {
   return {
     selectedCategory: {
       browseValue: '',

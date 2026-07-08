@@ -58,7 +58,7 @@ export const cancelFetchAndSaveBrowseResponseWire = wireDispatchWithoutPayload(
  *
  * @public
  */
-export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
+export const saveBrowseOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metadata)
 
 /**
  * Requests and stores the browse response.
@@ -72,7 +72,7 @@ export const fetchAndSaveBrowseResponseWire = wireDispatch('fetchAndSaveBrowseRe
  *
  * @public
  */
-export const fetchAndSaveResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
+export const fetchAndSaveBrowseResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
 
 /**
  * Sets the browse state `selectedCategory`.
@@ -96,21 +96,21 @@ export const clearBrowseQuery = wireCommit('setSelectedCategory', {
  *
  * @public
  */
-export const setSelectedFilters = wireCommit('setSelectedFilters')
+export const setBrowseSelectedFilters = wireCommit('setSelectedFilters')
 
 /**
  * Sets the browse state `sort`.
  *
  * @public
  */
-export const setSort = wireCommit('setSort')
+export const setBrowseSort = wireCommit('setSort')
 
 /**
  * Sets the browse state `query`.
  *
  * @public
  */
-export const setUrlParams = wireDispatch('setUrlParams')
+export const setBrowseUrlParamsWire = wireDispatch('setUrlParams')
 
 /**
  * Sets the browse state `page`.
@@ -131,28 +131,28 @@ export const setBrowseExtraParams = wireCommit('setParams')
  *
  * @public
  */
-export const resetStateForReloadWire = wireCommitWithoutPayload('resetStateForReload')
+export const resetBrowseStateForReloadWire = wireCommitWithoutPayload('resetStateForReload')
 
 /**
  * Resets the browse state `isNoResults`.
  *
  * @public
  */
-export const resetIsNoResults = wireCommit('setIsNoResults', false)
+export const resetIsNoBrowseResults = wireCommit('setIsNoResults', false)
 
 /**
  * Resets the browse state `fromNoResultsWithFilters`.
  *
  * @public
  */
-export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false)
+export const resetFromNoBrowseResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false)
 
 /**
  * Increases the current browse state `page` by one.
  *
  * @public
  */
-export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
+export const increaseBrowsePageAppendingResultsWire = wireDispatchWithoutPayload(
   'increasePageAppendingResults',
 )
 
@@ -161,7 +161,7 @@ export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
  *
  * @public
  */
-export const resetAppending = wireCommit('setIsAppendResults', false)
+export const resetBrowseAppending = wireCommit('setIsAppendResults', false)
 
 /**
  * Resets the {@link BrowseGetters.request} parameters when refining request and before the actual
@@ -169,7 +169,7 @@ export const resetAppending = wireCommit('setIsAppendResults', false)
  *
  * @public
  */
-export const resetRequestOnRefinementWire = wireDispatch(
+export const resetBrowseRequestOnRefinementWire = wireDispatch(
   'resetRequestOnRefinement',
   ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalBrowseRequest>) => ({
     newRequest,
@@ -183,7 +183,7 @@ export const resetRequestOnRefinementWire = wireDispatch(
  *
  * @public
  */
-export const resetStateIfNoRequestWire = filterTruthyPayload<InternalBrowseRequest | null>(
+export const resetBrowseStateIfNoRequestWire = filterTruthyPayload<InternalBrowseRequest | null>(
   wireCommitWithoutPayload('resetState'),
 )
 
@@ -194,46 +194,46 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalBrowseReque
  */
 export const browseWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams,
-    saveOriginWire,
+    setBrowseUrlParamsWire,
+    saveBrowseOriginWire,
   },
   UserClickedABrowseSort: {
-    setSort,
+    setBrowseSort,
   },
   UserReachedResultsListEnd: {
-    increasePageAppendingResultsWire,
+    increaseBrowsePageAppendingResultsWire,
   },
   BrowseRequestUpdated: {
-    resetStateIfNoRequestWire,
+    resetBrowseStateIfNoRequestWire,
     fetchAndSaveBrowseResponseWire,
   },
   BrowseRequestChanged: {
-    resetRequestOnRefinementWire,
+    resetBrowseRequestOnRefinementWire,
   },
   SelectedFiltersForRequestChanged: {
-    setSelectedFilters,
+    setBrowseSelectedFilters,
   },
   ResultsChanged: {
-    resetAppending,
-    fetchAndSaveResultsEnrichmentWire,
+    resetBrowseAppending,
+    fetchAndSaveBrowseResultsEnrichmentWire,
   },
   ReloadBrowseRequested: {
-    resetStateForReloadWire,
+    resetBrowseStateForReloadWire,
   },
   SelectedSortProvided: {
-    setSort,
+    setBrowseSort,
   },
   ExtraParamsChanged: {
     setBrowseExtraParams,
   },
   UserClickedCloseX: {
     clearBrowseQuery,
-    resetStateForReloadWire,
+    resetBrowseStateForReloadWire,
     cancelFetchAndSaveBrowseResponseWire,
   },
   UserClickedOpenX: {
     clearBrowseQuery,
-    resetStateForReloadWire,
+    resetBrowseStateForReloadWire,
     cancelFetchAndSaveBrowseResponseWire,
   },
   UserClickedOutOfMainModal: {
@@ -241,7 +241,7 @@ export const browseWiring = createWiring({
   },
   UserSelectedAPage: {
     setBrowsePage,
-    resetAppending,
+    resetBrowseAppending,
   },
   UserBrowsedToCategory: {
     setBrowseCategory,
