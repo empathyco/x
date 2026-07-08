@@ -245,7 +245,7 @@
                       v-infinite-scroll:main-scroll="{ margin: 600 }"
                       data-wysiwyg="results"
                     >
-                      <CustomResultsList>
+                      <VendorResultsList>
                         <PromotedsList>
                           <BannersList>
                             <NextQueriesList
@@ -268,7 +268,7 @@
                                     </MainScrollItem>
                                   </template>
 
-                                  <template #custom-result="{ item: result }">
+                                  <template #vendor-result="{ item: result }">
                                     <MainScrollItem :item="result">
                                       <Result :result="result" />
                                     </MainScrollItem>
@@ -406,7 +406,7 @@
                             </NextQueriesList>
                           </BannersList>
                         </PromotedsList>
-                      </CustomResultsList>
+                      </VendorResultsList>
                     </ResultsList>
                   </LocationProvider>
 
@@ -555,7 +555,6 @@ import { MainScrollItem, ScrollToTop } from '@x/x-modules/scroll'
 import {
   Banner,
   BannersList,
-  CustomResultsList,
   FallbackDisclaimer,
   PartialQueryButton,
   PartialResultsList,
@@ -574,6 +573,7 @@ import {
   SearchInputPlaceholder,
 } from '@x/x-modules/search-box'
 import { SemanticQueries, SemanticQuery } from '@x/x-modules/semantic-queries'
+import { VendorResultsList } from '@x/x-modules/vendor'
 import { computed, ref } from 'vue'
 import MainScroll from '../../../src/x-modules/scroll/components/main-scroll.vue'
 import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
