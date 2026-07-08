@@ -7,7 +7,6 @@ import type {
   Result,
   Sort,
   TaggingRequest,
-  VendorResultPayload,
 } from '@empathyco/x-types'
 import type { InternalSearchRequest, InternalSearchResponse } from './types'
 
@@ -110,11 +109,6 @@ export interface SearchXEvents {
    * Payload: The clicked promoted.
    */
   UserClickedAPromoted: Promoted
-  /**
-   * The user has provided vendor results to be inserted in the result grid.
-   * Payload: The array of vendor result inputs with their items and positions.
-   */
-  UserVendorResultsChanged: VendorResultPayload[]
   /**
    * The user has clicked a banner.
    * Payload: The clicked banner.

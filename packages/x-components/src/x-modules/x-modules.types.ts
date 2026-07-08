@@ -22,6 +22,7 @@ import type { SearchXModule } from './search/x-module'
 import type { SemanticQueriesXModule } from './semantic-queries/x-module'
 import type { TaggingXModule } from './tagging'
 import type { UrlXModule } from './url'
+import type { VendorXModule } from './vendor'
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -50,6 +51,7 @@ export interface XModulesTree {
   url: UrlXModule
   experienceControls: ExperienceControlsXModule
   ai: AiXModule
+  vendor: VendorXModule
 }
 
 /**

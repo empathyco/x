@@ -1,4 +1,3 @@
-import type { VendorResultPayload } from '@empathyco/x-types'
 import type { WirePayload } from '../../wiring'
 import type { InternalSearchRequest } from './types'
 import { createRawFilters } from '../../utils'
@@ -89,22 +88,6 @@ export const resetSpellcheckQuery = wireCommit('setSpellcheck', '')
  * @public
  */
 export const setRelatedTags = wireCommit('setRelatedTags')
-
-/**
- * Sets the search state `vendorResults` from user-provided vendor result inputs.
- * Transforms the input structure (item + position) into the internal VendorResult format.
- *
- * @public
- */
-export const setVendorResults = wireCommit(
-  'setVendorResults',
-  ({ eventPayload }: { eventPayload: VendorResultPayload[] }) =>
-    eventPayload.map(({ item, position }) => ({
-      ...item,
-      modelName: 'VendorResult' as const,
-      position,
-    })),
-)
 
 /**
  * Sets the search state `query`.
@@ -347,8 +330,5 @@ export const searchWiring = createWiring({
   UserSelectedAPage: {
     setSearchPage,
     resetAppending,
-  },
-  UserVendorResultsChanged: {
-    setVendorResults,
   },
 })

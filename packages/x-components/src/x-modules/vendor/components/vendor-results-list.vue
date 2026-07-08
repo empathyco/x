@@ -7,10 +7,10 @@ import ItemsList from '../../../components/items-list.vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { AnimationProp } from '../../../types/animation-prop'
-import { searchXModule } from '../x-module'
+import { vendorXModule } from '../x-module'
 
 /**
- * It renders a {@link ItemsList} of vendor results from {@link SearchState.vendorResults}.
+ * It renders a {@link ItemsList} of vendor results from {@link VendorState.vendorResults}.
  *
  * The component provides a default slot which wraps the whole component with the `vendorResults`
  * plus the `injectedListItems` which also contains the injected list items from
@@ -22,7 +22,7 @@ import { searchXModule } from '../x-module'
  */
 export default defineComponent({
   name: 'VendorResultsList',
-  xModule: searchXModule.name,
+  xModule: vendorXModule.name,
   props: {
     /** Animation component that will be used to animate the vendor results. */
     animation: {
@@ -34,7 +34,7 @@ export default defineComponent({
     const $x = use$x()
 
     /** The vendor results to render from the state. */
-    const stateItems = useState('search').vendorResults
+    const stateItems = useState('vendor').vendorResults
 
     /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
@@ -113,7 +113,7 @@ _Emit the `UserVendorResultsChanged` event with vendor results to see them in th
 </template>
 
 <script setup>
-import { VendorResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/vendor'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { use$x } from '@empathyco/x-components'
 
@@ -152,7 +152,7 @@ const addVendorResults = () => {
 </template>
 
 <script setup>
-import { VendorResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/vendor'
 import { FadeAndSlide } from '@empathyco/x-components/animations'
 import { SearchInput } from '@empathyco/x-components/search-box'
 
@@ -180,7 +180,7 @@ const fadeAndSlide = FadeAndSlide
 </template>
 
 <script setup>
-import { VendorResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/vendor'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
 </script>
@@ -207,7 +207,7 @@ The component provides a `#vendor-result` slot for rendering vendor result items
 </template>
 
 <script setup>
-import { VendorResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/vendor'
 import { SearchInput } from '@empathyco/x-components/search-box'
 </script>
 ```
@@ -236,7 +236,7 @@ value.
 </template>
 
 <script setup>
-import { ResultsList, VendorResultsList } from '@empathyco/x-components/search'
+import { ResultsList, VendorResultsList } from '@empathyco/x-components/vendor'
 import { SearchInput } from '@empathyco/x-components/search-box'
 </script>
 ```
@@ -289,7 +289,7 @@ import {
   BannersList,
   Banner,
   Promoted,
-} from '@empathyco/x-components/search'
+} from '@empathyco/x-components/vendor'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseVariableColumnGrid } from '@empathyco/x-components'
 import { MainScrollItem } from '@empathyco/x-components/scroll'
