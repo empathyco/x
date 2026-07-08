@@ -77,8 +77,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     setBanners(state, banners) {
       state.banners = banners
     },
-    setCustomResults(state, customResults) {
-      state.customResults = customResults
+    setVendorResults(state, vendorResults) {
+      state.vendorResults = vendorResults
     },
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds
@@ -175,7 +175,7 @@ export function resettableState() {
     facets: [],
     relatedTags: [],
     banners: [],
-    customResults: [],
+    vendorResults: [],
     promoteds: [],
     totalResults: 0,
     spellcheckedQuery: '',

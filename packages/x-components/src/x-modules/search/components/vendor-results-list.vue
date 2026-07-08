@@ -10,9 +10,9 @@ import { AnimationProp } from '../../../types/animation-prop'
 import { searchXModule } from '../x-module'
 
 /**
- * It renders a {@link ItemsList} of custom results from {@link SearchState.customResults}.
+ * It renders a {@link ItemsList} of vendor results from {@link SearchState.vendorResults}.
  *
- * The component provides a default slot which wraps the whole component with the `customResults`
+ * The component provides a default slot which wraps the whole component with the `vendorResults`
  * plus the `injectedListItems` which also contains the injected list items from
  * the ancestor.
  *
@@ -21,10 +21,10 @@ import { searchXModule } from '../x-module'
  * @public
  */
 export default defineComponent({
-  name: 'CustomResultsList',
+  name: 'VendorResultsList',
   xModule: searchXModule.name,
   props: {
-    /** Animation component that will be used to animate the custom results. */
+    /** Animation component that will be used to animate the vendor results. */
     animation: {
       type: AnimationProp,
       default: 'ul',
@@ -33,8 +33,8 @@ export default defineComponent({
   setup(props, { slots }) {
     const $x = use$x()
 
-    /** The custom results to render from the state. */
-    const stateItems = useState('search').customResults
+    /** The vendor results to render from the state. */
+    const stateItems = useState('search').vendorResults
 
     /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
@@ -55,7 +55,7 @@ export default defineComponent({
       for (const item of stateItems.value) {
         const position = item.position ?? 1
         let index = position - 1
-        while (items.at(index)?.modelName === 'CustomResult') {
+        while (items.at(index)?.modelName === 'VendorResult') {
           index++
         }
         const isIndexInLoadedPages = index <= items.length
@@ -95,44 +95,44 @@ This component doesn't emit events.
 
 <!-- prettier-ignore-start -->
 :::warning Backend service required
-To use this component, custom results must be provided via the `UserCustomResultsChanged` event.
+To use this component, vendor results must be provided via the `UserVendorResultsChanged` event.
 :::
 <!-- prettier-ignore-end -->
 
-Here you have a basic example of how the CustomResultsList is rendered.
+Here you have a basic example of how the VendorResultsList is rendered.
 
-_Emit the `UserCustomResultsChanged` event with custom results to see them in the grid!_
+_Emit the `UserVendorResultsChanged` event with vendor results to see them in the grid!_
 
 ```vue live
 <template>
   <div>
     <SearchInput />
-    <button @click="addCustomResults">Add Custom Results</button>
-    <CustomResultsList />
+    <button @click="addVendorResults">Add Vendor Results</button>
+    <VendorResultsList />
   </div>
 </template>
 
 <script setup>
-import { CustomResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { use$x } from '@empathyco/x-components'
 
 const $x = use$x()
 
-const addCustomResults = () => {
-  $x.emit('UserCustomResultsChanged', [
+const addVendorResults = () => {
+  $x.emit('UserVendorResultsChanged', [
     {
       item: {
-        id: 'custom-1',
-        name: 'Custom Result at Position 1',
-        // modelName is set automatically to 'CustomResult'
+        id: 'vendor-1',
+        name: 'Vendor Result at Position 1',
+        // modelName is set automatically to 'VendorResult'
       },
       position: 1,
     },
     {
       item: {
-        id: 'custom-2',
-        name: 'Custom Result at Position 3',
+        id: 'vendor-2',
+        name: 'Vendor Result at Position 3',
       },
       position: 3,
     },
@@ -147,12 +147,12 @@ const addCustomResults = () => {
 <template>
   <div>
     <SearchInput />
-    <CustomResultsList :animation="fadeAndSlide" />
+    <VendorResultsList :animation="fadeAndSlide" />
   </div>
 </template>
 
 <script setup>
-import { CustomResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/search'
 import { FadeAndSlide } from '@empathyco/x-components/animations'
 import { SearchInput } from '@empathyco/x-components/search-box'
 
@@ -166,48 +166,48 @@ const fadeAndSlide = FadeAndSlide
 <template>
   <div>
     <SearchInput />
-    <CustomResultsList #default="{ items, animation }">
+    <VendorResultsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
-        <template #custom-result="{ item }">
-          <span class="custom">⭐ Custom: {{ item.name }}</span>
+        <template #vendor-result="{ item }">
+          <span class="custom">⭐ Vendor: {{ item.name }}</span>
         </template>
         <template #result="{ item }">
           <span>Default: {{ item.name }}</span>
         </template>
       </BaseGrid>
-    </CustomResultsList>
+    </VendorResultsList>
   </div>
 </template>
 
 <script setup>
-import { CustomResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 import { BaseGrid } from '@empathyco/x-components'
 </script>
 ```
 
-### Overriding custom-result slot
+### Overriding vendor-result slot
 
-The component provides a `#custom-result` slot for rendering custom result items.
+The component provides a `#vendor-result` slot for rendering vendor result items.
 
 ```vue
 <template>
   <div>
     <SearchInput />
-    <CustomResultsList>
-      <template #custom-result="{ item }">
+    <VendorResultsList>
+      <template #vendor-result="{ item }">
         <div class="featured-item">
           <span class="badge">Featured</span>
           <h3>{{ item.name }}</h3>
           <p>{{ item.price?.value }}</p>
         </div>
       </template>
-    </CustomResultsList>
+    </VendorResultsList>
   </div>
 </template>
 
 <script setup>
-import { CustomResultsList } from '@empathyco/x-components/search'
+import { VendorResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 </script>
 ```
@@ -215,7 +215,7 @@ import { SearchInput } from '@empathyco/x-components/search-box'
 ### Data injection
 
 Starting with the `ResultsList` component as root element, you can concat the list of list items
-using `CustomResultsList`, `PromotedsList`, `BannersList`, `BaseGrid` or any component that injects the `listItems`
+using `VendorResultsList`, `PromotedsList`, `BannersList`, `BaseGrid` or any component that injects the `listItems`
 value.
 
 ```vue
@@ -223,20 +223,20 @@ value.
   <div>
     <SearchInput />
     <ResultsList>
-      <CustomResultsList>
-        <template #custom-result="{ item }">
-          <span class="featured">⭐ Custom: {{ item.name }}</span>
+      <VendorResultsList>
+        <template #vendor-result="{ item }">
+          <span class="featured">⭐ Vendor: {{ item.name }}</span>
         </template>
         <template #result="{ item }">
           <span>Result: {{ item.name }}</span>
         </template>
-      </CustomResultsList>
+      </VendorResultsList>
     </ResultsList>
   </div>
 </template>
 
 <script setup>
-import { ResultsList, CustomResultsList } from '@empathyco/x-components/search'
+import { ResultsList, VendorResultsList } from '@empathyco/x-components/search'
 import { SearchInput } from '@empathyco/x-components/search-box'
 </script>
 ```
@@ -250,11 +250,11 @@ When using `BaseVariableColumnGrid` or `BaseGrid`, the slot pattern remains the 
   <div>
     <SearchInput />
     <ResultsList>
-      <CustomResultsList>
+      <VendorResultsList>
         <PromotedsList>
           <BannersList>
             <BaseVariableColumnGrid :columns="4">
-              <template #custom-result="{ item: result }">
+              <template #vendor-result="{ item: result }">
                 <MainScrollItem :item="result">
                   <Result :result="result" class="featured" />
                 </MainScrollItem>
@@ -276,7 +276,7 @@ When using `BaseVariableColumnGrid` or `BaseGrid`, the slot pattern remains the 
             </BaseVariableColumnGrid>
           </BannersList>
         </PromotedsList>
-      </CustomResultsList>
+      </VendorResultsList>
     </ResultsList>
   </div>
 </template>
@@ -284,7 +284,7 @@ When using `BaseVariableColumnGrid` or `BaseGrid`, the slot pattern remains the 
 <script setup>
 import {
   ResultsList,
-  CustomResultsList,
+  VendorResultsList,
   PromotedsList,
   BannersList,
   Banner,

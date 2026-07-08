@@ -1,6 +1,5 @@
 import type {
   Banner,
-  CustomResult,
   Facet,
   Filter,
   PartialResult,
@@ -13,6 +12,7 @@ import type {
   Sort,
   Stats,
   TaggingRequest,
+  VendorResult,
 } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { StatusMutations, StatusState, XActionContext, XStoreModule } from '../../../store'
@@ -32,8 +32,8 @@ export interface SearchState extends StatusState, QueryState {
   banners: Banner[]
   /** The configuration of the search module. */
   config: SearchConfig
-  /** The list of custom results with specific positions in the grid, related to the `query` property of the state. */
-  customResults: CustomResult[]
+  /** The list of vendor results with specific positions in the grid, related to the `query` property of the state. */
+  vendorResults: VendorResult[]
   /** The list of the facets, related to the `query` property of the state. */
   facets: Facet[]
   /** A flag to indicate if new results are append to the current instead of replacing them. */
@@ -122,11 +122,11 @@ export interface SearchMutations
    */
   setBanners: (banners: Banner[]) => void
   /**
-   * Sets the custom results of the module.
+   * Sets the vendor results of the module.
    *
-   * @param customResults - The new custom results to save to the state.
+   * @param vendorResults - The new vendor results to save to the state.
    */
-  setCustomResults: (customResults: CustomResult[]) => void
+  setVendorResults: (vendorResults: VendorResult[]) => void
   /**
    * Sets the facets of the module.
    *

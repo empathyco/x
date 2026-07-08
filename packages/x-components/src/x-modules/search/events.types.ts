@@ -1,6 +1,5 @@
 import type {
   Banner,
-  CustomResultPayload,
   Facet,
   PartialResult,
   Promoted,
@@ -8,6 +7,7 @@ import type {
   Result,
   Sort,
   TaggingRequest,
+  VendorResultPayload,
 } from '@empathyco/x-types'
 import type { InternalSearchRequest, InternalSearchResponse } from './types'
 
@@ -111,10 +111,10 @@ export interface SearchXEvents {
    */
   UserClickedAPromoted: Promoted
   /**
-   * The user has provided custom results to be inserted in the result grid.
-   * Payload: The array of custom result inputs with their items and positions.
+   * The user has provided vendor results to be inserted in the result grid.
+   * Payload: The array of vendor result inputs with their items and positions.
    */
-  UserCustomResultPayloadChanged: CustomResultPayload[]
+  UserVendorResultsChanged: VendorResultPayload[]
   /**
    * The user has clicked a banner.
    * Payload: The clicked banner.

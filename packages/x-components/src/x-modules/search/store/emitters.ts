@@ -15,7 +15,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
       return newValue.length !== 0 || oldValue.length !== 0
     },
   },
-  CustomResultsChanged: (state: SearchState) => state.customResults,
+  VendorResultsChanged: (state: SearchState) => state.vendorResults,
   PageChanged: state => state.page,
   PartialResultsChanged: state => state.partialResults,
   ResultsChanged: state => state.results,
