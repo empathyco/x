@@ -1,4 +1,4 @@
-import type { VendorResultPayload } from '@empathyco/x-types'
+import type { VendorResultPayload } from './store/types'
 import { createWiring, namespacedWireCommit } from '../../wiring'
 
 /**

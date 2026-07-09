@@ -1,4 +1,4 @@
-import type { VendorResult, VendorResultPayload } from '@empathyco/x-types'
+import type { VendorResult, VendorResultPayload } from './store/types'
 
 /**
  * Directory of events for the vendor module.
