@@ -220,7 +220,7 @@ export const browseWiring = createWiring({
   ReloadBrowseRequested: {
     resetBrowseStateForReloadWire,
   },
-  SelectedSortProvided: {
+  SelectedBrowseSortProvided: {
     setBrowseSort,
   },
   ExtraParamsChanged: {

@@ -524,6 +524,7 @@ import {
   MainModal,
   SearchIcon,
   SlidingPanel,
+  SortPickerList,
   StaggeredFadeAndSlide,
 } from '@x/components'
 import { use$x, useState } from '@x/composables'
@@ -554,7 +555,6 @@ import {
   PromotedsList,
   Redirection,
   ResultsList,
-  SortPickerList,
   Spellcheck,
   SpellcheckButton,
 } from '@x/x-modules/search'

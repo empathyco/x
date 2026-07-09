@@ -22,68 +22,59 @@
   </component>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { Component, PropType } from 'vue'
+import type { XEvent } from '@x/wiring/index'
+import type { Component, ComputedRef } from 'vue'
 import type { SortPickerItem } from './sort-picker-list.types'
-import { computed, defineComponent, watch } from 'vue'
-import BaseEventButton from '../../../components/base-event-button.vue'
-import { use$x } from '../../../composables/use-$x'
-import { useState } from '../../../composables/use-state'
-import { searchXModule } from '../x-module'
+import BaseEventButton from '@x/components/base-event-button.vue'
+import { use$x, useState } from '@x/composables/index'
+import { computed, watch } from 'vue'
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component
  * also allows to change the selected sort programmatically.
  */
-export default defineComponent({
-  name: 'SortPickerList',
-  xModule: searchXModule.name,
-  components: { BaseEventButton },
-  props: {
-    /** The list of possible sort values. */
-    items: {
-      type: Array as PropType<Sort[]>,
-      required: true,
-    },
-    /** The transition to use for rendering the list. */
-    animation: {
-      type: [String, Object] as PropType<string | Component>,
-      default: () => 'div',
-    },
-    /** Class inherited by each sort button. */
-    buttonClass: String,
+
+const props = withDefaults(
+  defineProps<{
+    animation?: string | Component
+    items: Sort[]
+    buttonClass: string
+    module?: 'browse' | 'search'
+    selectedSortEvent?: XEvent
+    clickedSortEvent?: XEvent
+  }>(),
+  {
+    selectedSortEvent: 'SelectedSortProvided',
+    clickedSortEvent: 'UserClickedASort',
+    animation: 'div',
+    module: 'search',
   },
-  setup(props) {
-    const $x = use$x()
+)
 
-    const { sort: selectedSort } = useState('search')
+const $x = use$x()
 
-    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-      immediate: true,
-    })
+const { sort: selectedSort }: { sort: ComputedRef<string> } = useState(props.module)
 
-    /**
-     * Sort list items.
-     *
-     * @returns A list of items with their css class and the event associate to it.
-     */
-    const listItems = computed<SortPickerItem[]>(() =>
-      props.items.map(item => ({
-        item,
-        cssClasses: {
-          'xds:selected': item === selectedSort.value,
-        },
-        event: { UserClickedASort: item },
-      })),
-    )
-
-    return {
-      listItems,
-      selectedSort,
-    }
-  },
+watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
+  immediate: true,
 })
+
+/**
+ * Sort list items.
+ *
+ * @returns A list of items with their css class and the event associate to it.
+ */
+const listItems = computed<SortPickerItem[]>(() =>
+  props.items.map(item => ({
+    item,
+    cssClasses: {
+      'xds:selected': item === selectedSort.value,
+    },
+    event: { [props.clickedSortEvent]: item },
+  })),
+)
 </script>
 
 <docs lang="mdx">

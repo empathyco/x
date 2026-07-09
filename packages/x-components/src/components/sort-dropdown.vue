@@ -31,64 +31,57 @@
   </BaseDropdown>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { Component, PropType } from 'vue'
-import { defineComponent, ref, watch } from 'vue'
+import type { XEvent } from '@x/wiring/index'
+import type { Component, ComputedRef } from 'vue'
 
-import BaseDropdown from '../../../components/base-dropdown.vue'
-import { use$x } from '../../../composables/use-$x'
-import { useState } from '../../../composables/use-state'
-import { searchXModule } from '../x-module'
+import BaseDropdown from '@x/components/base-dropdown.vue'
+import { use$x, useState } from '@x/composables/index'
+import { ref, watch } from 'vue'
 
 /**
  * The `SortDropdown` component allows user to select the search results order. This component
  * also allows to change the selected sort programmatically.
  */
-export default defineComponent({
-  name: 'SortDropdown',
-  xModule: searchXModule.name,
-  components: { BaseDropdown },
-  props: {
-    /** The list of possible sort values. */
-    items: {
-      type: Array as PropType<Sort[]>,
-      required: true,
-    },
-    /** The transition to use for opening and closing the dropdown. */
-    animation: [String, Object] as PropType<string | Component>,
+
+const props = withDefaults(
+  defineProps<{
+    animation: string | Component
+    items: Sort[]
+    module?: 'browse' | 'search'
+    selectedSortEvent?: XEvent
+    clickedSortEvent?: XEvent
+  }>(),
+  {
+    selectedSortEvent: 'SelectedSortProvided',
+    clickedSortEvent: 'UserClickedASort',
+    module: 'search',
   },
-  emits: ['change'],
-  setup(_, { emit }) {
-    const $x = use$x()
+)
 
-    const { sort: selectedSort } = useState('search')
-    const rootRef = ref<typeof BaseDropdown>()
+const emit = defineEmits(['change'])
+const $x = use$x()
 
-    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-      immediate: true,
-    })
+const { sort: selectedSort }: { sort: ComputedRef<string> } = useState(props.module)
+const rootRef = ref<typeof BaseDropdown>()
 
-    /**
-     * Emits the events related to the selection of a sort value.
-     *
-     * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
-     * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
-     *
-     * @param sort - The selected sort.
-     */
-    function emitUserClickedASort(sort: Sort) {
-      $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el })
-      emit('change', sort)
-    }
-
-    return {
-      emitUserClickedASort,
-      rootRef,
-      selectedSort,
-    }
-  },
+watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
+  immediate: true,
 })
+
+/**
+ * Emits the events related to the selection of a sort value.
+ *
+ * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
+ * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
+ *
+ * @param sort - The selected sort.
+ */
+function emitUserClickedASort(sort: Sort) {
+  $x.emit(props.clickedSortEvent, sort, { target: (rootRef.value as any)?.$el })
+  emit('change', sort)
+}
 </script>
 
 <docs lang="mdx">

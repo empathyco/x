@@ -1,16 +1,15 @@
 import type { DeepPartial } from '@empathyco/x-utils'
-import type { RootXStoreState } from '../../../../store/store.types'
+import type { RootXStoreState } from '../../store/store.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { XDummyBus } from '../../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
-import { XPlugin } from '../../../../plugins/x-plugin'
-import { searchXModule } from '../../x-module'
+import { XDummyBus } from '../../__tests__/bus.dummy'
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { XPlugin } from '../../plugins/x-plugin'
+import { resetXSearchStateWith } from '../../x-modules/search/components/__tests__/utils'
+import { searchXModule } from '../../x-modules/search/x-module'
 import SortList from '../sort-list.vue'
-import { resetXSearchStateWith } from './utils'
 
 const bus = new XDummyBus()
 
@@ -64,16 +63,6 @@ function renderSortList({
 }
 
 describe('testing SortList component', () => {
-  it('is an XComponent', () => {
-    const { wrapper } = renderSortList()
-    expect(isXComponent(wrapper.vm)).toBeTruthy()
-  })
-
-  it('is an XComponent that belongs to the search module', () => {
-    const { wrapper } = renderSortList()
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('search')
-  })
-
   it('allows selecting one of the options of the list', async () => {
     const { getButton, clickNthItem, getSelectedItem, onUserClickedASort } = renderSortList({
       items: ['price', 'relevance', 'offer'],
@@ -85,7 +74,7 @@ describe('testing SortList component', () => {
     expect(onUserClickedASort).toHaveBeenCalledWith({
       eventPayload: 'offer',
       metadata: {
-        moduleName: 'search',
+        moduleName: null,
         target: getButton(2),
         location: 'none',
         replaceable: true,
@@ -102,7 +91,7 @@ describe('testing SortList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith({
       eventPayload: 'default',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', location: 'none', replaceable: true },
+      metadata: { moduleName: null, location: 'none', replaceable: true },
     })
   })
 
