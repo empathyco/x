@@ -1,5 +1,5 @@
 import type { VendorResult } from '@empathyco/x-types'
-import type { StatusMutations, StatusState, XStoreModule  } from '../../../store'
+import type { StatusMutations, StatusState, XStoreModule } from '../../../store'
 
 export interface VendorState extends StatusState {
   vendorResults: VendorResult[]

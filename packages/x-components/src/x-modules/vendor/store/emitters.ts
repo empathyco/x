@@ -1,5 +1,4 @@
 import { createStoreEmitters } from '../../../store'
-import type { VendorState } from './types'
 import { vendorXStoreModule } from './module'
 
 /**
