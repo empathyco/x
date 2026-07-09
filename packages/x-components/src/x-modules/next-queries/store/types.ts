@@ -95,6 +95,10 @@ export interface NextQueriesMutations
    * Resets the result's dictionary.
    */
   resetResultsPreview: () => void
+  /**
+   * Resets the next queries list to an empty array.
+   */
+  resetNextQueries: () => void
 }
 
 /**

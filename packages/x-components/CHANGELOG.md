@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.4.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.4.0...@empathyco/x-components@7.4.1) (2026-07-08)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [7.4.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.3.1...@empathyco/x-components@7.4.0) (2026-07-07)
+
+### Features
+
+* create browse module (#2128)
+
+
+## [7.3.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.3.0...@empathyco/x-components@7.3.1) (2026-07-06)
+
+### Bug Fixes
+
+* **next-queries:** reset wiring on user-cleared query event (#2132)
+
+
+## [7.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.5...@empathyco/x-components@7.3.0) (2026-07-06)
+
+### Features
+
+* **next-queries:** add mutation and wiring to reset next queries state (#2131)
+
+
+## [7.2.5](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.4...@empathyco/x-components@7.2.5) (2026-07-02)
+
+### Code Refactoring
+
+* **types:** remove unused `overview` origin type references (#2127)
+
+
+## [7.2.4](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.3...@empathyco/x-components@7.2.4) (2026-07-02)
+
+### Build System
+
+* **x-components:** dowmgrade rollup dep to 4.60.4 to avoid break consumers (#2130)
+
+
+## [7.2.3](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.2...@empathyco/x-components@7.2.3) (2026-07-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [7.2.2](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.1...@empathyco/x-components@7.2.2) (2026-06-30)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [7.2.1](https://github.com/empathyco/x/compare/@empathyco/x-components@7.2.0...@empathyco/x-components@7.2.1) (2026-06-26)
 
 ### Code Refactoring

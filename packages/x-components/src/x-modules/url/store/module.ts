@@ -35,6 +35,10 @@ export const urlXStoreModule: UrlXStoreModule = {
     setSort(state, sort) {
       state.sort = sort
     },
+    setBrowseCategory(state, { browseValue, browseField }) {
+      state.browseValue = browseValue
+      state.browseField = browseField
+    },
     setInitialExtraParams(state, extraParams) {
       state.initialExtraParams = extraParams
     },

@@ -1,6 +1,7 @@
 import type { PlatformAdapter } from './types/platform-adapter.types'
 import { aiSuggestionsSearchEndpointAdapter } from './endpoint-adapters/ai/suggestions-search.endpoint-adapter'
 import { aiSuggestionsEndpointAdapter } from './endpoint-adapters/ai/suggestions.endpoint-adapter'
+import { browseEndpointAdapter } from './endpoint-adapters/browse.endpoint-adapter'
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter'
 import { facetsEndpointAdapter } from './endpoint-adapters/facets.endpoint-adapter'
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter'
@@ -34,4 +35,5 @@ export const platformAdapter: PlatformAdapter = {
   aiSuggestions: aiSuggestionsEndpointAdapter,
   aiSuggestionsSearch: aiSuggestionsSearchEndpointAdapter,
   facets: facetsEndpointAdapter,
+  browse: browseEndpointAdapter,
 }

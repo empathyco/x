@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-design-system",
   "type": "module",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Empathy X Tailwind Design System",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -45,15 +45,15 @@
     "tslib": "2.8.1"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@vitejs/plugin-vue": "6.0.7",
     "@vue/tsconfig": "0.9.1",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "typescript": "5.9.3",
-    "vite": "7.3.3",
+    "vite": "7.3.6",
     "vite-svg-loader": "5.1.1",
-    "vue": "3.5.34",
-    "vue-tsc": "3.3.1"
+    "vue": "3.5.39",
+    "vue-tsc": "3.3.5"
   },
   "publishConfig": {
     "access": "public"

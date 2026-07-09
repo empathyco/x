@@ -82,6 +82,8 @@ describe('testing UrlHandler component', () => {
         sort: 'price desc',
         scroll: '333',
         tag: ['marvel'],
+        browseField: '',
+        browseValue: '',
       } as UrlParams,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         feature: 'url',
@@ -111,6 +113,8 @@ describe('testing UrlHandler component', () => {
       sort: 'price desc',
       scroll: '333',
       tag: ['marvel'],
+      browseValue: '',
+      browseField: '',
     } as UrlParams)
 
     expect(listener).toHaveBeenNthCalledWith(3, {
@@ -121,6 +125,8 @@ describe('testing UrlHandler component', () => {
       sort: 'price asc',
       scroll: '444',
       tag: ['harry potter'],
+      browseValue: '',
+      browseField: '',
     } as UrlParams)
   })
 
@@ -250,6 +256,8 @@ describe('testing UrlHandler component', () => {
       tag: ['frisona'],
       scroll: 'frisona-steak-1.5kg',
       query: '',
+      browseField: '',
+      browseValue: '',
     })
 
     expect(new URL(window.location.href).searchParams.toString()).toEqual('')

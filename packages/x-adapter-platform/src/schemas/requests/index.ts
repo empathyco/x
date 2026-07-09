@@ -1,4 +1,5 @@
 export * from './ai'
+export * from './browse-request.schema'
 export * from './experience-controls-request.schema'
 export * from './facets-request.schema'
 export * from './identifier-results-request.schema'

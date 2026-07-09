@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -41,10 +41,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/coverage-v8": "4.1.9",
     "jsdom": "29.1.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.7"
+    "vitest": "4.1.9"
   },
   "publishConfig": {
     "access": "public"

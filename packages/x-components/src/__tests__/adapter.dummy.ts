@@ -16,4 +16,5 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   aiSuggestions: vi.fn() as unknown as XComponentsAdapter['aiSuggestions'],
   aiSuggestionsSearch: vi.fn() as unknown as XComponentsAdapter['aiSuggestionsSearch'],
   facets: vi.fn() as unknown as XComponentsAdapter['facets'],
+  browse: vi.fn() as unknown as XComponentsAdapter['browse'],
 }

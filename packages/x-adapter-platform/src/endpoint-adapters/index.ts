@@ -1,5 +1,6 @@
 export * from './ai/suggestions-search.endpoint-adapter'
 export * from './ai/suggestions.endpoint-adapter'
+export * from './browse.endpoint-adapter'
 export * from './experience-controls.endpoint-adapter'
 export * from './facets.endpoint-adapter'
 export * from './identifier-results.endpoint-adapter'

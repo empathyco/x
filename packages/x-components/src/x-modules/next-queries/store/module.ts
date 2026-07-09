@@ -62,6 +62,9 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     resetResultsPreview(state) {
       state.resultsPreview = {}
     },
+    resetNextQueries(state) {
+      state.nextQueries = []
+    },
     setConfig,
     mergeConfig,
   },

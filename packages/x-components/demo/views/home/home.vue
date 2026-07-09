@@ -107,6 +107,8 @@
     <HomeMainModal :controls="controls" />
   </div>
   <BaseTeleport target="#teleport-here">This is the teleport content</BaseTeleport>
+
+  <BrowseSection :controls />
 </template>
 
 <script lang="ts" setup>
@@ -118,6 +120,7 @@ import { PreselectedFilters } from '@x/x-modules/facets'
 import { Tagging } from '@x/x-modules/tagging'
 import { UrlHandler } from '@x/x-modules/url'
 import { computed } from 'vue'
+import BrowseSection from './browse-section.vue'
 import HomeMainModal from './home-main-modal.vue'
 
 const controls = computed<HomeControls>(() => ({

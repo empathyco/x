@@ -1,3 +1,4 @@
+import type { BrowsableRequest } from '@empathyco/x-types'
 import type { WireMetadata, XEventsTypes } from '../../wiring/index'
 import type { XBus } from '../../x-bus'
 import type { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types'
@@ -121,6 +122,19 @@ export class BaseXAPI implements XAPI {
       void this.bus?.emit('UserAcceptedAQuery', query)
     }
     void this.bus?.emit('UserClickedOpenX', undefined)
+  }
+
+  /**
+   * Browses the browseField and browseValue parameters as a selected category.
+   *
+   * @param browseCategory - browseField and browseValue to be browsed.
+   *
+   * @public
+   */
+  browse(browseCategory?: BrowsableRequest): void {
+    if (browseCategory) {
+      void this.bus?.emit('UserBrowsedToCategory', browseCategory)
+    }
   }
 
   /**

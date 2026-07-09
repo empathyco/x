@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter",
-  "version": "8.1.7",
+  "version": "8.1.8",
   "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -43,13 +43,13 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-utils": "1.0.8"
+    "@empathyco/x-utils": "1.0.9"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/coverage-v8": "4.1.9",
     "jsdom": "29.1.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.7"
+    "vitest": "4.1.9"
   },
   "publishConfig": {
     "access": "public"

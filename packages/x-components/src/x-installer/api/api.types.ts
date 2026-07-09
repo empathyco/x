@@ -1,3 +1,4 @@
+import type { BrowsableRequest } from '@empathyco/x-types'
 import type { RequiredProperties } from '@empathyco/x-utils'
 import type { DocumentDirection } from '../../plugins/x-plugin.types'
 import type { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types'
@@ -83,6 +84,15 @@ export interface XAPI {
    * @public
    */
   search: (query?: string) => void
+
+  /**
+   * Dispatch a browse with the browseCategory parameter.
+   *
+   * @param browseCategory - browseField and browseValue to be searched.
+   *
+   * @public
+   */
+  browse: (browseCategory?: BrowsableRequest) => void
 
   /**
    * Method to initialize the XComponents app.

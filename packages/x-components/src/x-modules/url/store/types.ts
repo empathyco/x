@@ -1,4 +1,4 @@
-import type { Filter, RelatedTag } from '@empathyco/x-types'
+import type { BrowsableRequest, Filter, RelatedTag } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { XActionContext, XStoreModule } from '../../../store'
 import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
@@ -85,6 +85,12 @@ export interface UrlMutations extends QueryMutations {
    * @param sort - The new sort of the url.
    */
   setSort: (sort: string) => void
+  /**
+   * Sets the new browseCategory.
+   *
+   * @param sort - The new browseCategory of the url.
+   */
+  setBrowseCategory: (browseCategory: BrowsableRequest) => void
   /**
    * Sets the initial extra params.
    *

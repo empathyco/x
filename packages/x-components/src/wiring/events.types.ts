@@ -3,6 +3,7 @@ import type { ComputedRef } from 'vue'
 import type { ExtractPayload } from '../store/store.types'
 import type { ArrowKey, PropsWithType } from '../utils'
 import type { AiXEvents } from '../x-modules/ai'
+import type { BrowseXEvents } from '../x-modules/browse/events.types'
 import type { DeviceXEvents } from '../x-modules/device'
 import type { EmpathizeXEvents } from '../x-modules/empathize/events.types'
 import type { ExperienceControlsXEvents } from '../x-modules/experience-controls/events.types'
@@ -75,6 +76,7 @@ export interface XEventsTypes
     ScrollXEvents,
     SearchBoxXEvents,
     SearchXEvents,
+    BrowseXEvents,
     SemanticQueriesXEvents,
     TaggingXEvents,
     ExperienceControlsXEvents,

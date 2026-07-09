@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.6.1...@empathyco/x-adapter-platform@1.7.0) (2026-07-07)
+
+### Features
+
+* create browse module (#2128)
+
+
+## [1.6.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.6.0...@empathyco/x-adapter-platform@1.6.1) (2026-07-01)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [1.6.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.5.0...@empathyco/x-adapter-platform@1.6.0) (2026-06-30)
+
+### Features
+
+* implement browse endpoint adapter (#2125)
+
+
 ## [1.5.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.4.3...@empathyco/x-adapter-platform@1.5.0) (2026-06-17)
 
 ### Features

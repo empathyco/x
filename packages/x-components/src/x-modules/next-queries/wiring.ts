@@ -46,6 +46,13 @@ const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDi
 export const setNextQueriesQuery = wireCommit('setQuery')
 
 /**
+ * Reset the next queries state `query`.
+ *
+ * @public
+ */
+export const resetNextQueriesQuery = wireCommit('setQuery', '')
+
+/**
  * Sets the next queries state `relatedTags`.
  *
  * @public
@@ -122,6 +129,13 @@ export const fetchAndSaveNextQueryPreviewWire = wireDispatch(
 export const resetResultsPreviewWire = wireCommitWithoutPayload('resetResultsPreview')
 
 /**
+ * Resets the next queries list to an empty array.
+ *
+ * @public
+ */
+export const resetNextQueriesWire = wireCommitWithoutPayload('resetNextQueries')
+
+/**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
  * @public
@@ -141,7 +155,12 @@ export const nextQueriesWiring = createWiring({
     resetResultsPreviewWire,
   },
   UserAcceptedAQuery: {
+    resetNextQueriesWire,
     setNextQueriesQuery,
+  },
+  UserClearedQuery: {
+    resetNextQueriesWire,
+    resetNextQueriesQuery,
   },
   SelectedRelatedTagsChanged: {
     setNextQueriesRelatedTags,

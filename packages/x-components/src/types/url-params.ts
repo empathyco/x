@@ -11,5 +11,7 @@ export interface UrlParams {
   tag: string[]
   prompt: number
   scroll: string
+  browseValue: string
+  browseField: string
   [extraParamKey: string]: unknown
 }
