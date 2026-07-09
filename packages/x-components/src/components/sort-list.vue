@@ -72,7 +72,7 @@ watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
  * @returns A list of items with their css class and the event associate to it.
  */
 const listItems = computed<SortListItem[]>(() =>
-  props.items.map(item => ({
+  props.items.map((item: string) => ({
     item,
     cssClasses: {
       'x-sort-list__item--is-selected': item === selectedSort.value,
