@@ -34,7 +34,7 @@ export default defineComponent({
     const $x = use$x()
 
     /** The vendor results to render from the state. */
-    const stateItems = useState('vendor').vendorResults
+    const stateItems = useState('vendor').results
 
     /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)

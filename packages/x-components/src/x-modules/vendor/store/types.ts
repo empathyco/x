@@ -1,5 +1,5 @@
 import type { NamedModel, Result } from '@empathyco/x-types'
-import type { StatusMutations, StatusState, XStoreModule } from '../../../store'
+import type { XStoreModule } from '../../../store'
 
 export interface VendorResultPayload {
   item: Omit<Result, 'modelName'>
@@ -10,14 +10,14 @@ export interface VendorResult extends Omit<Result, 'modelName'>, NamedModel<'Ven
   position: number
 }
 
-export interface VendorState extends StatusState {
-  vendorResults: VendorResult[]
+export interface VendorState {
+  results: VendorResult[]
 }
 
 export interface VendorGetters {}
 
-export interface VendorMutations extends StatusMutations {
-  setVendorResults: (vendorResults: VendorResult[]) => void
+export interface VendorMutations {
+  setResults: (results: VendorResult[]) => void
 }
 
 export interface VendorActions {}

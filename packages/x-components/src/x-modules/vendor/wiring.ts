@@ -13,8 +13,8 @@ const wireCommit = namespacedWireCommit('vendor')
  *
  * @public
  */
-export const setVendorResults = wireCommit(
-  'setVendorResults',
+export const setResults = wireCommit(
+  'setResults',
   ({ eventPayload }: { eventPayload: VendorResultPayload[] }) =>
     eventPayload.map(({ item, position }) => ({
       ...item,
@@ -24,12 +24,22 @@ export const setVendorResults = wireCommit(
 )
 
 /**
+ * Resets the vendor results of the {@link VendorXModule}.
+ *
+ * @public
+ */
+const resetResults = wireCommit('setResults', [])
+
+/**
  * Wiring configuration for the {@link VendorXModule | vendor module}.
  *
  * @internal
  */
 export const vendorWiring = createWiring({
   UserVendorResultsChanged: {
-    setVendorResults,
+    setResults,
+  },
+  SearchRequestChanged: {
+    resetResults,
   },
 })
