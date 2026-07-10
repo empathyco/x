@@ -1,5 +1,5 @@
-import type { VendorResultPayload } from './store/types'
-import { createWiring, namespacedWireCommit } from '../../wiring'
+import type { VendorResult, VendorResultPayload, VendorResultTagging } from './store/types'
+import { createWiring, namespacedWireCommit, namespacedWireDispatch } from '../../wiring'
 
 /**
  * WireCommit for {@link VendorXModule}.
@@ -9,6 +9,26 @@ import { createWiring, namespacedWireCommit } from '../../wiring'
 const wireCommit = namespacedWireCommit('vendor')
 
 /**
+ * WireDispatch for {@link VendorXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch('vendor')
+
+/**
+ * Tracks a vendor result for a specific tagging property.
+ *
+ * @param property - The tagging property to track (view, click, or add2cart).
+ * @public
+ */
+const createTrackVendorWire = (property: keyof VendorResultTagging) =>
+  wireDispatch('track', ({ eventPayload }: { eventPayload: VendorResult }) => ({
+    result: eventPayload,
+    trackingProperty: property,
+  }))
+
+
+/**
  * Sets the vendor results of the {@link VendorXModule}.
  *
  * @public
@@ -16,12 +36,36 @@ const wireCommit = namespacedWireCommit('vendor')
 export const setResults = wireCommit(
   'setResults',
   ({ eventPayload }: { eventPayload: VendorResultPayload[] }) =>
-    eventPayload.map(({ item, position }) => ({
+    eventPayload.map(({ item, position, tagging }) => ({
       ...item,
       modelName: 'VendorResult' as const,
       position,
+      tagging,
     })),
 )
+
+/**
+ * Tracks the view event for a vendor result.
+ *
+ * @public
+ */
+const trackVendorView = createTrackVendorWire('view')
+
+/**
+ * Tracks the click event for a vendor result.
+ *
+ * @public
+ */
+const trackVendorClick = createTrackVendorWire('click')
+
+/**
+ * Tracks the add to cart event for a vendor result.
+ *
+ * @public
+ */
+const trackVendorAddToCart = createTrackVendorWire('add2cart')
+
+
 
 /**
  * Resets the vendor results of the {@link VendorXModule}.
@@ -38,6 +82,15 @@ const resetResults = wireCommit('setResults', [])
 export const vendorWiring = createWiring({
   UserVendorResultsChanged: {
     setResults,
+  },
+  UserViewedAVendorResult: {
+    trackVendorView,
+  },
+  UserClickedAVendorResult: {
+    trackVendorClick,
+  },
+  UserClickedVendorResultAddToCart: {
+    trackVendorAddToCart,
   },
   SearchRequestChanged: {
     resetResults,

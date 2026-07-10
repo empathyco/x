@@ -16,4 +16,19 @@ export interface VendorXEvents {
    * Payload: The new {@link VendorResult | vendor results}.
    */
   VendorResultsChanged: VendorResult[]
+  /**
+   * The user viewed a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was viewed.
+   */
+  UserViewedAVendorResult: VendorResult
+  /**
+   * The user clicked on a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was clicked.
+   */
+  UserClickedAVendorResult: VendorResult
+  /**
+   * The user clicked on the add to cart button of a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was clicked.
+   */
+  UserClickedVendorResultAddToCart: VendorResult
 }
