@@ -42,7 +42,7 @@ interface SortListItem {
  * also allows to change the selected sort programmatically.
  */
 export default defineComponent({
-  name: 'SortPickerList',
+  name: 'SortList',
   components: { BaseEventButton },
   props: {
     animation: {
