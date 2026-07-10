@@ -22,59 +22,74 @@
   </component>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { XEvent } from '@x/wiring/index'
-import type { Component, ComputedRef } from 'vue'
+import type { Component, ComputedRef, PropType } from 'vue'
 import type { SortPickerItem } from './sort-picker-list.types'
 import BaseEventButton from '@x/components/base-event-button.vue'
 import { use$x, useState } from '@x/composables/index'
-import { computed, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component
  * also allows to change the selected sort programmatically.
  */
-
-const props = withDefaults(
-  defineProps<{
-    animation?: string | Component
-    items: Sort[]
-    buttonClass: string
-    module?: 'browse' | 'search'
-    selectedSortEvent?: XEvent
-    clickedSortEvent?: XEvent
-  }>(),
-  {
-    selectedSortEvent: 'SelectedSortProvided',
-    clickedSortEvent: 'UserClickedASort',
-    animation: 'div',
-    module: 'search',
-  },
-)
-
-const $x = use$x()
-
-const { sort: selectedSort }: { sort: ComputedRef<string> } = useState(props.module)
-
-watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
-  immediate: true,
-})
-
-/**
- * Sort list items.
- *
- * @returns A list of items with their css class and the event associate to it.
- */
-const listItems = computed<SortPickerItem[]>(() =>
-  props.items.map((item: string) => ({
-    item,
-    cssClasses: {
-      'xds:selected': item === selectedSort.value,
+export default defineComponent({
+  name: 'SortPickerList',
+  components: { BaseEventButton },
+  props: {
+    animation: {
+      type: [String, Object] as PropType<string | Component>,
+      default: 'div',
     },
-    event: { [props.clickedSortEvent]: item },
-  })),
-)
+    items: {
+      type: Array as PropType<Sort[]>,
+      required: true,
+    },
+    module: {
+      type: String as PropType<'browse' | 'search'>,
+      default: 'search',
+    },
+    selectedSortEvent: {
+      type: String as PropType<XEvent>,
+      default: 'SelectedSortProvided',
+    },
+    clickedSortEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedASort',
+    },
+    buttonClass: String,
+  },
+  setup(props) {
+    const $x = use$x()
+
+    const { sort: selectedSort }: { sort: ComputedRef<string> } = useState(props.module)
+
+    watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
+      immediate: true,
+    })
+
+    /**
+     * Sort list items.
+     *
+     * @returns A list of items with their css class and the event associate to it.
+     */
+    const listItems = computed<SortPickerItem[]>(() =>
+      props.items.map((item: string) => ({
+        item,
+        cssClasses: {
+          'xds:selected': item === selectedSort.value,
+        },
+        event: { [props.clickedSortEvent]: item },
+      })),
+    )
+    return {
+      listItems,
+      selectedSort,
+    }
+  },
+})
 </script>
 
 <docs lang="mdx">
