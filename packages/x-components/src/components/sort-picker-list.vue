@@ -24,13 +24,12 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { Component, ComputedRef, PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import type { XEvent } from '../wiring'
 import type { SortPickerItem } from './sort-picker-list.types'
 import { computed, defineComponent, watch } from 'vue'
 import BaseEventButton from '../components/base-event-button.vue'
 import { use$x } from '../composables/use-$x'
-import { useState } from '../composables/use-state'
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component
@@ -50,9 +49,9 @@ export default defineComponent({
       type: Array as PropType<Sort[]>,
       required: true,
     },
-    module: {
-      type: String as PropType<'browse' | 'search'>,
-      default: 'search',
+    selectedSort: {
+      type: String,
+      required: true,
     },
     selectedSortEvent: {
       type: String as PropType<XEvent>,
@@ -68,11 +67,13 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { sort: selectedSort }: { sort: ComputedRef<string> } = useState(props.module)
-
-    watch(selectedSort, (value: Sort) => $x.emit(props.selectedSortEvent, value), {
-      immediate: true,
-    })
+    watch(
+      () => props.selectedSort,
+      (value: Sort) => $x.emit(props.selectedSortEvent, value),
+      {
+        immediate: true,
+      },
+    )
 
     /**
      * Sort list items.
@@ -83,7 +84,7 @@ export default defineComponent({
       props.items.map((item: string) => ({
         item,
         cssClasses: {
-          'xds:selected': item === selectedSort.value,
+          'xds:selected': item === props.selectedSort,
         },
         event: { [props.clickedSortEvent]: item },
       })),
@@ -91,7 +92,6 @@ export default defineComponent({
 
     return {
       listItems,
-      selectedSort,
     }
   },
 })

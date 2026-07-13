@@ -7,7 +7,6 @@ import { Store } from 'vuex'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
-import { resetXSearchStateWith } from '../../x-modules/search/components/__tests__/utils'
 import { searchXModule } from '../../x-modules/search/x-module'
 import SortList from '../sort-list.vue'
 
@@ -15,48 +14,47 @@ const bus = new XDummyBus()
 
 function renderSortList({
   template = `
-   <SortList :items="items">
+   <SortList :items="items" :selectedSort="selectedSort">
       <template #default="{ item }">
         {{ item }}
       </template>
-   </SortList>`,
+    </SortList>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
-  const wrapper = mount(
+  const parentWrapper = mount(
     {
       template,
       components: { SortList },
-      props: ['items'],
+      props: ['items', 'selectedSort'],
     },
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)],
       },
       store,
-      props: { items },
+      props: { items, selectedSort },
     },
   )
-
-  resetXSearchStateWith(store, { sort: selectedSort })
 
   const onSelectedSortProvided = vi.fn()
   XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided)
   const onUserClickedASort = vi.fn()
   XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort)
 
-  const sortList = wrapper.findComponent(SortList)
+  const sortList = parentWrapper.findComponent(SortList)
 
   return {
     wrapper: sortList,
     onUserClickedASort,
     onSelectedSortProvided,
-    getButton: (index: number) => wrapper.vm.$el.children[index].children[0] as HTMLElement,
+    getButton: (index: number) => parentWrapper.vm.$el.children[index].children[0] as HTMLElement,
     getSelectedItem: () => sortList.get('.x-sort-list__item--is-selected'),
     clickNthItem: async (index: number) => {
       await sortList.findAll(getDataTestSelector('x-sort-button')).at(index)?.trigger('click')
+      await parentWrapper.setProps({ selectedSort: items[index] })
       await nextTick()
     },
   }
@@ -99,7 +97,7 @@ describe('testing SortList component', () => {
     it('allows to customize each item using the default slot', () => {
       const { getSelectedItem } = renderSortList({
         template: `
-          <SortList :items="items">
+          <SortList :items="items" :selectedSort="selectedSort">
             <template #default="{ item, isSelected }">
               <span>{{ isSelected }}</span>
             </template>

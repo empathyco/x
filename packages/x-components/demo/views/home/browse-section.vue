@@ -35,7 +35,7 @@
       :items="['', 'price asc', 'price desc']"
       selected-sort-event="SelectedBrowseSortProvided"
       clicked-sort-event="UserClickedABrowseSort"
-      module="browse"
+      :selected-sort="selectedSort"
       class="xds:mt-24 xds:button-group xds:pl-24"
       button-class="xds:button xds:button-outlined"
     >
@@ -87,7 +87,7 @@ import {
   SortPickerList,
   StaggeredFadeAndSlide,
 } from '@x/components'
-import { use$x } from '@x/composables/index'
+import { use$x, useState } from '@x/composables/index'
 import { infiniteScroll } from '@x/directives/index'
 import { BrowseResultsList } from '@x/x-modules/browse/index'
 import { MainScrollItem } from '@x/x-modules/scroll/index'
@@ -107,4 +107,5 @@ const asideAnimation = AnimateWidth
 const vInfiniteScroll = infiniteScroll
 
 const x = use$x()
+const { sort: selectedSort } = useState('browse')
 </script>

@@ -7,29 +7,28 @@ import { Store } from 'vuex'
 import { XDummyBus } from '../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
-import { resetXSearchStateWith } from '../../x-modules/search/components/__tests__/utils'
 import { searchXModule } from '../../x-modules/search/x-module'
 import SortPickerList from '../sort-picker-list.vue'
 
 const bus = new XDummyBus()
 function renderSortPickerList({
   template = `
-   <SortPickerList :items="items" :buttonClass="buttonClass">
+   <SortPickerList :items="items" :selectedSort="selectedSort" :buttonClass="buttonClass">
       <template #default="{ item }">
         {{ item }}
       </template>
-   </SortPickerList>`,
+    </SortPickerList>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
   buttonClass,
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any; buttonClass?: string }> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
-  const wrapper = mount(
+  const parentWrapper = mount(
     {
       template,
       components: { SortPickerList },
-      props: ['items', 'buttonClass'],
+      props: ['items', 'buttonClass', 'selectedSort'],
     },
     {
       global: {
@@ -38,30 +37,31 @@ function renderSortPickerList({
       store,
       props: {
         items,
+        selectedSort,
         buttonClass,
       },
     },
   )
-  resetXSearchStateWith(store, { sort: selectedSort })
 
   const onSelectedSortProvided = vi.fn()
   XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided)
   const onUserClickedASort = vi.fn()
   XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort)
 
-  const sortPickerList = wrapper.findComponent(SortPickerList)
+  const sortPickerList = parentWrapper.findComponent(SortPickerList)
 
   return {
     wrapper: sortPickerList,
     onUserClickedASort,
     onSelectedSortProvided,
-    getButton: (index: number) => wrapper.vm.$el.children[index] as HTMLElement,
+    getButton: (index: number) => parentWrapper.vm.$el.children[index] as HTMLElement,
     getSelectedItem: () => sortPickerList.get('[aria-pressed="true"]'),
     clickNthItem: async (index: number) => {
       await sortPickerList
         .findAll(getDataTestSelector('sort-picker-button'))
         .at(index)
         ?.trigger('click')
+      await parentWrapper.setProps({ selectedSort: items[index] })
       await nextTick()
     },
   }
@@ -135,7 +135,7 @@ describe('testing SortPickerList component', () => {
       const { getSelectedItem } = renderSortPickerList({
         items: ['', 'Price low to high', 'Price high to low'],
         template: `
-          <SortPickerList :items="items">
+          <SortPickerList :items="items" :selectedSort="selectedSort">
             <template #default="{ item, isSelected }">
               <span>{{ isSelected }}</span>
             </template>

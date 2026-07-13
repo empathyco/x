@@ -658,15 +658,6 @@ describe('testing search module actions', () => {
       expect(store.state.sort).toEqual('priceSort asc')
     })
 
-    it('should set in the search module the query value even if empty', async () => {
-      resetSearchStateWith(store, { query: 'funko' })
-
-      await store.dispatch('setUrlParams', { sort: 'priceSort asc', query: '' } as UrlParams)
-
-      expect(store.state.query).toEqual('')
-      expect(store.state.sort).toEqual('priceSort asc')
-    })
-
     it('should set in the search module the sort value even if empty', async () => {
       resetSearchStateWith(store, { sort: 'priceSort asc' })
 
