@@ -33,10 +33,10 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { XEvent } from '@x/wiring/index'
 import type { Component, ComputedRef, PropType } from 'vue'
-import BaseDropdown from '@x/components/base-dropdown.vue'
+import type { XEvent } from '../wiring'
 import { defineComponent, ref, watch } from 'vue'
+import BaseDropdown from '../components/base-dropdown.vue'
 import { use$x } from '../composables/use-$x'
 import { useState } from '../composables/use-state'
 

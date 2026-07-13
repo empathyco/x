@@ -24,11 +24,11 @@
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
-import type { XEvent } from '@x/wiring/index'
 import type { Component, ComputedRef, PropType } from 'vue'
+import type { XEvent } from '../wiring'
 import type { SortPickerItem } from './sort-picker-list.types'
-import BaseEventButton from '@x/components/base-event-button.vue'
 import { computed, defineComponent, watch } from 'vue'
+import BaseEventButton from '../components/base-event-button.vue'
 import { use$x } from '../composables/use-$x'
 import { useState } from '../composables/use-state'
 
