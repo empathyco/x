@@ -1,4 +1,4 @@
-import type { VendorResult } from './types'
+import type { WirePayload, XEventPayload } from '../../wiring'
 import { createWiring, namespacedWireCommit } from '../../wiring'
 
 /**
@@ -15,7 +15,7 @@ const wireCommit = namespacedWireCommit('vendor')
  */
 export const setResults = wireCommit(
   'setResults',
-  ({ eventPayload }: { eventPayload: VendorResult[] }) =>
+  ({ eventPayload }: WirePayload<XEventPayload<'VendorResultsChanged'>>) =>
     eventPayload.map(vendorResult => ({
       ...vendorResult,
       modelName: 'VendorResult' as const,
