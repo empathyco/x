@@ -24,6 +24,7 @@ import type { SearchXEvents } from '../x-modules/search/events.types'
 import type { SemanticQueriesXEvents } from '../x-modules/semantic-queries/events.types'
 import type { TaggingXEvents } from '../x-modules/tagging/events.types'
 import type { UrlXEvents } from '../x-modules/url/events.types'
+import type { VendorXEvents } from '../x-modules/vendor/events.types'
 import type { XModuleName } from '../x-modules/x-modules.types'
 import type { WireMetadata } from './wiring.types'
 
@@ -81,7 +82,8 @@ export interface XEventsTypes
     ExperienceControlsXEvents,
     UrlXEvents,
     RelatedPromptsXEvents,
-    AiXEvents {
+    AiXEvents,
+    VendorXEvents {
   /**
    * The provided number of columns of a grid has changed.
    * Payload: the columns number.
