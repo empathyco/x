@@ -1,4 +1,4 @@
-import type { VendorResultPayload } from './store/types'
+import type { VendorResult } from './types'
 import { createWiring, namespacedWireCommit } from '../../wiring'
 
 /**
@@ -15,11 +15,10 @@ const wireCommit = namespacedWireCommit('vendor')
  */
 export const setResults = wireCommit(
   'setResults',
-  ({ eventPayload }: { eventPayload: VendorResultPayload[] }) =>
-    eventPayload.map(({ item, position }) => ({
-      ...item,
+  ({ eventPayload }: { eventPayload: VendorResult[] }) =>
+    eventPayload.map(vendorResult => ({
+      ...vendorResult,
       modelName: 'VendorResult' as const,
-      position,
     })),
 )
 
@@ -36,7 +35,7 @@ const resetResults = wireCommit('setResults', [])
  * @internal
  */
 export const vendorWiring = createWiring({
-  UserVendorResultsChanged: {
+  VendorResultsChanged: {
     setResults,
   },
   SearchRequestChanged: {

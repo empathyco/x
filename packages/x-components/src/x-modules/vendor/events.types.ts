@@ -1,4 +1,4 @@
-import type { VendorResult, VendorResultPayload } from './store/types'
+import type { VendorResult } from './types'
 
 /**
  * Directory of events for the vendor module.
@@ -7,13 +7,9 @@ import type { VendorResult, VendorResultPayload } from './store/types'
  */
 export interface VendorXEvents {
   /**
-   * The user has provided vendor results to be inserted in the result grid.
+   * The x consumer has provided vendor results to be inserted in the result grid.
    * Payload: The array of vendor result inputs with their items and positions.
+   * modelName is excluded since it is an internal field, and we will assign it under the hood-
    */
-  UserVendorResultsChanged: VendorResultPayload[]
-  /**
-   * The vendor results have been changed.
-   * Payload: The new {@link VendorResult | vendor results}.
-   */
-  VendorResultsChanged: VendorResult[]
+  VendorResultsChanged: Omit<VendorResult, 'modelName'>[]
 }

@@ -269,9 +269,7 @@
                                   </template>
 
                                   <template #vendor-result="{ item: result }">
-                                    <MainScrollItem :item="result">
-                                      <Result :result="result" />
-                                    </MainScrollItem>
+                                    <Result :result="result" />
                                   </template>
 
                                   <template #banner="{ item: banner }">

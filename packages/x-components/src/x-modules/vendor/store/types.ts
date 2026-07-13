@@ -1,14 +1,5 @@
-import type { NamedModel, Result } from '@empathyco/x-types'
 import type { XStoreModule } from '../../../store'
-
-export interface VendorResultPayload {
-  item: Omit<Result, 'modelName'>
-  position: number
-}
-
-export interface VendorResult extends Omit<Result, 'modelName'>, NamedModel<'VendorResult'> {
-  position: number
-}
+import type { VendorResult } from '../types'
 
 export interface VendorState {
   results: VendorResult[]

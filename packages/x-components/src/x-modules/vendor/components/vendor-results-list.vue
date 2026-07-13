@@ -10,7 +10,7 @@ import { AnimationProp } from '../../../types/animation-prop'
 import { vendorXModule } from '../x-module'
 
 /**
- * It renders a {@link ItemsList} of vendor results from {@link VendorState.vendorResults}.
+ * It renders a {@link ItemsList} of vendor results from {@link VendorState.results}.
  *
  * The component provides a default slot which wraps the whole component with the `vendorResults`
  * plus the `injectedListItems` which also contains the injected list items from
@@ -53,7 +53,7 @@ export default defineComponent({
       }
       const items = [...injectedListItems.value]
       for (const item of stateItems.value) {
-        const position = item.position ?? 1
+        const position = item.vendor.position ?? 1
         let index = position - 1
         while (items.at(index)?.modelName === 'VendorResult') {
           index++

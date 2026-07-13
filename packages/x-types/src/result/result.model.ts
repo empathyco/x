@@ -10,7 +10,7 @@ import type { ResultRating } from './result-rating.model'
  *
  * @public
  */
-export interface Result extends NamedModel<'Result'>, Identifiable, Taggable {
+export interface Result extends NamedModel<'Result' | 'VendorResult'>, Identifiable, Taggable {
   /** The type of the result: product, article, pack, etc... */
   type?: string
   /** Images of the result. It should be the URLs. */
