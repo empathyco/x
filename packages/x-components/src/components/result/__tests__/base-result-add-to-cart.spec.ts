@@ -1,4 +1,3 @@
-import type { Result } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
@@ -8,9 +7,14 @@ import BaseResultAddToCart from '../base-result-add-to-cart.vue'
 
 function render({
   result = createResultStub('Result Test'),
-  events,
   template = '<BaseResultAddToCart :result="result"/>',
   methods = {},
+  events = undefined,
+}: {
+  result?: any
+  template?: string
+  methods?: Record<string, unknown>
+  events?: any
 } = {}) {
   const wrapper = mount(
     { template, data: () => ({ result, events }), methods },
@@ -48,7 +52,7 @@ describe('testing BaseResultAddToCart component', () => {
       name: 'Vendor Result',
       type: 'product',
       url: 'https://example.com',
-    } as unknown as Result
+    } as any
     const { clickAddToCart } = render({
       result: vendorResult,
       events: { UserClickedVendorResultAddToCart: vendorResult },
