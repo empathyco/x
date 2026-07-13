@@ -40,20 +40,23 @@ export default defineComponent({
     },
     /**
      * The events to be emitted by the component. The keys are the event names and the values are
-     * the event payloads.
+     * the event payloads. If not provided, defaults to emitting `UserClickedAResult` with the
+     * result.
      *
      * @public
      */
     events: {
       type: Object as PropType<Partial<XEventsTypes>>,
-      default: () => ({}),
     },
   },
   setup(props) {
     const $x = use$x()
 
     const emitEvents = (event: Event): void => {
-      Object.entries(props.events).forEach(([e, payload]) => {
+      const events = props.events ?? {
+        UserClickedAResult: props.result,
+      }
+      Object.entries(events).forEach(([e, payload]) => {
         $x.emit(e as keyof XEventsTypes, payload, { target: event.currentTarget })
       })
     }

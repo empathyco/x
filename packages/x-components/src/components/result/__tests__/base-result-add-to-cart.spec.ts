@@ -8,8 +8,8 @@ import BaseResultAddToCart from '../base-result-add-to-cart.vue'
 
 function render({
   result = createResultStub('Result Test'),
-  events = {},
-  template = '<BaseResultAddToCart :result="result" :events="events"/>',
+  events,
+  template = '<BaseResultAddToCart :result="result"/>',
   methods = {},
 } = {}) {
   const wrapper = mount(
@@ -32,7 +32,6 @@ describe('testing BaseResultAddToCart component', () => {
     const testResult = createResultStub('My Result')
     const { clickAddToCart } = render({
       result: testResult,
-      events: { UserClickedResultAddToCart: testResult },
     })
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener)
@@ -64,12 +63,11 @@ describe('testing BaseResultAddToCart component', () => {
   it('renders the content overriding default slot', () => {
     const { addToCartWrapper } = render({
       template: `
-        <BaseResultAddToCart :result="result" :events="events">
+        <BaseResultAddToCart :result="result">
           <img data-test="result-add-to-cart-icon" src="./add-to-cart.svg" />
           <span data-test="result-add-to-cart-text">Add to cart</span>
         </BaseResultAddToCart>
       `,
-      events: { UserClickedResultAddToCart: undefined },
     })
 
     expect(addToCartWrapper.element).toBeDefined()

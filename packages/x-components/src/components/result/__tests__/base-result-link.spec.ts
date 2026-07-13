@@ -14,14 +14,12 @@ describe('testing BaseResultLink component', () => {
   }
 
   it('emits the events provided through events prop', async () => {
-    const events = {
-      UserClickedAResult: result,
-    }
-
     const wrapper = mount(BaseResultLink, {
       props: {
         result,
-        events,
+        events: {
+          UserClickedAResult: result,
+        },
       },
       global: {
         plugins: [installNewXPlugin()],
@@ -42,14 +40,12 @@ describe('testing BaseResultLink component', () => {
   })
 
   it('emits events with custom metadata', async () => {
-    const events = {
-      UserClickedAResult: result,
-    }
-
     const wrapper = mount(BaseResultLink, {
       props: {
         result,
-        events,
+        events: {
+          UserClickedAResult: result,
+        },
       },
       global: {
         plugins: [installNewXPlugin()],
@@ -68,15 +64,13 @@ describe('testing BaseResultLink component', () => {
   })
 
   it('emits multiple events', async () => {
-    const customEvents = {
-      UserClickedAResult: result,
-      UserClickedResultAddToCart: result,
-    }
-
     const wrapper = mount(BaseResultLink, {
       props: {
         result,
-        events: customEvents,
+        events: {
+          UserClickedAResult: result,
+          UserClickedResultAddToCart: result,
+        },
       },
       global: {
         plugins: [installNewXPlugin()],
@@ -97,7 +91,7 @@ describe('testing BaseResultLink component', () => {
   it('renders the content overriding default slot', () => {
     const wrapperComponent = {
       template: `
-        <BaseResultLink :result="result" :events="events">
+        <BaseResultLink :result="result">
           <template #default="{ result }">
             <img data-test="result-link-image" src="${result.images![0]}"/>
             <span data-test="result-link-text">
@@ -106,13 +100,12 @@ describe('testing BaseResultLink component', () => {
           </template>
         </BaseResultLink>
       `,
-      props: ['result', 'events'],
+      props: ['result'],
       components: {
         BaseResultLink,
       },
       setup() {
         return {
-          events: { UserClickedAResult: result },
           result: { ...result, modelName: 'Result' },
         }
       },

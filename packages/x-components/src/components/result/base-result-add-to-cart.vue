@@ -1,6 +1,10 @@
 <template>
   <BaseEventButton
-    :events="events"
+    :events="
+      events ?? {
+        UserClickedResultAddToCart: result,
+      }
+    "
     :metadata="metadata"
     class="x-result-add-to-cart xds:button"
     data-test="result-add-to-cart"
@@ -38,13 +42,13 @@ export default defineComponent({
     },
     /**
      * The events to be emitted by the component. The keys are the event names and the values are
-     * the event payloads.
+     * the event payloads. If not provided, defaults to emitting `UserClickedResultAddToCart` with
+     * the result.
      *
      * @public
      */
     events: {
       type: Object as PropType<Partial<XEventsTypes>>,
-      default: () => ({}),
     },
   },
   setup() {
