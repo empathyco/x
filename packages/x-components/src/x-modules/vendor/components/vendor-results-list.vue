@@ -53,7 +53,7 @@ export default defineComponent({
       }
       const items = [...injectedListItems.value]
       for (const item of stateItems.value) {
-        const position = item.vendor.position ?? 1
+        const position = item.position ?? 1
         let index = position - 1
         while (items.at(index)?.modelName === 'VendorResult') {
           index++
