@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.5.0...@empathyco/x-components@8.0.0) (2026-07-13)
+
+### ⚠ BREAKING CHANGES
+
+* Sorting components moved to x-components/src/components/sort. Now, sorting components can be used by the search and browse module by managing them through props.
+
+### Features
+
+* create sort components that could be shared between search and … (#2134)
+
+
 ## [7.5.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.4.1...@empathyco/x-components@7.5.0) (2026-07-13)
 
 ### Features
