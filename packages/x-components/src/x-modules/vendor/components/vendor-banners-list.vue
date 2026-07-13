@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { FeatureLocation } from '../../../types/origin'
 import type { ListItem } from '../../../utils/types'
-import { computed, defineComponent, h, inject, isRef, provide, ref } from 'vue'
+import { computed, defineComponent, h, inject, provide } from 'vue'
 import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts'
 import ItemsList from '../../../components/items-list.vue'
 import { use$x } from '../../../composables/use-$x'
@@ -37,25 +36,6 @@ export default defineComponent({
     /** The vendor banners to render from the state. */
     const stateItems = useState('vendor').banners
 
-    /** The provided {@link FeatureLocation} for the component. */
-    const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location')
-    const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation
-
-    /** Number of columns the grid is being divided into. */
-    const columnsNumber = ref(0)
-
-    /**
-     * Handler to update the number of columns when it changes.
-     *
-     * @param newColumnsNumber - The new columns value.
-     * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
-     */
-    $x.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
-      if (metadata.location === location) {
-        columnsNumber.value = eventPayload
-      }
-    })
-
     /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
@@ -67,26 +47,16 @@ export default defineComponent({
      *
      * @returns List of {@link ListItem}.
      */
-    const sortedStateItems = computed(() => {
-      return [...stateItems.value].sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
-    })
-
     const items = computed(() => {
       if (!injectedListItems?.value!.length) {
-        return sortedStateItems.value
+        return stateItems.value
       }
       const items = [...injectedListItems.value]
-      let index = 0
-      let previousBannerRow = -1
-      for (const item of sortedStateItems.value) {
+      for (const item of stateItems.value) {
         const position = item.position ?? 1
-        let row = position - 1
-        if (row <= previousBannerRow) {
-          row = previousBannerRow + 1
-        }
-        const rowsDiff = row - previousBannerRow
-        if (rowsDiff > 1) {
-          index += (rowsDiff - 1) * columnsNumber.value
+        let index = position - 1
+        while (items.at(index)?.modelName === 'VendorBanner') {
+          index++
         }
         const isIndexInLoadedPages = index <= items.length
         const areAllPagesLoaded = $x.results.length === $x.totalResults
@@ -94,8 +64,6 @@ export default defineComponent({
           break
         }
         items.splice(index, 0, item)
-        index++
-        previousBannerRow = row
       }
       return items
     })
