@@ -54,21 +54,21 @@ export const setResults = wireCommit(
  *
  * @public
  */
-const trackVendorView = createTrackVendorWire<'UserViewedAVendorResult'>('view')
+const trackResultView = createTrackVendorWire<'UserViewedAVendorResult'>('view')
 
 /**
  * Tracks the click event for a vendor result.
  *
  * @public
  */
-const trackVendorClick = createTrackVendorWire<'UserClickedAVendorResult'>('click')
+const trackResultClick = createTrackVendorWire<'UserClickedAVendorResult'>('click')
 
 /**
  * Tracks the add to cart event for a vendor result.
  *
  * @public
  */
-const trackVendorAddToCart = createTrackVendorWire<'UserClickedVendorResultAddToCart'>('add2cart')
+const trackResultAddToCart = createTrackVendorWire<'UserClickedVendorResultAddToCart'>('add2cart')
 
 /**
  * Resets the vendor results of the {@link VendorXModule}.
@@ -87,13 +87,13 @@ export const vendorWiring = createWiring({
     setResults,
   },
   UserViewedAVendorResult: {
-    trackVendorView,
+    trackResultView,
   },
   UserClickedAVendorResult: {
-    trackVendorClick,
+    trackResultClick,
   },
   UserClickedVendorResultAddToCart: {
-    trackVendorAddToCart,
+    trackResultAddToCart,
   },
   SearchRequestChanged: {
     resetResults,
