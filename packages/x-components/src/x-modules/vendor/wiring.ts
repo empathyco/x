@@ -2,6 +2,11 @@ import type { WirePayload, XEventPayload } from '../../wiring'
 import type { VendorResult, VendorResultTagging } from './types'
 import { createWiring, namespacedWireCommit, namespacedWireDispatch } from '../../wiring'
 
+type TrackVendorEvent =
+  | 'UserViewedAVendorResult'
+  | 'UserClickedAVendorResult'
+  | 'UserClickedVendorResultAddToCart'
+
 /**
  * WireCommit for {@link VendorXModule}.
  *
@@ -22,9 +27,11 @@ const wireDispatch = namespacedWireDispatch('vendor')
  * @param property - The tagging property to track (view, click, or add2cart).
  * @public
  */
-const createTrackVendorWire = (property: keyof VendorResultTagging) =>
-  wireDispatch('track', ({ eventPayload }: { eventPayload: VendorResult }) => ({
-    result: eventPayload,
+const createTrackVendorWire = <Event extends TrackVendorEvent>(
+  property: keyof VendorResultTagging,
+) =>
+  wireDispatch('track', ({ eventPayload }: WirePayload<XEventPayload<Event>>) => ({
+    result: eventPayload as VendorResult,
     trackingProperty: property,
   }))
 
@@ -47,21 +54,21 @@ export const setResults = wireCommit(
  *
  * @public
  */
-const trackVendorView = createTrackVendorWire('view')
+const trackVendorView = createTrackVendorWire<'UserViewedAVendorResult'>('view')
 
 /**
  * Tracks the click event for a vendor result.
  *
  * @public
  */
-const trackVendorClick = createTrackVendorWire('click')
+const trackVendorClick = createTrackVendorWire<'UserClickedAVendorResult'>('click')
 
 /**
  * Tracks the add to cart event for a vendor result.
  *
  * @public
  */
-const trackVendorAddToCart = createTrackVendorWire('add2cart')
+const trackVendorAddToCart = createTrackVendorWire<'UserClickedVendorResultAddToCart'>('add2cart')
 
 /**
  * Resets the vendor results of the {@link VendorXModule}.
