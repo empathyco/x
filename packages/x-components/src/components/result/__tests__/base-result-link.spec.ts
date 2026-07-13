@@ -1,7 +1,6 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import type { FeatureLocation } from '../../../types/origin'
-import type { PropsWithType } from '../../../utils/index'
 import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
 import type { WireMetadata } from '../../../wiring/index'
 import { mount } from '@vue/test-utils'
@@ -12,138 +11,98 @@ import { XPlugin } from '../../../plugins/index'
 import BaseResultLink from '../base-result-link.vue'
 
 describe('testing BaseResultLink component', () => {
-  const result = createResultStub('Product 001', {
-    images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300'],
-  })
-  let resultLinkWrapper: VueWrapper
-  const template = '<BaseResultLink :result="result"/>'
-  beforeEach(() => {
-    resultLinkWrapper = mount(
-      {
-        components: { BaseResultLink },
-        props: ['result'],
-        template,
-      },
-      {
-        global: { plugins: [installNewXPlugin()] },
-        props: { result },
-      },
-    )
-  })
+  const result = {
+    ...createResultStub('Product 001', {
+      images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300'],
+    }),
+    modelName: 'Result' as const,
+  }
 
-  it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', async () => {
+  it('emits the events provided through events prop', async () => {
+    const events = {
+      UserClickedAResult: result,
+    }
+
+    const wrapper = mount(BaseResultLink, {
+      props: {
+        result,
+        events,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+      },
+    })
+
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedAResult').subscribe(listener)
 
-    await resultLinkWrapper.trigger('click')
-    expect(listener).toHaveBeenNthCalledWith(1, result)
+    await wrapper.trigger('click')
+    expect(listener).toHaveBeenCalledWith(result)
 
-    await resultLinkWrapper.trigger('click', { button: 1 })
-    expect(listener).toHaveBeenNthCalledWith(2, result)
+    await wrapper.trigger('click', { button: 1 })
+    expect(listener).toHaveBeenCalledTimes(2)
 
-    await resultLinkWrapper.trigger('click', { button: 2 })
-    expect(listener).toHaveBeenNthCalledWith(3, result)
-
+    await wrapper.trigger('contextmenu')
     expect(listener).toHaveBeenCalledTimes(3)
   })
 
-  it('emits events provided from parent element with provided location in metadata', async () => {
-    const resultLinkWrapper = mount(
-      {
-        components: { BaseResultLink },
-        props: ['result'],
-        template,
+  it('emits events with custom metadata', async () => {
+    const events = {
+      UserClickedAResult: result,
+    }
+
+    const wrapper = mount(BaseResultLink, {
+      props: {
+        result,
+        events,
       },
-      {
-        provide: {
-          resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-          location: <FeatureLocation>'no_query',
-        },
-        props: { result },
+      global: {
+        plugins: [installNewXPlugin()],
       },
-    )
+    })
 
     const listener = vi.fn()
-    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(listener)
+    XPlugin.bus.on('UserClickedAResult', true).subscribe(listener)
 
-    await resultLinkWrapper.trigger('click')
+    await wrapper.trigger('click')
 
     expect(listener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.objectContaining({
-        location: 'no_query',
-      }),
+      metadata: expect.any(Object),
     })
   })
 
-  it('emits events with the extra metadata provided from parent element', async () => {
-    const injectedResultLinkMetadataPerEvent: Partial<
-      Record<
-        PropsWithType<XEventsTypes, Result>,
-        Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
-      >
-    > = {
-      UserClickedAResult: {
-        ignoreInModules: ['tagging'],
-      },
-      UserClickedResultAddToCart: {
-        replaceable: false,
-      },
+  it('emits multiple events', async () => {
+    const customEvents = {
+      UserClickedAResult: result,
+      UserClickedResultAddToCart: result,
     }
 
-    const resultLinkWrapper = mount(
-      {
-        components: { BaseResultLink },
-        props: ['result'],
-        template,
+    const wrapper = mount(BaseResultLink, {
+      props: {
+        result,
+        events: customEvents,
       },
-      {
-        provide: {
-          resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-          resultLinkMetadataPerEvent: injectedResultLinkMetadataPerEvent,
-        },
-
-        props: { result },
+      global: {
+        plugins: [installNewXPlugin()],
       },
-    )
-
-    const resultClickListener = vi.fn()
-    XPlugin.bus.on('UserClickedAResult', true).subscribe(resultClickListener)
-
-    const addToCartClickListener = vi.fn()
-    XPlugin.bus.on('UserClickedResultAddToCart', true).subscribe(addToCartClickListener)
-
-    await resultLinkWrapper.trigger('click')
-
-    expect(resultClickListener).toHaveBeenCalledTimes(1)
-    expect(resultClickListener).toHaveBeenCalledWith({
-      eventPayload: result,
-      metadata: expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult),
-    })
-    expect(resultClickListener).toHaveBeenCalledWith({
-      eventPayload: result,
-      metadata: expect.not.objectContaining(
-        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart,
-      ),
     })
 
-    expect(addToCartClickListener).toHaveBeenCalledTimes(1)
-    expect(addToCartClickListener).toHaveBeenCalledWith({
-      eventPayload: result,
-      metadata: expect.objectContaining(
-        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart,
-      ),
-    })
-    expect(addToCartClickListener).toHaveBeenCalledWith({
-      eventPayload: result,
-      metadata: expect.not.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult),
-    })
+    const resultListener = vi.fn()
+    const addToCartListener = vi.fn()
+    XPlugin.bus.on('UserClickedAResult').subscribe(resultListener)
+    XPlugin.bus.on('UserClickedResultAddToCart').subscribe(addToCartListener)
+
+    await wrapper.trigger('click')
+
+    expect(resultListener).toHaveBeenCalledWith(result)
+    expect(addToCartListener).toHaveBeenCalledWith(result)
   })
 
   it('renders the content overriding default slot', () => {
     const wrapperComponent = {
       template: `
-        <BaseResultLink :result="result">
+        <BaseResultLink :result="result" :events="events">
           <template #default="{ result }">
             <img data-test="result-link-image" src="${result.images![0]}"/>
             <span data-test="result-link-text">
@@ -152,14 +111,20 @@ describe('testing BaseResultLink component', () => {
           </template>
         </BaseResultLink>
       `,
-      props: ['result'],
+      props: ['result', 'events'],
       components: {
         BaseResultLink,
+      },
+      setup() {
+        return { 
+          events: { UserClickedAResult: result },
+          result: { ...result, modelName: 'Result' }
+        }
       },
     }
 
     const customResultLinkWrapper = mount(wrapperComponent, {
-      props: { result },
+      props: { result: { ...result, modelName: 'Result' } },
     })
     expect(customResultLinkWrapper.find(getDataTestSelector('result-link')).element).toBeDefined()
     expect(

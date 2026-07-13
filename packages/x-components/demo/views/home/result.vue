@@ -1,6 +1,6 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
-    <BaseResultLink :result="result">
+    <BaseResultLink :result="result" :events="events.click">
       <BaseResultImage :result="result" :load-animation="crossFade">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
@@ -14,7 +14,7 @@
       </BaseResultImage>
     </BaseResultLink>
     <div>
-      <BaseAddToCart :result="result" data-test="add-to-cart">
+      <BaseAddToCart :result="result" :events="events.addToCart" data-test="add-to-cart">
         <span>Add to cart</span>
       </BaseAddToCart>
     </div>
@@ -24,7 +24,7 @@
         <template #filled-icon>❤️</template>
         <template #empty-icon>🤍</template>
       </BaseResultRating>
-      <BaseResultLink :result="result">
+      <BaseResultLink :result="result" :events="events.click">
         <h1 class="xds:text1 xds:text1-lg" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
     </div>
@@ -33,20 +33,38 @@
 
 <script lang="ts" setup>
 import type { Result } from '@empathyco/x-types'
+import type { VendorResult } from '@x/x-modules/vendor'
 import type { PropType } from 'vue'
 import { BaseResultCurrentPrice, CrossFade } from '@x/components'
 import {
   BaseAddToCart,
   BaseResultImage,
   BaseResultLink,
-  BaseResultRating,
+  BaseResultRating
 } from '@x/components/result'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   result: {
     type: Object as PropType<Result>,
-    required: true,
-  },
+    required: true
+  }
 })
+
 const crossFade = CrossFade
+
+const events = computed(() => {
+  if (props.result.modelName === 'VendorResult') {
+    const vendorResult = props.result as VendorResult
+    return {
+      addToCart: { UserClickedVendorResultAddToCart: vendorResult },
+      click: { UserClickedAVendorResult: vendorResult },
+      view: { UserViewedAVendorResult: vendorResult }
+    }
+  }
+  return {
+    addToCart: { UserClickedResultAddToCart: props.result },
+    click: { UserClickedAResult: props.result }
+  }
+})
 </script>
