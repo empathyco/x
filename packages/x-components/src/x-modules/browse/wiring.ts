@@ -236,6 +236,11 @@ export const browseWiring = createWiring({
     resetBrowseStateForReloadWire,
     cancelFetchAndSaveBrowseResponseWire,
   },
+  UserAcceptedAQuery: {
+    clearBrowseQuery,
+    resetBrowseStateForReloadWire,
+    cancelFetchAndSaveBrowseResponseWire,
+  },
   UserClickedOutOfMainModal: {
     clearBrowseQuery,
   },

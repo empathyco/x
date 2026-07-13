@@ -36,8 +36,9 @@ import type { Sort } from '@empathyco/x-types'
 import type { XEvent } from '@x/wiring/index'
 import type { Component, ComputedRef, PropType } from 'vue'
 import BaseDropdown from '@x/components/base-dropdown.vue'
-import { use$x, useState } from '@x/composables/index'
 import { defineComponent, ref, watch } from 'vue'
+import { use$x } from '../composables/use-$x'
+import { useState } from '../composables/use-state'
 
 /**
  * The `SortDropdown` component allows user to select the search results order. This component
@@ -78,6 +79,9 @@ export default defineComponent({
 
     /**
      * Emits the events related to the selection of a sort value.
+     *
+     * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
+     * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
      *
      * @param sort - The selected sort.
      */

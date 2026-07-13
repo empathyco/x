@@ -315,6 +315,9 @@ export const searchWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearSearchQuery,
   },
+  UserBrowsedToCategory: {
+    clearSearchQuery,
+  },
   UserAcceptedAQueryPreview: {
     setSearchQueryFromPreview,
     setSearchExtraParamsFromPreview,

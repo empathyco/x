@@ -28,8 +28,9 @@ import type { XEvent } from '@x/wiring/index'
 import type { Component, ComputedRef, PropType } from 'vue'
 import type { SortPickerItem } from './sort-picker-list.types'
 import BaseEventButton from '@x/components/base-event-button.vue'
-import { use$x, useState } from '@x/composables/index'
 import { computed, defineComponent, watch } from 'vue'
+import { use$x } from '../composables/use-$x'
+import { useState } from '../composables/use-state'
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component
@@ -84,6 +85,7 @@ export default defineComponent({
         event: { [props.clickedSortEvent]: item },
       })),
     )
+
     return {
       listItems,
       selectedSort,

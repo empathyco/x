@@ -25,8 +25,9 @@ import type { VueCSSClasses } from '@x/utils/index'
 import type { XEvent, XEventsTypes } from '@x/wiring/index'
 import type { Component, ComputedRef, PropType } from 'vue'
 import BaseEventButton from '@x/components/base-event-button.vue'
-import { use$x, useState } from '@x/composables/index'
 import { computed, defineComponent, watch } from 'vue'
+import { use$x } from '../composables/use-$x'
+import { useState } from '../composables/use-state'
 
 /**
  * Sort list item options.
@@ -90,6 +91,7 @@ export default defineComponent({
         event: { [props.clickedSortEvent]: item },
       })),
     )
+
     return {
       listItems,
       selectedSort,
