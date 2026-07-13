@@ -1,48 +1,54 @@
 <template>
-  <component
-    :is="animation"
-    tag="div"
-    class="x-sort-picker-list"
-    data-test="sort-picker"
-    role="list"
-  >
-    <BaseEventButton
+  <component :is="animation" tag="ul" class="x-option-list x-sort-list" data-test="sort-list">
+    <li
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
-      :class="[cssClasses, buttonClass]"
-      data-test="sort-picker-button"
-      :events="event"
-      :aria-pressed="item === selectedSort || null"
-      role="listitem"
+      :class="cssClasses"
+      class="x-option-list__item x-sort-list__item"
     >
-      <slot v-bind="{ item, isSelected: item === selectedSort }">
-        {{ item }}
-      </slot>
-    </BaseEventButton>
+      <BaseEventButton
+        class="x-sort-list__button xds:button"
+        data-test="x-sort-button"
+        :events="event"
+      >
+        <slot v-bind="{ item, isSelected: item === selectedSort }">
+          {{ item }}
+        </slot>
+      </BaseEventButton>
+    </li>
   </component>
 </template>
 
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
-import type { XEvent } from '../wiring'
-import type { SortPickerItem } from './sort-picker-list.types'
+import type { VueCSSClasses } from '../../utils/index'
+import type { XEvent, XEventsTypes } from '../../wiring/index'
 import { computed, defineComponent, watch } from 'vue'
-import BaseEventButton from '../components/base-event-button.vue'
-import { use$x } from '../composables/use-$x'
+import { use$x } from '../../composables/use-$x'
+import BaseEventButton from '../base-event-button.vue'
 
 /**
- * The `SortPickerList` component allows user to select the search results order. This component
+ * Sort list item options.
+ */
+interface SortListItem {
+  item: Sort
+  cssClasses: VueCSSClasses
+  event: Partial<XEventsTypes>
+}
+
+/**
+ * The `SortList` component allows user to select the search results order. This component
  * also allows to change the selected sort programmatically.
  */
 export default defineComponent({
-  name: 'SortPickerList',
+  name: 'SortList',
   components: { BaseEventButton },
   props: {
     /** The transition to use for rendering the list. */
     animation: {
       type: [String, Object] as PropType<string | Component>,
-      default: () => 'div',
+      default: () => 'ul',
     },
     /** The list of possible sort values. */
     items: {
@@ -50,10 +56,10 @@ export default defineComponent({
       required: true,
     },
     selectedSort: {
-      type: String,
+      type: String as PropType<Sort>,
       required: true,
     },
-    selectedSortEvent: {
+    selectedSortProvidedEvent: {
       type: String as PropType<XEvent>,
       default: 'SelectedSortProvided',
     },
@@ -61,15 +67,13 @@ export default defineComponent({
       type: String as PropType<XEvent>,
       default: 'UserClickedASort',
     },
-    /** Class inherited by each sort button. */
-    buttonClass: String,
   },
   setup(props) {
     const $x = use$x()
 
     watch(
       () => props.selectedSort,
-      (value: Sort) => $x.emit(props.selectedSortEvent, value),
+      value => $x.emit(props.selectedSortProvidedEvent, value),
       {
         immediate: true,
       },
@@ -80,11 +84,12 @@ export default defineComponent({
      *
      * @returns A list of items with their css class and the event associate to it.
      */
-    const listItems = computed<SortPickerItem[]>(() =>
-      props.items.map((item: string) => ({
+    const listItems = computed<SortListItem[]>(() =>
+      props.items.map(item => ({
         item,
         cssClasses: {
-          'xds:selected': item === props.selectedSort,
+          'x-sort-list__item--is-selected': item === props.selectedSort,
+          'x-option-list__item--is-selected': item === props.selectedSort,
         },
         event: { [props.clickedSortEvent]: item },
       })),
@@ -97,10 +102,16 @@ export default defineComponent({
 })
 </script>
 
-<docs lang="mdx">
-## Sort Picker List
+<style lang="css" scoped>
+.x-sort-list {
+  list-style-type: none;
+}
+</style>
 
-The `SortPickerList` component can be used to change the way the search results are ordered.
+<docs lang="mdx">
+## Sort List
+
+The `SortList` component can be used to change the way the search results are ordered.
 
 To do so, the list of valid sort values has to be provided using the `items` prop. These are the
 values that can then be received in the `SearchAdapter`.
@@ -131,13 +142,13 @@ This component emits 2 different events:
 
 ```vue
 <template>
-  <SortPickerList :items="sortValues">
+  <SortList :items="sortValues">
     <template #default="{ item, isSelected }">Item: {{ item }}</template>
-  </SortPickerList>
+  </SortList>
 </template>
 
 <script setup>
-import { SortPickerList } from '@empathyco/x-components/search'
+import { SortList } from '@empathyco/x-components/search'
 import { ref } from 'vue'
 
 const sortValues = ref(['Relevance', 'Price asc', 'Price desc'])
@@ -148,36 +159,19 @@ const sortValues = ref(['Relevance', 'Price asc', 'Price desc'])
 
 ```vue
 <template>
-  <SortPickerList v-model="selectedSort" :items="sortValues">
+  <SortList v-model="selectedSort" :items="sortValues">
     <template #default="{ item, isSelected }">
       <span v-if="isSelected">✅</span>
       {{ item }}
     </template>
-  </SortPickerList>
+  </SortList>
 </template>
 
 <script setup>
-import { SortPickerList } from '@empathyco/x-components/search'
+import { SortList } from '@empathyco/x-components/search'
 import { ref } from 'vue'
 
 const selectedSort = ref('Price asc')
-const sortValues = ref(['Relevance', 'Price asc', 'Price desc'])
-</script>
-```
-
-### Customizing the items with classes
-
-The `buttonClass` prop can be used to add classes to the sort items.
-
-```vue
-<template>
-  <SortPickerList :items="sortValues" buttonClass="x-button-outlined" />
-</template>
-
-<script setup>
-import { SortPickerList } from '@empathyco/x-components/search'
-import { ref } from 'vue'
-
 const sortValues = ref(['Relevance', 'Price asc', 'Price desc'])
 </script>
 ```

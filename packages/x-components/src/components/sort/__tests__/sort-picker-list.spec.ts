@@ -1,13 +1,13 @@
 import type { DeepPartial } from '@empathyco/x-utils'
-import type { RootXStoreState } from '../../store/store.types'
+import type { RootXStoreState } from '../../../store/store.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { XDummyBus } from '../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
-import { XPlugin } from '../../plugins/x-plugin'
-import { searchXModule } from '../../x-modules/search/x-module'
+import { XDummyBus } from '../../../__tests__/bus.dummy'
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { XPlugin } from '../../../plugins/x-plugin'
+import { searchXModule } from '../../../x-modules/search/x-module'
 import SortPickerList from '../sort-picker-list.vue'
 
 const bus = new XDummyBus()

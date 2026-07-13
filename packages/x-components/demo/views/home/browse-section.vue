@@ -33,7 +33,7 @@
       v-show="x.browseTotalResults > 0"
       v-slot="{ item }"
       :items="['', 'price asc', 'price desc']"
-      selected-sort-event="SelectedBrowseSortProvided"
+      selected-sort-provided-event="SelectedBrowseSortProvided"
       clicked-sort-event="UserClickedABrowseSort"
       :selected-sort="selectedSort"
       class="xds:mt-24 xds:button-group xds:pl-24"
@@ -89,7 +89,7 @@ import {
 } from '@x/components'
 import { use$x, useState } from '@x/composables/index'
 import { infiniteScroll } from '@x/directives/index'
-import { BrowseResultsList } from '@x/x-modules/browse/index'
+import { BrowseResultsList } from '@x/x-modules/browse'
 import { MainScrollItem } from '@x/x-modules/scroll/index'
 import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
 import FacetsAside from './facets-aside.vue'

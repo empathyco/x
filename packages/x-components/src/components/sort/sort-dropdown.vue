@@ -34,10 +34,10 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
-import type { XEvent } from '../wiring'
+import type { XEvent } from '../../wiring/index'
 import { defineComponent, ref, watch } from 'vue'
-import BaseDropdown from '../components/base-dropdown.vue'
-import { use$x } from '../composables/use-$x'
+import { use$x } from '../../composables/use-$x'
+import BaseDropdown from '../base-dropdown.vue'
 
 /**
  * The `SortDropdown` component allows user to select the search results order. This component
@@ -55,10 +55,10 @@ export default defineComponent({
       required: true,
     },
     selectedSort: {
-      type: String,
+      type: String as PropType<Sort>,
       required: true,
     },
-    selectedSortEvent: {
+    selectedSortProvidedEvent: {
       type: String as PropType<XEvent>,
       default: 'SelectedSortProvided',
     },
@@ -74,7 +74,7 @@ export default defineComponent({
 
     watch(
       () => props.selectedSort,
-      (value: Sort) => $x.emit(props.selectedSortEvent, value),
+      value => $x.emit(props.selectedSortProvidedEvent, value),
       {
         immediate: true,
       },
