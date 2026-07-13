@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.6.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.5.0...@empathyco/x-types@10.6.0) (2026-07-13)
+
+### Features
+
+* **vendor:** add support for vendor results (#2126)
+
+
 ## [10.5.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.4.1...@empathyco/x-types@10.5.0) (2026-07-07)
 
 ### Features
