@@ -31,10 +31,9 @@
 </template>
 
 <script lang="ts" setup>
-import { BaseColumnPickerDropdown } from '@x/components'
+import { BaseColumnPickerDropdown, SortDropdown } from '@x/components'
 import { useXBus } from '@x/composables'
 import { HistoryQueriesSwitch } from '@x/x-modules/history-queries'
-import { SortDropdown } from '@x/x-modules/search'
 import { onMounted } from 'vue'
 
 const sortValues = ['default', 'price asc', 'price desc']

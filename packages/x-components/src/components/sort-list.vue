@@ -46,10 +46,12 @@ export default defineComponent({
   name: 'SortList',
   components: { BaseEventButton },
   props: {
+    /** The transition to use for rendering the list. */
     animation: {
       type: [String, Object] as PropType<string | Component>,
-      default: 'ul',
+      default: () => 'ul',
     },
+    /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
       required: true,

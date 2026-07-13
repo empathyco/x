@@ -48,7 +48,9 @@ export default defineComponent({
   name: 'SortDropdown',
   components: { BaseDropdown },
   props: {
+    /** The transition to use for opening and closing the dropdown. */
     animation: [String, Object] as PropType<string | Component>,
+    /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
       required: true,

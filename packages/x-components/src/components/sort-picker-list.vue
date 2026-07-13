@@ -40,10 +40,12 @@ export default defineComponent({
   name: 'SortPickerList',
   components: { BaseEventButton },
   props: {
+    /** The transition to use for rendering the list. */
     animation: {
       type: [String, Object] as PropType<string | Component>,
-      default: 'div',
+      default: () => 'div',
     },
+    /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
       required: true,
@@ -60,6 +62,7 @@ export default defineComponent({
       type: String as PropType<XEvent>,
       default: 'UserClickedASort',
     },
+    /** Class inherited by each sort button. */
     buttonClass: String,
   },
   setup(props) {
