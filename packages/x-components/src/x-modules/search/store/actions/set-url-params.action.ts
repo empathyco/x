@@ -16,5 +16,5 @@ export const setUrlParams: SearchXStoreModule['actions']['setUrlParams'] = (
 
   commit('setQuery', query)
   commit('setPage', !currentQuery || currentQuery === query ? page : 1)
-  commit('setSort', sort)
+  commit('setSort', query ? sort : '')
 }

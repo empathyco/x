@@ -164,6 +164,9 @@ export function useAliasApi(): UseAliasAPI {
     get selectedSort() {
       return store.state.x.search?.sort ?? ''
     },
+    get browseSelectedSort() {
+      return store.state.x.browse?.sort ?? ''
+    },
     get priceStats() {
       return store.state.x.search?.stats?.price ?? {}
     },
@@ -242,6 +245,8 @@ export interface UseAliasAPI {
   readonly browseTotalResults: number
   /** The {@link SearchXModule} selected sort. */
   readonly selectedSort: string
+  /** The {@link BrowseXModule} selected sort. */
+  readonly browseSelectedSort: string
   /** The {@link SearchXModule} price specific stats. */
   readonly priceStats: { min: number; max: number }
 }

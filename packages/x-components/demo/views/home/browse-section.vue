@@ -29,15 +29,18 @@
     </div>
   </div>
   <div class="xds:layout-item xds:layout-expand xds:layout-no-margin-right">
-    <BrowseSortPickerList
+    <SortPickerList
       v-show="x.browseTotalResults > 0"
       v-slot="{ item }"
       :items="['', 'price asc', 'price desc']"
+      selected-sort-provided-event="SelectedBrowseSortProvided"
+      clicked-sort-event="UserClickedABrowseSort"
+      :selected-sort="selectedSort"
       class="xds:mt-24 xds:button-group xds:pl-24"
       button-class="xds:button xds:button-outlined"
     >
       {{ item || 'default' }}
-    </BrowseSortPickerList>
+    </SortPickerList>
 
     <div class="xds:flex xds:layout-expand xds:px-24 xds:pt-12">
       <!-- ASIDE -->
@@ -81,11 +84,12 @@ import {
   CloseMainModal,
   CrossIcon,
   LocationProvider,
+  SortPickerList,
   StaggeredFadeAndSlide,
 } from '@x/components'
-import { use$x } from '@x/composables/index'
+import { use$x, useState } from '@x/composables/index'
 import { infiniteScroll } from '@x/directives/index'
-import { BrowseResultsList, BrowseSortPickerList } from '@x/x-modules/browse/index'
+import { BrowseResultsList } from '@x/x-modules/browse'
 import { MainScrollItem } from '@x/x-modules/scroll/index'
 import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
 import FacetsAside from './facets-aside.vue'
@@ -103,4 +107,5 @@ const asideAnimation = AnimateWidth
 const vInfiniteScroll = infiniteScroll
 
 const x = use$x()
+const { sort: selectedSort } = useState('browse')
 </script>

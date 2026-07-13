@@ -220,7 +220,7 @@ export const browseWiring = createWiring({
   ReloadBrowseRequested: {
     resetBrowseStateForReloadWire,
   },
-  SelectedSortProvided: {
+  SelectedBrowseSortProvided: {
     setBrowseSort,
   },
   ExtraParamsChanged: {
@@ -232,6 +232,11 @@ export const browseWiring = createWiring({
     cancelFetchAndSaveBrowseResponseWire,
   },
   UserClickedOpenX: {
+    clearBrowseQuery,
+    resetBrowseStateForReloadWire,
+    cancelFetchAndSaveBrowseResponseWire,
+  },
+  UserAcceptedAQuery: {
     clearBrowseQuery,
     resetBrowseStateForReloadWire,
     cancelFetchAndSaveBrowseResponseWire,

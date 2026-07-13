@@ -87,6 +87,7 @@
               <SortPickerList
                 v-slot="{ item }"
                 :items="sortValues"
+                :selected-sort="selectedSort"
                 class="xds:button-group"
                 button-class="xds:button xds:button-outlined"
               >
@@ -530,6 +531,7 @@ import {
   MainModal,
   SearchIcon,
   SlidingPanel,
+  SortPickerList,
   StaggeredFadeAndSlide,
 } from '@x/components'
 import { use$x, useState } from '@x/composables'
@@ -560,7 +562,6 @@ import {
   PromotedsList,
   Redirection,
   ResultsList,
-  SortPickerList,
   Spellcheck,
   SpellcheckButton,
 } from '@x/x-modules/search'
@@ -593,6 +594,7 @@ const staggeredFadeAndSlideAnimation = StaggeredFadeAndSlide
 const vInfiniteScroll = infiniteScroll
 
 const x = use$x()
+const { sort: selectedSort } = useState('search')
 const { relatedPrompts, selectedPrompt } = useState('relatedPrompts')
 const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview
 

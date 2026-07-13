@@ -22,5 +22,5 @@ export const setUrlParams: BrowseXStoreModule['actions']['setUrlParams'] = (
       ? page
       : 1,
   )
-  commit('setSort', sort)
+  commit('setSort', browseValue && browseField ? sort : '')
 }

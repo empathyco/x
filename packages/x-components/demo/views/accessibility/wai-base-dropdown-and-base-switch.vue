@@ -13,7 +13,7 @@
 
     <div>
       <h1>SortDropdown</h1>
-      <SortDropdown :items="sortValues">
+      <SortDropdown :items="sortValues" :selected-sort="selectedSort">
         <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}</template>
         <template #item="{ item, isHighlighted, isSelected }">
           <span v-if="isSelected">✅</span>
@@ -31,15 +31,15 @@
 </template>
 
 <script lang="ts" setup>
-import { BaseColumnPickerDropdown } from '@x/components'
-import { useXBus } from '@x/composables'
+import { BaseColumnPickerDropdown, SortDropdown } from '@x/components'
+import { useState, useXBus } from '@x/composables'
 import { HistoryQueriesSwitch } from '@x/x-modules/history-queries'
-import { SortDropdown } from '@x/x-modules/search'
 import { onMounted } from 'vue'
 
 const sortValues = ['default', 'price asc', 'price desc']
 
 const bus = useXBus()
+const { sort: selectedSort } = useState('search')
 onMounted(() => {
   bus.emit('UserClickedASort', 'default')
   bus.emit('UserClickedEnableHistoryQueries')

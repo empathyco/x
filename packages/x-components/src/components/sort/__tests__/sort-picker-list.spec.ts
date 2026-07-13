@@ -1,36 +1,34 @@
 import type { DeepPartial } from '@empathyco/x-utils'
-import type { RootXStoreState } from '../../../../store/store.types'
+import type { RootXStoreState } from '../../../store/store.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { XDummyBus } from '../../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
-import { XPlugin } from '../../../../plugins/x-plugin'
-import { searchXModule } from '../../x-module'
+import { XDummyBus } from '../../../__tests__/bus.dummy'
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { XPlugin } from '../../../plugins/x-plugin'
+import { searchXModule } from '../../../x-modules/search/x-module'
 import SortPickerList from '../sort-picker-list.vue'
-import { resetXSearchStateWith } from './utils'
 
 const bus = new XDummyBus()
 function renderSortPickerList({
   template = `
-   <SortPickerList :items="items" :buttonClass="buttonClass">
+   <SortPickerList :items="items" :selectedSort="selectedSort" :buttonClass="buttonClass">
       <template #default="{ item }">
         {{ item }}
       </template>
-   </SortPickerList>`,
+    </SortPickerList>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
   buttonClass,
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any; buttonClass?: string }> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
-  const wrapper = mount(
+  const parentWrapper = mount(
     {
       template,
       components: { SortPickerList },
-      props: ['items', 'buttonClass'],
+      props: ['items', 'buttonClass', 'selectedSort'],
     },
     {
       global: {
@@ -39,46 +37,37 @@ function renderSortPickerList({
       store,
       props: {
         items,
+        selectedSort,
         buttonClass,
       },
     },
   )
-  resetXSearchStateWith(store, { sort: selectedSort })
 
   const onSelectedSortProvided = vi.fn()
   XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided)
   const onUserClickedASort = vi.fn()
   XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort)
 
-  const sortPickerList = wrapper.findComponent(SortPickerList)
+  const sortPickerList = parentWrapper.findComponent(SortPickerList)
 
   return {
     wrapper: sortPickerList,
     onUserClickedASort,
     onSelectedSortProvided,
-    getButton: (index: number) => wrapper.vm.$el.children[index] as HTMLElement,
+    getButton: (index: number) => parentWrapper.vm.$el.children[index] as HTMLElement,
     getSelectedItem: () => sortPickerList.get('[aria-pressed="true"]'),
     clickNthItem: async (index: number) => {
       await sortPickerList
         .findAll(getDataTestSelector('sort-picker-button'))
         .at(index)
         ?.trigger('click')
+      await parentWrapper.setProps({ selectedSort: items[index] })
       await nextTick()
     },
   }
 }
 
 describe('testing SortPickerList component', () => {
-  it('is an XComponent', () => {
-    const { wrapper } = renderSortPickerList()
-    expect(isXComponent(wrapper.vm)).toBeTruthy()
-  })
-
-  it('is an XComponent that belongs to the search module', () => {
-    const { wrapper } = renderSortPickerList()
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('search')
-  })
-
   it('allows selecting one of the options of the list', async () => {
     const { getButton, clickNthItem, getSelectedItem, onUserClickedASort } = renderSortPickerList({
       items: ['price', 'relevance', 'offer'],
@@ -90,7 +79,7 @@ describe('testing SortPickerList component', () => {
     expect(onUserClickedASort).toHaveBeenCalledWith({
       eventPayload: 'offer',
       metadata: {
-        moduleName: 'search',
+        moduleName: null,
         target: getButton(2),
         location: 'none',
         replaceable: true,
@@ -107,7 +96,7 @@ describe('testing SortPickerList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith({
       eventPayload: 'default',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', location: 'none', replaceable: true },
+      metadata: { moduleName: null, location: 'none', replaceable: true },
     })
   })
 
@@ -146,7 +135,7 @@ describe('testing SortPickerList component', () => {
       const { getSelectedItem } = renderSortPickerList({
         items: ['', 'Price low to high', 'Price high to low'],
         template: `
-          <SortPickerList :items="items">
+          <SortPickerList :items="items" :selectedSort="selectedSort">
             <template #default="{ item, isSelected }">
               <span>{{ isSelected }}</span>
             </template>
