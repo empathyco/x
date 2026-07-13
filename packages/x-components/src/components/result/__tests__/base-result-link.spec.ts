@@ -1,8 +1,3 @@
-import type { Result } from '@empathyco/x-types'
-import type { VueWrapper } from '@vue/test-utils'
-import type { FeatureLocation } from '../../../types/origin'
-import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
-import type { WireMetadata } from '../../../wiring/index'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
@@ -116,9 +111,9 @@ describe('testing BaseResultLink component', () => {
         BaseResultLink,
       },
       setup() {
-        return { 
+        return {
           events: { UserClickedAResult: result },
-          result: { ...result, modelName: 'Result' }
+          result: { ...result, modelName: 'Result' },
         }
       },
     }

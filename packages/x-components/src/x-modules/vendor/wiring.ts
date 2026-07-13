@@ -1,4 +1,5 @@
-import type { VendorResult, VendorResultPayload, VendorResultTagging } from './store/types'
+import type { WirePayload, XEventPayload } from '../../wiring'
+import type { VendorResult, VendorResultTagging } from './types'
 import { createWiring, namespacedWireCommit, namespacedWireDispatch } from '../../wiring'
 
 /**
@@ -27,7 +28,6 @@ const createTrackVendorWire = (property: keyof VendorResultTagging) =>
     trackingProperty: property,
   }))
 
-
 /**
  * Sets the vendor results of the {@link VendorXModule}.
  *
@@ -35,12 +35,10 @@ const createTrackVendorWire = (property: keyof VendorResultTagging) =>
  */
 export const setResults = wireCommit(
   'setResults',
-  ({ eventPayload }: { eventPayload: VendorResultPayload[] }) =>
-    eventPayload.map(({ item, position, tagging }) => ({
-      ...item,
+  ({ eventPayload }: WirePayload<XEventPayload<'VendorResultsChanged'>>) =>
+    eventPayload.map(vendorResult => ({
+      ...vendorResult,
       modelName: 'VendorResult' as const,
-      position,
-      tagging,
     })),
 )
 
@@ -65,8 +63,6 @@ const trackVendorClick = createTrackVendorWire('click')
  */
 const trackVendorAddToCart = createTrackVendorWire('add2cart')
 
-
-
 /**
  * Resets the vendor results of the {@link VendorXModule}.
  *
@@ -80,7 +76,7 @@ const resetResults = wireCommit('setResults', [])
  * @internal
  */
 export const vendorWiring = createWiring({
-  UserVendorResultsChanged: {
+  VendorResultsChanged: {
     setResults,
   },
   UserViewedAVendorResult: {

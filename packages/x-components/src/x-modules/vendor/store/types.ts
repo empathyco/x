@@ -1,22 +1,5 @@
-import type { NamedModel, Result } from '@empathyco/x-types'
 import type { XStoreModule } from '../../../store'
-
-export interface VendorResultTagging {
-  view: string
-  click: string
-  add2cart: string
-}
-
-export interface VendorResultPayload {
-  item: Omit<Result, 'modelName'>
-  position: number
-  tagging?: VendorResultTagging
-}
-
-export interface VendorResult extends Omit<Result, 'modelName'| 'tagging'>, NamedModel<'VendorResult'> {
-  position: number
-  tagging?: VendorResultTagging
-}
+import type { VendorResult, VendorResultTagging } from '../types'
 
 export interface VendorState {
   results: VendorResult[]

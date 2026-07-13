@@ -1,5 +1,4 @@
 import type { Result } from '@empathyco/x-types'
-import type { PropType } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createResultStub } from '../../../__stubs__/results-stubs.factory'
@@ -31,9 +30,9 @@ function render({
 describe('testing BaseResultAddToCart component', () => {
   it('emits UserClickedResultAddToCart when the user click on the component', async () => {
     const testResult = createResultStub('My Result')
-    const { clickAddToCart } = render({ 
+    const { clickAddToCart } = render({
       result: testResult,
-      events: { UserClickedResultAddToCart: testResult } 
+      events: { UserClickedResultAddToCart: testResult },
     })
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener)
@@ -51,9 +50,9 @@ describe('testing BaseResultAddToCart component', () => {
       type: 'product',
       url: 'https://example.com',
     } as unknown as Result
-    const { clickAddToCart } = render({ 
+    const { clickAddToCart } = render({
       result: vendorResult,
-      events: { UserClickedVendorResultAddToCart: vendorResult } 
+      events: { UserClickedVendorResultAddToCart: vendorResult },
     })
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedVendorResultAddToCart').subscribe(listener)
@@ -86,10 +85,10 @@ describe('testing BaseResultAddToCart component', () => {
       UserClickedResultAddToCart: testResult,
       UserClickedAResult: testResult,
     }
-    
-    const { clickAddToCart } = render({ 
+
+    const { clickAddToCart } = render({
       result: testResult,
-      events: customEvents 
+      events: customEvents,
     })
 
     const resultListener = vi.fn()

@@ -40,15 +40,15 @@ import {
   BaseAddToCart,
   BaseResultImage,
   BaseResultLink,
-  BaseResultRating
+  BaseResultRating,
 } from '@x/components/result'
 import { computed } from 'vue'
 
 const props = defineProps({
   result: {
     type: Object as PropType<Result>,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const crossFade = CrossFade
@@ -59,12 +59,12 @@ const events = computed(() => {
     return {
       addToCart: { UserClickedVendorResultAddToCart: vendorResult },
       click: { UserClickedAVendorResult: vendorResult },
-      view: { UserViewedAVendorResult: vendorResult }
+      view: { UserViewedAVendorResult: vendorResult },
     }
   }
   return {
     addToCart: { UserClickedResultAddToCart: props.result },
-    click: { UserClickedAResult: props.result }
+    click: { UserClickedAResult: props.result },
   }
 })
 </script>

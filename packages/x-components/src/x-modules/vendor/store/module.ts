@@ -1,4 +1,5 @@
-import type { VendorResult, VendorResultTagging, VendorXStoreModule } from './types'
+import type { VendorResult, VendorResultTagging } from '../types'
+import type { VendorXStoreModule } from './types'
 
 export const vendorXStoreModule: VendorXStoreModule = {
   state: () => ({
@@ -13,7 +14,7 @@ export const vendorXStoreModule: VendorXStoreModule = {
   actions: {
     track(
       _context,
-      payload: { result: VendorResult; trackingProperty: keyof VendorResultTagging }
+      payload: { result: VendorResult; trackingProperty: keyof VendorResultTagging },
     ) {
       const url = payload.result.tagging?.[payload.trackingProperty]
       if (url) {
