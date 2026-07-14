@@ -25,9 +25,7 @@ export const aiXStoreModule: AiXStoreModule = {
     ...resettableAiState(),
     selectedFilters: {},
     query: '',
-    config: {
-      lowResultsThreshold: 50,
-    },
+    config: {},
     params: {},
     origin: null,
     relatedTags: [],
