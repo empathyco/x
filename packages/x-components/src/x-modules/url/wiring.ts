@@ -127,6 +127,7 @@ export const urlWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setUrlQuery,
+    resetUrlBrowseCategory,
   },
   UserAcceptedAQueryPreview: {
     setUrlQueryFromPreview,
