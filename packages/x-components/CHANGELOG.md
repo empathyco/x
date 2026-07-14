@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.0.0...@empathyco/x-components@8.1.0) (2026-07-14)
+
+### Features
+
+* trigger ai suggestions only in no results scenario (#2137)
+
+
 ## [8.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@7.5.0...@empathyco/x-components@8.0.0) (2026-07-13)
 
 ### ⚠ BREAKING CHANGES
