@@ -9,19 +9,18 @@ function render({
   result = createResultStub('Result Test'),
   template = '<BaseResultAddToCart :result="result"/>',
   methods = {},
-  events = undefined,
+  provide = {},
 }: {
   result?: any
   template?: string
   methods?: Record<string, unknown>
-  events?: any
+  provide?: Record<string, any>
 } = {}) {
   const wrapper = mount(
-    { template, data: () => ({ result, events }), methods },
+    { template, data: () => ({ result }), methods },
     {
       components: { BaseResultAddToCart },
-      global: { plugins: [installNewXPlugin()] },
-      props: { result, events },
+      global: { plugins: [installNewXPlugin()], provide },
     },
   )
   return {
@@ -32,7 +31,7 @@ function render({
 }
 
 describe('testing BaseResultAddToCart component', () => {
-  it('emits UserClickedResultAddToCart when the user click on the component', async () => {
+  it('emits default event when the user clicks the component', async () => {
     const testResult = createResultStub('My Result')
     const { clickAddToCart } = render({
       result: testResult,
@@ -44,24 +43,17 @@ describe('testing BaseResultAddToCart component', () => {
     expect(listener).toHaveBeenCalledWith(testResult)
   })
 
-  it('emits UserClickedVendorResultAddToCart for VendorResult', async () => {
-    const vendorResult = {
-      id: 'vendor-1',
-      modelName: 'VendorResult' as const,
-      position: 1,
-      name: 'Vendor Result',
-      type: 'product',
-      url: 'https://example.com',
-    } as any
+  it('emits custom event when event prop is provided', async () => {
+    const testResult = createResultStub('My Result')
     const { clickAddToCart } = render({
-      result: vendorResult,
-      events: { UserClickedVendorResultAddToCart: vendorResult },
+      result: testResult,
+      template: '<BaseResultAddToCart :result="result" event="UserClickedAResult"/>',
     })
     const listener = vi.fn()
-    XPlugin.bus.on('UserClickedVendorResultAddToCart').subscribe(listener)
+    XPlugin.bus.on('UserClickedAResult').subscribe(listener)
     await clickAddToCart()
 
-    expect(listener).toHaveBeenCalledWith(vendorResult)
+    expect(listener).toHaveBeenCalledWith(testResult)
   })
 
   it('renders the content overriding default slot', () => {
@@ -81,16 +73,14 @@ describe('testing BaseResultAddToCart component', () => {
     expect(addToCartWrapper.text()).toEqual('Add to cart')
   })
 
-  it('emits multiple events', async () => {
+  it('emits multiple events via injection', async () => {
     const testResult = createResultStub('My Result')
-    const customEvents = {
-      UserClickedResultAddToCart: testResult,
-      UserClickedAResult: testResult,
-    }
 
     const { clickAddToCart } = render({
       result: testResult,
-      events: customEvents,
+      provide: {
+        resultAddToCartExtraEvents: ['UserClickedAResult'],
+      },
     })
 
     const resultListener = vi.fn()

@@ -13,14 +13,9 @@ describe('testing BaseResultLink component', () => {
     modelName: 'Result' as const,
   }
 
-  it('emits the events provided through events prop', async () => {
+  it('emits default event when clicked', async () => {
     const wrapper = mount(BaseResultLink, {
-      props: {
-        result,
-        events: {
-          UserClickedAResult: result,
-        },
-      },
+      props: { result },
       global: {
         plugins: [installNewXPlugin()],
       },
@@ -39,16 +34,34 @@ describe('testing BaseResultLink component', () => {
     expect(listener).toHaveBeenCalledTimes(3)
   })
 
-  it('emits events with custom metadata', async () => {
+  it('emits custom event when event prop is provided', async () => {
     const wrapper = mount(BaseResultLink, {
       props: {
         result,
-        events: {
-          UserClickedAResult: result,
-        },
+        event: 'UserClickedResultAddToCart',
       },
       global: {
         plugins: [installNewXPlugin()],
+      },
+    })
+
+    const listener = vi.fn()
+    XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener)
+
+    await wrapper.trigger('click')
+    expect(listener).toHaveBeenCalledWith(result)
+  })
+
+  it('emits events with custom metadata', async () => {
+    const wrapper = mount(BaseResultLink, {
+      props: { result },
+      global: {
+        plugins: [installNewXPlugin()],
+        provide: {
+          resultLinkMetadataPerEvent: {
+            UserClickedAResult: { location: 'test' },
+          },
+        },
       },
     })
 
@@ -59,21 +72,20 @@ describe('testing BaseResultLink component', () => {
 
     expect(listener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.any(Object),
+      metadata: expect.objectContaining({
+        location: 'test',
+      }),
     })
   })
 
-  it('emits multiple events', async () => {
+  it('emits multiple events via injection', async () => {
     const wrapper = mount(BaseResultLink, {
-      props: {
-        result,
-        events: {
-          UserClickedAResult: result,
-          UserClickedResultAddToCart: result,
-        },
-      },
+      props: { result },
       global: {
         plugins: [installNewXPlugin()],
+        provide: {
+          resultClickExtraEvents: ['UserClickedResultAddToCart'],
+        },
       },
     })
 

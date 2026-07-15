@@ -1,9 +1,9 @@
 import type { NamedModel, Result } from '@empathyco/x-types'
 
 export interface VendorResultTagging {
-  view: string
-  click: string
-  add2cart: string
+  viewUrl: string
+  clickUrl: string
+  add2cartUrl: string
 }
 
 /**

@@ -1,10 +1,6 @@
 <template>
   <BaseEventButton
-    :events="
-      events ?? {
-        UserClickedResultAddToCart: result,
-      }
-    "
+    :events="events"
     :metadata="metadata"
     class="x-result-add-to-cart xds:button"
     data-test="result-add-to-cart"
@@ -17,18 +13,19 @@
 <script lang="ts">
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { XEventsTypes } from '../../wiring/events.types'
-import { defineComponent } from 'vue'
+import type { PropsWithType } from '../../utils/index'
+import type { XEvent, XEventsTypes } from '../../wiring/events.types'
+import type { WireMetadata } from '../../wiring/index'
+import { computed, defineComponent, inject } from 'vue'
 import BaseEventButton from '../base-event-button.vue'
 
 /**
- * Renders a button with a default slot. It receives the result with the data and emits events
- * based on the provided events prop.
+ * Renders a button with a default slot. It receives the result with the data and emits
+ * {@link XEventsTypes.UserClickedResultAddToCart} to the bus on click mouse event.
  *
  * @public
  */
 export default defineComponent({
-  name: 'BaseResultAddToCart',
   components: { BaseEventButton },
   props: {
     /**
@@ -40,21 +37,49 @@ export default defineComponent({
       type: Object as PropType<Result>,
       required: true,
     },
+    event: {
+      type: String as PropType<XEvent>,
+      default: () => 'UserClickedResultAddToCart',
+    },
+  },
+  setup(props) {
     /**
-     * The events to be emitted by the component. The keys are the event names and the values are
-     * the event payloads. If not provided, defaults to emitting `UserClickedResultAddToCart` with
-     * the result.
+     * The list of additional events to be emitted by the component when user clicks the add2cart button.
+     *
+     * @internal
+     */
+    const resultAddToCartExtraEvents = inject<PropsWithType<XEventsTypes, Result>[]>(
+      'resultAddToCartExtraEvents',
+      [],
+    )
+
+    /**
+     * The metadata to be injected in the events emitted by the component.
+     */
+    const metadata = inject<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>(
+      'resultAddToCartExtraEventsMetadata',
+      {},
+    )
+
+    /**
+     * The events to be emitted by the button.
+     *
+     * @returns Events {@link XEventsTypes} to emit.
      *
      * @public
      */
-    events: {
-      type: Object as PropType<Partial<XEventsTypes>>,
-    },
-  },
-  setup() {
-    const metadata = {}
+    const events = computed(() => {
+      return resultAddToCartExtraEvents.reduce(
+        (acc, event) => {
+          acc[event] = props.result
+          return acc
+        },
+        { [props.event]: props.result } as Partial<XEventsTypes>,
+      )
+    })
 
     return {
+      events,
       metadata,
     }
   },
@@ -64,18 +89,23 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This component emits the events provided through the `events` prop. The events keys are the event
-names and the values are the event payloads.
+A list of events that the component will emit:
+
+- [`UserClickedResultAddToCart`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the result data.
 
 ## Examples
 
+Renders a button with a default slot. It receives the result with the data and emits an event
+`UserClickedResultAddToCart` to the bus on click mouse event.
+
 ### Basic example
 
-This component is a button to emit events when clicked by the user.
+This component is a button to emit `UserClickedResultAddToCart` when clicked by the user.
 
 ```vue
 <template>
-  <BaseResultAddToCart :result="result" :events="events">
+  <BaseResultAddToCart :result="result">
     <img src="./add-to-cart.svg" alt="Add to cart" />
     <span>Add to cart</span>
   </BaseResultAddToCart>
@@ -83,42 +113,11 @@ This component is a button to emit events when clicked by the user.
 
 <script setup>
 import { BaseResultAddToCart } from '@empathyco/x-components'
-
 const result = {
   id: '123',
   name: 'Product name',
   price: 19.99,
-}
-
-const events = {
-  UserClickedResultAddToCart: result,
-}
-</script>
-```
-
-### Multiple events
-
-You can provide multiple events:
-
-```vue
-<template>
-  <BaseResultAddToCart :result="result" :events="events">
-    <span>Add to cart</span>
-  </BaseResultAddToCart>
-</template>
-
-<script setup>
-import { BaseResultAddToCart } from '@empathyco/x-components'
-
-const result = {
-  id: '123',
-  name: 'Product name',
-  price: 19.99,
-}
-
-const events = {
-  UserClickedResultAddToCart: result,
-  CustomEvent: result,
+  // ...other result properties
 }
 </script>
 ```

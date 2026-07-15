@@ -1,11 +1,12 @@
 <template>
   <a
+    :ref="el"
     :href="result.url"
     class="x-result-link"
     data-test="result-link"
-    @click="emitEvents"
-    @contextmenu="emitEvents"
-    @auxclick="onAuxClick"
+    @click="emitUserClickedAResult"
+    @contextmenu="emitUserClickedAResult"
+    @auxclick="({ button }) => button === 1 && emitUserClickedAResult()"
   >
     <!--
       @slot (Required) Link content with a text, an image, another component or both
@@ -18,12 +19,19 @@
 <script lang="ts">
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { PropsWithType } from '../../utils/types'
+import type { WireMetadata, XEvent } from '../../wiring'
 import type { XEventsTypes } from '../../wiring/events.types'
-import { defineComponent } from 'vue'
+import { defineComponent, inject, ref } from 'vue'
 import { use$x } from '../../composables/index'
 
 /**
- * Component to be reused that renders a link wrapping the result contents.
+ * Component to be reused that renders an `<a>` wrapping the result contents.
+ *
+ * @remarks
+ * It has the logic to emit {@link XEventsTypes.UserClickedAResult} to the bus on click mouse
+ * events. Additionally, this component may be injected other events to be emitted on click
+ * event, so, depending on where it's used its father component may provide this events.
  *
  * @public
  */
@@ -38,38 +46,64 @@ export default defineComponent({
       type: Object as PropType<Result>,
       required: true,
     },
-    /**
-     * The events to be emitted by the component. The keys are the event names and the values are
-     * the event payloads. If not provided, defaults to emitting `UserClickedAResult` with the
-     * result.
-     *
-     * @public
-     */
-    events: {
-      type: Object as PropType<Partial<XEventsTypes>>,
+    event: {
+      type: String as PropType<XEvent>,
+      default: () => 'UserClickedAResult',
     },
   },
   setup(props) {
     const $x = use$x()
 
-    const emitEvents = (event: Event): void => {
-      const events = props.events ?? {
-        UserClickedAResult: props.result,
-      }
-      Object.entries(events).forEach(([e, payload]) => {
-        $x.emit(e as keyof XEventsTypes, payload, { target: event.currentTarget })
+    /**
+     * The rendered DOM element.
+     *
+     * @internal
+     */
+    const el = ref()
+
+    /**
+     * The list of additional events to be emitted by the component when user clicks the link.
+     *
+     * @internal
+     */
+    const resultClickExtraEvents = inject<PropsWithType<XEventsTypes, Result>[]>(
+      'resultClickExtraEvents',
+      [],
+    )
+
+    /**
+     * The metadata to be injected in the events emitted by the component. This component can emit
+     * have extra events so this record pairs each event to its metadata.
+     */
+    const resultLinkMetadataPerEvent = inject<
+      // TODO: Refactor this inject key to the constants when doing EMP-909
+      Partial<
+        Record<
+          PropsWithType<XEventsTypes, Result>,
+          Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
+        >
+      >
+    >('resultLinkMetadataPerEvent', {})
+
+    /**
+     * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
+     * additional events if have been injected in the component.
+     *
+     * @internal
+     */
+    const emitUserClickedAResult = (): void => {
+      $x.emit(props.event, props.result, {
+        target: el.value!,
+        ...resultLinkMetadataPerEvent.UserClickedAResult,
+      })
+      resultClickExtraEvents.forEach(event => {
+        $x.emit(event, props.result, { target: el.value!, ...resultLinkMetadataPerEvent[event] })
       })
     }
 
-    const onAuxClick = (event: MouseEvent): void => {
-      if (event.button === 1) {
-        emitEvents(event)
-      }
-    }
-
     return {
-      emitEvents,
-      onAuxClick,
+      el,
+      emitUserClickedAResult,
     }
   },
 })
@@ -84,19 +118,25 @@ export default defineComponent({
 <docs lang="mdx">
 ## Events
 
-This component emits the events provided through the `events` prop. The events keys are the event
-names and the values are the event payloads.
+This component emits the following event:
+
+- [`UserClickedAResult`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+
+The component can emit more events on click using the `resultClickExtraEvents` prop.
 
 ## Examples
 
 This component is a wrapper for the result contents (images, name, price...). It may be part of the
 search result page, recommendations or other section which needs to include results.
 
-### Basic example
+Additionally, this component may be injected other events to be emitted on click event, so,
+depending where it's used its father component may provide these events.
+
+The result prop is required. It will render an anchor element with the href to the result URL:
 
 ```vue
 <template>
-  <BaseResultLink :result="result" :events="events">
+  <BaseResultLink :result="result">
     <template #default="{ result }">
       <img :src="result.images[0]" alt="Result image" />
       <span>{{ result.name }}</span>
@@ -106,43 +146,10 @@ search result page, recommendations or other section which needs to include resu
 
 <script setup>
 import { BaseResultLink } from '@empathyco/x-components'
-
 const result = {
-  id: '123',
   name: 'Jacket',
   url: 'https://shop.com/jacket',
   images: ['https://shop.com/jacket.jpg'],
-}
-
-const events = {
-  UserClickedAResult: result,
-}
-</script>
-```
-
-### Custom events
-
-You can provide custom events to be emitted:
-
-```vue
-<template>
-  <BaseResultLink :result="result" :events="events">
-    <span>{{ result.name }}</span>
-  </BaseResultLink>
-</template>
-
-<script setup>
-import { BaseResultLink } from '@empathyco/x-components'
-
-const result = {
-  id: '123',
-  name: 'Jacket',
-  url: 'https://shop.com/jacket',
-}
-
-const events = {
-  UserClickedAResult: result,
-  CustomEvent: result,
 }
 </script>
 ```
