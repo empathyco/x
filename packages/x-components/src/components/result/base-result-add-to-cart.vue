@@ -39,7 +39,7 @@ export default defineComponent({
     },
     event: {
       type: String as PropType<XEvent>,
-      default: () => 'UserClickedResultAddToCart',
+      default: 'UserClickedResultAddToCart',
     },
   },
   setup(props) {

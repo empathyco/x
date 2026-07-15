@@ -48,7 +48,7 @@ export default defineComponent({
     },
     event: {
       type: String as PropType<XEvent>,
-      default: () => 'UserClickedAResult',
+      default: 'UserClickedAResult',
     },
   },
   setup(props) {

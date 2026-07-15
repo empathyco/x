@@ -8,11 +8,7 @@ import { createWireFromFunction, createWiring, namespacedWireCommit } from '../.
  */
 const wireCommit = namespacedWireCommit('vendor')
 
-const fetchTagging = async (url: string) =>
-  globalThis
-    .fetch(url, { method: 'GET', keepalive: true })
-    .then(() => {}) // No need to do anything with the response
-    .catch(() => {}) // Ignore errors
+const fetchTagging = async (url: string) => fetch(url, { method: 'GET', keepalive: true })
 
 const trackResultView = createWireFromFunction<XEventPayload<'UserViewedAVendorResult'>>(
   ({ eventPayload: { tagging } }) => tagging?.viewUrl && void fetchTagging(tagging.viewUrl),
