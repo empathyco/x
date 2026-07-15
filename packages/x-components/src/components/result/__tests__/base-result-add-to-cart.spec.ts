@@ -43,11 +43,11 @@ describe('testing BaseResultAddToCart component', () => {
     expect(listener).toHaveBeenCalledWith(testResult)
   })
 
-  it('emits custom event when event prop is provided', async () => {
+  it('emits custom event when clickEvent prop is provided', async () => {
     const testResult = createResultStub('My Result')
     const { clickAddToCart } = render({
       result: testResult,
-      template: '<BaseResultAddToCart :result="result" event="UserClickedAResult"/>',
+      template: '<BaseResultAddToCart :result="result" clickEvent="UserClickedAResult"/>',
     })
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedAResult').subscribe(listener)

@@ -37,7 +37,7 @@ export default defineComponent({
       type: Object as PropType<Result>,
       required: true,
     },
-    event: {
+    clickEvent: {
       type: String as PropType<XEvent>,
       default: 'UserClickedResultAddToCart',
     },
@@ -74,7 +74,7 @@ export default defineComponent({
           acc[event] = props.result
           return acc
         },
-        { [props.event]: props.result } as Partial<XEventsTypes>,
+        { [props.clickEvent]: props.result } as Partial<XEventsTypes>,
       )
     })
 

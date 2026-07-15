@@ -4,9 +4,9 @@
     :href="result.url"
     class="x-result-link"
     data-test="result-link"
-    @click="emitUserClickedAResult"
-    @contextmenu="emitUserClickedAResult"
-    @auxclick="({ button }) => button === 1 && emitUserClickedAResult()"
+    @click="onClick"
+    @contextmenu="onClick"
+    @auxclick="({ button }) => button === 1 && onClick()"
   >
     <!--
       @slot (Required) Link content with a text, an image, another component or both
@@ -46,7 +46,7 @@ export default defineComponent({
       type: Object as PropType<Result>,
       required: true,
     },
-    event: {
+    clickEvent: {
       type: String as PropType<XEvent>,
       default: 'UserClickedAResult',
     },
@@ -91,8 +91,8 @@ export default defineComponent({
      *
      * @internal
      */
-    const emitUserClickedAResult = (): void => {
-      $x.emit(props.event, props.result, {
+    const onClick = (): void => {
+      $x.emit(props.clickEvent, props.result, {
         target: el.value!,
         ...resultLinkMetadataPerEvent.UserClickedAResult,
       })
@@ -103,7 +103,7 @@ export default defineComponent({
 
     return {
       el,
-      emitUserClickedAResult,
+      onClick,
     }
   },
 })

@@ -34,11 +34,11 @@ describe('testing BaseResultLink component', () => {
     expect(listener).toHaveBeenCalledTimes(3)
   })
 
-  it('emits custom event when event prop is provided', async () => {
+  it('emits custom event when clickEvent prop is provided', async () => {
     const wrapper = mount(BaseResultLink, {
       props: {
         result,
-        event: 'UserClickedResultAddToCart',
+        clickEvent: 'UserClickedResultAddToCart',
       },
       global: {
         plugins: [installNewXPlugin()],

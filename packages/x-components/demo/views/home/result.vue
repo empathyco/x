@@ -1,6 +1,6 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
-    <BaseResultLink :result="result" :event="events.click">
+    <BaseResultLink :result="result" :click-event="events.click">
       <BaseResultImage :result="result" :load-animation="crossFade">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
@@ -14,7 +14,7 @@
       </BaseResultImage>
     </BaseResultLink>
     <div>
-      <BaseAddToCart :result="result" :event="events.addToCart" data-test="add-to-cart">
+      <BaseAddToCart :result="result" :click-event="events.addToCart" data-test="add-to-cart">
         <span>Add to cart</span>
       </BaseAddToCart>
     </div>
@@ -24,7 +24,7 @@
         <template #filled-icon>❤️</template>
         <template #empty-icon>🤍</template>
       </BaseResultRating>
-      <BaseResultLink :result="result" :event="events.click">
+      <BaseResultLink :result="result" :click-event="events.click">
         <h1 class="xds:text1 xds:text1-lg" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
     </div>
