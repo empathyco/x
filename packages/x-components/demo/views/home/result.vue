@@ -1,5 +1,5 @@
 <template>
-  <article class="x-result" style="max-width: 300px; overflow: hidden">
+  <article ref="result" class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result" :click-event="events?.click">
       <BaseResultImage :result="result" :load-animation="crossFade">
         <template #placeholder>
@@ -34,7 +34,9 @@
 <script lang="ts" setup>
 import type { Result } from '@empathyco/x-types'
 import type { XEvent } from '@x/wiring'
+import type { VendorResult } from '@x/x-modules/vendor'
 import type { PropType } from 'vue'
+import { useElementVisibility } from '@vueuse/core'
 import { BaseResultCurrentPrice, CrossFade } from '@x/components'
 import {
   BaseAddToCart,
@@ -42,7 +44,8 @@ import {
   BaseResultLink,
   BaseResultRating,
 } from '@x/components/result'
-import { computed } from 'vue'
+import { useXBus } from '@x/composables'
+import { computed, useTemplateRef, watch } from 'vue'
 
 const props = defineProps({
   result: {
@@ -50,8 +53,10 @@ const props = defineProps({
     required: true,
   },
 })
-
+const resultRef = useTemplateRef('result')
+const isVisible = useElementVisibility(resultRef, { once: true })
 const crossFade = CrossFade
+const { emit } = useXBus()
 
 const events = computed<Record<'addToCart' | 'click', XEvent> | undefined>(() => {
   if (props.result.modelName === 'VendorResult') {
@@ -61,5 +66,14 @@ const events = computed<Record<'addToCart' | 'click', XEvent> | undefined>(() =>
     }
   }
   return undefined
+})
+
+watch(isVisible, visible => {
+  if (visible && props.result.modelName === 'VendorResult') {
+    setTimeout(
+      () => emit('UserViewedAVendorResult', props.result as VendorResult),
+      Math.random() * 1000, // Simulate delay since multiple emits of the same event at the same time are cancelling some of them
+    )
+  }
 })
 </script>
