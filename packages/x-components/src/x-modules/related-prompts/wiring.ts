@@ -25,6 +25,8 @@ const setExtraParams = wireCommit('setParams')
 
 /** Sets the related prompts state `query`. */
 const setRelatedPromptsQuery = wireCommit('setQuery')
+/** Sets the related prompts state `query` to a empty string. */
+const resetRelatedPromptsQuery = wireCommit('setQuery', '')
 /** Sets the related prompts state `query` from the payload. */
 const setRelatedPromptsQueryFromPreview = wireCommit(
   'setQuery',
@@ -77,6 +79,11 @@ export const relatedPromptsWiring = createWiring({
     cancelFetchAndSaveRelatedPrompts,
     resetRelatedPromptsState,
     setRelatedPromptsQuery,
+  },
+  UserBrowsedToCategory: {
+    cancelFetchAndSaveRelatedPrompts,
+    resetRelatedPromptsState,
+    resetRelatedPromptsQuery,
   },
   RelatedPromptsRequestUpdated: {
     fetchAndSaveRelatedPrompts,
