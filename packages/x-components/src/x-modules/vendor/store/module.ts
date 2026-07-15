@@ -12,7 +12,7 @@ export const vendorXStoreModule: VendorXStoreModule = {
     },
   },
   actions: {
-    track(
+    trackResult(
       _context,
       payload: { result: VendorResult; trackingProperty: keyof VendorResultTagging },
     ) {

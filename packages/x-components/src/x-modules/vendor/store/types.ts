@@ -12,7 +12,10 @@ export interface VendorMutations {
 }
 
 export interface VendorActions {
-  track: (payload: { result: VendorResult; trackingProperty: keyof VendorResultTagging }) => void
+  trackResult: (payload: {
+    result: VendorResult
+    trackingProperty: keyof VendorResultTagging
+  }) => void
 }
 
 export type VendorXStoreModule = XStoreModule<

@@ -30,7 +30,7 @@ const wireDispatch = namespacedWireDispatch('vendor')
 const createTrackVendorResultWire = <Event extends TrackVendorResultEvent>(
   property: keyof VendorResultTagging,
 ) =>
-  wireDispatch('track', ({ eventPayload }: WirePayload<XEventPayload<Event>>) => ({
+  wireDispatch('trackResult', ({ eventPayload }: WirePayload<XEventPayload<Event>>) => ({
     result: eventPayload as VendorResult,
     trackingProperty: property,
   }))
