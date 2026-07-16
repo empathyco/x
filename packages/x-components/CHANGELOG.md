@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.4.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.3.0...@empathyco/x-components@8.4.0) (2026-07-16)
+
+### Features
+
+* reset query field when UserBrowsedToCategory (#2139)
+
+
 ## [8.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.2.0...@empathyco/x-components@8.3.0) (2026-07-15)
 
 ### Features
