@@ -141,10 +141,10 @@ export default defineComponent({
     const gridItems = computed<GridItem[]>(() =>
       (computedItems.value as ListItem[]).map(item => {
         const slotName = toKebabCase(item.modelName)
-        const cssClass =
-          item.modelName === 'VendorBanner' && (item as any).position == null
-            ? `x-base-grid__${slotName} x-base-grid__${slotName}--full`
-            : `x-base-grid__${slotName}`
+        let cssClass = `x-base-grid__${slotName}`
+        if (item.modelName === 'VendorBanner' && (item as any).position === undefined) {
+          cssClass += ` x-base-grid__${slotName}--row`
+        }
         return {
           slotName,
           item,
@@ -201,7 +201,7 @@ export default defineComponent({
 }
 
 .x-base-grid__banner,
-.x-base-grid__vendor-banner--full,
+.x-base-grid__vendor-banner--row,
 .x-base-grid__next-queries-group,
 .x-base-grid__related-prompts-group {
   grid-column-start: 1;

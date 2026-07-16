@@ -54,6 +54,20 @@ export const setBanners = wireCommit(
 )
 
 /**
+ * Sets the vendor banners of the {@link VendorXModule}.
+ *
+ * @public
+ */
+export const setBanners = wireCommit(
+  'setBanners',
+  ({ eventPayload }: WirePayload<XEventPayload<'VendorBannersChanged'>>) =>
+    eventPayload.map(vendorBanner => ({
+      ...vendorBanner,
+      modelName: 'VendorBanner' as const,
+    })),
+)
+
+/**
  * Resets the vendor results of the {@link VendorXModule}.
  *
  * @public
@@ -85,14 +99,14 @@ export const vendorWiring = createWiring({
   UserClickedVendorResultAddToCart: {
     trackResultAddToCart,
   },
+  VendorBannersChanged: {
+    setBanners,
+  },
   UserViewedAVendorBanner: {
     trackBannerView,
   },
   UserClickedAVendorBanner: {
     trackBannerClick,
-  },
-  VendorBannersChanged: {
-    setBanners,
   },
   SearchRequestChanged: {
     resetResults,
