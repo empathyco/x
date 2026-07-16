@@ -34,12 +34,10 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
+import type { XEvent } from '../../wiring/index'
 import { defineComponent, ref, watch } from 'vue'
-
-import BaseDropdown from '../../../components/base-dropdown.vue'
-import { use$x } from '../../../composables/use-$x'
-import { useState } from '../../../composables/use-state'
-import { searchXModule } from '../x-module'
+import { use$x } from '../../composables/use-$x'
+import BaseDropdown from '../base-dropdown.vue'
 
 /**
  * The `SortDropdown` component allows user to select the search results order. This component
@@ -47,27 +45,40 @@ import { searchXModule } from '../x-module'
  */
 export default defineComponent({
   name: 'SortDropdown',
-  xModule: searchXModule.name,
   components: { BaseDropdown },
   props: {
+    /** The transition to use for opening and closing the dropdown. */
+    animation: [String, Object] as PropType<string | Component>,
     /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
       required: true,
     },
-    /** The transition to use for opening and closing the dropdown. */
-    animation: [String, Object] as PropType<string | Component>,
+    selectedSort: {
+      type: String as PropType<Sort>,
+      required: true,
+    },
+    selectedSortProvidedEvent: {
+      type: String as PropType<XEvent>,
+      default: 'SelectedSortProvided',
+    },
+    clickedSortEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedASort',
+    },
   },
   emits: ['change'],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const $x = use$x()
-
-    const { sort: selectedSort } = useState('search')
     const rootRef = ref<typeof BaseDropdown>()
 
-    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-      immediate: true,
-    })
+    watch(
+      () => props.selectedSort,
+      value => $x.emit(props.selectedSortProvidedEvent, value),
+      {
+        immediate: true,
+      },
+    )
 
     /**
      * Emits the events related to the selection of a sort value.
@@ -78,14 +89,13 @@ export default defineComponent({
      * @param sort - The selected sort.
      */
     function emitUserClickedASort(sort: Sort) {
-      $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el })
+      $x.emit(props.clickedSortEvent, sort, { target: (rootRef.value as any)?.$el })
       emit('change', sort)
     }
 
     return {
       emitUserClickedASort,
       rootRef,
-      selectedSort,
     }
   },
 })

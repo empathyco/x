@@ -14,7 +14,7 @@
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { PropsWithType } from '../../utils/index'
-import type { XEventsTypes } from '../../wiring/events.types'
+import type { XEvent, XEventsTypes } from '../../wiring/events.types'
 import type { WireMetadata } from '../../wiring/index'
 import { computed, defineComponent, inject } from 'vue'
 import BaseEventButton from '../base-event-button.vue'
@@ -36,6 +36,10 @@ export default defineComponent({
     result: {
       type: Object as PropType<Result>,
       required: true,
+    },
+    clickEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedResultAddToCart',
     },
   },
   setup(props) {
@@ -70,12 +74,12 @@ export default defineComponent({
           acc[event] = props.result
           return acc
         },
-        { UserClickedResultAddToCart: props.result } as Partial<XEventsTypes>,
+        { [props.clickEvent]: props.result } as Partial<XEventsTypes>,
       )
     })
 
     return {
-      events: props.result.modelName === 'Result' ? events : {},
+      events,
       metadata,
     }
   },

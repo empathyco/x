@@ -162,6 +162,10 @@ export const nextQueriesWiring = createWiring({
     resetNextQueriesWire,
     resetNextQueriesQuery,
   },
+  UserBrowsedToCategory: {
+    resetNextQueriesWire,
+    resetNextQueriesQuery,
+  },
   SelectedRelatedTagsChanged: {
     setNextQueriesRelatedTags,
   },

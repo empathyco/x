@@ -102,6 +102,9 @@ export const searchBoxWiring = createWiring({
   UserClearedQuery: {
     transitionState: setInputStatus('UserClearedQuery'),
   },
+  UserBrowsedToCategory: {
+    transitionState: setInputStatus('UserClearedQuery'),
+  },
   UserFocusedSearchBox: {
     transitionState: setInputStatus('UserFocusedSearchBox'),
   },

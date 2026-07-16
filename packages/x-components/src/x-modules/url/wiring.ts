@@ -31,6 +31,13 @@ export const setUrlPrompt = wireCommit('setPrompt')
 export const setUrlQuery = wireCommit('setQuery')
 
 /**
+ * Sets to empathy string the query of the url module.
+ *
+ * @public
+ */
+export const resetUrlQuery = wireCommit('setQuery', '')
+
+/**
  * Sets the url state `query` with a selectedQueryPreview's query.
  *
  * @public
@@ -127,6 +134,7 @@ export const urlWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setUrlQuery,
+    resetUrlBrowseCategory,
   },
   UserAcceptedAQueryPreview: {
     setUrlQueryFromPreview,
@@ -162,6 +170,7 @@ export const urlWiring = createWiring({
   },
   UserBrowsedToCategory: {
     setUrlBrowseCategory,
+    resetUrlQuery,
   },
   UserClickedCloseX: {
     resetUrlBrowseCategory,

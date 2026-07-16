@@ -139,6 +139,11 @@ export const relatedTagsWiring = createWiring({
     clearRelatedTagsQuery,
     clearSelectedRelatedTags,
   },
+  UserBrowsedToCategory: {
+    cancelFetchAndSaveRelatedTagsWire,
+    clearRelatedTagsQuery,
+    clearSelectedRelatedTags,
+  },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams,
   },

@@ -25,12 +25,21 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
-import type { SortPickerItem } from './sort-picker-list.types'
+import type { VueCSSClasses } from '../../utils/types'
+import type { XEventsTypes } from '../../wiring/events.types'
+import type { XEvent } from '../../wiring/index'
 import { computed, defineComponent, watch } from 'vue'
-import BaseEventButton from '../../../components/base-event-button.vue'
-import { use$x } from '../../../composables/use-$x'
-import { useState } from '../../../composables/use-state'
-import { searchXModule } from '../x-module'
+import { use$x } from '../../composables/use-$x'
+import BaseEventButton from '../base-event-button.vue'
+
+/**
+ * Sort Picker item options.
+ */
+export interface SortPickerItem {
+  item: Sort
+  cssClasses: VueCSSClasses
+  event: Partial<XEventsTypes>
+}
 
 /**
  * The `SortPickerList` component allows user to select the search results order. This component
@@ -38,18 +47,29 @@ import { searchXModule } from '../x-module'
  */
 export default defineComponent({
   name: 'SortPickerList',
-  xModule: searchXModule.name,
   components: { BaseEventButton },
   props: {
+    /** The transition to use for rendering the list. */
+    animation: {
+      type: [String, Object] as PropType<string | Component>,
+      default: () => 'div',
+    },
     /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
       required: true,
     },
-    /** The transition to use for rendering the list. */
-    animation: {
-      type: [String, Object] as PropType<string | Component>,
-      default: () => 'div',
+    selectedSort: {
+      type: String as PropType<Sort>,
+      required: true,
+    },
+    selectedSortProvidedEvent: {
+      type: String as PropType<XEvent>,
+      default: 'SelectedSortProvided',
+    },
+    clickedSortEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedASort',
     },
     /** Class inherited by each sort button. */
     buttonClass: String,
@@ -57,11 +77,13 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { sort: selectedSort } = useState('search')
-
-    watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
-      immediate: true,
-    })
+    watch(
+      () => props.selectedSort,
+      value => $x.emit(props.selectedSortProvidedEvent, value),
+      {
+        immediate: true,
+      },
+    )
 
     /**
      * Sort list items.
@@ -72,15 +94,14 @@ export default defineComponent({
       props.items.map(item => ({
         item,
         cssClasses: {
-          'xds:selected': item === selectedSort.value,
+          'xds:selected': item === props.selectedSort,
         },
-        event: { UserClickedASort: item },
+        event: { [props.clickedSortEvent]: item },
       })),
     )
 
     return {
       listItems,
-      selectedSort,
     }
   },
 })

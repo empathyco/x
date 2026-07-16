@@ -9,12 +9,18 @@ function render({
   result = createResultStub('Result Test'),
   template = '<BaseResultAddToCart :result="result"/>',
   methods = {},
+  provide = {},
+}: {
+  result?: any
+  template?: string
+  methods?: Record<string, unknown>
+  provide?: Record<string, any>
 } = {}) {
   const wrapper = mount(
     { template, data: () => ({ result }), methods },
     {
       components: { BaseResultAddToCart },
-      global: { plugins: [installNewXPlugin()] },
+      global: { plugins: [installNewXPlugin()], provide },
     },
   )
   return {
@@ -25,11 +31,26 @@ function render({
 }
 
 describe('testing BaseResultAddToCart component', () => {
-  it('emits UserClickedResultAddToCart when the user click on the component', async () => {
+  it('emits default event when the user clicks the component', async () => {
     const testResult = createResultStub('My Result')
-    const { clickAddToCart } = render({ result: testResult })
+    const { clickAddToCart } = render({
+      result: testResult,
+    })
     const listener = vi.fn()
     XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener)
+    await clickAddToCart()
+
+    expect(listener).toHaveBeenCalledWith(testResult)
+  })
+
+  it('emits custom event when clickEvent prop is provided', async () => {
+    const testResult = createResultStub('My Result')
+    const { clickAddToCart } = render({
+      result: testResult,
+      template: '<BaseResultAddToCart :result="result" clickEvent="UserClickedAResult"/>',
+    })
+    const listener = vi.fn()
+    XPlugin.bus.on('UserClickedAResult').subscribe(listener)
     await clickAddToCart()
 
     expect(listener).toHaveBeenCalledWith(testResult)
@@ -52,17 +73,24 @@ describe('testing BaseResultAddToCart component', () => {
     expect(addToCartWrapper.text()).toEqual('Add to cart')
   })
 
-  it('uses the listeners passed', async () => {
-    const listener = vi.fn()
+  it('emits multiple events via injection', async () => {
+    const testResult = createResultStub('My Result')
+
     const { clickAddToCart } = render({
-      template: '<BaseResultAddToCart @click="miClick" :result="result"/>',
-      methods: {
-        miClick: listener,
+      result: testResult,
+      provide: {
+        resultAddToCartExtraEvents: ['UserClickedAResult'],
       },
     })
+
+    const resultListener = vi.fn()
+    const addToCartListener = vi.fn()
+    XPlugin.bus.on('UserClickedAResult').subscribe(resultListener)
+    XPlugin.bus.on('UserClickedResultAddToCart').subscribe(addToCartListener)
+
     await clickAddToCart()
 
-    expect(listener).toHaveBeenCalledTimes(1)
-    expect(listener).toHaveBeenCalledWith(expect.any(MouseEvent))
+    expect(resultListener).toHaveBeenCalledWith(testResult)
+    expect(addToCartListener).toHaveBeenCalledWith(testResult)
   })
 })

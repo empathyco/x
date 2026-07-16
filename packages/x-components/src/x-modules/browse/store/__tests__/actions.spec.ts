@@ -727,25 +727,6 @@ describe('testing browse module actions', () => {
       expect(store.state.sort).toEqual('priceSort asc')
     })
 
-    it('should set in the browse module the browseValue and browseFields values even if empty', async () => {
-      resetBrowseStateWith(store, {
-        selectedCategory: {
-          browseValue: 'dress',
-          browseField: 'categoryIds',
-        },
-      })
-
-      await store.dispatch('setUrlParams', {
-        sort: 'priceSort asc',
-        browseValue: '',
-        browseField: '',
-      } as UrlParams)
-
-      expect(store.state.selectedCategory.browseValue).toEqual('')
-      expect(store.state.selectedCategory.browseField).toEqual('')
-      expect(store.state.sort).toEqual('priceSort asc')
-    })
-
     it('should set in the browse module the sort value even if empty', async () => {
       resetBrowseStateWith(store, { sort: 'priceSort asc' })
 

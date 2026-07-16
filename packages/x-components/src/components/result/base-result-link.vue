@@ -4,15 +4,9 @@
     :href="result.url"
     class="x-result-link"
     data-test="result-link"
-    v-on="
-      result.modelName === 'Result'
-        ? {
-            click: emitUserClickedAResult,
-            contextmenu: emitUserClickedAResult,
-            auxclick: (event: { button: number }) => event.button === 1 && emitUserClickedAResult(),
-          }
-        : {}
-    "
+    @click="onClick"
+    @contextmenu="onClick"
+    @auxclick="({ button }) => button === 1 && onClick()"
   >
     <!--
       @slot (Required) Link content with a text, an image, another component or both
@@ -26,7 +20,7 @@
 import type { Result } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { PropsWithType } from '../../utils/types'
-import type { WireMetadata } from '../../wiring'
+import type { WireMetadata, XEvent } from '../../wiring'
 import type { XEventsTypes } from '../../wiring/events.types'
 import { defineComponent, inject, ref } from 'vue'
 import { use$x } from '../../composables/index'
@@ -51,6 +45,10 @@ export default defineComponent({
     result: {
       type: Object as PropType<Result>,
       required: true,
+    },
+    clickEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedAResult',
     },
   },
   setup(props) {
@@ -93,8 +91,8 @@ export default defineComponent({
      *
      * @internal
      */
-    const emitUserClickedAResult = (): void => {
-      $x.emit('UserClickedAResult', props.result, {
+    const onClick = (): void => {
+      $x.emit(props.clickEvent, props.result, {
         target: el.value!,
         ...resultLinkMetadataPerEvent.UserClickedAResult,
       })
@@ -105,7 +103,7 @@ export default defineComponent({
 
     return {
       el,
-      emitUserClickedAResult,
+      onClick,
     }
   },
 })

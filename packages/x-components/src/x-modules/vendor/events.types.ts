@@ -12,6 +12,21 @@ export interface VendorXEvents {
    * modelName is excluded since it is an internal field, and we will assign it under the hood.
    */
   VendorResultsChanged: Omit<VendorResult, 'modelName'>[]
+  /**
+   * The user viewed a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was viewed.
+   */
+  UserViewedAVendorResult: VendorResult
+  /**
+   * The user clicked on a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was clicked.
+   */
+  UserClickedAVendorResult: VendorResult
+  /**
+   * The user clicked on the add to cart button of a vendor result.
+   * Payload: The {@link VendorResult | vendor result} that was clicked.
+   */
+  UserClickedVendorResultAddToCart: VendorResult
 
   /**
    * The x consumer has provided vendor banners to be inserted in the result grid.
