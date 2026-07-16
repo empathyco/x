@@ -281,7 +281,10 @@
                                     </template>
 
                                     <template #vendor-banner="{ item: banner }">
-                                      <Banner :banner="banner" event="UserClickedAVendorBanner" />
+                                      <Banner
+                                        :banner="banner"
+                                        click-event="UserClickedAVendorBanner"
+                                      />
                                     </template>
 
                                     <template #promoted="{ item: promoted }">

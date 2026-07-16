@@ -60,7 +60,7 @@ export default defineComponent({
      *
      * @public
      */
-    event: {
+    clickEvent: {
       type: String as PropType<XEvent>,
       default: 'UserClickedABanner',
     },
@@ -81,7 +81,7 @@ export default defineComponent({
      * @internal
      */
     const emitClickEvent = (): void => {
-      xBus.emit(props.event, props.banner)
+      xBus.emit(props.clickEvent, props.banner)
     }
 
     /**
@@ -125,9 +125,9 @@ export default defineComponent({
 
 This component emits the following event:
 
-- `event` (default `UserClickedABanner`):
+- `clickEvent` (default `UserClickedABanner`):
   emitted when the user clicks the banner (if it has a URL). The event name can be customized
-  via the `event` prop.
+  via the `clickEvent` prop.
 
 ## See it in action
 

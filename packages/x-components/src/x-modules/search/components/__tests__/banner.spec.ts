@@ -11,7 +11,7 @@ function renderBanner({
   template = `<Banner v-bind="$attrs" />`,
   banner = createBannerStub('default-banner'),
   titleClass,
-  event,
+  clickEvent,
 }: RenderBannerOptions = {}) {
   const wrapper = mount(
     {
@@ -24,7 +24,7 @@ function renderBanner({
       props: {
         banner,
         titleClass,
-        event,
+        clickEvent,
       },
       global: {
         plugins: [installNewXPlugin()],
@@ -104,7 +104,7 @@ describe('testing Banner component', () => {
   it('allows customizing the click event via the event prop', async () => {
     const listener = vi.fn()
     const banner = createBannerStub('banner', { url: 'https://empathy.co' })
-    const { wrapper } = renderBanner({ banner, event: 'UserClickedAVendorBanner' })
+    const { wrapper } = renderBanner({ banner, clickEvent: 'UserClickedAVendorBanner' })
     XPlugin.bus.on('UserClickedAVendorBanner').subscribe(listener)
 
     await wrapper.trigger('click')
@@ -138,5 +138,5 @@ interface RenderBannerOptions {
   /** Class to customize the title element. */
   titleClass?: string
   /** Event to emit when the banner is clicked. */
-  event?: string
+  clickEvent?: string
 }
