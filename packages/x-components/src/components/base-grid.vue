@@ -141,12 +141,14 @@ export default defineComponent({
     const gridItems = computed<GridItem[]>(() =>
       (computedItems.value as ListItem[]).map(item => {
         const slotName = toKebabCase(item.modelName)
-        const baseClass = `x-base-grid__${slotName}`
-        const spanClass = item.span !== undefined ? `x-base-grid__item--span-${item.span}` : ''
+        const cssClass =
+          item.modelName === 'VendorBanner' && (item as any).position == null
+            ? `x-base-grid__${slotName} x-base-grid__${slotName}--full`
+            : `x-base-grid__${slotName}`
         return {
           slotName,
           item,
-          cssClass: `${baseClass}${spanClass ? ` ${spanClass}` : ''}`,
+          cssClass,
         }
       }),
     )
@@ -199,18 +201,9 @@ export default defineComponent({
 }
 
 .x-base-grid__banner,
+.x-base-grid__vendor-banner--full,
 .x-base-grid__next-queries-group,
 .x-base-grid__related-prompts-group {
-  grid-column-start: 1;
-  grid-column-end: -1;
-}
-
-.x-base-grid__item--span-1 {
-  grid-column-start: auto;
-  grid-column-end: span 1;
-}
-
-.x-base-grid__item--span-full {
   grid-column-start: 1;
   grid-column-end: -1;
 }
@@ -358,46 +351,6 @@ const items = [
   { id: 1, name: 'Item 1' },
   { id: 2, name: 'Item 2' },
   { id: 3, name: 'Item 3' },
-]
-</script>
-```
-
-### Customizing banner width using span
-
-The `span` property allows banners to control how many grid columns they span. Use `'full'` for full-width banners (default) or a number to span a specific number of columns.
-
-```vue
-<template>
-  <BaseGrid :items="items">
-    <template #banner="{ item }">
-      <span class="banner">
-        {{ item.title }}
-      </span>
-    </template>
-    <template #default="{ item }">
-      <span class="result">
-        {{ item.name }}
-      </span>
-    </template>
-  </BaseGrid>
-</template>
-
-<script setup>
-import { BaseGrid } from '@empathyco/x-components'
-const items = [
-  {
-    id: 'banner-1',
-    modelName: 'banner',
-    title: 'Full-width Banner',
-    span: 'full',
-  },
-  {
-    id: 'banner-2',
-    modelName: 'banner',
-    title: 'Result-sized Banner',
-    span: 1,
-  },
-  { id: 1, modelName: 'result', name: 'Result 1' },
 ]
 </script>
 ```

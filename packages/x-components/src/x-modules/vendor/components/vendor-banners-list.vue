@@ -52,9 +52,10 @@ export default defineComponent({
         return stateItems.value
       }
       const items = [...injectedListItems.value]
-      for (const item of stateItems.value) {
-        const position = item.position ?? 1
-        let index = position - 1
+      const positionedBanners = stateItems.value.filter(item => item.position != null)
+      const unpositionedBanners = stateItems.value.filter(item => item.position == null)
+      for (const item of positionedBanners) {
+        let index = item.position! - 1
         while (items.at(index)?.modelName === 'VendorBanner') {
           index++
         }
@@ -65,6 +66,7 @@ export default defineComponent({
         }
         items.splice(index, 0, item)
       }
+      items.unshift(...unpositionedBanners)
       return items
     })
 

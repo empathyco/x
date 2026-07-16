@@ -1,4 +1,4 @@
-import type { Banner, NamedModel, Result, Spannable } from '@empathyco/x-types'
+import type { Banner, NamedModel, Result } from '@empathyco/x-types'
 
 export interface VendorResultTagging {
   viewUrl: string
@@ -18,7 +18,6 @@ export interface VendorResult
 /**
  * The interface for a vendor banner, extending the base Banner interface.
  */
-export interface VendorBanner
-  extends Omit<Banner, 'modelName'>, NamedModel<'VendorBanner'>, Spannable {
-  position: number
+export interface VendorBanner extends Omit<Banner, 'modelName'>, NamedModel<'VendorBanner'> {
+  position?: number
 }

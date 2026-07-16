@@ -1,4 +1,4 @@
-import type { Identifiable, NamedModel, Spannable } from '@empathyco/x-types'
+import type { Identifiable, NamedModel } from '@empathyco/x-types'
 import type { AnyFunction, Dictionary } from '@empathyco/x-utils'
 import type { XEventsTypes } from '../wiring/events.types'
 import type { XModuleName } from '../x-modules/x-modules.types'
@@ -140,7 +140,7 @@ export type EventsForDirectionLimit = {
  *
  * @public
  */
-export type ListItem = Identifiable & NamedModel & Spannable
+export type ListItem = Identifiable & NamedModel
 
 /**
  * The type returned by the {@link debounce} function. Basically is the function the
