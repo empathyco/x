@@ -81,6 +81,10 @@ export const aiWiring = createWiring({
     resetAiQueryWire,
     resetSearchTotalResultsWire,
   },
+  UserBrowsedToCategory: {
+    resetAiQueryWire,
+    resetSearchTotalResultsWire,
+  },
   ResultsChanged: {
     setExcludedResultIdsWire,
   },

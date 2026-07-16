@@ -142,6 +142,13 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
 const setQuery = wireFacetsService('setQuery')
 
 /**
+ * Clear the facets state `query` .
+ *
+ * @public
+ */
+const clearQuery = wireFacetsService('setQuery', '')
+
+/**
  * Removes all the sticky filters from the state.
  *
  * @internal
@@ -224,6 +231,9 @@ export const facetsWiring = createWiring({
   UserClearedQuery: {
     clearAllFiltersButStickyWire,
     setQuery,
+  },
+  UserBrowsedToCategory: {
+    clearQuery,
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire,

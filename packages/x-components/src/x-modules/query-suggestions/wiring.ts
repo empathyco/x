@@ -134,6 +134,10 @@ export const querySuggestionsWiring = createWiring({
     clearQuerySuggestionsQuery,
     cancelFetchAndSaveSuggestionsWire,
   },
+  UserBrowsedToCategory: {
+    clearQuerySuggestionsQuery,
+    cancelFetchAndSaveSuggestionsWire,
+  },
   QuerySuggestionsRequestUpdated: {
     fetchAndSaveSuggestionsWire,
   },
