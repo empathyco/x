@@ -19,6 +19,12 @@ const trackResultClick = createWireFromFunction<XEventPayload<'UserClickedAVendo
 const trackResultAddToCart = createWireFromFunction<
   XEventPayload<'UserClickedVendorResultAddToCart'>
 >(({ eventPayload: { tagging } }) => tagging?.add2cartUrl && void fetchTagging(tagging.add2cartUrl))
+const trackBannerView = createWireFromFunction<XEventPayload<'UserViewedAVendorBanner'>>(
+  ({ eventPayload: { tagging } }) => tagging?.viewUrl && void fetchTagging(tagging.viewUrl),
+)
+const trackBannerClick = createWireFromFunction<XEventPayload<'UserClickedAVendorBanner'>>(
+  ({ eventPayload: { tagging } }) => tagging?.clickUrl && void fetchTagging(tagging.clickUrl),
+)
 /**
  * Sets the vendor results of the {@link VendorXModule}.
  *
@@ -78,6 +84,12 @@ export const vendorWiring = createWiring({
   },
   UserClickedVendorResultAddToCart: {
     trackResultAddToCart,
+  },
+  UserViewedAVendorBanner: {
+    trackBannerView,
+  },
+  UserClickedAVendorBanner: {
+    trackBannerClick,
   },
   VendorBannersChanged: {
     setBanners,

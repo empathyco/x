@@ -29,6 +29,17 @@ export interface VendorXEvents {
   UserClickedVendorResultAddToCart: VendorResult
 
   /**
+   * The user viewed a vendor banner.
+   * Payload: The {@link VendorBanner | vendor banner} that was viewed.
+   */
+  UserViewedAVendorBanner: VendorBanner
+  /**
+   * The user clicked on a vendor banner.
+   * Payload: The {@link VendorBanner | vendor banner} that was clicked.
+   */
+  UserClickedAVendorBanner: VendorBanner
+
+  /**
    * The x consumer has provided vendor banners to be inserted in the result grid.
    * Payload: The array of vendor banner inputs with their items and positions.
    * modelName is excluded since it is an internal field, and we will assign it under the hood.
