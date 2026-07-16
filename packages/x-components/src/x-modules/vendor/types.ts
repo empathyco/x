@@ -17,6 +17,9 @@ export interface VendorResult
 
 /**
  * The interface for a vendor banner, extending the base Banner interface.
+ * The optional position means:
+ * - If the position is defined, the banner will be displayed in that position inside the grid.
+ * - If the position is undefined, the banner will be displayed on top of the grid and full width.
  */
 export interface VendorBanner extends Omit<Banner, 'modelName'>, NamedModel<'VendorBanner'> {
   position?: number
