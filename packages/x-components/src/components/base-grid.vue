@@ -143,7 +143,7 @@ export default defineComponent({
         const slotName = toKebabCase(item.modelName)
         let cssClass = `x-base-grid__${slotName}`
         if (item.modelName === 'VendorBanner' && (item as any).position === undefined) {
-          cssClass += `x-base-grid__${slotName}--row`
+          cssClass += ` x-base-grid__${slotName}--row`
         }
         return {
           slotName,
