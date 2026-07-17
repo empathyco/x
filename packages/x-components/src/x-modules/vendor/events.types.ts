@@ -34,4 +34,15 @@ export interface VendorXEvents {
    * modelName is excluded since it is an internal field, and we will assign it under the hood.
    */
   VendorBannersChanged: Omit<VendorBanner, 'modelName'>[]
+
+  /**
+   * The user viewed a vendor banner.
+   * Payload: The {@link VendorBanner | vendor banner} that was viewed.
+   */
+  UserViewedAVendorBanner: VendorBanner
+  /**
+   * The user clicked on a vendor banner.
+   * Payload: The {@link VendorBanner | vendor banner} that was clicked.
+   */
+  UserClickedAVendorBanner: VendorBanner
 }

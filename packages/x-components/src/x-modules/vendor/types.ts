@@ -7,6 +7,16 @@ export interface VendorResultTagging {
 }
 
 /**
+ * The tagging info for a vendor banner.
+ *
+ * @public
+ */
+export interface VendorBannerTagging {
+  clickUrl: string
+  viewUrl: string
+}
+
+/**
  * The interface for a vendor result, extending the base Result interface.
  */
 export interface VendorResult
@@ -21,6 +31,8 @@ export interface VendorResult
  * - If the position is defined, the banner will be displayed in that position inside the grid.
  * - If the position is undefined, the banner will be displayed on top of the grid and full width.
  */
-export interface VendorBanner extends Omit<Banner, 'modelName'>, NamedModel<'VendorBanner'> {
+export interface VendorBanner
+  extends Omit<Banner, 'modelName' | 'tagging'>, NamedModel<'VendorBanner'> {
   position?: number
+  tagging?: VendorBannerTagging
 }

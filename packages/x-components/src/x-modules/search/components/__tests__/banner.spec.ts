@@ -11,6 +11,7 @@ function renderBanner({
   template = `<Banner v-bind="$attrs" />`,
   banner = createBannerStub('default-banner'),
   titleClass,
+  clickEvent,
 }: RenderBannerOptions = {}) {
   const wrapper = mount(
     {
@@ -23,6 +24,7 @@ function renderBanner({
       props: {
         banner,
         titleClass,
+        clickEvent,
       },
       global: {
         plugins: [installNewXPlugin()],
@@ -99,6 +101,24 @@ describe('testing Banner component', () => {
     expect(listener).toHaveBeenCalledTimes(0)
   })
 
+  it('allows customizing the click event via the event prop', async () => {
+    const listener = vi.fn()
+    const banner = createBannerStub('banner', { url: 'https://empathy.co' })
+    const { wrapper } = renderBanner({ banner, clickEvent: 'UserClickedAVendorBanner' })
+    XPlugin.bus.on('UserClickedAVendorBanner').subscribe(listener)
+
+    await wrapper.trigger('click')
+    expect(listener).toHaveBeenNthCalledWith(1, banner)
+
+    await wrapper.trigger('click', { button: 1 })
+    expect(listener).toHaveBeenNthCalledWith(2, banner)
+
+    await wrapper.trigger('click', { button: 2 })
+    expect(listener).toHaveBeenNthCalledWith(3, banner)
+
+    expect(listener).toHaveBeenCalledTimes(3)
+  })
+
   it('allows adding classes to the title', () => {
     const { wrapper } = renderBanner({
       banner: createBannerStub('banner', { title: 'Search UIs' }),
@@ -117,4 +137,6 @@ interface RenderBannerOptions {
   template?: string
   /** Class to customize the title element. */
   titleClass?: string
+  /** Event to emit when the banner is clicked. */
+  clickEvent?: string
 }

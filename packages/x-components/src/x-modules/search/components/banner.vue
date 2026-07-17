@@ -23,6 +23,7 @@
 <script lang="ts">
 import type { Banner as BannerModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { XEvent } from '../../../wiring'
 import { defineComponent, ref } from 'vue'
 import { useXBus } from '../../../composables/use-x-bus'
 import { searchXModule } from '../x-module'
@@ -54,6 +55,15 @@ export default defineComponent({
       required: true,
     },
     titleClass: String,
+    /**
+     * Event to emit when the banner is clicked.
+     *
+     * @public
+     */
+    clickEvent: {
+      type: String as PropType<XEvent>,
+      default: 'UserClickedABanner',
+    },
   },
   setup(props) {
     const xBus = useXBus()
@@ -71,7 +81,7 @@ export default defineComponent({
      * @internal
      */
     const emitClickEvent = (): void => {
-      xBus.emit('UserClickedABanner', props.banner)
+      xBus.emit(props.clickEvent, props.banner)
     }
 
     /**
@@ -115,8 +125,9 @@ export default defineComponent({
 
 This component emits the following event:
 
-- [`UserClickedABanner`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  emitted when the user clicks the banner (if it has a URL).
+- `clickEvent` (default `UserClickedABanner`):
+  emitted when the user clicks the banner (if it has a URL). The event name can be customized
+  via the `clickEvent` prop.
 
 ## See it in action
 
