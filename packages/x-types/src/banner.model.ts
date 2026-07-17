@@ -9,7 +9,7 @@ import type { Taggable } from './tagging.model'
  *
  * @public
  */
-export interface Banner extends NamedModel<'Banner'>, Identifiable, Taggable {
+export interface Banner extends NamedModel<'Banner' | 'VendorBanner'>, Identifiable, Taggable {
   /** Banner title. */
   title?: string
   /** URL to redirect. */

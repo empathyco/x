@@ -281,10 +281,7 @@
                                     </template>
 
                                     <template #vendor-banner="{ item: banner }">
-                                      <Banner
-                                        :banner="banner"
-                                        click-event="UserClickedAVendorBanner"
-                                      />
+                                      <Banner :banner="banner" />
                                     </template>
 
                                     <template #promoted="{ item: promoted }">
@@ -566,7 +563,6 @@ import {
 import { RelatedTags } from '@x/x-modules/related-tags'
 import { MainScrollItem, ScrollToTop } from '@x/x-modules/scroll'
 import {
-  Banner,
   BannersList,
   FallbackDisclaimer,
   PartialQueryButton,
@@ -589,6 +585,7 @@ import { VendorBannersList, VendorResultsList } from '@x/x-modules/vendor'
 import { computed, ref } from 'vue'
 import MainScroll from '../../../src/x-modules/scroll/components/main-scroll.vue'
 import Scroll from '../../../src/x-modules/scroll/components/scroll.vue'
+import Banner from './banner.vue'
 import DisplayResultProvider from './display-result-provider.vue'
 import FacetsAside from './facets-aside.vue'
 import PredictiveLayer from './predictive-layer.vue'
