@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.7.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.6.0...@empathyco/x-types@10.7.0) (2026-07-17)
+
+### Features
+
+* **vendor:** vendor banner events (#2140)
+
+
 ## [10.6.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.5.0...@empathyco/x-types@10.6.0) (2026-07-13)
 
 ### Features
