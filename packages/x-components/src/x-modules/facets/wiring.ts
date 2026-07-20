@@ -233,6 +233,7 @@ export const facetsWiring = createWiring({
     setQuery,
   },
   UserBrowsedToCategory: {
+    clearAllFiltersButStickyWire,
     clearQuery,
   },
   UserClickedOpenX: {
