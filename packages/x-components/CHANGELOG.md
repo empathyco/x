@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.7.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.6.0...@empathyco/x-components@8.7.0) (2026-07-20)
+
+### Features
+
+* reset searchbox query and facets when UserBrowsedToCategory (#2141)
+
+
 ## [8.6.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.5.0...@empathyco/x-components@8.6.0) (2026-07-17)
 
 ### Features
