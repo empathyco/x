@@ -356,12 +356,6 @@ export default defineComponent({
       $x.emit('ExtraParamsLoadedFromUrl', extra, metadata)
       if (all.query) {
         $x.emit('UserOpenXProgrammatically', undefined, metadata)
-      } else if (all.browseField && all.browseValue) {
-        $x.emit(
-          'UserBrowsedToCategory',
-          { browseValue: all.browseValue, browseField: all.browseField },
-          metadata,
-        )
       }
       urlLoaded.value = true
     }
