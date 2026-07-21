@@ -26,6 +26,10 @@ export interface TaggingState {
    * Tagging info for last accepted query.
    */
   queryTaggingInfo: TaggingRequest | null
+  /**
+   * Tagging info for last accepted browse category.
+   */
+  browseTaggingInfo: TaggingRequest | null
 }
 
 /**
@@ -59,6 +63,12 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    * @param module - The name of the register module.
    */
   setNoResultsTaggingEnabled: (module: XModuleName) => void
+  /**
+   * Sets the {@link TaggingState.browseTaggingInfo} property.
+   *
+   * @param browseTaggingInfo - The new {@link TaggingState.browseTaggingInfo}.
+   */
+  setBrowseTaggingInfo: (browseTaggingInfo: TaggingRequest) => void
 }
 
 /**

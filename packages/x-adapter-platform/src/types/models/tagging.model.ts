@@ -8,4 +8,8 @@ export interface PlatformTagging {
   checkout: string
   click: string
   displayClick: string
+  browseAdd2Cart: string
+  browseProduct: string
+  browseCheckout: string
+  displayBrowseProduct: string
 }

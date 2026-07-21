@@ -9,6 +9,7 @@ import { taggingXStoreModule } from './module'
 export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
   ConsentChanged: state => state.consent!,
   SearchTaggingReceived: state => state.queryTaggingInfo!,
+  BrowseTaggingReceived: state => state.browseTaggingInfo!,
   ResultURLTrackingEnabled: {
     selector: state => state.config.storageKey!,
     filter: newValue => newValue === 'url',

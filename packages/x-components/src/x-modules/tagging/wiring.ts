@@ -131,6 +131,18 @@ export const trackQueryWire = filter(
 )
 
 /**
+ * Tracks the tagging of the browse category.
+ *
+ * @public
+ */
+export const trackBrowseWire = filter(
+  wireDispatch('track'),
+  ({ eventPayload, store }) =>
+    ((eventPayload as TaggingRequest).params.totalHits as number) > 0 ||
+    !store.state.x.tagging.noResultsTaggingEnabled,
+)
+
+/**
  * Sets the tagging state of the query tagging info using a debounce which ends if the user
  * accepts a query.
  *
@@ -141,6 +153,27 @@ export const setQueryTaggingInfo = moduleDebounce(
   ({ state }) => state.config.queryTaggingDebounceMs,
   {
     cancelOn: 'UserClearedQuery',
+    forceOn: [
+      'UserClickedAResult',
+      'UserClickedAPromoted',
+      'UserClickedABanner',
+      'UserClickedARedirection',
+      'UserReachedResultsListEnd',
+    ],
+  },
+)
+
+/**
+ * Sets the tagging state of the browse tagging info using a debounce which ends if the user
+ * accepts a query.
+ *
+ * @public
+ */
+export const setBrowseTaggingInfo = moduleDebounce(
+  wireCommit('setBrowseTaggingInfo'),
+  ({ state }) => state.config.queryTaggingDebounceMs,
+  {
+    cancelOn: ['UserClickedOpenX', 'UserOpenXProgrammatically'],
     forceOn: [
       'UserClickedAResult',
       'UserClickedAPromoted',
@@ -458,6 +491,12 @@ export const taggingWiring = createWiring({
   },
   SearchTaggingReceived: {
     trackQueryWire,
+  },
+  BrowseTaggingChanged: {
+    setBrowseTaggingInfo,
+  },
+  BrowseTaggingReceived: {
+    trackBrowseWire,
   },
   TrackableElementDisplayed: {
     trackElementDisplayedWire,

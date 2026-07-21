@@ -35,6 +35,11 @@ export interface TaggingXEvents {
    */
   SearchTaggingReceived: TaggingRequest
   /**
+   * Browse tagging info has changed.
+   * Payload: The new browse tagging info.
+   */
+  BrowseTaggingReceived: TaggingRequest
+  /**
    * Display trackable element has appeared in the viewport.
    * Payload: The display tagging info.
    */
