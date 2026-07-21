@@ -53,7 +53,7 @@
     "jsdom": "29.1.1",
     "typescript": "5.9.3",
     "vite": "6.4.3",
-    "vite-plugin-dts": "4.5.4",
+    "vite-plugin-dts": "5.0.3",
     "vite-plugin-static-copy": "4.1.1",
     "vitest": "4.1.9",
     "vue": "3.5.39"
