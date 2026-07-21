@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.7.2...@empathyco/x-adapter-platform@1.8.0) (2026-07-21)
+
+### Features
+
+* implement browse tagging (#2129)
+
+
 ## [1.7.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.7.1...@empathyco/x-adapter-platform@1.7.2) (2026-07-17)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

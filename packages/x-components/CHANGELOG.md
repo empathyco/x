@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.8.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.7.0...@empathyco/x-components@8.8.0) (2026-07-21)
+
+### Features
+
+* implement browse tagging (#2129)
+
+
 ## [8.7.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.6.0...@empathyco/x-components@8.7.0) (2026-07-20)
 
 ### Features
