@@ -1,6 +1,7 @@
 import type { VendorXStoreModule } from './types'
 import { setQuery } from '../../../store/utils/query.utils'
 import { setUrlParams } from './actions/set-url-params.action'
+import { query } from './getters/query.getter'
 
 /**
  * Function to return the "resettable" part of the state.
@@ -12,6 +13,7 @@ import { setUrlParams } from './actions/set-url-params.action'
 export function resettableVendorState() {
   return {
     banners: [],
+    relatedTags: [],
     results: [],
   }
 }
@@ -22,12 +24,15 @@ export const vendorXStoreModule: VendorXStoreModule = {
     ...resettableVendorState(),
   }),
   getters: {
-    query: state => state.query,
+    query,
   },
   mutations: {
     setQuery,
     setBanners(state, banners) {
       state.banners = banners
+    },
+    setRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags
     },
     setResults(state, results) {
       state.results = results
