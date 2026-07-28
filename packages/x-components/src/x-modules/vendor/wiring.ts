@@ -102,6 +102,13 @@ const resetVendorState = wireCommitWithoutPayload('resetState')
 const setUrlParams = wireDispatch('setUrlParams')
 
 /**
+ * Sets the vendor related tags of the {@link VendorXModule}.
+ *
+ * @public
+ */
+const setVendorRelatedTags = wireCommit('setRelatedTags')
+
+/**
  * Wiring configuration for the {@link VendorXModule | vendor module}.
  *
  * @internal
@@ -130,6 +137,10 @@ export const vendorWiring = createWiring({
   },
   UserClickedAVendorBanner: {
     trackBannerClick,
+  },
+  SelectedRelatedTagsChanged: {
+    resetVendorState,
+    setVendorRelatedTags,
   },
   UserAcceptedAQuery: {
     resetVendorState,
