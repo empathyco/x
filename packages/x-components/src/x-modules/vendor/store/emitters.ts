@@ -6,4 +6,6 @@ import { vendorXStoreModule } from './module'
  *
  * @internal
  */
-export const vendorEmitters = createStoreEmitters(vendorXStoreModule, {})
+export const vendorEmitters = createStoreEmitters(vendorXStoreModule, {
+  VendorQueryChanged: (_, getters) => getters.query,
+})

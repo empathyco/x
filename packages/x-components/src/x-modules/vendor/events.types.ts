@@ -45,4 +45,10 @@ export interface VendorXEvents {
    * Payload: The {@link VendorBanner | vendor banner} that was clicked.
    */
   UserClickedAVendorBanner: VendorBanner
+
+  /**
+   * The vendor module query has changed.
+   * Payload: The new vendor query string.
+   */
+  VendorQueryChanged: string
 }

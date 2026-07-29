@@ -1,5 +1,11 @@
 import type { WirePayload, XEventPayload } from '../../wiring'
-import { createWireFromFunction, createWiring, namespacedWireCommit } from '../../wiring'
+import {
+  createWireFromFunction,
+  createWiring,
+  namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
+  namespacedWireDispatch,
+} from '../../wiring'
 
 /**
  * WireCommit for {@link VendorXModule}.
@@ -7,6 +13,20 @@ import { createWireFromFunction, createWiring, namespacedWireCommit } from '../.
  * @internal
  */
 const wireCommit = namespacedWireCommit('vendor')
+
+/**
+ * WireCommitWithoutPayload for {@link VendorXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload('vendor')
+
+/**
+ * WireDispatch for {@link VendorXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch('vendor')
 
 const fetchTagging = async (url: string) => fetch(url, { method: 'GET', keepalive: true })
 
@@ -54,18 +74,39 @@ export const setBanners = wireCommit(
 )
 
 /**
- * Resets the vendor results of the {@link VendorXModule}.
+ * Sets the vendor query of the {@link VendorXModule}.
  *
  * @public
  */
-const resetResults = wireCommit('setResults', [])
+const setVendorQuery = wireCommit('setQuery')
 
 /**
- * Resets the vendor banners of the {@link VendorXModule}.
+ * Resets the vendor query of the {@link VendorXModule}.
  *
  * @public
  */
-const resetBanners = wireCommit('setBanners', [])
+const resetVendorQuery = wireCommit('setQuery', '')
+
+/**
+ * Resets the vendor state of the {@link VendorXModule}.
+ *
+ * @public
+ */
+const resetVendorState = wireCommitWithoutPayload('resetState')
+
+/**
+ * Sets the vendor state from URL data.
+ *
+ * @public
+ */
+const setUrlParams = wireDispatch('setUrlParams')
+
+/**
+ * Sets the vendor related tags of the {@link VendorXModule}.
+ *
+ * @public
+ */
+const setVendorRelatedTags = wireCommit('setRelatedTags')
 
 /**
  * Wiring configuration for the {@link VendorXModule | vendor module}.
@@ -73,6 +114,9 @@ const resetBanners = wireCommit('setBanners', [])
  * @internal
  */
 export const vendorWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams,
+  },
   VendorResultsChanged: {
     setResults,
   },
@@ -94,8 +138,20 @@ export const vendorWiring = createWiring({
   UserClickedAVendorBanner: {
     trackBannerClick,
   },
-  SearchRequestChanged: {
-    resetResults,
-    resetBanners,
+  SelectedRelatedTagsChanged: {
+    resetVendorState,
+    setVendorRelatedTags,
+  },
+  UserAcceptedAQuery: {
+    resetVendorState,
+    setVendorQuery,
+  },
+  UserClearedQuery: {
+    resetVendorState,
+    resetVendorQuery,
+  },
+  UserBrowsedToCategory: {
+    resetVendorState,
+    resetVendorQuery,
   },
 })
