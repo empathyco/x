@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.10.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.9.0...@empathyco/x-components@8.10.0) (2026-07-30)
+
+### Features
+
+* **vendor:** add mounted event tracking for vendor banners and results (#2146)
+
+
 ## [8.9.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.8.1...@empathyco/x-components@8.9.0) (2026-07-29)
 
 ### Features
