@@ -1,6 +1,7 @@
 import type { Banner, NamedModel, Result } from '@empathyco/x-types'
 
 export interface VendorResultTagging {
+  mountedUrl: string
   viewUrl: string
   clickUrl: string
   add2cartUrl: string
@@ -12,6 +13,7 @@ export interface VendorResultTagging {
  * @public
  */
 export interface VendorBannerTagging {
+  mountedUrl: string
   clickUrl: string
   viewUrl: string
 }

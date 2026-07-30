@@ -13,7 +13,7 @@ import type { PropType } from 'vue'
 import { useElementVisibility } from '@vueuse/core'
 import { useXBus } from '@x/composables'
 import { Banner } from '@x/x-modules/search'
-import { useTemplateRef, watch } from 'vue'
+import { computed, onMounted, useTemplateRef, watch } from 'vue'
 const props = defineProps({
   banner: {
     type: Object as PropType<BannerModel>,
@@ -22,15 +22,17 @@ const props = defineProps({
 })
 
 const { emit } = useXBus()
-const bannerRef = useTemplateRef('banner')
-const isVisible = useElementVisibility(bannerRef, { once: true })
 
-watch(isVisible, visible => {
-  if (visible && props.banner.modelName === 'VendorBanner') {
-    setTimeout(
-      () => emit('UserViewedAVendorBanner', props.banner as VendorBanner),
-      Math.random() * 1000, // Simulate delay since multiple emits of the same event at the same time are cancelling some of them
-    )
-  }
-})
+const isVendorBanner = computed(() => props.banner.modelName === 'VendorBanner')
+
+if (isVendorBanner.value) {
+  onMounted(() => {
+    emit('VendorBannerMounted', props.banner as VendorBanner)
+  })
+  const bannerRef = useTemplateRef('banner')
+  const isVisible = useElementVisibility(bannerRef, { once: true })
+  watch(isVisible, async visible => {
+    visible && (await emit('UserViewedAVendorBanner', props.banner as VendorBanner))
+  })
+}
 </script>
