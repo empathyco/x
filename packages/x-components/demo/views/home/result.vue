@@ -45,7 +45,7 @@ import {
   BaseResultRating,
 } from '@x/components/result'
 import { useXBus } from '@x/composables'
-import { computed, useTemplateRef, watch } from 'vue'
+import { computed, onMounted, useTemplateRef, watch } from 'vue'
 
 const props = defineProps({
   result: {
@@ -53,27 +53,29 @@ const props = defineProps({
     required: true,
   },
 })
-const resultRef = useTemplateRef('result')
-const isVisible = useElementVisibility(resultRef, { once: true })
 const crossFade = CrossFade
 const { emit } = useXBus()
 
-const events = computed<Record<'addToCart' | 'click', XEvent> | undefined>(() => {
-  if (props.result.modelName === 'VendorResult') {
-    return {
-      addToCart: 'UserClickedVendorResultAddToCart',
-      click: 'UserClickedAVendorResult',
-    }
-  }
-  return undefined
-})
+const isVendorResult = computed(() => props.result.modelName === 'VendorResult')
 
-watch(isVisible, visible => {
-  if (visible && props.result.modelName === 'VendorResult') {
-    setTimeout(
-      () => emit('UserViewedAVendorResult', props.result as VendorResult),
-      Math.random() * 1000, // Simulate delay since multiple emits of the same event at the same time are cancelling some of them
-    )
-  }
-})
+const vendorEvents: Record<'addToCart' | 'click', XEvent> = {
+  addToCart: 'UserClickedVendorResultAddToCart',
+  click: 'UserClickedAVendorResult',
+}
+
+const events = computed<typeof vendorEvents | undefined>(() =>
+  isVendorResult.value ? vendorEvents : undefined,
+)
+
+if (isVendorResult.value) {
+  onMounted(() => {
+    emit('VendorResultMounted', props.result as VendorResult)
+  })
+
+  const resultRef = useTemplateRef('result')
+  const isVisible = useElementVisibility(resultRef, { once: true })
+  watch(isVisible, async visible => {
+    visible && (await emit('UserViewedAVendorResult', props.result as VendorResult))
+  })
+}
 </script>

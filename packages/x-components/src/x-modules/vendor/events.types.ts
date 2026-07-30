@@ -13,6 +13,11 @@ export interface VendorXEvents {
    */
   VendorResultsChanged: Omit<VendorResult, 'modelName'>[]
   /**
+   * A vendor result has been inserted in the DOM.
+   * Payload: The {@link VendorResult | vendor result} that was mounted.
+   */
+  VendorResultMounted: VendorResult
+  /**
    * The user viewed a vendor result.
    * Payload: The {@link VendorResult | vendor result} that was viewed.
    */
@@ -35,6 +40,11 @@ export interface VendorXEvents {
    */
   VendorBannersChanged: Omit<VendorBanner, 'modelName'>[]
 
+  /**
+   * A vendor banner has been inserted in the DOM.
+   * Payload: The {@link VendorBanner | vendor banner} that was mounted.
+   */
+  VendorBannerMounted: VendorBanner
   /**
    * The user viewed a vendor banner.
    * Payload: The {@link VendorBanner | vendor banner} that was viewed.

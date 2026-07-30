@@ -30,6 +30,9 @@ const wireDispatch = namespacedWireDispatch('vendor')
 
 const fetchTagging = async (url: string) => fetch(url, { method: 'GET', keepalive: true })
 
+const trackResultMounted = createWireFromFunction<XEventPayload<'VendorResultMounted'>>(
+  ({ eventPayload: { tagging } }) => tagging?.mountedUrl && void fetchTagging(tagging.mountedUrl),
+)
 const trackResultView = createWireFromFunction<XEventPayload<'UserViewedAVendorResult'>>(
   ({ eventPayload: { tagging } }) => tagging?.viewUrl && void fetchTagging(tagging.viewUrl),
 )
@@ -39,6 +42,9 @@ const trackResultClick = createWireFromFunction<XEventPayload<'UserClickedAVendo
 const trackResultAddToCart = createWireFromFunction<
   XEventPayload<'UserClickedVendorResultAddToCart'>
 >(({ eventPayload: { tagging } }) => tagging?.add2cartUrl && void fetchTagging(tagging.add2cartUrl))
+const trackBannerMounted = createWireFromFunction<XEventPayload<'VendorBannerMounted'>>(
+  ({ eventPayload: { tagging } }) => tagging?.mountedUrl && void fetchTagging(tagging.mountedUrl),
+)
 const trackBannerView = createWireFromFunction<XEventPayload<'UserViewedAVendorBanner'>>(
   ({ eventPayload: { tagging } }) => tagging?.viewUrl && void fetchTagging(tagging.viewUrl),
 )
@@ -120,6 +126,9 @@ export const vendorWiring = createWiring({
   VendorResultsChanged: {
     setResults,
   },
+  VendorResultMounted: {
+    trackResultMounted,
+  },
   UserViewedAVendorResult: {
     trackResultView,
   },
@@ -131,6 +140,9 @@ export const vendorWiring = createWiring({
   },
   VendorBannersChanged: {
     setBanners,
+  },
+  VendorBannerMounted: {
+    trackBannerMounted,
   },
   UserViewedAVendorBanner: {
     trackBannerView,
