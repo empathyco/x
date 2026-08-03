@@ -200,8 +200,8 @@
                       <QueryPreviewList
                         v-slot="{
                           queryPreviewInfo,
+                          queryPreviewHash,
                           totalResults,
-                          results,
                           displayTagging,
                           queryTagging,
                         }"
