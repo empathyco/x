@@ -4,7 +4,9 @@
       v-for="(queryPreview, index) in renderedQueryPreviews"
       :key="index"
       :class="{ 'padding-block-1': loadWhenVisible }"
-      :data-query-preview-hash="getHashFromQueryPreviewInfo(queryPreview, { ...params, ...queryPreview.extraParams })"
+      :data-query-preview-hash="
+        getHashFromQueryPreviewInfo(queryPreview, { ...params, ...queryPreview.extraParams })
+      "
       data-test="query-preview-item"
     >
       <QueryPreview
@@ -326,10 +328,7 @@ inserted within its results. The order of the nested components defines the merg
 
 ```vue
 <template>
-  <QueryPreviewList
-    :queriesPreviewInfo="queriesPreviewInfo"
-    #default="{ queryPreviewHash }"
-  >
+  <QueryPreviewList :queriesPreviewInfo="queriesPreviewInfo" #default="{ queryPreviewHash }">
     <VendorResultsList :queryPreviewHash="queryPreviewHash">
       <VendorBannersList :queryPreviewHash="queryPreviewHash">
         <BaseGrid>

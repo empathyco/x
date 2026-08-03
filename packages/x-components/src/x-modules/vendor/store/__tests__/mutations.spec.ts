@@ -1,11 +1,6 @@
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { VendorBanner, VendorResult } from '../../types'
-import type {
-  VendorActions,
-  VendorGetters,
-  VendorMutations,
-  VendorState,
-} from '../types'
+import type { VendorActions, VendorGetters, VendorMutations, VendorState } from '../types'
 import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
 import { vendorXStoreModule } from '../module'
@@ -27,7 +22,13 @@ function createVendorBannerStub(
   id: string,
   banner?: Partial<Omit<VendorBanner, 'modelName' | 'image'>>,
 ): VendorBanner {
-  return { id: `vb-${id}`, modelName: 'VendorBanner', image: `vb-${id}.jpg`, position: 1, ...banner }
+  return {
+    id: `vb-${id}`,
+    modelName: 'VendorBanner',
+    image: `vb-${id}.jpg`,
+    position: 1,
+    ...banner,
+  }
 }
 
 describe('testing vendor module mutations', () => {

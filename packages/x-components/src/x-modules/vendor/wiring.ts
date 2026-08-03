@@ -93,13 +93,13 @@ export const setQueryPreviewVendorBanners = wireCommit('setQueryPreviewVendorBan
  *
  * @internal
  */
-const removeQueryPreviewVendorData = createWireFromFunction<
-  XEventPayload<'QueryPreviewUnmounted'>
->(({ eventPayload, store }) => {
-  if (!eventPayload.cache) {
-    store.commit('x/vendor/removeQueryPreviewVendorData', eventPayload.queryPreviewHash)
-  }
-})
+const removeQueryPreviewVendorData = createWireFromFunction<XEventPayload<'QueryPreviewUnmounted'>>(
+  ({ eventPayload, store }) => {
+    if (!eventPayload.cache) {
+      store.commit('x/vendor/removeQueryPreviewVendorData', eventPayload.queryPreviewHash)
+    }
+  },
+)
 
 /**
  * Sets the vendor query of the {@link VendorXModule}.
