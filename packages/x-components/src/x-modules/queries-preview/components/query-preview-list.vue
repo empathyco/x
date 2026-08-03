@@ -4,6 +4,7 @@
       v-for="(queryPreview, index) in renderedQueryPreviews"
       :key="index"
       :class="{ 'padding-block-1': loadWhenVisible }"
+      :data-query-preview-hash="getHashFromQueryPreviewInfo(queryPreview, { ...params, ...queryPreview.extraParams })"
       data-test="query-preview-item"
     >
       <QueryPreview
@@ -210,9 +211,11 @@ export default defineComponent({
     }
 
     return {
+      params,
       renderedQueryPreviews,
       flagAsFailed,
       flagAsLoaded,
+      getHashFromQueryPreviewInfo,
     }
   },
 })
@@ -306,6 +309,49 @@ In this example, the ID of the results will be rendered along with the name.
 
 <script setup>
 import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
+import { reactive } from 'vue'
+const queriesPreviewInfo = reactive([
+  { query: 'sandals' },
+  { query: 'tshirt' },
+  { query: 'jacket' },
+])
+</script>
+```
+
+### Play with vendor results and vendor banners
+
+The `VendorResultsList` and `VendorBannersList` components can be used inside the default slot of
+the `QueryPreviewList`, so the vendor results and vendor banners provided for each query are
+inserted within its results. The order of the nested components defines the merge strategy.
+
+```vue
+<template>
+  <QueryPreviewList
+    :queriesPreviewInfo="queriesPreviewInfo"
+    #default="{ queryPreviewHash }"
+  >
+    <VendorResultsList :queryPreviewHash="queryPreviewHash">
+      <VendorBannersList :queryPreviewHash="queryPreviewHash">
+        <BaseGrid>
+          <template #result="{ item }">
+            <span>Result: {{ item.id }}</span>
+          </template>
+          <template #vendor-result="{ item }">
+            <span>Vendor result: {{ item.id }}</span>
+          </template>
+          <template #vendor-banner="{ item }">
+            <span>Vendor banner: {{ item.id }}</span>
+          </template>
+        </BaseGrid>
+      </VendorBannersList>
+    </VendorResultsList>
+  </QueryPreviewList>
+</template>
+
+<script setup>
+import { BaseGrid } from '@empathyco/x-components'
+import { QueryPreviewList } from '@empathyco/x-components/queries-preview'
+import { VendorBannersList, VendorResultsList } from '@empathyco/x-components/vendor'
 import { reactive } from 'vue'
 const queriesPreviewInfo = reactive([
   { query: 'sandals' },

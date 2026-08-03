@@ -301,4 +301,116 @@ describe('testing VendorResultsList component', () => {
 
     expect(wrapper.text()).toEqual(searchResultsStub.map(r => r.id).join(','))
   })
+
+  it('renders the vendor results of the query preview when a query preview hash is provided', async () => {
+    const queryPreviewHash = 'preview-hash'
+    const queryPreviewVendorResults = [
+      createVendorResultStub('preview-1'),
+      createVendorResultStub('preview-2'),
+    ]
+    const globalVendorResults = [createVendorResultStub('global-1')]
+
+    const store = new Store<DeepPartial<RootXStoreState>>({})
+    const wrapper = mount(
+      {
+        components: { VendorResultsList },
+        template: '<VendorResultsList :query-preview-hash="queryPreviewHash" />',
+        data() {
+          return { queryPreviewHash }
+        },
+      },
+      {
+        global: {
+          plugins: [installNewXPlugin({ store, initialXModules: [searchXModule, vendorXModule] })],
+        },
+      },
+    )
+
+    store.replaceState({
+      x: {
+        search: { ...searchXStoreModule.state(), results: [], totalResults: 0 } as SearchState,
+        vendor: {
+          ...vendorXStoreModule.state(),
+          results: globalVendorResults,
+          queryPreviews: {
+            [queryPreviewHash]: { results: queryPreviewVendorResults, banners: [] },
+          },
+        } as VendorState,
+      },
+    } as any)
+    await nextTick()
+
+    const items = wrapper
+      .findComponent(VendorResultsList)
+      .findAll(getDataTestSelector('vendor-results-list-item'))
+
+    expect(items).toHaveLength(2)
+    expect(items.map(item => item.text())).toEqual(queryPreviewVendorResults.map(r => r.id))
+  })
+
+  it('inserts positioned results beyond loaded pages when a query preview hash is provided', async () => {
+    const queryPreviewHash = 'preview-hash'
+    const previewResultsStub = getResultsStub(2)
+    const queryPreviewVendorResults = [createVendorResultStub('1', { position: 10 })]
+
+    const Provider = defineComponent({
+      name: 'Provider',
+      setup() {
+        const providedStub = computed((): ListItem[] => previewResultsStub)
+        provide(LIST_ITEMS_KEY as string, providedStub)
+      },
+      template: `<div><slot /></div>`,
+    })
+
+    const Child = defineComponent({
+      name: 'Child',
+      setup() {
+        const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
+        const injectedListItemsString = computed(
+          () => injectedListItems?.value.map(item => item.id).join(',') ?? '',
+        )
+        return { injectedListItemsString }
+      },
+      template: `<p>{{ injectedListItemsString }}</p>`,
+    })
+
+    const store = new Store<DeepPartial<RootXStoreState>>({})
+    const wrapper = mount(
+      {
+        template:
+          '<Provider><VendorResultsList :query-preview-hash="queryPreviewHash"><Child /></VendorResultsList></Provider>',
+        components: { Provider, Child, VendorResultsList },
+        data() {
+          return { queryPreviewHash }
+        },
+      },
+      {
+        global: {
+          plugins: [installNewXPlugin({ store, initialXModules: [searchXModule, vendorXModule] })],
+        },
+      },
+    )
+
+    store.replaceState({
+      x: {
+        search: {
+          ...searchXStoreModule.state(),
+          results: getResultsStub(4),
+          totalResults: 100,
+        } as SearchState,
+        vendor: {
+          ...vendorXStoreModule.state(),
+          results: [],
+          queryPreviews: {
+            [queryPreviewHash]: { results: queryPreviewVendorResults, banners: [] },
+          },
+        } as VendorState,
+      },
+    } as any)
+    await nextTick()
+
+    expect(wrapper.text()).toEqual(
+      `${previewResultsStub.map(r => r.id).join(',')},${queryPreviewVendorResults[0].id}`,
+    )
+  })
 })

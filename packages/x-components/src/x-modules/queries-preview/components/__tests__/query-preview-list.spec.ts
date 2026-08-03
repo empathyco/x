@@ -7,6 +7,7 @@ import { nextTick } from 'vue'
 import { createResultStub, getEmptySearchResponseStub, getResultsStub } from '../../../../__stubs__'
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy'
 import { installNewXPlugin } from '../../../../__tests__/utils'
+import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-preview'
 import { queriesPreviewXModule } from '../../x-module'
 import QueryPreviewList from '../query-preview-list.vue'
 import QueryPreview from '../query-preview.vue'
@@ -103,6 +104,29 @@ describe('testing QueryPreviewList', () => {
     // Verify the loaded content
     const loadedPreviews = queryPreviews.filter(qp => qp.text() !== '')
     expect(loadedPreviews.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('adds a data-query-preview-hash attribute to each item with its query preview hash', async () => {
+    const queriesPreviewInfo: QueryPreviewInfo[] = [
+      { query: 'shirt', extraParams },
+      { query: 'jeans', extraParams },
+    ]
+    const { wrapper } = renderQueryPreviewList({
+      queriesPreviewInfo,
+      results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
+    })
+
+    vi.runAllTimers()
+    await flushPromises()
+    await nextTick()
+
+    const items = wrapper.findAll('[data-query-preview-hash]')
+    expect(items).toHaveLength(2)
+    items.forEach((item, index) => {
+      expect(item.attributes('data-query-preview-hash')).toEqual(
+        getHashFromQueryPreviewInfo(queriesPreviewInfo[index], extraParams),
+      )
+    })
   })
 
   it('should propagate global props from the list to each item', async () => {

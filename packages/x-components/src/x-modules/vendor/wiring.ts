@@ -75,6 +75,33 @@ export const setBanners = wireCommit(
 )
 
 /**
+ * Sets the vendor results of a query preview in the {@link VendorXModule}.
+ *
+ * @public
+ */
+export const setQueryPreviewVendorResults = wireCommit('setQueryPreviewVendorResults')
+
+/**
+ * Sets the vendor banners of a query preview in the {@link VendorXModule}.
+ *
+ * @public
+ */
+export const setQueryPreviewVendorBanners = wireCommit('setQueryPreviewVendorBanners')
+
+/**
+ * Removes the vendor data of a non-cacheable query preview when it is unmounted.
+ *
+ * @internal
+ */
+const removeQueryPreviewVendorData = createWireFromFunction<
+  XEventPayload<'QueryPreviewUnmounted'>
+>(({ eventPayload, store }) => {
+  if (!eventPayload.cache) {
+    store.commit('x/vendor/removeQueryPreviewVendorData', eventPayload.queryPreviewHash)
+  }
+})
+
+/**
  * Sets the vendor query of the {@link VendorXModule}.
  *
  * @public
@@ -135,6 +162,15 @@ export const vendorWiring = createWiring({
   },
   VendorBannersChanged: {
     setBanners,
+  },
+  QueryPreviewVendorResultsChanged: {
+    setQueryPreviewVendorResults,
+  },
+  QueryPreviewVendorBannersChanged: {
+    setQueryPreviewVendorBanners,
+  },
+  QueryPreviewUnmounted: {
+    removeQueryPreviewVendorData,
   },
   VendorBannerMounted: {
     trackMounted,

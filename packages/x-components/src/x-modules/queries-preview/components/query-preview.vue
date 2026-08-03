@@ -1,5 +1,5 @@
 <template>
-  <!-- eslint-disable-next-line vue/no-unused-refs -->
+  <!-- eslint-disable vue/no-unused-refs -->
   <section ref="queryPreviewElement" class="x-query-preview-wrapper__default-content">
     <ul v-if="hasResults" data-test="query-preview" class="x-query-preview">
       <li
@@ -304,6 +304,7 @@ export default defineComponent({
     function renderDefaultSlot() {
       const slotProps = {
         queryPreviewInfo: props.queryPreviewInfo,
+        queryPreviewHash: queryPreviewHash.value,
         results: queryPreviewResults.value?.results,
         totalResults: queryPreviewResults.value?.totalResults,
         displayTagging: queryPreviewResults.value?.displayTagging,
