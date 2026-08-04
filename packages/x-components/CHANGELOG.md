@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.11.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.10.0...@empathyco/x-components@8.11.0) (2026-08-04)
+
+### Features
+
+* **ai-spinner-icon:** make spinner colors configurable using currentColor (#2150)
+
+
 ## [8.10.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.9.0...@empathyco/x-components@8.10.0) (2026-07-30)
 
 ### Features
