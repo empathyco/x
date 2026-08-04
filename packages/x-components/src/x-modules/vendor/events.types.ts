@@ -81,6 +81,10 @@ export interface VendorXEvents {
   /**
    * The vendor module query has changed.
    * Payload: The new vendor query string.
+   *
+   * @remarks This event is also emitted when the module is registered, with the current
+   * query (which can be empty), to allow consumers to fetch the vendor results and banners
+   * even when there is no query yet.
    */
   VendorQueryChanged: string
 }
