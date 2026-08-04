@@ -350,4 +350,50 @@ describe('testing VendorBannersList component', () => {
 
     expect(wrapper.text()).toEqual(resultsStub.map(r => r.id).join(','))
   })
+
+  it('renders the vendor banners of the query preview when a query preview hash is provided', async () => {
+    const queryPreviewHash = 'preview-hash'
+    const queryPreviewVendorBanners = [
+      createVendorBannerStub('preview-1'),
+      createVendorBannerStub('preview-2'),
+    ]
+    const globalVendorBanners = [createVendorBannerStub('global-1')]
+
+    const store = new Store<DeepPartial<RootXStoreState>>({})
+    const wrapper = mount(
+      {
+        components: { VendorBannersList },
+        template: '<VendorBannersList :query-preview-hash="queryPreviewHash" />',
+        data() {
+          return { queryPreviewHash }
+        },
+      },
+      {
+        global: {
+          plugins: [installNewXPlugin({ store, initialXModules: [searchXModule, vendorXModule] })],
+        },
+      },
+    )
+
+    store.replaceState({
+      x: {
+        search: { ...searchXStoreModule.state(), results: [], totalResults: 0 } as SearchState,
+        vendor: {
+          ...vendorXStoreModule.state(),
+          banners: globalVendorBanners,
+          queryPreviews: {
+            [queryPreviewHash]: { results: [], banners: queryPreviewVendorBanners },
+          },
+        } as VendorState,
+      },
+    } as any)
+    await nextTick()
+
+    const items = wrapper
+      .findComponent(VendorBannersList)
+      .findAll(getDataTestSelector('vendor-banners-list-item'))
+
+    expect(items).toHaveLength(2)
+    expect(items.map(item => item.text())).toEqual(queryPreviewVendorBanners.map(b => b.id))
+  })
 })

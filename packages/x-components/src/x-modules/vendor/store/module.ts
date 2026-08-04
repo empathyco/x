@@ -13,6 +13,7 @@ import { query } from './getters/query.getter'
 export function resettableVendorState() {
   return {
     banners: [],
+    queryPreviews: {},
     relatedTags: [],
     results: [],
   }
@@ -36,6 +37,27 @@ export const vendorXStoreModule: VendorXStoreModule = {
     },
     setResults(state, results) {
       state.results = results
+    },
+    setQueryPreviewVendorResults(state, { queryPreviewHash, results }) {
+      state.queryPreviews[queryPreviewHash] = {
+        ...state.queryPreviews[queryPreviewHash],
+        results: results.map(vendorResult => ({
+          ...vendorResult,
+          modelName: 'VendorResult' as const,
+        })),
+      }
+    },
+    setQueryPreviewVendorBanners(state, { queryPreviewHash, banners }) {
+      state.queryPreviews[queryPreviewHash] = {
+        ...state.queryPreviews[queryPreviewHash],
+        banners: banners.map(vendorBanner => ({
+          ...vendorBanner,
+          modelName: 'VendorBanner' as const,
+        })),
+      }
+    },
+    removeQueryPreviewVendorData(state, queryPreviewHash) {
+      delete state.queryPreviews[queryPreviewHash]
     },
     resetState(state) {
       Object.assign(state, resettableVendorState())

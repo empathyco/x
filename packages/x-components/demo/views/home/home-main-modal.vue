@@ -200,8 +200,8 @@
                       <QueryPreviewList
                         v-slot="{
                           queryPreviewInfo,
+                          queryPreviewHash,
                           totalResults,
-                          results,
                           displayTagging,
                           queryTagging,
                         }"
@@ -223,16 +223,25 @@
                               {{ `${queryPreviewInfo.query} (${totalResults})` }}
                             </QueryPreviewButton>
                             <DisplayResultProvider :query-tagging="queryTagging">
-                              <SlidingPanel :reset-on-content-change="false">
-                                <div class="xds:flex xds:gap-8">
-                                  <Result
-                                    v-for="result in results"
-                                    :key="result.id"
-                                    :result="result"
-                                    style="max-width: 180px"
-                                  />
-                                </div>
-                              </SlidingPanel>
+                              <VendorResultsList :query-preview-hash="queryPreviewHash">
+                                <VendorBannersList :query-preview-hash="queryPreviewHash">
+                                  <BaseVariableColumnGrid
+                                    style="--x-size-min-width-grid-item: 150px"
+                                    class="xds:gap-12"
+                                    :columns="x.device === 'mobile' ? 2 : 4"
+                                  >
+                                    <template #result="{ item: result }">
+                                      <Result :result="result" />
+                                    </template>
+                                    <template #vendor-result="{ item: result }">
+                                      <Result :result="result" />
+                                    </template>
+                                    <template #vendor-banner="{ item: banner }">
+                                      <Banner :banner="banner" />
+                                    </template>
+                                  </BaseVariableColumnGrid>
+                                </VendorBannersList>
+                              </VendorResultsList>
                             </DisplayResultProvider>
                           </div>
                         </DisplayEmitter>

@@ -41,6 +41,28 @@ export interface VendorXEvents {
   VendorBannersChanged: Omit<VendorBanner, 'modelName'>[]
 
   /**
+   * The x consumer has provided vendor results to be inserted in the result grid of a query
+   * preview.
+   * Payload: The query preview hash and the vendor results to be inserted, without the
+   * `modelName` field, since it is assigned under the hood.
+   */
+  QueryPreviewVendorResultsChanged: {
+    queryPreviewHash: string
+    results: Omit<VendorResult, 'modelName'>[]
+  }
+
+  /**
+   * The x consumer has provided vendor banners to be inserted in the result grid of a query
+   * preview.
+   * Payload: The query preview hash and the vendor banners to be inserted, without the
+   * `modelName` field, since it is assigned under the hood.
+   */
+  QueryPreviewVendorBannersChanged: {
+    queryPreviewHash: string
+    banners: Omit<VendorBanner, 'modelName'>[]
+  }
+
+  /**
    * A vendor banner has been inserted in the DOM.
    * Payload: The {@link VendorBanner | vendor banner} that was mounted.
    */
@@ -59,6 +81,10 @@ export interface VendorXEvents {
   /**
    * The vendor module query has changed.
    * Payload: The new vendor query string.
+   *
+   * @remarks This event is also emitted when the module is registered, with the current
+   * query (which can be empty), to allow consumers to fetch the vendor results and banners
+   * even when there is no query yet.
    */
   VendorQueryChanged: string
 }
