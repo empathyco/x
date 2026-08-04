@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.12.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.11.0...@empathyco/x-components@8.12.0) (2026-08-04)
+
+### Features
+
+* **vendor:** integrate vendor results and banners into query previews (#2149)
+
+
 ## [8.11.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.10.0...@empathyco/x-components@8.11.0) (2026-08-04)
 
 ### Features
