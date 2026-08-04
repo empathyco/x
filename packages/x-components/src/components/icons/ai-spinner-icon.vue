@@ -10,8 +10,8 @@
     <g transform="translate(150, 150)">
       <polygon
         points="0,-100 21.213,-21.213 100,0 21.213,21.213 0,100 -21.213,21.213 -100,0 -21.213,-21.213"
-        fill="#243d48"
-        stroke="#243d48"
+        fill="currentColor"
+        stroke="currentColor"
         stroke-width="10"
         stroke-linejoin="round"
       >
@@ -44,7 +44,7 @@
         cy="-70"
         rx="27.5"
         ry="27.5"
-        fill="#5e7782"
+        fill="currentColor"
         stroke-width="0"
       >
         <animateTransform
