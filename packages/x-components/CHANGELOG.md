@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.12.1](https://github.com/empathyco/x/compare/@empathyco/x-components@8.12.0...@empathyco/x-components@8.12.1) (2026-08-21)
+
+### Bug Fixes
+
+* **x-installer:** update uiLang values to BCP 47 format in tests and API types (#2155)
+
+
 ## [8.12.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.11.0...@empathyco/x-components@8.12.0) (2026-08-04)
 
 ### Features
