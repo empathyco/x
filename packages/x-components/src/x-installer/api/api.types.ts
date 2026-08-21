@@ -125,9 +125,9 @@ export interface SnippetConfig {
   env?: 'staging'
   /** Execution scope (desktop, mobile, app, ...). */
   scope: string
-  /** Language for the API request, and default value for {@link SnippetConfig.uiLang}. */
+  /** Language for the API request. ISO 639-1 format. Ex: 'es', 'en', 'fr', etc. */
   lang: string
-  /** Language to use for the messages. Defaults to {@link SnippetConfig.lang}. */
+  /** Language to use for the messages. BCP 47 format. Ex: 'es-ES', 'es-MX', 'en-US', 'fr-FR', etc. */
   uiLang?: string
   /** User GDPR consent. */
   consent?: boolean

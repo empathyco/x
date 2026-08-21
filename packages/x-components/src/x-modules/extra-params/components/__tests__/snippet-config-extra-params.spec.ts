@@ -108,7 +108,7 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1)
 
-    await setSnippetConfig({ uiLang: 'es' }) // Set an excluded extra param
+    await setSnippetConfig({ uiLang: 'es-ES' }) // Set an excluded extra param
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1)
 

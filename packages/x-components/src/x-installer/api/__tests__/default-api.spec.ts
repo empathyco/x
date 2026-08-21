@@ -110,7 +110,7 @@ describe('testing default X API', () => {
       instance: 'test',
       scope: 'test',
       lang: 'es',
-      uiLang: 'es',
+      uiLang: 'es-ES',
     }
     defaultXAPI?.setSnippetConfigGetter(() => snippetConfig)
 
