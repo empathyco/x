@@ -197,9 +197,9 @@ describe('testing `XInstaller` utility', () => {
         rootComponent: createSnippetConfigComponent('uiLang'),
         adapter,
         plugin,
-      }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it' })
+      }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it-IT' })
 
-      expect(getSnippetConfigComponentTextContent()).toEqual('it')
+      expect(getSnippetConfigComponentTextContent()).toEqual('it-IT')
     })
 
     it('updates `uiLang` when `lang` is changed', async () => {
@@ -207,21 +207,21 @@ describe('testing `XInstaller` utility', () => {
         rootComponent: createSnippetConfigComponent('uiLang'),
         adapter,
         plugin,
-      }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it' })
+      }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it-IT' })
 
-      expect(getSnippetConfigComponentTextContent()).toEqual('it')
+      expect(getSnippetConfigComponentTextContent()).toEqual('it-IT')
 
       api!.setSnippetConfig({ lang: 'es' })
       await nextTick()
       expect(getSnippetConfigComponentTextContent()).toEqual('es')
 
-      api!.setSnippetConfig({ uiLang: 'en' })
+      api!.setSnippetConfig({ uiLang: 'en-US' })
       await nextTick()
-      expect(getSnippetConfigComponentTextContent()).toEqual('en')
+      expect(getSnippetConfigComponentTextContent()).toEqual('en-US')
 
-      api!.setSnippetConfig({ lang: 'fr', uiLang: 'it' })
+      api!.setSnippetConfig({ lang: 'fr', uiLang: 'it-IT' })
       await nextTick()
-      expect(getSnippetConfigComponentTextContent()).toEqual('it')
+      expect(getSnippetConfigComponentTextContent()).toEqual('it-IT')
     })
   })
 
