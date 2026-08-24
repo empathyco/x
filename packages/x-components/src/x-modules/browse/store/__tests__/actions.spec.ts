@@ -681,30 +681,7 @@ describe('testing browse module actions', () => {
   })
 
   describe('setUrlParams', () => {
-    it('should set the params of the browse module when the selected category is the same', async () => {
-      resetBrowseStateWith(store, {
-        selectedCategory: {
-          browseValue: 'floral midi dress',
-          browseField: 'description',
-        },
-        page: 1,
-        sort: '',
-      })
-
-      await store.dispatch('setUrlParams', {
-        browseValue: 'floral midi dress',
-        browseField: 'description',
-        page: 2,
-        sort: 'priceSort asc',
-      } as UrlParams)
-
-      expect(store.state.selectedCategory.browseField).toEqual('description')
-      expect(store.state.selectedCategory.browseValue).toEqual('floral midi dress')
-      expect(store.state.page).toEqual(2)
-      expect(store.state.sort).toEqual('priceSort asc')
-    })
-
-    it('should set the params of the browse module, except page, when the selected category is different', async () => {
+    it('should keep the page when browseValue and browseField are provided', async () => {
       resetBrowseStateWith(store, {
         selectedCategory: {
           browseValue: 'dress',
@@ -723,7 +700,7 @@ describe('testing browse module actions', () => {
 
       expect(store.state.selectedCategory.browseValue).toEqual('floral midi dress')
       expect(store.state.selectedCategory.browseField).toEqual('description')
-      expect(store.state.page).toEqual(1)
+      expect(store.state.page).toEqual(2)
       expect(store.state.sort).toEqual('priceSort asc')
     })
 
@@ -734,6 +711,15 @@ describe('testing browse module actions', () => {
 
       expect(store.state.sort).toEqual('')
       expect(store.state.page).toEqual(1)
+    })
+
+    it('should reset page and sort when browseValue or browseField are not provided', async () => {
+      resetBrowseStateWith(store, { page: 2, sort: 'priceSort asc' })
+
+      await store.dispatch('setUrlParams', { page: 2 } as UrlParams)
+
+      expect(store.state.page).toEqual(1)
+      expect(store.state.sort).toEqual('')
     })
   })
 })

@@ -9,18 +9,10 @@ import type { BrowseXStoreModule } from '../types'
  * @public
  */
 export const setUrlParams: BrowseXStoreModule['actions']['setUrlParams'] = (
-  { commit, state },
+  { commit },
   { browseValue, browseField, page, sort },
 ) => {
-  const currentCategory = state.selectedCategory
-
   commit('setSelectedCategory', { browseValue, browseField })
-  commit(
-    'setPage',
-    !currentCategory ||
-      (currentCategory.browseValue === browseValue && currentCategory.browseField === browseField)
-      ? page
-      : 1,
-  )
+  commit('setPage', browseValue && browseField ? page : 1)
   commit('setSort', browseValue && browseField ? sort : '')
 }
