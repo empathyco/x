@@ -82,6 +82,21 @@
         </BaseHeaderTogglePanel>
       </template>
 
+      <!--  Boolean Facet    -->
+      <template #boolean-facet="{ facet }">
+        <div class="xds:flex xds:justify-between xds:border-neutral-25 xds:py-8">
+          <span :data-test="facet.label" class="xds:truncate">{{ facet.label }}</span>
+
+          <SimpleFilter v-slot="{ filter, clickFilter }" :filter="facet.filters[0]">
+            <BaseSwitch
+              :model-value="filter.selected"
+              class="xds:bg-neutral-0"
+              @update:model-value="clickFilter"
+            />
+          </SimpleFilter>
+        </div>
+      </template>
+
       <!--  Default Facet    -->
       <template #default="{ facet }">
         <BaseHeaderTogglePanel header-class="xds:w-full xds:flex xds:py-8 xds:gap-8">
@@ -128,7 +143,12 @@ import type {
 } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { HomeControls } from './types'
-import { BaseHeaderTogglePanel, BasePriceFilterLabel, ChevronDownIcon } from '@x/components'
+import {
+  BaseHeaderTogglePanel,
+  BasePriceFilterLabel,
+  BaseSwitch,
+  ChevronDownIcon,
+} from '@x/components'
 import {
   ClearFilters,
   EditableNumberRangeFilter,

@@ -1,5 +1,6 @@
 import type { PlatformFacetType } from '../../types/models/facet.model'
 import type { FacetConfig } from './types'
+import { booleanFilterSchema } from '../models/filters/boolean-filter.schema'
 import { editableNumberFilterSchema } from '../models/filters/editable-number-filter.schema'
 import { hierarchicalFilterSchema } from '../models/filters/hierarchical-filter.schema'
 import { numberFilterSchema } from '../models/filters/number-filter.schema'
@@ -26,6 +27,10 @@ export function getFacetConfig(type: PlatformFacetType): FacetConfig {
     range: {
       modelName: 'NumberRangeFacet',
       schema: numberFilterSchema,
+    },
+    boolean: {
+      modelName: 'BooleanFacet',
+      schema: booleanFilterSchema,
     },
     'editable-range': {
       modelName: 'EditableNumberRangeFacet',

@@ -4,6 +4,7 @@ import type { RootXStoreState } from '../../../store/store.types'
 import type { FilterEntity, FilterEntityConstructor, FilterEntityModifier } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
 import { UNKNOWN_FACET_KEY } from '../store/constants'
+import { BooleanFilterEntity } from './boolean-filter.entity'
 import { EditableNumberRangeFilterEntity } from './editable-number-range-filter.entity'
 import { HierarchicalFilterEntity } from './hierarchical-filter.entity'
 import { NumberRangeFilterEntity } from './number-range-filter.entity'
@@ -33,6 +34,7 @@ export class FilterEntityFactory {
     NumberRangeFilterEntity,
     EditableNumberRangeFilterEntity,
     RawFilterEntity,
+    BooleanFilterEntity,
   ] as FilterEntityConstructor[]
 
   /**
