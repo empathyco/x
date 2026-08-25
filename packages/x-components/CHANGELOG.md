@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.13.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.12.2...@empathyco/x-components@8.13.0) (2026-08-25)
+
+### Features
+
+* **facets:** add Boolean facet type (#2157)
+
+
 ## [8.12.2](https://github.com/empathyco/x/compare/@empathyco/x-components@8.12.1...@empathyco/x-components@8.12.2) (2026-08-25)
 
 ### Bug Fixes

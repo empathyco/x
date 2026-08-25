@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.8.0...@empathyco/x-adapter-platform@1.9.0) (2026-08-25)
+
+### Features
+
+* **facets:** add Boolean facet type (#2157)
+
+
 ## [1.8.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.7.2...@empathyco/x-adapter-platform@1.8.0) (2026-07-21)
 
 ### Features
