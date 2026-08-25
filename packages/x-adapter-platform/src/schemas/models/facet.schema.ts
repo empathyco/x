@@ -1,4 +1,5 @@
 import type {
+  BooleanFacet,
   EditableNumberRangeFacet,
   HierarchicalFacet,
   NumberRangeFacet,
@@ -15,7 +16,7 @@ import { getFacetConfig } from '../facets/utils'
  */
 export const facetSchema = createMutableSchema<
   PlatformFacet,
-  HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet
+  HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet | BooleanFacet
 >({
   id: 'facet',
   label: 'label',
