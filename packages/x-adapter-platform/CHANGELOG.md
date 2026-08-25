@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.1...@empathyco/x-adapter-platform@1.9.2) (2026-08-25)
+
+### Bug Fixes
+
+* **facet.schema:** Add missing type to the facet schema (#2160)
+
+
 ## [1.9.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.0...@empathyco/x-adapter-platform@1.9.1) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
