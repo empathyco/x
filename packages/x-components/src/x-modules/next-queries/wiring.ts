@@ -158,10 +158,6 @@ export const nextQueriesWiring = createWiring({
     resetNextQueriesWire,
     setNextQueriesQuery,
   },
-  UserClearedQuery: {
-    resetNextQueriesWire,
-    resetNextQueriesQuery,
-  },
   UserBrowsedToCategory: {
     resetNextQueriesWire,
     resetNextQueriesQuery,
