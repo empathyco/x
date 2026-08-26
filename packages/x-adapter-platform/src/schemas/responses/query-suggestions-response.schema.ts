@@ -1,7 +1,7 @@
 import type { QuerySuggestionsResponse } from '@empathyco/x-types'
 import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { createContextualMapperFactory } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { suggestionSchema } from '../models/suggestion.schema'
 
 /**
@@ -9,12 +9,24 @@ import { suggestionSchema } from '../models/suggestion.schema'
  *
  * @public
  */
-export const querySuggestionsResponseSchema = createMutableSchema<
+export const querySuggestionsResponseSchema = createContextualMapperFactory<
   PlatformQuerySuggestionsResponse,
   QuerySuggestionsResponse
->({
-  suggestions: {
-    $path: 'topTrends.content',
-    $subSchema: suggestionSchema,
-  },
-})
+>(context =>
+  z
+    .object({
+      topTrends: z
+        .object({
+          content: z.array(z.any()).optional(),
+        })
+        .passthrough()
+        .optional(),
+    })
+    .passthrough()
+    .transform(
+      (source): QuerySuggestionsResponse => ({
+        suggestions:
+          source.topTrends?.content?.map(item => suggestionSchema(context).parse(item)) ?? [],
+      }),
+    ),
+)

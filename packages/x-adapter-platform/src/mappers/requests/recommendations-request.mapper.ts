@@ -1,8 +1,6 @@
 import type { RecommendationsRequest } from '@empathyco/x-types'
 import type { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model'
-
-import { schemaMapperFactory } from '@empathyco/x-adapter'
-
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { recommendationsRequestSchema } from '../../schemas/requests/recommendations-request.schema'
 
 /**
@@ -10,7 +8,7 @@ import { recommendationsRequestSchema } from '../../schemas/requests/recommendat
  *
  * @public
  */
-export const recommendationsRequestMapper = schemaMapperFactory<
+export const recommendationsRequestMapper = zSchemaMapperFactory<
   RecommendationsRequest,
   PlatformRecommendationsRequest
 >(recommendationsRequestSchema)

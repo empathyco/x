@@ -1,14 +1,21 @@
 import type { SemanticQuery } from '@empathyco/x-types'
-import type { PlatformSemanticQuery } from '../../types'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
  * Default implementation for the SemanticQuery schema.
  *
  * @public
  */
-export const semanticQuerySchema = createMutableSchema<PlatformSemanticQuery, SemanticQuery>({
-  query: 'query',
-  modelName: () => 'SemanticQuery',
-  distance: 'distance',
-})
+export const semanticQuerySchema = z
+  .object({
+    query: z.string().optional(),
+    distance: z.number().optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): SemanticQuery => ({
+      query: source.query ?? '',
+      modelName: 'SemanticQuery',
+      distance: source.distance ?? 0,
+    }),
+  )

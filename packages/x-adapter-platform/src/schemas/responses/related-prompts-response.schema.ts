@@ -1,7 +1,7 @@
 import type { RelatedPromptsResponse } from '@empathyco/x-types'
 import type { PlatformRelatedPromptsResponse } from '../../types/responses/related-prompts-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { createContextualMapperFactory } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { relatedPromptSchema } from '../models/related-prompt.schema'
 
 /**
@@ -9,12 +9,24 @@ import { relatedPromptSchema } from '../models/related-prompt.schema'
  *
  * @public
  */
-export const relatedPromptsResponseSchema = createMutableSchema<
+export const relatedPromptsResponseSchema = createContextualMapperFactory<
   PlatformRelatedPromptsResponse,
   RelatedPromptsResponse
->({
-  relatedPrompts: {
-    $path: 'data.relatedprompts',
-    $subSchema: relatedPromptSchema,
-  },
-})
+>(context =>
+  z
+    .object({
+      data: z
+        .object({
+          relatedprompts: z.array(z.any()).optional(),
+        })
+        .passthrough()
+        .optional(),
+    })
+    .passthrough()
+    .transform(
+      (source): RelatedPromptsResponse => ({
+        relatedPrompts:
+          source.data?.relatedprompts?.map(item => relatedPromptSchema(context).parse(item)) ?? [],
+      }),
+    ),
+)

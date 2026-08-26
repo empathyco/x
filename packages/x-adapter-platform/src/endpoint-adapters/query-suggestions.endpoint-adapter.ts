@@ -1,3 +1,4 @@
+import type { Mapper } from '@empathyco/x-adapter'
 import type { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggestions-request.mapper'
@@ -16,7 +17,7 @@ export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   endpoint: from =>
     interpolate(`${getSearchServiceUrl(from)}/query/{extraParams.instance}/empathize`, from),
   requestMapper: querySuggestionsRequestMapper,
-  responseMapper: querySuggestionsResponseMapper,
+  responseMapper: querySuggestionsResponseMapper as Mapper<any, QuerySuggestionsResponse>,
   defaultRequestOptions: {
     id: 'query-suggestions',
     parameters: {

@@ -1,64 +1,80 @@
+import type { MapperContext } from '@empathyco/x-adapter'
 import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
-import type {
-  PlatformRelatedPrompt,
-  PlatformRelatedPromptNextQueriesTagging,
-} from '../../types/models/related-prompt.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformRelatedPromptNextQueriesTagging } from '../../types/models/related-prompt.model'
+import { z } from 'zod'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 
 /**
- * Default implementation for the NextQueriesRelatedPromptsSchema.
+ * Returns a Zod schema for mapping a related prompt next query string
+ * to a RelatedPromptNextQuery.
  *
  * @public
  */
-export const nextQueriesRelatedPromptsSchema = createMutableSchema<string, RelatedPromptNextQuery>({
-  query: data => data,
-  toolingDisplayTagging: (data, $context) =>
-    getTaggingInfoFromUrl(
-      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplay,
-    ),
-  toolingDisplayClickTagging: (data, $context) =>
-    getTaggingInfoFromUrl(
-      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplayClick,
-    ),
-  toolingDisplayAdd2CartTagging: (data, $context) =>
-    getTaggingInfoFromUrl(
-      ($context?.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>)[data]
-        .toolingDisplayAdd2Cart,
-    ),
-})
+export function nextQueriesRelatedPromptsSchema(context: MapperContext) {
+  return z.string().transform((data): RelatedPromptNextQuery => {
+    const taggingDict =
+      context.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>
+    return {
+      query: data,
+      toolingDisplayTagging: getTaggingInfoFromUrl(taggingDict[data].toolingDisplay),
+      toolingDisplayClickTagging: getTaggingInfoFromUrl(taggingDict[data].toolingDisplayClick),
+      toolingDisplayAdd2CartTagging: getTaggingInfoFromUrl(
+        taggingDict[data].toolingDisplayAdd2Cart,
+      ),
+    }
+  })
+}
 
 /**
- * Default implementation for the RelatedPromptSchema.
+ * Returns a Zod schema for mapping a PlatformRelatedPrompt to a RelatedPrompt.
  *
  * @public
  */
-export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, RelatedPrompt>({
-  modelName: () => 'RelatedPrompt',
-  relatedPromptNextQueries: {
-    $path: 'nextQueries',
-    $subSchema: nextQueriesRelatedPromptsSchema,
-    $context: {
-      nextQueriesTagging: 'tagging.nextQueries',
-    },
-  },
-  nextQueries: 'nextQueries',
-  suggestionText: 'suggestionText',
-  suggestionImageUrl: 'suggestionImageUrl',
-  type: 'type',
-  toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
-  tagging: {
-    toolingDisplayTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplay),
-    toolingDisplayClickTagging: ({ tagging }) => getTaggingInfoFromUrl(tagging.toolingDisplayClick),
-    nextQueriesTagging: {
-      $path: 'nextQueries',
-      $subSchema: nextQueriesRelatedPromptsSchema,
-      $context: {
-        nextQueriesTagging: 'tagging.nextQueries',
-      },
-    },
-  },
-})
+export function relatedPromptSchema(context: MapperContext) {
+  return z
+    .object({
+      nextQueries: z.array(z.string()).optional(),
+      suggestionText: z.string().optional(),
+      suggestionImageUrl: z.string().optional(),
+      type: z.string().optional(),
+      tagging: z
+        .object({
+          toolingDisplay: z.string().optional(),
+          toolingDisplayClick: z.string().optional(),
+        })
+        .passthrough(),
+    })
+    .passthrough()
+    .transform((source): RelatedPrompt => {
+      const nextQueriesTagging =
+        source.tagging as unknown as Dictionary<PlatformRelatedPromptNextQueriesTagging>
+      const nextQueries = source.nextQueries ?? []
+      return {
+        modelName: 'RelatedPrompt',
+        relatedPromptNextQueries: nextQueries.map(nq =>
+          nextQueriesRelatedPromptsSchema({
+            ...context,
+            nextQueriesTagging,
+          }).parse(nq),
+        ),
+        nextQueries,
+        suggestionText: source.suggestionText ?? '',
+        suggestionImageUrl: source.suggestionImageUrl,
+        type: source.type as RelatedPrompt['type'],
+        toolingDisplayTagging: getTaggingInfoFromUrl(source.tagging.toolingDisplay ?? ''),
+        tagging: {
+          toolingDisplayTagging: getTaggingInfoFromUrl(source.tagging.toolingDisplay ?? ''),
+          toolingDisplayClickTagging: getTaggingInfoFromUrl(
+            source.tagging.toolingDisplayClick ?? '',
+          ),
+          nextQueriesTagging: nextQueries.map(nq =>
+            nextQueriesRelatedPromptsSchema({
+              ...context,
+              nextQueriesTagging,
+            }).parse(nq),
+          ),
+        },
+      }
+    })
+}

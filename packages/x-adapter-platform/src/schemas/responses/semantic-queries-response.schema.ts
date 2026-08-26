@@ -1,8 +1,5 @@
-import type { Schema } from '@empathyco/x-adapter'
 import type { SemanticQueriesResponse } from '@empathyco/x-types'
-import type { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { semanticQuerySchema } from '../models/semantic-query.schema'
 
 /**
@@ -10,11 +7,18 @@ import { semanticQuerySchema } from '../models/semantic-query.schema'
  *
  * @public
  */
-export const semanticQueriesResponseSchema = createMutableSchema(<
-  Schema<PlatformSemanticQueriesResponse, SemanticQueriesResponse>
->{
-  semanticQueries: {
-    $path: 'data.candidates',
-    $subSchema: semanticQuerySchema,
-  },
-})
+export const semanticQueriesResponseSchema = z
+  .object({
+    data: z
+      .object({
+        candidates: z.array(z.any()).optional(),
+      })
+      .passthrough()
+      .optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): SemanticQueriesResponse => ({
+      semanticQueries: source.data?.candidates?.map(item => semanticQuerySchema.parse(item)) ?? [],
+    }),
+  )

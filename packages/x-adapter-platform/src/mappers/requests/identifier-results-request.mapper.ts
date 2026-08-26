@@ -1,8 +1,6 @@
 import type { IdentifierResultsRequest } from '@empathyco/x-types'
 import type { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model'
-
-import { schemaMapperFactory } from '@empathyco/x-adapter'
-
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { identifierResultsRequestSchema } from '../../schemas/requests/identifier-results-request.schema'
 
 /**
@@ -10,7 +8,7 @@ import { identifierResultsRequestSchema } from '../../schemas/requests/identifie
  *
  * @public
  */
-export const identifierResultsRequestMapper = schemaMapperFactory<
+export const identifierResultsRequestMapper = zSchemaMapperFactory<
   IdentifierResultsRequest,
   PlatformIdentifierResultsRequest
 >(identifierResultsRequestSchema)

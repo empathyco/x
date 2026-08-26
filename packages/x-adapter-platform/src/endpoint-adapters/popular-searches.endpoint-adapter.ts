@@ -1,3 +1,4 @@
+import type { Mapper } from '@empathyco/x-adapter'
 import type { PopularSearchesRequest, PopularSearchesResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { popularSearchesRequestMapper } from '../mappers/requests/popular-searches-request.mapper'
@@ -16,7 +17,7 @@ export const popularSearchesEndpointAdapter = endpointAdapterFactory<
   endpoint: from =>
     interpolate(`${getSearchServiceUrl(from)}/query/{extraParams.instance}/empathize`, from),
   requestMapper: popularSearchesRequestMapper,
-  responseMapper: popularSearchesResponseMapper,
+  responseMapper: popularSearchesResponseMapper as Mapper<any, PopularSearchesResponse>,
   defaultRequestOptions: {
     id: 'popular-searches',
     parameters: {

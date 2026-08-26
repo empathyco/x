@@ -1,8 +1,6 @@
 import type { IdentifierResultsResponse } from '@empathyco/x-types'
 import type { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model'
-
-import { schemaMapperFactory } from '@empathyco/x-adapter'
-
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { identifierResultsResponseSchema } from '../../schemas/responses/identifier-results-response.schema'
 
 /**
@@ -10,7 +8,7 @@ import { identifierResultsResponseSchema } from '../../schemas/responses/identif
  *
  * @public
  */
-export const identifierResultsResponseMapper = schemaMapperFactory<
+export const identifierResultsResponseMapper = zSchemaMapperFactory<
   PlatformIdentifierResultsResponse,
   IdentifierResultsResponse
 >(identifierResultsResponseSchema)

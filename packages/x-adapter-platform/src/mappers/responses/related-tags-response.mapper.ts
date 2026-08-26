@@ -1,7 +1,6 @@
 import type { RelatedTagsResponse } from '@empathyco/x-types'
 import type { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model'
-
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { relatedTagsResponseSchema } from '../../schemas/responses/related-tags-response.schema'
 
 /**
@@ -9,7 +8,7 @@ import { relatedTagsResponseSchema } from '../../schemas/responses/related-tags-
  *
  * @public
  */
-export const relatedTagsResponseMapper = schemaMapperFactory<
+export const relatedTagsResponseMapper = zSchemaMapperFactory<
   PlatformRelatedTagsResponse,
   RelatedTagsResponse
 >(relatedTagsResponseSchema)

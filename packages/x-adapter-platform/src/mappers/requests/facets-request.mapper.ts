@@ -1,6 +1,6 @@
 import type { FacetsRequest } from '@empathyco/x-types'
 import type { PlatformFacetsRequest } from '../../types/requests/facets-request.model'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { facetsRequestSchema } from '../../schemas/requests/facets-request.schema'
 
 /**
@@ -8,6 +8,6 @@ import { facetsRequestSchema } from '../../schemas/requests/facets-request.schem
  *
  * @public
  */
-export const facetsRequestMapper = schemaMapperFactory<FacetsRequest, PlatformFacetsRequest>(
+export const facetsRequestMapper = zSchemaMapperFactory<FacetsRequest, PlatformFacetsRequest>(
   facetsRequestSchema,
 )

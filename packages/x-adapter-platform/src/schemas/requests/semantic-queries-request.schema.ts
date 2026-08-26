@@ -1,16 +1,20 @@
-import type { SemanticQueriesRequest } from '@empathyco/x-types'
 import type { PlatformSemanticQueriesRequest } from '../../types'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
  * Default implementation for the SemanticQueriesRequestSchema.
  *
  * @public
  */
-export const semanticQueriesRequestSchema = createMutableSchema<
-  SemanticQueriesRequest,
-  PlatformSemanticQueriesRequest
->({
-  q: 'query',
-  extraParams: 'extraParams',
-})
+export const semanticQueriesRequestSchema = z
+  .object({
+    query: z.string().optional(),
+    extraParams: z.record(z.string(), z.unknown()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): PlatformSemanticQueriesRequest => ({
+      q: source.query ?? '',
+      extraParams: source.extraParams,
+    }),
+  )

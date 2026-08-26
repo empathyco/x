@@ -1,6 +1,6 @@
 import type { SearchResponse } from '@empathyco/x-types'
 import type { PlatformSearchResponse } from '../../types/responses/search-response.model'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { searchResponseSchema } from '../../schemas/responses/search-response.schema'
 
 /**
@@ -8,6 +8,6 @@ import { searchResponseSchema } from '../../schemas/responses/search-response.sc
  *
  * @public
  */
-export const searchResponseMapper = schemaMapperFactory<PlatformSearchResponse, SearchResponse>(
+export const searchResponseMapper = zSchemaMapperFactory<PlatformSearchResponse, SearchResponse>(
   searchResponseSchema,
 )

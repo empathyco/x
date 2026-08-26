@@ -1,6 +1,5 @@
 import type { PartialResult } from '@empathyco/x-types'
-import type { PlatformPartialResult } from '../../types/models/partials.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { resultSchema } from './result.schema'
 
 /**
@@ -8,11 +7,17 @@ import { resultSchema } from './result.schema'
  *
  * @public
  */
-export const partialResultsSchema = createMutableSchema<PlatformPartialResult, PartialResult>({
-  query: 'term',
-  results: {
-    $path: 'content',
-    $subSchema: resultSchema,
-  },
-  totalResults: 'numFound',
-})
+export const partialResultsSchema = z
+  .object({
+    term: z.string().optional(),
+    numFound: z.number().optional(),
+    content: z.array(z.any()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): PartialResult => ({
+      query: source.term ?? '',
+      results: (source.content ?? []).map(item => resultSchema.parse(item)),
+      totalResults: source.numFound ?? null,
+    }),
+  )

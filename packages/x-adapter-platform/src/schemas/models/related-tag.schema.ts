@@ -1,15 +1,23 @@
 import type { RelatedTag } from '@empathyco/x-types'
-import type { PlatformRelatedTag } from '../../types/models/related-tag.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
  * Default implementation for the RelatedTagSchema.
  *
  * @public
  */
-export const relatedTagSchema = createMutableSchema<PlatformRelatedTag, RelatedTag>({
-  query: 'query',
-  tag: 'tag',
-  modelName: () => 'RelatedTag',
-  isCurated: ({ source }) => source === 'CURATED',
-})
+export const relatedTagSchema = z
+  .object({
+    query: z.string().optional(),
+    tag: z.string().optional(),
+    source: z.string().optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): RelatedTag => ({
+      query: source.query ?? '',
+      tag: source.tag ?? '',
+      modelName: 'RelatedTag',
+      isCurated: source.source === 'CURATED',
+    }),
+  )

@@ -1,6 +1,5 @@
-import type { FacetsRequest } from '@empathyco/x-types'
 import type { PlatformFacetsRequest } from '../../types/requests/facets-request.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { mapFilters } from '../../mappers/filter.utils'
 
 /**
@@ -8,9 +7,19 @@ import { mapFilters } from '../../mappers/filter.utils'
  *
  * @public
  */
-export const facetsRequestSchema = createMutableSchema<FacetsRequest, PlatformFacetsRequest>({
-  query: 'query',
-  origin: 'origin',
-  filter: ({ filters }) => mapFilters(filters),
-  extraParams: 'extraParams',
-})
+export const facetsRequestSchema = z
+  .object({
+    query: z.string().optional(),
+    origin: z.string().optional(),
+    filters: z.record(z.string(), z.array(z.any())).optional(),
+    extraParams: z.record(z.string(), z.unknown()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): PlatformFacetsRequest => ({
+      query: source.query ?? '',
+      origin: source.origin,
+      filter: mapFilters(source.filters),
+      extraParams: source.extraParams,
+    }),
+  )

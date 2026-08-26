@@ -49,7 +49,8 @@
   "dependencies": {
     "@empathyco/x-adapter": "8.1.9",
     "@empathyco/x-types": "10.8.1",
-    "@empathyco/x-utils": "1.0.10"
+    "@empathyco/x-utils": "1.0.10",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.30.7",

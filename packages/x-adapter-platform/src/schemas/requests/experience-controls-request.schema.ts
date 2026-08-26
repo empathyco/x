@@ -1,16 +1,18 @@
-import type { ExperienceControlsRequest } from '@empathyco/x-types'
 import type { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
  * Default implementation for the ExperienceControlsRequestSchema.
  *
  * @public
  */
-export const experienceControlsRequestSchema = createMutableSchema<
-  ExperienceControlsRequest,
-  PlatformExperienceControlsRequest
->({
-  extraParams: 'extraParams',
-})
+export const experienceControlsRequestSchema = z
+  .object({
+    extraParams: z.record(z.string(), z.unknown()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): PlatformExperienceControlsRequest => ({
+      extraParams: source.extraParams,
+    }),
+  )

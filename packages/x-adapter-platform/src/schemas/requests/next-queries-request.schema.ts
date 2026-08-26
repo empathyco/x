@@ -1,16 +1,20 @@
-import type { NextQueriesRequest } from '@empathyco/x-types'
 import type { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
  * Default implementation for the NextQueriesRequestSchema.
  *
  * @public
  */
-export const nextQueriesRequestSchema = createMutableSchema<
-  NextQueriesRequest,
-  PlatformNextQueriesRequest
->({
-  query: 'query',
-  extraParams: 'extraParams',
-})
+export const nextQueriesRequestSchema = z
+  .object({
+    query: z.string().optional(),
+    extraParams: z.record(z.string(), z.unknown()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): PlatformNextQueriesRequest => ({
+      query: source.query ?? '',
+      extraParams: source.extraParams,
+    }),
+  )

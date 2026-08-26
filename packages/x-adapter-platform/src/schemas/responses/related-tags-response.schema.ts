@@ -1,7 +1,5 @@
-import type { Schema } from '@empathyco/x-adapter'
 import type { RelatedTagsResponse } from '@empathyco/x-types'
-import type { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { relatedTagSchema } from '../models/related-tag.schema'
 
 /**
@@ -9,11 +7,18 @@ import { relatedTagSchema } from '../models/related-tag.schema'
  *
  * @public
  */
-export const relatedTagsResponseSchema = createMutableSchema(<
-  Schema<PlatformRelatedTagsResponse, RelatedTagsResponse>
->{
-  relatedTags: {
-    $path: 'data.relatedtags',
-    $subSchema: relatedTagSchema,
-  },
-})
+export const relatedTagsResponseSchema = z
+  .object({
+    data: z
+      .object({
+        relatedtags: z.array(z.any()).optional(),
+      })
+      .passthrough()
+      .optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): RelatedTagsResponse => ({
+      relatedTags: source.data?.relatedtags?.map(item => relatedTagSchema.parse(item)) ?? [],
+    }),
+  )

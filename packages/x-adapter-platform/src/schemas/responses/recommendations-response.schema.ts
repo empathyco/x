@@ -1,7 +1,5 @@
 import type { RecommendationsResponse } from '@empathyco/x-types'
-import type { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { resultSchema } from '../models/result.schema'
 
 /**
@@ -9,12 +7,18 @@ import { resultSchema } from '../models/result.schema'
  *
  * @public
  */
-export const recommendationsResponseSchema = createMutableSchema<
-  PlatformRecommendationsResponse,
-  RecommendationsResponse
->({
-  results: {
-    $path: 'topclicked.content',
-    $subSchema: resultSchema,
-  },
-})
+export const recommendationsResponseSchema = z
+  .object({
+    topclicked: z
+      .object({
+        content: z.array(z.any()).optional(),
+      })
+      .passthrough()
+      .optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): RecommendationsResponse => ({
+      results: source.topclicked?.content?.map(item => resultSchema.parse(item)) ?? [],
+    }),
+  )

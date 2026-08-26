@@ -7,6 +7,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
       "id": "61f9223221c06701c2f98c17",
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Banner",
+      "position": undefined,
       "tagging": {
         "click": {
           "params": {
@@ -58,7 +59,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
                       "id": "categoryIds:78d9b7366__8a4e61a33_aa_bb",
                       "label": "Added 2",
                       "modelName": "HierarchicalFilter",
-                      "parentId": "categoryIds:78d9b7366__8a4e61a33_aa",
+                      "parentId": null,
                       "selected": false,
                       "totalResults": 1,
                     },
@@ -67,7 +68,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
                   "id": "categoryIds:78d9b7366__8a4e61a33_aa",
                   "label": "Added",
                   "modelName": "HierarchicalFilter",
-                  "parentId": "categoryIds:78d9b7366__8a4e61a33",
+                  "parentId": null,
                   "selected": false,
                   "totalResults": 1,
                 },
@@ -76,7 +77,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
               "id": "categoryIds:78d9b7366__8a4e61a33",
               "label": "Bottomwear",
               "modelName": "HierarchicalFilter",
-              "parentId": "categoryIds:78d9b7366",
+              "parentId": null,
               "selected": false,
               "totalResults": 637,
             },
@@ -85,7 +86,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
               "id": "categoryIds:78d9b7366__e2f94a4ea",
               "label": "Topwear",
               "modelName": "HierarchicalFilter",
-              "parentId": "categoryIds:78d9b7366",
+              "parentId": null,
               "selected": false,
               "totalResults": 99,
             },
@@ -114,7 +115,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
               "id": "categoryIds:ffc61e1e9_aa",
               "label": "Added",
               "modelName": "HierarchicalFilter",
-              "parentId": "categoryIds:ffc61e1e9",
+              "parentId": null,
               "selected": false,
               "totalResults": 1,
             },
@@ -310,7 +311,10 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
       "results": [
         {
           "id": "31335-U",
-          "identifier": {},
+          "identifier": {
+            "value": "",
+          },
+          "images": undefined,
           "isWishlisted": false,
           "modelName": "Result",
           "name": "Locomotive Men Washed Blue Jeans",
@@ -404,6 +408,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
       "id": "61f9223221c06701c2f98c17",
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Promoted",
+      "position": undefined,
       "tagging": {
         "click": {
           "params": {
@@ -462,6 +467,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
       "identifier": {
         "value": "31335-U",
       },
+      "images": undefined,
       "isWishlisted": false,
       "modelName": "Result",
       "name": "Locomotive Men Washed Blue Jeans",
@@ -548,6 +554,7 @@ exports[`searchResponseMapper tests > should map the response 1`] = `
     },
   ],
   "spellcheck": "",
+  "stats": undefined,
   "totalResults": 1,
 }
 `;

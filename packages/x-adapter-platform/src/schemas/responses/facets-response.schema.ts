@@ -1,6 +1,5 @@
 import type { FacetsResponse } from '@empathyco/x-types'
-import type { PlatformFacetsResponse } from '../../types/responses'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { facetSchema } from '../models/facet.schema'
 
 /**
@@ -8,9 +7,18 @@ import { facetSchema } from '../models/facet.schema'
  *
  * @public
  */
-export const facetsResponseSchema = createMutableSchema<PlatformFacetsResponse, FacetsResponse>({
-  facets: {
-    $path: 'catalog.facets',
-    $subSchema: facetSchema,
-  },
-})
+export const facetsResponseSchema = z
+  .object({
+    catalog: z
+      .object({
+        facets: z.array(z.any()).optional(),
+      })
+      .passthrough()
+      .optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): FacetsResponse => ({
+      facets: source.catalog?.facets?.map(item => facetSchema.parse(item)),
+    }),
+  )
