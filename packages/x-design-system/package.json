@@ -20,7 +20,8 @@
     ".": "./index.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "skills"
   ],
   "engines": {
     "node": ">=22"

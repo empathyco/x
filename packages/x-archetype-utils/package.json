@@ -19,7 +19,8 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills"
   ],
   "engines": {
     "node": ">=22"
