@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.13.4](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.3...@empathyco/x-components@8.13.4) (2026-08-27)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [8.13.3](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.2...@empathyco/x-components@8.13.3) (2026-08-25)
 
 ### Code Refactoring
