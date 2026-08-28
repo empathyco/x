@@ -19,8 +19,8 @@
   "types": "types/index.d.ts",
   "files": [
     "dist",
-    "types",
-    "skills"
+    "skills",
+    "types"
   ],
   "engines": {
     "node": ">=22"
