@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.9...@empathyco/x-adapter@8.2.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [8.1.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.8...@empathyco/x-adapter@8.1.9) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-adapter

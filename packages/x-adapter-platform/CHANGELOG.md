@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.2...@empathyco/x-adapter-platform@1.10.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [1.9.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.1...@empathyco/x-adapter-platform@1.9.2) (2026-08-25)
 
 ### Bug Fixes

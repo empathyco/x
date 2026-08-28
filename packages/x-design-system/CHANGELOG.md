@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.0.8...@empathyco/x-design-system@1.1.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [1.0.8](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.0.7...@empathyco/x-design-system@1.0.8) (2026-07-01)
 
 **Note:** Version bump only for package @empathyco/x-design-system

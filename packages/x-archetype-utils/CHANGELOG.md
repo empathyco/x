@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.9...@empathyco/x-archetype-utils@2.1.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [2.0.9](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.8...@empathyco/x-archetype-utils@2.0.9) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

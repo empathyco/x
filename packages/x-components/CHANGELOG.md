@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.14.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.4...@empathyco/x-components@8.14.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [8.13.4](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.3...@empathyco/x-components@8.13.4) (2026-08-27)
 
 **Note:** Version bump only for package @empathyco/x-components

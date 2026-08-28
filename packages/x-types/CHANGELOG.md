@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.9.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.8.1...@empathyco/x-types@10.9.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [10.8.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.8.0...@empathyco/x-types@10.8.1) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-types
