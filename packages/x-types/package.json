@@ -22,7 +22,8 @@
   "files": [
     "dist",
     "report",
-    "schemas"
+    "schemas",
+    "skills"
   ],
   "engines": {
     "node": ">=22"
