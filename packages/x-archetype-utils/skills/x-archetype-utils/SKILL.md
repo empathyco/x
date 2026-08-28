@@ -1,6 +1,6 @@
 ---
 name: x-archetype-utils
-description: "Use when importing, using, or debugging components from x-archetype-utils."
+description: 'Use when importing, using, or debugging components from x-archetype-utils.'
 ---
 
 # x-archetype-utils

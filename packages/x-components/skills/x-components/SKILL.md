@@ -1,6 +1,6 @@
 ---
 name: x-components
-description: "Use when importing, using, or debugging components from x-components."
+description: 'Use when importing, using, or debugging components from x-components.'
 ---
 
 # x-components

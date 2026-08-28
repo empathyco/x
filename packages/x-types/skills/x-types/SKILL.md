@@ -1,6 +1,6 @@
 ---
 name: x-types
-description: "Use when importing, using, or debugging components from x-types."
+description: 'Use when importing, using, or debugging components from x-types.'
 ---
 
 # x-types

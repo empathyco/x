@@ -1,6 +1,6 @@
 ---
 name: x-utils
-description: "Use when importing, using, or debugging components from x-utils."
+description: 'Use when importing, using, or debugging components from x-utils.'
 ---
 
 # x-utils

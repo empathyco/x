@@ -1,6 +1,6 @@
 ---
 name: x-adapter
-description: "Use when importing, using, or debugging components from x-adapter."
+description: 'Use when importing, using, or debugging components from x-adapter.'
 ---
 
 # x-adapter

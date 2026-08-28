@@ -1,6 +1,6 @@
 ---
 name: x-design-system
-description: "Use when importing, using, or debugging components from x-design-system."
+description: 'Use when importing, using, or debugging components from x-design-system.'
 ---
 
 # x-design-system
