@@ -1,6 +1,6 @@
 import type { BrowseRequest } from '@empathyco/x-types'
 import type { PlatformBrowseRequest } from '../../types/requests/browse-request.model'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { browseRequestSchema } from '../../schemas/requests/browse-request.schema'
 
 /**
@@ -8,6 +8,6 @@ import { browseRequestSchema } from '../../schemas/requests/browse-request.schem
  *
  * @public
  */
-export const browseRequestMapper = schemaMapperFactory<BrowseRequest, PlatformBrowseRequest>(
+export const browseRequestMapper = zSchemaMapperFactory<BrowseRequest, PlatformBrowseRequest>(
   browseRequestSchema,
 )

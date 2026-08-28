@@ -1,16 +1,26 @@
+import type { MapperContext } from '@empathyco/x-adapter'
 import type { BooleanFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
- * Default implementation for the BooleanFilterSchema.
+ * Returns a Zod schema for mapping a PlatformFilter to a BooleanFilter.
  *
  * @public
  */
-export const booleanFilterSchema = createMutableSchema<PlatformFilter, BooleanFilter>({
-  id: 'filter',
-  label: 'value',
-  facetId: (_, $context) => $context?.facetId as string,
-  selected: () => false,
-  modelName: () => 'BooleanFilter',
-})
+export function booleanFilterSchema(context: MapperContext) {
+  return z
+    .object({
+      filter: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .passthrough()
+    .transform(
+      (source): BooleanFilter => ({
+        id: source.filter ?? '',
+        label: source.value ?? '',
+        facetId: context.facetId as string,
+        selected: false,
+        modelName: 'BooleanFilter',
+      }),
+    )
+}

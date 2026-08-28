@@ -1,6 +1,5 @@
-import type { AiSuggestionsRequest } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsRequest } from '../../../types'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { mapFilters } from '../../../mappers/filter.utils'
 
 /**
@@ -8,22 +7,26 @@ import { mapFilters } from '../../../mappers/filter.utils'
  *
  * @public
  */
-export const aiSuggestionsRequestSchema = createMutableSchema<
-  AiSuggestionsRequest,
-  PlatformAiSuggestionsRequest
->({
-  context: ({ query, extraParams, filters, origin }) => {
-    const { lang, instance, ...restExtraParams } = extraParams ?? {}
-
+export const aiSuggestionsRequestSchema = z
+  .object({
+    query: z.string().optional(),
+    extraParams: z.record(z.string(), z.unknown()).optional(),
+    filters: z.record(z.string(), z.array(z.any())).optional(),
+    origin: z.string().optional(),
+  })
+  .passthrough()
+  .transform((source): PlatformAiSuggestionsRequest => {
+    const { lang, instance, ...restExtraParams } = source.extraParams ?? {}
     return {
-      query,
-      lang: (lang ?? '') as string,
-      instance: (instance ?? '') as string,
-      filters: {
-        ...restExtraParams,
-        ...(filters && { filters: mapFilters(filters) }),
-        origin,
+      context: {
+        query: source.query,
+        lang: (lang ?? '') as string,
+        instance: (instance ?? '') as string,
+        filters: {
+          ...restExtraParams,
+          ...(source.filters && { filters: mapFilters(source.filters) }),
+          origin: source.origin,
+        },
       },
     }
-  },
-})
+  })

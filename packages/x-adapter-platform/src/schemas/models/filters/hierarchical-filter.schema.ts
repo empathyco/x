@@ -1,28 +1,46 @@
+import type { MapperContext } from '@empathyco/x-adapter'
 import type { HierarchicalFilter } from '@empathyco/x-types'
-import type { PlatformHierarchicalFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
- * Default implementation for the HierarchicalFilterSchema.
+ * Returns a Zod schema for mapping a PlatformFilter to a HierarchicalFilter.
+ * Supports recursive children via z.lazy().
  *
  * @public
  */
-export const hierarchicalFilterSchema = createMutableSchema<
-  PlatformHierarchicalFilter,
-  HierarchicalFilter
->({
-  facetId: (_, $context) => $context?.facetId as string,
-  label: 'value',
-  id: 'filter',
-  totalResults: 'count',
-  parentId: (_, $context) => ($context?.parentId as string) ?? null,
-  selected: () => false,
-  modelName: () => 'HierarchicalFilter',
-  children: {
-    $path: 'children.values',
-    $subSchema: '$self',
-    $context: {
-      parentId: 'filter',
-    },
-  },
-})
+export function hierarchicalFilterSchema(context: MapperContext): z.ZodType<HierarchicalFilter> {
+  return z
+    .object({
+      filter: z.string().optional(),
+      value: z.string().optional(),
+      count: z.number().optional(),
+      children: z
+        .object({
+          values: z.array(z.any()).optional(),
+        })
+        .passthrough()
+        .optional(),
+    })
+    .passthrough()
+    .transform(
+      (source): HierarchicalFilter => ({
+        id: source.filter ?? '',
+        label: source.value ?? '',
+        facetId: context.facetId as string,
+        totalResults: source.count,
+        parentId: (context.parentId as string) ?? null,
+        selected: false,
+        modelName: 'HierarchicalFilter',
+        ...(source.children?.values
+          ? {
+              children: source.children.values.map(child =>
+                hierarchicalFilterSchema({
+                  ...context,
+                  facetId: context.facetId,
+                }).parse(child),
+              ),
+            }
+          : {}),
+      }),
+    )
+}

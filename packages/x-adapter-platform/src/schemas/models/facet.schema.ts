@@ -1,12 +1,12 @@
 import type {
   BooleanFacet,
   EditableNumberRangeFacet,
+  Facet,
   HierarchicalFacet,
   NumberRangeFacet,
   SimpleFacet,
 } from '@empathyco/x-types'
-import type { PlatformFacet } from '../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { getFacetConfig } from '../facets/utils'
 
 /**
@@ -14,19 +14,35 @@ import { getFacetConfig } from '../facets/utils'
  *
  * @public
  */
-export const facetSchema = createMutableSchema<
-  PlatformFacet,
-  HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet | BooleanFacet
->({
-  id: 'facet',
-  label: 'label',
-  // eslint-disable-next-line ts/no-unsafe-return
-  modelName: ({ type }) => getFacetConfig(type).modelName as any,
-  filters: {
-    $path: 'values',
-    $subSchema: ({ type }) => getFacetConfig(type).schema,
-    $context: {
-      facetId: 'facet',
+export const facetSchema = z
+  .object({
+    facet: z.string(),
+    label: z.string().optional(),
+    type: z.string(),
+    values: z.array(z.any()).optional(),
+  })
+  .passthrough()
+  .transform(
+    (
+      source,
+    ):
+      | HierarchicalFacet
+      | NumberRangeFacet
+      | SimpleFacet
+      | EditableNumberRangeFacet
+      | BooleanFacet => {
+      const facetConfig = getFacetConfig(source.type as Parameters<typeof getFacetConfig>[0])
+      const filterSchema = facetConfig.schema({ facetId: source.facet })
+      return {
+        id: source.facet,
+        label: source.label ?? '',
+        modelName: facetConfig.modelName,
+        filters: source.values?.map(v => filterSchema.parse(v)) ?? [],
+      } as Facet as
+        | HierarchicalFacet
+        | NumberRangeFacet
+        | SimpleFacet
+        | EditableNumberRangeFacet
+        | BooleanFacet
     },
-  },
-})
+  )

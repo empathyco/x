@@ -1,6 +1,6 @@
 import type { RelatedPromptsRequest } from '@empathyco/x-types'
 import type { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prompts-request.schema'
 
 /**
@@ -8,7 +8,7 @@ import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prom
  *
  * @public
  */
-export const relatedPromptsRequestMapper = schemaMapperFactory<
+export const relatedPromptsRequestMapper = zSchemaMapperFactory<
   RelatedPromptsRequest,
   PlatformRelatedPromptsRequest
 >(relatedPromptsRequestSchema)

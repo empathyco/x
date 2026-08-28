@@ -17,6 +17,10 @@ export const platformResult: PlatformResult = {
     checkout: 'https://checkouttagging/',
     click: 'https://clicktagging/',
     displayClick: 'https://displayclicktagging/',
+    browseAdd2Cart: 'https://browseadd2carttagging/',
+    browseProduct: 'https://browseproducttagging/',
+    browseCheckout: 'https://browsecheckouttagging/',
+    displayBrowseProduct: 'https://displaybrowseproducttagging/',
   },
 }
 
@@ -31,8 +35,8 @@ export const result: Result = {
   name: platformResult.__name,
   price: {
     hasDiscount: false,
-    originalValue: platformResult.__prices.current.value,
-    value: platformResult.__prices.current.value,
+    originalValue: platformResult.__prices.current!.value,
+    value: platformResult.__prices.current!.value,
   },
   rating: {
     value: null,

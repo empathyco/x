@@ -1,28 +1,31 @@
+import type { MapperContext } from '@empathyco/x-adapter'
 import type { EditableNumberRangeFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 
 /**
- * Default implementation for the NumberFilterSchema.
+ * Returns a Zod schema for mapping a PlatformFilter to an EditableNumberRangeFilter.
  *
  * @public
  */
-export const editableNumberFilterSchema = createMutableSchema<
-  PlatformFilter,
-  EditableNumberRangeFilter
->({
-  id: 'filter',
-  facetId: (_, $context) => $context?.facetId as string,
-  selected: () => false,
-  modelName: () => 'EditableNumberRangeFilter',
-  range: {
-    min: ({ value }) => {
-      const min = Number(value.split('-')[0])
-      return Number.isNaN(min) ? null : min
-    },
-    max: ({ value }) => {
-      const max = Number(value.split('-')[1])
-      return Number.isNaN(max) ? null : max
-    },
-  },
-})
+export function editableNumberFilterSchema(context: MapperContext) {
+  return z
+    .object({
+      filter: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .passthrough()
+    .transform((source): EditableNumberRangeFilter => {
+      const min = Number(source.value?.split('-')[0])
+      const max = Number(source.value?.split('-')[1])
+      return {
+        id: source.filter ?? '',
+        facetId: context.facetId as string,
+        selected: false,
+        modelName: 'EditableNumberRangeFilter',
+        range: {
+          min: Number.isNaN(min) ? null : min,
+          max: Number.isNaN(max) ? null : max,
+        },
+      }
+    })
+}

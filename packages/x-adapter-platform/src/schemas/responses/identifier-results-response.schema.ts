@@ -1,7 +1,5 @@
 import type { IdentifierResultsResponse } from '@empathyco/x-types'
-import type { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { z } from 'zod'
 import { resultSchema } from '../models/result.schema'
 
 /**
@@ -9,12 +7,18 @@ import { resultSchema } from '../models/result.schema'
  *
  * @public
  */
-export const identifierResultsResponseSchema = createMutableSchema<
-  PlatformIdentifierResultsResponse,
-  IdentifierResultsResponse
->({
-  results: {
-    $path: 'catalog.content',
-    $subSchema: resultSchema,
-  },
-})
+export const identifierResultsResponseSchema = z
+  .object({
+    catalog: z
+      .object({
+        content: z.array(z.any()).optional(),
+      })
+      .passthrough()
+      .optional(),
+  })
+  .passthrough()
+  .transform(
+    (source): IdentifierResultsResponse => ({
+      results: source.catalog?.content?.map(item => resultSchema.parse(item)) ?? [],
+    }),
+  )

@@ -43,7 +43,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-utils": "1.0.10"
+    "@empathyco/x-utils": "1.0.10",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.1.9",

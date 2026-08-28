@@ -1,6 +1,6 @@
 import type { AiSuggestionsRequest } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsRequest } from '../../../types'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { aiSuggestionsRequestSchema } from '../../../schemas/requests/ai/suggestions-request.schema'
 
 /**
@@ -8,7 +8,7 @@ import { aiSuggestionsRequestSchema } from '../../../schemas/requests/ai/suggest
  *
  * @public
  */
-export const aiSuggestionsRequestMapper = schemaMapperFactory<
+export const aiSuggestionsRequestMapper = zSchemaMapperFactory<
   AiSuggestionsRequest,
   PlatformAiSuggestionsRequest
 >(aiSuggestionsRequestSchema)
