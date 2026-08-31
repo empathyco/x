@@ -9,7 +9,7 @@ export interface PlatformFacet {
   label: string
   facet: string
   type: PlatformFacetType
-  values: PlatformFilter[]
+  values: (PlatformFilter | PlatformSliderFilter)[]
 }
 
 /**
@@ -17,7 +17,7 @@ export interface PlatformFacet {
  *
  * @public
  */
-export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'editable-range' | 'boolean'
+export type PlatformFacetType = 'value' | 'hierarchical' | 'range' | 'boolean' | 'slider'
 
 /**
  * Filter model for the `platform` API.
@@ -29,6 +29,19 @@ export interface PlatformFilter {
   filter: string
   id: string
   value: string
+}
+
+/**
+ * Slider filter model for the `platform` API, used when {@link PlatformFacetType} is `slider`.
+ *
+ * @public
+ */
+export interface PlatformSliderFilter {
+  filter: string
+  min: string
+  max: string
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#style
+  unit: 'decimal' | 'currency' | 'percent' | 'unit'
 }
 
 /**

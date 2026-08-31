@@ -15,6 +15,8 @@ export interface EditableNumberRangeFilter extends FacetFilter {
   modelName: 'EditableNumberRangeFilter'
   /** Filter range to use in the frontend. */
   range: RangeValue
+  /** Unit to format the range values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#style */
+  unit?: 'decimal' | 'currency' | 'percent' | 'unit'
 }
 
 /**

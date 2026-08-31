@@ -1,5 +1,5 @@
 import type { EditableNumberRangeFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
+import type { PlatformSliderFilter } from '../../../types/models/facet.model'
 import { createMutableSchema } from '@empathyco/x-adapter'
 
 /**
@@ -8,7 +8,7 @@ import { createMutableSchema } from '@empathyco/x-adapter'
  * @public
  */
 export const editableNumberFilterSchema = createMutableSchema<
-  PlatformFilter,
+  PlatformSliderFilter,
   EditableNumberRangeFilter
 >({
   id: 'filter',
@@ -16,13 +16,14 @@ export const editableNumberFilterSchema = createMutableSchema<
   selected: () => false,
   modelName: () => 'EditableNumberRangeFilter',
   range: {
-    min: ({ value }) => {
-      const min = Number(value.split('-')[0])
-      return Number.isNaN(min) ? null : min
+    min: ({ min }) => {
+      const minValue = Number(min)
+      return Number.isNaN(minValue) ? null : minValue
     },
-    max: ({ value }) => {
-      const max = Number(value.split('-')[1])
-      return Number.isNaN(max) ? null : max
+    max: ({ max }) => {
+      const maxValue = Number(max)
+      return Number.isNaN(maxValue) ? null : maxValue
     },
   },
+  unit: 'unit',
 })
