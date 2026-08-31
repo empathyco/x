@@ -115,6 +115,20 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect(listener).not.toHaveBeenCalled()
   })
 
+  it('adds the error class to the root element when the range values are invalid', async () => {
+    const { filterWrapper, typeMin } = renderEditableNumberRangeFilter({
+      range: { min: 1, max: 5 },
+    })
+
+    const rootWrapper = filterWrapper.find(getDataTestSelector('editable-number-range-filter'))
+
+    expect(rootWrapper.classes()).not.toContain('x-editable-number-range-filter--error')
+
+    await typeMin(6)
+
+    expect(rootWrapper.classes()).toContain('x-editable-number-range-filter--error')
+  })
+
   it('emits UserModifiedEditableNumberRangeFilter event when isInstant is true and an input is changed', async () => {
     const { typeMin, typeMax } = renderEditableNumberRangeFilter({
       range: { min: 1, max: 5 },

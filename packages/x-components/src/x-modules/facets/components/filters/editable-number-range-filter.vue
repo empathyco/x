@@ -3,7 +3,7 @@
     :model-value="range"
     :threshold="threshold"
     class="x-editable-number-range-filter"
-    :class="cssClasses"
+    :class="{ 'x-editable-number-range-filter--error': hasError }"
     data-test="editable-number-range-filter"
     @update:model-value="newRange => (range = newRange)"
   >
@@ -192,17 +192,6 @@ export default defineComponent({
     )
 
     /**
-     * Dynamic CSS classes.
-     *
-     * @returns Object which contains dynamic CSS classes.
-     *
-     * @internal
-     */
-    const cssClasses = computed(() => {
-      return { 'x-editable-number-range-filter--error': hasError.value }
-    })
-
-    /**
      * Checks if the range of the filter allows any value, which happens when the min is
      * null or 0 and the max is null.
      *
@@ -323,7 +312,6 @@ export default defineComponent({
     return {
       rangeFilterMin,
       rangeFilterMax,
-      cssClasses,
       range,
       setMin,
       setMax,
