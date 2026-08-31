@@ -1,4 +1,5 @@
-import type { RangeValue } from '@empathyco/x-types'
+import type { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types'
+import type { SnippetConfig } from '../../../../../x-installer/api/api.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
@@ -32,8 +33,19 @@ function renderEditableNumberRangeFilter({
   hasClearButton = true,
   buttonsClass = '',
   inputsClass = '',
+  unit,
+  snippetConfig = { uiLang: 'en-US' },
+}: {
+  template?: string
+  range?: RangeValue
+  isInstant?: boolean
+  hasClearButton?: boolean
+  buttonsClass?: string
+  inputsClass?: string
+  unit?: EditableNumberRangeFilter['unit']
+  snippetConfig?: Partial<SnippetConfig>
 } = {}) {
-  const filter = ref(createEditableNumberRangeFilter('age', range))
+  const filter = ref({ ...createEditableNumberRangeFilter('age', range), unit })
 
   const wrapper = mount(
     {
@@ -48,7 +60,10 @@ function renderEditableNumberRangeFilter({
         buttonsClass,
         inputsClass,
       }),
-      global: { plugins: [installNewXPlugin()] },
+      global: {
+        plugins: [installNewXPlugin()],
+        provide: { snippetConfig },
+      },
     },
   )
 
@@ -127,6 +142,83 @@ describe('testing BaseNumberRangeFilter component', () => {
     await typeMin(6)
 
     expect(rootWrapper.classes()).toContain('x-editable-number-range-filter--error')
+  })
+
+  it('formats the range values in the inputs using the filter unit and the snippet config uiLang', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1234.5, max: 100 },
+      unit: 'currency',
+      snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
+    })
+
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1234,50\u00A0€')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('100,00\u00A0€')
+  })
+
+  it('formats the range values as percent when the filter unit is percent', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 0.15, max: 0.5 },
+      unit: 'percent',
+      snippetConfig: { uiLang: 'en-US' },
+    })
+
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('15%')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('50%')
+  })
+
+  it('formats the range values as decimal numbers when the filter has no unit', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1234567, max: 10 },
+      snippetConfig: { uiLang: 'es-ES' },
+    })
+
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1.234.567')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('10')
+  })
+
+  it('falls back to decimal formatting when the filter unit is unit', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1234.5, max: null },
+      unit: 'unit',
+      snippetConfig: { uiLang: 'en-US' },
+    })
+
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1,234.5')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('')
+  })
+
+  it('renders empty inputs when the range values are null', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: null, max: null },
+      unit: 'currency',
+      snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
+    })
+
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('')
+  })
+
+  it('parses the formatted value typed in an input', async () => {
+    const { typeMin, typeMax, applyButtonWrapper } = renderEditableNumberRangeFilter({
+      range: { min: null, max: null },
+      unit: 'currency',
+      snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
+    })
+
+    const listener = vi.fn()
+    XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
+
+    await typeMin('1.500,50 €')
+    await typeMax('2.000')
+    await applyButtonWrapper.trigger('click')
+
+    expect(listener).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        range: { min: 1500.5, max: 2000 },
+      }),
+    )
+    expect(listener).toHaveBeenCalledTimes(1)
   })
 
   it('emits UserModifiedEditableNumberRangeFilter event when isInstant is true and an input is changed', async () => {

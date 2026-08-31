@@ -16,6 +16,9 @@
           `UserModifiedEditableNumberRangeFilter` X event.
           @binding {clearValues} function - It sets component min and max values to null.
           @binding {hasError} boolean - Returns true when there is an error with component values.
+          @binding {formatRangeValue} function - It formats a range value using the filter unit
+          and the snippet config `uiLang`.
+          @binding {parseRangeValue} function - It parses a range value from a raw input value.
     -->
     <slot
       v-bind="{
@@ -26,29 +29,33 @@
         clearValues,
         hasError,
         isAnyRange,
+        formatRangeValue,
+        parseRangeValue,
       }"
     >
       <!-- eslint-disable max-len -->
       <input
         name="min"
-        type="number"
+        type="text"
+        inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
         :class="inputsClass"
-        :value="!isAnyRange ? range.min : null"
+        :value="!isAnyRange ? formatRangeValue(range.min) : ''"
         data-test="range-min"
         :aria-label="rangeFilterMin"
-        @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
+        @change="setMin(parseRangeValue(($event?.target as HTMLInputElement)?.value ?? ''))"
       />
 
       <input
         name="max"
-        type="number"
+        type="text"
+        inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
         :class="inputsClass"
-        :value="range.max"
+        :value="formatRangeValue(range.max)"
         data-test="range-max"
         :aria-label="rangeFilterMax"
-        @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
+        @change="setMax(parseRangeValue(($event?.target as HTMLInputElement)?.value ?? ''))"
       />
 
       <button
@@ -87,14 +94,18 @@ import type {
   RangeValue,
 } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { SnippetConfig } from '../../../../x-installer/api/api.types'
 import BaseSlider from '@x/components/base-slider.vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
 /**
  * Renders an editable number range filter. It has two input fields to handle min and max values,
  * emitting the needed events when clicked.
+ *
+ * The range values shown in the inputs are formatted using `Intl.NumberFormat`, taking the `unit`
+ * of the filter as the format style and the `uiLang` of the snippet config as the locale.
  *
  * It provides a default slot, with some utils bind, to customize the whole component; and two
  * named slots `apply-content` and `clear-content` to override each button content.
@@ -147,6 +158,14 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
+
+    /**
+     * The snippet config, provided by the installer, which provides the uiLang and the currency
+     * to format the range values.
+     *
+     * @internal
+     */
+    const snippetConfig = inject<SnippetConfig>('snippetConfig')
 
     const rangeFilterMin = 'minimum amount'
     const rangeFilterMax = 'maximum amount'
@@ -226,14 +245,85 @@ export default defineComponent({
     }
 
     /**
-     * It returns the number if possible or null otherwise.
+     * The number format to use to format the range values. It uses the `unit` of the filter as
+     * the format style and the `uiLang` of the snippet config as the locale.
      *
-     * @param value - Value.
-     * @returns The element value as a number if possible or null.
+     * @returns An Intl.NumberFormat to format the range values.
      *
      * @internal
      */
-    const parseRangeValue = (value: number) => (Number.isNaN(value) ? null : value)
+    const numberFormatter = computed(() => {
+      const options: Intl.NumberFormatOptions = { style: 'decimal' }
+      if (props.filter.unit === 'currency') {
+        options.style = 'currency'
+        options.currency = snippetConfig?.currency ?? 'EUR'
+      } else if (props.filter.unit === 'percent') {
+        options.style = 'percent'
+      }
+      return new Intl.NumberFormat(snippetConfig?.uiLang, options)
+    })
+
+    /**
+     * It formats a range value using the `unit` of the filter and the `uiLang` of the snippet
+     * config.
+     *
+     * @param value - The range value to format.
+     * @returns The formatted value, or an empty string if the value is null.
+     *
+     * @internal
+     */
+    const formatRangeValue = (value: number | null): string =>
+      value === null ? '' : numberFormatter.value.format(value)
+
+    /**
+     * The decimal separator of the `uiLang` locale of the snippet config.
+     *
+     * @returns The decimal separator (e.g. `.` or `,`) of the locale.
+     *
+     * @internal
+     */
+    const decimalSeparator = computed(
+      () =>
+        new Intl.NumberFormat(snippetConfig?.uiLang)
+          .formatToParts(0.5)
+          .find(part => part.type === 'decimal')?.value,
+    )
+
+    /**
+     * It parses the raw value of a range input, removing the formatting applied to it.
+     *
+     * @param rawValue - The raw input value.
+     * @returns The parsed value as a number if possible or null otherwise.
+     *
+     * @internal
+     */
+    const parseRangeValue = (rawValue: string): number | null => {
+      const cleaned = rawValue.replace(/[^\d,.\-]/g, '')
+      if (cleaned === '' || cleaned === '-') {
+        return null
+      }
+
+      const hasComma = cleaned.includes(',')
+      const hasDot = cleaned.includes('.')
+      let normalized: string
+      if (hasComma && hasDot) {
+        // The last separator used is the decimal one, the other one is the grouping one
+        const decimal = cleaned.lastIndexOf(',') > cleaned.lastIndexOf('.') ? ',' : '.'
+        const grouping = decimal === ',' ? '.' : ','
+        normalized = cleaned.split(grouping).join('').replace(',', '.')
+      } else if (hasComma || hasDot) {
+        const separator = hasComma ? ',' : '.'
+        normalized =
+          separator === decimalSeparator.value
+            ? cleaned.replace(separator, '.')
+            : cleaned.split(separator).join('')
+      } else {
+        normalized = cleaned
+      }
+
+      const parsed = Number.parseFloat(normalized)
+      return Number.isNaN(parsed) ? null : parsed
+    }
 
     /**
      * `min` setter.
@@ -242,8 +332,8 @@ export default defineComponent({
      *
      * @internal
      */
-    const setMin = (value: number) => {
-      range.value.min = parseRangeValue(value)
+    const setMin = (value: number | null) => {
+      range.value.min = value
     }
 
     /**
@@ -253,8 +343,8 @@ export default defineComponent({
      *
      * @internal
      */
-    const setMax = (value: number) => {
-      range.value.max = parseRangeValue(value)
+    const setMax = (value: number | null) => {
+      range.value.max = value
     }
 
     /**
@@ -321,6 +411,8 @@ export default defineComponent({
       isAnyRange,
       renderClearButton,
       threshold,
+      formatRangeValue,
+      parseRangeValue,
     }
   },
 })
@@ -432,16 +524,38 @@ const editableFilter = ref({
 
 ### Customizing default slot
 
+The default slot exposes `formatRangeValue` and `parseRangeValue` so you can render the range
+values formatted with the filter `unit` and the snippet config `uiLang`, and parse back the value
+typed by the user.
+
 ```vue
 <template>
   <EditableNumberRangeFilter
     :filter="editableFilter"
-    #default="{ range, setMin, setMax, emitUserModifiedFilter, clearValues, hasError, isAnyRange }"
+    #default="{
+      range,
+      setMin,
+      setMax,
+      emitUserModifiedFilter,
+      clearValues,
+      hasError,
+      isAnyRange,
+      formatRangeValue,
+      parseRangeValue,
+    }"
   >
     <button @click="emitUserModifiedFilter">✅ Apply!</button>
     <button @click="clearValues">🗑 Clear!</button>
-    <input :value="!isAnyRange ? range.min : null" @change="setMin($event.target.valueAsNumber)" />
-    <input :value="range.max" @change="setMax($event.target.valueAsNumber)" />
+    <input
+      type="text"
+      :value="!isAnyRange ? formatRangeValue(range.min) : ''"
+      @change="setMin(parseRangeValue($event.target.value))"
+    />
+    <input
+      type="text"
+      :value="formatRangeValue(range.max)"
+      @change="setMax(parseRangeValue($event.target.value))"
+    />
     <div class="has-error" v-if="hasError">⚠️ Invalid range values</div>
   </EditableNumberRangeFilter>
 </template>
