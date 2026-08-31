@@ -144,6 +144,7 @@ import {
 } from '@x/components'
 import {
   ClearFilters,
+  EditableNumberRangeFilter,
   ExcludeFiltersWithNoResults,
   Facets,
   FiltersList,
