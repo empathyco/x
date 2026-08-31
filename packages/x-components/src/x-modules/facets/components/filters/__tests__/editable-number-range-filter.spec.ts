@@ -1,9 +1,10 @@
 import type { RangeValue } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import BaseSlider from '../../../../../components/base-slider.vue'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins'
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue'
@@ -135,14 +136,14 @@ describe('testing BaseNumberRangeFilter component', () => {
       }),
     )
 
-    await typeMax(7)
+    await typeMax(4)
 
     expect(listener).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({
         range: {
           min: 2,
-          max: 7,
+          max: 4,
         },
       }),
     )
@@ -202,6 +203,100 @@ describe('testing BaseNumberRangeFilter component', () => {
     })
   })
 
+  it('renders BaseSlider as root element with the range as modelValue and the filter range as threshold', () => {
+    const { filterWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1, max: 5 },
+    })
+
+    const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
+
+    expect(baseSliderWrapper.exists()).toBe(true)
+    expect(baseSliderWrapper.props('modelValue')).toEqual({ min: 1, max: 5 })
+    expect(baseSliderWrapper.props('threshold')).toEqual({ min: 1, max: 5 })
+    expect(filterWrapper.find(getDataTestSelector('editable-number-range-filter')).exists()).toBe(
+      true,
+    )
+  })
+
+  it('uses 0 and Number.MAX_SAFE_INTEGER as threshold when the filter range is empty', () => {
+    const { filterWrapper } = renderEditableNumberRangeFilter({
+      range: { min: null, max: null },
+    })
+
+    const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
+
+    expect(baseSliderWrapper.props('modelValue')).toEqual({ min: null, max: null })
+    expect(baseSliderWrapper.props('threshold')).toEqual({
+      min: 0,
+      max: Number.MAX_SAFE_INTEGER,
+    })
+  })
+
+  it('updates the component range when BaseSlider emits update:modelValue', async () => {
+    const { filterWrapper, minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1, max: 5 },
+    })
+
+    const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
+
+    baseSliderWrapper.vm.$emit('update:modelValue', { min: 2, max: 4 })
+    await nextTick()
+
+    expect(baseSliderWrapper.props('modelValue')).toEqual({ min: 2, max: 4 })
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
+  })
+
+  it('emits UserModifiedEditableNumberRangeFilter when isInstant is true and the slider changes', async () => {
+    const { filterWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1, max: 5 },
+      isInstant: true,
+    })
+
+    const listener = vi.fn()
+    XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
+
+    const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
+
+    baseSliderWrapper.vm.$emit('update:modelValue', { min: 2, max: 4 })
+    await nextTick()
+
+    expect(listener).toHaveBeenCalledTimes(1)
+    expect(listener).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        range: { min: 2, max: 4 },
+      }),
+    )
+  })
+
+  it('keeps the slider values until the apply button is clicked when isInstant is false', async () => {
+    const { filterWrapper, applyButtonWrapper, minInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 1, max: 5 },
+    })
+
+    const listener = vi.fn()
+    XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
+
+    const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
+
+    baseSliderWrapper.vm.$emit('update:modelValue', { min: 2, max: 4 })
+    await nextTick()
+
+    expect(listener).not.toHaveBeenCalled()
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
+
+    await applyButtonWrapper.trigger('click')
+
+    expect(listener).toHaveBeenCalledTimes(1)
+    expect(listener).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        range: { min: 2, max: 4 },
+      }),
+    )
+  })
+
   describe('slots testing', () => {
     it('allows to customize apply-content slot', () => {
       const { applyButtonWrapper } = renderEditableNumberRangeFilter({
@@ -253,8 +348,7 @@ describe('testing BaseNumberRangeFilter component', () => {
             <EditableNumberRangeFilterComponent
               :filter="filter"
               #default="{
-                min,
-                max,
+                range,
                 setMin,
                 setMax,
                 emitUserModifiedFilter,
@@ -267,19 +361,19 @@ describe('testing BaseNumberRangeFilter component', () => {
               </button>
               <button @click="clearValues" data-test="range-clear">🗑 Clear!</button>
               <input
-                :value="min"
+                :value="range.min"
                 @change="setMin($event.target.valueAsNumber)"
                 data-test="range-min"
               />
               <input
-                :value="max"
+                :value="range.max"
                 @change="setMax($event.target.valueAsNumber)"
                 data-test="range-max"
               />
               <div data-test="has-error" v-if="hasError">⚠️ Invalid range values</div>
             </EditableNumberRangeFilterComponent>
           `,
-          range: { min: 7, max: 4 },
+          range: { min: 1, max: 5 },
         })
 
       const listener = vi.fn()
@@ -288,19 +382,24 @@ describe('testing BaseNumberRangeFilter component', () => {
       expect(applyButtonWrapper.text()).toBe('✅ Apply!')
       expect(clearButtonWrapper.text()).toBe('🗑 Clear!')
 
+      expect(filterWrapper.find(getDataTestSelector('has-error')).exists()).toBe(false)
+
+      await typeMin(5)
+      await typeMax(1)
+
       expect(filterWrapper.find(getDataTestSelector('has-error')).text()).toBe(
         '⚠️ Invalid range values',
       )
 
-      await typeMin(4)
-      await typeMax(6)
+      await typeMin(2)
+      await typeMax(4)
       await applyButtonWrapper.trigger('click')
       expect(listener).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
           range: {
-            min: 4,
-            max: 6,
+            min: 2,
+            max: 4,
           },
         }),
       )

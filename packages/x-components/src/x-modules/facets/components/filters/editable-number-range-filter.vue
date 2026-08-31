@@ -1,13 +1,15 @@
 <template>
-  <div
+  <BaseSlider
+    :model-value="range"
+    :threshold="threshold"
     class="x-editable-number-range-filter"
     :class="cssClasses"
     data-test="editable-number-range-filter"
+    @update:model-value="newRange => (range = newRange)"
   >
     <!--
         @slot Empty slot used to customize the whole component.
-          @binding {min} number - Component min value.
-          @binding {max} number - Component max value.
+          @binding {range} RangeValue - Component min and max values.
           @binding {setMin} function - Component min setter.
           @binding {setMax} function - Component max setter.
           @binding {emitUserModifiedFilter} function - It emits the
@@ -17,8 +19,7 @@
     -->
     <slot
       v-bind="{
-        min,
-        max,
+        range,
         setMin,
         setMax,
         emitUserModifiedFilter,
@@ -33,7 +34,7 @@
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
         :class="inputsClass"
-        :value="!isAnyRange ? min : null"
+        :value="!isAnyRange ? range.min : null"
         data-test="range-min"
         :aria-label="rangeFilterMin"
         @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
@@ -44,12 +45,11 @@
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
         :class="inputsClass"
-        :value="max"
+        :value="range.max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
         @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
-      <!-- eslint-enable max-len -->
 
       <button
         v-if="!isInstant"
@@ -78,7 +78,7 @@
         <slot name="clear-content">𐄂</slot>
       </button>
     </slot>
-  </div>
+  </BaseSlider>
 </template>
 
 <script lang="ts">
@@ -86,7 +86,8 @@ import type {
   EditableNumberRangeFilter as EditableNumberRangeFilterModel,
   RangeValue,
 } from '@empathyco/x-types'
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
+import BaseSlider from '@x/components/base-slider.vue'
 import { computed, defineComponent, ref, watch } from 'vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
@@ -109,6 +110,9 @@ import { facetsXModule } from '../../x-module'
 export default defineComponent({
   name: 'EditableNumberRangeFilter',
   xModule: facetsXModule.name,
+  components: {
+    BaseSlider,
+  },
   props: {
     /**
      * The filter data to render and edit.
@@ -146,18 +150,6 @@ export default defineComponent({
 
     const rangeFilterMin = 'minimum amount'
     const rangeFilterMax = 'maximum amount'
-    /**
-     * Component min value.
-     *
-     * @internal
-     */
-    const min: Ref<RangeValue['min']> = ref(null)
-    /**
-     * Component max value.
-     *
-     * @internal
-     */
-    const max: Ref<RangeValue['max']> = ref(null)
 
     /**
      * Returns {@link @empathyco/x-types#RangeValue} with component min and max
@@ -167,9 +159,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const range = computed((): RangeValue => {
-      return { min: min.value, max: max.value }
-    })
+    const range = ref({ min: props.filter.range.min, max: props.filter.range.max })
 
     /**
      * It checks if component min and max values are valid.
@@ -179,8 +169,14 @@ export default defineComponent({
      * @internal
      */
     const hasError = computed(
-      () => min.value !== null && max.value !== null && min.value > max.value,
+      () =>
+        range.value.min !== null && range.value.max !== null && range.value.min > range.value.max,
     )
+
+    const threshold = computed(() => ({
+      min: props.filter.range.min ?? 0,
+      max: props.filter.range.max ?? Number.MAX_SAFE_INTEGER,
+    }))
 
     /**
      * It checks if component min and max values are different from the ones within the filter
@@ -191,7 +187,8 @@ export default defineComponent({
      * @internal
      */
     const areValuesDifferent = computed(
-      () => min.value !== props.filter.range.min || max.value !== props.filter.range.max,
+      () =>
+        range.value.min !== props.filter.range.min || range.value.max !== props.filter.range.max,
     )
 
     /**
@@ -213,7 +210,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const isAnyRange = computed(() => !min.value && max.value === null)
+    const isAnyRange = computed(() => !range.value.min && range.value.max === null)
 
     /**
      * It returns true if the property `hasClearButton` is true and there are values to clear.
@@ -257,7 +254,7 @@ export default defineComponent({
      * @internal
      */
     const setMin = (value: number) => {
-      min.value = parseRangeValue(value)
+      range.value.min = parseRangeValue(value)
     }
 
     /**
@@ -268,7 +265,7 @@ export default defineComponent({
      * @internal
      */
     const setMax = (value: number) => {
-      max.value = parseRangeValue(value)
+      range.value.max = parseRangeValue(value)
     }
 
     /**
@@ -278,8 +275,8 @@ export default defineComponent({
      * @internal
      */
     const clearValues = () => {
-      min.value = null
-      max.value = null
+      range.value.min = null
+      range.value.max = null
     }
 
     /**
@@ -301,8 +298,8 @@ export default defineComponent({
     watch(
       () => props.filter.range,
       (newRange: RangeValue) => {
-        min.value = newRange.min
-        max.value = newRange.max
+        range.value.min = newRange.min
+        range.value.max = newRange.max
       },
       { immediate: true, deep: true },
     )
@@ -327,8 +324,7 @@ export default defineComponent({
       rangeFilterMin,
       rangeFilterMax,
       cssClasses,
-      min,
-      max,
+      range,
       setMin,
       setMax,
       emitUserModifiedFilter,
@@ -336,6 +332,7 @@ export default defineComponent({
       hasError,
       isAnyRange,
       renderClearButton,
+      threshold,
     }
   },
 })
@@ -451,21 +448,12 @@ const editableFilter = ref({
 <template>
   <EditableNumberRangeFilter
     :filter="editableFilter"
-    #default="{
-      min,
-      max,
-      setMin,
-      setMax,
-      emitUserModifiedFilter,
-      clearValues,
-      hasError,
-      isAnyRange,
-    }"
+    #default="{ range, setMin, setMax, emitUserModifiedFilter, clearValues, hasError, isAnyRange }"
   >
     <button @click="emitUserModifiedFilter">✅ Apply!</button>
     <button @click="clearValues">🗑 Clear!</button>
-    <input :value="!isAnyRange ? min : null" @change="setMin($event.target.valueAsNumber)" />
-    <input :value="max" @change="setMax($event.target.valueAsNumber)" />
+    <input :value="!isAnyRange ? range.min : null" @change="setMin($event.target.valueAsNumber)" />
+    <input :value="range.max" @change="setMax($event.target.valueAsNumber)" />
     <div class="has-error" v-if="hasError">⚠️ Invalid range values</div>
   </EditableNumberRangeFilter>
 </template>
