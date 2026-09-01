@@ -95,8 +95,8 @@ import type {
 } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { SnippetConfig } from '../../../../x-installer/api/api.types'
-import BaseSlider from '@x/components/base-slider.vue'
 import { computed, defineComponent, inject, ref, watch } from 'vue'
+import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
