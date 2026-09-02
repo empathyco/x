@@ -12,28 +12,16 @@ import EditableNumberRangeFilterComponent from '../editable-number-range-filter.
 
 function renderEditableNumberRangeFilter({
   template = `
-    <EditableNumberRangeFilterComponent
-      :filter="filter"
-      :isInstant="isInstant"
-      :hasClearButton="hasClearButton"
-      :buttonsClass="buttonsClass"
-      :inputsClass="inputsClass"
-    />
+    <EditableNumberRangeFilterComponent :filter="filter" :isInstant="isInstant" />
   `,
   range = { min: null, max: null } as RangeValue,
   isInstant = false,
-  hasClearButton = true,
-  buttonsClass = '',
-  inputsClass = '',
-  unit,
+  unit = 'decimal',
   snippetConfig = { uiLang: 'en-US' },
 }: {
   template?: string
   range?: RangeValue
   isInstant?: boolean
-  hasClearButton?: boolean
-  buttonsClass?: string
-  inputsClass?: string
   unit?: EditableNumberRangeFilter['unit']
   snippetConfig?: Partial<SnippetConfig>
 } = {}) {
@@ -48,9 +36,6 @@ function renderEditableNumberRangeFilter({
       data: () => ({
         filter,
         isInstant,
-        hasClearButton,
-        buttonsClass,
-        inputsClass,
       }),
       global: {
         plugins: [installNewXPlugin()],
@@ -136,47 +121,51 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect(rootWrapper.classes()).toContain('x-editable-number-range-filter--error')
   })
 
-  it('formats the range values in the inputs using the filter unit and the snippet config uiLang', () => {
-    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      range: { min: 1234.5, max: 100 },
-      unit: 'currency',
-      snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
+  describe('formatRangeValue testing', () => {
+    const formattedSlotTemplate = `
+      <EditableNumberRangeFilterComponent :filter="filter">
+        <template #default="{ range, formatRangeValue }">
+          <span data-test="formatted-min">{{ formatRangeValue(range.min) }}</span>
+          <span data-test="formatted-max">{{ formatRangeValue(range.max) }}</span>
+        </template>
+      </EditableNumberRangeFilterComponent>
+    `
+
+    it('formats the range values using the filter unit and the snippet config uiLang', () => {
+      const { filterWrapper } = renderEditableNumberRangeFilter({
+        template: formattedSlotTemplate,
+        range: { min: 1234.5, max: 100 },
+        unit: 'currency',
+        snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
+      })
+
+      expect(filterWrapper.find('[data-test="formatted-min"]').text()).toBe('1234,50\u00A0€')
+      expect(filterWrapper.find('[data-test="formatted-max"]').text()).toBe('100,00\u00A0€')
     })
 
-    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1234,50\u00A0€')
-    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('100,00\u00A0€')
-  })
+    it('formats the range values as percent when the filter unit is percent', () => {
+      const { filterWrapper } = renderEditableNumberRangeFilter({
+        template: formattedSlotTemplate,
+        range: { min: 0.15, max: 0.5 },
+        unit: 'percent',
+        snippetConfig: { uiLang: 'en-US' },
+      })
 
-  it('formats the range values as percent when the filter unit is percent', () => {
-    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      range: { min: 0.15, max: 0.5 },
-      unit: 'percent',
-      snippetConfig: { uiLang: 'en-US' },
+      expect(filterWrapper.find('[data-test="formatted-min"]').text()).toBe('15%')
+      expect(filterWrapper.find('[data-test="formatted-max"]').text()).toBe('50%')
     })
 
-    expect((minInputWrapper.element as HTMLInputElement).value).toBe('15%')
-    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('50%')
-  })
+    it('formats the range values as decimal numbers when the filter unit is decimal', () => {
+      const { filterWrapper } = renderEditableNumberRangeFilter({
+        template: formattedSlotTemplate,
+        range: { min: 1234567, max: 10 },
+        unit: 'decimal',
+        snippetConfig: { uiLang: 'es-ES' },
+      })
 
-  it('formats the range values as decimal numbers when the filter has no unit', () => {
-    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      range: { min: 1234567, max: 10 },
-      snippetConfig: { uiLang: 'es-ES' },
+      expect(filterWrapper.find('[data-test="formatted-min"]').text()).toBe('1.234.567')
+      expect(filterWrapper.find('[data-test="formatted-max"]').text()).toBe('10')
     })
-
-    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1.234.567')
-    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('10')
-  })
-
-  it('falls back to decimal formatting when the filter unit is unit', () => {
-    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      range: { min: 1234.5, max: null },
-      unit: 'unit',
-      snippetConfig: { uiLang: 'en-US' },
-    })
-
-    expect((minInputWrapper.element as HTMLInputElement).value).toBe('1,234.5')
-    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('')
   })
 
   it('renders empty inputs when the range values are null', () => {
@@ -190,18 +179,16 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('')
   })
 
-  it('parses the formatted value typed in an input', async () => {
+  it('parses the value typed in an input', async () => {
     const { typeMin, typeMax, applyButtonWrapper } = renderEditableNumberRangeFilter({
       range: { min: null, max: null },
-      unit: 'currency',
-      snippetConfig: { uiLang: 'es-ES', currency: 'EUR' },
     })
 
     const listener = vi.fn()
     XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
-    await typeMin('1.500,50 €')
-    await typeMax('2.000')
+    await typeMin('1500.5')
+    await typeMax('2000')
     await applyButtonWrapper.trigger('click')
 
     expect(listener).toHaveBeenNthCalledWith(
@@ -213,8 +200,20 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect(listener).toHaveBeenCalledTimes(1)
   })
 
-  it('emits UserModifiedEditableNumberRangeFilter event when isInstant is true and an input is changed', async () => {
-    const { typeMin, typeMax } = renderEditableNumberRangeFilter({
+  it('resets the value to the threshold when an input is emptied', async () => {
+    const { typeMin, minInputWrapper } = renderEditableNumberRangeFilter({
+      range: { min: 10, max: 20 },
+    })
+
+    await typeMin('15')
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('15')
+
+    await typeMin('')
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('10')
+  })
+
+  it('updates the inputs without emitting UserModifiedEditableNumberRangeFilter when an input is changed', async () => {
+    const { typeMin, typeMax, minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
       range: { min: 1, max: 5 },
       isInstant: true,
     })
@@ -224,29 +223,15 @@ describe('testing BaseNumberRangeFilter component', () => {
 
     await typeMin(2)
 
-    expect(listener).toHaveBeenNthCalledWith(
-      1,
-      expect.objectContaining({
-        range: {
-          min: 2,
-          max: 5,
-        },
-      }),
-    )
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('5')
 
     await typeMax(4)
 
-    expect(listener).toHaveBeenNthCalledWith(
-      2,
-      expect.objectContaining({
-        range: {
-          min: 2,
-          max: 4,
-        },
-      }),
-    )
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
 
-    expect(listener).toHaveBeenCalledTimes(2)
+    expect(listener).not.toHaveBeenCalled()
   })
 
   it('does not emit UserModifiedEditableNumberRangeFilter event when isInstant is false and an input is changed', async () => {
@@ -263,41 +248,47 @@ describe('testing BaseNumberRangeFilter component', () => {
   })
 
   describe('clear button testing', () => {
-    it('sets min and max component values to null on clear button click', async () => {
-      const { clearButtonWrapper, applyButtonWrapper } = renderEditableNumberRangeFilter({
-        range: { min: 1, max: 5 },
+    it('resets min and max component values to the threshold on clear button click', async () => {
+      const {
+        typeMin,
+        typeMax,
+        clearButtonWrapper,
+        applyButtonWrapper,
+        minInputWrapper,
+        maxInputWrapper,
+      } = renderEditableNumberRangeFilter({
+        range: { min: null, max: null },
       })
 
       const listener = vi.fn()
       XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
 
+      await typeMin(10)
+      await typeMax(20)
       await clearButtonWrapper.trigger('click')
+
+      expect((minInputWrapper.element as HTMLInputElement).value).toBe('0')
+      expect((maxInputWrapper.element as HTMLInputElement).value).toBe(
+        String(Number.MAX_SAFE_INTEGER),
+      )
+
       await applyButtonWrapper.trigger('click')
       expect(listener).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
-          range: { min: null, max: null },
+          range: { min: 0, max: Number.MAX_SAFE_INTEGER },
         }),
       )
       expect(listener).toHaveBeenCalledTimes(1)
     })
 
-    it('does not render a clear button if hasClearButton is false', () => {
-      const { clearButtonWrapper } = renderEditableNumberRangeFilter({
-        range: { min: 1, max: 5 },
-        hasClearButton: false,
-      })
-
-      expect(clearButtonWrapper.exists()).toBeFalsy()
-    })
-
-    it('does not render a clear button if hasClearButton is true and there are no values', () => {
+    it('renders the clear button even when there are no values', () => {
       const { clearButtonWrapper } = renderEditableNumberRangeFilter({
         range: { min: null, max: null },
-        hasClearButton: true,
       })
 
-      expect(clearButtonWrapper.exists()).toBeFalsy()
+      expect(clearButtonWrapper.exists()).toBeTruthy()
+      expect(clearButtonWrapper.text()).toBe('𐄂')
     })
   })
 
@@ -345,8 +336,8 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
   })
 
-  it('emits UserModifiedEditableNumberRangeFilter when isInstant is true and the slider changes', async () => {
-    const { filterWrapper } = renderEditableNumberRangeFilter({
+  it('updates the range without emitting UserModifiedEditableNumberRangeFilter when the slider changes', async () => {
+    const { filterWrapper, minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
       range: { min: 1, max: 5 },
       isInstant: true,
     })
@@ -359,13 +350,9 @@ describe('testing BaseNumberRangeFilter component', () => {
     baseSliderWrapper.vm.$emit('update:modelValue', { min: 2, max: 4 })
     await nextTick()
 
-    expect(listener).toHaveBeenCalledTimes(1)
-    expect(listener).toHaveBeenNthCalledWith(
-      1,
-      expect.objectContaining({
-        range: { min: 2, max: 4 },
-      }),
-    )
+    expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
+    expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
+    expect(listener).not.toHaveBeenCalled()
   })
 
   it('keeps the slider values until the apply button is clicked when isInstant is false', async () => {
@@ -393,24 +380,5 @@ describe('testing BaseNumberRangeFilter component', () => {
         range: { min: 2, max: 4 },
       }),
     )
-  })
-
-  it('allows adding classes to the inputs and the buttons', () => {
-    const { maxInputWrapper, minInputWrapper, applyButtonWrapper, clearButtonWrapper } =
-      renderEditableNumberRangeFilter({
-        inputsClass: 'custom-inputs-class',
-        buttonsClass: 'custom-buttons-class',
-        hasClearButton: true,
-        range: {
-          min: 1,
-          max: 5,
-        },
-      })
-
-    expect(minInputWrapper.classes()).toContain('custom-inputs-class')
-    expect(maxInputWrapper.classes()).toContain('custom-inputs-class')
-
-    expect(applyButtonWrapper.classes()).toContain('custom-buttons-class')
-    expect(clearButtonWrapper.classes()).toContain('custom-buttons-class')
   })
 })

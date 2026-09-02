@@ -37,11 +37,9 @@ export interface PlatformFilter {
  * @public
  */
 export interface PlatformSliderFilter {
-  filter: string
   min: string
   max: string
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#style
-  unit: 'decimal' | 'currency' | 'percent' | 'unit'
+  unit: Intl.NumberFormatOptions['style']
 }
 
 /**

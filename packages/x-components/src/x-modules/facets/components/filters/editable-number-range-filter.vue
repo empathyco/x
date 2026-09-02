@@ -9,36 +9,36 @@
   >
     <!--
         @slot Empty slot used to customize the whole component.
-          @binding {range} RangeValue - Component min and max values.
+          @binding {range} RangeValue - Component min and max values. 
+          @binding {threshold} RangeValue - Component min and max threshold values. 
           @binding {setMin} function - Component min setter.
           @binding {setMax} function - Component max setter.
           @binding {emitUserModifiedFilter} function - It emits the
           `UserModifiedEditableNumberRangeFilter` X event.
-          @binding {clearValues} function - It sets component min and max values to null.
+          @binding {clearValues} function - It resets component min and max values to threshold values.
           @binding {hasError} boolean - Returns true when there is an error with component values.
           @binding {formatRangeValue} function - It formats a range value using the filter unit
           and the snippet config `uiLang`.
     -->
     <slot
       v-bind="{
+        threshold,
         range,
         setMin,
         setMax,
         emitUserModifiedFilter,
         clearValues,
         hasError,
-        isAnyRange,
         formatRangeValue,
       }"
     >
       <!-- eslint-disable max-len -->
       <input
         name="min"
-        type="text"
+        type="number"
         inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
-        :class="inputsClass"
-        :value="!isAnyRange ? formatRangeValue(range.min) : ''"
+        :value="range.min"
         data-test="range-min"
         :aria-label="rangeFilterMin"
         @change="setMin(($event?.target as HTMLInputElement)?.value)"
@@ -46,11 +46,10 @@
 
       <input
         name="max"
-        type="text"
+        type="number"
         inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
-        :class="inputsClass"
-        :value="formatRangeValue(range.max)"
+        :value="range.max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
         @change="setMax(($event?.target as HTMLInputElement)?.value)"
@@ -59,7 +58,6 @@
       <button
         v-if="!isInstant"
         class="x-editable-number-range-filter__apply xds:button"
-        :class="buttonsClass"
         :disabled="hasError"
         data-test="range-apply"
         @click="emitUserModifiedFilter"
@@ -71,9 +69,7 @@
       </button>
 
       <button
-        v-if="renderClearButton"
         class="x-editable-number-range-filter__clear xds:button"
-        :class="buttonsClass"
         data-test="range-clear"
         @click="clearValues"
       >
@@ -139,16 +135,6 @@ export default defineComponent({
      * @public
      */
     isInstant: Boolean,
-    /**
-     * If `clear` prop is true, clear button, which sets to null component min and max values, is
-     * rendered. True by default.
-     *
-     * @public
-     */
-    hasClearButton: {
-      type: Boolean,
-      default: true,
-    },
     /** Class inherited by content element. */
     inputsClass: String,
     /** Class inherited by content element. */
@@ -209,25 +195,6 @@ export default defineComponent({
     )
 
     /**
-     * Checks if the range of the filter allows any value, which happens when the min is
-     * null or 0 and the max is null.
-     *
-     * @returns True if the range of the filter allows any value.
-     *
-     * @internal
-     */
-    const isAnyRange = computed(() => !range.value.min && range.value.max === null)
-
-    /**
-     * It returns true if the property `hasClearButton` is true and there are values to clear.
-     *
-     * @returns True if the clear button has to be rendered.
-     *
-     * @internal
-     */
-    const renderClearButton = computed(() => props.hasClearButton && !isAnyRange.value)
-
-    /**
      * It emits {@link FacetsXEvents.UserModifiedEditableNumberRangeFilter} event if there are no
      * errors and component `min` and `max` values are different than `filter.range` ones.
      *
@@ -253,7 +220,7 @@ export default defineComponent({
     const numberFormatter = computed(
       () =>
         new Intl.NumberFormat(snippetConfig?.uiLang, {
-          style: props.filter.unit === 'unit' ? 'decimal' : props.filter.unit,
+          style: props.filter.unit,
           ...(props.filter.unit === 'currency' && {
             currency: snippetConfig?.currency ?? 'EUR',
           }),
@@ -269,58 +236,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const formatRangeValue = (value: number | null): string =>
-      value === null ? '' : numberFormatter.value.format(value)
-
-    /**
-     * The decimal separator of the `uiLang` locale of the snippet config.
-     *
-     * @returns The decimal separator (e.g. `.` or `,`) of the locale.
-     *
-     * @internal
-     */
-    const decimalSeparator = computed(
-      () =>
-        new Intl.NumberFormat(snippetConfig?.uiLang)
-          .formatToParts(0.5)
-          .find(part => part.type === 'decimal')?.value,
-    )
-
-    /**
-     * It parses the raw value of a range input, removing the formatting applied to it.
-     *
-     * @param rawValue - The raw input value.
-     * @returns The parsed value as a number if possible or null otherwise.
-     *
-     * @internal
-     */
-    const parseRangeValue = (rawValue: string): number | null => {
-      const cleaned = rawValue.replace(/[^\d,.\-]/g, '')
-      if (cleaned === '' || cleaned === '-') {
-        return null
-      }
-
-      const hasComma = cleaned.includes(',')
-      const hasDot = cleaned.includes('.')
-      let normalized: string
-      if (hasComma && hasDot) {
-        // The last separator used is the decimal one, the other one is the grouping one
-        const decimal = cleaned.lastIndexOf(',') > cleaned.lastIndexOf('.') ? ',' : '.'
-        const grouping = decimal === ',' ? '.' : ','
-        normalized = cleaned.split(grouping).join('').replace(',', '.')
-      } else if (hasComma || hasDot) {
-        const separator = hasComma ? ',' : '.'
-        normalized =
-          separator === decimalSeparator.value
-            ? cleaned.replace(separator, '.')
-            : cleaned.split(separator).join('')
-      } else {
-        normalized = cleaned
-      }
-
-      const parsed = Number.parseFloat(normalized)
-      return Number.isNaN(parsed) ? null : parsed
-    }
+    const formatRangeValue = (value: number): string => numberFormatter.value.format(value)
 
     /**
      * `min` setter. It parses the raw value before setting it.
@@ -329,8 +245,8 @@ export default defineComponent({
      *
      * @internal
      */
-    const setMin = (rawValue: string = '') => {
-      range.value.min = parseRangeValue(rawValue)
+    const setMin = (rawValue: string) => {
+      range.value.min = !rawValue || Number.isNaN(rawValue) ? threshold.value.min : Number(rawValue)
     }
 
     /**
@@ -340,19 +256,19 @@ export default defineComponent({
      *
      * @internal
      */
-    const setMax = (rawValue: string = '') => {
-      range.value.max = parseRangeValue(rawValue)
+    const setMax = (rawValue: string) => {
+      range.value.max = !rawValue || Number.isNaN(rawValue) ? threshold.value.max : Number(rawValue)
     }
 
     /**
-     * It sets component `min` and `max` values to null , and it emits the change if component is
+     * It resets component `min` and `max` values, and it emits the change if component is
      * working in instant mode.
      *
      * @internal
      */
     const clearValues = () => {
-      range.value.min = null
-      range.value.max = null
+      range.value.min = threshold.value.min
+      range.value.max = threshold.value.max
     }
 
     /**
@@ -376,24 +292,12 @@ export default defineComponent({
       (newRange: RangeValue) => {
         range.value.min = newRange.min
         range.value.max = newRange.max
-      },
-      { immediate: true, deep: true },
-    )
 
-    /**
-     * It watches range values in order to emit the event with the change if `isInstant`
-     * property is true.
-     *
-     * @internal
-     */
-    watch(
-      range,
-      () => {
         if (props.isInstant) {
           emitUserModifiedFilter()
         }
       },
-      { deep: true },
+      { immediate: true, deep: true },
     )
 
     return {
@@ -405,8 +309,6 @@ export default defineComponent({
       emitUserModifiedFilter,
       clearValues,
       hasError,
-      isAnyRange,
-      renderClearButton,
       threshold,
       formatRangeValue,
     }
@@ -417,6 +319,10 @@ export default defineComponent({
 <style lang="css" scoped>
 .x-editable-number-range-filter--error .x-editable-number-range-filter__input {
   border-color: red;
+}
+
+.x-editable-number-range-filter__input {
+  width: 75px;
 }
 </style>
 

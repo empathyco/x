@@ -11,26 +11,31 @@ export const editableNumberFilterSchema = createMutableSchema<
   PlatformSliderFilter,
   EditableNumberRangeFilter
 >({
-  id: (_, context) => {
+  id: ({ min, max }, context) => {
     const facetId = context?.facetId as string
     const filter = (context?.requestParameters?.filter as string[])?.find(filter =>
       filter.includes(facetId),
     )
 
-    return filter ?? facetId
+    return filter ?? `${facetId}:${min}:${max}`
   },
   facetId: (_, context) => context?.facetId as string,
   selected: () => false,
   modelName: () => 'EditableNumberRangeFilter',
-  range: {
-    min: ({ min }) => {
-      const minValue = Number(min)
-      return Number.isNaN(minValue) ? null : minValue
-    },
-    max: ({ max }) => {
-      const maxValue = Number(max)
-      return Number.isNaN(maxValue) ? null : maxValue
-    },
+  range: ({ min, max }, context) => {
+    const filter = (context?.requestParameters?.filter as string[])?.find(filter =>
+      filter.includes(context?.facetId as string),
+    )
+
+    const [filterMin, filterMax] = filter?.split(':')[1]?.split('-').map(Number) ?? []
+
+    const minValue = filterMin ?? Number(min)
+    const maxValue = filterMax ?? Number(max)
+
+    return {
+      min: minValue,
+      max: maxValue,
+    }
   },
   unit: 'unit',
 })
