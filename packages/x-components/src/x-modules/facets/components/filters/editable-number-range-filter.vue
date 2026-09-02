@@ -292,13 +292,15 @@ export default defineComponent({
       (newRange: RangeValue) => {
         range.value.min = newRange.min
         range.value.max = newRange.max
-
-        if (props.isInstant) {
-          emitUserModifiedFilter()
-        }
       },
-      { immediate: true, deep: true },
+      { deep: true },
     )
+
+    watch(range, () => {
+      if (props.isInstant) {
+        emitUserModifiedFilter()
+      }
+    })
 
     return {
       rangeFilterMin,

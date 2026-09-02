@@ -336,7 +336,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
   })
 
-  it('updates the range without emitting UserModifiedEditableNumberRangeFilter when the slider changes', async () => {
+  it('emits UserModifiedEditableNumberRangeFilter immediately when the slider changes and isInstant is true', async () => {
     const { filterWrapper, minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
       range: { min: 1, max: 5 },
       isInstant: true,
@@ -352,7 +352,13 @@ describe('testing BaseNumberRangeFilter component', () => {
 
     expect((minInputWrapper.element as HTMLInputElement).value).toBe('2')
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('4')
-    expect(listener).not.toHaveBeenCalled()
+    expect(listener).toHaveBeenCalledTimes(1)
+    expect(listener).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        range: { min: 2, max: 4 },
+      }),
+    )
   })
 
   it('keeps the slider values until the apply button is clicked when isInstant is false', async () => {

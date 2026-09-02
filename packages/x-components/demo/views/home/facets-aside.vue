@@ -19,7 +19,7 @@
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
-          <EditableNumberRangeFilter :filter="facet.filters[0]" inputs-class="xds:w-full" />
+          <EditableNumberRangeFilter :filter="facet.filters[0]" />
         </BaseHeaderTogglePanel>
       </template>
 
