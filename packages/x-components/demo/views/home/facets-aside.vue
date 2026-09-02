@@ -1,6 +1,5 @@
 <template>
   <div class="xds:flex xds:flex-col xds:gap-24">
-    <FacetsProvider :facets="staticFacets" group-id="price" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
@@ -20,7 +19,7 @@
             <ChevronDownIcon />
           </template>
           <!-- Filters -->
-          <EditableNumberRangeFilter :filter="facet.filters[0]" inputs-class="xds:w-full" />
+          <EditableNumberRangeFilter :filter="facet.filters[0]" />
         </BaseHeaderTogglePanel>
       </template>
 
@@ -135,12 +134,6 @@
 </template>
 
 <script lang="ts" setup>
-import type {
-  EditableNumberRangeFacet,
-  EditableNumberRangeFilter as EditableNumberRangeFilterModel,
-  Facet,
-  SimpleFilter as SimpleFilterModel,
-} from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { HomeControls } from './types'
 import {
@@ -154,7 +147,6 @@ import {
   EditableNumberRangeFilter,
   ExcludeFiltersWithNoResults,
   Facets,
-  FacetsProvider,
   FiltersList,
   FiltersSearch,
   HierarchicalFilter,
@@ -171,37 +163,4 @@ defineProps({
     required: true,
   },
 })
-
-const editableNumberRangeFilterItem: EditableNumberRangeFilterModel = {
-  facetId: 'salePrice',
-  selected: false,
-  id: 'price:0-*',
-  modelName: 'EditableNumberRangeFilter',
-  range: {
-    min: null,
-    max: null,
-  },
-}
-const staticFacets: Facet[] = [
-  {
-    modelName: 'SimpleFacet',
-    label: 'Offer',
-    id: 'offer',
-    filters: [
-      {
-        facetId: 'offer',
-        modelName: 'SimpleFilter',
-        id: 'price:0-10',
-        selected: false,
-        label: 'price:0-10',
-      } as SimpleFilterModel,
-    ],
-  },
-  {
-    modelName: 'EditableNumberRangeFacet',
-    label: 'Price range',
-    id: 'salePrice',
-    filters: [editableNumberRangeFilterItem],
-  } as EditableNumberRangeFacet,
-]
 </script>
