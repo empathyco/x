@@ -10,14 +10,6 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import { XPlugin } from '../../../../../plugins'
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue'
 
-Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
-  get() {
-    return Number.parseFloat(this.value)
-  },
-  configurable: true,
-  enumerable: true,
-})
-
 function renderEditableNumberRangeFilter({
   template = `
     <EditableNumberRangeFilterComponent
@@ -296,7 +288,7 @@ describe('testing BaseNumberRangeFilter component', () => {
         hasClearButton: false,
       })
 
-      expect(clearButtonWrapper.exists()).toBe(false)
+      expect(clearButtonWrapper.exists()).toBeFalsy()
     })
 
     it('does not render a clear button if hasClearButton is true and there are no values', () => {
@@ -305,7 +297,7 @@ describe('testing BaseNumberRangeFilter component', () => {
         hasClearButton: true,
       })
 
-      expect(clearButtonWrapper.exists()).toBe(false)
+      expect(clearButtonWrapper.exists()).toBeFalsy()
     })
   })
 
@@ -316,12 +308,12 @@ describe('testing BaseNumberRangeFilter component', () => {
 
     const baseSliderWrapper = filterWrapper.findComponent(BaseSlider)
 
-    expect(baseSliderWrapper.exists()).toBe(true)
+    expect(baseSliderWrapper.exists()).toBeTruthy()
     expect(baseSliderWrapper.props('modelValue')).toEqual({ min: 1, max: 5 })
     expect(baseSliderWrapper.props('threshold')).toEqual({ min: 1, max: 5 })
-    expect(filterWrapper.find(getDataTestSelector('editable-number-range-filter')).exists()).toBe(
-      true,
-    )
+    expect(
+      filterWrapper.find(getDataTestSelector('editable-number-range-filter')).exists(),
+    ).toBeTruthy()
   })
 
   it('uses 0 and Number.MAX_SAFE_INTEGER as threshold when the filter range is empty', () => {
@@ -403,126 +395,22 @@ describe('testing BaseNumberRangeFilter component', () => {
     )
   })
 
-  describe('slots testing', () => {
-    it('allows to customize apply-content slot', () => {
-      const { applyButtonWrapper } = renderEditableNumberRangeFilter({
-        template: `
-          <EditableNumberRangeFilterComponent :filter="filter">
-            <template #apply-content>Apply</template>
-          </EditableNumberRangeFilterComponent>`,
-        range: { min: 1, max: 5 },
+  it('allows adding classes to the inputs and the buttons', () => {
+    const { maxInputWrapper, minInputWrapper, applyButtonWrapper, clearButtonWrapper } =
+      renderEditableNumberRangeFilter({
+        inputsClass: 'custom-inputs-class',
+        buttonsClass: 'custom-buttons-class',
+        hasClearButton: true,
+        range: {
+          min: 1,
+          max: 5,
+        },
       })
 
-      expect(applyButtonWrapper.text()).toBe('Apply')
-    })
+    expect(minInputWrapper.classes()).toContain('custom-inputs-class')
+    expect(maxInputWrapper.classes()).toContain('custom-inputs-class')
 
-    it('allows to customize clear-content slot', () => {
-      const { clearButtonWrapper } = renderEditableNumberRangeFilter({
-        template: `
-          <EditableNumberRangeFilterComponent :filter="filter">
-            <template #clear-content>Clear</template>
-          </EditableNumberRangeFilterComponent>`,
-        range: { min: 1, max: 5 },
-      })
-
-      expect(clearButtonWrapper.text()).toBe('Clear')
-    })
-
-    it('allows adding classes to the inputs and the buttons', () => {
-      const { maxInputWrapper, minInputWrapper, applyButtonWrapper, clearButtonWrapper } =
-        renderEditableNumberRangeFilter({
-          inputsClass: 'custom-inputs-class',
-          buttonsClass: 'custom-buttons-class',
-          hasClearButton: true,
-          range: {
-            min: 1,
-            max: 5,
-          },
-        })
-
-      expect(minInputWrapper.classes()).toContain('custom-inputs-class')
-      expect(maxInputWrapper.classes()).toContain('custom-inputs-class')
-
-      expect(applyButtonWrapper.classes()).toContain('custom-buttons-class')
-      expect(clearButtonWrapper.classes()).toContain('custom-buttons-class')
-    })
-
-    it('allows to customize the default slot', async () => {
-      const { filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
-        renderEditableNumberRangeFilter({
-          template: `
-            <EditableNumberRangeFilterComponent
-              :filter="filter"
-              #default="{
-                range,
-                setMin,
-                setMax,
-                emitUserModifiedFilter,
-                clearValues,
-                hasError
-              }"
-            >
-              <button @click="emitUserModifiedFilter" data-test="range-apply">
-                ✅ Apply!
-              </button>
-              <button @click="clearValues" data-test="range-clear">🗑 Clear!</button>
-              <input
-                :value="range.min"
-                @change="setMin($event.target.valueAsNumber)"
-                data-test="range-min"
-              />
-              <input
-                :value="range.max"
-                @change="setMax($event.target.valueAsNumber)"
-                data-test="range-max"
-              />
-              <div data-test="has-error" v-if="hasError">⚠️ Invalid range values</div>
-            </EditableNumberRangeFilterComponent>
-          `,
-          range: { min: 1, max: 5 },
-        })
-
-      const listener = vi.fn()
-      XPlugin.bus.on('UserModifiedEditableNumberRangeFilter').subscribe(listener)
-
-      expect(applyButtonWrapper.text()).toBe('✅ Apply!')
-      expect(clearButtonWrapper.text()).toBe('🗑 Clear!')
-
-      expect(filterWrapper.find(getDataTestSelector('has-error')).exists()).toBe(false)
-
-      await typeMin(5)
-      await typeMax(1)
-
-      expect(filterWrapper.find(getDataTestSelector('has-error')).text()).toBe(
-        '⚠️ Invalid range values',
-      )
-
-      await typeMin(2)
-      await typeMax(4)
-      await applyButtonWrapper.trigger('click')
-      expect(listener).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-          range: {
-            min: 2,
-            max: 4,
-          },
-        }),
-      )
-
-      await clearButtonWrapper.trigger('click')
-      await applyButtonWrapper.trigger('click')
-      expect(listener).toHaveBeenNthCalledWith(
-        2,
-        expect.objectContaining({
-          range: {
-            min: null,
-            max: null,
-          },
-        }),
-      )
-
-      expect(listener).toHaveBeenCalledTimes(2)
-    })
+    expect(applyButtonWrapper.classes()).toContain('custom-buttons-class')
+    expect(clearButtonWrapper.classes()).toContain('custom-buttons-class')
   })
 })

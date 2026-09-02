@@ -18,7 +18,6 @@
           @binding {hasError} boolean - Returns true when there is an error with component values.
           @binding {formatRangeValue} function - It formats a range value using the filter unit
           and the snippet config `uiLang`.
-          @binding {parseRangeValue} function - It parses a range value from a raw input value.
     -->
     <slot
       v-bind="{
@@ -30,7 +29,6 @@
         hasError,
         isAnyRange,
         formatRangeValue,
-        parseRangeValue,
       }"
     >
       <!-- eslint-disable max-len -->
@@ -43,7 +41,7 @@
         :value="!isAnyRange ? formatRangeValue(range.min) : ''"
         data-test="range-min"
         :aria-label="rangeFilterMin"
-        @change="setMin(parseRangeValue(($event?.target as HTMLInputElement)?.value ?? ''))"
+        @change="setMin(($event?.target as HTMLInputElement)?.value)"
       />
 
       <input
@@ -55,7 +53,7 @@
         :value="formatRangeValue(range.max)"
         data-test="range-max"
         :aria-label="rangeFilterMax"
-        @change="setMax(parseRangeValue(($event?.target as HTMLInputElement)?.value ?? ''))"
+        @change="setMax(($event?.target as HTMLInputElement)?.value)"
       />
 
       <button
@@ -252,16 +250,15 @@ export default defineComponent({
      *
      * @internal
      */
-    const numberFormatter = computed(() => {
-      const options: Intl.NumberFormatOptions = { style: 'decimal' }
-      if (props.filter.unit === 'currency') {
-        options.style = 'currency'
-        options.currency = snippetConfig?.currency ?? 'EUR'
-      } else if (props.filter.unit === 'percent') {
-        options.style = 'percent'
-      }
-      return new Intl.NumberFormat(snippetConfig?.uiLang, options)
-    })
+    const numberFormatter = computed(
+      () =>
+        new Intl.NumberFormat(snippetConfig?.uiLang, {
+          style: props.filter.unit === 'unit' ? 'decimal' : props.filter.unit,
+          ...(props.filter.unit === 'currency' && {
+            currency: snippetConfig?.currency ?? 'EUR',
+          }),
+        }),
+    )
 
     /**
      * It formats a range value using the `unit` of the filter and the `uiLang` of the snippet
@@ -326,25 +323,25 @@ export default defineComponent({
     }
 
     /**
-     * `min` setter.
+     * `min` setter. It parses the raw value before setting it.
      *
-     * @param value - The component `min` value to be set.
+     * @param rawValue - The raw value of the `min` input.
      *
      * @internal
      */
-    const setMin = (value: number | null) => {
-      range.value.min = value
+    const setMin = (rawValue: string = '') => {
+      range.value.min = parseRangeValue(rawValue)
     }
 
     /**
-     * `max` setter.
+     * `max` setter. It parses the raw value before setting it.
      *
-     * @param value - The component `max` value to be set.
+     * @param rawValue - The raw value of the `max` input.
      *
      * @internal
      */
-    const setMax = (value: number | null) => {
-      range.value.max = value
+    const setMax = (rawValue: string = '') => {
+      range.value.max = parseRangeValue(rawValue)
     }
 
     /**
@@ -412,7 +409,6 @@ export default defineComponent({
       renderClearButton,
       threshold,
       formatRangeValue,
-      parseRangeValue,
     }
   },
 })
@@ -524,9 +520,9 @@ const editableFilter = ref({
 
 ### Customizing default slot
 
-The default slot exposes `formatRangeValue` and `parseRangeValue` so you can render the range
-values formatted with the filter `unit` and the snippet config `uiLang`, and parse back the value
-typed by the user.
+The default slot exposes `formatRangeValue` so you can render the range values formatted with the
+filter `unit` and the snippet config `uiLang`. The `setMin` and `setMax` functions parse the raw
+value typed by the user.
 
 ```vue
 <template>
@@ -541,7 +537,6 @@ typed by the user.
       hasError,
       isAnyRange,
       formatRangeValue,
-      parseRangeValue,
     }"
   >
     <button @click="emitUserModifiedFilter">✅ Apply!</button>
@@ -549,13 +544,9 @@ typed by the user.
     <input
       type="text"
       :value="!isAnyRange ? formatRangeValue(range.min) : ''"
-      @change="setMin(parseRangeValue($event.target.value))"
+      @change="setMin($event.target.value)"
     />
-    <input
-      type="text"
-      :value="formatRangeValue(range.max)"
-      @change="setMax(parseRangeValue($event.target.value))"
-    />
+    <input type="text" :value="formatRangeValue(range.max)" @change="setMax($event.target.value)" />
     <div class="has-error" v-if="hasError">⚠️ Invalid range values</div>
   </EditableNumberRangeFilter>
 </template>

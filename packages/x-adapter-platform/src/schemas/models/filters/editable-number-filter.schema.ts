@@ -11,8 +11,15 @@ export const editableNumberFilterSchema = createMutableSchema<
   PlatformSliderFilter,
   EditableNumberRangeFilter
 >({
-  id: 'filter',
-  facetId: (_, $context) => $context?.facetId as string,
+  id: (_, context) => {
+    const facetId = context?.facetId as string
+    const filter = (context?.requestParameters?.filter as string[])?.find(filter =>
+      filter.includes(facetId),
+    )
+
+    return filter ?? facetId
+  },
+  facetId: (_, context) => context?.facetId as string,
   selected: () => false,
   modelName: () => 'EditableNumberRangeFilter',
   range: {
