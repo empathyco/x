@@ -37,7 +37,7 @@ export class SliderFilterEntity implements FilterEntity {
       filter,
       newFilterState: Object.assign(newFilterState, { id: this.getNewFilterId(newFilterState) }),
     })
-    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet')
+    addFacetIfNotPresent(this.store, filter.facetId, 'SliderFacet')
   }
 
   /**
@@ -50,16 +50,15 @@ export class SliderFilterEntity implements FilterEntity {
    */
   select(filterParam: Filter): void {
     const filter = filterParam as SliderFilter
-    const newFilterId = this.getNewFilterId(filter)
     this.removePreviousFilter(filter.facetId)
     this.store.commit('x/facets/mutateFilter', {
       filter,
       newFilterState: {
-        id: newFilterId,
+        id: filter.id,
         selected: this.isSelected(filter),
       },
     })
-    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet')
+    addFacetIfNotPresent(this.store, filter.facetId, 'SliderFacet')
   }
 
   /**

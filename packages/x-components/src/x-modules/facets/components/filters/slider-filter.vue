@@ -9,8 +9,8 @@
   >
     <!--
         @slot Empty slot used to customize the whole component.
-          @binding {range} RangeValue - Component min and max values. 
-          @binding {threshold} RangeValue - Component min and max threshold values. 
+          @binding {range} RangeValue - Component min and max values.
+          @binding {threshold} RangeValue - Component min and max threshold values.
           @binding {setMin} function - Component min setter.
           @binding {setMax} function - Component max setter.
           @binding {emitUserModifiedFilter} function - It emits the
@@ -194,10 +194,12 @@ export default defineComponent({
      * @internal
      */
     const emitUserModifiedFilter = () => {
+      console.log(props.filter.range, range.value)
       if (!hasError.value && areValuesDifferent.value) {
         $x.emit('UserModifiedSliderFilter', {
           ...props.filter,
-          range: range.value,
+          id: `price:${range.value.min}-${range.value.max}`,
+          range: props.filter.range,
         })
       }
     }
@@ -279,7 +281,7 @@ export default defineComponent({
      * @param newRange - New range value.
      *
      * @internal
-     */
+
     watch(
       () => props.filter.range,
       newRange => {
@@ -293,7 +295,7 @@ export default defineComponent({
       if (props.isInstant) {
         emitUserModifiedFilter()
       }
-    })
+    })*/
 
     return {
       rangeFilterMin,
