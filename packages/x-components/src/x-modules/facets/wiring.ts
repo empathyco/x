@@ -225,6 +225,9 @@ export const facetsWiring = createWiring({
   UserModifiedEditableNumberRangeFilter: {
     selectFilterWire,
   },
+  UserModifiedSliderFilter: {
+    selectFilterWire,
+  },
   UserClickedAllFilter: {
     clearFiltersWire,
   },

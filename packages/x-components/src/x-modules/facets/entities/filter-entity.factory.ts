@@ -10,6 +10,7 @@ import { HierarchicalFilterEntity } from './hierarchical-filter.entity'
 import { NumberRangeFilterEntity } from './number-range-filter.entity'
 import { RawFilterEntity } from './raw-filter.entity'
 import { SimpleFilterEntity } from './simple-filter.entity'
+import { SliderFilterEntity } from './slider-filter.entity'
 
 /**
  * Creates {@link FilterEntity | FilterEntities} based on the provided configs.
@@ -35,6 +36,7 @@ export class FilterEntityFactory {
     EditableNumberRangeFilterEntity,
     RawFilterEntity,
     BooleanFilterEntity,
+    SliderFilterEntity,
   ] as FilterEntityConstructor[]
 
   /**

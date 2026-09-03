@@ -6,6 +6,7 @@ import type {
   NumberRangeFilter,
   RawFilter,
   SimpleFilter,
+  SliderFilter,
 } from '@empathyco/x-types'
 import type { FacetsGroup } from './service/types'
 
@@ -88,6 +89,11 @@ export interface FacetsXEvents {
    * Payload: An {@link EditableNumberRangeFilter}.
    */
   UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilter
+  /**
+   * The user has modified a filter which is of slider filter type.
+   * Payload: An {@link SliderFilter}.
+   */
+  UserModifiedSliderFilter: SliderFilter
   /**
    * The user has clicked button clear filters.
    * Payload: array the facets ids.

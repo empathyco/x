@@ -5,6 +5,7 @@ import { editableNumberFilterSchema } from '../models/filters/editable-number-fi
 import { hierarchicalFilterSchema } from '../models/filters/hierarchical-filter.schema'
 import { numberFilterSchema } from '../models/filters/number-filter.schema'
 import { simpleFilterSchema } from '../models/filters/simple-filter.schema'
+import { sliderFilterSchema } from '../models/filters/slider-filter.schema'
 
 /**
  * Returns the facet's config.
@@ -35,6 +36,10 @@ export function getFacetConfig(type: PlatformFacetType): FacetConfig {
     'editable-range': {
       modelName: 'EditableNumberRangeFacet',
       schema: editableNumberFilterSchema,
+    },
+    slider: {
+      modelName: 'SliderFacet',
+      schema: sliderFilterSchema,
     },
   }
   return typeConfigs[type] ?? typeConfigs.value
