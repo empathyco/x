@@ -53,12 +53,12 @@
     "@empathyco/x-utils": "1.1.0"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.30.7",
-    "@microsoft/api-extractor": "7.58.9",
-    "@vitest/coverage-v8": "4.1.9",
+    "@microsoft/api-documenter": "7.30.13",
+    "@microsoft/api-extractor": "7.59.0",
+    "@vitest/coverage-v8": "4.1.11",
     "jsdom": "30.0.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.9"
+    "vitest": "4.1.11"
   },
   "publishConfig": {
     "access": "public"
