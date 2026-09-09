@@ -179,6 +179,7 @@ export function createNumberRangeFilter(
  * @param facetId - The facet id this filter belongs to.
  * @param range - The range that this filter has.
  * @param selected - The selected value which has priority over the range values.
+ * @param unit - The unit to format the range values.
  * @returns A stub for a
  * {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
  */
@@ -186,6 +187,7 @@ export function createEditableNumberRangeFilter(
   facetId: string,
   range: RangeValue = { min: null, max: null },
   selected?: boolean,
+  unit: EditableNumberRangeFilter['unit'] = 'decimal',
 ): EditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
@@ -193,6 +195,7 @@ export function createEditableNumberRangeFilter(
     range,
     modelName: 'EditableNumberRangeFilter',
     selected: selected ?? (range.min !== null || range.max !== null),
+    unit,
   }
 }
 

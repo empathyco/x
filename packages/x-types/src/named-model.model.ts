@@ -40,6 +40,7 @@ export type FacetModelName =
   | 'NumberRangeFacet'
   | 'EditableNumberRangeFacet'
   | 'BooleanFacet'
+  | 'SliderFacet'
 
 /**
  * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter

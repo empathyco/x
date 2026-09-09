@@ -32,7 +32,7 @@ export function getFacetConfig(type: PlatformFacetType): FacetConfig {
       modelName: 'BooleanFacet',
       schema: booleanFilterSchema,
     },
-    'editable-range': {
+    slider: {
       modelName: 'EditableNumberRangeFacet',
       schema: editableNumberFilterSchema,
     },

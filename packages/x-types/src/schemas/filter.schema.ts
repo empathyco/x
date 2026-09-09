@@ -94,5 +94,6 @@ export const NumberRangeFilterSchema: NumberRangeFilter = {
 export const EditableNumberRangeFilterSchema: EditableNumberRangeFilter = {
   ...FacetFilterSchema,
   range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
+  unit: expect.any(String),
   modelName: 'EditableNumberRangeFilter',
 }
