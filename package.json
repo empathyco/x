@@ -24,7 +24,7 @@
     "husky": "8.0.3",
     "lerna": "9.0.7"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@12.4.1",
   "engines": {
     "node": ">=22",
     "npm": ">=10"
