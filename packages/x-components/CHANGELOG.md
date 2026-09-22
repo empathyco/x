@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.14.2](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.1...@empathyco/x-components@8.14.2) (2026-09-22)
+
+### Bug Fixes
+
+* **search:** fix results enrichment side effects (#2175)
+
+
 ## [8.14.1](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.0...@empathyco/x-components@8.14.1) (2026-09-04)
 
 **Note:** Version bump only for package @empathyco/x-components
