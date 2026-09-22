@@ -171,8 +171,8 @@
                   </div>
 
                   <!-- AI -->
-                  <LocationProvider location="results">
-                    <AiCarousel :group="x.noResults" class="xds:mb-28 xds:w-full">
+                  <LocationProvider v-if="showFallbackNoResults" location="results">
+                    <AiCarousel class="xds:mb-28 xds:w-full">
                       <template #result="{ result }">
                         <Result :result="result" class="xds:w-37.5" />
                       </template>
@@ -634,6 +634,8 @@ const relatedPromptsQueriesPreviewInfo = computed(() => {
   const queries = relatedPrompts.value?.[selectedPrompt.value].relatedPromptNextQueries ?? []
   return queries.map(({ query }) => ({ query }))
 })
+
+const showFallbackNoResults = computed(() => x.noResults && x.status.search === 'success')
 
 const fallbackTaggingRequest = {} as TaggingRequest
 const findNextQuery = (queryPreviewInfo: QueryPreviewInfo) =>
