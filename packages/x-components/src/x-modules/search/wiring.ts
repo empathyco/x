@@ -1,8 +1,9 @@
-import type { WirePayload } from '../../wiring'
+import type { WirePayload, XEventPayload } from '../../wiring'
 import type { InternalSearchRequest } from './types'
 import { createRawFilters } from '../../utils'
 import {
   createWiring,
+  filter,
   filterTruthyPayload,
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
@@ -73,7 +74,10 @@ export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchRe
  *
  * @public
  */
-export const fetchAndSaveResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
+export const fetchAndSaveResultsEnrichmentWire = filter<XEventPayload<'ResultsChanged'>>(
+  wireDispatch('fetchAndSaveResultsEnrichment'),
+  ({ eventPayload: results }) => results.length > 0,
+)
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
