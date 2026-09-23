@@ -49,6 +49,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
 
@@ -63,6 +64,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
       const { page, ...restRequest } = store.getters.request!
@@ -83,6 +85,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         results: getResultsStub(48),
       })
@@ -104,6 +107,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         results: getResultsStub(48),
       })
@@ -123,6 +127,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
 
@@ -144,6 +149,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
       adapter.browse.mockResolvedValueOnce({
@@ -168,6 +174,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
 
@@ -193,6 +200,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
       const {
@@ -230,6 +238,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
       adapter.browse.mockRejectedValueOnce('Generic error')
@@ -290,6 +299,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'with filters',
           browseField: 'request',
+          browseFilters: [],
         },
         selectedFilters: { brand: [{ id: 'test', selected: true, modelName: 'SimpleFilter' }] },
       })
@@ -310,6 +320,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
       })
       const {
@@ -368,6 +379,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         results: resultsStub.slice(0, 1),
         banners: bannersStub.slice(0, 1),
@@ -394,6 +406,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         results: resultsStub.slice(0, 1),
         banners: bannersStub.slice(0, 1),
@@ -424,6 +437,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
       })
@@ -443,6 +457,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: '',
@@ -455,6 +470,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
         sort: 'desc',
@@ -476,6 +492,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: 'desc',
@@ -488,6 +505,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
       })
@@ -507,6 +525,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: '',
@@ -519,6 +538,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
       })
@@ -539,6 +559,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: '',
@@ -551,6 +572,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
       })
@@ -579,6 +601,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: '',
@@ -591,6 +614,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 1,
         sort: 'price asc',
@@ -611,6 +635,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: 'price asc',
@@ -623,6 +648,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'floral midi dress',
           browseField: 'description',
+          browseFilters: [],
         },
         page: 2,
         sort: 'price asc',
@@ -651,6 +677,7 @@ describe('testing browse module actions', () => {
           selectedCategory: {
             browseValue: 'floral midi dress',
             browseField: 'description',
+            browseFilters: [],
           },
           selectedFilters: {},
           sort: '',
@@ -663,6 +690,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'with filters',
           browseField: 'request',
+          browseFilters: [],
         },
         fromNoResultsWithFilters: true,
         results: getResultsStub(),
@@ -686,6 +714,7 @@ describe('testing browse module actions', () => {
         selectedCategory: {
           browseValue: 'dress',
           browseField: 'categoryIds',
+          browseFilters: [],
         },
         page: 1,
         sort: '',
