@@ -144,6 +144,7 @@ export function resettableBrowseState() {
     selectedCategory: {
       browseValue: '',
       browseField: '',
+      browseFilters: [],
     },
     results: [],
     facets: [],
