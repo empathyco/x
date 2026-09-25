@@ -148,17 +148,6 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
     result: Result
     queryPreviewHash: string
   }) => void
-  /**
-   * Updates the query preview results with the enrichment results.
-   *
-   * @param payload - Object containing the query preview item and the enrichment results.
-   * @param payload.queryPreviewItem - The query preview item.
-   * @param payload.enrichmentResults - The enrichment results.
-   */
-  updateQueryPreviewResultsFromEnrichment: (enrichmentPayload: {
-    queryPreviewItem: QueryPreviewItem
-    enrichmentResults: any[]
-  }) => void
 }
 
 /**
@@ -182,12 +171,6 @@ export interface QueriesPreviewActions {
    * @param request - The request object to retrieve the query preview.
    */
   fetchAndSaveQueryPreview: (request: SearchRequest) => void
-  /**
-   * Requests and stores the enrichment results for the query preview results.
-   *
-   * @param queryPreviewItem - The query preview item containing results.
-   */
-  fetchAndSaveQueryPreviewResultsEnrichment: (queryPreviewItem: QueryPreviewItem) => void
 }
 
 /**

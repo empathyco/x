@@ -1,7 +1,6 @@
 import type { Stats } from '@empathyco/x-types'
 import type { SearchXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
-import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setQuery } from '../../../store/utils/query.utils'
@@ -9,8 +8,6 @@ import { groupItemsBy } from '../../../utils/array'
 import { UNKNOWN_FACET_KEY } from '../../facets/store/constants'
 import {
   cancelFetchAndSaveSearchResponse,
-  fetchAndSavePartialResultsEnrichment,
-  fetchAndSaveResultsEnrichment,
   fetchAndSaveSearchResponse,
   fetchSearchResponse,
   increasePageAppendingResults,
@@ -125,34 +122,19 @@ export const searchXStoreModule: SearchXStoreModule = {
         Object.assign(stateResult, result)
       }
     },
-    updateResultsFromEnrichment(state, enrichmentResults) {
-      DefaultResultsEnrichmentService.instance.updateResults(state.results, enrichmentResults)
-    },
-    updatePartialResultsFromEnrichment(state, enrichmentResults) {
-      for (const partialResult of state.partialResults) {
-        if (partialResult.results) {
-          DefaultResultsEnrichmentService.instance.updateResults(
-            partialResult.results,
-            enrichmentResults,
-          )
-        }
-      }
-    },
     setStats(state, stats) {
       state.stats = stats
     },
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
-    fetchSearchResponse,
     fetchAndSaveSearchResponse,
-    fetchAndSaveResultsEnrichment,
-    fetchAndSavePartialResultsEnrichment,
+    fetchSearchResponse,
     increasePageAppendingResults,
     resetRequestOnRefinement,
+    saveOrigin,
     saveSearchResponse,
     setUrlParams,
-    saveOrigin,
   },
 }
 
