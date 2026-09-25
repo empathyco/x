@@ -1,9 +1,8 @@
-import type { WirePayload, XEventPayload } from '../../wiring'
+import type { WirePayload } from '../../wiring'
 import type { InternalSearchRequest } from './types'
 import { createRawFilters } from '../../utils'
 import {
   createWiring,
-  filter,
   filterTruthyPayload,
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
@@ -68,16 +67,6 @@ export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metad
  * @public
  */
 export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
-
-/**
- * Requests and stores the enrichment results for the results.
- *
- * @public
- */
-export const fetchAndSaveResultsEnrichmentWire = filter<XEventPayload<'ResultsChanged'>>(
-  wireDispatch('fetchAndSaveResultsEnrichment'),
-  ({ eventPayload: results }) => results.length > 0,
-)
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
@@ -194,15 +183,6 @@ export const resetRequestOnRefinementWire = wireDispatch(
 )
 
 /**
- * Requests and stores the enrichment results for the partial results.
- *
- * @public
- */
-export const fetchAndSavePartialResultsEnrichmentWire = wireDispatch(
-  'fetchAndSavePartialResultsEnrichment',
-)
-
-/**
  * Resets the search state when the request is changed to null. See the
  * {@link SearchXStoreModule} for details.
  *
@@ -262,9 +242,6 @@ export const searchWiring = createWiring({
     setUrlParams,
     saveOriginWire,
   },
-  PartialResultsChanged: {
-    fetchAndSavePartialResultsEnrichmentWire,
-  },
   UserAcceptedAQuery: {
     setSearchQuery,
     saveOriginWire,
@@ -302,7 +279,6 @@ export const searchWiring = createWiring({
   },
   ResultsChanged: {
     resetAppending,
-    fetchAndSaveResultsEnrichmentWire,
   },
   ReloadSearchRequested: {
     resetStateForReloadWire,

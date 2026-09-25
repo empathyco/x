@@ -207,12 +207,6 @@ export interface BrowseMutations extends StatusMutations, ConfigMutations<Browse
    * @param result - A result containing at least an id, and the properties to modify.
    */
   updateResult: (result: Partial<Result> & Pick<Result, 'id'>) => void
-  /**
-   * Updates the results with the enrichment results.
-   *
-   * @param enrichmentResults - The enrichment results.
-   */
-  updateResultsFromEnrichment: (enrichmentResults: any[]) => void
 }
 
 /**
@@ -241,12 +235,6 @@ export interface BrowseActions {
    * @returns The new browse response.
    */
   fetchBrowseResponse: (request: BrowseRequest) => BrowseResponse
-  /**
-   * Requests and stores the enrichment results for the results.
-   *
-   * @param results - The results.
-   */
-  fetchAndSaveResultsEnrichment: (results: Result[]) => void
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link BrowseState.isAppendResults} flag.
