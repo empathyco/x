@@ -57,7 +57,7 @@
     "@microsoft/api-extractor": "7.58.9",
     "@vitest/coverage-v8": "4.1.9",
     "jsdom": "30.0.1",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vitest": "4.1.9"
   },
   "publishConfig": {
