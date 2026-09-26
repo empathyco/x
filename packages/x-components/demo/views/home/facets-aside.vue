@@ -130,6 +130,10 @@
           </ExcludeFiltersWithNoResults>
         </BaseHeaderTogglePanel>
       </template>
+
+      <template #slider-facet="{ facet }">
+        <SliderFilter :filter="facet.filters[0]" />
+      </template>
     </Facets>
   </div>
 </template>
@@ -164,6 +168,7 @@ import {
   SlicedFilters,
   SortedFilters,
 } from '@x/x-modules/facets'
+import SliderFilter from '@x/x-modules/facets/components/filters/slider-filter.vue'
 
 defineProps({
   controls: {

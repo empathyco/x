@@ -127,6 +127,7 @@ export default defineComponent({
      * @returns Undefined.
      */
     watch([() => props.modelValue.min, () => props.modelValue.max], ([min, max]) => {
+      console.log(min, max)
       // Check if the values are the same
       if (min === minSelected.value && max === maxSelected.value) {
         return
