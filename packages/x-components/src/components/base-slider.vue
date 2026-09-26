@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import type { RangeValue } from '@empathyco/x-types'
 import type { API } from 'nouislider'
 import type { PropType } from 'vue'
 import { create } from 'nouislider'
@@ -50,7 +51,7 @@ export default defineComponent({
     },
     /** The modelValue prop sets the initial values for the slider. */
     modelValue: {
-      type: Object as PropType<{ min: number; max: number }>,
+      type: Object as PropType<RangeValue>,
       required: true,
     },
     /** Class to be able to customize slider styles. */
@@ -133,8 +134,10 @@ export default defineComponent({
       }
 
       // Validate the values
-      const minValidated = min < props.threshold.min ? props.threshold.min : min
-      const maxValidated = max > props.threshold.max ? props.threshold.max : max
+      const minValidated =
+        min === null ? null : min < props.threshold.min ? props.threshold.min : min
+      const maxValidated =
+        max === null ? null : max > props.threshold.max ? props.threshold.max : max
 
       // Update the nouislider values
       sliderInstance.set([minValidated, maxValidated])

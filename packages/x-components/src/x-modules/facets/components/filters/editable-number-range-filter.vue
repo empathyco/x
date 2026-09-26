@@ -1,60 +1,63 @@
 <template>
-  <div
+  <BaseSlider
+    :model-value="range"
+    :threshold="threshold"
     class="x-editable-number-range-filter"
-    :class="cssClasses"
+    :class="{ 'x-editable-number-range-filter--error': hasError }"
     data-test="editable-number-range-filter"
+    @update:model-value="newRange => (range = newRange)"
   >
     <!--
         @slot Empty slot used to customize the whole component.
-          @binding {min} number - Component min value.
-          @binding {max} number - Component max value.
+          @binding {range} RangeValue - Component min and max values. 
+          @binding {threshold} RangeValue - Component min and max threshold values. 
           @binding {setMin} function - Component min setter.
           @binding {setMax} function - Component max setter.
           @binding {emitUserModifiedFilter} function - It emits the
           `UserModifiedEditableNumberRangeFilter` X event.
-          @binding {clearValues} function - It sets component min and max values to null.
+          @binding {clearValues} function - It resets component min and max values to threshold values.
           @binding {hasError} boolean - Returns true when there is an error with component values.
+          @binding {formatRangeValue} function - It formats a range value using the filter unit
+          and the snippet config `uiLang`.
     -->
     <slot
       v-bind="{
-        min,
-        max,
+        threshold,
+        range,
         setMin,
         setMax,
         emitUserModifiedFilter,
         clearValues,
         hasError,
-        isAnyRange,
+        formatRangeValue,
       }"
     >
       <!-- eslint-disable max-len -->
       <input
         name="min"
         type="number"
+        inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
-        :class="inputsClass"
-        :value="!isAnyRange ? min : null"
+        :value="range.min"
         data-test="range-min"
         :aria-label="rangeFilterMin"
-        @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
+        @change="setMin(($event?.target as HTMLInputElement)?.value)"
       />
 
       <input
         name="max"
         type="number"
+        inputmode="decimal"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
-        :class="inputsClass"
-        :value="max"
+        :value="range.max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
-        @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
+        @change="setMax(($event?.target as HTMLInputElement)?.value)"
       />
-      <!-- eslint-enable max-len -->
 
       <button
         v-if="!isInstant"
         class="x-editable-number-range-filter__apply xds:button"
-        :class="buttonsClass"
         :disabled="hasError"
         data-test="range-apply"
         @click="emitUserModifiedFilter"
@@ -66,9 +69,7 @@
       </button>
 
       <button
-        v-if="renderClearButton"
         class="x-editable-number-range-filter__clear xds:button"
-        :class="buttonsClass"
         data-test="range-clear"
         @click="clearValues"
       >
@@ -78,7 +79,7 @@
         <slot name="clear-content">𐄂</slot>
       </button>
     </slot>
-  </div>
+  </BaseSlider>
 </template>
 
 <script lang="ts">
@@ -86,14 +87,19 @@ import type {
   EditableNumberRangeFilter as EditableNumberRangeFilterModel,
   RangeValue,
 } from '@empathyco/x-types'
-import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import type { PropType } from 'vue'
+import type { SnippetConfig } from '../../../../x-installer/api/api.types'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
+import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
 /**
  * Renders an editable number range filter. It has two input fields to handle min and max values,
  * emitting the needed events when clicked.
+ *
+ * The range values shown in the inputs are formatted using `Intl.NumberFormat`, taking the `unit`
+ * of the filter as the format style and the `uiLang` of the snippet config as the locale.
  *
  * It provides a default slot, with some utils bind, to customize the whole component; and two
  * named slots `apply-content` and `clear-content` to override each button content.
@@ -109,6 +115,9 @@ import { facetsXModule } from '../../x-module'
 export default defineComponent({
   name: 'EditableNumberRangeFilter',
   xModule: facetsXModule.name,
+  components: {
+    BaseSlider,
+  },
   props: {
     /**
      * The filter data to render and edit.
@@ -126,16 +135,6 @@ export default defineComponent({
      * @public
      */
     isInstant: Boolean,
-    /**
-     * If `clear` prop is true, clear button, which sets to null component min and max values, is
-     * rendered. True by default.
-     *
-     * @public
-     */
-    hasClearButton: {
-      type: Boolean,
-      default: true,
-    },
     /** Class inherited by content element. */
     inputsClass: String,
     /** Class inherited by content element. */
@@ -144,20 +143,16 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
+    /**
+     * The snippet config, provided by the installer, which provides the uiLang and the currency
+     * to format the range values.
+     *
+     * @internal
+     */
+    const snippetConfig = inject<SnippetConfig>('snippetConfig')
+
     const rangeFilterMin = 'minimum amount'
     const rangeFilterMax = 'maximum amount'
-    /**
-     * Component min value.
-     *
-     * @internal
-     */
-    const min: Ref<RangeValue['min']> = ref(null)
-    /**
-     * Component max value.
-     *
-     * @internal
-     */
-    const max: Ref<RangeValue['max']> = ref(null)
 
     /**
      * Returns {@link @empathyco/x-types#RangeValue} with component min and max
@@ -167,9 +162,7 @@ export default defineComponent({
      *
      * @internal
      */
-    const range = computed((): RangeValue => {
-      return { min: min.value, max: max.value }
-    })
+    const range = ref({ min: props.filter.range.min, max: props.filter.range.max })
 
     /**
      * It checks if component min and max values are valid.
@@ -179,8 +172,14 @@ export default defineComponent({
      * @internal
      */
     const hasError = computed(
-      () => min.value !== null && max.value !== null && min.value > max.value,
+      () =>
+        range.value.min !== null && range.value.max !== null && range.value.min > range.value.max,
     )
+
+    const threshold = computed(() => ({
+      min: props.filter.range.min ?? 0,
+      max: props.filter.range.max ?? Number.MAX_SAFE_INTEGER,
+    }))
 
     /**
      * It checks if component min and max values are different from the ones within the filter
@@ -191,38 +190,9 @@ export default defineComponent({
      * @internal
      */
     const areValuesDifferent = computed(
-      () => min.value !== props.filter.range.min || max.value !== props.filter.range.max,
+      () =>
+        range.value.min !== props.filter.range.min || range.value.max !== props.filter.range.max,
     )
-
-    /**
-     * Dynamic CSS classes.
-     *
-     * @returns Object which contains dynamic CSS classes.
-     *
-     * @internal
-     */
-    const cssClasses = computed(() => {
-      return { 'x-editable-number-range-filter--error': hasError.value }
-    })
-
-    /**
-     * Checks if the range of the filter allows any value, which happens when the min is
-     * null or 0 and the max is null.
-     *
-     * @returns True if the range of the filter allows any value.
-     *
-     * @internal
-     */
-    const isAnyRange = computed(() => !min.value && max.value === null)
-
-    /**
-     * It returns true if the property `hasClearButton` is true and there are values to clear.
-     *
-     * @returns True if the clear button has to be rendered.
-     *
-     * @internal
-     */
-    const renderClearButton = computed(() => props.hasClearButton && !isAnyRange.value)
 
     /**
      * It emits {@link FacetsXEvents.UserModifiedEditableNumberRangeFilter} event if there are no
@@ -240,46 +210,65 @@ export default defineComponent({
     }
 
     /**
-     * It returns the number if possible or null otherwise.
+     * The number format to use to format the range values. It uses the `unit` of the filter as
+     * the format style and the `uiLang` of the snippet config as the locale.
      *
-     * @param value - Value.
-     * @returns The element value as a number if possible or null.
+     * @returns An Intl.NumberFormat to format the range values.
      *
      * @internal
      */
-    const parseRangeValue = (value: number) => (Number.isNaN(value) ? null : value)
+    const numberFormatter = computed(
+      () =>
+        new Intl.NumberFormat(snippetConfig?.uiLang, {
+          style: props.filter.unit,
+          ...(props.filter.unit === 'currency' && {
+            currency: snippetConfig?.currency ?? 'EUR',
+          }),
+        }),
+    )
 
     /**
-     * `min` setter.
+     * It formats a range value using the `unit` of the filter and the `uiLang` of the snippet
+     * config.
      *
-     * @param value - The component `min` value to be set.
+     * @param value - The range value to format.
+     * @returns The formatted value, or an empty string if the value is null.
      *
      * @internal
      */
-    const setMin = (value: number) => {
-      min.value = parseRangeValue(value)
+    const formatRangeValue = (value: number): string => numberFormatter.value.format(value)
+
+    /**
+     * `min` setter. It parses the raw value before setting it.
+     *
+     * @param rawValue - The raw value of the `min` input.
+     *
+     * @internal
+     */
+    const setMin = (rawValue: string) => {
+      range.value.min = !rawValue || Number.isNaN(rawValue) ? threshold.value.min : Number(rawValue)
     }
 
     /**
-     * `max` setter.
+     * `max` setter. It parses the raw value before setting it.
      *
-     * @param value - The component `max` value to be set.
+     * @param rawValue - The raw value of the `max` input.
      *
      * @internal
      */
-    const setMax = (value: number) => {
-      max.value = parseRangeValue(value)
+    const setMax = (rawValue: string) => {
+      range.value.max = !rawValue || Number.isNaN(rawValue) ? threshold.value.max : Number(rawValue)
     }
 
     /**
-     * It sets component `min` and `max` values to null , and it emits the change if component is
+     * It resets component `min` and `max` values, and it emits the change if component is
      * working in instant mode.
      *
      * @internal
      */
     const clearValues = () => {
-      min.value = null
-      max.value = null
+      range.value.min = threshold.value.min
+      range.value.max = threshold.value.max
     }
 
     /**
@@ -301,41 +290,29 @@ export default defineComponent({
     watch(
       () => props.filter.range,
       (newRange: RangeValue) => {
-        min.value = newRange.min
-        max.value = newRange.max
-      },
-      { immediate: true, deep: true },
-    )
-
-    /**
-     * It watches range values in order to emit the event with the change if `isInstant`
-     * property is true.
-     *
-     * @internal
-     */
-    watch(
-      range,
-      () => {
-        if (props.isInstant) {
-          emitUserModifiedFilter()
-        }
+        range.value.min = newRange.min
+        range.value.max = newRange.max
       },
       { deep: true },
     )
 
+    watch(range, () => {
+      if (props.isInstant) {
+        emitUserModifiedFilter()
+      }
+    })
+
     return {
       rangeFilterMin,
       rangeFilterMax,
-      cssClasses,
-      min,
-      max,
+      range,
       setMin,
       setMax,
       emitUserModifiedFilter,
       clearValues,
       hasError,
-      isAnyRange,
-      renderClearButton,
+      threshold,
+      formatRangeValue,
     }
   },
 })
@@ -344,6 +321,10 @@ export default defineComponent({
 <style lang="css" scoped>
 .x-editable-number-range-filter--error .x-editable-number-range-filter__input {
   border-color: red;
+}
+
+.x-editable-number-range-filter__input {
+  width: 75px;
 }
 </style>
 
@@ -447,25 +428,33 @@ const editableFilter = ref({
 
 ### Customizing default slot
 
+The default slot exposes `formatRangeValue` so you can render the range values formatted with the
+filter `unit` and the snippet config `uiLang`. The `setMin` and `setMax` functions parse the raw
+value typed by the user.
+
 ```vue
 <template>
   <EditableNumberRangeFilter
     :filter="editableFilter"
     #default="{
-      min,
-      max,
+      range,
       setMin,
       setMax,
       emitUserModifiedFilter,
       clearValues,
       hasError,
       isAnyRange,
+      formatRangeValue,
     }"
   >
     <button @click="emitUserModifiedFilter">✅ Apply!</button>
     <button @click="clearValues">🗑 Clear!</button>
-    <input :value="!isAnyRange ? min : null" @change="setMin($event.target.valueAsNumber)" />
-    <input :value="max" @change="setMax($event.target.valueAsNumber)" />
+    <input
+      type="text"
+      :value="!isAnyRange ? formatRangeValue(range.min) : ''"
+      @change="setMin($event.target.value)"
+    />
+    <input type="text" :value="formatRangeValue(range.max)" @change="setMax($event.target.value)" />
     <div class="has-error" v-if="hasError">⚠️ Invalid range values</div>
   </EditableNumberRangeFilter>
 </template>

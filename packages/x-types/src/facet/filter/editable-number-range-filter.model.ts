@@ -15,6 +15,8 @@ export interface EditableNumberRangeFilter extends FacetFilter {
   modelName: 'EditableNumberRangeFilter'
   /** Filter range to use in the frontend. */
   range: RangeValue
+  /** Unit to format the range values. */
+  unit: Intl.NumberFormatOptions['style']
 }
 
 /**
