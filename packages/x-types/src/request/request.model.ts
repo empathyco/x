@@ -18,6 +18,7 @@ export interface QueryableRequest {
 export interface BrowsableRequest {
   browseField: string
   browseValue: string
+  browseFilters?: string[]
 }
 
 /**

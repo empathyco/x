@@ -124,6 +124,16 @@ export const setInitialExtraParams = wireCommit('setInitialExtraParams')
 export const setUrlFilters = wireCommit('setFilters')
 
 /**
+ * Sets the filters of the url module from a selected browse category filters.
+ *
+ * @public
+ */
+export const setUrlSelectedFiltersFromBrowse = wireCommit(
+  'setFilters',
+  ({ eventPayload: { browseFilters } }) => (browseFilters ? createRawFilters(browseFilters) : []),
+)
+
+/**
  * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
@@ -170,6 +180,7 @@ export const urlWiring = createWiring({
   },
   UserBrowsedToCategory: {
     setUrlBrowseCategory,
+    setUrlSelectedFiltersFromBrowse,
     resetUrlQuery,
   },
   UserClickedCloseX: {
