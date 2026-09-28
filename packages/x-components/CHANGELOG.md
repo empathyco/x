@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.15.1...@empathyco/x-components@9.0.0) (2026-09-28)
+
+### ⚠ BREAKING CHANGES
+
+* **results-enrichment:** DefaultResultsEnrichmentService service is no longer supported. Use custom x-module options instead.
+
+### Code Refactoring
+
+* **results-enrichment:** results-enrichment feature decommission (#2177)
+
+
 ## [8.15.1](https://github.com/empathyco/x/compare/@empathyco/x-components@8.15.0...@empathyco/x-components@8.15.1) (2026-09-28)
 
 **Note:** Version bump only for package @empathyco/x-components
