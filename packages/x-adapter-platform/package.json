@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@empathyco/x-adapter": "8.2.0",
-    "@empathyco/x-types": "10.9.0",
+    "@empathyco/x-types": "10.10.0",
     "@empathyco/x-utils": "1.1.0"
   },
   "devDependencies": {

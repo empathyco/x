@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.2...@empathyco/x-components@8.15.0) (2026-09-28)
+
+### Features
+
+* add filters params to UserBrowsedToCategory (#2176)
+
+
 ## [8.14.2](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.1...@empathyco/x-components@8.14.2) (2026-09-22)
 
 ### Bug Fixes
