@@ -68,13 +68,6 @@ export const saveBrowseOriginWire = wireDispatch('saveOrigin', ({ metadata }) =>
 export const fetchAndSaveBrowseResponseWire = wireDispatch('fetchAndSaveBrowseResponse')
 
 /**
- * Requests and stores the enrichment results for the results.
- *
- * @public
- */
-export const fetchAndSaveBrowseResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
-
-/**
  * Sets the browse state `selectedCategory`.
  *
  * @public
@@ -215,7 +208,6 @@ export const browseWiring = createWiring({
   },
   ResultsChanged: {
     resetBrowseAppending,
-    fetchAndSaveBrowseResultsEnrichmentWire,
   },
   ReloadBrowseRequested: {
     resetBrowseStateForReloadWire,

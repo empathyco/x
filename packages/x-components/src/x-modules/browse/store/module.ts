@@ -1,7 +1,6 @@
 import type { Stats } from '@empathyco/x-types'
 import type { BrowseXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
-import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { setStatus } from '../../../store'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { groupItemsBy } from '../../../utils/array'
@@ -12,7 +11,6 @@ import {
   fetchBrowseResponse,
   saveBrowseResponse,
 } from './actions'
-import { fetchAndSaveResultsEnrichment } from './actions/fetch-and-save-results-enrichment.action'
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action'
 import { resetRequestOnRefinement } from './actions/reset-request-on-refinement.action'
 import { saveOrigin } from './actions/save-origin.action'
@@ -111,9 +109,6 @@ export const browseXStoreModule: BrowseXStoreModule = {
         Object.assign(stateResult, result)
       }
     },
-    updateResultsFromEnrichment(state, enrichmentResults) {
-      DefaultResultsEnrichmentService.instance.updateResults(state.results, enrichmentResults)
-    },
     setStats(state, stats) {
       state.stats = stats
     },
@@ -122,7 +117,6 @@ export const browseXStoreModule: BrowseXStoreModule = {
     cancelFetchAndSaveBrowseResponse,
     fetchBrowseResponse,
     fetchAndSaveBrowseResponse,
-    fetchAndSaveResultsEnrichment,
     increasePageAppendingResults,
     resetRequestOnRefinement,
     saveBrowseResponse,

@@ -28,15 +28,6 @@ const wireCommit = namespacedWireCommit(moduleName)
 const fetchAndSaveRecommendations = wireDispatch('fetchAndSaveRecommendations')
 
 /**
- * Requests and stores the enrichment results for the recommendations.
- *
- * @public
- */
-const fetchAndSaveRecommendationsEnrichmentWire = wireDispatch(
-  'fetchAndSaveRecommendationsEnrichment',
-)
-
-/**
  * Sets the recommendations state `params`.
  *
  * @public
@@ -49,9 +40,6 @@ export const setRecommendationsExtraParams = wireCommit('setParams')
  * @internal
  */
 export const recommendationsWiring = createWiring({
-  RecommendationsChanged: {
-    fetchAndSaveRecommendationsEnrichmentWire,
-  },
   RecommendationsRequestUpdated: {
     fetchAndSaveRecommendations,
   },
