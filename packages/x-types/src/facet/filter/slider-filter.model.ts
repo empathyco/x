@@ -13,9 +13,11 @@ import type { RangeValue } from './range-value.model'
 export interface SliderFilter extends FacetFilter {
   /** Model name to indicate the filter type. */
   modelName: 'SliderFilter'
-  /** Filter range to use in the frontend. */
+  /** boundary range. */
   range: { min: number; max: number }
-
+  /** Filter range to use in the frontend. */
+  selectedRange: RangeValue
+  /** Units to format the values of the ranges. */
   unit: Intl.NumberFormatOptions['style']
 }
 

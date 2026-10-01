@@ -1,83 +1,73 @@
 <template>
   <BaseSlider
-    :model-value="range"
+    v-model="selectedRange"
     :threshold="threshold"
-    class="x-editable-number-range-filter"
-    :class="{ 'x-editable-number-range-filter--error': hasError }"
-    data-test="editable-number-range-filter"
-    @update:model-value="newRange => (range = newRange)"
+    class="x-slider-filter"
+    :class="{ 'x-slider-filter--error': hasError }"
   >
     <!--
-        @slot Empty slot used to customize the whole component.
-          @binding {range} RangeValue - Component min and max values.
-          @binding {threshold} RangeValue - Component min and max threshold values.
-          @binding {setMin} function - Component min setter.
-          @binding {setMax} function - Component max setter.
-          @binding {emitUserModifiedFilter} function - It emits the
-          `UserModifiedEditableNumberRangeFilter` X event.
-          @binding {clearValues} function - It resets component min and max values to threshold values.
-          @binding {hasError} boolean - Returns true when there is an error with component values.
-          @binding {formatRangeValue} function - It formats a range value using the filter unit
-          and the snippet config `uiLang`.
+      @slot Slot used to customize the whole component.
+
+      @binding {selectedRange} RangeValue - Current selected minimum and maximum values.
+      @binding {threshold} RangeValue - Minimum and maximum boundaries of the slider.
+      @binding {setMin} function - Sets the selected minimum value.
+      @binding {setMax} function - Sets the selected maximum value.
+      @binding {emitUserModifiedFilter} function - Emits the `UserModifiedSliderFilter` event.
+      @binding {clearValues} function - Resets the selected range to the slider boundaries.
+      @binding {hasError} boolean - Whether the selected range is invalid.
     -->
     <slot
       v-bind="{
         threshold,
-        range,
+        selectedRange,
         setMin,
         setMax,
         emitUserModifiedFilter,
         clearValues,
         hasError,
-        formatRangeValue,
       }"
     >
-      <!-- eslint-disable max-len -->
-      <input
-        name="min"
-        type="number"
-        inputmode="decimal"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min xds:input"
-        :value="range.min"
-        data-test="range-min"
-        :aria-label="rangeFilterMin"
-        @change="setMin(($event?.target as HTMLInputElement)?.value)"
-      />
+      <div>
+        <input
+          name="min"
+          type="number"
+          inputmode="decimal"
+          class="x-slider-filter__input x-slider-filter__input--min xds:input"
+          :value="selectedRange.min"
+          data-test="slider-filter-input-min"
+          :aria-label="rangeFilterMin"
+          @change="setMin(($event.target as HTMLInputElement).value)"
+        />
 
-      <input
-        name="max"
-        type="number"
-        inputmode="decimal"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max xds:input"
-        :value="range.max"
-        data-test="range-max"
-        :aria-label="rangeFilterMax"
-        @change="setMax(($event?.target as HTMLInputElement)?.value)"
-      />
+        <input
+          name="max"
+          type="number"
+          inputmode="decimal"
+          class="x-slider-filter__input x-slider-filter__input--max xds:input"
+          :value="selectedRange.max"
+          data-test="slider-filter-input-max"
+          :aria-label="rangeFilterMax"
+          @change="setMax(($event.target as HTMLInputElement).value)"
+        />
 
-      <button
-        v-if="!isInstant"
-        class="x-editable-number-range-filter__apply xds:button"
-        :disabled="hasError"
-        data-test="range-apply"
-        @click="emitUserModifiedFilter"
-      >
-        <!--
-            @slot Slot used to customize the apply button content.
-        -->
-        <slot name="apply-content">✓</slot>
-      </button>
+        <button
+          v-if="!isInstant"
+          class="x-slider-filter__apply xds:button"
+          :disabled="hasError"
+          data-test="slider-filter-apply"
+          @click="emitUserModifiedFilter"
+        >
+          ✓
+        </button>
 
-      <button
-        class="x-editable-number-range-filter__clear xds:button"
-        data-test="range-clear"
-        @click="clearValues"
-      >
-        <!--
-            @slot Slot used to customize the clear button content.
-        -->
-        <slot name="clear-content">𐄂</slot>
-      </button>
+        <button
+          class="x-slider-filter__clear xds:button"
+          data-test="slider-filter-clear"
+          @click="clearValues"
+        >
+          𐄂
+        </button>
+      </div>
     </slot>
   </BaseSlider>
 </template>
@@ -85,39 +75,36 @@
 <script lang="ts">
 import type { SliderFilter as SliderFilterModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { SnippetConfig } from '../../../../x-installer/api/api.types'
-import { computed, defineComponent, inject, ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
 /**
- * Renders an editable number range filter. It has two input fields to handle min and max values,
- * emitting the needed events when clicked.
+ * Renders a slider filter with editable minimum and maximum values.
  *
- * The range values shown in the inputs are formatted using `Intl.NumberFormat`, taking the `unit`
- * of the filter as the format style and the `uiLang` of the snippet config as the locale.
+ * Users can select a range using the slider or by entering the minimum and
+ * maximum values directly.
  *
- * It provides a default slot, with some utils bind, to customize the whole component; and two
- * named slots `apply-content` and `clear-content` to override each button content.
+ * In instant mode, valid changes are emitted automatically. Otherwise, the
+ * apply button is rendered and changes are emitted when it is clicked.
  *
- * If `instant` prop is true, the needed events are emitted immediately; else, apply button is
- * rendered to confirm to do it. False by default.
+ * The clear action resets the selected range to the slider boundaries.
  *
- * If `clear` prop is true, clear button, which sets to null component min and max values, is
- * rendered. True by default.
+ * The default slot exposes the selected range, slider boundaries, validation
+ * state, and methods to update, apply, or clear the selected values.
  *
  * @public
  */
 export default defineComponent({
-  name: 'EditableNumberRangeFilter',
+  name: 'SliderFilter',
   xModule: facetsXModule.name,
   components: {
     BaseSlider,
   },
   props: {
     /**
-     * The filter data to render and edit.
+     * The slider filter data to render and edit.
      *
      * @public
      */
@@ -126,199 +113,194 @@ export default defineComponent({
       required: true,
     },
     /**
-     * If `instant` prop is true, the needed events are emitted immediately; else, apply button is
-     * rendered to confirm to do it. False by default.
+     * Whether changes should be emitted immediately.
      *
+     * When false, the apply button is rendered and changes are emitted when
+     * the user clicks it.
+     *
+     * @default false
      * @public
      */
     isInstant: Boolean,
   },
+
   setup(props) {
     const $x = use$x()
-
-    /**
-     * The snippet config, provided by the installer, which provides the uiLang and the currency
-     * to format the range values.
-     *
-     * @internal
-     */
-    const snippetConfig = inject<SnippetConfig>('snippetConfig')
 
     const rangeFilterMin = 'minimum amount'
     const rangeFilterMax = 'maximum amount'
 
     /**
-     * Returns {@link @empathyco/x-types#RangeValue} with component min and max
-     * values.
+     * Current selected minimum and maximum values.
      *
-     * @returns Range value object with component values.
+     * Values that are not selected are initialized to the corresponding
+     * slider boundaries.
      *
      * @internal
      */
-    const range = ref({ min: props.filter.range.min, max: props.filter.range.max })
+    const selectedRange = ref({
+      min: props.filter.selectedRange.min ?? props.filter.range.min,
+      max: props.filter.selectedRange.max ?? props.filter.range.max,
+    })
 
     /**
-     * It checks if component min and max values are valid.
+     * Minimum and maximum boundaries of the slider.
      *
-     * @returns True if there is any error in the component min and max values.
+     * @internal
+     */
+    const threshold = computed(() => ({
+      min: props.filter.range.min,
+      max: props.filter.range.max,
+    }))
+
+    /**
+     * Whether the selected range is invalid because its minimum is greater
+     * than its maximum.
      *
      * @internal
      */
     const hasError = computed(
       () =>
-        range.value.min !== null && range.value.max !== null && range.value.min > range.value.max,
+        selectedRange.value.min !== null &&
+        selectedRange.value.max !== null &&
+        selectedRange.value.min > selectedRange.value.max,
     )
 
-    const threshold = computed(() => ({
-      min: props.filter.range.min ?? 0,
-      max: props.filter.range.max ?? Number.MAX_SAFE_INTEGER,
-    }))
-
     /**
-     * It checks if component min and max values are different from the ones within the filter
-     * provided as property.
-     *
-     * @returns True if they are different.
+     * Whether the selected range differs from the range currently applied
+     * to the filter.
      *
      * @internal
      */
     const areValuesDifferent = computed(
       () =>
-        range.value.min !== props.filter.range.min || range.value.max !== props.filter.range.max,
+        selectedRange.value.min !== props.filter.selectedRange.min ||
+        selectedRange.value.max !== props.filter.selectedRange.max,
     )
 
     /**
-     * It emits {@link FacetsXEvents.UserModifiedEditableNumberRangeFilter} event if there are no
-     * errors and component `min` and `max` values are different than `filter.range` ones.
+     * Emits the `UserModifiedSliderFilter` event when the selected range is
+     * valid and differs from the currently applied filter range.
      *
      * @internal
      */
     const emitUserModifiedFilter = () => {
-      console.log(props.filter.range, range.value)
-      if (!hasError.value && areValuesDifferent.value) {
-        $x.emit('UserModifiedSliderFilter', {
-          ...props.filter,
-          id: `price:${range.value.min}-${range.value.max}`,
-          range: props.filter.range,
-        })
+      if (hasError.value || !areValuesDifferent.value) {
+        return
       }
+
+      $x.emit('UserModifiedSliderFilter', {
+        ...props.filter,
+        selectedRange: selectedRange.value,
+      })
     }
 
     /**
-     * The number format to use to format the range values. It uses the `unit` of the filter as
-     * the format style and the `uiLang` of the snippet config as the locale.
+     * Sets one of the selected range values from a raw input value.
      *
-     * @returns An Intl.NumberFormat to format the range values.
+     * Empty or invalid values are reset to the corresponding slider boundary.
      *
-     * @internal
-     */
-    const numberFormatter = computed(
-      () =>
-        new Intl.NumberFormat(snippetConfig?.uiLang, {
-          style: props.filter.unit,
-          ...(props.filter.unit === 'currency' && {
-            currency: snippetConfig?.currency ?? 'EUR',
-          }),
-        }),
-    )
-
-    /**
-     * It formats a range value using the `unit` of the filter and the `uiLang` of the snippet
-     * config.
-     *
-     * @param value - The range value to format.
-     * @returns The formatted value, or an empty string if the value is null.
+     * @param key - Range boundary to update.
+     * @param rawValue - Raw input value.
      *
      * @internal
      */
-    const formatRangeValue = (value: number): string => numberFormatter.value.format(value)
+    const setRangeValue = (key: 'min' | 'max', rawValue: string) => {
+      const value = Number(rawValue)
+
+      selectedRange.value[key] =
+        rawValue === '' || Number.isNaN(value) ? threshold.value[key] : value
+    }
 
     /**
-     * `min` setter. It parses the raw value before setting it.
+     * Sets the selected minimum value.
      *
-     * @param rawValue - The raw value of the `min` input.
+     * @param rawValue - Raw input value.
      *
      * @internal
      */
     const setMin = (rawValue: string) => {
-      range.value.min = !rawValue || Number.isNaN(rawValue) ? threshold.value.min : Number(rawValue)
+      setRangeValue('min', rawValue)
     }
 
     /**
-     * `max` setter. It parses the raw value before setting it.
+     * Sets the selected maximum value.
      *
-     * @param rawValue - The raw value of the `max` input.
+     * @param rawValue - Raw input value.
      *
      * @internal
      */
     const setMax = (rawValue: string) => {
-      range.value.max = !rawValue || Number.isNaN(rawValue) ? threshold.value.max : Number(rawValue)
+      setRangeValue('max', rawValue)
     }
 
     /**
-     * It resets component `min` and `max` values, and it emits the change if component is
-     * working in instant mode.
+     * Resets the selected range to the slider boundaries.
      *
      * @internal
      */
     const clearValues = () => {
-      range.value.min = threshold.value.min
-      range.value.max = threshold.value.max
+      selectedRange.value = {
+        min: threshold.value.min,
+        max: threshold.value.max,
+      }
     }
 
     /**
-     * It resets the min/max range values to null if the
-     * {@link FacetsXEvents.UserClickedClearAllFilters} event is fired.
+     * Resets the selected range when all filters are cleared.
      *
      * @public
      */
     $x.on('UserClickedClearAllFilters', false).subscribe(clearValues)
 
     /**
-     * It watches the filter range values passed as property and updates component range values if
-     * they change.
-     *
-     * @param newRange - New range value.
+     * Updates the local selected range when the filter selected range changes.
      *
      * @internal
-
+     */
     watch(
-      () => props.filter.range,
+      () => props.filter.selectedRange,
       newRange => {
-        range.value.min = newRange.min
-        range.value.max = newRange.max
+        selectedRange.value = {
+          min: newRange.min ?? props.filter.range.min,
+          max: newRange.max ?? props.filter.range.max,
+        }
       },
       { deep: true },
     )
 
-    watch(range, () => {
-      if (props.isInstant) {
-        emitUserModifiedFilter()
-      }
-    })*/
+    /**
+     * Emits the filter modification automatically when instant mode is enabled.
+     *
+     * @internal
+     */
+    watch(
+      selectedRange,
+      () => {
+        if (props.isInstant) {
+          emitUserModifiedFilter()
+        }
+      },
+      { deep: true },
+    )
 
     return {
       rangeFilterMin,
       rangeFilterMax,
-      range,
+      selectedRange,
       setMin,
       setMax,
       emitUserModifiedFilter,
       clearValues,
       hasError,
       threshold,
-      formatRangeValue,
     }
   },
 })
 </script>
 
 <style lang="css" scoped>
-.x-editable-number-range-filter--error .x-editable-number-range-filter__input {
+.x-slider-filter--error .x-slider-filter__input {
   border-color: red;
-}
-
-.x-editable-number-range-filter__input {
-  width: 75px;
 }
 </style>

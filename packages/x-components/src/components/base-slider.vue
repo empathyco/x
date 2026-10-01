@@ -1,5 +1,5 @@
 <template>
-  <div class="x-base-slider">
+  <div class="x-base-slider" data-test="base-slider">
     <div ref="slider" :class="['x-base-slider__nouislider'].concat(`${contentClass}`)" />
     <div class="x-base-slider__selected">
       <!--
@@ -8,13 +8,13 @@
             @binding {number[]} rangeSelected - The selected range values. Min position 0, Max position 1.
       -->
       <slot :range-selected="rangeSelected">
-        <p class="x-base-slider__selected-min">
+        <p class="x-base-slider__selected-min" data-test="base-slider-min">
           <span>min value</span>
           <span>
             {{ rangeSelected[0] }}
           </span>
         </p>
-        <p class="x-base-slider__selected-max">
+        <p class="x-base-slider__selected-max" data-test="base-slider-max">
           <span>max value</span>
           <span>
             {{ rangeSelected[1] }}
@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import type { RangeValue } from '@empathyco/x-types'
 import type { API } from 'nouislider'
 import type { PropType } from 'vue'
 import { create } from 'nouislider'
@@ -50,7 +51,7 @@ export default defineComponent({
     },
     /** The modelValue prop sets the initial values for the slider. */
     modelValue: {
-      type: Object as PropType<{ min: number; max: number }>,
+      type: Object as PropType<RangeValue>,
       required: true,
     },
     /** Class to be able to customize slider styles. */
@@ -110,13 +111,10 @@ export default defineComponent({
     /**
      * Watch the threshold prop to update the slider state and emit the selected values.
      */
-    watch(
-      () => props.threshold,
-      ({ min, max }) => {
-        sliderInstance.updateOptions({ range: slideRange.value, start: [min, max] }, false)
-        emit('update:modelValue', { min, max })
-      },
-    )
+    watch([() => props.threshold.min, () => props.threshold.max], ([min, max]) => {
+      sliderInstance.updateOptions({ range: slideRange.value, start: [min, max] }, false)
+      emit('update:modelValue', { min, max })
+    })
 
     /**
      * Watch the modelValue prop to update the slider state.
@@ -127,15 +125,14 @@ export default defineComponent({
      * @returns Undefined.
      */
     watch([() => props.modelValue.min, () => props.modelValue.max], ([min, max]) => {
-      console.log(min, max)
       // Check if the values are the same
       if (min === minSelected.value && max === maxSelected.value) {
         return
       }
 
       // Validate the values
-      const minValidated = min < props.threshold.min ? props.threshold.min : min
-      const maxValidated = max > props.threshold.max ? props.threshold.max : max
+      const minValidated = min! < props.threshold.min ? props.threshold.min : min
+      const maxValidated = max! > props.threshold.max ? props.threshold.max : max
 
       // Update the nouislider values
       sliderInstance.set([minValidated, maxValidated])

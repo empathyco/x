@@ -27,9 +27,10 @@ export class SliderFilterEntity implements FilterEntity {
    */
   deselect(filterParam: Filter): void {
     const filter = filterParam as SliderFilter
-    const newFilterState: Pick<SliderFilter, 'range' | 'facetId' | 'selected'> = {
+    const newFilterState: Pick<SliderFilter, 'selectedRange' | 'range' | 'facetId' | 'selected'> = {
       facetId: filter.facetId,
       range: { min: filter.range.min, max: filter.range.max },
+      selectedRange: { min: null, max: null },
       selected: false,
     }
     this.removePreviousFilter(filter.facetId)
@@ -54,7 +55,7 @@ export class SliderFilterEntity implements FilterEntity {
     this.store.commit('x/facets/mutateFilter', {
       filter,
       newFilterState: {
-        id: filter.id,
+        id: this.getNewFilterId(filter),
         selected: this.isSelected(filter),
       },
     })
@@ -68,19 +69,25 @@ export class SliderFilterEntity implements FilterEntity {
    * @returns The new filter id.
    * @internal
    */
-  protected getNewFilterId(filter: Pick<SliderFilter, 'range' | 'facetId'>): string {
-    return `${filter.facetId}:${String(filter.range.min ?? '*')}-${String(filter.range.max ?? '*')}`
+  protected getNewFilterId(
+    filter: Pick<SliderFilter, 'selectedRange' | 'range' | 'facetId'>,
+  ): string {
+    return `${filter.facetId}:${String(filter.selectedRange.min ?? filter.range.min)}-${String(filter.selectedRange.max ?? filter.range.max)}`
   }
 
   /**
    * It returns if the filter range min or the filter range max is not null.
    *
    * @param filter - The filter to determine if it is selected or not.
-   * @returns True if filter range min or filter range max is not null.
+   * @returns True if filter selectedRange min or filter selectedRange max is diferrent from filter range
+   * min or filter range max respectively.
    * @internal
    */
   protected isSelected(filter: SliderFilter): boolean {
-    return filter.range.min !== null || filter.range.max !== null
+    return (
+      (filter.selectedRange.min ?? filter.range.min) !== filter.range.min ||
+      (filter.selectedRange.max ?? filter.range.max) !== filter.range.max
+    )
   }
 
   /**
@@ -104,7 +111,7 @@ export class SliderFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterByFacet(facetId: Facet['id']): SliderFilter | undefined {
-    // eslint-disable-next-line ts/no-unsafe-member-access
+    // eslint-disable-next-line ts/no-unsafe-member-access,ts/no-unsafe-return
     return this.store.getters['x/facets/facets'][facetId]?.filters?.[0]
   }
 }
