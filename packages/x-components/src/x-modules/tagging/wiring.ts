@@ -1,5 +1,6 @@
 import type {
   AiSuggestionSearch,
+  AiSuggestionSearchTagging,
   RelatedPrompt,
   Result,
   SemanticQuery,
@@ -303,7 +304,7 @@ export const trackNoResultsQueryWithFallbackWire = filter(
 export const trackNoResultsQueryWithFallbackWireDebounced = moduleDebounce(
   trackNoResultsQueryWithFallbackWire,
   ({ state }) => state.config.queryTaggingDebounceMs,
-  { cancelOn: ['QueryPreviewUnmounted', 'RelatedPromptsUnmounted'] },
+  { cancelOn: ['QueryPreviewUnmounted', 'RelatedPromptsUnmounted', 'AiComponentUnmounted'] },
 )
 
 /**
@@ -469,6 +470,34 @@ export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayloa
 )
 
 /**
+ * Performs a track of a query with no results that used ai carousel as fallback.
+ * The query will be changed to the original query of the search in order to associate
+ * the return of related results to that query, instead of track a no results query.
+ *
+ * @public
+ */
+export const trackAiCarouselQueryTaggingInfoWire = filter(
+  wireDispatch('track', ({ eventPayload, state }) => {
+    const queryTaggingInfoNoResults = (eventPayload as AiSuggestionSearchTagging).query
+
+    queryTaggingInfoNoResults.params.q = state.queryTaggingInfo!.params.q
+
+    return queryTaggingInfoNoResults
+  }),
+  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0,
+)
+
+/**
+ * Debounced version of {@link trackAiCarouselQueryTaggingInfoWire}
+ *
+ * @public
+ */
+export const trackAiCarouselQueryTaggingInfoDebouncedWire = moduleDebounce(
+  trackAiCarouselQueryTaggingInfoWire,
+  ({ state }) => state.config.queryTaggingDebounceMs,
+)
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -544,8 +573,8 @@ export const taggingWiring = createWiring({
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
   },
-  AiSuggestionsSearchChanged: {
-    trackAiSuggestionsSearchWire,
+  AiSuggestionsSearchTaggingChanged: {
+    trackAiCarouselQueryTaggingInfoDebouncedWire,
   },
   UserClickedAnAiCarouselResult: {
     trackToolingDisplayClickedWire,
