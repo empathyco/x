@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.0.0...@empathyco/x-components@9.1.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
 ## [9.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.15.1...@empathyco/x-components@9.0.0) (2026-09-28)
 
 ### ⚠ BREAKING CHANGES

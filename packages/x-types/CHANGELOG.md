@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.11.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.10.0...@empathyco/x-types@10.11.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
 ## [10.10.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.9.0...@empathyco/x-types@10.10.0) (2026-09-28)
 
 ### Features

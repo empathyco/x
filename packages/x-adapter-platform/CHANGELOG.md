@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.11.1...@empathyco/x-adapter-platform@1.12.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
 ## [1.11.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.11.0...@empathyco/x-adapter-platform@1.11.1) (2026-09-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
