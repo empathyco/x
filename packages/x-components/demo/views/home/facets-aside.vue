@@ -132,7 +132,7 @@
       </template>
 
       <template #slider-facet="{ facet }">
-        <SliderFilter :filter="facet.filters[0]" />
+        <SliderFilter v-if="facet.filters.length" :filter="facet.filters[0]" />
       </template>
     </Facets>
   </div>

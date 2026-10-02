@@ -34,8 +34,10 @@
           inputmode="decimal"
           class="x-slider-filter__input x-slider-filter__input--min xds:input"
           :value="selectedRange.min"
+          :min="threshold.min"
+          :max="threshold.max"
           data-test="slider-filter-input-min"
-          :aria-label="rangeFilterMin"
+          aria-label="minimum amount"
           @change="setMin(($event.target as HTMLInputElement).value)"
         />
 
@@ -45,8 +47,10 @@
           inputmode="decimal"
           class="x-slider-filter__input x-slider-filter__input--max xds:input"
           :value="selectedRange.max"
+          :min="threshold.min"
+          :max="threshold.max"
           data-test="slider-filter-input-max"
-          :aria-label="rangeFilterMax"
+          aria-label="maximum amount"
           @change="setMax(($event.target as HTMLInputElement).value)"
         />
 
@@ -127,9 +131,6 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const rangeFilterMin = 'minimum amount'
-    const rangeFilterMax = 'maximum amount'
-
     /**
      * Current selected minimum and maximum values.
      *
@@ -174,8 +175,8 @@ export default defineComponent({
      */
     const areValuesDifferent = computed(
       () =>
-        selectedRange.value.min !== props.filter.selectedRange.min ||
-        selectedRange.value.max !== props.filter.selectedRange.max,
+        selectedRange.value.min !== (props.filter.selectedRange.min ?? props.filter.range.min) ||
+        selectedRange.value.max !== (props.filter.selectedRange.max ?? props.filter.range.max),
     )
 
     /**
@@ -247,46 +248,50 @@ export default defineComponent({
     }
 
     /**
-     * Resets the selected range when all filters are cleared.
+     * Resets the selected range when all filters, or the filters of this facet, are cleared.
      *
      * @public
      */
-    $x.on('UserClickedClearAllFilters', false).subscribe(clearValues)
+    $x.on('UserClickedClearAllFilters', false).subscribe(facetsIds => {
+      if (!facetsIds || facetsIds.includes(props.filter.facetId)) {
+        clearValues()
+      }
+    })
 
     /**
-     * Updates the local selected range when the filter selected range changes.
+     * Updates the local selected range when the filter selected range changes,
+     * but only if the values actually differ from the current local ones.
      *
      * @internal
      */
     watch(
       () => props.filter.selectedRange,
       newRange => {
-        selectedRange.value = {
-          min: newRange.min ?? props.filter.range.min,
-          max: newRange.max ?? props.filter.range.max,
+        const min = newRange.min ?? props.filter.range.min
+        const max = newRange.max ?? props.filter.range.max
+
+        if (min !== selectedRange.value.min || max !== selectedRange.value.max) {
+          selectedRange.value = { min, max }
         }
       },
-      { deep: true },
     )
 
     /**
-     * Emits the filter modification automatically when instant mode is enabled.
+     * Emits the filter modification automatically when instant mode is enabled
+     * and the selected range values (min or max) change.
+     *
+     * Replacing the selected range with an object holding the same values does
+     * not trigger the emit.
      *
      * @internal
      */
-    watch(
-      selectedRange,
-      () => {
-        if (props.isInstant) {
-          emitUserModifiedFilter()
-        }
-      },
-      { deep: true },
-    )
+    watch([() => selectedRange.value.min, () => selectedRange.value.max], () => {
+      if (props.isInstant) {
+        emitUserModifiedFilter()
+      }
+    })
 
     return {
-      rangeFilterMin,
-      rangeFilterMax,
       selectedRange,
       setMin,
       setMax,

@@ -137,6 +137,19 @@ describe('testing SliderFilter component', () => {
       expect(listener).not.toHaveBeenCalled()
     })
 
+    it('should not emit UserModifiedSliderFilter when the apply button is clicked without a selected range', async () => {
+      const { applyButtonWrapper } = render({
+        filter: createSliderFilter('price', { min: 0, max: 100 }, { min: null, max: null }),
+      })
+
+      const listener = vi.fn()
+      XPlugin.bus.on('UserModifiedSliderFilter').subscribe(listener)
+
+      await applyButtonWrapper.trigger('click')
+
+      expect(listener).not.toHaveBeenCalled()
+    })
+
     it('should not emit UserModifiedSliderFilter on input change when isInstant is false', async () => {
       const { typeMin } = render({
         filter: createSliderFilter('price', { min: 0, max: 100 }, { min: 0, max: 100 }),
@@ -219,6 +232,30 @@ describe('testing SliderFilter component', () => {
 
       expect((minInputWrapper.element as HTMLInputElement).value).toBe('0')
       expect((maxInputWrapper.element as HTMLInputElement).value).toBe('100')
+    })
+
+    it('should reset the selected range when UserClickedClearAllFilters is emitted without facets', async () => {
+      const { minInputWrapper, maxInputWrapper } = render({
+        filter: createSliderFilter('price', { min: 0, max: 100 }, { min: 10, max: 20 }),
+      })
+
+      await XPlugin.bus.emit('UserClickedClearAllFilters', undefined)
+      await nextTick()
+
+      expect((minInputWrapper.element as HTMLInputElement).value).toBe('0')
+      expect((maxInputWrapper.element as HTMLInputElement).value).toBe('100')
+    })
+
+    it('should not reset the selected range when UserClickedClearAllFilters is emitted for other facets', async () => {
+      const { minInputWrapper, maxInputWrapper } = render({
+        filter: createSliderFilter('price', { min: 0, max: 100 }, { min: 10, max: 20 }),
+      })
+
+      await XPlugin.bus.emit('UserClickedClearAllFilters', ['weight'])
+      await nextTick()
+
+      expect((minInputWrapper.element as HTMLInputElement).value).toBe('10')
+      expect((maxInputWrapper.element as HTMLInputElement).value).toBe('20')
     })
   })
 })

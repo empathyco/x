@@ -50,7 +50,7 @@ describe('tests', () => {
         facetId: 'price',
         requestParameters: { filter: ['color:red'] },
       })
-      expect(filter.id).toBe('price:5:15')
+      expect(filter.id).toBe('price:5-15')
     })
 
     it('should not match filter parameters of other facets', () => {
@@ -58,12 +58,12 @@ describe('tests', () => {
         facetId: 'price2',
         requestParameters: { filter: ['price:10-20'] },
       })
-      expect(filter.id).toBe('price2:5:15')
+      expect(filter.id).toBe('price2:5-15')
     })
 
     it('should fallback to the facet id and range values when there is no context', () => {
       const filter = mapper(createSliderFilter('5', '15'), {})
-      expect(filter.id).toBe('undefined:5:15')
+      expect(filter.id).toBe('undefined:5-15')
     })
   })
 
@@ -82,6 +82,30 @@ describe('tests', () => {
         requestParameters: { filter: ['price:10-20'] },
       })
       expect(filter.selectedRange).toEqual({ min: 10, max: 20 })
+    })
+
+    it('should map the selected range when the min is negative', () => {
+      const filter = mapper(createSliderFilter(), {
+        facetId: 'price',
+        requestParameters: { filter: ['price:-5-10'] },
+      })
+      expect(filter.selectedRange).toEqual({ min: -5, max: 10 })
+    })
+
+    it('should map the selected range when both values are negative', () => {
+      const filter = mapper(createSliderFilter(), {
+        facetId: 'price',
+        requestParameters: { filter: ['price:-5--3'] },
+      })
+      expect(filter.selectedRange).toEqual({ min: -5, max: -3 })
+    })
+
+    it('should map null values when the filter parameter range is malformed', () => {
+      const filter = mapper(createSliderFilter(), {
+        facetId: 'price',
+        requestParameters: { filter: ['price:10'] },
+      })
+      expect(filter.selectedRange).toEqual({ min: null, max: null })
     })
 
     it('should map null values when there is no context', () => {

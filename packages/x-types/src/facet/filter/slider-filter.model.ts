@@ -3,7 +3,7 @@ import type { Filter } from './filter.model'
 import type { RangeValue } from './range-value.model'
 
 /**
- * A type of filter used in {@link EditableNumberRangeFacet} and extends from {@link FacetFilter}.
+ * A type of filter used in {@link SliderFacet} and extends from {@link FacetFilter}.
  * This filter has the particularity that its {@link RangeValue} is editable by the user.
  * Editable means that the value max and min can be changed by the user instead of having
  * several boolean filters with different values.
@@ -17,7 +17,7 @@ export interface SliderFilter extends FacetFilter {
   range: { min: number; max: number }
   /** Filter range to use in the frontend. */
   selectedRange: RangeValue
-  /** Units to format the values of the ranges. */
+  /** Units to format the values of the ranges. Currently unused, reserved for future formatting. */
   unit: Intl.NumberFormatOptions['style']
 }
 

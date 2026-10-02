@@ -2,7 +2,7 @@ import type { Facet } from './facet.model'
 import type { SliderFilter } from './filter/slider-filter.model'
 
 /**
- * Number Range Facet is a trait for filtering results. It extends from {@link Facet}, changes the
+ * Slider Facet is a trait for filtering results. It extends from {@link Facet}, changes the
  * modelName and uses {@link SliderFilter} as filters.
  *
  * @public

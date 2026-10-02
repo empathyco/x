@@ -24,7 +24,7 @@ export const sliderFilterSchema = createMutableSchema<PlatformSliderFilter, Slid
     const facetId = context?.facetId as string
     const filter = getFilter(context)
 
-    return filter ?? `${facetId}:${min}:${max}`
+    return filter ?? `${facetId}:${min}-${max}`
   },
   facetId: (_, context) => context?.facetId as string,
   selected: () => false,
@@ -41,11 +41,15 @@ export const sliderFilterSchema = createMutableSchema<PlatformSliderFilter, Slid
     }
 
     const [, range] = filter.split(':')
-    const [min, max] = range.split('-')
+    const match = range.match(/^(-?\d+(?:\.\d+)?)-(-?\d+(?:\.\d+)?)$/)
+
+    if (!match) {
+      return { min: null, max: null }
+    }
 
     return {
-      min: Number(min),
-      max: Number(max),
+      min: Number(match[1]),
+      max: Number(match[2]),
     }
   },
 

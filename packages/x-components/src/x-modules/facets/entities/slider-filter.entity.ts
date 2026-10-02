@@ -69,10 +69,12 @@ export class SliderFilterEntity implements FilterEntity {
    * @returns The new filter id.
    * @internal
    */
-  protected getNewFilterId(
-    filter: Pick<SliderFilter, 'selectedRange' | 'range' | 'facetId'>,
-  ): string {
-    return `${filter.facetId}:${String(filter.selectedRange.min ?? filter.range.min)}-${String(filter.selectedRange.max ?? filter.range.max)}`
+  protected getNewFilterId({
+    facetId,
+    selectedRange,
+    range,
+  }: Pick<SliderFilter, 'selectedRange' | 'range' | 'facetId'>): string {
+    return `${facetId}:${String(selectedRange.min ?? range.min)}-${String(selectedRange.max ?? range.max)}`
   }
 
   /**
@@ -83,10 +85,10 @@ export class SliderFilterEntity implements FilterEntity {
    * min or filter range max respectively.
    * @internal
    */
-  protected isSelected(filter: SliderFilter): boolean {
+  protected isSelected({ selectedRange, range }: SliderFilter): boolean {
     return (
-      (filter.selectedRange.min ?? filter.range.min) !== filter.range.min ||
-      (filter.selectedRange.max ?? filter.range.max) !== filter.range.max
+      (selectedRange.min ?? range.min) !== range.min ||
+      (selectedRange.max ?? range.max) !== range.max
     )
   }
 
