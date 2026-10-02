@@ -24,6 +24,8 @@ function renderEditableNumberRangeFilter({
       :hasClearButton="hasClearButton"
       :buttonsClass="buttonsClass"
       :inputsClass="inputsClass"
+      :minAriaLabel="minAriaLabel"
+      :maxAriaLabel="maxAriaLabel"
     />
   `,
   range = { min: null, max: null } as RangeValue,
@@ -31,7 +33,9 @@ function renderEditableNumberRangeFilter({
   hasClearButton = true,
   buttonsClass = '',
   inputsClass = '',
-} = {}) {
+  minAriaLabel = undefined,
+  maxAriaLabel = undefined,
+}: RenderEditableNumberRangeFilterOptions = {}) {
   const filter = ref(createEditableNumberRangeFilter('age', range))
 
   const wrapper = mount(
@@ -46,6 +50,8 @@ function renderEditableNumberRangeFilter({
         hasClearButton,
         buttonsClass,
         inputsClass,
+        minAriaLabel,
+        maxAriaLabel,
       }),
       global: { plugins: [installNewXPlugin()] },
     },
@@ -99,6 +105,23 @@ describe('testing BaseNumberRangeFilter component', () => {
     ).toBe('5')
     expect(applyButtonWrapper.text()).toBe('✓')
     expect(clearButtonWrapper.text()).toBe('𐄂')
+  })
+
+  it('renders the default aria-labels on the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('minimum amount')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('maximum amount')
+  })
+
+  it('allows overriding the aria-labels of the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      minAriaLabel: 'Min value',
+      maxAriaLabel: 'Max value',
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min value')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max value')
   })
 
   it('does not emit UserModifiedEditableNumberRangeFilter event when values are invalid', async () => {
@@ -321,3 +344,22 @@ describe('testing BaseNumberRangeFilter component', () => {
     })
   })
 })
+
+interface RenderEditableNumberRangeFilterOptions {
+  /** The template to render. */
+  template?: string
+  /** The range of the filter. */
+  range?: RangeValue
+  /** Whether the filter emits the changes immediately. */
+  isInstant?: boolean
+  /** Whether the clear button is rendered. */
+  hasClearButton?: boolean
+  /** Class inherited by the buttons. */
+  buttonsClass?: string
+  /** Class inherited by the inputs. */
+  inputsClass?: string
+  /** Accessible label for the minimum value input. */
+  minAriaLabel?: string
+  /** Accessible label for the maximum value input. */
+  maxAriaLabel?: string
+}

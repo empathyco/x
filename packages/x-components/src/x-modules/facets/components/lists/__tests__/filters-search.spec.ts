@@ -33,15 +33,16 @@ const queries: Dictionary<number> = {
 function renderFiltersSearch(
   dataTestInputSelector = 'filters-search-input',
   template?: string,
+  ariaLabel?: string,
 ): FiltersSearchAPI {
   const wrapper = mount(
     {
       components: { FiltersSearch },
-      props: ['filters', 'debounceInMs'],
+      props: ['filters', 'debounceInMs', 'ariaLabel'],
       template:
         template ??
         `
-          <FiltersSearch :filters="filters" :debounceInMs="debounceInMs">
+          <FiltersSearch :filters="filters" :debounceInMs="debounceInMs" :ariaLabel="ariaLabel">
             <template #default="{ siftedFilters }">
               <ul v-for="filter in siftedFilters" data-test="filters-search-list">
                 <li data-test="filters-search-list-item">{{ filter.label }}</li>
@@ -53,6 +54,7 @@ function renderFiltersSearch(
     {
       props: {
         filters: filtersMock,
+        ariaLabel,
       },
     },
   )
@@ -95,6 +97,22 @@ describe('testing FiltersSearch', () => {
     expect(inputWrapper.element).toBeDefined()
     expect(wrapper.classes()).not.toContain('x-filters-search--is-sifted')
     expect(getFiltersWrapper()).toHaveLength(filtersMock.length)
+  })
+
+  it('renders the default aria-label on the search input', () => {
+    const { inputWrapper } = renderFiltersSearch()
+
+    expect(inputWrapper.attributes('aria-label')).toBe('search into the filter values')
+  })
+
+  it('allows overriding the aria-label of the search input', () => {
+    const { inputWrapper } = renderFiltersSearch(
+      'filters-search-input',
+      undefined,
+      'Search in filter values',
+    )
+
+    expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
   })
 
   it('sifts provided filters with the input query', async () => {

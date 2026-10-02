@@ -11,11 +11,13 @@ let bus = new XDummyBus()
 function render({
   selectedColumns,
   columns = [2, 4, 6],
+  ariaLabel,
   template = `
     <BaseColumnPickerDropdown
       @update:modelValue="col => selectedColumns = col"
       :columns="columns"
       :modelValue="selectedColumns"
+      :ariaLabel="ariaLabel"
     >
       <template #item="{ item, isSelected, isHighlighted }">
         <span v-if="isHighlighted">🟢</span>
@@ -23,7 +25,7 @@ function render({
         <span>{{ item }}</span>
       </template>
     </BaseColumnPickerDropdown>`,
-}: { selectedColumns?: number; columns?: number[]; template?: string } = {}) {
+}: { selectedColumns?: number; columns?: number[]; ariaLabel?: string; template?: string } = {}) {
   const mountComponent = (options: { selectedColumns?: number } = {}): VueWrapper => {
     return mount(
       {
@@ -34,6 +36,7 @@ function render({
           return {
             columns,
             selectedColumns: options.selectedColumns ?? selectedColumns,
+            ariaLabel,
           }
         },
         template,
@@ -102,6 +105,18 @@ describe('testing BaseColumnPickerDropdown component', () => {
     const { toggleWrapper } = render()
 
     expect(toggleWrapper.text()).toEqual('2')
+  })
+
+  it('renders the default aria-label on the dropdown toggle button', () => {
+    const { toggleWrapper } = render()
+
+    expect(toggleWrapper.attributes('aria-label')).toEqual('Select number of columns')
+  })
+
+  it('allows overriding the aria-label of the dropdown toggle button', () => {
+    const { toggleWrapper } = render({ ariaLabel: 'Columns count' })
+
+    expect(toggleWrapper.attributes('aria-label')).toEqual('Columns count')
   })
 
   it('sets selectedColumns and emits "ColumnsNumberProvided" X Event with the column as payload on value change', async () => {

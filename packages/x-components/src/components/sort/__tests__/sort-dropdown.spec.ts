@@ -13,31 +13,32 @@ import SortDropdown from '../sort-dropdown.vue'
 const bus = new XDummyBus()
 function renderSortDropdown({
   template = `
-   <SortDropdown :items="items" :selectedSort="selectedSort">
-      <template #toggle="{ item }">
-        {{ item }}
-      </template>
-      <template #item="{ item }">
-        {{ item }}
-      </template>
+    <SortDropdown :items="items" :selectedSort="selectedSort" :ariaLabel="ariaLabel">
+       <template #toggle="{ item }">
+         {{ item }}
+       </template>
+       <template #item="{ item }">
+         {{ item }}
+       </template>
     </SortDropdown>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
-}: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
+  ariaLabel = undefined,
+}: Partial<{ template?: string; items?: any[]; selectedSort?: any; ariaLabel?: string }> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const parentWrapper = mount(
     {
       template,
       components: { SortDropdown },
-      props: ['items', 'selectedSort'],
+      props: ['items', 'selectedSort', 'ariaLabel'],
     },
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)],
       },
       store,
-      props: { items, selectedSort },
+      props: { items, selectedSort, ariaLabel },
     },
   )
 
@@ -105,6 +106,18 @@ describe('testing SortDropdown component', () => {
       eventPayload: 'default',
       metadata: { moduleName: null, location: 'none', replaceable: true },
     })
+  })
+
+  it('renders the default aria-label on the toggle button', () => {
+    const { getToggleButton } = renderSortDropdown()
+
+    expect(getToggleButton().attributes('aria-label')).toEqual('Select sorting')
+  })
+
+  it('allows overriding the aria-label of the toggle button', () => {
+    const { getToggleButton } = renderSortDropdown({ ariaLabel: 'Select the sort order' })
+
+    expect(getToggleButton().attributes('aria-label')).toEqual('Select the sort order')
   })
 
   describe('slots', () => {

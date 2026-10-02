@@ -70,6 +70,20 @@ describe('testing search input component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('searchBox')
   })
 
+  it('renders the default aria-label on the search input', () => {
+    const { input } = renderSearchInput()
+
+    expect(input.getAttribute('aria-label')).toBe('type your query here')
+  })
+
+  it('allows overriding the aria-label of the search input', async () => {
+    const { wrapper, input } = renderSearchInput()
+
+    await wrapper.setProps({ ariaLabel: 'Enter your search query' })
+
+    expect(input.getAttribute('aria-label')).toBe('Enter your search query')
+  })
+
   it('emits UserHoveredInSearchBox when it is hovered in', async () => {
     const { wrapper, listener } = renderSearchInput()
     XPlugin.bus.on('UserHoveredInSearchBox').subscribe(listener as any)

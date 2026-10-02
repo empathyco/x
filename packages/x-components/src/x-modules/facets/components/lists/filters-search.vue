@@ -13,7 +13,7 @@
         type="search"
         class="x-filters-search__input xds:input"
         data-test="filters-search-input"
-        aria-label="search into the filter values"
+        :aria-label="ariaLabel"
         @input="setQuery(($event?.target as HTMLInputElement)?.value)"
       />
     </slot>
@@ -67,6 +67,12 @@ export default defineComponent({
     debounceInMs: {
       type: Number,
       default: 200,
+    },
+
+    /** Accessible label for the search input. */
+    ariaLabel: {
+      type: String,
+      default: 'search into the filter values',
     },
   },
   setup(props) {

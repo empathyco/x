@@ -4,7 +4,7 @@
       v-if="isVisible"
       class="x-scroll-to-top xds:button"
       data-test="scroll-to-top"
-      aria-label="Scroll to top"
+      :aria-label="ariaLabel"
       :events="events"
     >
       <!-- @slot (Required) Button content with a text, an icon or both -->
@@ -56,6 +56,15 @@ export default defineComponent({
     scrollId: {
       type: String,
       default: MainScrollId,
+    },
+    /**
+     * Accessible label for the scroll to top button.
+     *
+     * @public
+     */
+    ariaLabel: {
+      type: String,
+      default: 'Scroll to top',
     },
   },
   setup(props) {

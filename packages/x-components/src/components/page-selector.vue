@@ -1,11 +1,11 @@
 <template>
-  <nav v-if="visiblePages?.length > 1" class="x-page-selector" aria-label="Pagination">
+  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="paginationAriaLabel">
     <button
       class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
-      aria-label="Previous page"
+      :aria-label="prevPageAriaLabel"
       :aria-disabled="currentPage === 1"
       @click="selectPage(currentPage - 1)"
     >
@@ -24,7 +24,7 @@
         },
       ]"
       :data-test="`page-button-${page.value}`"
-      :aria-label="`Page ${page.value}`"
+      :aria-label="numberPageAriaLabel(page.value)"
       :aria-current="page.isSelected ? 'page' : undefined"
       @click="selectPage(page.value)"
     >
@@ -38,7 +38,7 @@
       :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
-      aria-label="Next page"
+      :aria-label="nextPageAriaLabel"
       :aria-disabled="currentPage === totalPages"
       @click="selectPage(currentPage + 1)"
     >
@@ -97,6 +97,34 @@ export default defineComponent({
         (isSelected: boolean) => string | Dictionary<boolean> | (string | Dictionary<boolean>)[]
       >,
       default: () => [],
+    },
+    /**
+     * Accessible label for the next page button.
+     */
+    nextPageAriaLabel: {
+      type: String,
+      default: 'Next page',
+    },
+    /**
+     * Accessible label for the pagination navigation element.
+     */
+    paginationAriaLabel: {
+      type: String,
+      default: 'Pagination',
+    },
+    /**
+     * Accessible label for the previous page button.
+     */
+    prevPageAriaLabel: {
+      type: String,
+      default: 'Previous page',
+    },
+    /**
+     * Accessible label for the page number button.
+     */
+    numberPageAriaLabel: {
+      type: Function as PropType<(page: number | string) => string>,
+      default: (page: number) => `Page ${page}`,
     },
     /**
      * The number of pages to show before and after the current page.

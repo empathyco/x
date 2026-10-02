@@ -67,6 +67,23 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load More')
   })
 
+  it('renders the default aria-label on the load button', () => {
+    const { wrapper } = renderPageLoaderButton()
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe('Load')
+  })
+
+  it('allows overriding the aria-label of the load button', async () => {
+    const { wrapper } = renderPageLoaderButton()
+
+    await wrapper.setProps({ ariaLabel: 'Load more results' })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
+      'Load more results',
+    )
+  })
+
   it('renders a base event button with custom button classes if passed as props', async () => {
     const { wrapper } = renderPageLoaderButton()
 

@@ -10,7 +10,7 @@
         data-test="column-picker-button"
         :aria-pressed="isSelected.toString()"
         :events="events"
-        :aria-label="`${column} columns`"
+        :aria-label="ariaLabel(column)"
         role="listitem"
       >
         <!--
@@ -69,6 +69,10 @@ export default defineComponent({
     modelValue: Number,
     /** Class inherited by each button. */
     buttonClass: String,
+    ariaLabel: {
+      type: Function as PropType<(column: number) => string>,
+      default: (column: number) => `${column} columns`,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {

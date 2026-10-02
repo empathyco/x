@@ -1,5 +1,5 @@
 <template>
-  <BaseSwitch :model-value="isEnabled" aria-label="Queries' history" @update:model-value="toggle" />
+  <BaseSwitch :model-value="isEnabled" :aria-label="ariaLabel" @update:model-value="toggle" />
 </template>
 
 <script lang="ts">
@@ -22,6 +22,15 @@ export default defineComponent({
   xModule: historyQueriesXModule.name,
   components: {
     BaseSwitch,
+  },
+  props: {
+    /**
+     * Accessible label for the history queries switch.
+     */
+    ariaLabel: {
+      type: String,
+      default: "Queries' history",
+    },
   },
   setup() {
     const $x = use$x()

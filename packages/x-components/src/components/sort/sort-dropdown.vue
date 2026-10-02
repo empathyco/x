@@ -6,7 +6,7 @@
     :animation="animation"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
-    aria-label="Select sorting"
+    :aria-label="ariaLabel"
     @update:model-value="emitUserClickedASort"
   >
     <template #toggle="{ isOpen, item }">
@@ -49,6 +49,11 @@ export default defineComponent({
   props: {
     /** The transition to use for opening and closing the dropdown. */
     animation: [String, Object] as PropType<string | Component>,
+    /** Accessible label for the sorting dropdown. */
+    ariaLabel: {
+      type: String,
+      default: 'Select sorting',
+    },
     /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
