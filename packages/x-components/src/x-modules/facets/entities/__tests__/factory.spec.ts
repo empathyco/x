@@ -1,4 +1,4 @@
-import type { EditableNumberRangeFilter } from '@empathyco/x-types'
+import type { EditableNumberRangeFilter, SliderFilter } from '@empathyco/x-types'
 import { describe, expect, it } from 'vitest'
 import {
   createEditableNumberRangeFilter,
@@ -6,6 +6,7 @@ import {
   createNumberRangeFilter,
   createRawFilter,
   createSimpleFilter,
+  createSliderFilter,
 } from '../../../../__stubs__/filters-stubs.factory'
 import { FilterEntityFactory } from '../filter-entity.factory'
 import { SingleSelectModifier } from '../single-select.modifier'
@@ -19,7 +20,7 @@ import {
 } from './utils'
 
 describe('testing filters entity factory', () => {
-  it('selects and deselects raw filters', () => {
+  it('should select and deselects raw filters', () => {
     const store = prepareFacetsStore()
     const factory = new FilterEntityFactory()
     const rawFilter = createRawFilter('size:m')
@@ -27,14 +28,14 @@ describe('testing filters entity factory', () => {
 
     // Selecting a raw filter that is not in the store should add it.
     rawFilterEntity.select(rawFilter)
-    expect(isFilterSelected(store, rawFilter.id)).toBe(true)
+    expect(isFilterSelected(store, rawFilter.id)).toBeTruthy()
 
     // Deselecting a raw filter should remove it from the store.
     rawFilterEntity.deselect(rawFilter)
     expect(getStoreFilter(store, rawFilter.id)).toBeUndefined()
   })
 
-  it('selects and deselects simple filters', () => {
+  it('should select and deselects simple filters', () => {
     const store = prepareFacetsStore()
     const factory = new FilterEntityFactory()
     const simpleFilter = createSimpleFilter('color', 'red')
@@ -42,14 +43,14 @@ describe('testing filters entity factory', () => {
 
     // Selecting a simple filter that is not in the store should add it.
     simpleFilterEntity.select(simpleFilter)
-    expect(isFilterSelected(store, simpleFilter.id)).toBe(true)
+    expect(isFilterSelected(store, simpleFilter.id)).toBeTruthy()
 
     // Deselecting a simple filter should keep it in the store with selected to false.
     simpleFilterEntity.deselect(simpleFilter)
-    expect(isFilterSelected(store, simpleFilter.id)).toBe(false)
+    expect(isFilterSelected(store, simpleFilter.id)).toBeFalsy()
   })
 
-  it('selects and deselects hierarchical filters', () => {
+  it('should select and deselects hierarchical filters', () => {
     const store = prepareFacetsStore()
     const factory = new FilterEntityFactory()
     const hierarchicalFilter = createHierarchicalFilter('category', 'shirts')
@@ -57,14 +58,14 @@ describe('testing filters entity factory', () => {
 
     // Selecting a hierarchical filter that is not in the store should add it.
     hierarchicalFilterEntity.select(hierarchicalFilter)
-    expect(isFilterSelected(store, hierarchicalFilter.id)).toBe(true)
+    expect(isFilterSelected(store, hierarchicalFilter.id)).toBeTruthy()
 
     // Deselecting a hierarchical filter keep it in the store with selected to false.
     hierarchicalFilterEntity.deselect(hierarchicalFilter)
-    expect(isFilterSelected(store, hierarchicalFilter.id)).toBe(false)
+    expect(isFilterSelected(store, hierarchicalFilter.id)).toBeFalsy()
   })
 
-  it('selects and deselects number range filters', () => {
+  it('should select and deselects number range filters', () => {
     const store = prepareFacetsStore()
     const factory = new FilterEntityFactory()
     const numberRangeFilter = createNumberRangeFilter('price', { min: 10, max: 20 })
@@ -72,14 +73,14 @@ describe('testing filters entity factory', () => {
 
     // Selecting a number range filter that is not in the store should add it.
     numberRangeFilterEntity.select(numberRangeFilter)
-    expect(isFilterSelected(store, numberRangeFilter.id)).toBe(true)
+    expect(isFilterSelected(store, numberRangeFilter.id)).toBeTruthy()
 
     // Deselecting a number range filter should keep it in the store with selected to false.
     numberRangeFilterEntity.deselect(numberRangeFilter)
-    expect(isFilterSelected(store, numberRangeFilter.id)).toBe(false)
+    expect(isFilterSelected(store, numberRangeFilter.id)).toBeFalsy()
   })
 
-  it('selects and deselects editable number range filters', () => {
+  it('should select and deselects editable number range filters', () => {
     const store = prepareFacetsStore()
     const factory = new FilterEntityFactory()
     const facetId = 'price'
@@ -96,7 +97,7 @@ describe('testing filters entity factory', () => {
     // and set new range values
     editableNumberRangeFilterEntity.select(editableNumberRangeFilter)
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
-    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(true)
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBeTruthy()
     expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
       min: 10,
       max: null,
@@ -112,7 +113,7 @@ describe('testing filters entity factory', () => {
     editableNumberRangeFilterEntity.select(newFilter)
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
-    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(true)
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBeTruthy()
     expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
       min: 10,
       max: 20,
@@ -126,7 +127,7 @@ describe('testing filters entity factory', () => {
     editableNumberRangeFilterEntity.deselect(previousFilter)
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
-    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(false)
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBeFalsy()
     expect(getStoreEditableNumberRangeFilter(store, facetId)).toEqual(
       expect.objectContaining({
         range: { min: 10, max: 20 },
@@ -134,6 +135,55 @@ describe('testing filters entity factory', () => {
       }),
     )
     expect(getStoreEditableNumberRangeFilter(store, facetId).id).toBe(previousFilterId)
+  })
+
+  it('should select and deselect slider filters', () => {
+    const store = prepareFacetsStore()
+    const factory = new FilterEntityFactory()
+    const facetId = 'price'
+    const sliderFilter = createSliderFilter(facetId, { min: 0, max: 100 }, { min: 10, max: 20 })
+    const sliderFilterEntity = factory.getFilterEntity(store, sliderFilter)
+
+    // Selecting a slider filter that is not in the store should add it as selected
+    // and set the selected range values
+    sliderFilterEntity.select(sliderFilter)
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
+    expect(isFilterSelected(store, sliderFilter.id)).toBeTruthy()
+    expect(getStoreFilter<SliderFilter>(store, sliderFilter.id).selectedRange).toEqual({
+      min: 10,
+      max: 20,
+    })
+
+    // Selecting a slider filter already in the store but with other selected range values,
+    // it should replace previous filter in the store and change the range values and the filter id.
+    let previousFilter = getStoreFilter<SliderFilter>(store, sliderFilter.id)
+    const newFilter: SliderFilter = {
+      ...previousFilter,
+      selectedRange: { min: 10, max: 30 },
+    }
+    sliderFilterEntity.select(newFilter)
+
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
+    expect(isFilterSelected(store, newFilter.id)).toBeTruthy()
+    expect(getStoreFilter<SliderFilter>(store, 'price:10-30').selectedRange).toEqual({
+      min: 10,
+      max: 30,
+    })
+    expect(getStoreFilter<SliderFilter>(store, 'price:10-30').id).not.toBe(previousFilter.id)
+
+    // Deselecting a slider filter should keep it in the store with selected to false
+    // and reset the selected range values.
+    previousFilter = getStoreFilter<SliderFilter>(store, 'price:10-30')
+    const previousFilterId = previousFilter.id
+    sliderFilterEntity.deselect(previousFilter)
+
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1)
+    expect(isFilterSelected(store, 'price:0-100')).toBeFalsy()
+    expect(getStoreFilter<SliderFilter>(store, previousFilterId)).toBeUndefined()
+    expect(getStoreFiltersByFacetId<SliderFilter>(store, facetId)[0].selectedRange).toEqual({
+      min: null,
+      max: null,
+    })
   })
 
   describe('test raw behavior', () => {
@@ -147,10 +197,10 @@ describe('testing filters entity factory', () => {
       const rawFilterEntity = factory.getFilterEntity(store, rawFilter)
 
       rawFilterEntity.select(rawFilter)
-      expect(isFilterSelected(store, rawFilter.id)).toBe(true)
+      expect(isFilterSelected(store, rawFilter.id)).toBeTruthy()
 
       simpleFilterEntity.select(simpleFilter)
-      expect(isFilterSelected(store, simpleFilter.id)).toBe(true)
+      expect(isFilterSelected(store, simpleFilter.id)).toBeTruthy()
       expect(getStoreFilter(store, simpleFilter.id)).toEqual({ ...simpleFilter, selected: true })
       expect(getStoreFilter(store, rawFilter.id)).toEqual(getStoreFilter(store, simpleFilter.id))
     })
@@ -165,10 +215,10 @@ describe('testing filters entity factory', () => {
       const rawFilterEntity = factory.getFilterEntity(store, rawFilter)
 
       rawFilterEntity.select(rawFilter)
-      expect(isFilterSelected(store, rawFilter.id)).toBe(true)
+      expect(isFilterSelected(store, rawFilter.id)).toBeTruthy()
 
       hierarchicalFilterEntity.select(hierarchicalFilter)
-      expect(isFilterSelected(store, hierarchicalFilter.id)).toBe(true)
+      expect(isFilterSelected(store, hierarchicalFilter.id)).toBeTruthy()
       expect(getStoreFilter(store, hierarchicalFilter.id)).toEqual({
         ...hierarchicalFilter,
         selected: true,
@@ -188,10 +238,10 @@ describe('testing filters entity factory', () => {
       const rawFilterEntity = factory.getFilterEntity(store, rawFilter)
 
       rawFilterEntity.select(rawFilter)
-      expect(isFilterSelected(store, rawFilter.id)).toBe(true)
+      expect(isFilterSelected(store, rawFilter.id)).toBeTruthy()
 
       numberRangeFilterEntity.select(numberRangeFilter)
-      expect(isFilterSelected(store, numberRangeFilter.id)).toBe(true)
+      expect(isFilterSelected(store, numberRangeFilter.id)).toBeTruthy()
       expect(getStoreFilter(store, numberRangeFilter.id)).toEqual({
         ...numberRangeFilter,
         selected: true,
@@ -203,7 +253,7 @@ describe('testing filters entity factory', () => {
   })
 
   describe('testing modifiers', () => {
-    it('decorates entities of the given facet with modifiers by facet id', () => {
+    it('should decorate entities of the given facet with modifiers by facet id', () => {
       const store = prepareFacetsStore()
       const factory = new FilterEntityFactory()
       const redColorFilter = createSimpleFilter('color', 'red')
@@ -215,24 +265,24 @@ describe('testing filters entity factory', () => {
       const sizeEntity = factory.getFilterEntity(store, mediumSizeFilter)
 
       colorEntity.select(redColorFilter)
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeTruthy()
 
       colorEntity.select(blueColorFilter)
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(false)
-      expect(isFilterSelected(store, blueColorFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeFalsy()
+      expect(isFilterSelected(store, blueColorFilter.id)).toBeTruthy()
 
       // Size entity should not be decorated, therefore, its filters should be multiselectable.
       sizeEntity.select(mediumSizeFilter)
       sizeEntity.select(largeSizeFilter)
       colorEntity.select(redColorFilter)
 
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(true)
-      expect(isFilterSelected(store, blueColorFilter.id)).toBe(false)
-      expect(isFilterSelected(store, mediumSizeFilter.id)).toBe(true)
-      expect(isFilterSelected(store, largeSizeFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeTruthy()
+      expect(isFilterSelected(store, blueColorFilter.id)).toBeFalsy()
+      expect(isFilterSelected(store, mediumSizeFilter.id)).toBeTruthy()
+      expect(isFilterSelected(store, largeSizeFilter.id)).toBeTruthy()
     })
 
-    it('decorates entities of the given facet with modifiers by filter model name', () => {
+    it('should decorate entities of the given facet with modifiers by filter model name', () => {
       const store = prepareFacetsStore()
       const factory = new FilterEntityFactory()
       const redColorFilter = createSimpleFilter('color', 'red')
@@ -247,11 +297,11 @@ describe('testing filters entity factory', () => {
       const categoryEntity = factory.getFilterEntity(store, womanCategoryFilter)
 
       colorEntity.select(redColorFilter)
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeTruthy()
 
       colorEntity.select(blueColorFilter)
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(false)
-      expect(isFilterSelected(store, blueColorFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeFalsy()
+      expect(isFilterSelected(store, blueColorFilter.id)).toBeTruthy()
 
       // The other Filters should not be decorated, therefore, its filters should be multiselectable
       priceEntity.select(priceFilter10_20)
@@ -259,12 +309,12 @@ describe('testing filters entity factory', () => {
       categoryEntity.select(womanCategoryFilter)
       categoryEntity.select(manCategoryFilter)
 
-      expect(isFilterSelected(store, redColorFilter.id)).toBe(false)
-      expect(isFilterSelected(store, blueColorFilter.id)).toBe(true)
-      expect(isFilterSelected(store, priceFilter10_20.id)).toBe(true)
-      expect(isFilterSelected(store, priceFilter20_30.id)).toBe(true)
-      expect(isFilterSelected(store, womanCategoryFilter.id)).toBe(true)
-      expect(isFilterSelected(store, manCategoryFilter.id)).toBe(true)
+      expect(isFilterSelected(store, redColorFilter.id)).toBeFalsy()
+      expect(isFilterSelected(store, blueColorFilter.id)).toBeTruthy()
+      expect(isFilterSelected(store, priceFilter10_20.id)).toBeTruthy()
+      expect(isFilterSelected(store, priceFilter20_30.id)).toBeTruthy()
+      expect(isFilterSelected(store, womanCategoryFilter.id)).toBeTruthy()
+      expect(isFilterSelected(store, manCategoryFilter.id)).toBeTruthy()
     })
   })
 })

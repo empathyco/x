@@ -5,6 +5,7 @@ import type {
   RangeValue,
   RawFilter,
   SimpleFilter,
+  SliderFilter,
 } from '@empathyco/x-types'
 
 /**
@@ -193,6 +194,35 @@ export function createEditableNumberRangeFilter(
     range,
     modelName: 'EditableNumberRangeFilter',
     selected: selected ?? (range.min !== null || range.max !== null),
+  }
+}
+
+/**
+ * Creates a {@link @empathyco/x-types#SliderFilter | SliderFilter}.
+ *
+ * @param facetId - The facet id this filter belongs to.
+ * @param range - The range limits of the slider.
+ * @param selectedRange - The selected range of the slider.
+ * @param unit - The number format style of the filter.
+ * @returns A stub for a {@link @empathyco/x-types#SliderFilter | SliderFilter}.
+ */
+export function createSliderFilter(
+  facetId: string,
+  range: { min: number; max: number } = { min: 0, max: 100 },
+  selectedRange: RangeValue = { min: null, max: null },
+  unit: SliderFilter['unit'] = 'decimal',
+): SliderFilter {
+  const min = selectedRange.min ?? range.min
+  const max = selectedRange.max ?? range.max
+
+  return {
+    id: `${facetId}:${String(min)}-${String(max)}`,
+    facetId,
+    range,
+    selectedRange,
+    unit,
+    modelName: 'SliderFilter',
+    selected: min !== range.min || max !== range.max,
   }
 }
 
