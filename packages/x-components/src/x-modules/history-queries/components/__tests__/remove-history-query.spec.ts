@@ -39,6 +39,34 @@ describe('testing RemoveHistoryQuery component', () => {
     })
   })
 
+  it('renders the default aria-label on the button', () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+      },
+    })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('remove')
+  })
+
+  it('allows overriding the aria-label of the button', async () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+      },
+    })
+
+    await removeHistoryQuery.setProps({ ariaLabel: 'Remove this query' })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('Remove this query')
+  })
+
   it('has a default slot with a default message', () => {
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {

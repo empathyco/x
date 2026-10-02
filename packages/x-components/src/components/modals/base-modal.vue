@@ -12,7 +12,7 @@
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
-        aria-label="Base modal content"
+        :aria-label="ariaLabel"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
@@ -51,6 +51,11 @@ export default defineComponent({
     open: {
       type: Boolean,
       required: true,
+    },
+    /** Accessible label for the modal content. */
+    ariaLabel: {
+      type: String,
+      default: 'Base modal content',
     },
     /**
      * Determines if the focused element changes to one inside the modal when it opens. Either the

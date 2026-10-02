@@ -9,7 +9,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    aria-label="type your query here"
+    :aria-label="ariaLabel"
     @mouseenter="emitUserHoveredInSearchBox"
     @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
@@ -43,6 +43,13 @@ export default defineComponent({
   name: 'SearchInput',
   xModule: searchBoxXModule.name,
   props: {
+    /**
+     * Accessible label for the search input.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'type your query here',
+    },
     /**
      * Maximum characters allowed in the input search.
      */

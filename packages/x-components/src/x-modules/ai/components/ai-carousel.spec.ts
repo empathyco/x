@@ -222,6 +222,42 @@ describe('ai-carousel component', () => {
     expect(sut.title.classes()).not.toContain('x-ai-carousel-title--expanded')
   })
 
+  it('should render the default expand/collapse aria-labels on the title toggle button', async () => {
+    const sut = render()
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Expand')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Collapse')
+  })
+
+  it('should allow overriding the expand/collapse aria-labels with the dedicated props', async () => {
+    const sut = render({
+      props: { ...propsStub, expandAriaLabel: 'Show all', collapseAriaLabel: 'Show less' },
+    })
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show all')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show less')
+  })
+
   it('should render grouped mode when group prop is true', () => {
     const sut = render({ props: { ...propsStub, group: true } })
 

@@ -72,6 +72,21 @@ describe('testing ClearHistoryQueries component', () => {
     })
   })
 
+  it('renders the default aria-label on the button', () => {
+    const { wrapper } = render()
+
+    expect(wrapper.attributes('aria-label')).toBe('Clear all')
+  })
+
+  it('allows overriding the aria-label of the button', async () => {
+    const { wrapper } = render()
+
+    await wrapper.setProps({ ariaLabel: 'Clear all history queries' })
+    await nextTick()
+
+    expect(wrapper.attributes('aria-label')).toBe('Clear all history queries')
+  })
+
   it('has an slot rendering a message by default', () => {
     const { wrapper } = render()
 

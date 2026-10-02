@@ -42,6 +42,21 @@ describe('testing HistoryQueriesSwitch component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries')
   })
 
+  it('renders the default aria-label on the switch', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch()
+
+    expect(wrapper.attributes('aria-label')).toBe("Queries' history")
+  })
+
+  it('allows overriding the aria-label of the switch', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch()
+
+    await wrapper.setProps({ ariaLabel: 'History queries' })
+    await nextTick()
+
+    expect(wrapper.attributes('aria-label')).toBe('History queries')
+  })
+
   it('should emit proper events when toggling its state', async () => {
     const { wrapper } = await renderHistoryQueriesSwitch()
     const enableListener = vi.fn()

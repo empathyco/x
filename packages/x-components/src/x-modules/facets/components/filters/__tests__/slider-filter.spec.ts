@@ -59,6 +59,23 @@ describe('testing SliderFilter component', () => {
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('20')
   })
 
+  it('should render the default aria-labels on the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = render()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('minimum amount')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('maximum amount')
+  })
+
+  it('should allow overriding the aria-labels of the min and max inputs', async () => {
+    const { wrapper, minInputWrapper, maxInputWrapper } = render()
+
+    await wrapper.setProps({ minAriaLabel: 'Min price', maxAriaLabel: 'Max price' })
+    await nextTick()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max price')
+  })
+
   it('should render the range limits when no range is selected', () => {
     const { minInputWrapper, maxInputWrapper } = render({
       filter: createSliderFilter('price', { min: 0, max: 100 }, { min: null, max: null }),

@@ -37,7 +37,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-min"
-          aria-label="minimum amount"
+          :aria-label="minAriaLabel"
           @change="setMin(($event.target as HTMLInputElement).value)"
         />
 
@@ -50,7 +50,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-max"
-          aria-label="maximum amount"
+          :aria-label="maxAriaLabel"
           @change="setMax(($event.target as HTMLInputElement).value)"
         />
 
@@ -126,6 +126,24 @@ export default defineComponent({
      * @public
      */
     isInstant: Boolean,
+    /**
+     * Accessible label for the minimum value input.
+     *
+     * @public
+     */
+    minAriaLabel: {
+      type: String,
+      default: 'minimum amount',
+    },
+    /**
+     * Accessible label for the maximum value input.
+     *
+     * @public
+     */
+    maxAriaLabel: {
+      type: String,
+      default: 'maximum amount',
+    },
   },
 
   setup(props) {
