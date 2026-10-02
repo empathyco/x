@@ -35,7 +35,7 @@
         :class="inputsClass"
         :value="!isAnyRange ? min : null"
         data-test="range-min"
-        :aria-label="rangeFilterMin"
+        :aria-label="minAriaLabel"
         @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
 
@@ -46,7 +46,7 @@
         :class="inputsClass"
         :value="max"
         data-test="range-max"
-        :aria-label="rangeFilterMax"
+        :aria-label="maxAriaLabel"
         @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
       <!-- eslint-enable max-len -->
@@ -140,12 +140,28 @@ export default defineComponent({
     inputsClass: String,
     /** Class inherited by content element. */
     buttonsClass: String,
+    /**
+     * Accessible label for the minimum value input.
+     *
+     * @public
+     */
+    minAriaLabel: {
+      type: String,
+      default: 'minimum amount',
+    },
+    /**
+     * Accessible label for the maximum value input.
+     *
+     * @public
+     */
+    maxAriaLabel: {
+      type: String,
+      default: 'maximum amount',
+    },
   },
   setup(props) {
     const $x = use$x()
 
-    const rangeFilterMin = 'minimum amount'
-    const rangeFilterMax = 'maximum amount'
     /**
      * Component min value.
      *
@@ -324,8 +340,6 @@ export default defineComponent({
     )
 
     return {
-      rangeFilterMin,
-      rangeFilterMax,
       cssClasses,
       min,
       max,

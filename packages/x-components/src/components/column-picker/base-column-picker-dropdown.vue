@@ -3,7 +3,7 @@
     :model-value="selectedColumns"
     :items="columns"
     :animation="animation"
-    aria-label="Select number of columns"
+    :aria-label="ariaLabel"
     @update:model-value="emitEvents"
   >
     <template v-if="hasToggleSlot" #toggle="{ item, isOpen }">
@@ -57,6 +57,11 @@ export default defineComponent({
     modelValue: Number,
     /** The transition to use for opening and closing the dropdown. */
     animation: [String, Object] as PropType<string | Component>,
+    /** Accessible label for the columns dropdown. */
+    ariaLabel: {
+      type: String,
+      default: 'Select number of columns',
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {

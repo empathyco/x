@@ -32,6 +32,7 @@ function renderScrollToTop({
   const scrollToTopWrapper = wrapper.findComponent(ScrollToTop)
 
   return {
+    rootWrapper: wrapper,
     scrollToTopWrapper,
     click: async () => scrollToTopWrapper.trigger('click'),
     emitXEvent: async <Event extends XEvent>(event: Event, payload: XEventPayload<Event>) => {
@@ -78,6 +79,29 @@ describe('testing Scroll To Top component', () => {
 
     expect(listener).toHaveBeenCalledTimes(1)
     expect(listener).toHaveBeenCalledWith('scrollId')
+  })
+
+  it('renders the default aria-label on the button', async () => {
+    const { scrollToTopWrapper, emitXEvent } = renderScrollToTop()
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe(
+      'Scroll to top',
+    )
+  })
+
+  it('allows overriding the aria-label of the button', async () => {
+    const { rootWrapper, scrollToTopWrapper, emitXEvent } = renderScrollToTop()
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    await rootWrapper.setProps({ ariaLabel: 'Back to top' })
+    await nextTick()
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe('Back to top')
   })
 
   it('hides when the scroll direction is up once the scroll has almost reached the end', async () => {

@@ -27,6 +27,7 @@
       class="x-history-query__remove xds:suggestion-group-button"
       :class="removeButtonClass"
       :history-query="suggestion"
+      :aria-label="removeAriaLabel"
       data-test="remove-history-query"
     >
       <!--
@@ -73,6 +74,13 @@ export default defineComponent({
     removeButtonClass: String,
     /** Class inherited by content element. */
     suggestionClass: String,
+    /**
+     * Accessible label for the load more button.
+     */
+    removeAriaLabel: {
+      type: String,
+      default: 'Remove',
+    },
   },
   emits: ['click'],
   setup(props) {

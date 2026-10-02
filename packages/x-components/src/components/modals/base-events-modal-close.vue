@@ -3,7 +3,7 @@
     :events="events"
     class="x-events-modal-close-button xds:button"
     data-test="close-modal"
-    aria-label="Close"
+    :aria-label="ariaLabel"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -36,6 +36,13 @@ export default defineComponent({
     closingEvent: {
       type: String as PropType<PropsWithType<XEventsTypes, void>>,
       default: 'UserClickedCloseEventsModal',
+    },
+    /**
+     * Accessible label for the close modal button.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'Close',
     },
   },
   setup(props) {

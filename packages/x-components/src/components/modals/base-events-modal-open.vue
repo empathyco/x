@@ -3,7 +3,7 @@
     :events="events"
     class="x-events-modal-open-button xds:button"
     data-test="open-modal"
-    aria-label="Open"
+    :aria-label="ariaLabel"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -36,6 +36,13 @@ export default defineComponent({
     openingEvent: {
       type: String as PropType<PropsWithType<XEventsTypes, void>>,
       default: 'UserClickedOpenEventsModal',
+    },
+    /**
+     * Accessible label for the open modal button.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'Open',
     },
   },
   setup(props) {

@@ -5,7 +5,7 @@
     :disabled="isHistoryQueriesEmpty"
     :events="clearHistoryQueriesEvents"
     data-test="clear-history-queries"
-    aria-label="Clear all"
+    :aria-label="ariaLabel"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
     <slot>✕</slot>
@@ -32,6 +32,15 @@ export default defineComponent({
   xModule: historyQueriesXModule.name,
   components: {
     BaseEventButton,
+  },
+  props: {
+    /**
+     * Accessible label for the clear history queries button.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'Clear all',
+    },
   },
   setup() {
     /**

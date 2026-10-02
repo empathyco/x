@@ -17,7 +17,7 @@
         :class="buttonClasses"
         :events="events"
         data-test="load-content"
-        aria-label="Load"
+        :aria-label="ariaLabel"
       >
         <!-- @slot Button content with a text, an icon or both -->
         <slot name="buttonContent">Load</slot>
@@ -45,6 +45,13 @@ export default defineComponent({
   name: 'PageLoaderButton',
   components: { BaseEventButton },
   props: {
+    /**
+     * Accessible label for the load more button.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'Load',
+    },
     /**
      * CSS classes to customize the loader button.
      *

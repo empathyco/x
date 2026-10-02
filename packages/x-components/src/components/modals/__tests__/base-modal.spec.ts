@@ -26,16 +26,19 @@ window.ResizeObserver = MockResizeObserver as any
  * @param options.contentClass - contentClass option.
  * @param options.overlayClass - overlayClass option.
  * @param options.referenceSelector - referenceSelector option.
+ * @param options.ariaLabel - ariaLabel option.
  * @returns An API to test the component.
  */
-function mountBaseModal({
-  defaultSlot = '<span data-test="default-slot">Modal</span>',
-  open = false,
-  focusOnOpen = true,
-  contentClass = '',
-  overlayClass = '',
-  referenceSelector = undefined,
-} = {}) {
+function mountBaseModal(options: MountBaseModalOptions = {}) {
+  const {
+    defaultSlot = '<span data-test="default-slot">Modal</span>',
+    open = false,
+    focusOnOpen = true,
+    contentClass = '',
+    overlayClass = '',
+    referenceSelector = undefined,
+    ariaLabel = undefined,
+  } = options
   const wrapper = mount(
     {
       template: `
@@ -46,14 +49,22 @@ function mountBaseModal({
           :contentClass="contentClass"
           :overlayClass="overlayClass"
           :referenceSelector="referenceSelector"
+          :ariaLabel="ariaLabel"
         >
           <slot/>
         </BaseModal>`,
       components: { BaseModal },
-      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass', 'referenceSelector'],
+      props: [
+        'open',
+        'focusOnOpen',
+        'contentClass',
+        'overlayClass',
+        'referenceSelector',
+        'ariaLabel',
+      ],
     },
     {
-      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector },
+      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector, ariaLabel },
       slots: { default: defaultSlot },
     },
   )
@@ -92,6 +103,18 @@ describe('testing Base Modal  component', () => {
 
     await setOpen(true)
     expect(getModalContent().exists()).toBe(true)
+  })
+
+  it('renders the default aria-label on the modal content', () => {
+    const { getModalContent } = mountBaseModal({ open: true })
+
+    expect(getModalContent().attributes('aria-label')).toBe('Base modal content')
+  })
+
+  it('allows overriding the aria-label of the modal content', () => {
+    const { getModalContent } = mountBaseModal({ open: true, ariaLabel: 'Custom modal content' })
+
+    expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')
   })
 
   it("emits click:body event when clicking outside modal's content if it is opened", async () => {
@@ -215,3 +238,20 @@ describe('testing Base Modal  component', () => {
     expect(observeMock).toHaveBeenCalled()
   })
 })
+
+interface MountBaseModalOptions {
+  /** The default slot content. */
+  defaultSlot?: string
+  /** Whether the modal is open. */
+  open?: boolean
+  /** Whether the focus moves to the modal content on open. */
+  focusOnOpen?: boolean
+  /** Class added to the modal content. */
+  contentClass?: string
+  /** Class added to the modal overlay. */
+  overlayClass?: string
+  /** Reference selector to position the modal under an element. */
+  referenceSelector?: string
+  /** Accessible label for the modal content. */
+  ariaLabel?: string
+}

@@ -18,6 +18,7 @@ function renderPageSelector({
   totalResults = 240,
   currentPage = 1,
   slots,
+  ariaLabels,
 }: RenderPageSelectorOptions = {}): RenderPageSelectorAPI {
   const wrapper = mount(PageSelector, {
     props: {
@@ -25,6 +26,7 @@ function renderPageSelector({
       currentPage,
       range: 2,
       scrollTarget: 'dummy-target',
+      ...ariaLabels,
     },
     global: { plugins: [installNewXPlugin()] },
     slots,
@@ -72,6 +74,36 @@ describe('testing PageSelector component', () => {
       expect(pageButton.exists()).toBe(true)
       expect(pageButton.text().trim()).toBe(pageItem.toString())
     })
+  })
+
+  it('renders the default aria-labels on the pagination nav and the prev/next buttons', () => {
+    const { wrapper } = renderPageSelector()
+
+    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Pagination')
+    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
+      'Previous page',
+    )
+    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
+      'Next page',
+    )
+  })
+
+  it('allows overriding the aria-labels with the dedicated props', () => {
+    const { wrapper } = renderPageSelector({
+      ariaLabels: {
+        paginationAriaLabel: 'Page navigation',
+        prevPageAriaLabel: 'Go to previous page',
+        nextPageAriaLabel: 'Go to next page',
+      },
+    })
+
+    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Page navigation')
+    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
+      'Go to previous page',
+    )
+    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
+      'Go to next page',
+    )
   })
 
   it('allows customizing its slots', () => {
@@ -143,6 +175,12 @@ interface RenderPageSelectorOptions {
   currentPage?: number
   /** Scoped slots to be passed to the mount function. */
   slots?: Record<string, string>
+  /** Aria-label overrides for the pagination nav and the prev/next buttons. */
+  ariaLabels?: {
+    paginationAriaLabel?: string
+    prevPageAriaLabel?: string
+    nextPageAriaLabel?: string
+  }
 }
 
 /**

@@ -30,7 +30,7 @@
             v-if="isTitleOverflowing"
             class="x-ai-carousel-title-button"
             data-test="ai-carousel-title-button"
-            :aria-label="titleExpanded ? 'Collapse' : 'Expand'"
+            :aria-label="titleExpanded ? collapseAriaLabel : expandAriaLabel"
           >
             <ChevronDownIcon
               class="x-ai-carousel-title-button-icon"
@@ -159,6 +159,16 @@ export default defineComponent({
   props: {
     /* The title text displayed */
     title: String,
+    /* Accessible label for the title toggle button when the title is collapsed. */
+    expandAriaLabel: {
+      type: String,
+      default: 'Expand',
+    },
+    /* Accessible label for the title toggle button when the title is expanded. */
+    collapseAriaLabel: {
+      type: String,
+      default: 'Collapse',
+    },
     /* The classes added to the sliding panel. */
     slidingPanelClasses: String,
     /* The classes added to the sliding panel container. */

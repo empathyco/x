@@ -2,7 +2,7 @@
   <BaseEventButton
     class="x-remove-history-query"
     :events="removeHistoryQueryEvent"
-    aria-label="remove"
+    :aria-label="ariaLabel"
   >
     <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -39,6 +39,13 @@ export default defineComponent({
     historyQuery: {
       type: Object as PropType<HistoryQuery>,
       required: true,
+    },
+    /**
+     * Accessible label for the remove history query button.
+     */
+    ariaLabel: {
+      type: String,
+      default: 'remove',
     },
   },
   setup(props) {
