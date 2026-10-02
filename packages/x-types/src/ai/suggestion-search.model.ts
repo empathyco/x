@@ -13,3 +13,12 @@ export interface AiSuggestionSearch {
     query: TaggingRequest
   }
 }
+
+export interface AiSuggestionSearchTagging {
+  query: TaggingRequest
+  add2cart: TaggingRequest
+  click: TaggingRequest
+  display: TaggingRequest
+  displayClick: TaggingRequest
+  checkout: TaggingRequest
+}

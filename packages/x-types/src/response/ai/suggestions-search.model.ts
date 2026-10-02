@@ -1,4 +1,4 @@
-import type { AiSuggestionSearch } from '../../ai'
+import type { AiSuggestionSearch, AiSuggestionSearchTagging } from '../../ai'
 
 /**
  * Response for the AI suggestions search endpoint.
@@ -6,4 +6,5 @@ import type { AiSuggestionSearch } from '../../ai'
  */
 export interface AiSuggestionsSearchResponse {
   suggestions: AiSuggestionSearch[]
+  suggestionsTagging: AiSuggestionSearchTagging
 }

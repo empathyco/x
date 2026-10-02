@@ -126,7 +126,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -220,6 +220,10 @@ export default defineComponent({
 
     onMounted(() => {
       $x.emit('AiComponentMounted', undefined, { feature: 'ai_carousel' })
+    })
+
+    onBeforeUnmount(() => {
+      $x.emit('AiComponentUnmounted')
     })
 
     useResizeObserver(titleRef, updateTitleOverflow)

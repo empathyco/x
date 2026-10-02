@@ -37,7 +37,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       state.browseTaggingInfo = browseTaggingInfo
     },
     setNoResultsTaggingEnabled(state, module) {
-      if (module === 'semanticQueries' || module === 'relatedPrompts') {
+      if (module === 'semanticQueries' || module === 'relatedPrompts' || module === 'ai') {
         state.noResultsTaggingEnabled = true
       }
     },
