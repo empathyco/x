@@ -498,6 +498,36 @@ export const trackAiCarouselQueryTaggingInfoDebouncedWire = moduleDebounce(
 )
 
 /**
+ * Factory helper to create a wire for the track of an ai carousel taggable element.
+ *
+ * @param property - Key of the tagging object to track.
+ * @returns A new wire for the given property of the ai carousel taggable element.
+ *
+ * @public
+ */
+export function createTrackAiCarouselTaggingWire(property: keyof Tagging): Wire<Taggable> {
+  return wireDispatch('track', ({ eventPayload: { tagging }, state }) => {
+    const taggingInfo: TaggingRequest = tagging[property]
+    taggingInfo.params.q = state.queryTaggingInfo!.params.q
+    return taggingInfo
+  })
+}
+
+/**
+ * Tracks the tagging of an ai carousel result clicked.
+ *
+ * @public
+ */
+export const trackAiCarouselResultClickedWire = createTrackAiCarouselTaggingWire('click')
+
+/**
+ * Performs a track of an ai carousel result added to the cart.
+ *
+ * @public
+ */
+export const trackAiCarouselAddToCartWire = createTrackAiCarouselTaggingWire('add2cart')
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -578,8 +608,13 @@ export const taggingWiring = createWiring({
   },
   UserClickedAnAiCarouselResult: {
     trackToolingDisplayClickedWire,
+    trackAiCarouselResultClickedWire,
+    storeClickedResultWire,
   },
   UserClickedAnAiCarouselAdd2Cart: {
     trackToolingAdd2CartWire,
+    trackAiCarouselAddToCartWire,
+    trackAiCarouselResultClickedWire,
+    storeAddToCartWire,
   },
 })
