@@ -1,6 +1,7 @@
 export * from './create-use-device'
 export * from './use-$x'
 export * from './use-alias-api'
+export * from './use-aria-labels'
 export * from './use-debounce'
 export * from './use-getter'
 export * from './use-on-display'
