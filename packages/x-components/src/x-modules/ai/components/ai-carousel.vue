@@ -41,13 +41,13 @@
       </DisplayEmitter>
 
       <AiGroupedCarousel v-if="group">
-        <template #sliding-panel-addons="{ arrivedState }">
+        <template #sliding-panels-addons="{ arrivedState }">
           <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
         </template>
-        <template #sliding-panel-left-button>
+        <template #sliding-panels-left-button>
           <slot name="sliding-panels-left-button" />
         </template>
-        <template #sliding-panel-right-button>
+        <template #sliding-panels-right-button>
           <slot name="sliding-panels-right-button" />
         </template>
         <template #result="{ result }">
