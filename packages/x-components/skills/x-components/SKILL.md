@@ -39,6 +39,7 @@ Biblioteca de componentes Vue 3 para combinar y crear tu propia experiencia de b
 - `GlobalXBus` — instancia global del X-Bus de eventos.
 - `Icons` — iconos SVG inline (search, cart, chevron, sort, etc.).
 - `Animations` — animaciones reutilizables (fade, cross-fade, collapse, staggered, etc.).
+- `useAriaLabels` — composable para configurar globalmente los aria-labels de los componentes (cambio de idioma en runtime).
 
 ## Instalación
 

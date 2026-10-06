@@ -30,6 +30,7 @@ import type { Filter } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { DebouncedFunction, VueCSSClasses } from '../../../../utils/types'
 import { isBooleanFilter } from '@empathyco/x-types'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, provide, ref, watch } from 'vue'
 import { debounce } from '../../../../utils/debounce'
 import { normalizeString } from '../../../../utils/normalize'
@@ -69,14 +70,19 @@ export default defineComponent({
       default: 200,
     },
 
-    /** Accessible label for the search input. */
+    /**
+     * Accessible label for the search input. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `search into the filter values`.
+     */
     ariaLabel: {
       type: String,
-      default: 'search into the filter values',
     },
   },
   setup(props) {
     const renderedFilters = useFiltersInjection(props)
+
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.FiltersSearch!.input)
 
     const query = ref('')
     let setQueryDebounced: DebouncedFunction<[string]>
@@ -140,6 +146,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabel,
       clearQuery,
       setQuery,
       cssClasses,

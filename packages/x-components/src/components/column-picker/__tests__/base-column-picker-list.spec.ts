@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/x-plugin'
 import BaseColumnPickerList from '../base-column-picker-list.vue'
 let bus = new XDummyBus()
@@ -68,6 +69,7 @@ function render({
 describe('testing BaseColumnPickerList component', () => {
   beforeEach(() => {
     bus = new XDummyBus()
+    resetAriaLabels()
   })
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render({ columns: [1, 3, 6] })
@@ -134,6 +136,48 @@ describe('testing BaseColumnPickerList component', () => {
       expect(columnPickerListWrapper.at(index)?.classes()).toContain(
         `x-column-picker-list__button--${column}-cols`,
       )
+    })
+  })
+
+  it('labels each button with its column number by default', () => {
+    const columns = [1, 3, 6]
+    const { wrapper } = render({ columns })
+
+    const buttons = wrapper.findAll(getDataTestSelector('column-picker-button'))
+    expect(buttons).toHaveLength(columns.length)
+    columns.forEach((column, index) => {
+      expect(buttons.at(index)?.attributes('aria-label')).toBe(`${column} columns`)
+    })
+  })
+
+  it('labels each button with the global template string when the prop is absent', () => {
+    useAriaLabels().set({ BaseColumnPickerList: { button: '{column} cols' } })
+    const columns = [1, 3, 6]
+    const { wrapper } = render({ columns })
+
+    const buttons = wrapper.findAll(getDataTestSelector('column-picker-button'))
+    expect(buttons).toHaveLength(columns.length)
+    columns.forEach((column, index) => {
+      expect(buttons.at(index)?.attributes('aria-label')).toBe(`${column} cols`)
+    })
+  })
+
+  it('prefers the explicit ariaLabel prop over the global template string', () => {
+    useAriaLabels().set({ BaseColumnPickerList: { button: '{column} cols' } })
+    const columns = [1, 3, 6]
+    const { wrapper } = render({
+      columns,
+      template: `
+      <BaseColumnPickerList
+         :columns="columns"
+         :ariaLabel="column => \`\${column} selected\`"
+      />`,
+    })
+
+    const buttons = wrapper.findAll(getDataTestSelector('column-picker-button'))
+    expect(buttons).toHaveLength(columns.length)
+    columns.forEach((column, index) => {
+      expect(buttons.at(index)?.attributes('aria-label')).toBe(`${column} selected`)
     })
   })
 

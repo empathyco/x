@@ -1,9 +1,10 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/index'
 import BaseEventsModalOpen from '../base-events-modal-open.vue'
 /**
@@ -46,6 +47,10 @@ function renderBaseEventsModalOpen({
 }
 
 describe('testing Open Button component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('emits UserClickedOpenX by default when clicked', async () => {
     const { click } = renderBaseEventsModalOpen()
     const listener = vi.fn()
@@ -83,6 +88,20 @@ describe('testing Open Button component', () => {
   })
 
   it('allows overriding the aria-label of the open button', () => {
+    const { wrapper } = renderBaseEventsModalOpen({ ariaLabel: 'Open events modal' })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Open events modal')
+  })
+
+  it('resolves the aria-label of the open button from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ BaseEventsModalOpen: { button: 'Abrir' } })
+    const { wrapper } = renderBaseEventsModalOpen()
+
+    expect(wrapper.attributes('aria-label')).toEqual('Abrir')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ BaseEventsModalOpen: { button: 'Abrir' } })
     const { wrapper } = renderBaseEventsModalOpen({ ariaLabel: 'Open events modal' })
 
     expect(wrapper.attributes('aria-label')).toEqual('Open events modal')

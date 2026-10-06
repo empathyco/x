@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import type { HistoryQuery } from '@empathyco/x-types'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import BaseSwitch from '../../../components/base-switch.vue'
 import { use$x } from '../../../composables/use-$x'
@@ -25,14 +26,16 @@ export default defineComponent({
   },
   props: {
     /**
-     * Accessible label for the history queries switch.
+     * Accessible label for the history queries switch. Resolves from the global configuration of
+     * `useAriaLabels()` when not provided, falling back to `Queries' history`.
      */
     ariaLabel: {
       type: String,
-      default: "Queries' history",
     },
   },
-  setup() {
+  setup(props) {
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.HistoryQueriesSwitch!.root)
+
     const $x = use$x()
 
     /**
@@ -65,6 +68,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabel,
       toggle,
       isEnabled,
     }

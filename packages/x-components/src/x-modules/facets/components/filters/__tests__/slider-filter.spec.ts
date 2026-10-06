@@ -1,10 +1,11 @@
 import type { SliderFilter } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createSliderFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../../plugins'
 import SliderFilterComponent from '../slider-filter.vue'
 
@@ -43,6 +44,10 @@ function render({
 }
 
 describe('testing SliderFilter component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('should be an XComponent that belongs to the facets', () => {
     const { wrapper } = render()
 
@@ -67,6 +72,25 @@ describe('testing SliderFilter component', () => {
   })
 
   it('should allow overriding the aria-labels of the min and max inputs', async () => {
+    const { wrapper, minInputWrapper, maxInputWrapper } = render()
+
+    await wrapper.setProps({ minAriaLabel: 'Min price', maxAriaLabel: 'Max price' })
+    await nextTick()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max price')
+  })
+
+  it('should resolve the min and max input aria-labels from the global configuration when the props are absent', () => {
+    useAriaLabels().set({ SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } })
+    const { minInputWrapper, maxInputWrapper } = render()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('cantidad máxima')
+  })
+
+  it('should prefer the explicit min/max ariaLabel props over the global configuration', async () => {
+    useAriaLabels().set({ SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } })
     const { wrapper, minInputWrapper, maxInputWrapper } = render()
 
     await wrapper.setProps({ minAriaLabel: 'Min price', maxAriaLabel: 'Max price' })

@@ -32,7 +32,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { ariaLabels } from '@x/composables/use-aria-labels'
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useDebounce } from '../../composables'
 import { AnimationProp } from '../../types'
 import { FOCUSABLE_SELECTORS, getTargetElement } from '../../utils'
@@ -52,10 +53,13 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
-    /** Accessible label for the modal content. */
+    /**
+     * Accessible label for the modal content. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `Base modal content`.
+     */
     ariaLabel: {
       type: String,
-      default: 'Base modal content',
     },
     /**
      * Determines if the focused element changes to one inside the modal when it opens. Either the
@@ -91,6 +95,8 @@ export default defineComponent({
   },
   emits: ['click:overlay', 'focusin:body'],
   setup(props, { emit }) {
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.BaseModal!.modal)
+
     /** Reference to the modal element in the DOM. */
     const modalRef = ref<HTMLDivElement>()
     /** Reference to the modal content element in the DOM. */
@@ -248,6 +254,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabel,
       emitOverlayClicked,
       isWaitingForLeave,
       modalContentRef,

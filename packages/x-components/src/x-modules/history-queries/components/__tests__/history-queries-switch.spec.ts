@@ -3,12 +3,13 @@ import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQueries } from '../../../../__stubs__/index'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/x-plugin'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueriesSwitch from '../history-queries-switch.vue'
@@ -35,6 +36,10 @@ async function renderHistoryQueriesSwitch({
 }
 
 describe('testing HistoryQueriesSwitch component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('is an XComponent which has an XModule', async () => {
     const { wrapper } = await renderHistoryQueriesSwitch()
 
@@ -49,6 +54,23 @@ describe('testing HistoryQueriesSwitch component', () => {
   })
 
   it('allows overriding the aria-label of the switch', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch()
+
+    await wrapper.setProps({ ariaLabel: 'History queries' })
+    await nextTick()
+
+    expect(wrapper.attributes('aria-label')).toBe('History queries')
+  })
+
+  it('resolves the aria-label of the switch from the global configuration when the prop is absent', async () => {
+    useAriaLabels().set({ HistoryQueriesSwitch: { root: 'Historial de consultas' } })
+    const { wrapper } = await renderHistoryQueriesSwitch()
+
+    expect(wrapper.attributes('aria-label')).toBe('Historial de consultas')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
+    useAriaLabels().set({ HistoryQueriesSwitch: { root: 'Historial de consultas' } })
     const { wrapper } = await renderHistoryQueriesSwitch()
 
     await wrapper.setProps({ ariaLabel: 'History queries' })

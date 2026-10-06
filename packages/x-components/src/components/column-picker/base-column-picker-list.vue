@@ -37,6 +37,7 @@
 import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring'
+import { ariaLabels, formatAriaLabelTemplate } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseEventButton from '../base-event-button.vue'
@@ -69,14 +70,28 @@ export default defineComponent({
     modelValue: Number,
     /** Class inherited by each button. */
     buttonClass: String,
+    /**
+     * Accessible label for each column button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided — its `ariaLabel`
+     * entry is a template string whose `{column}` token is substituted per
+     * button — falling back to `{column} columns`.
+     */
     ariaLabel: {
       type: Function as PropType<(column: number) => string>,
-      default: (column: number) => `${column} columns`,
     },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const $x = use$x()
+
+    const ariaLabel = computed(
+      () => (column: number) =>
+        props.ariaLabel
+          ? props.ariaLabel(column)
+          : formatAriaLabelTemplate(ariaLabels.value.BaseColumnPickerList!.button ?? '', {
+              column,
+            }),
+    )
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)
@@ -141,7 +156,7 @@ export default defineComponent({
       })),
     )
 
-    return { columnsWithCssClasses }
+    return { ariaLabel, columnsWithCssClasses }
   },
 })
 </script>

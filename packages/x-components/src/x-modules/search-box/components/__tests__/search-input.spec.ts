@@ -8,6 +8,7 @@ import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/index'
 import { searchBoxXModule } from '../../x-module'
 import SearchInput from '../search-input.vue'
@@ -55,6 +56,7 @@ describe('testing search input component', () => {
   })
   beforeEach(() => {
     vi.clearAllMocks()
+    resetAriaLabels()
   })
   afterEach(() => {
     vi.clearAllTimers()
@@ -77,6 +79,22 @@ describe('testing search input component', () => {
   })
 
   it('allows overriding the aria-label of the search input', async () => {
+    const { wrapper, input } = renderSearchInput()
+
+    await wrapper.setProps({ ariaLabel: 'Enter your search query' })
+
+    expect(input.getAttribute('aria-label')).toBe('Enter your search query')
+  })
+
+  it('resolves the aria-label of the search input from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ SearchInput: { input: 'Escribe tu búsqueda aquí' } })
+    const { input } = renderSearchInput()
+
+    expect(input.getAttribute('aria-label')).toBe('Escribe tu búsqueda aquí')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
+    useAriaLabels().set({ SearchInput: { input: 'Escribe tu búsqueda aquí' } })
     const { wrapper, input } = renderSearchInput()
 
     await wrapper.setProps({ ariaLabel: 'Enter your search query' })

@@ -43,6 +43,7 @@
 import type { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { XEventsTypes } from '../../../wiring/events.types'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
 import { useGetter } from '../../../composables/use-getter'
@@ -75,15 +76,19 @@ export default defineComponent({
     /** Class inherited by content element. */
     suggestionClass: String,
     /**
-     * Accessible label for the load more button.
+     * Accessible label for the remove history query button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to `Remove`.
      */
     removeAriaLabel: {
       type: String,
-      default: 'Remove',
     },
   },
   emits: ['click'],
   setup(props) {
+    const removeAriaLabel = computed(
+      () => props.removeAriaLabel ?? ariaLabels.value.HistoryQuery!.removeButton,
+    )
+
     /**
      * The normalized query of the history-queries module.
      *
@@ -104,6 +109,7 @@ export default defineComponent({
     )
 
     return {
+      removeAriaLabel,
       query,
       suggestionSelectedEvents,
     }

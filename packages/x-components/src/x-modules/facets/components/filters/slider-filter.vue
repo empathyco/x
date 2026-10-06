@@ -79,6 +79,7 @@
 <script lang="ts">
 import type { SliderFilter as SliderFilterModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
@@ -127,27 +128,33 @@ export default defineComponent({
      */
     isInstant: Boolean,
     /**
-     * Accessible label for the minimum value input.
+     * Accessible label for the minimum value input. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `minimum amount`.
      *
      * @public
      */
     minAriaLabel: {
       type: String,
-      default: 'minimum amount',
     },
     /**
-     * Accessible label for the maximum value input.
+     * Accessible label for the maximum value input. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `maximum amount`.
      *
      * @public
      */
     maxAriaLabel: {
       type: String,
-      default: 'maximum amount',
     },
   },
 
   setup(props) {
     const $x = use$x()
+
+    const minAriaLabel = computed(() => props.minAriaLabel ?? ariaLabels.value.SliderFilter!.min)
+
+    const maxAriaLabel = computed(() => props.maxAriaLabel ?? ariaLabels.value.SliderFilter!.max)
 
     /**
      * Current selected minimum and maximum values.
@@ -317,6 +324,8 @@ export default defineComponent({
       clearValues,
       hasError,
       threshold,
+      minAriaLabel,
+      maxAriaLabel,
     }
   },
 })

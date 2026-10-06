@@ -1,7 +1,8 @@
 import type { HistoryQuery } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { installNewXPlugin } from '../../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/index'
 import RemoveHistoryQuery from '../remove-history-query.vue'
 
@@ -11,6 +12,10 @@ describe('testing RemoveHistoryQuery component', () => {
     query: 'Saltiquinos',
     timestamp: 778394,
   }
+
+  beforeEach(() => {
+    resetAriaLabels()
+  })
 
   it('emits UserPressedRemoveHistoryQuery when it is clicked', async () => {
     const listener = vi.fn()
@@ -53,6 +58,36 @@ describe('testing RemoveHistoryQuery component', () => {
   })
 
   it('allows overriding the aria-label of the button', async () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+      },
+    })
+
+    await removeHistoryQuery.setProps({ ariaLabel: 'Remove this query' })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('Remove this query')
+  })
+
+  it('resolves the aria-label from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ RemoveHistoryQuery: { button: 'Eliminar consulta' } })
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+      },
+    })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('Eliminar consulta')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
+    useAriaLabels().set({ RemoveHistoryQuery: { button: 'Eliminar consulta' } })
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {
         historyQuery,

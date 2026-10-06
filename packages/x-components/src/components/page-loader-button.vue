@@ -30,6 +30,7 @@
 import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../utils/types'
 import type { XEventsTypes } from '../wiring'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import { use$x } from '../composables'
 import BaseEventButton from './base-event-button.vue'
@@ -46,11 +47,11 @@ export default defineComponent({
   components: { BaseEventButton },
   props: {
     /**
-     * Accessible label for the load more button.
+     * Accessible label for the load more button. Resolves from the global configuration of
+     * `useAriaLabels()` when not provided, falling back to `Load`.
      */
     ariaLabel: {
       type: String,
-      default: 'Load',
     },
     /**
      * CSS classes to customize the loader button.
@@ -71,6 +72,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.PageLoaderButton!.button)
+
     const $x = use$x()
     const resultsLength = computed(() => $x.results.length)
     const totalResults = computed(() => $x.totalResults)
@@ -86,6 +89,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabel,
       resultsLength,
       totalResults,
       events,

@@ -50,6 +50,7 @@
 <script lang="ts">
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
+import { ariaLabels, formatAriaLabelTemplate } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import { useXBus } from '../composables'
 
@@ -99,32 +100,37 @@ export default defineComponent({
       default: () => [],
     },
     /**
-     * Accessible label for the next page button.
+     * Accessible label for the next page button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `Next page`.
      */
     nextPageAriaLabel: {
       type: String,
-      default: 'Next page',
     },
     /**
-     * Accessible label for the pagination navigation element.
+     * Accessible label for the pagination navigation element. Resolves from the
+     * global configuration of `useAriaLabels()` when not provided, falling back
+     * to `Pagination`.
      */
     paginationAriaLabel: {
       type: String,
-      default: 'Pagination',
     },
     /**
-     * Accessible label for the previous page button.
+     * Accessible label for the previous page button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `Previous page`.
      */
     prevPageAriaLabel: {
       type: String,
-      default: 'Previous page',
     },
     /**
-     * Accessible label for the page number button.
+     * Accessible label for the page number button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided — its `numberPage`
+     * entry is a template string whose `{page}` token is substituted per page —
+     * falling back to `Page {page}`.
      */
     numberPageAriaLabel: {
       type: Function as PropType<(page: number | string) => string>,
-      default: (page: number) => `Page ${page}`,
     },
     /**
      * The number of pages to show before and after the current page.
@@ -150,6 +156,25 @@ export default defineComponent({
   },
   setup(props) {
     const bus = useXBus()
+
+    const paginationAriaLabel = computed(
+      () => props.paginationAriaLabel ?? ariaLabels.value.PageSelector!.pagination,
+    )
+
+    const prevPageAriaLabel = computed(
+      () => props.prevPageAriaLabel ?? ariaLabels.value.PageSelector!.prevPage,
+    )
+
+    const nextPageAriaLabel = computed(
+      () => props.nextPageAriaLabel ?? ariaLabels.value.PageSelector!.nextPage,
+    )
+
+    const numberPageAriaLabel = computed(
+      () => (page: number | string) =>
+        props.numberPageAriaLabel
+          ? props.numberPageAriaLabel(page)
+          : formatAriaLabelTemplate(ariaLabels.value.PageSelector!.numberPage ?? '', { page }),
+    )
 
     const visiblePages = computed(() => {
       const start = Math.max(props.currentPage - props.range, 1)
@@ -201,6 +226,10 @@ export default defineComponent({
     return {
       visiblePages,
       selectPage,
+      paginationAriaLabel,
+      prevPageAriaLabel,
+      nextPageAriaLabel,
+      numberPageAriaLabel,
     }
   },
 })

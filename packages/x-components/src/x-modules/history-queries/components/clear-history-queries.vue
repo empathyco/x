@@ -15,6 +15,7 @@
 <script lang="ts">
 import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
 import { useState } from '../../../composables/use-state'
@@ -35,14 +36,18 @@ export default defineComponent({
   },
   props: {
     /**
-     * Accessible label for the clear history queries button.
+     * Accessible label for the clear history queries button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to `Clear all`.
      */
     ariaLabel: {
       type: String,
-      default: 'Clear all',
     },
   },
-  setup() {
+  setup(props) {
+    const ariaLabel = computed(
+      () => props.ariaLabel ?? ariaLabels.value.ClearHistoryQueries!.button,
+    )
+
     /**
      * The whole history queries.
      *
@@ -81,6 +86,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabel,
       dynamicClasses,
       clearHistoryQueriesEvents,
       isHistoryQueriesEmpty,

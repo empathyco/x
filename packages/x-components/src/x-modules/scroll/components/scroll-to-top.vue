@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import type { XEventsTypes } from '../../../wiring'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import { BaseEventButton, NoAnimation } from '../../../components'
 import { useState } from '../../../composables'
@@ -58,16 +59,18 @@ export default defineComponent({
       default: MainScrollId,
     },
     /**
-     * Accessible label for the scroll to top button.
+     * Accessible label for the scroll to top button. Resolves from the global configuration of
+     * `useAriaLabels()` when not provided, falling back to `Scroll to top`.
      *
      * @public
      */
     ariaLabel: {
       type: String,
-      default: 'Scroll to top',
     },
   },
   setup(props) {
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.ScrollToTop!.button)
+
     /**
      * State of all the scroll components in this module.
      *
@@ -144,6 +147,7 @@ export default defineComponent({
     )
 
     return {
+      ariaLabel,
       events,
       isVisible,
     }

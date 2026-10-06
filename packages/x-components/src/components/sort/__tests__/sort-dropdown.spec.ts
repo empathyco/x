@@ -1,11 +1,12 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../store/store.types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/x-plugin'
 import { searchXModule } from '../../../x-modules/search/x-module'
 import SortDropdown from '../sort-dropdown.vue'
@@ -65,6 +66,10 @@ function renderSortDropdown({
 }
 
 describe('testing SortDropdown component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('allows selecting one of the options of the dropdown', async () => {
     const {
       wrapper,
@@ -115,6 +120,20 @@ describe('testing SortDropdown component', () => {
   })
 
   it('allows overriding the aria-label of the toggle button', () => {
+    const { getToggleButton } = renderSortDropdown({ ariaLabel: 'Select the sort order' })
+
+    expect(getToggleButton().attributes('aria-label')).toEqual('Select the sort order')
+  })
+
+  it('resolves the aria-label of the toggle button from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ SortDropdown: { dropdown: 'Selecciona el orden' } })
+    const { getToggleButton } = renderSortDropdown()
+
+    expect(getToggleButton().attributes('aria-label')).toEqual('Selecciona el orden')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ SortDropdown: { dropdown: 'Selecciona el orden' } })
     const { getToggleButton } = renderSortDropdown({ ariaLabel: 'Select the sort order' })
 
     expect(getToggleButton().attributes('aria-label')).toEqual('Select the sort order')

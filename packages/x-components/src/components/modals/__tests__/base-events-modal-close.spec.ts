@@ -1,9 +1,10 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/index'
 import BaseEventsModalClose from '../base-events-modal-close.vue'
 
@@ -47,6 +48,10 @@ function renderBaseEventsModalClose({
 }
 
 describe('testing Close Button component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('emits UserClickedCloseEventsModal by default when clicked', async () => {
     const { click } = renderBaseEventsModalClose()
     const listener = vi.fn()
@@ -76,6 +81,20 @@ describe('testing Close Button component', () => {
   })
 
   it('allows overriding the aria-label of the close button', () => {
+    const { wrapper } = renderBaseEventsModalClose({ ariaLabel: 'Close events modal' })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Close events modal')
+  })
+
+  it('resolves the aria-label of the close button from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ BaseEventsModalClose: { button: 'Cerrar' } })
+    const { wrapper } = renderBaseEventsModalClose()
+
+    expect(wrapper.attributes('aria-label')).toEqual('Cerrar')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ BaseEventsModalClose: { button: 'Cerrar' } })
     const { wrapper } = renderBaseEventsModalClose({ ariaLabel: 'Close events modal' })
 
     expect(wrapper.attributes('aria-label')).toEqual('Close events modal')

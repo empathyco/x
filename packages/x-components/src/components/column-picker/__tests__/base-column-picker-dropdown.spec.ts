@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/x-plugin'
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue'
 let bus = new XDummyBus()
@@ -76,6 +77,7 @@ function render({
 describe('testing BaseColumnPickerDropdown component', () => {
   beforeEach(() => {
     bus = new XDummyBus()
+    resetAriaLabels()
   })
 
   it('emits ColumnsNumberProvided event with the column number on init', () => {
@@ -114,6 +116,20 @@ describe('testing BaseColumnPickerDropdown component', () => {
   })
 
   it('allows overriding the aria-label of the dropdown toggle button', () => {
+    const { toggleWrapper } = render({ ariaLabel: 'Columns count' })
+
+    expect(toggleWrapper.attributes('aria-label')).toEqual('Columns count')
+  })
+
+  it('resolves the aria-label of the dropdown toggle button from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } })
+    const { toggleWrapper } = render()
+
+    expect(toggleWrapper.attributes('aria-label')).toEqual('Selecciona columnas')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } })
     const { toggleWrapper } = render({ ariaLabel: 'Columns count' })
 
     expect(toggleWrapper.attributes('aria-label')).toEqual('Columns count')

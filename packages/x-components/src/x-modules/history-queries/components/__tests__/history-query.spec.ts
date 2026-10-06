@@ -8,6 +8,7 @@ import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/index'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQuery from '../history-query.vue'
@@ -53,6 +54,7 @@ function renderHistoryQuery({
 describe('testing history-query component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    resetAriaLabels()
   })
 
   it('is an XComponent that belongs to the history queries', () => {
@@ -68,6 +70,28 @@ describe('testing history-query component', () => {
     })
 
     expect(getSuggestionWrapper().text()).toEqual('milk')
+  })
+
+  it('renders the remove button with the default accessible label', () => {
+    const { getRemoveWrapper } = renderHistoryQuery()
+
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Remove')
+  })
+
+  it('resolves the remove button aria-label from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ HistoryQuery: { removeButton: 'Eliminar' } })
+    const { getRemoveWrapper } = renderHistoryQuery()
+
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Eliminar')
+  })
+
+  it('prefers the explicit removeAriaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ HistoryQuery: { removeButton: 'Eliminar' } })
+    const { getRemoveWrapper } = renderHistoryQuery({
+      template: '<HistoryQuery v-bind="$attrs" removeAriaLabel="Quitar"/>',
+    })
+
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Quitar')
   })
 
   it('highlights the suggestion matching parts with the state query', async () => {

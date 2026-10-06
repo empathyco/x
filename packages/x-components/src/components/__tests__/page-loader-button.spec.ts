@@ -4,6 +4,7 @@ import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getResultsStub } from '../../__stubs__/index'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../composables/use-aria-labels'
 import { XPlugin } from '../../plugins/index'
 import PageLoaderButton from '../page-loader-button.vue'
 
@@ -42,6 +43,7 @@ describe('testing PageLoaderButton component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    resetAriaLabels()
   })
 
   it('renders a page loader button component with default slots', () => {
@@ -74,6 +76,27 @@ describe('testing PageLoaderButton component', () => {
   })
 
   it('allows overriding the aria-label of the load button', async () => {
+    const { wrapper } = renderPageLoaderButton()
+
+    await wrapper.setProps({ ariaLabel: 'Load more results' })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
+      'Load more results',
+    )
+  })
+
+  it('resolves the global map value when the prop is absent', () => {
+    useAriaLabels().set({ PageLoaderButton: { button: 'Cargar' } })
+    const { wrapper } = renderPageLoaderButton()
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
+      'Cargar',
+    )
+  })
+
+  it('prefers the explicit prop over the global map', async () => {
+    useAriaLabels().set({ PageLoaderButton: { button: 'Cargar' } })
     const { wrapper } = renderPageLoaderButton()
 
     await wrapper.setProps({ ariaLabel: 'Load more results' })

@@ -27,7 +27,8 @@ import type { ArrowKey } from '../../../utils'
 import type { DebouncedFunction } from '../../../utils/types'
 import type { XEvent } from '../../../wiring/events.types'
 import type { WireMetadata } from '../../../wiring/wiring.types'
-import { defineComponent, onMounted, ref } from 'vue'
+import { ariaLabels } from '@x/composables/use-aria-labels'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { debounce } from '../../../utils/debounce'
@@ -44,11 +45,12 @@ export default defineComponent({
   xModule: searchBoxXModule.name,
   props: {
     /**
-     * Accessible label for the search input.
+     * Accessible label for the search input. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `type your query here`.
      */
     ariaLabel: {
       type: String,
-      default: 'type your query here',
     },
     /**
      * Maximum characters allowed in the input search.
@@ -81,6 +83,8 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
+
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.SearchInput!.input)
 
     const { query } = useState('searchBox')
 
@@ -268,6 +272,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabel,
       query,
       inputElement,
       emitUserHoveredInSearchBox,

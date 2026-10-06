@@ -1,10 +1,11 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins'
 import { historyQueriesXModule } from '../../x-module'
 import ClearHistoryQueries from '../clear-history-queries.vue'
@@ -23,6 +24,10 @@ function render() {
 }
 
 describe('testing ClearHistoryQueries component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('is disabled if there are not history queries', async () => {
     const { wrapper, store } = render()
 
@@ -79,6 +84,23 @@ describe('testing ClearHistoryQueries component', () => {
   })
 
   it('allows overriding the aria-label of the button', async () => {
+    const { wrapper } = render()
+
+    await wrapper.setProps({ ariaLabel: 'Clear all history queries' })
+    await nextTick()
+
+    expect(wrapper.attributes('aria-label')).toBe('Clear all history queries')
+  })
+
+  it('resolves the aria-label of the button from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ ClearHistoryQueries: { button: 'Borrar todo' } })
+    const { wrapper } = render()
+
+    expect(wrapper.attributes('aria-label')).toBe('Borrar todo')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
+    useAriaLabels().set({ ClearHistoryQueries: { button: 'Borrar todo' } })
     const { wrapper } = render()
 
     await wrapper.setProps({ ariaLabel: 'Clear all history queries' })

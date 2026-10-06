@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import type { Component, PropType } from 'vue'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseDropdown from '../base-dropdown.vue'
@@ -57,15 +58,22 @@ export default defineComponent({
     modelValue: Number,
     /** The transition to use for opening and closing the dropdown. */
     animation: [String, Object] as PropType<string | Component>,
-    /** Accessible label for the columns dropdown. */
+    /**
+     * Accessible label for the columns dropdown. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `Select number of columns`.
+     */
     ariaLabel: {
       type: String,
-      default: 'Select number of columns',
     },
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
     const $x = use$x()
+
+    const ariaLabel = computed(
+      () => props.ariaLabel ?? ariaLabels.value.BaseColumnPickerDropdown!.dropdown,
+    )
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)
@@ -122,6 +130,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabel,
       emitEvents,
       hasToggleSlot: !!slots.toggle,
       selectedColumns,

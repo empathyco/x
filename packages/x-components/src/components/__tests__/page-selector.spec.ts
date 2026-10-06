@@ -2,8 +2,10 @@ import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import { getResultsStub } from '../../__stubs__/index'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../composables/use-aria-labels'
 import { XPlugin } from '../../plugins/index'
 import PageSelector from '../page-selector.vue'
 
@@ -53,6 +55,7 @@ describe('testing PageSelector component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    resetAriaLabels()
   })
 
   it('renders a page selector component with default slots', () => {
@@ -103,6 +106,90 @@ describe('testing PageSelector component', () => {
     )
     expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
       'Go to next page',
+    )
+  })
+
+  it('renders the default aria-label for the page number buttons', () => {
+    const { wrapper } = renderPageSelector()
+
+    expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
+      'Page 1',
+    )
+    expect(wrapper.find(getDataTestSelector('page-button-2')).attributes('aria-label')).toBe(
+      'Page 2',
+    )
+    expect(wrapper.find(getDataTestSelector('page-button-3')).attributes('aria-label')).toBe(
+      'Page 3',
+    )
+  })
+
+  it('resolves the aria labels from the global configuration when the props are absent', () => {
+    useAriaLabels().set({
+      PageSelector: {
+        pagination: 'Paginación',
+        prevPage: 'Página anterior',
+        nextPage: 'Página siguiente',
+      },
+    })
+    const { wrapper } = renderPageSelector()
+
+    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Paginación')
+    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
+      'Página anterior',
+    )
+    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
+      'Página siguiente',
+    )
+  })
+
+  it('prefers the explicit props over the global configuration', () => {
+    useAriaLabels().set({
+      PageSelector: {
+        pagination: 'Paginación',
+        prevPage: 'Página anterior',
+        nextPage: 'Página siguiente',
+        numberPage: 'Página {page}',
+      },
+    })
+    const { wrapper } = renderPageSelector({
+      ariaLabels: {
+        paginationAriaLabel: 'Page navigation',
+        prevPageAriaLabel: 'Go to previous page',
+        nextPageAriaLabel: 'Go to next page',
+        numberPageAriaLabel: page => `Página custom ${page}`,
+      },
+    })
+
+    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Page navigation')
+    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
+      'Go to previous page',
+    )
+    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
+      'Go to next page',
+    )
+    expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
+      'Página custom 1',
+    )
+  })
+
+  it('applies the global numberPage template per page and updates it at runtime without re-mount', async () => {
+    const { wrapper } = renderPageSelector()
+
+    expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
+      'Page 1',
+    )
+
+    useAriaLabels().set({ PageSelector: { numberPage: 'Página {page}' } })
+    await nextTick()
+
+    expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
+      'Página 1',
+    )
+    expect(wrapper.find(getDataTestSelector('page-button-2')).attributes('aria-label')).toBe(
+      'Página 2',
+    )
+    expect(wrapper.find(getDataTestSelector('page-button-3')).attributes('aria-label')).toBe(
+      'Página 3',
     )
   })
 
@@ -180,6 +267,7 @@ interface RenderPageSelectorOptions {
     paginationAriaLabel?: string
     prevPageAriaLabel?: string
     nextPageAriaLabel?: string
+    numberPageAriaLabel?: (page: number | string) => string
   }
 }
 

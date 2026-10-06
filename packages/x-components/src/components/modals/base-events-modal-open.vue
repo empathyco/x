@@ -14,6 +14,7 @@
 import type { PropType } from 'vue'
 import type { PropsWithType } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring/events.types'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import BaseEventButton from '../base-event-button.vue'
 
@@ -38,18 +39,22 @@ export default defineComponent({
       default: 'UserClickedOpenEventsModal',
     },
     /**
-     * Accessible label for the open modal button.
+     * Accessible label for the open modal button. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to `Open`.
      */
     ariaLabel: {
       type: String,
-      default: 'Open',
     },
   },
   setup(props) {
     const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }))
+    const ariaLabel = computed(
+      () => props.ariaLabel ?? ariaLabels.value.BaseEventsModalOpen!.button,
+    )
 
     return {
       events,
+      ariaLabel,
     }
   },
 })

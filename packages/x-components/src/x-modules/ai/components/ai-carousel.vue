@@ -131,6 +131,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
@@ -164,15 +165,19 @@ export default defineComponent({
   props: {
     /* The title text displayed */
     title: String,
-    /* Accessible label for the title toggle button when the title is collapsed. */
+    /**
+     * Accessible label for the title toggle button when the title is collapsed. Resolves from
+     * the global configuration of `useAriaLabels()` when not provided, falling back to `Expand`.
+     */
     expandAriaLabel: {
       type: String,
-      default: 'Expand',
     },
-    /* Accessible label for the title toggle button when the title is expanded. */
+    /**
+     * Accessible label for the title toggle button when the title is expanded. Resolves from the
+     * global configuration of `useAriaLabels()` when not provided, falling back to `Collapse`.
+     */
     collapseAriaLabel: {
       type: String,
-      default: 'Collapse',
     },
     /* The classes added to the sliding panel. */
     slidingPanelClasses: String,
@@ -190,6 +195,14 @@ export default defineComponent({
     const $x = use$x()
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
+
+    const expandAriaLabel = computed(
+      () => props.expandAriaLabel ?? ariaLabels.value.AICarousel!.expand,
+    )
+
+    const collapseAriaLabel = computed(
+      () => props.collapseAriaLabel ?? ariaLabels.value.AICarousel!.collapse,
+    )
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)
@@ -240,7 +253,9 @@ export default defineComponent({
     useResizeObserver(titleRef, updateTitleOverflow)
 
     return {
+      collapseAriaLabel,
       emptyTaggingRequest,
+      expandAriaLabel,
       isTitleOverflowing,
       queries,
       query,

@@ -8,66 +8,117 @@ import { ref } from 'vue'
  *
  * @public
  */
-export interface AriaLabelsConfig {
+export interface AriaLabels {
   PageSelector?: { pagination?: string; prevPage?: string; nextPage?: string; numberPage?: string }
   AICarousel?: { expand?: string; collapse?: string }
-  BaseColumnPickerDropdown?: { ariaLabel?: string }
-  BaseColumnPickerList?: { ariaLabel?: string }
-  PageLoaderButton?: { ariaLabel?: string }
-  BaseModal?: { ariaLabel?: string }
-  BaseEventsModalOpen?: { ariaLabel?: string }
-  BaseEventsModalClose?: { ariaLabel?: string }
-  SortDropdown?: { ariaLabel?: string }
-  Facets?: { ariaLabel?: string }
-  FiltersSearch?: { ariaLabel?: string }
+  BaseColumnPickerDropdown?: { dropdown?: string }
+  BaseColumnPickerList?: { button?: string }
+  PageLoaderButton?: { button?: string }
+  BaseModal?: { modal?: string }
+  BaseEventsModalOpen?: { button?: string }
+  BaseEventsModalClose?: { button?: string }
+  SortDropdown?: { dropdown?: string }
+  Facets?: { root?: string }
+  FiltersSearch?: { input?: string }
   SliderFilter?: { min?: string; max?: string }
   EditableNumberRangeFilter?: { min?: string; max?: string }
-  SearchInput?: { ariaLabel?: string }
-  ClearHistoryQueries?: { ariaLabel?: string }
-  HistoryQueriesSwitch?: { ariaLabel?: string }
-  HistoryQuery?: { remove?: string }
-  RemoveHistoryQuery?: { ariaLabel?: string }
-  ScrollToTop?: { ariaLabel?: string }
-  BaseDropdown?: { ariaLabel?: string }
+  SearchInput?: { input?: string }
+  ClearHistoryQueries?: { button?: string }
+  HistoryQueriesSwitch?: { root?: string }
+  HistoryQuery?: { removeButton?: string }
+  RemoveHistoryQuery?: { button?: string }
+  ScrollToTop?: { button?: string }
+  BaseDropdown?: { toggleButton?: string }
 }
 
 /**
- * Module-level reactive state holding the current {@link AriaLabelsConfig}.
+ * Single source of truth for default labels (moved verbatim from the 19 SFC
+ * `DEFAULTS` constants). `BaseDropdown.ariaLabel` is explicit `undefined` so the
+ * merge iterates all 26 keys uniformly and a consumer override is never dropped.
  *
  * @internal
  */
-export const ariaLabels = ref<AriaLabelsConfig>({})
+export const DEFAULT_ARIA_LABELS: AriaLabels = {
+  PageSelector: {
+    pagination: 'Pagination',
+    prevPage: 'Previous page',
+    nextPage: 'Next page',
+    numberPage: 'Page {page}',
+  },
+  AICarousel: { expand: 'Expand', collapse: 'Collapse' },
+  BaseColumnPickerDropdown: { dropdown: 'Select number of columns' },
+  BaseColumnPickerList: { button: '{column} columns' },
+  PageLoaderButton: { button: 'Load' },
+  BaseModal: { modal: 'Base modal content' },
+  BaseEventsModalOpen: { button: 'Open' },
+  BaseEventsModalClose: { button: 'Close' },
+  SortDropdown: { dropdown: 'Select sorting' },
+  Facets: { root: 'Facets' },
+  FiltersSearch: { input: 'search into the filter values' },
+  SliderFilter: { min: 'minimum amount', max: 'maximum amount' },
+  EditableNumberRangeFilter: { min: 'minimum amount', max: 'maximum amount' },
+  SearchInput: { input: 'type your query here' },
+  ClearHistoryQueries: { button: 'Clear all' },
+  HistoryQueriesSwitch: { root: "Queries' history" },
+  HistoryQuery: { removeButton: 'Remove' },
+  RemoveHistoryQuery: { button: 'remove' },
+  ScrollToTop: { button: 'Scroll to top' },
+  BaseDropdown: { toggleButton: '' },
+}
+
+function mergeAriaLabels(labels: AriaLabels): AriaLabels {
+  return Object.fromEntries(
+    Object.entries(DEFAULT_ARIA_LABELS).map(([namespace, defaults]) => [
+      namespace,
+      {
+        ...defaults,
+        ...labels[namespace as keyof AriaLabels],
+      },
+    ]),
+  ) as AriaLabels
+}
+
+/**
+ * Module-level reactive state holding the fully resolved aria labels: every namespace and key is
+ * always present, initialized with the complete defaults map.
+ *
+ * @internal
+ */
+export const ariaLabels = ref<AriaLabels>(DEFAULT_ARIA_LABELS)
 
 /**
  * Composable which provides a handle to the global aria labels configuration. Calling `set`
- * reactively replaces the whole map, updating the aria labels of already mounted components
- * without re-mounting them.
+ * reactively merges the provided entries onto the defaults, updating the aria labels of already
+ * mounted components without re-mounting them.
  *
- * @returns A handle with a `set` method to replace the aria labels configuration.
+ * @returns A handle with a `set` method to update the aria labels configuration.
  * @public
  */
 export function useAriaLabels() {
   /**
-   * Replaces the current aria labels configuration with the provided one.
+   * Updates the global aria labels configuration by merging the provided entries onto the
+   * defaults: for each known key the provided value wins, so explicit `null`/`undefined`
+   * entries are no-ops; omit a key to drop a previous override. Unknown keys are ignored.
    *
-   * @param labels - The new aria labels configuration.
+   * @param labels - The aria labels entries to merge onto the defaults.
    */
-  function set(labels: AriaLabelsConfig): void {
-    ariaLabels.value = labels
+  function set(labels: AriaLabels): void {
+    ariaLabels.value = mergeAriaLabels(labels)
   }
 
   return { set }
 }
 
 /**
- * Utility method for resetting the aria labels configuration to its initial empty state.
+ * Utility method for resetting the aria labels configuration to its initial state: the complete
+ * defaults map, with fresh objects.
  *
  * @remarks Use only for testing.
  *
  * @internal
  */
 export function resetAriaLabels(): void {
-  ariaLabels.value = {}
+  ariaLabels.value = DEFAULT_ARIA_LABELS
 }
 
 /**

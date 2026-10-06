@@ -1,10 +1,11 @@
 import type { RangeValue } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../../plugins'
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue'
 
@@ -82,6 +83,10 @@ function renderEditableNumberRangeFilter({
 }
 
 describe('testing BaseNumberRangeFilter component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('is an x-component', () => {
     const { filterWrapper } = renderEditableNumberRangeFilter()
     expect(isXComponent(filterWrapper.vm)).toEqual(true)
@@ -115,6 +120,29 @@ describe('testing BaseNumberRangeFilter component', () => {
   })
 
   it('allows overriding the aria-labels of the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      minAriaLabel: 'Min value',
+      maxAriaLabel: 'Max value',
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min value')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max value')
+  })
+
+  it('resolves the min and max input aria-labels from the global configuration when the props are absent', () => {
+    useAriaLabels().set({
+      EditableNumberRangeFilter: { min: 'cantidad mínima', max: 'cantidad máxima' },
+    })
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('cantidad máxima')
+  })
+
+  it('prefers the explicit min/max ariaLabel props over the global configuration', () => {
+    useAriaLabels().set({
+      EditableNumberRangeFilter: { min: 'cantidad mínima', max: 'cantidad máxima' },
+    })
     const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
       minAriaLabel: 'Min value',
       maxAriaLabel: 'Max value',

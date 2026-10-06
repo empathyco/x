@@ -61,6 +61,7 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
 import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
 import { AnimationProp } from '../../../../types'
@@ -110,15 +111,20 @@ export default defineComponent({
      * The component will render category and color facets.
      */
     renderableFacets: String,
-    /* Accessible label for the navigation. */
+    /**
+     * Accessible label for the navigation. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided, falling back to
+     * `Facets`.
+     */
     ariaLabel: {
       type: String,
-      default: 'Facets',
     },
   },
   setup(props, { slots }) {
     const { selectedFiltersByFacet } = useFacets(props)
     const { facets } = useGetter('facets')
+
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.Facets!.root)
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by
@@ -196,6 +202,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabel,
       selectedFiltersByFacet,
       hasFacets,
       mappedFacets,

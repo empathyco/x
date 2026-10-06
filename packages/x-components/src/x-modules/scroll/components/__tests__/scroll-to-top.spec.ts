@@ -1,8 +1,9 @@
 import type { XEvent, XEventPayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { installNewXPlugin } from '../../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins'
 import { scrollXModule } from '../../x-module'
 import ScrollToTop from '../scroll-to-top.vue'
@@ -43,6 +44,10 @@ function renderScrollToTop({
 }
 
 describe('testing Scroll To Top component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('renders the content in the slot', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop()
     await emitXEvent('UserAlmostReachedScrollEnd', true)
@@ -93,6 +98,31 @@ describe('testing Scroll To Top component', () => {
   })
 
   it('allows overriding the aria-label of the button', async () => {
+    const { rootWrapper, scrollToTopWrapper, emitXEvent } = renderScrollToTop()
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    await rootWrapper.setProps({ ariaLabel: 'Back to top' })
+    await nextTick()
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe('Back to top')
+  })
+
+  it('resolves the aria-label from the global configuration when the prop is absent', async () => {
+    useAriaLabels().set({ ScrollToTop: { button: 'Ir al inicio' } })
+    const { scrollToTopWrapper, emitXEvent } = renderScrollToTop()
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe(
+      'Ir al inicio',
+    )
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
+    useAriaLabels().set({ ScrollToTop: { button: 'Ir al inicio' } })
     const { rootWrapper, scrollToTopWrapper, emitXEvent } = renderScrollToTop()
 
     await emitXEvent('UserAlmostReachedScrollEnd', true)

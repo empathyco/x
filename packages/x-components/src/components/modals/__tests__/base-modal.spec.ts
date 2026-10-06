@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getDataTestSelector } from '../../../__tests__/utils'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import BaseModal from '../base-modal.vue'
 
 const observeMock = vi.fn()
@@ -93,7 +94,10 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
 
 describe('testing Base Modal  component', () => {
   beforeAll(() => vi.useFakeTimers())
-  beforeEach(() => vi.clearAllMocks())
+  beforeEach(() => {
+    vi.clearAllMocks()
+    resetAriaLabels()
+  })
   afterAll(() => vi.useRealTimers())
 
   it('renders only when the open prop is set to true', async () => {
@@ -112,6 +116,20 @@ describe('testing Base Modal  component', () => {
   })
 
   it('allows overriding the aria-label of the modal content', () => {
+    const { getModalContent } = mountBaseModal({ open: true, ariaLabel: 'Custom modal content' })
+
+    expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')
+  })
+
+  it('resolves the aria-label of the modal content from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ BaseModal: { modal: 'Contenido del modal' } })
+    const { getModalContent } = mountBaseModal({ open: true })
+
+    expect(getModalContent().attributes('aria-label')).toBe('Contenido del modal')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ BaseModal: { modal: 'Contenido del modal' } })
     const { getModalContent } = mountBaseModal({ open: true, ariaLabel: 'Custom modal content' })
 
     expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')

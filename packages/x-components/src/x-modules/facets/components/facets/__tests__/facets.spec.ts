@@ -4,12 +4,13 @@ import type { DOMWrapper } from '@vue/test-utils'
 import type { Component } from 'vue'
 import type { RootXStoreState } from '../../../../../store/store.types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
+import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../../plugins/x-plugin'
 import { toKebabCase } from '../../../../../utils/string'
 import { facetsXModule } from '../../../x-module'
@@ -17,6 +18,10 @@ import { resetXFacetsStateWith } from '../../__tests__/utils'
 import Facets from '../facets.vue'
 
 describe('testing Facets component', () => {
+  beforeEach(() => {
+    resetAriaLabels()
+  })
+
   it('is an XComponent', () => {
     const { wrapper } = renderFacetsComponent()
     expect(isXComponent(wrapper.vm)).toEqual(true)
@@ -25,6 +30,50 @@ describe('testing Facets component', () => {
   it('has FacetsModule as XModule', () => {
     const { wrapper } = renderFacetsComponent()
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets')
+  })
+
+  it('renders the navigation with the default accessible label', () => {
+    const { wrapper } = renderFacetsComponent({
+      facets: {
+        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+        ]),
+      },
+    })
+
+    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Facets')
+  })
+
+  it('resolves the navigation aria-label from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ Facets: { root: 'Filtros' } })
+    const { wrapper } = renderFacetsComponent({
+      facets: {
+        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+        ]),
+      },
+    })
+
+    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Filtros')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ Facets: { root: 'Filtros' } })
+    const { wrapper } = renderFacetsComponent({
+      template: `
+        <Facets ariaLabel="Custom facets label">
+          <template #default="{ facet, selectedFilters }">
+            <p data-test="default-slot-facet">{{ facet.label }}</p>
+          </template>
+        </Facets>`,
+      facets: {
+        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+        ]),
+      },
+    })
+
+    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Custom facets label')
   })
 
   it('does not render anything when facets are empty', () => {

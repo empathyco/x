@@ -8,6 +8,7 @@ import { getResultsStub } from '../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import { AIStarIcon, DisplayClickProvider } from '../../../components'
 import { use$x, useState } from '../../../composables'
+import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import AICarousel from './ai-carousel.vue'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -161,6 +162,7 @@ function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
 describe('ai-carousel component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    resetAriaLabels()
     vi.mocked(useState).mockImplementation(useStateMock)
     vi.mocked(use$x).mockImplementation(use$xMock as any)
   })
@@ -240,6 +242,44 @@ describe('ai-carousel component', () => {
   })
 
   it('should allow overriding the expand/collapse aria-labels with the dedicated props', async () => {
+    const sut = render({
+      props: { ...propsStub, expandAriaLabel: 'Show all', collapseAriaLabel: 'Show less' },
+    })
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show all')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show less')
+  })
+
+  it('should resolve the expand/collapse aria-labels from the global configuration when the props are absent', async () => {
+    useAriaLabels().set({ AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } })
+    const sut = render()
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Desplegar')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Plegar')
+  })
+
+  it('should prefer the explicit expand/collapse props over the global configuration', async () => {
+    useAriaLabels().set({ AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } })
     const sut = render({
       props: { ...propsStub, expandAriaLabel: 'Show all', collapseAriaLabel: 'Show less' },
     })

@@ -2,11 +2,12 @@ import type { Filter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'
+import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import FiltersSearch from '../filters-search.vue'
 
 const filtersMock: Filter[] = [
@@ -74,6 +75,9 @@ describe('testing FiltersSearch', () => {
   beforeAll(() => {
     vi.useFakeTimers()
   })
+  beforeEach(() => {
+    resetAriaLabels()
+  })
   afterEach(() => {
     vi.clearAllTimers()
   })
@@ -106,6 +110,24 @@ describe('testing FiltersSearch', () => {
   })
 
   it('allows overriding the aria-label of the search input', () => {
+    const { inputWrapper } = renderFiltersSearch(
+      'filters-search-input',
+      undefined,
+      'Search in filter values',
+    )
+
+    expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
+  })
+
+  it('resolves the search input aria-label from the global configuration when the prop is absent', () => {
+    useAriaLabels().set({ FiltersSearch: { input: 'Buscar en los valores de los filtros' } })
+    const { inputWrapper } = renderFiltersSearch()
+
+    expect(inputWrapper.attributes('aria-label')).toBe('Buscar en los valores de los filtros')
+  })
+
+  it('prefers the explicit ariaLabel prop over the global configuration', () => {
+    useAriaLabels().set({ FiltersSearch: { input: 'Buscar en los valores de los filtros' } })
     const { inputWrapper } = renderFiltersSearch(
       'filters-search-input',
       undefined,

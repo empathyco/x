@@ -1,18 +1,18 @@
-import type { AriaLabelsConfig } from '@x/composables/use-aria-labels'
 import { mount } from '@vue/test-utils'
 import {
   ariaLabels,
+  DEFAULT_ARIA_LABELS,
   formatAriaLabelTemplate,
   resetAriaLabels,
   useAriaLabels,
 } from '@x/composables/use-aria-labels'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { computed, defineComponent, nextTick } from 'vue'
 
 function createAriaLabelProbe() {
   return defineComponent({
     setup: () => {
-      const label = computed(() => ariaLabels.value.Facets?.ariaLabel ?? 'Facets')
+      const label = computed(() => ariaLabels.value.Facets?.root ?? 'Facets')
       return { label }
     },
     template: `<span data-test="aria-label-probe">{{ label }}</span>`,
@@ -28,24 +28,42 @@ describe('testing useAriaLabels composable', () => {
     const firstHandle = useAriaLabels()
     const secondHandle = useAriaLabels()
 
-    firstHandle.set({ Facets: { ariaLabel: 'Filtros' } })
-
-    expect(ariaLabels.value).toEqual({ Facets: { ariaLabel: 'Filtros' } })
-
-    secondHandle.set({ Facets: { ariaLabel: 'Filtres' } })
-
-    expect(ariaLabels.value).toEqual({ Facets: { ariaLabel: 'Filtres' } })
-  })
-
-  it('replaces the map instead of merging', () => {
-    const handle = useAriaLabels()
-
-    handle.set({ Facets: { ariaLabel: 'Filtros' } })
-    handle.set({ PageSelector: { prevPage: 'Página anterior', nextPage: 'Página siguiente' } })
+    firstHandle.set({ Facets: { root: 'Filtros' } })
 
     expect(ariaLabels.value).toEqual({
-      PageSelector: { prevPage: 'Página anterior', nextPage: 'Página siguiente' },
+      ...DEFAULT_ARIA_LABELS,
+      Facets: { ...DEFAULT_ARIA_LABELS.Facets, root: 'Filtros' },
     })
+
+    secondHandle.set({ Facets: { root: 'Filtres' } })
+
+    expect(ariaLabels.value).toEqual({
+      ...DEFAULT_ARIA_LABELS,
+      Facets: { ...DEFAULT_ARIA_LABELS.Facets, root: 'Filtres' },
+    })
+  })
+
+  it('merges onto defaults, keeping sibling keys', () => {
+    const handle = useAriaLabels()
+
+    handle.set({ PageSelector: { pagination: 'Paginación' } })
+
+    expect(ariaLabels.value.PageSelector).toEqual({
+      pagination: 'Paginación',
+      prevPage: 'Previous page',
+      nextPage: 'Next page',
+      numberPage: 'Page {page}',
+    })
+  })
+
+  it('each .set() is an independent declaration (never accumulates)', () => {
+    const handle = useAriaLabels()
+
+    handle.set({ PageSelector: { pagination: 'A' } })
+    handle.set({ Facets: { root: 'B' } })
+
+    expect(ariaLabels.value.PageSelector!.pagination).toBe('Pagination')
+    expect(ariaLabels.value.Facets!.root).toBe('B')
   })
 
   it('updates mounted components after .set() without re-mounting them', async () => {
@@ -53,14 +71,14 @@ describe('testing useAriaLabels composable', () => {
 
     expect(wrapper.get('[data-test="aria-label-probe"]').text()).toBe('Facets')
 
-    useAriaLabels().set({ Facets: { ariaLabel: 'Filtros' } })
+    useAriaLabels().set({ Facets: { root: 'Filtros' } })
     await nextTick()
 
     expect(wrapper.get('[data-test="aria-label-probe"]').text()).toBe('Filtros')
   })
 
   it('resetAriaLabels() restores the initial state so fresh mounts render defaults', () => {
-    useAriaLabels().set({ Facets: { ariaLabel: 'Filtros' } })
+    useAriaLabels().set({ Facets: { root: 'Filtros' } })
 
     const mountedWhileSet = mount(createAriaLabelProbe())
     expect(mountedWhileSet.get('[data-test="aria-label-probe"]').text()).toBe('Filtros')
@@ -70,33 +88,12 @@ describe('testing useAriaLabels composable', () => {
 
     const freshMount = mount(createAriaLabelProbe())
 
-    expect(ariaLabels.value).toEqual({})
+    expect(ariaLabels.value).toEqual(DEFAULT_ARIA_LABELS)
+    expect(ariaLabels.value).not.toBe(DEFAULT_ARIA_LABELS)
+    expect(ariaLabels.value.Facets).not.toBe(DEFAULT_ARIA_LABELS.Facets)
     expect(freshMount.get('[data-test="aria-label-probe"]').text()).toBe('Facets')
 
     freshMount.unmount()
-  })
-
-  it('silently ignores unknown runtime keys: no throw, no console output, valid keys resolve', () => {
-    const warnSpy = vi.spyOn(console, 'warn')
-    const errorSpy = vi.spyOn(console, 'error')
-    const logSpy = vi.spyOn(console, 'log')
-
-    // Simulates a JavaScript consumer bypassing the TypeScript check.
-    expect(() =>
-      useAriaLabels().set({
-        Facets: { ariaLabel: 'Filtros', bogus: 'x' },
-        BogusNamespace: { ariaLabel: 'x' },
-      } as AriaLabelsConfig),
-    ).not.toThrow()
-
-    expect(warnSpy).not.toHaveBeenCalled()
-    expect(errorSpy).not.toHaveBeenCalled()
-    expect(logSpy).not.toHaveBeenCalled()
-    expect(ariaLabels.value.Facets?.ariaLabel).toBe('Filtros')
-
-    warnSpy.mockRestore()
-    errorSpy.mockRestore()
-    logSpy.mockRestore()
   })
 
   describe('formatAriaLabelTemplate', () => {

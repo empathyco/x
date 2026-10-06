@@ -83,6 +83,7 @@
 <script lang="ts">
 import type { Identifiable } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import { ariaLabels } from '@x/composables/use-aria-labels'
 import { computed, defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { AnimationProp } from '../types'
 import { debounceFunction, getTargetElement, normalizeString } from '../utils'
@@ -110,7 +111,11 @@ export default defineComponent({
         typeof v === 'string' || typeof v === 'number' || typeof v === 'object' || v === null,
       required: true,
     },
-    /** Description of what the dropdown is used for. */
+    /**
+     * Description of what the dropdown is used for. Resolves from the global
+     * configuration of `useAriaLabels()` when not provided. When neither source
+     * is set, the `aria-label` attribute is not rendered.
+     */
     ariaLabel: String,
     /**
      * Animation component to use for expanding the dropdown. This is a single element animation,
@@ -145,6 +150,9 @@ export default defineComponent({
     let restartResetSearchTimeout: () => void
     /* Unique ID to identify the dropdown. */
     const listId = `x-dropdown-${dropdownCount++}`
+
+    /** The aria label resolved from the explicit prop or the global configuration. */
+    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.BaseDropdown!.toggleButton)
 
     /**
      * Dynamic CSS classes to add to the dropdown root element.
@@ -375,6 +383,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabel,
       hasToggleSlot: !!slots.toggle,
       closeAndFocusToggleButton,
       dropdownCSSClasses,
