@@ -236,6 +236,20 @@ describe('ai-carousel component', () => {
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
   })
 
+  it('should pass the sliding panel classes to the grouped carousel', () => {
+    const sut = render({ props: { ...propsStub, group: true } })
+
+    expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
+    expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
+    expect(sut.aiGroupedCarousel.props('slidingPanelClasses')).toBe(propsStub.slidingPanelClasses)
+    expect(sut.aiGroupedCarousel.props('slidingPanelContainerClasses')).toBe(
+      propsStub.slidingPanelContainerClasses,
+    )
+    expect(sut.aiGroupedCarousel.props('slidingPanelButtonsClasses')).toBe(
+      propsStub.slidingPanelButtonsClasses,
+    )
+  })
+
   it('should render non-grouped mode when group prop is false', () => {
     const sut = render({ props: { ...propsStub, group: false } })
 
