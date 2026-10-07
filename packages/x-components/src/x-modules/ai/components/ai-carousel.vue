@@ -40,7 +40,12 @@
         </span>
       </DisplayEmitter>
 
-      <AiGroupedCarousel v-if="group">
+      <AiGroupedCarousel
+        v-if="group"
+        :class="slidingPanelClasses"
+        :scroll-container-class="slidingPanelContainerClasses"
+        :button-class="slidingPanelButtonsClasses"
+      >
         <template #sliding-panels-addons="{ arrivedState }">
           <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
         </template>
