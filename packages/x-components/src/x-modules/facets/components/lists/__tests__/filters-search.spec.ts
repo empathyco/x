@@ -1,14 +1,22 @@
 import type { Filter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
-import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'
-import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
+import { mergeAccesibilityLabels } from '../../../../../utils'
 import FiltersSearch from '../filters-search.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 const filtersMock: Filter[] = [
   'Lego city',
@@ -34,16 +42,16 @@ const queries: Dictionary<number> = {
 function renderFiltersSearch(
   dataTestInputSelector = 'filters-search-input',
   template?: string,
-  ariaLabel?: string,
+  ariaLabels?: AriaLabels,
 ): FiltersSearchAPI {
   const wrapper = mount(
     {
       components: { FiltersSearch },
-      props: ['filters', 'debounceInMs', 'ariaLabel'],
+      props: ['filters', 'debounceInMs'],
       template:
         template ??
         `
-          <FiltersSearch :filters="filters" :debounceInMs="debounceInMs" :ariaLabel="ariaLabel">
+          <FiltersSearch :filters="filters" :debounceInMs="debounceInMs">
             <template #default="{ siftedFilters }">
               <ul v-for="filter in siftedFilters" data-test="filters-search-list">
                 <li data-test="filters-search-list-item">{{ filter.label }}</li>
@@ -55,8 +63,8 @@ function renderFiltersSearch(
     {
       props: {
         filters: filtersMock,
-        ariaLabel,
       },
+      global: { provide: ariaProvide(ariaLabels) },
     },
   )
 
@@ -74,9 +82,6 @@ function renderFiltersSearch(
 describe('testing FiltersSearch', () => {
   beforeAll(() => {
     vi.useFakeTimers()
-  })
-  beforeEach(() => {
-    resetAriaLabels()
   })
   afterEach(() => {
     vi.clearAllTimers()
@@ -110,31 +115,19 @@ describe('testing FiltersSearch', () => {
   })
 
   it('allows overriding the aria-label of the search input', () => {
-    const { inputWrapper } = renderFiltersSearch(
-      'filters-search-input',
-      undefined,
-      'Search in filter values',
-    )
+    const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
+      FiltersSearch: { input: 'Search in filter values' },
+    })
 
     expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
   })
 
-  it('resolves the search input aria-label from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ FiltersSearch: { input: 'Buscar en los valores de los filtros' } })
-    const { inputWrapper } = renderFiltersSearch()
+  it('resolves the search input aria-label from the global configuration', () => {
+    const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
+      FiltersSearch: { input: 'Buscar en los valores de los filtros' },
+    })
 
     expect(inputWrapper.attributes('aria-label')).toBe('Buscar en los valores de los filtros')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ FiltersSearch: { input: 'Buscar en los valores de los filtros' } })
-    const { inputWrapper } = renderFiltersSearch(
-      'filters-search-input',
-      undefined,
-      'Search in filter values',
-    )
-
-    expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
   })
 
   it('sifts provided filters with the input query', async () => {

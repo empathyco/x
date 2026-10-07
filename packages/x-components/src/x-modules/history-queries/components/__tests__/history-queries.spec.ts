@@ -1,9 +1,10 @@
 import type { HistoryQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
+import type { AriaLabels } from '../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import {
   createHistoryQueries,
@@ -11,9 +12,17 @@ import {
 } from '../../../../__stubs__/history-queries-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueries from '../history-queries.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 function renderHistoryQueries({
   historyQueries = createHistoryQueries('chocolate', 'milk chocolate', 'chocolate milk'),
@@ -32,6 +41,7 @@ function renderHistoryQueries({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(),
       },
       props: {
         maxItemsToRender,

@@ -5,7 +5,7 @@
     :disabled="isHistoryQueriesEmpty"
     :events="clearHistoryQueriesEvents"
     data-test="clear-history-queries"
-    :aria-label="ariaLabel"
+    :aria-label="ariaLabels!.button"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
     <slot>✕</slot>
@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
+import type { AriaLabels } from '../../../types'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
 import { useState } from '../../../composables/use-state'
 import { historyQueriesXModule } from '../x-module'
@@ -34,19 +34,8 @@ export default defineComponent({
   components: {
     BaseEventButton,
   },
-  props: {
-    /**
-     * Accessible label for the clear history queries button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to `Clear all`.
-     */
-    ariaLabel: {
-      type: String,
-    },
-  },
-  setup(props) {
-    const ariaLabel = computed(
-      () => props.ariaLabel ?? ariaLabels.value.ClearHistoryQueries!.button,
-    )
+  setup() {
+    const { ClearHistoryQueries: ariaLabels } = inject('accesibility') as AriaLabels
 
     /**
      * The whole history queries.
@@ -86,7 +75,7 @@ export default defineComponent({
     }
 
     return {
-      ariaLabel,
+      ariaLabels,
       dynamicClasses,
       clearHistoryQueriesEvents,
       isHistoryQueriesEmpty,

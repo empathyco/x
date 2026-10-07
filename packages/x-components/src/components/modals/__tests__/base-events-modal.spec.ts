@@ -1,12 +1,21 @@
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import type { PropsWithType } from '../../../utils/types'
 import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
+import { mergeAccesibilityLabels } from '../../../utils'
 import BaseEventsModal from '../base-events-modal.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 class MockResizeObserver implements ResizeObserver {
   observe = vi.fn()
@@ -44,7 +53,7 @@ function mountBaseEventsModal({
     slots: {
       default: defaultSlot,
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

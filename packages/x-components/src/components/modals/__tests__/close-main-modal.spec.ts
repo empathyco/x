@@ -1,11 +1,20 @@
 import type { AnyFunction } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
+import { mergeAccesibilityLabels } from '../../../utils'
 import CloseMainModal from '../close-main-modal.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 /**
  * Renders the {@link CloseMainModal} with the provided options.
@@ -27,7 +36,7 @@ function renderCloseMainModal({
     template,
   })
   const wrapper = mount(containerWrapper, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

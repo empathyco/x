@@ -13,7 +13,7 @@
         type="search"
         class="x-filters-search__input xds:input"
         data-test="filters-search-input"
-        :aria-label="ariaLabel"
+        :aria-label="ariaLabels!.input"
         @input="setQuery(($event?.target as HTMLInputElement)?.value)"
       />
     </slot>
@@ -28,10 +28,10 @@
 <script lang="ts">
 import type { Filter } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../../../types'
 import type { DebouncedFunction, VueCSSClasses } from '../../../../utils/types'
 import { isBooleanFilter } from '@empathyco/x-types'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, provide, ref, watch } from 'vue'
+import { computed, defineComponent, inject, provide, ref, watch } from 'vue'
 import { debounce } from '../../../../utils/debounce'
 import { normalizeString } from '../../../../utils/normalize'
 import { useFiltersInjection } from '../../composables/use-filters-injection'
@@ -69,20 +69,11 @@ export default defineComponent({
       type: Number,
       default: 200,
     },
-
-    /**
-     * Accessible label for the search input. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `search into the filter values`.
-     */
-    ariaLabel: {
-      type: String,
-    },
   },
   setup(props) {
     const renderedFilters = useFiltersInjection(props)
 
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.FiltersSearch!.input)
+    const { FiltersSearch: ariaLabels } = inject('accesibility') as AriaLabels
 
     const query = ref('')
     let setQueryDebounced: DebouncedFunction<[string]>
@@ -146,7 +137,7 @@ export default defineComponent({
     }
 
     return {
-      ariaLabel,
+      ariaLabels,
       clearQuery,
       setQuery,
       cssClasses,

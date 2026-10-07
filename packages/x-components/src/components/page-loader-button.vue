@@ -17,7 +17,7 @@
         :class="buttonClasses"
         :events="events"
         data-test="load-content"
-        :aria-label="ariaLabel"
+        :aria-label="ariaLabels!.button"
       >
         <!-- @slot Button content with a text, an icon or both -->
         <slot name="buttonContent">Load</slot>
@@ -28,10 +28,10 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../types'
 import type { VueCSSClasses } from '../utils/types'
 import type { XEventsTypes } from '../wiring'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import { use$x } from '../composables'
 import BaseEventButton from './base-event-button.vue'
 
@@ -46,13 +46,6 @@ export default defineComponent({
   name: 'PageLoaderButton',
   components: { BaseEventButton },
   props: {
-    /**
-     * Accessible label for the load more button. Resolves from the global configuration of
-     * `useAriaLabels()` when not provided, falling back to `Load`.
-     */
-    ariaLabel: {
-      type: String,
-    },
     /**
      * CSS classes to customize the loader button.
      *
@@ -72,7 +65,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.PageLoaderButton!.button)
+    const { PageLoaderButton: ariaLabels } = inject('accesibility') as AriaLabels
 
     const $x = use$x()
     const resultsLength = computed(() => $x.results.length)
@@ -89,7 +82,7 @@ export default defineComponent({
     })
 
     return {
-      ariaLabel,
+      ariaLabels,
       resultsLength,
       totalResults,
       events,

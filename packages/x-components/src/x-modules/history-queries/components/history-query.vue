@@ -27,7 +27,7 @@
       class="x-history-query__remove xds:suggestion-group-button"
       :class="removeButtonClass"
       :history-query="suggestion"
-      :aria-label="removeAriaLabel"
+      :aria-label="ariaLabels!.removeButton"
       data-test="remove-history-query"
     >
       <!--
@@ -42,9 +42,9 @@
 <script lang="ts">
 import type { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../../types'
 import type { XEventsTypes } from '../../../wiring/events.types'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
 import { useGetter } from '../../../composables/use-getter'
 import { historyQueriesXModule } from '../x-module'
@@ -75,19 +75,10 @@ export default defineComponent({
     removeButtonClass: String,
     /** Class inherited by content element. */
     suggestionClass: String,
-    /**
-     * Accessible label for the remove history query button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to `Remove`.
-     */
-    removeAriaLabel: {
-      type: String,
-    },
   },
   emits: ['click'],
   setup(props) {
-    const removeAriaLabel = computed(
-      () => props.removeAriaLabel ?? ariaLabels.value.HistoryQuery!.removeButton,
-    )
+    const { HistoryQuery: ariaLabels } = inject('accesibility') as AriaLabels
 
     /**
      * The normalized query of the history-queries module.
@@ -109,7 +100,7 @@ export default defineComponent({
     )
 
     return {
-      removeAriaLabel,
+      ariaLabels,
       query,
       suggestionSelectedEvents,
     }

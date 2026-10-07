@@ -6,7 +6,7 @@
     :animation="animation"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
-    :aria-label="ariaLabel"
+    :aria-label="ariaLabels!.dropdown"
     @update:model-value="emitUserClickedASort"
   >
     <template #toggle="{ isOpen, item }">
@@ -34,9 +34,9 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
+import type { AriaLabels } from '../../types'
 import type { XEvent } from '../../wiring/index'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { defineComponent, inject, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import BaseDropdown from '../base-dropdown.vue'
 
@@ -50,14 +50,6 @@ export default defineComponent({
   props: {
     /** The transition to use for opening and closing the dropdown. */
     animation: [String, Object] as PropType<string | Component>,
-    /**
-     * Accessible label for the sorting dropdown. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `Select sorting`.
-     */
-    ariaLabel: {
-      type: String,
-    },
     /** The list of possible sort values. */
     items: {
       type: Array as PropType<Sort[]>,
@@ -81,7 +73,7 @@ export default defineComponent({
     const $x = use$x()
     const rootRef = ref<typeof BaseDropdown>()
 
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.SortDropdown!.dropdown)
+    const { SortDropdown: ariaLabels } = inject('accesibility') as AriaLabels
 
     watch(
       () => props.selectedSort,
@@ -105,7 +97,7 @@ export default defineComponent({
     }
 
     return {
-      ariaLabel,
+      ariaLabels,
       emitUserClickedASort,
       rootRef,
     }

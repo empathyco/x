@@ -37,7 +37,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-min"
-          :aria-label="minAriaLabel"
+          :aria-label="ariaLabels!.min"
           @change="setMin(($event.target as HTMLInputElement).value)"
         />
 
@@ -50,7 +50,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-max"
-          :aria-label="maxAriaLabel"
+          :aria-label="ariaLabels!.max"
           @change="setMax(($event.target as HTMLInputElement).value)"
         />
 
@@ -79,8 +79,8 @@
 <script lang="ts">
 import type { SliderFilter as SliderFilterModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, ref, watch } from 'vue'
+import type { AriaLabels } from '../../../../types'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
@@ -127,34 +127,12 @@ export default defineComponent({
      * @public
      */
     isInstant: Boolean,
-    /**
-     * Accessible label for the minimum value input. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `minimum amount`.
-     *
-     * @public
-     */
-    minAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the maximum value input. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `maximum amount`.
-     *
-     * @public
-     */
-    maxAriaLabel: {
-      type: String,
-    },
   },
 
   setup(props) {
     const $x = use$x()
 
-    const minAriaLabel = computed(() => props.minAriaLabel ?? ariaLabels.value.SliderFilter!.min)
-
-    const maxAriaLabel = computed(() => props.maxAriaLabel ?? ariaLabels.value.SliderFilter!.max)
+    const { SliderFilter: ariaLabels } = inject('accesibility') as AriaLabels
 
     /**
      * Current selected minimum and maximum values.
@@ -317,6 +295,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       selectedRange,
       setMin,
       setMax,
@@ -324,8 +303,6 @@ export default defineComponent({
       clearValues,
       hasError,
       threshold,
-      minAriaLabel,
-      maxAriaLabel,
     }
   },
 })

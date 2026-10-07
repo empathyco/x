@@ -30,7 +30,7 @@
             v-if="isTitleOverflowing"
             class="x-ai-carousel-title-button"
             data-test="ai-carousel-title-button"
-            :aria-label="titleExpanded ? collapseAriaLabel : expandAriaLabel"
+            :aria-label="titleExpanded ? ariaLabels!.collapse : ariaLabels!.expand"
           >
             <ChevronDownIcon
               class="x-ai-carousel-title-button-icon"
@@ -130,9 +130,9 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../types'
 import { useResizeObserver } from '@vueuse/core'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, inject, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -165,20 +165,6 @@ export default defineComponent({
   props: {
     /* The title text displayed */
     title: String,
-    /**
-     * Accessible label for the title toggle button when the title is collapsed. Resolves from
-     * the global configuration of `useAriaLabels()` when not provided, falling back to `Expand`.
-     */
-    expandAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the title toggle button when the title is expanded. Resolves from the
-     * global configuration of `useAriaLabels()` when not provided, falling back to `Collapse`.
-     */
-    collapseAriaLabel: {
-      type: String,
-    },
     /* The classes added to the sliding panel. */
     slidingPanelClasses: String,
     /* The classes added to the sliding panel container. */
@@ -196,13 +182,7 @@ export default defineComponent({
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
-    const expandAriaLabel = computed(
-      () => props.expandAriaLabel ?? ariaLabels.value.AICarousel!.expand,
-    )
-
-    const collapseAriaLabel = computed(
-      () => props.collapseAriaLabel ?? ariaLabels.value.AICarousel!.collapse,
-    )
+    const { AICarousel: ariaLabels } = inject('accesibility') as AriaLabels
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)
@@ -253,9 +233,8 @@ export default defineComponent({
     useResizeObserver(titleRef, updateTitleOverflow)
 
     return {
-      collapseAriaLabel,
+      ariaLabels,
       emptyTaggingRequest,
-      expandAriaLabel,
       isTitleOverflowing,
       queries,
       query,

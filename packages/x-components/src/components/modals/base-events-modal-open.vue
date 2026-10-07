@@ -3,7 +3,7 @@
     :events="events"
     class="x-events-modal-open-button xds:button"
     data-test="open-modal"
-    :aria-label="ariaLabel"
+    :aria-label="ariaLabels!.button"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -12,10 +12,10 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../types'
 import type { PropsWithType } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring/events.types'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import BaseEventButton from '../base-event-button.vue'
 
 /**
@@ -38,23 +38,14 @@ export default defineComponent({
       type: String as PropType<PropsWithType<XEventsTypes, void>>,
       default: 'UserClickedOpenEventsModal',
     },
-    /**
-     * Accessible label for the open modal button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to `Open`.
-     */
-    ariaLabel: {
-      type: String,
-    },
   },
   setup(props) {
     const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }))
-    const ariaLabel = computed(
-      () => props.ariaLabel ?? ariaLabels.value.BaseEventsModalOpen!.button,
-    )
+    const { BaseEventsModalOpen: ariaLabels } = inject('accesibility') as AriaLabels
 
     return {
+      ariaLabels,
       events,
-      ariaLabel,
     }
   },
 })

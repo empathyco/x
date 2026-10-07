@@ -1,20 +1,31 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
+import type { AriaLabels } from '../../../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import { installNewXPlugin } from '../../../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins'
+import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import ClearHistoryQueries from '../clear-history-queries.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
 
-function render() {
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
+
+function render(ariaLabels: AriaLabels = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
   const wrapper = mount(ClearHistoryQueries, {
-    global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] },
+    global: {
+      plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+      provide: ariaProvide(ariaLabels),
+    },
   })
 
   return {
@@ -24,10 +35,6 @@ function render() {
 }
 
 describe('testing ClearHistoryQueries component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
-
   it('is disabled if there are not history queries', async () => {
     const { wrapper, store } = render()
 
@@ -83,30 +90,16 @@ describe('testing ClearHistoryQueries component', () => {
     expect(wrapper.attributes('aria-label')).toBe('Clear all')
   })
 
-  it('allows overriding the aria-label of the button', async () => {
-    const { wrapper } = render()
-
-    await wrapper.setProps({ ariaLabel: 'Clear all history queries' })
-    await nextTick()
+  it('allows overriding the aria-label of the button', () => {
+    const { wrapper } = render({ ClearHistoryQueries: { button: 'Clear all history queries' } })
 
     expect(wrapper.attributes('aria-label')).toBe('Clear all history queries')
   })
 
-  it('resolves the aria-label of the button from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ ClearHistoryQueries: { button: 'Borrar todo' } })
-    const { wrapper } = render()
+  it('resolves the aria-label of the button from the global configuration', () => {
+    const { wrapper } = render({ ClearHistoryQueries: { button: 'Borrar todo' } })
 
     expect(wrapper.attributes('aria-label')).toBe('Borrar todo')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
-    useAriaLabels().set({ ClearHistoryQueries: { button: 'Borrar todo' } })
-    const { wrapper } = render()
-
-    await wrapper.setProps({ ariaLabel: 'Clear all history queries' })
-    await nextTick()
-
-    expect(wrapper.attributes('aria-label')).toBe('Clear all history queries')
   })
 
   it('has an slot rendering a message by default', () => {
@@ -119,7 +112,10 @@ describe('testing ClearHistoryQueries component', () => {
     const store = new Store<DeepPartial<RootXStoreState>>({})
 
     const wrapper = mount(ClearHistoryQueries, {
-      global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] },
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(),
+      },
       slots: {
         default: {
           template: '<span class="x-clear-history-queries__text">Clear</span>',

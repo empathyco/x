@@ -1,5 +1,5 @@
 <template>
-  <nav id="facet-nav" :aria-label="ariaLabel">
+  <nav id="facet-nav" :aria-label="ariaLabels!.root">
     <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
       <li
         v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
@@ -59,10 +59,10 @@
 import type { Facet } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../../../types'
 import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
 import { AnimationProp } from '../../../../types'
 import { toKebabCase } from '../../../../utils/string'
@@ -111,20 +111,12 @@ export default defineComponent({
      * The component will render category and color facets.
      */
     renderableFacets: String,
-    /**
-     * Accessible label for the navigation. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `Facets`.
-     */
-    ariaLabel: {
-      type: String,
-    },
   },
   setup(props, { slots }) {
     const { selectedFiltersByFacet } = useFacets(props)
     const { facets } = useGetter('facets')
 
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.Facets!.root)
+    const { Facets: ariaLabels } = inject('accesibility') as AriaLabels
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by
@@ -202,7 +194,7 @@ export default defineComponent({
     }
 
     return {
-      ariaLabel,
+      ariaLabels,
       selectedFiltersByFacet,
       hasFacets,
       mappedFacets,

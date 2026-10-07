@@ -1,17 +1,25 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { getResultsStub } from '../../__stubs__/index'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../composables/use-aria-labels'
 import { XPlugin } from '../../plugins/index'
+import { mergeAccesibilityLabels } from '../../utils'
 import PageSelector from '../page-selector.vue'
 
 interface PageItem {
   value: number | string
   isSelected: boolean
+}
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
 }
 
 function renderPageSelector({
@@ -22,15 +30,15 @@ function renderPageSelector({
   slots,
   ariaLabels,
 }: RenderPageSelectorOptions = {}): RenderPageSelectorAPI {
+  const mergedAriaLabels = ariaProvide(ariaLabels).accesibility
   const wrapper = mount(PageSelector, {
     props: {
       totalPages: Math.round(totalResults / 24),
       currentPage,
       range: 2,
       scrollTarget: 'dummy-target',
-      ...ariaLabels,
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: { accesibility: mergedAriaLabels } },
     slots,
     data() {
       return {
@@ -45,6 +53,7 @@ function renderPageSelector({
   return {
     wrapper,
     emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
+    mergedAriaLabels,
   }
 }
 
@@ -55,7 +64,6 @@ describe('testing PageSelector component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    resetAriaLabels()
   })
 
   it('renders a page selector component with default slots', () => {
@@ -91,12 +99,14 @@ describe('testing PageSelector component', () => {
     )
   })
 
-  it('allows overriding the aria-labels with the dedicated props', () => {
+  it('allows overriding the aria-labels through the global configuration', () => {
     const { wrapper } = renderPageSelector({
       ariaLabels: {
-        paginationAriaLabel: 'Page navigation',
-        prevPageAriaLabel: 'Go to previous page',
-        nextPageAriaLabel: 'Go to next page',
+        PageSelector: {
+          pagination: 'Page navigation',
+          prevPage: 'Go to previous page',
+          nextPage: 'Go to next page',
+        },
       },
     })
 
@@ -123,15 +133,16 @@ describe('testing PageSelector component', () => {
     )
   })
 
-  it('resolves the aria labels from the global configuration when the props are absent', () => {
-    useAriaLabels().set({
-      PageSelector: {
-        pagination: 'Paginación',
-        prevPage: 'Página anterior',
-        nextPage: 'Página siguiente',
+  it('resolves the aria labels from the global configuration', () => {
+    const { wrapper } = renderPageSelector({
+      ariaLabels: {
+        PageSelector: {
+          pagination: 'Paginación',
+          prevPage: 'Página anterior',
+          nextPage: 'Página siguiente',
+        },
       },
     })
-    const { wrapper } = renderPageSelector()
 
     expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Paginación')
     expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
@@ -142,44 +153,14 @@ describe('testing PageSelector component', () => {
     )
   })
 
-  it('prefers the explicit props over the global configuration', () => {
-    useAriaLabels().set({
-      PageSelector: {
-        pagination: 'Paginación',
-        prevPage: 'Página anterior',
-        nextPage: 'Página siguiente',
-        numberPage: 'Página {page}',
-      },
-    })
-    const { wrapper } = renderPageSelector({
-      ariaLabels: {
-        paginationAriaLabel: 'Page navigation',
-        prevPageAriaLabel: 'Go to previous page',
-        nextPageAriaLabel: 'Go to next page',
-        numberPageAriaLabel: page => `Página custom ${page}`,
-      },
-    })
-
-    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Page navigation')
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
-      'Go to previous page',
-    )
-    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
-      'Go to next page',
-    )
-    expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
-      'Página custom 1',
-    )
-  })
-
-  it('applies the global numberPage template per page and updates it at runtime without re-mount', async () => {
-    const { wrapper } = renderPageSelector()
+  it('applies the global numberPage function per page and updates it at runtime without re-mount', async () => {
+    const { wrapper, mergedAriaLabels } = renderPageSelector()
 
     expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
       'Page 1',
     )
 
-    useAriaLabels().set({ PageSelector: { numberPage: 'Página {page}' } })
+    mergedAriaLabels.PageSelector!.numberPage = (page: number | string) => `Página ${page}`
     await nextTick()
 
     expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
@@ -262,13 +243,8 @@ interface RenderPageSelectorOptions {
   currentPage?: number
   /** Scoped slots to be passed to the mount function. */
   slots?: Record<string, string>
-  /** Aria-label overrides for the pagination nav and the prev/next buttons. */
-  ariaLabels?: {
-    paginationAriaLabel?: string
-    prevPageAriaLabel?: string
-    nextPageAriaLabel?: string
-    numberPageAriaLabel?: (page: number | string) => string
-  }
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 /**
@@ -279,4 +255,6 @@ interface RenderPageSelectorAPI {
   wrapper: VueWrapper
   /* A vi spy of the X emit method. */
   emitSpy: ReturnType<typeof vi.spyOn>
+  /** The full merged aria labels configuration provided to the component. */
+  mergedAriaLabels: AriaLabels
 }

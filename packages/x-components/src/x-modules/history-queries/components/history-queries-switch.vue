@@ -1,11 +1,15 @@
 <template>
-  <BaseSwitch :model-value="isEnabled" :aria-label="ariaLabel" @update:model-value="toggle" />
+  <BaseSwitch
+    :model-value="isEnabled"
+    :aria-label="ariaLabels!.root"
+    @update:model-value="toggle"
+  />
 </template>
 
 <script lang="ts">
 import type { HistoryQuery } from '@empathyco/x-types'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import type { AriaLabels } from '../../../types'
+import { computed, defineComponent, inject } from 'vue'
 import BaseSwitch from '../../../components/base-switch.vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
@@ -24,17 +28,8 @@ export default defineComponent({
   components: {
     BaseSwitch,
   },
-  props: {
-    /**
-     * Accessible label for the history queries switch. Resolves from the global configuration of
-     * `useAriaLabels()` when not provided, falling back to `Queries' history`.
-     */
-    ariaLabel: {
-      type: String,
-    },
-  },
-  setup(props) {
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.HistoryQueriesSwitch!.root)
+  setup() {
+    const { HistoryQueriesSwitch: ariaLabels } = inject('accesibility') as AriaLabels
 
     const $x = use$x()
 
@@ -68,7 +63,7 @@ export default defineComponent({
     }
 
     return {
-      ariaLabel,
+      ariaLabels,
       toggle,
       isEnabled,
     }

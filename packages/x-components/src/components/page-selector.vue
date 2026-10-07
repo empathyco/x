@@ -1,11 +1,11 @@
 <template>
-  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="paginationAriaLabel">
+  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="ariaLabels!.pagination">
     <button
       class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
-      :aria-label="prevPageAriaLabel"
+      :aria-label="ariaLabels!.prevPage"
       :aria-disabled="currentPage === 1"
       @click="selectPage(currentPage - 1)"
     >
@@ -24,7 +24,7 @@
         },
       ]"
       :data-test="`page-button-${page.value}`"
-      :aria-label="numberPageAriaLabel(page.value)"
+      :aria-label="ariaLabels!.numberPage!(page.value)"
       :aria-current="page.isSelected ? 'page' : undefined"
       @click="selectPage(page.value)"
     >
@@ -38,7 +38,7 @@
       :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
-      :aria-label="nextPageAriaLabel"
+      :aria-label="ariaLabels!.nextPage"
       :aria-disabled="currentPage === totalPages"
       @click="selectPage(currentPage + 1)"
     >
@@ -50,8 +50,8 @@
 <script lang="ts">
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
-import { ariaLabels, formatAriaLabelTemplate } from '@x/composables/use-aria-labels'
-import { computed, defineComponent } from 'vue'
+import type { AriaLabels } from '../types'
+import { computed, defineComponent, inject } from 'vue'
 import { useXBus } from '../composables'
 
 interface PageItem {
@@ -100,39 +100,6 @@ export default defineComponent({
       default: () => [],
     },
     /**
-     * Accessible label for the next page button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `Next page`.
-     */
-    nextPageAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the pagination navigation element. Resolves from the
-     * global configuration of `useAriaLabels()` when not provided, falling back
-     * to `Pagination`.
-     */
-    paginationAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the previous page button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `Previous page`.
-     */
-    prevPageAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the page number button. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided — its `numberPage`
-     * entry is a template string whose `{page}` token is substituted per page —
-     * falling back to `Page {page}`.
-     */
-    numberPageAriaLabel: {
-      type: Function as PropType<(page: number | string) => string>,
-    },
-    /**
      * The number of pages to show before and after the current page.
      */
     range: {
@@ -157,24 +124,7 @@ export default defineComponent({
   setup(props) {
     const bus = useXBus()
 
-    const paginationAriaLabel = computed(
-      () => props.paginationAriaLabel ?? ariaLabels.value.PageSelector!.pagination,
-    )
-
-    const prevPageAriaLabel = computed(
-      () => props.prevPageAriaLabel ?? ariaLabels.value.PageSelector!.prevPage,
-    )
-
-    const nextPageAriaLabel = computed(
-      () => props.nextPageAriaLabel ?? ariaLabels.value.PageSelector!.nextPage,
-    )
-
-    const numberPageAriaLabel = computed(
-      () => (page: number | string) =>
-        props.numberPageAriaLabel
-          ? props.numberPageAriaLabel(page)
-          : formatAriaLabelTemplate(ariaLabels.value.PageSelector!.numberPage ?? '', { page }),
-    )
+    const { PageSelector: ariaLabels } = inject('accesibility') as AriaLabels
 
     const visiblePages = computed(() => {
       const start = Math.max(props.currentPage - props.range, 1)
@@ -224,12 +174,9 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       visiblePages,
       selectPage,
-      paginationAriaLabel,
-      prevPageAriaLabel,
-      nextPageAriaLabel,
-      numberPageAriaLabel,
     }
   },
 })

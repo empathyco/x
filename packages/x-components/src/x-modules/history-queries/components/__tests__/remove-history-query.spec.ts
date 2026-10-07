@@ -1,10 +1,19 @@
 import type { HistoryQuery } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import { reactive } from 'vue'
 import { installNewXPlugin } from '../../../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/index'
+import { mergeAccesibilityLabels } from '../../../../utils'
 import RemoveHistoryQuery from '../remove-history-query.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 describe('testing RemoveHistoryQuery component', () => {
   const historyQuery: HistoryQuery = {
@@ -12,10 +21,6 @@ describe('testing RemoveHistoryQuery component', () => {
     query: 'Saltiquinos',
     timestamp: 778394,
   }
-
-  beforeEach(() => {
-    resetAriaLabels()
-  })
 
   it('emits UserPressedRemoveHistoryQuery when it is clicked', async () => {
     const listener = vi.fn()
@@ -26,6 +31,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
     XPlugin.bus.on('UserPressedRemoveHistoryQuery', true).subscribe(listener)
@@ -51,55 +57,39 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
 
     expect(removeHistoryQuery.attributes('aria-label')).toBe('remove')
   })
 
-  it('allows overriding the aria-label of the button', async () => {
+  it('allows overriding the aria-label of the button', () => {
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {
         historyQuery,
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide({ RemoveHistoryQuery: { button: 'Remove this query' } }),
       },
     })
-
-    await removeHistoryQuery.setProps({ ariaLabel: 'Remove this query' })
 
     expect(removeHistoryQuery.attributes('aria-label')).toBe('Remove this query')
   })
 
-  it('resolves the aria-label from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ RemoveHistoryQuery: { button: 'Eliminar consulta' } })
+  it('resolves the aria-label from the global configuration', () => {
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {
         historyQuery,
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide({ RemoveHistoryQuery: { button: 'Eliminar consulta' } }),
       },
     })
 
     expect(removeHistoryQuery.attributes('aria-label')).toBe('Eliminar consulta')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
-    useAriaLabels().set({ RemoveHistoryQuery: { button: 'Eliminar consulta' } })
-    const removeHistoryQuery = mount(RemoveHistoryQuery, {
-      props: {
-        historyQuery,
-      },
-      global: {
-        plugins: [installNewXPlugin()],
-      },
-    })
-
-    await removeHistoryQuery.setProps({ ariaLabel: 'Remove this query' })
-
-    expect(removeHistoryQuery.attributes('aria-label')).toBe('Remove this query')
   })
 
   it('has a default slot with a default message', () => {
@@ -109,6 +99,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
 
@@ -128,6 +119,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
 

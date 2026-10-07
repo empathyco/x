@@ -1,24 +1,34 @@
 import type { SliderFilter } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { createSliderFilter } from '../../../../../__stubs__/filters-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
-import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../../plugins'
+import { mergeAccesibilityLabels } from '../../../../../utils'
 import SliderFilterComponent from '../slider-filter.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 function render({
   filter = createSliderFilter('price'),
   isInstant = false,
+  ariaLabels,
 }: {
   filter?: SliderFilter
   isInstant?: boolean
+  ariaLabels?: AriaLabels
 } = {}) {
   const wrapper = mount(SliderFilterComponent, {
     props: { filter, isInstant },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
   })
 
   const minInputWrapper = wrapper.find(getDataTestSelector('slider-filter-input-min'))
@@ -44,10 +54,6 @@ function render({
 }
 
 describe('testing SliderFilter component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
-
   it('should be an XComponent that belongs to the facets', () => {
     const { wrapper } = render()
 
@@ -71,33 +77,22 @@ describe('testing SliderFilter component', () => {
     expect(maxInputWrapper.attributes('aria-label')).toBe('maximum amount')
   })
 
-  it('should allow overriding the aria-labels of the min and max inputs', async () => {
-    const { wrapper, minInputWrapper, maxInputWrapper } = render()
-
-    await wrapper.setProps({ minAriaLabel: 'Min price', maxAriaLabel: 'Max price' })
-    await nextTick()
+  it('should allow overriding the aria-labels of the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = render({
+      ariaLabels: { SliderFilter: { min: 'Min price', max: 'Max price' } },
+    })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
     expect(maxInputWrapper.attributes('aria-label')).toBe('Max price')
   })
 
-  it('should resolve the min and max input aria-labels from the global configuration when the props are absent', () => {
-    useAriaLabels().set({ SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } })
-    const { minInputWrapper, maxInputWrapper } = render()
+  it('should resolve the min and max input aria-labels from the global configuration', () => {
+    const { minInputWrapper, maxInputWrapper } = render({
+      ariaLabels: { SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
+    })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')
     expect(maxInputWrapper.attributes('aria-label')).toBe('cantidad máxima')
-  })
-
-  it('should prefer the explicit min/max ariaLabel props over the global configuration', async () => {
-    useAriaLabels().set({ SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } })
-    const { wrapper, minInputWrapper, maxInputWrapper } = render()
-
-    await wrapper.setProps({ minAriaLabel: 'Min price', maxAriaLabel: 'Max price' })
-    await nextTick()
-
-    expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
-    expect(maxInputWrapper.attributes('aria-label')).toBe('Max price')
   })
 
   it('should render the range limits when no range is selected', () => {

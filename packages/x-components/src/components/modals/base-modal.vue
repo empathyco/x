@@ -12,7 +12,7 @@
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
-        :aria-label="ariaLabel"
+        :aria-label="ariaLabels!.modal"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import type { AriaLabels } from '../../types'
+import { defineComponent, inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useDebounce } from '../../composables'
 import { AnimationProp } from '../../types'
 import { FOCUSABLE_SELECTORS, getTargetElement } from '../../utils'
@@ -52,14 +52,6 @@ export default defineComponent({
     open: {
       type: Boolean,
       required: true,
-    },
-    /**
-     * Accessible label for the modal content. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `Base modal content`.
-     */
-    ariaLabel: {
-      type: String,
     },
     /**
      * Determines if the focused element changes to one inside the modal when it opens. Either the
@@ -95,7 +87,7 @@ export default defineComponent({
   },
   emits: ['click:overlay', 'focusin:body'],
   setup(props, { emit }) {
-    const ariaLabel = computed(() => props.ariaLabel ?? ariaLabels.value.BaseModal!.modal)
+    const { BaseModal: ariaLabels } = inject('accesibility') as AriaLabels
 
     /** Reference to the modal element in the DOM. */
     const modalRef = ref<HTMLDivElement>()
@@ -254,7 +246,7 @@ export default defineComponent({
     })
 
     return {
-      ariaLabel,
+      ariaLabels,
       emitOverlayClicked,
       isWaitingForLeave,
       modalContentRef,

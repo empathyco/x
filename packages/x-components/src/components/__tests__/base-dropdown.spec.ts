@@ -1,11 +1,19 @@
+import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { getDataTestSelector } from '../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../composables/use-aria-labels'
+import { mergeAccesibilityLabels } from '../../utils'
 import BaseDropdown from '../base-dropdown.vue'
 
 type Key = 'End' | 'Home' | 'ArrowUp' | 'ArrowDown' | 'Enter' | 'Space' | 'Esc'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 function renderDropdown({
   template = `
@@ -18,7 +26,13 @@ function renderDropdown({
     </BaseDropdown>`,
   items = ['one', 'two', 'three'],
   initialValue = items[0],
-}: Partial<{ template?: string; items?: any[]; initialValue?: any }> = {}) {
+  ariaLabels,
+}: Partial<{
+  template?: string
+  items?: any[]
+  initialValue?: any
+  ariaLabels?: AriaLabels
+}> = {}) {
   const wrapper = mount(
     {
       template,
@@ -28,6 +42,7 @@ function renderDropdown({
     },
     {
       props: { items },
+      global: { provide: ariaProvide(ariaLabels) },
     },
   )
 
@@ -95,10 +110,6 @@ function renderDropdown({
 }
 
 describe('testing Dropdown component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
-
   it('does not render the list if it is collapsed', async () => {
     const { getDropdownToggle, clickToggleButton, isListVisible } = renderDropdown()
 
@@ -110,27 +121,12 @@ describe('testing Dropdown component', () => {
     expect(isListVisible()).toBeTruthy()
   })
 
-  it('renders the aria label on the toggle button from the global configuration when the prop is not provided', () => {
-    useAriaLabels().set({ BaseDropdown: { toggleButton: 'Filter selector' } })
-    const { getDropdownToggle } = renderDropdown()
-
-    expect(getDropdownToggle().attributes('aria-label')).toBe('Filter selector')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ BaseDropdown: { toggleButton: 'Filter selector' } })
+  it('renders the aria label on the toggle button from the global configuration', () => {
     const { getDropdownToggle } = renderDropdown({
-      template: `
-        <BaseDropdown :modelValue="value" :items="items" :ariaLabel="'Custom label'" @update:modelValue="val => value = val">
-          <template #item="{ item, isSelected, isHighlighted }">
-            <span>
-              {{ item && item.id ? item.id : item }}
-            </span>
-          </template>
-        </BaseDropdown>`,
+      ariaLabels: { BaseDropdown: { toggleButton: 'Filter selector' } },
     })
 
-    expect(getDropdownToggle().attributes('aria-label')).toBe('Custom label')
+    expect(getDropdownToggle().attributes('aria-label')).toBe('Filter selector')
   })
 
   it('renders the provided items', async () => {

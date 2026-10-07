@@ -1,8 +1,17 @@
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { reactive } from 'vue'
 import { getDataTestSelector } from '../../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
+import { mergeAccesibilityLabels } from '../../../utils'
 import BaseModal from '../base-modal.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 const observeMock = vi.fn()
 const unobserveMock = vi.fn()
@@ -27,7 +36,7 @@ window.ResizeObserver = MockResizeObserver as any
  * @param options.contentClass - contentClass option.
  * @param options.overlayClass - overlayClass option.
  * @param options.referenceSelector - referenceSelector option.
- * @param options.ariaLabel - ariaLabel option.
+ * @param options.ariaLabels - ariaLabels option.
  * @returns An API to test the component.
  */
 function mountBaseModal(options: MountBaseModalOptions = {}) {
@@ -38,7 +47,7 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
     contentClass = '',
     overlayClass = '',
     referenceSelector = undefined,
-    ariaLabel = undefined,
+    ariaLabels,
   } = options
   const wrapper = mount(
     {
@@ -50,22 +59,15 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
           :contentClass="contentClass"
           :overlayClass="overlayClass"
           :referenceSelector="referenceSelector"
-          :ariaLabel="ariaLabel"
         >
           <slot/>
         </BaseModal>`,
       components: { BaseModal },
-      props: [
-        'open',
-        'focusOnOpen',
-        'contentClass',
-        'overlayClass',
-        'referenceSelector',
-        'ariaLabel',
-      ],
+      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass', 'referenceSelector'],
     },
     {
-      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector, ariaLabel },
+      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector },
+      global: { provide: ariaProvide(ariaLabels) },
       slots: { default: defaultSlot },
     },
   )
@@ -96,7 +98,6 @@ describe('testing Base Modal  component', () => {
   beforeAll(() => vi.useFakeTimers())
   beforeEach(() => {
     vi.clearAllMocks()
-    resetAriaLabels()
   })
   afterAll(() => vi.useRealTimers())
 
@@ -116,23 +117,21 @@ describe('testing Base Modal  component', () => {
   })
 
   it('allows overriding the aria-label of the modal content', () => {
-    const { getModalContent } = mountBaseModal({ open: true, ariaLabel: 'Custom modal content' })
+    const { getModalContent } = mountBaseModal({
+      open: true,
+      ariaLabels: { BaseModal: { modal: 'Custom modal content' } },
+    })
 
     expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')
   })
 
-  it('resolves the aria-label of the modal content from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ BaseModal: { modal: 'Contenido del modal' } })
-    const { getModalContent } = mountBaseModal({ open: true })
+  it('resolves the aria-label of the modal content from the global configuration', () => {
+    const { getModalContent } = mountBaseModal({
+      open: true,
+      ariaLabels: { BaseModal: { modal: 'Contenido del modal' } },
+    })
 
     expect(getModalContent().attributes('aria-label')).toBe('Contenido del modal')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ BaseModal: { modal: 'Contenido del modal' } })
-    const { getModalContent } = mountBaseModal({ open: true, ariaLabel: 'Custom modal content' })
-
-    expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')
   })
 
   it("emits click:body event when clicking outside modal's content if it is opened", async () => {
@@ -270,6 +269,6 @@ interface MountBaseModalOptions {
   overlayClass?: string
   /** Reference selector to position the modal under an element. */
   referenceSelector?: string
-  /** Accessible label for the modal content. */
-  ariaLabel?: string
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }

@@ -1,25 +1,35 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { reactive } from 'vue'
 import { getResultsStub } from '../../__stubs__/index'
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../composables/use-aria-labels'
 import { XPlugin } from '../../plugins/index'
+import { mergeAccesibilityLabels } from '../../utils'
 import PageLoaderButton from '../page-loader-button.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 function renderPageLoaderButton({
   query = 'dress',
   results = getResultsStub(48),
   totalResults = 100,
   slots,
+  ariaLabels,
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
   const wrapper = mount(PageLoaderButton, {
     props: {
       buttonClasses: '',
       buttonEvents: {},
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
     slots,
     data() {
       return {
@@ -43,7 +53,6 @@ describe('testing PageLoaderButton component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    resetAriaLabels()
   })
 
   it('renders a page loader button component with default slots', () => {
@@ -75,35 +84,23 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe('Load')
   })
 
-  it('allows overriding the aria-label of the load button', async () => {
-    const { wrapper } = renderPageLoaderButton()
-
-    await wrapper.setProps({ ariaLabel: 'Load more results' })
-    await wrapper.vm.$nextTick()
+  it('allows overriding the aria-label of the load button', () => {
+    const { wrapper } = renderPageLoaderButton({
+      ariaLabels: { PageLoaderButton: { button: 'Load more results' } },
+    })
 
     expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
       'Load more results',
     )
   })
 
-  it('resolves the global map value when the prop is absent', () => {
-    useAriaLabels().set({ PageLoaderButton: { button: 'Cargar' } })
-    const { wrapper } = renderPageLoaderButton()
+  it('resolves the aria-label of the load button from the global configuration', () => {
+    const { wrapper } = renderPageLoaderButton({
+      ariaLabels: { PageLoaderButton: { button: 'Cargar' } },
+    })
 
     expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
       'Cargar',
-    )
-  })
-
-  it('prefers the explicit prop over the global map', async () => {
-    useAriaLabels().set({ PageLoaderButton: { button: 'Cargar' } })
-    const { wrapper } = renderPageLoaderButton()
-
-    await wrapper.setProps({ ariaLabel: 'Load more results' })
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
-      'Load more results',
     )
   })
 
@@ -170,6 +167,8 @@ interface RenderPageLoaderButtonOptions {
   totalResults?: number
   /** Scoped slots to be passed to the mount function. */
   slots?: Record<string, string>
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 /**

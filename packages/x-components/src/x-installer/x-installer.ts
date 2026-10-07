@@ -8,6 +8,7 @@ import { forEach, isFunction } from '@empathyco/x-utils'
 import { createApp, reactive } from 'vue'
 import { bus } from '../plugins/x-bus'
 import { XPlugin } from '../plugins/x-plugin'
+import { DEFAULT_ARIA_LABELS } from '../utils'
 import { BaseXAPI } from './api/base-api'
 
 declare global {
@@ -173,6 +174,7 @@ export class XInstaller {
       await this.installExtraPlugins(bus)
       this.api?.setBus(bus)
       this.app.mount(this.getMountingTarget(this.options.domElement))
+      this.app.provide('accesibility', DEFAULT_ARIA_LABELS)
 
       return {
         api: this.api,

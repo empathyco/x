@@ -3,25 +3,29 @@ import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper } from '@vue/test-utils'
 import type { Component } from 'vue'
 import type { RootXStoreState } from '../../../../../store/store.types'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
-import { resetAriaLabels, useAriaLabels } from '../../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../../plugins/x-plugin'
+import { mergeAccesibilityLabels } from '../../../../../utils'
 import { toKebabCase } from '../../../../../utils/string'
 import { facetsXModule } from '../../../x-module'
 import { resetXFacetsStateWith } from '../../__tests__/utils'
 import Facets from '../facets.vue'
 
-describe('testing Facets component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
+describe('testing Facets component', () => {
   it('is an XComponent', () => {
     const { wrapper } = renderFacetsComponent()
     expect(isXComponent(wrapper.vm)).toEqual(true)
@@ -44,9 +48,9 @@ describe('testing Facets component', () => {
     expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Facets')
   })
 
-  it('resolves the navigation aria-label from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ Facets: { root: 'Filtros' } })
+  it('resolves the navigation aria-label from the global configuration', () => {
     const { wrapper } = renderFacetsComponent({
+      ariaLabels: { Facets: { root: 'Filtros' } },
       facets: {
         color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
           createSimpleFilter('Red', false),
@@ -55,25 +59,6 @@ describe('testing Facets component', () => {
     })
 
     expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Filtros')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ Facets: { root: 'Filtros' } })
-    const { wrapper } = renderFacetsComponent({
-      template: `
-        <Facets ariaLabel="Custom facets label">
-          <template #default="{ facet, selectedFilters }">
-            <p data-test="default-slot-facet">{{ facet.label }}</p>
-          </template>
-        </Facets>`,
-      facets: {
-        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
-          createSimpleFilter('Red', false),
-        ]),
-      },
-    })
-
-    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Custom facets label')
   })
 
   it('does not render anything when facets are empty', () => {
@@ -319,7 +304,8 @@ function renderFacetsComponent({
               </span>
             </div>
           </template>
-       </Facets>`,
+        </Facets>`,
+  ariaLabels,
 }: FacetsRenderOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
@@ -335,6 +321,7 @@ function renderFacetsComponent({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })],
+        provide: ariaProvide(ariaLabels),
       },
       store,
       props: {
@@ -368,4 +355,6 @@ interface FacetsRenderOptions {
   facets?: Dictionary<Facet>
   renderableFacets?: string
   template?: string
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }

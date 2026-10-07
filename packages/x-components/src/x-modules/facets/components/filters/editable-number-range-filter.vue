@@ -35,7 +35,7 @@
         :class="inputsClass"
         :value="!isAnyRange ? min : null"
         data-test="range-min"
-        :aria-label="minAriaLabel"
+        :aria-label="ariaLabels!.min"
         @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
 
@@ -46,7 +46,7 @@
         :class="inputsClass"
         :value="max"
         data-test="range-max"
-        :aria-label="maxAriaLabel"
+        :aria-label="ariaLabels!.max"
         @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
       <!-- eslint-enable max-len -->
@@ -87,8 +87,8 @@ import type {
   RangeValue,
 } from '@empathyco/x-types'
 import type { PropType, Ref } from 'vue'
-import { ariaLabels } from '@x/composables/use-aria-labels'
-import { computed, defineComponent, ref, watch } from 'vue'
+import type { AriaLabels } from '../../../../types'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
 import { use$x } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
@@ -141,37 +141,11 @@ export default defineComponent({
     inputsClass: String,
     /** Class inherited by content element. */
     buttonsClass: String,
-    /**
-     * Accessible label for the minimum value input. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `minimum amount`.
-     *
-     * @public
-     */
-    minAriaLabel: {
-      type: String,
-    },
-    /**
-     * Accessible label for the maximum value input. Resolves from the global
-     * configuration of `useAriaLabels()` when not provided, falling back to
-     * `maximum amount`.
-     *
-     * @public
-     */
-    maxAriaLabel: {
-      type: String,
-    },
   },
   setup(props) {
     const $x = use$x()
 
-    const minAriaLabel = computed(
-      () => props.minAriaLabel ?? ariaLabels.value.EditableNumberRangeFilter!.min,
-    )
-
-    const maxAriaLabel = computed(
-      () => props.maxAriaLabel ?? ariaLabels.value.EditableNumberRangeFilter!.max,
-    )
+    const { EditableNumberRangeFilter: ariaLabels } = inject('accesibility') as AriaLabels
 
     /**
      * Component min value.
@@ -351,6 +325,7 @@ export default defineComponent({
     )
 
     return {
+      ariaLabels,
       cssClasses,
       min,
       max,
@@ -361,8 +336,6 @@ export default defineComponent({
       hasError,
       isAnyRange,
       renderClearButton,
-      minAriaLabel,
-      maxAriaLabel,
     }
   },
 })

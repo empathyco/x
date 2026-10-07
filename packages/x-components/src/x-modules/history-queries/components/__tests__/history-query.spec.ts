@@ -1,18 +1,26 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
+import type { AriaLabels } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
-import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/index'
+import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQuery from '../history-query.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
 
 function renderHistoryQuery({
   suggestion = createHistoryQuery({ query: 'milk' }),
@@ -21,7 +29,16 @@ function renderHistoryQuery({
   removeButtonClass = '',
   suggestionClass = '',
   wrapperComponentOptions = {},
-} = {}) {
+  ariaLabels,
+}: Partial<{
+  suggestion?: ReturnType<typeof createHistoryQuery>
+  query?: string
+  template?: string
+  removeButtonClass?: string
+  suggestionClass?: string
+  wrapperComponentOptions?: Record<string, any>
+  ariaLabels?: AriaLabels
+}> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(
@@ -34,6 +51,7 @@ function renderHistoryQuery({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(ariaLabels),
       },
       props: { suggestion, removeButtonClass, suggestionClass },
     },
@@ -54,7 +72,6 @@ function renderHistoryQuery({
 describe('testing history-query component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    resetAriaLabels()
   })
 
   it('is an XComponent that belongs to the history queries', () => {
@@ -78,20 +95,12 @@ describe('testing history-query component', () => {
     expect(getRemoveWrapper().attributes('aria-label')).toBe('Remove')
   })
 
-  it('resolves the remove button aria-label from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ HistoryQuery: { removeButton: 'Eliminar' } })
-    const { getRemoveWrapper } = renderHistoryQuery()
-
-    expect(getRemoveWrapper().attributes('aria-label')).toBe('Eliminar')
-  })
-
-  it('prefers the explicit removeAriaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ HistoryQuery: { removeButton: 'Eliminar' } })
+  it('resolves the remove button aria-label from the global configuration', () => {
     const { getRemoveWrapper } = renderHistoryQuery({
-      template: '<HistoryQuery v-bind="$attrs" removeAriaLabel="Quitar"/>',
+      ariaLabels: { HistoryQuery: { removeButton: 'Eliminar' } },
     })
 
-    expect(getRemoveWrapper().attributes('aria-label')).toBe('Quitar')
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Eliminar')
   })
 
   it('highlights the suggestion matching parts with the state query', async () => {

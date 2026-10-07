@@ -1,45 +1,60 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../store/store.types'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/x-plugin'
+import { mergeAccesibilityLabels } from '../../../utils'
 import { searchXModule } from '../../../x-modules/search/x-module'
 import SortDropdown from '../sort-dropdown.vue'
 
 const bus = new XDummyBus()
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
+
 function renderSortDropdown({
   template = `
-    <SortDropdown :items="items" :selectedSort="selectedSort" :ariaLabel="ariaLabel">
+    <SortDropdown :items="items" :selectedSort="selectedSort">
        <template #toggle="{ item }">
-         {{ item }}
-       </template>
-       <template #item="{ item }">
-         {{ item }}
-       </template>
+          {{ item }}
+        </template>
+        <template #item="{ item }">
+          {{ item }}
+        </template>
     </SortDropdown>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
-  ariaLabel = undefined,
-}: Partial<{ template?: string; items?: any[]; selectedSort?: any; ariaLabel?: string }> = {}) {
+  ariaLabels,
+}: Partial<{
+  template?: string
+  items?: any[]
+  selectedSort?: any
+  ariaLabels?: AriaLabels
+}> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const parentWrapper = mount(
     {
       template,
       components: { SortDropdown },
-      props: ['items', 'selectedSort', 'ariaLabel'],
+      props: ['items', 'selectedSort'],
     },
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)],
+        provide: ariaProvide(ariaLabels),
       },
       store,
-      props: { items, selectedSort, ariaLabel },
+      props: { items, selectedSort },
     },
   )
 
@@ -66,10 +81,6 @@ function renderSortDropdown({
 }
 
 describe('testing SortDropdown component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
-
   it('allows selecting one of the options of the dropdown', async () => {
     const {
       wrapper,
@@ -113,30 +124,19 @@ describe('testing SortDropdown component', () => {
     })
   })
 
-  it('renders the default aria-label on the toggle button', () => {
-    const { getToggleButton } = renderSortDropdown()
+  it('renders the default aria-label on the root element and an empty one on the toggle button', () => {
+    const { wrapper, getToggleButton } = renderSortDropdown()
 
-    expect(getToggleButton().attributes('aria-label')).toEqual('Select sorting')
+    expect(wrapper.attributes('aria-label')).toEqual('Select sorting')
+    expect(getToggleButton().attributes('aria-label')).toEqual('')
   })
 
-  it('allows overriding the aria-label of the toggle button', () => {
-    const { getToggleButton } = renderSortDropdown({ ariaLabel: 'Select the sort order' })
+  it('resolves the aria-label of the root element from the global configuration', () => {
+    const { wrapper } = renderSortDropdown({
+      ariaLabels: { SortDropdown: { dropdown: 'Selecciona el orden' } },
+    })
 
-    expect(getToggleButton().attributes('aria-label')).toEqual('Select the sort order')
-  })
-
-  it('resolves the aria-label of the toggle button from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ SortDropdown: { dropdown: 'Selecciona el orden' } })
-    const { getToggleButton } = renderSortDropdown()
-
-    expect(getToggleButton().attributes('aria-label')).toEqual('Selecciona el orden')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ SortDropdown: { dropdown: 'Selecciona el orden' } })
-    const { getToggleButton } = renderSortDropdown({ ariaLabel: 'Select the sort order' })
-
-    expect(getToggleButton().attributes('aria-label')).toEqual('Select the sort order')
+    expect(wrapper.attributes('aria-label')).toEqual('Selecciona el orden')
   })
 
   describe('slots', () => {

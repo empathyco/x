@@ -1,3 +1,4 @@
+export * from './accesibility'
 export * from './array'
 export * from './cancellable-promise'
 export * from './clone'

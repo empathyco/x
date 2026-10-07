@@ -1,14 +1,15 @@
 import type { AiSuggestionTagging } from '@empathyco/x-types'
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type DisplayEmitter from '../../../components/display-emitter.vue'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
-import { nextTick, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { getResultsStub } from '../../../__stubs__/results-stubs.factory'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import { AIStarIcon, DisplayClickProvider } from '../../../components'
 import { use$x, useState } from '../../../composables'
-import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
+import { mergeAccesibilityLabels } from '../../../utils'
 import AICarousel from './ai-carousel.vue'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -87,11 +88,23 @@ const propsStub = {
   group: true,
 }
 
-function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
+
+function render(
+  options: ComponentMountingOptions<typeof AICarousel> & { ariaLabels?: AriaLabels } = {},
+) {
+  const { ariaLabels, ...mountOptions } = options
   const wrapper = mount(AICarousel, {
     props: propsStub,
-    ...options,
+    ...mountOptions,
     global: {
+      ...mountOptions.global,
+      provide: ariaProvide(ariaLabels),
       stubs: {
         DisplayEmitter: {
           template: '<div v-bind="$attrs"><slot /></div>',
@@ -162,7 +175,6 @@ function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
 describe('ai-carousel component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    resetAriaLabels()
     vi.mocked(useState).mockImplementation(useStateMock)
     vi.mocked(use$x).mockImplementation(use$xMock as any)
   })
@@ -241,9 +253,9 @@ describe('ai-carousel component', () => {
     expect(sut.expandButton.attributes('aria-label')).toBe('Collapse')
   })
 
-  it('should allow overriding the expand/collapse aria-labels with the dedicated props', async () => {
+  it('should allow overriding the expand/collapse aria-labels through the global configuration', async () => {
     const sut = render({
-      props: { ...propsStub, expandAriaLabel: 'Show all', collapseAriaLabel: 'Show less' },
+      ariaLabels: { AICarousel: { expand: 'Show all', collapse: 'Show less' } },
     })
 
     // Mock title overflowing so the toggle button is rendered
@@ -260,9 +272,10 @@ describe('ai-carousel component', () => {
     expect(sut.expandButton.attributes('aria-label')).toBe('Show less')
   })
 
-  it('should resolve the expand/collapse aria-labels from the global configuration when the props are absent', async () => {
-    useAriaLabels().set({ AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } })
-    const sut = render()
+  it('should resolve the expand/collapse aria-labels from the global configuration', async () => {
+    const sut = render({
+      ariaLabels: { AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } },
+    })
 
     // Mock title overflowing so the toggle button is rendered
     const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
@@ -276,26 +289,6 @@ describe('ai-carousel component', () => {
     await sut.title.trigger('click')
     await nextTick()
     expect(sut.expandButton.attributes('aria-label')).toBe('Plegar')
-  })
-
-  it('should prefer the explicit expand/collapse props over the global configuration', async () => {
-    useAriaLabels().set({ AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } })
-    const sut = render({
-      props: { ...propsStub, expandAriaLabel: 'Show all', collapseAriaLabel: 'Show less' },
-    })
-
-    // Mock title overflowing so the toggle button is rendered
-    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
-    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
-    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
-    resizeCallback()
-    await nextTick()
-
-    expect(sut.expandButton.attributes('aria-label')).toBe('Show all')
-
-    await sut.title.trigger('click')
-    await nextTick()
-    expect(sut.expandButton.attributes('aria-label')).toBe('Show less')
   })
 
   it('should render grouped mode when group prop is true', () => {

@@ -2,28 +2,38 @@ import type { HistoryQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
+import type { AriaLabels } from '../../../../types'
 import { flushPromises, mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick, reactive } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQueries } from '../../../../__stubs__/index'
 import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
-import { resetAriaLabels, useAriaLabels } from '../../../../composables/use-aria-labels'
 import { XPlugin } from '../../../../plugins/x-plugin'
+import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueriesSwitch from '../history-queries-switch.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
 
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
+
 async function renderHistoryQueriesSwitch({
   historyQueries = createHistoryQueries('jacket', 'tshirt'),
   isEnabled = false,
+  ariaLabels,
 }: HistoryQueriesSwitchOptions = {}): Promise<HistoryQueriesSwitchAPI> {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(HistoryQueriesSwitch, {
     global: {
       plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+      provide: ariaProvide(ariaLabels),
     },
   })
 
@@ -36,10 +46,6 @@ async function renderHistoryQueriesSwitch({
 }
 
 describe('testing HistoryQueriesSwitch component', () => {
-  beforeEach(() => {
-    resetAriaLabels()
-  })
-
   it('is an XComponent which has an XModule', async () => {
     const { wrapper } = await renderHistoryQueriesSwitch()
 
@@ -54,29 +60,19 @@ describe('testing HistoryQueriesSwitch component', () => {
   })
 
   it('allows overriding the aria-label of the switch', async () => {
-    const { wrapper } = await renderHistoryQueriesSwitch()
-
-    await wrapper.setProps({ ariaLabel: 'History queries' })
-    await nextTick()
+    const { wrapper } = await renderHistoryQueriesSwitch({
+      ariaLabels: { HistoryQueriesSwitch: { root: 'History queries' } },
+    })
 
     expect(wrapper.attributes('aria-label')).toBe('History queries')
   })
 
-  it('resolves the aria-label of the switch from the global configuration when the prop is absent', async () => {
-    useAriaLabels().set({ HistoryQueriesSwitch: { root: 'Historial de consultas' } })
-    const { wrapper } = await renderHistoryQueriesSwitch()
+  it('resolves the aria-label of the switch from the global configuration', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch({
+      ariaLabels: { HistoryQueriesSwitch: { root: 'Historial de consultas' } },
+    })
 
     expect(wrapper.attributes('aria-label')).toBe('Historial de consultas')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', async () => {
-    useAriaLabels().set({ HistoryQueriesSwitch: { root: 'Historial de consultas' } })
-    const { wrapper } = await renderHistoryQueriesSwitch()
-
-    await wrapper.setProps({ ariaLabel: 'History queries' })
-    await nextTick()
-
-    expect(wrapper.attributes('aria-label')).toBe('History queries')
   })
 
   it('should emit proper events when toggling its state', async () => {
@@ -121,6 +117,8 @@ interface HistoryQueriesSwitchOptions {
   historyQueries?: HistoryQuery[]
   /** Initial state of the switch. */
   isEnabled?: boolean
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 /**

@@ -1,24 +1,32 @@
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
-import { resetAriaLabels, useAriaLabels } from '../../../composables/use-aria-labels'
 import { XPlugin } from '../../../plugins/x-plugin'
+import { mergeAccesibilityLabels } from '../../../utils'
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue'
+
+/**
+ * Builds the `accesibility` injection with the given overrides merged onto the default labels.
+ */
+function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
+  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
+}
+
 let bus = new XDummyBus()
 
 function render({
   selectedColumns,
   columns = [2, 4, 6],
-  ariaLabel,
+  ariaLabels,
   template = `
     <BaseColumnPickerDropdown
       @update:modelValue="col => selectedColumns = col"
       :columns="columns"
       :modelValue="selectedColumns"
-      :ariaLabel="ariaLabel"
     >
       <template #item="{ item, isSelected, isHighlighted }">
         <span v-if="isHighlighted">🟢</span>
@@ -26,7 +34,12 @@ function render({
         <span>{{ item }}</span>
       </template>
     </BaseColumnPickerDropdown>`,
-}: { selectedColumns?: number; columns?: number[]; ariaLabel?: string; template?: string } = {}) {
+}: {
+  selectedColumns?: number
+  columns?: number[]
+  ariaLabels?: AriaLabels
+  template?: string
+} = {}) {
   const mountComponent = (options: { selectedColumns?: number } = {}): VueWrapper => {
     return mount(
       {
@@ -37,13 +50,12 @@ function render({
           return {
             columns,
             selectedColumns: options.selectedColumns ?? selectedColumns,
-            ariaLabel,
           }
         },
         template,
       },
       {
-        global: { plugins: [installNewXPlugin({}, bus)] },
+        global: { plugins: [installNewXPlugin({}, bus)], provide: ariaProvide(ariaLabels) },
       },
     )
   }
@@ -77,7 +89,6 @@ function render({
 describe('testing BaseColumnPickerDropdown component', () => {
   beforeEach(() => {
     bus = new XDummyBus()
-    resetAriaLabels()
   })
 
   it('emits ColumnsNumberProvided event with the column number on init', () => {
@@ -109,30 +120,19 @@ describe('testing BaseColumnPickerDropdown component', () => {
     expect(toggleWrapper.text()).toEqual('2')
   })
 
-  it('renders the default aria-label on the dropdown toggle button', () => {
-    const { toggleWrapper } = render()
+  it('renders the default aria-label on the root element and an empty one on the toggle button', () => {
+    const { wrapper, toggleWrapper } = render()
 
-    expect(toggleWrapper.attributes('aria-label')).toEqual('Select number of columns')
+    expect(wrapper.attributes('aria-label')).toEqual('Select number of columns')
+    expect(toggleWrapper.attributes('aria-label')).toEqual('')
   })
 
-  it('allows overriding the aria-label of the dropdown toggle button', () => {
-    const { toggleWrapper } = render({ ariaLabel: 'Columns count' })
+  it('resolves the aria-label of the root element from the global configuration', () => {
+    const { wrapper } = render({
+      ariaLabels: { BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } },
+    })
 
-    expect(toggleWrapper.attributes('aria-label')).toEqual('Columns count')
-  })
-
-  it('resolves the aria-label of the dropdown toggle button from the global configuration when the prop is absent', () => {
-    useAriaLabels().set({ BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } })
-    const { toggleWrapper } = render()
-
-    expect(toggleWrapper.attributes('aria-label')).toEqual('Selecciona columnas')
-  })
-
-  it('prefers the explicit ariaLabel prop over the global configuration', () => {
-    useAriaLabels().set({ BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } })
-    const { toggleWrapper } = render({ ariaLabel: 'Columns count' })
-
-    expect(toggleWrapper.attributes('aria-label')).toEqual('Columns count')
+    expect(wrapper.attributes('aria-label')).toEqual('Selecciona columnas')
   })
 
   it('sets selectedColumns and emits "ColumnsNumberProvided" X Event with the column as payload on value change', async () => {
