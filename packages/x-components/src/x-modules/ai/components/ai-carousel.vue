@@ -42,9 +42,9 @@
 
       <AiGroupedCarousel
         v-if="group"
-        :class="slidingPanelClasses"
-        :scroll-container-class="slidingPanelContainerClasses"
-        :button-class="slidingPanelButtonsClasses"
+        :sliding-panel-classes="slidingPanelClasses"
+        :sliding-panel-container-classes="slidingPanelContainerClasses"
+        :sliding-panel-buttons-classes="slidingPanelButtonsClasses"
       >
         <template #sliding-panels-addons="{ arrivedState }">
           <slot name="sliding-panels-addons" :arrived-state="arrivedState" />

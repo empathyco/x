@@ -240,11 +240,12 @@ describe('ai-carousel component', () => {
     const sut = render({ props: { ...propsStub, group: true } })
 
     expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
-    expect(sut.aiGroupedCarousel.classes()).toContain(propsStub.slidingPanelClasses)
-    expect(sut.aiGroupedCarousel.attributes('scroll-container-class')).toBe(
+    expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
+    expect(sut.aiGroupedCarousel.props('slidingPanelClasses')).toBe(propsStub.slidingPanelClasses)
+    expect(sut.aiGroupedCarousel.props('slidingPanelContainerClasses')).toBe(
       propsStub.slidingPanelContainerClasses,
     )
-    expect(sut.aiGroupedCarousel.attributes('button-class')).toBe(
+    expect(sut.aiGroupedCarousel.props('slidingPanelButtonsClasses')).toBe(
       propsStub.slidingPanelButtonsClasses,
     )
   })
