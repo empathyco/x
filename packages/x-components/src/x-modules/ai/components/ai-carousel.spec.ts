@@ -4,12 +4,11 @@ import type DisplayEmitter from '../../../components/display-emitter.vue'
 import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
-import { nextTick, reactive, ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../__stubs__/results-stubs.factory'
-import { getDataTestSelector } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector } from '../../../__tests__/utils'
 import { AIStarIcon, DisplayClickProvider } from '../../../components'
 import { use$x, useState } from '../../../composables'
-import { mergeAccesibilityLabels } from '../../../utils'
 import AICarousel from './ai-carousel.vue'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -86,13 +85,6 @@ const propsStub = {
   slidingPanelContainerClasses: 'custom-container',
   slidingPanelButtonsClasses: 'custom-buttons',
   group: true,
-}
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
 }
 
 function render(
@@ -255,7 +247,7 @@ describe('ai-carousel component', () => {
 
   it('should allow overriding the expand/collapse aria-labels through the global configuration', async () => {
     const sut = render({
-      ariaLabels: { AICarousel: { expand: 'Show all', collapse: 'Show less' } },
+      ariaLabels: { aiCarousel: { expand: 'Show all', collapse: 'Show less' } },
     })
 
     // Mock title overflowing so the toggle button is rendered
@@ -274,7 +266,7 @@ describe('ai-carousel component', () => {
 
   it('should resolve the expand/collapse aria-labels from the global configuration', async () => {
     const sut = render({
-      ariaLabels: { AICarousel: { expand: 'Desplegar', collapse: 'Plegar' } },
+      ariaLabels: { aiCarousel: { expand: 'Desplegar', collapse: 'Plegar' } },
     })
 
     // Mock title overflowing so the toggle button is rendered

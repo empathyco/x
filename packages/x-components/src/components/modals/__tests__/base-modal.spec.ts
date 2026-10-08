@@ -1,17 +1,8 @@
 import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { reactive } from 'vue'
-import { getDataTestSelector } from '../../../__tests__/utils'
-import { mergeAccesibilityLabels } from '../../../utils'
+import { ariaProvide, getDataTestSelector } from '../../../__tests__/utils'
 import BaseModal from '../base-modal.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 const observeMock = vi.fn()
 const unobserveMock = vi.fn()
@@ -119,7 +110,7 @@ describe('testing Base Modal  component', () => {
   it('allows overriding the aria-label of the modal content', () => {
     const { getModalContent } = mountBaseModal({
       open: true,
-      ariaLabels: { BaseModal: { modal: 'Custom modal content' } },
+      ariaLabels: { baseModal: { modal: 'Custom modal content' } },
     })
 
     expect(getModalContent().attributes('aria-label')).toBe('Custom modal content')
@@ -128,7 +119,7 @@ describe('testing Base Modal  component', () => {
   it('resolves the aria-label of the modal content from the global configuration', () => {
     const { getModalContent } = mountBaseModal({
       open: true,
-      ariaLabels: { BaseModal: { modal: 'Contenido del modal' } },
+      ariaLabels: { baseModal: { modal: 'Contenido del modal' } },
     })
 
     expect(getModalContent().attributes('aria-label')).toBe('Contenido del modal')

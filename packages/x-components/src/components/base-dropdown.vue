@@ -15,7 +15,7 @@
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
       :aria-controls="listId"
-      :aria-label="ariaLabels!.toggleButton"
+      :aria-label="ariaLabels?.toggleButton"
       aria-autocomplete="none"
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
@@ -85,7 +85,7 @@ import type { Identifiable } from '@empathyco/x-types'
 import type { PropType } from 'vue'
 import type { AriaLabels } from '../types'
 import { computed, defineComponent, inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { AnimationProp } from '../types'
+import { ACCESSIBILITY_KEY, AnimationProp } from '../types'
 import { debounceFunction, getTargetElement, normalizeString } from '../utils'
 import { NoAnimation } from './animations'
 
@@ -145,7 +145,7 @@ export default defineComponent({
     /* Unique ID to identify the dropdown. */
     const listId = `x-dropdown-${dropdownCount++}`
 
-    const { BaseDropdown: ariaLabels } = inject('accesibility') as AriaLabels
+    const { baseDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * Dynamic CSS classes to add to the dropdown root element.

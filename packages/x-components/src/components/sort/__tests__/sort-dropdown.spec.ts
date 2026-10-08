@@ -3,23 +3,15 @@ import type { RootXStoreState } from '../../../store/store.types'
 import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/x-plugin'
-import { mergeAccesibilityLabels } from '../../../utils'
 import { searchXModule } from '../../../x-modules/search/x-module'
 import SortDropdown from '../sort-dropdown.vue'
 
 const bus = new XDummyBus()
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function renderSortDropdown({
   template = `
@@ -133,7 +125,7 @@ describe('testing SortDropdown component', () => {
 
   it('resolves the aria-label of the root element from the global configuration', () => {
     const { wrapper } = renderSortDropdown({
-      ariaLabels: { SortDropdown: { dropdown: 'Selecciona el orden' } },
+      ariaLabels: { sortDropdown: { dropdown: 'Selecciona el orden' } },
     })
 
     expect(wrapper.attributes('aria-label')).toEqual('Selecciona el orden')

@@ -2,33 +2,24 @@ import type { HistoryQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
-import type { AriaLabels } from '../../../../types'
 import type { SnippetConfig } from '../../../../x-installer/api/api.types'
 import { forEach } from '@empathyco/x-utils'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import {
   createHistoryQueries,
   createHistoryQuery,
 } from '../../../../__stubs__/history-queries-stubs.factory'
 import { snippetConfigStub } from '../../../../__stubs__/snippet-config.stub'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueryComponent from '../history-query.vue'
 import MyHistory from '../my-history.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 const historyQueries: HistoryQuery[] = [
   {

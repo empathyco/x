@@ -1,23 +1,14 @@
 import type { VueWrapper } from '@vue/test-utils'
-import type { AriaLabels } from '../../../../types'
 import type { XEvent } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { nextTick } from 'vue'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import { searchBoxXModule } from '../../x-module'
 import SearchInputPlaceholder from '../search-input-placeholder.vue'
 import SearchInput from '../search-input.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 async function renderSearchInputPlaceholder({
   messages = ['Find shirts', 'Find shoes', 'Find watches', 'Find handbags', 'Find sunglasses'],

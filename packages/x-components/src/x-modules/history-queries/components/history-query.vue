@@ -27,7 +27,7 @@
       class="x-history-query__remove xds:suggestion-group-button"
       :class="removeButtonClass"
       :history-query="suggestion"
-      :aria-label="ariaLabels!.removeButton"
+      :aria-label="ariaLabels?.removeButton"
       data-test="remove-history-query"
     >
       <!--
@@ -47,6 +47,7 @@ import type { XEventsTypes } from '../../../wiring/events.types'
 import { computed, defineComponent, inject } from 'vue'
 import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
 import { useGetter } from '../../../composables/use-getter'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { historyQueriesXModule } from '../x-module'
 import RemoveHistoryQuery from './remove-history-query.vue'
 
@@ -78,7 +79,7 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props) {
-    const { HistoryQuery: ariaLabels } = inject('accesibility') as AriaLabels
+    const { historyQuery: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * The normalized query of the history-queries module.

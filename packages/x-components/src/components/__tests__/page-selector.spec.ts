@@ -1,26 +1,14 @@
 import type { Result } from '@empathyco/x-types'
-import type { VueWrapper } from '@vue/test-utils'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { getResultsStub } from '../../__stubs__/index'
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/index'
-import { mergeAccesibilityLabels } from '../../utils'
+import { ACCESSIBILITY_KEY } from '../../types'
 import PageSelector from '../page-selector.vue'
-
-interface PageItem {
-  value: number | string
-  isSelected: boolean
-}
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function renderPageSelector({
   query = 'dress',
@@ -30,7 +18,7 @@ function renderPageSelector({
   slots,
   ariaLabels,
 }: RenderPageSelectorOptions = {}): RenderPageSelectorAPI {
-  const mergedAriaLabels = ariaProvide(ariaLabels).accesibility
+  const mergedAriaLabels = ariaProvide(ariaLabels)[ACCESSIBILITY_KEY]
   const wrapper = mount(PageSelector, {
     props: {
       totalPages: Math.round(totalResults / 24),
@@ -38,7 +26,7 @@ function renderPageSelector({
       range: 2,
       scrollTarget: 'dummy-target',
     },
-    global: { plugins: [installNewXPlugin()], provide: { accesibility: mergedAriaLabels } },
+    global: { plugins: [installNewXPlugin()], provide: { [ACCESSIBILITY_KEY]: mergedAriaLabels } },
     slots,
     data() {
       return {
@@ -54,6 +42,9 @@ function renderPageSelector({
     wrapper,
     emitSpy: vi.spyOn(XPlugin.bus, 'emit'),
     mergedAriaLabels,
+    pagination: wrapper.find('.x-page-selector'),
+    previousPageButton: wrapper.find(getDataTestSelector('previous-page-button')),
+    nextPageButton: wrapper.find(getDataTestSelector('next-page-button')),
   }
 }
 
@@ -67,42 +58,26 @@ describe('testing PageSelector component', () => {
   })
 
   it('renders a page selector component with default slots', () => {
-    const { wrapper } = renderPageSelector()
-    const visiblePages = (wrapper.vm as any).visiblePages as PageItem[]
+    const { previousPageButton, nextPageButton } = renderPageSelector()
 
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).exists()).toBe(true)
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).text().trim()).toBe('Prev')
-    expect(wrapper.find(getDataTestSelector('next-page-button')).exists()).toBe(true)
-    expect(wrapper.find(getDataTestSelector('next-page-button')).text().trim()).toBe('Next')
-    expect(visiblePages).toBeDefined()
-
-    // Check that each visible page button exists and displays the correct text
-    visiblePages.forEach(page => {
-      const pageItem = page.value
-      const pageSelector = getDataTestSelector(`page-button-${pageItem}`)
-      const pageButton = wrapper.find(pageSelector)
-
-      expect(pageButton.exists()).toBe(true)
-      expect(pageButton.text().trim()).toBe(pageItem.toString())
-    })
+    expect(previousPageButton.exists()).toBe(true)
+    expect(previousPageButton.text().trim()).toBe('Prev')
+    expect(nextPageButton.exists()).toBe(true)
+    expect(nextPageButton.text().trim()).toBe('Next')
   })
 
   it('renders the default aria-labels on the pagination nav and the prev/next buttons', () => {
-    const { wrapper } = renderPageSelector()
+    const { pagination, previousPageButton, nextPageButton } = renderPageSelector()
 
-    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Pagination')
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
-      'Previous page',
-    )
-    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
-      'Next page',
-    )
+    expect(pagination.attributes('aria-label')).toBe('Pagination')
+    expect(previousPageButton.attributes('aria-label')).toBe('Previous page')
+    expect(nextPageButton.attributes('aria-label')).toBe('Next page')
   })
 
   it('allows overriding the aria-labels through the global configuration', () => {
-    const { wrapper } = renderPageSelector({
+    const { pagination, previousPageButton, nextPageButton } = renderPageSelector({
       ariaLabels: {
-        PageSelector: {
+        pageSelector: {
           pagination: 'Page navigation',
           prevPage: 'Go to previous page',
           nextPage: 'Go to next page',
@@ -110,13 +85,9 @@ describe('testing PageSelector component', () => {
       },
     })
 
-    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Page navigation')
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
-      'Go to previous page',
-    )
-    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
-      'Go to next page',
-    )
+    expect(pagination.attributes('aria-label')).toBe('Page navigation')
+    expect(previousPageButton.attributes('aria-label')).toBe('Go to previous page')
+    expect(nextPageButton.attributes('aria-label')).toBe('Go to next page')
   })
 
   it('renders the default aria-label for the page number buttons', () => {
@@ -134,9 +105,9 @@ describe('testing PageSelector component', () => {
   })
 
   it('resolves the aria labels from the global configuration', () => {
-    const { wrapper } = renderPageSelector({
+    const { pagination, previousPageButton, nextPageButton } = renderPageSelector({
       ariaLabels: {
-        PageSelector: {
+        pageSelector: {
           pagination: 'Paginación',
           prevPage: 'Página anterior',
           nextPage: 'Página siguiente',
@@ -144,23 +115,19 @@ describe('testing PageSelector component', () => {
       },
     })
 
-    expect(wrapper.find('.x-page-selector').attributes('aria-label')).toBe('Paginación')
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).attributes('aria-label')).toBe(
-      'Página anterior',
-    )
-    expect(wrapper.find(getDataTestSelector('next-page-button')).attributes('aria-label')).toBe(
-      'Página siguiente',
-    )
+    expect(pagination.attributes('aria-label')).toBe('Paginación')
+    expect(previousPageButton.attributes('aria-label')).toBe('Página anterior')
+    expect(nextPageButton.attributes('aria-label')).toBe('Página siguiente')
   })
 
   it('applies the global numberPage function per page and updates it at runtime without re-mount', async () => {
-    const { wrapper, mergedAriaLabels } = renderPageSelector()
+    const { mergedAriaLabels, wrapper } = renderPageSelector()
 
     expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
       'Page 1',
     )
 
-    mergedAriaLabels.PageSelector!.numberPage = (page: number | string) => `Página ${page}`
+    mergedAriaLabels.pageSelector!.numberPage = (page: number | string) => `Página ${page}`
     await nextTick()
 
     expect(wrapper.find(getDataTestSelector('page-button-1')).attributes('aria-label')).toBe(
@@ -175,7 +142,7 @@ describe('testing PageSelector component', () => {
   })
 
   it('allows customizing its slots', () => {
-    const { wrapper } = renderPageSelector({
+    const { previousPageButton, nextPageButton, wrapper } = renderPageSelector({
       slots: {
         'previous-page-button': '<span><</span>',
         'page-button-1': '<h2>1</h2>',
@@ -183,19 +150,18 @@ describe('testing PageSelector component', () => {
       },
     })
 
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).exists()).toBe(true)
-    expect(wrapper.find(getDataTestSelector('previous-page-button')).text().trim()).toBe('<')
+    expect(previousPageButton.exists()).toBe(true)
+    expect(previousPageButton.text().trim()).toBe('<')
     expect(wrapper.find(getDataTestSelector('page-button-1')).exists()).toBe(true)
     expect(wrapper.find(getDataTestSelector('page-button-1')).text().trim()).toBe('1')
-    expect(wrapper.find(getDataTestSelector('next-page-button')).exists()).toBe(true)
-    expect(wrapper.find(getDataTestSelector('next-page-button')).text().trim()).toBe('>')
+    expect(nextPageButton.exists()).toBe(true)
+    expect(nextPageButton.text().trim()).toBe('>')
   })
 
   it('emits UserSelectedAPage and UserClickedScrollToTop events when enabled buttons are clicked', async () => {
-    const { wrapper, emitSpy } = renderPageSelector()
-    const nextButton = wrapper.find(getDataTestSelector('next-page-button'))
+    const { emitSpy, nextPageButton } = renderPageSelector()
 
-    await nextButton.trigger('click')
+    await nextPageButton.trigger('click')
 
     expect(emitSpy).toHaveBeenCalledTimes(2)
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedAPage', 2, expect.any(Object))
@@ -214,23 +180,21 @@ describe('testing PageSelector component', () => {
   })
 
   it('disables the previous-page-button if we are on the first page', () => {
-    const { wrapper } = renderPageSelector()
+    const { previousPageButton } = renderPageSelector()
 
-    const prevButton = wrapper.find(getDataTestSelector('previous-page-button'))
-    expect(prevButton.attributes('disabled')).toBe('')
+    expect(previousPageButton.attributes('disabled')).toBe('')
   })
 
   it('disables the next-page-button if we are on the last page', () => {
     const totalPages = Math.round(240 / 24)
-    const { wrapper } = renderPageSelector({ currentPage: totalPages })
+    const { nextPageButton } = renderPageSelector({ currentPage: totalPages })
 
-    const nextButton = wrapper.find(getDataTestSelector('next-page-button'))
-    expect(nextButton.attributes('disabled')).toBe('')
+    expect(nextPageButton.attributes('disabled')).toBe('')
   })
 })
 
 /**
- * Options to configure how the page loader button component should be rendered.
+ * Options to configure how the page selector component should be rendered.
  */
 interface RenderPageSelectorOptions {
   /** The `query` used to perform a search. */
@@ -248,13 +212,19 @@ interface RenderPageSelectorOptions {
 }
 
 /**
- * Options to configure how the page loader button component should be rendered.
+ * Elements and helpers returned by `renderPageSelector`.
  */
 interface RenderPageSelectorAPI {
-  /** The wrapper for the page loader button component. */
+  /** The wrapper for the page selector component. */
   wrapper: VueWrapper
   /* A vi spy of the X emit method. */
   emitSpy: ReturnType<typeof vi.spyOn>
   /** The full merged aria labels configuration provided to the component. */
   mergedAriaLabels: AriaLabels
+  /** The root pagination element (`.x-page-selector`). */
+  pagination: DOMWrapper<Element>
+  /** The previous page button. */
+  previousPageButton: DOMWrapper<Element>
+  /** The next page button. */
+  nextPageButton: DOMWrapper<Element>
 }

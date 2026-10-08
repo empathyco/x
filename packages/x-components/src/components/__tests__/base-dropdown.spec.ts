@@ -1,19 +1,11 @@
 import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
-import { getDataTestSelector } from '../../__tests__/utils'
-import { mergeAccesibilityLabels } from '../../utils'
+import { nextTick } from 'vue'
+import { ariaProvide, getDataTestSelector } from '../../__tests__/utils'
 import BaseDropdown from '../base-dropdown.vue'
 
 type Key = 'End' | 'Home' | 'ArrowUp' | 'ArrowDown' | 'Enter' | 'Space' | 'Esc'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function renderDropdown({
   template = `
@@ -123,7 +115,7 @@ describe('testing Dropdown component', () => {
 
   it('renders the aria label on the toggle button from the global configuration', () => {
     const { getDropdownToggle } = renderDropdown({
-      ariaLabels: { BaseDropdown: { toggleButton: 'Filter selector' } },
+      ariaLabels: { baseDropdown: { toggleButton: 'Filter selector' } },
     })
 
     expect(getDropdownToggle().attributes('aria-label')).toBe('Filter selector')

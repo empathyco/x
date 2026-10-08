@@ -2,20 +2,12 @@ import type { RangeValue } from '@empathyco/x-types'
 import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins'
-import { mergeAccesibilityLabels } from '../../../../../utils'
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
   get() {
@@ -120,7 +112,7 @@ describe('testing BaseNumberRangeFilter component', () => {
 
   it('allows overriding the aria-labels of the min and max inputs', () => {
     const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      ariaLabels: { EditableNumberRangeFilter: { min: 'Min value', max: 'Max value' } },
+      ariaLabels: { editableNumberRangeFilter: { min: 'Min value', max: 'Max value' } },
     })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('Min value')
@@ -129,7 +121,7 @@ describe('testing BaseNumberRangeFilter component', () => {
 
   it('resolves the min and max input aria-labels from the global configuration', () => {
     const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
-      ariaLabels: { EditableNumberRangeFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
+      ariaLabels: { editableNumberRangeFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
     })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')

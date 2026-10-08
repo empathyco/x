@@ -9,7 +9,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    :aria-label="ariaLabels!.input"
+    :aria-label="ariaLabels?.input"
     @mouseenter="emitUserHoveredInSearchBox"
     @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
@@ -31,6 +31,7 @@ import type { WireMetadata } from '../../../wiring/wiring.types'
 import { defineComponent, inject, onMounted, ref } from 'vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { debounce } from '../../../utils/debounce'
 import { searchBoxXModule } from '../x-module'
 
@@ -76,7 +77,7 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { SearchInput: ariaLabels } = inject('accesibility') as AriaLabels
+    const { searchInput: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const { query } = useState('searchBox')
 

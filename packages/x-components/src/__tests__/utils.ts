@@ -16,6 +16,7 @@ import type {
 } from '@empathyco/x-types'
 import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '@x/types/index'
 import type { Mock } from 'vitest'
 import type { Store } from 'vuex'
 import type { XPluginOptions } from '../plugins'
@@ -24,9 +25,12 @@ import type { MutationsDictionary } from '../store/mutations.types'
 import type { RootXStoreState, XStoreModule } from '../store/store.types'
 import type { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types'
 import { deepMerge } from '@empathyco/x-utils'
+import { mergeAccesibilityLabels } from '@x/utils/index'
 import { vi } from 'vitest'
+import { reactive } from 'vue'
 import { XPlugin } from '../plugins/x-plugin'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
+import { ACCESSIBILITY_KEY } from '../types'
 import { XComponentsAdapterDummy } from './adapter.dummy'
 import { XDummyBus } from './bus.dummy'
 
@@ -255,4 +259,14 @@ export function getFetchMock(
       })
     })
   }
+}
+
+/**
+ * Builds the `ACCESSIBILITY_KEY` provide object with the given overrides merged onto the
+ * default labels. Pass the result directly as `mount`'s `global.provide`.
+ */
+export function ariaProvide(
+  overrides: AriaLabels = {},
+): Record<typeof ACCESSIBILITY_KEY, AriaLabels> {
+  return { [ACCESSIBILITY_KEY]: reactive(mergeAccesibilityLabels(overrides)) }
 }

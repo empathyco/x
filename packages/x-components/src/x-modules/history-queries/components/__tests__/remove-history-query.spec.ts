@@ -1,19 +1,9 @@
 import type { HistoryQuery } from '@empathyco/x-types'
-import type { AriaLabels } from '../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { reactive } from 'vue'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins/index'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import RemoveHistoryQuery from '../remove-history-query.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 describe('testing RemoveHistoryQuery component', () => {
   const historyQuery: HistoryQuery = {
@@ -71,7 +61,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
-        provide: ariaProvide({ RemoveHistoryQuery: { button: 'Remove this query' } }),
+        provide: ariaProvide({ removeHistoryQuery: { button: 'Remove this query' } }),
       },
     })
 
@@ -85,7 +75,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
-        provide: ariaProvide({ RemoveHistoryQuery: { button: 'Eliminar consulta' } }),
+        provide: ariaProvide({ removeHistoryQuery: { button: 'Eliminar consulta' } }),
       },
     })
 

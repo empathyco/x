@@ -4,23 +4,15 @@ import type { AriaLabels } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins/index'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQuery from '../history-query.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function renderHistoryQuery({
   suggestion = createHistoryQuery({ query: 'milk' }),
@@ -97,7 +89,7 @@ describe('testing history-query component', () => {
 
   it('resolves the remove button aria-label from the global configuration', () => {
     const { getRemoveWrapper } = renderHistoryQuery({
-      ariaLabels: { HistoryQuery: { removeButton: 'Eliminar' } },
+      ariaLabels: { historyQuery: { removeButton: 'Eliminar' } },
     })
 
     expect(getRemoveWrapper().attributes('aria-label')).toBe('Eliminar')

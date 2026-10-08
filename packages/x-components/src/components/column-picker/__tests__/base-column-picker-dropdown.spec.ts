@@ -2,19 +2,11 @@ import type { VueWrapper } from '@vue/test-utils'
 import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/x-plugin'
-import { mergeAccesibilityLabels } from '../../../utils'
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 let bus = new XDummyBus()
 
@@ -129,7 +121,7 @@ describe('testing BaseColumnPickerDropdown component', () => {
 
   it('resolves the aria-label of the root element from the global configuration', () => {
     const { wrapper } = render({
-      ariaLabels: { BaseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } },
+      ariaLabels: { baseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } },
     })
 
     expect(wrapper.attributes('aria-label')).toEqual('Selecciona columnas')

@@ -1,11 +1,11 @@
 <template>
-  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="ariaLabels!.pagination">
+  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="ariaLabels?.pagination">
     <button
       class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
-      :aria-label="ariaLabels!.prevPage"
+      :aria-label="ariaLabels?.prevPage"
       :aria-disabled="currentPage === 1"
       @click="selectPage(currentPage - 1)"
     >
@@ -24,7 +24,7 @@
         },
       ]"
       :data-test="`page-button-${page.value}`"
-      :aria-label="ariaLabels!.numberPage!(page.value)"
+      :aria-label="ariaLabels?.numberPage!(page.value)"
       :aria-current="page.isSelected ? 'page' : undefined"
       @click="selectPage(page.value)"
     >
@@ -38,7 +38,7 @@
       :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
-      :aria-label="ariaLabels!.nextPage"
+      :aria-label="ariaLabels?.nextPage"
       :aria-disabled="currentPage === totalPages"
       @click="selectPage(currentPage + 1)"
     >
@@ -53,6 +53,7 @@ import type { PropType } from 'vue'
 import type { AriaLabels } from '../types'
 import { computed, defineComponent, inject } from 'vue'
 import { useXBus } from '../composables'
+import { ACCESSIBILITY_KEY } from '../types'
 
 interface PageItem {
   value: number | string
@@ -124,7 +125,7 @@ export default defineComponent({
   setup(props) {
     const bus = useXBus()
 
-    const { PageSelector: ariaLabels } = inject('accesibility') as AriaLabels
+    const { pageSelector: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const visiblePages = computed(() => {
       const start = Math.max(props.currentPage - props.range, 1)

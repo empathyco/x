@@ -13,7 +13,7 @@
         type="search"
         class="x-filters-search__input xds:input"
         data-test="filters-search-input"
-        :aria-label="ariaLabels!.input"
+        :aria-label="ariaLabels?.input"
         @input="setQuery(($event?.target as HTMLInputElement)?.value)"
       />
     </slot>
@@ -32,6 +32,7 @@ import type { AriaLabels } from '../../../../types'
 import type { DebouncedFunction, VueCSSClasses } from '../../../../utils/types'
 import { isBooleanFilter } from '@empathyco/x-types'
 import { computed, defineComponent, inject, provide, ref, watch } from 'vue'
+import { ACCESSIBILITY_KEY } from '../../../../types'
 import { debounce } from '../../../../utils/debounce'
 import { normalizeString } from '../../../../utils/normalize'
 import { useFiltersInjection } from '../../composables/use-filters-injection'
@@ -73,7 +74,7 @@ export default defineComponent({
   setup(props) {
     const renderedFilters = useFiltersInjection(props)
 
-    const { FiltersSearch: ariaLabels } = inject('accesibility') as AriaLabels
+    const { filtersSearch: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const query = ref('')
     let setQueryDebounced: DebouncedFunction<[string]>

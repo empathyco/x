@@ -3,18 +3,10 @@ import type { AriaLabels } from '../../../types'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { defineComponent, reactive } from 'vue'
-import { installNewXPlugin } from '../../../__tests__/utils'
+import { defineComponent } from 'vue'
+import { ariaProvide, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
-import { mergeAccesibilityLabels } from '../../../utils'
 import BaseEventsModalOpen from '../base-events-modal-open.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 /**
  * Renders the {@link BaseEventsModalOpen} with the provided options.
@@ -91,7 +83,7 @@ describe('testing Open Button component', () => {
 
   it('allows overriding the aria-label of the open button', () => {
     const { wrapper } = renderBaseEventsModalOpen({
-      ariaLabels: { BaseEventsModalOpen: { button: 'Open events modal' } },
+      ariaLabels: { baseEventsModalOpen: { button: 'Open events modal' } },
     })
 
     expect(wrapper.attributes('aria-label')).toEqual('Open events modal')
@@ -99,7 +91,7 @@ describe('testing Open Button component', () => {
 
   it('resolves the aria-label of the open button from the global configuration', () => {
     const { wrapper } = renderBaseEventsModalOpen({
-      ariaLabels: { BaseEventsModalOpen: { button: 'Abrir' } },
+      ariaLabels: { baseEventsModalOpen: { button: 'Abrir' } },
     })
 
     expect(wrapper.attributes('aria-label')).toEqual('Abrir')

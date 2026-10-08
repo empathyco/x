@@ -2,20 +2,12 @@ import type { SliderFilter } from '@empathyco/x-types'
 import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { createSliderFilter } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins'
-import { mergeAccesibilityLabels } from '../../../../../utils'
 import SliderFilterComponent from '../slider-filter.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function render({
   filter = createSliderFilter('price'),
@@ -79,7 +71,7 @@ describe('testing SliderFilter component', () => {
 
   it('should allow overriding the aria-labels of the min and max inputs', () => {
     const { minInputWrapper, maxInputWrapper } = render({
-      ariaLabels: { SliderFilter: { min: 'Min price', max: 'Max price' } },
+      ariaLabels: { sliderFilter: { min: 'Min price', max: 'Max price' } },
     })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
@@ -88,7 +80,7 @@ describe('testing SliderFilter component', () => {
 
   it('should resolve the min and max input aria-labels from the global configuration', () => {
     const { minInputWrapper, maxInputWrapper } = render({
-      ariaLabels: { SliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
+      ariaLabels: { sliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
     })
 
     expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')

@@ -6,24 +6,16 @@ import type { RootXStoreState } from '../../../../../store/store.types'
 import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins/x-plugin'
-import { mergeAccesibilityLabels } from '../../../../../utils'
 import { toKebabCase } from '../../../../../utils/string'
 import { facetsXModule } from '../../../x-module'
 import { resetXFacetsStateWith } from '../../__tests__/utils'
 import Facets from '../facets.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 describe('testing Facets component', () => {
   it('is an XComponent', () => {
@@ -50,7 +42,7 @@ describe('testing Facets component', () => {
 
   it('resolves the navigation aria-label from the global configuration', () => {
     const { wrapper } = renderFacetsComponent({
-      ariaLabels: { Facets: { root: 'Filtros' } },
+      ariaLabels: { facets: { root: 'Filtros' } },
       facets: {
         color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
           createSimpleFilter('Red', false),

@@ -30,7 +30,7 @@
             v-if="isTitleOverflowing"
             class="x-ai-carousel-title-button"
             data-test="ai-carousel-title-button"
-            :aria-label="titleExpanded ? ariaLabels!.collapse : ariaLabels!.expand"
+            :aria-label="titleExpanded ? ariaLabels?.collapse : ariaLabels?.expand"
           >
             <ChevronDownIcon
               class="x-ai-carousel-title-button-icon"
@@ -145,6 +145,7 @@ import {
   SlidingPanel,
 } from '../../../components'
 import { use$x, useState } from '../../../composables'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { aiXModule } from '../x-module'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -182,7 +183,7 @@ export default defineComponent({
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
-    const { AICarousel: ariaLabels } = inject('accesibility') as AriaLabels
+    const { aiCarousel: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)

@@ -12,7 +12,7 @@
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
-        :aria-label="ariaLabels!.modal"
+        :aria-label="ariaLabels?.modal"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
@@ -35,7 +35,7 @@
 import type { AriaLabels } from '../../types'
 import { defineComponent, inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useDebounce } from '../../composables'
-import { AnimationProp } from '../../types'
+import { ACCESSIBILITY_KEY, AnimationProp } from '../../types'
 import { FOCUSABLE_SELECTORS, getTargetElement } from '../../utils'
 import { Fade, NoAnimation } from '../animations'
 
@@ -87,7 +87,7 @@ export default defineComponent({
   },
   emits: ['click:overlay', 'focusin:body'],
   setup(props, { emit }) {
-    const { BaseModal: ariaLabels } = inject('accesibility') as AriaLabels
+    const { baseModal: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /** Reference to the modal element in the DOM. */
     const modalRef = ref<HTMLDivElement>()

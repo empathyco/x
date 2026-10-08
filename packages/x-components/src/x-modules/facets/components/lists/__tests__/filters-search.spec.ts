@@ -4,19 +4,11 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'
-import { mergeAccesibilityLabels } from '../../../../../utils'
 import FiltersSearch from '../filters-search.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 const filtersMock: Filter[] = [
   'Lego city',
@@ -116,7 +108,7 @@ describe('testing FiltersSearch', () => {
 
   it('allows overriding the aria-label of the search input', () => {
     const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
-      FiltersSearch: { input: 'Search in filter values' },
+      filtersSearch: { input: 'Search in filter values' },
     })
 
     expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
@@ -124,7 +116,7 @@ describe('testing FiltersSearch', () => {
 
   it('resolves the search input aria-label from the global configuration', () => {
     const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
-      FiltersSearch: { input: 'Buscar en los valores de los filtros' },
+      filtersSearch: { input: 'Buscar en los valores de los filtros' },
     })
 
     expect(inputWrapper.attributes('aria-label')).toBe('Buscar en los valores de los filtros')

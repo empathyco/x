@@ -1,7 +1,7 @@
 <template>
   <BaseSwitch
     :model-value="isEnabled"
-    :aria-label="ariaLabels!.root"
+    :aria-label="ariaLabels?.root"
     @update:model-value="toggle"
   />
 </template>
@@ -13,6 +13,7 @@ import { computed, defineComponent, inject } from 'vue'
 import BaseSwitch from '../../../components/base-switch.vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { isArrayEmpty } from '../../../utils/array'
 import { historyQueriesXModule } from '../x-module'
 
@@ -29,7 +30,7 @@ export default defineComponent({
     BaseSwitch,
   },
   setup() {
-    const { HistoryQueriesSwitch: ariaLabels } = inject('accesibility') as AriaLabels
+    const { historyQueriesSwitch: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const $x = use$x()
 

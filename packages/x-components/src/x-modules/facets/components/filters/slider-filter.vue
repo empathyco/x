@@ -37,7 +37,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-min"
-          :aria-label="ariaLabels!.min"
+          :aria-label="ariaLabels?.min"
           @change="setMin(($event.target as HTMLInputElement).value)"
         />
 
@@ -50,7 +50,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-max"
-          :aria-label="ariaLabels!.max"
+          :aria-label="ariaLabels?.max"
           @change="setMax(($event.target as HTMLInputElement).value)"
         />
 
@@ -83,6 +83,7 @@ import type { AriaLabels } from '../../../../types'
 import { computed, defineComponent, inject, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
+import { ACCESSIBILITY_KEY } from '../../../../types'
 import { facetsXModule } from '../../x-module'
 
 /**
@@ -132,7 +133,7 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { SliderFilter: ariaLabels } = inject('accesibility') as AriaLabels
+    const { sliderFilter: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * Current selected minimum and maximum values.

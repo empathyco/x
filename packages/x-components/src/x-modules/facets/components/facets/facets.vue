@@ -1,5 +1,5 @@
 <template>
-  <nav id="facet-nav" :aria-label="ariaLabels!.root">
+  <nav id="facet-nav" :aria-label="ariaLabels?.root">
     <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
       <li
         v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
@@ -64,7 +64,7 @@ import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
 import { computed, defineComponent, inject } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
-import { AnimationProp } from '../../../../types'
+import { ACCESSIBILITY_KEY, AnimationProp } from '../../../../types'
 import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
@@ -116,7 +116,7 @@ export default defineComponent({
     const { selectedFiltersByFacet } = useFacets(props)
     const { facets } = useGetter('facets')
 
-    const { Facets: ariaLabels } = inject('accesibility') as AriaLabels
+    const { facets: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by

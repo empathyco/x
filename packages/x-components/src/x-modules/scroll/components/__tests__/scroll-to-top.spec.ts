@@ -2,19 +2,11 @@ import type { AriaLabels } from '../../../../types'
 import type { XEvent, XEventPayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { nextTick } from 'vue'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import { scrollXModule } from '../../x-module'
 import ScrollToTop from '../scroll-to-top.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 /**
  * Renders the {@link ScrollToTop} with the provided options.
@@ -113,7 +105,7 @@ describe('testing Scroll To Top component', () => {
 
   it('allows overriding the aria-label of the button', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop({
-      ariaLabels: { ScrollToTop: { button: 'Back to top' } },
+      ariaLabels: { scrollToTop: { button: 'Back to top' } },
     })
 
     await emitXEvent('UserAlmostReachedScrollEnd', true)
@@ -124,7 +116,7 @@ describe('testing Scroll To Top component', () => {
 
   it('resolves the aria-label from the global configuration', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop({
-      ariaLabels: { ScrollToTop: { button: 'Ir al inicio' } },
+      ariaLabels: { scrollToTop: { button: 'Ir al inicio' } },
     })
 
     await emitXEvent('UserAlmostReachedScrollEnd', true)

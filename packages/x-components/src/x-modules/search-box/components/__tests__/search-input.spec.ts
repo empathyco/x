@@ -5,22 +5,14 @@ import type { AriaLabels } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, reactive } from 'vue'
+import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/index'
-import { mergeAccesibilityLabels } from '../../../../utils'
 import { searchBoxXModule } from '../../x-module'
 import SearchInput from '../search-input.vue'
 import { resetXSearchBoxStateWith } from './utils'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 function renderSearchInput({
   maxLength,
@@ -89,7 +81,7 @@ describe('testing search input component', () => {
 
   it('allows overriding the aria-label of the search input', () => {
     const { input } = renderSearchInput({
-      ariaLabels: { SearchInput: { input: 'Enter your search query' } },
+      ariaLabels: { searchInput: { input: 'Enter your search query' } },
     })
 
     expect(input.getAttribute('aria-label')).toBe('Enter your search query')
@@ -97,7 +89,7 @@ describe('testing search input component', () => {
 
   it('resolves the aria-label of the search input from the global configuration', () => {
     const { input } = renderSearchInput({
-      ariaLabels: { SearchInput: { input: 'Escribe tu búsqueda aquí' } },
+      ariaLabels: { searchInput: { input: 'Escribe tu búsqueda aquí' } },
     })
 
     expect(input.getAttribute('aria-label')).toBe('Escribe tu búsqueda aquí')

@@ -1,23 +1,13 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from 'src/store/store.types'
-import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { reactive } from 'vue'
 import { Store } from 'vuex'
-import { installNewXPlugin } from '../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
 import { DirectionalFocusNavigationService } from '../../services/directional-focus-navigation.service'
-import { mergeAccesibilityLabels } from '../../utils'
 import { SearchInput } from '../../x-modules/search-box/components/index'
 import BaseKeyboardNavigation from '../base-keyboard-navigation.vue'
-
-/**
- * Builds the `accesibility` injection with the given overrides merged onto the default labels.
- */
-function ariaProvide(overrides: AriaLabels = {}): { accesibility: AriaLabels } {
-  return { accesibility: reactive(mergeAccesibilityLabels(overrides)) }
-}
 
 describe('testing keyboard navigation component', () => {
   it('takes control of the navigation when a defined condition is triggered', async () => {
