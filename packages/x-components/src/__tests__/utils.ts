@@ -25,12 +25,12 @@ import type { MutationsDictionary } from '../store/mutations.types'
 import type { RootXStoreState, XStoreModule } from '../store/store.types'
 import type { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types'
 import { deepMerge } from '@empathyco/x-utils'
-import { mergeAccesibilityLabels } from '@x/utils/index'
 import { vi } from 'vitest'
 import { reactive } from 'vue'
 import { XPlugin } from '../plugins/x-plugin'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { ACCESSIBILITY_KEY } from '../types'
+import { mergeAccessibilityLabels } from '../utils'
 import { XComponentsAdapterDummy } from './adapter.dummy'
 import { XDummyBus } from './bus.dummy'
 
@@ -268,5 +268,5 @@ export function getFetchMock(
 export function ariaProvide(
   overrides: AriaLabels = {},
 ): Record<typeof ACCESSIBILITY_KEY, AriaLabels> {
-  return { [ACCESSIBILITY_KEY]: reactive(mergeAccesibilityLabels(overrides)) }
+  return { [ACCESSIBILITY_KEY]: reactive(mergeAccessibilityLabels(overrides)) }
 }

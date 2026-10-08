@@ -1,4 +1,4 @@
-import type { AriaLabels } from '../types/accesibility'
+import type { AriaLabels } from '../types/accessibility'
 
 /**
  * Single source of truth for default labels (moved verbatim from the SFC `DEFAULTS`
@@ -44,7 +44,7 @@ export const DEFAULT_ARIA_LABELS: AriaLabels = {
  *
  * @internal
  */
-export function mergeAccesibilityLabels(labels: AriaLabels): AriaLabels {
+export function mergeAccessibilityLabels(labels: AriaLabels): AriaLabels {
   return Object.fromEntries(
     Object.entries(DEFAULT_ARIA_LABELS).map(([namespace, defaults]) => [
       namespace,

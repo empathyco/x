@@ -1,5 +1,6 @@
 import type { Store } from 'vuex'
 import type { PrivateXModulesOptions, XModulesOptions, XPlugin } from '../plugins'
+import type { AriaLabels } from '../types'
 import type { AnyXModule } from '../x-modules/x-modules.types'
 import type { SnippetConfig } from './api/api.types'
 import type { InitWrapper, InstallXOptions } from './types'
@@ -7,6 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { computed, defineComponent, inject, nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { XComponentsAdapterDummy } from '../__tests__/adapter.dummy'
+import { ACCESSIBILITY_KEY } from '../types'
 import { XInstaller } from './x-installer'
 
 const adapter = XComponentsAdapterDummy
@@ -50,6 +52,27 @@ function createSnippetConfigComponent(snippetProperty: keyof SnippetConfig = 'in
 
 function getSnippetConfigComponentTextContent() {
   return document.querySelector('#snippet-config-value')?.textContent
+}
+
+/**
+ * Creates a Vue component injecting the global aria labels provided under
+ * {@link ACCESSIBILITY_KEY} and rendering the resolved `pageSelector.pagination` label.
+ *
+ * @returns A Vue component rendering the injected aria label.
+ */
+function createAriaLabelsComponent() {
+  return defineComponent({
+    setup: () => {
+      const ariaLabels = inject(ACCESSIBILITY_KEY) as AriaLabels
+      const label = computed(() => ariaLabels?.pageSelector?.pagination ?? '')
+      return { label }
+    },
+    template: '<h1 id="aria-label-value">{{ label }}</h1>',
+  })
+}
+
+function getAriaLabelsComponentTextContent() {
+  return document.querySelector('#aria-label-value')?.textContent
 }
 
 describe('testing `XInstaller` utility', () => {
@@ -179,6 +202,18 @@ describe('testing `XInstaller` utility', () => {
 
   it('does not initialize XComponents when no snippet config is passed and no window.initX is not defined', async () => {
     expect(await new XInstaller({ adapter, plugin }).init()).toBeUndefined()
+  })
+
+  describe('aria labels', () => {
+    it('provides the default aria labels under ACCESSIBILITY_KEY to the mounted app', async () => {
+      await new XInstaller({
+        rootComponent: createAriaLabelsComponent(),
+        adapter,
+        plugin,
+      }).init(getMinimumSnippetConfig())
+
+      expect(getAriaLabelsComponentTextContent()).toEqual('Pagination')
+    })
   })
 
   describe('`lang` & `uiLang`', () => {
