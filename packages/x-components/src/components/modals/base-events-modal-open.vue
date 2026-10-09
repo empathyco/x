@@ -3,7 +3,7 @@
     :events="events"
     class="x-events-modal-open-button xds:button"
     data-test="open-modal"
-    aria-label="Open"
+    :aria-label="ariaLabels?.button"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -12,9 +12,11 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../types'
 import type { PropsWithType } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring/events.types'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
+import { ACCESSIBILITY_KEY } from '../../types'
 import BaseEventButton from '../base-event-button.vue'
 
 /**
@@ -40,8 +42,10 @@ export default defineComponent({
   },
   setup(props) {
     const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }))
+    const { baseEventsModalOpen: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     return {
+      ariaLabels,
       events,
     }
   },

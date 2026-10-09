@@ -9,7 +9,7 @@ import {
   createHistoryQueries,
   createHistoryQuery,
 } from '../../../../__stubs__/history-queries-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { historyQueriesXModule } from '../../x-module'
 import HistoryQueries from '../history-queries.vue'
@@ -32,6 +32,7 @@ function renderHistoryQueries({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(),
       },
       props: {
         maxItemsToRender,

@@ -1,8 +1,9 @@
+import type { AriaLabels } from '../../../../types'
 import type { XEvent, XEventPayload } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins'
 import { scrollXModule } from '../../x-module'
 import ScrollToTop from '../scroll-to-top.vue'
@@ -14,16 +15,26 @@ import ScrollToTop from '../scroll-to-top.vue'
  * @param options.defaultSlot - defaultSlot option.
  * @param options.scrollId - scrollId option.
  * @param options.thresholdPx - thresholdPx option.
+ * @param options.ariaLabels - ariaLabels option.
  * @returns An small API to test the component.
  */
 function renderScrollToTop({
   defaultSlot = '<span>Top</span>',
   scrollId = 'scrollId',
   thresholdPx = undefined as undefined | number,
-} = {}) {
+  ariaLabels,
+}: Partial<{
+  defaultSlot?: string
+  scrollId?: string
+  thresholdPx?: number
+  ariaLabels?: AriaLabels
+}> = {}) {
   const wrapper = mount(ScrollToTop, {
     propsData: { scrollId, thresholdPx },
-    global: { plugins: [installNewXPlugin({ initialXModules: [scrollXModule] })] },
+    global: {
+      plugins: [installNewXPlugin({ initialXModules: [scrollXModule] })],
+      provide: ariaProvide(ariaLabels),
+    },
     slots: {
       default: defaultSlot,
     },
@@ -32,6 +43,7 @@ function renderScrollToTop({
   const scrollToTopWrapper = wrapper.findComponent(ScrollToTop)
 
   return {
+    rootWrapper: wrapper,
     scrollToTopWrapper,
     click: async () => scrollToTopWrapper.trigger('click'),
     emitXEvent: async <Event extends XEvent>(event: Event, payload: XEventPayload<Event>) => {
@@ -78,6 +90,41 @@ describe('testing Scroll To Top component', () => {
 
     expect(listener).toHaveBeenCalledTimes(1)
     expect(listener).toHaveBeenCalledWith('scrollId')
+  })
+
+  it('renders the default aria-label on the button', async () => {
+    const { scrollToTopWrapper, emitXEvent } = renderScrollToTop()
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe(
+      'Scroll to top',
+    )
+  })
+
+  it('allows overriding the aria-label of the button', async () => {
+    const { scrollToTopWrapper, emitXEvent } = renderScrollToTop({
+      ariaLabels: { scrollToTop: { button: 'Back to top' } },
+    })
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe('Back to top')
+  })
+
+  it('resolves the aria-label from the global configuration', async () => {
+    const { scrollToTopWrapper, emitXEvent } = renderScrollToTop({
+      ariaLabels: { scrollToTop: { button: 'Ir al inicio' } },
+    })
+
+    await emitXEvent('UserAlmostReachedScrollEnd', true)
+    await emitXEvent('UserChangedScrollDirection', 'DOWN')
+
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').attributes('aria-label')).toBe(
+      'Ir al inicio',
+    )
   })
 
   it('hides when the scroll direction is up once the scroll has almost reached the end', async () => {

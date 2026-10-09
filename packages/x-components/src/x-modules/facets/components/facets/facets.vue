@@ -1,67 +1,70 @@
 <template>
-  <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
-    <li
-      v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
-      :key="facetId"
-      class="x-facets-list__item"
-      data-test="facets-facet"
-    >
-      <!--
-        @slot Customized Facet rendering. Specifying a slot with the facet's name will result in the
-        facet using that slot composition to render.
-            @binding {Facet} facet - Facet to render
-            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
-      -->
-      <slot
-        v-if="hasSlot(slotNameById)"
-        v-bind="{
-          facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || [],
-        }"
-        :name="slotNameById"
-      />
-      <!--
-        @slot Customized Facet rendering. Specifying a slot with the facet's modelName will result
-        in the facet using that slot composition to render.
-            @binding {Facet} facet - Facet to render
-            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
-      -->
-      <slot
-        v-else-if="hasSlot(slotNameByModelName)"
-        v-bind="{
-          facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || [],
-        }"
-        :name="slotNameByModelName"
-      />
-      <!--
-        @slot (required) Default Facet rendering. This slot will be used by default for rendering
-        the facets without an specific slot implementation.
-            @binding {Facet} facet - Facet to render
-            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
-      -->
-      <slot
-        v-else
-        v-bind="{
-          facet,
-          selectedFilters: selectedFiltersByFacet[facetId] || [],
-        }"
+  <nav id="facet-nav" :aria-label="ariaLabels?.root">
+    <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
+      <li
+        v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
+        :key="facetId"
+        class="x-facets-list__item"
+        data-test="facets-facet"
       >
-        This is the {{ facet.label }} facet. Pass something into its slot to display content.
-      </slot>
-    </li>
-  </component>
+        <!--
+          @slot Customized Facet rendering. Specifying a slot with the facet's name will result in the
+          facet using that slot composition to render.
+              @binding {Facet} facet - Facet to render
+              @binding {Filter[]} selectedFilters - List of selected filters of the given facet
+        -->
+        <slot
+          v-if="hasSlot(slotNameById)"
+          v-bind="{
+            facet,
+            selectedFilters: selectedFiltersByFacet[facetId] || [],
+          }"
+          :name="slotNameById"
+        />
+        <!--
+          @slot Customized Facet rendering. Specifying a slot with the facet's modelName will result
+          in the facet using that slot composition to render.
+              @binding {Facet} facet - Facet to render
+              @binding {Filter[]} selectedFilters - List of selected filters of the given facet
+        -->
+        <slot
+          v-else-if="hasSlot(slotNameByModelName)"
+          v-bind="{
+            facet,
+            selectedFilters: selectedFiltersByFacet[facetId] || [],
+          }"
+          :name="slotNameByModelName"
+        />
+        <!--
+          @slot (required) Default Facet rendering. This slot will be used by default for rendering
+          the facets without an specific slot implementation.
+              @binding {Facet} facet - Facet to render
+              @binding {Filter[]} selectedFilters - List of selected filters of the given facet
+        -->
+        <slot
+          v-else
+          v-bind="{
+            facet,
+            selectedFilters: selectedFiltersByFacet[facetId] || [],
+          }"
+        >
+          This is the {{ facet.label }} facet. Pass something into its slot to display content.
+        </slot>
+      </li>
+    </component>
+  </nav>
 </template>
 
 <script lang="ts">
 import type { Facet } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../../../types'
 import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import { useGetter } from '../../../../composables/use-getter'
-import { AnimationProp } from '../../../../types'
+import { ACCESSIBILITY_KEY, AnimationProp } from '../../../../types'
 import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
@@ -112,6 +115,8 @@ export default defineComponent({
   setup(props, { slots }) {
     const { selectedFiltersByFacet } = useFacets(props)
     const { facets } = useGetter('facets')
+
+    const { facets: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by
@@ -189,6 +194,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       selectedFiltersByFacet,
       hasFacets,
       mappedFacets,

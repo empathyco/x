@@ -15,7 +15,7 @@
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
       :aria-controls="listId"
-      :aria-label="ariaLabel"
+      :aria-label="ariaLabels?.toggleButton"
       aria-autocomplete="none"
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
@@ -83,8 +83,9 @@
 <script lang="ts">
 import type { Identifiable } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { computed, defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { AnimationProp } from '../types'
+import type { AriaLabels } from '../types'
+import { computed, defineComponent, inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { ACCESSIBILITY_KEY, AnimationProp } from '../types'
 import { debounceFunction, getTargetElement, normalizeString } from '../utils'
 import { NoAnimation } from './animations'
 
@@ -110,8 +111,6 @@ export default defineComponent({
         typeof v === 'string' || typeof v === 'number' || typeof v === 'object' || v === null,
       required: true,
     },
-    /** Description of what the dropdown is used for. */
-    ariaLabel: String,
     /**
      * Animation component to use for expanding the dropdown. This is a single element animation,
      * so only `<transition>` components are allowed.
@@ -145,6 +144,8 @@ export default defineComponent({
     let restartResetSearchTimeout: () => void
     /* Unique ID to identify the dropdown. */
     const listId = `x-dropdown-${dropdownCount++}`
+
+    const { baseDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * Dynamic CSS classes to add to the dropdown root element.
@@ -375,6 +376,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       hasToggleSlot: !!slots.toggle,
       closeAndFocusToggleButton,
       dropdownCSSClasses,

@@ -1,9 +1,10 @@
 import type { Result } from '@empathyco/x-types'
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getResultsStub } from '../../__stubs__/index'
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/index'
 import PageLoaderButton from '../page-loader-button.vue'
 
@@ -12,13 +13,14 @@ function renderPageLoaderButton({
   results = getResultsStub(48),
   totalResults = 100,
   slots,
+  ariaLabels,
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
   const wrapper = mount(PageLoaderButton, {
     props: {
       buttonClasses: '',
       buttonEvents: {},
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
     slots,
     data() {
       return {
@@ -65,6 +67,32 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find(getDataTestSelector('replaced-slot')).exists()).toBe(true)
     expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true)
     expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load More')
+  })
+
+  it('renders the default aria-label on the load button', () => {
+    const { wrapper } = renderPageLoaderButton()
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe('Load')
+  })
+
+  it('allows overriding the aria-label of the load button', () => {
+    const { wrapper } = renderPageLoaderButton({
+      ariaLabels: { pageLoaderButton: { button: 'Load more results' } },
+    })
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
+      'Load more results',
+    )
+  })
+
+  it('resolves the aria-label of the load button from the global configuration', () => {
+    const { wrapper } = renderPageLoaderButton({
+      ariaLabels: { pageLoaderButton: { button: 'Cargar' } },
+    })
+
+    expect(wrapper.find(getDataTestSelector('load-content')).attributes('aria-label')).toBe(
+      'Cargar',
+    )
   })
 
   it('renders a base event button with custom button classes if passed as props', async () => {
@@ -130,6 +158,8 @@ interface RenderPageLoaderButtonOptions {
   totalResults?: number
   /** Scoped slots to be passed to the mount function. */
   slots?: Record<string, string>
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 /**

@@ -37,7 +37,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-min"
-          aria-label="minimum amount"
+          :aria-label="ariaLabels?.min"
           @change="setMin(($event.target as HTMLInputElement).value)"
         />
 
@@ -50,7 +50,7 @@
           :min="threshold.min"
           :max="threshold.max"
           data-test="slider-filter-input-max"
-          aria-label="maximum amount"
+          :aria-label="ariaLabels?.max"
           @change="setMax(($event.target as HTMLInputElement).value)"
         />
 
@@ -79,9 +79,11 @@
 <script lang="ts">
 import type { SliderFilter as SliderFilterModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import type { AriaLabels } from '../../../../types'
+import { computed, defineComponent, inject, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
 import { use$x } from '../../../../composables'
+import { ACCESSIBILITY_KEY } from '../../../../types'
 import { facetsXModule } from '../../x-module'
 
 /**
@@ -130,6 +132,8 @@ export default defineComponent({
 
   setup(props) {
     const $x = use$x()
+
+    const { sliderFilter: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     /**
      * Current selected minimum and maximum values.
@@ -292,6 +296,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       selectedRange,
       setMin,
       setMax,

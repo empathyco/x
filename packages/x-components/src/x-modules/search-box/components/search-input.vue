@@ -9,7 +9,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    aria-label="type your query here"
+    :aria-label="ariaLabels?.input"
     @mouseenter="emitUserHoveredInSearchBox"
     @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
@@ -23,13 +23,15 @@
 </template>
 
 <script lang="ts">
+import type { AriaLabels } from '../../../types'
 import type { ArrowKey } from '../../../utils'
 import type { DebouncedFunction } from '../../../utils/types'
 import type { XEvent } from '../../../wiring/events.types'
 import type { WireMetadata } from '../../../wiring/wiring.types'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, inject, onMounted, ref } from 'vue'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { debounce } from '../../../utils/debounce'
 import { searchBoxXModule } from '../x-module'
 
@@ -74,6 +76,8 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
+
+    const { searchInput: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const { query } = useState('searchBox')
 
@@ -261,6 +265,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       query,
       inputElement,
       emitUserHoveredInSearchBox,

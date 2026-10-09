@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
-import { installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import CloseMainModal from '../close-main-modal.vue'
 
@@ -27,7 +27,7 @@ function renderCloseMainModal({
     template,
   })
   const wrapper = mount(containerWrapper, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

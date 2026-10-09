@@ -1,12 +1,13 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
+import type { AriaLabels } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring/wiring.types'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/index'
 import { searchBoxXModule } from '../../x-module'
@@ -18,6 +19,7 @@ function renderSearchInput({
   instant,
   instantDebounceInMs,
   autofocus,
+  ariaLabels,
 }: Partial<RenderSearchInputOptions> = {}): RenderSearchInputAPI {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
@@ -34,6 +36,7 @@ function renderSearchInput({
     props: { maxLength, instant, instantDebounceInMs, autofocus },
     global: {
       plugins: [store, installNewXPlugin({ store })],
+      provide: ariaProvide(ariaLabels),
     },
   })
 
@@ -68,6 +71,28 @@ describe('testing search input component', () => {
   it('has SearchBox as XModule', () => {
     const { wrapper } = renderSearchInput()
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('searchBox')
+  })
+
+  it('renders the default aria-label on the search input', () => {
+    const { input } = renderSearchInput()
+
+    expect(input.getAttribute('aria-label')).toBe('type your query here')
+  })
+
+  it('allows overriding the aria-label of the search input', () => {
+    const { input } = renderSearchInput({
+      ariaLabels: { searchInput: { input: 'Enter your search query' } },
+    })
+
+    expect(input.getAttribute('aria-label')).toBe('Enter your search query')
+  })
+
+  it('resolves the aria-label of the search input from the global configuration', () => {
+    const { input } = renderSearchInput({
+      ariaLabels: { searchInput: { input: 'Escribe tu búsqueda aquí' } },
+    })
+
+    expect(input.getAttribute('aria-label')).toBe('Escribe tu búsqueda aquí')
   })
 
   it('emits UserHoveredInSearchBox when it is hovered in', async () => {
@@ -221,6 +246,8 @@ interface RenderSearchInputOptions {
   instant: boolean
   /** Debounce time for the instant prop.*/
   instantDebounceInMs: number
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 interface RenderSearchInputAPI {

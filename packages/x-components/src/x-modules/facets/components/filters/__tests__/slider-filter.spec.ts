@@ -1,9 +1,10 @@
 import type { SliderFilter } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createSliderFilter } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins'
 import SliderFilterComponent from '../slider-filter.vue'
@@ -11,13 +12,15 @@ import SliderFilterComponent from '../slider-filter.vue'
 function render({
   filter = createSliderFilter('price'),
   isInstant = false,
+  ariaLabels,
 }: {
   filter?: SliderFilter
   isInstant?: boolean
+  ariaLabels?: AriaLabels
 } = {}) {
   const wrapper = mount(SliderFilterComponent, {
     props: { filter, isInstant },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
   })
 
   const minInputWrapper = wrapper.find(getDataTestSelector('slider-filter-input-min'))
@@ -57,6 +60,31 @@ describe('testing SliderFilter component', () => {
 
     expect((minInputWrapper.element as HTMLInputElement).value).toBe('10')
     expect((maxInputWrapper.element as HTMLInputElement).value).toBe('20')
+  })
+
+  it('should render the default aria-labels on the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = render()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('minimum amount')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('maximum amount')
+  })
+
+  it('should allow overriding the aria-labels of the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = render({
+      ariaLabels: { sliderFilter: { min: 'Min price', max: 'Max price' } },
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min price')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max price')
+  })
+
+  it('should resolve the min and max input aria-labels from the global configuration', () => {
+    const { minInputWrapper, maxInputWrapper } = render({
+      ariaLabels: { sliderFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('cantidad máxima')
   })
 
   it('should render the range limits when no range is selected', () => {

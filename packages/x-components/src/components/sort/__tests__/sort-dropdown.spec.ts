@@ -1,29 +1,37 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../store/store.types'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/x-plugin'
 import { searchXModule } from '../../../x-modules/search/x-module'
 import SortDropdown from '../sort-dropdown.vue'
 
 const bus = new XDummyBus()
+
 function renderSortDropdown({
   template = `
-   <SortDropdown :items="items" :selectedSort="selectedSort">
-      <template #toggle="{ item }">
-        {{ item }}
-      </template>
-      <template #item="{ item }">
-        {{ item }}
-      </template>
+    <SortDropdown :items="items" :selectedSort="selectedSort">
+       <template #toggle="{ item }">
+          {{ item }}
+        </template>
+        <template #item="{ item }">
+          {{ item }}
+        </template>
     </SortDropdown>`,
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0],
-}: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
+  ariaLabels,
+}: Partial<{
+  template?: string
+  items?: any[]
+  selectedSort?: any
+  ariaLabels?: AriaLabels
+}> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const parentWrapper = mount(
@@ -35,6 +43,7 @@ function renderSortDropdown({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)],
+        provide: ariaProvide(ariaLabels),
       },
       store,
       props: { items, selectedSort },
@@ -105,6 +114,21 @@ describe('testing SortDropdown component', () => {
       eventPayload: 'default',
       metadata: { moduleName: null, location: 'none', replaceable: true },
     })
+  })
+
+  it('renders the default aria-label on the root element and an empty one on the toggle button', () => {
+    const { wrapper, getToggleButton } = renderSortDropdown()
+
+    expect(wrapper.attributes('aria-label')).toEqual('Select sorting')
+    expect(getToggleButton().attributes('aria-label')).toEqual('')
+  })
+
+  it('resolves the aria-label of the root element from the global configuration', () => {
+    const { wrapper } = renderSortDropdown({
+      ariaLabels: { sortDropdown: { dropdown: 'Selecciona el orden' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Selecciona el orden')
   })
 
   describe('slots', () => {

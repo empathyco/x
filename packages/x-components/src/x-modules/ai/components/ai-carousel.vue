@@ -30,7 +30,7 @@
             v-if="isTitleOverflowing"
             class="x-ai-carousel-title-button"
             data-test="ai-carousel-title-button"
-            :aria-label="titleExpanded ? 'Collapse' : 'Expand'"
+            :aria-label="titleExpanded ? ariaLabels?.collapse : ariaLabels?.expand"
           >
             <ChevronDownIcon
               class="x-ai-carousel-title-button-icon"
@@ -130,8 +130,9 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, inject, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -144,6 +145,7 @@ import {
   SlidingPanel,
 } from '../../../components'
 import { use$x, useState } from '../../../composables'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { aiXModule } from '../x-module'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -180,6 +182,8 @@ export default defineComponent({
     const $x = use$x()
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
+
+    const { aiCarousel: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)
@@ -230,6 +234,7 @@ export default defineComponent({
     useResizeObserver(titleRef, updateTitleOverflow)
 
     return {
+      ariaLabels,
       emptyTaggingRequest,
       isTitleOverflowing,
       queries,

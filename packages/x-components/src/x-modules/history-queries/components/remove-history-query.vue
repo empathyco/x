@@ -2,7 +2,7 @@
   <BaseEventButton
     class="x-remove-history-query"
     :events="removeHistoryQueryEvent"
-    aria-label="remove"
+    :aria-label="ariaLabels?.button"
   >
     <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -12,9 +12,11 @@
 <script lang="ts">
 import type { HistoryQuery } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { AriaLabels } from '../../../types'
 import type { XEventsTypes } from '../../../wiring/events.types'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
+import { ACCESSIBILITY_KEY } from '../../../types'
 import { historyQueriesXModule } from '../x-module'
 
 /**
@@ -42,6 +44,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { removeHistoryQuery: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+
     /**
      * The event handler that will be triggered when clicking on the clear history query button.
      *
@@ -56,6 +60,7 @@ export default defineComponent({
     )
 
     return {
+      ariaLabels,
       removeHistoryQueryEvent,
     }
   },

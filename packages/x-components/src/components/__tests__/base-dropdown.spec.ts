@@ -1,7 +1,8 @@
+import type { AriaLabels } from '../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { getDataTestSelector } from '../../__tests__/utils'
+import { ariaProvide, getDataTestSelector } from '../../__tests__/utils'
 import BaseDropdown from '../base-dropdown.vue'
 
 type Key = 'End' | 'Home' | 'ArrowUp' | 'ArrowDown' | 'Enter' | 'Space' | 'Esc'
@@ -17,7 +18,13 @@ function renderDropdown({
     </BaseDropdown>`,
   items = ['one', 'two', 'three'],
   initialValue = items[0],
-}: Partial<{ template?: string; items?: any[]; initialValue?: any }> = {}) {
+  ariaLabels,
+}: Partial<{
+  template?: string
+  items?: any[]
+  initialValue?: any
+  ariaLabels?: AriaLabels
+}> = {}) {
   const wrapper = mount(
     {
       template,
@@ -27,6 +34,7 @@ function renderDropdown({
     },
     {
       props: { items },
+      global: { provide: ariaProvide(ariaLabels) },
     },
   )
 
@@ -103,6 +111,14 @@ describe('testing Dropdown component', () => {
     await clickToggleButton()
 
     expect(isListVisible()).toBeTruthy()
+  })
+
+  it('renders the aria label on the toggle button from the global configuration', () => {
+    const { getDropdownToggle } = renderDropdown({
+      ariaLabels: { baseDropdown: { toggleButton: 'Filter selector' } },
+    })
+
+    expect(getDropdownToggle().attributes('aria-label')).toBe('Filter selector')
   })
 
   it('renders the provided items', async () => {

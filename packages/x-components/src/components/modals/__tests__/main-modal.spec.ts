@@ -4,7 +4,7 @@ import type { XEventsTypes } from '../../../wiring'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
 import MainModal from '../main-modal.vue'
 
@@ -39,7 +39,7 @@ function renderMainModal({
     attachTo: parent, // necessary to make the focus on body event to work in some environments.
   })
   const wrapper = mount(containerWrapper, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

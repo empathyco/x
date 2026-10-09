@@ -1,11 +1,11 @@
 <template>
-  <nav v-if="visiblePages?.length > 1" class="x-page-selector" aria-label="Pagination">
+  <nav v-if="visiblePages?.length > 1" class="x-page-selector" :aria-label="ariaLabels?.pagination">
     <button
       class="xds:button"
       :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
-      aria-label="Previous page"
+      :aria-label="ariaLabels?.prevPage"
       :aria-disabled="currentPage === 1"
       @click="selectPage(currentPage - 1)"
     >
@@ -24,7 +24,7 @@
         },
       ]"
       :data-test="`page-button-${page.value}`"
-      :aria-label="`Page ${page.value}`"
+      :aria-label="ariaLabels?.numberPage!(page.value)"
       :aria-current="page.isSelected ? 'page' : undefined"
       @click="selectPage(page.value)"
     >
@@ -38,7 +38,7 @@
       :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
-      aria-label="Next page"
+      :aria-label="ariaLabels?.nextPage"
       :aria-disabled="currentPage === totalPages"
       @click="selectPage(currentPage + 1)"
     >
@@ -50,8 +50,10 @@
 <script lang="ts">
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
-import { computed, defineComponent } from 'vue'
+import type { AriaLabels } from '../types'
+import { computed, defineComponent, inject } from 'vue'
 import { useXBus } from '../composables'
+import { ACCESSIBILITY_KEY } from '../types'
 
 interface PageItem {
   value: number | string
@@ -123,6 +125,8 @@ export default defineComponent({
   setup(props) {
     const bus = useXBus()
 
+    const { pageSelector: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+
     const visiblePages = computed(() => {
       const start = Math.max(props.currentPage - props.range, 1)
       const end = Math.min(props.currentPage + props.range, props.totalPages)
@@ -171,6 +175,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       visiblePages,
       selectPage,
     }

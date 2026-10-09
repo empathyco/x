@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
-import { installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import OpenMainModal from '../open-main-modal.vue'
 
@@ -28,7 +28,7 @@ function renderOpenMainModal({
   })
 
   const wrapper = mount(containerWrapper, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

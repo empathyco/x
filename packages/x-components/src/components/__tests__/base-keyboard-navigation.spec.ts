@@ -3,7 +3,7 @@ import type { RootXStoreState } from 'src/store/store.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
-import { installNewXPlugin } from '../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../__tests__/utils'
 import { XPlugin } from '../../plugins/x-plugin'
 import { DirectionalFocusNavigationService } from '../../services/directional-focus-navigation.service'
 import { SearchInput } from '../../x-modules/search-box/components/index'
@@ -26,7 +26,9 @@ describe('testing keyboard navigation component', () => {
       },
     })
 
-    const searchInput = mount(SearchInput)
+    const searchInput = mount(SearchInput, {
+      global: { provide: ariaProvide() },
+    })
     await searchInput.trigger('keydown', { key: 'ArrowUp' })
     expect(navigateToSpy).not.toHaveBeenCalled()
 

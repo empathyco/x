@@ -6,7 +6,7 @@
     :animation="animation"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
-    aria-label="Select sorting"
+    :aria-label="ariaLabels?.dropdown"
     @update:model-value="emitUserClickedASort"
   >
     <template #toggle="{ isOpen, item }">
@@ -34,9 +34,11 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
+import type { AriaLabels } from '../../types'
 import type { XEvent } from '../../wiring/index'
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, inject, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
+import { ACCESSIBILITY_KEY } from '../../types'
 import BaseDropdown from '../base-dropdown.vue'
 
 /**
@@ -72,6 +74,8 @@ export default defineComponent({
     const $x = use$x()
     const rootRef = ref<typeof BaseDropdown>()
 
+    const { sortDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+
     watch(
       () => props.selectedSort,
       value => $x.emit(props.selectedSortProvidedEvent, value),
@@ -94,6 +98,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       emitUserClickedASort,
       rootRef,
     }

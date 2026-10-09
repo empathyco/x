@@ -1,22 +1,26 @@
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'
-import { installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import BaseEventsModalOpen from '../base-events-modal-open.vue'
+
 /**
  * Renders the {@link BaseEventsModalOpen} with the provided options.
  *
  * @param options - The options to render the component with.
  * @param options.template - Template option.
  * @param options.openingEvent - Opening event option.
+ * @param options.ariaLabels - ariaLabels option.
  * @returns An small API to test the component.
  */
 function renderBaseEventsModalOpen({
   template = '<BaseEventsModalOpen :openingEvent="openingEvent"/>',
   openingEvent,
+  ariaLabels,
 }: RenderBaseEventsModalOpenOptions = {}): RenderBaseEventsModalOpenAPI {
   const containerWrapper = defineComponent({
     components: {
@@ -30,7 +34,7 @@ function renderBaseEventsModalOpen({
     template,
   })
   const wrapper = mount(containerWrapper, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
     props: { openingEvent },
   })
 
@@ -70,6 +74,28 @@ describe('testing Open Button component', () => {
 
     expect(wrapper.text()).toEqual('Open')
   })
+
+  it('renders the default aria-label on the open button', () => {
+    const { wrapper } = renderBaseEventsModalOpen()
+
+    expect(wrapper.attributes('aria-label')).toEqual('Open')
+  })
+
+  it('allows overriding the aria-label of the open button', () => {
+    const { wrapper } = renderBaseEventsModalOpen({
+      ariaLabels: { baseEventsModalOpen: { button: 'Open events modal' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Open events modal')
+  })
+
+  it('resolves the aria-label of the open button from the global configuration', () => {
+    const { wrapper } = renderBaseEventsModalOpen({
+      ariaLabels: { baseEventsModalOpen: { button: 'Abrir' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Abrir')
+  })
 })
 
 interface RenderBaseEventsModalOpenOptions {
@@ -77,6 +103,8 @@ interface RenderBaseEventsModalOpenOptions {
   template?: string
   /** Event that should be emitted when the button is clicked. */
   openingEvent?: XEvent
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 interface RenderBaseEventsModalOpenAPI {

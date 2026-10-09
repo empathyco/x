@@ -4,7 +4,7 @@ import type { XEvent, XEventsTypes } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins'
 import BaseEventsModal from '../base-events-modal.vue'
 
@@ -44,7 +44,7 @@ function mountBaseEventsModal({
     slots: {
       default: defaultSlot,
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {

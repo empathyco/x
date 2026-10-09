@@ -1,9 +1,10 @@
 import type { RangeValue } from '@empathyco/x-types'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins'
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue'
@@ -31,7 +32,8 @@ function renderEditableNumberRangeFilter({
   hasClearButton = true,
   buttonsClass = '',
   inputsClass = '',
-} = {}) {
+  ariaLabels,
+}: RenderEditableNumberRangeFilterOptions = {}) {
   const filter = ref(createEditableNumberRangeFilter('age', range))
 
   const wrapper = mount(
@@ -47,7 +49,7 @@ function renderEditableNumberRangeFilter({
         buttonsClass,
         inputsClass,
       }),
-      global: { plugins: [installNewXPlugin()] },
+      global: { plugins: [installNewXPlugin()], provide: ariaProvide(ariaLabels) },
     },
   )
 
@@ -99,6 +101,31 @@ describe('testing BaseNumberRangeFilter component', () => {
     ).toBe('5')
     expect(applyButtonWrapper.text()).toBe('✓')
     expect(clearButtonWrapper.text()).toBe('𐄂')
+  })
+
+  it('renders the default aria-labels on the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter()
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('minimum amount')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('maximum amount')
+  })
+
+  it('allows overriding the aria-labels of the min and max inputs', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      ariaLabels: { editableNumberRangeFilter: { min: 'Min value', max: 'Max value' } },
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('Min value')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('Max value')
+  })
+
+  it('resolves the min and max input aria-labels from the global configuration', () => {
+    const { minInputWrapper, maxInputWrapper } = renderEditableNumberRangeFilter({
+      ariaLabels: { editableNumberRangeFilter: { min: 'cantidad mínima', max: 'cantidad máxima' } },
+    })
+
+    expect(minInputWrapper.attributes('aria-label')).toBe('cantidad mínima')
+    expect(maxInputWrapper.attributes('aria-label')).toBe('cantidad máxima')
   })
 
   it('does not emit UserModifiedEditableNumberRangeFilter event when values are invalid', async () => {
@@ -321,3 +348,20 @@ describe('testing BaseNumberRangeFilter component', () => {
     })
   })
 })
+
+interface RenderEditableNumberRangeFilterOptions {
+  /** The template to render. */
+  template?: string
+  /** The range of the filter. */
+  range?: RangeValue
+  /** Whether the filter emits the changes immediately. */
+  isInstant?: boolean
+  /** Whether the clear button is rendered. */
+  hasClearButton?: boolean
+  /** Class inherited by the buttons. */
+  buttonsClass?: string
+  /** Class inherited by the inputs. */
+  inputsClass?: string
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
+}

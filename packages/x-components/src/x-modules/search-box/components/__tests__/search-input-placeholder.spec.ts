@@ -3,7 +3,7 @@ import type { XEvent } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins'
 import { searchBoxXModule } from '../../x-module'
@@ -51,6 +51,7 @@ async function renderSearchInputPlaceholder({
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     },
   )

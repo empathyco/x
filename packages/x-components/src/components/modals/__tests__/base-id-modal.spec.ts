@@ -3,7 +3,7 @@ import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import BaseIdModal from '../base-id-modal.vue'
 
@@ -39,7 +39,7 @@ function mountBaseIdModal({
     slots: {
       default: defaultSlot,
     },
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
   })
 
   return {
