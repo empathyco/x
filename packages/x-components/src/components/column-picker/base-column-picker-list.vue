@@ -35,12 +35,11 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../../types'
 import type { VueCSSClasses } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring'
-import { computed, defineComponent, inject, onBeforeMount, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import { use$x } from '../../composables/use-$x'
-import { ACCESSIBILITY_KEY } from '../../types'
 import BaseEventButton from '../base-event-button.vue'
 
 export interface ColumnPickerItem {
@@ -76,7 +75,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const $x = use$x()
 
-    const { baseColumnPickerList: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('baseColumnPickerList')
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)

@@ -8,12 +8,11 @@
 
 <script lang="ts">
 import type { HistoryQuery } from '@empathyco/x-types'
-import type { AriaLabels } from '../../../types'
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent } from 'vue'
 import BaseSwitch from '../../../components/base-switch.vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
-import { ACCESSIBILITY_KEY } from '../../../types'
 import { isArrayEmpty } from '../../../utils/array'
 import { historyQueriesXModule } from '../x-module'
 
@@ -30,7 +29,7 @@ export default defineComponent({
     BaseSwitch,
   },
   setup() {
-    const { historyQueriesSwitch: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('historyQueriesSwitch')
 
     const $x = use$x()
 

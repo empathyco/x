@@ -14,12 +14,11 @@
 </template>
 
 <script lang="ts">
-import type { AriaLabels } from '../../../types'
 import type { XEventsTypes } from '../../../wiring'
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { BaseEventButton, NoAnimation } from '../../../components'
-import { useState } from '../../../composables'
-import { ACCESSIBILITY_KEY, AnimationProp } from '../../../types'
+import { useAccessibilityLabels, useState } from '../../../composables'
+import { AnimationProp } from '../../../types'
 import { scrollXModule } from '../x-module'
 import { MainScrollId } from './scroll.const'
 
@@ -60,7 +59,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { scrollToTop: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('scrollToTop')
 
     /**
      * State of all the scroll components in this module.

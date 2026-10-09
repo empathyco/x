@@ -13,13 +13,12 @@
 </template>
 
 <script lang="ts">
-import type { AriaLabels } from '../../../types'
 import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { useState } from '../../../composables/use-state'
-import { ACCESSIBILITY_KEY } from '../../../types'
 import { historyQueriesXModule } from '../x-module'
 
 /**
@@ -36,7 +35,7 @@ export default defineComponent({
     BaseEventButton,
   },
   setup() {
-    const { clearHistoryQueries: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('clearHistoryQueries')
 
     /**
      * The whole history queries.

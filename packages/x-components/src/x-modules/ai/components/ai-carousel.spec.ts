@@ -12,7 +12,14 @@ import { use$x, useState } from '../../../composables'
 import AICarousel from './ai-carousel.vue'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
-vi.mock('../../../composables')
+vi.mock('../../../composables', async importOriginal => {
+  const actual = await importOriginal<typeof import('../../../composables')>()
+  return {
+    ...actual,
+    use$x: vi.fn(),
+    useState: vi.fn(),
+  }
+})
 let resizeCallback: any
 vi.mock('@vueuse/core', async importOriginal => {
   const actual = (await importOriginal()) as any

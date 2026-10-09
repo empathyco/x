@@ -31,10 +31,9 @@
 
 <script lang="ts">
 import type { Component, PropType } from 'vue'
-import type { AriaLabels } from '../../types'
-import { computed, defineComponent, inject, onBeforeMount, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import { use$x } from '../../composables/use-$x'
-import { ACCESSIBILITY_KEY } from '../../types'
 import BaseDropdown from '../base-dropdown.vue'
 
 /**
@@ -64,7 +63,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const $x = use$x()
 
-    const { baseColumnPickerDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('baseColumnPickerDropdown')
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)

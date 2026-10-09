@@ -79,11 +79,9 @@
 <script lang="ts">
 import type { SliderFilter as SliderFilterModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../../../../types'
-import { computed, defineComponent, inject, ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import BaseSlider from '../../../../components/base-slider.vue'
-import { use$x } from '../../../../composables'
-import { ACCESSIBILITY_KEY } from '../../../../types'
+import { use$x, useAccessibilityLabels } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
 /**
@@ -133,7 +131,7 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const { sliderFilter: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('sliderFilter')
 
     /**
      * Current selected minimum and maximum values.

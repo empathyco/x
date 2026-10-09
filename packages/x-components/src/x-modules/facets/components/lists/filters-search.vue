@@ -28,11 +28,10 @@
 <script lang="ts">
 import type { Filter } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../../../../types'
 import type { DebouncedFunction, VueCSSClasses } from '../../../../utils/types'
 import { isBooleanFilter } from '@empathyco/x-types'
-import { computed, defineComponent, inject, provide, ref, watch } from 'vue'
-import { ACCESSIBILITY_KEY } from '../../../../types'
+import { computed, defineComponent, provide, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../../../composables'
 import { debounce } from '../../../../utils/debounce'
 import { normalizeString } from '../../../../utils/normalize'
 import { useFiltersInjection } from '../../composables/use-filters-injection'
@@ -74,7 +73,7 @@ export default defineComponent({
   setup(props) {
     const renderedFilters = useFiltersInjection(props)
 
-    const { filtersSearch: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('filtersSearch')
 
     const query = ref('')
     let setQueryDebounced: DebouncedFunction<[string]>
