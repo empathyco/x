@@ -1,6 +1,7 @@
 import type {
   AiSuggestionQuery,
   AiSuggestionSearch,
+  AiSuggestionSearchTagging,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
   AiSuggestionTagging,
@@ -37,7 +38,7 @@ export interface AiState extends QueryState {
   suggestionsSearchStatus: RequestStatus
   /** The results per query retrieved by the suggestion search endpoint */
   suggestionsSearch: AiSuggestionSearch[]
-  /* The config of the `AI` module. */
+  /** The config of the `AI` module. */
   config: AiConfig
   /** The extra params property of the state. */
   params: Dictionary<unknown>
@@ -52,6 +53,8 @@ export interface AiState extends QueryState {
   selectedFilters: Dictionary<Filter[]>
   /** The total results of the search response */
   searchTotalResults: number
+  /** The tagging of the ai carousel */
+  suggestionsTagging: AiSuggestionSearchTagging | undefined
 }
 
 /**
@@ -155,6 +158,12 @@ export interface AiMutations extends ConfigMutations<AiState>, QueryMutations {
    * @param results
    */
   setSearchTotalResults: (totalResults: number) => void
+  /**
+   * Sets the tagging from the /suggestions/{instance}/search response.
+   *
+   * @param tagging - The new tagging.
+   */
+  setSuggestionsSearchTagging: (suggestionsTagging: AiSuggestionSearchTagging) => void
 }
 
 /**

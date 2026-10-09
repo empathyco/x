@@ -174,7 +174,14 @@
                   <LocationProvider v-if="showFallbackNoResults" location="results">
                     <AiCarousel class="xds:mb-28 xds:w-full">
                       <template #result="{ result }">
-                        <Result :result="result" class="xds:w-37.5" />
+                        <Result
+                          :result="result"
+                          class="xds:w-37.5"
+                          :click-events="{
+                            addToCart: 'UserClickedAnAiCarouselAdd2Cart',
+                            click: 'UserClickedAnAiCarouselResult',
+                          }"
+                        />
                       </template>
                       <template #extra-content>
                         <button

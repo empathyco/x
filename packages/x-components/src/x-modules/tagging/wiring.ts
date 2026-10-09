@@ -1,5 +1,6 @@
 import type {
   AiSuggestionSearch,
+  AiSuggestionSearchTagging,
   RelatedPrompt,
   Result,
   SemanticQuery,
@@ -303,7 +304,7 @@ export const trackNoResultsQueryWithFallbackWire = filter(
 export const trackNoResultsQueryWithFallbackWireDebounced = moduleDebounce(
   trackNoResultsQueryWithFallbackWire,
   ({ state }) => state.config.queryTaggingDebounceMs,
-  { cancelOn: ['QueryPreviewUnmounted', 'RelatedPromptsUnmounted'] },
+  { cancelOn: ['QueryPreviewUnmounted', 'RelatedPromptsUnmounted', 'AiComponentUnmounted'] },
 )
 
 /**
@@ -469,6 +470,64 @@ export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayloa
 )
 
 /**
+ * Performs a track of a query with no results that used ai carousel as fallback.
+ * The query will be changed to the original query of the search in order to associate
+ * the return of related results to that query, instead of track a no results query.
+ *
+ * @public
+ */
+export const trackAiCarouselQueryTaggingInfoWire = filter(
+  wireDispatch('track', ({ eventPayload, state }) => {
+    const queryTaggingInfoNoResults = (eventPayload as AiSuggestionSearchTagging).query
+
+    queryTaggingInfoNoResults.params.q = state.queryTaggingInfo!.params.q
+
+    return queryTaggingInfoNoResults
+  }),
+  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0,
+)
+
+/**
+ * Debounced version of {@link trackAiCarouselQueryTaggingInfoWire}
+ *
+ * @public
+ */
+export const trackAiCarouselQueryTaggingInfoDebouncedWire = moduleDebounce(
+  trackAiCarouselQueryTaggingInfoWire,
+  ({ state }) => state.config.queryTaggingDebounceMs,
+)
+
+/**
+ * Factory helper to create a wire for the track of an ai carousel taggable element.
+ *
+ * @param property - Key of the tagging object to track.
+ * @returns A new wire for the given property of the ai carousel taggable element.
+ *
+ * @public
+ */
+export function createTrackAiCarouselTaggingWire(property: keyof Tagging): Wire<Taggable> {
+  return wireDispatch('track', ({ eventPayload: { tagging }, state }) => {
+    const taggingInfo: TaggingRequest = tagging[property]
+    taggingInfo.params.q = state.queryTaggingInfo!.params.q
+    return taggingInfo
+  })
+}
+
+/**
+ * Tracks the tagging of an ai carousel result clicked.
+ *
+ * @public
+ */
+export const trackAiCarouselResultClickedWire = createTrackAiCarouselTaggingWire('click')
+
+/**
+ * Performs a track of an ai carousel result added to the cart.
+ *
+ * @public
+ */
+export const trackAiCarouselAddToCartWire = createTrackAiCarouselTaggingWire('add2cart')
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -544,13 +603,18 @@ export const taggingWiring = createWiring({
   UserSelectedARelatedPrompt: {
     trackRelatedPromptToolingDisplayClickWire,
   },
-  AiSuggestionsSearchChanged: {
-    trackAiSuggestionsSearchWire,
+  AiSuggestionsSearchTaggingChanged: {
+    trackAiCarouselQueryTaggingInfoDebouncedWire,
   },
   UserClickedAnAiCarouselResult: {
     trackToolingDisplayClickedWire,
+    trackAiCarouselResultClickedWire,
+    storeClickedResultWire,
   },
   UserClickedAnAiCarouselAdd2Cart: {
     trackToolingAdd2CartWire,
+    trackAiCarouselAddToCartWire,
+    trackAiCarouselResultClickedWire,
+    storeAddToCartWire,
   },
 })

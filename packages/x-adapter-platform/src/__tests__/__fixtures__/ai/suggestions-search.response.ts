@@ -19,6 +19,14 @@ export const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchRes
       tagging: { query: 'test2QueryTagging' },
     },
   ],
+  tagging: {
+    query: 'test3QueryTagging',
+    add2cart: 'test3Add2CartTagging',
+    click: 'test3ClickTagging',
+    checkout: 'test3CheckoutTagging',
+    display: 'test3DisplayTagging',
+    displayClick: 'test3DisplayClickTagging',
+  },
 }
 
 export const aiSuggestionsSearchResponse: AiSuggestionsSearchResponse = {
@@ -40,4 +48,12 @@ export const aiSuggestionsSearchResponse: AiSuggestionsSearchResponse = {
       },
     },
   ],
+  suggestionsTagging: {
+    query: { url: 'test3QueryTagging', params: { follow: false } },
+    add2cart: { url: 'test3Add2CartTagging', params: { follow: false } },
+    click: { url: 'test3ClickTagging', params: { follow: false } },
+    checkout: { url: 'test3CheckoutTagging', params: { follow: false } },
+    display: { url: 'test3DisplayTagging', params: { follow: false } },
+    displayClick: { url: 'test3DisplayClickTagging', params: { follow: false } },
+  },
 }
