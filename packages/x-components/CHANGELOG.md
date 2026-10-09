@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.2](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.1...@empathyco/x-components@9.3.2) (2026-10-09)
+
+### Code Refactoring
+
+* replace mergeAccessibilityLabels with useAccessibilityLabels for improved aria label handling (#2184)
+
+
 ## [9.3.1](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.0...@empathyco/x-components@9.3.1) (2026-10-09)
 
 ### Bug Fixes
