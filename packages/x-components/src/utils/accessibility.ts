@@ -34,24 +34,3 @@ export const DEFAULT_ARIA_LABELS: AriaLabels = {
   scrollToTop: { button: 'Scroll to top' },
   baseDropdown: { toggleButton: '' },
 }
-
-/**
- * Merges the provided aria labels entries onto the defaults: for each known key the provided
- * value wins, and unknown keys are ignored.
- *
- * @param labels - The aria labels entries to merge onto the defaults.
- * @returns The fully resolved aria labels configuration.
- *
- * @internal
- */
-export function mergeAccessibilityLabels(labels: AriaLabels): AriaLabels {
-  return Object.fromEntries(
-    Object.entries(DEFAULT_ARIA_LABELS).map(([namespace, defaults]) => [
-      namespace,
-      {
-        ...defaults,
-        ...labels[namespace as keyof AriaLabels],
-      },
-    ]),
-  ) as AriaLabels
-}

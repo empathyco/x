@@ -50,10 +50,8 @@
 <script lang="ts">
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../types'
-import { computed, defineComponent, inject } from 'vue'
-import { useXBus } from '../composables'
-import { ACCESSIBILITY_KEY } from '../types'
+import { computed, defineComponent } from 'vue'
+import { useAccessibilityLabels, useXBus } from '../composables'
 
 interface PageItem {
   value: number | string
@@ -125,7 +123,7 @@ export default defineComponent({
   setup(props) {
     const bus = useXBus()
 
-    const { pageSelector: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('pageSelector')
 
     const visiblePages = computed(() => {
       const start = Math.max(props.currentPage - props.range, 1)

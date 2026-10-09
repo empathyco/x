@@ -30,7 +30,7 @@ import { reactive } from 'vue'
 import { XPlugin } from '../plugins/x-plugin'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { ACCESSIBILITY_KEY } from '../types'
-import { mergeAccessibilityLabels } from '../utils'
+import { deepMergeWithDefaults, DEFAULT_ARIA_LABELS } from '../utils'
 import { XComponentsAdapterDummy } from './adapter.dummy'
 import { XDummyBus } from './bus.dummy'
 
@@ -268,5 +268,5 @@ export function getFetchMock(
 export function ariaProvide(
   overrides: AriaLabels = {},
 ): Record<typeof ACCESSIBILITY_KEY, AriaLabels> {
-  return { [ACCESSIBILITY_KEY]: reactive(mergeAccessibilityLabels(overrides)) }
+  return { [ACCESSIBILITY_KEY]: reactive(deepMergeWithDefaults(DEFAULT_ARIA_LABELS, overrides)) }
 }

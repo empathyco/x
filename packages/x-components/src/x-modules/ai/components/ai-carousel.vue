@@ -130,9 +130,8 @@
 
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
-import type { AriaLabels } from '../../../types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, inject, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -144,8 +143,7 @@ import {
   DisplayEmitter,
   SlidingPanel,
 } from '../../../components'
-import { use$x, useState } from '../../../composables'
-import { ACCESSIBILITY_KEY } from '../../../types'
+import { use$x, useAccessibilityLabels, useState } from '../../../composables'
 import { aiXModule } from '../x-module'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -183,7 +181,7 @@ export default defineComponent({
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
 
-    const { aiCarousel: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('aiCarousel')
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)

@@ -42,12 +42,11 @@
 <script lang="ts">
 import type { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../../../types'
 import type { XEventsTypes } from '../../../wiring/events.types'
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent } from 'vue'
 import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { useGetter } from '../../../composables/use-getter'
-import { ACCESSIBILITY_KEY } from '../../../types'
 import { historyQueriesXModule } from '../x-module'
 import RemoveHistoryQuery from './remove-history-query.vue'
 
@@ -79,7 +78,7 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props) {
-    const { historyQuery: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('historyQuery')
 
     /**
      * The normalized query of the history-queries module.

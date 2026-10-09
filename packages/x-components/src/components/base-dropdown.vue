@@ -83,9 +83,9 @@
 <script lang="ts">
 import type { Identifiable } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../types'
-import { computed, defineComponent, inject, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { ACCESSIBILITY_KEY, AnimationProp } from '../types'
+import { computed, defineComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../composables'
+import { AnimationProp } from '../types'
 import { debounceFunction, getTargetElement, normalizeString } from '../utils'
 import { NoAnimation } from './animations'
 
@@ -145,7 +145,7 @@ export default defineComponent({
     /* Unique ID to identify the dropdown. */
     const listId = `x-dropdown-${dropdownCount++}`
 
-    const { baseDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('baseDropdown')
 
     /**
      * Dynamic CSS classes to add to the dropdown root element.

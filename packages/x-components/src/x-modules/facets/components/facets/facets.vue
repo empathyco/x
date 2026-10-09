@@ -59,12 +59,12 @@
 import type { Facet } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PropType } from 'vue'
-import type { AriaLabels } from '../../../../types'
 import type { RenderFacet } from './facets.types'
 import { map, objectFilter } from '@empathyco/x-utils'
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useAccessibilityLabels } from '../../../../composables'
 import { useGetter } from '../../../../composables/use-getter'
-import { ACCESSIBILITY_KEY, AnimationProp } from '../../../../types'
+import { AnimationProp } from '../../../../types'
 import { toKebabCase } from '../../../../utils/string'
 import { useFacets } from '../../composables/use-facets'
 import { facetsXModule } from '../../x-module'
@@ -116,7 +116,7 @@ export default defineComponent({
     const { selectedFiltersByFacet } = useFacets(props)
     const { facets } = useGetter('facets')
 
-    const { facets: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('facets')
 
     /**
      * The facets to be rendered after filtering {@link Facets.facets} by

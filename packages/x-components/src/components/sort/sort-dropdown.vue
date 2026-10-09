@@ -34,11 +34,10 @@
 <script lang="ts">
 import type { Sort } from '@empathyco/x-types'
 import type { Component, PropType } from 'vue'
-import type { AriaLabels } from '../../types'
 import type { XEvent } from '../../wiring/index'
-import { defineComponent, inject, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import { use$x } from '../../composables/use-$x'
-import { ACCESSIBILITY_KEY } from '../../types'
 import BaseDropdown from '../base-dropdown.vue'
 
 /**
@@ -74,7 +73,7 @@ export default defineComponent({
     const $x = use$x()
     const rootRef = ref<typeof BaseDropdown>()
 
-    const { sortDropdown: ariaLabels } = inject(ACCESSIBILITY_KEY) as AriaLabels
+    const ariaLabels = useAccessibilityLabels('sortDropdown')
 
     watch(
       () => props.selectedSort,
