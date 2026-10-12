@@ -19,10 +19,12 @@ const mockedResult: Pick<Result, 'price'> = {
 function renderBasePreviousPrice({
   currency,
   format,
+  locale,
   template = `
     <BaseResultPreviousPrice :result="result"
       :currency="currency"
-      :format="format" />`,
+      :format="format"
+      :locale="locale" />`,
   result = mockedResult,
   snippetConfig,
 }: RenderBasePreviousPriceOptions = {}): RenderBasePreviousPriceAPI {
@@ -45,7 +47,7 @@ function renderBasePreviousPrice({
       Provider,
       BaseResultPreviousPrice,
     },
-    props: ['currency', 'result', 'format'],
+    props: ['currency', 'result', 'format', 'locale'],
     global: { plugins: [installNewXPlugin()] },
   }
 
@@ -54,6 +56,7 @@ function renderBasePreviousPrice({
       currency,
       result,
       format,
+      locale,
     },
   })
 
@@ -144,6 +147,16 @@ describe('testing BaseResultPreviousPrice component', () => {
 
     expect(wrapper.text()).toBe('29,990\u00A0€')
   })
+
+  it('forwards the locale prop to the BaseCurrency component', () => {
+    const { wrapper } = renderBasePreviousPrice({
+      currency: 'EUR',
+      locale: 'en-US',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+
+    expect(wrapper.findComponent(BaseCurrency).props('locale')).toBe('en-US')
+  })
 })
 
 interface RenderBasePreviousPriceOptions {
@@ -154,12 +167,14 @@ interface RenderBasePreviousPriceOptions {
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>
   /**
-   * The template to render. Receives the 'result', 'currency', 'format' props and has registered a
-   * {@link BaseCurrency | BaseCurrency component}.
+   * The template to render. Receives the 'result', 'currency', 'format' and 'locale' props and
+   * has registered a {@link BaseCurrency | BaseCurrency component}.
    */
   template?: string
   /** Snippet configuration including currency and locale. */
   snippetConfig?: Partial<SnippetConfig>
+  /** Locale used to format the currency. */
+  locale?: string
 }
 
 interface RenderBasePreviousPriceAPI {

@@ -10,6 +10,7 @@
         :value="result.price.value"
         :currency="currency"
         :format="format"
+        :locale="locale"
       />
     </slot>
   </div>
@@ -56,6 +57,12 @@ export default defineComponent({
       type: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
       default: () => ({}),
     },
+    /**
+     * Locale used to format the currency. If not specified we use snippetConfig.uiLang
+     *
+     * @public
+     */
+    locale: String,
   },
   setup(props) {
     /**
@@ -115,6 +122,26 @@ You can customize the number formatting using the `format` prop with `Intl.Numbe
 import { BaseResultCurrentPrice } from '@empathyco/x-components'
 const result = {
   price: { value: 123.456, hasDiscount: false },
+  // ...other result properties
+}
+</script>
+```
+
+### Using a different locale
+
+By default the price is formatted using the `uiLang` of the `snippetConfig`. If you want to
+format the price in a different locale, you can pass the `locale` prop:
+
+```vue
+<template>
+  <!-- output: '$123.45' even if snippetConfig.uiLang is 'es-ES' -->
+  <BaseResultCurrentPrice :result="result" currency="USD" locale="en-US" />
+</template>
+
+<script setup>
+import { BaseResultCurrentPrice } from '@empathyco/x-components'
+const result = {
+  price: { value: 123.45, hasDiscount: false },
   // ...other result properties
 }
 </script>

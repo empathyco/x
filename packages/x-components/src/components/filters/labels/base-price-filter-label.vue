@@ -32,6 +32,12 @@ export default defineComponent({
      */
     format: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
     /**
+     * Locale used to format the currency. If not specified we use snippetConfig.uiLang
+     *
+     * @public
+     */
+    locale: String,
+    /**
      * Message shown when the filter hasn't got the min value defined.
      *
      * @public
@@ -83,12 +89,14 @@ export default defineComponent({
             value: props.filter.range.min as number,
             currency: props.currency,
             format: props.format,
+            locale: props.locale,
           })
         } else if (partMessage === '{max}') {
           return h(BaseCurrency, {
             value: props.filter.range.max as number,
             currency: props.currency,
             format: props.format,
+            locale: props.locale,
           })
         }
         return partMessage
@@ -157,6 +165,38 @@ You can customize the number formatting using the `format` prop with `Intl.Numbe
             :filter="filter"
             currency="EUR"
             :format="{ minimumFractionDigits: 0, maximumFractionDigits: 0 }"
+            lessThan="Less than {max}"
+            fromTo="From {min} to {max}"
+            from="More than {min}"
+          />
+        </NumberRangeFilter>
+      </Filters>
+    </template>
+  </Facets>
+</template>
+
+<script setup>
+import BasePriceFilterLabel from '@empathyco/x-components/js/components/filters/labels/base-price-filter-label.vue'
+import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets'
+</script>
+```
+
+### Using a different locale
+
+By default the prices are formatted using the `uiLang` of the `snippetConfig`. If you want to
+format them in a different locale, you can pass the `locale` prop:
+
+```vue
+<template>
+  <Facets>
+    <template #price="{ facet }">
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+          <!-- output: 'From $10.00 to $300.00' even if snippetConfig.uiLang is 'es-ES' -->
+          <BasePriceFilterLabel
+            :filter="filter"
+            currency="USD"
+            locale="en-US"
             lessThan="Less than {max}"
             fromTo="From {min} to {max}"
             from="More than {min}"
