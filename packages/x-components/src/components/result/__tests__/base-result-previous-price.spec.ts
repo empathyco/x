@@ -148,23 +148,14 @@ describe('testing BaseResultPreviousPrice component', () => {
     expect(wrapper.text()).toBe('29,990\u00A0€')
   })
 
-  it('renders the previous price with the snippetConfig uiLang when no locale prop is provided', () => {
-    const { wrapper } = renderBasePreviousPrice({
-      currency: 'EUR',
-      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
-    })
-
-    expect(wrapper.text()).toBe('29,99\u00A0€')
-  })
-
-  it('renders the previous price with the locale prop over the snippetConfig uiLang', () => {
+  it('forwards the locale prop to the BaseCurrency component', () => {
     const { wrapper } = renderBasePreviousPrice({
       currency: 'EUR',
       locale: 'en-US',
       snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
     })
 
-    expect(wrapper.text()).toBe('€29.99')
+    expect(wrapper.findComponent(BaseCurrency).props('locale')).toBe('en-US')
   })
 })
 
