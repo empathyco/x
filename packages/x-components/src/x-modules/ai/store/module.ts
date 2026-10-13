@@ -1,4 +1,9 @@
-import type { AiSuggestionQuery, AiSuggestionSearch, Result } from '@empathyco/x-types'
+import type {
+  AiSuggestionQuery,
+  AiSuggestionSearch,
+  AiSuggestionSearchTagging,
+  Result,
+} from '@empathyco/x-types'
 import type { RequestStatus } from '../../../store/utils/status-store.utils'
 import type { AiState, AiXStoreModule } from './types'
 import { isFacetFilter } from '@empathyco/x-types'
@@ -49,6 +54,9 @@ export const aiXStoreModule: AiXStoreModule = {
     /* END Streamed fields */
     setSuggestionsSearch: (state, suggestionsSearch: AiSuggestionSearch[]) => {
       state.suggestionsSearch = suggestionsSearch
+    },
+    setSuggestionsSearchTagging: (state, suggestionsTagging: AiSuggestionSearchTagging) => {
+      state.suggestionsTagging = suggestionsTagging
     },
     setSuggestionsStatus: (state, status: RequestStatus) => {
       state.suggestionsStatus = status
@@ -103,6 +111,7 @@ function resettableAiState() {
   return {
     queries: [],
     tagging: undefined,
+    suggestionsTagging: undefined,
     suggestionsSearch: [],
     suggestionsStatus: 'initial' as RequestStatus,
     suggestionsSearchStatus: 'initial' as RequestStatus,

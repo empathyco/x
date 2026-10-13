@@ -52,6 +52,10 @@ const props = defineProps({
     type: Object as PropType<Result>,
     required: true,
   },
+  clickEvents: {
+    type: Object as PropType<Record<'addToCart' | 'click', XEvent>>,
+    default: () => ({ click: 'UserClickedAResult', addToCart: 'UserClickedResultAddToCart' }),
+  },
 })
 const crossFade = CrossFade
 const { emit } = useXBus()
@@ -64,7 +68,7 @@ const vendorEvents: Record<'addToCart' | 'click', XEvent> = {
 }
 
 const events = computed<typeof vendorEvents | undefined>(() =>
-  isVendorResult.value ? vendorEvents : undefined,
+  isVendorResult.value ? vendorEvents : props.clickEvents,
 )
 
 if (isVendorResult.value) {

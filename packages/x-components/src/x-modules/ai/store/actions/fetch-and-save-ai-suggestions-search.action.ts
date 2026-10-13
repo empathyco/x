@@ -22,6 +22,7 @@ export const fetchAndSaveAiSuggestionsSearch: AiXStoreModule['actions']['fetchAn
       .then(response => {
         if (response) {
           commit('setSuggestionsSearch', response.suggestions)
+          commit('setSuggestionsSearchTagging', response.suggestionsTagging)
         }
       })
       .catch(error => {
