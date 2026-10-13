@@ -8,15 +8,11 @@ export const platformAiSuggestionsSearchResponse: PlatformAiSuggestionsSearchRes
       query: 'test1',
       results: [platformResult],
       numFound: 10,
-      tagging: {
-        query: 'test1QueryTagging',
-      },
     },
     {
       query: 'test2',
       results: [platformResult],
       numFound: 5,
-      tagging: { query: 'test2QueryTagging' },
     },
   ],
   tagging: {
@@ -35,17 +31,11 @@ export const aiSuggestionsSearchResponse: AiSuggestionsSearchResponse = {
       query: 'test1',
       results: [result],
       numFound: 10,
-      tagging: {
-        query: { url: 'test1QueryTagging', params: { follow: false } },
-      },
     },
     {
       query: 'test2',
       results: [result],
       numFound: 5,
-      tagging: {
-        query: { url: 'test2QueryTagging', params: { follow: false } },
-      },
     },
   ],
   suggestionsTagging: {
