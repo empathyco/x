@@ -9,9 +9,6 @@ export interface AiSuggestionSearch {
   query: string
   results: Result[]
   numFound: number
-  tagging: {
-    query: TaggingRequest
-  }
 }
 
 export interface AiSuggestionSearchTagging {

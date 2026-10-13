@@ -171,7 +171,7 @@
                   </div>
 
                   <!-- AI -->
-                  <LocationProvider v-if="showFallbackNoResults" location="results">
+                  <LocationProvider v-if="showFallbackNoResults" location="no_results">
                     <AiCarousel class="xds:mb-28 xds:w-full">
                       <template #result="{ result }">
                         <Result

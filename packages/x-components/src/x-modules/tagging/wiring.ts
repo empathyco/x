@@ -1,5 +1,4 @@
 import type {
-  AiSuggestionSearch,
   AiSuggestionSearchTagging,
   RelatedPrompt,
   Result,
@@ -460,14 +459,6 @@ export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
     ({ metadata: { queryTagging } }) => !!queryTagging,
   )
 }
-
-/**
- * Tracks query tagging of the AI suggestions-search.
- * @public
- */
-export const trackAiSuggestionsSearchWire = wireDispatch('track', ({ eventPayload }) =>
-  (eventPayload as AiSuggestionSearch[]).map(({ tagging }) => tagging.query),
-)
 
 /**
  * Performs a track of a query with no results that used ai carousel as fallback.
