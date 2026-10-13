@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.12.0...@empathyco/x-adapter-platform@2.0.0) (2026-10-13)
+
+### ⚠ BREAKING CHANGES
+
+* Remove query tagging requests for each query suggestion.
+Remove UserClickedAResult and UserClickedResultAddToCart when the user clicks on an ai carousel result.
+Remove the tagging field from PlatformAiSuggestionSearch and AiSuggestionSearch types.
+
+### Features
+
+* track query tagging when ai-carousel is displayed in no-results… (#2179)
+
+
 ## [1.12.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.11.1...@empathyco/x-adapter-platform@1.12.0) (2026-10-02)
 
 ### Features

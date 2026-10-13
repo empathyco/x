@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.4.0...@empathyco/x-components@10.0.0) (2026-10-13)
+
+### ⚠ BREAKING CHANGES
+
+* Remove query tagging requests for each query suggestion.
+Remove UserClickedAResult and UserClickedResultAddToCart when the user clicks on an ai carousel result.
+Remove the tagging field from PlatformAiSuggestionSearch and AiSuggestionSearch types.
+
+### Features
+
+* track query tagging when ai-carousel is displayed in no-results… (#2179)
+
+
 ## [9.4.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.2...@empathyco/x-components@9.4.0) (2026-10-12)
 
 ### Features
