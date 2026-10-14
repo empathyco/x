@@ -70,7 +70,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.x-search-tab {
+.x-tab {
   padding: 8px 16px;
   font: inherit;
   color: inherit;
@@ -80,7 +80,7 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.x-search-tab--is-selected {
+.x-tab--is-selected {
   font-weight: bold;
   border-bottom-color: currentColor;
 }

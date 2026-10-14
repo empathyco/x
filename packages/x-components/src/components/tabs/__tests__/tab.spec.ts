@@ -1,7 +1,7 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { getDataTestSelector } from '../../__tests__/utils'
+import { getDataTestSelector } from '../../../__tests__/utils'
 import Tab from '../tab.vue'
 
 interface RenderTabOptions {
