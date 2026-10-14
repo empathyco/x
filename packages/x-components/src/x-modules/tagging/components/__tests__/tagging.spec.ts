@@ -17,6 +17,7 @@ function renderTagging({
                 :queryTaggingDebounceMs="queryTaggingDebounceMs"
                 :storageTTLMs="storageTTLMs"
                 :storageKey="storageKey"
+                :noResultsFallbackModules="noResultsFallbackModules"
               />`,
   consent,
   sessionTTLMs,
@@ -24,6 +25,7 @@ function renderTagging({
   snippetConsent,
   storageTTLMs,
   storageKey,
+  noResultsFallbackModules,
   productId,
 }: RenderTaggingOptions = {}) {
   const snippetConfig = reactive({
@@ -44,6 +46,7 @@ function renderTagging({
         'snippetConfig',
         'storageTTLMs',
         'storageKey',
+        'noResultsFallbackModules',
       ],
       template,
     },
@@ -59,6 +62,7 @@ function renderTagging({
         snippetConfig,
         storageTTLMs,
         storageKey,
+        noResultsFallbackModules,
       },
     },
   )
@@ -90,6 +94,7 @@ const defaultTaggingConfig: Partial<TaggingConfig> = {
   storageTTLMs: 30000,
   storageKey: 'url',
   queryTaggingDebounceMs: 2000,
+  noResultsFallbackModules: ['ai'],
 }
 
 const stubTagginMetadata: WireMetadata = {
@@ -173,6 +178,7 @@ describe('testing Tagging component', () => {
       storageTTLMs: 150,
       queryTaggingDebounceMs: 150,
       sessionTTLMs: 100,
+      noResultsFallbackModules: ['semantics'],
     })
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1)
@@ -182,6 +188,7 @@ describe('testing Tagging component', () => {
         storageTTLMs: 150,
         queryTaggingDebounceMs: 150,
         sessionTTLMs: 100,
+        noResultsFallbackModules: ['semantics'],
       },
       metadata: stubTagginMetadata,
     })
@@ -246,4 +253,6 @@ interface RenderTaggingOptions {
   storageKey?: string
   /** The id for a product. */
   productId?: string
+  /** The list of modules implicated into no results fallback */
+  noResultsFallbackModules?: string[]
 }

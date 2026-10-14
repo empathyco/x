@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { PropType } from 'vue'
 import type { SnippetConfig } from '../../../x-installer/api/api.types'
 import type { TaggingConfig } from '../config.types'
 import { computed, defineComponent, inject, onMounted, watch } from 'vue'
@@ -49,6 +50,13 @@ export default defineComponent({
       type: Boolean,
       default: null,
     },
+    /**
+     * Modules used into no results fallback.
+     */
+    noResultsFallbackModules: {
+      type: Array as PropType<string[]>,
+      default: () => ['ai'],
+    },
   },
   setup(props) {
     const xBus = useXBus()
@@ -78,6 +86,7 @@ export default defineComponent({
         sessionTTLMs: props.sessionTTLMs as number,
         storageTTLMs: props.storageTTLMs,
         storageKey: props.storageKey,
+        noResultsFallbackModules: props.noResultsFallbackModules,
       }
     })
 

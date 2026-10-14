@@ -15,6 +15,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       queryTaggingDebounceMs: 2000,
       storageKey: null,
       storageTTLMs: null,
+      noResultsFallbackModules: ['ai'],
     },
     consent: null,
     noResultsTaggingEnabled: false,
@@ -37,7 +38,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       state.browseTaggingInfo = browseTaggingInfo
     },
     setNoResultsTaggingEnabled(state, module) {
-      if (module === 'semanticQueries' || module === 'relatedPrompts' || module === 'ai') {
+      if (state.config.noResultsFallbackModules.includes(module)) {
         state.noResultsTaggingEnabled = true
       }
     },
