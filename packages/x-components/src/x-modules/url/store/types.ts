@@ -86,6 +86,12 @@ export interface UrlMutations extends QueryMutations {
    */
   setSort: (sort: string) => void
   /**
+   * Sets the new catalog section of the url, the id of the selected catalog section.
+   *
+   * @param catalogSection - The id of the selected catalog section.
+   */
+  setCatalogSection: (catalogSection: string) => void
+  /**
    * Sets the new browseCategory.
    *
    * @param sort - The new browseCategory of the url.

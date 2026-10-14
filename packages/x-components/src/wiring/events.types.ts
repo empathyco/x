@@ -210,6 +210,11 @@ export interface XEventsTypes
    */
   UserReachedEmpathizeTop: void
   /**
+   * The user selected a catalog section.
+   * Payload: String containing the id of the selected catalog section.
+   */
+  UserSelectedACatalogSection: string
+  /**
    * The user selected a result variant.
    * Payload: And object containing the result, the selected variant, the level of the selected
    * variant and the query preview hash.

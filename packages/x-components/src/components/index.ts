@@ -30,10 +30,10 @@ export { default as PageSelector } from './page-selector.vue'
 export * from './panels'
 export * from './result'
 export * from './scroll'
-export { default as SearchTab } from './search-tab.vue'
 export { default as SlidingPanel } from './sliding-panel.vue'
 export { default as SnippetCallbacks } from './snippet-callbacks.vue'
 export * from './sort'
-
 export * from './suggestions'
+
+export { default as Tab } from './tab.vue'
 export * from './x-component.utils'
