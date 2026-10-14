@@ -4,7 +4,7 @@
       v-for="item in items"
       :key="item.id"
       :label="item.label"
-      :selected="item.id === selectedId"
+      :selected="item.selected"
       :click="() => selectItem(item)"
       :class="itemClasses"
     />
@@ -15,7 +15,7 @@
 import type { PropType } from 'vue'
 import type { TabItem } from './tab.types'
 import { useAccessibilityLabels } from '@x/composables'
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import Tab from './tab.vue'
 
 /**
@@ -48,19 +48,15 @@ export default defineComponent({
   setup() {
     const ariaLabels = useAccessibilityLabels('tabs')
 
-    const selectedId = ref('')
-
     /**
      * Marks the given item as selected and invokes its `click` callback.
      */
     const selectItem = (item: TabItem): void => {
-      selectedId.value = item.id
       item.click()
     }
 
     return {
       ariaLabels,
-      selectedId,
       selectItem,
     }
   },

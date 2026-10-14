@@ -54,19 +54,19 @@ describe('testing Tab component', () => {
 
     await wrapper.find(getDataTestSelector('tab')).trigger('click')
 
-    expect(wrapper.find(getDataTestSelector('tab')).exists()).toBe(true)
+    expect(wrapper.find(getDataTestSelector('tab')).exists()).toBeTruthy()
   })
 
   it('does not apply the selected modifier class by default', () => {
     const { wrapper } = renderTab()
 
-    expect(wrapper.find('.x-tab--is-selected').exists()).toBe(false)
+    expect(wrapper.find('.x-tab--is-selected').exists()).toBeFalsy()
   })
 
   it('applies the selected modifier class when selected is true', () => {
     const { wrapper } = renderTab({ selected: true })
 
-    expect(wrapper.find('.x-tab--is-selected').exists()).toBe(true)
+    expect(wrapper.classes().includes('xds:selected')).toBeTruthy()
   })
 
   it('updates the selected modifier class when the selected prop changes', async () => {
@@ -74,7 +74,7 @@ describe('testing Tab component', () => {
 
     await wrapper.setProps({ selected: true })
 
-    expect(wrapper.find('.x-tab--is-selected').exists()).toBe(true)
+    expect(wrapper.classes().includes('xds:selected')).toBeTruthy()
   })
 
   it('renders default slot content instead of the label when provided', () => {
@@ -82,7 +82,7 @@ describe('testing Tab component', () => {
       slots: { default: '<span data-test="slot-content">Custom</span>' },
     })
 
-    expect(wrapper.find('[data-test="slot-content"]').exists()).toBe(true)
+    expect(wrapper.find('[data-test="slot-content"]').exists()).toBeTruthy()
     expect(wrapper.find(getDataTestSelector('tab')).text()).toBe('Custom')
   })
 })

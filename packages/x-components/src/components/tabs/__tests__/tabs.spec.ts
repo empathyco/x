@@ -60,37 +60,4 @@ describe('testing Tabs component', () => {
     expect(secondClick).toHaveBeenCalledTimes(1)
     expect(firstClick).not.toHaveBeenCalled()
   })
-
-  it('marks the clicked tab as selected', async () => {
-    const { getTabButtons, getSelectedTabButtons } = render({
-      items: [
-        { id: '1', label: 'First', click: vi.fn() },
-        { id: '2', label: 'Second', click: vi.fn() },
-      ],
-    })
-
-    await getTabButtons()[0].trigger('click')
-
-    expect(getSelectedTabButtons()).toHaveLength(1)
-    expect(getSelectedTabButtons()[0].classes()).toContain('x-tab--is-selected')
-  })
-
-  it('moves the selection when a different tab is clicked', async () => {
-    const { getTabButtons, getSelectedTabButtons } = render({
-      items: [
-        { id: '1', label: 'First', click: vi.fn() },
-        { id: '2', label: 'Second', click: vi.fn() },
-      ],
-    })
-
-    await getTabButtons()[0].trigger('click')
-
-    expect(getSelectedTabButtons()).toHaveLength(1)
-
-    await getTabButtons()[1].trigger('click')
-
-    expect(getSelectedTabButtons()).toHaveLength(1)
-    expect(getTabButtons()[1].classes()).toContain('x-tab--is-selected')
-    expect(getTabButtons()[0].classes()).not.toContain('x-tab--is-selected')
-  })
 })

@@ -10,4 +10,6 @@ export interface TabItem {
   label: string
   /** Callback invoked when the tab is clicked. */
   click: () => void
+  /** Tab selected state. */
+  selected?: boolean
 }

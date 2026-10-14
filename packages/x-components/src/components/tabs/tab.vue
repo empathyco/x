@@ -17,15 +17,14 @@ import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 
 /**
- * Generic tab. It renders a button with the given
- * `label`, invokes the `click` callback on user interaction and reflects
- * the `selected` state through the `x-tab--is-selected` modifier
- * class.
+ * Generic tab. It renders a button with the given `label`, invokes
+ * the `click` callback on user interaction and reflects the `selected`
+ * state through the `xds:selected` modifier class.
  *
  * @public
  */
 export default defineComponent({
-  name: 'SearchTab',
+  name: 'Tab',
   props: {
     /**
      * Text label rendered inside the tab. It can be replaced by the
