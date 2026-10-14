@@ -4,6 +4,8 @@
     class="xds:tab"
     :class="{ 'xds:selected': selected }"
     data-test="tab"
+    role="tab"
+    :aria-selected="selected"
     @click="handleClick"
   >
     <slot>{{ label }}</slot>

@@ -1,11 +1,12 @@
 <template>
-  <nav class="xds:tabs" data-test="tabs" :aria-label="ariaLabels?.root">
+  <nav class="xds:tabs" data-test="tabs" :aria-label="ariaLabels?.root" role="tablist">
     <Tab
       v-for="item in items"
       :key="item.id"
       :label="item.label"
       :selected="item.id === selectedId"
       :click="() => selectItem(item)"
+      :class="itemClasses"
     />
   </nav>
 </template>
@@ -37,6 +38,12 @@ export default defineComponent({
       type: Array as PropType<TabItem[]>,
       required: true,
     },
+    /**
+     * The classes for tab item.
+     *
+     * @public
+     */
+    itemClasses: String,
   },
   setup() {
     const ariaLabels = useAccessibilityLabels('tabs')
@@ -59,13 +66,6 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-.x-tabs {
-  display: flex;
-  gap: 16px;
-}
-</style>
 
 <docs lang="mdx">
 ## Usage
