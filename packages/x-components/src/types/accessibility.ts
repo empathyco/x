@@ -34,6 +34,7 @@ export interface AriaLabels {
   removeHistoryQuery?: { button?: string }
   scrollToTop?: { button?: string }
   baseDropdown?: { toggleButton?: string }
+  tabs?: { root?: string }
 }
 
 export const ACCESSIBILITY_KEY: InjectionKey<AriaLabels> = Symbol('accessibility')

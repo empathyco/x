@@ -1,5 +1,5 @@
 <template>
-  <nav class="x-tabs" data-test="tabs" :aria-label="ariaLabels?.root">
+  <nav class="xds:tabs" data-test="tabs" :aria-label="ariaLabels?.root">
     <Tab
       v-for="item in items"
       :key="item.id"

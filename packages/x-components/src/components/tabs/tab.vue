@@ -1,8 +1,8 @@
 <template>
   <button
     type="button"
-    class="x-tab"
-    :class="{ 'x-tab--is-selected': selected }"
+    class="xds:tab"
+    :class="{ 'xds:selected': selected }"
     data-test="tab"
     @click="handleClick"
   >
@@ -68,23 +68,6 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-.x-tab {
-  padding: 8px 16px;
-  font: inherit;
-  color: inherit;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-}
-
-.x-tab--is-selected {
-  font-weight: bold;
-  border-bottom-color: currentColor;
-}
-</style>
 
 <docs lang="mdx">
 ## Usage
