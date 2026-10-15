@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.0...@empathyco/x-components@10.0.1) (2026-10-15)
+
+### Bug Fixes
+
+* fix no-results fallback tagging (#2187)
+
+
 ## [10.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.4.0...@empathyco/x-components@10.0.0) (2026-10-13)
 
 ### ⚠ BREAKING CHANGES
