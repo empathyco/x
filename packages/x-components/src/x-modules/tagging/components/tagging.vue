@@ -1,8 +1,8 @@
 <script lang="ts">
+import type { PropType } from 'vue'
 import type { SnippetConfig } from '../../../x-installer/api/api.types'
 import type { TaggingConfig } from '../config.types'
 import { computed, defineComponent, inject, onMounted, watch } from 'vue'
-import { useState } from '../../../composables/use-state'
 import { useXBus } from '../../../composables/use-x-bus'
 import { taggingXModule } from '../x-module'
 /**
@@ -50,10 +50,17 @@ export default defineComponent({
       type: Boolean,
       default: null,
     },
+    /**
+     * Modules used into no results fallback.
+     */
+    noResultsFallbackModules: {
+      type: Array as PropType<string[]>,
+      default: () => ['ai'],
+    },
   },
   setup(props) {
     const xBus = useXBus()
-    const { config } = useState('tagging')
+
     /**
      * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
      */
@@ -79,7 +86,7 @@ export default defineComponent({
         sessionTTLMs: props.sessionTTLMs as number,
         storageTTLMs: props.storageTTLMs,
         storageKey: props.storageKey,
-        noResultsFallbackModules: config.value.noResultsFallbackModules,
+        noResultsFallbackModules: props.noResultsFallbackModules,
       }
     })
 

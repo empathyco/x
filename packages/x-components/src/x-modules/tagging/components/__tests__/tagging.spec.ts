@@ -9,7 +9,6 @@ import { installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
 import Tagging from '../../../tagging/components/tagging.vue'
-import { taggingXModule } from '../../x-module'
 
 function renderTagging({
   template = `<Tagging
@@ -18,6 +17,7 @@ function renderTagging({
                 :queryTaggingDebounceMs="queryTaggingDebounceMs"
                 :storageTTLMs="storageTTLMs"
                 :storageKey="storageKey"
+                :noResultsFallbackModules="noResultsFallbackModules"
               />`,
   consent,
   sessionTTLMs,
@@ -25,6 +25,7 @@ function renderTagging({
   snippetConsent,
   storageTTLMs,
   storageKey,
+  noResultsFallbackModules,
   productId,
 }: RenderTaggingOptions = {}) {
   const snippetConfig = reactive({
@@ -45,13 +46,12 @@ function renderTagging({
         'snippetConfig',
         'storageTTLMs',
         'storageKey',
+        'noResultsFallbackModules',
       ],
       template,
     },
     {
-      global: {
-        plugins: [installNewXPlugin({ initialXModules: [taggingXModule] })],
-      },
+      global: { plugins: [installNewXPlugin()] },
       provide: {
         snippetConfig,
       },
@@ -62,6 +62,7 @@ function renderTagging({
         snippetConfig,
         storageTTLMs,
         storageKey,
+        noResultsFallbackModules,
       },
     },
   )
@@ -177,16 +178,17 @@ describe('testing Tagging component', () => {
       storageTTLMs: 150,
       queryTaggingDebounceMs: 150,
       sessionTTLMs: 100,
+      noResultsFallbackModules: ['semantics'],
     })
 
     expect(onTaggingConfigProvided).toHaveBeenCalledTimes(1)
     expect(onTaggingConfigProvided).toHaveBeenCalledWith({
       eventPayload: {
-        ...defaultTaggingConfig,
         storageKey: 'id',
         storageTTLMs: 150,
         queryTaggingDebounceMs: 150,
         sessionTTLMs: 100,
+        noResultsFallbackModules: ['semantics'],
       },
       metadata: stubTagginMetadata,
     })
