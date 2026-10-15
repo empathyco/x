@@ -56,14 +56,14 @@
       </div>
     </template>
     <template #vertical>
-      <nav class="xds:tabs-vertical xds:tabs xds:tabs-underline xds:w-192" role="tablist">
+      <nav class="xds:tabs-vertical xds:tabs xds:w-192 xds:tabs-underline" role="tablist">
         <button class="xds:selected xds:tab xds:tab-underline" role="tab" aria-selected="true">
           First
         </button>
         <button class="xds:tab xds:tab-underline" role="tab" aria-selected="false">Second</button>
         <button class="xds:tab xds:tab-underline" role="tab" aria-selected="false">Third</button>
       </nav>
-      <nav class="xds:tabs-vertical xds:tabs xds:tabs-pill xds:w-192" role="tablist">
+      <nav class="xds:tabs-vertical xds:tabs xds:w-192 xds:tabs-pill" role="tablist">
         <button class="xds:selected xds:tab xds:tab-pill" role="tab" aria-selected="true">
           First
         </button>
