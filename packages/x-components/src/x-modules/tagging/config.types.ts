@@ -24,4 +24,10 @@ export interface TaggingConfig {
    * information.
    */
   storageKey: string | null
+
+  /**
+   * Modules to enable the tagging of the fallback solution to
+   * no results page.
+   */
+  noResultsFallbackModules: string[]
 }

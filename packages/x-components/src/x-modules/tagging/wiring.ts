@@ -292,7 +292,10 @@ export const trackNoResultsQueryWithFallbackWire = filter(
       url: queryTaggingInfo?.url ?? '',
     }
   }),
-  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0,
+  ({ store }) =>
+    Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0 &&
+    (store.state.x.tagging.config.noResultsFallbackModules.includes('semanticQueries') ||
+      store.state.x.tagging.config.noResultsFallbackModules.includes('relatedPrompts')),
 )
 
 /**.
