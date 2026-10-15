@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface TabItem {
+export interface Tab {
   /** The unique id of the tab. */
   id: string
   /** Text label rendered inside the tab. */

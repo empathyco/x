@@ -1,10 +1,10 @@
-import type { TabItem } from '../index'
+import type { Tab } from '../index'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { getDataTestSelector } from '../../../__tests__/utils'
 import Tabs from '../tabs.vue'
 
-function render({ items = [] }: { items?: TabItem[] } = {}) {
+function render({ items = [] }: { items?: Tab[] } = {}) {
   const wrapper = mount({
     components: { Tabs },
     data: () => ({ items }),

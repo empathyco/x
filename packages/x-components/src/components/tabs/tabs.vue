@@ -1,22 +1,26 @@
 <template>
   <nav class="xds:tabs" data-test="tabs" :aria-label="ariaLabels?.root" role="tablist">
-    <Tab
+    <button
       v-for="item in items"
       :key="item.id"
-      :label="item.label"
-      :selected="item.selected"
-      :click="() => selectItem(item)"
-      :class="itemClasses"
-    />
+      type="button"
+      class="xds:tab"
+      :class="[itemClasses, { 'xds:selected': item.selected }]"
+      data-test="tab"
+      role="tab"
+      :aria-selected="item.selected"
+      @click="item.click()"
+    >
+      <slot :item="item">{{ item.label }}</slot>
+    </button>
   </nav>
 </template>
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { TabItem } from './tab.types'
+import type { Tab } from './tab.types'
 import { useAccessibilityLabels } from '@x/composables'
 import { defineComponent } from 'vue'
-import Tab from './tab.vue'
 
 /**
  * Renders a list of tabs from the given `items`. It keeps track of the
@@ -27,7 +31,6 @@ import Tab from './tab.vue'
  */
 export default defineComponent({
   name: 'Tabs',
-  components: { Tab },
   props: {
     /**
      * The tabs to render.
@@ -35,7 +38,7 @@ export default defineComponent({
      * @public
      */
     items: {
-      type: Array as PropType<TabItem[]>,
+      type: Array as PropType<Tab[]>,
       required: true,
     },
     /**
@@ -48,17 +51,7 @@ export default defineComponent({
   setup() {
     const ariaLabels = useAccessibilityLabels('tabs')
 
-    /**
-     * Marks the given item as selected and invokes its `click` callback.
-     */
-    const selectItem = (item: TabItem): void => {
-      item.click()
-    }
-
-    return {
-      ariaLabels,
-      selectItem,
-    }
+    return { ariaLabels }
   },
 })
 </script>
