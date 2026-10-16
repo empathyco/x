@@ -55,34 +55,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<docs lang="mdx">
-## Usage
-
-`Tabs` renders a list of tabs from the `items` array. Each item needs an `id`,
-a `label` and a `click` callback. The component keeps track of the selected
-tab internally, so you don't need to manage the selection state:
-
-```vue
-<template>
-  <Tabs :items="tabs" />
-</template>
-
-<script>
-import { Tabs } from '@empathyco/x-components'
-
-export default {
-  name: 'TabsDemo',
-  components: { Tabs },
-  data() {
-    return {
-      tabs: [
-        { id: 'all', label: 'All', click: () => console.log('All clicked') },
-        { id: 'brands', label: 'Brands', click: () => console.log('Brands clicked') },
-      ],
-    }
-  },
-}
-</script>
-```
-</docs>
