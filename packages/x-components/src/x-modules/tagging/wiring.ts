@@ -478,7 +478,9 @@ export const trackAiCarouselQueryTaggingInfoWire = filter(
 
     return queryTaggingInfoNoResults
   }),
-  ({ store }) => Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0,
+  ({ store }) =>
+    Number(store.state.x.tagging.queryTaggingInfo?.params.totalHits) === 0 &&
+    store.state.x.tagging.config.noResultsFallbackModules.includes('ai'),
 )
 
 /**
