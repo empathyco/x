@@ -8,6 +8,14 @@ import type { XStoreModule } from '../../../store'
  */
 export interface ExtraParamsState {
   params: Dictionary<unknown>
+  /**
+   * Key used to send the catalog section to the search API. It is consumed by the
+   * {@link SearchXModule} request getter, which writes the section under this key, and by the
+   * `ExtraParamsChanged` emitter, which omits it so it is not broadcast to the other modules.
+   *
+   * @defaultValue 'catalogSection'
+   */
+  catalogSectionParamKey: string
 }
 
 /**

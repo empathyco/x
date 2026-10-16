@@ -16,4 +16,5 @@ export const initialUrlState: Readonly<UrlParams> = {
   prompt: -1,
   browseValue: '',
   browseField: '',
+  catalogSection: '',
 }

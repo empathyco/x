@@ -28,8 +28,17 @@ describe('testing Url module mutations', () => {
         consent: true,
         browseValue: '',
         browseField: '',
+        catalogSection: '',
         initialExtraParams: {},
       })
+    })
+  })
+
+  describe('setCatalogSection', () => {
+    it('should update the state with the correct catalog section', () => {
+      store.commit('setCatalogSection', 'catalog-section-1')
+
+      expect(store.state.catalogSection).toEqual('catalog-section-1')
     })
   })
 })

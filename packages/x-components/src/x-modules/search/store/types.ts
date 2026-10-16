@@ -29,6 +29,13 @@ import type { InternalSearchRequest, WatchedInternalSearchRequest } from '../typ
 export interface SearchState extends StatusState, QueryState {
   /** The list of the banners, related to the `query` property of the state. */
   banners: Banner[]
+  /**
+   * The id of the catalog section selected for the current search, either by the user or loaded
+   * from the URL. It is `undefined` when no section has been provided, so the
+   * {@link SearchGetters.request} can fall back to the extra params and, finally, to the
+   * {@link SearchConfig.defaultCatalogSection}.
+   */
+  catalogSection: string | undefined
   /** The configuration of the search module. */
   config: SearchConfig
   /** The list of the facets, related to the `query` property of the state. */
@@ -118,6 +125,13 @@ export interface SearchMutations
    * @param banners - The new banners to save to the state.
    */
   setBanners: (banners: Banner[]) => void
+  /**
+   * Sets the id of the selected catalog section.
+   *
+   * @param catalogSection - The new catalog section id, or `undefined` when no section has been
+   * provided, to fall back to the extra params and the default catalog section.
+   */
+  setCatalogSection: (catalogSection: string | undefined) => void
   /**
    * Sets the facets of the module.
    *
