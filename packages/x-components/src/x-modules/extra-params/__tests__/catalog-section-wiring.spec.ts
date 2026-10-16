@@ -1,7 +1,7 @@
 import type { NextQueriesRequest, SearchRequest, XComponentsAdapter } from '@empathyco/x-types'
 import type { Mock } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getNextQueriesStub, getSearchResponseStub, snippetConfigStub } from '../../../__stubs__'
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy'
@@ -49,11 +49,17 @@ function lastAdapterRequest<Request>(adapterMethod: Mock): Request {
  * Renders the {@link UrlHandler} component with the X plugin installed, exposing an adapter in
  * which the `search` and `nextQueries` methods are mocked to resolve with valid stubs.
  *
+ * @param options - The rendering options.
+ * @param options.defaultCatalogSection - The catalog section to send when none is selected.
+ * @param options.catalogSectionParamKey - The key under which the catalog section is sent.
  * @returns The rendered wrapper and the mocked adapter.
  *
  * @internal
  */
-function render() {
+function render({
+  defaultCatalogSection = '',
+  catalogSectionParamKey,
+}: { defaultCatalogSection?: string; catalogSectionParamKey?: string } = {}) {
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
     search: getMockedAdapterFunction(getSearchResponseStub()),
@@ -61,13 +67,23 @@ function render() {
   }
 
   const wrapper = mount(
-    { template: '<UrlHandler />' },
+    // The component is registered explicitly: Vue silently drops unresolved components, and the
+    // URL params are loaded during the UrlHandler `mounted` hook.
+    { components: { UrlHandler }, template: '<UrlHandler />' },
     {
       global: {
         plugins: [
           installNewXPlugin({
             adapter,
             initialXModules: [searchXModule, extraParamsXModule, nextQueriesXModule],
+            xModules: {
+              search: { config: { defaultCatalogSection } },
+            },
+            __PRIVATE__xModules: catalogSectionParamKey
+              ? {
+                  extraParams: { storeModule: { state: { catalogSectionParamKey } } },
+                }
+              : {},
           }),
         ],
         provide: {
@@ -81,6 +97,12 @@ function render() {
 }
 
 describe('testing the catalog section extra param wiring', () => {
+  // The URL is read by the UrlHandler when it is mounted, so it is cleaned up before each test to
+  // avoid leaking the params set by the previous ones.
+  beforeEach(() => {
+    window.history.replaceState({}, '', '/')
+  })
+
   it('fetches the search without a catalogSection extra param when a query is accepted', async () => {
     const { adapter } = render()
 
@@ -93,7 +115,19 @@ describe('testing the catalog section extra param wiring', () => {
     expect(searchRequest.extraParams).not.toHaveProperty('catalogSection')
   })
 
-  it('refetches the search and the next queries with the catalogSection extra param when a catalog section is selected', async () => {
+  it('sends the catalogSection loaded from the URL in the first search request', async () => {
+    window.history.replaceState({}, '', '/?query=lego&catalogSection=electronics')
+    const { adapter } = render({ defaultCatalogSection: 'home' })
+
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(searchRequest.query).toBe('lego')
+    // The section from the URL wins over the configured default one.
+    expect(searchRequest.extraParams?.catalogSection).toBe('electronics')
+  })
+
+  it('only refetches the search, without the next queries, with the catalogSection extra param when a catalog section is selected', async () => {
     const { adapter } = render()
 
     await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
@@ -107,10 +141,12 @@ describe('testing the catalog section extra param wiring', () => {
     expect(searchRequest.query).toBe('lego')
     expect(searchRequest.extraParams?.catalogSection).toBe('electronics')
 
-    expect(adapter.nextQueries).toHaveBeenCalledTimes(2)
+    // The catalog section is not broadcasted to the other modules, so they neither refetch
+    // nor send the extra param.
+    expect(adapter.nextQueries).toHaveBeenCalledTimes(1)
     const nextQueriesRequest = lastAdapterRequest<NextQueriesRequest>(adapter.nextQueries as Mock)
     expect(nextQueriesRequest.query).toBe('lego')
-    expect(nextQueriesRequest.extraParams?.catalogSection).toBe('electronics')
+    expect(nextQueriesRequest.extraParams).not.toHaveProperty('catalogSection')
   })
 
   it('resets the catalogSection extra param when the query is cleared', async () => {
@@ -135,5 +171,102 @@ describe('testing the catalog section extra param wiring', () => {
     expect(adapter.search).toHaveBeenCalledTimes(3)
     expect(searchRequest.query).toBe('lego')
     expect(searchRequest.extraParams?.catalogSection).toBe('')
+  })
+
+  it('sends the default catalog section to the search when no catalog section has been selected', async () => {
+    const { adapter } = render({ defaultCatalogSection: 'home' })
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(searchRequest.extraParams?.catalogSection).toBe('home')
+
+    expect(adapter.nextQueries).toHaveBeenCalledTimes(1)
+    const nextQueriesRequest = lastAdapterRequest<NextQueriesRequest>(adapter.nextQueries as Mock)
+    expect(nextQueriesRequest.extraParams).not.toHaveProperty('catalogSection')
+  })
+
+  it('sends the selected catalog section instead of the default one', async () => {
+    const { adapter } = render({ defaultCatalogSection: 'home' })
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    await XPlugin.bus.emit('UserSelectedACatalogSection', 'electronics')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(adapter.search).toHaveBeenCalledTimes(2)
+    expect(searchRequest.extraParams?.catalogSection).toBe('electronics')
+  })
+
+  it('falls back to the default catalog section when the query is cleared', async () => {
+    const { adapter } = render({ defaultCatalogSection: 'home' })
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    await XPlugin.bus.emit('UserSelectedACatalogSection', 'electronics')
+    await settlePipeline()
+
+    await XPlugin.bus.emit('UserClearedQuery', '')
+    await settlePipeline()
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(adapter.search).toHaveBeenCalledTimes(3)
+    expect(searchRequest.extraParams?.catalogSection).toBe('home')
+  })
+
+  it('sends the selected catalog section using the configured param key', async () => {
+    const { adapter } = render({
+      defaultCatalogSection: 'home',
+      catalogSectionParamKey: 'section',
+    })
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    await XPlugin.bus.emit('UserSelectedACatalogSection', 'electronics')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(searchRequest.extraParams?.section).toBe('electronics')
+    // The section is only sent using the configured key.
+    expect(searchRequest.extraParams).not.toHaveProperty('catalogSection')
+  })
+
+  it('sends the default catalog section using the configured param key', async () => {
+    const { adapter } = render({
+      defaultCatalogSection: 'home',
+      catalogSectionParamKey: 'section',
+    })
+
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(searchRequest.extraParams?.section).toBe('home')
+    expect(searchRequest.extraParams).not.toHaveProperty('catalogSection')
+  })
+
+  it('reads the catalog section provided by the instance using the configured param key', async () => {
+    const { adapter } = render({ catalogSectionParamKey: 'section' })
+
+    await XPlugin.bus.emit('ExtraParamsProvided', { section: 'electronics' })
+    await XPlugin.bus.emit('UserAcceptedAQuery', 'lego')
+    await settlePipeline()
+
+    const searchRequest = lastAdapterRequest<SearchRequest>(adapter.search as Mock)
+    expect(searchRequest.extraParams?.section).toBe('electronics')
+    expect(searchRequest.extraParams).not.toHaveProperty('catalogSection')
+
+    // The catalog section provided by the instance is not broadcast to the other modules either.
+    expect(adapter.nextQueries).toHaveBeenCalledTimes(1)
+    const nextQueriesRequest = lastAdapterRequest<NextQueriesRequest>(adapter.nextQueries as Mock)
+    expect(nextQueriesRequest.extraParams).not.toHaveProperty('section')
   })
 })

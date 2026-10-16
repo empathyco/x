@@ -29,10 +29,14 @@ export const searchXStoreModule: SearchXStoreModule = {
     ...resettableState(),
     selectedFilters: {},
     params: {},
+    // The selected catalog section is not part of the resettable state: clearing the query must
+    // not drop it, so the same section is applied again to the next search.
+    catalogSection: undefined,
     config: {
       threshold: 24,
       pageSize: 24,
       pageMode: 'infinite_scroll',
+      defaultCatalogSection: '',
     },
     status: 'initial',
     isNoResults: false,
@@ -73,6 +77,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setBanners(state, banners) {
       state.banners = banners
+    },
+    setCatalogSection(state, catalogSection) {
+      state.catalogSection = catalogSection
     },
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds

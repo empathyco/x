@@ -11,25 +11,14 @@ const wireCommit = namespacedWireCommit('extraParams')
 /**
  * Sets the extra params of the {@link ExtraParamsXModule}.
  *
+ * @remarks The `catalogSection` param is not wired here on purpose: the selected catalog section
+ * is owned by the {@link SearchXModule} state, which is the only module that sends it to the API.
+ * It is still stored here when the instance provides it, and read by the search request as a
+ * fallback, but it is never broadcast to the other modules.
+ *
  * @public
  */
 export const setExtraParams = wireCommit('setParams')
-
-/**
- * Sets the `catalogSection` extra param from the selected catalog section.
- *
- * @public
- */
-export const setCatalogSectionExtraParam = wireCommit('setParams', ({ eventPayload }) => ({
-  catalogSection: eventPayload,
-}))
-
-/**
- * Resets the `catalogSection` extra param.
- *
- * @public
- */
-export const resetCatalogSectionExtraParam = wireCommit('setParams', { catalogSection: '' })
 
 /**
  * Wiring configuration for the {@link ExtraParamsXModule | extraParams module}.
@@ -45,17 +34,5 @@ export const extraParamsWiring = createWiring({
   },
   ExtraParamsLoadedFromUrl: {
     setExtraParams,
-  },
-  UserSelectedACatalogSection: {
-    setCatalogSectionExtraParam,
-  },
-  UserClearedQuery: {
-    resetCatalogSectionExtraParam,
-  },
-  UserBrowsedToCategory: {
-    resetCatalogSectionExtraParam,
-  },
-  UserClickedCloseX: {
-    resetCatalogSectionExtraParam,
   },
 })
