@@ -29,10 +29,12 @@ export const searchXStoreModule: SearchXStoreModule = {
     ...resettableState(),
     selectedFilters: {},
     params: {},
+    catalogSection: undefined,
     config: {
       threshold: 24,
       pageSize: 24,
       pageMode: 'infinite_scroll',
+      defaultCatalogSection: '',
     },
     status: 'initial',
     isNoResults: false,
@@ -73,6 +75,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setBanners(state, banners) {
       state.banners = banners
+    },
+    setCatalogSection(state, catalogSection) {
+      state.catalogSection = catalogSection
     },
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds

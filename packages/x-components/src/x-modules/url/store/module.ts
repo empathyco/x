@@ -45,6 +45,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     setScroll(state, scroll) {
       state.scroll = scroll
     },
+    setCatalogSection(state, catalogSection) {
+      state.catalogSection = catalogSection
+    },
   },
   actions: {},
 }

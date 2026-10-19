@@ -33,6 +33,7 @@ export * from './scroll'
 export { default as SlidingPanel } from './sliding-panel.vue'
 export { default as SnippetCallbacks } from './snippet-callbacks.vue'
 export * from './sort'
-
 export * from './suggestions'
+export * from './tabs'
+
 export * from './x-component.utils'

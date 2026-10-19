@@ -132,8 +132,14 @@ export default defineComponent({
      * @internal
      */
     const setUrlParameters = (url: URL, urlParams: UrlParams): void => {
-      // Only when there is a query the rest of the parameters are valid.
-      if (!urlParams.query && !urlParams.browseField && !urlParams.browseValue) {
+      // Only when there is a query, a browse category or a catalog section the rest of the
+      // parameters are valid.
+      if (
+        !urlParams.query &&
+        !urlParams.browseField &&
+        !urlParams.browseValue &&
+        !urlParams.catalogSection
+      ) {
         return
       }
       const filteredParams = objectFilter(urlParams, paramName =>

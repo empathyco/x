@@ -84,6 +84,7 @@ describe('testing UrlHandler component', () => {
         tag: ['marvel'],
         browseField: '',
         browseValue: '',
+        catalogSection: '',
       } as UrlParams,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         feature: 'url',
@@ -115,6 +116,7 @@ describe('testing UrlHandler component', () => {
       tag: ['marvel'],
       browseValue: '',
       browseField: '',
+      catalogSection: '',
     } as UrlParams)
 
     expect(listener).toHaveBeenNthCalledWith(3, {
@@ -127,6 +129,7 @@ describe('testing UrlHandler component', () => {
       tag: ['harry potter'],
       browseValue: '',
       browseField: '',
+      catalogSection: '',
     } as UrlParams)
   })
 
@@ -245,6 +248,17 @@ describe('testing UrlHandler component', () => {
     expect(window.location.href).toContain('query=lego%20farm')
   })
 
+  it('changes the URL params when only catalogSection is provided', async () => {
+    const { getCurrentUrlParams } = renderUrlHandler()
+
+    await XPlugin.bus.emit('PushableUrlStateUpdated', {
+      ...initialUrlState,
+      catalogSection: 'catalog-section-1',
+    })
+
+    expect(getCurrentUrlParams().get('catalogSection')).toEqual('catalog-section-1')
+  })
+
   it('ignores all parameters if query is not provided', async () => {
     renderUrlHandler()
 
@@ -258,6 +272,7 @@ describe('testing UrlHandler component', () => {
       query: '',
       browseField: '',
       browseValue: '',
+      catalogSection: '',
     })
 
     expect(new URL(window.location.href).searchParams.toString()).toEqual('')
