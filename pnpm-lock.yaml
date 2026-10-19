@@ -154,7 +154,7 @@ importers:
         specifier: 8.0.2
         version: 8.0.2(@babel/core@7.29.0)
       '@empathyco/x-design-system':
-        specifier: 1.1.0
+        specifier: 1.2.0
         version: link:../x-design-system
       '@microsoft/api-documenter':
         specifier: 7.30.7

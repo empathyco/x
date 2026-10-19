@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.1.0...@empathyco/x-design-system@1.2.0) (2026-10-19)
+
+### Features
+
+* create tabs component (#2188)
+
+
 ## [1.1.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.0.8...@empathyco/x-design-system@1.1.0) (2026-08-28)
 
 ### Features

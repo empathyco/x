@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.2...@empathyco/x-components@10.1.0) (2026-10-19)
+
+### Features
+
+* create tabs component (#2188)
+
+
 ## [10.0.2](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.1...@empathyco/x-components@10.0.2) (2026-10-16)
 
 ### Bug Fixes
