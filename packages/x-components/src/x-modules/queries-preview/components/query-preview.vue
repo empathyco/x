@@ -1,6 +1,10 @@
 <template>
   <!-- eslint-disable vue/no-unused-refs -->
-  <section ref="queryPreviewElement" class="x-query-preview-wrapper__default-content">
+  <section
+    ref="queryPreviewElement"
+    class="x-query-preview-wrapper__default-content"
+    :class="{ 'x-query-preview-wrapper--placeholder': showPlaceholder }"
+  >
     <ul v-if="hasResults" data-test="query-preview" class="x-query-preview">
       <li
         v-for="result in queryPreviewResults?.results"
@@ -292,6 +296,23 @@ export default defineComponent({
     const hasResults = computed(() => (queryPreviewResults.value?.totalResults ?? 0) > 0)
 
     /**
+     * Whether the wrapper should reserve placeholder space (min-height) in place of
+     * the results while the query preview has not been loaded yet.
+     *
+     * It is only applied when `loadWhenVisible` is enabled, so the component keeps a
+     * visible space and the viewport visibility trigger has a realistic area to work
+     * with.
+     *
+     * @internal
+     */
+    const showPlaceholder = computed(() => {
+      const status = queryPreviewResults.value?.status
+      return (
+        props.loadWhenVisible && !hasResults.value && status !== 'success' && status !== 'error'
+      )
+    })
+
+    /**
      * Render function to execute the `default` slot, binding `slotsProps` and getting only the
      * first `vNode` to avoid Fragments and Text root nodes.
      *
@@ -315,18 +336,35 @@ export default defineComponent({
 
       return h(
         'section',
-        { ref: queryPreviewElement, class: 'x-query-preview-wrapper__slot-content' },
+        {
+          ref: queryPreviewElement,
+          class: showPlaceholder.value
+            ? 'x-query-preview-wrapper__slot-content x-query-preview-wrapper--placeholder'
+            : 'x-query-preview-wrapper__slot-content',
+        },
         [slotContent],
       )
     }
 
     /* Hack to render through a render-function, the `default` slot or, in its absence,
        the component itself. It is the alternative for the NoElement antipattern. */
-    const componentProps = { hasResults, queryPreviewResults, queryPreviewElement }
+    const componentProps = {
+      hasResults,
+      queryPreviewResults,
+      queryPreviewElement,
+      showPlaceholder,
+    }
     return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps
   },
 })
 </script>
+
+<style lang="css" scoped>
+.x-query-preview-wrapper--placeholder {
+  min-block-size: 200px;
+  position: relative;
+}
+</style>
 
 <docs lang="mdx">
 ## Events
