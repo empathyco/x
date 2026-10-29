@@ -1,0 +1,32 @@
+name: X Events - Dispatch deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/x-components/src/x-modules/**/events.types.ts'
+      - 'packages/x-components/src/wiring/events.types.ts'
+jobs:
+  dispatch-x-events-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # GitHub App token: lets this (public) repo trigger the private
+      # empathyco/empathy-x workflow.
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ vars.GH_TOKENS_APP_ID }}
+          private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: empathy-x
+
+      - name: Trigger empathy-x workflow
+        run: |
+          curl -sSL \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          -H "Content-Type: application/json" \
+          https://api.github.com/repos/empathyco/empathy-x/actions/workflows/x-events-deploy.yml/dispatches \
+          -d '{"ref":"main"}'
