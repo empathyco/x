@@ -212,6 +212,7 @@
                           displayTagging,
                           queryTagging,
                         }"
+                        :load-when-visible="true"
                         :debounce-time-ms="250"
                         :queries-preview-info="queriesPreviewInfo"
                         data-wysiwyg="query-preview-list"
