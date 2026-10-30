@@ -31,7 +31,7 @@ export const request: SearchXStoreModule['getters']['request'] = (
 
   return {
     query,
-    sort,
+    sort: sort?.replace('price', config.priceSortField),
     page,
     filters,
     extraParams:

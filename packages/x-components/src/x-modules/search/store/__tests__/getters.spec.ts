@@ -37,6 +37,24 @@ describe('testing search module getters', () => {
       })
     })
 
+    it('should replace the price sort with the priceSortField configured in the config', () => {
+      resetSearchStateWith(store, {
+        query: 'doraemon',
+        sort: 'price asc',
+        config: {
+          priceSortField: 'priceRange',
+        },
+      })
+
+      expect(store.getters.request).toEqual<InternalSearchRequest>({
+        query: 'doraemon',
+        filters: {},
+        sort: 'priceRange asc',
+        page: 1,
+        extraParams: {},
+      })
+    })
+
     it('should return null when there is not query', () => {
       expect(store.getters.request).toBeNull()
     })
