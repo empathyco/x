@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.2.0...@empathyco/x-components@10.3.0) (2026-10-30)
+
+### Features
+
+* **x-components:** add rootMargin support to useOnDisplay (#2193)
+
+
 ## [10.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.1.1...@empathyco/x-components@10.2.0) (2026-10-27)
 
 ### Features
