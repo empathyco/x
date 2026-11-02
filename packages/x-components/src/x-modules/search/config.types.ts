@@ -17,7 +17,8 @@ export interface SearchConfig {
    */
   defaultCatalogSection: string
   /**
-   * The id of the price facet that is used to sort the results by price.
+   * The id of the price facet that is used to sort the results by price. If not provided, the
+   * sort is sent as-is, i.e. still using `price`.
    */
-  priceSortField: string
+  priceSortField?: string
 }
