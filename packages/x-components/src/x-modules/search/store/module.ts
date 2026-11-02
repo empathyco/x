@@ -35,6 +35,7 @@ export const searchXStoreModule: SearchXStoreModule = {
       pageSize: 24,
       pageMode: 'infinite_scroll',
       defaultCatalogSection: '',
+      priceSortField: 'price',
     },
     status: 'initial',
     isNoResults: false,

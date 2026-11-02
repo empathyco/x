@@ -16,4 +16,9 @@ export interface SearchConfig {
    * provided or because it was reset to an empty value.
    */
   defaultCatalogSection: string
+  /**
+   * The id of the price facet that is used to sort the results by price. If not provided, the
+   * sort is sent as-is, i.e. still using `price`.
+   */
+  priceSortField?: string
 }
