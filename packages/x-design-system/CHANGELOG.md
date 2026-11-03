@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.2.0...@empathyco/x-design-system@1.2.1) (2026-11-03)
+
+**Note:** Version bump only for package @empathyco/x-design-system
+
+
+
+
+
 ## [1.2.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.1.0...@empathyco/x-design-system@1.2.0) (2026-10-19)
 
 ### Features
