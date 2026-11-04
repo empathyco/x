@@ -2,6 +2,7 @@
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
+    v-bind="rootAttrs"
     class="x-result-picture xds:picture"
     data-test="result-picture"
     @mouseenter.once="userHasHoveredImage = true"
@@ -80,6 +81,7 @@ interface ImageEntry {
  */
 export default defineComponent({
   name: 'BaseResultImage',
+  inheritAttrs: false,
   props: {
     /** (Required) The {@link @empathyco/x-types#Result} information. */
     result: {
@@ -159,6 +161,21 @@ export default defineComponent({
     const imageAttrs = computed(() =>
       Object.fromEntries(Object.entries(attrs).filter(([key]) => !key.startsWith('on'))),
     )
+
+    /**
+     * The consumer's `class`, `style` and event listeners, applied to the root element.
+     *
+     * The component uses `inheritAttrs: false` so the remaining attributes (e.g.
+     * `decoding`, `crossorigin`, `fetchpriority`, `width`, `height`) only reach the
+     * rendered images through `imageAttrs` and don't leak to the wrapper div.
+     *
+     * @internal
+     */
+    const rootAttrs = computed(() => ({
+      class: attrs.class,
+      style: attrs.style,
+      ...Object.fromEntries(Object.entries(attrs).filter(([key]) => key.startsWith('on'))),
+    }))
 
     /**
      * Copy of the images of the result.
@@ -333,6 +350,7 @@ export default defineComponent({
 
     return {
       imageAttrs,
+      rootAttrs,
       pendingImages,
       loadedImages,
       isHovering,
@@ -567,9 +585,10 @@ import { BaseResultImage } from '@empathyco/x-components'
 </script>
 ```
 
-`class`, `style` and event listeners are not forwarded to the images: they keep falling through
-to the root element. Observe the image loading state with the `imageLoaded` and `imageError`
-events instead.
+`class`, `style` and event listeners keep being applied to the root element, so the wrapper
+can still be styled and listened to. Any other additional attribute is only applied to the
+rendered images, never to the wrapper div. Observe the image loading state with the
+`imageLoaded` and `imageError` events instead.
 
 ### Image loading events
 

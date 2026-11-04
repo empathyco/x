@@ -267,6 +267,36 @@ describe('testing BaseResultImage component', () => {
       // The component's own loading logic still works
       expect(findImage(wrapper).exists()).toBe(true)
     })
+
+    it('does not forward additional img attributes to the root element', () => {
+      const wrapper = mountImage({
+        decoding: 'async',
+        fetchPriority: 'high',
+        crossorigin: 'anonymous',
+        referrerPolicy: 'no-referrer',
+        width: 256,
+        height: 371,
+      })
+
+      const root = findPicture(wrapper)
+      expect(root.attributes('decoding')).toBeUndefined()
+      expect(root.attributes('fetchpriority')).toBeUndefined()
+      expect(root.attributes('crossorigin')).toBeUndefined()
+      expect(root.attributes('referrerpolicy')).toBeUndefined()
+      expect(root.attributes('width')).toBeUndefined()
+      expect(root.attributes('height')).toBeUndefined()
+    })
+
+    it('keeps applying the consumer class and style to the root element', () => {
+      const wrapper = mount(BaseResultImage, {
+        props: { result: createResult([firstImage]), loadAnimation: CrossFade },
+        attrs: { class: 'custom-class', style: 'max-width: 200px' },
+      })
+
+      const root = findPicture(wrapper)
+      expect(root.classes()).toContain('custom-class')
+      expect(root.attributes('style')).toContain('max-width: 200px')
+    })
   })
 
   describe('events', () => {
