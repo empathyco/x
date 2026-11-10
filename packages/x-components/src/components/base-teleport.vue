@@ -79,6 +79,7 @@ export default defineComponent({
       targetAddedObserver.disconnect()
       targetRemovedObserver.disconnect()
       teleportHost.value?.remove()
+      targetElement.value?.classList.remove('x-base-teleport-parent--onlychild')
     })
 
     // Handles target prop changes and init the observers accordingly.
