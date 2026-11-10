@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.7.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.7.0) (2026-11-10)
+
+### Features
+
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
 ## [10.6.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.6.0) (2026-11-09)
 
 ### Features
