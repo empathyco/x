@@ -24,6 +24,7 @@ window.ResizeObserver = MockResizeObserver as any
  * @param options.defaultSlot - defaultSlot option.
  * @param options.open - open option.
  * @param options.focusOnOpen - focusOnOpen option.
+ * @param options.scrollLock - scrollLock option.
  * @param options.contentClass - contentClass option.
  * @param options.overlayClass - overlayClass option.
  * @param options.referenceSelector - referenceSelector option.
@@ -35,6 +36,7 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
     defaultSlot = '<span data-test="default-slot">Modal</span>',
     open = false,
     focusOnOpen = true,
+    scrollLock = true,
     contentClass = '',
     overlayClass = '',
     referenceSelector = undefined,
@@ -47,6 +49,7 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
         <BaseModal
           :open="open"
           :focusOnOpen="focusOnOpen"
+          :scrollLock="scrollLock"
           :contentClass="contentClass"
           :overlayClass="overlayClass"
           :referenceSelector="referenceSelector"
@@ -54,10 +57,10 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
           <slot/>
         </BaseModal>`,
       components: { BaseModal },
-      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass', 'referenceSelector'],
+      props: ['open', 'focusOnOpen', 'scrollLock', 'contentClass', 'overlayClass', 'referenceSelector'],
     },
     {
-      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector },
+      propsData: { open, focusOnOpen, scrollLock, contentClass, overlayClass, referenceSelector },
       global: { provide: ariaProvide(ariaLabels) },
       slots: { default: defaultSlot },
     },
@@ -68,7 +71,9 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
 
   return {
     wrapper: baseModalWrapper,
+    unmount: () => wrapper.unmount(),
     getModalContent: () => baseModalWrapper.find(getDataTestSelector('modal-content')),
+    setScrollLock: async (scrollLock: boolean) => wrapper.setProps({ scrollLock }),
     setOpen: async (open: boolean) => wrapper.setProps({ open }),
     setReferenceSelector: async (referenceSelector: string) =>
       wrapper.setProps({ referenceSelector }),
@@ -208,6 +213,71 @@ describe('testing Base Modal  component', () => {
     expect(focusedElementBeforeOpen).toEqual(document.activeElement)
   })
 
+  describe('scroll lock', () => {
+    beforeEach(() => {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    })
+
+    it('disables the page scroll while open by default and restores it on close', async () => {
+      const { setOpen } = mountBaseModal()
+
+      await setOpen(true)
+      expect(document.body.style.overflow).toBe('hidden')
+      expect(document.documentElement.style.overflow).toBe('hidden')
+
+      await setOpen(false)
+      expect(document.body.style.overflow).toBe('')
+      expect(document.documentElement.style.overflow).toBe('')
+    })
+
+    it("doesn't touch the page scroll if the scrollLock prop is false", async () => {
+      document.body.style.overflow = 'auto'
+      const { setOpen } = mountBaseModal({ scrollLock: false })
+
+      await setOpen(true)
+      expect(document.body.style.overflow).toBe('auto')
+      expect(document.documentElement.style.overflow).toBe('')
+
+      await setOpen(false)
+      expect(document.body.style.overflow).toBe('auto')
+    })
+
+    it('releases and restores the lock when the scrollLock prop is toggled while open', async () => {
+      const { setOpen, setScrollLock } = mountBaseModal()
+      await setOpen(true)
+
+      await setScrollLock(false)
+      expect(document.body.style.overflow).toBe('')
+      expect(document.documentElement.style.overflow).toBe('')
+
+      await setScrollLock(true)
+      expect(document.body.style.overflow).toBe('hidden')
+
+      await setOpen(false)
+      expect(document.body.style.overflow).toBe('')
+    })
+
+    it("doesn't restore the overflow it didn't set when it closes", async () => {
+      const { setOpen } = mountBaseModal({ scrollLock: false })
+      await setOpen(true)
+      document.body.style.overflow = 'scroll'
+
+      await setOpen(false)
+
+      expect(document.body.style.overflow).toBe('scroll')
+    })
+
+    it('restores the page scroll when unmounted while open', () => {
+      const { unmount } = mountBaseModal({ open: true })
+      expect(document.body.style.overflow).toBe('hidden')
+
+      unmount()
+
+      expect(document.body.style.overflow).toBe('')
+    })
+  })
+
   it('allows adding classes to the modal content', () => {
     const { getModalContent } = mountBaseModal({
       contentClass: 'test-class',
@@ -248,6 +318,8 @@ describe('testing Base Modal  component', () => {
 })
 
 interface MountBaseModalOptions {
+  /** Whether the modal locks the page scroll while open. */
+  scrollLock?: boolean
   /** The default slot content. */
   defaultSlot?: string
   /** Whether the modal is open. */
