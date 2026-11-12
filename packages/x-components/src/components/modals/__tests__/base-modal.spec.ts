@@ -57,7 +57,14 @@ function mountBaseModal(options: MountBaseModalOptions = {}) {
           <slot/>
         </BaseModal>`,
       components: { BaseModal },
-      props: ['open', 'focusOnOpen', 'scrollLock', 'contentClass', 'overlayClass', 'referenceSelector'],
+      props: [
+        'open',
+        'focusOnOpen',
+        'scrollLock',
+        'contentClass',
+        'overlayClass',
+        'referenceSelector',
+      ],
     },
     {
       propsData: { open, focusOnOpen, scrollLock, contentClass, overlayClass, referenceSelector },
