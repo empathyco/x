@@ -47,10 +47,10 @@
     "@empathyco/x-utils": "1.1.5"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.30.19",
-    "@microsoft/api-extractor": "7.60.0",
+    "@microsoft/api-documenter": "7.30.20",
+    "@microsoft/api-extractor": "7.60.1",
     "typescript": "5.9.3",
-    "vite": "6.4.5",
+    "vite": "6.4.6",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.12"
   },
