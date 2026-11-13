@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.6) (2026-11-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
 ## [8.2.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.5) (2026-11-12)
 
 **Note:** Version bump only for package @empathyco/x-adapter

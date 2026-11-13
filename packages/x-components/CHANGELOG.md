@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.9.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.9.0) (2026-11-13)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
 ## [10.8.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.8.0) (2026-11-12)
 
 ### Features
