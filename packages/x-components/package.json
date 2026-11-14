@@ -105,7 +105,7 @@
     "tailwindcss": "4.3.5",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "vite": "6.4.6",
+    "vite": "8.3.8",
     "vite-plugin-vue-inspector": "7.0.0",
     "vitest": "4.1.12",
     "vue": "3.5.45",
