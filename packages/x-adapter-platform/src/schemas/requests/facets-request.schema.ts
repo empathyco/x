@@ -1,25 +1,21 @@
+import type { FacetsRequest } from '@empathyco/x-types'
 import type { PlatformFacetsRequest } from '../../types/requests/facets-request.model'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../mappers/filter.utils'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the FacetsRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const facetsRequestSchema = z
-  .object({
-    query: z.string().optional(),
-    origin: z.string().optional(),
-    filters: z.record(z.string(), z.array(z.any())).optional(),
-    extraParams: z.record(z.string(), z.unknown()).optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): PlatformFacetsRequest => ({
-      query: source.query ?? '',
+export const facetsRequestSchema = createMutableZodSchema<FacetsRequest, PlatformFacetsRequest>({
+  transform: (source): PlatformFacetsRequest =>
+    defined<PlatformFacetsRequest>({
+      query: source.query,
       origin: source.origin,
       filter: mapFilters(source.filters),
       extraParams: source.extraParams,
     }),
-  )
+})

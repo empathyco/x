@@ -1,26 +1,19 @@
+import type { SearchRequest } from '@empathyco/x-types'
 import type { PlatformSearchRequest } from '../../types/requests/search-request.model'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../mappers/filter.utils'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the SearchRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const searchRequestSchema = z
-  .object({
-    query: z.string().optional(),
-    origin: z.string().optional(),
-    start: z.number().optional(),
-    rows: z.number().optional(),
-    sort: z.string().optional(),
-    filters: z.record(z.string(), z.array(z.any())).optional(),
-    extraParams: z.record(z.string(), z.unknown()).optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): PlatformSearchRequest => ({
-      query: source.query ?? '',
+export const searchRequestSchema = createMutableZodSchema<SearchRequest, PlatformSearchRequest>({
+  transform: (source): PlatformSearchRequest =>
+    defined<PlatformSearchRequest>({
+      query: source.query,
       origin: source.origin,
       start: source.start,
       rows: source.rows,
@@ -28,4 +21,4 @@ export const searchRequestSchema = z
       filter: mapFilters(source.filters),
       extraParams: source.extraParams,
     }),
-  )
+})

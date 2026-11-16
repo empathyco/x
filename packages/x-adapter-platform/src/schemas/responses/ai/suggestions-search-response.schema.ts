@@ -1,15 +1,9 @@
-import type { AiSuggestionsSearchResponse } from '@empathyco/x-types'
-import type { PlatformAiSuggestionsSearchResponse } from '../../../types/responses'
-import { z } from 'zod'
 import { aiSuggestionsSearchSchema } from '../../models/ai/suggestions-search.schema'
 
 /**
- * Default implementation for the AIOverviewSuggestionsSearchResponseSchema.
+ * Default implementation for the AiSuggestionsSearchResponseSchema.
  * @public
  */
-export const aiSuggestionsSearchResponseSchema = z
-  .any()
-  .transform(
-    (source): AiSuggestionsSearchResponse =>
-      aiSuggestionsSearchSchema.parse(source as PlatformAiSuggestionsSearchResponse),
-  )
+export const aiSuggestionsSearchResponseSchema = aiSuggestionsSearchSchema.$extends({
+  transform: () => ({}),
+})

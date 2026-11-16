@@ -1,5 +1,6 @@
 import type { NextQueriesRequest } from '@empathyco/x-types'
 import type { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model'
+
 import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { nextQueriesRequestSchema } from '../../schemas/requests/next-queries-request.schema'
 

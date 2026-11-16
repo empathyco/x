@@ -1,6 +1,6 @@
 import type { SliderFilter } from '@empathyco/x-types'
 import type { PlatformSliderFilter } from '../../../../types'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
 import { describe, expect, it } from 'vitest'
 import { sliderFilterSchema } from '../slider-filter.schema'
 
@@ -15,7 +15,7 @@ const createSliderFilter = (
 })
 
 describe('tests', () => {
-  const mapper = schemaMapperFactory<PlatformSliderFilter, SliderFilter>(sliderFilterSchema)
+  const mapper = zSchemaMapperFactory<PlatformSliderFilter, SliderFilter>(sliderFilterSchema)
 
   it('should map the range values to numbers', () => {
     const filter = mapper(createSliderFilter('10', '20'), { facetId: 'price' })

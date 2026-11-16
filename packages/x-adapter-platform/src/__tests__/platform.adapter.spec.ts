@@ -684,9 +684,6 @@ describe('platformAdapter tests', () => {
         instance: instanceStub,
         env: 'staging',
       },
-      excludeOptions: {
-        resultIds: [],
-      },
     })
 
     expect(fetchMock).toHaveBeenCalledTimes(1)

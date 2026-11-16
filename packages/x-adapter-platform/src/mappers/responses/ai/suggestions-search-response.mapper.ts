@@ -1,7 +1,7 @@
 import type { AiSuggestionsSearchResponse } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsSearchResponse } from '../../../types'
 import { zSchemaMapperFactory } from '@empathyco/x-adapter'
-import { aiSuggestionsSearchResponseSchema } from '../../../schemas/responses/ai/suggestions-search-response.schema'
+import { aiSuggestionsSearchResponseSchema } from '../../../schemas'
 
 /**
  * Default implementation for the AiSuggestionsSearchResponseMapper.

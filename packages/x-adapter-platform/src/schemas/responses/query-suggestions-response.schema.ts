@@ -1,32 +1,20 @@
 import type { QuerySuggestionsResponse } from '@empathyco/x-types'
-import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model'
-import { createContextualMapperFactory } from '@empathyco/x-adapter'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
 import { suggestionSchema } from '../models/suggestion.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the QuerySuggestionsResponseSchema.
  *
  * @public
  */
-export const querySuggestionsResponseSchema = createContextualMapperFactory<
-  PlatformQuerySuggestionsResponse,
-  QuerySuggestionsResponse
->(context =>
-  z
-    .object({
-      topTrends: z
-        .object({
-          content: z.array(z.any()).optional(),
-        })
-        .passthrough()
-        .optional(),
-    })
-    .passthrough()
-    .transform(
-      (source): QuerySuggestionsResponse => ({
-        suggestions:
-          source.topTrends?.content?.map(item => suggestionSchema(context).parse(item)) ?? [],
-      }),
-    ),
-)
+export const querySuggestionsResponseSchema = createMutableZodSchema({
+  source: z.looseObject({
+    topTrends: z.optional(z.looseObject({ content: z.optional(z.array(z.unknown())) })),
+  }),
+  transform: (source, context): QuerySuggestionsResponse =>
+    defined<QuerySuggestionsResponse>({
+      suggestions: parseEach(suggestionSchema, source.topTrends?.content, context),
+    }),
+})

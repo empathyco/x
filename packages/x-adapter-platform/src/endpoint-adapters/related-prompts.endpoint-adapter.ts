@@ -1,4 +1,3 @@
-import type { Mapper } from '@empathyco/x-adapter'
 import type { RelatedPromptsRequest, RelatedPromptsResponse } from '@empathyco/x-types'
 import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter'
 import { relatedPromptsRequestMapper } from '../mappers/index'
@@ -18,7 +17,7 @@ export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
   endpoint: from =>
     interpolate(`${getBeaconServiceUrl(from)}/relatedprompts/{extraParams.instance}`, from),
   requestMapper: relatedPromptsRequestMapper,
-  responseMapper: relatedPromptsResponseMapper as Mapper<any, RelatedPromptsResponse>,
+  responseMapper: relatedPromptsResponseMapper,
   defaultRequestOptions: {
     id: 'related-prompts',
     parameters: {

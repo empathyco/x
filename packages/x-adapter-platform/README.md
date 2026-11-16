@@ -289,20 +289,16 @@ const tagging = await platformAdapter.tagging({
 
 ### Modifying the x-platform-adapter
 
-Each request and response schemas are created as `MutableSchemas`, so they can be modified using the
-`$extends`, `$override`, `$replace` methods accordingly. You can check the
+Each request and response schemas are created as `MutableZodSchema`s, so they can be modified using
+the `$extends`, `$override`, `$replace` methods accordingly. You can check the
 [`x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)'s package
 documentation for further details.
 
 ###### Example of overriding a response by adding a new parameter
 
 ```ts
-import { PlatformResult, resultSchema } from '@empathyco/x-adapter-platform'
-import { Result } from '@empathyco/x-types'
-
-interface EmpathyDemoPlatformResult extends PlatformResult {
-  season: string
-}
+import { resultSchema } from '@empathyco/x-adapter-platform'
+import { z } from 'zod'
 
 declare module '@empathyco/x-types' {
   export interface Result {
@@ -310,8 +306,26 @@ declare module '@empathyco/x-types' {
   }
 }
 
+resultSchema.$override({
+  // Validator of the new properties of the API result. Their types are inferred from it.
+  source: z.looseObject({ season: z.string() }),
+  // The returned object is merged with the result that the adapter maps by default.
+  transform: (source, result, context) => ({
+    season: source.season,
+    name: result.name?.toUpperCase(),
+  }),
+})
+```
+
+If you prefer not to validate the new properties, provide their types instead:
+
+```ts
+interface EmpathyDemoPlatformResult extends PlatformResult {
+  season: string
+}
+
 resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
-  season: 'season',
+  transform: source => ({ season: source.season }),
 })
 ```
 

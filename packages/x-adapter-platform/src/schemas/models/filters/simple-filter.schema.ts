@@ -1,28 +1,23 @@
-import type { MapperContext } from '@empathyco/x-adapter'
 import type { SimpleFilter } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { defined } from '../../utils'
+import { platformFilterValidator } from './platform-filter.validator'
 
 /**
- * Returns a Zod schema for mapping a PlatformFilter to a SimpleFilter.
+ * Default implementation for the SimpleFilterSchema.
  *
  * @public
  */
-export function simpleFilterSchema(context: MapperContext) {
-  return z
-    .object({
-      filter: z.string().optional(),
-      value: z.string().optional(),
-      count: z.number().optional(),
-    })
-    .passthrough()
-    .transform(
-      (source): SimpleFilter => ({
-        id: source.filter ?? '',
-        label: source.value ?? '',
-        facetId: context.facetId as string,
-        totalResults: source.count,
-        selected: false,
-        modelName: 'SimpleFilter',
-      }),
-    )
-}
+export const simpleFilterSchema = createMutableZodSchema({
+  source: platformFilterValidator,
+  transform: (source, context): SimpleFilter => ({
+    ...defined<Pick<SimpleFilter, 'id' | 'label' | 'totalResults'>>({
+      id: source.filter,
+      label: source.value,
+      totalResults: source.count,
+    }),
+    facetId: context.facetId as string,
+    selected: false,
+    modelName: 'SimpleFilter',
+  }),
+})

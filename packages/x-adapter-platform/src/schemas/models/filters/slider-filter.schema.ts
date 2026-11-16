@@ -1,57 +1,44 @@
 import type { MapperContext } from '@empathyco/x-adapter'
 import type { SliderFilter } from '@empathyco/x-types'
-import type { PlatformSliderFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
+import { defined } from '../../utils'
 
-const getFilter = (context: MapperContext | undefined) => {
-  if (!context) {
-    return undefined
-  }
-
+function getFilter(context: MapperContext) {
   const facetId = context.facetId as string
   return (context.requestParameters?.filter as string[] | undefined)?.find(filter =>
     filter.startsWith(`${facetId}:`),
   )
 }
 
+function getSelectedRange(filter: string | undefined): SliderFilter['selectedRange'] {
+  const match = filter?.split(':')[1].match(/^(-?\d+(?:\.\d+)?)-(-?\d+(?:\.\d+)?)$/)
+  return match ? { min: Number(match[1]), max: Number(match[2]) } : { min: null, max: null }
+}
+
+const boundary = z.union([z.string(), z.number()])
+
 /**
  * Default implementation for the sliderFilterSchema.
  *
  * @public
  */
-export const sliderFilterSchema = createMutableSchema<PlatformSliderFilter, SliderFilter>({
-  id: ({ min, max }, context) => {
-    const facetId = context?.facetId as string
-    const filter = getFilter(context)
-
-    return filter ?? `${facetId}:${min}-${max}`
-  },
-  facetId: (_, context) => context?.facetId as string,
-  selected: () => false,
-  modelName: () => 'SliderFilter',
-  range: ({ min, max }) => ({
-    min: Number(min),
-    max: Number(max),
+export const sliderFilterSchema = createMutableZodSchema({
+  source: z.looseObject({
+    min: boundary,
+    max: boundary,
+    unit: z.optional(z.custom<SliderFilter['unit']>(unit => typeof unit === 'string')),
   }),
-  selectedRange: (_, context) => {
+  transform: ({ min, max, unit }, context): SliderFilter => {
     const filter = getFilter(context)
-
-    if (!filter) {
-      return { min: null, max: null }
-    }
-
-    const [, range] = filter.split(':')
-    const match = range.match(/^(-?\d+(?:\.\d+)?)-(-?\d+(?:\.\d+)?)$/)
-
-    if (!match) {
-      return { min: null, max: null }
-    }
-
     return {
-      min: Number(match[1]),
-      max: Number(match[2]),
+      id: filter ?? `${context.facetId as string}:${min}-${max}`,
+      facetId: context.facetId as string,
+      selected: false,
+      modelName: 'SliderFilter',
+      range: { min: Number(min), max: Number(max) },
+      selectedRange: getSelectedRange(filter),
+      ...defined<Pick<SliderFilter, 'unit'>>({ unit }),
     }
   },
-
-  unit: 'unit',
 })

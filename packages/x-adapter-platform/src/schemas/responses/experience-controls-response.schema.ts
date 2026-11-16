@@ -1,15 +1,16 @@
 import type { ExperienceControlsResponse } from '@empathyco/x-types'
-import type { PlatformExperienceControlsResponse } from '../../types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
 
 /**
  * Default implementation for the ExperienceControlsResponseSchema.
  *
  * @public
  */
-export const experienceControlsResponseSchema = z.any().transform(
-  (source): ExperienceControlsResponse => ({
-    controls: source as PlatformExperienceControlsResponse,
+export const experienceControlsResponseSchema = createMutableZodSchema({
+  source: z.record(z.string(), z.unknown()),
+  transform: (response): ExperienceControlsResponse => ({
+    controls: response,
     events: {},
   }),
-)
+})

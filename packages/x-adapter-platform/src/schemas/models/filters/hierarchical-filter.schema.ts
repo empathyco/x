@@ -1,46 +1,47 @@
-import type { MapperContext } from '@empathyco/x-adapter'
+import type { MutableZodSchema } from '@empathyco/x-adapter'
 import type { HierarchicalFilter } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
+import { defined, parseEach } from '../../utils'
+import { platformFilterValidator } from './platform-filter.validator'
+
+const platformHierarchicalFilterValidator = z.extend(platformFilterValidator, {
+  children: z.optional(z.looseObject({ values: z.optional(z.array(z.unknown())) })),
+})
+
+/** The hierarchical filter that the Platform API returns. */
+interface PlatformHierarchicalFilterSource {
+  [key: string]: unknown
+  filter: string
+  value?: string
+  count?: number
+  children?: { [key: string]: unknown; values?: unknown[] }
+}
 
 /**
- * Returns a Zod schema for mapping a PlatformFilter to a HierarchicalFilter.
- * Supports recursive children via z.lazy().
+ * Default implementation for the HierarchicalFilterSchema.
  *
  * @public
  */
-export function hierarchicalFilterSchema(context: MapperContext): z.ZodType<HierarchicalFilter> {
-  return z
-    .object({
-      filter: z.string().optional(),
-      value: z.string().optional(),
-      count: z.number().optional(),
-      children: z
-        .object({
-          values: z.array(z.any()).optional(),
-        })
-        .passthrough()
-        .optional(),
-    })
-    .passthrough()
-    .transform(
-      (source): HierarchicalFilter => ({
-        id: source.filter ?? '',
-        label: source.value ?? '',
-        facetId: context.facetId as string,
-        totalResults: source.count,
-        parentId: (context.parentId as string) ?? null,
-        selected: false,
-        modelName: 'HierarchicalFilter',
-        ...(source.children?.values
-          ? {
-              children: source.children.values.map(child =>
-                hierarchicalFilterSchema({
-                  ...context,
-                  facetId: context.facetId,
-                }).parse(child),
-              ),
-            }
-          : {}),
+export const hierarchicalFilterSchema: MutableZodSchema<
+  PlatformHierarchicalFilterSource,
+  HierarchicalFilter
+> = createMutableZodSchema({
+  source: platformHierarchicalFilterValidator,
+  transform: (source, context): HierarchicalFilter => ({
+    ...defined<Pick<HierarchicalFilter, 'id' | 'label' | 'totalResults' | 'children'>>({
+      id: source.filter,
+      label: source.value,
+      totalResults: source.count,
+      // The children are mapped with this same schema, so they also apply its overrides.
+      children: parseEach(hierarchicalFilterSchema, source.children?.values, {
+        ...context,
+        parentId: source.filter,
       }),
-    )
-}
+    }),
+    facetId: context.facetId as string,
+    parentId: (context.parentId as string) ?? null,
+    selected: false,
+    modelName: 'HierarchicalFilter',
+  }),
+})

@@ -1,0 +1,122 @@
+import type { MapperContext } from '../mappers/types'
+import type {
+  MutableZodSchema,
+  SourceValidator,
+  ZodSchemaDefinition,
+  ZodSchemaOverride,
+} from './zod-schema.types'
+
+/** A step of the mapping: an optional validator plus the transformation to merge. */
+interface Layer {
+  source?: SourceValidator
+  transform: (source: any, target: any, context: MapperContext) => unknown
+}
+
+/** Max number of different validation warnings that a schema reports. */
+const MAX_REPORTED_ISSUES = 20
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function merge(base: unknown, value: unknown): unknown {
+  return isPlainObject(base) && isPlainObject(value) ? { ...base, ...value } : value
+}
+
+/**
+ * Removes the `undefined` properties of a mapped object. This way a transformation never adds
+ * properties that the source does not have, nor replaces already mapped ones with `undefined`.
+ */
+function clean(value: unknown): unknown {
+  return isPlainObject(value)
+    ? Object.fromEntries(Object.entries(value).filter(([, property]) => property !== undefined))
+    : value
+}
+
+function createSchema(layers: Layer[]): MutableZodSchema<any, any> {
+  const reportedIssues = new Set<string>()
+
+  function validate(validator: SourceValidator, source: unknown): unknown {
+    const result = validator.safeParse(source)
+    if (result.success) {
+      return result.data
+    }
+    const message = result.error instanceof Error ? result.error.message : String(result.error)
+    if (!reportedIssues.has(message) && reportedIssues.size < MAX_REPORTED_ISSUES) {
+      reportedIssues.add(message)
+      console.warn('[x-adapter] The source does not match the schema', result.error, source)
+    }
+    return source
+  }
+
+  return {
+    parse(source, context = {}) {
+      if (source === undefined || source === null) {
+        console.warn('[x-adapter] This schema cannot be applied to an empty source')
+        return undefined
+      }
+      // The raw source is the base, so validators that strip unknown keys do not lose data.
+      const validated = layers.reduce<unknown>(
+        (data, layer) => (layer.source ? merge(data, validate(layer.source, source)) : data),
+        source,
+      )
+      return layers.reduce<unknown>(
+        (target, layer) => merge(target, clean(layer.transform(validated, target, context))),
+        undefined,
+      )
+    },
+    $override(override: ZodSchemaOverride<any, any, any, any>) {
+      layers.push(override)
+      return this
+    },
+    $extends(override: ZodSchemaOverride<any, any, any, any>) {
+      return createSchema([...layers, override])
+    },
+    $replace(definition: ZodSchemaDefinition<any, any>) {
+      layers.splice(0, layers.length, toLayer(definition))
+      reportedIssues.clear()
+      return this
+    },
+  }
+}
+
+function toLayer({ source, transform }: ZodSchemaDefinition<any, any>): Layer {
+  return { source, transform: (data, _target, context) => transform(data, context) }
+}
+
+/**
+ * Creates a {@link MutableZodSchema} that validates a source object with a
+ * [Zod](https://zod.dev) schema and maps it to a target object with a plain function.
+ *
+ * @param definition - The validator and the transformation of the schema.
+ * @returns A {@link MutableZodSchema}.
+ * @example
+ * ```typescript
+ * const resultSchema = createMutableZodSchema({
+ *   source: z.looseObject({ __id: z.string(), __name: z.string().optional() }),
+ *   transform: (source): Result => ({ id: source.__id, name: source.__name }),
+ * })
+ *
+ * resultSchema.$override({
+ *   source: z.looseObject({ brand: z.string() }),
+ *   transform: source => ({ brand: source.brand }),
+ * })
+ * ```
+ * @public
+ */
+export function createMutableZodSchema<Source, Target>(
+  definition: ZodSchemaDefinition<Source, Target>,
+): MutableZodSchema<Source, Target> {
+  return createSchema([toLayer(definition)])
+}
+
+/**
+ * Checks if the given schema is a {@link MutableZodSchema}.
+ *
+ * @param schema - The schema to check.
+ * @returns True if it is a {@link MutableZodSchema}, false otherwise.
+ * @public
+ */
+export function isMutableZodSchema(schema: unknown): schema is MutableZodSchema<any, any> {
+  return isPlainObject(schema) && '$override' in schema && '$extends' in schema
+}

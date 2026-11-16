@@ -1,36 +1,36 @@
+import type { AiSuggestionsSearchRequest } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsSearchRequest } from '../../../types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../../mappers/filter.utils'
+import { defined } from '../../utils'
 
 /**
- * Default implementation for the AiOverviewSuggestionsSearchRequestSchema.
+ * Default implementation for the aiSuggestionsSearchRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const aiSuggestionsSearchRequestSchema = z
-  .object({
-    queries: z.array(z.any()).optional(),
-    excludeOptions: z.record(z.string(), z.array(z.string())).optional(),
-    extraParams: z.record(z.string(), z.unknown()).optional(),
-    filters: z.record(z.string(), z.array(z.any())).optional(),
-    origin: z.string().optional(),
-  })
-  .passthrough()
-  .transform((source): PlatformAiSuggestionsSearchRequest => {
-    const { lang, instance, ...restExtraParams } = source.extraParams ?? {}
+export const aiSuggestionsSearchRequestSchema = createMutableZodSchema<
+  AiSuggestionsSearchRequest,
+  PlatformAiSuggestionsSearchRequest
+>({
+  transform: ({ extraParams, filters, origin, queries, excludeOptions }) => {
+    const { lang, instance, ...restExtraParams } = extraParams ?? {}
+
     return {
       context: {
         lang: (lang ?? '') as string,
         instance: (instance ?? '') as string,
         filters: {
           ...restExtraParams,
-          ...(source.filters && { filters: mapFilters(source.filters) }),
-          origin: source.origin,
+          ...(filters && { filters: mapFilters(filters) }),
+          origin,
         },
       },
-      queries: (source.queries ?? []) as { query: string; categories: string[] }[],
-      excludeOptions: (source.excludeOptions ?? { resultIds: [] }) as {
-        resultIds: (string | number)[]
-      },
+      ...defined<Pick<PlatformAiSuggestionsSearchRequest, 'queries' | 'excludeOptions'>>({
+        queries,
+        excludeOptions,
+      }),
     }
-  })
+  },
+})

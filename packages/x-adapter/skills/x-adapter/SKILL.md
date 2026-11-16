@@ -10,8 +10,10 @@ Librería de utilidades para crear un cliente de cualquier API: configura endpoi
 ## Componentes disponibles
 
 - `endpointAdapterFactory` — crea un `EndpointAdapter` (función de petición) a partir de `endpoint`, `httpClient` y mappers.
-- `schemaMapperFactory` — genera mappers de petición/respuesta a partir de un `Schema` (dictcionario de paths o funciones).
-- `createMutableSchema` — crea un `MutableSchema` reutilizable con los métodos `$extends`, `$override` y `$replace`.
+- `createMutableZodSchema` — crea un `MutableZodSchema`: valida el origen con un schema de Zod (`source`) y lo mapea con una función (`transform`). Incluye `$extends`, `$override` y `$replace`.
+- `zSchemaMapperFactory` — genera mappers de petición/respuesta a partir de un `MutableZodSchema` o de un schema de Zod.
+- `schemaMapperFactory` — **(deprecado, usar `zSchemaMapperFactory`)** genera mappers de petición/respuesta a partir de un `Schema` (dictcionario de paths o funciones).
+- `createMutableSchema` — **(deprecado, usar `createMutableZodSchema`)** crea un `MutableSchema` reutilizable con los métodos `$extends`, `$override` y `$replace`.
 - `identityMapper` / `combineMappers` — mappers auxiliares para identidad y composición.
 - `fetchHttpClient` / `fetchRawHttpClient` — clientes HTTP por defecto basados en la Fetch API.
 - `buildUrl` / `interpolate` — utilidades para construir URLs y parametrizar endpoints (`https://api/{id}`).

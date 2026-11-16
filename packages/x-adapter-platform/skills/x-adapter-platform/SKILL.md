@@ -24,7 +24,7 @@ Adapter para la Empathy Platform API construido sobre `x-adapter`: contiene la c
   - `experienceControls` — experience controls del snippet.
   - `aiSuggestions` / `aiSuggestionsSearch` — sugerencias AI.
   - `tagging` — envío de eventos de métricas.
-- `resultSchema`, `facetsSchema`, etc. — `MutableSchemas` de request/response que se pueden modificar con `$extends`, `$override` y `$replace`.
+- `resultSchema`, `facetsSchema`, etc. — `MutableZodSchema`s de request/response que se pueden modificar con `$extends`, `$override` y `$replace`.
 - `mapFilters`, `getFacetConfig`, `extractUrlParameters`, `getTaggingInfoFromUrl` — helpers de mapeo y utilidades.
 
 ## Instalación

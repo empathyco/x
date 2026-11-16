@@ -1,12 +1,12 @@
-import type { FacetModelName } from '@empathyco/x-types'
-import type { z } from 'zod'
+import type { MutableZodSchema } from '@empathyco/x-adapter'
+import type { FacetModelName, Filter } from '@empathyco/x-types'
 
 /**
- * Facet configuration containing the model name and the Zod mapper schema.
+ * Facet configuration containing the model name and the schema of its filters.
  *
  * @public
  */
 export interface FacetConfig {
   modelName: FacetModelName
-  schema: (context: Record<string, unknown>) => z.ZodTypeAny
+  schema: MutableZodSchema<any, Filter>
 }

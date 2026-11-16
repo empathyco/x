@@ -1,28 +1,20 @@
+import type { BrowseRequest } from '@empathyco/x-types'
 import type { PlatformBrowseRequest } from '../../types/requests/browse-request.model'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../mappers/filter.utils'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the BrowseRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const browseRequestSchema = z
-  .object({
-    browseField: z.string().optional(),
-    browseValue: z.string().optional(),
-    origin: z.string().optional(),
-    start: z.number().optional(),
-    rows: z.number().optional(),
-    sort: z.string().optional(),
-    filters: z.record(z.string(), z.array(z.any())).optional(),
-    extraParams: z.record(z.string(), z.unknown()).optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): PlatformBrowseRequest => ({
-      browseField: source.browseField ?? '',
-      browseValue: source.browseValue ?? '',
+export const browseRequestSchema = createMutableZodSchema<BrowseRequest, PlatformBrowseRequest>({
+  transform: (source): PlatformBrowseRequest =>
+    defined<PlatformBrowseRequest>({
+      browseField: source.browseField,
+      browseValue: source.browseValue,
       origin: source.origin,
       start: source.start,
       rows: source.rows,
@@ -30,4 +22,4 @@ export const browseRequestSchema = z
       filter: mapFilters(source.filters),
       extraParams: source.extraParams,
     }),
-  )
+})

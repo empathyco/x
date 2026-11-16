@@ -1,20 +1,21 @@
+import type { RelatedTagsRequest } from '@empathyco/x-types'
 import type { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the RelatedTagsRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const relatedTagsRequestSchema = z
-  .object({
-    query: z.string().optional(),
-    extraParams: z.record(z.string(), z.unknown()).optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): PlatformRelatedTagsRequest => ({
-      query: source.query ?? '',
+export const relatedTagsRequestSchema = createMutableZodSchema<
+  RelatedTagsRequest,
+  PlatformRelatedTagsRequest
+>({
+  transform: (source): PlatformRelatedTagsRequest =>
+    defined<PlatformRelatedTagsRequest>({
+      query: source.query,
       extraParams: source.extraParams,
     }),
-  )
+})

@@ -1,24 +1,20 @@
 import type { FacetsResponse } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
 import { facetSchema } from '../models/facet.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the FacetsResponseSchema.
  *
  * @public
  */
-export const facetsResponseSchema = z
-  .object({
-    catalog: z
-      .object({
-        facets: z.array(z.any()).optional(),
-      })
-      .passthrough()
-      .optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): FacetsResponse => ({
-      facets: source.catalog?.facets?.map(item => facetSchema.parse(item)),
+export const facetsResponseSchema = createMutableZodSchema({
+  source: z.looseObject({
+    catalog: z.optional(z.looseObject({ facets: z.optional(z.array(z.unknown())) })),
+  }),
+  transform: (source, context): FacetsResponse =>
+    defined<FacetsResponse>({
+      facets: parseEach(facetSchema, source.catalog?.facets, context),
     }),
-  )
+})

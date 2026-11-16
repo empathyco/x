@@ -1,5 +1,7 @@
 import type { PartialResult } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
+import { defined, parseEach } from '../utils'
 import { resultSchema } from './result.schema'
 
 /**
@@ -7,17 +9,16 @@ import { resultSchema } from './result.schema'
  *
  * @public
  */
-export const partialResultsSchema = z
-  .object({
-    term: z.string().optional(),
-    numFound: z.number().optional(),
-    content: z.array(z.any()).optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): PartialResult => ({
-      query: source.term ?? '',
-      results: (source.content ?? []).map(item => resultSchema.parse(item)),
-      totalResults: source.numFound ?? null,
+export const partialResultsSchema = createMutableZodSchema({
+  source: z.looseObject({
+    term: z.string(),
+    numFound: z.optional(z.number()),
+    content: z.optional(z.array(z.unknown())),
+  }),
+  transform: (source, context): PartialResult =>
+    defined<PartialResult>({
+      query: source.term,
+      results: parseEach(resultSchema, source.content, context),
+      totalResults: source.numFound,
     }),
-  )
+})

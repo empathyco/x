@@ -1,5 +1,8 @@
 import type { QuerySuggestionsResponse } from '@empathyco/x-types'
 import type { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model'
+
+import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+
 import { querySuggestionsResponseSchema } from '../../schemas/responses/query-suggestions-response.schema'
 
 /**
@@ -7,7 +10,7 @@ import { querySuggestionsResponseSchema } from '../../schemas/responses/query-su
  *
  * @public
  */
-export const querySuggestionsResponseMapper = querySuggestionsResponseSchema as (
-  source: PlatformQuerySuggestionsResponse,
-  context: Record<string, unknown>,
-) => QuerySuggestionsResponse
+export const querySuggestionsResponseMapper = zSchemaMapperFactory<
+  PlatformQuerySuggestionsResponse,
+  QuerySuggestionsResponse
+>(querySuggestionsResponseSchema)

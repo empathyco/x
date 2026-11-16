@@ -1,24 +1,20 @@
 import type { NextQueriesResponse } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
 import { nextQuerySchema } from '../models/next-query.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the NextQueriesResponseSchema.
  *
  * @public
  */
-export const nextQueriesResponseSchema = z
-  .object({
-    data: z
-      .object({
-        nextqueries: z.array(z.any()).optional(),
-      })
-      .passthrough()
-      .optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): NextQueriesResponse => ({
-      nextQueries: source.data?.nextqueries?.map(item => nextQuerySchema.parse(item)) ?? [],
+export const nextQueriesResponseSchema = createMutableZodSchema({
+  source: z.looseObject({
+    data: z.optional(z.looseObject({ nextqueries: z.optional(z.array(z.unknown())) })),
+  }),
+  transform: (source, context): NextQueriesResponse =>
+    defined<NextQueriesResponse>({
+      nextQueries: parseEach(nextQuerySchema, source.data?.nextqueries, context),
     }),
-  )
+})

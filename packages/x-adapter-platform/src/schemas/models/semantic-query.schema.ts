@@ -1,21 +1,23 @@
 import type { SemanticQuery } from '@empathyco/x-types'
-import { z } from 'zod'
+import { createMutableZodSchema } from '@empathyco/x-adapter'
+import * as z from 'zod/mini'
+import { defined } from '../utils'
 
 /**
- * Default implementation for the SemanticQuery schema.
+ * Default implementation for the SemanticQuerySchema.
  *
  * @public
  */
-export const semanticQuerySchema = z
-  .object({
-    query: z.string().optional(),
-    distance: z.number().optional(),
-  })
-  .passthrough()
-  .transform(
-    (source): SemanticQuery => ({
-      query: source.query ?? '',
-      modelName: 'SemanticQuery',
-      distance: source.distance ?? 0,
+export const semanticQuerySchema = createMutableZodSchema({
+  source: z.looseObject({
+    query: z.string(),
+    distance: z.number(),
+  }),
+  transform: (source): SemanticQuery => ({
+    ...defined<Pick<SemanticQuery, 'query' | 'distance'>>({
+      query: source.query,
+      distance: source.distance,
     }),
-  )
+    modelName: 'SemanticQuery',
+  }),
+})
