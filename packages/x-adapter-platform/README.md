@@ -329,6 +329,41 @@ resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
 })
 ```
 
+###### Migrating from the path based schemas
+
+Since the schemas are `MutableZodSchema`s, the modifications written as path based schemas must be
+migrated. Instead of a dictionary of paths and functions, provide a `transform` function that
+returns the properties to add or replace:
+
+```ts
+// Before
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+  season: 'season',
+  name: ({ __name }) => __name.toUpperCase(),
+  images: {
+    $path: 'pictures',
+    $subSchema: pictureSchema,
+  },
+})
+
+// After
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+  transform: (source, result, context) => ({
+    season: source.season,
+    name: source.__name.toUpperCase(),
+    images: source.pictures?.map(picture => pictureSchema.parse(picture, context)),
+  }),
+})
+```
+
+Keep in mind that:
+
+- The object returned by `transform` is shallow merged with the already mapped one, which is its
+  second parameter. Spread it to modify a nested property: `price: { ...result.price, tax }`.
+- The properties returned as `undefined` are ignored.
+- `getFacetConfig(type).schema` is a `MutableZodSchema` too. Use
+  `schema.$extends({ transform })` instead of spreading it.
+
 <br>
 
 ## Test
