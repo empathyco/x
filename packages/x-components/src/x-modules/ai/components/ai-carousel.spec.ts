@@ -1,17 +1,25 @@
 import type { AiSuggestionTagging } from '@empathyco/x-types'
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import type DisplayEmitter from '../../../components/display-emitter.vue'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { getResultsStub } from '../../../__stubs__/results-stubs.factory'
-import { getDataTestSelector } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector } from '../../../__tests__/utils'
 import { AIStarIcon, DisplayClickProvider } from '../../../components'
 import { use$x, useState } from '../../../composables'
 import AICarousel from './ai-carousel.vue'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
-vi.mock('../../../composables')
+vi.mock('../../../composables', async importOriginal => {
+  const actual = await importOriginal<typeof import('../../../composables')>()
+  return {
+    ...actual,
+    use$x: vi.fn(),
+    useState: vi.fn(),
+  }
+})
 let resizeCallback: any
 vi.mock('@vueuse/core', async importOriginal => {
   const actual = (await importOriginal()) as any
@@ -86,11 +94,16 @@ const propsStub = {
   group: true,
 }
 
-function render(options: ComponentMountingOptions<typeof AICarousel> = {}) {
+function render(
+  options: ComponentMountingOptions<typeof AICarousel> & { ariaLabels?: AriaLabels } = {},
+) {
+  const { ariaLabels, ...mountOptions } = options
   const wrapper = mount(AICarousel, {
     props: propsStub,
-    ...options,
+    ...mountOptions,
     global: {
+      ...mountOptions.global,
+      provide: ariaProvide(ariaLabels),
       stubs: {
         DisplayEmitter: {
           template: '<div v-bind="$attrs"><slot /></div>',
@@ -222,6 +235,61 @@ describe('ai-carousel component', () => {
     expect(sut.title.classes()).not.toContain('x-ai-carousel-title--expanded')
   })
 
+  it('should render the default expand/collapse aria-labels on the title toggle button', async () => {
+    const sut = render()
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Expand')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Collapse')
+  })
+
+  it('should allow overriding the expand/collapse aria-labels through the global configuration', async () => {
+    const sut = render({
+      ariaLabels: { aiCarousel: { expand: 'Show all', collapse: 'Show less' } },
+    })
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show all')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Show less')
+  })
+
+  it('should resolve the expand/collapse aria-labels from the global configuration', async () => {
+    const sut = render({
+      ariaLabels: { aiCarousel: { expand: 'Desplegar', collapse: 'Plegar' } },
+    })
+
+    // Mock title overflowing so the toggle button is rendered
+    const titleText = sut.wrapper.find('.x-ai-carousel-title-text')
+    Object.defineProperty(titleText.element, 'scrollWidth', { value: 200, configurable: true })
+    Object.defineProperty(titleText.element, 'clientWidth', { value: 100, configurable: true })
+    resizeCallback()
+    await nextTick()
+
+    expect(sut.expandButton.attributes('aria-label')).toBe('Desplegar')
+
+    await sut.title.trigger('click')
+    await nextTick()
+    expect(sut.expandButton.attributes('aria-label')).toBe('Plegar')
+  })
+
   it('should render grouped mode when group prop is true', () => {
     const sut = render({ props: { ...propsStub, group: true } })
 
@@ -234,6 +302,20 @@ describe('ai-carousel component', () => {
     )
     expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
     expect(sut.suggestionsContainer.exists()).toBeFalsy()
+  })
+
+  it('should pass the sliding panel classes to the grouped carousel', () => {
+    const sut = render({ props: { ...propsStub, group: true } })
+
+    expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
+    expect(sut.aiGroupedCarousel.exists()).toBeTruthy()
+    expect(sut.aiGroupedCarousel.props('slidingPanelClasses')).toBe(propsStub.slidingPanelClasses)
+    expect(sut.aiGroupedCarousel.props('slidingPanelContainerClasses')).toBe(
+      propsStub.slidingPanelContainerClasses,
+    )
+    expect(sut.aiGroupedCarousel.props('slidingPanelButtonsClasses')).toBe(
+      propsStub.slidingPanelButtonsClasses,
+    )
   })
 
   it('should render non-grouped mode when group prop is false', () => {

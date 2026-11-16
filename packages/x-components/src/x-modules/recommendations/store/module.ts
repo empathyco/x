@@ -1,11 +1,6 @@
 import type { RecommendationsXStoreModule } from './types'
-import { DefaultResultsEnrichmentService } from '../../../services/results-enrichment.service'
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils'
 import { setStatus } from '../../../store/utils/status-store.utils'
-import {
-  cancelFetchAndSaveRecommendationsEnrichment,
-  fetchAndSaveRecommendationsEnrichment,
-} from './actions/fetch-and-save-recommendations-enrichment.action'
 import {
   cancelFetchAndSaveRecommendations,
   fetchAndSaveRecommendations,
@@ -48,20 +43,12 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
         Object.assign(stateRecommendation, recommendation)
       }
     },
-    updateRecommendationsFromEnrichment(state, enrichmentResults) {
-      DefaultResultsEnrichmentService.instance.updateResults(
-        state.recommendations,
-        enrichmentResults,
-      )
-    },
     setConfig,
     mergeConfig,
   },
   actions: {
     cancelFetchAndSaveRecommendations,
-    cancelFetchAndSaveRecommendationsEnrichment,
     fetchRecommendations,
     fetchAndSaveRecommendations,
-    fetchAndSaveRecommendationsEnrichment,
   },
 }

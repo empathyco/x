@@ -3,7 +3,7 @@
     :model-value="selectedColumns"
     :items="columns"
     :animation="animation"
-    aria-label="Select number of columns"
+    :aria-label="ariaLabels?.dropdown"
     @update:model-value="emitEvents"
   >
     <template v-if="hasToggleSlot" #toggle="{ item, isOpen }">
@@ -32,6 +32,7 @@
 <script lang="ts">
 import type { Component, PropType } from 'vue'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import { use$x } from '../../composables/use-$x'
 import BaseDropdown from '../base-dropdown.vue'
 
@@ -61,6 +62,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
     const $x = use$x()
+
+    const ariaLabels = useAccessibilityLabels('baseColumnPickerDropdown')
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)
@@ -117,6 +120,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       emitEvents,
       hasToggleSlot: !!slots.toggle,
       selectedColumns,

@@ -7,7 +7,11 @@
       <button
         class="xds:button"
         onclick="
-          window.InterfaceX?.browse({ browseField: 'categoryIds', browseValue: '5b612edb5' })
+          window.InterfaceX?.browse({
+            browseField: 'categoryIds',
+            browseValue: '5b612edb5',
+            browseFilters: ['price:100.0-110.0', 'categoryIds:28720365c'],
+          })
         "
       >
         CategoryIds > dress
@@ -18,6 +22,7 @@
           window.InterfaceX?.browse({
             browseField: 'description',
             browseValue: 'floral print dress',
+            browseFilters: ['categoryIds:12fad53d7'],
           })
         "
       >

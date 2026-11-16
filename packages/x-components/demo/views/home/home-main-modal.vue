@@ -171,10 +171,17 @@
                   </div>
 
                   <!-- AI -->
-                  <LocationProvider location="results">
-                    <AiCarousel :group="x.noResults" class="xds:mb-28 xds:w-full">
+                  <LocationProvider v-if="showFallbackNoResults" location="no_results">
+                    <AiCarousel class="xds:mb-28 xds:w-full">
                       <template #result="{ result }">
-                        <Result :result="result" class="xds:w-37.5" />
+                        <Result
+                          :result="result"
+                          class="xds:w-37.5"
+                          :click-events="{
+                            addToCart: 'UserClickedAnAiCarouselAdd2Cart',
+                            click: 'UserClickedAnAiCarouselResult',
+                          }"
+                        />
                       </template>
                       <template #extra-content>
                         <button
@@ -205,6 +212,7 @@
                           displayTagging,
                           queryTagging,
                         }"
+                        :load-when-visible="true"
                         :debounce-time-ms="250"
                         :queries-preview-info="queriesPreviewInfo"
                         data-wysiwyg="query-preview-list"
@@ -634,6 +642,8 @@ const relatedPromptsQueriesPreviewInfo = computed(() => {
   const queries = relatedPrompts.value?.[selectedPrompt.value].relatedPromptNextQueries ?? []
   return queries.map(({ query }) => ({ query }))
 })
+
+const showFallbackNoResults = computed(() => x.noResults && x.status.search === 'success')
 
 const fallbackTaggingRequest = {} as TaggingRequest
 const findNextQuery = (queryPreviewInfo: QueryPreviewInfo) =>

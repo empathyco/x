@@ -3,12 +3,13 @@ import type { DeepPartial, Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper } from '@vue/test-utils'
 import type { Component } from 'vue'
 import type { RootXStoreState } from '../../../../../store/store.types'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory'
-import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components/x-component.utils'
 import { XPlugin } from '../../../../../plugins/x-plugin'
 import { toKebabCase } from '../../../../../utils/string'
@@ -25,6 +26,31 @@ describe('testing Facets component', () => {
   it('has FacetsModule as XModule', () => {
     const { wrapper } = renderFacetsComponent()
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets')
+  })
+
+  it('renders the navigation with the default accessible label', () => {
+    const { wrapper } = renderFacetsComponent({
+      facets: {
+        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+        ]),
+      },
+    })
+
+    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Facets')
+  })
+
+  it('resolves the navigation aria-label from the global configuration', () => {
+    const { wrapper } = renderFacetsComponent({
+      ariaLabels: { facets: { root: 'Filtros' } },
+      facets: {
+        color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+        ]),
+      },
+    })
+
+    expect(wrapper.get('nav#facet-nav').attributes('aria-label')).toBe('Filtros')
   })
 
   it('does not render anything when facets are empty', () => {
@@ -270,7 +296,8 @@ function renderFacetsComponent({
               </span>
             </div>
           </template>
-       </Facets>`,
+        </Facets>`,
+  ariaLabels,
 }: FacetsRenderOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
@@ -286,6 +313,7 @@ function renderFacetsComponent({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })],
+        provide: ariaProvide(ariaLabels),
       },
       store,
       props: {
@@ -319,4 +347,6 @@ interface FacetsRenderOptions {
   facets?: Dictionary<Facet>
   renderableFacets?: string
   template?: string
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }

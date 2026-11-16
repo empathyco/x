@@ -1,6 +1,6 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import { enableAutoUnmount, flushPromises, mount, renderToString } from '@vue/test-utils'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { createSSRApp, nextTick } from 'vue'
 import BaseTeleport from '../base-teleport.vue'
 
@@ -57,9 +57,12 @@ describe('testing BaseTeleport component', () => {
       expect(document.querySelector('.x-base-teleport')).toBeNull()
 
       await wrapper.setProps({ target: '#teleport-target' })
-      await flushPromises()
 
-      expect(document.querySelector('.x-base-teleport')).not.toBeNull()
+      // The host is created asynchronously (setTimeout after mount) and the teleport
+      // insertion happens in a reactive effect, so poll until it lands in the DOM.
+      await vi.waitFor(() => {
+        expect(document.querySelector('.x-base-teleport')).not.toBeNull()
+      })
     })
 
     it('removes the teleport host hook element on unmounted', async () => {

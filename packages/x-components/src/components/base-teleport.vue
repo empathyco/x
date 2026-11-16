@@ -79,6 +79,7 @@ export default defineComponent({
       targetAddedObserver.disconnect()
       targetRemovedObserver.disconnect()
       teleportHost.value?.remove()
+      targetElement.value?.classList.remove('x-base-teleport-parent--onlychild')
     })
 
     // Handles target prop changes and init the observers accordingly.
@@ -114,6 +115,10 @@ export default defineComponent({
       }
       const position = props.position === 'onlychild' ? 'beforeend' : props.position
       targetElement.value.insertAdjacentElement(position, teleportHost.value)
+
+      if (props.position === 'onlychild') {
+        targetElement.value.className += ' x-base-teleport-parent--onlychild'
+      }
     })
 
     /* Update the host inline styles when it changes */
@@ -173,8 +178,7 @@ export default defineComponent({
 /** Teleport host styles should be injected outside our shadowRoots */
 if (typeof document !== 'undefined') {
   const css = document.createElement('style')
-  css.textContent =
-    ':has(> .x-base-teleport--onlychild) > *:not(.x-base-teleport) { display: none; }'
+  css.textContent = `.x-base-teleport-parent--onlychild > *:not(.x-base-teleport) { display: none; }`
   document.head?.appendChild(css) ||
     document.addEventListener('DOMContentLoaded', () => document.head.appendChild(css))
 }

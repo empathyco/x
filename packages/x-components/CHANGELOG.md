@@ -3,6 +3,236 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.9.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.9.0) (2026-11-13)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
+## [10.8.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.8.0) (2026-11-12)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
+## [10.7.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.7.0) (2026-11-10)
+
+### Features
+
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
+## [10.6.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.6.0) (2026-11-09)
+
+### Features
+
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+
+
+## [10.5.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.5.0) (2026-11-05)
+
+### Features
+
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+
+## [10.4.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.4.0) (2026-11-03)
+
+### Features
+
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+
+
+## [10.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.2.0...@empathyco/x-components@10.3.0) (2026-10-30)
+
+### Features
+
+* **x-components:** add rootMargin support to useOnDisplay (#2193)
+
+
+## [10.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.1.1...@empathyco/x-components@10.2.0) (2026-10-27)
+
+### Features
+
+* **query-preview:** reserve a loading placeholder for lazy previews (#2192)
+
+
+## [10.1.1](https://github.com/empathyco/x/compare/@empathyco/x-components@10.1.0...@empathyco/x-components@10.1.1) (2026-10-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [10.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.2...@empathyco/x-components@10.1.0) (2026-10-19)
+
+### Features
+
+* create tabs component (#2188)
+
+
+## [10.0.2](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.1...@empathyco/x-components@10.0.2) (2026-10-16)
+
+### Bug Fixes
+
+* check if ai module is included in noResultsFallbackModules list (#2189)
+
+
+## [10.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@10.0.0...@empathyco/x-components@10.0.1) (2026-10-15)
+
+### Bug Fixes
+
+* fix no-results fallback tagging (#2187)
+
+
+## [10.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.4.0...@empathyco/x-components@10.0.0) (2026-10-13)
+
+### ⚠ BREAKING CHANGES
+
+* Remove query tagging requests for each query suggestion.
+Remove UserClickedAResult and UserClickedResultAddToCart when the user clicks on an ai carousel result.
+Remove the tagging field from PlatformAiSuggestionSearch and AiSuggestionSearch types.
+
+### Features
+
+* track query tagging when ai-carousel is displayed in no-results… (#2179)
+
+
+## [9.4.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.2...@empathyco/x-components@9.4.0) (2026-10-12)
+
+### Features
+
+* add locale prop to currency components for customizable formatting (#2186)
+
+
+## [9.3.2](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.1...@empathyco/x-components@9.3.2) (2026-10-09)
+
+### Code Refactoring
+
+* replace mergeAccessibilityLabels with useAccessibilityLabels for improved aria label handling (#2184)
+
+
+## [9.3.1](https://github.com/empathyco/x/compare/@empathyco/x-components@9.3.0...@empathyco/x-components@9.3.1) (2026-10-09)
+
+### Bug Fixes
+
+* **x-components:** allow to config the accesibility labels (#2181)
+
+
+## [9.3.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.2.0...@empathyco/x-components@9.3.0) (2026-10-07)
+
+### Features
+
+* **ai-carousel:** add sliding panel classes to grouped carousel (#2183)
+
+
+## [9.2.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.1.1...@empathyco/x-components@9.2.0) (2026-10-06)
+
+### Features
+
+* **ai-carousel:** add support for sliding-panels button slots in grouped carousel (#2182)
+
+
+## [9.1.1](https://github.com/empathyco/x/compare/@empathyco/x-components@9.1.0...@empathyco/x-components@9.1.1) (2026-10-05)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [9.1.0](https://github.com/empathyco/x/compare/@empathyco/x-components@9.0.0...@empathyco/x-components@9.1.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
+## [9.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.15.1...@empathyco/x-components@9.0.0) (2026-09-28)
+
+### ⚠ BREAKING CHANGES
+
+* **results-enrichment:** DefaultResultsEnrichmentService service is no longer supported. Use custom x-module options instead.
+
+### Code Refactoring
+
+* **results-enrichment:** results-enrichment feature decommission (#2177)
+
+
+## [8.15.1](https://github.com/empathyco/x/compare/@empathyco/x-components@8.15.0...@empathyco/x-components@8.15.1) (2026-09-28)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [8.15.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.2...@empathyco/x-components@8.15.0) (2026-09-28)
+
+### Features
+
+* add filters params to UserBrowsedToCategory (#2176)
+
+
+## [8.14.2](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.1...@empathyco/x-components@8.14.2) (2026-09-22)
+
+### Bug Fixes
+
+* **search:** fix results enrichment side effects (#2175)
+
+
+## [8.14.1](https://github.com/empathyco/x/compare/@empathyco/x-components@8.14.0...@empathyco/x-components@8.14.1) (2026-09-04)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [8.14.0](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.4...@empathyco/x-components@8.14.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
+## [8.13.4](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.3...@empathyco/x-components@8.13.4) (2026-08-27)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [8.13.3](https://github.com/empathyco/x/compare/@empathyco/x-components@8.13.2...@empathyco/x-components@8.13.3) (2026-08-25)
 
 ### Code Refactoring

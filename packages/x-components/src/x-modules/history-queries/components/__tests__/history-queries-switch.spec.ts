@@ -2,12 +2,13 @@ import type { HistoryQuery } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
+import type { AriaLabels } from '../../../../types'
 import { flushPromises, mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQueries } from '../../../../__stubs__/index'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
 import { historyQueriesXModule } from '../../x-module'
@@ -17,12 +18,14 @@ import { resetXHistoryQueriesStateWith } from './utils'
 async function renderHistoryQueriesSwitch({
   historyQueries = createHistoryQueries('jacket', 'tshirt'),
   isEnabled = false,
+  ariaLabels,
 }: HistoryQueriesSwitchOptions = {}): Promise<HistoryQueriesSwitchAPI> {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(HistoryQueriesSwitch, {
     global: {
       plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+      provide: ariaProvide(ariaLabels),
     },
   })
 
@@ -40,6 +43,28 @@ describe('testing HistoryQueriesSwitch component', () => {
 
     expect(isXComponent(wrapper.vm)).toEqual(true)
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries')
+  })
+
+  it('renders the default aria-label on the switch', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch()
+
+    expect(wrapper.attributes('aria-label')).toBe("Queries' history")
+  })
+
+  it('allows overriding the aria-label of the switch', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch({
+      ariaLabels: { historyQueriesSwitch: { root: 'History queries' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toBe('History queries')
+  })
+
+  it('resolves the aria-label of the switch from the global configuration', async () => {
+    const { wrapper } = await renderHistoryQueriesSwitch({
+      ariaLabels: { historyQueriesSwitch: { root: 'Historial de consultas' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toBe('Historial de consultas')
   })
 
   it('should emit proper events when toggling its state', async () => {
@@ -84,6 +109,8 @@ interface HistoryQueriesSwitchOptions {
   historyQueries?: HistoryQuery[]
   /** Initial state of the switch. */
   isEnabled?: boolean
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
 
 /**

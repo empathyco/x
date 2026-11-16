@@ -17,7 +17,7 @@
         :class="buttonClasses"
         :events="events"
         data-test="load-content"
-        aria-label="Load"
+        :aria-label="ariaLabels?.button"
       >
         <!-- @slot Button content with a text, an icon or both -->
         <slot name="buttonContent">Load</slot>
@@ -31,7 +31,7 @@ import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../utils/types'
 import type { XEventsTypes } from '../wiring'
 import { computed, defineComponent } from 'vue'
-import { use$x } from '../composables'
+import { use$x, useAccessibilityLabels } from '../composables'
 import BaseEventButton from './base-event-button.vue'
 
 /**
@@ -64,6 +64,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const ariaLabels = useAccessibilityLabels('pageLoaderButton')
+
     const $x = use$x()
     const resultsLength = computed(() => $x.results.length)
     const totalResults = computed(() => $x.totalResults)
@@ -79,6 +81,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       resultsLength,
       totalResults,
       events,

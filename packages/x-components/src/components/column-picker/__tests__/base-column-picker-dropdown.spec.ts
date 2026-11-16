@@ -1,16 +1,19 @@
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/x-plugin'
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue'
+
 let bus = new XDummyBus()
 
 function render({
   selectedColumns,
   columns = [2, 4, 6],
+  ariaLabels,
   template = `
     <BaseColumnPickerDropdown
       @update:modelValue="col => selectedColumns = col"
@@ -23,7 +26,12 @@ function render({
         <span>{{ item }}</span>
       </template>
     </BaseColumnPickerDropdown>`,
-}: { selectedColumns?: number; columns?: number[]; template?: string } = {}) {
+}: {
+  selectedColumns?: number
+  columns?: number[]
+  ariaLabels?: AriaLabels
+  template?: string
+} = {}) {
   const mountComponent = (options: { selectedColumns?: number } = {}): VueWrapper => {
     return mount(
       {
@@ -39,7 +47,7 @@ function render({
         template,
       },
       {
-        global: { plugins: [installNewXPlugin({}, bus)] },
+        global: { plugins: [installNewXPlugin({}, bus)], provide: ariaProvide(ariaLabels) },
       },
     )
   }
@@ -102,6 +110,21 @@ describe('testing BaseColumnPickerDropdown component', () => {
     const { toggleWrapper } = render()
 
     expect(toggleWrapper.text()).toEqual('2')
+  })
+
+  it('renders the default aria-label on the root element and an empty one on the toggle button', () => {
+    const { wrapper, toggleWrapper } = render()
+
+    expect(wrapper.attributes('aria-label')).toEqual('Select number of columns')
+    expect(toggleWrapper.attributes('aria-label')).toEqual('')
+  })
+
+  it('resolves the aria-label of the root element from the global configuration', () => {
+    const { wrapper } = render({
+      ariaLabels: { baseColumnPickerDropdown: { dropdown: 'Selecciona columnas' } },
+    })
+
+    expect(wrapper.attributes('aria-label')).toEqual('Selecciona columnas')
   })
 
   it('sets selectedColumns and emits "ColumnsNumberProvided" X Event with the column as payload on value change', async () => {

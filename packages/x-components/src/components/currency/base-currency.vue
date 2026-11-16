@@ -39,6 +39,12 @@ export default defineComponent({
       type: Object as PropType<Omit<Intl.NumberFormatOptions, 'currency' | 'style'>>,
       default: () => ({}),
     },
+    /**
+     * Locale used to format the value. If not specified we use snippetConfig.uiLang
+     *
+     * @public
+     */
+    locale: String,
   },
 
   setup(props) {
@@ -46,7 +52,8 @@ export default defineComponent({
 
     const currencyText = computed<string>(() => {
       const currency = props.currency ?? snippetConfig?.currency ?? 'EUR'
-      return Intl.NumberFormat(snippetConfig?.uiLang, {
+      const locale = props.locale ?? snippetConfig?.uiLang
+      return Intl.NumberFormat(locale, {
         style: 'currency',
         ...props.format,
         currency,
@@ -151,6 +158,24 @@ internally):
       useGrouping: true,
     }"
   />
+</template>
+
+<script setup>
+import BaseCurrency from '@empathyco/x-components/js/components/currency/base-currency.vue'
+</script>
+```
+
+### Using a different locale
+
+By default the currency is formatted using the `uiLang` of the `snippetConfig`. You can format
+the value in a different locale using the `locale` prop:
+
+```vue
+<template>
+  <!-- output: '€1,234.56' even if snippetConfig.uiLang is 'es-ES' -->
+  <BaseCurrency :value="1234.56" currency="EUR" locale="en-US" />
+  <!-- output: '1234,56 €' for snippetConfig.uiLang 'es-ES' -->
+  <BaseCurrency :value="1234.56" currency="EUR" />
 </template>
 
 <script setup>

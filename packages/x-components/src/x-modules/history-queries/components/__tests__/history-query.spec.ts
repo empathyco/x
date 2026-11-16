@@ -1,12 +1,13 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
+import type { AriaLabels } from '../../../../types'
 import type { WireMetadata } from '../../../../wiring'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
 import { createHistoryQuery } from '../../../../__stubs__'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components'
 import { XPlugin } from '../../../../plugins/index'
 import { historyQueriesXModule } from '../../x-module'
@@ -20,7 +21,16 @@ function renderHistoryQuery({
   removeButtonClass = '',
   suggestionClass = '',
   wrapperComponentOptions = {},
-} = {}) {
+  ariaLabels,
+}: Partial<{
+  suggestion?: ReturnType<typeof createHistoryQuery>
+  query?: string
+  template?: string
+  removeButtonClass?: string
+  suggestionClass?: string
+  wrapperComponentOptions?: Record<string, any>
+  ariaLabels?: AriaLabels
+}> = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
   const wrapper = mount(
@@ -33,6 +43,7 @@ function renderHistoryQuery({
     {
       global: {
         plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(ariaLabels),
       },
       props: { suggestion, removeButtonClass, suggestionClass },
     },
@@ -68,6 +79,20 @@ describe('testing history-query component', () => {
     })
 
     expect(getSuggestionWrapper().text()).toEqual('milk')
+  })
+
+  it('renders the remove button with the default accessible label', () => {
+    const { getRemoveWrapper } = renderHistoryQuery()
+
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Remove')
+  })
+
+  it('resolves the remove button aria-label from the global configuration', () => {
+    const { getRemoveWrapper } = renderHistoryQuery({
+      ariaLabels: { historyQuery: { removeButton: 'Eliminar' } },
+    })
+
+    expect(getRemoveWrapper().attributes('aria-label')).toBe('Eliminar')
   })
 
   it('highlights the suggestion matching parts with the state query', async () => {

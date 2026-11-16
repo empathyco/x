@@ -40,6 +40,7 @@ export type FacetModelName =
   | 'NumberRangeFacet'
   | 'EditableNumberRangeFacet'
   | 'BooleanFacet'
+  | 'SliderFacet'
 
 /**
  * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter
@@ -47,7 +48,11 @@ export type FacetModelName =
  *
  * @public
  */
-export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter' | 'RawFilter'
+export type FilterModelName =
+  | BooleanFilterModelName
+  | 'EditableNumberRangeFilter'
+  | 'RawFilter'
+  | 'SliderFilter'
 
 /**
  * Const to use in the {@link BooleanFilterModelName} Type definition and also in Type Guards.

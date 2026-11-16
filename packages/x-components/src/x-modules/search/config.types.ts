@@ -11,4 +11,14 @@ export interface SearchConfig {
    */
   pageSize: number
   pageMode: PageMode
+  /**
+   * Catalog section sent when no catalog section has been selected, either because none was
+   * provided or because it was reset to an empty value.
+   */
+  defaultCatalogSection: string
+  /**
+   * The id of the price facet that is used to sort the results by price. If not provided, the
+   * sort is sent as-is, i.e. still using `price`.
+   */
+  priceSortField?: string
 }

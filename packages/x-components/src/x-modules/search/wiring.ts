@@ -1,3 +1,4 @@
+import type { UrlParams } from '../../types'
 import type { WirePayload } from '../../wiring'
 import type { InternalSearchRequest } from './types'
 import { createRawFilters } from '../../utils'
@@ -69,13 +70,6 @@ export const saveOriginWire = wireDispatch('saveOrigin', ({ metadata }) => metad
 export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse')
 
 /**
- * Requests and stores the enrichment results for the results.
- *
- * @public
- */
-export const fetchAndSaveResultsEnrichmentWire = wireDispatch('fetchAndSaveResultsEnrichment')
-
-/**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
  *
  * @public
@@ -123,6 +117,33 @@ export const setSort = wireCommit('setSort')
  * @public
  */
 export const setUrlParams = wireDispatch('setUrlParams')
+
+/**
+ * Sets the search state `catalogSection`.
+ *
+ * @public
+ */
+export const setCatalogSection = wireCommit('setCatalogSection')
+
+/**
+ * Resets the search state `catalogSection` to an empty value, so the request sends the configured
+ * default catalog section instead of the selected one.
+ *
+ * @public
+ */
+export const resetCatalogSection = wireCommit('setCatalogSection', '')
+
+/**
+ * Sets the search state `catalogSection` with the one loaded from the URL. The `catalogSection`
+ * URL param is optional, so an empty value means no section was provided, and the current
+ * selection is kept by setting `undefined`.
+ *
+ * @public
+ */
+export const setCatalogSectionFromUrl = wireCommit(
+  'setCatalogSection',
+  ({ eventPayload }: WirePayload<UrlParams>) => eventPayload.catalogSection || undefined,
+)
 
 /**
  * Sets the search state `page`.
@@ -190,15 +211,6 @@ export const resetRequestOnRefinementWire = wireDispatch(
 )
 
 /**
- * Requests and stores the enrichment results for the partial results.
- *
- * @public
- */
-export const fetchAndSavePartialResultsEnrichmentWire = wireDispatch(
-  'fetchAndSavePartialResultsEnrichment',
-)
-
-/**
  * Resets the search state when the request is changed to null. See the
  * {@link SearchXStoreModule} for details.
  *
@@ -257,9 +269,7 @@ export const searchWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams,
     saveOriginWire,
-  },
-  PartialResultsChanged: {
-    fetchAndSavePartialResultsEnrichmentWire,
+    setCatalogSectionFromUrl,
   },
   UserAcceptedAQuery: {
     setSearchQuery,
@@ -273,6 +283,10 @@ export const searchWiring = createWiring({
     cancelFetchAndSaveSearchResponseWire,
     resetFromNoResultsWithFilters,
     resetIsNoResults,
+    resetCatalogSection,
+  },
+  UserSelectedACatalogSection: {
+    setCatalogSection,
   },
   UserClickedASort: {
     setSort,
@@ -298,7 +312,6 @@ export const searchWiring = createWiring({
   },
   ResultsChanged: {
     resetAppending,
-    fetchAndSaveResultsEnrichmentWire,
   },
   ReloadSearchRequested: {
     resetStateForReloadWire,
@@ -311,12 +324,14 @@ export const searchWiring = createWiring({
   },
   UserClickedCloseX: {
     clearSearchQuery,
+    resetCatalogSection,
   },
   UserClickedOutOfMainModal: {
     clearSearchQuery,
   },
   UserBrowsedToCategory: {
     clearSearchQuery,
+    resetCatalogSection,
   },
   UserAcceptedAQueryPreview: {
     setSearchQueryFromPreview,

@@ -7,6 +7,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { computed, defineComponent, inject, nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { XComponentsAdapterDummy } from '../__tests__/adapter.dummy'
+import { useAccessibilityLabels } from '../composables'
+import { ACCESSIBILITY_KEY } from '../types'
 import { XInstaller } from './x-installer'
 
 const adapter = XComponentsAdapterDummy
@@ -50,6 +52,28 @@ function createSnippetConfigComponent(snippetProperty: keyof SnippetConfig = 'in
 
 function getSnippetConfigComponentTextContent() {
   return document.querySelector('#snippet-config-value')?.textContent
+}
+
+/**
+ * Creates a Vue component resolving the `pageSelector.pagination` aria label with
+ * {@link useAccessibilityLabels} (the labels provided by the consumer under
+ * {@link ACCESSIBILITY_KEY} merged on top of the library defaults) and rendering it.
+ *
+ * @returns A Vue component rendering the resolved aria label.
+ */
+function createAriaLabelsComponent() {
+  return defineComponent({
+    setup: () => {
+      const ariaLabels = useAccessibilityLabels('pageSelector')
+      const label = computed(() => ariaLabels.value.pagination)
+      return { label }
+    },
+    template: '<h1 id="aria-label-value">{{ label }}</h1>',
+  })
+}
+
+function getAriaLabelsComponentTextContent() {
+  return document.querySelector('#aria-label-value')?.textContent
 }
 
 describe('testing `XInstaller` utility', () => {
@@ -179,6 +203,31 @@ describe('testing `XInstaller` utility', () => {
 
   it('does not initialize XComponents when no snippet config is passed and no window.initX is not defined', async () => {
     expect(await new XInstaller({ adapter, plugin }).init()).toBeUndefined()
+  })
+
+  describe('aria labels', () => {
+    it('resolves the default aria labels when the consumer provides none', async () => {
+      await new XInstaller({
+        rootComponent: createAriaLabelsComponent(),
+        adapter,
+        plugin,
+      }).init(getMinimumSnippetConfig())
+
+      expect(getAriaLabelsComponentTextContent()).toEqual('Pagination')
+    })
+
+    it('lets the consumer override aria labels by providing ACCESSIBILITY_KEY before mount', async () => {
+      await new XInstaller({
+        rootComponent: createAriaLabelsComponent(),
+        adapter,
+        plugin,
+        onCreateApp: app => {
+          app.provide(ACCESSIBILITY_KEY, { pageSelector: { pagination: 'Paginación' } })
+        },
+      }).init(getMinimumSnippetConfig())
+
+      expect(getAriaLabelsComponentTextContent()).toEqual('Paginación')
+    })
   })
 
   describe('`lang` & `uiLang`', () => {

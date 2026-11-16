@@ -13,7 +13,7 @@ import {
   createHistoryQuery,
 } from '../../../../__stubs__/history-queries-stubs.factory'
 import { snippetConfigStub } from '../../../../__stubs__/snippet-config.stub'
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
 import { historyQueriesXModule } from '../../x-module'
@@ -61,6 +61,7 @@ function renderMyHistory({
       },
       provide: {
         snippetConfig,
+        ...ariaProvide(),
       },
       props: ['locale', 'queriesListClass'],
     },

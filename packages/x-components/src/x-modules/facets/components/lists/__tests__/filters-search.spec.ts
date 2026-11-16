@@ -1,11 +1,12 @@
 import type { Filter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../../../types'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory'
-import { getDataTestSelector } from '../../../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector } from '../../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../../components'
 import FiltersSearch from '../filters-search.vue'
 
@@ -33,6 +34,7 @@ const queries: Dictionary<number> = {
 function renderFiltersSearch(
   dataTestInputSelector = 'filters-search-input',
   template?: string,
+  ariaLabels?: AriaLabels,
 ): FiltersSearchAPI {
   const wrapper = mount(
     {
@@ -54,6 +56,7 @@ function renderFiltersSearch(
       props: {
         filters: filtersMock,
       },
+      global: { provide: ariaProvide(ariaLabels) },
     },
   )
 
@@ -95,6 +98,28 @@ describe('testing FiltersSearch', () => {
     expect(inputWrapper.element).toBeDefined()
     expect(wrapper.classes()).not.toContain('x-filters-search--is-sifted')
     expect(getFiltersWrapper()).toHaveLength(filtersMock.length)
+  })
+
+  it('renders the default aria-label on the search input', () => {
+    const { inputWrapper } = renderFiltersSearch()
+
+    expect(inputWrapper.attributes('aria-label')).toBe('search into the filter values')
+  })
+
+  it('allows overriding the aria-label of the search input', () => {
+    const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
+      filtersSearch: { input: 'Search in filter values' },
+    })
+
+    expect(inputWrapper.attributes('aria-label')).toBe('Search in filter values')
+  })
+
+  it('resolves the search input aria-label from the global configuration', () => {
+    const { inputWrapper } = renderFiltersSearch('filters-search-input', undefined, {
+      filtersSearch: { input: 'Buscar en los valores de los filtros' },
+    })
+
+    expect(inputWrapper.attributes('aria-label')).toBe('Buscar en los valores de los filtros')
   })
 
   it('sifts provided filters with the input query', async () => {

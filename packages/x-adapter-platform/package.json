@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.9.2",
+  "version": "2.0.6",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -21,7 +21,8 @@
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
-    "report"
+    "report",
+    "skills"
   ],
   "engines": {
     "node": ">=22"
@@ -47,18 +48,18 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "8.1.9",
-    "@empathyco/x-types": "10.8.1",
-    "@empathyco/x-utils": "1.0.10",
-    "zod": "4.4.3"
+    "@empathyco/x-adapter": "8.2.6",
+    "@empathyco/x-types": "11.0.6",
+    "@empathyco/x-utils": "1.1.6",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "7.30.7",
-    "@microsoft/api-extractor": "7.58.9",
-    "@vitest/coverage-v8": "4.1.9",
-    "jsdom": "30.0.1",
+    "@microsoft/api-documenter": "7.30.20",
+    "@microsoft/api-extractor": "7.60.1",
+    "@vitest/coverage-v8": "4.1.12",
+    "jsdom": "30.1.3",
     "typescript": "5.9.3",
-    "vitest": "4.1.9"
+    "vitest": "4.1.12"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,4 @@
-import type { Facet } from '@empathyco/x-types'
+import type { BrowsableRequest, Facet } from '@empathyco/x-types'
 import type { UrlParams } from '../../types/url-params'
 import type { XEventPayload } from '../../wiring/index'
 import { createRawFilters } from '../../utils/filters'
@@ -121,6 +121,16 @@ const setFiltersFromUrl = mapWire(wireFacetsService('select'), ({ filter }: UrlP
 )
 
 /**
+ * Saves the browse filters.
+ *
+ * @public
+ */
+export const setSelectedFiltersFromBrowse = mapWire(
+  wireFacetsService('select'),
+  ({ browseFilters }: BrowsableRequest) => (browseFilters ? createRawFilters(browseFilters) : []),
+)
+
+/**
  * Saves the preselected filters.
  *
  * @public
@@ -225,6 +235,9 @@ export const facetsWiring = createWiring({
   UserModifiedEditableNumberRangeFilter: {
     selectFilterWire,
   },
+  UserModifiedSliderFilter: {
+    selectFilterWire,
+  },
   UserClickedAllFilter: {
     clearFiltersWire,
   },
@@ -235,6 +248,7 @@ export const facetsWiring = createWiring({
   UserBrowsedToCategory: {
     clearAllFiltersButStickyWire,
     clearQuery,
+    setSelectedFiltersFromBrowse,
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire,

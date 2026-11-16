@@ -529,6 +529,108 @@ describe('query preview', () => {
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0)
     })
 
+    const getWrapperSectionClasses = (wrapper: ReturnType<typeof mount>): string[] =>
+      wrapper.find('.x-query-preview-wrapper__default-content').classes()
+
+    it('reserves placeholder space on the wrapper while the query preview has not been loaded', async () => {
+      const { wrapper } = await render({
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'initial',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      expect(getWrapperSectionClasses(wrapper)).toContain('x-query-preview-wrapper--placeholder')
+    })
+
+    it('does not reserve placeholder space once the query preview has been loaded', async () => {
+      const { wrapper } = await render({
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: getResultsStub(4),
+          status: 'success',
+          instances: 1,
+          totalResults: 100,
+        },
+      })
+
+      expect(getWrapperSectionClasses(wrapper)).not.toContain(
+        'x-query-preview-wrapper--placeholder',
+      )
+    })
+
+    it('does not reserve placeholder space when the query preview has failed', async () => {
+      const { wrapper } = await render({
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'error',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      expect(getWrapperSectionClasses(wrapper)).not.toContain(
+        'x-query-preview-wrapper--placeholder',
+      )
+    })
+
+    it('does not reserve placeholder space when loadWhenVisible is false', async () => {
+      const { wrapper } = await render({
+        loadWhenVisible: false,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'initial',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      expect(getWrapperSectionClasses(wrapper)).not.toContain(
+        'x-query-preview-wrapper--placeholder',
+      )
+    })
+
+    it('reserves placeholder space on the slot wrapper while the query preview has not been loaded', async () => {
+      const { wrapper } = await render({
+        template: `<QueryPreview
+          :queryPreviewInfo="queryPreviewInfo"
+          :queryFeature="queryFeature"
+          :maxItemsToRender="maxItemsToRender"
+          :debounceTimeMs="debounceTimeMs"
+          :persistInCache="persistInCache"
+          :loadWhenVisible="loadWhenVisible"
+          #default="{ results }"
+        >
+          <div data-test="slot-content">{{ results?.length }}</div>
+        </QueryPreview>`,
+        loadWhenVisible: true,
+        queryPreviewInfo: { query: 'shoes' },
+        queryPreviewInState: {
+          request: { query: 'shoes' },
+          results: [],
+          status: 'initial',
+          instances: 1,
+          totalResults: 0,
+        },
+      })
+
+      expect(wrapper.find('.x-query-preview-wrapper__slot-content').classes()).toContain(
+        'x-query-preview-wrapper--placeholder',
+      )
+    })
+
     it('emits QueryPreviewRequestUpdated when component becomes visible', async () => {
       const { queryPreviewRequestUpdatedSpy, triggerVisibility } = await render({
         loadWhenVisible: true,

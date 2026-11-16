@@ -10,7 +10,7 @@
         data-test="column-picker-button"
         :aria-pressed="isSelected.toString()"
         :events="events"
-        :aria-label="`${column} columns`"
+        :aria-label="ariaLabels?.button!(column)"
         role="listitem"
       >
         <!--
@@ -38,6 +38,7 @@ import type { PropType } from 'vue'
 import type { VueCSSClasses } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring'
 import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import { use$x } from '../../composables/use-$x'
 import BaseEventButton from '../base-event-button.vue'
 
@@ -73,6 +74,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const $x = use$x()
+
+    const ariaLabels = useAccessibilityLabels('baseColumnPickerList')
 
     const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0])
     const selectedColumns = ref(providedSelectedColumns.value)
@@ -137,7 +140,7 @@ export default defineComponent({
       })),
     )
 
-    return { columnsWithCssClasses }
+    return { ariaLabels, columnsWithCssClasses }
   },
 })
 </script>

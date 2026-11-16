@@ -30,7 +30,7 @@
             v-if="isTitleOverflowing"
             class="x-ai-carousel-title-button"
             data-test="ai-carousel-title-button"
-            :aria-label="titleExpanded ? 'Collapse' : 'Expand'"
+            :aria-label="titleExpanded ? ariaLabels?.collapse : ariaLabels?.expand"
           >
             <ChevronDownIcon
               class="x-ai-carousel-title-button-icon"
@@ -40,14 +40,19 @@
         </span>
       </DisplayEmitter>
 
-      <AiGroupedCarousel v-if="group">
-        <template #sliding-panel-addons="{ arrivedState }">
+      <AiGroupedCarousel
+        v-if="group"
+        :sliding-panel-classes="slidingPanelClasses"
+        :sliding-panel-container-classes="slidingPanelContainerClasses"
+        :sliding-panel-buttons-classes="slidingPanelButtonsClasses"
+      >
+        <template #sliding-panels-addons="{ arrivedState }">
           <slot name="sliding-panels-addons" :arrived-state="arrivedState" />
         </template>
-        <template #sliding-panel-left-button>
+        <template #sliding-panels-left-button>
           <slot name="sliding-panels-left-button" />
         </template>
-        <template #sliding-panel-right-button>
+        <template #sliding-panels-right-button>
           <slot name="sliding-panels-right-button" />
         </template>
         <template #result="{ result }">
@@ -126,7 +131,7 @@
 <script lang="ts">
 import type { TaggingRequest } from '@empathyco/x-types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   AIStarIcon,
   ArrowRightIcon,
@@ -138,7 +143,7 @@ import {
   DisplayEmitter,
   SlidingPanel,
 } from '../../../components'
-import { use$x, useState } from '../../../composables'
+import { use$x, useAccessibilityLabels, useState } from '../../../composables'
 import { aiXModule } from '../x-module'
 import AiGroupedCarousel from './ai-grouped-carousel.vue'
 
@@ -175,6 +180,8 @@ export default defineComponent({
     const $x = use$x()
     const { query, suggestionsSearch, queries, tagging } = useState('ai')
     const emptyTaggingRequest: TaggingRequest = { url: '', params: {} }
+
+    const ariaLabels = useAccessibilityLabels('aiCarousel')
 
     const titleRef = ref<HTMLElement | null>(null)
     const titleExpanded = ref(false)
@@ -222,9 +229,14 @@ export default defineComponent({
       $x.emit('AiComponentMounted', undefined, { feature: 'ai_carousel' })
     })
 
+    onBeforeUnmount(() => {
+      $x.emit('AiComponentUnmounted')
+    })
+
     useResizeObserver(titleRef, updateTitleOverflow)
 
     return {
+      ariaLabels,
       emptyTaggingRequest,
       isTitleOverflowing,
       queries,

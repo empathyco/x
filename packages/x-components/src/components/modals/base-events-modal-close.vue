@@ -3,7 +3,7 @@
     :events="events"
     class="x-events-modal-close-button xds:button"
     data-test="close-modal"
-    aria-label="Close"
+    :aria-label="ariaLabels?.button"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
@@ -15,6 +15,7 @@ import type { PropType } from 'vue'
 import type { PropsWithType } from '../../utils/types'
 import type { XEventsTypes } from '../../wiring/events.types'
 import { computed, defineComponent } from 'vue'
+import { useAccessibilityLabels } from '../../composables'
 import BaseEventButton from '../base-event-button.vue'
 
 /**
@@ -40,7 +41,10 @@ export default defineComponent({
   },
   setup(props) {
     const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }))
+    const ariaLabels = useAccessibilityLabels('baseEventsModalClose')
+
     return {
+      ariaLabels,
       events,
     }
   },

@@ -1,11 +1,16 @@
 <template>
-  <BaseSwitch :model-value="isEnabled" aria-label="Queries' history" @update:model-value="toggle" />
+  <BaseSwitch
+    :model-value="isEnabled"
+    :aria-label="ariaLabels?.root"
+    @update:model-value="toggle"
+  />
 </template>
 
 <script lang="ts">
 import type { HistoryQuery } from '@empathyco/x-types'
 import { computed, defineComponent } from 'vue'
 import BaseSwitch from '../../../components/base-switch.vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { isArrayEmpty } from '../../../utils/array'
@@ -24,6 +29,8 @@ export default defineComponent({
     BaseSwitch,
   },
   setup() {
+    const ariaLabels = useAccessibilityLabels('historyQueriesSwitch')
+
     const $x = use$x()
 
     /**
@@ -56,6 +63,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       toggle,
       isEnabled,
     }

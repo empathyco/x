@@ -72,15 +72,6 @@ export const addQueryPreviewInstanceWire = wireCommit('addQueryPreviewInstance')
 export const removeQueryPreviewInstanceWire = wireCommit('removeQueryPreviewInstance')
 
 /**
- * Requests and stores the enrichment results for the query preview results.
- *
- * @public
- */
-export const fetchAndSaveQueryPreviewResultsEnrichmentWire = wireDispatch(
-  'fetchAndSaveQueryPreviewResultsEnrichment',
-)
-
-/**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
  *
  * @internal
@@ -115,8 +106,5 @@ export const queriesPreviewWiring = createWiring({
   },
   QueryPreviewUnmounted: {
     removeQueryPreviewInstanceWire,
-  },
-  QueryPreviewResultReceived: {
-    fetchAndSaveQueryPreviewResultsEnrichmentWire,
   },
 })

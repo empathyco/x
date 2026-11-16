@@ -93,6 +93,20 @@ export const setUrlSelectedFiltersFromPreview = wireCommit(
 export const setUrlScroll = wireCommit('setScroll')
 
 /**
+ * Sets the catalog section of the url module.
+ *
+ * @public
+ */
+export const setUrlCatalogSection = wireCommit('setCatalogSection')
+
+/**
+ * Resets the catalog section of the url module.
+ *
+ * @public
+ */
+export const resetUrlCatalogSection = wireCommit('setCatalogSection', '')
+
+/**
  * Sets the browseCategory of the url module.
  *
  * @public
@@ -124,6 +138,16 @@ export const setInitialExtraParams = wireCommit('setInitialExtraParams')
 export const setUrlFilters = wireCommit('setFilters')
 
 /**
+ * Sets the filters of the url module from a selected browse category filters.
+ *
+ * @public
+ */
+export const setUrlSelectedFiltersFromBrowse = wireCommit(
+  'setFilters',
+  ({ eventPayload: { browseFilters } }) => (browseFilters ? createRawFilters(browseFilters) : []),
+)
+
+/**
  * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
@@ -143,6 +167,7 @@ export const urlWiring = createWiring({
   },
   UserClearedQuery: {
     setUrlQuery,
+    resetUrlCatalogSection,
   },
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags,
@@ -170,10 +195,16 @@ export const urlWiring = createWiring({
   },
   UserBrowsedToCategory: {
     setUrlBrowseCategory,
+    setUrlSelectedFiltersFromBrowse,
     resetUrlQuery,
+    resetUrlCatalogSection,
+  },
+  UserSelectedACatalogSection: {
+    setUrlCatalogSection,
   },
   UserClickedCloseX: {
     resetUrlBrowseCategory,
+    resetUrlCatalogSection,
   },
   UserClickedOpenX: {
     resetUrlBrowseCategory,

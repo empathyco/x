@@ -9,7 +9,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    aria-label="type your query here"
+    :aria-label="ariaLabels?.input"
     @mouseenter="emitUserHoveredInSearchBox"
     @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
@@ -28,6 +28,7 @@ import type { DebouncedFunction } from '../../../utils/types'
 import type { XEvent } from '../../../wiring/events.types'
 import type { WireMetadata } from '../../../wiring/wiring.types'
 import { defineComponent, onMounted, ref } from 'vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { debounce } from '../../../utils/debounce'
@@ -74,6 +75,8 @@ export default defineComponent({
   },
   setup(props) {
     const $x = use$x()
+
+    const ariaLabels = useAccessibilityLabels('searchInput')
 
     const { query } = useState('searchBox')
 
@@ -261,6 +264,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       query,
       inputElement,
       emitUserHoveredInSearchBox,

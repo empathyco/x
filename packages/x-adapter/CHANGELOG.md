@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.6) (2026-11-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.5) (2026-11-12)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.4) (2026-11-10)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.3) (2026-11-09)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.2) (2026-11-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.2.1) (2026-11-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [8.2.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.9...@empathyco/x-adapter@8.2.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [8.1.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.1.8...@empathyco/x-adapter@8.1.9) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-adapter

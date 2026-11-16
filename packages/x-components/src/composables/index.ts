@@ -1,5 +1,6 @@
 export * from './create-use-device'
 export * from './use-$x'
+export * from './use-accessibility-labels'
 export * from './use-alias-api'
 export * from './use-debounce'
 export * from './use-getter'

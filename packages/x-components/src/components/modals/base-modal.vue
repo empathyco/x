@@ -12,7 +12,7 @@
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
-        aria-label="Base modal content"
+        :aria-label="ariaLabels?.modal"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useDebounce } from '../../composables'
+import { useAccessibilityLabels, useDebounce } from '../../composables'
 import { AnimationProp } from '../../types'
 import { FOCUSABLE_SELECTORS, getTargetElement } from '../../utils'
 import { Fade, NoAnimation } from '../animations'
@@ -79,6 +79,15 @@ export default defineComponent({
       type: AnimationProp,
       default: () => Fade,
     },
+    /**
+     * Determines if the scroll of the body and the window is disabled while the modal is open.
+     * Set it to `false` for modals that must not lock the page scroll. It can be toggled while the
+     * modal is open.
+     */
+    scrollLock: {
+      type: Boolean,
+      default: true,
+    },
     /** Class inherited by content element. */
     contentClass: String,
     /** Class inherited by overlay element. */
@@ -86,6 +95,8 @@ export default defineComponent({
   },
   emits: ['click:overlay', 'focusin:body'],
   setup(props, { emit }) {
+    const ariaLabels = useAccessibilityLabels('baseModal')
+
     /** Reference to the modal element in the DOM. */
     const modalRef = ref<HTMLDivElement>()
     /** Reference to the modal content element in the DOM. */
@@ -100,8 +111,15 @@ export default defineComponent({
     /** The reference element to use to find the modal's position. */
     let referenceElement: HTMLElement | undefined
 
+    /** Whether this modal is currently holding the scroll lock, so it only restores what it set. */
+    let isScrollDisabled = false
+
     /** Disables the scroll of both the body and the window. */
     function disableScroll() {
+      if (!props.scrollLock || isScrollDisabled) {
+        return
+      }
+      isScrollDisabled = true
       previousBodyOverflow.value = document.body.style.overflow
       previousHTMLOverflow.value = document.documentElement.style.overflow
       document.body.style.overflow = document.documentElement.style.overflow = 'hidden'
@@ -109,6 +127,10 @@ export default defineComponent({
 
     /** Restores the scroll of both the body and the window. */
     function enableScroll() {
+      if (!isScrollDisabled) {
+        return
+      }
+      isScrollDisabled = false
       document.body.style.overflow = previousBodyOverflow.value
       document.documentElement.style.overflow = previousHTMLOverflow.value
     }
@@ -208,6 +230,14 @@ export default defineComponent({
 
     onMounted(() => {
       watch(() => props.open, syncBody)
+      watch(
+        () => props.scrollLock,
+        shouldLockScroll => {
+          if (props.open) {
+            shouldLockScroll ? disableScroll() : enableScroll()
+          }
+        },
+      )
       if (props.open) {
         syncBody(true)
       }
@@ -243,6 +273,7 @@ export default defineComponent({
     })
 
     return {
+      ariaLabels,
       emitOverlayClicked,
       isWaitingForLeave,
       modalContentRef,
@@ -376,6 +407,18 @@ import { BaseModal, FadeAndSlide } from '@empathyco/x-components'
 const open = ref(false)
 const fadeAndSlide = FadeAndSlide
 </script>
+```
+
+#### Not locking the page scroll
+
+By default (`scrollLock` is `true`) the modal sets `overflow: hidden` on the `body` and `html`
+elements while it is open, and restores them when it closes. Set the `scrollLock` prop to `false`
+to keep the page scrollable. The prop can be toggled while the modal is open.
+
+```vue
+<BaseModal :open="open" :scroll-lock="false">
+  <p>The page behind can still be scrolled.</p>
+</BaseModal>
 ```
 
 ## Vue Events

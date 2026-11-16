@@ -2,7 +2,7 @@ import type { TaggingRequest } from '@empathyco/x-types'
 import type { Ref, WatchStopHandle } from 'vue'
 import type { WireMetadata } from '../wiring'
 import { useElementVisibility } from '@vueuse/core'
-import { watch } from 'vue'
+import { onMounted, ref, toValue, watch } from 'vue'
 import { useXBus } from './use-x-bus'
 
 /**
@@ -19,8 +19,17 @@ export function useOnDisplay({
   element,
   callback,
   triggerOnce = true,
+  threshold = 0.1,
+  rootMargin,
+  scrollTargetId,
 }: UseOnDisplayOptions): UseOnDisplayReturn {
-  const isElementVisible = useElementVisibility(element, { threshold: 0.1 })
+  const isElementVisible = useElementVisibility(element, {
+    threshold,
+    ...(rootMargin !== undefined && { rootMargin }),
+    ...(scrollTargetId !== undefined && {
+      scrollTarget: resolveScrollTarget(element, scrollTargetId),
+    }),
+  })
 
   const unwatchDisplay = watch(isElementVisible, newValue => {
     if (newValue) {
@@ -35,6 +44,29 @@ export function useOnDisplay({
     isElementVisible,
     unwatchDisplay,
   }
+}
+
+/**
+ * Resolves, on mount, the ancestor of the watched element that matches the given id, in an
+ * SSR-safe and shadow-DOM-safe way. If no ancestor matches, the ref stays `null`, which makes
+ * the visibility be computed against the viewport.
+ *
+ * @param element - The watched element, used as the lookup starting point.
+ * @param scrollTargetId - The id of the element to be used as the visibility root.
+ * @returns A ref holding the resolved element (`null` if not found).
+ * @internal
+ */
+function resolveScrollTarget(
+  element: HTMLElement | Ref<HTMLElement | null>,
+  scrollTargetId: string,
+) {
+  const scrollTarget = ref<HTMLElement | null>(null)
+
+  onMounted(() => {
+    scrollTarget.value = toValue(element)?.closest(`#${CSS.escape(scrollTargetId)}`) ?? null
+  })
+
+  return scrollTarget
 }
 
 /**
@@ -77,6 +109,9 @@ interface UseOnDisplayOptions {
   element: HTMLElement | Ref<HTMLElement | null>
   callback: () => void
   triggerOnce?: boolean
+  threshold?: number
+  rootMargin?: string
+  scrollTargetId?: string
 }
 
 /**

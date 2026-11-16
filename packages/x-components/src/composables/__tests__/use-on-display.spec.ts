@@ -1,5 +1,7 @@
 import type { TaggingRequest } from '@empathyco/x-types'
+import type { Ref } from 'vue'
 import type { WireMetadata } from '../../wiring'
+import { mount } from '@vue/test-utils'
 import { useElementVisibility } from '@vueuse/core'
 import { vi } from 'vitest'
 import { nextTick, ref } from 'vue'
@@ -114,6 +116,106 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
 
     await toggleElementVisibility()
     expect(callbackSpy).not.toHaveBeenCalled()
+  })
+})
+
+describe(`testing ${useOnDisplay.name} custom options`, () => {
+  beforeEach(() => {
+    refElementVisibility.value = false
+    vi.clearAllMocks()
+  })
+
+  function renderMountedUseOnDisplay(
+    options: {
+      threshold?: number
+      rootMargin?: string
+      scrollTargetId?: string
+    },
+    element: HTMLElement | Ref<HTMLElement> = document.createElement('div'),
+  ): void {
+    mount({
+      setup() {
+        useOnDisplay({
+          element,
+          callback: vi.fn(),
+          ...options,
+        })
+        return () => null
+      },
+    })
+  }
+
+  it('forwards a custom threshold and rootMargin when provided', () => {
+    renderMountedUseOnDisplay({ threshold: 0, rootMargin: '0px 0px 200px 0px' })
+
+    expect(useElementVisibility).toHaveBeenCalledWith(
+      expect.any(HTMLElement),
+      expect.objectContaining({
+        threshold: 0,
+        rootMargin: '0px 0px 200px 0px',
+      }),
+    )
+    // It should NOT provide a scroll target when no id is given (viewport fallback)
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options).not.toHaveProperty('scrollTarget')
+  })
+
+  it('resolves the scroll target element from the id when it is an ancestor', () => {
+    const target = document.createElement('div')
+    target.id = 'custom-scroll'
+    const inner = document.createElement('div')
+    target.appendChild(inner)
+    document.body.appendChild(target)
+
+    // The element is passed as a ref, as done by the components that use this composable
+    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, ref(inner))
+
+    // The element is resolved on mount (SSR-safe), so the ref already holds it
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options.scrollTarget.value).toBe(target)
+
+    target.remove()
+  })
+
+  it('does not resolve a scroll target when the id does not match an ancestor', () => {
+    const target = document.createElement('div')
+    target.id = 'custom-scroll'
+    document.body.appendChild(target)
+    const unrelated = document.createElement('div')
+    document.body.appendChild(unrelated)
+
+    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, unrelated)
+
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    // A non-ancestor root is invalid for the IntersectionObserver, so it stays
+    // null (viewport) instead of resolving the element
+    expect(options.scrollTarget.value).toBeNull()
+
+    target.remove()
+    unrelated.remove()
+  })
+
+  it('resolves the scroll target when it is an ancestor inside a shadow root', () => {
+    // `document.getElementById` cannot reach elements inside a shadow root, so this
+    // can only be resolved by looking at the ancestors of the watched element (`closest`).
+    const host = document.createElement('div')
+    document.body.appendChild(host)
+    const shadowRoot = host.attachShadow({ mode: 'open' })
+    const target = document.createElement('div')
+    target.id = 'custom-scroll'
+    shadowRoot.appendChild(target)
+    const inner = document.createElement('div')
+    target.appendChild(inner)
+
+    // Sanity check: the target is invisible to a global document lookup
+    expect(document.getElementById('custom-scroll')).toBeNull()
+
+    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, inner)
+
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options.scrollTarget.value).toBe(target)
+
+    host.remove()
   })
 })
 

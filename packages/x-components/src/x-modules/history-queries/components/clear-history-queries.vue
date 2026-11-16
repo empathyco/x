@@ -5,7 +5,7 @@
     :disabled="isHistoryQueriesEmpty"
     :events="clearHistoryQueriesEvents"
     data-test="clear-history-queries"
-    aria-label="Clear all"
+    :aria-label="ariaLabels?.button"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
     <slot>✕</slot>
@@ -17,6 +17,7 @@ import type { VueCSSClasses } from '../../../utils/types'
 import type { XEventsTypes } from '../../../wiring/events.types'
 import { computed, defineComponent } from 'vue'
 import BaseEventButton from '../../../components/base-event-button.vue'
+import { useAccessibilityLabels } from '../../../composables'
 import { useState } from '../../../composables/use-state'
 import { historyQueriesXModule } from '../x-module'
 
@@ -34,6 +35,8 @@ export default defineComponent({
     BaseEventButton,
   },
   setup() {
+    const ariaLabels = useAccessibilityLabels('clearHistoryQueries')
+
     /**
      * The whole history queries.
      *
@@ -72,6 +75,7 @@ export default defineComponent({
     }
 
     return {
+      ariaLabels,
       dynamicClasses,
       clearHistoryQueriesEvents,
       isHistoryQueriesEmpty,

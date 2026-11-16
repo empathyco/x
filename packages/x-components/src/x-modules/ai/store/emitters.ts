@@ -10,4 +10,8 @@ export const aiEmitters = createStoreEmitters(aiXStoreModule, {
   AiSuggestionsRequestUpdated: (_, getters) => getters.suggestionsRequest,
   AiSuggestionsSearchRequestUpdated: (_, getters) => getters.suggestionsSearchRequest,
   AiSuggestionsSearchChanged: state => state.suggestionsSearch,
+  AiSuggestionsSearchTaggingChanged: {
+    selector: state => state.suggestionsTagging!,
+    filter: (_newValue, _oldValue, state) => state.suggestionsTagging !== undefined,
+  },
 })

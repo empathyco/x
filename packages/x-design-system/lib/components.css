@@ -14,5 +14,7 @@
 @import './components/sliding-panel.css';
 @import './components/suggestion-group.css';
 @import './components/suggestion.css';
+@import './components/tabs.css';
+@import './components/tab.css';
 @import './components/tag.css';
 @import './components/typography.css';

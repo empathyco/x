@@ -10,6 +10,7 @@ function renderBaseCurrency({
   currency,
   snippetConfig,
   format,
+  locale,
 }: RenderBaseCurrencyOptions): VueWrapper {
   const Provider = defineComponent({
     setup() {
@@ -24,7 +25,7 @@ function renderBaseCurrency({
     {
       template: `
         <Provider>
-          <BaseCurrency :value="value" :currency="currency" :format="format"/>
+          <BaseCurrency :value="value" :currency="currency" :format="format" :locale="locale"/>
         </Provider>
       `,
       components: {
@@ -38,6 +39,7 @@ function renderBaseCurrency({
           value,
           currency,
           format,
+          locale,
         }
       },
     },
@@ -140,6 +142,25 @@ describe('testing BaseCurrency component', () => {
     expect(wrapper.text()).toContain('€')
   })
 
+  it('renders with the snippetConfig uiLang when no locale prop is provided', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678.87,
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+    expect(wrapper.text()).toEqual('12.345.678,87\u00A0€')
+  })
+
+  it('renders with the locale prop over the snippetConfig uiLang', () => {
+    const wrapper = renderBaseCurrency({
+      value: 1234.56,
+      currency: 'EUR',
+      locale: 'en-US',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+    expect(wrapper.text()).toEqual('€1,234.56')
+  })
+
   it('renders with prop currency over snippetConfig currency', () => {
     const wrapper = renderBaseCurrency({
       value: 1234.56,
@@ -234,4 +255,6 @@ interface RenderBaseCurrencyOptions {
   snippetConfig?: Partial<SnippetConfig>
   /** Format options from Intl.NumberFormatOptions. */
   format?: Omit<Intl.NumberFormatOptions, 'currency' | 'style'>
+  /** Locale used to format the value. */
+  locale?: string
 }

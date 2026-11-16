@@ -1,7 +1,7 @@
 import type { HistoryQuery } from '@empathyco/x-types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins/index'
 import RemoveHistoryQuery from '../remove-history-query.vue'
 
@@ -21,6 +21,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
     XPlugin.bus.on('UserPressedRemoveHistoryQuery', true).subscribe(listener)
@@ -39,6 +40,48 @@ describe('testing RemoveHistoryQuery component', () => {
     })
   })
 
+  it('renders the default aria-label on the button', () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
+      },
+    })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('remove')
+  })
+
+  it('allows overriding the aria-label of the button', () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+        provide: ariaProvide({ removeHistoryQuery: { button: 'Remove this query' } }),
+      },
+    })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('Remove this query')
+  })
+
+  it('resolves the aria-label from the global configuration', () => {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
+      props: {
+        historyQuery,
+      },
+      global: {
+        plugins: [installNewXPlugin()],
+        provide: ariaProvide({ removeHistoryQuery: { button: 'Eliminar consulta' } }),
+      },
+    })
+
+    expect(removeHistoryQuery.attributes('aria-label')).toBe('Eliminar consulta')
+  })
+
   it('has a default slot with a default message', () => {
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
       props: {
@@ -46,6 +89,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
 
@@ -65,6 +109,7 @@ describe('testing RemoveHistoryQuery component', () => {
       },
       global: {
         plugins: [installNewXPlugin()],
+        provide: ariaProvide(),
       },
     })
 

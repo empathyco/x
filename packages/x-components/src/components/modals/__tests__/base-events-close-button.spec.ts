@@ -3,7 +3,7 @@ import type { XEvent } from '../../../wiring/events.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { defineComponent, nextTick } from 'vue'
-import { installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/index'
 import BaseEventsModalClose from '../base-events-modal-close.vue'
 
@@ -32,7 +32,7 @@ function renderBaseEventsModalClose({
   })
 
   const wrapper = mount(modalComponent, {
-    global: { plugins: [installNewXPlugin()] },
+    global: { plugins: [installNewXPlugin()], provide: ariaProvide() },
     props: { closingEvent },
   })
   return {

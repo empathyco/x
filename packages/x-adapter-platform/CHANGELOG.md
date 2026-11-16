@@ -3,6 +3,96 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.6) (2026-11-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.5) (2026-11-12)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.4) (2026-11-10)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.3) (2026-11-09)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.2) (2026-11-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.1) (2026-11-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [2.0.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.12.0...@empathyco/x-adapter-platform@2.0.0) (2026-10-13)
+
+### ⚠ BREAKING CHANGES
+
+* Remove query tagging requests for each query suggestion.
+Remove UserClickedAResult and UserClickedResultAddToCart when the user clicks on an ai carousel result.
+Remove the tagging field from PlatformAiSuggestionSearch and AiSuggestionSearch types.
+
+### Features
+
+* track query tagging when ai-carousel is displayed in no-results… (#2179)
+
+
+## [1.12.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.11.1...@empathyco/x-adapter-platform@1.12.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
+## [1.11.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.11.0...@empathyco/x-adapter-platform@1.11.1) (2026-09-28)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [1.11.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.10.0...@empathyco/x-adapter-platform@1.11.0) (2026-09-04)
+
+### Features
+
+* export stats schema (#2169)
+
+
+## [1.10.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.2...@empathyco/x-adapter-platform@1.10.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [1.9.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.9.1...@empathyco/x-adapter-platform@1.9.2) (2026-08-25)
 
 ### Bug Fixes

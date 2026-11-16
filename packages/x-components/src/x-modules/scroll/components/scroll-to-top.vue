@@ -4,7 +4,7 @@
       v-if="isVisible"
       class="x-scroll-to-top xds:button"
       data-test="scroll-to-top"
-      aria-label="Scroll to top"
+      :aria-label="ariaLabels?.button"
       :events="events"
     >
       <!-- @slot (Required) Button content with a text, an icon or both -->
@@ -17,7 +17,7 @@
 import type { XEventsTypes } from '../../../wiring'
 import { computed, defineComponent } from 'vue'
 import { BaseEventButton, NoAnimation } from '../../../components'
-import { useState } from '../../../composables'
+import { useAccessibilityLabels, useState } from '../../../composables'
 import { AnimationProp } from '../../../types'
 import { scrollXModule } from '../x-module'
 import { MainScrollId } from './scroll.const'
@@ -59,6 +59,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const ariaLabels = useAccessibilityLabels('scrollToTop')
+
     /**
      * State of all the scroll components in this module.
      *
@@ -135,6 +137,7 @@ export default defineComponent({
     )
 
     return {
+      ariaLabels,
       events,
       isVisible,
     }

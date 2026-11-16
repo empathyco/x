@@ -197,6 +197,11 @@ export class XPriorityBus<
 
           emitter.next(payloadObj)
 
+          if (this.isXDebugEnabled()) {
+            // eslint-disable-next-line no-console
+            console.debug('XEvent', key, payloadObj)
+          }
+
           this.emitCallbacks.forEach(callback => {
             callback(key, payloadObj)
           })
@@ -218,6 +223,21 @@ export class XPriorityBus<
   private clearPendingPopsIds(): void {
     this.pendingPopsIds.forEach(clearTimeout)
     this.pendingPopsIds.length = 0
+  }
+
+  /**
+   * Checks whether the `xdebug` query param is set to `true` in the current URL, to
+   * enable debug logging of the emitted events.
+   *
+   * @returns True if the `xdebug` query param is set to `true` in the URL.
+   *
+   * @internal
+   */
+  private isXDebugEnabled(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      new URLSearchParams(window.location.search).get('xdebug') === 'true'
+    )
   }
 
   /**

@@ -3,6 +3,88 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.0.6](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.6) (2026-11-13)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.5](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.5) (2026-11-12)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.4](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.4) (2026-11-10)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.3](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.3) (2026-11-09)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.2](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.2) (2026-11-05)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.1](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.0.1) (2026-11-03)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+
+
+
+
+## [11.0.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.11.0...@empathyco/x-types@11.0.0) (2026-10-13)
+
+### ⚠ BREAKING CHANGES
+
+* Remove query tagging requests for each query suggestion.
+Remove UserClickedAResult and UserClickedResultAddToCart when the user clicks on an ai carousel result.
+Remove the tagging field from PlatformAiSuggestionSearch and AiSuggestionSearch types.
+
+### Features
+
+* track query tagging when ai-carousel is displayed in no-results… (#2179)
+
+
+## [10.11.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.10.0...@empathyco/x-types@10.11.0) (2026-10-02)
+
+### Features
+
+* add new Slider facet type (#2168)
+
+
+## [10.10.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.9.0...@empathyco/x-types@10.10.0) (2026-09-28)
+
+### Features
+
+* add filters params to UserBrowsedToCategory (#2176)
+
+
+## [10.9.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.8.1...@empathyco/x-types@10.9.0) (2026-08-28)
+
+### Features
+
+* **skills:** add basic agent skills (skills-npm convention) to all publishable packages (#2164)
+
+
 ## [10.8.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.8.0...@empathyco/x-types@10.8.1) (2026-08-25)
 
 **Note:** Version bump only for package @empathyco/x-types

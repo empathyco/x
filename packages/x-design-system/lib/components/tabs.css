@@ -1,0 +1,75 @@
+/* Base */
+@utility tabs {
+  @apply xds:inline-flex xds:flex-row xds:flex-nowrap xds:content-center xds:items-center;
+  @apply xds:text-neutral-50;
+}
+
+/* Orientation */
+@utility tabs-vertical {
+  @apply xds:flex-col xds:items-stretch;
+
+  & > .xds\:tab {
+    @apply xds:justify-start;
+  }
+
+  /* Underline tabs highlight the inline-end edge when they are vertical. */
+  & > .xds\:tab-underline {
+    @apply xds:border-e-2 xds:border-b-0 xds:border-e-transparent;
+
+    &.xds\:selected {
+      @apply xds:border-e-neutral-90;
+    }
+  }
+
+  &.xds\:tabs-underline {
+    @apply xds:border-e-1 xds:border-b-0 xds:border-e-neutral-25;
+  }
+
+  /* Boxed tabs connect to the content on the inline-end edge when they are vertical. */
+  &.xds\:tabs-boxed {
+    @apply xds:border-e-1 xds:border-b-0 xds:border-e-neutral-25;
+  }
+
+  & > .xds\:tab-boxed.xds\:selected {
+    @apply xds:mb-0 xds:border-e-0 xds:border-b-1 xds:border-b-neutral-25;
+    margin-right: -1px;
+  }
+
+  & > .xds\:tabs-divider {
+    @apply xds:mx-8 xds:my-0 xds:border-t-1 xds:border-l-0;
+  }
+}
+
+/* Underline */
+@utility tabs-underline {
+  @apply xds:gap-0;
+  @apply xds:border-b-1 xds:border-b-neutral-25;
+}
+
+/* Pill */
+@utility tabs-pill {
+  @apply xds:gap-4 xds:p-4;
+  @apply xds:rounded-full xds:bg-neutral-10;
+}
+
+/* Boxed */
+@utility tabs-boxed {
+  @apply xds:gap-0;
+  @apply xds:border-b-1 xds:border-b-neutral-25;
+
+  & > .xds\:tab-boxed:first-child {
+    @apply xds:rounded-tl-md xds:rounded-tr-md;
+  }
+
+  /* The selected tab overlaps the container border to connect with the content below. */
+  & > .xds\:tab-boxed.xds\:selected {
+    margin-bottom: -1px;
+  }
+}
+
+/* Divider */
+@utility tabs-divider {
+  @apply xds:border-l-1 xds:border-l-neutral-25;
+  @apply xds:mx-8;
+  @apply xds:self-stretch;
+}

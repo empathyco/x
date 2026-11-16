@@ -8,6 +8,7 @@ import type { ExtraParamsXStoreModule } from './types'
 export const extraParamsXStoreModule: ExtraParamsXStoreModule = {
   state: () => ({
     params: {},
+    catalogSectionParamKey: 'catalogSection',
   }),
   getters: {},
   mutations: {

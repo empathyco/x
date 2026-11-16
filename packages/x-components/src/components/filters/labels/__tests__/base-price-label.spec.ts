@@ -10,6 +10,7 @@ import BasePriceFilterLabel from '../base-price-filter-label.vue'
 function renderBasePriceLabel({
   filter,
   currency,
+  locale,
   lessThan = 'Less than {max}',
   from = 'More than {min}',
   fromTo = 'From {min} to {max}',
@@ -27,10 +28,10 @@ function renderBasePriceLabel({
   return mount(
     {
       components: { Provider, BasePriceFilterLabel },
-      props: ['filter', 'lessThan', 'from', 'fromTo', 'currency'],
+      props: ['filter', 'lessThan', 'from', 'fromTo', 'currency', 'locale'],
       template: `
         <Provider>
-          <BasePriceFilterLabel :filter="filter" :currency="currency"
+          <BasePriceFilterLabel :filter="filter" :currency="currency" :locale="locale"
             :less-than="lessThan" :from="from" :from-to="fromTo" />
         </Provider>
       `,
@@ -39,6 +40,7 @@ function renderBasePriceLabel({
       propsData: {
         filter,
         currency,
+        locale,
         lessThan,
         from,
         fromTo,
@@ -77,6 +79,27 @@ describe('testing BasePriceLabel component', () => {
     })
     expect(wrapper.text()).toEqual('More than 1000,00\u00A0€')
   })
+
+  it('renders component with the snippetConfig uiLang when no locale prop is provided', () => {
+    const filter = getNumberRangeFilterStub({ range: { min: 0, max: 10 } })
+    const wrapper = renderBasePriceLabel({
+      filter,
+      currency: 'EUR',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+    expect(wrapper.text()).toEqual('From 0,00\u00A0€ to 10,00\u00A0€')
+  })
+
+  it('renders component with the locale prop over the snippetConfig uiLang', () => {
+    const filter = getNumberRangeFilterStub({ range: { min: 0, max: 10 } })
+    const wrapper = renderBasePriceLabel({
+      filter,
+      currency: 'EUR',
+      locale: 'en-US',
+      snippetConfig: { currency: 'EUR', uiLang: 'es-ES' },
+    })
+    expect(wrapper.text()).toEqual('From €0.00 to €10.00')
+  })
 })
 
 /**
@@ -86,6 +109,7 @@ interface RenderBasePriceLabelOptions {
   filter: NumberRangeFilter
   currency?: string
   format?: Omit<Intl.NumberFormatOptions, 'currency' | 'style'>
+  locale?: string
   lessThan?: string
   fromTo?: string
   from?: string

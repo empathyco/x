@@ -35,7 +35,7 @@
         :class="inputsClass"
         :value="!isAnyRange ? min : null"
         data-test="range-min"
-        :aria-label="rangeFilterMin"
+        :aria-label="ariaLabels?.min"
         @change="setMin(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
 
@@ -46,7 +46,7 @@
         :class="inputsClass"
         :value="max"
         data-test="range-max"
-        :aria-label="rangeFilterMax"
+        :aria-label="ariaLabels?.max"
         @change="setMax(($event?.target as HTMLInputElement)?.valueAsNumber)"
       />
       <!-- eslint-enable max-len -->
@@ -88,7 +88,7 @@ import type {
 } from '@empathyco/x-types'
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, ref, watch } from 'vue'
-import { use$x } from '../../../../composables'
+import { use$x, useAccessibilityLabels } from '../../../../composables'
 import { facetsXModule } from '../../x-module'
 
 /**
@@ -144,8 +144,8 @@ export default defineComponent({
   setup(props) {
     const $x = use$x()
 
-    const rangeFilterMin = 'minimum amount'
-    const rangeFilterMax = 'maximum amount'
+    const ariaLabels = useAccessibilityLabels('editableNumberRangeFilter')
+
     /**
      * Component min value.
      *
@@ -324,8 +324,7 @@ export default defineComponent({
     )
 
     return {
-      rangeFilterMin,
-      rangeFilterMax,
+      ariaLabels,
       cssClasses,
       min,
       max,

@@ -13,5 +13,6 @@ export interface UrlParams {
   scroll: string
   browseValue: string
   browseField: string
+  catalogSection: string
   [extraParamKey: string]: unknown
 }

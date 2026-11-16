@@ -1,19 +1,23 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store'
+import type { AriaLabels } from '../../../../types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { Store } from 'vuex'
-import { installNewXPlugin } from '../../../../__tests__/utils'
+import { ariaProvide, installNewXPlugin } from '../../../../__tests__/utils'
 import { XPlugin } from '../../../../plugins'
 import { historyQueriesXModule } from '../../x-module'
 import ClearHistoryQueries from '../clear-history-queries.vue'
 import { resetXHistoryQueriesStateWith } from './utils'
 
-function render() {
+function render(ariaLabels: AriaLabels = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
   const wrapper = mount(ClearHistoryQueries, {
-    global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] },
+    global: {
+      plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+      provide: ariaProvide(ariaLabels),
+    },
   })
 
   return {
@@ -72,6 +76,24 @@ describe('testing ClearHistoryQueries component', () => {
     })
   })
 
+  it('renders the default aria-label on the button', () => {
+    const { wrapper } = render()
+
+    expect(wrapper.attributes('aria-label')).toBe('Clear all')
+  })
+
+  it('allows overriding the aria-label of the button', () => {
+    const { wrapper } = render({ clearHistoryQueries: { button: 'Clear all history queries' } })
+
+    expect(wrapper.attributes('aria-label')).toBe('Clear all history queries')
+  })
+
+  it('resolves the aria-label of the button from the global configuration', () => {
+    const { wrapper } = render({ clearHistoryQueries: { button: 'Borrar todo' } })
+
+    expect(wrapper.attributes('aria-label')).toBe('Borrar todo')
+  })
+
   it('has an slot rendering a message by default', () => {
     const { wrapper } = render()
 
@@ -82,7 +104,10 @@ describe('testing ClearHistoryQueries component', () => {
     const store = new Store<DeepPartial<RootXStoreState>>({})
 
     const wrapper = mount(ClearHistoryQueries, {
-      global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] },
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })],
+        provide: ariaProvide(),
+      },
       slots: {
         default: {
           template: '<span class="x-clear-history-queries__text">Clear</span>',

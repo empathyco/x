@@ -1,5 +1,6 @@
 import type {
   AiSuggestionSearch,
+  AiSuggestionSearchTagging,
   AiSuggestionsRequest,
   AiSuggestionsSearchRequest,
   Result,
@@ -15,7 +16,9 @@ export interface AiXEvents {
   AiSuggestionsRequestUpdated: AiSuggestionsRequest | null
   AiSuggestionsSearchRequestUpdated: AiSuggestionsSearchRequest | null
   AiSuggestionsSearchChanged: AiSuggestionSearch[]
+  AiSuggestionsSearchTaggingChanged: AiSuggestionSearchTagging
   UserClickedAnAiCarouselResult: Result
   UserClickedAnAiCarouselAdd2Cart: Result
   AiComponentMounted: void
+  AiComponentUnmounted: void
 }

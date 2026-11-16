@@ -1,11 +1,13 @@
 import type { VueWrapper } from '@vue/test-utils'
+import type { AriaLabels } from '../../../types'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { XDummyBus } from '../../../__tests__/bus.dummy'
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
+import { ariaProvide, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils'
 import { XPlugin } from '../../../plugins/x-plugin'
 import BaseColumnPickerList from '../base-column-picker-list.vue'
+
 let bus = new XDummyBus()
 function render({
   selectedColumns,
@@ -17,13 +19,14 @@ function render({
     </template>`,
   template = `
    <BaseColumnPickerList
-      :columns="columns"
-      :modelValue="selectedColumns"
-      :buttonClass="buttonClass"
-      @update:modelValue="col => selectedColumns = col"
-    >
-      ${customItemSlot ?? ''}
+       :columns="columns"
+       :modelValue="selectedColumns"
+       :buttonClass="buttonClass"
+       @update:modelValue="col => selectedColumns = col"
+     >
+       ${customItemSlot ?? ''}
    </BaseColumnPickerList>`,
+  ariaLabels,
 }: BaseColumnPickerListRenderOptions = {}) {
   function mountComponent(options: { selectedColumns?: number } = {}) {
     return mount(
@@ -38,7 +41,7 @@ function render({
       },
       {
         props: { columns, buttonClass },
-        global: { plugins: [installNewXPlugin({}, bus)] },
+        global: { plugins: [installNewXPlugin({}, bus)], provide: ariaProvide(ariaLabels) },
       },
     )
   }
@@ -137,6 +140,33 @@ describe('testing BaseColumnPickerList component', () => {
     })
   })
 
+  it('labels each button with its column number by default', () => {
+    const columns = [1, 3, 6]
+    const { wrapper } = render({ columns })
+
+    const buttons = wrapper.findAll(getDataTestSelector('column-picker-button'))
+    expect(buttons).toHaveLength(columns.length)
+    columns.forEach((column, index) => {
+      expect(buttons.at(index)?.attributes('aria-label')).toBe(`${column} columns`)
+    })
+  })
+
+  it('labels each button with the global configuration', () => {
+    const columns = [1, 3, 6]
+    const { wrapper } = render({
+      columns,
+      ariaLabels: {
+        baseColumnPickerList: { button: (column: number) => `${column} cols` },
+      },
+    })
+
+    const buttons = wrapper.findAll(getDataTestSelector('column-picker-button'))
+    expect(buttons).toHaveLength(columns.length)
+    columns.forEach((column, index) => {
+      expect(buttons.at(index)?.attributes('aria-label')).toBe(`${column} cols`)
+    })
+  })
+
   it('allows customizing the picker button slot', () => {
     const columns = [1, 3, 6]
     const customItemSlot = `
@@ -231,4 +261,6 @@ interface BaseColumnPickerListRenderOptions {
   selectedColumns?: number
   /** The template to be rendered. */
   template?: string
+  /** Global aria labels overrides for the component. */
+  ariaLabels?: AriaLabels
 }
