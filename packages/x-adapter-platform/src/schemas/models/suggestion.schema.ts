@@ -1,17 +1,18 @@
 import type { Suggestion } from '@empathyco/x-types'
-import type { PlatformSuggestion } from '../../types/models/suggestion.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformSuggestionSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the SuggestionSchema.
  *
  * @public
  */
-export const suggestionSchema = createMutableSchema<PlatformSuggestion, Suggestion>({
-  query: ({ title_raw, keywords }) => title_raw ?? keywords,
-  key: ({ title_raw, keywords }) => title_raw ?? keywords,
-  modelName: (_, $context) =>
-    $context?.requestParameters?.query ? 'QuerySuggestion' : 'PopularSearch',
-  facets: () => [],
-  isCurated: () => false,
+export const suggestionSchema = createTransformSchema<PlatformSuggestionSource, Suggestion>({
+  transform: ({ title_raw, keywords }, context): Suggestion => ({
+    query: (title_raw ?? keywords) as string,
+    key: (title_raw ?? keywords) as string,
+    modelName: context.requestParameters?.query ? 'QuerySuggestion' : 'PopularSearch',
+    facets: [],
+    isCurated: false,
+  }),
 })

@@ -1,16 +1,21 @@
 import type { RelatedPromptsRequest } from '@empathyco/x-types'
 import type { PlatformRelatedPromptsRequest } from '../../types/requests/related-prompts-request.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the RelatedPromptsRequestSchema.
  *
+ * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const relatedPromptsRequestSchema = createMutableSchema<
+export const relatedPromptsRequestSchema = createTransformSchema<
   RelatedPromptsRequest,
   PlatformRelatedPromptsRequest
 >({
-  query: 'query',
-  extraParams: 'extraParams',
+  transform: (source): PlatformRelatedPromptsRequest =>
+    defined<PlatformRelatedPromptsRequest>({
+      query: source.query,
+      extraParams: source.extraParams,
+    }),
 })

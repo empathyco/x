@@ -13,6 +13,7 @@ const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$exte
  *
  * @returns A {@link MutableSchema | mutable schema} version of the given {@link Schema | schema}.
  *
+ * @deprecated Use {@link createTransformSchema} instead.
  * @public
  */
 export function createMutableSchema<Source, Target>(
@@ -52,6 +53,7 @@ export function createMutableSchema<Source, Target>(
  * @returns True if it is a {@link MutableSchema | mutableSchema} method,
  * false otherwise.
  *
+ * @deprecated Only used by the deprecated {@link MutableSchema}.
  * @public
  */
 export function isInternalMethod(name: string): boolean {

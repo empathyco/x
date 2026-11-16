@@ -1,13 +1,9 @@
-import type { AiSuggestionsSearchResponse } from '@empathyco/x-types'
-import type { PlatformAiSuggestionsSearchResponse } from '../../../types/responses'
-import { createMutableSchema } from '@empathyco/x-adapter'
 import { aiSuggestionsSearchSchema } from '../../models/ai/suggestions-search.schema'
 
 /**
- * Default implementation for the AIOverviewSuggestionsSearchResponseSchema.
+ * Default implementation for the AiSuggestionsSearchResponseSchema.
  * @public
  */
-export const aiSuggestionsSearchResponseSchema = createMutableSchema<
-  PlatformAiSuggestionsSearchResponse,
-  AiSuggestionsSearchResponse
->(aiSuggestionsSearchSchema)
+export const aiSuggestionsSearchResponseSchema = aiSuggestionsSearchSchema.$extends({
+  transform: () => ({}),
+})

@@ -1,7 +1,7 @@
 import type { PopularSearchesRequest } from '@empathyco/x-types'
 import type { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model'
 
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 
 import { popularSearchesRequestSchema } from '../../schemas/requests/popular-searches-request.schema'
 
@@ -10,7 +10,7 @@ import { popularSearchesRequestSchema } from '../../schemas/requests/popular-sea
  *
  * @public
  */
-export const popularSearchesRequestMapper = schemaMapperFactory<
+export const popularSearchesRequestMapper = transformSchemaMapperFactory<
   PopularSearchesRequest,
   PlatformPopularSearchesRequest
 >(popularSearchesRequestSchema)

@@ -1,16 +1,18 @@
 import type { BooleanFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformFilterSource } from '../../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
+import { defined } from '../../utils'
 
 /**
  * Default implementation for the BooleanFilterSchema.
  *
  * @public
  */
-export const booleanFilterSchema = createMutableSchema<PlatformFilter, BooleanFilter>({
-  id: 'filter',
-  label: 'value',
-  facetId: (_, $context) => $context?.facetId as string,
-  selected: () => false,
-  modelName: () => 'BooleanFilter',
+export const booleanFilterSchema = createTransformSchema<PlatformFilterSource, BooleanFilter>({
+  transform: (source, context): BooleanFilter => ({
+    ...defined<Pick<BooleanFilter, 'id' | 'label'>>({ id: source.filter, label: source.value }),
+    facetId: context.facetId as string,
+    selected: false,
+    modelName: 'BooleanFilter',
+  }),
 })

@@ -1,28 +1,23 @@
 import type { EditableNumberRangeFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformFilterSource } from '../../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
+import { defined } from '../../utils'
+import { mapRange } from './filter.utils'
 
 /**
- * Default implementation for the NumberFilterSchema.
+ * Default implementation for the EditableNumberFilterSchema.
  *
  * @public
  */
-export const editableNumberFilterSchema = createMutableSchema<
-  PlatformFilter,
+export const editableNumberFilterSchema = createTransformSchema<
+  PlatformFilterSource,
   EditableNumberRangeFilter
 >({
-  id: 'filter',
-  facetId: (_, $context) => $context?.facetId as string,
-  selected: () => false,
-  modelName: () => 'EditableNumberRangeFilter',
-  range: {
-    min: ({ value }) => {
-      const min = Number(value.split('-')[0])
-      return Number.isNaN(min) ? null : min
-    },
-    max: ({ value }) => {
-      const max = Number(value.split('-')[1])
-      return Number.isNaN(max) ? null : max
-    },
-  },
+  transform: (source, context): EditableNumberRangeFilter => ({
+    ...defined<Pick<EditableNumberRangeFilter, 'id'>>({ id: source.filter }),
+    facetId: context.facetId as string,
+    selected: false,
+    modelName: 'EditableNumberRangeFilter',
+    range: mapRange(source.value),
+  }),
 })

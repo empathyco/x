@@ -1,3 +1,6 @@
+export * from './boolean-filter.schema'
+export * from './editable-number-filter.schema'
 export * from './hierarchical-filter.schema'
 export * from './number-filter.schema'
 export * from './simple-filter.schema'
+export * from './slider-filter.schema'

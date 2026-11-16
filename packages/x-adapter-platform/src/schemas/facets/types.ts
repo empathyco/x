@@ -1,12 +1,12 @@
-import type { Schema } from '@empathyco/x-adapter'
-import type { FacetModelName } from '@empathyco/x-types'
+import type { TransformSchema } from '@empathyco/x-adapter'
+import type { FacetModelName, Filter } from '@empathyco/x-types'
 
 /**
- * Facet configuration containing the model name and the schema.
+ * Facet configuration containing the model name and the schema of its filters.
  *
  * @public
  */
 export interface FacetConfig {
   modelName: FacetModelName
-  schema: Schema
+  schema: TransformSchema<any, Filter>
 }

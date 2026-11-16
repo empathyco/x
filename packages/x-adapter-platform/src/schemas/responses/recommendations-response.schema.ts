@@ -1,20 +1,20 @@
 import type { RecommendationsResponse } from '@empathyco/x-types'
-import type { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformListResponseSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { resultSchema } from '../models/result.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the RecommendationsResponseSchema.
  *
  * @public
  */
-export const recommendationsResponseSchema = createMutableSchema<
-  PlatformRecommendationsResponse,
+export const recommendationsResponseSchema = createTransformSchema<
+  PlatformListResponseSource<'topclicked', 'content'>,
   RecommendationsResponse
 >({
-  results: {
-    $path: 'topclicked.content',
-    $subSchema: resultSchema,
-  },
+  transform: (source, context): RecommendationsResponse =>
+    defined<RecommendationsResponse>({
+      results: parseEach(resultSchema, source.topclicked?.content, context),
+    }),
 })

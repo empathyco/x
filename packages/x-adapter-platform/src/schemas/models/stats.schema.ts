@@ -1,15 +1,17 @@
 import type { Stats } from '@empathyco/x-types'
-import type { PlatformStats } from '../../types/models/stats.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformStatsSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 
 /**
- * Default implementation for the Stats schema.
+ * Default implementation for the StatsSchema.
  *
  * @public
  */
-export const statsSchema = createMutableSchema<PlatformStats, Stats>({
-  price: {
-    min: ({ price }) => (price?.min ? Number(price.min) : undefined),
-    max: ({ price }) => (price?.max ? Number(price.max) : undefined),
-  },
+export const statsSchema = createTransformSchema<PlatformStatsSource, Stats>({
+  transform: ({ price }): Stats => ({
+    price: {
+      min: price?.min ? Number(price.min) : undefined,
+      max: price?.max ? Number(price.max) : undefined,
+    },
+  }),
 })
