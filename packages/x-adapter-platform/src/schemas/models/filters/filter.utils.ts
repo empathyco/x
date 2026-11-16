@@ -1,16 +1,3 @@
-import * as z from 'zod/mini'
-
-/**
- * Validator of the filter that the Platform API returns.
- *
- * @internal
- */
-export const platformFilterValidator = z.looseObject({
-  filter: z.string(),
-  value: z.optional(z.string()),
-  count: z.optional(z.number()),
-})
-
 /**
  * Maps a `min-max` string to a range.
  *

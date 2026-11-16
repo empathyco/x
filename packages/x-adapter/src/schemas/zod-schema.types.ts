@@ -87,8 +87,9 @@ export interface ZodSchemaOverride<Source, Target, NewSource, NewTarget> {
 }
 
 /**
- * A schema that validates a source object and maps it to a target object. It can be modified
- * after its creation to: partially override it, create a new one or completely replace it.
+ * A schema that maps a source object to a target object, optionally validating the source. It can
+ * be modified after its creation to: partially override it, create a new one or completely replace
+ * it.
  *
  * @remarks It replaces the deprecated {@link MutableSchema}, whose path based typings forced
  * TypeScript to recursively compute every possible path of the source object.

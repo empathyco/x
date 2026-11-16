@@ -297,8 +297,12 @@ documentation for further details.
 ###### Example of overriding a response by adding a new parameter
 
 ```ts
-import { resultSchema } from '@empathyco/x-adapter-platform'
-import { z } from 'zod'
+import { PlatformResult, resultSchema } from '@empathyco/x-adapter-platform'
+import { Result } from '@empathyco/x-types'
+
+interface EmpathyDemoPlatformResult extends PlatformResult {
+  season: string
+}
 
 declare module '@empathyco/x-types' {
   export interface Result {
@@ -306,9 +310,7 @@ declare module '@empathyco/x-types' {
   }
 }
 
-resultSchema.$override({
-  // Validator of the new properties of the API result. Their types are inferred from it.
-  source: z.looseObject({ season: z.string() }),
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
   // The returned object is merged with the result that the adapter maps by default.
   transform: (source, result, context) => ({
     season: source.season,
@@ -317,14 +319,15 @@ resultSchema.$override({
 })
 ```
 
-If you prefer not to validate the new properties, provide their types instead:
+Optionally, you can validate the new properties of the API result with a
+[Zod](https://zod.dev) schema instead of declaring an interface. Their types are inferred from it,
+and a warning is logged when the API does not return what you expect:
 
 ```ts
-interface EmpathyDemoPlatformResult extends PlatformResult {
-  season: string
-}
+import * as z from 'zod/mini'
 
-resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+resultSchema.$override({
+  source: z.looseObject({ season: z.string() }),
   transform: source => ({ season: source.season }),
 })
 ```

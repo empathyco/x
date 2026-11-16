@@ -1,6 +1,6 @@
 import type { FacetsResponse } from '@empathyco/x-types'
+import type { PlatformListResponseSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { facetSchema } from '../models/facet.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,10 +9,10 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const facetsResponseSchema = createMutableZodSchema({
-  source: z.looseObject({
-    catalog: z.optional(z.looseObject({ facets: z.optional(z.array(z.unknown())) })),
-  }),
+export const facetsResponseSchema = createMutableZodSchema<
+  PlatformListResponseSource<'catalog', 'facets'>,
+  FacetsResponse
+>({
   transform: (source, context): FacetsResponse =>
     defined<FacetsResponse>({
       facets: parseEach(facetSchema, source.catalog?.facets, context),

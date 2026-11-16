@@ -7,7 +7,7 @@ Some features that it provides:
 - Create an API request function based on a simple configuration.
 - Allow to configure several endpoints by extending the initial configuration.
 - Allow to configure the response/request mapping.
-- Create mapping functions based on [Zod](https://zod.dev) schemas.
+- Create mapping functions based on Schemas, with optional [Zod](https://zod.dev) validation.
 
 <br>
 
@@ -231,11 +231,11 @@ export const searchProducts = endpointAdapterFactory({
 
 <br>
 
-### Implement your own adapter using Zod schemas
+### Implement your own adapter using mutable schemas
 
-A `MutableZodSchema` validates the source object with a [Zod](https://zod.dev) schema and maps it
-to the target object with a plain function. The types of the `source` are inferred from the
-validator, so TypeScript does not need to compute every possible path of your models.
+A `MutableZodSchema` maps a source object to a target object with a plain `transform` function. As
+there are no path strings involved, TypeScript does not need to compute every possible path of your
+models.
 
 ```ts
 import {
@@ -243,32 +243,24 @@ import {
   endpointAdapterFactory,
   zSchemaMapperFactory,
 } from '@empathyco/x-adapter'
-import { z } from 'zod' // or `import * as z from 'zod/mini'` for a smaller bundle
 
-const userSchema = createMutableZodSchema({
-  source: z.looseObject({
-    id: z.number(),
-    firstName: z.string(),
-    address: z.optional(z.looseObject({ city: z.string() })),
-  }),
-  transform: (source, context): AppUser => ({
+const userSchema = createMutableZodSchema<ApiUser, AppUser>({
+  transform: (source, context) => ({
     id: source.id.toString(),
     name: source.firstName,
     city: source.address?.city,
   }),
 })
 
-const usersResponseSchema = createMutableZodSchema({
-  source: z.looseObject({ users: z.array(z.unknown()) }),
+const usersResponseSchema = createMutableZodSchema<ApiSearchUsersResponse, AppSearchUsersResponse>({
   // Nested models are mapped calling the `parse` method of their schema.
-  transform: (source, context): AppSearchUsersResponse => ({
+  transform: (source, context) => ({
     people: source.users.map(user => userSchema.parse(user, context)),
   }),
 })
 
 export const searchUsers = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/users/search',
-  // Requests are created by your own code. If you do not need to validate them, skip the `source`.
   requestMapper: zSchemaMapperFactory(
     createMutableZodSchema<AppSearchUsersRequest, ApiSearchUsersRequest>({
       transform: ({ query }) => ({ q: query }),
@@ -280,28 +272,23 @@ export const searchUsers = endpointAdapterFactory({
 })
 ```
 
-Things to know:
-
-- **Validation never breaks the mapping**. If the source does not match the validator, a warning is
-  logged (once per different issue) and the raw source is mapped.
-- Use `z.looseObject()` to describe only the properties you need. The properties that a validator
-  strips are kept anyway, so the schemas that extend it can still read them.
-- The properties of the object returned by `transform` whose value is `undefined` are not added to
-  the target.
-- `zSchemaMapperFactory` also accepts a raw Zod schema (`z.object().transform()`). In that case the
-  mapper is strict: it throws if the source is not valid.
+The properties of the object returned by `transform` whose value is `undefined` are not added to
+the target.
 
 A `MutableZodSchema` can be modified after its creation:
 
 - `$override`: modifies the schema, so the change affects all the schemas and `EndpointAdapter`(s)
-  that use it. It receives an optional validator for the new properties of the source, and a
-  `transform` function whose result is shallow merged with the already mapped target.
+  that use it. It receives a `transform` function whose result is shallow merged with the already
+  mapped target.
 - `$extends`: same as `$override`, but it creates a new schema and the original remains unchanged.
-- `$replace`: replaces completely the validator and the transformation of the schema.
+- `$replace`: replaces completely the transformation of the schema.
 
 ```ts
-userSchema.$override({
-  source: z.looseObject({ age: z.number() }),
+interface ApiUserWithAge extends ApiUser {
+  age: number
+}
+
+userSchema.$override<ApiUserWithAge, { age: number }>({
   // `target` is the object mapped so far, and `context` the mapper context.
   transform: (source, target, context) => ({
     age: source.age,
@@ -310,6 +297,42 @@ userSchema.$override({
 })
 ```
 
+#### Validating the source (optional)
+
+A schema, and each one of its modifications, accepts a `source` validator: any object with a
+`safeParse` method, like a [Zod](https://zod.dev) schema. `@empathyco/x-adapter` does not depend on
+Zod, so install it in your project if you want to use it. The types of the source are then
+inferred from the validator:
+
+```ts
+import * as z from 'zod/mini' // or `import { z } from 'zod'`
+
+const userSchema = createMutableZodSchema({
+  source: z.looseObject({
+    id: z.number(),
+    firstName: z.string(),
+    address: z.optional(z.looseObject({ city: z.string() })),
+  }),
+  transform: (source): AppUser => ({
+    id: source.id.toString(),
+    name: source.firstName,
+    city: source.address?.city,
+  }),
+})
+
+userSchema.$override({
+  source: z.looseObject({ age: z.number() }),
+  transform: source => ({ age: source.age }),
+})
+```
+
+- **Validation never breaks the mapping**. If the source does not match the validator, a warning is
+  logged (once per different issue) and the raw source is mapped.
+- Use `z.looseObject()` to describe only the properties you need. The properties that a validator
+  strips are kept anyway, so the schemas that extend it can still read them.
+- `zSchemaMapperFactory` also accepts a raw Zod schema (`z.object().transform()`). In that case the
+  mapper is strict: it throws if the source is not valid.
+
 <br>
 
 ### Implement your own adapter using schemas
@@ -317,7 +340,7 @@ userSchema.$override({
 > **Deprecated**: `Schema`, `schemaMapperFactory` and `createMutableSchema` are deprecated. Their
 > path based typings (`ExtractPath`) make TypeScript compute every possible path of the source
 > object, which ends in huge compilation times, `TS2590` errors or the compiler running out of
-> memory on big models. Use [Zod schemas](#implement-your-own-adapter-using-zod-schemas) instead.
+> memory on big models. Use [mutable schemas](#implement-your-own-adapter-using-mutable-schemas) instead.
 
 Sometimes the transformations you will need to do in the mappers are just renaming parameters. What
 the API calls `q` might be called `query` in your request. To ease this transformations,

@@ -85,18 +85,18 @@ function toLayer({ source, transform }: ZodSchemaDefinition<any, any>): Layer {
 }
 
 /**
- * Creates a {@link MutableZodSchema} that validates a source object with a
- * [Zod](https://zod.dev) schema and maps it to a target object with a plain function.
+ * Creates a {@link MutableZodSchema} that maps a source object to a target object with a plain
+ * function. Optionally, the source can be validated with a [Zod](https://zod.dev) schema.
  *
  * @param definition - The validator and the transformation of the schema.
  * @returns A {@link MutableZodSchema}.
  * @example
  * ```typescript
- * const resultSchema = createMutableZodSchema({
- *   source: z.looseObject({ __id: z.string(), __name: z.string().optional() }),
- *   transform: (source): Result => ({ id: source.__id, name: source.__name }),
+ * const resultSchema = createMutableZodSchema<ApiResult, Result>({
+ *   transform: source => ({ id: source.__id, name: source.__name }),
  * })
  *
+ * // With a validator the types of the source are inferred from it.
  * resultSchema.$override({
  *   source: z.looseObject({ brand: z.string() }),
  *   transform: source => ({ brand: source.brand }),

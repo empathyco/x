@@ -1,7 +1,7 @@
 import type { MapperContext } from '@empathyco/x-adapter'
 import type { SliderFilter } from '@empathyco/x-types'
+import type { PlatformSliderFilterSource } from '../../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { defined } from '../../utils'
 
 function getFilter(context: MapperContext) {
@@ -16,19 +16,12 @@ function getSelectedRange(filter: string | undefined): SliderFilter['selectedRan
   return match ? { min: Number(match[1]), max: Number(match[2]) } : { min: null, max: null }
 }
 
-const boundary = z.union([z.string(), z.number()])
-
 /**
  * Default implementation for the sliderFilterSchema.
  *
  * @public
  */
-export const sliderFilterSchema = createMutableZodSchema({
-  source: z.looseObject({
-    min: boundary,
-    max: boundary,
-    unit: z.optional(z.custom<SliderFilter['unit']>(unit => typeof unit === 'string')),
-  }),
+export const sliderFilterSchema = createMutableZodSchema<PlatformSliderFilterSource, SliderFilter>({
   transform: ({ min, max, unit }, context): SliderFilter => {
     const filter = getFilter(context)
     return {

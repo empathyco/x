@@ -8,8 +8,8 @@ import type {
   SliderFacet,
 } from '@empathyco/x-types'
 import type { PlatformFacetType } from '../../types/models/facet.model'
+import type { PlatformFacetSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { getFacetConfig } from '../facets/utils'
 import { defined, parseEach } from '../utils'
 
@@ -21,20 +21,12 @@ type MappedFacet =
   | BooleanFacet
   | SliderFacet
 
-const platformFacetValidator = z.looseObject({
-  facet: z.string(),
-  label: z.optional(z.string()),
-  type: z.optional(z.custom<PlatformFacetType>(type => typeof type === 'string')),
-  values: z.optional(z.array(z.unknown())),
-})
-
 /**
  * Default implementation for the FacetSchema.
  *
  * @public
  */
-export const facetSchema = createMutableZodSchema({
-  source: platformFacetValidator,
+export const facetSchema = createMutableZodSchema<PlatformFacetSource, MappedFacet>({
   transform: (source, context): MappedFacet => {
     const { modelName, schema } = getFacetConfig(source.type as PlatformFacetType)
     return defined<Facet>({

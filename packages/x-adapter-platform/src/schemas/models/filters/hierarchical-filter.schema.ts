@@ -1,22 +1,8 @@
 import type { MutableZodSchema } from '@empathyco/x-adapter'
 import type { HierarchicalFilter } from '@empathyco/x-types'
+import type { PlatformHierarchicalFilterSource } from '../../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { defined, parseEach } from '../../utils'
-import { platformFilterValidator } from './platform-filter.validator'
-
-const platformHierarchicalFilterValidator = z.extend(platformFilterValidator, {
-  children: z.optional(z.looseObject({ values: z.optional(z.array(z.unknown())) })),
-})
-
-/** The hierarchical filter that the Platform API returns. */
-interface PlatformHierarchicalFilterSource {
-  [key: string]: unknown
-  filter: string
-  value?: string
-  count?: number
-  children?: { [key: string]: unknown; values?: unknown[] }
-}
 
 /**
  * Default implementation for the HierarchicalFilterSchema.
@@ -26,8 +12,7 @@ interface PlatformHierarchicalFilterSource {
 export const hierarchicalFilterSchema: MutableZodSchema<
   PlatformHierarchicalFilterSource,
   HierarchicalFilter
-> = createMutableZodSchema({
-  source: platformHierarchicalFilterValidator,
+> = createMutableZodSchema<PlatformHierarchicalFilterSource, HierarchicalFilter>({
   transform: (source, context): HierarchicalFilter => ({
     ...defined<Pick<HierarchicalFilter, 'id' | 'label' | 'totalResults' | 'children'>>({
       id: source.filter,

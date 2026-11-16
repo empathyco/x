@@ -1,15 +1,15 @@
 import type { Result } from '@empathyco/x-types'
+import type { PlatformResultSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
-import { mapResult, platformResultValidator } from './platform-result.validator'
+import { mapResult } from './result.utils'
 
 /**
  * Default implementation for the BrowseResultSchema.
  *
  * @public
  */
-export const browseResultSchema = createMutableZodSchema({
-  source: platformResultValidator,
+export const browseResultSchema = createMutableZodSchema<PlatformResultSource, Result>({
   transform: (source): Result => {
     const { tagging } = source
     return {

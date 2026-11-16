@@ -1,6 +1,6 @@
 import type { Promoted } from '@empathyco/x-types'
+import type { PlatformBannerSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { defined } from '../utils'
 
@@ -9,15 +9,7 @@ import { defined } from '../utils'
  *
  * @public
  */
-export const promotedSchema = createMutableZodSchema({
-  source: z.looseObject({
-    id: z.string(),
-    title: z.optional(z.string()),
-    url: z.optional(z.string()),
-    image_url: z.optional(z.string()),
-    position: z.optional(z.number()),
-    tagging: z.optional(z.looseObject({ click: z.optional(z.string()) })),
-  }),
+export const promotedSchema = createMutableZodSchema<PlatformBannerSource, Promoted>({
   transform: (source): Promoted => ({
     ...defined<Pick<Promoted, 'id' | 'title' | 'url' | 'image' | 'position'>>({
       id: source.id,

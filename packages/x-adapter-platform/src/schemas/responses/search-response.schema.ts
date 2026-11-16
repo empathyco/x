@@ -1,6 +1,6 @@
 import type { SearchResponse } from '@empathyco/x-types'
+import type { PlatformSearchResponseSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { bannerSchema } from '../models/banner.schema'
 import { facetSchema } from '../models/facet.schema'
@@ -11,32 +11,15 @@ import { resultSchema } from '../models/result.schema'
 import { statsSchema } from '../models/stats.schema'
 import { defined, parseEach } from '../utils'
 
-const content = z.optional(z.looseObject({ content: z.optional(z.array(z.unknown())) }))
-
 /**
  * Default implementation for the SearchResponseSchema.
  *
  * @public
  */
-export const searchResponseSchema = createMutableZodSchema({
-  source: z.looseObject({
-    catalog: z.optional(
-      z.looseObject({
-        content: z.optional(z.array(z.unknown())),
-        facets: z.optional(z.array(z.unknown())),
-        numFound: z.optional(z.number()),
-        spellchecked: z.optional(z.string()),
-        partials: z.optional(z.array(z.unknown())),
-        tagging: z.optional(
-          z.looseObject({ query: z.optional(z.string()), display: z.optional(z.string()) }),
-        ),
-        stats: z.optional(z.unknown()),
-      }),
-    ),
-    banner: content,
-    promoted: content,
-    direct: content,
-  }),
+export const searchResponseSchema = createMutableZodSchema<
+  PlatformSearchResponseSource,
+  SearchResponse
+>({
   transform: ({ catalog, banner, promoted, direct }, context): SearchResponse => ({
     ...defined<Omit<SearchResponse, 'queryTagging' | 'displayTagging'>>({
       results: parseEach(resultSchema, catalog?.content, context),

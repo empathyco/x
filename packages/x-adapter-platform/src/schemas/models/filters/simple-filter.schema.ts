@@ -1,15 +1,14 @@
 import type { SimpleFilter } from '@empathyco/x-types'
+import type { PlatformFilterSource } from '../../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
 import { defined } from '../../utils'
-import { platformFilterValidator } from './platform-filter.validator'
 
 /**
  * Default implementation for the SimpleFilterSchema.
  *
  * @public
  */
-export const simpleFilterSchema = createMutableZodSchema({
-  source: platformFilterValidator,
+export const simpleFilterSchema = createMutableZodSchema<PlatformFilterSource, SimpleFilter>({
   transform: (source, context): SimpleFilter => ({
     ...defined<Pick<SimpleFilter, 'id' | 'label' | 'totalResults'>>({
       id: source.filter,

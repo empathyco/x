@@ -1,8 +1,8 @@
 import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PlatformRelatedPromptNextQueriesTagging } from '../../types/models/related-prompt.model'
+import type { PlatformRelatedPromptSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { defined, parseEach } from '../utils'
 
@@ -11,8 +11,10 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const nextQueriesRelatedPromptsSchema = createMutableZodSchema({
-  source: z.string(),
+export const nextQueriesRelatedPromptsSchema = createMutableZodSchema<
+  string,
+  RelatedPromptNextQuery
+>({
   transform: (query, context): RelatedPromptNextQuery => {
     const tagging = (
       context.nextQueriesTagging as Dictionary<PlatformRelatedPromptNextQueriesTagging>
@@ -26,29 +28,15 @@ export const nextQueriesRelatedPromptsSchema = createMutableZodSchema({
   },
 })
 
-const nextQueryTagging = z.looseObject({
-  toolingDisplay: z.optional(z.string()),
-  toolingDisplayClick: z.optional(z.string()),
-  toolingDisplayAdd2Cart: z.optional(z.string()),
-})
-
 /**
  * Default implementation for the RelatedPromptSchema.
  *
  * @public
  */
-export const relatedPromptSchema = createMutableZodSchema({
-  source: z.looseObject({
-    nextQueries: z.optional(z.array(z.string())),
-    suggestionText: z.string(),
-    suggestionImageUrl: z.optional(z.string()),
-    type: z.optional(z.enum(['SYNTHETIC', 'CURATED'])),
-    tagging: z.looseObject({
-      toolingDisplay: z.optional(z.string()),
-      toolingDisplayClick: z.optional(z.string()),
-      nextQueries: z.optional(z.record(z.string(), nextQueryTagging)),
-    }),
-  }),
+export const relatedPromptSchema = createMutableZodSchema<
+  PlatformRelatedPromptSource,
+  RelatedPrompt
+>({
   transform: (source, context): RelatedPrompt => {
     const { tagging } = source
     const nextQueriesContext = { ...context, nextQueriesTagging: tagging.nextQueries }

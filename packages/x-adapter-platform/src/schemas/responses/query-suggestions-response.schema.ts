@@ -1,6 +1,6 @@
 import type { QuerySuggestionsResponse } from '@empathyco/x-types'
+import type { PlatformListResponseSource } from '../source.types'
 import { createMutableZodSchema } from '@empathyco/x-adapter'
-import * as z from 'zod/mini'
 import { suggestionSchema } from '../models/suggestion.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,10 +9,10 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const querySuggestionsResponseSchema = createMutableZodSchema({
-  source: z.looseObject({
-    topTrends: z.optional(z.looseObject({ content: z.optional(z.array(z.unknown())) })),
-  }),
+export const querySuggestionsResponseSchema = createMutableZodSchema<
+  PlatformListResponseSource<'topTrends', 'content'>,
+  QuerySuggestionsResponse
+>({
   transform: (source, context): QuerySuggestionsResponse =>
     defined<QuerySuggestionsResponse>({
       suggestions: parseEach(suggestionSchema, source.topTrends?.content, context),
