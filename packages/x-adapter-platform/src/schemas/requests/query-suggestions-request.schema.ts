@@ -1,6 +1,6 @@
 import type { QuerySuggestionsRequest } from '@empathyco/x-types'
 import type { PlatformQuerySuggestionsRequest } from '../../types/requests/query-suggestions-request.model'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -9,7 +9,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const querySuggestionsRequestSchema = createMutableZodSchema<
+export const querySuggestionsRequestSchema = createTransformSchema<
   QuerySuggestionsRequest,
   PlatformQuerySuggestionsRequest
 >({

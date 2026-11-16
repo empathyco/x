@@ -1,7 +1,7 @@
-import type { MutableZodSchema } from '@empathyco/x-adapter'
+import type { TransformSchema } from '@empathyco/x-adapter'
 import type { HierarchicalFilter } from '@empathyco/x-types'
 import type { PlatformHierarchicalFilterSource } from '../../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined, parseEach } from '../../utils'
 
 /**
@@ -9,10 +9,10 @@ import { defined, parseEach } from '../../utils'
  *
  * @public
  */
-export const hierarchicalFilterSchema: MutableZodSchema<
+export const hierarchicalFilterSchema: TransformSchema<
   PlatformHierarchicalFilterSource,
   HierarchicalFilter
-> = createMutableZodSchema<PlatformHierarchicalFilterSource, HierarchicalFilter>({
+> = createTransformSchema<PlatformHierarchicalFilterSource, HierarchicalFilter>({
   transform: (source, context): HierarchicalFilter => ({
     ...defined<Pick<HierarchicalFilter, 'id' | 'label' | 'totalResults' | 'children'>>({
       id: source.filter,

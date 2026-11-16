@@ -1,7 +1,7 @@
 import type { PopularSearchesResponse } from '@empathyco/x-types'
 import type { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model'
 
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 
 import { popularSearchesResponseSchema } from '../../schemas/responses/popular-searches-response.schema'
 
@@ -10,7 +10,7 @@ import { popularSearchesResponseSchema } from '../../schemas/responses/popular-s
  *
  * @public
  */
-export const popularSearchesResponseMapper = zSchemaMapperFactory<
+export const popularSearchesResponseMapper = transformSchemaMapperFactory<
   PlatformPopularSearchesResponse,
   PopularSearchesResponse
 >(popularSearchesResponseSchema)

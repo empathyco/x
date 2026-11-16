@@ -1,7 +1,7 @@
 import type { RecommendationsResponse } from '@empathyco/x-types'
 import type { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model'
 
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 
 import { recommendationsResponseSchema } from '../../schemas/responses/recommendations-response.schema'
 
@@ -10,7 +10,7 @@ import { recommendationsResponseSchema } from '../../schemas/responses/recommend
  *
  * @public
  */
-export const recommendationsResponseMapper = zSchemaMapperFactory<
+export const recommendationsResponseMapper = transformSchemaMapperFactory<
   PlatformRecommendationsResponse,
   RecommendationsResponse
 >(recommendationsResponseSchema)

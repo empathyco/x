@@ -1,6 +1,6 @@
 import type { SemanticQuery } from '@empathyco/x-types'
 import type { PlatformSemanticQuerySource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -8,7 +8,7 @@ import { defined } from '../utils'
  *
  * @public
  */
-export const semanticQuerySchema = createMutableZodSchema<
+export const semanticQuerySchema = createTransformSchema<
   PlatformSemanticQuerySource,
   SemanticQuery
 >({

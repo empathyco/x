@@ -1,6 +1,6 @@
 import type { SemanticQueriesResponse } from '@empathyco/x-types'
 import type { PlatformListResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { semanticQuerySchema } from '../models/semantic-query.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const semanticQueriesResponseSchema = createMutableZodSchema<
+export const semanticQueriesResponseSchema = createTransformSchema<
   PlatformListResponseSource<'data', 'candidates'>,
   SemanticQueriesResponse
 >({

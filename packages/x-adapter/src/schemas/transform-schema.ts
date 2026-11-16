@@ -1,10 +1,10 @@
 import type { MapperContext } from '../mappers/types'
 import type {
-  MutableZodSchema,
   SourceValidator,
-  ZodSchemaDefinition,
-  ZodSchemaOverride,
-} from './zod-schema.types'
+  TransformSchema,
+  TransformSchemaDefinition,
+  TransformSchemaOverride,
+} from './transform-schema.types'
 
 /** A step of the mapping: an optional validator plus the transformation to merge. */
 interface Layer {
@@ -33,7 +33,7 @@ function clean(value: unknown): unknown {
     : value
 }
 
-function createSchema(layers: Layer[]): MutableZodSchema<any, any> {
+function createSchema(layers: Layer[]): TransformSchema<any, any> {
   const reportedIssues = new Set<string>()
 
   function validate(validator: SourceValidator, source: unknown): unknown {
@@ -65,14 +65,14 @@ function createSchema(layers: Layer[]): MutableZodSchema<any, any> {
         undefined,
       )
     },
-    $override(override: ZodSchemaOverride<any, any, any, any>) {
+    $override(override: TransformSchemaOverride<any, any, any, any>) {
       layers.push(override)
       return this
     },
-    $extends(override: ZodSchemaOverride<any, any, any, any>) {
+    $extends(override: TransformSchemaOverride<any, any, any, any>) {
       return createSchema([...layers, override])
     },
-    $replace(definition: ZodSchemaDefinition<any, any>) {
+    $replace(definition: TransformSchemaDefinition<any, any>) {
       layers.splice(0, layers.length, toLayer(definition))
       reportedIssues.clear()
       return this
@@ -80,19 +80,19 @@ function createSchema(layers: Layer[]): MutableZodSchema<any, any> {
   }
 }
 
-function toLayer({ source, transform }: ZodSchemaDefinition<any, any>): Layer {
+function toLayer({ source, transform }: TransformSchemaDefinition<any, any>): Layer {
   return { source, transform: (data, _target, context) => transform(data, context) }
 }
 
 /**
- * Creates a {@link MutableZodSchema} that maps a source object to a target object with a plain
+ * Creates a {@link TransformSchema} that maps a source object to a target object with a plain
  * function. Optionally, the source can be validated with a [Zod](https://zod.dev) schema.
  *
  * @param definition - The validator and the transformation of the schema.
- * @returns A {@link MutableZodSchema}.
+ * @returns A {@link TransformSchema}.
  * @example
  * ```typescript
- * const resultSchema = createMutableZodSchema<ApiResult, Result>({
+ * const resultSchema = createTransformSchema<ApiResult, Result>({
  *   transform: source => ({ id: source.__id, name: source.__name }),
  * })
  *
@@ -104,19 +104,19 @@ function toLayer({ source, transform }: ZodSchemaDefinition<any, any>): Layer {
  * ```
  * @public
  */
-export function createMutableZodSchema<Source, Target>(
-  definition: ZodSchemaDefinition<Source, Target>,
-): MutableZodSchema<Source, Target> {
+export function createTransformSchema<Source, Target>(
+  definition: TransformSchemaDefinition<Source, Target>,
+): TransformSchema<Source, Target> {
   return createSchema([toLayer(definition)])
 }
 
 /**
- * Checks if the given schema is a {@link MutableZodSchema}.
+ * Checks if the given schema is a {@link TransformSchema}.
  *
  * @param schema - The schema to check.
- * @returns True if it is a {@link MutableZodSchema}, false otherwise.
+ * @returns True if it is a {@link TransformSchema}, false otherwise.
  * @public
  */
-export function isMutableZodSchema(schema: unknown): schema is MutableZodSchema<any, any> {
+export function isTransformSchema(schema: unknown): schema is TransformSchema<any, any> {
   return isPlainObject(schema) && '$override' in schema && '$extends' in schema
 }

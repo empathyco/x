@@ -231,20 +231,20 @@ export const searchProducts = endpointAdapterFactory({
 
 <br>
 
-### Implement your own adapter using mutable schemas
+### Implement your own adapter using transform schemas
 
-A `MutableZodSchema` maps a source object to a target object with a plain `transform` function. As
+A `TransformSchema` maps a source object to a target object with a plain `transform` function. As
 there are no path strings involved, TypeScript does not need to compute every possible path of your
 models.
 
 ```ts
 import {
-  createMutableZodSchema,
+  createTransformSchema,
   endpointAdapterFactory,
-  zSchemaMapperFactory,
+  transformSchemaMapperFactory,
 } from '@empathyco/x-adapter'
 
-const userSchema = createMutableZodSchema<ApiUser, AppUser>({
+const userSchema = createTransformSchema<ApiUser, AppUser>({
   transform: (source, context) => ({
     id: source.id.toString(),
     name: source.firstName,
@@ -252,7 +252,7 @@ const userSchema = createMutableZodSchema<ApiUser, AppUser>({
   }),
 })
 
-const usersResponseSchema = createMutableZodSchema<ApiSearchUsersResponse, AppSearchUsersResponse>({
+const usersResponseSchema = createTransformSchema<ApiSearchUsersResponse, AppSearchUsersResponse>({
   // Nested models are mapped calling the `parse` method of their schema.
   transform: (source, context) => ({
     people: source.users.map(user => userSchema.parse(user, context)),
@@ -261,12 +261,12 @@ const usersResponseSchema = createMutableZodSchema<ApiSearchUsersResponse, AppSe
 
 export const searchUsers = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/users/search',
-  requestMapper: zSchemaMapperFactory(
-    createMutableZodSchema<AppSearchUsersRequest, ApiSearchUsersRequest>({
+  requestMapper: transformSchemaMapperFactory(
+    createTransformSchema<AppSearchUsersRequest, ApiSearchUsersRequest>({
       transform: ({ query }) => ({ q: query }),
     }),
   ),
-  responseMapper: zSchemaMapperFactory<ApiSearchUsersResponse, AppSearchUsersResponse>(
+  responseMapper: transformSchemaMapperFactory<ApiSearchUsersResponse, AppSearchUsersResponse>(
     usersResponseSchema,
   ),
 })
@@ -275,7 +275,7 @@ export const searchUsers = endpointAdapterFactory({
 The properties of the object returned by `transform` whose value is `undefined` are not added to
 the target.
 
-A `MutableZodSchema` can be modified after its creation:
+A `TransformSchema` can be modified after its creation:
 
 - `$override`: modifies the schema, so the change affects all the schemas and `EndpointAdapter`(s)
   that use it. It receives a `transform` function whose result is shallow merged with the already
@@ -307,7 +307,7 @@ inferred from the validator:
 ```ts
 import * as z from 'zod/mini' // or `import { z } from 'zod'`
 
-const userSchema = createMutableZodSchema({
+const userSchema = createTransformSchema({
   source: z.looseObject({
     id: z.number(),
     firstName: z.string(),
@@ -330,7 +330,7 @@ userSchema.$override({
   logged (once per different issue) and the raw source is mapped.
 - Use `z.looseObject()` to describe only the properties you need. The properties that a validator
   strips are kept anyway, so the schemas that extend it can still read them.
-- `zSchemaMapperFactory` also accepts a raw Zod schema (`z.object().transform()`). In that case the
+- `transformSchemaMapperFactory` also accepts a raw Zod schema (`z.object().transform()`). In that case the
   mapper is strict: it throws if the source is not valid.
 
 <br>
@@ -340,7 +340,7 @@ userSchema.$override({
 > **Deprecated**: `Schema`, `schemaMapperFactory` and `createMutableSchema` are deprecated. Their
 > path based typings (`ExtractPath`) make TypeScript compute every possible path of the source
 > object, which ends in huge compilation times, `TS2590` errors or the compiler running out of
-> memory on big models. Use [mutable schemas](#implement-your-own-adapter-using-mutable-schemas) instead.
+> memory on big models. Use [transform schemas](#implement-your-own-adapter-using-transform-schemas) instead.
 
 Sometimes the transformations you will need to do in the mappers are just renaming parameters. What
 the API calls `q` might be called `query` in your request. To ease this transformations,

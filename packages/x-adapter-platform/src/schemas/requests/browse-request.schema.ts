@@ -1,6 +1,6 @@
 import type { BrowseRequest } from '@empathyco/x-types'
 import type { PlatformBrowseRequest } from '../../types/requests/browse-request.model'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../mappers/filter.utils'
 import { defined } from '../utils'
 
@@ -10,7 +10,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const browseRequestSchema = createMutableZodSchema<BrowseRequest, PlatformBrowseRequest>({
+export const browseRequestSchema = createTransformSchema<BrowseRequest, PlatformBrowseRequest>({
   transform: (source): PlatformBrowseRequest =>
     defined<PlatformBrowseRequest>({
       browseField: source.browseField,

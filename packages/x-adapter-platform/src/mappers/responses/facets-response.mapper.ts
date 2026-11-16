@@ -1,6 +1,6 @@
 import type { FacetsResponse } from '@empathyco/x-types'
 import type { PlatformFacetsResponse } from '../../types/responses/facets-response.model'
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { facetsResponseSchema } from '../../schemas/responses/facets-response.schema'
 
 /**
@@ -8,6 +8,7 @@ import { facetsResponseSchema } from '../../schemas/responses/facets-response.sc
  *
  * @public
  */
-export const facetsResponseMapper = zSchemaMapperFactory<PlatformFacetsResponse, FacetsResponse>(
-  facetsResponseSchema,
-)
+export const facetsResponseMapper = transformSchemaMapperFactory<
+  PlatformFacetsResponse,
+  FacetsResponse
+>(facetsResponseSchema)

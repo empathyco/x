@@ -1,6 +1,6 @@
 import type { RelatedTagsRequest } from '@empathyco/x-types'
 import type { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -9,7 +9,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const relatedTagsRequestSchema = createMutableZodSchema<
+export const relatedTagsRequestSchema = createTransformSchema<
   RelatedTagsRequest,
   PlatformRelatedTagsRequest
 >({

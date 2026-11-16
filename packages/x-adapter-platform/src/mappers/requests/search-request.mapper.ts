@@ -1,6 +1,6 @@
 import type { SearchRequest } from '@empathyco/x-types'
 import type { PlatformSearchRequest } from '../../types/requests/search-request.model'
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { searchRequestSchema } from '../../schemas/requests/search-request.schema'
 
 /**
@@ -8,6 +8,7 @@ import { searchRequestSchema } from '../../schemas/requests/search-request.schem
  *
  * @public
  */
-export const searchRequestMapper = zSchemaMapperFactory<SearchRequest, PlatformSearchRequest>(
-  searchRequestSchema,
-)
+export const searchRequestMapper = transformSchemaMapperFactory<
+  SearchRequest,
+  PlatformSearchRequest
+>(searchRequestSchema)

@@ -1,6 +1,6 @@
 import type { BrowseResponse } from '@empathyco/x-types'
 import type { PlatformBrowseResponse } from '../../types/responses/browse-response.model'
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { browseResponseSchema } from '../../schemas/responses/browse-response.schema'
 
 /**
@@ -8,6 +8,7 @@ import { browseResponseSchema } from '../../schemas/responses/browse-response.sc
  *
  * @public
  */
-export const browseResponseMapper = zSchemaMapperFactory<PlatformBrowseResponse, BrowseResponse>(
-  browseResponseSchema,
-)
+export const browseResponseMapper = transformSchemaMapperFactory<
+  PlatformBrowseResponse,
+  BrowseResponse
+>(browseResponseSchema)

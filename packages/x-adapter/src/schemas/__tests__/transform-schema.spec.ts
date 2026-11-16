@@ -1,8 +1,8 @@
 import type { MapperContext } from '../../mappers/types'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
-import { zSchemaMapperFactory } from '../../mappers/zod-schema-mapper.factory'
-import { createMutableZodSchema, isMutableZodSchema } from '../zod-schema'
+import { transformSchemaMapperFactory } from '../../mappers/transform-schema-mapper.factory'
+import { createTransformSchema, isTransformSchema } from '../transform-schema'
 
 interface Target {
   id: string
@@ -10,7 +10,7 @@ interface Target {
 }
 
 function createSchema() {
-  return createMutableZodSchema({
+  return createTransformSchema({
     source: z.looseObject({ sku: z.string(), cost: z.number() }),
     transform: (source, context): Target => ({
       id: source.sku,
@@ -19,7 +19,7 @@ function createSchema() {
   })
 }
 
-describe('createMutableZodSchema', () => {
+describe('createTransformSchema', () => {
   const warn = vi.spyOn(console, 'warn')
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('createMutableZodSchema', () => {
   })
 
   it('applies the output of the validator: defaults, coercions...', () => {
-    const schema = createMutableZodSchema({
+    const schema = createTransformSchema({
       source: z.object({ rows: z.coerce.number().default(24) }),
       transform: source => source,
     })
@@ -72,7 +72,7 @@ describe('createMutableZodSchema', () => {
   })
 
   it('does not validate the source if there is no validator', () => {
-    const schema = createMutableZodSchema<{ q: string }, { query: string }>({
+    const schema = createTransformSchema<{ q: string }, { query: string }>({
       transform: source => ({ query: source.q }),
     })
 
@@ -80,7 +80,7 @@ describe('createMutableZodSchema', () => {
   })
 
   it('does not add to the target the properties that are undefined', () => {
-    const schema = createMutableZodSchema<{ q?: string; rows?: number }, object>({
+    const schema = createTransformSchema<{ q?: string; rows?: number }, object>({
       transform: source => ({ query: source.q, rows: source.rows, nested: { rows: source.rows } }),
     }).$override({ transform: () => ({ query: undefined, sort: undefined }) })
 
@@ -91,7 +91,7 @@ describe('createMutableZodSchema', () => {
   })
 
   it('maps sources that are not objects', () => {
-    const schema = createMutableZodSchema({
+    const schema = createTransformSchema({
       source: z.string(),
       transform: query => ({ query }),
     })
@@ -102,7 +102,7 @@ describe('createMutableZodSchema', () => {
   describe('$override', () => {
     it('modifies the schema, so the schemas that use it apply the modification', () => {
       const schema = createSchema()
-      const listSchema = createMutableZodSchema({
+      const listSchema = createTransformSchema({
         source: z.object({ items: z.array(z.unknown()) }),
         transform: (source, context) => source.items.map(item => schema.parse(item, context)),
       })
@@ -132,7 +132,7 @@ describe('createMutableZodSchema', () => {
     })
 
     it('keeps the properties that the validators strip', () => {
-      const schema = createMutableZodSchema({
+      const schema = createTransformSchema({
         source: z.object({ sku: z.string() }),
         transform: source => ({ id: source.sku }),
       }).$override<{ brand: string }, { brand: string }>({
@@ -178,11 +178,13 @@ describe('createMutableZodSchema', () => {
   })
 })
 
-describe('zSchemaMapperFactory', () => {
+describe('transformSchemaMapperFactory', () => {
   const context: MapperContext = { currency: 'USD' }
 
   it('creates a mapper for a mutable zod schema that receives the context', () => {
-    const mapper = zSchemaMapperFactory<{ sku: string; cost: number }, Target>(createSchema())
+    const mapper = transformSchemaMapperFactory<{ sku: string; cost: number }, Target>(
+      createSchema(),
+    )
 
     expect(mapper({ sku: 'a', cost: 5 }, context)).toStrictEqual({
       id: 'a',
@@ -192,9 +194,9 @@ describe('zSchemaMapperFactory', () => {
 
   it('creates a strict mapper for a raw zod schema', () => {
     const schema = z.object({ q: z.string() }).transform(({ q }) => ({ query: q }))
-    const mapper = zSchemaMapperFactory<{ q: unknown }, { query: string }>(schema)
+    const mapper = transformSchemaMapperFactory<{ q: unknown }, { query: string }>(schema)
 
-    expect(isMutableZodSchema(schema)).toBe(false)
+    expect(isTransformSchema(schema)).toBe(false)
     expect(mapper({ q: 'shoes' }, context)).toStrictEqual({ query: 'shoes' })
     expect(() => mapper({ q: 1 }, context)).toThrow()
   })

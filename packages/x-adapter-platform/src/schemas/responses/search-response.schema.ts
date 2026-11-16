@@ -1,6 +1,6 @@
 import type { SearchResponse } from '@empathyco/x-types'
 import type { PlatformSearchResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { bannerSchema } from '../models/banner.schema'
 import { facetSchema } from '../models/facet.schema'
@@ -16,7 +16,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const searchResponseSchema = createMutableZodSchema<
+export const searchResponseSchema = createTransformSchema<
   PlatformSearchResponseSource,
   SearchResponse
 >({

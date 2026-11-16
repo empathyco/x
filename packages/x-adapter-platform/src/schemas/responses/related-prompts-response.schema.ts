@@ -1,6 +1,6 @@
 import type { RelatedPromptsResponse } from '@empathyco/x-types'
 import type { PlatformListResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { relatedPromptSchema } from '../models/related-prompt.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const relatedPromptsResponseSchema = createMutableZodSchema<
+export const relatedPromptsResponseSchema = createTransformSchema<
   PlatformListResponseSource<'data', 'relatedprompts'>,
   RelatedPromptsResponse
 >({

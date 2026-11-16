@@ -1,6 +1,6 @@
 import type { NextQuery } from '@empathyco/x-types'
 import type { PlatformNextQuerySource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -8,7 +8,7 @@ import { defined } from '../utils'
  *
  * @public
  */
-export const nextQuerySchema = createMutableZodSchema<PlatformNextQuerySource, NextQuery>({
+export const nextQuerySchema = createTransformSchema<PlatformNextQuerySource, NextQuery>({
   transform: (source): NextQuery => ({
     ...defined<Pick<NextQuery, 'query'>>({ query: source.query }),
     results: [],

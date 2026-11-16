@@ -1,6 +1,6 @@
 import type { Promoted } from '@empathyco/x-types'
 import type { PlatformBannerSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { defined } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined } from '../utils'
  *
  * @public
  */
-export const promotedSchema = createMutableZodSchema<PlatformBannerSource, Promoted>({
+export const promotedSchema = createTransformSchema<PlatformBannerSource, Promoted>({
   transform: (source): Promoted => ({
     ...defined<Pick<Promoted, 'id' | 'title' | 'url' | 'image' | 'position'>>({
       id: source.id,

@@ -1,4 +1,4 @@
-import type { MapperContext, MutableZodSchema } from '@empathyco/x-adapter'
+import type { MapperContext, TransformSchema } from '@empathyco/x-adapter'
 
 /**
  * Removes the `undefined` properties of an object, so the target only contains the properties
@@ -22,7 +22,7 @@ export function defined<T>(object: { [Key in keyof T]: T[Key] | undefined }): T 
  * @internal
  */
 export function parseEach<Target>(
-  schema: MutableZodSchema<any, Target>,
+  schema: TransformSchema<any, Target>,
   items: unknown[] | undefined | null,
   context: MapperContext,
 ): Target[] | undefined {

@@ -1,6 +1,6 @@
 import type { AiSuggestionsSearchRequest } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsSearchRequest } from '../../../types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../../mappers/filter.utils'
 import { defined } from '../../utils'
 
@@ -10,7 +10,7 @@ import { defined } from '../../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const aiSuggestionsSearchRequestSchema = createMutableZodSchema<
+export const aiSuggestionsSearchRequestSchema = createTransformSchema<
   AiSuggestionsSearchRequest,
   PlatformAiSuggestionsSearchRequest
 >({

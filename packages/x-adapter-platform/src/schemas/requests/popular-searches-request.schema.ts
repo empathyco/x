@@ -1,6 +1,6 @@
 import type { PopularSearchesRequest } from '@empathyco/x-types'
 import type { PlatformPopularSearchesRequest } from '../../types/requests/popular-searches-request.model'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -9,7 +9,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const popularSearchesRequestSchema = createMutableZodSchema<
+export const popularSearchesRequestSchema = createTransformSchema<
   PopularSearchesRequest,
   PlatformPopularSearchesRequest
 >({

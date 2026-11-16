@@ -1,6 +1,6 @@
 import type { RelatedTagsResponse } from '@empathyco/x-types'
 import type { PlatformListResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { relatedTagSchema } from '../models/related-tag.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const relatedTagsResponseSchema = createMutableZodSchema<
+export const relatedTagsResponseSchema = createTransformSchema<
   PlatformListResponseSource<'data', 'relatedtags'>,
   RelatedTagsResponse
 >({

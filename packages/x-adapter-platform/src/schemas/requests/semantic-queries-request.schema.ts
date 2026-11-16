@@ -1,6 +1,6 @@
 import type { SemanticQueriesRequest } from '@empathyco/x-types'
 import type { PlatformSemanticQueriesRequest } from '../../types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -9,7 +9,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const semanticQueriesRequestSchema = createMutableZodSchema<
+export const semanticQueriesRequestSchema = createTransformSchema<
   SemanticQueriesRequest,
   PlatformSemanticQueriesRequest
 >({

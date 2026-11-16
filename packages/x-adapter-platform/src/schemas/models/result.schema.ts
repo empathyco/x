@@ -1,6 +1,6 @@
 import type { Result } from '@empathyco/x-types'
 import type { PlatformResultSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { mapResult } from './result.utils'
 
@@ -9,7 +9,7 @@ import { mapResult } from './result.utils'
  *
  * @public
  */
-export const resultSchema = createMutableZodSchema<PlatformResultSource, Result>({
+export const resultSchema = createTransformSchema<PlatformResultSource, Result>({
   transform: (source): Result => {
     const { tagging } = source
     return {

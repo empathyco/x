@@ -18,7 +18,7 @@ import { createMutableSchema, isInternalMethod } from '../schemas/utils'
  *
  * @param schema - The {@link Schema | schema} to apply in the {@link Mapper | mapper function}.
  * @returns A {@link Mapper | mapper function} that applies the given {@link Schema | schema}.
- * @deprecated Use {@link zSchemaMapperFactory} with a {@link MutableZodSchema} instead.
+ * @deprecated Use {@link transformSchemaMapperFactory} with a {@link TransformSchema} instead.
  * @public
  */
 export function schemaMapperFactory<Source, Target>(

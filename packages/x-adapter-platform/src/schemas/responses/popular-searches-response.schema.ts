@@ -1,6 +1,6 @@
 import type { PopularSearchesResponse } from '@empathyco/x-types'
 import type { PlatformListResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { suggestionSchema } from '../models/suggestion.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const popularSearchesResponseSchema = createMutableZodSchema<
+export const popularSearchesResponseSchema = createTransformSchema<
   PlatformListResponseSource<'topTrends', 'content'>,
   PopularSearchesResponse
 >({

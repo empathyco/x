@@ -41,7 +41,7 @@ import type { MapperContext } from '../mappers/types'
  *     img: 'images'
  *   };
  * ```
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type Schema<Source = any, Target = any> = {
@@ -53,7 +53,7 @@ export type Schema<Source = any, Target = any> = {
  * the original schema, partially override it or create a new one.
  *
  * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type MutableSchema<Source, Target> = Schema<Source, Target> & {
@@ -107,7 +107,7 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
  * @param Source - The source object.
  * @param Target - The target object.
  * @param TargetKey - The target key to apply the transformation.
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
@@ -145,7 +145,7 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *     hits: 'count'
  *   };
  * ```
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>
@@ -175,7 +175,7 @@ export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>
  *      : 0
  *   };
  * ```
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type FunctionTransformer<Source, Target> = (
@@ -216,7 +216,7 @@ export type FunctionTransformer<Source, Target> = (
  *     }
  *   };
  * ```
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type SubSchemaTransformer<Source, Target> = {
@@ -236,7 +236,7 @@ export type SubSchemaTransformer<Source, Target> = {
  * @param Source - The source object.
  * @param Target - The target object.
  * @param Path - The path where the schema will be applied.
- * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link MutableZodSchema} instead.
+ * @deprecated Its path based typings make TypeScript run out of memory on big models. Use {@link TransformSchema} instead.
  * @public
  */
 export type SubSchema<Source, Target, Path extends ExtractPath<Source>> =

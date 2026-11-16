@@ -1,4 +1,4 @@
-import type { MutableZodSchema } from '@empathyco/x-adapter'
+import type { TransformSchema } from '@empathyco/x-adapter'
 import type { FacetModelName, Filter } from '@empathyco/x-types'
 
 /**
@@ -8,5 +8,5 @@ import type { FacetModelName, Filter } from '@empathyco/x-types'
  */
 export interface FacetConfig {
   modelName: FacetModelName
-  schema: MutableZodSchema<any, Filter>
+  schema: TransformSchema<any, Filter>
 }

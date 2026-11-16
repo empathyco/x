@@ -13,7 +13,7 @@ const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$exte
  *
  * @returns A {@link MutableSchema | mutable schema} version of the given {@link Schema | schema}.
  *
- * @deprecated Use {@link createMutableZodSchema} instead.
+ * @deprecated Use {@link createTransformSchema} instead.
  * @public
  */
 export function createMutableSchema<Source, Target>(

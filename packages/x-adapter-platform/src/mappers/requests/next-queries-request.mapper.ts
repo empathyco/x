@@ -1,7 +1,7 @@
 import type { NextQueriesRequest } from '@empathyco/x-types'
 import type { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model'
 
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { nextQueriesRequestSchema } from '../../schemas/requests/next-queries-request.schema'
 
 /**
@@ -9,7 +9,7 @@ import { nextQueriesRequestSchema } from '../../schemas/requests/next-queries-re
  *
  * @public
  */
-export const nextQueriesRequestMapper = zSchemaMapperFactory<
+export const nextQueriesRequestMapper = transformSchemaMapperFactory<
   NextQueriesRequest,
   PlatformNextQueriesRequest
 >(nextQueriesRequestSchema)

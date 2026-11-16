@@ -1,7 +1,7 @@
 import type { RelatedTagsRequest } from '@empathyco/x-types'
 import type { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model'
 
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { relatedTagsRequestSchema } from '../../schemas/requests/related-tags-request.schema'
 
 /**
@@ -9,7 +9,7 @@ import { relatedTagsRequestSchema } from '../../schemas/requests/related-tags-re
  *
  * @public
  */
-export const relatedTagsRequestMapper = zSchemaMapperFactory<
+export const relatedTagsRequestMapper = transformSchemaMapperFactory<
   RelatedTagsRequest,
   PlatformRelatedTagsRequest
 >(relatedTagsRequestSchema)

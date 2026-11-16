@@ -1,13 +1,13 @@
 import type { Stats } from '@empathyco/x-types'
 import type { PlatformStatsSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the StatsSchema.
  *
  * @public
  */
-export const statsSchema = createMutableZodSchema<PlatformStatsSource, Stats>({
+export const statsSchema = createTransformSchema<PlatformStatsSource, Stats>({
   transform: ({ price }): Stats => ({
     price: {
       min: price?.min ? Number(price.min) : undefined,

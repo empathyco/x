@@ -1,6 +1,6 @@
 import type { NextQueriesResponse } from '@empathyco/x-types'
 import type { PlatformNextQueriesResponse } from '../../types/responses/next-queries-response.model'
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { nextQueriesResponseSchema } from '../../schemas/responses'
 
 /**
@@ -8,7 +8,7 @@ import { nextQueriesResponseSchema } from '../../schemas/responses'
  *
  * @public
  */
-export const nextQueriesResponseMapper = zSchemaMapperFactory<
+export const nextQueriesResponseMapper = transformSchemaMapperFactory<
   PlatformNextQueriesResponse,
   NextQueriesResponse
 >(nextQueriesResponseSchema)

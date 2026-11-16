@@ -1,5 +1,5 @@
 export * from './combine-mappers'
 export * from './identity.mapper'
 export * from './schema-mapper.factory'
+export * from './transform-schema-mapper.factory'
 export * from './types'
-export * from './zod-schema-mapper.factory'

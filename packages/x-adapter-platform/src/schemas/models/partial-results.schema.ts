@@ -1,6 +1,6 @@
 import type { PartialResult } from '@empathyco/x-types'
 import type { PlatformPartialResultSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined, parseEach } from '../utils'
 import { resultSchema } from './result.schema'
 
@@ -9,7 +9,7 @@ import { resultSchema } from './result.schema'
  *
  * @public
  */
-export const partialResultsSchema = createMutableZodSchema<
+export const partialResultsSchema = createTransformSchema<
   PlatformPartialResultSource,
   PartialResult
 >({

@@ -1,6 +1,6 @@
 import type { RelatedTag } from '@empathyco/x-types'
 import type { PlatformRelatedTagSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../utils'
 
 /**
@@ -8,7 +8,7 @@ import { defined } from '../utils'
  *
  * @public
  */
-export const relatedTagSchema = createMutableZodSchema<PlatformRelatedTagSource, RelatedTag>({
+export const relatedTagSchema = createTransformSchema<PlatformRelatedTagSource, RelatedTag>({
   transform: (source): RelatedTag => ({
     ...defined<Pick<RelatedTag, 'query' | 'tag'>>({ query: source.query, tag: source.tag }),
     modelName: 'RelatedTag',

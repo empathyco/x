@@ -1,6 +1,6 @@
 import type { BrowseResponse } from '@empathyco/x-types'
 import type { PlatformBrowseResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { bannerSchema } from '../models/banner.schema'
 import { browseResultSchema } from '../models/browse-result.schema'
@@ -14,7 +14,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const browseResponseSchema = createMutableZodSchema<
+export const browseResponseSchema = createTransformSchema<
   PlatformBrowseResponseSource,
   BrowseResponse
 >({

@@ -1,6 +1,6 @@
 import type { SearchRequest } from '@empathyco/x-types'
 import type { PlatformSearchRequest } from '../../types/requests/search-request.model'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { mapFilters } from '../../mappers/filter.utils'
 import { defined } from '../utils'
 
@@ -10,7 +10,7 @@ import { defined } from '../utils'
  * @remarks The request is created by our own code, so it is not validated.
  * @public
  */
-export const searchRequestSchema = createMutableZodSchema<SearchRequest, PlatformSearchRequest>({
+export const searchRequestSchema = createTransformSchema<SearchRequest, PlatformSearchRequest>({
   transform: (source): PlatformSearchRequest =>
     defined<PlatformSearchRequest>({
       query: source.query,

@@ -1,7 +1,7 @@
 import type { MapperContext } from '@empathyco/x-adapter'
 import type { SliderFilter } from '@empathyco/x-types'
 import type { PlatformSliderFilterSource } from '../../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../../utils'
 
 function getFilter(context: MapperContext) {
@@ -21,7 +21,7 @@ function getSelectedRange(filter: string | undefined): SliderFilter['selectedRan
  *
  * @public
  */
-export const sliderFilterSchema = createMutableZodSchema<PlatformSliderFilterSource, SliderFilter>({
+export const sliderFilterSchema = createTransformSchema<PlatformSliderFilterSource, SliderFilter>({
   transform: ({ min, max, unit }, context): SliderFilter => {
     const filter = getFilter(context)
     return {

@@ -1,6 +1,6 @@
 import type { ExperienceControlsRequest } from '@empathyco/x-types'
 import type { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model'
-import { zSchemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { experienceControlsRequestSchema } from '../../schemas/requests/experience-controls-request.schema'
 
 /**
@@ -8,7 +8,7 @@ import { experienceControlsRequestSchema } from '../../schemas/requests/experien
  *
  * @public
  */
-export const experienceControlsRequestMapper = zSchemaMapperFactory<
+export const experienceControlsRequestMapper = transformSchemaMapperFactory<
   ExperienceControlsRequest,
   PlatformExperienceControlsRequest
 >(experienceControlsRequestSchema)

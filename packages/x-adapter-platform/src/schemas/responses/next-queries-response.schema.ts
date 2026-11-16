@@ -1,6 +1,6 @@
 import type { NextQueriesResponse } from '@empathyco/x-types'
 import type { PlatformListResponseSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { nextQuerySchema } from '../models/next-query.schema'
 import { defined, parseEach } from '../utils'
 
@@ -9,7 +9,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const nextQueriesResponseSchema = createMutableZodSchema<
+export const nextQueriesResponseSchema = createTransformSchema<
   PlatformListResponseSource<'data', 'nextqueries'>,
   NextQueriesResponse
 >({

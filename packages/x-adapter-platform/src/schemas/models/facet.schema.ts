@@ -9,7 +9,7 @@ import type {
 } from '@empathyco/x-types'
 import type { PlatformFacetType } from '../../types/models/facet.model'
 import type { PlatformFacetSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getFacetConfig } from '../facets/utils'
 import { defined, parseEach } from '../utils'
 
@@ -26,7 +26,7 @@ type MappedFacet =
  *
  * @public
  */
-export const facetSchema = createMutableZodSchema<PlatformFacetSource, MappedFacet>({
+export const facetSchema = createTransformSchema<PlatformFacetSource, MappedFacet>({
   transform: (source, context): MappedFacet => {
     const { modelName, schema } = getFacetConfig(source.type as PlatformFacetType)
     return defined<Facet>({

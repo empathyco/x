@@ -22,20 +22,20 @@ export interface SourceValidator<Output = unknown> {
 }
 
 /**
- * Definition of a {@link MutableZodSchema}.
+ * Definition of a {@link TransformSchema}.
  *
  * @param Source - The source object.
  * @param Target - The target object.
  * @example
  * ```typescript
- * const userSchema = createMutableZodSchema({
+ * const userSchema = createTransformSchema({
  *   source: z.looseObject({ id: z.string(), price: z.object({ max: z.number() }) }),
  *   transform: (source): User => ({ identifier: source.id, maxPrice: source.price.max }),
  * })
  * ```
  * @public
  */
-export interface ZodSchemaDefinition<Source, Target> {
+export interface TransformSchemaDefinition<Source, Target> {
   /**
    * Validator of the source object. When omitted the source is not validated and its type has
    * to be provided through the `Source` type parameter.
@@ -54,7 +54,7 @@ export interface ZodSchemaDefinition<Source, Target> {
 }
 
 /**
- * Definition of a modification to apply on top of a {@link MutableZodSchema}.
+ * Definition of a modification to apply on top of a {@link TransformSchema}.
  *
  * @param Source - The source object of the schema to modify.
  * @param Target - The target object of the schema to modify.
@@ -62,7 +62,7 @@ export interface ZodSchemaDefinition<Source, Target> {
  * @param NewTarget - The extra properties of the target object.
  * @public
  */
-export interface ZodSchemaOverride<Source, Target, NewSource, NewTarget> {
+export interface TransformSchemaOverride<Source, Target, NewSource, NewTarget> {
   /**
    * Validator for the extra properties of the source object. Its output is merged with the
    * output of the validators that the schema already has.
@@ -97,7 +97,7 @@ export interface ZodSchemaOverride<Source, Target, NewSource, NewTarget> {
  * @param Target - The target object.
  * @public
  */
-export interface MutableZodSchema<Source, Target> {
+export interface TransformSchema<Source, Target> {
   /**
    * Validates the source object and maps it to the target object.
    *
@@ -115,8 +115,8 @@ export interface MutableZodSchema<Source, Target> {
    * @returns This schema.
    */
   $override: <NewSource = unknown, NewTarget = unknown>(
-    override: ZodSchemaOverride<Source, Target, NewSource, NewTarget>,
-  ) => MutableZodSchema<Source & NewSource, Target & NewTarget>
+    override: TransformSchemaOverride<Source, Target, NewSource, NewTarget>,
+  ) => TransformSchema<Source & NewSource, Target & NewTarget>
   /**
    * Creates a new schema using this one as starting point. This schema remains unchanged.
    *
@@ -124,8 +124,8 @@ export interface MutableZodSchema<Source, Target> {
    * @returns The new schema.
    */
   $extends: <NewSource = unknown, NewTarget = unknown>(
-    override: ZodSchemaOverride<Source, Target, NewSource, NewTarget>,
-  ) => MutableZodSchema<Source & NewSource, Target & NewTarget>
+    override: TransformSchemaOverride<Source, Target, NewSource, NewTarget>,
+  ) => TransformSchema<Source & NewSource, Target & NewTarget>
   /**
    * Replaces all usages of this schema with the given definition.
    *
@@ -133,6 +133,6 @@ export interface MutableZodSchema<Source, Target> {
    * @returns This schema.
    */
   $replace: <NewSource, NewTarget>(
-    definition: ZodSchemaDefinition<NewSource, NewTarget>,
-  ) => MutableZodSchema<NewSource, NewTarget>
+    definition: TransformSchemaDefinition<NewSource, NewTarget>,
+  ) => TransformSchema<NewSource, NewTarget>
 }

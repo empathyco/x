@@ -2,7 +2,7 @@ import type { RelatedPrompt, RelatedPromptNextQuery } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { PlatformRelatedPromptNextQueriesTagging } from '../../types/models/related-prompt.model'
 import type { PlatformRelatedPromptSource } from '../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
 import { defined, parseEach } from '../utils'
 
@@ -11,7 +11,7 @@ import { defined, parseEach } from '../utils'
  *
  * @public
  */
-export const nextQueriesRelatedPromptsSchema = createMutableZodSchema<
+export const nextQueriesRelatedPromptsSchema = createTransformSchema<
   string,
   RelatedPromptNextQuery
 >({
@@ -33,7 +33,7 @@ export const nextQueriesRelatedPromptsSchema = createMutableZodSchema<
  *
  * @public
  */
-export const relatedPromptSchema = createMutableZodSchema<
+export const relatedPromptSchema = createTransformSchema<
   PlatformRelatedPromptSource,
   RelatedPrompt
 >({

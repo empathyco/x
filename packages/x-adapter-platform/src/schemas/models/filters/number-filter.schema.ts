@@ -1,6 +1,6 @@
 import type { NumberRangeFilter } from '@empathyco/x-types'
 import type { PlatformFilterSource } from '../../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { defined } from '../../utils'
 import { mapRange } from './filter.utils'
 
@@ -9,7 +9,7 @@ import { mapRange } from './filter.utils'
  *
  * @public
  */
-export const numberFilterSchema = createMutableZodSchema<PlatformFilterSource, NumberRangeFilter>({
+export const numberFilterSchema = createTransformSchema<PlatformFilterSource, NumberRangeFilter>({
   transform: (source, context): NumberRangeFilter => ({
     ...defined<Pick<NumberRangeFilter, 'id' | 'label' | 'totalResults'>>({
       id: source.filter,

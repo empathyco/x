@@ -1,6 +1,6 @@
 import type { AiSuggestionsSearchResponse } from '@empathyco/x-types'
 import type { PlatformAiSuggestionsSearchSource } from '../../source.types'
-import { createMutableZodSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getTaggingInfoFromUrl } from '../../../mappers/url.utils'
 import { defined, parseEach } from '../../utils'
 import { aiSuggestionSearchSchema } from './suggestion-search.schema'
@@ -9,7 +9,7 @@ import { aiSuggestionSearchSchema } from './suggestion-search.schema'
  * Default implementation for the AIOverviewSuggestionsSearchSchema.
  * @public
  */
-export const aiSuggestionsSearchSchema = createMutableZodSchema<
+export const aiSuggestionsSearchSchema = createTransformSchema<
   PlatformAiSuggestionsSearchSource,
   AiSuggestionsSearchResponse
 >({
