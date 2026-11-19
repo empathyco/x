@@ -20,5 +20,6 @@ export interface HomeControls {
   }
   relatedPromptsList: {
     showOnlyAfterOffset: boolean
+    loadWhenVisible: boolean
   }
 }

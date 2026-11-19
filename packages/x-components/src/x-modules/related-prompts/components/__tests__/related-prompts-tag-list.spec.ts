@@ -1,4 +1,6 @@
+import type { RelatedPromptsRequest } from '@empathyco/x-types'
 import type { ComponentMountingOptions } from '@vue/test-utils'
+import type { RequestStatus } from '../../../../store'
 import { mount } from '@vue/test-utils'
 import { vi } from 'vitest'
 import { nextTick, reactive, ref, TransitionGroup } from 'vue'
@@ -17,7 +19,11 @@ window.ResizeObserver = MockResizeObserver as any
 
 const relatedPromptsStub = getRelatedPromptsStub(5)
 const selectedPromptIndexStub = ref(-1)
+const statusStub = ref<RequestStatus>('initial')
 const queryStub = reactive({ search: 'query' })
+const requestStub = ref<RelatedPromptsRequest | null>({ query: 'query', extraParams: {} })
+const isElementVisibleStub = ref(false)
+let mockUseOnDisplayCallback: (() => void) | null = null
 const propsStub = {
   buttonClass: 'button-class',
   tagClass: 'related-prompt-class',
@@ -29,11 +35,20 @@ const propsStub = {
 const xUseStateMock = vi.fn((module: string, paths: string[]) => {
   void module
   void paths
-  return { selectedPrompt: selectedPromptIndexStub, relatedPrompts: ref(relatedPromptsStub) }
+  return {
+    selectedPrompt: selectedPromptIndexStub,
+    relatedPrompts: ref(relatedPromptsStub),
+    status: statusStub,
+  }
 })
 const xEmitMock = vi.fn((event: string, payload: number) => {
   void event
   void payload
+})
+const xBusEmitMock = vi.fn((event: string, payload: unknown, metadata: unknown) => {
+  void event
+  void payload
+  void metadata
 })
 vi.mock('../../../../composables', () => ({
   use$x: vi.fn(() => ({
@@ -47,6 +62,15 @@ vi.mock('../../../../composables', () => ({
     query: queryStub,
   })),
   useState: (module: string, paths: string[]) => xUseStateMock(module, paths),
+  useGetter: vi.fn(() => ({ request: requestStub })),
+  useXBus: vi.fn(() => ({ emit: xBusEmitMock, on: vi.fn() })),
+  useOnDisplay: vi.fn(({ callback }: { callback: () => void }) => {
+    mockUseOnDisplayCallback = callback
+    return {
+      isElementVisible: isElementVisibleStub,
+      unwatchDisplay: vi.fn(),
+    }
+  }),
 }))
 
 const maxWidthStub = '100px'
@@ -79,11 +103,15 @@ const coloredRelatedPromptsStub = relatedPromptsStub.map((relatedPrompt, index) 
 // eslint-disable-next-line no-restricted-globals
 global.requestAnimationFrame = cb => setTimeout(cb, propsStub.animationDurationInMs - 1)
 
+const mountedWrappers: ReturnType<typeof mount>[] = []
+
 function render(options: ComponentMountingOptions<typeof RelatedPromptsTagList> = {}) {
   const wrapper = mount(RelatedPromptsTagList, {
     props: propsStub,
     ...options,
   })
+
+  mountedWrappers.push(wrapper)
 
   return {
     wrapper,
@@ -95,7 +123,14 @@ function render(options: ComponentMountingOptions<typeof RelatedPromptsTagList> 
     get relatedPrompts() {
       return wrapper.findAllComponents(RelatedPrompt)
     },
+    triggerVisibility: () => {
+      mockUseOnDisplayCallback?.()
+    },
   }
+}
+
+function getRelatedPromptsRequestUpdatedEmits() {
+  return xBusEmitMock.mock.calls.filter(([event]) => event === 'RelatedPromptsRequestUpdated')
 }
 
 describe('relatedPromptsTagList component', () => {
@@ -103,10 +138,17 @@ describe('relatedPromptsTagList component', () => {
     vi.restoreAllMocks()
     vi.useFakeTimers()
     selectedPromptIndexStub.value = -1
+    statusStub.value = 'initial'
+    isElementVisibleStub.value = false
+    requestStub.value = { query: 'query', extraParams: {} }
+    mockUseOnDisplayCallback = null
+    xBusEmitMock.mockClear()
   })
 
   afterEach(() => {
     vi.clearAllTimers()
+    mountedWrappers.forEach(wrapper => wrapper.unmount())
+    mountedWrappers.length = 0
   })
 
   it('should render correctly', async () => {
@@ -298,6 +340,144 @@ describe('relatedPromptsTagList component', () => {
     await nextTick()
     expect(withSelection.slidingPanel.props().fade).toBe(false)
     withSelection.wrapper.unmount()
+  })
+
+  describe('related prompts request', () => {
+    it('should emit `RelatedPromptsRequestUpdated` on mount if the related prompts are not loaded', () => {
+      requestStub.value = { query: 'honeyboo', extraParams: { instance: 'empathy' } }
+      render()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+      expect(xBusEmitMock).toHaveBeenCalledWith(
+        'RelatedPromptsRequestUpdated',
+        { query: 'honeyboo', extraParams: { instance: 'empathy' } },
+        { priority: 0, replaceable: false },
+      )
+    })
+
+    it('should not emit `RelatedPromptsRequestUpdated` on mount if the request is null', () => {
+      requestStub.value = null
+      render()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+    })
+
+    it('should not emit `RelatedPromptsRequestUpdated` on mount if the related prompts are already loaded', () => {
+      statusStub.value = 'success'
+      requestStub.value = { query: 'honeyboo', extraParams: {} }
+      render()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+    })
+
+    it('should emit `RelatedPromptsRequestUpdated` when the request changes', async () => {
+      render()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+
+      requestStub.value = { query: 'new-query', extraParams: {} }
+      await nextTick()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(2)
+      expect(xBusEmitMock).toHaveBeenLastCalledWith(
+        'RelatedPromptsRequestUpdated',
+        { query: 'new-query', extraParams: {} },
+        { priority: 0, replaceable: false },
+      )
+    })
+
+    it('should not emit `RelatedPromptsRequestUpdated` when the request is not changed', async () => {
+      render()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+
+      requestStub.value = { query: 'query', extraParams: {} }
+      await nextTick()
+
+      expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+    })
+
+    describe('loadWhenVisible', () => {
+      it('should not emit `RelatedPromptsRequestUpdated` on mount when loadWhenVisible is true', () => {
+        const { wrapper } = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+        expect(wrapper.find('.x-related-prompts-tag-list--placeholder').exists()).toBeTruthy()
+
+        wrapper.unmount()
+      })
+
+      it('should emit `RelatedPromptsRequestUpdated` when the component becomes visible', () => {
+        const sut = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+
+        sut.triggerVisibility()
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+        expect(xBusEmitMock).toHaveBeenCalledWith(
+          'RelatedPromptsRequestUpdated',
+          { query: 'query', extraParams: {} },
+          { priority: 0, replaceable: false },
+        )
+
+        sut.wrapper.unmount()
+      })
+
+      it('should emit `RelatedPromptsRequestUpdated` when the request changes and the component is visible', async () => {
+        isElementVisibleStub.value = true
+        const sut = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+
+        requestStub.value = { query: 'new-query', extraParams: {} }
+        await nextTick()
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(1)
+        expect(xBusEmitMock).toHaveBeenCalledWith(
+          'RelatedPromptsRequestUpdated',
+          { query: 'new-query', extraParams: {} },
+          { priority: 0, replaceable: false },
+        )
+
+        sut.wrapper.unmount()
+      })
+
+      it('should not emit `RelatedPromptsRequestUpdated` when the request changes and the component is not visible', async () => {
+        isElementVisibleStub.value = false
+        const sut = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        requestStub.value = { query: 'new-query', extraParams: {} }
+        await nextTick()
+
+        expect(getRelatedPromptsRequestUpdatedEmits()).toHaveLength(0)
+
+        sut.wrapper.unmount()
+      })
+
+      it('should reserve placeholder space while the related prompts have not been loaded', async () => {
+        const { wrapper } = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(wrapper.classes()).toContain('x-related-prompts-tag-list--placeholder')
+        wrapper.unmount()
+      })
+
+      it('should not reserve placeholder space once the related prompts have been loaded', async () => {
+        statusStub.value = 'success'
+        const { wrapper } = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(wrapper.classes()).not.toContain('x-related-prompts-tag-list--placeholder')
+        wrapper.unmount()
+      })
+
+      it('should not reserve placeholder space when the related prompts request has failed', async () => {
+        statusStub.value = 'error'
+        const { wrapper } = render({ props: { ...propsStub, loadWhenVisible: true } })
+
+        expect(wrapper.classes()).not.toContain('x-related-prompts-tag-list--placeholder')
+        wrapper.unmount()
+      })
+    })
   })
 
   // TODO: Test the transition group callbacks

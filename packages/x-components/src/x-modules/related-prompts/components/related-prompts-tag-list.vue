@@ -1,6 +1,8 @@
 <template>
   <SlidingPanel
     :key="x.query.search"
+    ref="slidingPanel"
+    :class="{ 'x-related-prompts-tag-list--placeholder': showPlaceholder }"
     :fade="selectedPromptIndex === -1"
     :reset-on-content-change="false"
     :button-class="buttonClass"
@@ -84,11 +86,13 @@
 </template>
 
 <script lang="ts">
+import type { RelatedPromptsRequest } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { computed, defineComponent, onBeforeUnmount, ref } from 'vue'
+import { deepEqual } from '@empathyco/x-utils'
+import { computed, defineComponent, onBeforeUnmount, ref, watch } from 'vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import SlidingPanel from '../../../components/sliding-panel.vue'
-import { use$x, useState } from '../../../composables'
+import { use$x, useGetter, useOnDisplay, useState, useXBus } from '../../../composables'
 import { relatedPromptsXModule } from '../x-module'
 import RelatedPrompt from './related-prompt.vue'
 
@@ -145,10 +149,34 @@ export default defineComponent({
       type: Number,
       default: 700,
     },
+    /**
+     * Controls whether the related prompts request should be triggered when the component is
+     * visible in the viewport.
+     *
+     * @public
+     */
+    loadWhenVisible: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * The id of the scroll container to compute the visibility against.
+     *
+     * @public
+     */
+    scrollTarget: {
+      type: String,
+      default: 'main-scroll',
+    },
   },
   setup(props) {
     const x = use$x()
-    const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts')
+    const xBus = useXBus()
+    const {
+      relatedPrompts,
+      selectedPrompt: selectedPromptIndex,
+      status,
+    } = useState('relatedPrompts')
 
     const clickedListItemIndex = ref<number | null>(null)
     const initialOffsetLefts: Record<number, number> = {}
@@ -183,6 +211,143 @@ export default defineComponent({
         ? [indexRelatedPrompts.value[selectedPromptIndex.value]]
         : indexRelatedPrompts.value,
     )
+
+    /**
+     * Template ref for the root element (the SlidingPanel) to track the component's visibility.
+     */
+    // eslint-disable-next-line ts/consistent-type-definitions
+    type ElementRef = {
+      $el: HTMLElement
+    }
+    const slidingPanel = ref<ElementRef | null>(null)
+
+    /**
+     * The root element of the related prompts tag list to track the visibility against.
+     *
+     * @returns The SlidingPanel root element, or null if it has not been mounted yet.
+     */
+    const tagListElement = computed<HTMLElement | null>(() => slidingPanel.value?.$el ?? null)
+
+    /**
+     * The related prompts request to fetch data from the API, or null if there is not enough
+     * data in the state to conform a valid request.
+     *
+     * @returns The related prompts request.
+     */
+    const relatedPromptsRequest = useGetter('relatedPrompts').request
+
+    /**
+     * The last request that has been emitted to the bus.
+     *
+     * It is initialized with the current request when the related prompts have been already
+     * loaded successfully, so a re-mount of the component does not trigger a new request.
+     */
+    const lastEmittedRequest = ref<RelatedPromptsRequest | null>(
+      status.value === 'success' ? relatedPromptsRequest.value : null,
+    )
+
+    /**
+     * Checks if the request is not null and it has changed since the last emitted request.
+     *
+     * @param request - The request to check.
+     * @returns True if the request should be emitted.
+     *
+     * @internal
+     */
+    const shouldEmitRequest = (request: RelatedPromptsRequest | null): boolean =>
+      !!request && !deepEqual(request, lastEmittedRequest.value ?? undefined)
+
+    /**
+     * Emits the related prompts request to the bus, if it is not null.
+     *
+     * @param request - The related prompts request to emit.
+     *
+     * @internal
+     */
+    const emitRelatedPromptsRequest = (request: RelatedPromptsRequest | null): void => {
+      if (request) {
+        lastEmittedRequest.value = request
+        xBus.emit('RelatedPromptsRequestUpdated', request, { priority: 0, replaceable: false })
+      }
+    }
+
+    /**
+     * Watches the element visibility and emits the request when it becomes visible for the
+     * first time.
+     *
+     * It is only set up when `loadWhenVisible` is enabled.
+     *
+     * The visibility is computed against the `MainScroll` container (`#main-scroll`) when it
+     * exists, so the `rootMargin` preload zone works. When the container is not present
+     * (e.g. host applications that scroll with the window via `MainScroll`'s `useWindow=true`),
+     * it falls back to the viewport.
+     */
+    const { isElementVisible, unwatchDisplay } = props.loadWhenVisible
+      ? useOnDisplay({
+          element: tagListElement,
+          threshold: 0,
+          rootMargin: '0px 0px 200px 0px',
+          scrollTargetId: props.scrollTarget,
+          callback: () => {
+            const request = relatedPromptsRequest.value
+            if (shouldEmitRequest(request)) {
+              emitRelatedPromptsRequest(request)
+            }
+          },
+        })
+      : { isElementVisible: ref(false), unwatchDisplay: undefined }
+
+    /**
+     * Emits the related prompts request when it changes, if the component is not controlled by
+     * visibility or it is already visible in the viewport.
+     *
+     * @internal
+     */
+    watch(relatedPromptsRequest, (newRequest, oldRequest) => {
+      if (
+        !deepEqual(newRequest ?? undefined, oldRequest ?? undefined) &&
+        shouldEmitRequest(newRequest) &&
+        (!props.loadWhenVisible || isElementVisible.value)
+      ) {
+        emitRelatedPromptsRequest(newRequest)
+      }
+    })
+
+    /**
+     * Emits the related prompts request on setup, when the component is not controlled by
+     * visibility and the related prompts have not been loaded for the current request.
+     *
+     * @internal
+     */
+    if (!props.loadWhenVisible) {
+      const request = relatedPromptsRequest.value
+      if (shouldEmitRequest(request)) {
+        emitRelatedPromptsRequest(request)
+      }
+    }
+
+    /**
+     * Whether the wrapper should reserve placeholder space while the related prompts have not
+     * been loaded yet.
+     *
+     * It is only applied when `loadWhenVisible` is enabled, so the component keeps a visible
+     * space and the viewport visibility trigger has a realistic area to work with.
+     *
+     * @internal
+     */
+    const showPlaceholder = computed(() => {
+      const statusValue = status.value
+      return props.loadWhenVisible && statusValue !== 'success' && statusValue !== 'error'
+    })
+
+    /**
+     * Emits the `RelatedPromptsUnmounted` event and stops the visibility watcher when the
+     * component is destroyed.
+     */
+    onBeforeUnmount(() => {
+      unwatchDisplay?.()
+      x.emit('RelatedPromptsUnmounted')
+    })
 
     let timeOutId: number
     const resetTransitionStyle = (excludedProperties: Array<string> = ['width']) => {
@@ -325,10 +490,6 @@ export default defineComponent({
       resetTransitionStyle([])
     })
 
-    onBeforeUnmount(() => {
-      x.emit('RelatedPromptsUnmounted')
-    })
-
     return {
       onSelect,
       onBeforeEnter,
@@ -339,12 +500,17 @@ export default defineComponent({
       listItems,
       isAnimating,
       x,
+      slidingPanel,
+      showPlaceholder,
     }
   },
 })
 </script>
 
 <style lang="css">
+.x-related-prompts-tag-list--placeholder {
+  min-block-size: 72px;
+}
 .x-related-prompts-tag-list-scroll-container {
   height: 100%;
   position: relative;
@@ -362,6 +528,22 @@ export default defineComponent({
 </style>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- `RelatedPromptsRequestUpdated`: the event is emitted when the component is mounted (if the
+  related prompts have not been loaded yet) and when the properties of the request change. When
+  the `loadWhenVisible` prop is enabled, the event is only emitted once the component becomes
+  visible in the viewport.
+
+## Props
+
+- `loadWhenVisible`: controls whether the related prompts request is triggered when the component
+  is visible in the viewport, instead of when it is mounted.
+- `scrollTarget`: the id of the scroll container to compute the visibility against
+  (defaults to `main-scroll`).
+
 ## See it in action
 
 ### Basic usage
