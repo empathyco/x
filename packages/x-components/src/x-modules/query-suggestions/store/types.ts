@@ -21,6 +21,11 @@ export interface QuerySuggestionsState extends StatusState, QueryState {
   config: QuerySuggestionsConfig
   /** The extra params property of the state. */
   params: Dictionary<unknown>
+  /**
+   * The request for which the fetch and save action was last launched. It is used to avoid
+   * fetching the same request again until a new one is received.
+   */
+  lastRequest: QuerySuggestionsRequest | null
 }
 
 /**
@@ -65,6 +70,12 @@ export interface QuerySuggestionsMutations
    * @param searchedQueries - The searched queries to save to the state.
    */
   setSearchedQueries: (searchedQueries: HistoryQuery[]) => void
+  /**
+   * Sets the request for which the fetch and save action has been launched.
+   *
+   * @param request - The request to store.
+   */
+  setLastRequest: (request: QuerySuggestionsRequest | null) => void
 }
 
 /**

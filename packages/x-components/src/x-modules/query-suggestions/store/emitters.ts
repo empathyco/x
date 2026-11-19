@@ -8,5 +8,4 @@ import { querySuggestionsXStoreModule } from './module'
  */
 export const querySuggestionsEmitters = createStoreEmitters(querySuggestionsXStoreModule, {
   QuerySuggestionsChanged: state => state.suggestions,
-  QuerySuggestionsRequestUpdated: (_, getters) => getters.request,
 })

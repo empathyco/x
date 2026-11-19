@@ -69,6 +69,15 @@ describe('testing query suggestions module actions', () => {
       expect(store.state.suggestions).toEqual([])
     })
 
+    it('should store the request as the last fetched one', async () => {
+      resetQuerySuggestionsStateWith(store, { query: 'luichito' })
+      const request = store.getters.request
+
+      await store.dispatch('fetchAndSaveSuggestions', request)
+
+      expect(store.state.lastRequest).toEqual(request)
+    })
+
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'chorizo' })
       const initialQuerySuggestions = store.state.suggestions
