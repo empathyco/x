@@ -98,6 +98,17 @@
           />
         </label>
       </li>
+      <li class="x-test-controls__item">
+        <label for="relatedPromptsList.loadWhenVisible">
+          related-prompts - loadWhenVisible
+          <input
+            id="relatedPromptsList.loadWhenVisible"
+            v-model="controls.relatedPromptsList.loadWhenVisible"
+            type="checkbox"
+            data-test="rp-load-when-visible"
+          />
+        </label>
+      </li>
     </ul>
 
     <hr class="xds:mt-10 xds:text-neutral-25" />
@@ -130,7 +141,7 @@ const controls = computed<HomeControls>(() => ({
   historyQueries: { maxItemsToRender: 5 },
   nextQueriesPreview: { maxItemsToRender: 10 },
   nextQueriesList: { showOnlyAfterOffset: true },
-  relatedPromptsList: { showOnlyAfterOffset: true },
+  relatedPromptsList: { showOnlyAfterOffset: true, loadWhenVisible: true },
 }))
 
 const initialExtraParams = { store: 'Portugal' }

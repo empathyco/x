@@ -355,6 +355,9 @@
                                           'xds:bg-amber-500',
                                         ]"
                                         scroll-container-class="desktop:xds:sliding-panel-fade desktop:xds:sliding-panel-fade-sm"
+                                        :load-when-visible="
+                                          controls.relatedPromptsList.loadWhenVisible
+                                        "
                                       >
                                         <template
                                           #default="{ relatedPrompt, isSelected, onSelect }"
