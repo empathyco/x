@@ -83,20 +83,33 @@ Every publishable package ships **agent skills**: small `SKILL.md` guides, follo
 tarball under `skills/`, so each version carries the skills that match its API.
 
 Installing a package does **not** make the skills visible to your agent: agents read skills from
-folders such as `.claude/skills` or `.agents/skills`, never from `node_modules`. Link them once
-in your project with one of these tools, which create symlinks into `node_modules` so the skills
-follow the installed version:
+folders such as `.claude/skills` or `.agents/skills`, never from `node_modules`. Link them in your
+project with the [`skills`](https://github.com/vercel-labs/skills) CLI, which symlinks them from
+`node_modules` so the skills always match the installed version:
 
-- pnpm 12.11 or later: approve the package's skills (`pnpm approve`) and pnpm links them on
-  install.
-- Any package manager: [`skills-npm`](https://github.com/antfu/skills-npm)
-  (`npx skills-npm setup` adds it to your `prepare` script) or its successor,
-  `npx skills experimental_sync`. Make sure the Claude Code target is enabled if you use it:
-  Claude Code reads `.claude/skills`, not `.agents/skills`.
+```sh
+npm i -D skills
+```
 
-These tools only link skills of your **direct** dependencies. `@empathyco/x-components` ships
-the overview skill (`empathyco-x`) and its own; add other `@empathyco` packages you use
-directly (for example `@empathyco/x-adapter-platform`) to get theirs.
+```json
+{
+  "scripts": {
+    "prepare": "skills experimental_sync -a claude-code --include '@empathyco/*' -y"
+  }
+}
+```
+
+- `-a claude-code` also links them into `.claude/skills`, the only folder Claude Code reads
+  (`.agents/skills` is always linked). Repeat `-a` values for other agents.
+- `--include '@empathyco/*'` links only the `@empathyco` skills, not those of other dependencies.
+- The command records the linked skills in `skills-lock.json`. Run it with `--dry-run` to preview.
+- `experimental_sync` is still experimental in the `skills` CLI; check its docs when upgrading.
+  Alternatives: pnpm 12.11 or later (`pnpm approve` the package's skills) or
+  [`skills-npm`](https://github.com/antfu/skills-npm), which is merging into `skills`.
+
+These tools only link skills of your **direct** dependencies. The `@empathyco/x-components` skill
+also gives an overview of the other packages; add the `@empathyco` packages you use directly
+(for example `@empathyco/x-adapter-platform`) to get their skills.
 
 ## How to install
 

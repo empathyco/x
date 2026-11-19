@@ -135,7 +135,7 @@ const xComponentsDir = join(packagesDir, 'x-components')
 const xComponentsTarball = currentTarball(xComponentsDir, [xComponentsDir, packagesDir])
 assertTarballContains(
   xComponentsTarball,
-  ['package/skills/x-components/SKILL.md', 'package/skills/empathyco-x/SKILL.md'],
+  ['package/skills/x-components/SKILL.md'],
   '@empathyco/x-components',
 )
 

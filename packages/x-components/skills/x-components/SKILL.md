@@ -1,15 +1,34 @@
 ---
 name: x-components
-description: 'Vue 3 + Vuex search UI components from @empathyco/x-components: x-modules for results (ResultsList, BannersList, PromotedsList), facets and filters (Facets, SimpleFilter, NumberRangeFilter, SliderFilter, SelectedFiltersList), search box, suggestions, queries preview and AI carousels, plus base building blocks (BaseResultImage, BaseGrid, BaseModal) and X events. Use when adding, wiring or fixing search UI in a project that depends on @empathyco/x-components: filters or price ranges, facets, sorting, result grids or carousels, product images or prices not rendering, modals, X-Bus events.'
+description: 'Vue 3 + Vuex search UI components from @empathyco/x-components, the entry point of Interface X (Empathy): x-modules for results (ResultsList, BannersList, PromotedsList), facets and filters (Facets, SimpleFilter, NumberRangeFilter, SliderFilter, SelectedFiltersList), search box, suggestions, queries preview and AI carousels, plus base building blocks (BaseResultImage, BaseGrid, BaseModal) and X events. Use when starting or integrating an Empathy search experience, or adding, wiring or fixing search UI in a project that depends on @empathyco/x-components: filters or price ranges, facets, sorting, result grids or carousels, product images or prices not rendering, modals, X-Bus events. Also use to decide which @empathyco/x-* package owns a feature (UI component, API mapping, data model, styling).'
 ---
 
-<!-- skills-check packages: @empathyco/x-components, @empathyco/x-adapter-platform -->
+<!-- skills-check packages: @empathyco/x-components, @empathyco/x-adapter-platform, @empathyco/x-adapter, @empathyco/x-types, @empathyco/x-utils, @empathyco/x-archetype-utils -->
 <!-- skills-check ignore: DefaultResultsEnrichmentService, rootComponent, domElement, xModules, snippetConfig, durationInSeconds, scrollLock -->
 
 # @empathyco/x-components
 
 Vue 3 + Vuex 4 components to build a search and discovery UI. Peer dependencies: `vue ^3.5`
 and `vuex 4.0.2` (exact).
+
+It is the core of Interface X, Empathy's open-source set of `@empathyco` packages for commerce
+search UIs. Product docs: https://docs.empathy.co
+
+## Other @empathyco packages
+
+Each package ships its own skill, but agents only get the skills of **direct** dependencies.
+x-components already depends on x-adapter, x-adapter-platform, x-types and x-utils; add the ones
+the project imports to its own `package.json` to get their skills.
+
+- `@empathyco/x-adapter` — generic API client framework: endpoint adapters, mappers, mutable
+  schemas and HTTP clients.
+- `@empathyco/x-adapter-platform` — Empathy Platform endpoints and schemas built on
+  x-adapter; exposes `platformAdapter`, the default adapter for `XInstaller`.
+- `@empathyco/x-types` — shared data models, type guards and Vitest test schemas.
+- `@empathyco/x-utils` — session/storage services and object helpers such as `deepMerge`.
+- `@empathyco/x-design-system` — Tailwind CSS v4 styles; every utility uses the `xds:` prefix.
+- `@empathyco/x-archetype-utils` — i18n, runtime CSS injection and build helpers for
+  x-archetype projects.
 
 ## Import rule (read first)
 
@@ -34,7 +53,8 @@ import { SearchInput } from '@empathyco/x-components/search-box'
 Never guess a name, prop or event. The installed package ships its generated reference:
 
 - Exported names: search `node_modules/@empathyco/x-components/report/x-components.api.md`
-  (large file — grep it, do not read it whole).
+  (large file — grep it, do not read it whole). x-types and x-adapter-platform ship the same
+  `report/*.api.md`.
 - Props, events, slots and examples of each component:
   `node_modules/@empathyco/x-components/docs/API-reference/components/<module>/x-components.<kebab-name>.md`
   (for example `common/modals/x-components.base-modal.md`). Some examples there import from
