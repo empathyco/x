@@ -5,13 +5,22 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: path.resolve(__dirname, 'src/index.ts'),
+        // The `/schemas` subpath: runtime reference objects + custom vitest matchers,
+        // documented in the README ("jest schemas helpers").
+        'schemas/index': path.resolve(__dirname, 'src/schemas/index.ts'),
+      },
       name: 'XTypes',
       formats: ['es', 'cjs'],
-      fileName: format => `index.${format}.js`,
+      // index            -> dist/index.es.js / dist/index.cjs.js
+      // schemas/index    -> dist/schemas/index.es.js / dist/schemas/index.cjs.js
+      fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
     rollupOptions: {
-      external: [],
+      // `src/schemas/schema-utils.ts` imports vitest's `expect` to register the custom
+      // matchers, so vitest must stay external (the consumer's test runner provides it).
+      external: ['vitest'],
     },
     sourcemap: true,
     emptyOutDir: true,

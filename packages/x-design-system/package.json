@@ -17,7 +17,8 @@
     "empathy"
   ],
   "exports": {
-    ".": "./index.css"
+    ".": "./dist/index.css",
+    "./dist/*": "./dist/*"
   },
   "files": [
     "dist",
