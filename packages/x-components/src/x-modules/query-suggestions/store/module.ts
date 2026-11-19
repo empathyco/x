@@ -30,6 +30,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
       hideSessionQueries: true,
     },
     params: {},
+    lastRequest: null,
   }),
   getters: {
     request,
@@ -43,6 +44,9 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     },
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries
+    },
+    setLastRequest(state, request) {
+      state.lastRequest = request
     },
     setStatus,
     setParams(state, params) {
