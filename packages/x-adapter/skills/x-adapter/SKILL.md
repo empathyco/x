@@ -1,23 +1,39 @@
 ---
 name: x-adapter
-description: 'Use when importing, using, or debugging components from x-adapter.'
+description: 'Generic toolkit to build typed API clients (@empathyco/x-adapter): endpointAdapterFactory, schemaMapperFactory, createMutableSchema, fetchHttpClient, buildUrl and interpolate. Use when creating an endpoint adapter for a custom or third-party API, writing request/response mappers or schemas, replacing the HTTP client, or debugging cancelled or wrongly built requests. To customize the existing Empathy Platform endpoints use x-adapter-platform.'
 ---
 
-# x-adapter
+<!-- skills-check ignore: httpClient, requestMapper, responseMapper, $subSchema, Response -->
 
-Librería de utilidades para crear un cliente de cualquier API: configura endpoints, mapea peticiones y respuestas (con o sin schemas) y reutiliza mappers.
+# @empathyco/x-adapter
 
-## Componentes disponibles
+Framework to create API clients: an endpoint adapter is a function that maps the request,
+calls an HTTP client and maps the response.
 
-- `endpointAdapterFactory` — crea un `EndpointAdapter` (función de petición) a partir de `endpoint`, `httpClient` y mappers.
-- `schemaMapperFactory` — genera mappers de petición/respuesta a partir de un `Schema` (dictcionario de paths o funciones).
-- `createMutableSchema` — crea un `MutableSchema` reutilizable con los métodos `$extends`, `$override` y `$replace`.
-- `identityMapper` / `combineMappers` — mappers auxiliares para identidad y composición.
-- `fetchHttpClient` / `fetchRawHttpClient` — clientes HTTP por defecto basados en la Fetch API.
-- `buildUrl` / `interpolate` — utilidades para construir URLs y parametrizar endpoints (`https://api/{id}`).
+## Building blocks
 
-## Instalación
+- `endpointAdapterFactory({ endpoint, httpClient, requestMapper, responseMapper })` returns an
+  endpoint adapter. The result has `.extends(options)` to create a customized copy — prefer it
+  over rebuilding the adapter.
+- `schemaMapperFactory(schema)` creates a mapper from a `Schema`: an object whose values are
+  source paths, functions, nested schemas or `$subSchema`/`$path` definitions.
+- `createMutableSchema(schema)` adds `$extends`, `$override` and `$replace`:
+  - `$extends` returns a **new** schema;
+  - `$override` and `$replace` **mutate** the schema in place, affecting every adapter that
+    uses it.
+- `identityMapper`, `combineMappers` — helper mappers.
+- `fetchHttpClient` (parses JSON) and `fetchRawHttpClient` (returns the raw `Response`).
+- `buildUrl`, `interpolate` — URL helpers; `interpolate` fills `{param}` placeholders in an
+  endpoint such as `https://api.example.com/{id}`, and drops empty ones.
 
-```
-npm install @empathyco/x-adapter
-```
+## Common mistakes
+
+- `fetchHttpClient` is cancelable by default: a new request with the same `id` (the endpoint
+  by default) aborts the previous one. Pass a distinct `id` or `cancelable: false` for
+  requests that must run in parallel.
+- Calling `$override` on a shared schema when a copy was intended (use `$extends`).
+
+## More
+
+The package `README.md` (in `node_modules/@empathyco/x-adapter`) has complete examples of
+schemas, sub-schemas, mutable schemas and `.extends`.

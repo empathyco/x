@@ -22,7 +22,6 @@ you alongside!
 - [What you need to know before getting started](#what-you-need-to-know-before-getting-started)
   - [Interface X and packages](#interface-x-and-packages)
 - [How to contribute](#how-to-contribute)
-
   - [Report bugs](#report-bugs)
   - [Suggest enhancements](#suggest-new-features-or-enhancements)
   - [Contribute code for the first time](#contribute-code-for-the-first-time)
@@ -34,6 +33,7 @@ you alongside!
   - [JavaScript style guide](#javascript-style-guide)
   - [Documentation style guide](#documentation-style-guide)
   - [Testing style guide](#testing-style-guide)
+  - [Agent skills](#agent-skills)
 - [Any questions?](#any-questions)
 - [License](#license)
 
@@ -160,6 +160,55 @@ Follow our [testing style guide](contributing/tests.md).
 
 Use [JsDoc](https://github.com/jsdoc/jsdoc) tags. For more information, see
 [JsDoc documentation](https://jsdoc.app/).
+
+### Agent skills
+
+Every publishable package ships **agent skills** that help AI coding agents use the package
+correctly. They follow the [Agent Skills specification](https://agentskills.io/specification)
+and the `skills/<name>/SKILL.md` package layout read by `skills-npm`, `skills` and pnpm.
+
+Layout: each skill is a folder under the package's `skills/` directory containing a `SKILL.md`
+with YAML frontmatter (`name`, `description`) followed by markdown instructions.
+
+```
+packages/x-adapter/
+├── package.json          # "files" must include "skills"
+└── skills/
+    └── x-adapter/
+        └── SKILL.md
+```
+
+Rules:
+
+1. The skill folder name must equal the `name` field in the frontmatter, and use lowercase
+   alphanumerics and single hyphens only.
+2. `description` is what decides whether an agent activates the skill — describe **what** the
+   package does and **when** to reach for it, using concrete keywords.
+3. Keep `SKILL.md` under ~500 lines. Move deep reference material to extra files (e.g.
+   `references/`) and link to them from `SKILL.md`.
+4. If a package publishes from a build directory (e.g. `x-components`, from `dist/`), make sure
+   the build copies `skills/` into the published output.
+
+**When to update a skill:** whenever you add, remove, or rename a public export, a component, a
+module, or a documented workflow of that package. A skill that disagrees with the code is worse
+than no skill.
+
+**Never write an API name from memory.** Every name a skill cites is checked against the built
+packages, so copy names from `report/*.api.md` or the source.
+
+**Validation (also runs in CI):**
+
+- `pnpm run skills:validate` — checks frontmatter, naming, and packaging for every package.
+- `pnpm run skills:check-api` — needs the packages built. Checks that every `import` in a skill's
+  code blocks resolves (package root or subpath) and that inline code names that look like API
+  symbols (`BaseModal`, `deepMerge`, `useState`), `xds:` classes and `--xds-*` variables exist.
+  Two HTML comments tune it:
+  - `<!-- skills-check packages: @empathyco/x-components, @empathyco/x-adapter-platform -->`
+    — packages whose exports are valid names in that skill (default: its own package);
+  - `<!-- skills-check ignore: open, scrollLock -->` — names that are not exports on purpose
+    (props, options, events).
+- `pnpm run skills:check-packed` — builds the packages that publish from a build directory and
+  asserts the skills are actually inside the packed npm tarball.
 
 ## Any questions?
 
