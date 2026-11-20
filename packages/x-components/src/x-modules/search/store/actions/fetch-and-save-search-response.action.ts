@@ -1,22 +1,72 @@
 import type { SearchRequest, SearchResponse } from '@empathyco/x-types'
 import type { InternalSearchRequest } from '../../types'
 import type { SearchActionContext, SearchState } from '../types'
+import { deepEqual } from '@empathyco/x-utils'
+import { XPlugin } from '../../../../plugins/x-plugin'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
+
+interface FetchedSearch {
+  response: SearchResponse
+  /** The request sent to get the response, when it is the one of the `noResultsFallback`. */
+  fallbackRequest?: SearchRequest
+}
+
+/** The last rescued request and its response, to not repeat it when the state change refetches. */
+let lastFallback: { request: SearchRequest; response: SearchResponse } | undefined
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
   InternalSearchRequest | null,
-  SearchResponse | null
+  FetchedSearch | null
 >({
   async fetch({ dispatch, state }, request) {
-    return request
-      ? dispatch('fetchSearchResponse', enrichRequest(request, state))
-      : Promise.resolve(null)
-  },
-  onSuccess({ dispatch }, response) {
-    if (response !== null) {
-      void dispatch('saveSearchResponse', response)
+    if (!request) {
+      return null
     }
+    const searchRequest = enrichRequest(request, state)
+    if (lastFallback && deepEqual(searchRequest, lastFallback.request)) {
+      return { response: lastFallback.response }
+    }
+    lastFallback = undefined
+
+    const response = await dispatch('fetchSearchResponse', searchRequest)
+    const fallback = state.config.noResultsFallback
+    const fallbackEntries = Object.entries(fallback ?? {})
+    if (
+      response.totalResults === 0 &&
+      fallbackEntries.some(([key, value]) => searchRequest.extraParams?.[key] !== value)
+    ) {
+      const fallbackRequest = {
+        ...searchRequest,
+        extraParams: { ...searchRequest.extraParams, ...fallback },
+      }
+      const fallbackResponse = await dispatch('fetchSearchResponse', fallbackRequest)
+      if (fallbackResponse.totalResults > 0) {
+        return { response: fallbackResponse, fallbackRequest }
+      }
+    }
+    return { response }
+  },
+  onSuccess({ commit, dispatch, rootState, state }, fetched) {
+    if (fetched === null) {
+      return
+    }
+    const { response, fallbackRequest } = fetched
+    if (fallbackRequest) {
+      const catalogSectionParamKey =
+        rootState.x?.extraParams?.catalogSectionParamKey ?? 'catalogSection'
+      const { [catalogSectionParamKey]: catalogSection, ...extraParams } =
+        state.config.noResultsFallback!
+      lastFallback = { request: fallbackRequest, response }
+      if (catalogSection !== undefined) {
+        commit('setCatalogSectionFromFallback', catalogSection)
+      }
+      if (Object.keys(extraParams).length) {
+        commit('setParams', { ...state.params, ...extraParams })
+        void XPlugin.bus.emit('ExtraParamsProvided', extraParams)
+      }
+    }
+    void dispatch('saveSearchResponse', response)
   },
 })
 
