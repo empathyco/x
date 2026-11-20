@@ -1,5 +1,6 @@
 import type { AiXStoreModule } from '../types'
 import { XPlugin } from '../../../../plugins'
+import { isAbortError } from '../utils'
 
 /**
  * Default implementation for the `AiActions.fetchAndSaveAiSuggestionsSearch`.
@@ -24,11 +25,14 @@ export const fetchAndSaveAiSuggestionsSearch: AiXStoreModule['actions']['fetchAn
           commit('setSuggestionsSearch', response.suggestions)
           commit('setSuggestionsSearchTagging', response.suggestionsTagging)
         }
+        commit('setSuggestionsSearchStatus', 'success')
       })
       .catch(error => {
+        // A newer request with the same id aborted this one, so it is in charge of the status.
+        if (isAbortError(error)) {
+          return
+        }
+        commit('setSuggestionsSearchStatus', 'error')
         console.error(error)
-      })
-      .finally(() => {
-        commit('setSuggestionsSearchStatus', 'success')
       })
   }
