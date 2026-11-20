@@ -29,7 +29,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "vite build && pnpm run gen:docs",
+    "build": "vite build && pnpm run gen:docs && node ./scripts/copy-schemas-runtime.mjs",
     "build:watch": "vite build -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
@@ -41,6 +41,14 @@
     "lint:inspect": "eslint --inspect-config .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
+  },
+  "peerDependencies": {
+    "vitest": "*"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@empathyco/x-adapter": "8.2.6",
