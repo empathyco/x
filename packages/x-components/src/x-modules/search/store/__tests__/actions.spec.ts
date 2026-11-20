@@ -4,7 +4,7 @@ import type { UrlParams } from '../../../../types/url-params'
 import type { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types'
 import { mount } from '@vue/test-utils'
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory'
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory'
@@ -15,6 +15,7 @@ import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.fa
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
+import { XPlugin } from '../../../../plugins/x-plugin'
 import { searchXStoreModule } from '../module'
 import { resetSearchStateWith } from './utils'
 
@@ -240,6 +241,150 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toBe(banners)
       expect(store.state.promoteds).toBe(promoteds)
       expect(store.state.status).toEqual('error')
+    })
+  })
+
+  describe('noResultsFallback', () => {
+    afterEach(() => {
+      vi.mocked(adapter.search).mockImplementation(async () => searchResponseStub)
+    })
+
+    // Responds with no results unless the request carries the fallback `catalogSection`.
+    function mockSearch(withResults: boolean) {
+      vi.mocked(adapter.search).mockImplementation(async request =>
+        withResults && request.extraParams?.catalogSection === 'section-a'
+          ? searchResponseStub
+          : emptySearchResponseStub,
+      )
+    }
+
+    it('should retry once with the fallback and save its response and section', async () => {
+      mockSearch(true)
+      resetSearchStateWith(store, {
+        query: 'query-1',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(vi.mocked(adapter.search).mock.calls[1][0].extraParams).toEqual({
+        catalogSection: 'section-a',
+      })
+      expect(store.state.results).toEqual(searchResponseStub.results)
+      expect(store.state.isNoResults).toBe(false)
+      expect(store.state.catalogSection).toBe('section-a')
+      expect(store.state.isCatalogSectionFromFallback).toBe(true)
+    })
+
+    it('should not retry if the first request returns results', async () => {
+      resetSearchStateWith(store, {
+        query: 'lego',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(1)
+      expect(store.state.catalogSection).toBeUndefined()
+    })
+
+    it('should show no results and keep the section if the fallback is also empty', async () => {
+      mockSearch(false)
+      resetSearchStateWith(store, {
+        query: 'nothing',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(store.state.isNoResults).toBe(true)
+      expect(store.state.catalogSection).toBeUndefined()
+    })
+
+    it.each([[undefined], [{}]])('should not retry without a fallback (%j)', async fallback => {
+      mockSearch(false)
+      resetSearchStateWith(store, { query: 'nofallback', config: { noResultsFallback: fallback } })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not retry if the request already has the fallback values', async () => {
+      mockSearch(false)
+      resetSearchStateWith(store, {
+        query: 'already',
+        catalogSection: 'section-a',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(1)
+      expect(store.state.isNoResults).toBe(true)
+    })
+
+    it('should retry even if the section was selected by hand', async () => {
+      mockSearch(true)
+      resetSearchStateWith(store, {
+        query: 'byhand',
+        catalogSection: 'products',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(store.state.catalogSection).toBe('section-a')
+    })
+
+    it('should override all the pairs and persist the non catalog ones as extra params', async () => {
+      const emit = vi.spyOn(XPlugin.bus, 'emit')
+      mockSearch(true)
+      resetSearchStateWith(store, {
+        query: 'pairs',
+        config: { noResultsFallback: { catalogSection: 'section-a', market: 'market-b' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(vi.mocked(adapter.search).mock.calls[1][0].extraParams).toEqual({
+        catalogSection: 'section-a',
+        market: 'market-b',
+      })
+      expect(store.state.params).toEqual({ market: 'market-b' })
+      expect(emit).toHaveBeenCalledWith('ExtraParamsProvided', { market: 'market-b' })
+      expect(store.state.catalogSection).toBe('section-a')
+    })
+
+    it('should not repeat the request when the refetch matches the rescued one', async () => {
+      mockSearch(true)
+      resetSearchStateWith(store, {
+        query: 'memory',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+
+      // A different request goes to the network and discards the memory.
+      store.commit('setCatalogSection', 'products')
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+      expect(adapter.search).toHaveBeenCalledTimes(4)
+    })
+
+    it('should not persist anything if the rescue is cancelled', async () => {
+      mockSearch(true)
+      resetSearchStateWith(store, {
+        query: 'cancelled',
+        config: { noResultsFallback: { catalogSection: 'section-a' } },
+      })
+      await Promise.all([
+        store.dispatch('fetchAndSaveSearchResponse', store.getters.request),
+        store.dispatch('cancelFetchAndSaveSearchResponse'),
+      ])
+
+      expect(store.state.catalogSection).toBeUndefined()
+      expect(store.state.isCatalogSectionFromFallback).toBe(false)
     })
   })
 
