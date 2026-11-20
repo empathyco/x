@@ -398,5 +398,55 @@ describe('testing the catalog section extra param wiring', () => {
         'market-b',
       )
     })
+
+    describe('after a rescued query', () => {
+      // `query-b` has results in every section, `query-c` in none and the rest only in `section-b`.
+      const searchByQuery = (): Mock =>
+        vi.fn(async (request: SearchRequest) => {
+          if (request.query === 'query-b') {
+            return getSearchResponseStub()
+          }
+          return request.query !== 'query-c' && request.extraParams?.section === 'section-b'
+            ? getSearchResponseStub()
+            : getEmptySearchResponseStub()
+        })
+
+      const sentRequests = (adapter: { search: unknown }): string[] =>
+        (adapter.search as Mock).mock.calls.map(
+          ([request]: SearchRequest[]) =>
+            `${request.query}:${String(request.extraParams?.section)}`,
+        )
+
+      it.each([
+        ['loaded from the URL', true],
+        ['typed', false],
+      ])('does not send duplicated requests when the rescued query was %s', async (_, fromUrl) => {
+        if (fromUrl) {
+          window.history.replaceState({}, '', '/?query=query-a')
+        }
+        const { adapter } = render({
+          catalogSectionParamKey: 'section',
+          noResultsFallback: { section: 'section-b' },
+          search: searchByQuery(),
+        })
+        if (!fromUrl) {
+          await XPlugin.bus.emit('UserAcceptedAQuery', 'query-a')
+        }
+        await settlePipeline()
+        expect(sentRequests(adapter)).toEqual(['query-a:undefined', 'query-a:section-b'])
+
+        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-b')
+        await settlePipeline()
+        expect(sentRequests(adapter).slice(2)).toEqual(['query-b:undefined'])
+
+        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-c')
+        await settlePipeline()
+        expect(sentRequests(adapter).slice(3)).toEqual(['query-c:undefined', 'query-c:section-b'])
+
+        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-b')
+        await settlePipeline()
+        expect(sentRequests(adapter).slice(5)).toEqual(['query-b:undefined'])
+      })
+    })
   })
 })
