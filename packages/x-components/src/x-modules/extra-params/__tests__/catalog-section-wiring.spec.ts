@@ -1,5 +1,6 @@
 import type { NextQueriesRequest, SearchRequest, XComponentsAdapter } from '@empathyco/x-types'
 import type { Mock } from 'vitest'
+import type { SearchConfig } from '../../search/config.types'
 import { flushPromises, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
@@ -71,7 +72,7 @@ function render({
 }: {
   defaultCatalogSection?: string
   catalogSectionParamKey?: string
-  noResultsFallback?: Record<string, string>
+  noResultsFallback?: SearchConfig['noResultsFallback']
   search?: Mock
 } = {}) {
   const adapter: XComponentsAdapter = {
@@ -285,39 +286,42 @@ describe('testing the catalog section extra param wiring', () => {
   })
 
   describe('noResultsFallback', () => {
-    // Responds with no results unless the request has `section: 'section-a'`.
-    const searchOnlyInSectionA = (): Mock =>
+    // Responds with results only to the requests that match the predicate.
+    const searchWhen = (hasResults: (request: SearchRequest) => boolean): Mock =>
       vi.fn(async (request: SearchRequest) =>
-        request.extraParams?.section === 'section-a'
-          ? getSearchResponseStub()
-          : getEmptySearchResponseStub(),
+        hasResults(request) ? getSearchResponseStub() : getEmptySearchResponseStub(),
       )
 
     it('rescues a query without results with only two search requests', async () => {
       const { adapter } = render({
         catalogSectionParamKey: 'section',
-        noResultsFallback: { section: 'section-a' },
-        search: searchOnlyInSectionA(),
+        noResultsFallback: { catalogSection: 'section-a' },
+        search: searchWhen(request => request.extraParams?.section === 'section-a'),
       })
+
+      const responseChanged = vi.fn()
+      XPlugin.bus.on('SearchResponseChanged', false).subscribe(responseChanged)
 
       await XPlugin.bus.emit('UserAcceptedAQuery', 'query-1')
       await settlePipeline()
 
       expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(responseChanged).toHaveBeenCalledTimes(1)
+      expect(responseChanged).toHaveBeenCalledWith(
+        expect.objectContaining({ totalResults: getSearchResponseStub().totalResults }),
+      )
       expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.section).toBe(
         'section-a',
       )
+      expect(XPlugin.store.state.x.search.catalogSection).toBe('section-a')
+      expect(XPlugin.store.state.x.search.isNoResults).toBe(false)
     })
 
-    it('saves the non catalog params as extra params and keeps them on the next query', async () => {
+    it('stores the extra params of the fallback and keeps them on the next query', async () => {
       const { adapter } = render({
         catalogSectionParamKey: 'section',
-        noResultsFallback: { section: 'section-a', market: 'market-b' },
-        search: vi.fn(async (request: SearchRequest) =>
-          request.extraParams?.market === 'market-b'
-            ? getSearchResponseStub()
-            : getEmptySearchResponseStub(),
-        ),
+        noResultsFallback: { catalogSection: 'section-a', extraParams: { market: 'market-b' } },
+        search: searchWhen(request => request.extraParams?.market === 'market-b'),
       })
 
       await XPlugin.bus.emit('UserAcceptedAQuery', 'query-2')
@@ -325,11 +329,62 @@ describe('testing the catalog section extra param wiring', () => {
       expect(adapter.search).toHaveBeenCalledTimes(2)
       expect(XPlugin.store.state.x.extraParams.params.market).toBe('market-b')
 
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-2')
+      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-3')
       await settlePipeline()
-      expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.market).toBe(
-        'market-b',
-      )
+      expect(adapter.search).toHaveBeenCalledTimes(3)
+      expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams).toMatchObject({
+        section: 'section-a',
+        market: 'market-b',
+      })
+    })
+
+    it('changes the section even if the fallback has no results either, without looping', async () => {
+      const { adapter } = render({
+        catalogSectionParamKey: 'section',
+        noResultsFallback: { catalogSection: 'section-a' },
+        search: searchWhen(() => false),
+      })
+
+      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-4')
+      await settlePipeline(12)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+      expect(XPlugin.store.state.x.search.catalogSection).toBe('section-a')
+      expect(XPlugin.store.state.x.search.isNoResults).toBe(true)
+    })
+
+    it('does not loop when the search params and the extra params differ', async () => {
+      const { adapter } = render({
+        catalogSectionParamKey: 'section',
+        noResultsFallback: { extraParams: { market: 'market-b' } },
+        search: searchWhen(() => false),
+      })
+      await XPlugin.bus.emit('UserChangedExtraParams', { market: 'market-b' })
+      await settlePipeline()
+      vi.mocked(adapter.search).mockClear()
+
+      // A query preview overrides the search params without changing the extra params.
+      await XPlugin.bus.emit('UserAcceptedAQueryPreview', {
+        query: 'query-5',
+        extraParams: { market: 'market-c' },
+        results: [],
+      } as any)
+      await settlePipeline(12)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
+    })
+
+    it('does not loop when the catalog section is set inside the extra params', async () => {
+      const { adapter } = render({
+        catalogSectionParamKey: 'section',
+        noResultsFallback: { extraParams: { section: 'section-a' } },
+        search: searchWhen(() => false),
+      })
+
+      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-6')
+      await settlePipeline(12)
+
+      expect(adapter.search).toHaveBeenCalledTimes(2)
     })
   })
 })

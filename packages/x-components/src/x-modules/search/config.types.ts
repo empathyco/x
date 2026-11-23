@@ -22,12 +22,29 @@ export interface SearchConfig {
    */
   priceSortField?: string
   /**
-   * Extra params to search again with when a search returns no results, e.g.
-   * `{ section: 'section-a' }`. The keys are those of the request `extraParams`, before the
-   * adapter maps them. All of them are sent together in a single new request. If it has results,
-   * they are shown and the params are kept for the next searches: the one matching the
-   * `catalogSectionParamKey` becomes the selected catalog section, and the rest are stored as
-   * extra params.
+   * Values to search again with when a search returns no results, in a single new request:
+   * `{ catalogSection: 'section-a', extraParams: { market: 'market-b' } }`.
+   * It is applied at most once per search, and not if the selected catalog section or the search
+   * extra params already have those values.
+   *
+   * The `catalogSection` becomes the selected catalog section. It is kept in the next searches
+   * until the user selects another section or the search is reset (the query is cleared, the
+   * layer is closed or the user browses to a category), and it changes even if the new search has
+   * no results either.
+   *
+   * The `extraParams` are stored as extra params, with the keys of the request `extraParams`
+   * before the adapter maps them. They require the extra params module to be registered: without
+   * it, a fallback with `extraParams` does not search again and the status stays as `loading`
+   * until the next search.
+   *
+   * The catalog section goes apart, in `catalogSection`, and not inside `extraParams`. The
+   * selected section is part of the search state, which is what the catalog section tabs read,
+   * and the search request sends it under the `catalogSectionParamKey`, taking precedence over
+   * the extra params. Inside `extraParams` the tabs would not change, and the value would not be
+   * sent if a section was already selected.
    */
-  noResultsFallback?: Record<string, string>
+  noResultsFallback?: {
+    catalogSection?: string
+    extraParams?: Record<string, string>
+  }
 }

@@ -1,74 +1,96 @@
 import type { SearchRequest, SearchResponse } from '@empathyco/x-types'
+import type { SearchConfig } from '../../config.types'
 import type { InternalSearchRequest } from '../../types'
 import type { SearchActionContext, SearchState } from '../types'
-import { deepEqual } from '@empathyco/x-utils'
 import { XPlugin } from '../../../../plugins/x-plugin'
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils'
 
 interface FetchedSearch {
   response: SearchResponse
-  /** The request sent to get the response, when it is the one of the `noResultsFallback`. */
-  fallbackRequest?: SearchRequest
+  /** The `noResultsFallback` to apply instead of saving the response, if it is needed. */
+  fallback?: NonNullable<SearchConfig['noResultsFallback']>
 }
-
-/** The last rescued request and its response, to not repeat it when the state change refetches. */
-let lastFallback: { request: SearchRequest; response: SearchResponse } | undefined
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
   InternalSearchRequest | null,
   FetchedSearch | null
 >({
-  async fetch({ dispatch, state }, request) {
+  async fetch({ commit, dispatch, state }, request) {
     if (!request) {
       return null
     }
-    const searchRequest = enrichRequest(request, state)
-    if (lastFallback && deepEqual(searchRequest, lastFallback.request)) {
-      return { response: lastFallback.response }
-    }
-    lastFallback = undefined
-
-    const response = await dispatch('fetchSearchResponse', searchRequest)
+    const isNoResultsFallback = state.isNoResultsFallback
     const fallback = state.config.noResultsFallback
-    const fallbackEntries = Object.entries(fallback ?? {})
-    if (
-      response.totalResults === 0 &&
-      fallbackEntries.some(([key, value]) => searchRequest.extraParams?.[key] !== value)
-    ) {
-      const fallbackRequest = {
-        ...searchRequest,
-        extraParams: { ...searchRequest.extraParams, ...fallback },
-      }
-      const fallbackResponse = await dispatch('fetchSearchResponse', fallbackRequest)
-      if (fallbackResponse.totalResults > 0) {
-        return { response: fallbackResponse, fallbackRequest }
-      }
-    }
-    return { response }
+
+    // The flag is cleared when the next request starts, not when it ends, so a new query that
+    // cancels the one of the fallback does not inherit it.
+    commit('setIsNoResultsFallback', false)
+
+    const response = await dispatch('fetchSearchResponse', enrichRequest(request, state))
+
+    const shouldApplyFallback =
+      !isNoResultsFallback && response.totalResults === 0 && needsFallback(fallback, state)
+
+    return shouldApplyFallback ? { response, fallback } : { response }
   },
-  onSuccess({ commit, dispatch, rootState, state }, fetched) {
-    if (fetched === null) {
+  onSuccess({ commit, dispatch }, payload) {
+    if (payload === null) {
       return
     }
-    const { response, fallbackRequest } = fetched
-    if (fallbackRequest) {
-      const catalogSectionParamKey =
-        rootState.x?.extraParams?.catalogSectionParamKey ?? 'catalogSection'
-      const { [catalogSectionParamKey]: catalogSection, ...extraParams } =
-        state.config.noResultsFallback!
-      lastFallback = { request: fallbackRequest, response }
-      if (catalogSection !== undefined) {
-        commit('setCatalogSection', catalogSection)
-      }
-      if (Object.keys(extraParams).length) {
-        commit('setParams', { ...state.params, ...extraParams })
-        void XPlugin.bus.emit('ExtraParamsProvided', extraParams)
-      }
+
+    const { response, fallback } = payload
+    if (!fallback) {
+      void dispatch('saveSearchResponse', response)
+      return
     }
-    void dispatch('saveSearchResponse', response)
+
+    // The response without results is not saved. Changing the state makes the request change,
+    // which searches again with the fallback values.
+
+    // Marks the next request as the fallback one, so it is not applied twice.
+    commit('setIsNoResultsFallback', true)
+
+    // Both changes end in a single new request: the `Provided` suffix gives the event priority in
+    // the bus, so the extra params are stored before the request watcher runs, and it sees both.
+    if (fallback.extraParams) {
+      void XPlugin.bus.emit('NoResultsFallbackExtraParamsProvided', fallback.extraParams)
+    }
+    if (fallback.catalogSection !== undefined) {
+      commit('setCatalogSection', fallback.catalogSection)
+    }
+
+    // The status stays as `loading`: the new request resolves it, so no event is emitted with
+    // the state of the response that was not saved.
+    return false
   },
 })
+
+/**
+ * Checks if the `noResultsFallback` values still need to be applied. They are only needed if the
+ * search does not have them already, otherwise they would be applied again on every search without
+ * results.
+ *
+ * @param fallback - The configured `noResultsFallback`, if any.
+ * @param state - {@link SearchState}.
+ *
+ * @returns True if there is a fallback whose values are not in the state yet.
+ * @internal
+ */
+function needsFallback(
+  fallback: SearchConfig['noResultsFallback'],
+  state: SearchState,
+): fallback is NonNullable<SearchConfig['noResultsFallback']> {
+  if (!fallback) {
+    return false
+  }
+  const isSectionPending =
+    fallback.catalogSection !== undefined && state.catalogSection !== fallback.catalogSection
+  const areParamsPending = Object.entries(fallback.extraParams ?? {}).some(
+    ([key, value]) => state.params[key] !== value,
+  )
+  return isSectionPending || areParamsPending
+}
 
 /**
  * Enriches the {@link SearchRequest} object with the origin and page properties taken from the
