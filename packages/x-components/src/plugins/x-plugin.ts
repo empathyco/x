@@ -15,6 +15,7 @@ import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
 import { bus } from './x-bus'
 import { registerStoreEmitters } from './x-emitters'
+import { resetXModulesDisplayedConsumers } from './x-module-visibility'
 import { assertXPluginOptionsAreValid } from './x-plugin.utils'
 
 /**
@@ -181,6 +182,7 @@ export class XPlugin {
    */
   static resetInstance(): void {
     cleanGettersProxyCache()
+    resetXModulesDisplayedConsumers()
     this.instance = undefined
   }
 

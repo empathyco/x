@@ -32,6 +32,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       hideSessionQueries: true,
       loadOnInit: true,
       maxPreviewItemsToRequest: 8,
+      loadWhenVisible: false,
     },
     params: {},
     resultsPreview: {},

@@ -38,4 +38,10 @@ export interface NextQueriesConfig {
    * Number of results that will be requested to preview the next queries.
    */
   maxPreviewItemsToRequest: number
+  /**
+   * Delays the next queries requests until a `NextQueries` or `NextQueriesList` component is
+   * displayed. Requests made while none is displayed are skipped, and the latest one is made as
+   * soon as one is.
+   */
+  loadWhenVisible?: boolean
 }
