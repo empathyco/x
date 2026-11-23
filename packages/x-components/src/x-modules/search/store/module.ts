@@ -30,7 +30,6 @@ export const searchXStoreModule: SearchXStoreModule = {
     selectedFilters: {},
     params: {},
     catalogSection: undefined,
-    isCatalogSectionFromFallback: false,
     config: {
       threshold: 24,
       pageSize: 24,
@@ -80,17 +79,6 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setCatalogSection(state, catalogSection) {
       state.catalogSection = catalogSection
-      state.isCatalogSectionFromFallback = false
-    },
-    setCatalogSectionFromFallback(state, catalogSection) {
-      state.catalogSection = catalogSection
-      state.isCatalogSectionFromFallback = true
-    },
-    resetFallbackCatalogSection(state) {
-      if (state.isCatalogSectionFromFallback) {
-        state.catalogSection = undefined
-        state.isCatalogSectionFromFallback = false
-      }
     },
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds

@@ -119,14 +119,6 @@ export const setSort = wireCommit('setSort')
 export const setUrlParams = wireDispatch('setUrlParams')
 
 /**
- * Resets the search state `catalogSection` to `undefined` if it was set by the
- * `noResultsFallback`.
- *
- * @public
- */
-export const resetFallbackCatalogSection = wireCommitWithoutPayload('resetFallbackCatalogSection')
-
-/**
  * Sets the search state `catalogSection`.
  *
  * @public
@@ -282,7 +274,6 @@ export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     setSearchQuery,
     saveOriginWire,
-    resetFallbackCatalogSection,
   },
   UserAcceptedSpellcheckQuery: {
     resetSpellcheckQuery,

@@ -59,7 +59,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
         state.config.noResultsFallback!
       lastFallback = { request: fallbackRequest, response }
       if (catalogSection !== undefined) {
-        commit('setCatalogSectionFromFallback', catalogSection)
+        commit('setCatalogSection', catalogSection)
       }
       if (Object.keys(extraParams).length) {
         commit('setParams', { ...state.params, ...extraParams })

@@ -309,73 +309,6 @@ describe('testing the catalog section extra param wiring', () => {
       )
     })
 
-    it('goes back to the default section on the next query, if the fallback set it', async () => {
-      const { adapter } = render({
-        catalogSectionParamKey: 'section',
-        defaultCatalogSection: 'products',
-        noResultsFallback: { section: 'section-a' },
-        search: vi.fn(async (request: SearchRequest) =>
-          request.extraParams?.section === 'section-a' || request.query === 'other-1'
-            ? getSearchResponseStub()
-            : getEmptySearchResponseStub(),
-        ),
-      })
-
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-2')
-      await settlePipeline()
-      const callsAfterRescue = (adapter.search as Mock).mock.calls.length
-
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-1')
-      await settlePipeline()
-
-      expect((adapter.search as Mock).mock.calls.length).toBeGreaterThan(callsAfterRescue)
-      expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.section).toBe(
-        'products',
-      )
-    })
-
-    it('keeps a section selected by hand on the next query', async () => {
-      const { adapter } = render({
-        catalogSectionParamKey: 'section',
-        defaultCatalogSection: 'products',
-        noResultsFallback: { section: 'section-a' },
-        search: searchOnlyInSectionA(),
-      })
-
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-3')
-      await settlePipeline()
-      await XPlugin.bus.emit('UserSelectedACatalogSection', 'section-a')
-      await settlePipeline()
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-3')
-      await settlePipeline()
-
-      expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.section).toBe(
-        'section-a',
-      )
-    })
-
-    it('keeps the section provided by the instance after resetting the fallback one', async () => {
-      const { adapter } = render({
-        catalogSectionParamKey: 'section',
-        noResultsFallback: { section: 'section-a' },
-        search: vi.fn(async (request: SearchRequest) =>
-          request.extraParams?.section === 'section-a' || request.query === 'other-4'
-            ? getSearchResponseStub()
-            : getEmptySearchResponseStub(),
-        ),
-      })
-
-      await XPlugin.bus.emit('ExtraParamsProvided', { section: 'products' })
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-4')
-      await settlePipeline()
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-4')
-      await settlePipeline()
-
-      expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.section).toBe(
-        'products',
-      )
-    })
-
     it('saves the non catalog params as extra params and keeps them on the next query', async () => {
       const { adapter } = render({
         catalogSectionParamKey: 'section',
@@ -387,66 +320,16 @@ describe('testing the catalog section extra param wiring', () => {
         ),
       })
 
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-5')
+      await XPlugin.bus.emit('UserAcceptedAQuery', 'query-2')
       await settlePipeline()
       expect(adapter.search).toHaveBeenCalledTimes(2)
       expect(XPlugin.store.state.x.extraParams.params.market).toBe('market-b')
 
-      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-5')
+      await XPlugin.bus.emit('UserAcceptedAQuery', 'other-2')
       await settlePipeline()
       expect(lastAdapterRequest<SearchRequest>(adapter.search as Mock).extraParams?.market).toBe(
         'market-b',
       )
-    })
-
-    describe('after a rescued query', () => {
-      // `query-b` has results in every section, `query-c` in none and the rest only in `section-b`.
-      const searchByQuery = (): Mock =>
-        vi.fn(async (request: SearchRequest) => {
-          if (request.query === 'query-b') {
-            return getSearchResponseStub()
-          }
-          return request.query !== 'query-c' && request.extraParams?.section === 'section-b'
-            ? getSearchResponseStub()
-            : getEmptySearchResponseStub()
-        })
-
-      const sentRequests = (adapter: { search: unknown }): string[] =>
-        (adapter.search as Mock).mock.calls.map(
-          ([request]: SearchRequest[]) =>
-            `${request.query}:${String(request.extraParams?.section)}`,
-        )
-
-      it.each([
-        ['loaded from the URL', true],
-        ['typed', false],
-      ])('does not send duplicated requests when the rescued query was %s', async (_, fromUrl) => {
-        if (fromUrl) {
-          window.history.replaceState({}, '', '/?query=query-a')
-        }
-        const { adapter } = render({
-          catalogSectionParamKey: 'section',
-          noResultsFallback: { section: 'section-b' },
-          search: searchByQuery(),
-        })
-        if (!fromUrl) {
-          await XPlugin.bus.emit('UserAcceptedAQuery', 'query-a')
-        }
-        await settlePipeline()
-        expect(sentRequests(adapter)).toEqual(['query-a:undefined', 'query-a:section-b'])
-
-        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-b')
-        await settlePipeline()
-        expect(sentRequests(adapter).slice(2)).toEqual(['query-b:undefined'])
-
-        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-c')
-        await settlePipeline()
-        expect(sentRequests(adapter).slice(3)).toEqual(['query-c:undefined', 'query-c:section-b'])
-
-        await XPlugin.bus.emit('UserAcceptedAQuery', 'query-b')
-        await settlePipeline()
-        expect(sentRequests(adapter).slice(5)).toEqual(['query-b:undefined'])
-      })
     })
   })
 })

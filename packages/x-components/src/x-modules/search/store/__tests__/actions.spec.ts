@@ -273,7 +273,6 @@ describe('testing search module actions', () => {
       expect(store.state.results).toEqual(searchResponseStub.results)
       expect(store.state.isNoResults).toBe(false)
       expect(store.state.catalogSection).toBe('section-a')
-      expect(store.state.isCatalogSectionFromFallback).toBe(true)
     })
 
     it('should not retry if the first request returns results', async () => {
@@ -384,7 +383,6 @@ describe('testing search module actions', () => {
       ])
 
       expect(store.state.catalogSection).toBeUndefined()
-      expect(store.state.isCatalogSectionFromFallback).toBe(false)
     })
   })
 

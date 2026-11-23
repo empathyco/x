@@ -36,8 +36,6 @@ export interface SearchState extends StatusState, QueryState {
    * {@link SearchConfig.defaultCatalogSection}.
    */
   catalogSection: string | undefined
-  /** Whether the current `catalogSection` was set by the `noResultsFallback`. */
-  isCatalogSectionFromFallback: boolean
   /** The configuration of the search module. */
   config: SearchConfig
   /** The list of the facets, related to the `query` property of the state. */
@@ -134,16 +132,6 @@ export interface SearchMutations
    * provided, to fall back to the extra params and the default catalog section.
    */
   setCatalogSection: (catalogSection: string | undefined) => void
-  /**
-   * Sets the catalog section selected by the `noResultsFallback`, remembering it.
-   *
-   * @param catalogSection - The catalog section id.
-   */
-  setCatalogSectionFromFallback: (catalogSection: string) => void
-  /**
-   * Resets the catalog section to `undefined`, only if it was set by the `noResultsFallback`.
-   */
-  resetFallbackCatalogSection: () => void
   /**
    * Sets the facets of the module.
    *

@@ -22,12 +22,12 @@ export interface SearchConfig {
    */
   priceSortField?: string
   /**
-   * Extra params to retry the search with, once, when it returns no results. The keys are the ones
-   * of the `extraParams` of the search request (before the adapter), e.g.
-   * `{ section: 'section-a' }`. If the retry returns results, they are shown and the params are
-   * kept: the one named as the `catalogSectionParamKey` becomes the selected catalog section and
-   * the rest are saved as extra params. It is not retried if the request already had all the
-   * values.
+   * Extra params to search again with when a search returns no results, e.g.
+   * `{ section: 'section-a' }`. The keys are those of the request `extraParams`, before the
+   * adapter maps them. All of them are sent together in a single new request. If it has results,
+   * they are shown and the params are kept for the next searches: the one matching the
+   * `catalogSectionParamKey` becomes the selected catalog section, and the rest are stored as
+   * extra params.
    */
   noResultsFallback?: Record<string, string>
 }
