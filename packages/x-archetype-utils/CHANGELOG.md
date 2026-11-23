@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.1.0...@empathyco/x-archetype-utils@2.4.0) (2026-11-23)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [2.3.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.1.0...@empathyco/x-archetype-utils@2.3.0) (2026-11-23)
 
 ### Features
