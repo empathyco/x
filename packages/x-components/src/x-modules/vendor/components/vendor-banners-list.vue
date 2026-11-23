@@ -64,6 +64,20 @@ export default defineComponent({
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
     /**
+     * The injected list items without the banners that are also provided as vendor banners
+     * (same id), so the same banner is not rendered twice.
+     *
+     * @remarks The vendor banner takes precedence over the indexed banner. The state is not
+     * modified, so the banner is rendered again if the vendor banner is removed.
+     */
+    const injectedItemsWithoutDuplicates = computed(() => {
+      const vendorBannerIds = new Set(stateItems.value.map(({ id }) => id))
+      return (injectedListItems?.value ?? []).filter(
+        ({ id, modelName }) => modelName !== 'Banner' || !vendorBannerIds.has(id),
+      )
+    })
+
+    /**
      * Indicates if all the results of the current context have been loaded, to know if the
      * vendor banners can be inserted in positions of not yet loaded pages.
      *
@@ -85,10 +99,10 @@ export default defineComponent({
      * @returns List of {@link ListItem}.
      */
     const items = computed(() => {
-      if (!injectedListItems?.value!.length) {
+      if (!injectedItemsWithoutDuplicates.value.length) {
         return stateItems.value
       }
-      const items = [...injectedListItems.value]
+      const items = [...injectedItemsWithoutDuplicates.value]
       const positionedBanners = stateItems.value.filter(item => item.position != null)
       const unpositionedBanners = stateItems.value.filter(item => item.position == null)
       for (const item of positionedBanners) {

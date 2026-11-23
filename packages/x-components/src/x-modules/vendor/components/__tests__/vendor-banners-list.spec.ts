@@ -68,6 +68,66 @@ async function render({
   }
 }
 
+/**
+ * Mounts the list with the given items injected by an ancestor, and a `Child` that renders the
+ * ids of the list items provided by the list.
+ */
+async function renderWithInjectedItems({
+  list,
+  injectedItems,
+  vendorState,
+  queryPreviewHash,
+}: {
+  list: any
+  injectedItems: ListItem[]
+  vendorState: Partial<VendorState>
+  queryPreviewHash?: string
+}) {
+  const Provider = defineComponent({
+    name: 'Provider',
+    setup() {
+      provide(
+        LIST_ITEMS_KEY as string,
+        computed((): ListItem[] => injectedItems),
+      )
+    },
+    template: `<div><slot /></div>`,
+  })
+  const Child = defineComponent({
+    name: 'Child',
+    setup() {
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
+      return { ids: computed(() => injectedListItems?.value.map(item => item.id).join(',')) }
+    },
+    template: `<p>{{ ids }}</p>`,
+  })
+  const store = new Store<DeepPartial<RootXStoreState>>({})
+  const wrapper = mount(
+    {
+      template: `<Provider><List :query-preview-hash="queryPreviewHash"><Child /></List></Provider>`,
+      components: { Provider, Child, List: list },
+      data: () => ({ queryPreviewHash }),
+    },
+    {
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule, vendorXModule] })],
+      },
+    },
+  )
+  store.replaceState({
+    x: {
+      search: {
+        ...searchXStoreModule.state(),
+        results: injectedItems,
+        totalResults: 100,
+      } as SearchState,
+      vendor: { ...vendorXStoreModule.state(), ...vendorState } as VendorState,
+    },
+  } as any)
+  await nextTick()
+  return wrapper
+}
+
 describe('testing VendorBannersList component', () => {
   it('is an XComponent which has an XModule', async () => {
     const { wrapper } = await render()
@@ -395,5 +455,39 @@ describe('testing VendorBannersList component', () => {
 
     expect(items).toHaveLength(2)
     expect(items.map(item => item.text())).toEqual(queryPreviewVendorBanners.map(b => b.id))
+  })
+
+  it('removes the injected banners that are also vendor banners', async () => {
+    const searchResultsStub = getResultsStub(2)
+    const indexedBanner = { id: 'banner-1', modelName: 'Banner', image: 'b.jpg' } as ListItem
+    const banners = [createVendorBannerStub('1', { id: indexedBanner.id, position: 2 })]
+
+    const wrapper = await renderWithInjectedItems({
+      list: VendorBannersList,
+      injectedItems: [searchResultsStub[0], indexedBanner, searchResultsStub[1]],
+      vendorState: { banners },
+    })
+
+    expect(wrapper.text()).toEqual(
+      [searchResultsStub[0].id, banners[0].id, searchResultsStub[1].id].join(','),
+    )
+  })
+
+  it('removes the query preview banners that are also vendor banners of the query preview', async () => {
+    const queryPreviewHash = 'preview-hash'
+    const previewResultsStub = getResultsStub(2)
+    const indexedBanner = { id: 'banner-1', modelName: 'Banner', image: 'b.jpg' } as ListItem
+    const banners = [createVendorBannerStub('1', { id: indexedBanner.id, position: 1 })]
+
+    const wrapper = await renderWithInjectedItems({
+      list: VendorBannersList,
+      injectedItems: [indexedBanner, ...previewResultsStub],
+      vendorState: { queryPreviews: { [queryPreviewHash]: { results: [], banners } } },
+      queryPreviewHash,
+    })
+
+    expect(wrapper.text()).toEqual(
+      [banners[0].id, previewResultsStub[0].id, previewResultsStub[1].id].join(','),
+    )
   })
 })
