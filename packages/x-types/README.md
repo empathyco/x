@@ -45,7 +45,15 @@ if (isHierarchicalFilter(filter)) {
 }
 ```
 
-Finally, there are some `jest` schemas helpers that you could use to validate your objects.
+Finally, there are some schema helpers for **Vitest** that you could use to validate your
+objects.
+They live in the `@empathyco/x-types/schemas` subpath, which ships both the reference objects
+and the custom matchers used by the X tests (`nullOr`, `arrayOf`, `everyItemToMatch`,
+`toBeAValidURLWithQueryParameters`, ...).
+
+> **Note:** importing this subpath registers those matchers through `expect.extend`, so it must
+> only be imported from test files running under **Vitest** (keep `vitest` in your
+> `devDependencies`). It is not intended for production code.
 
 ```ts
 import { Filter, isHierarchicalFilter } from '@empathyco/x-types'
