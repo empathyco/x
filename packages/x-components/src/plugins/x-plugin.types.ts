@@ -43,7 +43,8 @@ export interface XPluginOptions {
   adapter: XComponentsAdapter
   /**
    * A Vuex store to install the X module. If not passed a new one will be created and injected
-   * into every component.
+   * into every component. The strict mode of Vuex is not supported by the
+   * {@link XModule | XModules} that have a Pinia store: those will use their Vuex store module.
    */
   store?: Store<any>
   /**

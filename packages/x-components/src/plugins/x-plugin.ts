@@ -4,6 +4,7 @@ import type { Pinia } from 'pinia'
 import type { Observable } from 'rxjs'
 import type { App } from 'vue'
 import type { Module, Store } from 'vuex'
+import type { AnyPiniaStore } from '../store/pinia/define-x-store'
 import type { AnyXStoreModule, RootXStoreState } from '../store/store.types'
 import type { XEvent, XEventsTypes } from '../wiring/events.types'
 import type { AnyWire, WireMetadata } from '../wiring/wiring.types'
@@ -13,6 +14,8 @@ import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-
 import { deepMerge, forEach } from '@empathyco/x-utils'
 import { createPinia, disposePinia } from 'pinia'
 import { createStore } from 'vuex'
+import { getXStoreGetterNames, useXStore } from '../store/pinia/define-x-store'
+import { bridgePiniaModule, isStrictStore, linkReplaceState } from '../store/pinia/vuex-bridge'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
 import { bus } from './x-bus'
@@ -167,6 +170,20 @@ export class XPlugin {
    * @internal
    */
   protected ownsPinia = false
+
+  /**
+   * Pinia stores of the {@link XModule | XModules} that use Pinia as their store backend.
+   *
+   * @internal
+   */
+  protected piniaStores = new Map<XModuleName, AnyPiniaStore>()
+
+  /**
+   * Functions to undo the links between the Vuex `replaceState` and the Pinia stores.
+   *
+   * @internal
+   */
+  protected unlinkReplaceStateFns: Array<() => void> = []
 
   /**
    * The Vue application instance, passed by the installation method.
@@ -331,9 +348,102 @@ export class XPlugin {
    * @param xModule - The {@link XModule} to register its Store Module.
    * @internal
    */
-  protected registerStoreModule({ name, storeModule }: AnyXModule): void {
-    ;(storeModule as Module<any, any>).namespaced = true
-    this.store.registerModule(['x', name], storeModule)
+  protected registerStoreModule(xModule: AnyXModule): void {
+    const { name, storeModule, piniaStore } = xModule
+    if (piniaStore && this.canUsePinia(xModule)) {
+      this.registerPiniaStoreModule(xModule)
+    } else {
+      ;(storeModule as Module<any, any>).namespaced = true
+      this.store.registerModule(['x', name], storeModule)
+    }
+  }
+
+  /**
+   * Checks if an {@link XModule} that has a Pinia store can use it as its store backend. If it
+   * cannot, it warns about the reason, and the module falls back to its Vuex store module.
+   *
+   * @param xModule - The {@link XModule} to check.
+   * @returns True if the Pinia store can be used, false if the Vuex store module has to be used.
+   * @internal
+   */
+  protected canUsePinia({ name }: AnyXModule): boolean {
+    const { getters, mutations, actions } =
+      this.options.__PRIVATE__xModules?.[name]?.storeModule ?? ({} as AnyXStoreModuleOption)
+    const hasPrivateOverrides = [getters, mutations, actions].some(
+      overrides => overrides && Object.keys(overrides).length > 0,
+    )
+    if (hasPrivateOverrides) {
+      console.warn(
+        `[XPlugin] The "${name}" module overrides its getters, mutations or actions through ` +
+          '`__PRIVATE__xModules`, which is not supported with a Pinia store. Using Vuex.',
+      )
+      return false
+    }
+    if (isStrictStore(this.store)) {
+      console.warn(
+        `[XPlugin] The Vuex strict mode is not supported with a Pinia store. The "${name}" ` +
+          'module will use Vuex.',
+      )
+      return false
+    }
+    return true
+  }
+
+  /**
+   * Registers the Pinia store of an {@link XModule}, and exposes it through Vuex under the 'x'
+   * module.
+   *
+   * @param xModule - The {@link XModule} to register its Pinia store.
+   * @internal
+   */
+  protected registerPiniaStoreModule({ name, storeModule, piniaStore }: AnyXModule): void {
+    if (!piniaStore) {
+      return
+    }
+    const piniaStoreInstance = useXStore(piniaStore, this.pinia, {
+      stateOverride: this.options.__PRIVATE__xModules?.[name]?.storeModule?.state,
+      config: this.options.xModules?.[name]?.config,
+    })
+    const getterNames = getXStoreGetterNames(piniaStore)
+    this.warnIfStoresDiffer(name, storeModule, piniaStore, getterNames)
+    bridgePiniaModule(this.store, name, piniaStoreInstance, piniaStore.bridge, getterNames)
+    this.unlinkReplaceStateFns.push(linkReplaceState(this.store, name, piniaStoreInstance))
+    this.piniaStores.set(name, piniaStoreInstance)
+  }
+
+  /**
+   * Warns if the names exposed by the Pinia store differ from the ones of the Vuex store module.
+   *
+   * @param name - The name of the {@link XModule}.
+   * @param storeModule - The Vuex store module.
+   * @param piniaStore - The Pinia store definition.
+   * @param getterNames - The names of the Pinia getters.
+   * @internal
+   */
+  protected warnIfStoresDiffer(
+    name: XModuleName,
+    storeModule: AnyXStoreModule,
+    piniaStore: NonNullable<AnyXModule['piniaStore']>,
+    getterNames: string[],
+  ): void {
+    const comparisons = [
+      ['getters', Object.keys(storeModule.getters ?? {}), getterNames],
+      [
+        'mutations',
+        Object.keys(storeModule.mutations ?? {}),
+        Object.keys(piniaStore.bridge.mutations),
+      ],
+      ['actions', Object.keys(storeModule.actions ?? {}), Object.keys(piniaStore.bridge.actions)],
+    ] as const
+    comparisons.forEach(([kind, vuexNames, piniaNames]) => {
+      const missing = vuexNames.filter(vuexName => !piniaNames.includes(vuexName))
+      if (missing.length > 0) {
+        console.warn(
+          `[XPlugin] The Pinia store of the "${name}" module does not expose these ${kind} of ` +
+            `its Vuex store module: ${missing.join(', ')}.`,
+        )
+      }
+    })
   }
 
   /**
@@ -414,6 +524,15 @@ export class XPlugin {
    * @internal
    */
   protected disposePiniaResources(): void {
+    this.unlinkReplaceStateFns.forEach(unlink => {
+      unlink()
+    })
+    this.unlinkReplaceStateFns = []
+    this.piniaStores.forEach(piniaStore => {
+      piniaStore.$dispose()
+      Reflect.deleteProperty(this.pinia.state.value, piniaStore.$id)
+    })
+    this.piniaStores.clear()
     if (this.pinia && this.ownsPinia) {
       disposePinia(this.pinia)
     }
