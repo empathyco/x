@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.2.0...@empathyco/x-design-system@1.7.0) (2026-11-24)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [1.6.0](https://github.com/empathyco/x/compare/@empathyco/x-design-system@1.2.0...@empathyco/x-design-system@1.6.0) (2026-11-23)
 
 ### Features
