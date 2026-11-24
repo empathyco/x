@@ -24,7 +24,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     searchedQueries: [],
     status: 'initial',
     config: {
-      debounceInMs: 200,
+      debounceInMs: 500,
       maxItemsToRequest: 10,
       hideIfEqualsQuery: true,
       hideSessionQueries: true,
