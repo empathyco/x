@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.6.0](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.6.0) (2026-11-24)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [11.5.0](https://github.com/empathyco/x/compare/@empathyco/x-types@11.0.0...@empathyco/x-types@11.5.0) (2026-11-24)
 
 ### Features
