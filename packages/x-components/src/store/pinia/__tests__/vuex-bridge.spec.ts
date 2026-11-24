@@ -114,3 +114,45 @@ describe('vuex bridge', () => {
     })
   })
 })
+
+describe('vuex bridge with several links and a host wrapper', () => {
+  it('keeps replaceState working for the modules that are still linked', () => {
+    const store = createStore<any>({ modules: { x: { namespaced: true } } })
+    const definition = createFixturePiniaStore()
+    const first = useXStore(definition, createPinia())
+    const second = useXStore(definition, createPinia())
+    bridgePiniaModule(store, 'searchBox', first, definition.bridge, [])
+    bridgePiniaModule(store, 'other', second, definition.bridge, [])
+    const unlinkFirst = linkReplaceState(store, 'searchBox', first)
+    const unlinkSecond = linkReplaceState(store, 'other', second)
+
+    unlinkFirst()
+    store.replaceState({ x: { other: { query: 'query-1' }, searchBox: { query: 'query-2' } } })
+
+    expect(second.query).toBe('query-1')
+    expect(first.query).toBe('')
+    unlinkSecond()
+    expect(store.replaceState).toBe(Store.prototype.replaceState)
+  })
+
+  it('does not remove the wrapper that the host adds on top', () => {
+    const store = createStore<any>({ modules: { x: { namespaced: true } } })
+    const definition = createFixturePiniaStore()
+    const piniaStore = useXStore(definition, createPinia())
+    bridgePiniaModule(store, 'searchBox', piniaStore, definition.bridge, [])
+    const unlink = linkReplaceState(store, 'searchBox', piniaStore)
+    const ourReplaceState = store.replaceState
+    let hostCalls = 0
+    store.replaceState = state => {
+      hostCalls++
+      ourReplaceState.call(store, state)
+    }
+    const hostReplaceState = store.replaceState
+
+    unlink()
+    store.replaceState({ x: {} })
+
+    expect(store.replaceState).toBe(hostReplaceState)
+    expect(hostCalls).toBe(1)
+  })
+})

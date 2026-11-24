@@ -126,7 +126,7 @@ function createReplaceStateLinks(store: Store<any>): ReplaceStateLinks {
   // eslint-disable-next-line ts/unbound-method
   const originalReplaceState = store.replaceState
 
-  store.replaceState = (state: any) => {
+  const wrappedReplaceState = (state: any): void => {
     originalReplaceState.call(store, state)
     // eslint-disable-next-line ts/no-unsafe-member-access
     const incomingModules = state?.x as Dictionary<object | undefined> | undefined
@@ -148,9 +148,15 @@ function createReplaceStateLinks(store: Store<any>): ReplaceStateLinks {
     }
   }
 
+  store.replaceState = wrappedReplaceState
+
   return {
     piniaStores,
     restore: () => {
+      // Do not remove the wrapper that a host could have added on top of ours.
+      if (store.replaceState !== wrappedReplaceState) {
+        return
+      }
       if (hadOwnReplaceState) {
         store.replaceState = originalReplaceState
       } else {

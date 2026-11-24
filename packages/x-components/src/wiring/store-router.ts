@@ -84,9 +84,12 @@ export function getPiniaExecutor(
   type: 'commit' | 'dispatch',
   path: string,
 ): ((payload?: unknown) => unknown) | undefined {
-  const [root, name, ...rest] = path.split('/')
   const storeRoutes = routes.get(store)
-  const route = root === 'x' ? storeRoutes?.get(name as XModuleName) : undefined
+  if (!storeRoutes) {
+    return undefined
+  }
+  const [root, name, ...rest] = path.split('/')
+  const route = root === 'x' ? storeRoutes.get(name as XModuleName) : undefined
   const actionName = route?.[type === 'commit' ? 'mutations' : 'actions'][rest.join('/')]
   if (!route || !actionName) {
     return undefined
