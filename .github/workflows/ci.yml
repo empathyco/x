@@ -55,3 +55,7 @@ jobs:
       - name: Check agent skills are packed in the npm tarballs
         # "Install Build & Pack" already built and packed every package.
         run: SKILLS_CHECK_PACKED_NO_BUILD=1 pnpm run skills:check-packed
+
+      - name: Smoke test the packed library in hosts with and without Pinia
+        # "Install Build & Pack" already built and packed every package.
+        run: SMOKE_PACKED_NO_BUILD=1 pnpm run smoke:packed-hosts
