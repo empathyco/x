@@ -2,7 +2,7 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { Pinia } from 'pinia'
 import type { XModuleName } from '../../x-modules/x-modules.types'
 import { deepMerge } from '@empathyco/x-utils'
-import { defineStore } from 'pinia'
+import { createPinia, defineStore, disposePinia } from 'pinia'
 
 /**
  * Names of the Pinia actions that are exposed through Vuex. It can be an array of names, which are
@@ -57,10 +57,28 @@ export interface XStoreDefinitionInput<State extends Dictionary = any> {
 export interface XStoreDefinition<State extends Dictionary = any> {
   name: XModuleName
   id: string
+  /** Names of the getters. */
+  getterNames: string[]
+  /**
+   * The Pinia functions needed by the plugin. They are attached here so only the modules that have
+   * a Pinia store bring Pinia to the bundle of the host.
+   */
+  backend: XStoreBackend
   state: () => State
   getters?: Dictionary<(state: State, getters: any) => unknown>
   actions?: Dictionary<(this: any, ...args: any[]) => unknown>
   bridge: XStoreBridge
+}
+
+/**
+ * The Pinia functions used by the plugin.
+ *
+ * @internal
+ */
+export interface XStoreBackend {
+  createPinia: () => Pinia
+  disposePinia: (pinia: Pinia) => void
+  useXStore: typeof useXStore
 }
 
 /**
@@ -112,6 +130,8 @@ export function defineXStore<State extends Dictionary>(
   return {
     name,
     id: `x/${name}`,
+    getterNames: Object.keys(definition.getters ?? {}),
+    backend: { createPinia, disposePinia, useXStore },
     state: definition.state,
     getters: definition.getters,
     actions: definition.actions,
@@ -142,8 +162,9 @@ export function useXStore(
   const getters = Object.fromEntries(
     Object.entries(definition.getters ?? {}).map(([getterName, getter]) => [
       getterName,
-      function (this: unknown, state: unknown) {
-        return getter(state, this)
+      function (this: { $state: unknown }) {
+        // Pinia gives the whole store as the state, so the `$state` is used to behave as Vuex.
+        return getter(this.$state, this)
       },
     ]),
   )
@@ -154,17 +175,6 @@ export function useXStore(
     actions: definition.actions,
   })
   return useStore(pinia) as unknown as AnyPiniaStore
-}
-
-/**
- * Gets the names of the getters of a definition.
- *
- * @param definition - The descriptor of the store.
- * @returns The names of the getters.
- * @internal
- */
-export function getXStoreGetterNames(definition: AnyXStoreDefinition): string[] {
-  return Object.keys(definition.getters ?? {})
 }
 
 /**

@@ -1,7 +1,7 @@
 import type { FixtureState } from '../../store/pinia/__tests__/pinia-test.utils'
 import type { XPluginOptions } from '../x-plugin.types'
 import { mount } from '@vue/test-utils'
-import { createPinia, getActivePinia } from 'pinia'
+import { createPinia, defineStore, getActivePinia } from 'pinia'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createStore, Store } from 'vuex'
@@ -108,14 +108,15 @@ describe.each<Backend>(['vuex', 'pinia'])('xPlugin with the %s backend', backend
     const subscriber = vi.fn()
     const piniaActionSpy = vi.fn()
     XPlugin.store.subscribe(subscriber)
-    XPlugin.pinia.use(({ store }) => {
-      store.$onAction(piniaActionSpy)
-    })
+    if (backend === 'pinia') {
+      defineStore('x/searchBox', { state: () => ({}) })(XPlugin.pinia).$onAction(piniaActionSpy)
+    }
 
     void XPlugin.bus.emit('UserIsTypingAQuery', 'query-1')
 
     expect(getModuleState().query).toBe('query-1')
     expect(subscriber).toHaveBeenCalledTimes(backend === 'vuex' ? 1 : 0)
+    expect(piniaActionSpy).toHaveBeenCalledTimes(backend === 'pinia' ? 1 : 0)
   })
 
   it('emits the store emitters events', async () => {
@@ -144,7 +145,7 @@ describe('xPlugin with the pinia backend', () => {
   it('holds the state in pinia, sharing it with vuex', () => {
     installWithModule('pinia')
 
-    expect(XPlugin.pinia.state.value['x/searchBox']).toBe(XPlugin.store.state.x.searchBox)
+    expect(XPlugin.pinia!.state.value['x/searchBox']).toBe(XPlugin.store.state.x.searchBox)
   })
 
   it('keeps working with raw commits to the module', () => {
@@ -152,14 +153,14 @@ describe('xPlugin with the pinia backend', () => {
 
     XPlugin.store.commit('x/searchBox/setQuery', 'query-1')
 
-    expect(XPlugin.pinia.state.value['x/searchBox']).toEqual(
+    expect(XPlugin.pinia!.state.value['x/searchBox']).toEqual(
       expect.objectContaining({ query: 'query-1' }),
     )
   })
 
   it('releases the pinia resources when resetting the instance', () => {
     installWithModule('pinia')
-    const { pinia, store } = { pinia: XPlugin.pinia, store: XPlugin.store }
+    const { pinia, store } = { pinia: XPlugin.pinia!, store: XPlugin.store }
 
     XPlugin.resetInstance()
 
@@ -187,7 +188,7 @@ describe('xPlugin falling back to vuex', () => {
       },
     })
 
-    expect(XPlugin.pinia.state.value['x/searchBox']).toBeUndefined()
+    expect(XPlugin.pinia?.state.value['x/searchBox']).toBeUndefined()
     expect(XPlugin.store.getters['x/searchBox/upperQuery']).toBe('overridden')
     expect(warn).toHaveBeenCalledTimes(1)
   })
@@ -195,7 +196,7 @@ describe('xPlugin falling back to vuex', () => {
   it('uses vuex when the store is strict', () => {
     installWithModule('pinia', { store: createStore({ strict: true }) })
 
-    expect(XPlugin.pinia.state.value['x/searchBox']).toBeUndefined()
+    expect(XPlugin.pinia?.state.value['x/searchBox']).toBeUndefined()
     expect(() => {
       XPlugin.store.commit('x/searchBox/setQuery', 'query-1')
     }).not.toThrow()
@@ -203,20 +204,19 @@ describe('xPlugin falling back to vuex', () => {
     expect(warn).toHaveBeenCalledTimes(1)
   })
 
-  it('warns when the pinia store does not expose what the vuex store module has', () => {
-    const xModule = createFixtureXModule(true)
-    xModule.piniaStore!.bridge.mutations = {}
-    mount(
-      { template: '<div/>' },
-      { global: { plugins: [installNewXPlugin({ initialXModules: [xModule] })] } },
-    )
-
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('mutations'))
-  })
-
   it('creates its own pinia when the host installs it after the plugin', () => {
     const hostPinia = createPinia()
-    mount({ template: '<div/>' }, { global: { plugins: [installNewXPlugin(), hostPinia] } })
+    mount(
+      { template: '<div/>' },
+      {
+        global: {
+          plugins: [
+            installNewXPlugin({ initialXModules: [createFixtureXModule(true)] }),
+            hostPinia,
+          ],
+        },
+      },
+    )
 
     expect(XPlugin.pinia).not.toBe(hostPinia)
     expect(getActivePinia()).toBe(hostPinia)

@@ -1,7 +1,7 @@
 import type { FixtureState } from './pinia-test.utils'
 import { createPinia } from 'pinia'
 import { describe, expect, it } from 'vitest'
-import { defineXStore, getXStoreGetterNames, useXStore } from '../define-x-store'
+import { defineXStore, useXStore } from '../define-x-store'
 import { createFixturePiniaStore, createFixtureState } from './pinia-test.utils'
 
 describe('defineXStore', () => {
@@ -64,7 +64,7 @@ describe('defineXStore', () => {
     const store = useXStore(definition, createPinia(), { stateOverride: { query: 'query-1' } })
 
     expect(store.shoutedQuery).toBe('QUERY-1!')
-    expect(getXStoreGetterNames(definition)).toEqual(['upperQuery', 'shoutedQuery'])
+    expect(definition.getterNames).toEqual(['upperQuery', 'shoutedQuery'])
   })
 
   it('normalizes the bridge names, allowing to rename them', () => {

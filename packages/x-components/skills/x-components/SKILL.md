@@ -9,9 +9,7 @@ description: 'Vue 3 + Vuex search UI components from @empathyco/x-components, th
 # @empathyco/x-components
 
 Vue 3 + Vuex 4 components to build a search and discovery UI. Peer dependencies: `vue ^3.5`
-and `vuex 4.0.2` (exact). `pinia ^3.0.4` is an optional peer: it is also installed as a
-dependency, and a Pinia instance already installed in the app is reused. Modules that use a Pinia
-store do not support Vuex `strict` mode: they fall back to their Vuex store module.
+and `vuex 4.0.2` (exact).
 
 It is the core of Interface X, Empathy's open-source set of `@empathyco` packages for commerce
 search UIs. Product docs: https://docs.empathy.co

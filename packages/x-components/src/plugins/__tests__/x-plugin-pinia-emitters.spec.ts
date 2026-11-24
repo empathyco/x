@@ -171,6 +171,7 @@ describe('store emitters with the pinia backend', () => {
       'pinia',
       { SearchBoxQueryChanged: (_state: FixtureState, getters: any) => getters.lowerQuery },
       xModule => {
+        xModule.piniaStore!.getterNames = ['lowerQuery']
         xModule.piniaStore!.getters = {
           lowerQuery: (state: FixtureState) => state.query.toLowerCase(),
         }

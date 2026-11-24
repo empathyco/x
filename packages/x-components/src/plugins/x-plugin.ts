@@ -12,10 +12,8 @@ import type { EventPayload, SubjectPayload, XBus } from '../x-bus'
 import type { AnyXModule, XModuleName } from '../x-modules/x-modules.types'
 import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types'
 import { deepMerge, forEach } from '@empathyco/x-utils'
-import { createPinia, disposePinia } from 'pinia'
 import { effectScope } from 'vue'
 import { createStore } from 'vuex'
-import { getXStoreGetterNames, useXStore } from '../store/pinia/define-x-store'
 import { bridgePiniaModule, isStrictStore, linkReplaceState } from '../store/pinia/vuex-bridge'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
@@ -71,14 +69,14 @@ export class XPlugin {
 
   /**
    * {@link https://pinia.vuejs.org | Pinia} instance used by the plugin. It is the one of the host
-   * if there is any, or a private one otherwise.
+   * if there is any, or a private one that is created when the first module uses Pinia.
    * This property is only available after installing the plugin.
    *
-   * @returns The Pinia instance.
+   * @returns The Pinia instance, or `undefined` if the host has none and no module uses Pinia.
    * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @internal
    */
-  public static get pinia(): Pinia {
+  public static get pinia(): Pinia | undefined {
     return this.getInstance().pinia
   }
 
@@ -163,7 +161,14 @@ export class XPlugin {
    *
    * @internal
    */
-  protected pinia!: Pinia
+  protected pinia?: Pinia
+
+  /**
+   * Function to dispose the Pinia instance created by the plugin.
+   *
+   * @internal
+   */
+  protected disposePinia?: (pinia: Pinia) => void
 
   /**
    * True if the Pinia instance has been created by the plugin, so it is the one in charge of
@@ -369,7 +374,9 @@ export class XPlugin {
 
   /**
    * Checks if an {@link XModule} that has a Pinia store can use it as its store backend. If it
-   * cannot, it warns about the reason, and the module falls back to its Vuex store module.
+   * cannot, it warns about the reason, and the module falls back to its Vuex store module. These
+   * warnings are always emitted, regardless of the environment, because they are caused by the
+   * configuration of the host.
    *
    * @param xModule - The {@link XModule} to check.
    * @returns True if the Pinia store can be used, false if the Vuex store module has to be used.
@@ -405,16 +412,20 @@ export class XPlugin {
    * @param xModule - The {@link XModule} to register its Pinia store.
    * @internal
    */
-  protected registerPiniaStoreModule({ name, storeModule, piniaStore }: AnyXModule): void {
+  protected registerPiniaStoreModule({ name, piniaStore }: AnyXModule): void {
     if (!piniaStore) {
       return
     }
-    const piniaStoreInstance = useXStore(piniaStore, this.pinia, {
+    if (!this.pinia) {
+      this.pinia = piniaStore.backend.createPinia()
+      this.disposePinia = piniaStore.backend.disposePinia
+      this.ownsPinia = true
+    }
+    const piniaStoreInstance = piniaStore.backend.useXStore(piniaStore, this.pinia, {
       stateOverride: this.options.__PRIVATE__xModules?.[name]?.storeModule?.state,
       config: this.options.xModules?.[name]?.config,
     })
-    const getterNames = getXStoreGetterNames(piniaStore)
-    this.warnIfStoresDiffer(name, storeModule, piniaStore, getterNames)
+    const getterNames = piniaStore.getterNames
     bridgePiniaModule(this.store, name, piniaStoreInstance, piniaStore.bridge, getterNames)
     setPiniaStoreRoute(this.store, name, {
       store: piniaStoreInstance,
@@ -423,41 +434,6 @@ export class XPlugin {
     })
     this.unlinkReplaceStateFns.push(linkReplaceState(this.store, name, piniaStoreInstance))
     this.piniaStores.set(name, piniaStoreInstance)
-  }
-
-  /**
-   * Warns if the names exposed by the Pinia store differ from the ones of the Vuex store module.
-   *
-   * @param name - The name of the {@link XModule}.
-   * @param storeModule - The Vuex store module.
-   * @param piniaStore - The Pinia store definition.
-   * @param getterNames - The names of the Pinia getters.
-   * @internal
-   */
-  protected warnIfStoresDiffer(
-    name: XModuleName,
-    storeModule: AnyXStoreModule,
-    piniaStore: NonNullable<AnyXModule['piniaStore']>,
-    getterNames: string[],
-  ): void {
-    const comparisons = [
-      ['getters', Object.keys(storeModule.getters ?? {}), getterNames],
-      [
-        'mutations',
-        Object.keys(storeModule.mutations ?? {}),
-        Object.keys(piniaStore.bridge.mutations),
-      ],
-      ['actions', Object.keys(storeModule.actions ?? {}), Object.keys(piniaStore.bridge.actions)],
-    ] as const
-    comparisons.forEach(([kind, vuexNames, piniaNames]) => {
-      const missing = vuexNames.filter(vuexName => !piniaNames.includes(vuexName))
-      if (missing.length > 0) {
-        console.warn(
-          `[XPlugin] The Pinia store of the "${name}" module does not expose these ${kind} of ` +
-            `its Vuex store module: ${missing.join(', ')}.`,
-        )
-      }
-    })
   }
 
   /**
@@ -504,7 +480,7 @@ export class XPlugin {
         xModule,
         this.bus,
         piniaStore,
-        getXStoreGetterNames(xModule.piniaStore as NonNullable<AnyXModule['piniaStore']>),
+        (xModule.piniaStore as NonNullable<AnyXModule['piniaStore']>).getterNames,
         scope,
       )
     } else {
@@ -527,21 +503,16 @@ export class XPlugin {
   }
 
   /**
-   * Resolves the Pinia instance to use. The one passed in the options has priority, then the one
-   * already installed in the app by the host. If there is none, a private instance is created. It
-   * is never installed in the app, so it does not interfere with the Pinia of the host.
+   * Stores the Pinia instance of the host, the one passed in the options or the one already
+   * installed in the app. If there is none, a private instance is created when the first module
+   * with a Pinia store is registered. It is never installed in the app, so it does not interfere
+   * with the Pinia of the host.
    *
    * @internal
    */
   protected registerPinia(): void {
-    const hostPinia = this.options.pinia ?? this.app.config.globalProperties.$pinia
-    if (hostPinia) {
-      this.pinia = hostPinia
-      this.ownsPinia = false
-    } else {
-      this.pinia = createPinia()
-      this.ownsPinia = true
-    }
+    this.pinia = this.options.pinia ?? this.app.config.globalProperties.$pinia
+    this.ownsPinia = false
   }
 
   /**
@@ -561,12 +532,14 @@ export class XPlugin {
     this.unlinkReplaceStateFns = []
     this.piniaStores.forEach(piniaStore => {
       piniaStore.$dispose()
-      Reflect.deleteProperty(this.pinia.state.value, piniaStore.$id)
+      if (this.pinia) {
+        Reflect.deleteProperty(this.pinia.state.value, piniaStore.$id)
+      }
     })
     this.piniaStores.clear()
     clearStoreRoutes(this.store)
     if (this.pinia && this.ownsPinia) {
-      disposePinia(this.pinia)
+      this.disposePinia?.(this.pinia)
     }
   }
 
