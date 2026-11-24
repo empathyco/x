@@ -32,6 +32,7 @@ export function createFixturePiniaStore() {
         ;(this as FixtureState).query = query
       },
       async fetchSomething() {
+        ;(this as unknown as FixtureState).query = 'fetched'
         return Promise.resolve('done-1')
       },
     },
@@ -64,7 +65,8 @@ export function createFixtureXModule(withPinia: boolean): AnyXModule {
         },
       },
       actions: {
-        async fetchSomething() {
+        async fetchSomething({ commit }: { commit: (type: string, payload: string) => void }) {
+          commit('setQuery', 'fetched')
           return Promise.resolve('done-1')
         },
       },
