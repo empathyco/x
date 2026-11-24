@@ -12,6 +12,7 @@ import type {
   XComponentsAdapter,
 } from '@empathyco/x-types'
 import type { DeepPartial } from '@empathyco/x-utils'
+import type { Pinia } from 'pinia'
 import type { Store } from 'vuex'
 import type { ActionsTree } from '../store/actions.types'
 import type { GettersTree } from '../store/getters.types'
@@ -45,6 +46,14 @@ export interface XPluginOptions {
    * into every component.
    */
   store?: Store<any>
+  /**
+   * Pinia instance of the host application. If it is not passed and the app already has Pinia
+   * installed, that one is reused. Otherwise, the plugin creates a private instance that is not
+   * installed in the app. The plugin never calls `app.use` on a Pinia instance.
+   *
+   * @internal
+   */
+  pinia?: Pinia
   /**
    * A {@link XModule | XModules} to be registered during the {@link XPlugin} installation.
    */

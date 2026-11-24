@@ -1,5 +1,6 @@
 import type { XComponentsAdapter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
+import type { Pinia } from 'pinia'
 import type { Observable } from 'rxjs'
 import type { App } from 'vue'
 import type { Module, Store } from 'vuex'
@@ -10,6 +11,7 @@ import type { EventPayload, SubjectPayload, XBus } from '../x-bus'
 import type { AnyXModule, XModuleName } from '../x-modules/x-modules.types'
 import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types'
 import { deepMerge, forEach } from '@empathyco/x-utils'
+import { createPinia, disposePinia } from 'pinia'
 import { createStore } from 'vuex'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
@@ -60,6 +62,19 @@ export class XPlugin {
    */
   public static get store(): Store<RootXStoreState> {
     return this.getInstance().store
+  }
+
+  /**
+   * {@link https://pinia.vuejs.org | Pinia} instance used by the plugin. It is the one of the host
+   * if there is any, or a private one otherwise.
+   * This property is only available after installing the plugin.
+   *
+   * @returns The Pinia instance.
+   * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
+   * @internal
+   */
+  public static get pinia(): Pinia {
+    return this.getInstance().pinia
   }
 
   /**
@@ -139,6 +154,21 @@ export class XPlugin {
   protected store!: Store<any>
 
   /**
+   * The Pinia instance. It is never installed in the Vue application by the plugin.
+   *
+   * @internal
+   */
+  protected pinia!: Pinia
+
+  /**
+   * True if the Pinia instance has been created by the plugin, so it is the one in charge of
+   * disposing it. The Pinia instance of the host is never disposed.
+   *
+   * @internal
+   */
+  protected ownsPinia = false
+
+  /**
    * The Vue application instance, passed by the installation method.
    *
    * @internal
@@ -181,6 +211,7 @@ export class XPlugin {
    */
   static resetInstance(): void {
     cleanGettersProxyCache()
+    this.instance?.disposePiniaResources()
     this.instance = undefined
   }
 
@@ -215,6 +246,7 @@ export class XPlugin {
     this.options = options
     this.adapter = options.adapter
     this.registerStore()
+    this.registerPinia()
     this.registerInitialModules()
     this.registerPendingXModules()
     this.isInstalled = true
@@ -356,6 +388,37 @@ export class XPlugin {
     this.app.use(this.store)
     this.store.registerModule('x', RootXStoreModule)
   }
+
+  /**
+   * Resolves the Pinia instance to use. The one passed in the options has priority, then the one
+   * already installed in the app by the host. If there is none, a private instance is created. It
+   * is never installed in the app, so it does not interfere with the Pinia of the host.
+   *
+   * @internal
+   */
+  protected registerPinia(): void {
+    const hostPinia = this.options.pinia ?? this.app.config.globalProperties.$pinia
+    if (hostPinia) {
+      this.pinia = hostPinia
+      this.ownsPinia = false
+    } else {
+      this.pinia = createPinia()
+      this.ownsPinia = true
+    }
+  }
+
+  /**
+   * Releases the Pinia resources created by this plugin instance. The Pinia instance of the host
+   * is left untouched.
+   *
+   * @internal
+   */
+  protected disposePiniaResources(): void {
+    if (this.pinia && this.ownsPinia) {
+      disposePinia(this.pinia)
+    }
+  }
+
   /**
    * Registers the initial {@link XModule | XModules} during the {@link XPlugin} installation.
    *
