@@ -2,7 +2,7 @@ import type { XComponentsAdapter } from '@empathyco/x-types'
 import type { Dictionary } from '@empathyco/x-utils'
 import type { Pinia } from 'pinia'
 import type { Observable } from 'rxjs'
-import type { App } from 'vue'
+import type { App, EffectScope } from 'vue'
 import type { Module, Store } from 'vuex'
 import type { AnyPiniaStore } from '../store/pinia/define-x-store'
 import type { AnyXStoreModule, RootXStoreState } from '../store/store.types'
@@ -13,14 +13,15 @@ import type { AnyXModule, XModuleName } from '../x-modules/x-modules.types'
 import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types'
 import { deepMerge, forEach } from '@empathyco/x-utils'
 import { createPinia, disposePinia } from 'pinia'
+import { effectScope } from 'vue'
 import { createStore } from 'vuex'
 import { getXStoreGetterNames, useXStore } from '../store/pinia/define-x-store'
 import { bridgePiniaModule, isStrictStore, linkReplaceState } from '../store/pinia/vuex-bridge'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
-import { clearStoreRoutes, setPiniaStoreRoute } from '../wiring/store-router'
+import { clearStoreRoutes, getStoreBackend, setPiniaStoreRoute } from '../wiring/store-router'
 import { bus } from './x-bus'
-import { registerStoreEmitters } from './x-emitters'
+import { registerPiniaStoreEmitters, registerStoreEmitters } from './x-emitters'
 import { assertXPluginOptionsAreValid } from './x-plugin.utils'
 
 /**
@@ -178,6 +179,13 @@ export class XPlugin {
    * @internal
    */
   protected piniaStores = new Map<XModuleName, AnyPiniaStore>()
+
+  /**
+   * Effect scopes of the store emitters of the modules that use Pinia as their store backend.
+   *
+   * @internal
+   */
+  protected piniaEmittersScopes: EffectScope[] = []
 
   /**
    * Functions to undo the links between the Vuex `replaceState` and the Pinia stores.
@@ -488,7 +496,20 @@ export class XPlugin {
    * @internal
    */
   protected registerStoreEmitters(xModule: AnyXModule): void {
-    registerStoreEmitters(xModule, this.bus, this.store)
+    const piniaStore = this.piniaStores.get(xModule.name)
+    if (piniaStore && getStoreBackend(this.store, xModule.name) === 'pinia') {
+      const scope = effectScope()
+      this.piniaEmittersScopes.push(scope)
+      registerPiniaStoreEmitters(
+        xModule,
+        this.bus,
+        piniaStore,
+        getXStoreGetterNames(xModule.piniaStore as NonNullable<AnyXModule['piniaStore']>),
+        scope,
+      )
+    } else {
+      registerStoreEmitters(xModule, this.bus, this.store)
+    }
   }
 
   /**
@@ -530,6 +551,10 @@ export class XPlugin {
    * @internal
    */
   protected disposePiniaResources(): void {
+    this.piniaEmittersScopes.forEach(scope => {
+      scope.stop()
+    })
+    this.piniaEmittersScopes = []
     this.unlinkReplaceStateFns.forEach(unlink => {
       unlink()
     })
