@@ -10,6 +10,7 @@ import type {
   WireService,
   WireServiceWithoutPayload,
 } from './wiring.types'
+import { getPiniaExecutor } from './store-router'
 
 /**
  * Creates a wire that executes the function passed. This function will receive a
@@ -80,7 +81,16 @@ export function wireCommit<Payload>(mutation: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireCommitWithoutPayload(mutation: string): AnyWire {
-  return (observable, store) => observable.subscribe(() => store.commit(mutation))
+  return (observable, store) => {
+    const piniaExecutor = getPiniaExecutor(store, 'commit', mutation)
+    return observable.subscribe(() => {
+      if (piniaExecutor) {
+        piniaExecutor()
+      } else {
+        store.commit(mutation)
+      }
+    })
+  }
 }
 
 /**
@@ -135,8 +145,13 @@ export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
-  // eslint-disable-next-line ts/no-unsafe-return,ts/no-misused-promises
-  return (observable, store) => observable.subscribe(async () => store.dispatch(action))
+  return (observable, store) => {
+    const piniaExecutor = getPiniaExecutor(store, 'dispatch', action)
+    // eslint-disable-next-line ts/no-misused-promises
+    return observable.subscribe(async () => {
+      return piniaExecutor ? piniaExecutor() : store.dispatch(action)
+    })
+  }
 }
 
 /**
@@ -198,10 +213,12 @@ function createSubscriptionCallback<Payload>(
   mutationOrAction: string,
   payload?: Payload,
 ): (observableValue: WirePayload<Payload>) => void {
-  const storeExecutor = store[commitOrDispatch]
+  const storeExecutor: (path: string, payload?: unknown) => unknown = (() => {
+    const piniaExecutor = getPiniaExecutor(store, commitOrDispatch, mutationOrAction)
+    return piniaExecutor ? (_path, payload) => piniaExecutor(payload) : store[commitOrDispatch]
+  })()
   return typeof payload === 'function'
     ? async wirePayload => {
-        // eslint-disable-next-line ts/no-unsafe-return
         return storeExecutor(
           mutationOrAction,
           // eslint-disable-next-line ts/no-unsafe-call

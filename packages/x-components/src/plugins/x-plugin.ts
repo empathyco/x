@@ -18,6 +18,7 @@ import { getXStoreGetterNames, useXStore } from '../store/pinia/define-x-store'
 import { bridgePiniaModule, isStrictStore, linkReplaceState } from '../store/pinia/vuex-bridge'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
+import { clearStoreRoutes, setPiniaStoreRoute } from '../wiring/store-router'
 import { bus } from './x-bus'
 import { registerStoreEmitters } from './x-emitters'
 import { assertXPluginOptionsAreValid } from './x-plugin.utils'
@@ -407,6 +408,11 @@ export class XPlugin {
     const getterNames = getXStoreGetterNames(piniaStore)
     this.warnIfStoresDiffer(name, storeModule, piniaStore, getterNames)
     bridgePiniaModule(this.store, name, piniaStoreInstance, piniaStore.bridge, getterNames)
+    setPiniaStoreRoute(this.store, name, {
+      store: piniaStoreInstance,
+      mutations: piniaStore.bridge.mutations,
+      actions: piniaStore.bridge.actions,
+    })
     this.unlinkReplaceStateFns.push(linkReplaceState(this.store, name, piniaStoreInstance))
     this.piniaStores.set(name, piniaStoreInstance)
   }
@@ -533,6 +539,7 @@ export class XPlugin {
       Reflect.deleteProperty(this.pinia.state.value, piniaStore.$id)
     })
     this.piniaStores.clear()
+    clearStoreRoutes(this.store)
     if (this.pinia && this.ownsPinia) {
       disposePinia(this.pinia)
     }

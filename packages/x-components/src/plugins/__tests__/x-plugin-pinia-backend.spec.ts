@@ -103,6 +103,21 @@ describe.each<Backend>(['vuex', 'pinia'])('xPlugin with the %s backend', backend
     expect(getModuleState().query).toBe('query-3')
   })
 
+  it('notifies the vuex subscribers only when the commit goes through vuex', () => {
+    installWithModule(backend)
+    const subscriber = vi.fn()
+    const piniaActionSpy = vi.fn()
+    XPlugin.store.subscribe(subscriber)
+    XPlugin.pinia.use(({ store }) => {
+      store.$onAction(piniaActionSpy)
+    })
+
+    void XPlugin.bus.emit('UserIsTypingAQuery', 'query-1')
+
+    expect(getModuleState().query).toBe('query-1')
+    expect(subscriber).toHaveBeenCalledTimes(backend === 'vuex' ? 1 : 0)
+  })
+
   it('emits the store emitters events', async () => {
     installWithModule(backend)
     const subscriber = vi.fn()
@@ -130,6 +145,16 @@ describe('xPlugin with the pinia backend', () => {
     installWithModule('pinia')
 
     expect(XPlugin.pinia.state.value['x/searchBox']).toBe(XPlugin.store.state.x.searchBox)
+  })
+
+  it('keeps working with raw commits to the module', () => {
+    installWithModule('pinia')
+
+    XPlugin.store.commit('x/searchBox/setQuery', 'query-1')
+
+    expect(XPlugin.pinia.state.value['x/searchBox']).toEqual(
+      expect.objectContaining({ query: 'query-1' }),
+    )
   })
 
   it('releases the pinia resources when resetting the instance', () => {
