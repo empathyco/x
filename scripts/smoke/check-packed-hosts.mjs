@@ -38,6 +38,17 @@ const xComponentsDir = join(packagesDir, 'x-components')
 const workspaceDependencies = ['x-adapter', 'x-adapter-platform', 'x-types', 'x-utils']
 
 const errors = []
+const MAX_LAYER_OVERHEAD_BYTES = 6 * 1024
+const hostDirs = new Set()
+const bundleSizes = {}
+
+// The temporary hosts of a failed check are kept on purpose, but not the ones of an interruption.
+process.on('SIGINT', () => {
+  for (const hostDir of hostDirs) {
+    rmSync(hostDir, { recursive: true, force: true })
+  }
+  process.exit(130)
+})
 const steps = []
 
 const step = message => {
@@ -140,7 +151,7 @@ async function main() {
   result.wiredQuery = XPlugin.store.state.x.searchBox.query
   result.hasPinia = !!XPlugin.pinia
   result.hostPiniaInstalled = !!app.config.globalProperties.$pinia
-  result.piniaIsHost = XPlugin.pinia === hostPinia
+  result.piniaIsHost = !!hostPinia && XPlugin.pinia === hostPinia
   result.hostPiniaInstallCalls = hostPiniaInstallCalls
 }
 
@@ -158,7 +169,14 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   logLevel: 'warn',
-  define: { 'process.env.NODE_ENV': '"production"' },
+  // The same flags that @vitejs/plugin-vue defines in a host, so Vue and Pinia devtools code is
+  // removed from the bundle as it is in a real host.
+  define: {
+    'process.env.NODE_ENV': '"production"',
+    __VUE_OPTIONS_API__: 'true',
+    __VUE_PROD_DEVTOOLS__: 'false',
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
+  },
   build: {
     lib: { entry: 'main.js', formats: ['iife'], name: 'Host', fileName: () => 'host.js' },
     minify: true,
@@ -178,6 +196,10 @@ dom.window.eval(readFileSync('dist/host.js', 'utf8'))
 const started = Date.now()
 const interval = setInterval(() => {
   const result = dom.window.__SMOKE__
+  if (!result) {
+    console.log(JSON.stringify({ error: 'The bundle did not set window.__SMOKE__' }))
+    process.exit(0)
+  }
   if (result.done || Date.now() - started > 15000) {
     clearInterval(interval)
     console.log(JSON.stringify(result))
@@ -215,14 +237,15 @@ function typeCheck(hostDir) {
   }
 }
 
-async function checkHost({ name, withPinia }) {
+async function checkHost({ name, withPinia, xComponentsTarball, isBaseline = false }) {
   const label = `host ${name}`
   const hostDir = mkdtempSync(join(tmpdir(), `x-smoke-${name}-`))
+  hostDirs.add(hostDir)
   console.log(`\n> ${label} (${hostDir})`)
   const xComponentsPackage = readJson(join(xComponentsDir, 'package.json'))
   const dev = xComponentsPackage.devDependencies
   const tarballs = {
-    '@empathyco/x-components': getTarball('x-components'),
+    '@empathyco/x-components': xComponentsTarball ?? getTarball('x-components'),
     ...Object.fromEntries(
       workspaceDependencies.map(dependency => [
         readJson(join(packagesDir, dependency, 'package.json')).name,
@@ -259,21 +282,33 @@ async function checkHost({ name, withPinia }) {
     step(`${label}: installed`)
 
     const copies = findInstalledCopies(hostDir, 'pinia')
-    if (copies.length === 1) {
+    if (isBaseline) {
+      step(`${label}: baseline tarball, ${copies.length} copies of pinia`)
+    } else if (copies.length === 1) {
       step(`${label}: a single copy of pinia installed (${copies[0]})`)
     } else {
       fail(
         `${label}: expected a single copy of pinia, found ${copies.length}: ${copies.join(', ')}`,
       )
     }
-    const tree = run('npm', ['ls', 'pinia', '--all'], hostDir)
-    if (!withPinia && !tree.includes('@empathyco/x-components')) {
-      fail(`${label}: pinia does not come from x-components\n${tree}`)
+    if (!isBaseline) {
+      const tree = run('npm', ['ls', 'pinia', '--all'], hostDir)
+      if (!withPinia && !tree.includes('@empathyco/x-components')) {
+        fail(`${label}: pinia does not come from x-components\n${tree}`)
+      }
     }
 
     run('node_modules/.bin/vite', ['build'], hostDir)
     const bundleSize = statSync(join(hostDir, 'dist', 'host.js')).size
+    bundleSizes[name] = bundleSize
     step(`${label}: bundled (${(bundleSize / 1024).toFixed(1)} kB IIFE)`)
+    if (!withPinia && !isBaseline) {
+      // Without modules that have a Pinia store, Pinia must not reach the bundle of the host.
+      const bundle = readFileSync(join(hostDir, 'dist', 'host.js'), 'utf8')
+      if (/\$onAction|\$subscribe/.test(bundle)) {
+        fail(`${label}: the bundle contains pinia code, but no module uses it`)
+      }
+    }
 
     const result = JSON.parse(run('node', ['run-bundle.cjs'], hostDir).trim().split('\n').pop())
     const expectations = {
@@ -282,7 +317,7 @@ async function checkHost({ name, withPinia }) {
       committedQuery: 'query-1',
       getterQuery: 'query-1',
       wiredQuery: 'query-2',
-      hasPinia: true,
+      hasPinia: withPinia,
       hostPiniaInstalled: withPinia,
       piniaIsHost: withPinia,
       hostPiniaInstallCalls: withPinia ? 1 : 0,
@@ -335,6 +370,27 @@ if (!currentTarball(xComponentsDir)) {
     { name: 'with-pinia', withPinia: true },
   ]) {
     await checkHost(host)
+  }
+  // Optional: a tarball built from the base branch, to check that a host without Pinia modules
+  // does not get bigger.
+  const baselineTarball = process.env.SMOKE_PACKED_BASELINE_TARBALL
+  if (baselineTarball) {
+    await checkHost({
+      name: 'baseline',
+      withPinia: false,
+      xComponentsTarball: baselineTarball,
+      isBaseline: true,
+    })
+    const difference = bundleSizes['without-pinia'] - bundleSizes.baseline
+    // The coexistence layer (bridge, router and emitters code) is always bundled, but Pinia is not.
+    if (difference > MAX_LAYER_OVERHEAD_BYTES) {
+      fail(
+        `the bundle without pinia is ${difference} bytes bigger than the baseline ` +
+          `(max ${MAX_LAYER_OVERHEAD_BYTES})`,
+      )
+    } else {
+      step(`the bundle without pinia differs ${difference} bytes from the baseline`)
+    }
   }
 }
 
