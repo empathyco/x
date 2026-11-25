@@ -26,6 +26,7 @@ window.ResizeObserver = MockResizeObserver as any
  * @param options.eventsToCloseModal - eventsToCloseModal option.
  * @param options.eventsToOpenModal - eventsToOpenModal option.
  * @param options.contentClass - contentClass option.
+ * @param options.escapeCloseEvent - escapeCloseEvent option.
  * @returns An API to test the component.
  */
 function mountBaseEventsModal({
@@ -34,13 +35,20 @@ function mountBaseEventsModal({
   eventsToCloseModal,
   eventsToOpenModal,
   contentClass,
+  escapeCloseEvent,
 }: MountBaseEventsModalOptions = {}): MountBaseEventsModalAPI {
   const parent = document.createElement('div')
   document.body.appendChild(parent)
 
   const wrapper = mount(BaseEventsModal, {
     attachTo: parent,
-    props: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal, contentClass },
+    props: {
+      bodyClickEvent,
+      eventsToCloseModal,
+      eventsToOpenModal,
+      contentClass,
+      escapeCloseEvent,
+    },
     slots: {
       default: defaultSlot,
     },
@@ -167,6 +175,41 @@ describe('testing Base Events Modal  component', () => {
     await emit('UserClickedOpenEventsModal')
     expect(getModalContent().classes()).toContain('test-class')
   })
+
+  describe('escapeCloseEvent', () => {
+    it('emits the escapeCloseEvent when the Escape key is pressed while the modal is open', async () => {
+      const escapeCloseEvent = 'UserClickedCloseX'
+      const { emit, wrapper, getModalContent } = mountBaseEventsModal({
+        escapeCloseEvent,
+        eventsToCloseModal: [escapeCloseEvent],
+      })
+      const listener = vi.fn()
+      XPlugin.bus.on(escapeCloseEvent).subscribe(listener)
+
+      await emit('UserClickedOpenEventsModal')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).toHaveBeenCalledTimes(1)
+      expect(getModalContent().exists()).toBe(false)
+    })
+
+    it('does not emit any event when the Escape key is pressed with the default (null) escapeCloseEvent', async () => {
+      const { emit, wrapper, getModalContent } = mountBaseEventsModal()
+      const listener = vi.fn()
+      XPlugin.bus.on('UserClickedCloseEventsModal').subscribe(listener)
+      XPlugin.bus.on('UserClickedOutOfEventsModal').subscribe(listener)
+
+      await emit('UserClickedOpenEventsModal')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).not.toHaveBeenCalled()
+      expect(getModalContent().exists()).toBe(true)
+    })
+  })
 })
 
 interface MountBaseEventsModalOptions {
@@ -180,6 +223,8 @@ interface MountBaseEventsModalOptions {
   eventsToOpenModal?: XEvent[]
   /** Class to add to the content element of the modal. */
   contentClass?: string
+  /** The event emitted when the Escape key is pressed while the modal is open. */
+  escapeCloseEvent?: XEvent | null
 }
 
 interface MountBaseEventsModalAPI {

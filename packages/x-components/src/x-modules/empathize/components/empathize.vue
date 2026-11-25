@@ -7,7 +7,8 @@
       data-test="empathize"
       @mousedown.prevent
       @focusin="open"
-      @focusout="close"
+      @focusout="close()"
+      @keydown.esc="handleEscapeKeydown"
     >
       <!-- @slot (Required) Modal container content -->
       <slot />
@@ -87,11 +88,32 @@ export default defineComponent({
     const changeOpenDebounced = useDebounce((newOpen: boolean) => (isOpen.value = newOpen), 0)
 
     /**
+     * Whether the next open triggered by a focus must be suppressed. After closing on Escape,
+     * focus is returned to the search input; the resulting focus event would otherwise reopen
+     * the empathize, so exactly one subsequent open-from-focus is suppressed.
+     */
+    let suppressNextOpenFromFocus = false
+
+    /**
      * Open empathize. This function will be executed on any event in
      * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on the Empathize root
      * element.
+     *
+     * @remarks After closing on Escape, focus is returned to the search input; the resulting
+     * focus event would otherwise reopen the empathize, so exactly one subsequent open-from-focus
+     * is suppressed.
      */
     function open() {
+      if (suppressNextOpenFromFocus) {
+        const searchInput = document.querySelector<HTMLInputElement>('[data-test="search-input"]')
+        if (searchInput && document.activeElement === searchInput) {
+          // This open is the programmatic refocus after an Escape close - do not reopen.
+          suppressNextOpenFromFocus = false
+          return
+        }
+        // Stale flag (e.g. no search input rendered): clear it and open normally.
+        suppressNextOpenFromFocus = false
+      }
       changeOpenDebounced(true)
     }
 
@@ -99,17 +121,43 @@ export default defineComponent({
      * Close empathize. This function will be executed on any event in
      * {@link Empathize.eventsToCloseEmpathize} and on DOM event `focusout` on the Empathize root
      * element.
+     *
+     * @param explicit - When true (an explicit user intent such as `UserClosedEmpathize` or an
+     * Escape press), the containment guard is bypassed and the empathize always closes. The guard
+     * only protects against implicit blur-triggered closes.
      */
-    function close() {
+    function close(explicit = false) {
       const activeElement = getActiveElement()
-      if (!empathizeRef.value?.contains(activeElement)) {
+      if (explicit || !empathizeRef.value?.contains(activeElement)) {
         changeOpenDebounced(false)
       }
     }
 
+    /**
+     * Handles the Escape keydown on the Empathize root element. Closes the empathize explicitly,
+     * stops the propagation so outer keyboard-navigation containers and modal-level Escape
+     * handlers don't also react on the same keypress, and returns the focus to the search input.
+     *
+     * @param event - The keyboard event with the Escape key pressed.
+     */
+    function handleEscapeKeydown(event: KeyboardEvent) {
+      if (!isOpenAndHasContent.value) {
+        return
+      }
+      event.stopPropagation()
+      close(true)
+      // The programmatic refocus below would reopen the empathize through its focus listeners,
+      // so exactly one subsequent open-from-focus is suppressed.
+      suppressNextOpenFromFocus = true
+      // `data-test="search-input"` is the stable root attribute of the SearchInput component.
+      document.querySelector<HTMLInputElement>('[data-test="search-input"]')?.focus()
+    }
+
     /** Events subscriptions to open and close empathize. */
     props.eventsToOpenEmpathize.forEach(event => $x.on(event, false).subscribe(open))
-    props.eventsToCloseEmpathize.forEach(event => $x.on(event, false).subscribe(close))
+    props.eventsToCloseEmpathize.forEach(event =>
+      $x.on(event, false).subscribe(() => close(event === 'UserClosedEmpathize')),
+    )
 
     let unwatchSearchBoxQuery: WatchStopHandle = () => {}
 
@@ -145,7 +193,7 @@ export default defineComponent({
       },
     )
 
-    return { empathizeRef, isOpenAndHasContent, open, close }
+    return { empathizeRef, isOpenAndHasContent, open, close, handleEscapeKeydown }
   },
 })
 </script>
@@ -161,6 +209,13 @@ A list of events that the component will emit:
 - [`EmpathizeClosed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after receiving an event to change the state `isOpen` to `false` and `hasContent` to `true`.
   The event payload is undefined and can have a metadata with the module and the element that emitted it.
+
+### Escape key handling
+
+When the user presses the Escape key while the empathize is open, it is closed explicitly (the
+close is not skipped even if the focus is still inside the empathize), the keydown propagation is
+stopped so outer keyboard-navigation containers and modal-level Escape handlers don't also react
+on the same keypress, and the focus is returned to the search input.
 
 ## Examples
 

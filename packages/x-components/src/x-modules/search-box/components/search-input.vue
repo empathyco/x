@@ -18,6 +18,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    @keydown.esc="handleEscapeKeydown"
     @beforeinput="preventSpecialKey"
   />
 </template>
@@ -229,6 +230,36 @@ export default defineComponent({
       }
     }
 
+    /** Whether the empathize (predictive layer) is currently open. */
+    let empathizeIsOpen = false
+
+    $x.on('EmpathizeOpened', false).subscribe(() => {
+      empathizeIsOpen = true
+    })
+    $x.on('EmpathizeClosed', false).subscribe(() => {
+      empathizeIsOpen = false
+    })
+
+    /**
+     * Emits event {@link XEventsTypes.UserClosedEmpathize} when the user pressed the Escape key
+     * in the search input.
+     *
+     * @remarks
+     * Escape in the search input first closes the predictive layer (empathize) and stops the
+     * propagation so the modal-level Escape handler doesn't also close the whole layer on the same
+     * keypress. A second Escape (or an Escape press with the empathize already closed) reaches the
+     * modal handler and closes the layer.
+     *
+     * @internal
+     * @param event - The keyboard event with the Escape key pressed.
+     */
+    const handleEscapeKeydown = (event: KeyboardEvent): void => {
+      $x.emit('UserClosedEmpathize', undefined, createEventMetadata())
+      if (empathizeIsOpen) {
+        event.stopPropagation()
+      }
+    }
+
     /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
      * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
@@ -275,6 +306,7 @@ export default defineComponent({
       emitUserIsTypingAQueryEvents,
       emitUserPressedEnterKey,
       emitUserPressedArrowKey,
+      handleEscapeKeydown,
       preventSpecialKey,
     }
   },
@@ -302,6 +334,10 @@ This component emits the following events:
 - [`UserPressedEnterKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 - [`UserPressedArrowKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 - [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserClosedEmpathize`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user presses the Escape key in the search input. When the
+  empathize (predictive layer) is open, the keydown propagation is stopped so the modal-level
+  Escape handler doesn't also close the whole layer on the same keypress.
 
 ## See it in action
 

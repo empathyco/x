@@ -187,4 +187,55 @@ describe('testing empathize component', () => {
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', '', expect.any(Object))
     expect(emitSpy).toHaveBeenCalledWith('EmpathizeClosed', undefined, expect.any(Object))
   })
+
+  it('closes on Escape, refocuses the search input and does not reopen from the refocus', async () => {
+    // A real search input in the test DOM: `data-test="search-input"` is the stable root
+    // attribute of the SearchInput component.
+    const searchInput = document.createElement('input')
+    searchInput.setAttribute('data-test', 'search-input')
+    document.body.appendChild(searchInput)
+
+    const { empathizeContainer } = render({
+      template: `
+        <Empathize v-bind="$attrs">
+          <template #default>
+            <button data-test="empathize-button">Suggestion</button>
+          </template>
+        </Empathize>`,
+    })
+    const empathizeButton = document.querySelector(
+      '[data-test="empathize-button"]',
+    ) as HTMLButtonElement
+
+    // Open the empathize with one of the default open events
+    await XPlugin.bus.emit('UserClickedSearchBox', undefined)
+    vi.runAllTimers()
+    await nextTick()
+    expect(empathizeContainer.isVisible()).toBeTruthy()
+
+    // Put the focus inside the empathize
+    empathizeButton.focus()
+    await nextTick()
+
+    // Press Escape on the empathize root
+    await empathizeContainer.trigger('keydown', { key: 'Escape' })
+    vi.runAllTimers()
+    await nextTick()
+
+    // The explicit close bypasses the containment guard even though the focus was inside
+    expect(empathizeContainer.isVisible()).toBeFalsy()
+    expect(searchInput).toBe(document.activeElement)
+
+    // The programmatic refocus must not reopen the empathize
+    await XPlugin.bus.emit('UserFocusedSearchBox', undefined)
+    vi.runAllTimers()
+    await nextTick()
+    expect(empathizeContainer.isVisible()).toBeFalsy()
+
+    // The suppression is one-shot: a subsequent open event reopens the empathize
+    await XPlugin.bus.emit('UserFocusedSearchBox', undefined)
+    vi.runAllTimers()
+    await nextTick()
+    expect(empathizeContainer.isVisible()).toBeTruthy()
+  })
 })

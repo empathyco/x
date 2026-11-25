@@ -235,6 +235,42 @@ describe('testing search input component', () => {
     await XPlugin.bus.emit('UserPressedClearSearchBoxButton', undefined)
     expect(input).toBe(document.activeElement)
   })
+
+  describe('escape key', () => {
+    it('emits UserClosedEmpathize when the Escape key is pressed in the input', async () => {
+      const { wrapper, listener } = renderSearchInput({ autofocus: false })
+      XPlugin.bus.on('UserClosedEmpathize').subscribe(listener as any)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).toHaveBeenCalledTimes(1)
+    })
+
+    it('stops the Escape keydown propagation when the empathize is open', async () => {
+      const { wrapper, input } = renderSearchInput({ autofocus: false })
+      const parent = input.parentElement as HTMLElement
+      const propagationSpy = vi.fn()
+      parent.addEventListener('keydown', propagationSpy)
+
+      await XPlugin.bus.emit('EmpathizeOpened', undefined)
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(propagationSpy).not.toHaveBeenCalled()
+      parent.removeEventListener('keydown', propagationSpy)
+    })
+
+    it('does not stop the Escape keydown propagation when the empathize is closed', async () => {
+      const { wrapper, input } = renderSearchInput({ autofocus: false })
+      const parent = input.parentElement as HTMLElement
+      const propagationSpy = vi.fn()
+      parent.addEventListener('keydown', propagationSpy)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(propagationSpy).toHaveBeenCalledTimes(1)
+      parent.removeEventListener('keydown', propagationSpy)
+    })
+  })
 })
 
 interface RenderSearchInputOptions {

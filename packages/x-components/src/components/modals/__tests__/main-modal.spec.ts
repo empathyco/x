@@ -130,6 +130,58 @@ describe('testing Main Modal  component', () => {
     await emit('UserClickedOpenX')
     expect(getModalContent().classes()).toContain('test-class')
   })
+
+  describe('escape key', () => {
+    it('emits UserClickedCloseX by default when the Escape key is pressed while the modal is open', async () => {
+      const { emit, wrapper, getModalContent } = renderMainModal()
+      const listener = vi.fn()
+      XPlugin.bus.on('UserClickedCloseX').subscribe(listener)
+
+      await emit('UserClickedOpenX')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).toHaveBeenCalledTimes(1)
+      expect(getModalContent().exists()).toBe(false)
+    })
+
+    it('emits the custom escapeCloseEvent instead of UserClickedCloseX when the Escape key is pressed', async () => {
+      const { emit, wrapper, getModalContent } = renderMainModal({
+        template: '<MainModal escapeCloseEvent="UserClickedOutOfMainModal"/>',
+      })
+      const defaultListener = vi.fn()
+      XPlugin.bus.on('UserClickedCloseX').subscribe(defaultListener)
+      const customListener = vi.fn()
+      XPlugin.bus.on('UserClickedOutOfMainModal').subscribe(customListener)
+
+      await emit('UserClickedOpenX')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(customListener).toHaveBeenCalledTimes(1)
+      expect(defaultListener).not.toHaveBeenCalled()
+      expect(getModalContent().exists()).toBe(false)
+    })
+
+    it('does not emit any event when the Escape key is pressed with escapeCloseEvent set to null', async () => {
+      const { emit, wrapper, getModalContent } = renderMainModal({
+        template: '<MainModal :escapeCloseEvent="null"/>',
+      })
+      const listener = vi.fn()
+      XPlugin.bus.on('UserClickedCloseX').subscribe(listener)
+      XPlugin.bus.on('UserClickedOutOfMainModal').subscribe(listener)
+
+      await emit('UserClickedOpenX')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).not.toHaveBeenCalled()
+      expect(getModalContent().exists()).toBe(true)
+    })
+  })
 })
 
 interface RenderMainModalOptions {

@@ -4,8 +4,8 @@
     :class="dropdownCSSClasses"
     class="x-dropdown"
     @keydown="updateSearchBuffer"
-    @keydown.down.prevent="highlightNextItem"
-    @keydown.up.prevent="highlightPreviousItem"
+    @keydown.down.prevent.stop="highlightNextItem"
+    @keydown.up.prevent.stop="highlightPreviousItem"
   >
     <button
       ref="toggleButtonRef"
@@ -41,9 +41,14 @@
         role="listbox"
         tabindex="-1"
         @keydown.end="highlightLastItem"
-        @keydown.esc="closeAndFocusToggleButton"
+        @keydown.esc.stop="closeAndFocusToggleButton"
         @keydown.home="highlightFirstItem"
       >
+        <!--
+          The dropdown owns the arrow and Escape keyboard semantics (see the `.stop` modifiers on
+          the root and list keydown handlers): outer keyboard-navigation containers and
+          modal-level Escape handlers must not react to these keys.
+        -->
         <li
           v-for="(item, index) in items"
           :key="(item as Identifiable).id ?? item"

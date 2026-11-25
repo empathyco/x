@@ -7,6 +7,7 @@
     :body-click-event="outOfModalClickEvent"
     :animation="animation"
     :focus-on-open="focusOnOpen"
+    :escape-close-event="escapeCloseEvent"
   >
     <slot />
   </BaseEventsModal>
@@ -66,6 +67,14 @@ export default defineComponent({
       type: (String as PropType<XEvent>) || null,
       default: 'UserClickedOutOfMainModal',
     },
+    /**
+     * Event to be emitted by the modal when the Escape key is pressed while it is open. Set it to
+     * one of the events in closeEvents.
+     */
+    escapeCloseEvent: {
+      type: (String as PropType<XEvent>) || null,
+      default: 'UserClickedCloseX',
+    },
   },
 })
 </script>
@@ -76,6 +85,10 @@ export default defineComponent({
 This component emits the following events:
 
 - [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserClickedCloseX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the Escape key is pressed while the modal is open. The event emitted
+  can be customized with the `escapeCloseEvent` prop, which should be one of the events in
+  `closeEvents`. Set the prop to `null` to disable the Escape handling.
 
 ## Examples
 
@@ -116,7 +129,9 @@ import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-component
 The modal events can be customized by changing its props values:
 
 - To add or subtract events to open or close the modal,
-- To modify or remove the default [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts) that the modal emits.
+- To modify or remove the default [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts) that the modal emits,
+- To modify or disable (with `null`) the event emitted when the Escape key is pressed while the
+  modal is open, using the `escapeCloseEvent` prop. It defaults to [`UserClickedCloseX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts), so the modal is closed with Escape by default.
 
 In this example, we are changing the `openEvents` prop to add another event, and removing the event
 that the modal would emit when the user clicks out of the modal.
