@@ -110,7 +110,7 @@ export default defineComponent({
   position: absolute;
   overflow: hidden;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   height: 100%;
 }
 

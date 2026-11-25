@@ -131,7 +131,11 @@ export interface SnippetConfig {
   uiLang?: string
   /** User GDPR consent. */
   consent?: boolean
-  /** Document direction. */
+  /**
+   * Document direction. The host page direction (`dir` on `<html>`, `<body>` or the ancestors of a
+   * teleport target) takes precedence. Right-to-left is detected from the `dir` attribute, so set
+   * it (or this option) instead of only the CSS `direction` property.
+   */
   documentDirection?: DocumentDirection
   /** The currency name. There should be a currency format associated to this name in the app. */
   currency?: string

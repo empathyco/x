@@ -31,6 +31,16 @@ describe('testing AnimateTranslate component', () => {
     expect(transition.vm.name).toBe('x-animate-translate--left-to-right x-animate-translate-')
   })
 
+  it('supports the logical origins, mirrored in right-to-left by CSS', () => {
+    const wrapper = mount(AnimateTranslate, {
+      props: { animationOrigin: 'end' },
+      slots: { default: '<div>Content</div>' },
+    })
+
+    const transition = wrapper.findComponent({ name: 'Transition' })
+    expect(transition.vm.name).toBe('x-animate-translate--end x-animate-translate-')
+  })
+
   it('uses "top" as default animationOrigin', () => {
     const wrapper = mount(AnimateTranslate, {
       slots: {

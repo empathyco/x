@@ -90,6 +90,22 @@ describe('testing SlidingPanel component', () => {
     expect(getRightButton().exists()).toBeFalsy()
   })
 
+  it('mirrors the scroll of the buttons in right-to-left containers', async () => {
+    const { wrapper, getRightButton, getLeftButton, getScroll } = renderSlidingPanel({
+      slots: { default: '<div style="width: 1000px">Content</div>' },
+    })
+    ;(getScroll().element as HTMLElement).style.direction = 'rtl'
+
+    // In RTL `scrollLeft` is 0 at the start (right) edge and negative towards the end (left) edge.
+    await getRightButton().trigger('click')
+    await nextTick()
+    expect(wrapper.vm.xScroll).toBeCloseTo(-70)
+
+    await getLeftButton().trigger('click')
+    await nextTick()
+    expect(wrapper.vm.xScroll).toBeCloseTo(0)
+  })
+
   it('clicking right/left buttons updates the x scroll based on width and scrollFactor', async () => {
     const { wrapper, getRightButton, getLeftButton } = renderSlidingPanel({
       slots: { default: '<div style="width: 1000px">Content</div>' },

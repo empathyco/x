@@ -15,19 +15,23 @@
         class="xds:sliding-panel-button xds:sliding-panel-button-left"
         :class="buttonClass"
         data-test="sliding-panel-left-button"
-        @click="xScroll -= slotContainerWidth * scrollFactor"
+        @click="scrollTowards('start')"
       >
-        <!-- @slot Left button content -->
-        <slot name="sliding-panel-left-button">ᐸ</slot>
+        <!-- @slot Start button content (left in left-to-right, right in right-to-left) -->
+        <slot name="sliding-panel-left-button">
+          <span class="x-sliding-panel__default-arrow">ᐸ</span>
+        </slot>
       </button>
       <button
         class="xds:sliding-panel-button xds:sliding-panel-button-right"
         :class="buttonClass"
         data-test="sliding-panel-right-button"
-        @click="xScroll += slotContainerWidth * scrollFactor"
+        @click="scrollTowards('end')"
       >
-        <!-- @slot Right button content -->
-        <slot name="sliding-panel-right-button">ᐳ</slot>
+        <!-- @slot End button content (right in left-to-right, left in right-to-left) -->
+        <slot name="sliding-panel-right-button">
+          <span class="x-sliding-panel__default-arrow">ᐳ</span>
+        </slot>
       </button>
     </template>
   </div>
@@ -102,6 +106,22 @@ export default defineComponent({
       behavior: 'smooth',
     })
 
+    /**
+     * Scrolls the panel towards its inline start or end edge.
+     *
+     * @remarks `scrollLeft` is physical: in a right-to-left container it is 0 at the start
+     * (right) edge and decreases (negative) towards the end (left) edge, so the delta is mirrored.
+     * `arrivedState.left/right` from `useScroll` already mean start/end in both directions.
+     *
+     * @param edge - The edge to scroll towards.
+     */
+    function scrollTowards(edge: 'start' | 'end') {
+      const container = scrollContainerRef.value
+      const directionSign = container && getComputedStyle(container).direction === 'rtl' ? -1 : 1
+      const edgeSign = edge === 'end' ? 1 : -1
+      xScroll.value += edgeSign * directionSign * slotContainerWidth.value * props.scrollFactor
+    }
+
     /** CSS classes to apply based on the scroll position. */
     const cssClasses = computed(() => ({
       'xds:sliding-panel-at-start': arrivedState.left,
@@ -133,6 +153,7 @@ export default defineComponent({
       scrollContainerRef,
       slotContainerWidth,
       xScroll,
+      scrollTowards,
       slots,
     }
   },
@@ -157,6 +178,14 @@ export default defineComponent({
 
 .x-sliding-panel__scroll > * {
   flex: 0 0 auto;
+}
+
+/* The default arrows point to the inline start/end edge. */
+.x-sliding-panel__default-arrow {
+  display: inline-block;
+}
+.x-sliding-panel__default-arrow:dir(rtl) {
+  scale: -1 1;
 }
 </style>
 

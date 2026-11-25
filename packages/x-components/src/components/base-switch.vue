@@ -98,6 +98,11 @@ export default defineComponent({
   --x-switch-background: #1a1a1a;
 }
 
+/* The handle moves towards the inline end edge. */
+.x-switch--is-selected:dir(rtl) {
+  --x-switch-translate-x: calc((var(--x-switch-padding) + var(--x-switch-width) / 2) * -1);
+}
+
 .x-switch--sm {
   --x-switch-height: 12px;
 }

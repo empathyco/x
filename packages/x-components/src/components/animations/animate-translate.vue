@@ -6,11 +6,11 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { AnimationOrigin } from './types'
+import type { TranslateAnimationOrigin } from './types'
 
 defineProps({
   animationOrigin: {
-    type: String as PropType<AnimationOrigin>,
+    type: String as PropType<TranslateAnimationOrigin>,
     default: 'top',
   },
 })
@@ -59,6 +59,32 @@ defineProps({
   transform: translateX(100%);
 }
 .x-animate-translate--right-to-left.x-animate-translate--leave-to {
+  transform: translateX(-100%);
+}
+
+/* Logical origins: `start`/`end` are the inline edges, mirrored in right-to-left documents. */
+.x-animate-translate--start.x-animate-translate--enter-from,
+.x-animate-translate--start.x-animate-translate--leave-to,
+.x-animate-translate--start-to-end.x-animate-translate--enter-from,
+.x-animate-translate--end-to-start.x-animate-translate--leave-to {
+  transform: translateX(-100%);
+}
+.x-animate-translate--end.x-animate-translate--enter-from,
+.x-animate-translate--end.x-animate-translate--leave-to,
+.x-animate-translate--start-to-end.x-animate-translate--leave-to,
+.x-animate-translate--end-to-start.x-animate-translate--enter-from {
+  transform: translateX(100%);
+}
+.x-animate-translate--start:dir(rtl).x-animate-translate--enter-from,
+.x-animate-translate--start:dir(rtl).x-animate-translate--leave-to,
+.x-animate-translate--start-to-end:dir(rtl).x-animate-translate--enter-from,
+.x-animate-translate--end-to-start:dir(rtl).x-animate-translate--leave-to {
+  transform: translateX(100%);
+}
+.x-animate-translate--end:dir(rtl).x-animate-translate--enter-from,
+.x-animate-translate--end:dir(rtl).x-animate-translate--leave-to,
+.x-animate-translate--start-to-end:dir(rtl).x-animate-translate--leave-to,
+.x-animate-translate--end-to-start:dir(rtl).x-animate-translate--enter-from {
   transform: translateX(-100%);
 }
 </style>
