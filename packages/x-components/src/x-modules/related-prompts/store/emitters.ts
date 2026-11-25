@@ -7,7 +7,10 @@ import { relatedPromptsXStoreModule } from './module'
  * @internal
  */
 export const relatedPromptsStoreEmitters = createStoreEmitters(relatedPromptsXStoreModule, {
-  RelatedPromptsRequestUpdated: (_, getters) => getters.request,
+  RelatedPromptsRequestUpdated: {
+    selector: (_, getters) => getters.request,
+    emitWhenVisible: true,
+  },
   SelectedRelatedPromptChanged: state => state.selectedPrompt,
   RelatedPromptsResponseChanged: state => state.relatedPrompts,
 })

@@ -1,86 +1,93 @@
 <template>
-  <SlidingPanel
-    :key="x.query.search"
-    :fade="selectedPromptIndex === -1"
-    :reset-on-content-change="false"
-    :button-class="buttonClass"
-    :show-buttons="showButtons && selectedPromptIndex === -1"
-    :scroll-container-class="[
-      'x-related-prompts-tag-list-scroll-container',
-      scrollContainerClass || '',
-    ]"
+  <div
+    ref="relatedPromptsTagListElement"
+    class="x-related-prompts-tag-list-container"
+    :class="{ 'x-related-prompts-tag-list-container--placeholder': hasPendingRequest }"
   >
-    <template #sliding-panel-left-button>
-      <!--
-      @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel.
-      -->
-      <slot name="sliding-panel-left-button" />
-    </template>
-    <transition-group
-      class="x-related-prompts-tag-list"
-      :css="false"
-      tag="ul"
-      appear
-      @before-enter="onBeforeEnter"
-      @enter="onEnter"
-      @leave="onLeave"
+    <SlidingPanel
+      v-bind="$attrs"
+      :key="x.query.search"
+      :fade="selectedPromptIndex === -1"
+      :reset-on-content-change="false"
+      :button-class="buttonClass"
+      :show-buttons="showButtons && selectedPromptIndex === -1"
+      :scroll-container-class="[
+        'x-related-prompts-tag-list-scroll-container',
+        scrollContainerClass || '',
+      ]"
     >
-      <li
-        v-for="{ index, ...relatedPrompt } in visibleRelatedPrompts"
-        ref="listItems"
-        :key="relatedPrompt.suggestionText"
-        class="x-related-prompts-tag-list-item"
-        :class="[tagClass, tagColors && tagColors[index % tagColors.length]]"
-        :data-index="index"
-        :style="{
-          ...(selectedPromptIndex === index && { width: '100%' }),
-          ...(isAnimating && { pointerEvents: 'none' }),
-        }"
-        data-test="related-prompts-tag-list-item"
-      >
+      <template #sliding-panel-left-button>
         <!--
-         @slot - The slot to render related prompt information.
-         @prop {Object} relatedPrompt - The related prompt object.
-         @prop {Function} onSelect - The function to select the related prompt.
-         @prop {Boolean} isSelected - Indicates if the related prompt is currently selected.
-         -->
-        <slot
-          :related-prompt="relatedPrompt"
-          :on-select="() => onSelect(index)"
-          :is-selected="selectedPromptIndex === index"
+        @slot sliding-panel-left-button - The button to be displayed on the left side of the sliding panel.
+        -->
+        <slot name="sliding-panel-left-button" />
+      </template>
+      <transition-group
+        class="x-related-prompts-tag-list"
+        :css="false"
+        tag="ul"
+        appear
+        @before-enter="onBeforeEnter"
+        @enter="onEnter"
+        @leave="onLeave"
+      >
+        <li
+          v-for="{ index, ...relatedPrompt } in visibleRelatedPrompts"
+          ref="listItems"
+          :key="relatedPrompt.suggestionText"
+          class="x-related-prompts-tag-list-item"
+          :class="[tagClass, tagColors && tagColors[index % tagColors.length]]"
+          :data-index="index"
+          :style="{
+            ...(selectedPromptIndex === index && { width: '100%' }),
+            ...(isAnimating && { pointerEvents: 'none' }),
+          }"
+          data-test="related-prompts-tag-list-item"
         >
-          <DisplayEmitter
-            :payload="relatedPrompt.tagging?.toolingDisplayTagging!"
-            :event-metadata="{
-              feature: 'related-prompts',
-              displayOriginalQuery: x.query.searchBox,
-              replaceable: false,
-            }"
+          <!--
+           @slot - The slot to render related prompt information.
+           @prop {Object} relatedPrompt - The related prompt object.
+           @prop {Function} onSelect - The function to select the related prompt.
+           @prop {Boolean} isSelected - Indicates if the related prompt is currently selected.
+           -->
+          <slot
+            :related-prompt="relatedPrompt"
+            :on-select="() => onSelect(index)"
+            :is-selected="selectedPromptIndex === index"
           >
-            <RelatedPrompt
-              :related-prompt="relatedPrompt"
-              :selected="selectedPromptIndex === index"
-              @click="onSelect(index)"
+            <DisplayEmitter
+              :payload="relatedPrompt.tagging?.toolingDisplayTagging!"
+              :event-metadata="{
+                feature: 'related-prompts',
+                displayOriginalQuery: x.query.searchBox,
+                replaceable: false,
+              }"
             >
-              <template #related-prompt-extra-content>
-                <!--
-                 @slot related-prompt-extra-content - The slot to render related prompt extra information.
-                 @prop {Object} relatedPrompt - The related prompt object.
-                -->
-                <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
-              </template>
-            </RelatedPrompt>
-          </DisplayEmitter>
-        </slot>
-      </li>
-    </transition-group>
-    <template #sliding-panel-right-button>
-      <!--
-      @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel.
-      -->
-      <slot name="sliding-panel-right-button" />
-    </template>
-  </SlidingPanel>
+              <RelatedPrompt
+                :related-prompt="relatedPrompt"
+                :selected="selectedPromptIndex === index"
+                @click="onSelect(index)"
+              >
+                <template #related-prompt-extra-content>
+                  <!--
+                   @slot related-prompt-extra-content - The slot to render related prompt extra information.
+                   @prop {Object} relatedPrompt - The related prompt object.
+                  -->
+                  <slot name="related-prompt-extra-content" :related-prompt="relatedPrompt" />
+                </template>
+              </RelatedPrompt>
+            </DisplayEmitter>
+          </slot>
+        </li>
+      </transition-group>
+      <template #sliding-panel-right-button>
+        <!--
+        @slot sliding-panel-right-button - The button to be displayed on the right side of the sliding panel.
+        -->
+        <slot name="sliding-panel-right-button" />
+      </template>
+    </SlidingPanel>
+  </div>
 </template>
 
 <script lang="ts">
@@ -88,7 +95,8 @@ import type { PropType } from 'vue'
 import { computed, defineComponent, onBeforeUnmount, ref } from 'vue'
 import DisplayEmitter from '../../../components/display-emitter.vue'
 import SlidingPanel from '../../../components/sliding-panel.vue'
-import { use$x, useState } from '../../../composables'
+import { use$x, useState, useXModuleVisibility } from '../../../composables'
+import { hasXModulePendingEvents } from '../../../plugins/x-modules-visibility'
 import { relatedPromptsXModule } from '../x-module'
 import RelatedPrompt from './related-prompt.vue'
 
@@ -102,8 +110,9 @@ import RelatedPrompt from './related-prompt.vue'
  */
 export default defineComponent({
   name: 'RelatedPromptsTagList',
-  xModule: relatedPromptsXModule.name,
   components: { DisplayEmitter, RelatedPrompt, SlidingPanel },
+  inheritAttrs: false,
+  xModule: relatedPromptsXModule.name,
   props: {
     /**
      * The CSS class for the left and right button of the sliding panel.
@@ -150,6 +159,19 @@ export default defineComponent({
     const x = use$x()
     const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts')
 
+    /** Template ref for the root element to track visibility. */
+    const relatedPromptsTagListElement = ref<HTMLElement | null>(null)
+
+    /**
+     * Reports the component visibility to the module, so the request emitter (flagged with
+     * `emitWhenVisible`) is only launched when the related prompts are displayed.
+     */
+    useXModuleVisibility({
+      moduleName: relatedPromptsXModule.name,
+      element: relatedPromptsTagListElement,
+      rootMargin: '0px 0px 200px 0px',
+    })
+
     const clickedListItemIndex = ref<number | null>(null)
     const initialOffsetLefts: Record<number, number> = {}
     const isAnimating = ref(false)
@@ -174,12 +196,21 @@ export default defineComponent({
           : relatedPrompts.value.length),
     )
 
+    /**
+     * Whether the related prompts request has not been launched yet because they have not been
+     * displayed. While it is pending, the state related prompts are outdated, so they are not
+     * rendered and the component reserves placeholder space (min-height) instead.
+     */
+    const hasPendingRequest = hasXModulePendingEvents(relatedPromptsXModule.name)
+
     const indexRelatedPrompts = computed(() =>
-      relatedPrompts.value.map((relatedPrompt, index) => ({ ...relatedPrompt, index })),
+      hasPendingRequest.value
+        ? []
+        : relatedPrompts.value.map((relatedPrompt, index) => ({ ...relatedPrompt, index })),
     )
 
     const visibleRelatedPrompts = computed(() =>
-      selectedPromptIndex.value !== -1
+      selectedPromptIndex.value !== -1 && indexRelatedPrompts.value[selectedPromptIndex.value]
         ? [indexRelatedPrompts.value[selectedPromptIndex.value]]
         : indexRelatedPrompts.value,
     )
@@ -339,12 +370,18 @@ export default defineComponent({
       listItems,
       isAnimating,
       x,
+      relatedPromptsTagListElement,
+      hasPendingRequest,
     }
   },
 })
 </script>
 
 <style lang="css">
+.x-related-prompts-tag-list-container--placeholder {
+  min-block-size: var(--x-related-prompts-tag-list-placeholder-min-block-size, 70px);
+}
+
 .x-related-prompts-tag-list-scroll-container {
   height: 100%;
   position: relative;

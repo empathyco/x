@@ -47,6 +47,7 @@ vi.mock('../../../../composables', () => ({
     query: queryStub,
   })),
   useState: (module: string, paths: string[]) => xUseStateMock(module, paths),
+  useXModuleVisibility: vi.fn(),
 }))
 
 const maxWidthStub = '100px'

@@ -52,6 +52,13 @@ export interface StateSelector<
    */
   filter?: (newValue: ReturnType, oldValue: ReturnType, state: State) => boolean
   metadata?: Partial<WireMetadata>
+  /**
+   * Only emits the event when the module data is needed: when one of its components becomes
+   * visible (see `useXModuleVisibility`), and only if the selected value is not empty and is
+   * different from the last emitted one; or on every change while a component that always needs
+   * the data is mounted (see `useXModuleDataConsumer`).
+   */
+  emitWhenVisible?: boolean
 }
 
 /**

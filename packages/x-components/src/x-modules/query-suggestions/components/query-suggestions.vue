@@ -1,39 +1,42 @@
 <template>
-  <BaseSuggestions
-    :suggestions="suggestions"
-    class="x-query-suggestions"
-    data-test="query-suggestions"
-  >
-    <template #default="baseScope">
-      <!-- eslint-disable max-len -->
-      <!--
-        @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
-      -->
-      <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...baseScope }">
-        <QuerySuggestion
-          v-slot="querySuggestionScope"
-          :suggestion="baseScope.suggestion"
-          class="x-query-suggestions__suggestion xds:suggestion"
-        >
-          <!-- eslint-disable max-len -->
-          <!--
-            @slot Custom content that replaces the `QuerySuggestion` default content
-                @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
-          -->
-          <!-- eslint-enable max-len -->
-          <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
-        </QuerySuggestion>
-      </slot>
-    </template>
-  </BaseSuggestions>
+  <div ref="querySuggestionsElement" class="x-query-suggestions-container">
+    <BaseSuggestions
+      v-bind="$attrs"
+      :suggestions="suggestions"
+      class="x-query-suggestions"
+      data-test="query-suggestions"
+    >
+      <template #default="baseScope">
+        <!-- eslint-disable max-len -->
+        <!--
+          @slot Custom component that replaces the `QuerySuggestion` component
+              @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+        -->
+        <!-- eslint-enable max-len -->
+        <slot name="suggestion" v-bind="{ ...baseScope }">
+          <QuerySuggestion
+            v-slot="querySuggestionScope"
+            :suggestion="baseScope.suggestion"
+            class="x-query-suggestions__suggestion xds:suggestion"
+          >
+            <!-- eslint-disable max-len -->
+            <!--
+              @slot Custom content that replaces the `QuerySuggestion` default content
+                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+            -->
+            <!-- eslint-enable max-len -->
+            <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
+          </QuerySuggestion>
+        </slot>
+      </template>
+    </BaseSuggestions>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
-import { useGetter } from '../../../composables'
+import { useGetter, useXModuleVisibility } from '../../../composables'
 import { querySuggestionsXModule } from '../x-module'
 import QuerySuggestion from './query-suggestion.vue'
 
@@ -48,11 +51,25 @@ export default defineComponent({
   name: 'QuerySuggestions',
   xModule: querySuggestionsXModule.name,
   components: { BaseSuggestions, QuerySuggestion },
+  inheritAttrs: false,
   setup() {
     /** The module's list of suggestions. */
     const { querySuggestions } = useGetter('querySuggestions')
 
-    return { suggestions: querySuggestions }
+    /** Template ref for the root element to track visibility. */
+    const querySuggestionsElement = ref<HTMLElement | null>(null)
+
+    /**
+     * Reports the component visibility to the module, so the request emitter (flagged with
+     * `emitWhenVisible`) is only launched while the suggestions can be seen.
+     */
+    useXModuleVisibility({
+      moduleName: querySuggestionsXModule.name,
+      element: querySuggestionsElement,
+      rootMargin: '0px 0px 200px 0px',
+    })
+
+    return { suggestions: querySuggestions, querySuggestionsElement }
   },
 })
 </script>
