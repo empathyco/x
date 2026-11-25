@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@11.0.0) (2026-11-25)
+
+### ⚠ BREAKING CHANGES
+
+* **queries-preview:** the `scrollTarget` prop of `QueryPreview` and the `scrollTargetId` option of `useOnDisplay` (both added in 10.3.0) are removed. `QueryPreview` with `loadWhenVisible` now computes its visibility against the nearest ancestor that is actually scrolling it, or the viewport when there is none. Custom code using `useOnDisplay` with `scrollTargetId` should use `scrollContainerAsRoot: true` instead.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add no-results fallback (#2205)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* set query suggestions debounce to 500 ms (#2209)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+* **x-components:** make SlidingPanel, AnimateTranslate, BaseRating, BaseSwitch and BaseTeleport direction-aware (#2212)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* **queries-preview:** compute visibility against the nearest scroll container (#2215)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+* **vendor:** don't render the search results duplicated by vendor results (ENG-2618) (#2208)
+
+
 ## [10.17.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.17.0) (2026-11-25)
 
 ### Features
