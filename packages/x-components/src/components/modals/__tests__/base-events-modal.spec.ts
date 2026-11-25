@@ -209,6 +209,66 @@ describe('testing Base Events Modal  component', () => {
       expect(listener).not.toHaveBeenCalled()
       expect(getModalContent().exists()).toBe(true)
     })
+
+    it('does not emit the escapeCloseEvent when the Escape key is pressed while the modal is closed', async () => {
+      const escapeCloseEvent = 'UserClickedCloseX'
+      const { wrapper } = mountBaseEventsModal({
+        escapeCloseEvent,
+        eventsToCloseModal: [escapeCloseEvent],
+      })
+      const listener = vi.fn()
+      XPlugin.bus.on(escapeCloseEvent).subscribe(listener)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('focus restoration', () => {
+    it('restores the focus to the opener element when the modal closes', async () => {
+      const opener = document.createElement('button')
+      document.body.appendChild(opener)
+      const { getModalContent } = mountBaseEventsModal()
+
+      await XPlugin.bus.emit('UserClickedOpenEventsModal', undefined, {
+        target: opener,
+        moduleName: null,
+      })
+      await nextTick()
+      expect(getModalContent().exists()).toBe(true)
+
+      await XPlugin.bus.emit('UserClickedCloseEventsModal', undefined)
+      await nextTick()
+      await nextTick()
+
+      expect(getModalContent().exists()).toBe(false)
+      expect(document.activeElement).toBe(opener)
+    })
+
+    it('does not restore the focus to the opener when the user moves the focus out of the modal', async () => {
+      const opener = document.createElement('button')
+      document.body.appendChild(opener)
+      const other = document.createElement('button')
+      document.body.appendChild(other)
+      const { fakeFocusIn, getModalContent } = mountBaseEventsModal()
+
+      other.focus()
+      await XPlugin.bus.emit('UserClickedOpenEventsModal', undefined, {
+        target: opener,
+        moduleName: null,
+      })
+      await nextTick()
+      expect(getModalContent().exists()).toBe(true)
+
+      // The user tabs past the last focusable element: focusin fires out of the modal
+      await fakeFocusIn()
+
+      expect(getModalContent().exists()).toBe(false)
+      await nextTick()
+      await nextTick()
+      expect(document.activeElement).toBe(other)
+    })
   })
 })
 

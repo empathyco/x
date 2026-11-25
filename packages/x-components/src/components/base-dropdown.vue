@@ -436,6 +436,12 @@ item, it also receives via prop if the element is selected or highlighted.
 The `toggle` slot can be used to customize the button that opens the dropdown. If this is not
 provided, the `item` slot will be used for that.
 
+## Keyboard handling
+
+The dropdown owns the arrow and Escape keys: the `keydown` events for `ArrowDown`, `ArrowUp` and
+`Escape` are stopped at the dropdown root, so outer keyboard-navigation containers (and
+modal-level Escape handlers) don't receive them.
+
 ```vue
 <template>
   <BaseDropdown v-model="value" :items="items">

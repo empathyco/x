@@ -98,6 +98,13 @@ export default defineComponent({
     )
 
     /**
+     * Whether the modal was closed because the user deliberately moved the focus or the
+     * attention out of the modal (overlay click or focusin outside the content). When that
+     * happens, the focus must not be restored to the element that opened the modal.
+     */
+    let closeFromOutside = false
+
+    /**
      * Emits the event defined in the {@link BaseEventsModal.bodyClickEvent} event unless the passed
      * event target is the button that opened the modal.
      *
@@ -109,6 +116,8 @@ export default defineComponent({
         !openerElement.value ||
         !isElementEqualOrContained(openerElement.value, getTargetElement(event))
       ) {
+        // The user deliberately moved the focus/attention out of the modal.
+        closeFromOutside = true
         $x.emit(props.bodyClickEvent, undefined, { target: baseModalEl.value as HTMLElement })
       }
     }
@@ -122,25 +131,35 @@ export default defineComponent({
     const emitEscapeCloseEvent = (_event: KeyboardEvent) => {
       if (isOpen.value && props.escapeCloseEvent) {
         $x.emit(props.escapeCloseEvent, undefined, {
-          target: baseModalEl.value as HTMLElement,
+          // `baseModalEl` is a component instance; resolve its root element.
+          target: ((baseModalEl.value as unknown as { $el?: HTMLElement })?.$el ??
+            baseModalEl.value) as HTMLElement,
         })
       }
     }
 
     /**
      * Restores the focus to the element that opened the modal when it closes, if that element is
-     * still in the document.
+     * still in the document. The restoration is skipped when the close was caused by the user
+     * deliberately moving the focus or the attention out of the modal (overlay click or
+     * focusin outside the content), so the focus stays where the user moved it.
      *
      * @param isOpen - The new open state of the modal.
      */
     watch(isOpen, isOpen => {
-      if (!isOpen) {
-        nextTick(() => {
-          if (openerElement.value && document.contains(openerElement.value)) {
-            openerElement.value.focus()
-          }
-        })
+      if (isOpen) {
+        closeFromOutside = false
+        return
       }
+      if (closeFromOutside) {
+        closeFromOutside = false
+        return
+      }
+      nextTick(() => {
+        if (openerElement.value && document.contains(openerElement.value)) {
+          openerElement.value.focus()
+        }
+      })
     })
 
     return {

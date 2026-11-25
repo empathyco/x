@@ -19,7 +19,7 @@
 <script lang="ts">
 import type { PropType, WatchStopHandle } from 'vue'
 import type { XEvent } from '../../../wiring'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref, watch } from 'vue'
 import { NoAnimation } from '../../../components'
 import { use$x, useDebounce } from '../../../composables'
 import { AnimationProp } from '../../../types'
@@ -171,6 +171,16 @@ export default defineComponent({
     }, props.searchAndCloseDebounceInMs)
 
     /**
+     * Emits 'EmpathizeClosed' if the empathize is unmounted while it is open, so consumers that
+     * track its open state through the bus (e.g. the search input) stay in sync.
+     */
+    onBeforeUnmount(() => {
+      if (isOpenAndHasContent.value) {
+        $x.emit('EmpathizeClosed', undefined, { target: empathizeRef.value })
+      }
+    })
+
+    /**
      * Watcher triggered when `hasContent` change and the `searchAndCloseOnNoContent` flag is active
      * with the following casuistics:
      * 1. Empathize has content: unwatch the search-box query and cancel debounced search&close.
@@ -209,6 +219,16 @@ A list of events that the component will emit:
 - [`EmpathizeClosed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after receiving an event to change the state `isOpen` to `false` and `hasContent` to `true`.
   The event payload is undefined and can have a metadata with the module and the element that emitted it.
+
+<!-- prettier-ignore-start -->
+:::note Explicit close
+`UserClosedEmpathize` is treated as an **explicit** close: the empathize always closes when it is
+emitted, even if the focus is still inside the empathize. All the other close events
+(`UserSelectedASuggestion`, `UserPressedEnterKey`, `UserBlurredSearchBox`) keep the containment
+guard: the close is skipped while the focus is inside the empathize, so the input→suggestion focus
+move doesn't close it.
+:::
+<!-- prettier-ignore-end -->
 
 ### Escape key handling
 

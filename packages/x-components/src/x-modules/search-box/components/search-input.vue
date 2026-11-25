@@ -254,6 +254,9 @@ export default defineComponent({
      * @param event - The keyboard event with the Escape key pressed.
      */
     const handleEscapeKeydown = (event: KeyboardEvent): void => {
+      // On WebKit, Escape on input[type=search] natively clears the field: prevent it so Escape
+      // deterministically only closes the predictive layer and never the typed query.
+      event.preventDefault()
       $x.emit('UserClosedEmpathize', undefined, createEventMetadata())
       if (empathizeIsOpen) {
         event.stopPropagation()

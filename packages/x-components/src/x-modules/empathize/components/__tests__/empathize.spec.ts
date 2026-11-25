@@ -218,9 +218,15 @@ describe('testing empathize component', () => {
     await nextTick()
 
     // Press Escape on the empathize root
+    const propagationSpy = vi.fn()
+    document.addEventListener('keydown', propagationSpy)
     await empathizeContainer.trigger('keydown', { key: 'Escape' })
+    document.removeEventListener('keydown', propagationSpy)
     vi.runAllTimers()
     await nextTick()
+
+    // The keydown is owned by the empathize and must not bubble out
+    expect(propagationSpy).not.toHaveBeenCalled()
 
     // The explicit close bypasses the containment guard even though the focus was inside
     expect(empathizeContainer.isVisible()).toBeFalsy()
