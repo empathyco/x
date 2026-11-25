@@ -1,5 +1,12 @@
 <template>
   <div class="xds:flex xds:flex-col xds:gap-40">
+    <button
+      class="xds:fixed xds:end-16 xds:top-16 xds:z-10 xds:button xds:button-sm xds:button-lead"
+      data-test="toggle-direction"
+      @click="toggleDirection"
+    >
+      dir: {{ direction }}
+    </button>
     <Layout />
     <Button />
     <ButtonGroup />
@@ -24,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Badge from './components/badge.vue'
 import ButtonGroup from './components/button-group.vue'
 import Button from './components/button.vue'
@@ -43,4 +51,12 @@ import Suggestion from './components/suggestion.vue'
 import Tabs from './components/tabs.vue'
 import Tag from './components/tag.vue'
 import Typography from './components/typography.vue'
+
+const direction = ref<'ltr' | 'rtl'>('ltr')
+
+/** Toggles the document direction to review every component in right-to-left. */
+function toggleDirection() {
+  direction.value = direction.value === 'ltr' ? 'rtl' : 'ltr'
+  document.documentElement.dir = direction.value
+}
 </script>

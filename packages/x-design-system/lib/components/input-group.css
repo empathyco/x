@@ -112,7 +112,7 @@
 
 /* Input Group Primary Button */
 @utility input-group-button-primary {
-  @apply xds:border-0 xds:border-l-1 xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
+  @apply xds:border-0 xds:border-s-1 xds:border-neutral-90 xds:bg-neutral-90 xds:text-neutral-0;
 
   @variant hover-active-focus {
     @apply xds:border-neutral-75 xds:bg-neutral-75;

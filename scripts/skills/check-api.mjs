@@ -15,7 +15,9 @@
  *   the name must be exported by some entry point of the checked packages.
  * - Inline code spans with design-system classes (`xds:button-outlined`) or
  *   theme variables (`--xds-color-*`): they must exist in the x-design-system
- *   CSS sources.
+ *   CSS sources. Tailwind core utilities are also valid with the `xds:` prefix
+ *   (`xds:border-s`, `xds:text-start`), the same as the physical ones
+ *   (`xds:border-l`, `xds:left-0`): they are checked with the Tailwind compiler.
  *
  * Directives (HTML comments, invisible to agents reading rendered markdown):
  * - `<!-- skills-check packages: @empathyco/x-components, @empathyco/x-types -->`
@@ -164,6 +166,27 @@ function isFunctionalUtility(utility) {
 
 let designSystem = null
 
+/**
+ * Tailwind compiler of the design system entry point (`@import 'tailwindcss' prefix(xds)`), used
+ * to recognise the Tailwind core utilities with the `xds:` prefix (`xds:border-s`, `xds:left-0`).
+ */
+const tailwind = await (async () => {
+  const libDir = join(packages.get('@empathyco/x-design-system').dir, 'lib')
+  const entry = join(libDir, 'index.css')
+  const { compile } = await import(require.resolve('@tailwindcss/node'))
+  return compile(readFileSync(entry, 'utf8'), { base: libDir, from: entry, onDependency() {} })
+})()
+
+/**
+ * Checks whether a prefixed class (`xds:border-s`) is a Tailwind core utility by building it.
+ *
+ * @returns {boolean} If Tailwind generates a rule for the class.
+ */
+function isTailwindUtility(token) {
+  const selector = `.${token.replace(/[:/.[\]()%]/g, match => `\\${match}`)}`
+  return tailwind.build([token]).includes(selector)
+}
+
 const TAILWIND_VARIANTS = new Set(
   'hover focus focus-visible focus-within active visited disabled checked first last odd even empty group-hover group-focus peer-hover peer-checked before after placeholder dark sm md lg xl 2xl print motion-safe motion-reduce rtl ltr'.split(
     ' ',
@@ -188,8 +211,12 @@ function checkDesignSystemToken(token, where) {
       fail(`${where}: "${token}" uses an unknown custom variant "${variant}"`)
     }
   }
-  if (!designSystem.utilities.has(utility) && !isFunctionalUtility(utility)) {
-    fail(`${where}: "${token}" is not a design-system utility`)
+  if (
+    !designSystem.utilities.has(utility) &&
+    !isFunctionalUtility(utility) &&
+    !isTailwindUtility(token)
+  ) {
+    fail(`${where}: "${token}" is not a design-system or Tailwind utility`)
   }
 }
 
