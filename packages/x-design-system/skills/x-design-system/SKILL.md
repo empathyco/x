@@ -52,12 +52,28 @@ mean the inline start/end edge and are mirrored in right-to-left (`attach-*`, `s
 `layout-*-margin-*`). Logical aliases exist for new code: `xds:sliding-panel-button-start/end`,
 `xds:layout-no-margin-start/end`, `xds:layout-on-margin-start/end`, `xds:layout-container-ms/me-*`.
 
-- Prefer the Tailwind logical utilities, which render exactly like the physical ones in
-  left-to-right: `xds:ms-*`/`xds:me-*`, `xds:ps-*`/`xds:pe-*`, `xds:start-*`/`xds:end-*`,
-  `xds:border-s`/`xds:border-e`, `xds:rounded-s`/`xds:rounded-e` (`-ss`, `-se`, `-es`, `-ee`),
-  `xds:text-start`/`xds:text-end`.
-- `xds:flip-rtl` mirrors direction-meaningful icons (chevrons, arrows) in right-to-left.
+- Prefer the Tailwind logical utilities, also under the `xds:` prefix. They render exactly like
+  the physical ones in left-to-right and are mirrored in right-to-left:
+
+  | Physical (left-to-right only)       | Logical (both directions)           |
+  | ----------------------------------- | ----------------------------------- |
+  | `xds:ml-4` / `xds:mr-4`             | `xds:ms-4` / `xds:me-4`             |
+  | `xds:pl-4` / `xds:pr-4`             | `xds:ps-4` / `xds:pe-4`             |
+  | `xds:left-0` / `xds:right-0`        | `xds:start-0` / `xds:end-0`         |
+  | `xds:border-l` / `xds:border-r`     | `xds:border-s` / `xds:border-e`     |
+  | `xds:rounded-l` / `xds:rounded-r`   | `xds:rounded-s` / `xds:rounded-e`   |
+  | `xds:rounded-tl` / `xds:rounded-tr` | `xds:rounded-ss` / `xds:rounded-se` |
+  | `xds:rounded-bl` / `xds:rounded-br` | `xds:rounded-es` / `xds:rounded-ee` |
+  | `xds:text-left` / `xds:text-right`  | `xds:text-start` / `xds:text-end`   |
+
+- `xds:flip-rtl` mirrors direction-meaningful icons (chevrons, arrows) in right-to-left. Put it on
+  an svg, an `inline-block` or a flex item (`scale` has no effect on plain inline text), and not
+  together with `xds:scale-*` (both set `scale`).
 - `xds:rtl:…` / `xds:ltr:…` variants for anything else.
+- Set the direction with the `dir` attribute (`<html dir="rtl">`, or on the app root inside a shadow
+  root), not only with the CSS `direction` property: the `rtl` variant follows `dir`, while the
+  logical properties follow `direction`. Avoid `dir="ltr"` islands inside right-to-left pages for
+  the mirrored components (the `rtl` variant also matches descendants of `[dir="rtl"]`).
 
 ## Theme variables
 

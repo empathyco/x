@@ -1,7 +1,8 @@
 /* Direction */
 /* Mirrors an element horizontally in right-to-left documents. Use it on icons whose meaning depends
  * on the reading direction (chevrons, arrows, "back"/"next"), not on symmetric or universal ones
- * (close, search, cart, play). */
+ * (close, search, cart, play). `scale` only applies to transformable boxes (svg, inline-block, flex
+ * items), and it is the same property the `scale-*` utilities set. */
 @utility flip-rtl {
   @variant rtl {
     scale: -1 1;

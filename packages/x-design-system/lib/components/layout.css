@@ -1,8 +1,7 @@
 /* Base */
 @utility layout {
   @media (hover: hover) and (pointer: fine) {
-    .xds\:scroll
-      > .xds\:layout-item:not(.xds\:layout-no-margin-right):not(.xds\:layout-no-margin-end) {
+    .xds\:scroll > .xds\:layout-item:not(.xds\:layout-no-margin-right, .xds\:layout-no-margin-end) {
       --xds-layout-scroll-width: 17px;
     }
   }

@@ -10,6 +10,14 @@
   @variant rtl {
     --xds-sliding-panel-fade-end-edge: to right;
     --xds-sliding-panel-fade-start-edge: to left;
+
+    & > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start) {
+      @apply xds:right-0 xds:left-auto;
+    }
+
+    & > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
+      @apply xds:right-auto xds:left-0;
+    }
   }
 }
 
@@ -47,12 +55,15 @@
   @apply xds:translate-x-0 xds:transition-all xds:duration-200 xds:ease-out;
 }
 
+/* Physical `left`/`right` (instead of `start-0`/`end-0`) keep the left-to-right output and its order
+ * against consumer `xds:left-*`/`xds:right-*` classes. They are swapped in right-to-left by the
+ * `sliding-panel` utility, with the same `rtl` variant as the button translations. */
 @utility sliding-panel-button-left {
-  @apply xds:start-0;
+  @apply xds:left-0;
 }
 
 @utility sliding-panel-button-right {
-  @apply xds:end-0;
+  @apply xds:right-0;
 }
 
 /* Logical aliases */
