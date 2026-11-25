@@ -6,11 +6,11 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { AnimationOrigin } from './types'
+import type { TranslateAnimationOrigin } from './types'
 
 defineProps({
   animationOrigin: {
-    type: String as PropType<AnimationOrigin>,
+    type: String as PropType<TranslateAnimationOrigin>,
     default: 'top',
   },
 })

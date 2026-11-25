@@ -1,7 +1,7 @@
 import type { ComponentMountingOptions } from '@vue/test-utils'
 import { enableAutoUnmount, flushPromises, mount, renderToString } from '@vue/test-utils'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
-import { createSSRApp, nextTick } from 'vue'
+import { createSSRApp, nextTick, reactive } from 'vue'
 import BaseTeleport from '../base-teleport.vue'
 
 /**
@@ -67,40 +67,61 @@ describe('testing BaseTeleport component', () => {
 
     describe('document direction', () => {
       afterEach(() => {
-        document.documentElement.dir = ''
+        document.documentElement.removeAttribute('dir')
+        document.body.removeAttribute('dir')
+        targetElement.removeAttribute('dir')
       })
 
-      it('applies the snippet `documentDirection` to the teleport host', async () => {
+      /**
+       * Renders the teleport with the given snippet config and waits for its host.
+       *
+       * @param snippetConfig - The provided snippet config.
+       * @returns The teleport host element.
+       */
+      async function renderHost(snippetConfig?: Record<string, unknown>) {
         render({
           props: { target: '#teleport-target' },
-          global: { provide: { snippetConfig: { documentDirection: 'rtl' } } },
+          global: { provide: snippetConfig ? { snippetConfig } : {} },
         })
-
-        await vi.waitFor(() => {
-          expect(document.querySelector('.x-base-teleport')?.getAttribute('dir')).toBe('rtl')
-        })
-      })
-
-      it('lets the host page direction take precedence over the snippet one', async () => {
-        document.documentElement.dir = 'ltr'
-        render({
-          props: { target: '#teleport-target' },
-          global: { provide: { snippetConfig: { documentDirection: 'rtl' } } },
-        })
-
         await vi.waitFor(() => {
           expect(document.querySelector('.x-base-teleport')).not.toBeNull()
         })
-        expect(document.querySelector('.x-base-teleport')?.hasAttribute('dir')).toBe(false)
-      })
+        return document.querySelector('.x-base-teleport')!
+      }
 
-      it('does not set any direction without a snippet `documentDirection`', async () => {
-        render({ props: { target: '#teleport-target' } })
+      it('applies a right-to-left snippet `documentDirection` to the teleport host', async () => {
+        const host = await renderHost({ documentDirection: 'rtl' })
 
         await vi.waitFor(() => {
-          expect(document.querySelector('.x-base-teleport')).not.toBeNull()
+          expect(host.getAttribute('dir')).toBe('rtl')
         })
-        expect(document.querySelector('.x-base-teleport')?.hasAttribute('dir')).toBe(false)
+      })
+
+      it('does not add any attribute for left-to-right or without `documentDirection`', async () => {
+        expect((await renderHost({ documentDirection: 'ltr' })).hasAttribute('dir')).toBe(false)
+      })
+
+      it.each([
+        ['<html>', () => (document.documentElement.dir = 'ltr')],
+        ['<body>', () => (document.body.dir = 'ltr')],
+        ['the target', () => targetElement.setAttribute('dir', 'ltr')],
+      ])('lets the direction of %s take precedence', async (_, setDirection) => {
+        setDirection()
+
+        expect((await renderHost({ documentDirection: 'rtl' })).hasAttribute('dir')).toBe(false)
+      })
+
+      it('removes the direction when the snippet `documentDirection` changes', async () => {
+        const snippetConfig = reactive<Record<string, unknown>>({ documentDirection: 'rtl' })
+        const host = await renderHost(snippetConfig)
+        await vi.waitFor(() => {
+          expect(host.getAttribute('dir')).toBe('rtl')
+        })
+
+        snippetConfig.documentDirection = undefined
+        await nextTick()
+
+        expect(host.hasAttribute('dir')).toBe(false)
       })
     })
 

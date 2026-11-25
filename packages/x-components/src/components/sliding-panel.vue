@@ -17,8 +17,10 @@
         data-test="sliding-panel-left-button"
         @click="scrollTowards('start')"
       >
-        <!-- @slot Left button content -->
-        <slot name="sliding-panel-left-button">ᐸ</slot>
+        <!-- @slot Start button content (left in left-to-right, right in right-to-left) -->
+        <slot name="sliding-panel-left-button">
+          <span class="x-sliding-panel__default-arrow">ᐸ</span>
+        </slot>
       </button>
       <button
         class="xds:sliding-panel-button xds:sliding-panel-button-right"
@@ -26,8 +28,10 @@
         data-test="sliding-panel-right-button"
         @click="scrollTowards('end')"
       >
-        <!-- @slot Right button content -->
-        <slot name="sliding-panel-right-button">ᐳ</slot>
+        <!-- @slot End button content (right in left-to-right, left in right-to-left) -->
+        <slot name="sliding-panel-right-button">
+          <span class="x-sliding-panel__default-arrow">ᐳ</span>
+        </slot>
       </button>
     </template>
   </div>
@@ -174,6 +178,14 @@ export default defineComponent({
 
 .x-sliding-panel__scroll > * {
   flex: 0 0 auto;
+}
+
+/* The default arrows point to the inline start/end edge. */
+.x-sliding-panel__default-arrow {
+  display: inline-block;
+}
+.x-sliding-panel__default-arrow:dir(rtl) {
+  scale: -1 1;
 }
 </style>
 

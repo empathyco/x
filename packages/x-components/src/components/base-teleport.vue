@@ -19,6 +19,9 @@ import {
   watchEffect,
 } from 'vue'
 
+/** Elements with an explicit direction (an empty `dir` attribute doesn't set any). */
+const DIR_SELECTOR = '[dir="ltr"], [dir="rtl"], [dir="auto"]'
+
 export default defineComponent({
   name: 'BaseTeleport',
   props: {
@@ -126,18 +129,20 @@ export default defineComponent({
 
     /*
      * The teleported content is placed outside the application root, so it inherits the direction
-     * of the host page. When the host page doesn't set a direction, the snippet `documentDirection`
-     * is applied to the teleport host. The host page direction always takes precedence.
+     * of the host page. A right-to-left snippet `documentDirection` is applied to the teleport host
+     * when the host page doesn't set a direction on the target or any of its ancestors (including
+     * `<html>` and `<body>`), which always takes precedence. Left-to-right is the default, so it
+     * doesn't add any attribute.
      */
     watchEffect(() => {
-      const documentDirection = snippetConfig?.documentDirection
-      if (
-        teleportHost.value &&
-        documentDirection &&
-        !document.documentElement.dir &&
-        !document.body.dir
-      ) {
-        teleportHost.value.dir = documentDirection
+      if (!teleportHost.value) {
+        return
+      }
+      const hostPageDirection = (targetElement.value ?? document.body).closest(DIR_SELECTOR)
+      if (snippetConfig?.documentDirection === 'rtl' && !hostPageDirection) {
+        teleportHost.value.dir = 'rtl'
+      } else {
+        teleportHost.value.removeAttribute('dir')
       }
     })
 
@@ -252,4 +257,7 @@ Prevent teleporting the content:
 - When using the `onlychild` position, all other children of the target element will be hidden.
 - The component supports shadow DOM integration, automatically handling style injection. Anyway, Empathy's custom CSS
   injector is required. Teleport depends on it to add the styles.
+- The teleported content inherits the direction of the host page. When the snippet config sets
+  `documentDirection: 'rtl'` and the target has no `dir` on itself or its ancestors, the teleport
+  host gets `dir="rtl"`.
 </docs>
