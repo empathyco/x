@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.1.0...@empathyco/x-utils@1.9.0) (2026-11-25)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [1.8.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.1.0...@empathyco/x-utils@1.8.0) (2026-11-25)
 
 ### Features
