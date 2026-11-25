@@ -301,8 +301,9 @@ userSchema.$override<ApiUserWithAge, { age: number }>({
 
 A schema, and each one of its modifications, accepts a `source` validator: any object with a
 `safeParse` method, like a [Zod](https://zod.dev) schema. `@empathyco/x-adapter` does not depend on
-Zod, so install it in your project if you want to use it. The types of the source are then
-inferred from the validator:
+Zod, so install it in your project if you want to use it. **Zod 4 is required** (`zod@^4`): the
+examples use `z.looseObject` and `zod/mini`, which do not exist in Zod 3. The types of the source
+are then inferred from the validator:
 
 ```ts
 import * as z from 'zod/mini' // or `import { z } from 'zod'`

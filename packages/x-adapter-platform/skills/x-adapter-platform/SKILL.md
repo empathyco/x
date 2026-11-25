@@ -4,7 +4,7 @@ description: 'Preconfigured Empathy Platform API adapter (@empathyco/x-adapter-p
 ---
 
 <!-- skills-check packages: @empathyco/x-adapter-platform, @empathyco/x-adapter, @empathyco/x-types -->
-<!-- skills-check ignore: XInstaller, aiSuggestions, Response, extraParams -->
+<!-- skills-check ignore: XInstaller, aiSuggestions, Response, extraParams, safeParse -->
 
 # @empathyco/x-adapter-platform
 
@@ -53,6 +53,33 @@ resultSchema.$override<MyPlatformResult, Partial<Result>>({
   transform: source => ({ season: source.season }),
 })
 ```
+
+Validating the extra fields (optional): a modification accepts a `source` validator, any object
+with `safeParse` such as a Zod schema. The package does not depend on Zod: install `zod@^4` in the
+project (`z.looseObject` and `zod/mini` do not exist in Zod 3). Types are inferred from it:
+
+```ts
+import * as z from 'zod/mini'
+
+resultSchema.$override({
+  source: z.looseObject({ season: z.string() }),
+  transform: source => ({ season: source.season }),
+})
+```
+
+If the source does not match, a warning is logged and the raw source is mapped anyway.
+
+## Common mistakes
+
+- The object returned by `transform` is **shallow merged** with the already mapped one (second
+  parameter). To change a nested field return the whole object: `price: { ...result.price, tax }`.
+- Properties returned as `undefined` are ignored, so `$override` cannot remove a mapped property.
+  Use `$replace` to define the whole schema instead.
+- Path based overrides (`$override({ season: 'season' })`) no longer work: write a `transform`
+  function.
+- `$override` and `$replace` change the shared schema for every endpoint; use `$extends` for a copy.
+- `getFacetConfig(type).schema` is a `TransformSchema` too: use `schema.$extends({ transform })`.
+- Use `z.looseObject()` (not `z.object()`) in `source`, to describe only the fields you need.
 
 ## Helpers
 

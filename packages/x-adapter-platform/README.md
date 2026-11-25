@@ -321,7 +321,9 @@ resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
 
 Optionally, you can validate the new properties of the API result with a
 [Zod](https://zod.dev) schema instead of declaring an interface. Their types are inferred from it,
-and a warning is logged when the API does not return what you expect:
+and a warning is logged when the API does not return what you expect. This package does not depend
+on Zod, so install it in your project (**Zod 4 is required**, `zod@^4`: `z.looseObject` and
+`zod/mini` do not exist in Zod 3):
 
 ```ts
 import * as z from 'zod/mini'
