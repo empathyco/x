@@ -56,8 +56,10 @@ function createSchema(layers: Layer[]): TransformSchema<any, any> {
         return undefined
       }
       // The raw source is the base, so validators that strip unknown keys do not lose data.
+      // Each validator receives the data accumulated so far, so it does not undo the values
+      // coerced by the previous ones.
       const validated = layers.reduce<unknown>(
-        (data, layer) => (layer.source ? merge(data, validate(layer.source, source)) : data),
+        (data, layer) => (layer.source ? merge(data, validate(layer.source, data)) : data),
         source,
       )
       return layers.reduce<unknown>(

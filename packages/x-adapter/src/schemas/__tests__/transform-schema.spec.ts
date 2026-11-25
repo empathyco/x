@@ -131,6 +131,32 @@ describe('createTransformSchema', () => {
       expect(warn).toHaveBeenCalledTimes(1)
     })
 
+    it('keeps the values coerced by previous validators', () => {
+      const schema = createTransformSchema({
+        source: z.looseObject({ rows: z.coerce.number() }),
+        transform: source => ({ rows: source.rows }),
+      }).$override({
+        source: z.looseObject({ brand: z.string() }),
+        transform: (source, target) => ({ brand: source.brand, rows: target.rows }),
+      })
+
+      expect(schema.parse({ rows: '12', brand: 'x' })).toStrictEqual({ rows: 12, brand: 'x' })
+      expect(warn).not.toHaveBeenCalled()
+    })
+
+    it('keeps the values coerced by previous validators when a later one fails', () => {
+      const schema = createTransformSchema({
+        source: z.looseObject({ rows: z.coerce.number() }),
+        transform: source => ({ rows: source.rows }),
+      }).$override({
+        source: z.looseObject({ brand: z.string() }),
+        transform: (_source, target) => ({ rows: target.rows }),
+      })
+
+      expect(schema.parse({ rows: '12', brand: 3 })).toStrictEqual({ rows: 12 })
+      expect(warn).toHaveBeenCalledTimes(1)
+    })
+
     it('keeps the properties that the validators strip', () => {
       const schema = createTransformSchema({
         source: z.object({ sku: z.string() }),
