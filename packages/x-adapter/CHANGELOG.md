@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.9.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.9.0) (2026-11-25)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [8.8.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@8.8.0) (2026-11-24)
 
 ### Features
