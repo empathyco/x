@@ -70,13 +70,6 @@ export default defineComponent({
       default: false,
     },
     /**
-     * The id of the scroll container to compute the visibility against.
-     */
-    scrollTarget: {
-      type: String,
-      default: 'main-scroll',
-    },
-    /**
      * Debounce time in milliseconds for triggering the search requests.
      * It will default to 0 to fit the most common use case (pre-search),
      * and it would work properly with a 250 value inside empathize.
@@ -243,17 +236,16 @@ export default defineComponent({
      *
      * It is only set up when `loadWhenVisible` is enabled.
      *
-     * The visibility is computed against the `MainScroll` container (`#main-scroll`) when it
-     * exists, so the `rootMargin` preload zone works. When the container is not present
-     * (e.g. host applications that scroll with the window via `MainScroll`'s `useWindow=true`),
-     * it falls back to the viewport.
+     * The visibility is computed against the nearest ancestor that is scrolling the query
+     * preview (e.g. `MainScroll`, a modal, or the viewport when the window scrolls), so the
+     * `rootMargin` preload zone works wherever it is rendered.
      */
     const unwatchDisplay = props.loadWhenVisible
       ? useOnDisplay({
           element: queryPreviewElement,
           threshold: 0,
           rootMargin: '0px 0px 200px 0px',
-          scrollTargetId: props.scrollTarget,
+          scrollContainerAsRoot: true,
           callback: () => {
             if (cachedQueryPreview?.status !== 'success') {
               emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value)

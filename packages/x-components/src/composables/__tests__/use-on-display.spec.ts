@@ -129,11 +129,11 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
     options: {
       threshold?: number
       rootMargin?: string
-      scrollTargetId?: string
+      scrollContainerAsRoot?: boolean
     },
     element: HTMLElement | Ref<HTMLElement> = document.createElement('div'),
-  ): void {
-    mount({
+  ) {
+    return mount({
       setup() {
         useOnDisplay({
           element,
@@ -143,6 +143,32 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
         return () => null
       },
     })
+  }
+
+  function getScrollTarget() {
+    return (useElementVisibility as any).mock.calls.at(-1)[1].scrollTarget
+  }
+
+  /**
+   * Creates an element that can scroll vertically. JSDOM has no layout, so the sizes that tell
+   * if its content overflows it are faked.
+   *
+   * @param options - The `overflow-y` value and whether its content overflows it.
+   * @returns The element and a function to change if its content overflows it.
+   */
+  function createScrollContainer({ overflowY = 'auto', overflows = true } = {}) {
+    const container = document.createElement('div')
+    container.style.overflowY = overflowY
+    let scrollHeight = overflows ? 2000 : 500
+    Object.defineProperty(container, 'clientHeight', { configurable: true, get: () => 500 })
+    Object.defineProperty(container, 'scrollHeight', {
+      configurable: true,
+      get: () => scrollHeight,
+    })
+    return {
+      container,
+      setOverflows: (newOverflows: boolean) => (scrollHeight = newOverflows ? 2000 : 500),
+    }
   }
 
   it('forwards a custom threshold and rootMargin when provided', () => {
@@ -155,67 +181,118 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
         rootMargin: '0px 0px 200px 0px',
       }),
     )
-    // It should NOT provide a scroll target when no id is given (viewport fallback)
+    // It should NOT provide a scroll target unless requested (viewport)
     const options = (useElementVisibility as any).mock.calls.at(-1)[1]
     expect(options).not.toHaveProperty('scrollTarget')
   })
 
-  it('resolves the scroll target element from the id when it is an ancestor', () => {
-    const target = document.createElement('div')
-    target.id = 'custom-scroll'
-    const inner = document.createElement('div')
-    target.appendChild(inner)
-    document.body.appendChild(target)
+  it('uses the nearest ancestor that scrolls the element as root', () => {
+    const { container: outer } = createScrollContainer()
+    const { container: inner } = createScrollContainer()
+    const wrapper = document.createElement('div')
+    const element = document.createElement('div')
+    outer.appendChild(inner)
+    inner.appendChild(wrapper)
+    wrapper.appendChild(element)
+    document.body.appendChild(outer)
 
     // The element is passed as a ref, as done by the components that use this composable
-    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, ref(inner))
+    renderMountedUseOnDisplay({ scrollContainerAsRoot: true }, ref(element))
 
-    // The element is resolved on mount (SSR-safe), so the ref already holds it
-    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
-    expect(options.scrollTarget.value).toBe(target)
+    // It is resolved on mount (SSR-safe), so the ref already holds it
+    expect(getScrollTarget().value).toBe(inner)
 
-    target.remove()
+    outer.remove()
   })
 
-  it('does not resolve a scroll target when the id does not match an ancestor', () => {
-    const target = document.createElement('div')
-    target.id = 'custom-scroll'
-    document.body.appendChild(target)
-    const unrelated = document.createElement('div')
-    document.body.appendChild(unrelated)
+  it('skips ancestors that do not scroll or whose content does not overflow them', () => {
+    // e.g. `MainScroll` with `useWindow` (`overflow: visible`), or a scroll container that
+    // grows with its content, inside a modal that is the one scrolling
+    const { container: modal } = createScrollContainer()
+    const { container: notScrolling } = createScrollContainer({ overflowY: 'visible' })
+    const { container: notOverflowing } = createScrollContainer({ overflows: false })
+    const element = document.createElement('div')
+    modal.appendChild(notScrolling)
+    notScrolling.appendChild(notOverflowing)
+    notOverflowing.appendChild(element)
+    document.body.appendChild(modal)
 
-    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, unrelated)
+    renderMountedUseOnDisplay({ scrollContainerAsRoot: true }, element)
 
-    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
-    // A non-ancestor root is invalid for the IntersectionObserver, so it stays
-    // null (viewport) instead of resolving the element
-    expect(options.scrollTarget.value).toBeNull()
+    expect(getScrollTarget().value).toBe(modal)
 
-    target.remove()
-    unrelated.remove()
+    modal.remove()
   })
 
-  it('resolves the scroll target when it is an ancestor inside a shadow root', () => {
-    // `document.getElementById` cannot reach elements inside a shadow root, so this
-    // can only be resolved by looking at the ancestors of the watched element (`closest`).
+  it('uses the viewport when no ancestor scrolls the element', () => {
+    const { container: notScrolling } = createScrollContainer({ overflowY: 'visible' })
+    const element = document.createElement('div')
+    notScrolling.appendChild(element)
+    document.body.appendChild(notScrolling)
+
+    renderMountedUseOnDisplay({ scrollContainerAsRoot: true }, element)
+
+    expect(getScrollTarget().value).toBeNull()
+
+    notScrolling.remove()
+  })
+
+  it('resolves the scroll container across shadow roots', () => {
+    const { container: outer } = createScrollContainer()
     const host = document.createElement('div')
-    document.body.appendChild(host)
+    outer.appendChild(host)
+    document.body.appendChild(outer)
     const shadowRoot = host.attachShadow({ mode: 'open' })
-    const target = document.createElement('div')
-    target.id = 'custom-scroll'
-    shadowRoot.appendChild(target)
-    const inner = document.createElement('div')
-    target.appendChild(inner)
+    const element = document.createElement('div')
+    shadowRoot.appendChild(element)
 
-    // Sanity check: the target is invisible to a global document lookup
-    expect(document.getElementById('custom-scroll')).toBeNull()
+    renderMountedUseOnDisplay({ scrollContainerAsRoot: true }, element)
 
-    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, inner)
+    expect(getScrollTarget().value).toBe(outer)
 
-    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
-    expect(options.scrollTarget.value).toBe(target)
+    outer.remove()
+  })
 
-    host.remove()
+  it('resolves the scroll container again when an ancestor is resized', () => {
+    let resizeCallback: () => void = () => {}
+    const observeSpy = vi.fn()
+    const disconnectSpy = vi.fn()
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(callback: () => void) {
+          resizeCallback = callback
+        }
+        observe = observeSpy
+        disconnect = disconnectSpy
+      },
+    )
+    const { container: modal } = createScrollContainer()
+    const { container: mainScroll, setOverflows } = createScrollContainer()
+    const element = document.createElement('div')
+    modal.appendChild(mainScroll)
+    mainScroll.appendChild(element)
+    document.body.appendChild(modal)
+
+    const wrapper = renderMountedUseOnDisplay({ scrollContainerAsRoot: true }, element)
+    expect(observeSpy).toHaveBeenCalledWith(mainScroll)
+    expect(observeSpy).toHaveBeenCalledWith(modal)
+    expect(getScrollTarget().value).toBe(mainScroll)
+
+    // The main scroll grows with its content, so the modal is the one scrolling now
+    setOverflows(false)
+    resizeCallback()
+    expect(getScrollTarget().value).toBe(modal)
+
+    setOverflows(true)
+    resizeCallback()
+    expect(getScrollTarget().value).toBe(mainScroll)
+
+    wrapper.unmount()
+    expect(disconnectSpy).toHaveBeenCalled()
+
+    modal.remove()
+    vi.unstubAllGlobals()
   })
 })
 
