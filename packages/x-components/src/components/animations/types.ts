@@ -11,3 +11,7 @@ export type AnimationOrigin =
   | 'right'
   | 'left-to-right'
   | 'right-to-left'
+  | 'start'
+  | 'end'
+  | 'start-to-end'
+  | 'end-to-start'

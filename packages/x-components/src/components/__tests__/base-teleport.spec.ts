@@ -65,6 +65,45 @@ describe('testing BaseTeleport component', () => {
       })
     })
 
+    describe('document direction', () => {
+      afterEach(() => {
+        document.documentElement.dir = ''
+      })
+
+      it('applies the snippet `documentDirection` to the teleport host', async () => {
+        render({
+          props: { target: '#teleport-target' },
+          global: { provide: { snippetConfig: { documentDirection: 'rtl' } } },
+        })
+
+        await vi.waitFor(() => {
+          expect(document.querySelector('.x-base-teleport')?.getAttribute('dir')).toBe('rtl')
+        })
+      })
+
+      it('lets the host page direction take precedence over the snippet one', async () => {
+        document.documentElement.dir = 'ltr'
+        render({
+          props: { target: '#teleport-target' },
+          global: { provide: { snippetConfig: { documentDirection: 'rtl' } } },
+        })
+
+        await vi.waitFor(() => {
+          expect(document.querySelector('.x-base-teleport')).not.toBeNull()
+        })
+        expect(document.querySelector('.x-base-teleport')?.hasAttribute('dir')).toBe(false)
+      })
+
+      it('does not set any direction without a snippet `documentDirection`', async () => {
+        render({ props: { target: '#teleport-target' } })
+
+        await vi.waitFor(() => {
+          expect(document.querySelector('.x-base-teleport')).not.toBeNull()
+        })
+        expect(document.querySelector('.x-base-teleport')?.hasAttribute('dir')).toBe(false)
+      })
+    })
+
     it('removes the teleport host hook element on unmounted', async () => {
       const { wrapper } = render({ props: { target: '#teleport-target' } })
 

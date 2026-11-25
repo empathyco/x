@@ -79,7 +79,7 @@ export default defineComponent({
 }
 
 .x-related-prompt-text {
-  text-align: left;
+  text-align: start;
   flex-grow: 1;
 }
 

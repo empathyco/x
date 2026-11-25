@@ -6,9 +6,11 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
+import type { SnippetConfig } from '../x-installer/api/api.types'
 import {
   defineComponent,
   getCurrentInstance,
+  inject,
   onBeforeUnmount,
   onMounted,
   onUnmounted,
@@ -53,6 +55,7 @@ export default defineComponent({
     }
 
     const instance = getCurrentInstance()
+    const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig', undefined)
     /** Hook where the slot content will be teleported to. */
     const teleportHost = ref<HTMLElement>()
     /** The page element where the teleport host will be inserted. */
@@ -118,6 +121,23 @@ export default defineComponent({
 
       if (props.position === 'onlychild') {
         targetElement.value.className += ' x-base-teleport-parent--onlychild'
+      }
+    })
+
+    /*
+     * The teleported content is placed outside the application root, so it inherits the direction
+     * of the host page. When the host page doesn't set a direction, the snippet `documentDirection`
+     * is applied to the teleport host. The host page direction always takes precedence.
+     */
+    watchEffect(() => {
+      const documentDirection = snippetConfig?.documentDirection
+      if (
+        teleportHost.value &&
+        documentDirection &&
+        !document.documentElement.dir &&
+        !document.body.dir
+      ) {
+        teleportHost.value.dir = documentDirection
       }
     })
 
