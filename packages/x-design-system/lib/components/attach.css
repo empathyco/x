@@ -1,54 +1,77 @@
-/* Container */
+/* Base */
 @utility attach-container {
   @apply xds:relative;
 }
 
 /* Positions */
+/* `left` and `right` are the inline start and end edges: they are mirrored in right-to-left
+ * documents. `--xds-attach-inline-sign` is the sign of the horizontal offset (-1 to the left,
+ * 1 to the right). */
 @utility attach-top-left {
-  @apply xds:absolute xds:top-0 xds:left-0;
-  transform: translate(calc(var(--xds-spacing-8, 50%) * -1), -50%);
+  @apply xds:absolute xds:start-0 xds:top-0;
+  --xds-attach-inline-sign: -1;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * var(--xds-attach-inline-sign)), -50%);
+
+  @variant rtl {
+    --xds-attach-inline-sign: 1;
+  }
 
   &.xds\:badge-md {
-    transform: translate(calc(var(--xds-spacing-12, 50%) * -1), -50%);
+    transform: translate(calc(var(--xds-spacing-12, 50%) * var(--xds-attach-inline-sign)), -50%);
   }
 
   &.xds\:badge-circle {
-    transform: translate(-50%, -50%);
+    transform: translate(calc(50% * var(--xds-attach-inline-sign)), -50%);
   }
 }
 @utility attach-top-right {
-  @apply xds:absolute xds:top-0 xds:right-0;
-  transform: translate(var(--xds-spacing-8, 50%), -50%);
+  @apply xds:absolute xds:end-0 xds:top-0;
+  --xds-attach-inline-sign: 1;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * var(--xds-attach-inline-sign)), -50%);
+
+  @variant rtl {
+    --xds-attach-inline-sign: -1;
+  }
 
   &.xds\:badge-md {
-    transform: translate(var(--xds-spacing-12, 50%), -50%);
+    transform: translate(calc(var(--xds-spacing-12, 50%) * var(--xds-attach-inline-sign)), -50%);
   }
 
   &.xds\:badge-circle {
-    transform: translate(50%, -50%);
+    transform: translate(calc(50% * var(--xds-attach-inline-sign)), -50%);
   }
 }
 @utility attach-bottom-right {
-  @apply xds:absolute xds:right-0 xds:bottom-0;
-  transform: translate(var(--xds-spacing-8, 50%), 50%);
+  @apply xds:absolute xds:end-0 xds:bottom-0;
+  --xds-attach-inline-sign: 1;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * var(--xds-attach-inline-sign)), 50%);
+
+  @variant rtl {
+    --xds-attach-inline-sign: -1;
+  }
 
   &.xds\:badge-md {
-    transform: translate(var(--xds-spacing-12, 50%), 50%);
+    transform: translate(calc(var(--xds-spacing-12, 50%) * var(--xds-attach-inline-sign)), 50%);
   }
 
   &.xds\:badge-circle {
-    transform: translate(50%, 50%);
+    transform: translate(calc(50% * var(--xds-attach-inline-sign)), 50%);
   }
 }
 @utility attach-bottom-left {
-  @apply xds:absolute xds:bottom-0 xds:left-0;
-  transform: translate(calc(var(--xds-spacing-8, 50%) * -1), 50%);
+  @apply xds:absolute xds:start-0 xds:bottom-0;
+  --xds-attach-inline-sign: -1;
+  transform: translate(calc(var(--xds-spacing-8, 50%) * var(--xds-attach-inline-sign)), 50%);
+
+  @variant rtl {
+    --xds-attach-inline-sign: 1;
+  }
 
   &.xds\:badge-md {
-    transform: translate(calc(var(--xds-spacing-12, 50%) * -1), 50%);
+    transform: translate(calc(var(--xds-spacing-12, 50%) * var(--xds-attach-inline-sign)), 50%);
   }
 
   &.xds\:badge-circle {
-    transform: translate(-50%, 50%);
+    transform: translate(calc(50% * var(--xds-attach-inline-sign)), 50%);
   }
 }

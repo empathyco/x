@@ -32,6 +32,7 @@ color modifiers.
 - Attach: anchors an element (for example a badge) to a corner of a container —
   `xds:attach-container` on the parent and `xds:attach-top-right` (or `-top-left`,
   `-bottom-left`, `-bottom-right`) on the child. Nothing to do with file attachments.
+  `left`/`right` are the inline start/end corners (mirrored in right-to-left).
 - Other families: badge, button-group, filter-facet, highlight, icon, input, input-group,
   layout, picture, progress-bar, scroll, sliding-panel, suggestion, suggestion-group, tag,
   typography. Read `node_modules/@empathyco/x-design-system/dist/components/<family>.css` for
@@ -43,6 +44,20 @@ Theme colors: neutral, lead, auxiliary, accent, highlight, success, warning, err
 
 Custom variants: `xds:selected:…`, `xds:hover-active:…`, `xds:hover-active-focus:…`,
 `xds:focus:…`, `xds:disabled:…`. Example: `xds:selected:button-accent`.
+
+## Direction (right-to-left)
+
+Components follow the document direction (`dir="rtl"`). In the component families, `left`/`right`
+mean the inline start/end edge and are mirrored in right-to-left (`attach-*`, `sliding-panel-button-*`,
+`layout-*-margin-*`). Logical aliases exist for new code: `xds:sliding-panel-button-start/end`,
+`xds:layout-no-margin-start/end`, `xds:layout-on-margin-start/end`, `xds:layout-container-ms/me-*`.
+
+- Prefer the Tailwind logical utilities, which render exactly like the physical ones in
+  left-to-right: `xds:ms-*`/`xds:me-*`, `xds:ps-*`/`xds:pe-*`, `xds:start-*`/`xds:end-*`,
+  `xds:border-s`/`xds:border-e`, `xds:rounded-s`/`xds:rounded-e` (`-ss`, `-se`, `-es`, `-ee`),
+  `xds:text-start`/`xds:text-end`.
+- `xds:flip-rtl` mirrors direction-meaningful icons (chevrons, arrows) in right-to-left.
+- `xds:rtl:…` / `xds:ltr:…` variants for anything else.
 
 ## Theme variables
 

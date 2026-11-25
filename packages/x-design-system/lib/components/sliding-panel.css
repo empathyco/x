@@ -1,6 +1,16 @@
 /* Base */
+/* The `left` buttons and edges are the inline start ones and the `right` ones the inline end ones:
+ * they are mirrored in right-to-left documents. */
 @utility sliding-panel {
   @apply xds:relative xds:flex xds:flex-row xds:flex-nowrap xds:items-center;
+  /* Mask directions that fade the inline end/start edge of the scroll container. */
+  --xds-sliding-panel-fade-end-edge: to left;
+  --xds-sliding-panel-fade-start-edge: to right;
+
+  @variant rtl {
+    --xds-sliding-panel-fade-end-edge: to right;
+    --xds-sliding-panel-fade-start-edge: to left;
+  }
 }
 
 /* Fade */
@@ -38,26 +48,37 @@
 }
 
 @utility sliding-panel-button-left {
-  @apply xds:left-0;
+  @apply xds:start-0;
 }
 
 @utility sliding-panel-button-right {
-  @apply xds:right-0;
+  @apply xds:end-0;
+}
+
+/* Logical aliases */
+@utility sliding-panel-button-start {
+  @apply xds:sliding-panel-button-left;
+}
+
+@utility sliding-panel-button-end {
+  @apply xds:sliding-panel-button-right;
 }
 
 /* Buttons on hover */
 @utility sliding-panel-show-buttons-on-hover {
-  & > .xds\:sliding-panel-button-left {
+  & > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start) {
     @apply xds:opacity-0;
   }
 
-  & > .xds\:sliding-panel-button-right {
+  & > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
     @apply xds:opacity-0;
   }
 
   &:hover {
-    &:not(.xds\:sliding-panel-at-start) > .xds\:sliding-panel-button-left,
-    &:not(.xds\:sliding-panel-at-end) > .xds\:sliding-panel-button-right {
+    &:not(.xds\:sliding-panel-at-start)
+      > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start),
+    &:not(.xds\:sliding-panel-at-end)
+      > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
       @apply xds:pointer-events-auto xds:opacity-100;
     }
   }
@@ -65,29 +86,29 @@
 
 /* Button positions */
 @utility sliding-panel-buttons-center {
-  & > .xds\:sliding-panel-button-left {
-    @apply xds:-translate-x-1/2;
+  & > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start) {
+    @apply xds:-translate-x-1/2 xds:rtl:translate-x-1/2;
   }
 
-  & > .xds\:sliding-panel-button-right {
-    @apply xds:translate-x-1/2;
+  & > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
+    @apply xds:translate-x-1/2 xds:rtl:-translate-x-1/2;
   }
 }
 
 @utility sliding-panel-buttons-outside {
-  & > .xds\:sliding-panel-button-left {
-    @apply xds:-translate-x-full;
+  & > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start) {
+    @apply xds:-translate-x-full xds:rtl:translate-x-full;
   }
 
-  & > .xds\:sliding-panel-button-right {
-    @apply xds:translate-x-full;
+  & > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
+    @apply xds:translate-x-full xds:rtl:-translate-x-full;
   }
 }
 
 /* Fade positions */
 @utility sliding-panel-fade-position {
   --xds-sliding-panel-fade-spacing: var(--xds-spacing-80);
-  --xds-sliding-panel-fade-direction: to left;
+  --xds-sliding-panel-fade-direction: var(--xds-sliding-panel-fade-end-edge, to left);
   mask: linear-gradient(
     var(--xds-sliding-panel-fade-direction),
     transparent calc(0.43 * var(--xds-sliding-panel-fade-spacing)),
@@ -96,7 +117,7 @@
   );
 }
 @utility sliding-panel-at-start {
-  & > .xds\:sliding-panel-button-left {
+  & > :is(.xds\:sliding-panel-button-left, .xds\:sliding-panel-button-start) {
     @apply xds:pointer-events-none xds:opacity-0;
   }
 
@@ -118,23 +139,23 @@
   }
 }
 @utility sliding-panel-at-end {
-  & > .xds\:sliding-panel-button-right {
+  & > :is(.xds\:sliding-panel-button-right, .xds\:sliding-panel-button-end) {
     @apply xds:pointer-events-none xds:opacity-0;
   }
 
   & > .xds\:sliding-panel-fade-sm {
     @apply xds:sliding-panel-fade-position;
     --xds-spacing-sliding-fade: var(--xds-spacing-40);
-    --xds-sliding-panel-fade-direction: to right;
+    --xds-sliding-panel-fade-direction: var(--xds-sliding-panel-fade-start-edge, to right);
   }
   & > .xds\:sliding-panel-fade,
   & > .xds\:sliding-panel-fade-md {
     @apply xds:sliding-panel-fade-position;
-    --xds-sliding-panel-fade-direction: to right;
+    --xds-sliding-panel-fade-direction: var(--xds-sliding-panel-fade-start-edge, to right);
   }
   & > .xds\:sliding-panel-fade-lg {
     @apply xds:sliding-panel-fade-position;
     --xds-spacing-sliding-fade: var(--xds-spacing-160);
-    --xds-sliding-panel-fade-direction: to right;
+    --xds-sliding-panel-fade-direction: var(--xds-sliding-panel-fade-start-edge, to right);
   }
 }

@@ -1,7 +1,8 @@
 /* Base */
 @utility layout {
   @media (hover: hover) and (pointer: fine) {
-    .xds\:scroll > .xds\:layout-item:not(.xds\:layout-no-margin-right) {
+    .xds\:scroll
+      > .xds\:layout-item:not(.xds\:layout-no-margin-right):not(.xds\:layout-no-margin-end) {
       --xds-layout-scroll-width: 17px;
     }
   }
@@ -18,6 +19,8 @@
 }
 
 /* Container Margin */
+/* The layout is a grid, so it follows the document direction: the `left` margin is the inline start
+ * one and the `right` margin the inline end one. The `start`/`end` utilities are logical aliases. */
 @utility layout-container-mx-* {
   & > .xds\:layout-item {
     --xds-margin-left: --value(--spacing-*, [length]);
@@ -30,6 +33,16 @@
   }
 }
 @utility layout-container-mr-* {
+  & > .xds\:layout-item {
+    --xds-margin-right: --value(--spacing-*, [length]);
+  }
+}
+@utility layout-container-ms-* {
+  & > .xds\:layout-item {
+    --xds-margin-left: --value(--spacing-*, [length]);
+  }
+}
+@utility layout-container-me-* {
   & > .xds\:layout-item {
     --xds-margin-right: --value(--spacing-*, [length]);
   }
@@ -74,6 +87,12 @@
 @utility layout-no-margin-right {
   --xds-margin-right: 0px;
 }
+@utility layout-no-margin-start {
+  @apply xds:layout-no-margin-left;
+}
+@utility layout-no-margin-end {
+  @apply xds:layout-no-margin-right;
+}
 @utility layout-no-margin {
   @apply xds:layout-no-margin-left xds:layout-no-margin-right;
 }
@@ -83,6 +102,12 @@
 }
 @utility layout-on-margin-right {
   @apply xds:col-[-2/-1];
+}
+@utility layout-on-margin-start {
+  @apply xds:layout-on-margin-left;
+}
+@utility layout-on-margin-end {
+  @apply xds:layout-on-margin-right;
 }
 /* Overlap utility */
 @utility layout-overlap {

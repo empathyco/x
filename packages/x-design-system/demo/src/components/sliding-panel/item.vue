@@ -1,6 +1,8 @@
 <template>
   <div class="xds:sliding-panel" :class="wrapperClass">
-    <button class="xds:sliding-panel-button xds:sliding-panel-button-left">ᐸ</button>
+    <button class="xds:sliding-panel-button xds:sliding-panel-button-start">
+      <span class="xds:flip-rtl">ᐸ</span>
+    </button>
     <div class="xds:flex xds:gap-3" :class="contentClass">
       <div
         v-for="(item, index) of items"
@@ -10,7 +12,9 @@
         <span>{{ item }}</span>
       </div>
     </div>
-    <button class="xds:sliding-panel-button xds:sliding-panel-button-right">ᐳ</button>
+    <button class="xds:sliding-panel-button xds:sliding-panel-button-end">
+      <span class="xds:flip-rtl">ᐳ</span>
+    </button>
   </div>
 </template>
 <script setup lang="ts">
