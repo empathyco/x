@@ -160,9 +160,31 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
     expect(options).not.toHaveProperty('scrollTarget')
   })
 
+  /**
+   * Creates an element with the `custom-scroll` id. JSDOM has no layout, so the overflow and
+   * the sizes that tell if it clips its content are faked.
+   *
+   * @param options - Whether it clips its content, `true` by default.
+   * @returns The element and a function to change if it clips its content.
+   */
+  function createScrollContainer({ clips = true } = {}) {
+    const container = document.createElement('div')
+    container.id = 'custom-scroll'
+    container.style.overflowY = 'auto'
+    let scrollHeight = clips ? 2000 : 500
+    Object.defineProperty(container, 'clientHeight', { configurable: true, get: () => 500 })
+    Object.defineProperty(container, 'scrollHeight', {
+      configurable: true,
+      get: () => scrollHeight,
+    })
+    return {
+      container,
+      setClips: (newClips: boolean) => (scrollHeight = newClips ? 2000 : 500),
+    }
+  }
+
   it('resolves the scroll target element from the id when it is an ancestor', () => {
-    const target = document.createElement('div')
-    target.id = 'custom-scroll'
+    const { container: target } = createScrollContainer()
     const inner = document.createElement('div')
     target.appendChild(inner)
     document.body.appendChild(target)
@@ -201,8 +223,7 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
     const host = document.createElement('div')
     document.body.appendChild(host)
     const shadowRoot = host.attachShadow({ mode: 'open' })
-    const target = document.createElement('div')
-    target.id = 'custom-scroll'
+    const { container: target } = createScrollContainer()
     shadowRoot.appendChild(target)
     const inner = document.createElement('div')
     target.appendChild(inner)
@@ -216,6 +237,79 @@ describe(`testing ${useOnDisplay.name} custom options`, () => {
     expect(options.scrollTarget.value).toBe(target)
 
     host.remove()
+  })
+
+  it('falls back to the viewport when the ancestor does not hide its overflow', () => {
+    // e.g. `MainScroll` with `useWindow`: the container grows and the window scrolls
+    const { container: target } = createScrollContainer()
+    target.style.overflowY = 'visible'
+    const inner = document.createElement('div')
+    target.appendChild(inner)
+    document.body.appendChild(target)
+
+    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, inner)
+
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options.scrollTarget.value).toBeNull()
+
+    target.remove()
+  })
+
+  it('falls back to the viewport when the ancestor content does not overflow it', () => {
+    // e.g. a layout where the scroll container grows with its content
+    const { container: target } = createScrollContainer({ clips: false })
+    const inner = document.createElement('div')
+    target.appendChild(inner)
+    document.body.appendChild(target)
+
+    renderMountedUseOnDisplay({ scrollTargetId: 'custom-scroll' }, inner)
+
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options.scrollTarget.value).toBeNull()
+
+    target.remove()
+  })
+
+  it('updates the scroll target when the ancestor starts or stops clipping its content', () => {
+    let resizeCallback: () => void = () => {}
+    const disconnectSpy = vi.fn()
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(callback: () => void) {
+          resizeCallback = callback
+        }
+        observe = vi.fn()
+        disconnect = disconnectSpy
+      },
+    )
+    const { container: target, setClips } = createScrollContainer()
+    const inner = document.createElement('div')
+    target.appendChild(inner)
+    document.body.appendChild(target)
+
+    const wrapper = mount({
+      setup() {
+        useOnDisplay({ element: inner, callback: vi.fn(), scrollTargetId: 'custom-scroll' })
+        return () => null
+      },
+    })
+    const options = (useElementVisibility as any).mock.calls.at(-1)[1]
+    expect(options.scrollTarget.value).toBe(target)
+
+    setClips(false)
+    resizeCallback()
+    expect(options.scrollTarget.value).toBeNull()
+
+    setClips(true)
+    resizeCallback()
+    expect(options.scrollTarget.value).toBe(target)
+
+    wrapper.unmount()
+    expect(disconnectSpy).toHaveBeenCalled()
+
+    target.remove()
+    vi.unstubAllGlobals()
   })
 })
 

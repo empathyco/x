@@ -12,6 +12,7 @@
       <QueryPreview
         :debounce-time-ms="debounceTimeMs"
         :load-when-visible="loadWhenVisible"
+        :scroll-target="scrollTarget"
         :max-items-to-render="maxItemsToRender"
         :persist-in-cache="persistInCache"
         :query-feature="queryFeature"
@@ -88,6 +89,17 @@ export default defineComponent({
     loadWhenVisible: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * The id of the scroll container to compute the visibility of each query preview against,
+     * when `loadWhenVisible` is enabled. It is only used while that container clips its content;
+     * otherwise the visibility is computed against the viewport.
+     *
+     * @public
+     */
+    scrollTarget: {
+      type: String,
+      default: 'main-scroll',
     },
     /**
      * Debounce time in milliseconds for triggering the search requests

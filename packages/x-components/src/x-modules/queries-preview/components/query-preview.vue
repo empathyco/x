@@ -70,7 +70,8 @@ export default defineComponent({
       default: false,
     },
     /**
-     * The id of the scroll container to compute the visibility against.
+     * The id of the scroll container to compute the visibility against. It is only used while
+     * that container clips its content; otherwise the visibility is computed against the viewport.
      */
     scrollTarget: {
       type: String,
@@ -243,10 +244,11 @@ export default defineComponent({
      *
      * It is only set up when `loadWhenVisible` is enabled.
      *
-     * The visibility is computed against the `MainScroll` container (`#main-scroll`) when it
-     * exists, so the `rootMargin` preload zone works. When the container is not present
-     * (e.g. host applications that scroll with the window via `MainScroll`'s `useWindow=true`),
-     * it falls back to the viewport.
+     * The visibility is computed against the `MainScroll` container (`#main-scroll`) while it
+     * clips its content, so the `rootMargin` preload zone works. When the container is not
+     * present or does not clip its content (e.g. `MainScroll` with `useWindow=true`, or a layout
+     * where the container grows with its content), it falls back to the viewport. Otherwise every
+     * query preview would be inside the container's box and all of them would load at once.
      */
     const unwatchDisplay = props.loadWhenVisible
       ? useOnDisplay({
