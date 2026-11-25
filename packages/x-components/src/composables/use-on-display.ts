@@ -21,14 +21,12 @@ export function useOnDisplay({
   triggerOnce = true,
   threshold = 0.1,
   rootMargin,
-  scrollTargetId,
+  scrollContainerAsRoot = false,
 }: UseOnDisplayOptions): UseOnDisplayReturn {
   const isElementVisible = useElementVisibility(element, {
     threshold,
     ...(rootMargin !== undefined && { rootMargin }),
-    ...(scrollTargetId !== undefined && {
-      scrollTarget: resolveScrollTarget(element, scrollTargetId),
-    }),
+    ...(scrollContainerAsRoot && { scrollTarget: useNearestScrollContainer(element) }),
   })
 
   const unwatchDisplay = watch(isElementVisible, newValue => {
@@ -47,63 +45,89 @@ export function useOnDisplay({
 }
 
 /**
- * Resolves, on mount, the ancestor of the watched element that matches the given id, in an
- * SSR-safe and shadow-DOM-safe way, and uses it as the visibility root only while it is
- * actually clipping its content (it hides its overflow and its content is taller than it).
+ * Resolves, on mount, the nearest ancestor of the watched element that is scrolling its content,
+ * in an SSR-safe and shadow-DOM-safe way. It is `null` when there is none, which makes the
+ * visibility be computed against the viewport (the window scrolls).
  *
- * An ancestor that does not clip its content (e.g. `MainScroll` with `useWindow`, or a layout
- * where the container grows with its content) contains every child inside its box, so
- * computing the visibility against it would flag all of them as visible. In those cases the ref
- * is `null`, which makes the visibility be computed against the viewport.
+ * Only an ancestor whose content actually overflows it counts: one that grows with its content
+ * (e.g. `MainScroll` with `useWindow`, or a layout that only limits its height in some states)
+ * contains every child inside its box, so using it as root would flag all of them as visible.
  *
- * The container is observed with a `ResizeObserver`, as the same element can switch between
- * clipping its content and growing with it depending on the layout.
+ * Every ancestor is observed with a `ResizeObserver`, so the root is resolved again when the
+ * layout changes which element scrolls.
  *
- * @param element - The watched element, used as the lookup starting point.
- * @param scrollTargetId - The id of the element to be used as the visibility root.
- * @returns A ref holding the resolved element (`null` if not found or not clipping its content).
+ * @param element - The watched element.
+ * @returns A ref holding the nearest scroll container (`null` for the viewport).
  * @internal
  */
-function resolveScrollTarget(
-  element: HTMLElement | Ref<HTMLElement | null>,
-  scrollTargetId: string,
-) {
-  const scrollTarget = ref<HTMLElement | null>(null)
-  let container: HTMLElement | null = null
+function useNearestScrollContainer(element: HTMLElement | Ref<HTMLElement | null>) {
+  const scrollContainer = ref<HTMLElement | null>(null)
   let resizeObserver: ResizeObserver | undefined
 
-  function updateScrollTarget() {
-    scrollTarget.value = container && clipsItsContent(container) ? container : null
+  function updateScrollContainer() {
+    scrollContainer.value =
+      getAncestors(toValue(element)).find(ancestor => isScrollContainer(ancestor)) ?? null
   }
 
   onMounted(() => {
-    container = toValue(element)?.closest<HTMLElement>(`#${CSS.escape(scrollTargetId)}`) ?? null
-    if (!container) {
-      return
-    }
-    updateScrollTarget()
+    updateScrollContainer()
     if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(updateScrollTarget)
-      resizeObserver.observe(container)
+      resizeObserver = new ResizeObserver(updateScrollContainer)
+      getAncestors(toValue(element)).forEach(ancestor => resizeObserver!.observe(ancestor))
     }
   })
 
   onBeforeUnmount(() => resizeObserver?.disconnect())
 
-  return scrollTarget
+  return scrollContainer
 }
 
 /**
- * Checks if the element clips its content vertically, which is required for it to be a
- * meaningful `IntersectionObserver` root.
+ * Gets the ancestors of an element, from the closest one, crossing shadow roots and stopping
+ * before the document `body`, as the document scroll is the viewport.
  *
- * @param element - The element to check.
- * @returns True if the element hides its overflow and its content is taller than its box.
+ * @param element - The element to get the ancestors of.
+ * @returns The list of ancestors.
  * @internal
  */
-function clipsItsContent(element: HTMLElement) {
+function getAncestors(element: HTMLElement | null) {
+  const ancestors: HTMLElement[] = []
+  let ancestor = element && getParent(element)
+  while (
+    ancestor &&
+    ancestor !== ancestor.ownerDocument.body &&
+    ancestor !== ancestor.ownerDocument.documentElement
+  ) {
+    ancestors.push(ancestor)
+    ancestor = getParent(ancestor)
+  }
+  return ancestors
+}
+
+/**
+ * Gets the parent of an element, or the host of its shadow root if it is the root's top element.
+ *
+ * @param element - The element to get the parent of.
+ * @returns The parent element, or `null` if there is none.
+ * @internal
+ */
+function getParent(element: HTMLElement) {
+  const root = element.getRootNode()
+  return element.parentElement ?? (root instanceof ShadowRoot ? (root.host as HTMLElement) : null)
+}
+
+/**
+ * Checks if the element is scrolling its content vertically, so it is a meaningful
+ * `IntersectionObserver` root.
+ *
+ * @param element - The element to check.
+ * @returns True if the element can scroll and its content is taller than its box.
+ * @internal
+ */
+function isScrollContainer(element: HTMLElement) {
   return (
-    getComputedStyle(element).overflowY !== 'visible' && element.scrollHeight > element.clientHeight
+    ['auto', 'scroll', 'overlay'].includes(getComputedStyle(element).overflowY) &&
+    element.scrollHeight > element.clientHeight
   )
 }
 
@@ -149,7 +173,11 @@ interface UseOnDisplayOptions {
   triggerOnce?: boolean
   threshold?: number
   rootMargin?: string
-  scrollTargetId?: string
+  /**
+   * Computes the visibility against the nearest ancestor that is scrolling the element instead
+   * of the viewport, so the `rootMargin` also works inside scroll containers. False by default.
+   */
+  scrollContainerAsRoot?: boolean
 }
 
 /**
