@@ -195,7 +195,9 @@ to one of the events in `eventsToCloseModal` to close the modal with Escape.
 ### Focus restoration
 
 When the modal closes, the focus is returned to the element that opened it, if that element is
-still in the document.
+still in the document. This is skipped when the close was caused by the user moving away from the
+modal (clicking the overlay or moving the focus outside of it, i.e. the `bodyClickEvent` path): in
+that case the focus already landed where the user intentionally put it, so it is left untouched.
 
 ## Examples
 
