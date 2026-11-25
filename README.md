@@ -75,6 +75,42 @@ Empathy’s eDocs documentation portal.
 - [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
+## Agent skills
+
+Every publishable package ships **agent skills**: small `SKILL.md` guides, following the
+[Agent Skills specification](https://agentskills.io/specification), that teach AI coding agents
+(Claude Code, opencode, omp, ...) how to use that package. They are bundled inside the npm
+tarball under `skills/`, so each version carries the skills that match its API.
+
+Installing a package does **not** make the skills visible to your agent: agents read skills from
+folders such as `.claude/skills` or `.agents/skills`, never from `node_modules`. Link them in your
+project with the [`skills`](https://github.com/vercel-labs/skills) CLI, which symlinks them from
+`node_modules` so the skills always match the installed version:
+
+```sh
+npm i -D skills
+```
+
+```json
+{
+  "scripts": {
+    "prepare": "skills experimental_sync -a claude-code --include '@empathyco/*' -y"
+  }
+}
+```
+
+- `-a claude-code` also links them into `.claude/skills`, the only folder Claude Code reads
+  (`.agents/skills` is always linked). Repeat `-a` values for other agents.
+- `--include '@empathyco/*'` links only the `@empathyco` skills, not those of other dependencies.
+- The command records the linked skills in `skills-lock.json`. Run it with `--dry-run` to preview.
+- `experimental_sync` is still experimental in the `skills` CLI; check its docs when upgrading.
+  Alternatives: pnpm 12.11 or later (`pnpm approve` the package's skills) or
+  [`skills-npm`](https://github.com/antfu/skills-npm), which is merging into `skills`.
+
+These tools only link skills of your **direct** dependencies. The `@empathyco/x-components` skill
+also gives an overview of the other packages; add the `@empathyco` packages you use directly
+(for example `@empathyco/x-adapter-platform`) to get their skills.
+
 ## How to install
 
 This project is a monorepo that is handled by [Lerna](https://github.com/lerna/lerna) &

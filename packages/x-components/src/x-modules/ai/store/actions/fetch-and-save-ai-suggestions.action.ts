@@ -2,6 +2,7 @@ import type { AiSuggestionQuery, AiSuggestionTagging } from '@empathyco/x-types'
 import type { AiActionContext, AiXStoreModule } from '../types'
 import { getTaggingInfoFromUrl } from '@empathyco/x-adapter-platform'
 import { XPlugin } from '../../../../plugins'
+import { isAbortError } from '../utils'
 
 interface TaggingData {
   tagging: {
@@ -36,16 +37,33 @@ export const fetchAndSaveAiSuggestions: AiXStoreModule['actions']['fetchAndSaveA
     }
     commit('setSuggestionsStatus', 'loading')
 
-    return XPlugin.adapter.aiSuggestions(request).then(({ body, status }) => {
-      if (status !== 200) {
-        return
-      }
-      if (body) {
-        const reader = body.getReader()
-        readAnswer(reader, commit)
-      }
-    })
+    return XPlugin.adapter
+      .aiSuggestions(request)
+      .then(({ body, status }) => {
+        if (status !== 200 || !body) {
+          throw new Error(`AI suggestions request failed with status ${status}`)
+        }
+        readAnswer(body.getReader(), commit)
+      })
+      .catch(error => {
+        handleError(error, commit)
+      })
   }
+
+/**
+ * Sets the suggestions status to `error` and logs the error, unless the request was aborted by a
+ * newer one.
+ *
+ * @param error - The error thrown by the request or while reading the response.
+ * @param commit - The commit function of the actions context.
+ */
+function handleError(error: unknown, commit: AiActionContext['commit']) {
+  if (isAbortError(error)) {
+    return
+  }
+  commit('setSuggestionsStatus', 'error')
+  console.error(error)
+}
 
 function mapTaggingData(taggingData: TaggingData): AiSuggestionTagging {
   const { toolingDisplay, toolingDisplayClick, searchQueries } = taggingData.tagging[0]
@@ -103,11 +121,7 @@ function readAnswer(
       }
       readAnswer(reader, commit)
     })
-    .catch((error: { code: number }) => {
-      commit('setSuggestionsStatus', 'error')
-      // AbortError code === 20
-      if (error.code !== 20) {
-        console.error(error)
-      }
+    .catch(error => {
+      handleError(error, commit)
     })
 }

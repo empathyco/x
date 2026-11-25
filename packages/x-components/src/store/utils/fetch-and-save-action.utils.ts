@@ -33,8 +33,10 @@ export function createFetchAndSaveActions<
    * @returns A Promise that resolves after handling the response.
    */
   async function handleResponse(context: Context, response: Response): Promise<void> {
-    return Promise.resolve(onSuccess(context, response)).then(() => {
-      context.commit('setStatus', 'success')
+    return Promise.resolve(onSuccess(context, response)).then(result => {
+      if (result !== false) {
+        context.commit('setStatus', 'success')
+      }
     })
   }
 
@@ -116,8 +118,10 @@ export interface FetchAndSaveHooks<
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
    * @param response - The data returned by {@link FetchAndSaveHooks.fetch}.
+   * @returns `false` to not set the status to `success`, because another request is going to
+   * resolve it. Any other value sets it.
    */
-  onSuccess: (context: Context, response: Response) => void
+  onSuccess: (context: Context, response: Response) => void | boolean | Promise<void | boolean>
   /**
    * Asynchronous callback executed when either the {@link FetchAndSaveHooks.fetch}
    * or {@link FetchAndSaveHooks.onSuccess} methods fail.

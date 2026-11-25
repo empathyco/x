@@ -72,6 +72,66 @@ async function render({
   }
 }
 
+/**
+ * Mounts the list with the given items injected by an ancestor, and a `Child` that renders the
+ * ids of the list items provided by the list.
+ */
+async function renderWithInjectedItems({
+  list,
+  injectedItems,
+  vendorState,
+  queryPreviewHash,
+}: {
+  list: any
+  injectedItems: ListItem[]
+  vendorState: Partial<VendorState>
+  queryPreviewHash?: string
+}) {
+  const Provider = defineComponent({
+    name: 'Provider',
+    setup() {
+      provide(
+        LIST_ITEMS_KEY as string,
+        computed((): ListItem[] => injectedItems),
+      )
+    },
+    template: `<div><slot /></div>`,
+  })
+  const Child = defineComponent({
+    name: 'Child',
+    setup() {
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
+      return { ids: computed(() => injectedListItems?.value.map(item => item.id).join(',')) }
+    },
+    template: `<p>{{ ids }}</p>`,
+  })
+  const store = new Store<DeepPartial<RootXStoreState>>({})
+  const wrapper = mount(
+    {
+      template: `<Provider><List :query-preview-hash="queryPreviewHash"><Child /></List></Provider>`,
+      components: { Provider, Child, List: list },
+      data: () => ({ queryPreviewHash }),
+    },
+    {
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule, vendorXModule] })],
+      },
+    },
+  )
+  store.replaceState({
+    x: {
+      search: {
+        ...searchXStoreModule.state(),
+        results: injectedItems,
+        totalResults: 100,
+      } as SearchState,
+      vendor: { ...vendorXStoreModule.state(), ...vendorState } as VendorState,
+    },
+  } as any)
+  await nextTick()
+  return wrapper
+}
+
 describe('testing VendorResultsList component', () => {
   it('is an XComponent which has an XModule', async () => {
     const { wrapper } = await render()
@@ -411,6 +471,64 @@ describe('testing VendorResultsList component', () => {
 
     expect(wrapper.text()).toEqual(
       `${previewResultsStub.map(r => r.id).join(',')},${queryPreviewVendorResults[0].id}`,
+    )
+  })
+
+  it('removes the injected search results that are also vendor results', async () => {
+    const searchResultsStub = getResultsStub(4)
+    const results = [createVendorResultStub('1', { id: searchResultsStub[1].id, position: 3 })]
+
+    const wrapper = await renderWithInjectedItems({
+      list: VendorResultsList,
+      injectedItems: searchResultsStub,
+      vendorState: { results },
+    })
+
+    // The duplicated search result is removed, and the vendor one is rendered at its position.
+    expect(wrapper.text()).toEqual(
+      [
+        searchResultsStub[0].id,
+        searchResultsStub[2].id,
+        searchResultsStub[1].id,
+        searchResultsStub[3].id,
+      ].join(','),
+    )
+  })
+
+  it('keeps the injected search results when no vendor result has their id', async () => {
+    const searchResultsStub = getResultsStub(3)
+    const results = [createVendorResultStub('1', { position: 2 })]
+
+    const wrapper = await renderWithInjectedItems({
+      list: VendorResultsList,
+      injectedItems: searchResultsStub,
+      vendorState: { results },
+    })
+
+    expect(wrapper.text()).toEqual(
+      [
+        searchResultsStub[0].id,
+        results[0].id,
+        searchResultsStub[1].id,
+        searchResultsStub[2].id,
+      ].join(','),
+    )
+  })
+
+  it('removes the query preview results that are also vendor results of the query preview', async () => {
+    const queryPreviewHash = 'preview-hash'
+    const previewResultsStub = getResultsStub(3)
+    const results = [createVendorResultStub('1', { id: previewResultsStub[0].id, position: 2 })]
+
+    const wrapper = await renderWithInjectedItems({
+      list: VendorResultsList,
+      injectedItems: previewResultsStub,
+      vendorState: { queryPreviews: { [queryPreviewHash]: { results, banners: [] } } },
+      queryPreviewHash,
+    })
+
+    expect(wrapper.text()).toEqual(
+      [previewResultsStub[1].id, results[0].id, previewResultsStub[2].id].join(','),
     )
   })
 })

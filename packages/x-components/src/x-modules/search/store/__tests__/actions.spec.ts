@@ -1,10 +1,11 @@
+import type { MockInstance } from 'vitest'
 import type { StoreOptions } from 'vuex'
 import type { SafeStore } from '../../../../store/__tests__/utils'
 import type { UrlParams } from '../../../../types/url-params'
 import type { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types'
 import { mount } from '@vue/test-utils'
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory'
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory'
@@ -15,6 +16,7 @@ import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.fa
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory'
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory'
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils'
+import { XPlugin } from '../../../../plugins/x-plugin'
 import { searchXStoreModule } from '../module'
 import { resetSearchStateWith } from './utils'
 
@@ -240,6 +242,132 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toBe(banners)
       expect(store.state.promoteds).toBe(promoteds)
       expect(store.state.status).toEqual('error')
+    })
+  })
+
+  describe('noResultsFallback', () => {
+    const fallbackConfig = { noResultsFallback: { catalogSection: 'section-a' } }
+    let emit: MockInstance
+
+    beforeEach(() => {
+      emit = vi.spyOn(XPlugin.bus, 'emit')
+    })
+
+    afterEach(() => {
+      emit.mockRestore()
+    })
+
+    it('should apply the fallback instead of saving a response without results', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, { query: 'query-1', config: fallbackConfig })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(1)
+      expect(store.state.catalogSection).toBe('section-a')
+      expect(store.state.isNoResults).toBe(false)
+      expect(store.state.results).toEqual([])
+    })
+
+    it('should save the response if the request returns results', async () => {
+      resetSearchStateWith(store, { query: 'lego', config: fallbackConfig })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.catalogSection).toBeUndefined()
+      expect(store.state.results).toEqual(searchResponseStub.results)
+    })
+
+    it.each([[undefined], [{}]])('should save the response without a fallback (%j)', async fb => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, { query: 'nofallback', config: { noResultsFallback: fb } })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.isNoResults).toBe(true)
+    })
+
+    it('should save the response if the request already has the fallback values', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, {
+        query: 'already',
+        catalogSection: 'section-a',
+        config: fallbackConfig,
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.isNoResults).toBe(true)
+    })
+
+    it('should apply the fallback even if the section was selected by hand', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, {
+        query: 'byhand',
+        catalogSection: 'products',
+        config: fallbackConfig,
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.catalogSection).toBe('section-a')
+    })
+
+    it('should provide the extra params of the fallback', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, {
+        query: 'pairs',
+        config: {
+          noResultsFallback: { catalogSection: 'section-a', extraParams: { market: 'market-b' } },
+        },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(adapter.search).toHaveBeenCalledTimes(1)
+      // The params are stored by the extra params module, not by the action.
+      expect(store.state.params).toEqual({})
+      expect(store.state.catalogSection).toBe('section-a')
+      expect(emit).toHaveBeenCalledTimes(1)
+      expect(emit).toHaveBeenCalledWith('NoResultsFallbackExtraParamsProvided', {
+        market: 'market-b',
+      })
+    })
+
+    it('should save the response if the extra params of the fallback are already set', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, {
+        query: 'already',
+        params: { market: 'market-b' },
+        config: { noResultsFallback: { extraParams: { market: 'market-b' } } },
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.isNoResults).toBe(true)
+    })
+
+    it('should not apply anything if the request is cancelled', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, { query: 'cancelled', config: fallbackConfig })
+      await Promise.all([
+        store.dispatch('fetchAndSaveSearchResponse', store.getters.request),
+        store.dispatch('cancelFetchAndSaveSearchResponse'),
+      ])
+
+      expect(store.state.catalogSection).toBeUndefined()
+      expect(store.state.status).toBe('success')
+      expect(emit).not.toHaveBeenCalledWith(
+        'NoResultsFallbackExtraParamsProvided',
+        expect.anything(),
+      )
+    })
+
+    it('should not apply the fallback again while it is in progress', async () => {
+      vi.mocked(adapter.search).mockResolvedValueOnce(emptySearchResponseStub)
+      resetSearchStateWith(store, {
+        query: 'query-1',
+        isNoResultsFallback: true,
+        config: fallbackConfig,
+      })
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request)
+
+      expect(store.state.isNoResults).toBe(true)
+      expect(store.state.catalogSection).toBeUndefined()
+      expect(store.state.isNoResultsFallback).toBe(false)
     })
   })
 

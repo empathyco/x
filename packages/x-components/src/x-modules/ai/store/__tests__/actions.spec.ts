@@ -212,7 +212,7 @@ describe('testing ai module actions', () => {
       consoleErrorSpy.mockRestore()
     })
 
-    it('should not log abort errors (code 20)', async () => {
+    it('should not change the status nor log abort errors (code 20)', async () => {
       resetAiStateWith(store, { query: 'ai test' })
 
       const abortError = new Error('Aborted')
@@ -230,13 +230,13 @@ describe('testing ai module actions', () => {
       await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
       await flushPromises()
 
-      expect(store.state.suggestionsStatus).toBe('error')
+      expect(store.state.suggestionsStatus).toBe('loading')
       expect(consoleErrorSpy).not.toHaveBeenCalled()
 
       consoleErrorSpy.mockRestore()
     })
 
-    it('should return early if status is not 200', async () => {
+    it('should set status to error if status is not 200', async () => {
       resetAiStateWith(store, { query: 'ai test' })
 
       adapter.aiSuggestions.mockResolvedValueOnce({
@@ -244,14 +244,19 @@ describe('testing ai module actions', () => {
         status: 500,
       } as unknown as Response)
 
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
       await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
       await flushPromises()
 
-      expect(store.state.suggestionsStatus).toBe('loading')
+      expect(store.state.suggestionsStatus).toBe('error')
       expect(store.state.queries).toEqual([])
+      expect(consoleErrorSpy).toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
     })
 
-    it('should return early if response has no body', async () => {
+    it('should set status to error if response has no body', async () => {
       resetAiStateWith(store, { query: 'ai test' })
 
       adapter.aiSuggestions.mockResolvedValueOnce({
@@ -259,11 +264,16 @@ describe('testing ai module actions', () => {
         status: 200,
       } as unknown as Response)
 
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
       await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
       await flushPromises()
 
-      expect(store.state.suggestionsStatus).toBe('loading')
+      expect(store.state.suggestionsStatus).toBe('error')
       expect(store.state.queries).toEqual([])
+      expect(consoleErrorSpy).toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
     })
 
     it('should ignore empty lines and short lines', async () => {
@@ -302,6 +312,94 @@ describe('testing ai module actions', () => {
       await flushPromises()
 
       expect(store.state.queries).toEqual(queriesData)
+    })
+    it('should set status to error and log when the request fails', async () => {
+      resetAiStateWith(store, { query: 'ai test' })
+
+      const error = new TypeError('Failed to fetch')
+      adapter.aiSuggestions.mockRejectedValueOnce(error)
+
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
+      await flushPromises()
+
+      expect(store.state.suggestionsStatus).toBe('error')
+      expect(consoleErrorSpy).toHaveBeenCalledWith(error)
+
+      consoleErrorSpy.mockRestore()
+    })
+
+    it('should not change the status when the request is aborted by a newer one', async () => {
+      resetAiStateWith(store, { query: 'ai test' })
+
+      adapter.aiSuggestions.mockRejectedValueOnce(
+        new DOMException('The operation was aborted', 'AbortError'),
+      )
+
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      await store.dispatch('fetchAndSaveAiSuggestions', store.getters.suggestionsRequest)
+      await flushPromises()
+
+      expect(store.state.suggestionsStatus).toBe('loading')
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
+    })
+  })
+
+  describe('fetchAndSaveAiSuggestionsSearch', () => {
+    const queries = [{ query: 'shoes', categories: [] }] as unknown as AiSuggestionQuery[]
+
+    it('should do nothing if there is no request', async () => {
+      await store.dispatch('fetchAndSaveAiSuggestionsSearch', false)
+
+      expect(adapter.aiSuggestionsSearch).not.toHaveBeenCalled()
+      expect(store.state.suggestionsSearchStatus).toBe('initial')
+    })
+
+    it('should save the suggestions and set status to success', async () => {
+      resetAiStateWith(store, { queries })
+      const suggestions = [{ query: 'shoes', results: [] }]
+      adapter.aiSuggestionsSearch.mockResolvedValueOnce({
+        suggestions,
+        suggestionsTagging: undefined,
+      } as any)
+
+      await store.dispatch('fetchAndSaveAiSuggestionsSearch', false)
+
+      expect(store.state.suggestionsSearch).toEqual(suggestions)
+      expect(store.state.suggestionsSearchStatus).toBe('success')
+    })
+
+    it('should set status to error and log when the request fails', async () => {
+      resetAiStateWith(store, { queries })
+      const error = new Error('Gateway Timeout')
+      adapter.aiSuggestionsSearch.mockRejectedValueOnce(error)
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      await store.dispatch('fetchAndSaveAiSuggestionsSearch', false)
+
+      expect(store.state.suggestionsSearchStatus).toBe('error')
+      expect(consoleErrorSpy).toHaveBeenCalledWith(error)
+
+      consoleErrorSpy.mockRestore()
+    })
+
+    it('should not change the status when the request is aborted by a newer one', async () => {
+      resetAiStateWith(store, { queries })
+      adapter.aiSuggestionsSearch.mockRejectedValueOnce(
+        new DOMException('The operation was aborted', 'AbortError'),
+      )
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      await store.dispatch('fetchAndSaveAiSuggestionsSearch', false)
+
+      expect(store.state.suggestionsSearchStatus).toBe('loading')
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
     })
   })
 })

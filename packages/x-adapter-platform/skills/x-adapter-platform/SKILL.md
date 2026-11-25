@@ -1,34 +1,65 @@
 ---
 name: x-adapter-platform
-description: 'Use when importing, using, or debugging components from x-adapter-platform.'
+description: 'Preconfigured Empathy Platform API adapter (@empathyco/x-adapter-platform): platformAdapter with one endpoint adapter per Platform endpoint and transform schemas (resultSchema, facetSchema, etc.) customizable with $extends, $override and $replace. Use when changing how an X project calls Empathy Platform: endpoints or environment, extraParams (instance, env), mapping extra result fields (images, prices, variants), or debugging empty or wrongly mapped results and facets. For a non-Platform API use x-adapter.'
 ---
 
-# x-adapter-platform
+<!-- skills-check packages: @empathyco/x-adapter-platform, @empathyco/x-adapter, @empathyco/x-types -->
+<!-- skills-check ignore: XInstaller, aiSuggestions, Response, extraParams -->
 
-Adapter para la Empathy Platform API construido sobre `x-adapter`: contiene la configuración, mappers y schemas de los endpoints de la plataforma. Es el adapter por defecto usado en `x-archetype`.
+# @empathyco/x-adapter-platform
 
-## Componentes disponibles
+Adapter for the Empathy Platform API, built on `@empathyco/x-adapter`. It is the adapter
+passed to `XInstaller` in most X projects.
 
-- `platformAdapter` — objeto con todos los `EndpointAdapter` de la plataforma:
-  - `search` — búsqueda de resultados.
-  - `browse` — browsing sin query.
-  - `facets` — facets disponibles para la query.
-  - `popularSearches` — búsquedas populares.
-  - `recommendations` — productos más clicados.
-  - `nextQueries` — queries que suelen hacerse a continuación.
-  - `querySuggestions` — sugerencias de query.
-  - `relatedTags` — tags para refinar la query.
-  - `relatedPrompts` — prompts relacionados.
-  - `semanticQueries` — queries semánticas.
-  - `identifierResults` — búsqueda por identificador (SKU).
-  - `experienceControls` — experience controls del snippet.
-  - `aiSuggestions` / `aiSuggestionsSearch` — sugerencias AI.
-  - `tagging` — envío de eventos de métricas.
-- `resultSchema`, `facetsSchema`, etc. — `TransformSchema`s de request/response que se pueden modificar con `$extends`, `$override` y `$replace`.
-- `mapFilters`, `getFacetConfig`, `extractUrlParameters`, `getTaggingInfoFromUrl` — helpers de mapeo y utilidades.
+## platformAdapter
 
-## Instalación
+`platformAdapter` has one endpoint adapter per Platform endpoint: search, browse, facets,
+popularSearches, recommendations (top clicked products), nextQueries, querySuggestions,
+relatedTags, relatedPrompts, semanticQueries, identifierResults (search by SKU),
+experienceControls, aiSuggestions, aiSuggestionsSearch and tagging.
 
+- `aiSuggestions` returns the raw streaming `Response` (server-sent events), not mapped data.
+- Endpoint URLs are built from the request `extraParams`: `instance` (all endpoints) and `env`
+  (for example `env: 'test'` points search to the internal test host).
+
+## Customizing the mapping
+
+Schemas are `TransformSchema`s (`createTransformSchema` from `@empathyco/x-adapter`); the old path based mutable schemas are deprecated:
+
+- `resultSchema` maps a Platform result to the X `Result` model.
+- `facetSchema` maps facets; request and response schemas are also `TransformSchema`s.
+- `$extends` returns a new schema; `$override` and `$replace` **mutate the shared schema**, so
+  every endpoint using it changes.
+
+Adding a field to results (from the package README, "Modifying the x-platform-adapter"):
+
+```ts
+import type { PlatformResult } from '@empathyco/x-adapter-platform'
+import type { Result } from '@empathyco/x-types'
+import { resultSchema } from '@empathyco/x-adapter-platform'
+
+interface MyPlatformResult extends PlatformResult {
+  season: string
+}
+
+declare module '@empathyco/x-types' {
+  export interface Result {
+    season: string
+  }
+}
+
+resultSchema.$override<MyPlatformResult, Partial<Result>>({
+  // The returned object is merged with the result mapped by default.
+  transform: source => ({ season: source.season }),
+})
 ```
-npm install @empathyco/x-adapter-platform
-```
+
+## Helpers
+
+`mapFilters`, `getFacetConfig`, `extractUrlParameters`, `getTaggingInfoFromUrl`,
+`getDisplayTaggingInfoFromUrl`.
+
+## Exact API
+
+Grep `node_modules/@empathyco/x-adapter-platform/report/x-adapter-platform.api.md` before
+using a name you have not seen in the project.

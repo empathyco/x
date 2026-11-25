@@ -1,6 +1,15 @@
 import type { Newable } from '../vitest-augmentation'
 import { expect } from 'vitest'
 
+// The schema modules in this submodule use `expect` as a runtime global (the
+// vitest `globals` style). When the consumer's Vitest setup does not enable
+// `globals`, provide it here so the `/schemas` entry works either way. This
+// module is evaluated first by `./index`, before any schema module.
+const globalScope = globalThis as { expect?: typeof expect }
+if (typeof globalScope.expect === 'undefined') {
+  globalScope.expect = expect
+}
+
 const ok = { pass: true, message: () => 'OK' }
 const error = (msg: string) => ({
   pass: false,

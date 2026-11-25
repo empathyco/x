@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.6.0) (2026-11-24)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
+## [2.5.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.5.0) (2026-11-24)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
+## [2.4.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.4.0) (2026-11-23)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
+## [2.3.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.3.0) (2026-11-23)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
+## [2.2.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.2.0) (2026-11-23)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
+## [2.1.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.1.0) (2026-11-23)
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [2.0.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@2.0.0...@empathyco/x-adapter-platform@2.0.6) (2026-11-13)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

@@ -42,6 +42,11 @@ export interface SearchState extends StatusState, QueryState {
   facets: Facet[]
   /** A flag to indicate if new results are append to the current instead of replacing them. */
   isAppendResults: boolean
+  /**
+   * Flag indicating that the search in progress is the one of the `noResultsFallback`, so it is
+   * not applied again.
+   */
+  isNoResultsFallback: boolean
   /** Flag indicating if there is a no results situation. */
   isNoResults: boolean
   /** Flag indicating if there is a no results situation with filters selected. */
@@ -144,6 +149,12 @@ export interface SearchMutations
    * @param isAppendResults - The new flag value.
    */
   setIsAppendResults: (isAppendResults: boolean) => void
+  /**
+   * Sets the `isNoResultsFallback` flag value.
+   *
+   * @param isNoResultsFallback - The new flag value.
+   */
+  setIsNoResultsFallback: (isNoResultsFallback: boolean) => void
   /**
    * Sets the `isNoResults` flag value.
    *

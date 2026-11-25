@@ -3,6 +3,108 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.15.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.15.0) (2026-11-24)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add no-results fallback (#2205)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* set query suggestions debounce to 500 ms (#2209)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+* **vendor:** don't render the search results duplicated by vendor results (ENG-2618) (#2208)
+
+
+## [10.14.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.14.0) (2026-11-24)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add no-results fallback (#2205)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+* **vendor:** don't render the search results duplicated by vendor results (ENG-2618) (#2208)
+
+
+## [10.13.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.13.0) (2026-11-23)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+* **vendor:** don't render the search results duplicated by vendor results (ENG-2618) (#2208)
+
+
+## [10.12.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.12.0) (2026-11-23)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+* **vendor:** don't render the search results duplicated by vendor results (ENG-2618) (#2208)
+
+
+## [10.11.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.11.0) (2026-11-23)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* **ai:** set AI suggestions status to error when requests fail (ENG-2552) (#2204)
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
+## [10.10.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.10.0) (2026-11-23)
+
+### Features
+
+* **base-modal:** add scrollLock prop to control page scroll behavior (#2200)
+* **search:** add priceFacetId to SearchConfig and update request accordingly (#2194)
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-components:** add responsive image props and loading events to BaseResultImage (#2195)
+
+### Bug Fixes
+
+* change CSS selector for only child teleport (#2197)
+* remove parent selector when BaseTeleport is unmounted (#2198)
+
+
 ## [10.9.0](https://github.com/empathyco/x/compare/@empathyco/x-components@10.3.0...@empathyco/x-components@10.9.0) (2026-11-13)
 
 ### Features

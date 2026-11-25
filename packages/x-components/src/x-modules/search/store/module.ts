@@ -100,6 +100,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     setIsAppendResults(state, isAppendResults) {
       state.isAppendResults = isAppendResults
     },
+    setIsNoResultsFallback(state, isNoResultsFallback) {
+      state.isNoResultsFallback = isNoResultsFallback
+    },
     setIsNoResults(state, isNoResults) {
       state.isNoResults = isNoResults
     },
@@ -167,6 +170,7 @@ export function resettableState() {
     page: 1,
     origin: null,
     isAppendResults: false,
+    isNoResultsFallback: false,
     redirections: [],
     queryTagging: {
       url: '',

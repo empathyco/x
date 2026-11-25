@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "11.0.6",
+  "version": "11.6.0",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -29,7 +29,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "vite build && pnpm run gen:docs",
+    "build": "vite build && pnpm run gen:docs && node ./scripts/copy-schemas-runtime.mjs",
     "build:watch": "vite build -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
@@ -42,9 +42,17 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
+  "peerDependencies": {
+    "vitest": "*"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    }
+  },
   "dependencies": {
-    "@empathyco/x-adapter": "8.2.6",
-    "@empathyco/x-utils": "1.1.6"
+    "@empathyco/x-adapter": "8.8.0",
+    "@empathyco/x-utils": "1.7.0"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.30.20",

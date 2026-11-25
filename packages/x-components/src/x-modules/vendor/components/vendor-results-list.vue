@@ -64,6 +64,20 @@ export default defineComponent({
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
     /**
+     * The injected list items without the search results that are also provided as vendor results
+     * (same id), so the same product is not rendered twice.
+     *
+     * @remarks The vendor result takes precedence over the indexed search result. The state is not
+     * modified, so the search result is rendered again if the vendor result is removed.
+     */
+    const injectedItemsWithoutDuplicates = computed(() => {
+      const vendorResultIds = new Set(stateItems.value.map(({ id }) => id))
+      return (injectedListItems?.value ?? []).filter(
+        ({ id, modelName }) => modelName !== 'Result' || !vendorResultIds.has(id),
+      )
+    })
+
+    /**
      * Indicates if all the results of the current context have been loaded, to know if the
      * vendor results can be inserted in positions of not yet loaded pages.
      *
@@ -85,10 +99,10 @@ export default defineComponent({
      * @returns List of {@link ListItem}.
      */
     const items = computed(() => {
-      if (!injectedListItems?.value!.length) {
+      if (!injectedItemsWithoutDuplicates.value.length) {
         return stateItems.value
       }
-      const items = [...injectedListItems.value]
+      const items = [...injectedItemsWithoutDuplicates.value]
       for (const item of stateItems.value) {
         const position = item.position ?? 1
         let index = position - 1

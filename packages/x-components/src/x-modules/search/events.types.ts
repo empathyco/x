@@ -8,6 +8,7 @@ import type {
   Sort,
   TaggingRequest,
 } from '@empathyco/x-types'
+import type { Dictionary } from '@empathyco/x-utils'
 import type { InternalSearchRequest, InternalSearchResponse } from './types'
 
 /**
@@ -22,6 +23,12 @@ export interface SearchXEvents {
    * Payload: The {@link @empathyco/x-types#Facet | facets} array.
    */
   FacetsChanged: Facet[]
+  /**
+   * The `noResultsFallback` extra params have been provided, as a search without results is
+   * going to be searched again with them.
+   * Payload: The extra params of the fallback.
+   */
+  NoResultsFallbackExtraParamsProvided: Dictionary<unknown>
   /**
    * Page has been changed.
    * Payload: The new page number.
