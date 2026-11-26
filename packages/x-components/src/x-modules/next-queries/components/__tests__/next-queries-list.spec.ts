@@ -76,7 +76,24 @@ async function render({
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })],
+        plugins: [
+          installNewXPlugin({
+            store,
+            initialXModules: [nextQueriesXModule],
+            // These tests set the next queries state directly, without launching the request, so
+            // the request is not deferred until the next queries are displayed.
+            __PRIVATE__xModules: {
+              nextQueries: {
+                storeEmitters: {
+                  NextQueriesRequestUpdated: {
+                    selector: (_, getters) => getters.request,
+                    emitWhenVisible: false,
+                  },
+                },
+              },
+            },
+          }),
+        ],
       },
       props: { offset, frequency, maxNextQueriesPerGroup, maxGroups, showOnlyAfterOffset },
     },

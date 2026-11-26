@@ -10,6 +10,7 @@ import {
 } from '../../../components/decorators/injection.consts'
 import ItemsList from '../../../components/items-list.vue'
 import { useState } from '../../../composables/use-state'
+import { hasXModulePendingEvents } from '../../../plugins/x-modules-visibility'
 import { AnimationProp } from '../../../types/animation-prop'
 import { groupItemsBy } from '../../../utils/array'
 import { relatedPromptsXModule } from '../x-module'
@@ -109,14 +110,21 @@ export default defineComponent({
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
 
     /**
+     * Whether the module has a request that has not been launched yet because its content has not
+     * been displayed. While it is pending, the module data in the state is outdated.
+     */
+    const hasPendingRequest = hasXModulePendingEvents(relatedPromptsXModule.name)
+
+    /**
      * Checks if the related prompts are outdated taking into account the injected query.
      *
      * @returns True if the related prompts are outdated, false if not.
      */
     const relatedPromptsAreOutdated = computed(
       () =>
-        !!injectedQuery?.value &&
-        (query.value !== injectedQuery.value || status.value !== 'success'),
+        hasPendingRequest.value ||
+        (!!injectedQuery?.value &&
+          (query.value !== injectedQuery.value || status.value !== 'success')),
     )
 
     /**
@@ -135,13 +143,46 @@ export default defineComponent({
     )
 
     /**
+     * Empty group rendered while the request is pending. Its slot content reserves the space of
+     * the group (see the `--placeholder` class of the module components) and reports its
+     * visibility, so the pending request is launched when the group position is displayed.
+     */
+    const placeholderGroup = {
+      modelName: 'RelatedPromptsGroup' as const,
+      id: 'related-prompts-group-placeholder',
+      relatedPrompts: [],
+    }
+
+    /**
+     * Inserts the placeholder group in the position where the first group would be rendered.
+     *
+     * @param listItems - The injected list items.
+     * @returns The list items with the placeholder group inserted, if the group would be rendered.
+     */
+    const insertPlaceholderGroup = (listItems: ListItem[]): ListItem[] => {
+      if (listItems.length >= props.offset) {
+        return [
+          ...listItems.slice(0, props.offset),
+          placeholderGroup,
+          ...listItems.slice(props.offset),
+        ]
+      }
+      return props.showOnlyAfterOffset || !listItems.length
+        ? listItems
+        : [...listItems, placeholderGroup]
+    }
+
+    /**
      * New list of {@link ListItem}s to render.
      *
      * @returns The new list of {@link ListItem}s with the related prompts groups inserted.
      */
     const items = computed((): ListItem[] => {
       if (!injectedListItems?.value) {
-        return relatedPromptsGroups.value
+        return hasPendingRequest.value ? [placeholderGroup] : relatedPromptsGroups.value
+      }
+      if (hasPendingRequest.value) {
+        return insertPlaceholderGroup(injectedListItems.value)
       }
       if (relatedPromptsAreOutdated.value) {
         return injectedListItems.value

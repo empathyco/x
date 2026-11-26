@@ -1,44 +1,53 @@
 <template>
-  <BaseSuggestions
-    :suggestions="renderedNextQueries"
-    data-test="next-queries"
-    class="x-next-queries"
+  <div
+    ref="nextQueriesElement"
+    class="x-next-queries-container"
+    :class="{ 'x-next-queries-container--placeholder': showPlaceholder }"
   >
-    <template #default="baseScope">
-      <!-- eslint-disable max-len -->
-      <!--
-        @slot Next Query item
-            @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
-            @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
-      -->
-      <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...baseScope, highlightCurated }">
-        <NextQuery
-          v-slot="nextQueryScope"
-          :suggestion="baseScope.suggestion"
-          :highlight-curated="highlightCurated"
-          class="x-next-queries__suggestion xds:suggestion"
-        >
-          <!-- eslint-disable max-len -->
-          <!--
-              @slot Next Query content
-                  @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
-                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
-          -->
-          <!-- eslint-enable max-len -->
-          <slot name="suggestion-content" v-bind="{ ...baseScope, ...nextQueryScope }" />
-        </NextQuery>
-      </slot>
-    </template>
-  </BaseSuggestions>
+    <BaseSuggestions
+      v-bind="$attrs"
+      :suggestions="renderedNextQueries"
+      data-test="next-queries"
+      class="x-next-queries"
+    >
+      <template #default="baseScope">
+        <!-- eslint-disable max-len -->
+        <!--
+          @slot Next Query item
+              @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
+              @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
+        -->
+        <!-- eslint-enable max-len -->
+        <slot name="suggestion" v-bind="{ ...baseScope, highlightCurated }">
+          <NextQuery
+            v-slot="nextQueryScope"
+            :suggestion="baseScope.suggestion"
+            :highlight-curated="highlightCurated"
+            class="x-next-queries__suggestion xds:suggestion"
+          >
+            <!-- eslint-disable max-len -->
+            <!--
+                @slot Next Query content
+                    @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
+                    @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
+            -->
+            <!-- eslint-enable max-len -->
+            <slot name="suggestion-content" v-bind="{ ...baseScope, ...nextQueryScope }" />
+          </NextQuery>
+        </slot>
+      </template>
+    </BaseSuggestions>
+  </div>
 </template>
 
 <script lang="ts">
 import type { NextQuery as NextQueryModel } from '@empathyco/x-types'
 import type { PropType } from 'vue'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
 import { useGetter } from '../../../composables/use-getter'
+import { useXModuleVisibility } from '../../../composables/use-x-module-visibility'
+import { hasXModulePendingEvents } from '../../../plugins/x-modules-visibility'
 import { nextQueriesXModule } from '../x-module'
 import NextQuery from './next-query.vue'
 
@@ -58,6 +67,7 @@ export default defineComponent({
     NextQuery,
     BaseSuggestions,
   },
+  inheritAttrs: false,
   props: {
     /**
      * Flag to indicate if the curated next queries should be displayed different.
@@ -88,12 +98,47 @@ export default defineComponent({
      *
      * @internal
      */
-    const renderedNextQueries = computed(() => props.suggestions ?? stateNextQueries.value)
+    /**
+     * Whether the next queries request has not been launched yet because they have not been
+     * displayed. While it is pending, the state next queries are outdated.
+     */
+    const hasPendingRequest = hasXModulePendingEvents(nextQueriesXModule.name)
 
-    return { renderedNextQueries }
+    const renderedNextQueries = computed(
+      () => props.suggestions ?? (hasPendingRequest.value ? [] : stateNextQueries.value),
+    )
+
+    /**
+     * Whether the component should reserve placeholder space (min-height) while the next queries
+     * request is pending, so the visibility trigger has a realistic area to work with.
+     */
+    const showPlaceholder = computed(
+      () => hasPendingRequest.value && !renderedNextQueries.value.length,
+    )
+
+    /** Template ref for the root element to track visibility. */
+    const nextQueriesElement = ref<HTMLElement | null>(null)
+
+    /**
+     * Reports the component visibility to the module, so the request emitter (flagged with
+     * `emitWhenVisible`) is only launched when the next queries are displayed.
+     */
+    useXModuleVisibility({
+      moduleName: nextQueriesXModule.name,
+      element: nextQueriesElement,
+      rootMargin: '0px 0px 200px 0px',
+    })
+
+    return { renderedNextQueries, nextQueriesElement, showPlaceholder }
   },
 })
 </script>
+
+<style lang="css" scoped>
+.x-next-queries-container--placeholder {
+  min-block-size: var(--x-next-queries-placeholder-min-block-size, 200px);
+}
+</style>
 
 <!--eslint-disable max-len -->
 <docs lang="mdx">

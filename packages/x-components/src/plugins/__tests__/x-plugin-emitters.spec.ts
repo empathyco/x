@@ -8,6 +8,7 @@ import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy'
 import { createXModule, installNewXPlugin } from '../../__tests__/utils'
 import { setQuery } from '../../store/utils/query.utils'
 import { createWireFromFunction } from '../../wiring/wires.factory'
+import { setXModuleConsumer, setXModuleElementVisibility } from '../x-modules-visibility'
 import { XPlugin } from '../x-plugin'
 
 const wireInstance = vi.fn()
@@ -279,6 +280,121 @@ describe('testing X Plugin emitters', () => {
         },
         store,
       })
+    })
+  })
+
+  describe('emitWhenVisible configuration option', () => {
+    const testWire = vi.fn()
+    const elementToken = Symbol('element')
+    const setVisible = async (isVisible: boolean) => {
+      setXModuleElementVisibility('searchBox', elementToken, isVisible)
+      await waitNextTick()
+    }
+    const setQueryAndWait = async (query: string) => {
+      store.commit('x/searchBox/setQuery', query)
+      await waitNextTick()
+    }
+
+    beforeEach(() => {
+      XPlugin.registerXModule(xModule)
+      mount(
+        {},
+        {
+          global: {
+            plugins: [
+              installNewXPlugin({
+                adapter: XComponentsAdapterDummy,
+                xModules: {
+                  searchBox: {
+                    wiring: {
+                      SearchBoxQueryChanged: { testWire: createWireFromFunction(testWire) },
+                    },
+                  },
+                },
+                __PRIVATE__xModules: {
+                  searchBox: {
+                    storeEmitters: {
+                      SearchBoxQueryChanged: {
+                        selector: state => state.query,
+                        emitWhenVisible: true,
+                      },
+                    },
+                  },
+                },
+                store,
+              }),
+            ],
+          },
+        },
+      )
+    })
+
+    it('defers the event while the module is hidden and emits the latest value on display', async () => {
+      await setQueryAndWait('lego')
+      await setQueryAndWait('playmobil')
+      expect(testWire).not.toHaveBeenCalled()
+
+      await setVisible(true)
+      expect(testWire).toHaveBeenCalledTimes(1)
+      expect(testWire).toHaveBeenCalledWith(
+        expect.objectContaining({
+          eventPayload: 'playmobil',
+          metadata: expect.objectContaining({ moduleName: 'searchBox', oldValue: undefined }),
+        }),
+      )
+    })
+
+    it('does not emit when the value changes while the module is already visible', async () => {
+      await setVisible(true)
+      await setQueryAndWait('lego')
+      expect(testWire).not.toHaveBeenCalled()
+
+      await setVisible(false)
+      await setVisible(true)
+      expect(testWire).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not emit empty values', async () => {
+      await setQueryAndWait('lego')
+      await setQueryAndWait('')
+      await setVisible(true)
+
+      expect(testWire).not.toHaveBeenCalled()
+    })
+
+    it('emits on every change while a consumer always needs the data', async () => {
+      const alwaysToken = Symbol('always')
+      await setQueryAndWait('lego')
+      setXModuleConsumer('always', 'searchBox', alwaysToken, true)
+      await waitNextTick()
+      expect(testWire).toHaveBeenCalledTimes(1)
+
+      await setQueryAndWait('playmobil')
+      await setQueryAndWait('')
+      expect(testWire).toHaveBeenCalledTimes(3)
+    })
+
+    it('stops emitting on every change once the always consumer is removed', async () => {
+      const alwaysToken = Symbol('always')
+      setXModuleConsumer('always', 'searchBox', alwaysToken, true)
+      await setQueryAndWait('lego')
+      setXModuleConsumer('always', 'searchBox', alwaysToken, false)
+      await setQueryAndWait('playmobil')
+
+      expect(testWire).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not emit again a value equal to the last emitted one', async () => {
+      await setQueryAndWait('lego')
+      await setVisible(true)
+      await setVisible(false)
+      await setVisible(true)
+      await setVisible(false)
+      await setQueryAndWait('playmobil')
+      await setQueryAndWait('lego')
+      await setVisible(true)
+
+      expect(testWire).toHaveBeenCalledTimes(1)
     })
   })
 })

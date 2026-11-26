@@ -12,6 +12,7 @@ import {
 } from '../../../__stubs__'
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy'
 import { getMockedAdapterFunction, installNewXPlugin } from '../../../__tests__/utils'
+import { useXModuleDataConsumer } from '../../../composables/use-x-module-visibility'
 import { XPlugin } from '../../../plugins'
 import { nextQueriesXModule } from '../../next-queries/x-module'
 import { searchXModule } from '../../search/x-module'
@@ -84,7 +85,13 @@ function render({
   const wrapper = mount(
     // The component is registered explicitly: Vue silently drops unresolved components, and the
     // URL params are loaded during the UrlHandler `mounted` hook.
-    { components: { UrlHandler }, template: '<UrlHandler />' },
+    // The next queries request is only launched while a component needs its data, so the test
+    // registers itself as a consumer, as the `NextQueriesList` component does.
+    {
+      components: { UrlHandler },
+      template: '<UrlHandler />',
+      setup: () => useXModuleDataConsumer('nextQueries'),
+    },
     {
       global: {
         plugins: [
