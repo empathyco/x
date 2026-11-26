@@ -1,39 +1,43 @@
 <template>
-  <BaseSuggestions
-    :suggestions="suggestions"
-    class="x-query-suggestions"
-    data-test="query-suggestions"
-  >
-    <template #default="baseScope">
-      <!-- eslint-disable max-len -->
-      <!--
-        @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
-      -->
-      <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...baseScope }">
-        <QuerySuggestion
-          v-slot="querySuggestionScope"
-          :suggestion="baseScope.suggestion"
-          class="x-query-suggestions__suggestion xds:suggestion"
-        >
-          <!-- eslint-disable max-len -->
-          <!--
-            @slot Custom content that replaces the `QuerySuggestion` default content
-                @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
-          -->
-          <!-- eslint-enable max-len -->
-          <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
-        </QuerySuggestion>
-      </slot>
-    </template>
-  </BaseSuggestions>
+  <div ref="querySuggestionsElement" class="x-query-suggestions-container">
+    <BaseSuggestions
+      v-bind="$attrs"
+      :suggestions="suggestions"
+      class="x-query-suggestions"
+      data-test="query-suggestions"
+    >
+      <template #default="baseScope">
+        <!-- eslint-disable max-len -->
+        <!--
+          @slot Custom component that replaces the `QuerySuggestion` component
+              @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+        -->
+        <!-- eslint-enable max-len -->
+        <slot name="suggestion" v-bind="{ ...baseScope }">
+          <QuerySuggestion
+            v-slot="querySuggestionScope"
+            :suggestion="baseScope.suggestion"
+            class="x-query-suggestions__suggestion xds:suggestion"
+          >
+            <!-- eslint-disable max-len -->
+            <!--
+              @slot Custom content that replaces the `QuerySuggestion` default content
+                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+            -->
+            <!-- eslint-enable max-len -->
+            <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
+          </QuerySuggestion>
+        </slot>
+      </template>
+    </BaseSuggestions>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { deepEqual } from '@empathyco/x-utils'
+import { defineComponent, onBeforeUnmount, ref, watch } from 'vue'
 import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
-import { useGetter } from '../../../composables'
+import { useGetter, useOnDisplay, useState, useXBus } from '../../../composables'
 import { querySuggestionsXModule } from '../x-module'
 import QuerySuggestion from './query-suggestion.vue'
 
@@ -48,16 +52,88 @@ export default defineComponent({
   name: 'QuerySuggestions',
   xModule: querySuggestionsXModule.name,
   components: { BaseSuggestions, QuerySuggestion },
-  setup() {
-    /** The module's list of suggestions. */
-    const { querySuggestions } = useGetter('querySuggestions')
+  inheritAttrs: false,
+  props: {
+    /**
+     * Controls whether the query suggestions request should be triggered when the component is
+     * visible in the viewport.
+     */
+    loadWhenVisible: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  setup(props) {
+    const bus = useXBus()
+    /** The module's list of suggestions and current request. */
+    const { querySuggestions, request } = useGetter('querySuggestions')
+    /** The request for which the fetch and save action was already launched. */
+    const { lastRequest } = useState('querySuggestions')
 
-    return { suggestions: querySuggestions }
+    /** Template ref for the root element to track visibility. */
+    const querySuggestionsElement = ref<HTMLElement | null>(null)
+
+    /**
+     * Emits `QuerySuggestionsRequestUpdated` only when there is a request that has not been
+     * fetched yet. This way the fetch and save action is launched just once per request, no matter
+     * how many times the component is displayed afterwards.
+     *
+     * @internal
+     */
+    const emitRequest = (): void => {
+      if (request.value && !deepEqual(request.value ?? undefined, lastRequest.value ?? undefined)) {
+        void bus.emit('QuerySuggestionsRequestUpdated', request.value)
+      }
+    }
+
+    /**
+     * Updates the request when it changes, unless it is only fetched when the component becomes
+     * visible. In that case the `useOnDisplay` callback takes care of it.
+     *
+     * @internal
+     */
+    watch(request, (newRequest, oldRequest) => {
+      if (!deepEqual(newRequest ?? undefined, oldRequest ?? undefined) && !props.loadWhenVisible) {
+        emitRequest()
+      }
+    })
+
+    if (!props.loadWhenVisible) {
+      emitRequest()
+    }
+
+    /**
+     * Watches the element visibility and emits the request whenever it becomes visible. It is only
+     * set up when `loadWhenVisible` is enabled. The visibility is computed against the
+     * `MainScroll` container (`#main-scroll`) when it exists, so the `rootMargin` preload zone
+     * works, and falls back to the viewport otherwise.
+     */
+    const unwatchDisplay = props.loadWhenVisible
+      ? useOnDisplay({
+          element: querySuggestionsElement,
+          threshold: 0,
+          rootMargin: '0px 0px 200px 0px',
+          triggerOnce: false,
+          callback: emitRequest,
+        }).unwatchDisplay
+      : undefined
+
+    onBeforeUnmount(() => {
+      unwatchDisplay?.()
+    })
+
+    return { suggestions: querySuggestions, querySuggestionsElement }
   },
 })
 </script>
 
 <docs lang="mdx">
+## Props
+
+| Name              | Description                                                                               | Type      | Default |
+| ----------------- | ----------------------------------------------------------------------------------------- | --------- | ------- |
+| `loadWhenVisible` | Trigger the query suggestions request only when the component is visible in the viewport. | `boolean` | `false` |
+
 ## Inherited props
 
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
