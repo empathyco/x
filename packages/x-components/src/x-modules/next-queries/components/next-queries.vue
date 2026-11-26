@@ -39,6 +39,7 @@ import type { PropType } from 'vue'
 import { computed, defineComponent } from 'vue'
 import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
 import { useGetter } from '../../../composables/use-getter'
+import { useXModuleDisplay } from '../../../composables/use-x-module-display'
 import { nextQueriesXModule } from '../x-module'
 import NextQuery from './next-query.vue'
 
@@ -76,6 +77,12 @@ export default defineComponent({
     suggestions: Array as PropType<NextQueryModel[]>,
   },
   setup(props) {
+    /**
+     * Lets the module request next queries only while this component is visible, when the
+     * `loadWhenVisible` config is enabled.
+     */
+    useXModuleDisplay({ moduleName: 'nextQueries' })
+
     /**
      * The list of next queries from the state.
      *

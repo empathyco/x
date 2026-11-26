@@ -52,6 +52,13 @@ export interface StateSelector<
    */
   filter?: (newValue: ReturnType, oldValue: ReturnType, state: State) => boolean
   metadata?: Partial<WireMetadata>
+  /**
+   * Marks the event as a request trigger that can wait until a component of the module is
+   * displayed. It only takes effect when the module `config.loadWhenVisible` is `true`: then the
+   * event is not emitted while no component is displayed, and it is emitted with the latest value
+   * as soon as one is (unless that value was already emitted).
+   */
+  waitForDisplay?: boolean
 }
 
 /**

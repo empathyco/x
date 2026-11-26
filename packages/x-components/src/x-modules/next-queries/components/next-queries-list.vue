@@ -11,6 +11,7 @@ import {
 import ItemsList from '../../../components/items-list.vue'
 import { useGetter } from '../../../composables/use-getter'
 import { useState } from '../../../composables/use-state'
+import { useXModuleDisplay } from '../../../composables/use-x-module-display'
 import { AnimationProp } from '../../../types/animation-prop'
 import { groupItemsBy } from '../../../utils/array'
 import { nextQueriesXModule } from '../x-module'
@@ -57,6 +58,10 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
+    // The root element is the whole results list, so the next queries are requested as soon as
+    // the results are visible, not when the first next query group scrolls into view.
+    useXModuleDisplay({ moduleName: 'nextQueries' })
+
     const { query, status } = useState('nextQueries')
 
     /** The state next queries. */
