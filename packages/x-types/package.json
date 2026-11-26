@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "11.10.0",
+  "version": "11.11.0",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -51,8 +51,8 @@
     }
   },
   "dependencies": {
-    "@empathyco/x-adapter": "9.0.0",
-    "@empathyco/x-utils": "1.11.0"
+    "@empathyco/x-adapter": "10.0.0",
+    "@empathyco/x-utils": "1.12.0"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "7.30.20",

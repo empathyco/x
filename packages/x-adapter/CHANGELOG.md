@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@10.0.0) (2026-11-26)
+
+### ⚠ BREAKING CHANGES
+
+* **adapter:** the schemas of `@empathyco/x-adapter-platform` are now
+`MutableZodSchema`s. Overrides written as path based schemas
+(`resultSchema.$override({ brand: 'brand' })`) must be migrated to
+`resultSchema.$override({ transform: source => ({ brand: source.brand }) })`.
+`FacetConfig.schema` is now a `MutableZodSchema`.
+
+* feat(x-adapter-platform)!: document the migration to mutable zod schemas
+* **adapter:** the schemas of `@empathyco/x-adapter-platform` are now `MutableZodSchema`s. The modifications written as path based schemas (`resultSchema.$override({ brand: 'brand' })`) must be migrated to `resultSchema.$override({ transform: source => ({ brand: source.brand }) })`. `FacetConfig.schema` is now a `MutableZodSchema`.
+
+* refactor(x-adapter-platform): map the platform schemas without validators
+
+The memory problem of the path based schemas is fixed by the `transform`
+functions, not by the validation. So, as a first phase, the platform
+schemas do not validate their source:
+
+- Remove the `zod` dependency of `@empathyco/x-adapter-platform`.
+- Declare the source of each schema with the new `Platform*Source` types.
+  They are the same types that the removed validators inferred, so adding
+  the validators back is not a breaking change.
+
+`@empathyco/x-adapter` still supports the optional `source` validator.
+
+* refactor(adapter): rename the new schemas to transform schemas
+
+Zod is not part of the public API: `@empathyco/x-adapter` only knows about
+an optional validator with a `safeParse` method. Name the new schemas after
+what defines them, the `transform` function:
+
+- `createMutableZodSchema` -> `createTransformSchema`
+- `MutableZodSchema` -> `TransformSchema`
+- `ZodSchemaDefinition` -> `TransformSchemaDefinition`
+- `ZodSchemaOverride` -> `TransformSchemaOverride`
+- `isMutableZodSchema` -> `isTransformSchema`
+- `zSchemaMapperFactory` -> `transformSchemaMapperFactory`
+
+* fix(adapter): chain source validators and cover schema customization
+
+Each source validator now receives the data accumulated by the previous
+ones, so a later validator does not undo the values they coerced.
+
+Add tests for the schemas customization ($override, $extends and the Zod
+source) and for the browse and related prompts mappers, and document the
+migration in the x-adapter-platform README.
+* **adapter:** the schemas exported by `@empathyco/x-adapter-platform`
+(`resultSchema`, `facetSchema`, request and response schemas...) are now
+`TransformSchema`s instead of path based `MutableSchema`s, and
+`FacetConfig.schema` has the same type. The modifications written as path
+based schemas (`$override({ name: 'title' })`) must be migrated to a
+`transform` function. `$override` shallow merges the returned object, the
+properties returned as `undefined` are ignored (use `$replace` to remove
+a mapped property) and the mapped objects no longer contain `undefined`
+properties. `Schema`, `schemaMapperFactory` and `createMutableSchema` of
+`@empathyco/x-adapter` are deprecated.
+
+* docs(adapter): document the Zod 4 requirement and extend the platform skill
+
+### Features
+
+* **adapter:** add transform schemas and deprecate path based schemas (#2162)
+* **skills:** ship validated agent skills in every package (#2203)
+
+
 ## [9.0.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.2.0...@empathyco/x-adapter@9.0.0) (2026-11-26)
 
 ### ⚠ BREAKING CHANGES

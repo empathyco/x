@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.1.0...@empathyco/x-archetype-utils@3.0.0) (2026-11-26)
+
+### ⚠ BREAKING CHANGES
+
+* **x-archetype-utils:** `I18n` and its types (`I18nOptions`, `MessagesByDevice`, `Locale`, `Device`...) are no longer exported by `@empathyco/x-archetype-utils`, and the package no longer depends on `vue-i18n`, `vue` or `@empathyco/x-utils`. Use `vue-i18n` directly in the project.
+
+ENG-2693
+
+Co-authored-by: Adrián Arenal <adrianarenal@users.noreply.github.com>
+
+### Features
+
+* **skills:** ship validated agent skills in every package (#2203)
+* **x-archetype-utils:** remove the I18n helper and the vue-i18n dependency (#2218)
+
+
 ## [2.11.0](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.1.0...@empathyco/x-archetype-utils@2.11.0) (2026-11-26)
 
 ### Features

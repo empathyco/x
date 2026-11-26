@@ -27,7 +27,7 @@ importers:
   packages/x-adapter:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.11.0
+        specifier: 1.12.0
         version: link:../x-utils
     devDependencies:
       '@vitest/coverage-v8':
@@ -49,13 +49,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 9.0.0
+        specifier: 10.0.0
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 11.10.0
+        specifier: 11.11.0
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.11.0
+        specifier: 1.12.0
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -104,16 +104,16 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 9.0.0
+        specifier: 10.0.0
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 3.0.0
+        specifier: 4.0.0
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 11.10.0
+        specifier: 11.11.0
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.11.0
+        specifier: 1.12.0
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.6.4
@@ -144,7 +144,7 @@ importers:
         specifier: 8.0.7
         version: 8.0.7(@babel/core@7.29.0)
       '@empathyco/x-design-system':
-        specifier: 1.12.0
+        specifier: 1.13.0
         version: link:../x-design-system
       '@microsoft/api-documenter':
         specifier: 7.30.20
@@ -272,10 +272,10 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 9.0.0
+        specifier: 10.0.0
         version: link:../x-adapter
       '@empathyco/x-utils':
-        specifier: 1.11.0
+        specifier: 1.12.0
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
