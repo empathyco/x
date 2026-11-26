@@ -27,8 +27,8 @@ the project imports to its own `package.json` to get their skills.
 - `@empathyco/x-types` — shared data models, type guards and Vitest test schemas.
 - `@empathyco/x-utils` — session/storage services and object helpers such as `deepMerge`.
 - `@empathyco/x-design-system` — Tailwind CSS v4 styles; every utility uses the `xds:` prefix.
-- `@empathyco/x-archetype-utils` — i18n, runtime CSS injection and build helpers for
-  x-archetype projects.
+- `@empathyco/x-archetype-utils` — runtime CSS injection and build helpers for x-archetype
+  projects.
 
 ## Import rule (read first)
 
