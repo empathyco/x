@@ -185,6 +185,17 @@ describe('testing Base Modal  component', () => {
 
       expect(wrapper.emitted('escape:pressed')).toBeUndefined()
     })
+
+    it("doesn't emit escape:pressed when the Escape keydown default has been prevented", async () => {
+      const { wrapper, setOpen } = mountBaseModal()
+      await setOpen(true)
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+      event.preventDefault()
+      ;(wrapper.element as HTMLElement).dispatchEvent(event)
+
+      expect(wrapper.emitted('escape:pressed')).toBeUndefined()
+    })
   })
 
   it('allows customizing the default slot content', () => {

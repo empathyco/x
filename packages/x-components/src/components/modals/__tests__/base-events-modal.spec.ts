@@ -229,7 +229,9 @@ describe('testing Base Events Modal  component', () => {
     it('restores the focus to the opener element when the modal closes', async () => {
       const opener = document.createElement('button')
       document.body.appendChild(opener)
-      const { getModalContent } = mountBaseEventsModal()
+      const { getModalContent } = mountBaseEventsModal({
+        defaultSlot: '<button data-test="modal-button">Content</button>',
+      })
 
       await XPlugin.bus.emit('UserClickedOpenEventsModal', undefined, {
         target: opener,
@@ -237,6 +239,9 @@ describe('testing Base Events Modal  component', () => {
       })
       await nextTick()
       expect(getModalContent().exists()).toBe(true)
+
+      // The focus is inside the modal when it closes (e.g. the user pressed Escape in it)
+      ;(getModalContent().find('button').element as HTMLButtonElement).focus()
 
       await XPlugin.bus.emit('UserClickedCloseEventsModal', undefined)
       await nextTick()

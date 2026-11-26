@@ -163,12 +163,13 @@ export default defineComponent({
     }
 
     /**
-     * Emits the `escape:pressed` event if the Escape key has been pressed while the modal is open.
+     * Emits the `escape:pressed` event if the Escape key has been pressed while the modal is open
+     * and the keydown default action has not been prevented by an inner element.
      *
      * @param event - The keyboard event.
      */
     function emitEscapePressed(event: KeyboardEvent) {
-      if (props.open) {
+      if (props.open && !event.defaultPrevented) {
         // eslint-disable-next-line vue/custom-event-name-casing
         emit('escape:pressed', event)
       }
@@ -449,8 +450,9 @@ A list of events that the component will emit:
   if the modal is open. The event payload is the focus event that triggers it.
 - `escape:pressed`: the event is emitted after the user presses the Escape key while the modal is
   open. The event payload is the keyboard event that triggers it. The event is based on the
-  bubbling `keydown` of the modal root, so it only fires when the keydown targets an element INSIDE
-  the modal. With the focus outside the modal, consumers that rely on `focusin:body` to close the
-  modal are unaffected. A raw `BaseModal` consumer wanting an Escape-anywhere behavior should add
-  a document-level `keydown` listener.
+  bubbling `keydown` of the modal root, so it only fires when the keydown targets an element
+  INSIDE the modal and its default action has not been prevented by an inner element.
+  With the focus outside the modal, consumers that rely on `focusin:body` to close the modal are
+  unaffected. A raw `BaseModal` consumer wanting an Escape-anywhere behavior should add a
+  document-level `keydown` listener.
 </docs>

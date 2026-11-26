@@ -246,29 +246,57 @@ describe('testing search input component', () => {
       expect(listener).toHaveBeenCalledTimes(1)
     })
 
-    it('stops the Escape keydown propagation when the empathize is open', async () => {
-      const { wrapper, input } = renderSearchInput({ autofocus: false })
-      const parent = input.parentElement as HTMLElement
-      const propagationSpy = vi.fn()
-      parent.addEventListener('keydown', propagationSpy)
+    it.each([
+      ['open', true],
+      ['closed', false],
+    ])(
+      'prevents the Escape keydown default only when the empathize is %s',
+      async (state, expected) => {
+        const { wrapper } = renderSearchInput({ autofocus: false })
+        let empathize: HTMLElement | undefined
+        if (state === 'open') {
+          // The predictive layer is open: a visible empathize in the DOM
+          empathize = document.createElement('div')
+          empathize.className = 'x-empathize'
+          document.body.appendChild(empathize)
+        }
+        const prevented = vi.fn()
+        const onKeydown = (event: Event) => prevented(event.defaultPrevented)
+        document.body.addEventListener('keydown', onKeydown)
 
-      await XPlugin.bus.emit('EmpathizeOpened', undefined)
-      await wrapper.trigger('keydown', { key: 'Escape' })
+        await wrapper.trigger('keydown', { key: 'Escape' })
 
-      expect(propagationSpy).not.toHaveBeenCalled()
-      parent.removeEventListener('keydown', propagationSpy)
-    })
+        // The keydown is not stopped: it reaches the outer listeners, consumed or not
+        expect(prevented).toHaveBeenCalledWith(expected)
 
-    it('does not stop the Escape keydown propagation when the empathize is closed', async () => {
-      const { wrapper, input } = renderSearchInput({ autofocus: false })
-      const parent = input.parentElement as HTMLElement
-      const propagationSpy = vi.fn()
-      parent.addEventListener('keydown', propagationSpy)
+        empathize?.remove()
+        document.body.removeEventListener('keydown', onKeydown)
+      },
+    )
 
-      await wrapper.trigger('keydown', { key: 'Escape' })
+    it('refocuses the input without reopening the empathize when the user closes it with the focus elsewhere', async () => {
+      const { input } = renderSearchInput({ autofocus: false })
+      const focusListener = vi.fn()
+      XPlugin.bus.on('UserFocusedSearchBox').subscribe(focusListener as any)
 
-      expect(propagationSpy).toHaveBeenCalledTimes(1)
-      parent.removeEventListener('keydown', propagationSpy)
+      // The focus is on a suggestion rendered in the empathize
+      const suggestion = document.createElement('button')
+      document.body.appendChild(suggestion)
+      suggestion.focus()
+
+      await XPlugin.bus.emit('UserClosedEmpathize', undefined)
+
+      // The input refocuses itself and the refocus does not reopen the empathize
+      expect(input).toBe(document.activeElement)
+      expect(focusListener).not.toHaveBeenCalled()
+
+      // A subsequent real focus of the input still emits UserFocusedSearchBox
+      suggestion.focus()
+      input.focus()
+      await nextTick()
+      expect(focusListener).toHaveBeenCalledTimes(1)
+
+      suggestion.remove()
     })
   })
 })

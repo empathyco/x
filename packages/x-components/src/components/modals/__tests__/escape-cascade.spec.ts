@@ -93,7 +93,7 @@ describe('testing the Escape cascade of the search layer (MainModal + SearchInpu
     expect(getModalContent().exists()).toBe(true)
     expect(getEmpathize().isVisible()).toBe(true)
 
-    // First Escape: closes only the empathize (the keydown propagation is stopped in the input)
+    // First Escape: closes only the empathize; the keydown is consumed in the input, so the modal-level handler ignores it
     await wrapper.find(getDataTestSelector('search-input')).trigger('keydown', { key: 'Escape' })
     vi.runAllTimers()
     await nextTick()

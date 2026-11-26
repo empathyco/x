@@ -17,7 +17,7 @@ import type { XEvent } from '../../wiring/events.types'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import { AnimationProp } from '../../types/animation-prop'
-import { getTargetElement, isElementEqualOrContained } from '../../utils/html'
+import { getActiveElement, getTargetElement, isElementEqualOrContained } from '../../utils/html'
 import BaseModal from './base-modal.vue'
 
 /**
@@ -98,13 +98,6 @@ export default defineComponent({
     )
 
     /**
-     * Whether the modal was closed because the user deliberately moved the focus or the
-     * attention out of the modal (overlay click or focusin outside the content). When that
-     * happens, the focus must not be restored to the element that opened the modal.
-     */
-    let closeFromOutside = false
-
-    /**
      * Emits the event defined in the {@link BaseEventsModal.bodyClickEvent} event unless the passed
      * event target is the button that opened the modal.
      *
@@ -116,8 +109,6 @@ export default defineComponent({
         !openerElement.value ||
         !isElementEqualOrContained(openerElement.value, getTargetElement(event))
       ) {
-        // The user deliberately moved the focus/attention out of the modal.
-        closeFromOutside = true
         $x.emit(props.bodyClickEvent, undefined, { target: baseModalEl.value as HTMLElement })
       }
     }
@@ -126,39 +117,62 @@ export default defineComponent({
      * Emits the event defined in the {@link BaseEventsModal.escapeCloseEvent} prop when the Escape
      * key is pressed while the modal is open.
      *
-     * @param _event - The keyboard event that triggered the close attempt.
+     * @param event - The keyboard event that triggered the close attempt.
      */
-    const emitEscapeCloseEvent = (_event: KeyboardEvent) => {
+    const emitEscapeCloseEvent = (event: KeyboardEvent) => {
       if (isOpen.value && props.escapeCloseEvent) {
         $x.emit(props.escapeCloseEvent, undefined, {
-          // `baseModalEl` is a component instance; resolve its root element.
-          target: ((baseModalEl.value as unknown as { $el?: HTMLElement })?.$el ??
-            baseModalEl.value) as HTMLElement,
+          target: getTargetElement(event) as HTMLElement,
         })
       }
     }
 
+    /** Whether the element is the modal root or is inside it. */
+    function isInsideModal(element: Element | null): boolean {
+      // `baseModalEl` is a template ref to the BaseModal component; its root element is the
+      // modal container.
+      const modalRoot = (baseModalEl.value as unknown as { $el?: Element } | null)?.$el
+      return !!element && !!modalRoot && (modalRoot === element || modalRoot.contains(element))
+    }
+
+    /**
+     * Whether the element can receive the programmatic focus.
+     *
+     * @param element - The element to check.
+     * @returns True when the element is focusable.
+     */
+    function isFocusableElement(element: HTMLElement): boolean {
+      // An element can receive the programmatic focus when it is natively focusable (a zero or
+      // positive `tabIndex`) or declares an explicit `tabindex` (which keeps it focusable even
+      // with `tabindex="-1"`).
+      return element.tabIndex >= 0 || element.hasAttribute('tabindex')
+    }
+
     /**
      * Restores the focus to the element that opened the modal when it closes, if that element is
-     * still in the document. The restoration is skipped when the close was caused by the user
-     * deliberately moving the focus or the attention out of the modal (overlay click or
-     * focusin outside the content), so the focus stays where the user moved it.
+     * still in the document and can receive the focus. The restoration is skipped when the focus
+     * has already moved out of the modal (for example, the user tabbed or clicked to another
+     * element before the close): in that case the focus is left where the user put it.
      *
      * @param isOpen - The new open state of the modal.
      */
     watch(isOpen, isOpen => {
       if (isOpen) {
-        closeFromOutside = false
-        return
-      }
-      if (closeFromOutside) {
-        closeFromOutside = false
         return
       }
       nextTick(() => {
-        if (openerElement.value && document.contains(openerElement.value)) {
-          openerElement.value.focus()
+        const opener = openerElement.value
+        if (!opener || !document.contains(opener)) {
+          return
         }
+        const activeElement = getActiveElement()
+        if (activeElement !== document.body && !isInsideModal(activeElement)) {
+          return
+        }
+        if (!isFocusableElement(opener)) {
+          return
+        }
+        opener.focus()
       })
     })
 
@@ -195,9 +209,9 @@ to one of the events in `eventsToCloseModal` to close the modal with Escape.
 ### Focus restoration
 
 When the modal closes, the focus is returned to the element that opened it, if that element is
-still in the document. This is skipped when the close was caused by the user moving away from the
-modal (clicking the overlay or moving the focus outside of it, i.e. the `bodyClickEvent` path): in
-that case the focus already landed where the user intentionally put it, so it is left untouched.
+still in the document and can receive the focus. The restoration is skipped when the focus has
+already moved out of the modal (for example, when the user tabbed or clicked to another element
+before the close): in that case the focus is left where the user put it.
 
 ## Examples
 

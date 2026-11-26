@@ -438,9 +438,9 @@ provided, the `item` slot will be used for that.
 
 ## Keyboard handling
 
-The dropdown owns the arrow and Escape keys: the `keydown` events for `ArrowDown`, `ArrowUp` and
-`Escape` are stopped at the dropdown root, so outer keyboard-navigation containers (and
-modal-level Escape handlers) don't receive them.
+The dropdown owns the arrow and Escape keys: the `ArrowDown` and `ArrowUp` `keydown` events are
+stopped at the dropdown root, and the `Escape` keydown is stopped on the items list, so outer
+keyboard-navigation containers (and modal-level Escape handlers) don't receive them.
 
 ```vue
 <template>
