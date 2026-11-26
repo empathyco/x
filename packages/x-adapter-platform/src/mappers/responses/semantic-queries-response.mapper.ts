@@ -1,7 +1,7 @@
 import type { SemanticQueriesResponse } from '@empathyco/x-types'
 import type { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model'
 
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { semanticQueriesResponseSchema } from '../../schemas'
 
 /**
@@ -9,7 +9,7 @@ import { semanticQueriesResponseSchema } from '../../schemas'
  *
  * @public
  */
-export const semanticQueriesResponseMapper = schemaMapperFactory<
+export const semanticQueriesResponseMapper = transformSchemaMapperFactory<
   PlatformSemanticQueriesResponse,
   SemanticQueriesResponse
 >(semanticQueriesResponseSchema)

@@ -289,8 +289,8 @@ const tagging = await platformAdapter.tagging({
 
 ### Modifying the x-platform-adapter
 
-Each request and response schemas are created as `MutableSchemas`, so they can be modified using the
-`$extends`, `$override`, `$replace` methods accordingly. You can check the
+Each request and response schemas are created as `TransformSchema`s, so they can be modified using
+the `$extends`, `$override`, `$replace` methods accordingly. You can check the
 [`x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)'s package
 documentation for further details.
 
@@ -311,9 +311,79 @@ declare module '@empathyco/x-types' {
 }
 
 resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
-  season: 'season',
+  // The returned object is merged with the result that the adapter maps by default.
+  transform: (source, result, context) => ({
+    season: source.season,
+    name: result.name?.toUpperCase(),
+  }),
 })
 ```
+
+Optionally, you can validate the new properties of the API result with a
+[Zod](https://zod.dev) schema instead of declaring an interface. Their types are inferred from it,
+and a warning is logged when the API does not return what you expect. This package does not depend
+on Zod, so install it in your project (**Zod 4 is required**, `zod@^4`: `z.looseObject` and
+`zod/mini` do not exist in Zod 3):
+
+```ts
+import * as z from 'zod/mini'
+
+resultSchema.$override({
+  source: z.looseObject({ season: z.string() }),
+  transform: source => ({ season: source.season }),
+})
+```
+
+###### Migrating from the path based schemas
+
+> **BREAKING CHANGE**: every schema exported by this package (`resultSchema`, `facetSchema`,
+> `*RequestSchema`, `*ResponseSchema`...) is now a `TransformSchema` instead of a `MutableSchema`,
+> and `FacetConfig.schema` has the same type. Modifications written as path based schemas
+> (`$override({ name: 'title' })`) no longer work and must be migrated as shown below. Besides:
+>
+> - `$override` shallow merges the object returned by `transform` (the old one deep merged the
+>   nested sub-schemas), so return the whole nested object when you modify it.
+> - Properties returned as `undefined` are ignored, they do not remove the mapped property.
+> - The mapped objects no longer contain the properties whose value is `undefined`.
+> - `@empathyco/x-adapter`'s `Schema`, `schemaMapperFactory` and `createMutableSchema` are
+>   deprecated, but still available.
+
+Since the schemas are `TransformSchema`s, the modifications written as path based schemas must be
+migrated. Instead of a dictionary of paths and functions, provide a `transform` function that
+returns the properties to add or replace:
+
+```ts
+// Before
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+  season: 'season',
+  name: ({ __name }) => __name.toUpperCase(),
+  images: {
+    $path: 'pictures',
+    $subSchema: pictureSchema,
+  },
+})
+
+// After (`pictureSchema` is your own `TransformSchema` for each picture)
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+  transform: (source, result, context) => ({
+    season: source.season,
+    name: source.__name.toUpperCase(),
+    images: (source.pictures as Picture[] | undefined)?.map(picture =>
+      pictureSchema.parse(picture, context),
+    ),
+  }),
+})
+```
+
+Keep in mind that:
+
+- The object returned by `transform` is shallow merged with the already mapped one, which is its
+  second parameter. Spread it to modify a nested property: `price: { ...result.price, tax }`.
+- The properties returned as `undefined` are ignored. So a property can no longer be removed with
+  `$override({ transform: () => ({ hits: undefined }) })` as it was possible with
+  `$override({ hits: undefined })`. Use `$replace` to define the whole schema instead.
+- `getFacetConfig(type).schema` is a `TransformSchema` too. Use
+  `schema.$extends({ transform })` instead of spreading it.
 
 <br>
 

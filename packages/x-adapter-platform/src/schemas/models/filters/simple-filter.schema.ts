@@ -1,17 +1,22 @@
 import type { SimpleFilter } from '@empathyco/x-types'
-import type { PlatformFilter } from '../../../types/models/facet.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformFilterSource } from '../../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
+import { defined } from '../../utils'
 
 /**
  * Default implementation for the SimpleFilterSchema.
  *
  * @public
  */
-export const simpleFilterSchema = createMutableSchema<PlatformFilter, SimpleFilter>({
-  facetId: (_, $context) => $context?.facetId as string,
-  label: 'value',
-  id: 'filter',
-  totalResults: 'count',
-  selected: () => false,
-  modelName: () => 'SimpleFilter',
+export const simpleFilterSchema = createTransformSchema<PlatformFilterSource, SimpleFilter>({
+  transform: (source, context): SimpleFilter => ({
+    ...defined<Pick<SimpleFilter, 'id' | 'label' | 'totalResults'>>({
+      id: source.filter,
+      label: source.value,
+      totalResults: source.count,
+    }),
+    facetId: context.facetId as string,
+    selected: false,
+    modelName: 'SimpleFilter',
+  }),
 })

@@ -1,21 +1,26 @@
 import type { Promoted } from '@empathyco/x-types'
-import type { PlatformPromoted } from '../../types/models/promoted.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformBannerSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils'
+import { defined } from '../utils'
 
 /**
  * Default implementation for the PromotedSchema.
  *
  * @public
  */
-export const promotedSchema = createMutableSchema<PlatformPromoted, Promoted>({
-  id: 'id',
-  url: 'url',
-  title: 'title',
-  image: 'image_url',
-  position: 'position',
-  modelName: () => 'Promoted',
-  tagging: {
-    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? ''),
-  },
+export const promotedSchema = createTransformSchema<PlatformBannerSource, Promoted>({
+  transform: (source): Promoted => ({
+    ...defined<Pick<Promoted, 'id' | 'title' | 'url' | 'image' | 'position'>>({
+      id: source.id,
+      title: source.title,
+      url: source.url,
+      image: source.image_url,
+      position: source.position,
+    }),
+    modelName: 'Promoted',
+    tagging: {
+      click: getTaggingInfoFromUrl(source.tagging?.click ?? ''),
+    },
+  }),
 })

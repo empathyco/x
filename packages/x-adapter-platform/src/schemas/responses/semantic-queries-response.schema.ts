@@ -1,20 +1,20 @@
-import type { Schema } from '@empathyco/x-adapter'
 import type { SemanticQueriesResponse } from '@empathyco/x-types'
-import type { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformListResponseSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { semanticQuerySchema } from '../models/semantic-query.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the SemanticQueriesResponseSchema.
  *
  * @public
  */
-export const semanticQueriesResponseSchema = createMutableSchema(<
-  Schema<PlatformSemanticQueriesResponse, SemanticQueriesResponse>
->{
-  semanticQueries: {
-    $path: 'data.candidates',
-    $subSchema: semanticQuerySchema,
-  },
+export const semanticQueriesResponseSchema = createTransformSchema<
+  PlatformListResponseSource<'data', 'candidates'>,
+  SemanticQueriesResponse
+>({
+  transform: (source, context): SemanticQueriesResponse =>
+    defined<SemanticQueriesResponse>({
+      semanticQueries: parseEach(semanticQuerySchema, source.data?.candidates, context),
+    }),
 })

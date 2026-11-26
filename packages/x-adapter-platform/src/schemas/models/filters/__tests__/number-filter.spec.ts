@@ -1,6 +1,6 @@
 import type { NumberRangeFilter } from '@empathyco/x-types'
 import type { PlatformFilter } from '../../../../types'
-import { schemaMapperFactory } from '@empathyco/x-adapter'
+import { transformSchemaMapperFactory } from '@empathyco/x-adapter'
 import { describe, expect, it } from 'vitest'
 import { numberFilterSchema } from '../number-filter.schema'
 
@@ -14,7 +14,7 @@ const createFilter = (value: string): PlatformFilter => {
 }
 
 describe('tests', () => {
-  const mapper = schemaMapperFactory<PlatformFilter, NumberRangeFilter>(numberFilterSchema)
+  const mapper = transformSchemaMapperFactory<PlatformFilter, NumberRangeFilter>(numberFilterSchema)
   it('should map to null the min value', () => {
     const filter = mapper(createFilter('*-10'), {})
     expect(filter.range).toEqual({ min: null, max: 10 })

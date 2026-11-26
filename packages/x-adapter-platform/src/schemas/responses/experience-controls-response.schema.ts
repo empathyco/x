@@ -1,16 +1,17 @@
 import type { ExperienceControlsResponse } from '@empathyco/x-types'
-import type { PlatformExperienceControlsResponse } from '../../types'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import { createTransformSchema } from '@empathyco/x-adapter'
 
 /**
  * Default implementation for the ExperienceControlsResponseSchema.
  *
  * @public
  */
-export const experienceControlsResponseSchema = createMutableSchema<
-  PlatformExperienceControlsResponse,
+export const experienceControlsResponseSchema = createTransformSchema<
+  Record<string, unknown>,
   ExperienceControlsResponse
 >({
-  controls: response => response,
-  events: {},
+  transform: (response): ExperienceControlsResponse => ({
+    controls: response,
+    events: {},
+  }),
 })

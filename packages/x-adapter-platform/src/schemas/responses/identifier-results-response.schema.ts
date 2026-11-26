@@ -1,20 +1,20 @@
 import type { IdentifierResultsResponse } from '@empathyco/x-types'
-import type { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformListResponseSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { resultSchema } from '../models/result.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the IdentifierResultsResponseSchema.
  *
  * @public
  */
-export const identifierResultsResponseSchema = createMutableSchema<
-  PlatformIdentifierResultsResponse,
+export const identifierResultsResponseSchema = createTransformSchema<
+  PlatformListResponseSource<'catalog', 'content'>,
   IdentifierResultsResponse
 >({
-  results: {
-    $path: 'catalog.content',
-    $subSchema: resultSchema,
-  },
+  transform: (source, context): IdentifierResultsResponse =>
+    defined<IdentifierResultsResponse>({
+      results: parseEach(resultSchema, source.catalog?.content, context),
+    }),
 })

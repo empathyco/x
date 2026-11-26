@@ -1,42 +1,27 @@
 import type { Result } from '@empathyco/x-types'
-import type { PlatformResult } from '../../types/models/result.model'
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformResultSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils'
+import { mapResult } from './result.utils'
 
 /**
  * Default implementation for the ResultSchema.
  *
  * @public
  */
-export const resultSchema = createMutableSchema<PlatformResult, Result>({
-  id: '__id',
-  images: '__images',
-  name: '__name',
-  url: '__url',
-  identifier: {
-    value: '__externalId',
-  },
-  rating: {
-    value: () => null,
-  },
-  price: {
-    value: ({ __prices: rawPrices }) => rawPrices.current?.value,
-    originalValue: ({ __prices: rawPrices }) =>
-      rawPrices.previous?.value ?? rawPrices.current?.value,
-    hasDiscount: ({ __prices: rawPrices }) =>
-      (rawPrices.current?.value ?? 0) <
-      (rawPrices.previous?.value ?? rawPrices.current?.value ?? 0),
-  },
-  type: () => 'Default',
-  modelName: () => 'Result',
-  isWishlisted: () => false,
-  tagging: {
-    $path: 'tagging',
-    $subSchema: {
-      add2cart: ({ add2cart }) => getTaggingInfoFromUrl(add2cart),
-      checkout: ({ checkout }) => getTaggingInfoFromUrl(checkout),
-      click: ({ click }) => getTaggingInfoFromUrl(click),
-      displayClick: ({ displayClick }) => getDisplayTaggingInfoFromUrl(displayClick),
-    },
+export const resultSchema = createTransformSchema<PlatformResultSource, Result>({
+  transform: (source): Result => {
+    const { tagging } = source
+    return {
+      ...mapResult(source),
+      ...(tagging && {
+        tagging: {
+          add2cart: getTaggingInfoFromUrl(tagging.add2cart as string),
+          checkout: getTaggingInfoFromUrl(tagging.checkout as string),
+          click: getTaggingInfoFromUrl(tagging.click as string),
+          displayClick: getDisplayTaggingInfoFromUrl(tagging.displayClick as string),
+        },
+      }),
+    }
   },
 })

@@ -1,6 +1,6 @@
 ---
 name: x-adapter
-description: 'Generic toolkit to build typed API clients (@empathyco/x-adapter): endpointAdapterFactory, schemaMapperFactory, createMutableSchema, fetchHttpClient, buildUrl and interpolate. Use when creating an endpoint adapter for a custom or third-party API, writing request/response mappers or schemas, replacing the HTTP client, or debugging cancelled or wrongly built requests. To customize the existing Empathy Platform endpoints use x-adapter-platform.'
+description: 'Generic toolkit to build typed API clients (@empathyco/x-adapter): endpointAdapterFactory, createTransformSchema, transformSchemaMapperFactory, fetchHttpClient, buildUrl and interpolate. Use when creating an endpoint adapter for a custom or third-party API, writing request/response mappers or schemas, replacing the HTTP client, or debugging cancelled or wrongly built requests. To customize the existing Empathy Platform endpoints use x-adapter-platform.'
 ---
 
 <!-- skills-check ignore: httpClient, requestMapper, responseMapper, $subSchema, Response -->
@@ -15,12 +15,16 @@ calls an HTTP client and maps the response.
 - `endpointAdapterFactory({ endpoint, httpClient, requestMapper, responseMapper })` returns an
   endpoint adapter. The result has `.extends(options)` to create a customized copy — prefer it
   over rebuilding the adapter.
-- `schemaMapperFactory(schema)` creates a mapper from a `Schema`: an object whose values are
-  source paths, functions, nested schemas or `$subSchema`/`$path` definitions.
-- `createMutableSchema(schema)` adds `$extends`, `$override` and `$replace`:
+- `createTransformSchema({ source?, transform })` creates a `TransformSchema`: `transform` maps
+  the source with a function and the optional Zod `source` schema validates it. It adds
+  `$extends`, `$override` and `$replace`:
   - `$extends` returns a **new** schema;
   - `$override` and `$replace` **mutate** the schema in place, affecting every adapter that
     uses it.
+- `transformSchemaMapperFactory(schema)` creates request/response mappers from a
+  `TransformSchema` or a Zod schema.
+- **Deprecated:** `schemaMapperFactory` (path based `Schema`, use `transformSchemaMapperFactory`)
+  and `createMutableSchema` (use `createTransformSchema`).
 - `identityMapper`, `combineMappers` — helper mappers.
 - `fetchHttpClient` (parses JSON) and `fetchRawHttpClient` (returns the raw `Response`).
 - `buildUrl`, `interpolate` — URL helpers; `interpolate` fills `{param}` placeholders in an
@@ -36,4 +40,4 @@ calls an HTTP client and maps the response.
 ## More
 
 The package `README.md` (in `node_modules/@empathyco/x-adapter`) has complete examples of
-schemas, sub-schemas, mutable schemas and `.extends`.
+schemas, sub-schemas, transform schemas and `.extends`.

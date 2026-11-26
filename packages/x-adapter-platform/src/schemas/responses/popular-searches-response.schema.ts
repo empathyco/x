@@ -1,20 +1,20 @@
 import type { PopularSearchesResponse } from '@empathyco/x-types'
-import type { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model'
-
-import { createMutableSchema } from '@empathyco/x-adapter'
+import type { PlatformListResponseSource } from '../source.types'
+import { createTransformSchema } from '@empathyco/x-adapter'
 import { suggestionSchema } from '../models/suggestion.schema'
+import { defined, parseEach } from '../utils'
 
 /**
  * Default implementation for the PopularSearchesResponseSchema.
  *
  * @public
  */
-export const popularSearchesResponseSchema = createMutableSchema<
-  PlatformPopularSearchesResponse,
+export const popularSearchesResponseSchema = createTransformSchema<
+  PlatformListResponseSource<'topTrends', 'content'>,
   PopularSearchesResponse
 >({
-  suggestions: {
-    $path: 'topTrends.content',
-    $subSchema: suggestionSchema,
-  },
+  transform: (source, context): PopularSearchesResponse =>
+    defined<PopularSearchesResponse>({
+      suggestions: parseEach(suggestionSchema, source.topTrends?.content, context),
+    }),
 })
