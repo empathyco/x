@@ -1,4 +1,9 @@
-import type { VendorBanner, VendorResult } from './types'
+import type {
+  VendorBanner,
+  VendorRelatedPrompt,
+  VendorRelatedPromptsGroupInput,
+  VendorResult,
+} from './types'
 
 /**
  * Directory of events for the vendor module.
@@ -77,6 +82,28 @@ export interface VendorXEvents {
    * Payload: The {@link VendorBanner | vendor banner} that was clicked.
    */
   UserClickedAVendorBanner: VendorBanner
+
+  /**
+   * The x consumer has provided vendor related prompts groups to be inserted in the result grid.
+   * Payload: The array of vendor related prompts groups with their prompts and rows.
+   * modelName is excluded since it is an internal field, and we will assign it under the hood.
+   */
+  VendorRelatedPromptsChanged: VendorRelatedPromptsGroupInput[]
+  /**
+   * A vendor related prompt has been inserted in the DOM.
+   * Payload: The {@link VendorRelatedPrompt | vendor related prompt} that was mounted.
+   */
+  VendorRelatedPromptMounted: VendorRelatedPrompt
+  /**
+   * The user viewed a vendor related prompt.
+   * Payload: The {@link VendorRelatedPrompt | vendor related prompt} that was viewed.
+   */
+  UserViewedAVendorRelatedPrompt: VendorRelatedPrompt
+  /**
+   * The user clicked on a vendor related prompt.
+   * Payload: The {@link VendorRelatedPrompt | vendor related prompt} that was clicked.
+   */
+  UserClickedAVendorRelatedPrompt: VendorRelatedPrompt
 
   /**
    * The vendor module query has changed.
