@@ -8,6 +8,7 @@
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
+      @keydown.esc="handleEscapeKeydown"
     >
       <!-- @slot (Required) Modal container content -->
       <slot />
@@ -107,6 +108,23 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Handles the Escape keydown on the Empathize root element: the user is dismissing the
+     * predictive layer, so it is closed explicitly (the containment guard in {@link close} would
+     * skip it while the focus is inside), the `UserClosedEmpathize` event is emitted (the search
+     * input refocuses itself on it) and the propagation is stopped.
+     *
+     * @param event - The keyboard event with the Escape key pressed.
+     */
+    function handleEscapeKeydown(event: KeyboardEvent) {
+      if (!isOpenAndHasContent.value) {
+        return
+      }
+      event.stopPropagation()
+      $x.emit('UserClosedEmpathize', undefined, { target: empathizeRef.value })
+      changeOpenDebounced(false)
+    }
+
     /** Events subscriptions to open and close empathize. */
     props.eventsToOpenEmpathize.forEach(event => $x.on(event, false).subscribe(open))
     props.eventsToCloseEmpathize.forEach(event => $x.on(event, false).subscribe(close))
@@ -145,7 +163,7 @@ export default defineComponent({
       },
     )
 
-    return { empathizeRef, isOpenAndHasContent, open, close }
+    return { empathizeRef, isOpenAndHasContent, open, close, handleEscapeKeydown }
   },
 })
 </script>
@@ -161,6 +179,13 @@ A list of events that the component will emit:
 - [`EmpathizeClosed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after receiving an event to change the state `isOpen` to `false` and `hasContent` to `true`.
   The event payload is undefined and can have a metadata with the module and the element that emitted it.
+
+### Escape key handling
+
+When the user presses the Escape key while the empathize is open, it is closed explicitly and the
+[`UserClosedEmpathize`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+event is emitted, so the search input refocuses itself. The keydown propagation is stopped, so
+outer keyboard-navigation containers and modal-level Escape handlers don't also react.
 
 ## Examples
 

@@ -26,6 +26,7 @@ window.ResizeObserver = MockResizeObserver as any
  * @param options.eventsToCloseModal - eventsToCloseModal option.
  * @param options.eventsToOpenModal - eventsToOpenModal option.
  * @param options.contentClass - contentClass option.
+ * @param options.escapeCloseEvent - escapeCloseEvent option.
  * @returns An API to test the component.
  */
 function mountBaseEventsModal({
@@ -34,13 +35,20 @@ function mountBaseEventsModal({
   eventsToCloseModal,
   eventsToOpenModal,
   contentClass,
+  escapeCloseEvent,
 }: MountBaseEventsModalOptions = {}): MountBaseEventsModalAPI {
   const parent = document.createElement('div')
   document.body.appendChild(parent)
 
   const wrapper = mount(BaseEventsModal, {
     attachTo: parent,
-    props: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal, contentClass },
+    props: {
+      bodyClickEvent,
+      eventsToCloseModal,
+      eventsToOpenModal,
+      contentClass,
+      escapeCloseEvent,
+    },
     slots: {
       default: defaultSlot,
     },
@@ -167,6 +175,106 @@ describe('testing Base Events Modal  component', () => {
     await emit('UserClickedOpenEventsModal')
     expect(getModalContent().classes()).toContain('test-class')
   })
+
+  describe('escapeCloseEvent', () => {
+    it('emits the escapeCloseEvent when the Escape key is pressed while the modal is open', async () => {
+      const escapeCloseEvent = 'UserClickedCloseX'
+      const { emit, wrapper, getModalContent } = mountBaseEventsModal({
+        escapeCloseEvent,
+        eventsToCloseModal: [escapeCloseEvent],
+      })
+      const listener = vi.fn()
+      XPlugin.bus.on(escapeCloseEvent).subscribe(listener)
+
+      await emit('UserClickedOpenEventsModal')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).toHaveBeenCalledTimes(1)
+      expect(getModalContent().exists()).toBe(false)
+    })
+
+    it('does not emit any event when the Escape key is pressed with the default (null) escapeCloseEvent', async () => {
+      const { emit, wrapper, getModalContent } = mountBaseEventsModal()
+      const listener = vi.fn()
+      XPlugin.bus.on('UserClickedCloseEventsModal').subscribe(listener)
+      XPlugin.bus.on('UserClickedOutOfEventsModal').subscribe(listener)
+
+      await emit('UserClickedOpenEventsModal')
+      expect(getModalContent().exists()).toBe(true)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).not.toHaveBeenCalled()
+      expect(getModalContent().exists()).toBe(true)
+    })
+
+    it('does not emit the escapeCloseEvent when the Escape key is pressed while the modal is closed', async () => {
+      const escapeCloseEvent = 'UserClickedCloseX'
+      const { wrapper } = mountBaseEventsModal({
+        escapeCloseEvent,
+        eventsToCloseModal: [escapeCloseEvent],
+      })
+      const listener = vi.fn()
+      XPlugin.bus.on(escapeCloseEvent).subscribe(listener)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('focus restoration', () => {
+    it('restores the focus to the opener element when the modal closes', async () => {
+      const opener = document.createElement('button')
+      document.body.appendChild(opener)
+      const { getModalContent } = mountBaseEventsModal({
+        defaultSlot: '<button data-test="modal-button">Content</button>',
+      })
+
+      await XPlugin.bus.emit('UserClickedOpenEventsModal', undefined, {
+        target: opener,
+        moduleName: null,
+      })
+      await nextTick()
+      expect(getModalContent().exists()).toBe(true)
+
+      // The focus is inside the modal when it closes (e.g. the user pressed Escape in it)
+      ;(getModalContent().find('button').element as HTMLButtonElement).focus()
+
+      await XPlugin.bus.emit('UserClickedCloseEventsModal', undefined)
+      await nextTick()
+      await nextTick()
+
+      expect(getModalContent().exists()).toBe(false)
+      expect(document.activeElement).toBe(opener)
+    })
+
+    it('does not restore the focus to the opener when the user moves the focus out of the modal', async () => {
+      const opener = document.createElement('button')
+      document.body.appendChild(opener)
+      const other = document.createElement('button')
+      document.body.appendChild(other)
+      const { fakeFocusIn, getModalContent } = mountBaseEventsModal()
+
+      other.focus()
+      await XPlugin.bus.emit('UserClickedOpenEventsModal', undefined, {
+        target: opener,
+        moduleName: null,
+      })
+      await nextTick()
+      expect(getModalContent().exists()).toBe(true)
+
+      // The user tabs past the last focusable element: focusin fires out of the modal
+      await fakeFocusIn()
+
+      expect(getModalContent().exists()).toBe(false)
+      await nextTick()
+      await nextTick()
+      expect(document.activeElement).toBe(other)
+    })
+  })
 })
 
 interface MountBaseEventsModalOptions {
@@ -180,6 +288,8 @@ interface MountBaseEventsModalOptions {
   eventsToOpenModal?: XEvent[]
   /** Class to add to the content element of the modal. */
   contentClass?: string
+  /** The event emitted when the Escape key is pressed while the modal is open. */
+  escapeCloseEvent?: XEvent | null
 }
 
 interface MountBaseEventsModalAPI {

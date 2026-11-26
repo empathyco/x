@@ -5,6 +5,7 @@
     :open="isOpen"
     @click:overlay="emitBodyClickEvent"
     @focusin:body="emitBodyClickEvent"
+    @escape:pressed="emitEscapeCloseEvent"
   >
     <slot />
   </BaseModal>
@@ -13,10 +14,10 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { XEvent } from '../../wiring/events.types'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, nextTick, ref, watch } from 'vue'
 import { use$x } from '../../composables/use-$x'
 import { AnimationProp } from '../../types/animation-prop'
-import { getTargetElement, isElementEqualOrContained } from '../../utils/html'
+import { getActiveElement, getTargetElement, isElementEqualOrContained } from '../../utils/html'
 import BaseModal from './base-modal.vue'
 
 /**
@@ -53,6 +54,14 @@ export default defineComponent({
     },
     /** Animation to use for opening/closing the modal. */
     animation: AnimationProp,
+    /**
+     * The {@link XEvent} to emit when the Escape key is pressed while the modal is open. When
+     * null (default), Escape is not handled.
+     */
+    escapeCloseEvent: {
+      type: String as PropType<XEvent | null>,
+      default: null,
+    },
   },
   setup(props) {
     const $x = use$x()
@@ -104,11 +113,75 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Emits the event defined in the {@link BaseEventsModal.escapeCloseEvent} prop when the Escape
+     * key is pressed while the modal is open.
+     *
+     * @param event - The keyboard event that triggered the close attempt.
+     */
+    const emitEscapeCloseEvent = (event: KeyboardEvent) => {
+      if (isOpen.value && props.escapeCloseEvent) {
+        $x.emit(props.escapeCloseEvent, undefined, {
+          target: getTargetElement(event) as HTMLElement,
+        })
+      }
+    }
+
+    /** Whether the element is the modal root or is inside it. */
+    function isInsideModal(element: Element | null): boolean {
+      // `baseModalEl` is a template ref to the BaseModal component; its root element is the
+      // modal container.
+      const modalRoot = (baseModalEl.value as unknown as { $el?: Element } | null)?.$el
+      return !!element && !!modalRoot && (modalRoot === element || modalRoot.contains(element))
+    }
+
+    /**
+     * Whether the element can receive the programmatic focus.
+     *
+     * @param element - The element to check.
+     * @returns True when the element is focusable.
+     */
+    function isFocusableElement(element: HTMLElement): boolean {
+      // An element can receive the programmatic focus when it is natively focusable (a zero or
+      // positive `tabIndex`) or declares an explicit `tabindex` (which keeps it focusable even
+      // with `tabindex="-1"`).
+      return element.tabIndex >= 0 || element.hasAttribute('tabindex')
+    }
+
+    /**
+     * Restores the focus to the element that opened the modal when it closes, if that element is
+     * still in the document and can receive the focus. The restoration is skipped when the focus
+     * has already moved out of the modal (for example, the user tabbed or clicked to another
+     * element before the close): in that case the focus is left where the user put it.
+     *
+     * @param isOpen - The new open state of the modal.
+     */
+    watch(isOpen, isOpen => {
+      if (isOpen) {
+        return
+      }
+      nextTick(() => {
+        const opener = openerElement.value
+        if (!opener || !document.contains(opener)) {
+          return
+        }
+        const activeElement = getActiveElement()
+        if (activeElement !== document.body && !isInsideModal(activeElement)) {
+          return
+        }
+        if (!isFocusableElement(opener)) {
+          return
+        }
+        opener.focus()
+      })
+    })
+
     return {
       isOpen,
       openerElement,
       baseModalEl,
       emitBodyClickEvent,
+      emitEscapeCloseEvent,
     }
   },
 })
@@ -123,7 +196,22 @@ A list of events that the component will emit:
   the event is emitted after clicking outside the content rendered in the default slot.
 - [`UserClickedOutOfEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after clicking outside the modal.
+- The event defined in the `escapeCloseEvent` prop, emitted when the Escape key is pressed while
+  the modal is open. Its default is `null`, which disables the Escape handling.
 - Custom events to open or close the modal.
+
+### Escape key handling
+
+When the `escapeCloseEvent` prop is set, pressing the Escape key while the modal is open emits
+that event, so the modal can be closed as part of its own close events configuration. Set the prop
+to one of the events in `eventsToCloseModal` to close the modal with Escape.
+
+### Focus restoration
+
+When the modal closes, the focus is returned to the element that opened it, if that element is
+still in the document and can receive the focus. The restoration is skipped when the focus has
+already moved out of the modal (for example, when the user tabbed or clicked to another element
+before the close): in that case the focus is left where the user put it.
 
 ## Examples
 

@@ -274,6 +274,22 @@ describe('testing Dropdown component', () => {
       expect(getSelectedItem().text()).toBe('spain')
       expect(getHighlightedItem().text()).toBe('spain')
     })
+
+    it('stops the Escape keydown propagation from the list', async () => {
+      const { clickToggleButton, pressKeyFromFocusedItem, isListVisible } = renderDropdown()
+
+      await clickToggleButton()
+      expect(isListVisible()).toBeTruthy()
+
+      const propagationSpy = vi.fn()
+      document.addEventListener('keydown', propagationSpy)
+
+      await pressKeyFromFocusedItem('Esc')
+
+      expect(isListVisible()).toBeFalsy()
+      expect(propagationSpy).not.toHaveBeenCalled()
+      document.removeEventListener('keydown', propagationSpy)
+    })
   })
 
   describe('focusing items', () => {

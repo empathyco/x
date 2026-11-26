@@ -18,6 +18,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    @keydown.esc="handleEscapeKeydown"
     @beforeinput="preventSpecialKey"
   />
 </template>
@@ -32,6 +33,7 @@ import { useAccessibilityLabels } from '../../../composables'
 import { use$x } from '../../../composables/use-$x'
 import { useState } from '../../../composables/use-state'
 import { debounce } from '../../../utils/debounce'
+import { getActiveElement } from '../../../utils/html'
 import { searchBoxXModule } from '../x-module'
 
 /**
@@ -161,12 +163,19 @@ export default defineComponent({
       $x.emit('UserClickedSearchBox', undefined, { target: inputElement.value })
     }
 
+    /** Whether the next focus is the programmatic refocus after a close (its emit is skipped). */
+    let suppressNextFocusEmit = false
+
     /**
      * Emits event {@link SearchBoxXEvents.UserFocusedSearchBox} when search box gains focus.
      *
      * @internal
      */
     const emitUserFocusedSearchBox = (): void => {
+      if (suppressNextFocusEmit) {
+        suppressNextFocusEmit = false
+        return
+      }
       $x.emit('UserFocusedSearchBox', undefined, { target: inputElement.value })
     }
 
@@ -230,6 +239,41 @@ export default defineComponent({
     }
 
     /**
+     * Whether the empathize (predictive layer) is currently open, i.e. visible in the DOM. The
+     * lookup is scoped to the modal containing the input when there is one.
+     */
+    const isEmpathizeOpen = (): boolean => {
+      const scope = inputElement.value?.closest('.x-modal') ?? document
+      const empathize = scope.querySelector<HTMLElement>('.x-empathize')
+      return !!empathize && empathize.style.display !== 'none'
+    }
+
+    /**
+     * Emits event {@link XEventsTypes.UserClosedEmpathize} when the user pressed the Escape key
+     * in the search input. When the predictive layer (empathize) is open, the keydown default
+     * action is prevented (on WebKit it would natively clear the typed query), so the
+     * modal-level Escape handler ignores the same keypress.
+     *
+     * @internal
+     * @param event - The keyboard event with the Escape key pressed.
+     */
+    const handleEscapeKeydown = (event: KeyboardEvent): void => {
+      if (isEmpathizeOpen()) {
+        event.preventDefault()
+      }
+      $x.emit('UserClosedEmpathize', undefined, createEventMetadata())
+    }
+
+    /** Refocuses the input when {@link XEventsTypes.UserClosedEmpathize} is emitted. */
+    $x.on('UserClosedEmpathize', false).subscribe(() => {
+      if (getActiveElement() !== inputElement.value) {
+        // Mark the programmatic refocus so its `UserFocusedSearchBox` emit is skipped once.
+        suppressNextFocusEmit = true
+      }
+      focusInput()
+    })
+
+    /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
      * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
      * are emitted the search input is focused.
@@ -275,6 +319,7 @@ export default defineComponent({
       emitUserIsTypingAQueryEvents,
       emitUserPressedEnterKey,
       emitUserPressedArrowKey,
+      handleEscapeKeydown,
       preventSpecialKey,
     }
   },
@@ -302,6 +347,11 @@ This component emits the following events:
 - [`UserPressedEnterKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 - [`UserPressedArrowKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 - [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserClosedEmpathize`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user presses the Escape key in the search input. When the
+  empathize (predictive layer) is open, the keydown default action is prevented, so the
+  modal-level Escape handler ignores the same keypress. The search input also refocuses itself
+  when the event is emitted while the focus is elsewhere (for example, on a suggestion).
 
 ## See it in action
 

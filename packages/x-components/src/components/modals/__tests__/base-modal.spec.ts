@@ -159,6 +159,45 @@ describe('testing Base Modal  component', () => {
     expect(wrapper.emitted('focusin:body')).toEqual([[expect.any(FocusEvent)]])
   })
 
+  describe('escape:pressed event', () => {
+    it('emits escape:pressed when the Escape key is pressed while the modal is open', async () => {
+      const { wrapper, setOpen } = mountBaseModal()
+
+      await setOpen(true)
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(wrapper.emitted('escape:pressed')).toEqual([[expect.any(KeyboardEvent)]])
+    })
+
+    it("doesn't emit escape:pressed when the Escape key is pressed while the modal is closed", async () => {
+      const { wrapper } = mountBaseModal()
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(wrapper.emitted('escape:pressed')).toBeUndefined()
+    })
+
+    it("doesn't emit escape:pressed when a key other than Escape is pressed while open", async () => {
+      const { wrapper, setOpen } = mountBaseModal()
+
+      await setOpen(true)
+      await wrapper.trigger('keydown', { key: 'Enter' })
+
+      expect(wrapper.emitted('escape:pressed')).toBeUndefined()
+    })
+
+    it("doesn't emit escape:pressed when the Escape keydown default has been prevented", async () => {
+      const { wrapper, setOpen } = mountBaseModal()
+      await setOpen(true)
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+      event.preventDefault()
+      ;(wrapper.element as HTMLElement).dispatchEvent(event)
+
+      expect(wrapper.emitted('escape:pressed')).toBeUndefined()
+    })
+  })
+
   it('allows customizing the default slot content', () => {
     const { wrapper } = mountBaseModal({
       defaultSlot: `<span data-test="default-slot-overridden">Custom content</span>`,

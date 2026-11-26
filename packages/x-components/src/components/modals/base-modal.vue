@@ -1,5 +1,11 @@
 <template>
-  <div v-show="isWaitingForLeave || open" ref="modalRef" class="x-modal" data-test="modal">
+  <div
+    v-show="isWaitingForLeave || open"
+    ref="modalRef"
+    class="x-modal"
+    data-test="modal"
+    @keydown.esc="emitEscapePressed"
+  >
     <component
       :is="animation"
       @before-leave="isWaitingForLeave = true"
@@ -25,7 +31,6 @@
         :class="overlayClass"
         data-test="modal-overlay"
         @click="emitOverlayClicked"
-        @keydown="emitOverlayClicked"
       />
     </component>
   </div>
@@ -93,7 +98,7 @@ export default defineComponent({
     /** Class inherited by overlay element. */
     overlayClass: String,
   },
-  emits: ['click:overlay', 'focusin:body'],
+  emits: ['click:overlay', 'focusin:body', 'escape:pressed'],
   setup(props, { emit }) {
     const ariaLabels = useAccessibilityLabels('baseModal')
 
@@ -154,6 +159,19 @@ export default defineComponent({
       if (!modalContentRef.value?.contains(getTargetElement(event))) {
         // eslint-disable-next-line vue/custom-event-name-casing
         emit('focusin:body', event)
+      }
+    }
+
+    /**
+     * Emits the `escape:pressed` event if the Escape key has been pressed while the modal is open
+     * and the keydown default action has not been prevented by an inner element.
+     *
+     * @param event - The keyboard event.
+     */
+    function emitEscapePressed(event: KeyboardEvent) {
+      if (props.open && !event.defaultPrevented) {
+        // eslint-disable-next-line vue/custom-event-name-casing
+        emit('escape:pressed', event)
       }
     }
 
@@ -275,6 +293,7 @@ export default defineComponent({
     return {
       ariaLabels,
       emitOverlayClicked,
+      emitEscapePressed,
       isWaitingForLeave,
       modalContentRef,
       modalRef,
@@ -429,4 +448,11 @@ A list of events that the component will emit:
   if the modal is open. The event payload is the mouse event that triggers it.
 - `focusin:body`: the event is emitted after the user focus in any part out of the content but only
   if the modal is open. The event payload is the focus event that triggers it.
+- `escape:pressed`: the event is emitted after the user presses the Escape key while the modal is
+  open. The event payload is the keyboard event that triggers it. The event is based on the
+  bubbling `keydown` of the modal root, so it only fires when the keydown targets an element
+  INSIDE the modal and its default action has not been prevented by an inner element.
+  With the focus outside the modal, consumers that rely on `focusin:body` to close the modal are
+  unaffected. A raw `BaseModal` consumer wanting an Escape-anywhere behavior should add a
+  document-level `keydown` listener.
 </docs>

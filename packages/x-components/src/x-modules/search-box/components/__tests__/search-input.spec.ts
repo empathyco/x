@@ -235,6 +235,70 @@ describe('testing search input component', () => {
     await XPlugin.bus.emit('UserPressedClearSearchBoxButton', undefined)
     expect(input).toBe(document.activeElement)
   })
+
+  describe('escape key', () => {
+    it('emits UserClosedEmpathize when the Escape key is pressed in the input', async () => {
+      const { wrapper, listener } = renderSearchInput({ autofocus: false })
+      XPlugin.bus.on('UserClosedEmpathize').subscribe(listener as any)
+
+      await wrapper.trigger('keydown', { key: 'Escape' })
+
+      expect(listener).toHaveBeenCalledTimes(1)
+    })
+
+    it.each([
+      ['open', true],
+      ['closed', false],
+    ])(
+      'prevents the Escape keydown default only when the empathize is %s',
+      async (state, expected) => {
+        const { wrapper } = renderSearchInput({ autofocus: false })
+        let empathize: HTMLElement | undefined
+        if (state === 'open') {
+          // The predictive layer is open: a visible empathize in the DOM
+          empathize = document.createElement('div')
+          empathize.className = 'x-empathize'
+          document.body.appendChild(empathize)
+        }
+        const prevented = vi.fn()
+        const onKeydown = (event: Event) => prevented(event.defaultPrevented)
+        document.body.addEventListener('keydown', onKeydown)
+
+        await wrapper.trigger('keydown', { key: 'Escape' })
+
+        // The keydown is not stopped: it reaches the outer listeners, consumed or not
+        expect(prevented).toHaveBeenCalledWith(expected)
+
+        empathize?.remove()
+        document.body.removeEventListener('keydown', onKeydown)
+      },
+    )
+
+    it('refocuses the input without reopening the empathize when the user closes it with the focus elsewhere', async () => {
+      const { input } = renderSearchInput({ autofocus: false })
+      const focusListener = vi.fn()
+      XPlugin.bus.on('UserFocusedSearchBox').subscribe(focusListener as any)
+
+      // The focus is on a suggestion rendered in the empathize
+      const suggestion = document.createElement('button')
+      document.body.appendChild(suggestion)
+      suggestion.focus()
+
+      await XPlugin.bus.emit('UserClosedEmpathize', undefined)
+
+      // The input refocuses itself and the refocus does not reopen the empathize
+      expect(input).toBe(document.activeElement)
+      expect(focusListener).not.toHaveBeenCalled()
+
+      // A subsequent real focus of the input still emits UserFocusedSearchBox
+      suggestion.focus()
+      input.focus()
+      await nextTick()
+      expect(focusListener).toHaveBeenCalledTimes(1)
+
+      suggestion.remove()
+    })
+  })
 })
 
 interface RenderSearchInputOptions {
