@@ -202,6 +202,7 @@ export default defineComponent({
 
 .x-base-grid__banner,
 .x-base-grid__vendor-banner--row,
+.x-base-grid__vendor-related-prompts-group,
 .x-base-grid__next-queries-group,
 .x-base-grid__related-prompts-group {
   grid-column-start: 1;

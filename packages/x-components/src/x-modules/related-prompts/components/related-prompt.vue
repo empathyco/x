@@ -26,6 +26,7 @@
 <script lang="ts">
 import type { RelatedPrompt } from '@empathyco/x-types'
 import type { PropType } from 'vue'
+import type { VendorRelatedPrompt } from '../../vendor/types'
 import { defineComponent } from 'vue'
 import CrossTinyIcon from '../../../components/icons/cross-tiny.vue'
 import PlusIcon from '../../../components/icons/plus.vue'
@@ -45,12 +46,12 @@ export default defineComponent({
   },
   props: {
     /**
-     * The related prompt to render.
+     * The related prompt to render. It can also be a vendor related prompt.
      *
      * @public
      */
     relatedPrompt: {
-      type: Object as PropType<RelatedPrompt>,
+      type: Object as PropType<RelatedPrompt | VendorRelatedPrompt>,
       required: true,
     },
     /**
