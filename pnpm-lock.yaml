@@ -27,7 +27,7 @@ importers:
   packages/x-adapter:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.10.0
+        specifier: 1.11.0
         version: link:../x-utils
     devDependencies:
       '@vitest/coverage-v8':
@@ -49,13 +49,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.11.0
+        specifier: 9.0.0
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: 11.9.0
+        specifier: 11.10.0
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.10.0
+        specifier: 1.11.0
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
@@ -80,7 +80,7 @@ importers:
   packages/x-archetype-utils:
     dependencies:
       '@empathyco/x-utils':
-        specifier: 1.10.0
+        specifier: 1.11.0
         version: link:../x-utils
       vue-i18n:
         specifier: ~9.14.5
@@ -117,16 +117,16 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.11.0
+        specifier: 9.0.0
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: 2.9.0
+        specifier: 3.0.0
         version: link:../x-adapter-platform
       '@empathyco/x-types':
-        specifier: 11.9.0
+        specifier: 11.10.0
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: 1.10.0
+        specifier: 1.11.0
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.6.4
@@ -157,7 +157,7 @@ importers:
         specifier: 8.0.7
         version: 8.0.7(@babel/core@7.29.0)
       '@empathyco/x-design-system':
-        specifier: 1.11.0
+        specifier: 1.12.0
         version: link:../x-design-system
       '@microsoft/api-documenter':
         specifier: 7.30.20
@@ -285,10 +285,10 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: 8.11.0
+        specifier: 9.0.0
         version: link:../x-adapter
       '@empathyco/x-utils':
-        specifier: 1.10.0
+        specifier: 1.11.0
         version: link:../x-utils
     devDependencies:
       '@microsoft/api-documenter':
