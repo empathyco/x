@@ -10,6 +10,7 @@ import type {
   WireService,
   WireServiceWithoutPayload,
 } from './wiring.types'
+import { getPiniaExecutor } from './store-router'
 
 /**
  * Creates a wire that executes the function passed. This function will receive a
@@ -80,7 +81,16 @@ export function wireCommit<Payload>(mutation: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireCommitWithoutPayload(mutation: string): AnyWire {
-  return (observable, store) => observable.subscribe(() => store.commit(mutation))
+  return (observable, store) => {
+    const piniaExecutor = getPiniaExecutor(store, 'commit', mutation)
+    return observable.subscribe(() => {
+      if (piniaExecutor) {
+        piniaExecutor()
+      } else {
+        store.commit(mutation)
+      }
+    })
+  }
 }
 
 /**
@@ -135,8 +145,13 @@ export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<P
  * @public
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
-  // eslint-disable-next-line ts/no-unsafe-return,ts/no-misused-promises
-  return (observable, store) => observable.subscribe(async () => store.dispatch(action))
+  return (observable, store) => {
+    const piniaExecutor = getPiniaExecutor(store, 'dispatch', action)
+    // eslint-disable-next-line ts/no-misused-promises
+    return observable.subscribe(async () => {
+      return piniaExecutor ? piniaExecutor() : store.dispatch(action)
+    })
+  }
 }
 
 /**
@@ -183,6 +198,10 @@ export function wireServiceWithoutPayload<SomeService>(
  * subscriptions. It can be based on the payload as function which retrieves the observable
  * payload from the store, a static payload or the event value from the observable.
  *
+ * TODO: the lookup of the Pinia executor, here and in the `WithoutPayload` wires, is temporary
+ * until the Vuex to Pinia migration is finished (see issue #2210). It is removed with the store
+ * router, and the wires execute the Pinia actions directly.
+ *
  * @param store - The {@link RootXStoreState} store.
  * @param commitOrDispatch - The executor over store. It can be `commit` or `dispatch`.
  * @param mutationOrAction - The mutation or action to commit or dispatch respectively.
@@ -198,10 +217,12 @@ function createSubscriptionCallback<Payload>(
   mutationOrAction: string,
   payload?: Payload,
 ): (observableValue: WirePayload<Payload>) => void {
-  const storeExecutor = store[commitOrDispatch]
+  const storeExecutor: (path: string, payload?: unknown) => unknown = (() => {
+    const piniaExecutor = getPiniaExecutor(store, commitOrDispatch, mutationOrAction)
+    return piniaExecutor ? (_path, payload) => piniaExecutor(payload) : store[commitOrDispatch]
+  })()
   return typeof payload === 'function'
     ? async wirePayload => {
-        // eslint-disable-next-line ts/no-unsafe-return
         return storeExecutor(
           mutationOrAction,
           // eslint-disable-next-line ts/no-unsafe-call

@@ -193,10 +193,11 @@ export class XInstaller {
    * @internal
    */
   protected getPluginOptions(): XPluginOptions {
-    const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options
+    const { adapter, store, pinia, initialXModules, xModules, __PRIVATE__xModules } = this.options
     return {
       adapter,
       store,
+      pinia,
       xModules,
       initialXModules,
       __PRIVATE__xModules,
