@@ -378,6 +378,11 @@ export class XPlugin {
    * warnings are always emitted, regardless of the environment, because they are caused by the
    * configuration of the host.
    *
+   * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). The private
+   * overrides of getters, mutations and actions use the Vuex signature, so a module that has them
+   * keeps using Vuex. They cannot work once Vuex is removed, so they need a replacement or a
+   * migration guide.
+   *
    * @param xModule - The {@link XModule} to check.
    * @returns True if the Pinia store can be used, false if the Vuex store module has to be used.
    * @internal
