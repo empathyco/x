@@ -1,3 +1,11 @@
+/*
+ * Exposes the Pinia store of an XModule through the Vuex store, so the public Vuex API keeps working
+ * (`XPlugin.store`, `state.x.<module>`, `getters['x/<module>/…']` and string commits and dispatches).
+ *
+ * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). This file is
+ * removed when Vuex is removed from the public API. Whether to keep it at all is an open decision of
+ * the issue.
+ */
 import type { Dictionary } from '@empathyco/x-utils'
 import type { Store } from 'vuex'
 import type { AnyPiniaStore, XStoreBridge } from './define-x-store'

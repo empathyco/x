@@ -1,3 +1,13 @@
+/*
+ * Defines and creates the Pinia store of an XModule.
+ *
+ * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). The Pinia store
+ * of each module stays, but the layer that adapts it to Vuex is removed: the `bridge` and the
+ * `getterNames` of the descriptor, and the getters with the Vuex signature `(state, getters)`, which
+ * will be written in the Pinia style. The `backend` indirection, which keeps Pinia out of the bundle
+ * of the hosts without migrated modules, will be removed too if Pinia becomes a required dependency.
+ * The descriptor itself may be replaced by a plain `defineStore`.
+ */
 import type { Dictionary } from '@empathyco/x-utils'
 import type { Pinia } from 'pinia'
 import type { XModuleName } from '../../x-modules/x-modules.types'
