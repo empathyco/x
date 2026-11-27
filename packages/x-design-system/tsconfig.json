@@ -2,10 +2,10 @@
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "lib": ["esnext", "dom"],
-    "baseUrl": ".",
     "rootDir": "demo",
     "declaration": true,
     "importHelpers": true,
+    "noUncheckedSideEffectImports": false,
     "sourceMap": true
   },
   "include": ["**/*.vue", "**/*.ts"]

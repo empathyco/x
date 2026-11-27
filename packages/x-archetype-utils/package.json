@@ -43,7 +43,7 @@
   "devDependencies": {
     "@vitest/coverage-v8": "4.1.12",
     "jsdom": "30.1.3",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vite": "6.4.6",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-static-copy": "4.1.1",

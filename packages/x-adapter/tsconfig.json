@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["dom", "esnext"],
+    "rootDir": "./src",
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": ["vitest/globals"],
     "strict": true,
     "declaration": true,

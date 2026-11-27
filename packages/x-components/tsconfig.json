@@ -4,15 +4,15 @@
     "jsx": "preserve",
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "experimentalDecorators": true,
-    "baseUrl": ".",
     "rootDirs": ["src", "demo"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
-      "@x/*": ["src/*"] // For demo purposes
+      "@x/*": ["./src/*"] // For demo purposes
     },
     "types": ["vitest/globals", "node"],
     "strict": true,
+    "noUncheckedSideEffectImports": false,
     "declaration": true,
     "declarationMap": true,
     "importHelpers": true,

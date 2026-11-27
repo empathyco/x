@@ -21,6 +21,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "typescript": "6.0.3",
     "@empathyco/eslint-config": "1.10.32",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.3.1",
@@ -32,5 +33,10 @@
     "node": ">=22",
     "npm": ">=10"
   },
-  "prettier": "@empathyco/eslint-config/prettier"
+  "prettier": "@empathyco/eslint-config/prettier",
+  "pnpm": {
+    "patchedDependencies": {
+      "vuex@4.0.2": "patches/vuex@4.0.2.patch"
+    }
+  }
 }
