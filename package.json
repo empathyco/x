@@ -21,6 +21,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "typescript": "6.0.3",
     "@empathyco/eslint-config": "1.10.32",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "9.3.1",
