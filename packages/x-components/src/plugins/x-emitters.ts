@@ -15,6 +15,9 @@ import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils'
  * Registers the store emitters, making them emit the event when the part of the state selected
  * changes.
  *
+ * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). It is removed
+ * when no module uses Vuex, and `registerPiniaStoreEmitters` becomes the only way to register them.
+ *
  * @param xModule - The {@link XModule} to register its Store Emitters.
  * @param bus - The XBus to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
@@ -43,6 +46,9 @@ export function registerStoreEmitters(
  * Registers the store emitters of a module that has its state in Pinia, making them emit the event
  * when the part of the state selected changes. The watchers are created inside the effect scope
  * passed, so they can be stopped with it.
+ *
+ * TODO: once the migration is finished, the `getterNames` parameter is removed, as it is only
+ * needed to mirror the getters of the Vuex store module (see issue #2210).
  *
  * @param xModule - The {@link XModule} to register its Store Emitters.
  * @param bus - The XBus to emit the events by the Emitters.

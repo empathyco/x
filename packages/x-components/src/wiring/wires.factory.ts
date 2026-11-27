@@ -198,6 +198,10 @@ export function wireServiceWithoutPayload<SomeService>(
  * subscriptions. It can be based on the payload as function which retrieves the observable
  * payload from the store, a static payload or the event value from the observable.
  *
+ * TODO: the lookup of the Pinia executor, here and in the `WithoutPayload` wires, is temporary
+ * until the Vuex to Pinia migration is finished (see issue #2210). It is removed with the store
+ * router, and the wires execute the Pinia actions directly.
+ *
  * @param store - The {@link RootXStoreState} store.
  * @param commitOrDispatch - The executor over store. It can be `commit` or `dispatch`.
  * @param mutationOrAction - The mutation or action to commit or dispatch respectively.

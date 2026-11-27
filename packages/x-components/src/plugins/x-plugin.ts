@@ -359,6 +359,9 @@ export class XPlugin {
   /**
    * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
+   * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). The Vuex
+   * branch is removed when no module uses a Vuex store module.
+   *
    * @param xModule - The {@link XModule} to register its Store Module.
    * @internal
    */
@@ -406,6 +409,10 @@ export class XPlugin {
   /**
    * Registers the Pinia store of an {@link XModule}, and exposes it through Vuex under the 'x'
    * module.
+   *
+   * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). The exposure
+   * through Vuex (the bridge, the route of the wiring and the `replaceState` link) is removed. Only
+   * the creation of the Pinia store stays.
    *
    * @param xModule - The {@link XModule} to register its Pinia store.
    * @internal
@@ -465,6 +472,9 @@ export class XPlugin {
   /**
    * Registers the store emitters, making them emit the event when the part of the state selected
    * changes.
+   *
+   * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). The choice
+   * between the Vuex and the Pinia emitters is removed, as every module will use Pinia.
    *
    * @param xModule - The {@link XModule} to register its Store Emitters.
    * @internal
