@@ -66,7 +66,7 @@ describe('testing Query Suggestions component', () => {
 
   it('does not render anything when suggestions are empty', () => {
     const { wrapper } = renderPopularSearches({ popularSearches: [] })
-    expect(wrapper.find('x-popular-searches').exists()).toBe(false)
+    expect(wrapper.find('.x-popular-searches').exists()).toBe(false)
   })
 
   it('renders the state list of suggestions', async () => {

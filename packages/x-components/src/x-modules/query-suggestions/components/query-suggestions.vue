@@ -1,6 +1,8 @@
 <template>
   <BaseSuggestions
+    ref="baseSuggestionsRef"
     :suggestions="suggestions"
+    :render-when-empty="requestOnlyWhenVisible"
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
@@ -31,9 +33,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { useElementVisibility } from '@vueuse/core'
+import { computed, defineComponent, onBeforeUnmount, ref, watch } from 'vue'
 import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue'
-import { useGetter } from '../../../composables'
+import { useGetter, useState, useXBus } from '../../../composables'
 import { querySuggestionsXModule } from '../x-module'
 import QuerySuggestion from './query-suggestion.vue'
 
@@ -49,10 +52,41 @@ export default defineComponent({
   xModule: querySuggestionsXModule.name,
   components: { BaseSuggestions, QuerySuggestion },
   setup() {
+    const xBus = useXBus()
+
     /** The module's list of suggestions. */
     const { querySuggestions } = useGetter('querySuggestions')
+    const { config } = useState('querySuggestions')
 
-    return { suggestions: querySuggestions }
+    /** Whether the suggestions are only requested while this component is visible. */
+    const requestOnlyWhenVisible = computed(() => config.value.requestOnlyWhenVisible)
+
+    const baseSuggestionsRef = ref<InstanceType<typeof BaseSuggestions>>()
+
+    /**
+     * The root element of the suggestions list. It is `null` when nothing is rendered, as the
+     * `$el` is then a comment node.
+     */
+    const element = computed(() => {
+      const el: unknown = baseSuggestionsRef.value?.$el
+      return el instanceof HTMLElement ? el : null
+    })
+
+    /**
+     * Zero threshold so the empty list, which has no height, is detected as visible while it is in
+     * the viewport.
+     */
+    const isElementVisible = useElementVisibility(element, { threshold: 0 })
+
+    watch(isElementVisible, isVisible => {
+      void xBus.emit('QuerySuggestionsVisibilityChanged', isVisible)
+    })
+
+    onBeforeUnmount(() => {
+      void xBus.emit('QuerySuggestionsVisibilityChanged', false)
+    })
+
+    return { suggestions: querySuggestions, requestOnlyWhenVisible, baseSuggestionsRef }
   },
 })
 </script>
@@ -67,6 +101,36 @@ props.
 | ------------------ | ------------------------------------------- | -------- | ------- |
 | `animation`        | Animation component for `QuerySuggestions`. | `Vue`    | `"ul"`  |
 | `maxItemsToRender` | Number of query suggestions to be rendered. | `number` |         |
+
+## Events
+
+A list of events that the component will emit:
+
+- [`QuerySuggestionsVisibilityChanged`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the component enters or leaves the viewport, and with `false` when it
+  is unmounted. The event payload is whether the component is visible or not.
+
+## Request only when visible
+
+When the `requestOnlyWhenVisible` option of the query suggestions module config is enabled, the
+suggestions are only requested while this component is visible in the viewport. If it becomes
+visible again with the same request as the last one, the request is not repeated.
+
+To detect its visibility, the component renders its root element even when there are no
+suggestions, so keep in mind that an empty `ul.x-query-suggestions` element stays in the DOM.
+
+```js
+new XInstaller({
+  // ...
+  xModules: {
+    querySuggestions: {
+      config: {
+        requestOnlyWhenVisible: true,
+      },
+    },
+  },
+}).init()
+```
 
 ## See it in action
 

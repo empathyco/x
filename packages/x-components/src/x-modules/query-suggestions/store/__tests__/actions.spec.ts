@@ -64,6 +64,14 @@ describe('testing query suggestions module actions', () => {
       expect(store.state.status).toEqual('success')
     })
 
+    it('should save the request as the last request', async () => {
+      resetQuerySuggestionsStateWith(store, { query: 'luichito' })
+      const request = store.getters.request
+
+      await store.dispatch('fetchAndSaveSuggestions', request)
+      expect(store.state.lastRequest).toEqual(request)
+    })
+
     it('should clear suggestions in the state if the query is empty', async () => {
       await store.dispatch('fetchAndSaveSuggestions', store.getters.request)
       expect(store.state.suggestions).toEqual([])

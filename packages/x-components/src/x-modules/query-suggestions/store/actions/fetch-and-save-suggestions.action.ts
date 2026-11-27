@@ -8,7 +8,8 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   QuerySuggestionsRequest | null,
   Suggestion[]
 >({
-  async fetch({ dispatch }, request) {
+  async fetch({ commit, dispatch }, request) {
+    commit('setLastRequest', request)
     return dispatch('fetchSuggestions', request)
   },
   onSuccess({ commit }, suggestions) {

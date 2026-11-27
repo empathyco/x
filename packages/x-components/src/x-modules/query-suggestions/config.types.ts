@@ -55,4 +55,14 @@ export interface QuerySuggestionsConfig {
    * ```
    */
   hideSessionQueries: boolean
+  /**
+   * Requests the query suggestions only while the `QuerySuggestions` component is visible in the
+   * viewport. When it becomes visible again, the request is only made if it is different from the
+   * last one.
+   *
+   * @remarks
+   * When enabled, the `QuerySuggestions` component renders its root element even if there are no
+   * suggestions, to be able to detect its visibility.
+   */
+  requestOnlyWhenVisible: boolean
 }

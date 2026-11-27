@@ -19,6 +19,11 @@ export interface QuerySuggestionsXEvents {
    */
   QuerySuggestionsRequestUpdated: QuerySuggestionsRequest | null
   /**
+   * The visibility of the `QuerySuggestions` component in the viewport has changed.
+   * Payload: `true` if it is visible, `false` otherwise.
+   */
+  QuerySuggestionsVisibilityChanged: boolean
+  /**
    * User selected a query suggestion
    * Payload: The {@link @empathyco/x-types#Suggestion | query suggestion} that the user
    * selected.

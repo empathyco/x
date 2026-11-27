@@ -53,6 +53,19 @@ describe('testing Base Suggestions component', () => {
     expect(getSuggestionsWrappers()).toHaveLength(suggestions.length)
   })
 
+  it('does not render the root element when there are no suggestions', () => {
+    const wrapper = mount(BaseSuggestions, { props: { suggestions: [] } })
+
+    expect(wrapper.find('.x-suggestions').exists()).toBe(false)
+  })
+
+  it('renders the root element without suggestions if `renderWhenEmpty` is true', () => {
+    const wrapper = mount(BaseSuggestions, { props: { suggestions: [], renderWhenEmpty: true } })
+
+    expect(wrapper.find('.x-suggestions').exists()).toBe(true)
+    expect(wrapper.findAll(getDataTestSelector('suggestion-item'))).toHaveLength(0)
+  })
+
   it('renders the content passed to the default slot', () => {
     const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions({
       defaultSlot: '<span>{{ index }} - {{ suggestion.query}}</span>',
