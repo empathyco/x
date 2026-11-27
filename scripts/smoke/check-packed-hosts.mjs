@@ -16,17 +16,13 @@
  * uses this, because its "Install Build & Pack" step already built and packed every package).
  *
  * Set SMOKE_PACKED_KEEP=1 to keep the temporary directories of the hosts.
+ *
+ * TODO: temporary safety net of the Vuex to Pinia migration (https://github.com/empathyco/x/issues/2210).
+ * Keep this test until the migration is finished. Once it is done, remove this script, the
+ * `smoke:packed-hosts` script of the root `package.json` and its step in `.github/workflows/ci.yml`.
  */
 import { execFileSync, execSync } from 'node:child_process'
-import {
-  existsSync,
-  mkdirSync,
-  mkdtempSync,
-  readFileSync,
-  rmSync,
-  statSync,
-  writeFileSync,
-} from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import process from 'node:process'

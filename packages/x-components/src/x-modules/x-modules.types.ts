@@ -78,8 +78,15 @@ export interface XModule<StoreModule extends AnyXStoreModule> {
   /** The Vuex Store module associated to this module. */
   storeModule: StoreModule
   /**
-   * The Pinia store of this module. When present, the store module state is held by Pinia and
-   * exposed through Vuex. The `storeModule` is kept as the fallback.
+   * The Pinia store of this module.
+   *
+   * When present, the state of the module is held by Pinia and exposed through Vuex, so the public
+   * Vuex API (`XPlugin.store`) keeps working. The Vuex `storeModule` stays as the fallback, used
+   * when the host overrides the getters, mutations or actions of the module through
+   * `__PRIVATE__xModules`. The Vuex `strict` mode is not supported.
+   *
+   * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). Then
+   * `storeModule` and the bridge will be removed.
    *
    * @internal
    */

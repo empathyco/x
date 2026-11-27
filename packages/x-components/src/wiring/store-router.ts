@@ -1,3 +1,11 @@
+/*
+ * Decides if the namespaced commits and dispatches of the wires (`x/<module>/<name>`) are executed
+ * in the Pinia store of the module, or in the Vuex store, as they have always been.
+ *
+ * TODO: temporary, until the Vuex to Pinia migration is finished (see issue #2210). Once every
+ * module uses Pinia, the wires will execute on it directly, and this router and the Vuex fallback
+ * will be removed.
+ */
 import type { Dictionary } from '@empathyco/x-utils'
 import type { Store } from 'vuex'
 import type { XModuleName } from '../x-modules/x-modules.types'
