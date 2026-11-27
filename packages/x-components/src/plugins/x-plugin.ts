@@ -14,7 +14,7 @@ import type { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-
 import { deepMerge, forEach } from '@empathyco/x-utils'
 import { effectScope } from 'vue'
 import { createStore } from 'vuex'
-import { bridgePiniaModule, isStrictStore, linkReplaceState } from '../store/pinia/vuex-bridge'
+import { bridgePiniaModule, linkReplaceState } from '../store/pinia/vuex-bridge'
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils'
 import { RootXStoreModule } from '../store/x.module'
 import { clearStoreRoutes, getStoreBackend, setPiniaStoreRoute } from '../wiring/store-router'
@@ -392,13 +392,6 @@ export class XPlugin {
       console.warn(
         `[XPlugin] The "${name}" module overrides its getters, mutations or actions through ` +
           '`__PRIVATE__xModules`, which is not supported with a Pinia store. Using Vuex.',
-      )
-      return false
-    }
-    if (isStrictStore(this.store)) {
-      console.warn(
-        `[XPlugin] The Vuex strict mode is not supported with a Pinia store. The "${name}" ` +
-          'module will use Vuex.',
       )
       return false
     }

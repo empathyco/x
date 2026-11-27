@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 import { createPinia, defineStore, getActivePinia } from 'pinia'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { createStore, Store } from 'vuex'
+import { Store } from 'vuex'
 import { installNewXPlugin, resetStoreXModuleState } from '../../__tests__/utils'
 import {
   createFixtureState,
@@ -190,17 +190,6 @@ describe('xPlugin falling back to vuex', () => {
 
     expect(XPlugin.pinia?.state.value['x/searchBox']).toBeUndefined()
     expect(XPlugin.store.getters['x/searchBox/upperQuery']).toBe('overridden')
-    expect(warn).toHaveBeenCalledTimes(1)
-  })
-
-  it('uses vuex when the store is strict', () => {
-    installWithModule('pinia', { store: createStore({ strict: true }) })
-
-    expect(XPlugin.pinia?.state.value['x/searchBox']).toBeUndefined()
-    expect(() => {
-      XPlugin.store.commit('x/searchBox/setQuery', 'query-1')
-    }).not.toThrow()
-    expect(getModuleState().query).toBe('query-1')
     expect(warn).toHaveBeenCalledTimes(1)
   })
 

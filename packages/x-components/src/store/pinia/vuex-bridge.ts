@@ -4,27 +4,6 @@ import type { AnyPiniaStore, XStoreBridge } from './define-x-store'
 import { toRaw } from 'vue'
 
 /**
- * Vuex internals that are not typed by the library.
- *
- * @internal
- */
-interface VuexStoreInternals {
-  _withCommit: (fn: () => void) => void
-  strict?: boolean
-}
-
-/**
- * Checks if the Vuex store has been created in strict mode.
- *
- * @param store - The Vuex store.
- * @returns True if the store is strict.
- * @internal
- */
-export function isStrictStore(store: Store<any>): boolean {
-  return (store as unknown as VuexStoreInternals).strict === true
-}
-
-/**
  * Registers a Vuex module under `x/<name>` that exposes a Pinia store, so the code that still
  * reads from Vuex keeps working. The Vuex state is the very same reactive object that Pinia holds.
  * Mutations and actions are delegated to the Pinia actions.
@@ -140,10 +119,8 @@ function createReplaceStateLinks(store: Store<any>): ReplaceStateLinks {
     // eslint-disable-next-line ts/no-unsafe-member-access
     const rootModules = store.state.x as Dictionary<unknown> | undefined
     if (rootModules) {
-      ;(store as unknown as VuexStoreInternals)._withCommit(() => {
-        piniaStores.forEach((piniaStore, name) => {
-          rootModules[name] = piniaStore.$state
-        })
+      piniaStores.forEach((piniaStore, name) => {
+        rootModules[name] = piniaStore.$state
       })
     }
   }
