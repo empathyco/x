@@ -15,6 +15,7 @@ export function resettableVendorState() {
     banners: [],
     queryPreviews: {},
     relatedTags: [],
+    relatedPromptsGroups: [],
     results: [],
   }
 }
@@ -34,6 +35,9 @@ export const vendorXStoreModule: VendorXStoreModule = {
     },
     setRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags
+    },
+    setRelatedPromptsGroups(state, relatedPromptsGroups) {
+      state.relatedPromptsGroups = relatedPromptsGroups
     },
     setResults(state, results) {
       state.results = results

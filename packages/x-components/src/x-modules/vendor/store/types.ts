@@ -3,7 +3,7 @@ import type { Dictionary } from '@empathyco/x-utils'
 import type { XStoreModule } from '../../../store'
 import type { QueryMutations, QueryState } from '../../../store/utils/query.utils'
 import type { UrlParams } from '../../../types'
-import type { VendorBanner, VendorResult } from '../types'
+import type { VendorBanner, VendorRelatedPromptsGroup, VendorResult } from '../types'
 
 /**
  * The vendor results and banners of a query preview, indexed by its query preview hash.
@@ -22,6 +22,8 @@ export interface VendorState extends QueryState {
   /** The vendor results and banners of the query previews, indexed by their query preview hash. */
   queryPreviews: Dictionary<VendorQueryPreview>
   relatedTags: RelatedTag[]
+  /** The vendor related prompts groups to insert in the results grid. */
+  relatedPromptsGroups: VendorRelatedPromptsGroup[]
   results: VendorResult[]
 }
 
@@ -32,6 +34,12 @@ export interface VendorGetters {
 export interface VendorMutations extends QueryMutations {
   setBanners: (banners: VendorBanner[]) => void
   setRelatedTags: (relatedTags: RelatedTag[]) => void
+  /**
+   * Sets the vendor related prompts groups.
+   *
+   * @param relatedPromptsGroups - The vendor related prompts groups to save.
+   */
+  setRelatedPromptsGroups: (relatedPromptsGroups: VendorRelatedPromptsGroup[]) => void
   setResults: (results: VendorResult[]) => void
   /**
    * Sets the vendor results of a query preview.

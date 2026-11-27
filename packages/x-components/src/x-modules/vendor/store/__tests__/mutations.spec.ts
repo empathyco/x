@@ -1,5 +1,5 @@
 import type { SafeStore } from '../../../../store/__tests__/utils'
-import type { VendorBanner, VendorResult } from '../../types'
+import type { VendorBanner, VendorRelatedPromptsGroup, VendorResult } from '../../types'
 import type { VendorActions, VendorGetters, VendorMutations, VendorState } from '../types'
 import { describe, expect, it } from 'vitest'
 import { Store } from 'vuex'
@@ -31,7 +31,50 @@ function createVendorBannerStub(
   }
 }
 
+function createVendorRelatedPromptsGroupStub(
+  id: string,
+  group?: Partial<Omit<VendorRelatedPromptsGroup, 'modelName'>>,
+): VendorRelatedPromptsGroup {
+  return {
+    id: `vrp-${id}`,
+    modelName: 'VendorRelatedPromptsGroup',
+    row: 1,
+    relatedPrompts: [
+      {
+        modelName: 'VendorRelatedPrompt',
+        suggestionText: `Prompt ${id}`,
+        nextQueries: [],
+        type: 'SPONSORED',
+      },
+    ],
+    ...group,
+  }
+}
+
 describe('testing vendor module mutations', () => {
+  describe('setRelatedPromptsGroups', () => {
+    it('saves the vendor related prompts groups', () => {
+      const store = createStore()
+      const groups = [
+        createVendorRelatedPromptsGroupStub('1'),
+        createVendorRelatedPromptsGroupStub('2', { row: 3, title: 'Sponsored' }),
+      ]
+
+      store.commit('setRelatedPromptsGroups', groups)
+
+      expect(store.state.relatedPromptsGroups).toEqual(groups)
+    })
+
+    it('clears the vendor related prompts groups when the state is reset', () => {
+      const store = createStore()
+      store.commit('setRelatedPromptsGroups', [createVendorRelatedPromptsGroupStub('1')])
+
+      store.commit('resetState')
+
+      expect(store.state.relatedPromptsGroups).toEqual([])
+    })
+  })
+
   describe('setQueryPreviewVendorResults', () => {
     it('saves the vendor results of the query preview with their modelName', () => {
       const store = createStore()

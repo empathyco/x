@@ -31,15 +31,19 @@ const wireDispatch = namespacedWireDispatch('vendor')
 const fetchTagging = async (url: string) => fetch(url, { method: 'GET', keepalive: true })
 
 const trackMounted = createWireFromFunction<
-  XEventPayload<'VendorResultMounted' | 'VendorBannerMounted'>
+  XEventPayload<'VendorResultMounted' | 'VendorBannerMounted' | 'VendorRelatedPromptMounted'>
 >(({ eventPayload: { tagging } }) => tagging?.mountedUrl && void fetchTagging(tagging.mountedUrl))
 
 const trackView = createWireFromFunction<
-  XEventPayload<'UserViewedAVendorResult' | 'UserViewedAVendorBanner'>
+  XEventPayload<
+    'UserViewedAVendorResult' | 'UserViewedAVendorBanner' | 'UserViewedAVendorRelatedPrompt'
+  >
 >(({ eventPayload: { tagging } }) => tagging?.viewUrl && void fetchTagging(tagging.viewUrl))
 
 const trackClick = createWireFromFunction<
-  XEventPayload<'UserClickedAVendorResult' | 'UserClickedAVendorBanner'>
+  XEventPayload<
+    'UserClickedAVendorResult' | 'UserClickedAVendorBanner' | 'UserClickedAVendorRelatedPrompt'
+  >
 >(({ eventPayload: { tagging } }) => tagging?.clickUrl && void fetchTagging(tagging.clickUrl))
 
 const trackResultAddToCart = createWireFromFunction<
@@ -71,6 +75,24 @@ export const setBanners = wireCommit(
     eventPayload.map(vendorBanner => ({
       ...vendorBanner,
       modelName: 'VendorBanner' as const,
+    })),
+)
+
+/**
+ * Sets the vendor related prompts groups of the {@link VendorXModule}.
+ *
+ * @public
+ */
+export const setRelatedPromptsGroups = wireCommit(
+  'setRelatedPromptsGroups',
+  ({ eventPayload }: WirePayload<XEventPayload<'VendorRelatedPromptsChanged'>>) =>
+    eventPayload.map(({ relatedPrompts, ...group }) => ({
+      ...group,
+      modelName: 'VendorRelatedPromptsGroup' as const,
+      relatedPrompts: relatedPrompts.map(relatedPrompt => ({
+        ...relatedPrompt,
+        modelName: 'VendorRelatedPrompt' as const,
+      })),
     })),
 )
 
@@ -179,6 +201,18 @@ export const vendorWiring = createWiring({
     trackView,
   },
   UserClickedAVendorBanner: {
+    trackClick,
+  },
+  VendorRelatedPromptsChanged: {
+    setRelatedPromptsGroups,
+  },
+  VendorRelatedPromptMounted: {
+    trackMounted,
+  },
+  UserViewedAVendorRelatedPrompt: {
+    trackView,
+  },
+  UserClickedAVendorRelatedPrompt: {
     trackClick,
   },
   SelectedRelatedTagsChanged: {
