@@ -1,0 +1,15 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 9d61dd62b23e83bee58f76fedc8111eb6b3cb7da..0000000000000000000000000000000000000000
+diff --git a/package.json b/package.json
+index 3aae30a8815a65e70a6718ebfe8e8a6245ce35b4..7d4ffb095cecabdf69e5a45d4b629d1e5fab29c0 100644
+--- a/package.json
++++ b/package.json
+@@ -5,6 +5,7 @@
+   "main": "dist/vuex.cjs.js",
+   "exports": {
+     ".": {
++      "types": "./types/index.d.ts",
+       "module": "./dist/vuex.esm-bundler.js",
+       "require": "./dist/vuex.cjs.js",
+       "import": "./dist/vuex.mjs"

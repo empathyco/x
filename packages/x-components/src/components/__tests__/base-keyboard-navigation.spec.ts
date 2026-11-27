@@ -1,5 +1,5 @@
 import type { DeepPartial } from '@empathyco/x-utils'
-import type { RootXStoreState } from 'src/store/store.types'
+import type { RootXStoreState } from '../../store/store.types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 import { Store } from 'vuex'
