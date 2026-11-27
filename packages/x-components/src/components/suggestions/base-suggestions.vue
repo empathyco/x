@@ -1,5 +1,10 @@
 <template>
-  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-suggestions">
+  <component
+    :is="animation"
+    v-if="suggestions.length || renderWhenEmpty"
+    tag="ul"
+    class="x-suggestions"
+  >
     <li
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
@@ -79,6 +84,15 @@ export default defineComponent({
     },
     /** Class inherited by content element. */
     suggestionItemClass: String,
+    /**
+     * Renders the root element even when there are no suggestions.
+     *
+     * @public
+     */
+    renderWhenEmpty: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     /**

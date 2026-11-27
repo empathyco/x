@@ -1,15 +1,25 @@
 import type { DeepPartial } from '@empathyco/x-utils'
 import type { RootXStoreState } from '../../../../store/store.types'
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
-import { nextTick } from 'vue'
+import { useElementVisibility } from '@vueuse/core'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick, ref } from 'vue'
 import { Store } from 'vuex'
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory'
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils'
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils'
+import { XPlugin } from '../../../../plugins/x-plugin'
 import { querySuggestionsXModule } from '../../x-module'
 import QuerySuggestions from '../query-suggestions.vue'
 import { resetXQuerySuggestionsStateWith } from './utils'
+
+vi.mock('@vueuse/core', async importOriginal => ({
+  ...(await importOriginal<typeof import('@vueuse/core')>()),
+  useElementVisibility: vi.fn(),
+}))
+
+const isElementVisible = ref(false)
+vi.mocked(useElementVisibility).mockReturnValue(isElementVisible)
 
 function renderQuerySuggestions({
   suggestions = [
@@ -19,6 +29,7 @@ function renderQuerySuggestions({
   ],
   maxItemsToRender = 5,
   template = '<QuerySuggestions v-bind="$attrs" />',
+  requestOnlyWhenVisible = false,
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({})
 
@@ -37,7 +48,7 @@ function renderQuerySuggestions({
     },
   )
 
-  resetXQuerySuggestionsStateWith(store, { suggestions })
+  resetXQuerySuggestionsStateWith(store, { suggestions, config: { requestOnlyWhenVisible } })
 
   return {
     wrapper,
@@ -47,6 +58,10 @@ function renderQuerySuggestions({
 }
 
 describe('testing Query Suggestions component', () => {
+  beforeEach(() => {
+    isElementVisible.value = false
+  })
+
   it('is an XComponent that belongs to the query suggestions module', () => {
     const { wrapper } = renderQuerySuggestions()
 
@@ -59,7 +74,7 @@ describe('testing Query Suggestions component', () => {
   it('does not render anything when suggestions are empty', () => {
     const { wrapper } = renderQuerySuggestions({ suggestions: [] })
 
-    expect(wrapper.find('x-query-suggestions').exists()).toBe(false)
+    expect(wrapper.find('.x-query-suggestions').exists()).toBe(false)
   })
 
   it('renders the state list of suggestions', async () => {
@@ -133,5 +148,31 @@ describe('testing Query Suggestions component', () => {
     // @ts-expect-error - TS error.
     await wrapper.setProps({ maxItemsToRender: suggestions.length })
     expect(getSuggestionItemWrappers()).toHaveLength(suggestions.length)
+  })
+
+  it('renders the root element without suggestions when `requestOnlyWhenVisible` is enabled', async () => {
+    const { wrapper } = renderQuerySuggestions({ suggestions: [], requestOnlyWhenVisible: true })
+    await nextTick()
+
+    expect(wrapper.find('.x-query-suggestions').exists()).toBe(true)
+  })
+
+  it('emits `QuerySuggestionsVisibilityChanged` when its visibility changes', async () => {
+    const { wrapper } = renderQuerySuggestions({ requestOnlyWhenVisible: true })
+    const listener = vi.fn()
+    XPlugin.bus.on('QuerySuggestionsVisibilityChanged').subscribe(listener)
+
+    isElementVisible.value = true
+    await nextTick()
+    expect(listener).toHaveBeenNthCalledWith(1, true)
+
+    isElementVisible.value = false
+    await nextTick()
+    expect(listener).toHaveBeenNthCalledWith(2, false)
+
+    isElementVisible.value = true
+    await nextTick()
+    wrapper.unmount()
+    expect(listener).toHaveBeenNthCalledWith(4, false)
   })
 })

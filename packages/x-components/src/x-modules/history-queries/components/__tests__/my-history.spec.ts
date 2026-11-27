@@ -102,7 +102,7 @@ describe('testing MyHistory component', () => {
 
   it('does not render the component if history is empty', () => {
     const { wrapper } = renderMyHistory()
-    expect(wrapper.find('x-my-history').exists()).toBe(false)
+    expect(wrapper.find('.x-my-history').exists()).toBe(false)
   })
 
   it('renders the list of searched queries group by date', async () => {

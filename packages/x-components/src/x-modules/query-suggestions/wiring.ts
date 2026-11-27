@@ -84,6 +84,20 @@ export const setSearchedQueriesInSuggestions = wireCommit('setSearchedQueries')
 export const clearQuerySuggestionsQuery = wireCommit('setQuery', '')
 
 /**
+ * Clears the query-suggestions module suggestions.
+ *
+ * @public
+ */
+export const clearQuerySuggestions = wireCommit('setSuggestions', [])
+
+/**
+ * Sets whether the `QuerySuggestions` component is visible in the viewport or not.
+ *
+ * @public
+ */
+export const setQuerySuggestionsIsVisible = wireCommit('setIsVisible')
+
+/**
  * Sets the query-suggestions state `query` from url.
  *
  * @public
@@ -133,13 +147,18 @@ export const querySuggestionsWiring = createWiring({
   UserClearedQuery: {
     clearQuerySuggestionsQuery,
     cancelFetchAndSaveSuggestionsWire,
+    clearQuerySuggestions,
   },
   UserBrowsedToCategory: {
     clearQuerySuggestionsQuery,
     cancelFetchAndSaveSuggestionsWire,
+    clearQuerySuggestions,
   },
   QuerySuggestionsRequestUpdated: {
     fetchAndSaveSuggestionsWire,
+  },
+  QuerySuggestionsVisibilityChanged: {
+    setQuerySuggestionsIsVisible,
   },
   ExtraParamsChanged: {
     setQuerySuggestionsExtraParams,

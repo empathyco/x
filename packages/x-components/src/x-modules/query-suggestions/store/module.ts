@@ -28,8 +28,11 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
       maxItemsToRequest: 10,
       hideIfEqualsQuery: true,
       hideSessionQueries: true,
+      requestOnlyWhenVisible: false,
     },
     params: {},
+    isVisible: false,
+    lastRequest: null,
   }),
   getters: {
     request,
@@ -47,6 +50,12 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params
+    },
+    setIsVisible(state, isVisible) {
+      state.isVisible = isVisible
+    },
+    setLastRequest(state, lastRequest) {
+      state.lastRequest = lastRequest
     },
     setConfig,
     mergeConfig,

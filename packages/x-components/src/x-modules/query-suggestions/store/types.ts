@@ -21,6 +21,10 @@ export interface QuerySuggestionsState extends StatusState, QueryState {
   config: QuerySuggestionsConfig
   /** The extra params property of the state. */
   params: Dictionary<unknown>
+  /** Whether the `QuerySuggestions` component is visible in the viewport or not. */
+  isVisible: boolean
+  /** The last request used to fetch the query suggestions. */
+  lastRequest: QuerySuggestionsRequest | null
 }
 
 /**
@@ -65,6 +69,18 @@ export interface QuerySuggestionsMutations
    * @param searchedQueries - The searched queries to save to the state.
    */
   setSearchedQueries: (searchedQueries: HistoryQuery[]) => void
+  /**
+   * Sets whether the `QuerySuggestions` component is visible in the viewport or not.
+   *
+   * @param isVisible - The new visibility value.
+   */
+  setIsVisible: (isVisible: boolean) => void
+  /**
+   * Sets the last request used to fetch the query suggestions.
+   *
+   * @param lastRequest - The request used to fetch the query suggestions.
+   */
+  setLastRequest: (lastRequest: QuerySuggestionsRequest | null) => void
 }
 
 /**
