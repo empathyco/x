@@ -104,6 +104,37 @@ export default defineComponent({
     )
 
     /**
+     * Checks if an empty related prompts group should be rendered as a placeholder, so the
+     * `related-prompts-group` slot content (e.g. the `RelatedPromptsTagList`) is present in the
+     * DOM while the related prompts request has not been fulfilled yet.
+     *
+     * @returns True if the placeholder group should be rendered.
+     */
+    const shouldRenderPlaceholderGroup = computed(
+      () =>
+        relatedPromptsGroups.value.length === 0 &&
+        (status.value === 'initial' || status.value === 'loading'),
+    )
+
+    /**
+     * The related prompts groups to render, including the placeholder group when the related
+     * prompts are not loaded yet.
+     *
+     * @returns A list of related prompts groups.
+     */
+    const relatedPromptsGroupsToRender = computed<RelatedPromptsGroup[]>(() =>
+      shouldRenderPlaceholderGroup.value
+        ? [
+            {
+              modelName: 'RelatedPromptsGroup' as const,
+              id: 'related-prompts-group-0',
+              relatedPrompts: [],
+            },
+          ]
+        : relatedPromptsGroups.value,
+    )
+
+    /**
      * It injects {@link ListItem} provided by an ancestor as injectedListItems.
      */
     const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string)
@@ -141,15 +172,15 @@ export default defineComponent({
      */
     const items = computed((): ListItem[] => {
       if (!injectedListItems?.value) {
-        return relatedPromptsGroups.value
+        return relatedPromptsGroupsToRender.value
       }
-      if (relatedPromptsAreOutdated.value) {
+      if (relatedPromptsAreOutdated.value && !shouldRenderPlaceholderGroup.value) {
         return injectedListItems.value
       }
       if (hasNotEnoughListItems.value) {
-        return injectedListItems.value.concat(relatedPromptsGroups.value[0] ?? [])
+        return injectedListItems.value.concat(relatedPromptsGroupsToRender.value[0] ?? [])
       }
-      return relatedPromptsGroups?.value.reduce(
+      return relatedPromptsGroupsToRender.value.reduce(
         (items, relatedPromptsGroup, index) => {
           const targetIndex = props.offset + props.frequency * index
           if (targetIndex <= items.length) {

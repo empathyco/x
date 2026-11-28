@@ -8,7 +8,12 @@ import type { RelatedPrompt, RelatedPromptsRequest, Result } from '@empathyco/x-
  */
 export interface RelatedPromptsXEvents {
   /**
-   * Any property of the related-prompts request has changed
+   * Any property of the related-prompts request has changed.
+   *
+   * It is emitted by the `RelatedPromptsTagList` component. When the component's
+   * `loadWhenVisible` prop is enabled, it is only emitted once the component becomes visible in
+   * the viewport.
+   *
    * Payload: The new related-prompts request or `null` if there is not enough data in the state
    * to conform a valid request.
    */

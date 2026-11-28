@@ -173,7 +173,7 @@ export default defineComponent({
      */
     const rootAttrs = computed(() => ({
       class: attrs.class,
-      style: attrs.style,
+      style: attrs.style as StyleValue | undefined,
       ...Object.fromEntries(Object.entries(attrs).filter(([key]) => key.startsWith('on'))),
     }))
 
